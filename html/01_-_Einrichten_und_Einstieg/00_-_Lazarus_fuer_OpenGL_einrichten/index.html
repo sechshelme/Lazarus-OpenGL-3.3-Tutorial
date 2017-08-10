@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>00 - Lazarus fuer OpenGL einrichten</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>01 - Einrichten und Einstieg</h1></b>
+    <b><h2>00 - Lazarus fuer OpenGL einrichten</h2></b>
+<img src="image.png" alt="Selfhtml"><br><br>
+<h2>Vorwort:</h2><br>
+OpenGL 3.3 scheint auf den ersten Blick viel komplizierter als das alte OpenGL.<br>
+Man wird von Anfang an mit vielem Neuen konfrontiert.<br>
+Früher konnte man einfach <br>
+<pre><code>glBegin(...
+..
+glEnd</pre></code>
+und fertig.<br>
+Neu muss man sich mit Shadern und Vertex-Buffern auseinandersetzen.<br>
+Auch muss man sich jetzt selbst um Matrizen und Beleuchtung kümmern.<br>
+<br>
+Aber dafür ist die Belohnung sehr gross, man ist sehr flexibel und man kann (fast) alles machen, was Effekte anbelangt.<br>
+Früher war man einfach auf die Fixed-Function-Pipeline der Grafikkarte angewiesen und jede war etwas anders.<br>
+Wenn eine Karte nur zwei Beleuchtungen hatte, dann hatte sie nur zwei.<br>
+Da man es aber jetzt selbst macht, kann man fast beliebig viel machen, egal ob diffus, etc.<br>
+<br>
+Ich hoffe, mit diesem Tutorial wird der eine oder andere für OpenGL 3.3 begeistert werden.<br>
+Wenn man diesen Einstieg mal geschafft hat, wird man auch mit höheren Versionen klarkommen.<br>
+<br>
+Auf der Hauptseite werde ich noch ein Package veröffentlichen, welches einem den Einstieg sehr einfach macht.<br>
+Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Buffer, etc. vorhanden.<br>
+<hr><br>
+<h2>Installation:</h2><br>
+Das alles einwandfrei läuft, ist mindestens FPC 3.0.2 und Lazarus 1.6.4 erforderlich.<br>
+<br>
+Bei Lazarus muss unter <i><b>Package/Installierte Packages einrichten.../Verfügbar für Installation</b></i>, zuerst das Package <i><b>LazOpenGLContext x.x.x</b></i> installiert werden.<br>
+<br>
+Das Tutorial sollte unter Linux und Windows laufen, auf dem Mac habe ich es nicht probiert.<br>
+<br>
+Wenn Lazarus bei der Neukompilierung unter Linux Probleme macht, könnte Folgendes das Problem sein.<br>
+Unter auf Debian oder Ubuntu basierenden Linux-Distributionen muss evtl. noch Folgendes installiert werden.<br>
+<pre><code>sudo apt-get install freeglut3-dev</pre></code>
+Somit sollten alle Beispiele kompilierbar sein.<br>
+<br>
+Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.<br>
+Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.<br>
+<br>
+Das Tutorial setzt Grundkentnisse von Lazarus voraus.<br>
+Wen man weis, wie man mit Delphi einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.<br>
+<br>
+Wenn Fehler gefunden werden, dann bitte hier melden: <br>
+<a href="https://delphigl.com/forum/viewtopic.php?f=14&t=11566 ">DGL-Forum</a>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>

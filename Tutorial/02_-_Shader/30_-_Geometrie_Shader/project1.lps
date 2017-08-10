@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="10"/>
+    <BuildModes Active="Default"/>
+    <Units Count="23">
+      <Unit0>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="26"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="40"/>
+        <CursorPos X="109" Y="40"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="../../units/oglcontext.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oglContext"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="84" Y="10"/>
+        <UsageCount Value="23"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="Geometrieshader.glsl"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="17" Y="23"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="/usr/share/lazarus/1.7.0.54502/components/opengl/openglcontext.pas"/>
+        <UnitName Value="OpenGLContext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="522"/>
+        <CursorPos X="10" Y="473"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="/usr/share/lazarus/1.7.0.54502/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2916"/>
+        <CursorPos X="3" Y="2929"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../../../../Units/MyPackages/OpenGL/ogltexturvao.pas"/>
+        <UnitName Value="oglTexturVAO"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="Vertexshader.glsl"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="20"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="Fragmentshader.glsl"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="60" Y="9"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../../units/shader.pas"/>
+        <UnitName Value="Shader"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="123"/>
+        <CursorPos X="18" Y="152"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="Vertexshader1.glsl"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="Fragmentshader1.glsl"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="25" Y="7"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../../units/oglshader.pas"/>
+        <UnitName Value="oglShader"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="88"/>
+        <CursorPos X="96" Y="49"/>
+        <UsageCount Value="12"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/lcl/lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1430"/>
+        <CursorPos X="9" Y="1479"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/lazutils/lazloggerbase.pas"/>
+        <UnitName Value="LazLoggerBase"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="898"/>
+        <CursorPos X="12" Y="782"/>
+        <UsageCount Value="10"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/lazutils/lazlogger.pas"/>
+        <UnitName Value="LazLogger"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="74"/>
+        <CursorPos X="3" Y="71"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="134"/>
+        <CursorPos X="55" Y="167"/>
+        <UsageCount Value="10"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/opengl/glgtkglxcontext.pas"/>
+        <UnitName Value="GLGtkGlxContext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="951"/>
+        <CursorPos X="41" Y="626"/>
+        <UsageCount Value="10"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/opengl/glqtcontext.pas"/>
+        <UnitName Value="GLQTContext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="127"/>
+        <UsageCount Value="10"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/opengl/glwin32wglcontext.pas"/>
+        <UnitName Value="GLWin32WGLContext"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="11" Y="7"/>
+        <UsageCount Value="10"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="/usr/share/fpcsrc/3.1.1/packages/opengl/src/glext.pp"/>
+        <UnitName Value="GLext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="9998"/>
+        <CursorPos X="58" Y="10056"/>
+        <UsageCount Value="10"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15426"/>
+        <CursorPos X="25" Y="15406"/>
+        <UsageCount Value="10"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="/usr/share/lazarus/1.9.0.54734/components/opengl/openglcontext.pas"/>
+        <UnitName Value="OpenGLContext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="615"/>
+        <CursorPos X="85" Y="645"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+    </Units>
+    <JumpHistory Count="1">
+      <Position1>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="95" Column="93" TopLine="62"/>
+      </Position1>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

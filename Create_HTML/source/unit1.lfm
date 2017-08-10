@@ -1,0 +1,67 @@
+object Form1: TForm1
+  Left = 822
+  Height = 240
+  Top = 0
+  Width = 320
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '1.9.0.0'
+  object Button1: TButton
+    Left = 96
+    Height = 25
+    Top = 80
+    Width = 88
+    Caption = 'Create'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object Button2: TButton
+    Left = 96
+    Height = 25
+    Top = 120
+    Width = 88
+    Caption = 'Show'
+    OnClick = Button2Click
+    TabOrder = 1
+  end
+  object Button3: TButton
+    Left = 96
+    Height = 25
+    Top = 174
+    Width = 88
+    Caption = 'Copy Source'
+    OnClick = Button3Click
+    TabOrder = 2
+  end
+  object Button4: TButton
+    Tag = 1
+    Left = 216
+    Height = 25
+    Top = 80
+    Width = 75
+    Caption = 'Sort 1'
+    OnClick = Button4Click
+    TabOrder = 3
+  end
+  object Button5: TButton
+    Tag = 2
+    Left = 216
+    Height = 25
+    Top = 120
+    Width = 75
+    Caption = 'Sort 2'
+    OnClick = Button4Click
+    TabOrder = 4
+  end
+  object Button6: TButton
+    Tag = 5
+    Left = 216
+    Height = 25
+    Top = 160
+    Width = 75
+    Caption = 'Sort 5'
+    OnClick = Button4Click
+    TabOrder = 5
+  end
+end

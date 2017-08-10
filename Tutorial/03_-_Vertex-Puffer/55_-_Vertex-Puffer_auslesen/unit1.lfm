@@ -1,0 +1,23 @@
+object Form1: TForm1
+  Left = 819
+  Height = 272
+  Top = 0
+  Width = 439
+  Caption = 'Form1'
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.9.0.0'
+  object MainMenu1: TMainMenu
+    Left = 81
+    Top = 102
+    object MenuItem1: TMenuItem
+      Caption = 'Dreieck'
+      OnClick = MenuItem1Click
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Quadrat'
+      OnClick = MenuItem1Click
+    end
+  end
+end

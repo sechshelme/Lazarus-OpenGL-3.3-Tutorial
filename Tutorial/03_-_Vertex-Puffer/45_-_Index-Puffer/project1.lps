@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="10"/>
+    <BuildModes Active="Default"/>
+    <Units Count="12">
+      <Unit0>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <TopLine Value="-1"/>
+        <CursorPos X="-1" Y="-1"/>
+        <UsageCount Value="29"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit1"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="25"/>
+        <CursorPos X="8" Y="38"/>
+        <UsageCount Value="29"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="/usr/share/lazarus/1.7.0.54502/components/opengl/openglcontext.pas"/>
+        <UnitName Value="OpenGLContext"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="522"/>
+        <CursorPos X="10" Y="473"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="/usr/share/lazarus/1.7.0.54502/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2916"/>
+        <CursorPos X="3" Y="2929"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../../../../Units/MyPackages/OpenGL/ogltexturvao.pas"/>
+        <UnitName Value="oglTexturVAO"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="Vertexshader.glsl"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="125" Y="6"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="Fragmentshader.glsl"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="42" Y="7"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../../units/shader.pas"/>
+        <UnitName Value="Shader"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="109"/>
+        <CursorPos X="37" Y="157"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="Vertexshader1.glsl"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="Fragmentshader1.glsl"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="25" Y="7"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="None"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../units/oglshader.pas"/>
+        <UnitName Value="oglShader"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="34"/>
+        <CursorPos X="23" Y="58"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="16142"/>
+        <CursorPos X="12" Y="16201"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit11>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="8906" Column="10" TopLine="8847"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9015" Column="10" TopLine="8956"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9016" Column="10" TopLine="8957"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9097" Column="10" TopLine="9038"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9100" Column="10" TopLine="9041"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9206" Column="10" TopLine="9147"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9207" Column="10" TopLine="9148"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9208" Column="10" TopLine="9149"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9211" Column="10" TopLine="9152"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9212" Column="10" TopLine="9153"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9521" Column="10" TopLine="9462"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9525" Column="13" TopLine="9466"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="9941" Column="13" TopLine="9882"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="11378" Column="29" TopLine="11319"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="11999" Column="38" TopLine="11940"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12035" Column="38" TopLine="11976"/>
+      </Position16>
+      <Position17>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12316" Column="41" TopLine="12257"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12375" Column="39" TopLine="12316"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12377" Column="48" TopLine="12318"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12487" Column="37" TopLine="12428"/>
+      </Position20>
+      <Position21>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12684" Column="51" TopLine="12625"/>
+      </Position21>
+      <Position22>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12685" Column="61" TopLine="12626"/>
+      </Position22>
+      <Position23>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="12963" Column="36" TopLine="12904"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="13377" Column="41" TopLine="13318"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="15460" Column="49" TopLine="15401"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="16091" Column="58" TopLine="16033"/>
+      </Position26>
+      <Position27>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="139" Column="3" TopLine="91"/>
+      </Position27>
+      <Position28>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="187" Column="8" TopLine="113"/>
+      </Position28>
+      <Position29>
+        <Filename Value="Fragmentshader.glsl"/>
+        <Caret Line="7" Column="20"/>
+      </Position29>
+      <Position30>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="135" Column="84" TopLine="102"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

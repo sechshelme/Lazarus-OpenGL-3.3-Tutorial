@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>15 - MipMap Kacheln</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>90 - Versuche</h1></b>
+    <b><h2>15 - MipMap Kacheln</h2></b>
+<img src="image.png" alt="Selfhtml"><br><br>
+Will man die Scene realistisch proportional darstellen, nimmt man eine Frustum-Matrix.<br>
+Dies hat den Einfluss, das Objekte kleiner erscheinen, je weiter die Scene von einem weg ist.<br>
+In der Realität ist dies auch so, das Objekte kleiner erscheinen, je weiter sie von einem weg sind.<br>
+<hr><br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">const</font></b>
+  w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
+<b><font color="0000BB">begin</font></b>
+  Matrix := TMatrix.Create;
+  FrustumMatrix := TMatrix.Create;
+
+  FrustumMatrix.Frustum(-w, w, -w, w, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
+
+  <i><font color="#FFFF00">//   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ</font></i>
+
+  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Translate(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
+  WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);              <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i>
+
+  WorldMatrix.RotateA(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
+  WorldMatrix.RotateC(pi);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
+</pre></code>
+Das Zeichnen ist das Selbe wie bei Ortho.<br>
+<pre><code>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
+
+  <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">for</font></b> y := -s * <font color="#0077BB">10</font> <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+      Matrix.Identity;
+      Matrix.Translate(x * d, y * d, -<font color="#0077BB">4</font> * d);                 <i><font color="#FFFF00">// Matrix verschieben.</font></i>
+
+      Matrix.Multiply(WorldMatrix, Matrix);                  <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
+      Matrix.Multiply(FrustumMatrix, Matrix);
+
+      Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
+      glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
+    <b><font color="0000BB">end</font></b>;
+  <b><font color="0000BB">end</font></b>;</pre></code>
+<hr><br>
+<b>Vertex-Shader:</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV; <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
+
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+{
+  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;
+}
+</pre></code>
+<hr><br>
+<b>Fragment-Shader</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
+
+<b><font color="0000BB">void</font></b> main()
+{
+<i><font color="#FFFF00">//  outColor=vec4(1.0);</font></i>
+  outColor = texture( Sampler, UV0, -<font color="#0077BB">5</font> );
+}
+</pre></code>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>
