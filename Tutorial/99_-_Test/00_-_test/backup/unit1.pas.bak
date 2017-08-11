@@ -27,7 +27,6 @@ type
     procedure hi;
   end;
 
-
 var
   Form1: TForm1;
 
