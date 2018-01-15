@@ -1,0 +1,53 @@
+//image image.png
+
+(*
+<b>Vorwort:</b><br>
+OpenGL 3.3 scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
+Man wird von Anfang an mit vielem Neuen konfrontiert.
+Früher konnte man einfach
+//code+
+glBegin(...
+..
+glEnd
+//code-
+und fertig.
+Neu muss man sich mit Shadern und Vertex-Buffern auseinandersetzen.
+Auch muss man sich jetzt selbst um Matrizen und Beleuchtung kümmern.
+
+Aber dafür ist die Belohnung sehr gross, man ist sehr flexibel und man kann (fast) alles machen, was Effekte anbelangt.
+Früher war man einfach auf die Fixed-Function-Pipeline der Grafikkarte angewiesen und jede war etwas anders.
+Wenn eine Karte nur zwei Beleuchtungen hatte, dann hatte sie nur zwei.
+Da man es aber jetzt selbst macht, kann man fast beliebig viel machen, egal ob diffus, etc.
+
+Ich hoffe, mit diesem Tutorial wird der eine oder andere für OpenGL 3.3 begeistert werden.
+Wenn man diesen Einstieg mal geschafft hat, wird man auch mit höheren Versionen klarkommen.
+
+Auf der Hauptseite werde ich noch ein Package veröffentlichen, welches einem den Einstieg sehr einfach macht.
+Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Buffer, etc. vorhanden.
+*)
+//lineal
+(*
+<b>Installation:</b><br>
+Das alles einwandfrei läuft, ist mindestens FPC 3.0.2 und Lazarus 1.6.4 erforderlich.
+
+Bei Lazarus muss unter <i><b>Package/Installierte Packages einrichten.../Verfügbar für Installation</b></i>, zuerst das Package <i><b>LazOpenGLContext x.x.x</b></i> installiert werden.
+
+Das Tutorial sollte unter Linux und Windows laufen, auf dem Mac habe ich es nicht probiert.
+
+Wenn Lazarus bei der Neukompilierung unter Linux Probleme macht, könnte Folgendes das Problem sein.
+Unter auf Debian oder Ubuntu basierenden Linux-Distributionen muss evtl. noch Folgendes installiert werden.
+//code+
+sudo apt-get install freeglut3-dev
+//code-
+Somit sollten alle Beispiele kompilierbar sein.
+
+Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
+Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
+
+Das Tutorial setzt Grundkentnisse von Lazarus voraus.
+Wen man weis, wie man mit Delphi einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
+
+Wenn Fehler gefunden werden, dann bitte hier melden:
+//link https://delphigl.com/forum/viewtopic.php?f=14&t=11566 DGL-Forum
+*)
+

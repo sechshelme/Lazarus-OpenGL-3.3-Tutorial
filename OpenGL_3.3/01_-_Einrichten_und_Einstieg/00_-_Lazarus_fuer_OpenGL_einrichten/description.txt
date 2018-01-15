@@ -1,0 +1,5 @@
+"Lazarus mit '''OpenGL 3.3'''"
+
+Was sind die Voraussetzungen.
+Und wie richte ich '''Lazarus''' ein, das dies mit '''OpenGL 3.3''' funktioniert.
+

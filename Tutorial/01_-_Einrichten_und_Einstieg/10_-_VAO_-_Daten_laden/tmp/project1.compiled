@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="C:\lazarus\fpc\3.0.2\bin\i386-win32\fpc.exe" Date="1247517509"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -WG -l -vewnhibq -FiV:\DATEN\Programmierung\Lazarus\OpenGL_Tutorial\Tutorial\01_-_Einrichten_und_Einstieg\03_-_VAO_-_Daten_laden\tmp -FuV:\DATEN\Programmierung\Lazarus\OpenGL_Tutorial\Tutorial\units -FuC:\lazarus\components\opengl\lib\i386-win32\win32 -FuC:\lazarus\lcl\units\i386-win32\win32 -FuC:\lazarus\lcl\units\i386-win32 -FuC:\lazarus\components\lazutils\lib\i386-win32 -FuC:\lazarus\packager\units\i386-win32 -FuV:\DATEN\Programmierung\Lazarus\OpenGL_Tutorial\Tutorial\01_-_Einrichten_und_Einstieg\03_-_VAO_-_Daten_laden\ -FUV:\DATEN\Programmierung\Lazarus\OpenGL_Tutorial\Tutorial\01_-_Einrichten_und_Einstieg\03_-_VAO_-_Daten_laden\tmp\ -dLCL -dLCLwin32 project1.lpr"/>
-</CONFIG>

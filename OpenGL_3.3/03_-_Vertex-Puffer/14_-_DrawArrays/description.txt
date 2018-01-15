@@ -1,0 +1,3 @@
+"Nicht immer am Stück"
+
+Man kann auch nur einen Teil einer Vertex-Array zeichnen.

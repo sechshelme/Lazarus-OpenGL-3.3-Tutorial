@@ -1,0 +1,39 @@
+//image image.png
+
+(*
+In <b>OpenGL 3.3</b> gibt es drei verschiedene <b>Shadertypen</b>, den <b>Vertex-</b>, <b>Geometry-</b> und <b>Fragment-Shader</b>.
+Wobei der <b>Vertex-Shader immer</b> vorhanden sein muss. Der <b>Fragment-Shader</b> wird benötigt, wenn die Ausgabe des Rendervorgangs ein Bild sein soll, also fast immer.
+Der <b>Geometry-Shader</b> ist optional.
+In OpenGL 4.0 wurden noch zwei <b>Tessellations-Shader</b> eingeführt, aber dies gehört eigentlich nicht hier hin.
+
+Die Shader werden mit der Programmiersprache <b>OpenGL Shading Language (GLSL)</b> programmiert. Die ist eine C/C++ ähnliche Sprache.
+Daher muss auf <b>Gross- und Kleinschreibung</b> geachtet werden.
+
+Der kompilierte Code von GLSL läufen direkt in der Grafikkarte (GPU).
+*)
+
+//lineal
+
+(*
+Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit <b>Shader.pas</b> erstellt, welche eine Klasse für den Shader enthält.
+Somit ist der Ablauf sehr einfach.
+Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object als Dateien vorliegen, habe ich eine Hilfs-Funktion in de Shader Unit.
+Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.
+*)
+//code+
+var
+  Shader : TShader;
+
+begin
+  Shader := TShader.Create(Vertex_Shader, Fragment_Shader);  // Shader laden
+
+  Shader.UseProgram;  // Aktiviert den Shader
+
+  Shader.Free         // Gibt den Shader frei
+//code-
+
+(*
+In folgenden Beispielen werden die Shader nur noch mit dieser Klasse geladen, damit es übersichtlicher wird.
+Wie man es nativ machen kann, wird im <b>Einstiegs-Tutorial</b> unter <b>erster Shader</b> gezeigt.
+*)
+

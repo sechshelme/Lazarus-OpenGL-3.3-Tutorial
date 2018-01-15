@@ -1,0 +1,3 @@
+"Es werde 3D"
+
+Anhand eines Würfels sieht man sehr gut die Räumlichkeit einer Scene.

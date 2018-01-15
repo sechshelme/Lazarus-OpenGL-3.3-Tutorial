@@ -1,0 +1,3 @@
+"Texturen als Text"
+
+Dank des '''XPM'''-Format, kann man sehr einfach eine Textur als ASCII-Text erstellen. Es ist '''kein''' Grafikprogramm nötig.

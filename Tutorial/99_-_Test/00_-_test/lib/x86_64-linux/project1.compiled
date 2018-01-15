@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="/usr/bin/fpc" Date="1488055450"/>
-  <Params Value=" -MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq -Fi/n4800/DATEN/Programmierung/Lazarus/OpenGL_Tutorial/Tutorial/99_-_Test/00_-_test/lib/x86_64-linux -Fl/opt/gnome/lib -Fu/usr/share/lazarus/1.6.4/lcl/units/x86_64-linux/gtk2 -Fu/usr/share/lazarus/1.6.4/lcl/units/x86_64-linux -Fu/usr/share/lazarus/1.6.4/components/lazutils/lib/x86_64-linux -Fu/usr/share/lazarus/1.6.4/packager/units/x86_64-linux -Fu/n4800/DATEN/Programmierung/Lazarus/OpenGL_Tutorial/Tutorial/99_-_Test/00_-_test/ -FU/n4800/DATEN/Programmierung/Lazarus/OpenGL_Tutorial/Tutorial/99_-_Test/00_-_test/lib/x86_64-linux/ -dLCL -dLCLgtk2 project1.lpr"/>
-  <Complete Value="False"/>
-</CONFIG>

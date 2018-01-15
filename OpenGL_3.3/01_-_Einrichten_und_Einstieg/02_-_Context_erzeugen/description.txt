@@ -1,0 +1,3 @@
+"Eine Arbeitsfläche erzeugen"
+
+Das OpenGL etwas auf den Bildschirm ausgeben kann, wird ein '''Context''', Zeichenfläche gebraucht.

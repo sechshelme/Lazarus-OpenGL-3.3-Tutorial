@@ -1,0 +1,9 @@
+object Form1: TForm1
+  Left = 834
+  Height = 240
+  Top = 0
+  Width = 320
+  Caption = 'Form1'
+  OnCreate = FormCreate
+  LCLVersion = '1.9.0.0'
+end

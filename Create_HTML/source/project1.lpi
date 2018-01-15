@@ -10,6 +10,12 @@
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
     </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <BuildNr Value="3"/>
+      <StringTable ProductVersion="0.0.0.0"/>
+    </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -26,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="8">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -40,9 +46,9 @@
         <UnitName Value="Unit1"/>
       </Unit1>
       <Unit2>
-        <Filename Value="createtutorial.pas"/>
+        <Filename Value="createhtmltutorial.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="CreateTutorial"/>
+        <UnitName Value="CreateHTMLTutorial"/>
       </Unit2>
       <Unit3>
         <Filename Value="sourcezip.pas"/>
@@ -50,14 +56,28 @@
         <UnitName Value="SourceZip"/>
       </Unit3>
       <Unit4>
-        <Filename Value="../bin/res_wort_glsl.txt"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
         <Filename Value="reswort.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ResWort"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="createwikitutorial.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CreateWikiTutorial"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="global.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Global"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="wikitext.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="WikiTextForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="WikiText"/>
+      </Unit7>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

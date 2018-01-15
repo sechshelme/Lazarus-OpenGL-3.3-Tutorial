@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, Unit1, CreateTutorial, SourceZip, ResWort;
+  Forms, Unit1, CreateHTMLTutorial, SourceZip, ResWort, CreateWikiTutorial,
+  Global, WikiText;
 
 {$R *.res}
 
@@ -15,6 +16,7 @@ begin
   RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TWikiTextForm, WikiTextForm);
   Application.Run;
 end.
 

@@ -4,27 +4,47 @@ unit Unit1;
 
 interface
 
-uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls, LCLIntf,
+// Achtung !, in den Pfaden darf sich kein Leezzeichen (#32) befinden !
 
-  CreateTutorial, SourceZip;
+uses
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  LCLIntf, EditBtn,
+  IniFiles,
+
+  Global, CreateHTMLTutorial, CreateWikiTutorial, SourceZip, WikiText;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    Button4: TButton;
-    Button5: TButton;
-    Button6: TButton;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
+    ButtonWikiText: TButton;
+    ButtonCreateWiki: TButton;
+    ButtonCreateHTML: TButton;
+    ButtonShow: TButton;
+    ButtonCopySource: TButton;
+    ButtonSort1: TButton;
+    ButtonSort2: TButton;
+    ButtonSort5: TButton;
+    ComboBox1: TComboBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    LabelWikiPfad: TLabel;
+    LabelTutorialPfad: TLabel;
+    LabelHTMLPfad: TLabel;
+    LabelTutorialName: TLabel;
+    procedure ButtonCreateHTMLClick(Sender: TObject);
+    procedure ButtonCreateWikiClick(Sender: TObject);
+    procedure ButtonShowClick(Sender: TObject);
+    procedure ButtonCopySourceClick(Sender: TObject);
+    procedure ButtonSort1Click(Sender: TObject);
+    procedure ButtonWikiTextClick(Sender: TObject);
+    procedure ComboBox1Change(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
+    procedure ReadSection(aktSektions: string; ini: TIniFile);
   public
   end;
 
@@ -35,7 +55,6 @@ implementation
 
 function GetDateiZeit(datei: string): string;
 begin
-  //  Result:='<font Color="#BBBBBB">&#xA0;&#xA0;&#xA0;&#xA0;'+ DateTimeToStr(FileDateToDateTime(FileAge(datei)))+'</font>';
   Result := '<font Color="#BBBBBB">&#xA0;&#xA0;&#xA0;&#xA0;' + DateToStr(FileDateToDateTime(FileAge(datei))) + '</font>';
 end;
 
@@ -44,13 +63,11 @@ end;
 
 { TForm1 }
 
-procedure TForm1.Button1Click(Sender: TObject);
-const
-  Titel = 'Lazarus - OpenGL 3.3 Tutorial';
+procedure TForm1.ButtonCreateHTMLClick(Sender: TObject);
 var
   s: string;
   i, k: integer;
-  ct: TCreateTutorial;
+  ct: TCreateHTMLTutorial;
   slKapitel,
   slDirectory: TStringList;
   slSubPage: TStringList;
@@ -65,38 +82,36 @@ begin
 
   slSubPage.Add('  </head>');
   slSubPage.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
-  slSubPage.Add('<b><h1>' + Titel + '<br></h1></b>');
+  slSubPage.Add('<b><h1>' + TutPara.Titel + '<br></h1></b>');
 
-  slKapitel := FindAllDirectories(TutPfad, False);
+  slKapitel := FindAllDirectories(TutPara.TutPfad, False);
   slKapitel.Sort;
 
   for k := 0 to slKapitel.Count - 1 do begin
-    if ExtractFileName(slKapitel[k]) <> 'units' then begin
+    slSubPage.Add('<b><h2>' + HTMLTitelSplitt(slKapitel[k]) + '<br></h2></b>');
 
-      slSubPage.Add('<b><h2>' + TitelSplitt(slKapitel[k]) + '<br></h2></b>');
+    slDirectory := FindAllDirectories(slKapitel[k], False);
+    slDirectory.Sort;
+    for i := 0 to slDirectory.Count - 1 do begin
+      slDirectory[i] := Copy(slDirectory[i], Length(TutPara.TutPfad) + 1);
 
-      slDirectory := FindAllDirectories(slKapitel[k], False);
-      slDirectory.Sort;
-      for i := 0 to slDirectory.Count - 1 do begin
-        slDirectory[i] := Copy(slDirectory[i], Length(TutPfad) + 1);
-      end;
-
-      for i := 0 to slDirectory.Count - 1 do begin
-        s := TutPfad + slDirectory[i] + '/unit1.pas';
+      s := TutPara.TutPfad + slDirectory[i] + '/unit1.pas';
+      if not FileExists(s) then begin
+        s := TutPara.TutPfad + slDirectory[i] + '/Project1.pas';
         if not FileExists(s) then begin
-          s := TutPfad + slDirectory[i] + '/text.txt';
+          s := TutPara.TutPfad + slDirectory[i] + '/text.txt';
         end;
-
-        if FileExists(s) then begin
-          ct := TCreateTutorial.Create(slDirectory[i], TitelSplitt(slKapitel[k]));
-          ct.AddSouceUnit1(s);
-          slSubPage.Add(AddLink(slDirectory[i] + '/index.html', ct.getTitle) + GetDateiZeit(s) + '<br>');
-          ct.Free;
-        end;
-
       end;
-      slDirectory.Free;
+
+      if FileExists(s) then begin
+        ct := TCreateHTMLTutorial.Create(slDirectory[i], HTMLTitelSplitt(slKapitel[k]));
+        ct.AddSouceUnit1(s);
+        slSubPage.Add(HTMLAddLink(slDirectory[i] + '/index.html', ct.getTitle) + GetDateiZeit(s) + '<br>');
+        ct.Free;
+      end;
+
     end;
+    slDirectory.Free;
   end;
   slKapitel.Free;
 
@@ -107,26 +122,107 @@ begin
   slSubPage.Add('  </body>');
   slSubPage.Add('</html>');
 
-  ForceDirectories(HTMLPfad);
-  slSubPage.SaveToFile(HTMLPfad + 'index.html');
+  ForceDirectories(TutPara.HTMLPfad);
+  slSubPage.SaveToFile(TutPara.HTMLPfad + '/index.html');
   slSubPage.Free;
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TForm1.ButtonCreateWikiClick(Sender: TObject);
+var
+  sd,
+  s: string;
+  i, k: integer;
+  ct: TCreateWikiTutorial;
+  slDescription,
+  WikiSL,
+  slKapitel,
+  slDirectory: TStringList;
 begin
-  OpenDocument(HTMLPfad + 'index.html');
+  slKapitel := FindAllDirectories(TutPara.TutPfad, False);
+  slKapitel.Sort;
+
+  WikiSL := TStringList.Create;
+
+  WikiSL.Add('=' + TutPara.Titel + '=');
+
+  WikiSL.Add('==Download==');
+  WikiSL.Add('* [http://mathias1000.bplaced.net/Tutorial_HTML/OpenGL_3.3/source.zip alle Sourcen]  (Achtung: Link ist nur provisorisch)');
+
+  for k := 0 to slKapitel.Count - 1 do begin
+
+    slDirectory := FindAllDirectories(slKapitel[k], False);
+    slDirectory.Sort;
+    WikiSL.Add('== ' + Copy(WikiTitelSplitt(slKapitel[k]), 6) + ' ==');
+    WikiSL.Add('{|{{Prettytable_B1}} width="100%"');
+    WikiSL.Add('!width="15%"|Link');
+    WikiSL.Add('!width="85%"|Beschreibung');
+
+    for i := 0 to slDirectory.Count - 1 do begin
+      sd:=slDirectory[i];
+      slDirectory[i] := Copy(slDirectory[i], Length(TutPara.TutPfad) + 1);
+
+      s := TutPara.TutPfad + slDirectory[i] + '/unit1.pas';
+      if not FileExists(s) then begin
+        s := TutPara.TutPfad + slDirectory[i] + '/Project1.pas';
+        if not FileExists(s) then begin
+          s := TutPara.TutPfad + slDirectory[i] + '/text.txt';
+        end;
+      end;
+
+      if FileExists(s) then begin
+        ct := TCreateWikiTutorial.Create(slDirectory[i], WikiTitelSplitt(slKapitel[k]));
+        ct.AddSouceUnit1(s);
+        WikiSL.Add('|-');
+        WikiSL.Add('![[' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '|' + Copy(ct.getTitle, 6) + ']]');
+        WikiSL.Add('{{Level_2}} ');
+        WikiSL.Add('|[[Image:' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '.png|128px|right]] ');
+
+        s := sd + '/description.txt';
+        if FileExists(s) then begin
+          slDescription := TStringList.Create;
+          slDescription.LoadFromFile(s);
+          WikiSL.Add(slDescription.Text);
+          slDescription.Free;
+        end else begin
+          WikiSL.Add('Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar ');
+        end;
+
+        ct.Free;
+      end;
+
+    end;
+    WikiSL.Add('|-');
+    WikiSL.Add('|}');
+//    WikiSL.Add('<br>');
+// WikiSL.Add('[['+TutPara.Titel+'#'+TutPara.Titel+'|Inhaltsverzeichnis]]');
+WikiSL.Add('[https://wiki.delphigl.com/index.php/Lazarus_-_OpenGL_3.3_Tutorial'+' Inhaltsverzeichnis]');
+//    WikiSL.Add('<br>');
+
+    slDirectory.Free;
+  end;
+  slKapitel.Free;
+
+  WikiSL.SaveToFile(TutPara.WikiPfad + 'wiki.txt');
+  WikiSL.Free;
+
+  ForceDirectories(TutPara.WikiPfad);
 end;
 
-procedure TForm1.Button3Click(Sender: TObject);
+procedure TForm1.ButtonShowClick(Sender: TObject);
+begin
+  OpenDocument(TutPara.HTMLPfad + '/index.html');
+end;
+
+procedure TForm1.ButtonCopySourceClick(Sender: TObject);
 var
   z: TSourceZip;
 begin
   z := TSourceZip.Create;
-  z.kopiere;
+  z.kopieren;
   z.Free;
 end;
 
-procedure TForm1.Button4Click(Sender: TObject);
+procedure TForm1.ButtonSort1Click(Sender: TObject);
 var
   mainSL, subSL: TStringList;
   step, i, j: integer;
@@ -135,14 +231,14 @@ var
 begin
   step := TButton(Sender).Tag;
 
-  mainSL := FindAllDirectories(TutPfad, False);
+  mainSL := FindAllDirectories(TutPara.TutPfad, False);
   mainSL.Sort;
 
 
   for i := 0 to mainSL.Count - 1 do begin
 
     s := mainSL[i];
-    ch := s[Length(TutPfad) + 2];
+    ch := s[Length(TutPara.TutPfad) + 2];
     if ch in ['0'..'9'] then begin
 
       subSL := FindAllDirectories(mainSL[i], False);
@@ -154,7 +250,7 @@ begin
         if ch in ['0'..'9'] then begin
 
           ns := Format('%.2d', [j * step]);
-          //          WriteLn(mainSL[i], '     ', ns);
+
           s := subSL[j];
           s[Length(mainSL[i]) + 2] := ns[1];
           s[Length(mainSL[i]) + 3] := ns[2];
@@ -170,6 +266,70 @@ begin
   end;
 
   mainSL.Free;
+end;
+
+procedure TForm1.ButtonWikiTextClick(Sender: TObject);
+begin
+  WikiTextForm.ShowModal;
+end;
+
+procedure TForm1.ReadSection(aktSektions: string; ini: TIniFile);
+begin
+  with TutPara do begin
+    Titel := ini.ReadString(aktSektions, 'Name', '');
+    LabelTutorialName.Caption := Titel;
+
+    TutPfad := ini.ReadString(aktSektions, 'TutPfad', '');
+    LabelTutorialPfad.Caption := TutPfad;
+
+    HTMLPfad := ini.ReadString(aktSektions, 'HTMLPfad', '');
+    LabelHTMLPfad.Caption := HTMLPfad;
+
+    WikiPfad := ini.ReadString(aktSektions, 'WikiPfad', '');
+    LabelWikiPfad.Caption := WikiPfad;
+  end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  ini: TIniFile;
+  i: integer;
+  slSections: TStringList;
+  aktSektions: string;
+begin
+  chdir(ExtractFileDir(ParamStr(0)));
+
+  ComboBox1.Clear;
+
+  ini := TIniFile.Create(ConfigINIDatei);
+
+  slSections := TStringList.Create;
+  ini.ReadSections(slSections);
+
+  for i := 0 to slSections.Count - 1 do begin
+    if slSections[i] <> 'options' then begin
+      ComboBox1.Items.Add(slSections[i]);
+    end;
+  end;
+  aktSektions := ini.ReadString('options', 'current', '');
+  ComboBox1.ItemIndex := ComboBox1.Items.IndexOf(aktSektions);
+
+  ReadSection(aktSektions, ini);
+
+  slSections.Free;
+  ini.Free;
+end;
+
+procedure TForm1.ComboBox1Change(Sender: TObject);
+var
+  ini: TIniFile;
+begin
+  ini := TIniFile.Create(ConfigINIDatei);
+  ReadSection(ComboBox1.Caption, ini);
+
+  ini.WriteString('options', 'current', ComboBox1.Caption);
+
+  ini.Free;
 end;
 
 end.
