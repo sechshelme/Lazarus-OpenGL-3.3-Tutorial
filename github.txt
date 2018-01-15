@@ -1,5 +1,0 @@
-git remote add origin https://github.com/sechshelme/Lazarus-OpenGL-3.3-Tutorial.git
-git add .
-git commit
-git push -u origin master
-
