@@ -20,10 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="89"/>
-        <CursorPos X="85" Y="107"/>
+        <CursorPos X="31" Y="11"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,6 +51,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="48" Y="13"/>
         <UsageCount Value="12"/>
@@ -98,7 +97,7 @@
         <Filename Value="../../units/oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="22"/>
+        <TopLine Value="12"/>
         <CursorPos X="38" Y="12"/>
         <UsageCount Value="11"/>
       </Unit11>
