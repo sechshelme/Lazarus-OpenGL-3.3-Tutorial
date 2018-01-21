@@ -126,7 +126,7 @@ var
 begin
   pic := TPicture.Create;
   with pic do begin
-    LoadFromFile('mauer.xpm');
+    LoadFromFile('bild.xpm');
 
     // Textur laden.
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -250,5 +250,13 @@ Die Shader sind genau gleich, wie bei einer Textur.
 
 *)
 //includeglsl Fragmentshader.glsl
+
+//lineal
+
+(*
+<b>bild.xpm</b>
+
+*)
+//includecpp bild.xpm
 
 end.

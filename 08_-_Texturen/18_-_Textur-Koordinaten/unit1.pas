@@ -155,7 +155,7 @@ begin
   glGenBuffers(1, @VBRingR.VBOTex);
 
   TextureBuffer := TTexturBuffer.Create;
-  TextureBuffer.LoadTextures('kreis.xpm');
+  TextureBuffer.LoadTextures('muster.xpm');
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
@@ -277,5 +277,13 @@ end;
 <b>Fragment-Shader:</b>
 *)
 //includeglsl Fragmentshader.glsl
+
+//lineal
+(*
+<b>muster.xpm:</b>
+*)
+//includecpp muster.xpm
+
+
 
 end.

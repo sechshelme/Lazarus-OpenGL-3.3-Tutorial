@@ -1,0 +1,211 @@
+object CameraSteuerung: TCameraSteuerung
+  Left = 1776
+  Height = 268
+  Top = 570
+  Width = 122
+  BorderStyle = bsDialog
+  Caption = 'Steuerung'
+  ClientHeight = 268
+  ClientWidth = 122
+  Position = poDefault
+  LCLVersion = '1.7'
+  object xMinus: TSpeedButton
+    Left = 24
+    Height = 22
+    Top = 48
+    Width = 23
+    Caption = 'x-'
+    OnClick = MoveButtonClick
+  end
+  object yPlus: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 24
+    Width = 23
+    Caption = 'y+'
+    OnClick = MoveButtonClick
+  end
+  object xPlus: TSpeedButton
+    Left = 72
+    Height = 22
+    Top = 48
+    Width = 23
+    Caption = 'x+'
+    OnClick = MoveButtonClick
+  end
+  object yMinus: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 72
+    Width = 23
+    Caption = 'y-'
+    OnClick = MoveButtonClick
+  end
+  object zPlus: TSpeedButton
+    Left = 72
+    Height = 22
+    Top = 24
+    Width = 23
+    Caption = 'z+'
+    OnClick = MoveButtonClick
+  end
+  object zMinus: TSpeedButton
+    Left = 24
+    Height = 22
+    Top = 72
+    Width = 23
+    Caption = 'z-'
+    OnClick = MoveButtonClick
+  end
+  object xMinus1: TSpeedButton
+    Left = 0
+    Height = 22
+    Top = 48
+    Width = 23
+    Caption = 'X-'
+    OnClick = MoveButtonClick
+  end
+  object yPlus1: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 0
+    Width = 23
+    Caption = 'Y+'
+    OnClick = MoveButtonClick
+  end
+  object xPlus1: TSpeedButton
+    Left = 96
+    Height = 22
+    Top = 48
+    Width = 23
+    Caption = 'X+'
+    OnClick = MoveButtonClick
+  end
+  object yMinus1: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 96
+    Width = 23
+    Caption = 'Y-'
+    OnClick = MoveButtonClick
+  end
+  object zPlus1: TSpeedButton
+    Left = 96
+    Height = 22
+    Top = 0
+    Width = 23
+    Caption = 'Z+'
+    OnClick = MoveButtonClick
+  end
+  object zMinus1: TSpeedButton
+    Left = 0
+    Height = 22
+    Top = 96
+    Width = 23
+    Caption = 'Z-'
+    OnClick = MoveButtonClick
+  end
+  object Default: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 48
+    Width = 23
+    OnClick = MoveButtonClick
+  end
+  object aMinus: TSpeedButton
+    Left = 24
+    Height = 22
+    Top = 192
+    Width = 23
+    Caption = 'a-'
+    OnClick = MoveButtonClick
+  end
+  object bPlus: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 168
+    Width = 23
+    Caption = 'b+'
+    OnClick = MoveButtonClick
+  end
+  object aPlus: TSpeedButton
+    Left = 72
+    Height = 22
+    Top = 192
+    Width = 23
+    Caption = 'a+'
+    OnClick = MoveButtonClick
+  end
+  object bMinus: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 216
+    Width = 23
+    Caption = 'b-'
+    OnClick = MoveButtonClick
+  end
+  object cPlus: TSpeedButton
+    Left = 72
+    Height = 22
+    Top = 168
+    Width = 23
+    Caption = 'c+'
+    OnClick = MoveButtonClick
+  end
+  object cMinus: TSpeedButton
+    Left = 24
+    Height = 22
+    Top = 216
+    Width = 23
+    Caption = 'c-'
+    OnClick = MoveButtonClick
+  end
+  object aPlus1: TSpeedButton
+    Left = 96
+    Height = 22
+    Top = 192
+    Width = 23
+    Caption = 'A+'
+    OnClick = MoveButtonClick
+  end
+  object bPlus1: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 144
+    Width = 23
+    Caption = 'B+'
+    OnClick = MoveButtonClick
+  end
+  object cPlus1: TSpeedButton
+    Left = 96
+    Height = 22
+    Top = 144
+    Width = 23
+    Caption = 'C+'
+    OnClick = MoveButtonClick
+  end
+  object aMinus1: TSpeedButton
+    Left = 0
+    Height = 22
+    Top = 192
+    Width = 23
+    Caption = 'A-'
+    OnClick = MoveButtonClick
+  end
+  object bMinus1: TSpeedButton
+    Left = 48
+    Height = 22
+    Top = 240
+    Width = 23
+    Caption = 'B-'
+    OnClick = MoveButtonClick
+  end
+  object cMinus1: TSpeedButton
+    Left = 0
+    Height = 22
+    Top = 240
+    Width = 23
+    Caption = 'C-'
+    OnClick = MoveButtonClick
+  end
+end

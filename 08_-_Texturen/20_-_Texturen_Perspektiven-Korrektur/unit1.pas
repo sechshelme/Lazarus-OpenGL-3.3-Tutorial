@@ -21,7 +21,7 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
-    Shader_Normal, Shader_Perspek: TShader; // Shader Klasse
+    Shader: TShader; // Shader Klasse
     procedure CreateScene;
     procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
@@ -42,7 +42,7 @@ Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man se
 *)
 //lineal
 const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
+  TrapezeVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
     ((-1.2, -0.8, 0.0), (0.4, 0.8, 0.0), (-0.4, 0.8, 0.0),
     (-1.2, -0.8, 0.0), (1.2, -0.8, 0.0), (0.4, 0.8, 0.0));
 
@@ -50,24 +50,29 @@ const
     ((-1.0, -1.0), (1.0, 1.0), (-1.0, 1.0),
     (-1.0, -1.0), (1.0, -1.0), (1.0, 1.0));
 
-  TexturePerspVertex: array[0..5] of TVector4f =
+  TexturePerspVertex1: array[0..5] of TVector3f =
+    ((-1.2, -0.8, 1.2), (0.4, 0.8, 0.4), (-0.4, 0.8, 0.4),
+    (-1.2, -0.8, 1.2), (1.2, -0.8, 1.2), (0.4, 0.8, 0.4));
+
+  TexturePerspVertex2: array[0..5] of TVector4f =
     ((-1.2, -0.8, 0.0, 1.2), (0.4, 0.8, 0.0, 0.4), (-0.4, 0.8, 0.0, 0.4),
     (-1.2, -0.8, 0.0, 1.2), (1.2, -0.8, 0.0, 1.2), (0.4, 0.8, 0.0, 0.4));
 
 
 type
   TVB = record
-    VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
+    VAO: GLuint;
+    VBO: record
+      Vertex: GLuint;        // Vertex-Koordinaten
+      Textur: array[0..2] of GLuint;   // Textur-Koordianten
+    end;
   end;
 
 var
-  VBO_Quad_Normal, VBO_Quad_Persp: TVB;
-  RotMatrix, ScaleMatrix, ProdMatrix: TMatrix;
+  VBO_Trapeze: TVB;
+  TransMatrix, ScaleMatrix, ProdMatrix: TMatrix;
   Textur: TTexturBuffer;
-  Matrix_Normal_ID, Matrix_Perspek_ID: GLint;
-
+  Matrix_ID, Variante_ID: GLint;
 
 { TForm1 }
 
@@ -87,33 +92,24 @@ end;
 
 procedure TForm1.CreateScene;
 begin
-  glGenVertexArrays(1, @VBO_Quad_Normal.VAO);
-  glGenBuffers(1, @VBO_Quad_Normal.VBOVertex);
-  glGenBuffers(1, @VBO_Quad_Normal.VBOTex);
-
-  glGenVertexArrays(1, @VBO_Quad_Persp.VAO);
-  glGenBuffers(1, @VBO_Quad_Persp.VBOVertex);
-  glGenBuffers(1, @VBO_Quad_Persp.VBOTex);
+  glGenVertexArrays(1, @VBO_Trapeze.VAO);
+  glGenBuffers(4, @VBO_Trapeze.VBO);
 
   Textur := TTexturBuffer.Create;                 // Erzeugen des Textur-Puffer.
 
-  Shader_Normal := TShader.Create([FileToStr('Vertexshader_nor.glsl'), FileToStr('Fragmentshader_nor.glsl')]);
-  with Shader_Normal do begin
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  with Shader do begin
     UseProgram;
-    Matrix_Normal_ID := UniformLocation('mat');
+    Matrix_ID := UniformLocation('mat');
+    Variante_ID := UniformLocation('variante');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
 
-  Shader_Perspek := TShader.Create([FileToStr('Vertexshader_per.glsl'), FileToStr('Fragmentshader_per.glsl')]);
-  with Shader_Perspek do begin
-    UseProgram;
-    Matrix_Perspek_ID := UniformLocation('mat');
-    glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
-  end;
-  RotMatrix := TMatrix.Create;
+  TransMatrix := TMatrix.Create;
   ScaleMatrix := TMatrix.Create;
   ScaleMatrix.Scale(0.4);
   ProdMatrix := TMatrix.Create;
+
 end;
 
 (*
@@ -127,45 +123,41 @@ var
   pic: TPicture;
   i: integer;
 begin
-  pic := TPicture.Create;                     // Picture erzeugen.
-  with pic do begin
-    LoadFromFile('mauer.xpm');                // XPM-Datei laden.
-    Textur.LoadTextures(pic.Bitmap.RawImage); // Bitmap in VRAM laden.
-    Free;                                     // Picture frei geben.
-  end;
-  //code-
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
-  for i := 0 to Length(TextureNormalVertex) - 1 do begin
-    TextureNormalVertex[i].Scale(3.0);
-  end;
-  for i := 0 to Length(TexturePerspVertex) - 1 do begin
-    TexturePerspVertex[i].Scale(3.0);
-  end;
+  glBindVertexArray(VBO_Trapeze.VAO);
 
-  // Normal
-  glBindVertexArray(VBO_Quad_Normal.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_Quad_Normal.VBOVertex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
+  // Vektoren Trapez
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Vertex);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TrapezeVertex), @TrapezeVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_Quad_Normal.VBOTex);
+  // Unkorrigierte Textur-Koordinaten
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[0]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureNormalVertex), @TextureNormalVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 
-  // Perspektive
-  glBindVertexArray(VBO_Quad_Persp.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_Quad_Persp.VBOVertex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  // Perspektivenkorrigiert Variante 1
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[1]);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex1), @TexturePerspVertex1, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(11);
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_Quad_Persp.VBOTex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex), @TexturePerspVertex, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 4, GL_FLOAT, False, 0, nil);
+  // Perspektivenkorrigiert Variante 2
+  glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[2]);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex2), @TexturePerspVertex2, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(12);
+  glVertexAttribPointer(12, 4, GL_FLOAT, False, 0, nil);
+  //code-
+
+  pic := TPicture.Create;                     // Textur laden.
+  with pic do begin
+    LoadFromFile('mauer.xpm');
+    Textur.LoadTextures(pic.Bitmap.RawImage);
+    Free;
+  end;
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -173,25 +165,32 @@ begin
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;  // Textur binden.
 
-  // Zeichne Quadrat
-  Shader_Normal.UseProgram;
-  RotMatrix.Identity;
-  RotMatrix.Translate(-1.2, 0.0, 0.0);
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
-  ProdMatrix.Uniform(Matrix_Normal_ID);
+  // Zeichne Unkorrigiert (Links)
+  Shader.UseProgram;
+  glUniform1i(Variante_ID, 0);
+  TransMatrix.Identity;
+  TransMatrix.Translate(-1.2, 0.0, 0.0);
+  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix.Uniform(Matrix_ID);
 
-  glBindVertexArray(VBO_Quad_Normal.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+  glBindVertexArray(VBO_Trapeze.VAO);
+  glDrawArrays(GL_TRIANGLES, 0, Length(TrapezeVertex));
 
-  // Zeichne Quadrat
-  Shader_Perspek.UseProgram;
-  RotMatrix.Identity;
-  RotMatrix.Translate(1.2, 0.0, 0.0);
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
-  ProdMatrix.Uniform(Matrix_Perspek_ID);
+  // Zeichne korrigiert Variante 1 (Rechts Oben)
+  glUniform1i(Variante_ID, 1);
+  TransMatrix.Identity;
+  TransMatrix.Translate(1.2, 1.0, 0.0);
+  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix.Uniform(Matrix_ID);
+  glDrawArrays(GL_TRIANGLES, 0, Length(TrapezeVertex));
 
-  glBindVertexArray(VBO_Quad_Persp.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+  // Zeichne korrigiert Variante 2 (Rechts Unten)
+  glUniform1i(Variante_ID, 2);
+  TransMatrix.Identity;
+  TransMatrix.Translate(1.2, -1.0, 0.0);
+  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix.Uniform(Matrix_ID);
+  glDrawArrays(GL_TRIANGLES, 0, Length(TrapezeVertex));
 
   ogc.SwapBuffers;
 end;
@@ -200,28 +199,19 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
 
-  glDeleteVertexArrays(1, @VBO_Quad_Normal.VAO);
-  glDeleteBuffers(1, @VBO_Quad_Normal.VBOVertex);
-  glDeleteBuffers(1, @VBO_Quad_Normal.VBOTex);
+  glDeleteVertexArrays(1, @VBO_Trapeze.VAO);
+  glDeleteBuffers(4, @VBO_Trapeze.VBO);
 
-  glDeleteVertexArrays(1, @VBO_Quad_Persp.VAO);
-  glDeleteBuffers(1, @VBO_Quad_Persp.VBOVertex);
-  glDeleteBuffers(1, @VBO_Quad_Persp.VBOTex);
-
-  Textur.Free;                           // Textur-Puffer frei geben.
+  Textur.Free;
   ProdMatrix.Free;
-  RotMatrix.Free;
+  TransMatrix.Free;
   ScaleMatrix.Free;
 
-  Shader_Normal.Free;
-  Shader_Perspek.Free;
+  Shader.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
-const
-  step: GLfloat = 0.01;
 begin
-  //  RotMatrix.RotateC(step);
   ogcDrawScene(Sender);
 end;
 
@@ -229,30 +219,18 @@ end;
 (*
 <b>Vertex-Shader:</b>
 *)
-//includeglsl Vertexshader_nor.glsl
+//includeglsl Vertexshader.glsl
 
 //lineal
 (*
 <b>Fragment-Shader:</b>
 *)
-//includeglsl Fragmentshader_nor.glsl
-
-//lineal
-(*
-<b>Vertex-Shader:</b>
-*)
-//includeglsl Vertexshader_per.glsl
-
-//lineal
-(*
-<b>Fragment-Shader:</b>
-*)
-//includeglsl Fragmentshader_per.glsl
+//includeglsl Fragmentshader.glsl
 
 //lineal
 (*
 <b>mauer.xpm:</b>
 *)
-//includetext mauer.xpm
+//includecpp mauer.xpm
 
 end.

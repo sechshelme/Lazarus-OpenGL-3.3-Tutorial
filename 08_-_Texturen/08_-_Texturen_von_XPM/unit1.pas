@@ -101,7 +101,7 @@ begin
 end;
 
 (*
-Da etwas anderes als <b>BMP</b> gleaden wird, muss anstelle von <b>TBitmap TPicture</b> verwendet werden.
+Da etwas anderes als <b>BMP</b> geladen wird, muss anstelle von <b>TBitmap TPicture</b> verwendet werden.
 
 Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG, P?M, PDS, TGA, TIF, XPM, ICO, CUR, ICNS</b>.
 *)
@@ -187,6 +187,6 @@ end;
 (*
 <b>mauer.xpm:</b>
 *)
-//includetext mauer.xpm
+//includecpp mauer.xpm
 
 end.

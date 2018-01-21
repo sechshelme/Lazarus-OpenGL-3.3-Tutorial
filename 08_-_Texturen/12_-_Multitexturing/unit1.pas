@@ -238,12 +238,12 @@ Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und an
 (*
 <b>mauer.xpm:</b>
 *)
-//includetext mauer.xpm
+//includecpp mauer.xpm
 
 //lineal
 (*
 <b>licht.xpm:</b>
 *)
-//includetext mauer.xpm
+//includecpp licht.xpm
 
 end.

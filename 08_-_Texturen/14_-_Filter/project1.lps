@@ -7,9 +7,8 @@
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos Y="20"/>
+        <CursorPos X="60" Y="21"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -20,8 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="145"/>
-        <CursorPos X="84" Y="170"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="192"/>
+        <CursorPos X="22" Y="260"/>
         <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -60,7 +60,7 @@
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <EditorIndex Value="6"/>
-        <CursorPos X="3" Y="15"/>
+        <CursorPos X="3" Y="12"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
