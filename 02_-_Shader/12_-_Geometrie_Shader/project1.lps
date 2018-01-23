@@ -20,7 +20,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="40"/>
         <CursorPos X="109" Y="40"/>
         <UsageCount Value="26"/>
@@ -38,8 +37,9 @@
       <Unit3>
         <Filename Value="Geometrieshader.glsl"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="17" Y="23"/>
+        <CursorPos Y="31"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
