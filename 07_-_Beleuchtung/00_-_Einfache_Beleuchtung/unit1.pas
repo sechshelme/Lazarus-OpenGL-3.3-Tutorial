@@ -25,7 +25,7 @@ Die Position der <b>Polygone</b> wird mit <b>Matrix</b> modifiziert, da ist eine
 Wen man dies nicht macht, hat man eine falsche Abdunklung auf den schrägen Dreiecken. Die macht sich besonders start bemerkbar bei <b>Punkt</b> und <b>Spot</b>-Licht.
 
 Hier wird die einfachste Variante einer Beleuchtung gezeigt.
-Dazu wird das Kreuzprodukt zwischen der Normalen und der Lichtposition berechnet.
+Dazu wird das Skalarprodukt zwischen der Normalen und der Lichtposition berechnet.
 Dabei werden die Polygone dunkler, je grösser der Winkel. 0°=weiss; 180°schwarz.
 Diese Beleuchtung ist eigentlich nicht üblich, aber immerhin sieht man die Mehses viel besser.
 Aber es zeigt wenigsten, wie das Grundgerüst einer Beleuchtung aussieht.

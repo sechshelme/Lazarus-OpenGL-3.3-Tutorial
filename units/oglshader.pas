@@ -94,24 +94,21 @@ end;
 function FileToStr(Datei: string): ansistring;
 var
   sl: TStringList;
-  size,
-  fh: integer;
+  size: integer;
+  {$IFDEF Darwin} s: string;{$ENDIF}
 begin
   if FileExists(Datei) then begin
-
-    //    fh := FileOpen(Datei, fmOpenRead);
-    //    size := FileSeek(fh, 0, 2);
-    //    SetLength(Result, size);
-    //    FileRead(fh, Result[1], size);
-    //    FileClose(fh);
-
-    //        ShowMessage(IntToStr(Length(Result)));
-
+    {$IFDEF Darwin}
+    if not FileExists(Datei) then begin
+      s := LeftStr(paramstr(0), Pos('.app/', paramstr(0))-1);
+      s := ExtractFilePath(s)+ Datei;
+      if FileExists(s) then Datei := s;
+    end;
+    {$ENDIF}
     sl := TStringList.Create;
     sl.LoadFromFile(Datei);
     Result := sl.Text;
     sl.Free;
-
   end else begin
     WriteLog('FEHLER: Kann Datei ' + Datei + ' nicht finden');
     Result := '';
@@ -269,7 +266,7 @@ begin
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
   SetLength(Str, InfoLogLength + 1);
   glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, @Str[1]);
-//  glGetShaderInfoLog(ShaderObject, InfoLogLength, @InfoLogLength, @Str[1]);
+  //  glGetShaderInfoLog(ShaderObject, InfoLogLength, @InfoLogLength, @Str[1]);
   if ErrorStatus = GL_FALSE then begin
     WriteLog('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ' + AShader + sLineBreak + sLineBreak + Str);
     Halt;
@@ -335,7 +332,7 @@ begin
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(Str, InfoLogLength + 1);
-//    glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
+    //    glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
     WriteLog('SHADER LINK: + str');
     Halt;

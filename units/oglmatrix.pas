@@ -28,6 +28,14 @@ type
   { TVector2fHelper }
 
   TVector2fHelper = Type Helper for TVector2f
+  private
+    function GetX: GLfloat;
+    function GetY: GLfloat;
+    procedure SetX(AValue: GLfloat);
+    procedure SetY(AValue: GLfloat);
+  public
+    property x: GLfloat read GetX write SetX;
+    property y: GLfloat read GetY write SetY;
     procedure Rotate(Winkel: GLfloat);
     procedure Scale(x, y: GLfloat);
     procedure Scale(s: GLfloat);
@@ -251,6 +259,26 @@ begin
 end;
 
 { TVector2fHelper }
+
+function TVector2fHelper.GetX: GLfloat; inline;
+begin
+  Result := Self[0];
+end;
+
+function TVector2fHelper.GetY: GLfloat; inline;
+begin
+  Result := Self[1];
+end;
+
+procedure TVector2fHelper.SetX(AValue: GLfloat); inline;
+begin
+  Self[0] := AValue;
+end;
+
+procedure TVector2fHelper.SetY(AValue: GLfloat); inline;
+begin
+  Self[1] := AValue;
+end;
 
 procedure TVector2fHelper.Rotate(Winkel: GLfloat);
 var

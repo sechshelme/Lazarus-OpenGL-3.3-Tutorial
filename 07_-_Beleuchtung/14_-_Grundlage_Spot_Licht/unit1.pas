@@ -83,7 +83,7 @@ end;
 
 (*
 Entspricht dem <b>dot(vec2)</b> von <b>GLSL</b>.
-Hier wird das Kreuzprodukt aus 2 Vektoren berechnent.
+Hier wird das Skalarprodukt aus 2 Vektoren berechnent.
 <b>arccos(Result)</b>, gibt den Winkel der beiden Vektoren im Bogenmass aus.
 *)
 //code+
@@ -169,7 +169,7 @@ begin
   // Lichtposition Normlisieren.
   lp := normalize(lp);
 
-  // Kreuzprodukt berechen.
+  // Skalarprodukt berechen.
   winkel := dot(lr, lp);
 
   // Prüfen, ob sicher der Pixel im Lichtstrahl befindet.

@@ -55,7 +55,7 @@ Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nu
 *)
 //code+
 var
-  Triangles: array of TVertex2f; // XY-Koordinaten
+  Linies: array of TVertex2f; // XY-Koordinaten
 //code-
 
 type
@@ -106,10 +106,10 @@ const
 var
   i: integer;
 begin
-  SetLength(Triangles, sek);
+  SetLength(Linies, sek);
   for i := 0 to sek - 1 do begin
-    Triangles[i, 0] := sin(Pi * 2 / sek * i) * r;
-    Triangles[i, 1] := cos(Pi * 2 / sek * i) * r;
+    Linies[i, 0] := sin(Pi * 2 / sek * i) * r;
+    Linies[i, 1] := cos(Pi * 2 / sek * i) * r;
   end;
 end;
 
@@ -126,7 +126,7 @@ begin
   // Daten für GL_TRIANGLE
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Triangles), Pointer(Triangles), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Linies), Pointer(Linies), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 end;
@@ -156,28 +156,28 @@ begin
   glUniform3f(Color_ID, 1.0, 1.0, 0.0) ; // Gelb
   glUniform1f(X_ID, -ofs);               // links-
   glUniform1f(Y_ID, -ofs);               // unten
-  glDrawArrays(GL_LINES, 0, Length(Triangles));
+  glDrawArrays(GL_LINES, 0, Length(Linies));
 
   // Zeichne GL_LINE_STRIP
   glLineWidth(1);                        // Linie 1 Pixel breit.
   glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Rot
   glUniform1f(X_ID, ofs);                // rechts-
   glUniform1f(Y_ID, -ofs);               // unten
-  glDrawArrays(GL_LINE_STRIP, 0, Length(Triangles));
+  glDrawArrays(GL_LINE_STRIP, 0, Length(Linies));
 
   // Zeichne GL_LINE_LOOP
   glLineWidth(6);                        // Linie 6 Pixel breit.
   glUniform3f(Color_ID, 0.0, 1.0, 0.0);  // Grün
   glUniform1f(X_ID, ofs);                // rechts-
   glUniform1f(Y_ID, ofs);                // oben
-  glDrawArrays(GL_LINE_LOOP, 0, Length(Triangles));
+  glDrawArrays(GL_LINE_LOOP, 0, Length(Linies));
 
   // Zeichne GL_POINTS
   glPointSize(5);                        // Punkte Durchmesser 5 Pixel.
   glUniform3f(Color_ID, 0.0, 0.0, 1.0);  // Blau
   glUniform1f(X_ID, -ofs);               // links-
   glUniform1f(Y_ID, ofs);                // oben
-  glDrawArrays(GL_POINTS, 0, Length(Triangles));
+  glDrawArrays(GL_POINTS, 0, Length(Linies));
   //code-
 
   ogc.SwapBuffers;

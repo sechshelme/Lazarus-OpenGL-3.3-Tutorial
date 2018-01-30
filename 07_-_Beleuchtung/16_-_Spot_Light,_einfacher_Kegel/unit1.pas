@@ -337,7 +337,7 @@ Der wichtigste Parameter ist der Ausstrahlwinkel der Lichtes.
 Man muss beachten, das der Winkel doppelt so gross wird. Somit hat Pi/2 einen Austrahlwinkel von 180°.
 1*Pi entpräche einem Ausstrahlwinkel von 380°, somit bekommt man ein Punkt-Licht.
 
-Für die Berechnung des Kegels wird ein Kreuzprodukt verwendet.
+Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.
 *)
 //includeglsl Fragmentshader.glsl
 

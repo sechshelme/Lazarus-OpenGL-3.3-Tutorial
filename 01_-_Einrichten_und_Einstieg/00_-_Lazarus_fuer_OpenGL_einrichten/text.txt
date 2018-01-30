@@ -27,8 +27,17 @@ Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Buffer, etc. 
 *)
 //lineal
 (*
+<b>Voraussetzung:</b><br>
+* FPC 3.0.2 oder höher.
+* Lazarus 1.6.4 oder höher.
+* Mindestens OpenGL 3.3 fähige Grafikkarte.
+* Grundkenntnisse mit FPC und Lazarus.
+
+Wen die Grafikkarte zu alt ist, gibt es trozdem eine Lösung. Mit Mesa 17.1 ist es möglich im Software-Renderer OpenGL zu emulieren.
+Dies ist gähnend langsam, aber für die ersten Gehversuche im zutorial reicht dies. ( Getestet mit Linux Mint 18.x )
+
 <b>Installation:</b><br>
-Das alles einwandfrei läuft, ist mindestens FPC 3.0.2 und Lazarus 1.6.4 erforderlich.
+FPC und Lazarus installieren.
 
 Bei Lazarus muss unter <i><b>Package/Installierte Packages einrichten.../Verfügbar für Installation</b></i>, zuerst das Package <i><b>LazOpenGLContext x.x.x</b></i> installiert werden.
 
@@ -44,7 +53,6 @@ Somit sollten alle Beispiele kompilierbar sein.
 Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
 Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
 
-Das Tutorial setzt Grundkentnisse von Lazarus voraus.
 Wen man weis, wie man mit Delphi einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
 
 Wenn Fehler gefunden werden, dann bitte hier melden:
