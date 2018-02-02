@@ -107,7 +107,7 @@ procedure TForm1.CreateScene;
 begin
   glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
   glDepthFunc(GL_LESS);     // Kann man weglassen, da default.
-//code-
+  //code-
 
   WorldMatrix := TMatrix.Create;
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);

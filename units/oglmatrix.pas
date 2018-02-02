@@ -39,16 +39,27 @@ type
     procedure Rotate(Winkel: GLfloat);
     procedure Scale(x, y: GLfloat);
     procedure Scale(s: GLfloat);
+    procedure NormalCut;
+    procedure Negate;
   end;
 
   { TVector3fHelper }
 
   TVector3fHelper = Type Helper for TVector3f
   private
+    function GetX: GLfloat;
     function Getxy: TVector2f;
+    function GetY: GLfloat;
+    function GetZ: GLfloat;
+    procedure SetX(AValue: GLfloat);
     procedure SetXY(AValue: TVector2f);
+    procedure SetY(AValue: GLfloat);
+    procedure SetZ(AValue: GLfloat);
   public
     property xy: TVector2f read GetXY write SetXY;
+    property x: GLfloat read GetX write SetX;
+    property y: GLfloat read GetY write SetY;
+    property z: GLfloat read GetZ write SetZ;
 
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
@@ -174,7 +185,7 @@ end;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
 
-    function GetNormal(P0, P1, P2: TVector3f): TVector3f;
+    function GetCrossProduct(P0, P1, P2: TVector3f): TVector3f;
     var
       a, b: TVector3f;
       i: Integer;
@@ -200,7 +211,7 @@ begin
     Exit;
   end;
   for i := 0 to Length(Face) - 1 do begin
-    v := GetNormal(Face[i, 0], Face[i, 1], Face[i, 2]);
+    v := GetCrossProduct(Face[i, 0], Face[i, 1], Face[i, 2]);
     Normal[i, 0] := v;
     Normal[i, 1] := v;
     Normal[i, 2] := v;
@@ -303,8 +314,58 @@ begin
   Scale(s, s);
 end;
 
+procedure TVector2fHelper.NormalCut;
+var
+  i: Integer;
+  l: GLfloat;
+begin
+  l := Sqrt(Sqr(Self[0]) + Sqr(Self[1]));
+  if l = 0 then begin
+    l := 1.0;
+  end;
+  for i := 0 to 1 do begin
+    Self[i] := Self[i] / l;
+  end;
+end;
+
+procedure TVector2fHelper.Negate; inline;
+begin
+  Self[0] *= (-1);
+  Self[1] *= (-1);
+end;
+
 
 { TVector3fHelper }
+
+function TVector3fHelper.GetX: GLfloat; inline;
+begin
+  Result := Self[0];
+end;
+
+function TVector3fHelper.GetY: GLfloat; inline;
+begin
+  Result := Self[1];
+end;
+
+function TVector3fHelper.GetZ: GLfloat; inline;
+begin
+  Result := Self[2];
+end;
+
+procedure TVector3fHelper.SetX(AValue: GLfloat); inline;
+begin
+  Self[0] := AValue;
+end;
+
+procedure TVector3fHelper.SetY(AValue: GLfloat); inline;
+begin
+  Self[1] := AValue;
+end;
+
+procedure TVector3fHelper.SetZ(AValue: GLfloat); inline;
+begin
+  Self[2] := AValue;
+end;
 
 function TVector3fHelper.Getxy: TVector2f; inline;
 begin

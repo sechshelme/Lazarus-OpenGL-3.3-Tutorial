@@ -68,12 +68,15 @@ begin
     Linies[i, 1] := cos(Pi * 2 / Sektoren * i) * r * i;
   end;
 
-  //Randomize;
-  //SetLength(Linies, Sektoren);
-  //for i := 0 to Sektoren - 1 do begin
-  //  Linies[i, 0] := -1.0 + 1.0 / Sektoren * i * 2;
-  //  Linies[i, 1] := -1.0 + Random * 2;
-  //end;
+  Randomize;
+  SetLength(Linies, Sektoren);
+  for i := 0 to Sektoren - 1 do begin
+    Linies[i, 0] := -1.0 + 1.0 / Sektoren * i * 2;
+    Linies[i, 1] := -1.0 + Random * 2;
+  end;
+  Linies[8]:=vec2(0.4,0.3);
+  Linies[9]:=vec2(0.4,-0.3);
+  exit;
 
   SetLength(Linies, 9);
   Linies[0] := vec2(0.0, 0.0);
