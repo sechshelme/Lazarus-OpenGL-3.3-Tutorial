@@ -1,0 +1,4 @@
+"Hintergrund-Beleuchtung"
+
+Ein Restlicht ist (fast) immer vorhanden.
+

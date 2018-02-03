@@ -1,0 +1,3 @@
+"Eine Glühbirne"
+
+Das Licht strahlt alles von einem Punkt aus in alle Richtungen.

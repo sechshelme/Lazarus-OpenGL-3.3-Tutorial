@@ -13,7 +13,8 @@ uses
 //image image.png
 (*
 Das Directional-Light entspricht in etwa dem Sonnen-Licht, die Lichtstrahlen kommen alle von der gleichen Richtung.
-Im Beispiel hier von Rechts.
+Im Grunde ist die Sonne auch ein Punktlicht, aber auf der Erde nimmt man es als Directional-Light war.
+Im Beispiel von Rechts.
 
 Im ersten Beispiel wurde die Beleuchung mit Acos und Pi berechnet.
 Dieser Umweg kann man sich sparen, es gibt zwar so ein kleiner Rechnungsfehler, aber diesen kann man getrost ingnorieren.

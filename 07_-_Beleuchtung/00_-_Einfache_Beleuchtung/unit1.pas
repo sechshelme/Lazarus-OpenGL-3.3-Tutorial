@@ -32,7 +32,7 @@ Aber es zeigt wenigsten, wie das Grundgerüst einer Beleuchtung aussieht.
 
 Die gebräuchlichsten Lichvarianten von OpenGL:
 * <b>Ambient-Light</b> - Einfache Raumausleuchtung, alles ist gleich Hell.
-* <b>Directional-Light</b> - Das Licht kommt alles aus gleicher Richtung, so wie das Sonnenlicht.
+* <b>Directional-Light</b> - Das Licht kommt alles aus gleicher Richtung, so wie das Sonnenlicht auf Erde.
 * <b>Point-Light</b> - Das Licht wird von einem Punkt ausgestrahlt, so wie bei einer Glühbirne.
 * <b>Spot-Light</b> - Das Lich hat einen Kegel, so wie wen es aus einer Taschenlampe kommt.
 

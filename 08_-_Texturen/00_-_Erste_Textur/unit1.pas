@@ -172,7 +172,7 @@ begin
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 //  glGenerateMipmap(GL_TEXTURE_2D);
 
-  // Am Schluss kann man die Texur entbinden, dies ist aber nicht zwingend.
+  // Am Schluss kann man die Tetxur entbinden, dies ist aber nicht zwingend.
   glBindTexture(GL_TEXTURE_2D, 0);
   //code-
 

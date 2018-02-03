@@ -1,0 +1,3 @@
+"Eine Taschenlampe" (ohne OpenGL)
+
+Dies zeigt die Grundlage der Berechnung eines Lichtstrahles einer Taschnelampe.
