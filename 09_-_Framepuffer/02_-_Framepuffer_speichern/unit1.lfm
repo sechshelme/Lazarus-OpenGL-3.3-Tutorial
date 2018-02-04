@@ -1,14 +1,14 @@
 object Form1: TForm1
   Left = 399
   Height = 545
-  Top = 502
+  Top = 233
   Width = 773
   Caption = 'Form1'
   ClientHeight = 545
   ClientWidth = 773
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.0.6'
+  LCLVersion = '1.9.0.0'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26

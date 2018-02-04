@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader, oglMatrix;
 
 //image image.png
@@ -191,13 +195,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertex), @CubeVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBONormal);
   glBufferData(GL_ARRAY_BUFFER, sizeof(CubeNormal), @CubeNormal, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
 end;
 //code-

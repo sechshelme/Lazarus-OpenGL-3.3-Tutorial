@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader;
 
 //image image.png
@@ -124,13 +128,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil); // Der zweite Wert ist eine 2 für 2D.
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil); // Der zweite Wert ist eine 2 für 2D.
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);                         // Der zweite Wert ist eine 1 für eine Farbe (Rot).
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, 0, nil);
   //code-
 
   // --- Daten für Quadrat
@@ -140,13 +144,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

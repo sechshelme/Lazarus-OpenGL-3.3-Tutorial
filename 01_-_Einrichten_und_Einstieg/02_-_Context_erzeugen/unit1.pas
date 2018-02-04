@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -8,8 +8,11 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs,
   OpenGLContext,
+  {$IFDEF COREGL}
+  glcorearb;
+  {$ELSE}
   dglOpenGL;
-
+  {$ENDIF}
 //image image.png
 
 (*
@@ -61,10 +64,16 @@ begin
     OpenGLMajorVersion := 3;          // Dies ist wichtig, dass der Context 3.3 verwendet wird.
     OpenGLMinorVersion := 3;
     OnPaint := @DrawScene;
+    {$IFDEF COREGL}
+    MakeCurrent;
+    if not Load_GL_VERSION_3_3_CORE then
+       showmessage('Unable to load OpenGL 3.3 Core');
+    {$ELSE}
     InitOpenGL;
     MakeCurrent;
     ReadExtensions;
     ReadImplementationProperties;
+    {$ENDIF}
   end;
   InitScene;                          // Rendert die Szene
 end;

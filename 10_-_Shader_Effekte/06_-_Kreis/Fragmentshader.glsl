@@ -1,3 +1,4 @@
+#version 330
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -8,13 +9,14 @@ uniform float time;
 uniform vec2 mouse;
 uniform vec2 resolution;
 
+out vec4 fragColor;
+
 vec3 lightDir = normalize(vec3(sin(time * 1.5), 2.0, cos(time * 0.5)));
 
 mat3 camera(vec3 ro, vec3 ta, vec3 up) {
 	vec3 nz = normalize(ta - ro);
 	vec3 nx = cross(nz, normalize(up));
 	vec3 ny = cross(nx, nz);
-
 	return mat3(nx, ny, nz);
 }
 
@@ -31,13 +33,10 @@ float torus(vec3 p, vec2 t) {
 }
 
 vec4 scene(vec3 p) {
-
 	vec3 check = sin(p.x * 5.0) * sin(p.z * 5.0) > 0.0 ? vec3(0.7) : vec3(0.0);
-
 	vec4 resP = vec4(check, plane(p - vec3(0.0, -1.0, 0.0)));
 	vec4 resS = vec4(vec3(0.5, 0.1, 0.1), sphere(p - vec3(sin(time) * 2., cos(time) * 2. + 2.0, 0.0), 1.0));
 	vec4 resT = vec4(vec3(0.1, 0.4, 0.5), torus(p - vec3(-2.0, 2.0, 0.0), vec2(2.0, 0.5)));
-
 	vec4 res = resP.w < resS.w ? resP : resS;
 	res = res.w < resT.w ? res : resT;
 
@@ -126,7 +125,7 @@ void main( void ) {
 	vec3 rd = camera(ro, ta, vec3(0.0, 1.0, 0.0)) * normalize(vec3(p.xy, 2.0));
 
 	vec3 col = render(ro, rd);
-
-	gl_FragColor = vec4(col, 1.0);
+        fragColor = vec4(col, 1.0);
+	//CR: gl_FragColor does not exist in Core OpenGL : use our "out" variable
 
 }

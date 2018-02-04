@@ -4,9 +4,14 @@ unit oglVAO;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   SysUtils, Dialogs,
-  dglOpenGL,
   oglMatrix,
   oglShader, oglLightingShader,
   oglCamera, oglVBO;

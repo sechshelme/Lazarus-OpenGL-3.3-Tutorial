@@ -4,13 +4,14 @@
 
 unit ogl_Package;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  oglLighting, dglOpenGL, oglShader, oglTexturVAO, oglWaveFrontOBJ, 
-  oglFontTextur, oglBackground, oglTexturKoerper, oglUnit, oglTextur, oglVAO, 
-  oglColorKoerper, oglLinesVAO, oglVBO, oglDarstellung, oglKoerper, oglCamera, 
-  oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext, 
+  oglLighting, oglShader, oglTexturVAO, oglWaveFrontOBJ,
+  oglFontTextur, oglBackground, oglTexturKoerper, oglUnit, oglTextur, oglVAO,
+  oglColorKoerper, oglLinesVAO, oglVBO, oglDarstellung, oglKoerper, oglCamera,
+  oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext,
   LazarusPackageIntf;
 
 implementation

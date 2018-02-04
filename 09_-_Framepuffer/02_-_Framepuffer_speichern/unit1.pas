@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader, oglMatrix;
 
 type
@@ -169,8 +173,15 @@ begin
     Bitmap.Width := TexturSize;
     Bitmap.Height := TexturSize;
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    glReadPixels(0, 0, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
-
+ {$IFDEF Darwin} //http://lists.apple.com/archives/mac-opengl/2006/Nov/msg00196.html
+ glReadPixels(0, 0,  TexturSize, TexturSize, $80E1, $8035, Bitmap.RawImage.Data); //OSX-Darwin   GL_BGRA = $80E1;  GL_UNSIGNED_INT_8_8_8_8_EXT = $8035;
+ {$ELSE}
+  {$IFDEF Linux}
+    glReadPixels(0, 0,  TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data); //Linux-Windows   GL_RGBA = $1908; GL_UNSIGNED_BYTE
+  {$ELSE}
+   glReadPixels(0, 0,  TexturSize, TexturSize, $80E1, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data); //Linux-Windows   GL_RGBA = $1908; GL_UNSIGNED_BYTE
+  {$ENDIF}
+ {$ENDIF}
     SaveToFile('test.png');
   end;
   Picture.Free;
@@ -240,13 +251,13 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Farben
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
   end;
 
   // --- Würfel
@@ -257,13 +268,13 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertex), @CubeVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Texturkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTextureVertex), @CubeTextureVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(10);
-    glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
   end;
   //code-
 (*

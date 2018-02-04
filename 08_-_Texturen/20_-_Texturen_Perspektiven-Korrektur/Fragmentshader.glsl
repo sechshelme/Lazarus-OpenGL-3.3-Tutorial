@@ -24,6 +24,7 @@ void main()
             break;
 
     // Korrigiert Variante 2
-    case 2: FragColor = texture2DProj( Sampler, DataIn.UV2 );
+    case 2: FragColor = textureProj( Sampler, DataIn.UV2 );
+    //CR: texture2DProj does not exist in Core specification: use textureProj
   }
 }

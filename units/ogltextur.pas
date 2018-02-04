@@ -1,13 +1,16 @@
 unit oglTextur;
-
+{$include opts.inc}
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, TypInfo, Graphics, IntfGraphics, GraphType, Dialogs,
+  {$IFDEF COREGL}
+  glcorearb;
+{$ELSE}
   dglOpenGL;
-//  MyLogForms;
+  {$ENDIF}
 
 type
 
@@ -90,7 +93,9 @@ const
 
     // 8Bit 256 Graustufen
     (Description: (Bits: 8; RPrec: 8; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
-    GLformat: (InternalFormat: GL_Luminance; Format: GL_Luminance; DataFormat: GL_UNSIGNED_BYTE)),
+    GLformat: (InternalFormat: GL_ALPHA; Format: GL_ALPHA; DataFormat: GL_UNSIGNED_BYTE)),
+     //GLformat: (InternalFormat: GL_Luminance; Format: GL_Luminance; DataFormat: GL_UNSIGNED_BYTE)),
+
 
     //// 1Bit Monochrom      geht nicht
     //(Description: (Bits: 1; RPrec: 1; RShift: 0; GPrec: 1; GShift: 0; BPrec: 1; BShift: 0; APrec: 0; AShift: 0);

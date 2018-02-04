@@ -2,9 +2,9 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="45">
+    <Units Count="44">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -19,6 +19,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
+        <IsVisibleTab Value="True"/>
         <WindowIndex Value="1"/>
         <TopLine Value="38"/>
         <CursorPos X="20" Y="90"/>
@@ -43,7 +44,7 @@
         <CursorPos X="24" Y="5"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit3>
       <Unit4>
         <Filename Value="quad.frag"/>
@@ -53,7 +54,7 @@
         <CursorPos X="13" Y="3"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit4>
       <Unit5>
         <Filename Value="cube.vert"/>
@@ -63,18 +64,17 @@
         <CursorPos X="34" Y="15"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="cube.frag"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="1"/>
         <CursorPos Y="27"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="out_images.pas"/>
@@ -91,8 +91,8 @@
         <Filename Value="Cube.glsl"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
-        <CursorPos X="122" Y="28"/>
-        <UsageCount Value="23"/>
+        <CursorPos Y="16"/>
+        <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit8>
       <Unit9>
@@ -285,14 +285,6 @@
         <UsageCount Value="11"/>
       </Unit39>
       <Unit40>
-        <Filename Value="cube.glsl"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="1"/>
-        <CursorPos Y="16"/>
-        <UsageCount Value="12"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
-      </Unit40>
-      <Unit41>
         <Filename Value="..\..\..\..\usr\share\lazarus\1.9.0.56483\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
         <EditorIndex Value="-1"/>
@@ -300,31 +292,31 @@
         <TopLine Value="229"/>
         <CursorPos Y="247"/>
         <UsageCount Value="10"/>
-      </Unit41>
-      <Unit42>
+      </Unit40>
+      <Unit41>
         <Filename Value="..\..\..\..\usr\share\lazarus\1.9.0.56483\lcl\include\picture.inc"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <TopLine Value="713"/>
         <CursorPos X="103" Y="740"/>
         <UsageCount Value="10"/>
-      </Unit42>
-      <Unit43>
+      </Unit41>
+      <Unit42>
         <Filename Value="..\..\..\Units\Packages\bgrabitmap\bgracustombitmap.inc"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <TopLine Value="1188"/>
         <CursorPos X="3" Y="1205"/>
         <UsageCount Value="10"/>
-      </Unit43>
-      <Unit44>
+      </Unit42>
+      <Unit43>
         <Filename Value="..\..\..\Units\MyPackages\OpenGL\dglOpenGL.pas"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <TopLine Value="1027"/>
         <CursorPos X="3" Y="1059"/>
         <UsageCount Value="10"/>
-      </Unit44>
+      </Unit43>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
@@ -448,5 +440,9 @@
         <Caret Line="311" Column="64" TopLine="248"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

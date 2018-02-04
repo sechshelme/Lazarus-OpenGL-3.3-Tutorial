@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader;
 
 //image image.png
@@ -136,13 +140,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 24, nil);  // nil = Pointer(0)
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 24, nil);  // nil = Pointer(0)
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 24, Pointer(12));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 24, Pointer(12));
 
   // --- Daten für Quadrat
   glBindVertexArray(VBQuad1.VAO);
@@ -151,18 +155,18 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, Pointer(72));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, Pointer(72));
 end;
 //code-
 
 (*
-Das Zeichnen ist gleich, wie wen man seperate Datenblöcke hätte. 
+Das Zeichnen ist gleich, wie wen man seperate Datenblöcke hätte.
 Es wurde das <b>Length(...</b> entfernt, da die einte Array zwei und die andere vier Elemente hat.
 Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.
 *)

@@ -4,9 +4,14 @@ unit oglUBO;
 
 interface       // Auchtung fehlerhaft !
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   Classes, SysUtils, Dialogs,
-  dglOpenGL,
 //  oglShader, MyLogForms;
 oglShader;
 

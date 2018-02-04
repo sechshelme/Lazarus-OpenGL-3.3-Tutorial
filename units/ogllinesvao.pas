@@ -4,9 +4,14 @@ unit oglLinesVAO;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   Classes, SysUtils,
-  dglOpenGL,
   oglShader, oglMatrix, oglVBO, oglVAO;
 
 type

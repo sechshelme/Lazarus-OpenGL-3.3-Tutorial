@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader, oglMatrix;
 
 type
@@ -139,12 +143,12 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

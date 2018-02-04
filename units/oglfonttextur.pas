@@ -4,13 +4,19 @@ unit oglFontTextur;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   Classes,
   SysUtils, TypInfo, LCLType, LazUTF8,LConvEncoding,
   Graphics, IntfGraphics, GraphType,
   Dialogs,
   oglVAO,
-  dglOpenGL, BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
+  BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
   oglShader, oglLightingShader,
   oglMatrix, oglVBO, oglTextur;
 

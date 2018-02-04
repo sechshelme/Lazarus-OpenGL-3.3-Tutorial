@@ -4,8 +4,14 @@ unit oglWaveFrontOBJ;
 
 interface
 
+{$include opts.inc}
 uses
-  Classes, SysUtils, Forms, Dialogs, dglOpenGL, oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
+  Classes, SysUtils, Forms, Dialogs,  oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
 
 type
 

@@ -4,8 +4,14 @@ unit oglColorKoerper;
 
 interface
 
+{$include opts.inc}
 uses
-  Dialogs, oglVAO, oglMatrix, dglOpenGL, oglShader,oglLightingShader, oglVBO;
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
+  Dialogs, oglVAO, oglMatrix,oglShader,oglLightingShader, oglVBO;
 
 type
 

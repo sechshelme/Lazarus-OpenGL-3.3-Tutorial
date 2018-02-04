@@ -10,5 +10,6 @@ out vec4 FragColor;
 void main()
 {
 //  FragColor = texture( Sampler, UV0 );
-  FragColor = texture2DProj( Sampler, UV0 );
+  FragColor = textureProj( Sampler, UV0 );
+//CR: texture2DProj does not exist in Core specification: use textureProj
 }

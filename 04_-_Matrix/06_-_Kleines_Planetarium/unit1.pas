@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   oglContext, oglShader, oglMatrix;
 
 type
@@ -144,13 +148,13 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBOvert);
     glBufferData(GL_ARRAY_BUFFER, sizeof(TFace3D) * size, Pointer(Vector), GL_STATIC_DRAW);
     glEnableVertexAttribArray(10);
-    glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Farbe
     glBindBuffer(GL_ARRAY_BUFFER, VBOcol);
     glBufferData(GL_ARRAY_BUFFER, sizeof(TFace3D) * size, Pointer(Color), GL_STATIC_DRAW);
     glEnableVertexAttribArray(11);
-    glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, nil);
   end;
 end;
 

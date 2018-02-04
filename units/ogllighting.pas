@@ -4,10 +4,15 @@ unit oglLighting;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   LCL, LCLType, SysUtils, Controls,
   Forms, StdCtrls, ExtCtrls, Buttons,
-  dglOpenGL,
   oglMatrix, oglVAO;
 
 type

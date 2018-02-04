@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
     <Units Count="12">
       <Unit0>
@@ -20,7 +20,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="163"/>
         <CursorPos X="31" Y="201"/>
         <UsageCount Value="38"/>
@@ -56,15 +55,16 @@
         <CursorPos X="84" Y="17"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="50" Y="13"/>
+        <CursorPos X="22" Y="13"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -225,5 +225,9 @@
         <Caret Line="198" Column="15" TopLine="151"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

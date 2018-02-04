@@ -4,10 +4,15 @@ unit oglUnit;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   Classes, Graphics, SysUtils, Controls, Dialogs, Forms,
   OpenGLContext,
-  dglOpenGL,
   oglMatrix, oglTextur,
   oglCamera, oglVAO, oglSteuerung;
 
@@ -190,11 +195,15 @@ begin
 
     OnMouseWheel := @MyMouseWheel;
     OnMouseMove := @MyMouseMove;
-
+    {$IFDEF COREGL}
+    MakeCurrent;
+    Load_GL_VERSION_3_3_CORE;
+    {$ELSE}
     InitOpenGL;
     MakeCurrent;
     ReadExtensions;
     ReadImplementationProperties;
+    {$ENDIF}
   end;
 
   TCameraSteuerung.Camera := Camera;

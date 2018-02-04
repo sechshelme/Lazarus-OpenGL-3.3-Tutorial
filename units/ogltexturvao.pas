@@ -4,9 +4,14 @@ unit oglTexturVAO;
 
 interface
 
+{$include opts.inc}
 uses
+{$IFDEF COREGL}
+glcorearb,
+{$ELSE}
+dglOpenGL,
+{$ENDIF}
   Classes, SysUtils, Dialogs,
-  dglOpenGL,
   oglMatrix, oglShader, oglLightingShader, oglTextur, oglVBO, oglVAO;
 
 type

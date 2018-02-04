@@ -9,6 +9,7 @@ vec2 uv;
 uniform float time;
 uniform vec2 resolution;
 
+out vec4 fragColor;
 const vec2 ch_size  = vec2(1.0, 2.0);              // character size (X,Y)
 const vec2 ch_space = ch_size + vec2(1.0, 1.0);    // character distance Vector(X,Y)
 const vec2 ch_start = vec2 (ch_space.x * -6., 2.); // start position
@@ -151,5 +152,7 @@ void main( void )
         S P A S S
 
 	vec3 color = mix(ch_color, bg_color, 1.0- (0.08 / d));  // shading
-	gl_FragColor = vec4(color, 1.0);
+        fragColor = vec4(color, 1.0);
+        //gl_FragColor = vec4(color, 1.0);
+        //CR: gl_FragColor does not exist in Core OpenGL: use our out variable
 }
