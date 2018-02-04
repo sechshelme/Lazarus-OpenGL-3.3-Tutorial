@@ -1,7 +1,7 @@
 object Form1: TForm1
   Left = 809
   Height = 272
-  Top = 0
+  Top = 23
   Width = 439
   Caption = 'Form1'
   OnCreate = FormCreate
@@ -11,7 +11,7 @@ object Form1: TForm1
     Enabled = False
     Interval = 20
     OnTimer = Timer1Timer
-    Left = 176
-    Top = 107
+    left = 176
+    top = 107
   end
 end

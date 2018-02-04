@@ -1,12 +1,18 @@
 unit oglMatrix;
-
+{$include opts.inc}
 {$mode objfpc}{$H+}
 {$modeswitch typehelpers}
 
 interface
 
 uses
-  SysUtils, Forms, Dialogs, Clipbrd, dglOpenGL;
+  SysUtils, Forms, Dialogs, Clipbrd,
+  {$IFDEF COREGL}
+  glcorearb
+  {$ELSE}
+  dglOpenGL
+  {$ENDIF}
+  ;
 
 type
   TglFloatArray = array of glFloat;
@@ -653,7 +659,7 @@ end;
 
 procedure TMatrix2D.Uniform(ShaderID: GLint);
 begin
-  glUniformMatrix3fv(ShaderID, 1, False, @FMatrix);
+  glUniformMatrix3fv(ShaderID, 1, GL_FALSE, @FMatrix);
 end;
 
 function TMatrix2D.Vektor_Multi(Vector: TVector3f): TVector3f;
@@ -911,7 +917,7 @@ end;
 
 procedure TMatrix.Uniform(ShaderID: GLint);
 begin
-  glUniformMatrix4fv(ShaderID, 1, False, @FMatrix);
+  glUniformMatrix4fv(ShaderID, 1, GL_FALSE, @FMatrix);
 end;
 
 

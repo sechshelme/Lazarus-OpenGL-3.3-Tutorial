@@ -1,5 +1,5 @@
 unit Unit1;
-
+{$include ..\..\units\opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -7,7 +7,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
+  {$IFDEF COREGL}
+  glcorearb,
+  {$ELSE}
   dglOpenGL,
+  {$ENDIF}
   oglContext, oglShader;
 
 type
@@ -136,14 +140,14 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Triangles), Pointer(Triangles), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_False, 0, nil);
 
   // Daten für GL_TRIANGLE
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO_Size);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(TrianglesSize), Pointer(TrianglesSize), GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_False, 0, nil);
 
 end;
 //code-

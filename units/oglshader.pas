@@ -1,5 +1,5 @@
 unit oglShader;
-
+{$include opts.inc}
 {$mode objfpc}{$H+}
 
 interface
@@ -9,7 +9,11 @@ uses
   Dialogs,
   SysUtils,
   //  MyLogForms, MyMessages,
+  {$IFDEF COREGL}
+  glcorearb,
+  {$ELSE}
   dglOpenGL,
+  {$ENDIF}
   Types, Graphics, LResources;
 
 type
@@ -209,9 +213,13 @@ end;
 
 procedure InitOpenGLDebug;
 begin
+  {$IFDEF COREGL}
+
+  {$ELSE}
   glEnable(GL_DEBUG_OUTPUT);
   glDebugMessageCallback(@GLDebugCallBack, nil);
   glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nil, True);
+  {$ENDIF}
 end;
 
 // --- Debuger Ende ---
@@ -249,8 +257,11 @@ var
   ShaderObject: GLhandle;
   Str: ansistring;
   l: GLint;
-
+  {$IFDEF COREGL}
+  ErrorStatus: GLint;
+  {$ELSE}
   ErrorStatus: boolean;
+  {$ENDIF}
   InfoLogLength: GLsizei;
 begin
   ShaderObject := glCreateShader(shaderType);
@@ -282,8 +293,11 @@ constructor TShader.Create(const AShader: array of ansistring);
 var
   sa: TStringArray;
   i: integer;
-
+  {$IFDEF COREGL}
+  ErrorStatus: GLInt;
+  {$ELSE}
   ErrorStatus: boolean;
+  {$ENDIF}
   InfoLogLength: GLsizei;
 
   Str: ansistring;
@@ -318,7 +332,11 @@ begin
     end;
     3: begin
       LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+      {$IFDEF COREGL}
+      LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
+      {$ELSE}
       LoadShaderObject(sa[1], GL_GEOMETRY_SHADER_EXT);
+      {$ENDIF}
       LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
     end;
   end;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
     <Units Count="15">
       <Unit0>
@@ -20,8 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="72"/>
-        <CursorPos X="29" Y="188"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="134"/>
+        <CursorPos X="45" Y="150"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -51,12 +52,11 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <CursorPos X="41" Y="14"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
@@ -64,7 +64,7 @@
         <CursorPos X="8" Y="10"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -124,7 +124,7 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit14>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="54" Column="24" TopLine="22"/>
@@ -241,6 +241,14 @@
         <Filename Value="../../units/oglshader.pas"/>
         <Caret Line="90" Column="19" TopLine="57"/>
       </Position29>
+      <Position30>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="14" Column="11"/>
+      </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>
