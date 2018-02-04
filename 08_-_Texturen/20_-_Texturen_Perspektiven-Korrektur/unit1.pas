@@ -38,33 +38,39 @@ implementation
 //image image.png
 
 (*
-Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man sehr schnell eine einfache Textur mit einem Text-Editor erstellen.
+Stellt man eine Textur auf einem Trapez dar, gibt es unschöne Verzerrungen, das sieht man beim Trapez Links gut.
+Die beiden Trapeze Rechts sind korrigiert, auf 2 verschiedene Varianten. Der Unterschied sieht man im Shader.
 *)
 //lineal
+(*
+Es hat eine 2. Variante für die Textur-Koordinaten gegeben, welche einen Wert für eine Perspektivenkorrektur hat.
+Diese enthält einen Korrekturwert für die Perspektive.
+*)
+//code+
 const
-  TrapezeVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
+  // Koordinaten für Trapez.
+  TrapezeVertex: array[0..5] of TVector3f =
     ((-1.2, -0.8, 0.0), (0.4, 0.8, 0.0), (-0.4, 0.8, 0.0),
     (-1.2, -0.8, 0.0), (1.2, -0.8, 0.0), (0.4, 0.8, 0.0));
 
+  // Normale unkorrigierte Textur-Koordinaten.
   TextureNormalVertex: array[0..5] of TVector2f =
     ((-1.0, -1.0), (1.0, 1.0), (-1.0, 1.0),
     (-1.0, -1.0), (1.0, -1.0), (1.0, 1.0));
 
+  // Textur-Koordinaten mit Perspektivenkorrektur.
   TexturePerspVertex1: array[0..5] of TVector3f =
     ((-1.2, -0.8, 1.2), (0.4, 0.8, 0.4), (-0.4, 0.8, 0.4),
     (-1.2, -0.8, 1.2), (1.2, -0.8, 1.2), (0.4, 0.8, 0.4));
-
-  TexturePerspVertex2: array[0..5] of TVector4f =
-    ((-1.2, -0.8, 0.0, 1.2), (0.4, 0.8, 0.0, 0.4), (-0.4, 0.8, 0.0, 0.4),
-    (-1.2, -0.8, 0.0, 1.2), (1.2, -0.8, 0.0, 1.2), (0.4, 0.8, 0.0, 0.4));
+  //code-
 
 
 type
   TVB = record
     VAO: GLuint;
     VBO: record
-      Vertex: GLuint;        // Vertex-Koordinaten
-      Textur: array[0..2] of GLuint;   // Textur-Koordianten
+      Vertex: GLuint;                // Vertex-Koordinaten
+      Textur: array[0..1] of GLuint; // Textur-Koordianten
     end;
   end;
 
@@ -93,7 +99,7 @@ end;
 procedure TForm1.CreateScene;
 begin
   glGenVertexArrays(1, @VBO_Trapeze.VAO);
-  glGenBuffers(4, @VBO_Trapeze.VBO);
+  glGenBuffers(3, @VBO_Trapeze.VBO);
 
   Textur := TTexturBuffer.Create;                 // Erzeugen des Textur-Puffer.
 
@@ -109,13 +115,10 @@ begin
   ScaleMatrix := TMatrix.Create;
   ScaleMatrix.Scale(0.4);
   ProdMatrix := TMatrix.Create;
-
 end;
 
 (*
-Da etwas anderes als <b>BMP</b> gleaden wird, muss anstelle von <b>TBitmap TPicture</b> verwendet werden.
-
-Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG, P?M, PDS, TGA, TIF, XPM, ICO, CUR, ICNS</b>.
+Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspektivenkorrigierte Variante auch ein Vec3 ist.
 *)
 //code+
 procedure TForm1.InitScene;
@@ -139,17 +142,11 @@ begin
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 
-  // Perspektivenkorrigiert Variante 1
+  // Perspektivenkorrigiert Variante
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[1]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex1), @TexturePerspVertex1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
   glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
-
-  // Perspektivenkorrigiert Variante 2
-  glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[2]);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex2), @TexturePerspVertex2, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(12);
-  glVertexAttribPointer(12, 4, GL_FLOAT, False, 0, nil);
   //code-
 
   pic := TPicture.Create;                     // Textur laden.
@@ -160,6 +157,10 @@ begin
   end;
 end;
 
+(*
+Zeichnen der 3 verschiedenne Varianten.
+*)
+//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -194,13 +195,14 @@ begin
 
   ogc.SwapBuffers;
 end;
+//code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
 
   glDeleteVertexArrays(1, @VBO_Trapeze.VAO);
-  glDeleteBuffers(4, @VBO_Trapeze.VBO);
+  glDeleteBuffers(3, @VBO_Trapeze.VBO);
 
   Textur.Free;
   ProdMatrix.Free;

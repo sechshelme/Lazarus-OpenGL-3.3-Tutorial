@@ -2,8 +2,7 @@
 
 in Data {
   vec2 UV0;
-  in vec3 UV1;
-  in vec4 UV2;
+  vec3 UV1;
 } DataIn;
 
 uniform sampler2D Sampler; // Textursampler
@@ -24,6 +23,6 @@ void main()
             break;
 
     // Korrigiert Variante 2
-    case 2: FragColor = texture2DProj( Sampler, DataIn.UV2 );
+    case 2: FragColor = texture2DProj( Sampler, DataIn.UV1 );
   }
 }
