@@ -1,13 +1,13 @@
 object Form1: TForm1
   Left = 817
   Height = 272
-  Top = 0
+  Top = 23
   Width = 439
   Caption = 'Form1'
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.0.5'
+  LCLVersion = '1.9.0.0'
   object MainMenu1: TMainMenu
     left = 122
     top = 107
