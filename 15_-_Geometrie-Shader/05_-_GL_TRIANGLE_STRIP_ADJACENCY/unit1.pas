@@ -56,9 +56,9 @@ var
 
 procedure TForm1.CalcCircle;
 const
-  Sektoren = 20;
-  maxSek = Sektoren * 1;
-  r = 1.1 / maxSek;
+  Sektoren = 30;
+  maxSek = Sektoren * 8;
+  r = 0.7 / maxSek;
 var
   i: integer;
 begin
@@ -67,15 +67,16 @@ begin
     Linies[i, 0] := sin(Pi * 2 / Sektoren * i) * r * i;
     Linies[i, 1] := cos(Pi * 2 / Sektoren * i) * r * i;
   end;
+  exit;
 
   Randomize;
   SetLength(Linies, Sektoren);
-  for i := 0 to Sektoren - 1 do begin
+  Linies[0, 0] := -1.0 + 1.0 / Sektoren * i * 2;
+  Linies[0, 1] := 0.0;
+  for i := 1 to Sektoren - 1 do begin
     Linies[i, 0] := -1.0 + 1.0 / Sektoren * i * 2;
-    Linies[i, 1] := -1.0 + Random * 2;
+    Linies[i, 1] := Linies[i - 1, 1] + (-0.08 + Random * 0.16);
   end;
-  Linies[8]:=vec2(0.4,0.3);
-  Linies[9]:=vec2(0.4,-0.3);
   exit;
 
   SetLength(Linies, 9);

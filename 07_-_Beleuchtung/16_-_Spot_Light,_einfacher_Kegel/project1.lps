@@ -61,7 +61,7 @@
         <Filename Value="Fragmentshader.glsl"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="26" Y="14"/>
+        <CursorPos X="31" Y="9"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>

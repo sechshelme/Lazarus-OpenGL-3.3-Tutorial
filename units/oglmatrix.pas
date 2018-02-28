@@ -48,18 +48,18 @@ type
   TVector3fHelper = Type Helper for TVector3f
   private
     function GetX: GLfloat;
-    function Getxy: TVector2f;
     function GetY: GLfloat;
     function GetZ: GLfloat;
+    function Getxy: TVector2f;
     procedure SetX(AValue: GLfloat);
-    procedure SetXY(AValue: TVector2f);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
+    procedure SetXY(AValue: TVector2f);
   public
-    property xy: TVector2f read GetXY write SetXY;
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
     property z: GLfloat read GetZ write SetZ;
+    property xy: TVector2f read GetXY write SetXY;
 
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
@@ -76,7 +76,12 @@ type
   { TVector4fHelper }
 
   TVector4fHelper = Type Helper for TVector4f
+  private
+    function GetXYZ: TVector3f;
+    procedure SetXYZ(AValue: TVector3f);
   public
+    property xyz: TVector3f read GetXYZ write SetXYZ;
+
     function VectorToWord: LongWord;
     procedure WordToVector(w: longword);
     procedure Scale(x, y, z, w: GLfloat);
@@ -169,6 +174,20 @@ operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
 
 implementation
 
+operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
+var
+  i, j, k: integer;
+begin
+  for i := 0 to 3 do begin
+    for j := 0 to 3 do begin
+      Res[i, j] := 0;
+      for k := 0 to 3 do begin
+        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+      end;
+    end;
+  end;
+end;
+
 function mat3(v0, v1, v2: TVector3f): Tmat3x3; inline;
 begin
   Result[0] := v0;
@@ -217,21 +236,6 @@ begin
     Normal[i, 2] := v;
   end;
 end;
-
-operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
-var
-  i, j, k: integer;
-begin
-  for i := 0 to 3 do begin
-    for j := 0 to 3 do begin
-      Res[i, j] := 0;
-      for k := 0 to 3 do begin
-        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
-      end;
-    end;
-  end;
-end;
-
 
 function vec2(x, y: GLfloat): TVector2f; inline;
 begin
@@ -515,6 +519,20 @@ begin
 end;
 
 { TVector4fHelper }
+
+function TVector4fHelper.GetXYZ: TVector3f; inline;
+begin
+  Result[0] := Self[0];
+  Result[1] := Self[1];
+  Result[2] := Self[2];
+end;
+
+procedure TVector4fHelper.SetXYZ(AValue: TVector3f); inline;
+begin
+  Self[0] := AValue[0];
+  Self[1] := AValue[1];
+  Self[2] := AValue[2];
+end;
 
 function TVector4fHelper.VectorToWord: LongWord;
 
