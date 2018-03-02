@@ -1,3 +1,0 @@
-"Huckepack"
-
-Man kann mehrere Texturen übereinanderlegen (Multitexturing ).

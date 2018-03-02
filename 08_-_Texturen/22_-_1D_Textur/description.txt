@@ -1,3 +1,0 @@
-"Es geht auch 1D"
-
-Texturen können auch 1D sein, eine Linie mit Farb-Punkten.

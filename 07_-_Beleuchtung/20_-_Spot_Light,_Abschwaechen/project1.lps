@@ -51,17 +51,17 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <CursorPos Y="22"/>
+        <CursorPos Y="14"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos X="22" Y="28"/>
+        <CursorPos X="12" Y="39"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
