@@ -26,17 +26,18 @@ in Data {
 out vec4 outColor;  // ausgegebene Farbe
 
 vec3 Light(in vec3 p, in vec3 n) {
-  vec3 v1 = normalize(p);
-  vec3 v2 = normalize(n);
+  vec3 nn = normalize(n);
+  vec3 np = normalize(p);
   vec3 diffuse;
   vec3 specular;
-  float angele = max(dot(v1, v2), 0.0);
+  float angele = max(dot(nn, np), 0.0);
   if (angele > 0.0) {
+    vec3 H   = normalize(np + vec3(0.0, 0.0, 1.0));
+    specular = pow(max(dot(H, nn), 0.0), Mshininess) * Mspecular * Lspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
-    specular = pow(angele, Mshininess) * Mspecular * Lspecular;
   } else {
-    diffuse  = vec3(0.0, 0.0, 0.0);
     specular = vec3(0.0, 0.0, 0.0);
+    diffuse  = vec3(0.0, 0.0, 0.0);
   }
   return (Mambient * Lambient) + diffuse + specular;
 }
