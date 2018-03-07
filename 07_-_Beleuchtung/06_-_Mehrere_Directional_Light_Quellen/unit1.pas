@@ -246,7 +246,7 @@ procedure TForm1.InitScene;
 begin
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
 
-  // --- Daten für Würfel
+  // --- Daten für Kugel
   glBindVertexArray(VBCube.VAO);
 
   // Vektor
