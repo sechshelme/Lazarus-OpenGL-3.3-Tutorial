@@ -16,8 +16,10 @@ Nur eine Beleuchtung reicht nicht, das eine Mesh realistisch aussieht.
 Aus diesem Grund, kann man der Mesh Materialeigenschaften mitgeben, dies sind Reflektionen des Lichtes.
 Wen man zB. eine Gummi-Fläche anleuchtet, sieht dies anders aus, als bei einer Stahlfläche.
 Stahl reflektiert das Licht viel besser.
-Dieses Beispiel zeigt wie dies bei Gold aussieht. Wen man im INet nach "OpenGL Material" sucht,
+Dieses Beispiel zeigt wie dies bei Gold aussieht. Wen man im INet nach <b>"OpenGL Material"</b> sucht,
 findet man viele Daten, welche man bei <b>Ambient</b>, <b>Diffuse</b>, <b>Specular</b> und <b>Shininess</b> eintragen muss.
+
+Bei diesem Beispiel sind die Kugeln aus Gold.
 *)
 //lineal
 

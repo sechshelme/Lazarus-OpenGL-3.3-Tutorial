@@ -3,15 +3,15 @@
 #define PI         3.1415
 
 // === Licht
-#define Lposition  vec3(7.5, 7.5, 100.0)
+#define Lposition  vec3(0.0, 0.0, 100.0)
 #define Lambient   vec3(1.8, 1.8, 1.8)
-#define Ldiffuse   vec3(19.5, 19.5, 19.5)
+#define Ldiffuse   vec3(1000.0, 1000.0, 1000.0)
 
-// === Material ( Poliertes Kupfer  )
-#define Mambient   vec3(0.23, 0.09, 0.03)
-#define Mdiffuse   vec3(0.55, 0.21, 0.07)
-#define Mspecular  vec3(0.58, 0.22, 0.07)
-#define Mshininess 51.2
+// === Material ( Jade )
+#define Mambient   vec3(0.14, 0.22, 0.16)
+#define Mdiffuse   vec3(0.54, 0.89, 0.63)
+#define Mspecular  vec3(0.32, 0.32, 0.32)
+#define Mshininess 12.8
 
 // === Spotlicht Parameter
 // Öffnungswinkel der Lampe
@@ -29,10 +29,9 @@
 // default 1.0
 #define spotAttConst  1.0
 // default 0.0
-#define spotAttLinear 0.1
+#define spotAttLinear 0.0
 // default 0.0
-#define spotAttQuad   0.0
-
+#define spotAttQuad   0.1
 
 
 // Daten vom Vertex-Shader
@@ -44,7 +43,7 @@ in Data {
 out vec4 outColor;
 
 // Abschwächung, abhängig vom Radius des Lichtes.
-float isConeAtt(vec3 LightPos) {
+float ConeAtt(vec3 LightPos) {
   vec3  lightDirection = normalize(DataIn.Pos - LightPos);
 
   float D              = length(LightPos - DataIn.Pos);
@@ -61,7 +60,7 @@ float isConeAtt(vec3 LightPos) {
 }
 
 // Abschwächung anhängig der Lichtentfernung zum Mesh.
-float isConeExp(vec3 LightPos) {
+float ConeExp(vec3 LightPos) {
   vec3  lightDirection = normalize(DataIn.Pos - LightPos);
 
   float angle          = dot(spotDirection, lightDirection);
@@ -86,18 +85,15 @@ vec3 Light(in vec3 p, in vec3 n) {
     specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
   } else {
-    specular = vec3(0.0, 0.0, 0.0);
-    diffuse  = vec3(0.0, 0.0, 0.0);
+    specular = vec3(0.0);
+    diffuse  = vec3(0.0);
   }
   return (Mambient * Lambient) + diffuse + specular;
 }
 
 void main(void)
 {
-  // Kombiniert ( Rechte )
-  float c1 = isConeAtt(Lposition);
-  float c2 = isConeExp(Lposition);
-  float c  = c1 * c2; // Beide Abschwächungen multipizieren.
+  float c  = ConeAtt(Lposition) * ConeExp(Lposition); // Beide Abschwächungen multipizieren.
   outColor = vec4(vec3(c)  * Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);
 }
 

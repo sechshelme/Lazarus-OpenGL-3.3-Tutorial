@@ -29,6 +29,7 @@ type
     destructor Destroy; override;
 
     function UniformLocation(ch: PGLChar): GLint;
+    function UniformBlockIndex(ch: PGLChar): GLint;
     function AttribLocation(ch: PGLChar): GLint;
     procedure UseProgram;
     function ShaderVersion: string;
@@ -357,6 +358,14 @@ begin
   Result := glGetUniformLocation(FProgramObject, ch);
   if Result = -1 then begin
     WriteLog('Uniform Fehler ' + ch + ': ' + IntToStr(Result));
+  end;
+end;
+
+function TShader.UniformBlockIndex(ch: PGLChar): GLint;
+begin
+  Result := glGetUniformBlockIndex(FProgramObject, ch);
+  if Result = -1 then begin
+    WriteLog('UniformBlock Fehler ' + ch + ': ' + IntToStr(Result));
   end;
 end;
 

@@ -12,9 +12,10 @@ uses
 
 //image image.png
 (*
-Material-Eigenschaften sind auch mit Point-Light.
+Material-Eigenschaften sind auch mit Spot-Light möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
+Bei diesem Beispiel, wird mit einer Taschenlampe in einen Jade-Würfel gezündet.
 *)
 //lineal
 
@@ -228,7 +229,7 @@ begin
   d := (7 / (CubeSize * 2 + 1)) * 8;
 
   if CubeSize > 0 then begin
-    scal := 20 / (CubeSize * 2 + 1);
+    scal := 15 / (CubeSize * 2 + 1);
   end else begin
     scal := 30;
   end;
@@ -300,7 +301,8 @@ end;
 //lineal
 
 (*
-Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.
+Dieser Shader ist schon sehr komplex.
+Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksichtigt.
 
 <b>Vertex-Shader:</b>
 *)

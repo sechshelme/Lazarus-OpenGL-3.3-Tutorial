@@ -30,8 +30,8 @@ vec3 Light(in vec3 p, in vec3 n) {
     specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
   } else {
-    specular = vec3(0.0, 0.0, 0.0);
-    diffuse  = vec3(0.0, 0.0, 0.0);
+    specular = vec3(0.0);
+    diffuse  = vec3(0.0);
   }
   return (Mambient * Lambient) + diffuse + specular;
 }

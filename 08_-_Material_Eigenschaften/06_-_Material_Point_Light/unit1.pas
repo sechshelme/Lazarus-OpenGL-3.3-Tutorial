@@ -12,9 +12,10 @@ uses
 
 //image image.png
 (*
-Material-Eigenschaften sind auch mit Point-Light.
+Material-Eigenschaften sind auch mit <b>Point-Light</b> möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
+In diesem Beispiel sind die Kugeln aus Kupfer.
 *)
 //lineal
 
