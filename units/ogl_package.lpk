@@ -21,7 +21,7 @@
       </CodeGeneration>
     </CompilerOptions>
     <Version Major="1"/>
-    <Files Count="23">
+    <Files Count="24">
       <Item1>
         <Filename Value="ogllighting.pas"/>
         <UnitName Value="oglLighting"/>
@@ -114,6 +114,10 @@
         <Filename Value="oglcontext.pas"/>
         <UnitName Value="oglContext"/>
       </Item23>
+      <Item24>
+        <Filename Value="ogllogform.pas"/>
+        <UnitName Value="ogllogform"/>
+      </Item24>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>

@@ -10,7 +10,8 @@ uses
   SysUtils,
   //  MyLogForms, MyMessages,
   dglOpenGL,
-  Types, Graphics, LResources;
+  Types, Graphics, LResources,
+  oglLogForm;
 
 type
   TStringArray = array of ansistring;
@@ -269,7 +270,9 @@ begin
   glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, @Str[1]);
   //  glGetShaderInfoLog(ShaderObject, InfoLogLength, @InfoLogLength, @Str[1]);
   if ErrorStatus = GL_FALSE then begin
-    WriteLog('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ' + AShader + sLineBreak + sLineBreak + Str);
+    ShowError('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ', AShader + sLineBreak + sLineBreak + Str);
+
+//    WriteLog('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ' + AShader + sLineBreak + sLineBreak + Str);
     Halt;
   end;
 
