@@ -55,11 +55,15 @@ implementation
 {$R *.lfm}
 
 type
-  TMaterial = packed record
-    ambient,             // Umgebungslicht
-    diffuse,             // Farbe
-    specular: TVector3f; // Spiegelnd
-    shininess: GLfloat;  // Glanz
+  TMaterial = record
+    shininess: GLfloat;             // Glanz
+    dummy: array[0..2] of GLfloat;
+    ambient: TVector3f;             // Umgebungslicht
+    d1: GLfloat;
+    diffuse: TVector3f;             // Farbe
+    d2: GLfloat;
+    specular: TVector3f;            // Spiegelnd
+    d3: GLfloat;
   end;
 
 var
@@ -78,7 +82,7 @@ type
   end;
 
 var
-  UBO:GLuint;
+  UBO: GLuint;
 
   VBCube: TVB;
   FrustumMatrix,
@@ -196,8 +200,8 @@ begin
     Matrix_ID := UniformLocation('Matrix');
     ModelMatrix_ID := UniformLocation('ModelMatrix');
 
-    Material_ID:=UniformBlockIndex('Material');
-//    Material_ID := glGetUniformBlockIndex(ID, 'Material');
+    Material_ID := UniformBlockIndex('Material');
+    //    Material_ID := glGetUniformBlockIndex(ID, 'Material');
   end;
 
   glGenVertexArrays(1, @VBCube.VAO);
@@ -216,17 +220,9 @@ var
 begin
   with mRubin do begin
     ambient := vec3(0.17, 0.01, 0.01);
-    diffuse := vec3(0.61, 0.04, 10.04);
+    diffuse := vec3(0.61, 0.04, 0.04);
     specular := vec3(0.73, 0.63, 0.63);
-//        specular := vec3(0.0, 0.0, 0.0);
     shininess := 76.8;
-//
-//    ambient := vec4(0.17, 0.01, 0.01, 0.0);
-//    diffuse := vec4(0.61, 0.04, 0.04, 0.0);
-//    specular := vec4(0.73, 0.63, 0.63, 0.0);
-////        specular := vec3(0.0, 0.0, 0.0);
-//    shininess := 76.8;
-
   end;
 
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
@@ -250,21 +246,21 @@ begin
   bindingPoint := 10;
 
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-   glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
 
-   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
+  glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
+  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
 
-   with Shader do begin
- //    bindingPoint := 0;
+  with Shader do begin
+    //    bindingPoint := 0;
 
- //    glUniformBlockBinding(ID, Mat_ID, bindingPoint);
-     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    //    glUniformBlockBinding(ID, Mat_ID, bindingPoint);
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
 
- //    glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Mat, GL_DYNAMIC_DRAW);
-     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mRubin);
- //    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO[0]);
-   end;
+    //    glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Mat, GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mRubin);
+    //    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO[0]);
+  end;
 
 
 end;

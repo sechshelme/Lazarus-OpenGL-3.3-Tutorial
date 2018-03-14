@@ -2,7 +2,7 @@
 
 (*
 <b>Vorwort:</b><br>
-OpenGL 3.3 scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
+<b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
 Man wird von Anfang an mit vielem Neuen konfrontiert.
 Früher konnte man einfach
 //code+
@@ -33,8 +33,8 @@ Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Buffer, etc. 
 * Mindestens OpenGL 3.3 fähige Grafikkarte.
 * Grundkenntnisse mit FPC und Lazarus.
 
-Wen die Grafikkarte zu alt ist, gibt es trozdem eine Lösung. Mit Mesa 17.1 ist es möglich im Software-Renderer OpenGL zu emulieren.
-Dies ist gähnend langsam, aber für die ersten Gehversuche im zutorial reicht dies. ( Getestet mit Linux Mint 18.x )
+Wen die Grafikkarte zu alt ist, gibt es trozdem eine Lösung. Mit Mesa ab 17.1 ist es möglich im Software-Renderer OpenGL zu emulieren.
+Dies ist gähnend langsam, aber für die ersten Gehversuche im Tutorial reicht dies. ( Getestet mit Linux Mint 64Bit 18.x )
 
 <b>Installation:</b><br>
 FPC und Lazarus installieren.
@@ -52,10 +52,14 @@ Somit sollten alle Beispiele kompilierbar sein.
 
 Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
 Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
+Ich habe eine Package Namens <b>ogl_package.lpk</b> mit den benötigten Dateien erstellt, sie befindet sich im gleiche Ordner wie die <b>Units</b>.  Ich empfehle es, die Package zu installieren,
+obwohl man auch in den Projekte den Unit-Pfad anpassen kann, nur muss man dann in allen Projekten die Pfade anpassen, wen man mal die Package verschiebt/umbennent.
 
-Wen man weis, wie man mit Delphi einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
+Wen man weis, wie man mit <b>Delphi</b> einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
 
 Wenn Fehler gefunden werden, dann bitte hier melden:
 //link https://delphigl.com/forum/viewtopic.php?f=14&t=11566 DGL-Forum
+oder
+//link http://www.lazarusforum.de/viewtopic.php?f=29&t=11373&hilit=opengl+tutorial Lazarus-Forum
 *)
 

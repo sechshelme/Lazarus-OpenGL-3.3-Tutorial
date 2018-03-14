@@ -25,10 +25,10 @@ in Data {
 //};
 //
 layout (std140) uniform Material {
+  float Mshininess; // Glanz
   vec3 Mambient;    // Umgebungslicht
   vec3 Mdiffuse;    // Farbe
   vec3 Mspecular;   // Spiegelnd
-  float Mshininess; // Glanz
 };
 
 // uniform Material material;
