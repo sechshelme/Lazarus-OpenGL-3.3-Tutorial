@@ -268,16 +268,11 @@ begin
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
   SetLength(Str, InfoLogLength + 1);
   glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, @Str[1]);
-  //  glGetShaderInfoLog(ShaderObject, InfoLogLength, @InfoLogLength, @Str[1]);
+
   if ErrorStatus = GL_FALSE then begin
     ShowError('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ', AShader + sLineBreak + sLineBreak + Str);
-
-//    WriteLog('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ' + AShader + sLineBreak + sLineBreak + Str);
     Halt;
   end;
-
-  //  LogForm.Add('shader: (' + IntToStr(shaderType) + ') in : ' + Str);
-  //  LogForm.Show;
 
   glDeleteShader(ShaderObject);
 end;
@@ -333,22 +328,17 @@ begin
 
   // Check  Link
   glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
+
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(Str, InfoLogLength + 1);
     //    glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    WriteLog('SHADER LINK: + str');
+    ShowError('SHADER LINK:', str);
     Halt;
   end;
 
-  //  LogForm.Add('kommplett: ' + Str);
-  //  LogForm.Show;
-  //  LogForm.Add('ProgramObject: ' + IntToStr(FProgramObject));
-
   UseProgram;
-  //    LogForm.Add('kommplett: ' + IntToStr(ID));
-  //    LogForm.Show;
 end;
 
 destructor TShader.Destroy;
