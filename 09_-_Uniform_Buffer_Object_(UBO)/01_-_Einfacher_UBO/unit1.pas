@@ -256,7 +256,7 @@ Material-Daten in den UBO-Puffer laden und binden
 //code+
 procedure TForm1.InitScene;
 var
-  bindingPoint: gluint;
+  bindingPoint: gluint = 1; // Pro Verbindung wird ein BindingPoint gebraucht.
 begin
   // Material-Werte inizialisieren
   with mRubin do begin
@@ -266,20 +266,14 @@ begin
     shininess := 76.8;
   end;
 
+
   // UBO mit Daten laden
-  bindingPoint := 7;
-
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TMaterial), @mRubin, GL_DYNAMIC_DRAW);
 
+  // UBO mit dem Shader verbinden
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
-
-  // UBO binden           ???????????????''
-  with Shader do begin
-    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mRubin);
-  end;
 //code-
 
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
@@ -352,6 +346,10 @@ begin
   FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
 end;
 
+(*
+Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.
+*)
+//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
@@ -359,7 +357,8 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBONormal);
-  glDeleteBuffers(1, @UBO);
+  glDeleteBuffers(1, @UBO);  // UBO löschen.
+//code-
 
   Matrix.Free;
   FrustumMatrix.Free;
@@ -393,7 +392,8 @@ end;
 //lineal
 
 (*
-Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.
+Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.
+Im Shader wird kein Padding gebraucht.
 
 <b>Vertex-Shader:</b>
 *)

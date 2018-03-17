@@ -154,7 +154,7 @@ type
 
   { TLightingShader }
 
-  {$define ubo}
+//  {$define ubo}
 
   TLightingShader = class(TShader)
   private
@@ -169,7 +169,7 @@ type
                 position, ambient, diffuse, specular: glInt;
               end;
               Material: record
-                emission, ambient, diffuse, specular, shininess: GLInt;
+                ambient, diffuse, specular, shininess: GLInt;
               end;
             end;
       {$endif}
@@ -181,7 +181,7 @@ type
     end;
 
     MaterialParams: record
-      emission, ambient, diffuse, specular: TVector4f;
+      ambient, diffuse, specular: TVector4f;
       shininess: GLfloat;     // Glanz
     end;
 
@@ -304,7 +304,6 @@ begin
           specular := UniformLocation('Lspecular');
         end;
         with Material do begin
-          emission := UniformLocation('Memission');
           ambient := UniformLocation('Mambient');
           diffuse := UniformLocation('Mdiffuse');
           specular := UniformLocation('Mspecular');

@@ -12,15 +12,7 @@ uses
 
 //image image.png
 (*
-Bis jetzt wurden alle Uniforms einzeln dem Shader übegeben.
-Wen man aber mehrer Werte übeergeben will, kann man die <b>Uniforms</b> zu einem <b>Block</b> zusammenfassen.
-Aus diesem Grund heisst dieser Puffer <b>Uniform</b> Buffer Object ( UBO ).
-
-Dies macht man mit einem Record. Dabei muss man auf eine <b>16Byte</b>-Ausrichtung achten.
-
-Die Material-Eigenschaften sind ein ideales Beispiel dafür.
-
-In diesem Beispiel sind die Kugeln aus Rubin.
+Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell die Datenblöcke umschalten.
 *)
 //lineal
 
@@ -61,14 +53,6 @@ implementation
 
 {$R *.lfm}
 
-(*
-Hier wird der Record für die Material-Eigenschaften deklariert.
-
-Da ein <b>TVector3f</b> nur <b>12Byte</b> hat, muss man zum Aufrunden auf <b>16Byte</b> noch ein Padding von 4Byte einfügen.
-Ein Float mit <b>4Byte</b> ist gut dafür gut geeignet.
-Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16Byte gross ist.
-*)
-//code+
 type
   TMaterial = record
     ambient: TVector3f;      // Umgebungslicht
@@ -78,10 +62,9 @@ type
     specular: TVector3f;     // Spiegelnd
     shininess: GLfloat;      // Glanz
   end;
-//code-
 
 var
-  mRubin, mJade, mSmaragdgruen: TMaterial;
+  Material: TMaterial;
 
   SphereVertex, SphereNormal: array of Tmat3x3;
   CubeSize: integer;
@@ -94,8 +77,8 @@ type
   end;
 
 (*
-Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.
-Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.
+Es werden drei UNOs angelegt.
+ID im Shader wird nur eine gebraucht.
 *)
 //code+
 var
@@ -113,6 +96,15 @@ var
 
   ModelMatrix_ID,
   Matrix_ID: GLint;
+
+(*
+Der BindingPoint muss global deklariert werden, da er fürs Binden im Timer auch gebraucht wird.
+*)
+//code+
+var
+  bindingPoint: gluint = 1;
+  //code-
+
 
 { TForm1 }
 
@@ -242,79 +234,47 @@ begin
 end;
 
 (*
-Material-Daten in den UBO-Puffer laden und binden
+Material-Daten in den UBO-Puffer laden und binden.
+Da die UBO-Daten im VRAM abgelegt sind, kann man gut für die verschiedenen Puffer einfach die Material-Daten überschreiben.
+Dies ist gleich wie bei den Vertex-Pufferen.
 *)
 //code+
 procedure TForm1.InitScene;
-var
-  bindingPoint: gluint;
 begin
-  // Material-Werte inizialisieren.
-  with mRubin do begin
+  // Puffer für Rubin anlegen.
+  with Material do begin
     ambient := vec3(0.17, 0.01, 0.01);
     diffuse := vec3(0.61, 0.04, 0.04);
     specular := vec3(0.73, 0.63, 0.63);
     shininess := 76.8;
   end;
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO.Rubin);
+  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
 
-  with mJade do begin
+  // Puffer für Jade anlegen.
+  with Material do begin
     ambient := vec3(0.14, 0.22, 0.16);
     diffuse := vec3(0.54, 0.89, 0.63);
     specular := vec3(0.32, 0.32, 0.32);
     shininess := 12.8;
   end;
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO.Jade);
+  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
 
-  with mSmaragdgruen do begin
+  // Puffer für Smaragdgruen anlegen.
+  with Material do begin
     ambient := vec3(0.02, 0.17, 0.02);
     diffuse := vec3(0.08, 0.81, 0.08);
     specular := vec3(0.63, 0.73, 0.63);
     shininess := 76.8;
   end;
-
-
-  // UBORubin mit Daten laden
-  bindingPoint := 1;
-
-  glBindBuffer(GL_UNIFORM_BUFFER, UBO.Rubin);
-  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mRubin);
-
-  glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Rubin);
-
-  bindingPoint := 1;
-
-  glBindBuffer(GL_UNIFORM_BUFFER, UBO.Jade);
-  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
-
-  glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Jade);
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mJade);
-
-  bindingPoint := 1;
-
   glBindBuffer(GL_UNIFORM_BUFFER, UBO.Smaragdgruen);
-  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
 
+  // Verbindung mit dem Shader aufbauen.
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Smaragdgruen);
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mSmaragdgruen);
 
-  // UBORubin binden           ???????????????''
-  with Shader do begin
-//    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Rubin);
-//    glBindBuffer(GL_UNIFORM_BUFFER, UBO.Rubin);
-//    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mRubin);
-//
-//    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Jade);
-//    glBindBuffer(GL_UNIFORM_BUFFER, UBO.Jade);
-//    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mJade);
-//
-//    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Smaragdgruen);
-//    glBindBuffer(GL_UNIFORM_BUFFER, UBO.Smaragdgruen);
-//    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TMaterial), @mSmaragdgruen);
-
-  end;
+  // Timer manuell aufrufen, so das die ersten Daten in den UBO-kopiert werden.
   Timer2Timer(nil);
   //code-
 
@@ -426,42 +386,37 @@ begin
   ogc.Invalidate;
 end;
 
+(*
+Für die verscheidene Materialien, wir einfach nur ein anderer UBO mit dem Shader verbunden.
+*)
+//code+
 procedure TForm1.Timer2Timer(Sender: TObject);
 const
   m: integer = 0;
-var
-  bindingPoint: gluint;
 begin
-  bindingPoint := 1;
-
-  // UBORubin binden           ???????????????''
-  with Shader do begin
     case m of
       0: begin
         glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Rubin);
-//        glBindBuffer(GL_UNIFORM_BUFFER, UBO.Rubin);
       end;
       1: begin
         glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Jade);
-//        glBindBuffer(GL_UNIFORM_BUFFER, UBO.Jade);
       end;
       2: begin
         glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO.Smaragdgruen);
-//        glBindBuffer(GL_UNIFORM_BUFFER, UBO.Smaragdgruen);
       end;
     end;
-  end;
 
   Inc(m);
   if m > 2 then begin
     m := 0;
   end;
 end;
+//code-
 
 //lineal
 
 (*
-Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.
+Der Shader ist der selbe wie im ersten Beispiel.
 
 <b>Vertex-Shader:</b>
 *)
