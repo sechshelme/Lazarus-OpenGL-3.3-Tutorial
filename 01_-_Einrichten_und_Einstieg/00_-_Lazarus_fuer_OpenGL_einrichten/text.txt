@@ -32,6 +32,7 @@ Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Buffer, etc. 
 * Lazarus 1.6.4 oder höher.
 * Mindestens OpenGL 3.3 fähige Grafikkarte.
 * Grundkenntnisse mit FPC und Lazarus.
+* Grundkenntnisse C/C++ für die Shader-Programmierung.
 
 Wen die Grafikkarte zu alt ist, gibt es trozdem eine Lösung. Mit Mesa ab 17.1 ist es möglich im Software-Renderer OpenGL zu emulieren.
 Dies ist gähnend langsam, aber für die ersten Gehversuche im Tutorial reicht dies. ( Getestet mit Linux Mint 64Bit 18.x )
@@ -54,6 +55,9 @@ Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
 Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
 Ich habe eine Package Namens <b>ogl_package.lpk</b> mit den benötigten Dateien erstellt, sie befindet sich im gleiche Ordner wie die <b>Units</b>.  Ich empfehle es, die Package zu installieren,
 obwohl man auch in den Projekte den Unit-Pfad anpassen kann, nur muss man dann in allen Projekten die Pfade anpassen, wen man mal die Package verschiebt/umbennent.
+
+Es sind viele OpenGL spezifische Sachen ausserhalb von Form deklariert, bei einer sauberen objektorientierten Programmierung ist dies nicht üblich.
+Hier wurde es einfachtshalber der Übersichlichkeit gemacht.
 
 Wen man weis, wie man mit <b>Delphi</b> einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
 

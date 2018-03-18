@@ -223,7 +223,7 @@ Material-Daten in den UBO-Puffer laden und binden
 //code+
 procedure TForm1.InitScene;
 var
-  bindingPoint: gluint = 1;
+  bindingPoint: gluint = 0;
 begin
   // Material-Werte inizialisieren
   with mRubin do begin
