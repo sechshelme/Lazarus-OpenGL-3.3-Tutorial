@@ -1,7 +1,8 @@
 unit oglMatrix;
 
-{$mode objfpc}{$H+}
 {$modeswitch typehelpers}
+
+// === Öffentlicher Teil ===
 
 interface
 
@@ -170,9 +171,9 @@ function mat3x2(v0, v1, v2: TVector2f): Tmat3x2;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
 
-
 operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
 
+// === Privater Teil ===
 
 implementation
 
