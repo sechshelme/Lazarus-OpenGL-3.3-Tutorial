@@ -20,7 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="240"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="246"/>
         <CursorPos X="18" Y="284"/>
         <UsageCount Value="49"/>
         <Loaded Value="True"/>
@@ -96,7 +97,6 @@
       <Unit11>
         <Filename Value="../../units/oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="36" Y="10"/>
         <UsageCount Value="18"/>
