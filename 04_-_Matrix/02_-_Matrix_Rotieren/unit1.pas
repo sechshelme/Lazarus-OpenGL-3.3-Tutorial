@@ -1,6 +1,8 @@
 unit Unit1;
 
 {$mode objfpc}{$H+}
+{$modeswitch typehelpers}
+
 
 interface
 
@@ -39,38 +41,30 @@ implementation
 
 (*
 Hier wird eine <b>4x4 Matrix</b> verwendet, dies ist Standard bei allen Mesh Translationen.
-Im Timer wird Matrix-Rotation ausgeführt.
-Für diese einfache Roatation, könnte man auch eine 2x2-Matrix nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.
+Im Timer wird eine Matrix-Rotation ausgeführt.
+Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.
 *)
 
 //lineal
 
 (*
 Hier wird ein Matrix4x4-Typ deklariert.
+Für die Manipulationen einer Matrix eigenen sich hervorragend ein <b>Typen Helper</b>.
 *)
 //code+
 type
   TMatrix = array[0..3, 0..3] of GLfloat;
+
+  TMatrixfHelper = Type Helper for TMatrix
+    procedure Indenty;                  // Generiere eine Einheitsmatrix
+    procedure Rotate(angele: single);   // Drehe Matrix
+  end;
   //code-
 
   TVertex3f = array[0..2] of GLfloat;
   TFace = array[0..2] of TVertex3f;
 
-(*
-Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
-
-//matrix+
-| 1 | 0 | 0 | 0 |
-| 0 | 1 | 0 | 0 |
-| 0 | 0 | 1 | 0 |
-| 0 | 0 | 0 | 1 |
-//matrix-
-*)
-
-//code+
 const
-  MatrixIndenty: TMatrix = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
-  //code-
   Triangle: array[0..0] of TFace =
     (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
   Quad: array[0..1] of TFace =
@@ -97,23 +91,43 @@ var
   VBTriangle, VBQuad: TVB;
 
 (*
-Mit dieser Procedure, wird die Matrix rotiert.
-Der Winkel wird im <b>Bogenmass</b> angegeben.
-Für nicht Mathematiker, 360° sind 2*π ( 2*Pi ).
+Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
+
+//matrix+
+| 1 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 0 |
+| 0 | 0 | 1 | 0 |
+| 0 | 0 | 0 | 1 |
+//matrix-
 *)
 //code+
-procedure MatrixRotate(var mat: TMatrix; angele: single);
+procedure TMatrixfHelper.Indenty;
+const
+  MatrixIndenty: TMatrix = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+begin
+  Self := MatrixIndenty;
+end;
+//code-
+
+(*
+Mit dieser Procedure, wird die Matrix rotiert.
+Der Winkel wird im <b>Bogenmass</b> angegeben.
+Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).
+*)
+//code+
+procedure TMatrixfHelper.Rotate(angele: single);
 var
   i: integer;
   x, y: GLfloat;
 begin
   for i := 0 to 1 do begin
-    x := mat[i, 0];
-    y := mat[i, 1];
-    mat[i, 0] := x * cos(angele) - y * sin(angele);
-    mat[i, 1] := x * sin(angele) + y * cos(angele);
+    x := Self[i, 0];
+    y := Self[i, 1];
+    Self[i, 0] := x * cos(angele) - y * sin(angele);
+    Self[i, 1] := x * sin(angele) + y * cos(angele);
   end;
 end;
+
 //code-
 
 { TForm1 }
@@ -144,7 +158,7 @@ begin
   Shader.UseProgram;
   Color_ID := Shader.UniformLocation('Color');
   MatrixRot_ID := Shader.UniformLocation('mat'); // Ermittelt die ID von MatrixRot.
-  MatrixRot := MatrixIndenty;                    // MatrixRot auf Einheits-Matrix setzen.
+  MatrixRot.Indenty;                             // MatrixRot auf Einheits-Matrix setzen.
   //code-
 
 
@@ -176,7 +190,7 @@ end;
 
 (*
 Hier wird die Uniform-Variable <b>MatrixRot</b> dem Shader übergeben.
-Mit <b>glUniform4fv(...</b> kann man eine 4x4 Matrix dem Shader übergeben.
+Mit <b>glUniform4fv(...</b> kann man eine <b>4x4 Matrix</b> dem Shader übergeben.
 Für eine 2x2 Matrix wäre dies <b>glUniform2fv(...</b> und für die 3x3 <b>glUniform3fv(...</b>.
 *)
 //code+
@@ -221,7 +235,7 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step: GLfloat = 0.01;          // Der Winkel ist im Bogenmass.
 begin
-  MatrixRotate(MatrixRot, step); // MatrixRot rotieren.
+  MatrixRot.Rotate(step);        // MatrixRot rotieren.
   ogcDrawScene(Sender);          // Neu zeichnen.
 end;
 //code-

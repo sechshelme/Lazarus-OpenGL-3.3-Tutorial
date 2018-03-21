@@ -37,7 +37,7 @@ type
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
     procedure Rotate(Winkel: GLfloat);
-    procedure Scale(x, y: GLfloat);
+    procedure Scale(Ax, Ay: GLfloat);
     procedure Scale(s: GLfloat);
     procedure NormalCut;
     procedure Negate;
@@ -64,10 +64,12 @@ type
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
-    procedure Scale(x, y, z: GLfloat);
+    procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(s: GLfloat);
     procedure NormalCut;
     procedure Negate;
+
+    procedure FromInt(i:UInt32);
 
     procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(var Vectoren, Normal: array of TVector3f);
@@ -82,8 +84,8 @@ type
   public
     property xyz: TVector3f read GetXYZ write SetXYZ;
 
-    function VectorToWord: LongWord;
-    procedure WordToVector(w: longword);
+    function ToInt: Uint32;
+    procedure FromInt(i: UInt32);
     procedure Scale(x, y, z, w: GLfloat);
     procedure Scale(s: GLfloat);
   end;
@@ -307,10 +309,10 @@ begin
   Self[1] := x * s + y * c;
 end;
 
-procedure TVector2fHelper.Scale(x, y: GLfloat); inline;
+procedure TVector2fHelper.Scale(Ax, Ay: GLfloat); inline;
 begin
-  Self[0] *= x;
-  Self[1] *= y;
+  Self[0] *= Ax;
+  Self[1] *= Ay;
 end;
 
 procedure TVector2fHelper.Scale(s: GLfloat); inline;
@@ -419,11 +421,11 @@ begin
   Self[1] := x * s + y * c;
 end;
 
-procedure TVector3fHelper.Scale(x, y, z: GLfloat); inline;
+procedure TVector3fHelper.Scale(Ax, Ay, Az: GLfloat);
 begin
-  Self[0] *= x;
-  Self[1] *= y;
-  Self[2] *= z;
+  Self[0] *= Ax;
+  Self[1] *= Ay;
+  Self[2] *= Az;
 end;
 
 procedure TVector3fHelper.Scale(s: GLfloat); inline;
@@ -452,6 +454,13 @@ begin
   for i := 0 to 2 do begin
     Self[i] *= (-1);
   end;
+end;
+
+procedure TVector3fHelper.FromInt(i: UInt32);
+begin
+  Self[0] := i div $10000 mod $100 / $FF;
+  Self[1] := i div $100 mod $100 / $FF;
+  Self[2] := i div $1 mod $100 / $FF;
 end;
 
 procedure TVector3fHelper.WriteVectoren(var Vector: array of TVector3f);
@@ -534,7 +543,7 @@ begin
   Self[2] := AValue[2];
 end;
 
-function TVector4fHelper.VectorToWord: LongWord;
+function TVector4fHelper.ToInt: Uint32;
 
   function v(s: single): longword; inline;
   begin
@@ -555,12 +564,12 @@ begin
   Result := v(Self[0]) + v(Self[1]) * $100 + v(Self[2]) * $10000 + v(Self[3]) * $1000000;
 end;
 
-procedure TVector4fHelper.WordToVector(w: longword);
+procedure TVector4fHelper.FromInt(i: UInt32);
 begin
-  Self[0] := w div $10000 mod $100 / $FF;
-  Self[1] := w div $100 mod $100 / $FF;
-  Self[2] := w div $1 mod $100 / $FF;
-  Self[3] := w div $1000000 / $FF;
+  Self[0] := i div $10000 mod $100 / $FF;
+  Self[1] := i div $100 mod $100 / $FF;
+  Self[2] := i div $1 mod $100 / $FF;
+  Self[3] := i div $1000000 / $FF;
 end;
 
 procedure TVector4fHelper.Scale(x, y, z, w: GLfloat); inline;

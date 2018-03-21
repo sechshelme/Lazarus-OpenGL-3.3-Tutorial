@@ -12,12 +12,23 @@
     <b><h2>02 - Matrix Rotieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird eine <b>4x4 Matrix</b> verwendet, dies ist Standard bei allen Mesh Translationen.<br>
-Im Timer wird Matrix-Rotation ausgeführt.<br>
-Für diese einfache Roatation, könnte man auch eine 2x2-Matrix nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.<br>
+Im Timer wird eine Matrix-Rotation ausgeführt.<br>
+Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.<br>
 <hr><br>
 Hier wird ein Matrix4x4-Typ deklariert.<br>
+Für die Manipulationen einer Matrix eigenen sich hervorragend ein <b>Typen Helper</b>.<br>
 <pre><code><b><font color="0000BB">type</font></b>
-  TMatrix = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat;</pre></code>
+  TMatrix = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat;
+
+  TMatrixfHelper = <b><font color="0000BB">Type</font></b> Helper <b><font color="0000BB">for</font></b> TMatrix
+    <b><font color="0000BB">procedure</font></b> Indenty;                  <i><font color="#FFFF00">// Generiere eine Einheitsmatrix</font></i>
+    <b><font color="0000BB">procedure</font></b> Rotate(angele: single);   <i><font color="#FFFF00">// Drehe Matrix</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
+Die Matrix selbst, die rotiert wird.<br>
+Und die ID für den Shader.<br>
+<pre><code><b><font color="0000BB">var</font></b>
+  MatrixRot: TMatrix;     <i><font color="#FFFF00">// Matrix</font></i>
+  MatrixRot_ID: GLint;    <i><font color="#FFFF00">// ID für Matrix.</font></i></pre></code>
 Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:<br>
 <br>
 //matrix+<br>
@@ -26,28 +37,28 @@ Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 | 0 | 0 | 1 | 0 |<br>
 | 0 | 0 | 0 | 1 |<br>
 //matrix-<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  MatrixIndenty: TMatrix = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</pre></code>
-Die Matrix selbst, die rotiert wird.<br>
-Und die ID für den Shader.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  MatrixRot: TMatrix;     <i><font color="#FFFF00">// Matrix</font></i>
-  MatrixRot_ID: GLint;    <i><font color="#FFFF00">// ID für Matrix.</font></i></pre></code>
+<pre><code><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Indenty;
+<b><font color="0000BB">const</font></b>
+  MatrixIndenty: TMatrix = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">Self</font></b> := MatrixIndenty;
+<b><font color="0000BB">end</font></b>;</pre></code>
 Mit dieser Procedure, wird die Matrix rotiert.<br>
 Der Winkel wird im <b>Bogenmass</b> angegeben.<br>
-Für nicht Mathematiker, 360° sind 2*π ( 2*Pi ).<br>
-<pre><code><b><font color="0000BB">procedure</font></b> MatrixRotate(<b><font color="0000BB">var</font></b> mat: TMatrix; angele: single);
+Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Rotate(angele: single);
 <b><font color="0000BB">var</font></b>
   i: integer;
   x, y: GLfloat;
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    x := mat[i, <font color="#0077BB">0</font>];
-    y := mat[i, <font color="#0077BB">1</font>];
-    mat[i, <font color="#0077BB">0</font>] := x * cos(angele) - y * sin(angele);
-    mat[i, <font color="#0077BB">1</font>] := x * sin(angele) + y * cos(angele);
+    x := <b><font color="0000BB">Self</font></b>[i, <font color="#0077BB">0</font>];
+    y := <b><font color="0000BB">Self</font></b>[i, <font color="#0077BB">1</font>];
+    <b><font color="0000BB">Self</font></b>[i, <font color="#0077BB">0</font>] := x * cos(angele) - y * sin(angele);
+    <b><font color="0000BB">Self</font></b>[i, <font color="#0077BB">1</font>] := x * sin(angele) + y * cos(angele);
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;
+</pre></code>
 In diesem Code sind zwei Zeilen relevant, eine mit <b>UniformLocation</b> für die Matrix-ID.<br>
 In der anderen wird die Matrix, die gedreht wird, erst mal als Einheits-Matrix gesetzt.<br>
 Dies ist wichtig, ansonsten sieht man keine Mesh mehr, da diese unendlich klein skaliert wird.<br>
@@ -57,9 +68,9 @@ Dies ist wichtig, ansonsten sieht man keine Mesh mehr, da diese unendlich klein 
   Shader.UseProgram;
   Color_ID := Shader.UniformLocation(<font color="#FF0000">'Color'</font>);
   MatrixRot_ID := Shader.UniformLocation(<font color="#FF0000">'mat'</font>); <i><font color="#FFFF00">// Ermittelt die ID von MatrixRot.</font></i>
-  MatrixRot := MatrixIndenty;                    <i><font color="#FFFF00">// MatrixRot auf Einheits-Matrix setzen.</font></i></pre></code>
+  MatrixRot.Indenty;                             <i><font color="#FFFF00">// MatrixRot auf Einheits-Matrix setzen.</font></i></pre></code>
 Hier wird die Uniform-Variable <b>MatrixRot</b> dem Shader übergeben.<br>
-Mit <b>glUniform4fv(...</b> kann man eine 4x4 Matrix dem Shader übergeben.<br>
+Mit <b>glUniform4fv(...</b> kann man eine <b>4x4 Matrix</b> dem Shader übergeben.<br>
 Für eine 2x2 Matrix wäre dies <b>glUniform2fv(...</b> und für die 3x3 <b>glUniform3fv(...</b>.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -71,7 +82,7 @@ Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.<br>
 <b><font color="0000BB">const</font></b>
   step: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;          <i><font color="#FFFF00">// Der Winkel ist im Bogenmass.</font></i>
 <b><font color="0000BB">begin</font></b>
-  MatrixRotate(MatrixRot, step); <i><font color="#FFFF00">// MatrixRot rotieren.</font></i>
+  MatrixRot.Rotate(step);        <i><font color="#FFFF00">// MatrixRot rotieren.</font></i>
   ogcDrawScene(Sender);          <i><font color="#FFFF00">// Neu zeichnen.</font></i>
 <b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>

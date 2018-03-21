@@ -66,8 +66,39 @@ ID und Puffer generieren.<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
 
   glGenBuffers(<font color="#0077BB">1</font>, @UBO);                          <i><font color="#FFFF00">// UB0-Puffer generieren.</font></i></pre></code>
+Material-Daten in den UBO-Puffer laden und binden<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
+  bindingPoint: gluint = <font color="#0077BB">0</font>; <i><font color="#FFFF00">// Pro Verbindung wird ein BindingPoint gebraucht.</font></i>
+<b><font color="0000BB">begin</font></b>
+  <i><font color="#FFFF00">// Material-Werte inizialisieren</font></i>
+  <b><font color="0000BB">with</font></b> mRubin <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    ambient := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">17</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>);
+    diffuse := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">61</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>);
+    specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">73</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
+    shininess := <font color="#0077BB">76</font>.<font color="#0077BB">8</font>;
+  <b><font color="0000BB">end</font></b>;
+
+
+  <i><font color="#FFFF00">// UBO mit Daten laden</font></i>
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TMaterial), @mRubin, GL_DYNAMIC_DRAW);
+
+  <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
+  glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
+  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</pre></code>
+Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  Shader.Free;
+
+  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @UBO);  <i><font color="#FFFF00">// UBO löschen.</font></i></pre></code>
 <hr><br>
-Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.<br>
+Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.<br>
+Im Shader wird kein Padding gebraucht.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>

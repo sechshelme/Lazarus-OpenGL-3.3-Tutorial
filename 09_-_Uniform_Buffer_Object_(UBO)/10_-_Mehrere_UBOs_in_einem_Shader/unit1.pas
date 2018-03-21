@@ -75,9 +75,9 @@ const
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
 
 var
-  LightPos: record
-    Red, Green, Blue: TVector3f;
-  end;
+  //LightPos: record
+  //  Red, Green, Blue: TVector3f;
+  //end;
 
   CubeSize: integer;
 
@@ -87,6 +87,24 @@ type
     VAO,
     VBOvert: GLuint;
   end;
+
+  TLight = record
+    Uniform_ID,
+    UBO: GLuint;
+    bindingPoint: gluint;
+    Data: record
+      On: boolean;
+      CutOff: GLfloat;
+      pad0: TVector2f;
+      Pos: TVector3f;
+      pad1: GLfloat;
+      Color: TVector3f;
+    end;
+  end;
+
+var
+  Light: array[0..2] of TLight;
+
 
 var
   VBCube: TVB;
@@ -98,13 +116,9 @@ var
   ModelMatrix_ID,
   Matrix_ID: GLint;
 
-  LightPos_ID: record
-    Red, Green, Blue: GLint;
-  end;
-
-  ColorOn_ID: record
-    Red, Green, Blue: GLint;
-  end;
+//LightPos_ID: record
+//  Red, Green, Blue: GLint;
+//end;
 
 { TForm1 }
 
@@ -137,16 +151,22 @@ Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.
 procedure TForm1.CreateScene;
 const
   LichtPositionRadius = 25.0;
+var
+  i: integer;
 begin
-  with LightPos do begin
-    Red := vec3(-1.0, 0.0, 0.0);
-    Red.Scale(LichtPositionRadius);
+  with Light[0].Data do begin
+    Pos := vec3(-1.0, 0.0, 0.0);
+    Pos.Scale(LichtPositionRadius);
+  end;
 
-    Green := vec3(0.0, 1.0, 0.0);
-    Green.Scale(LichtPositionRadius);
+  with Light[1].Data do begin
+    Pos := vec3(0.0, 1.0, 0.0);
+    Pos.Scale(LichtPositionRadius);
+  end;
 
-    Blue := vec3(1.0, 1.0, -1.0);
-    Blue.Scale(LichtPositionRadius);
+  with Light[2].Data do begin
+    Pos := vec3(1.0, 1.0, -1.0);
+    Pos.Scale(LichtPositionRadius);
   end;
   //code-
 
@@ -169,16 +189,15 @@ begin
     UseProgram;
     Matrix_ID := UniformLocation('Matrix');
     ModelMatrix_ID := UniformLocation('ModelMatrix');
-    with LightPos_ID do begin
-      Red := UniformLocation('RedLightPos');
-      Green := UniformLocation('GreenLightPos');
-      Blue := UniformLocation('BlueLightPos');
-    end;
 
-    with ColorOn_ID do begin
-      Red := UniformLocation('RedOn');
-      Green := UniformLocation('GreenOn');
-      Blue := UniformLocation('BlueOn');
+    Light[0].Uniform_ID := UniformBlockIndex('light0');
+    Light[1].Uniform_ID := UniformBlockIndex('light1');
+    Light[2].Uniform_ID := UniformBlockIndex('light2');
+  end;
+
+  for i := 0 to 2 do begin
+    with Light[i] do begin
+      glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
     end;
   end;
 
@@ -189,7 +208,26 @@ begin
 end;
 
 procedure TForm1.InitScene;
+var
+  i: integer;
 begin
+  for i := 0 to 2 do begin
+    with Light[i] do begin
+      bindingPoint := i;
+      Data.On := True;
+      Data.Color.FromInt($FF shl (i * 8));
+
+      // Speicher für UBO reservieren
+      glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+      glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), nil, GL_DYNAMIC_DRAW);
+
+      // UBO mit dem Shader verbinden
+      glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
+      glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
+
+    end;
+  end;
+
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
 
   // --- Daten für Würfel
@@ -204,8 +242,9 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  x, y, z: integer;
+  i, x, y, z: integer;
   scal, d: single;
+  a:TStringArray;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
 
@@ -214,16 +253,11 @@ begin
 
   Shader.UseProgram;
 
-  with LightPos_ID do begin
-    glUniform3fv(Red, 1, @LightPos.Red);
-    glUniform3fv(Green, 1, @LightPos.Green);
-    glUniform3fv(Blue, 1, @LightPos.Blue);
-  end;
-
-  with ColorOn_ID do begin
-    glUniform1i(Red, GLint(MenuItemRedOn.Checked));
-    glUniform1i(Green, GLint(MenuItemGreenOn.Checked));
-    glUniform1i(Blue, GLint(MenuItemBlueOn.Checked));
+  for i := 0 to 2 do begin
+    with Light[i] do begin
+      glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+      glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Data), @Data);
+    end;
   end;
 
   glBindVertexArray(VBCube.VAO);
@@ -267,11 +301,19 @@ begin
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
+var
+  i: integer;
 begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
+
+  for i := 0 to 2 do begin
+    with Light[i] do begin
+      glDeleteBuffers(1, @UBO);        // UB0-Puffer löschen
+    end;
+  end;
 
   Matrix.Free;
   ModelMatrix.Free;
@@ -289,7 +331,22 @@ begin
     if CubeSize > 0 then begin
       Dec(CubeSize);
     end;
+  end else if Sender = MenuItemRedOn then begin
+    with Light[0] do begin
+      Data.On := MenuItemRedOn.Checked;
+    end;
+
+  end else if Sender = MenuItemGreenOn then begin
+    with Light[1] do begin
+      Data.On := MenuItemGreenOn.Checked;
+    end;
+
+  end else if Sender = MenuItemBlueOn then begin
+    with Light[2] do begin
+      Data.On := MenuItemBlueOn.Checked;
+    end;
   end;
+
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -299,20 +356,24 @@ begin
     ModelMatrix.RotateB(0.0134);  // Drehe um Y-Achse
   end;
 
-  with LightPos do begin
-    if MenuItemRotateRed.Checked then begin
-      Red.RotateA(0.031);
-      Red.RotateB(0.11);
+  if MenuItemRotateRed.Checked then begin
+    with Light[0].Data do begin
+      Pos.RotateA(0.031);
+      Pos.RotateB(0.11);
     end;
+  end;
 
-    if MenuItemRotateGreen.Checked then begin
-      Green.RotateB(0.021);
-      Green.RotateC(0.15);
+  if MenuItemRotateGreen.Checked then begin
+    with Light[1].Data do begin
+      Pos.RotateB(0.021);
+      Pos.RotateC(0.15);
     end;
+  end;
 
-    if MenuItemRotateBlue.Checked then begin
-      Blue.RotateA(0.021);
-      Blue.RotateC(0.23);
+  if MenuItemRotateBlue.Checked then begin
+    with Light[2].Data do begin
+      Pos.RotateA(0.021);
+      Pos.RotateC(0.23);
     end;
   end;
 

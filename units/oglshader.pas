@@ -14,7 +14,6 @@ uses
   oglLogForm;
 
 type
-  TStringArray = array of ansistring;
 
   { TShader }
 

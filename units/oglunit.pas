@@ -116,7 +116,7 @@ end;
 
 function TBuffer.BkColorRGB: TColor;
 begin
-  Result := FBkColor.VectorToWord;
+  Result := FBkColor.ToInt;
 end;
 
 procedure TBuffer.Clear;

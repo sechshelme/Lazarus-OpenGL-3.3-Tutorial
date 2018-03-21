@@ -123,12 +123,12 @@ begin
     vPos := vPos + FSektoren * 6;
     Ring(0, 1, -1, -1);
   end else begin
-    vPos := 0;
-    Ring(1, 1, -1, 1);
-    vPos := FSektoren * 6;
-    Ring(1, 0, 1, 1);
-    vPos := vPos + FSektoren * 6;
-    Ring(0, 1, -1, -1);
+    //vPos := 0;
+    //Ring(1, 1, -1, 1);
+    //vPos := FSektoren * 6;
+    //Ring(1, 0, 1, 1);
+    //vPos := vPos + FSektoren * 6;
+    //Ring(0, 1, -1, -1);
   end;
 
   inherited WriteVertex;

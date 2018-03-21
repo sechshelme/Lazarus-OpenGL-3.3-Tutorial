@@ -37,16 +37,19 @@ object Form1: TForm1
         AutoCheck = True
         Caption = 'Red'
         Checked = True
+        OnClick = MenuItemClick
       end
       object MenuItemGreenOn: TMenuItem
         AutoCheck = True
         Caption = 'Green'
         Checked = True
+        OnClick = MenuItemClick
       end
       object MenuItemBlueOn: TMenuItem
         AutoCheck = True
         Caption = 'Blue'
         Checked = True
+        OnClick = MenuItemClick
       end
     end
     object MenuItem2: TMenuItem
@@ -63,16 +66,19 @@ object Form1: TForm1
         AutoCheck = True
         Caption = 'Red'
         Checked = True
+        OnClick = MenuItemClick
       end
       object MenuItemRotateGreen: TMenuItem
         AutoCheck = True
         Caption = 'Green'
         Checked = True
+        OnClick = MenuItemClick
       end
       object MenuItemRotateBlue: TMenuItem
         AutoCheck = True
         Caption = 'Blue'
         Checked = True
+        OnClick = MenuItemClick
       end
     end
   end
