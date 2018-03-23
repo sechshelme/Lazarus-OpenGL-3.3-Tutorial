@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
 
 type
 
@@ -164,10 +164,10 @@ begin
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
 
-  RotMatrix := TMatrix.Create;
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.45);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -207,6 +207,8 @@ end;
 
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  TempMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -217,10 +219,10 @@ begin
   ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
 
   // Zeichne linke Scheibe
-  ProdMatrix.Push;
+  TempMatrix := ProdMatrix;
   ProdMatrix.Translate(-0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
-  ProdMatrix.Pop;
+  ProdMatrix := TempMatrix;
 
   glBindVertexArray(VBRingL.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Disc) * 3); // Zeichnet die linke Scheibe
@@ -249,10 +251,6 @@ begin
   glDeleteVertexArrays(1, @VBRingR.VAO);
   glDeleteBuffers(1, @VBRingR.VBOVertex);
   glDeleteBuffers(1, @VBRingR.VBOTex);
-
-  ProdMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

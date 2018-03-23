@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
 
 type
 
@@ -128,10 +128,10 @@ begin
     Matrix_ID := UniformLocation('mat');
   end;
 
-  RotMatrix := TMatrix.Create;
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.45);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -165,6 +165,8 @@ end;
 
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  TempMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -175,10 +177,10 @@ begin
   ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
 
   // Zeichne linke Scheibe
-  ProdMatrix.Push;
+  TempMatrix := ProdMatrix;
   //  ProdMatrix.Translate(-0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
-  ProdMatrix.Pop;
+  ProdMatrix := TempMatrix;
 
   glBindVertexArray(VBRingL.VAO);
   glDrawArrays(GL_LINE_STRIP, 0, Length(Linies) div 2);
@@ -195,10 +197,6 @@ begin
 
   glDeleteVertexArrays(1, @VBRingL.VAO);
   glDeleteBuffers(3, @VBRingL.VBO);
-
-  ProdMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

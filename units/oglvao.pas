@@ -7,7 +7,7 @@ interface
 uses
   SysUtils, Dialogs,
   dglOpenGL,
-  oglMatrix,
+  oglVertex, oglMatrix,
   oglShader, oglLightingShader,
   oglCamera, oglVBO;
 
@@ -333,18 +333,22 @@ begin
 end;
 
 procedure TMonoColorVAO.Draw;
+var
+  m : TMatrix;
 begin
   LightingShader.UseProgram;
 
   with Camera do begin
-    ObjectMatrix.Push;
+    m := ObjectMatrix;
+//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
-    ObjectMatrix.Pop;
+    ObjectMatrix := m;
+//    ObjectMatrix.Pop;
 
     glUniform4fv(UniformID.VecColor, 1, @Color);
   end;

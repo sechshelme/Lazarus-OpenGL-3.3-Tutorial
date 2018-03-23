@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix,
+  oglContext, oglShader, oglVertex, oglMatrix,
   oglTextur; // Unit für Texturen
 
 type
@@ -118,10 +118,10 @@ begin
   glGenBuffers(1, @VBQuad.VBOVertex);
   glGenBuffers(2, @VBQuad.VBOTex);
 
-  RotMatrix := TMatrix.Create;
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.7);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -203,10 +203,6 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(2, @VBQuad.VBOTex);
-
-  ProdMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

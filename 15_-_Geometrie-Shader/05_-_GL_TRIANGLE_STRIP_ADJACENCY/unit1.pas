@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
 
 type
 
@@ -122,10 +122,10 @@ begin
     Matrix_ID := UniformLocation('mat');
   end;
 
-  RotMatrix := TMatrix.Create;
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   //  ScaleMatrix.Scale(0.45);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 procedure TForm1.InitScene;
@@ -153,10 +153,7 @@ begin
   ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
 
   // Zeichne linke Scheibe
-  ProdMatrix.Push;
-  //  ProdMatrix.Translate(-0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
-  ProdMatrix.Pop;
 
   glBindVertexArray(VBRingL.VAO);
   glDrawArrays(GL_LINE_STRIP_ADJACENCY, 0, Length(Linies));
@@ -173,10 +170,6 @@ begin
 
   glDeleteVertexArrays(1, @VBRingL.VAO);
   glDeleteBuffers(1, @VBRingL.VBO);
-
-  ProdMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

@@ -26,7 +26,7 @@
       </Linking>
     </CompilerOptions>
     <Version Major="1"/>
-    <Files Count="24">
+    <Files Count="25">
       <Item1>
         <Filename Value="ogllighting.pas"/>
         <UnitName Value="oglLighting"/>
@@ -123,6 +123,10 @@
         <Filename Value="ogllogform.pas"/>
         <UnitName Value="ogllogform"/>
       </Item24>
+      <Item25>
+        <Filename Value="oglvertex.pas"/>
+        <UnitName Value="oglVertex"/>
+      </Item25>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>

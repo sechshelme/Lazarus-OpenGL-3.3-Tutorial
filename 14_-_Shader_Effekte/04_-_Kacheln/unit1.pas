@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -102,7 +102,7 @@ begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
   MatrixRot_ID := Shader.UniformLocation('mat');
-  MatrixRot := TMatrix.Create;
+  MatrixRot.Identity;
 
   glGenVertexArrays(1, @VBTriangle.VAO);
   glGenVertexArrays(1, @VBQuad.VAO);
@@ -170,7 +170,6 @@ begin
   Timer1.Enabled := False;
 
   Shader.Free;
-  MatrixRot.Free;
 
   glDeleteVertexArrays(1, @VBTriangle.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);

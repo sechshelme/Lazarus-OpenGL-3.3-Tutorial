@@ -20,7 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="146"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="6"/>
         <CursorPos X="58" Y="146"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -45,10 +46,8 @@
       <Unit4>
         <Filename Value="../../../../Units/MyPackages/OpenGL/ogltexturvao.pas"/>
         <UnitName Value="oglTexturVAO"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -118,9 +118,9 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
-  ScaleMatrix := TMatrix.Create;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.5);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -171,7 +171,7 @@ begin
 
   // Linkes Quadrat.
   glBindTexture(GL_TEXTURE_2D, textureID[0]);  // Textur 0 binden.
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -179,7 +179,7 @@ begin
 
   // Rechtes Quadrat.
   glBindTexture(GL_TEXTURE_2D, textureID[1]);  // Textur 1 binden.
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -199,9 +199,6 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
-
-  ProdMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

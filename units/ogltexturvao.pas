@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Dialogs,
   dglOpenGL,
-  oglMatrix, oglShader, oglLightingShader, oglTextur, oglVBO, oglVAO;
+  oglVertex, oglMatrix, oglShader, oglLightingShader, oglTextur, oglVBO, oglVAO;
 
 type
 
@@ -206,6 +206,7 @@ end;
 procedure TMultiTexturVAO.Draw(TextBuffer: array of TTexturBuffer);
 var
   anzTextures, i: integer;
+  m: TMatrix;
 begin
   anzTextures := Length(TextBuffer);
   if anzTextures > 4 then begin
@@ -215,14 +216,16 @@ begin
   LightingShader.UseProgram;
 
   with Camera do begin
-    ObjectMatrix.Push;
+    m := ObjectMatrix;
+    //    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
-    ObjectMatrix.Pop;
+    ObjectMatrix := m;
+    //    ObjectMatrix.Pop;
     for i := 0 to anzTextures - 1 do begin   // mit Textur
       TextBuffer[i].ActiveAndBind(i);
     end;
@@ -336,18 +339,22 @@ begin
 end;
 
 procedure TBumpmappingTexturVAO.Draw(Text, Normal: TTexturBuffer);
+var
+  m: TMatrix;
 begin
   LightingShader.UseProgram;
 
   with Camera do begin
-    ObjectMatrix.Push;
+    m := ObjectMatrix;;
+//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
-    ObjectMatrix.Pop;
+    ObjectMatrix := m;
+//    ObjectMatrix.Pop;
 
     Text.ActiveAndBind(0);
     Normal.ActiveAndBind(1);

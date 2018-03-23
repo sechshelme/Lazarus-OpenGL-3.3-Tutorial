@@ -8,7 +8,7 @@ uses
   Classes,
   SysUtils,
   oglTextur, oglTexturVAO,
-  oglMatrix;
+  oglVertex, oglMatrix;
 
 type
 

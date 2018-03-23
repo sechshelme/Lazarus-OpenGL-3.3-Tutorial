@@ -111,16 +111,14 @@ procedure TForm1.CreateScene;
 const
   w = 1.0;
 begin
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
-
+  Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
 
 //   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ
 
-  WorldMatrix := TMatrix.Create;
-  WorldMatrix.Translate(0, 0, -200.0); // Die Scene in den sichtbaren Bereich verschieben.
-  WorldMatrix.Scale(5.0);              // Und der Grösse anpassen.
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(0.0, 0.0, -200.0); // Die Scene in den sichtbaren Bereich verschieben.
+  WorldMatrix.Scale(5.0);                  // Und der Grösse anpassen.
   //code-
 
   glEnable(GL_DEPTH_TEST);
@@ -209,10 +207,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOcol);
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

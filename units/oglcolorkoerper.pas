@@ -119,18 +119,22 @@ begin
 end;
 
 procedure TColorVAO.Draw;
+var
+  m: TMatrix;
 begin
   LightingShader.UseProgram;
 
   with Camera do begin
-    ObjectMatrix.Push;
+    m := ObjectMatrix;;
+//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
-    ObjectMatrix.Pop;
+    ObjectMatrix := m;
+//    ObjectMatrix.Pop;
   end;
 
   inherited Draw;

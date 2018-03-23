@@ -278,6 +278,7 @@ var
   i: integer;
   CharIndex: integer;
   cursor: single;
+  m: TMatrix;
 
 begin
   TexturBuffer.ActiveAndBind;
@@ -298,14 +299,17 @@ begin
       end;
 
       with Camera do begin
-        ObjectMatrix.Push;
+        m := ObjectMatrix;;
+//        ObjectMatrix.Push;
         ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
         ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
         ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
         ObjectMatrix.Uniform(UniformID.CameraMatrix);
-        ObjectMatrix.Pop;
+
+        ObjectMatrix := m;
+//        ObjectMatrix.Pop;
       end;
 
       inherited Draw;

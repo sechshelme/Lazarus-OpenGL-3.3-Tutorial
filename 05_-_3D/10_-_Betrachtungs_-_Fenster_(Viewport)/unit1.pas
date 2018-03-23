@@ -110,11 +110,10 @@ end;
 
 procedure TForm1.CreateScene;
 begin
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
+  Matrix.Identity;
 
-  WorldMatrix := TMatrix.Create;
-  WorldMatrix.Translate(0, 0, -200.0);
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(0.0, 0.0, -200.0);
   WorldMatrix.Scale(5.0);
 
   glEnable(GL_DEPTH_TEST);
@@ -209,10 +208,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOcol);
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

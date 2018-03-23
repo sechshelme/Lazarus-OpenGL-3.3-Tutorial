@@ -55,6 +55,14 @@ Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
 Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
 Ich habe eine Package Namens <b>ogl_package.lpk</b> mit den benötigten Dateien erstellt, sie befindet sich im gleiche Ordner wie die <b>Units</b>.  Ich empfehle es, die Package zu installieren,
 obwohl man auch in den Projekte den Unit-Pfad anpassen kann, nur muss man dann in allen Projekten die Pfade anpassen, wen man mal die Package verschiebt/umbennent.
+Die wichtigsten Funktionen der ogl_Package:
+* <b>dglOpenGL</b>: Der Header für die OpenGL-Funktionen.
+* <b>oglContex</b>: Erzeugt einen Zeichencontext, ohne diesem ist keine OpenGL-Ausgabe möglich.
+* <b>oglShader</b>: Enthält Funktionen um den Shader-Code in die Grafikkarte zu laden.
+* <b>oglVertex</b>: Verschiedene Vertex-Deklarationen und Funktionen/Berechnungen.
+* <b>oglMatrix</b>: Verschiedene Matrix-Deklarationen und Funktionen/Berechnungen.
+* <b>oglTextur</b>: Funktionen für das Hochladen von Texturen.
+
 
 Es sind viele OpenGL spezifische Sachen ausserhalb von Form deklariert, bei einer sauberen objektorientierten Programmierung ist dies nicht üblich.
 Hier wurde es einfachtshalber der Übersichlichkeit gemacht.

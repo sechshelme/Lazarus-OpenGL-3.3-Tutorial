@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 //image image.png
 (*
@@ -103,7 +103,7 @@ end;
 
 procedure TForm1.CreateScene;
 begin
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
@@ -146,6 +146,8 @@ Der Kleine übermahlt einfach den grossen.
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  TempMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -158,13 +160,13 @@ begin
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
   glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);   // Zeichne grossen Würfel
 
-  WorldMatrix.Push;                                        // Matrix sichern
+  TempMatrix := WorldMatrix;                               // Matrix sichern
 
   WorldMatrix.Scale(0.5);                                  // Matrix kleiner scalieren
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
   glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);   // Zeichne kleinen Würfel
 
-  WorldMatrix.Pop;                                         // Matrix laden
+  WorldMatrix := TempMatrix;                               // Matrix laden
 
   ogc.SwapBuffers;
 end;
@@ -177,8 +179,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOcol);
-
-  WorldMatrix.Free;
 end;
 
 (*

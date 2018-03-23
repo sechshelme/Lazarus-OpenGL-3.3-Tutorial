@@ -123,15 +123,13 @@ begin
   end;
   //code-
 
-  TempMatrix := TMatrix.Create;
+  PlanetRotMatrix.Identity;
 
-  PlanetRotMatrix := TMatrix.Create;
+  MondRotMatrix.Identity;
+  MondTransMatrix.Identity;
 
-  MondRotMatrix := TMatrix.Create;
-  MondTransMatrix := TMatrix.Create;
-
-  UmlaufRotMatrix := TMatrix.Create;
-  UmlaufTransMatrix := TMatrix.Create;
+  UmlaufRotMatrix.Identity;
+  UmlaufTransMatrix.Identity;
 
   glGenVertexArrays(1, @VAO);
   glGenBuffers(1, @VBOvert);
@@ -156,13 +154,6 @@ end;
 
 destructor TPlanet.Destroy;
 begin
-  TempMatrix.Free;
-  PlanetRotMatrix.Free;
-  UmlaufTransMatrix.Free;
-  UmlaufRotMatrix.Free;
-  MondRotMatrix.Free;
-  MondTransMatrix.Free;
-
   glDeleteVertexArrays(1, @VAO);
   glDeleteBuffers(1, @VBOvert);
   glDeleteBuffers(1, @VBOcol);
@@ -197,7 +188,7 @@ begin
 
   // TempMatrix = UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * PlanetRotMatrix;
 
-  TempMatrix.Assign(PlanetRotMatrix);
+  TempMatrix := PlanetRotMatrix;
   TempMatrix.Scale(fPlanetScale);
 
   TempMatrix.Multiply(MondTransMatrix, TempMatrix);

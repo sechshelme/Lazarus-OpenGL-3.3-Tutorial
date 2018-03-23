@@ -142,14 +142,18 @@ begin
 end;
 
 procedure TColorLinesVAO.draw;
+var
+  m: TMatrix;
 begin
   Shader.UseProgram;
 
   with Camera do begin
-    ObjectMatrix.Push;
+    m := ObjectMatrix;;
+//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(CameraMatrix_id);
-    ObjectMatrix.Pop;
+//    ObjectMatrix.Pop;
+    ObjectMatrix := m;
   end;
 
   inherited Draw;

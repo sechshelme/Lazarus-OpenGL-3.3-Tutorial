@@ -109,7 +109,7 @@ begin
   glDepthFunc(GL_LESS);     // Kann man weglassen, da default.
   //code-
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
@@ -152,11 +152,10 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  TempMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
-
-  //  glEnable(GL_CULL_FACE);
-  //  glCullface(GL_BACK);
 
   Shader.UseProgram;
 
@@ -167,13 +166,13 @@ begin
   WorldMatrix.Uniform(WorldMatrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);
 
-  WorldMatrix.Push;
+  TempMatrix := WorldMatrix;
 
   WorldMatrix.Scale(0.5);
   WorldMatrix.Uniform(WorldMatrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // wird nicht gezeichnet.
 
-  WorldMatrix.Pop;
+  WorldMatrix := TempMatrix;
 
   ogc.SwapBuffers;
 end;
@@ -186,8 +185,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOcol);
-
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

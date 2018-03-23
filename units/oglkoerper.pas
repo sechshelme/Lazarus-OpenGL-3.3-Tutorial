@@ -5,8 +5,7 @@ unit oglKoerper;
 interface
 
 uses
-  oglVAO,
-  oglMatrix;
+  oglVAO, oglVertex, oglMatrix;
 
 type
 

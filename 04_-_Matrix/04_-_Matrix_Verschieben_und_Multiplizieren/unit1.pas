@@ -44,9 +44,9 @@ Dazu werden zwei 4x4 Matrixen verwendet, eine für das Verschieben und die ander
 Eine dritte Matrix ist noch für das Produkt von den zweit Matrixen, welche dann am Shader übergeben wird.
 Im Timer wird Matrix-Rotation ausgeführt.
 
-Für Matrixen, wird ab jetzt Klassen aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.
+Für Matrixen, wird ab jetzt ein Type Helper aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.
 Dafür muss einfach die Unit <b>oglMatrix</b> bei uses eingebunden werden.
-Im Constructor wird die Matrix von Anfang an auf die Einheits-Matrix gesetzt.
+In der Regel muss dann die Matrix mit <b>TMatrix.Indenty</b> auf die Einheits-Matrix gesetzt werden.
 *)
 
 //lineal
@@ -70,7 +70,7 @@ type
 
 (*
 Die Deklaration der drei Matrixen.
-Und die ID für den Shader. ID wird nur eine gebraucht, da nur da Produkt dem Shader übergeben wird.
+Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt dem Shader übergeben wird.
 *)
 //code+
 var
@@ -98,8 +98,7 @@ begin
 end;
 
 (*
-Hier werden die drei Matrixen-Klassen erzeugt.
-Mit diesem Kontruktor wird die Matrix automatisch auf die Einheits-Matrix gesetzt.
+Hier werden die drei Matrixen auf die gesetzt.
 *)
 //code+
 procedure TForm1.CreateScene;
@@ -108,10 +107,10 @@ begin
   Shader.UseProgram;
   Color_ID := Shader.UniformLocation('Color');
   Matrix_ID := Shader.UniformLocation('mat');
-  RotMatrix := TMatrix.Create;            // Die drei Konstruktoren
-  TransMatrix := TMatrix.Create;
-  prodMatrix := TMatrix.Create;
-  TransMatrix.Translate(0.5, 0.0, 0.0);   // TransMatrix um 0.5 nach links verschieben.
+  RotMatrix.Identity;                   // Zuerst ist eine Einheitsmatrix erwünscht.
+  TransMatrix.Identity;
+  prodMatrix.Identity;
+  TransMatrix.Translate(0.5, 0.0, 0.0); // TransMatrix um 0.5 nach links verschieben.
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -148,7 +147,7 @@ Mit der Klasse geht dies einfacht mit <b>xxxx.Uniform(ID)</b>
 Debei wird die Mesh zuerst gedreht und dann verschoben.
 <b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b>
 
-Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Egebniss.
+Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Ergebniss.
 Dann wird zuerst die Mesh verschoben und dann das Ganze um den Mittelpunkt gedreht.
 *)
 //code+
@@ -173,18 +172,9 @@ begin
   ogc.SwapBuffers;
 end;
 
-(*
-Die Matrixen-Klassen müssen am Ende wieder frei gegeben werden.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-
-  prodMatrix.Free;
-  RotMatrix.Free;
-  TransMatrix.Free;
-  //code-
 
   Shader.Free;
 

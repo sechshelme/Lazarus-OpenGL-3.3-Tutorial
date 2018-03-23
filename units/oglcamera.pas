@@ -14,6 +14,8 @@ uses
 type
   TCamera = class(TObject)
   private
+    wm, cm: TMatrix;
+
     FEnabled: boolean;
     FIsCameraMatrixTransform: boolean;
     FMouseMoveStep: single;
@@ -72,23 +74,17 @@ begin
   FIsCameraMatrixTransform:=True;
   FMouseMoveStep := 1.0;
 
-  FRotationsMatrix := TMatrix.Create;
-  FProjectionMatrix := TMatrix.Create;
-  FCameraMatrix := TMatrix.Create;
-  FWorldMatrix := TMatrix.Create;
-  ObjectMatrix := TMatrix.Create;
+  FRotationsMatrix.Identity;
+  FProjectionMatrix.Identity;
+  FCameraMatrix.Identity;
+  FWorldMatrix.Identity;
+  ObjectMatrix.Identity;
 
   SetOrtho;
 end;
 
 destructor TCamera.Destroy;
 begin
-  FRotationsMatrix.Free;
-  FProjectionMatrix.Free;
-  FCameraMatrix.Free;
-  FWorldMatrix.Free;
-  ObjectMatrix.Free;
-
   inherited Destroy;
 end;
 
@@ -104,14 +100,18 @@ begin
   end;
   FEnabled := AValue;
   if FEnabled then begin
-    FCameraMatrix.Pop;
-    FWorldMatrix.Pop;
+    FCameraMatrix := cm;
+    FWorldMatrix := wm;
+//    FCameraMatrix.Pop;
+//    FWorldMatrix.Pop;
   end else begin
-    FCameraMatrix.Push;
+    cm := FCameraMatrix;
+//    FCameraMatrix.Push;
     FCameraMatrix.Identity;
     FCameraMatrix.Scale(1.0, 1.0, -1.0); // Weil keine Ortho/Frustumm z-Achse vertauschen
 
-    FWorldMatrix.Push;
+    wm := FWorldMatrix;
+//    FWorldMatrix.Push;
     FWorldMatrix.Identity;
   end;
 end;
@@ -157,7 +157,7 @@ procedure TCamera.Perspective(fovy, aspect, near, far, posZ, Scale: single);
 var
   TransMatrix: TMatrix;
 begin
-  TransMatrix := TMatrix.Create;
+  TransMatrix.Identity;
 
   TransMatrix.Translate(0.0, 0.0, posZ);
   TransMatrix.Scale(scale);
@@ -166,8 +166,6 @@ begin
   FProjectionMatrix.Multiply(FProjectionMatrix, TransMatrix);
 
   MatrixMulti;
-
-  TransMatrix.Free;
 end;
 
 

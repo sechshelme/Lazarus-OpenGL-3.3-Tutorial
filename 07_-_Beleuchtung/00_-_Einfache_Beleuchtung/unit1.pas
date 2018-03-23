@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 //image image.png
 (*
@@ -149,14 +149,13 @@ begin
   FaceToNormale(CubeVertex, CubeNormal);
 //code-
 
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
+  Matrix.Identity;
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -200.0);
   WorldMatrix.Scale(5.0);
 
-  ModelMatrix := TMatrix.Create;
+  ModelMatrix.Identity;
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -268,11 +267,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBONormal);
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  ModelMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

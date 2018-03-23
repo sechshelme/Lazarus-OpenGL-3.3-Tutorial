@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 //image image.png
 (*
@@ -204,14 +204,13 @@ begin
     Blue := vec3(1.0, 1.0, 1.0);
   end;
 
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
+  Matrix.Identity;
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
   WorldMatrix.Scale(2.5);
 
-  ModelMatrix := TMatrix.Create;
+  ModelMatrix.Identity;
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -340,11 +339,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBONormal);
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  ModelMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.MenuItemClick(Sender: TObject);

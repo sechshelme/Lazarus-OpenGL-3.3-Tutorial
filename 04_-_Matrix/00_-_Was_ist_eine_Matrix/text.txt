@@ -4,7 +4,7 @@ Der mathematische Teil von Matrix wird hier nicht behandelt, in diesem Tutorial 
 Wen jemmand den mathematischen Teil interessiert, gibt es schon fertige Tutorials dazu.
 Der zweite Grund, ich versteht das auch nicht Ganz, und somit will ich verhindern, das ich etwas falsches weiter gebe. :ops:
 
-Ich habe eine fertige Klasse für Matrixen, bei der ich die gängigen Funktionen beschreiben will.
+Ich habe eine fertige Bibliotheke für Matrixen, bei der ich die gängigen Funktionen beschreiben will.
 Es wird hier fast nur eine <b>4x4-Matrix</b> verwendet, die Standard mässig so auf gebaut ist:
 //matrix+
 | 1 | 0 | 0 | 0 |
@@ -72,22 +72,20 @@ Für die Rotation C-Achse (<b>RotateC</b>):
 //lineal
 
 (*
-Die Anwendung der <b>Matrix-Klasse</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.
+Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.
 *)
 //code+
 var
   Matrix : TMatrix;
 
 begin
-  Matrix := TMatrix.Create;      // Matrix erzeugen und auf Indenty setzen.
+  Matrix.Indenty;                // Matrix Indenty setzen.
 
   Matrix.xxxx(...);              // Modifikationen der Matrix.
   Matrix.Uniform(ID_im_Shader);  // Die Matrix dem Shader übergeben.
-
-  Matrix.Free                    // Matrix frei geben.
 //code-
 
 (*
-Ausser im ersten Beispiel werde ich nur noch diese <b>Klasse</b> verwenden. Somit werden die Beispiele sehr übersichtlich.
+Ausser im ersten Beispiel werde ich nur noch diese <b>Bibliothek</b> verwenden. Somit werden die Beispiele sehr übersichtlich.
 *)
 

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,
-  oglMatrix, oglVBO, oglTextur,oglTexturVAO;
+  oglVertex, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
 
 type
 
@@ -56,14 +56,17 @@ end;
 procedure TBackGround.Draw(TexturBuffer: array of TTexturBuffer);
 var
   dummy: boolean;
+  m: TMatrix;
 begin
   dummy := Camera.Enabled;
   Camera.Enabled := False;
-  with Camera.ObjectMatrix do begin
-    Push;
-    Identity;
+  with Camera do begin
+    m := ObjectMatrix;
+//    Push;
+    ObjectMatrix.Identity;
     inherited Draw(TexturBuffer);
-    Pop;
+    ObjectMatrix := m;
+//    Pop;
   end;
   Camera.Enabled := dummy;
 end;

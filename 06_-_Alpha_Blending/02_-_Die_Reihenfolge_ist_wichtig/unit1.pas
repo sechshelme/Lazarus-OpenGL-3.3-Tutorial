@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -100,7 +100,7 @@ begin
   Shader.UseProgram;
   MatrixRot_ID := Shader.UniformLocation('mat');
   Color_ID := Shader.UniformLocation('Color');
-  MatrixTrans := TMatrix.Create;
+  MatrixTrans.Identity;
 
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOvert);
@@ -131,10 +131,14 @@ begin
 end;
 //code-
 
+(*
+Zeichnen der 4 Rechtecke.
+*)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   col: TVector4f;
+  TempMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
   Shader.UseProgram;
@@ -142,53 +146,52 @@ begin
 
   glBindVertexArray(VBQuad.VAO);
 
-  // --- Links
+  // --- Links ( Richtige Darstellung )
   // Rot
   col := vec4(1.0, 0.0, 0.0, 1.0);
   glUniform4fv(Color_ID, 1, @col);   // Als Vektor
-  MatrixTrans.Push;
+  TempMatrix := MatrixTrans;
   MatrixTrans.Translate(-0.5, 0.2, 0.1);
   MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-  MatrixTrans.Pop;
+  MatrixTrans := TempMatrix;
 
   // blau transparent
   col := vec4(0.0, 0.0, 1.0, 0.3);
   glUniform4fv(Color_ID, 1, @col);   // Als Vektor
-  MatrixTrans.Push;
+  TempMatrix := MatrixTrans;
   MatrixTrans.Translate(-0.4, -0.2, -0.1);
   MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-  MatrixTrans.Pop;
+  MatrixTrans := TempMatrix;
 
 
   // --- Rechts ( Falsche Darstellung )
   // blau transparent
   col := vec4(0.0, 0.0, 1.0, 0.3);
   glUniform4fv(Color_ID, 1, @col);   // Als Vektor
-  MatrixTrans.Push;
+  TempMatrix := MatrixTrans;
   MatrixTrans.Translate(0.4, -0.2, -0.1);
   MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-  MatrixTrans.Pop;
+  MatrixTrans := TempMatrix;
 
   // Rot
   col := vec4(1.0, 0.0, 0.0, 1.0);
   glUniform4fv(Color_ID, 1, @col);   // Als Vektor
-  MatrixTrans.Push;
+  TempMatrix := MatrixTrans;
   MatrixTrans.Translate(0.5, 0.2, 0.1);
   MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-  MatrixTrans.Pop;
+  MatrixTrans := TempMatrix;
 
   ogc.SwapBuffers;
 end;
-//code+
+//code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
-  MatrixTrans.Free;
 
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOvert);

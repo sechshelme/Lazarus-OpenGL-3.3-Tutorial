@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
 
 type
 
@@ -94,10 +94,10 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
-  RotMatrix := TMatrix.Create;
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.7);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -156,10 +156,6 @@ begin
   glDeleteBuffers(1, @VBQuad.VBOTex);
 
   Textur.Free;                           // Textur-Puffer frei geben.
-  ProdMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
-
   Shader.Free;
 end;
 

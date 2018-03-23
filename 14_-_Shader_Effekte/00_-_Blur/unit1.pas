@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -187,8 +187,8 @@ begin
     end;
   end;
 
-  CubeWorldMatrix := TMatrix.Create;
-  QuadWorldMatrix := TMatrix.Create;
+  CubeWorldMatrix.Identity;
+  QuadWorldMatrix.Identity;
 end;
 //code-
 (*
@@ -355,10 +355,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOVertex);
   glDeleteBuffers(1, @VBCube.VBOTex);
-
-  // Matrizen frei geben.
-  CubeWorldMatrix.Free;
-  QuadWorldMatrix.Free;
 
   // Shader frei geben.
   Quad_Shader.Shader.Free;

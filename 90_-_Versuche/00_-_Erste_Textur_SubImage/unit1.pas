@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -115,9 +115,9 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
-  RotMatrix := TMatrix.Create;            // Die drei Konstruktoren
-  TransMatrix := TMatrix.Create;
-  prodMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  TransMatrix.Identity;
+  prodMatrix.Identity;
   TransMatrix.Translate(0.5, 0.0, 0.0);   // TransMatrix um 0.5 nach links verschieben.
   //code-
 
@@ -189,10 +189,6 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-
-  prodMatrix.Free;
-  RotMatrix.Free;
-  TransMatrix.Free;
 
   Shader.Free;
 

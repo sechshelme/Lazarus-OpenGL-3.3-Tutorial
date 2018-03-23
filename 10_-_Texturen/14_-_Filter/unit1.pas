@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus, Grids,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVertex, oglMatrix;
 
 type
 
@@ -87,7 +87,7 @@ begin
 end;
 
 (*
-Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
+Da die Textur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
 Dazu gebe ich als ersten Parameter die Länge der Array an.
 Natürlich könnte man die Puffer auch einzeln erzeugen.
 
@@ -109,9 +109,9 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
-  ScaleMatrix := TMatrix.Create;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.5);
-  ProdMatrix := TMatrix.Create;
+  ProdMatrix.Identity;
 end;
 
 (*
@@ -175,7 +175,7 @@ begin
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-0.5, 0.5, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -185,7 +185,7 @@ begin
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(0.5, 0.5, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -196,7 +196,7 @@ begin
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-0.5, -0.5, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -206,7 +206,7 @@ begin
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(0.5, -0.5, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -227,9 +227,6 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
-
-  ProdMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 end;

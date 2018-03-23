@@ -116,9 +116,8 @@ procedure TForm1.CreateScene;
 const
   w = 12.0;  // Seiten-Länge
 begin
-  Matrix := TMatrix.Create;
-  OrthoMatrix := TMatrix.Create;
-  WorldMatrix := TMatrix.Create;
+  Matrix.Identity;
+  WorldMatrix.Identity;
   WorldMatrix.Scale(0.75);                    // Welt-Matrix zoomen
   OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   // Den Ortho-Bereich einstellen.
   //code-
@@ -214,10 +213,6 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOcol);
-
-  Matrix.Free;
-  OrthoMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 (*

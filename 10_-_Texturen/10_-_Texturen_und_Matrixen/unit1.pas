@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
 
 type
 
@@ -105,12 +105,12 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
-  ScaleMatrix := TMatrix.Create;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(1.1);
 
-  texRotMatrix := TMatrix2D.Create;
+  texRotMatrix.Identity;
 
-  texTransMatrix := TMatrix2D.Create;
+  texTransMatrix.Identity;
   texTransMatrix.Translate(0.5, 0.0);
 
   with TexturTransform do begin
@@ -145,6 +145,8 @@ Matrizen multiplizieren und den Shader übergeben.
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  m: TMatrix2D;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;
@@ -153,10 +155,10 @@ begin
   ScaleMatrix.Uniform(Matrix_ID);  // Matrix für die Vektoren.
 
   // --- Texturmatrizen multiplizieren und übergeben.
-  texRotMatrix.Push;                                    // texRotMatrix sichern.
+  m := texRotMatrix;                                    // texRotMatrix sichern.
   texRotMatrix.Multiply(texTransMatrix, texRotMatrix);  // multiplizieren
   texRotMatrix.Uniform(texMatrix_ID);                   // Dem Shader übergeben.
-  texRotMatrix.Pop;                                     // Gersicherte Matrix laden.
+  texRotMatrix := m;                                    // Gersicherte Matrix laden.
 
   // --- Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -175,11 +177,6 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
-
-  ScaleMatrix.Free;
-
-  texRotMatrix.Free;
-  texTransMatrix.Free;
 
   Shader.Free;
 end;

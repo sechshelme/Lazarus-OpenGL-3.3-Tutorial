@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils,
   dglOpenGL,
-  oglShader, oglMatrix, oglUBO;
+  oglShader, oglVertex, oglMatrix, oglUBO;
 
 const
   MaterialPara: array[0..21] of record

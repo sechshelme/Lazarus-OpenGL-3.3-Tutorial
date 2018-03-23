@@ -5,7 +5,8 @@ unit oglWaveFrontOBJ;
 interface
 
 uses
-  Classes, SysUtils, Forms, Dialogs, dglOpenGL, oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
+  Classes, SysUtils, Forms, Dialogs,
+  dglOpenGL, oglVertex, oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
 
 type
 

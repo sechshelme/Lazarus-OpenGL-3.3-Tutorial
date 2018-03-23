@@ -52,7 +52,7 @@ type
     procedure ActiveAndBind;
   end;
 
-//function getGLTexturFormat(RawImage: TRawImage): TGLTextureFormat;
+function getGLTexturFormat(RawImage: TRawImage): TGLTextureFormat;
 
 implementation
 
