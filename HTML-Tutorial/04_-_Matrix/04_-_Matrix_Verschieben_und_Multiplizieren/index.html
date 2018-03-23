@@ -17,27 +17,26 @@ Dazu werden zwei 4x4 Matrixen verwendet, eine für das Verschieben und die ander
 Eine dritte Matrix ist noch für das Produkt von den zweit Matrixen, welche dann am Shader übergeben wird.<br>
 Im Timer wird Matrix-Rotation ausgeführt.<br>
 <br>
-Für Matrixen, wird ab jetzt Klassen aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.<br>
+Für Matrixen, wird ab jetzt ein Type Helper aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.<br>
 Dafür muss einfach die Unit <b>oglMatrix</b> bei uses eingebunden werden.<br>
-Im Constructor wird die Matrix von Anfang an auf die Einheits-Matrix gesetzt.<br>
+In der Regel muss dann die Matrix mit <b>TMatrix.Indenty</b> auf die Einheits-Matrix gesetzt werden.<br>
 <hr><br>
 Die Deklaration der drei Matrixen.<br>
-Und die ID für den Shader. ID wird nur eine gebraucht, da nur da Produkt dem Shader übergeben wird.<br>
+Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt dem Shader übergeben wird.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   RotMatrix, TransMatrix, prodMatrix: TMatrix;   <i><font color="#FFFF00">// Matrixen von der Klasse aus oglMatrix.</font></i>
   Matrix_ID: GLint;                              <i><font color="#FFFF00">// ID für Matrix.</font></i></pre></code>
-Hier werden die drei Matrixen-Klassen erzeugt.<br>
-Mit diesem Kontruktor wird die Matrix automatisch auf die Einheits-Matrix gesetzt.<br>
+Hier werden die drei Matrixen auf die gesetzt.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
   Color_ID := Shader.UniformLocation(<font color="#FF0000">'Color'</font>);
   Matrix_ID := Shader.UniformLocation(<font color="#FF0000">'mat'</font>);
-  RotMatrix := TMatrix.Create;            <i><font color="#FFFF00">// Die drei Konstruktoren</font></i>
-  TransMatrix := TMatrix.Create;
-  prodMatrix := TMatrix.Create;
-  TransMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);   <i><font color="#FFFF00">// TransMatrix um 0.5 nach links verschieben.</font></i></pre></code>
+  RotMatrix.Identity;                   <i><font color="#FFFF00">// Zuerst ist eine Einheitsmatrix erwünscht.</font></i>
+  TransMatrix.Identity;
+  prodMatrix.Identity;
+  TransMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// TransMatrix um 0.5 nach links verschieben.</font></i></pre></code>
 Hier wird das Produkt von TransMatrx und RotMatrix den Shader übergeben.<br>
 Mit der Klasse geht dies einfacht mit <b>xxxx.Uniform(ID)</b><br>
 <br>
@@ -45,7 +44,7 @@ Mit der Klasse geht dies einfacht mit <b>xxxx.Uniform(ID)</b><br>
 Debei wird die Mesh zuerst gedreht und dann verschoben.<br>
 <b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b><br>
 <br>
-Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Egebniss.<br>
+Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Ergebniss.<br>
 Dann wird zuerst die Mesh verschoben und dann das Ganze um den Mittelpunkt gedreht.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -53,14 +52,6 @@ Dann wird zuerst die Mesh verschoben und dann das Ganze um den Mittelpunkt gedre
   Shader.UseProgram;
   prodMatrix.Multiply(TransMatrix, RotMatrix);
   prodMatrix.Uniform(Matrix_ID);     <i><font color="#FFFF00">// prodMatrix in den Shader.</font></i></pre></code>
-Die Matrixen-Klassen müssen am Ende wieder frei gegeben werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Timer1.Enabled := <b><font color="0000BB">False</font></b>;
-
-  prodMatrix.Free;
-  RotMatrix.Free;
-  TransMatrix.Free;</pre></code>
 Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>

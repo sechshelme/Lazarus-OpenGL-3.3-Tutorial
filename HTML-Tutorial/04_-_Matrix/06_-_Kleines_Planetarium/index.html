@@ -63,7 +63,7 @@ Hier werden die Bahnen der Planeten berechnet und anschliessend gezeichnet.<br>
 
   <i><font color="#FFFF00">// TempMatrix = UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * PlanetRotMatrix;</font></i>
 
-  TempMatrix.Assign(PlanetRotMatrix);
+  TempMatrix := PlanetRotMatrix;
   TempMatrix.Scale(fPlanetScale);
 
   TempMatrix.Multiply(MondTransMatrix, TempMatrix);

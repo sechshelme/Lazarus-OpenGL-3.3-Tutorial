@@ -35,9 +35,9 @@ Mit diesem Kontruktor wird die Matrix automatisch auf die Einheits-Matrix gesetz
     Matrix_ID := UniformLocation(<font color="#FF0000">'mat'</font>);
     glUniform1i(UniformLocation(<font color="#FF0000">'Sampler'</font>), <font color="#0077BB">0</font>);
   <b><font color="0000BB">end</font></b>;
-  RotMatrix := TMatrix.Create;            <i><font color="#FFFF00">// Die drei Konstruktoren</font></i>
-  TransMatrix := TMatrix.Create;
-  prodMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  TransMatrix.Identity;
+  prodMatrix.Identity;
   TransMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);   <i><font color="#FFFF00">// TransMatrix um 0.5 nach links verschieben.</font></i></pre></code>
 Texturen laden<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;

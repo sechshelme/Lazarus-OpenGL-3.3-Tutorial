@@ -28,16 +28,14 @@ Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.<br>
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
-
+  Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
 
 <i><font color="#FFFF00">//   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ</font></i>
 
-  WorldMatrix := TMatrix.Create;
-  WorldMatrix.Translate(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
-  WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);              <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></pre></code>
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
+  WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></pre></code>
 Das Zeichnen ist das Selbe wie bei Ortho.<br>
 <pre><code>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
 

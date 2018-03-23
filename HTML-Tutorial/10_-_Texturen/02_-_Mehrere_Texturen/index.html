@@ -61,7 +61,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
 
   <i><font color="#FFFF00">// Linkes Quadrat.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">0</font>]);  <i><font color="#FFFF00">// Textur 0 binden.</font></i>
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -69,7 +69,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
 
   <i><font color="#FFFF00">// Rechtes Quadrat.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">1</font>]);  <i><font color="#FFFF00">// Textur 1 binden.</font></i>
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 

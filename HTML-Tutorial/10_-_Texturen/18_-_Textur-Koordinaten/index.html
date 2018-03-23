@@ -102,6 +102,8 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">20</font>));
 <b><font color="0000BB">end</font></b>;</pre></code>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
+  TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -112,10 +114,10 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
 
   <i><font color="#FFFF00">// Zeichne linke Scheibe</font></i>
-  ProdMatrix.Push;
+  TempMatrix := ProdMatrix;
   ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
-  ProdMatrix.Pop;
+  ProdMatrix := TempMatrix;
 
   glBindVertexArray(VBRingL.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Disc) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet die linke Scheibe</font></i>

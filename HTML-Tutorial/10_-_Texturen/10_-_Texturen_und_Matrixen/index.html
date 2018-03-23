@@ -21,6 +21,8 @@ Das Translate ist noch fehlerhaft !!!!!<br>
   Textur.LoadTextures(<font color="#FF0000">'mauer.bmp'</font>);</pre></code>
 Matrizen multiplizieren und den Shader übergeben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
+  m: TMatrix2D;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;
@@ -29,10 +31,10 @@ Matrizen multiplizieren und den Shader übergeben.<br>
   ScaleMatrix.Uniform(Matrix_ID);  <i><font color="#FFFF00">// Matrix für die Vektoren.</font></i>
 
   <i><font color="#FFFF00">// --- Texturmatrizen multiplizieren und übergeben.</font></i>
-  texRotMatrix.Push;                                    <i><font color="#FFFF00">// texRotMatrix sichern.</font></i>
+  m := texRotMatrix;                                    <i><font color="#FFFF00">// texRotMatrix sichern.</font></i>
   texRotMatrix.Multiply(texTransMatrix, texRotMatrix);  <i><font color="#FFFF00">// multiplizieren</font></i>
   texRotMatrix.Uniform(texMatrix_ID);                   <i><font color="#FFFF00">// Dem Shader übergeben.</font></i>
-  texRotMatrix.Pop;                                     <i><font color="#FFFF00">// Gersicherte Matrix laden.</font></i>
+  texRotMatrix := m;                                    <i><font color="#FFFF00">// Gersicherte Matrix laden.</font></i>
 
   <i><font color="#FFFF00">// --- Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);

@@ -19,7 +19,7 @@ Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textu
 Da es zwei Texturen hat, bracuht es auch zwei IDs.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   textureID: GLuint;</pre></code>
-Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.<br>
+Da die Textur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.<br>
 Dazu gebe ich als ersten Parameter die Länge der Array an.<br>
 Natürlich könnte man die Puffer auch einzeln erzeugen.<br>
 <br>
@@ -70,7 +70,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -80,7 +80,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -91,7 +91,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
@@ -101,7 +101,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-  ProdMatrix.Assign(ScaleMatrix);
+  ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 

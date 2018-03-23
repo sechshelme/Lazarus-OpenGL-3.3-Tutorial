@@ -32,9 +32,8 @@ Die Skalierung der Welt-Matrix hat den Effekt, das die ganze Scene gezoomt wird.
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">12</font>.<font color="#0077BB">0</font>;  <i><font color="#FFFF00">// Seiten-Länge</font></i>
 <b><font color="0000BB">begin</font></b>
-  Matrix := TMatrix.Create;
-  OrthoMatrix := TMatrix.Create;
-  WorldMatrix := TMatrix.Create;
+  Matrix.Identity;
+  WorldMatrix.Identity;
   WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">75</font>);                    <i><font color="#FFFF00">// Welt-Matrix zoomen</font></i>
   OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   <i><font color="#FFFF00">// Den Ortho-Bereich einstellen.</font></i></pre></code>
 Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrixen mutipliziert werden.<br>

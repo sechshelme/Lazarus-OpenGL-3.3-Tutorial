@@ -29,11 +29,10 @@ Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT
 Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Buffer gelöscht wird, sondern aud der Tiefenbuffer.<br>
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
+  TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer löschen.</font></i>
-
-  <i><font color="#FFFF00">//  glEnable(GL_CULL_FACE);</font></i>
-  <i><font color="#FFFF00">//  glCullface(GL_BACK);</font></i>
 
   Shader.UseProgram;
 
@@ -44,13 +43,13 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
   WorldMatrix.Uniform(WorldMatrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);
 
-  WorldMatrix.Push;
+  TempMatrix := WorldMatrix;
 
   WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>);
   WorldMatrix.Uniform(WorldMatrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// wird nicht gezeichnet.</font></i>
 
-  WorldMatrix.Pop;
+  WorldMatrix := TempMatrix;
 
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</pre></code>

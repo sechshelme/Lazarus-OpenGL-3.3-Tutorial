@@ -90,8 +90,8 @@ Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonders.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
 
-  CubeWorldMatrix := TMatrix.Create;
-  QuadWorldMatrix := TMatrix.Create;
+  CubeWorldMatrix.Identity;
+  QuadWorldMatrix.Identity;
 <b><font color="0000BB">end</font></b>;</pre></code>
 Die Vertexkoordinaten laden, auch nichts besonderes.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
@@ -236,10 +236,6 @@ Zum Schluss alle Puffer frei geben.<br>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOVertex);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOTex);
-
-  <i><font color="#FFFF00">// Matrizen frei geben.</font></i>
-  CubeWorldMatrix.Free;
-  QuadWorldMatrix.Free;
 
   <i><font color="#FFFF00">// Shader frei geben.</font></i>
   Quad_Shader.Shader.Free;

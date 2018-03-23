@@ -44,6 +44,8 @@ Ohne Tiefenbuffer wird einfach alles gezeichnet, auch wen es verdeckt hinter ein
 Das man dies gut sieht, zeichne ich einen kleinen Würfel in den Grossen.<br>
 Der Kleine übermahlt einfach den grossen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
+  TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
 
@@ -56,13 +58,13 @@ Der Kleine übermahlt einfach den grossen.<br>
   WorldMatrix.Uniform(WorldMatrix_ID);                     <i><font color="#FFFF00">// Matrix dem Shader übergeben</font></i>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);   <i><font color="#FFFF00">// Zeichne grossen Würfel</font></i>
 
-  WorldMatrix.Push;                                        <i><font color="#FFFF00">// Matrix sichern</font></i>
+  TempMatrix := WorldMatrix;                               <i><font color="#FFFF00">// Matrix sichern</font></i>
 
   WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>);                                  <i><font color="#FFFF00">// Matrix kleiner scalieren</font></i>
   WorldMatrix.Uniform(WorldMatrix_ID);                     <i><font color="#FFFF00">// Matrix dem Shader übergeben</font></i>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);   <i><font color="#FFFF00">// Zeichne kleinen Würfel</font></i>
 
-  WorldMatrix.Pop;                                         <i><font color="#FFFF00">// Matrix laden</font></i>
+  WorldMatrix := TempMatrix;                               <i><font color="#FFFF00">// Matrix laden</font></i>
 
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</pre></code>
