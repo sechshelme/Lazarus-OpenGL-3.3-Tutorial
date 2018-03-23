@@ -20,6 +20,5 @@ Im Ordner "HTML-Tutorial" befindet sich das Tutorial in einer HTML-Version.
 
 23.03.2018:
 Die Vertex-Funktionen wurden aus der oglMatrix Unit entfernt und in eine seperate Unit oglVetex ausgelagert.
-
 Die Classe TMatrix wurde entfernt und durch Type Helper ersetzt, somit hat man nun die Möglichkeit die Matrizen auch in einer UBO zu verwenden.
 
