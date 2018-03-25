@@ -6,12 +6,14 @@ out Data {
   vec3 pos;
 } DataOut;
 
-uniform mat4 ModelMatrix;
-uniform mat4 Matrix;                    // Matrix für die Drehbewegung und Frustum.
+layout(std140) uniform Matrix {
+  mat4 ModelMatrix;
+  mat4 WorldMatrix;                    // Matrix für die Drehbewegung und Frustum.
+} matrix;
 
 void main(void)
 {
-  gl_Position    = Matrix * vec4(inPos, 1.0);
+  gl_Position    = matrix.WorldMatrix * vec4(inPos, 1.0);
 
-  DataOut.pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
+  DataOut.pos    = (matrix.ModelMatrix * vec4(inPos, 1.0)).xyz;
 }

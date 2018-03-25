@@ -1,3 +1,4 @@
-"Auch eine Glühbirne reflektiert"
+"Uniform als Buffer"
 
-Material mit Punkt-Licht.
+Mehrere Shader-Parameter in einem Puffer zusammenfassen.
+

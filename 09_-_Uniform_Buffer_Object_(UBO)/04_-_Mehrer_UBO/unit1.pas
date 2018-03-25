@@ -12,7 +12,7 @@ uses
 
 //image image.png
 (*
-Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell die Datenblöcke umschalten.
+Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell zwischen den Datenblöcken umschalten.
 *)
 //lineal
 

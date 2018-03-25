@@ -64,6 +64,8 @@ Hier wird der Record für die Material-Eigenschaften deklariert.
 
 Da ein <b>TVector3f</b> nur <b>12Byte</b> hat, muss man zum Aufrunden auf <b>16Byte</b> noch ein Padding von 4Byte einfügen.
 Ein Float mit <b>4Byte</b> ist gut dafür gut geeignet.
+Im Shader-Code, muss dies bei den Uniform-Blöcken nicht beachtet werden.
+
 Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16Byte gross ist.
 *)
 //code+
@@ -90,6 +92,8 @@ type    // Unbrauchbare Deklaration !
     shininess: GLfloat;      // 3Byte
   end;
 //code-
+
+Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer auch anders anlegen, zB. in eine Float-Array, dies macht aber wenig Sinn.
 *)
 
 var
@@ -200,7 +204,6 @@ begin
         vec3(Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b),
         vec3(Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b),
         vec3(Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b));
-
     end;
   end;
   SetLength(Tab, 0, 0);
@@ -208,6 +211,7 @@ end;
 
 (*
 ID und Puffer generieren.
+Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlockIndex(...</b> auslesen.
 *)
 //code+
 procedure TForm1.CreateScene;
@@ -233,7 +237,7 @@ begin
     Matrix_ID := UniformLocation('Matrix');
     ModelMatrix_ID := UniformLocation('ModelMatrix');
 
-    Material_ID := UniformBlockIndex('Material'); // ID aus dem Shader holen.
+    Material_ID := UniformBlockIndex('Material'); // UBO-Block ID aus dem Shader holen.
   end;
 
   glGenVertexArrays(1, @VBCube.VAO);
@@ -248,7 +252,9 @@ begin
 end;
 
 (*
-Material-Daten in den UBO-Puffer laden und binden
+Material-Daten in den UBO-Puffer laden und binden.
+Pro UBO-Block, wird ein BindingPoint gebraucht.
+Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gleichen BindingPoint verwenden, dazu später.
 *)
 //code+
 procedure TForm1.InitScene;
@@ -273,7 +279,7 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
 //code-
 
-  glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
+  glClearColor(0.15, 0.15, 0.1, 1.0);
 
   // --- Vertex-Daten für Kugel
   glBindVertexArray(VBCube.VAO);

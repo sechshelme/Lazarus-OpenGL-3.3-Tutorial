@@ -13,8 +13,9 @@ uses
 //image image.png
 (*
 UBO-Daten können auch zur Laufzeit geändert/neu geladen werden, so wie es beim Vertex-Puffer auch geht.
+Auf diese Art, werden die Uniform-Daten aktualisiert. Dies ersetzt die Aktualisierung mit <b>glUniformxxx</b>.
 
-In diesem Beispiel sind die Kugeln aus Rubin oder Jade.
+In diesem Beispiel wird das Material der Kugeln gewechselt, abwechslungsweise Rubin oder Jade.
 Dazu wird alle 1s die UBO-Daten aktualisiert.
 *)
 //lineal
@@ -56,6 +57,10 @@ implementation
 
 {$R *.lfm}
 
+(*
+Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werden.
+*)
+//code+
 type
   TMaterial = record
     ambient: TVector3f;      // Umgebungslicht
@@ -66,10 +71,6 @@ type
     shininess: GLfloat;      // Glanz
   end;
 
-(*
-Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werden.
-*)
-//code+
 var
   mRubin, mJade: TMaterial;
 //code-
@@ -354,6 +355,7 @@ end;
 
 (*
 Hier sieht man gut, wie die UBO-Daten aktualisiert werden.
+Der Timer wird alle 1s aufgerufen.
 *)
 //code+
 procedure TForm1.Timer2Timer(Sender: TObject);

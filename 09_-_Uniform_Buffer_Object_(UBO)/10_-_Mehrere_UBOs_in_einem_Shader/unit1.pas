@@ -12,11 +12,12 @@ uses
 
 //image image.png
 (*
-Da es für ein Spotlicht mehrere Schritte braucht, wird dies in mehreren Beispielen gezeigt.
+Es ist auch möglich, mehrere Unifom-Blöcke im Shader anzulegen.
+Ein Uniform-Block wurde verwendet für die Matrizen.
+Der andere für die Lichtparameter.
 
-In diesem Beispiel wird zuerst mal gezeigt, wie der Lichtkegen berechnet wird.
-Die Beleuchtung berechnung mit den Normalen wird zuerst mal ingnoriert.
-So sieht man gut, wie der Lichtkegel entsteht.
+Hier sieht man auch gut wie einfach es ist, alle Parameter für die 3 Lampen in einem Rutsch dem Shader zu übergeben.
+glUniform müsste man dazu zig mal aufrufen und wen man mehrere Shader verwendet, müsste man dies sogar bei jeden Shader einzeln machen.
 *)
 //lineal
 
@@ -75,12 +76,7 @@ const
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
 
 var
-  //LightPos: record
-  //  Red, Green, Blue: TVector3f;
-  //end;
-
   CubeSize: integer;
-
 
 type
   TVB = record
@@ -88,37 +84,47 @@ type
     VBOvert: GLuint;
   end;
 
+(*
+Die Deklaration der Lichtparameter und der Matrizen für den UBO.
+*)
+//code+
+type
   TLight = record
     Uniform_ID,
     UBO: GLuint;
     bindingPoint: gluint;
-    Data: record
+    Data: array[0..2] of record
       On: boolean;
       CutOff: GLfloat;
       pad0: TVector2f;
       Pos: TVector3f;
       pad1: GLfloat;
       Color: TVector3f;
+      pad2: GLfloat;
+    end;
+  end;
+
+  TMatrixRec = record
+    Uniform_ID,
+    UBO: GLuint;
+    bindingPoint: gluint;
+    Data: record
+      Model,
+      World: TMatrix;
     end;
   end;
 
 var
-  Light: array[0..2] of TLight;
+  Light: TLight;
+  MatrixRec: TMatrixRec;
+//code-
 
 
 var
   VBCube: TVB;
-  FrustumMatrix,
+  FrustumMatrix: TMatrix;
   WorldMatrix,
-  ModelMatrix,
-  Matrix: TMatrix;
-
-  ModelMatrix_ID,
-  Matrix_ID: GLint;
-
-//LightPos_ID: record
-//  Red, Green, Blue: GLint;
-//end;
+  ModelMatrix: TMatrix;
 
 { TForm1 }
 
@@ -137,43 +143,45 @@ begin
 end;
 
 (*
-Bei einem Spotlicht, ist die Lichtposition kein Einheitsvektor mehr.
-Die Licht-Position ist ist die effektive Position der Lichtquelle, so wie es bei einer Taschenlampe auch der Fall ist.
-
-Da die <b>halbe</b> Seitenlänge der kompletten Meshes etwa 30.0 lang ist, wird das Licht in einem Radius von 25.0 positioniert.
-Die Lichtquelle befindet sich somit in dem kompletten Würfel-Körper.
-
-Als Versuch kann man den Radius mal auf 50.0 setzen, dann wird man sehen, das die Lichtquelle ausserhalb der Meshes ist.
-
-Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.
+Die Lichtparameter mit Anfangswerten laden.
 *)
 //code+
 procedure TForm1.CreateScene;
 const
-  LichtPositionRadius = 25.0;
+  LichtPositionRadius = 50.0;
 var
   i: integer;
 begin
-  with Light[0].Data do begin
-    Pos := vec3(-1.0, 0.0, 0.0);
-    Pos.Scale(LichtPositionRadius);
-  end;
+  with Light do begin
+    bindingPoint := 0;
+    for i := 0 to 2 do begin
+      with Data[i] do begin
+        On := True;
+        Color.FromInt($FF0000 shr (i * 8));
+      end;
+    end;
 
-  with Light[1].Data do begin
-    Pos := vec3(0.0, 1.0, 0.0);
-    Pos.Scale(LichtPositionRadius);
-  end;
+    with Data[0] do begin
+      Pos := vec3(-1.0, 0.0, 0.0);
+      Pos.Scale(LichtPositionRadius);
+    end;
 
-  with Light[2].Data do begin
-    Pos := vec3(1.0, 1.0, -1.0);
-    Pos.Scale(LichtPositionRadius);
+    with Data[1] do begin
+      Pos := vec3(0.0, 1.0, 0.0);
+      Pos.Scale(LichtPositionRadius);
+    end;
+
+    with Data[2] do begin
+      Pos := vec3(1.0, 1.0, -1.0);
+      Pos.Scale(LichtPositionRadius);
+    end;
   end;
   //code-
 
   CubeSize := 4;
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -300.0);
+  WorldMatrix.Translate(0.0, 0.0, -300.0);
   WorldMatrix.Scale(2.5);
 
   ModelMatrix.Identity;
@@ -184,19 +192,14 @@ begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
-    Matrix_ID := UniformLocation('Matrix');
-    ModelMatrix_ID := UniformLocation('ModelMatrix');
 
-    Light[0].Uniform_ID := UniformBlockIndex('light0');
-    Light[1].Uniform_ID := UniformBlockIndex('light1');
-    Light[2].Uniform_ID := UniformBlockIndex('light2');
+    MatrixRec.Uniform_ID := UniformBlockIndex('Matrix');
+    Light.Uniform_ID := UniformBlockIndex('light0');
   end;
 
-  for i := 0 to 2 do begin
-    with Light[i] do begin
-      glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
-    end;
-  end;
+  glGenBuffers(1, @Light.UBO);                          // UB0-Puffer generieren.
+
+  glGenBuffers(1, @MatrixRec.UBO);
 
   glGenVertexArrays(1, @VBCube.VAO);
   glGenBuffers(1, @VBCube.VBOvert);
@@ -204,26 +207,36 @@ begin
   Timer1.Enabled := True;
 end;
 
+(*
+Für die beiden UBOs Speicher reservieren.
+*)
+//code+
 procedure TForm1.InitScene;
 var
   i: integer;
 begin
-  for i := 0 to 2 do begin
-    with Light[i] do begin
-      bindingPoint := i;
-      Data.On := True;
-      Data.Color.FromInt($FF shl (i * 8));
+  with Light do begin
+    // Speicher für UBO reservieren
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), nil, GL_DYNAMIC_DRAW);
 
-      // Speicher für UBO reservieren
-      glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-      glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), nil, GL_DYNAMIC_DRAW);
-
-      // UBO mit dem Shader verbinden
-      glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
-      glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
-
-    end;
+    // UBO mit dem Shader verbinden
+    glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
+    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
   end;
+
+  with MatrixRec do begin
+    bindingPoint := 3;
+
+    // Speicher für UBO reservieren
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), nil, GL_DYNAMIC_DRAW);
+
+    // UBO mit dem Shader verbinden
+    glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
+    glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
+  end;
+  //code-
 
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
 
@@ -237,11 +250,16 @@ begin
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 end;
 
+(*
+Hier sieht man gut, wie die UBO-Daten neu in den Puffer geladen werden.
+Die Lichtparamter, werden über das Menü und dem Timer verändert.
+Die Matrizen werden hier berechnet.
+*)
+//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  i, x, y, z: integer;
+  x, y, z: integer;
   scal, d: single;
-  a:TStringArray;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
 
@@ -250,11 +268,10 @@ begin
 
   Shader.UseProgram;
 
-  for i := 0 to 2 do begin
-    with Light[i] do begin
-      glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-      glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Data), @Data);
-    end;
+  // --- Lichtparameter in UBO laden.
+  with Light do begin
+    glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Data), @Data);
   end;
 
   glBindVertexArray(VBCube.VAO);
@@ -273,17 +290,25 @@ begin
   for x := -CubeSize to CubeSize do begin
     for y := -CubeSize to CubeSize do begin
       for z := -CubeSize to CubeSize do begin
-        Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
-        Matrix.Scale(scal);
-        Matrix.Multiply(ModelMatrix, Matrix);
+        with MatrixRec do begin
+          // --- Matrixzen berechnen.
+          with Data do begin
+            Model.Identity;
+            Model.Translate(x * d, y * d, z * d);
+            Model.Scale(scal);
+            Model.Multiply(ModelMatrix, Model);
 
-        Matrix.Uniform(ModelMatrix_ID);
+            World := Model;
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+            World.Multiply(WorldMatrix, World);
+            World.Multiply(FrustumMatrix, World);
+          end;
 
-        Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
+          // --- Matrixzen in UBO laden.
+          glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+          glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Data), @Data);
+        end;
+
         glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
       end;
     end;
@@ -291,6 +316,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+//code-
 
 procedure TForm1.ogcResize(Sender: TObject);
 begin
@@ -298,19 +324,15 @@ begin
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
-var
-  i: integer;
 begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
 
-  for i := 0 to 2 do begin
-    with Light[i] do begin
-      glDeleteBuffers(1, @UBO);        // UB0-Puffer löschen
-    end;
-  end;
+  glDeleteBuffers(1, @Light.UBO);        // UB0-Puffer löschen
+
+  glDeleteBuffers(1, @MatrixRec.UBO);
 end;
 
 procedure TForm1.MenuItemClick(Sender: TObject);
@@ -324,18 +346,18 @@ begin
       Dec(CubeSize);
     end;
   end else if Sender = MenuItemRedOn then begin
-    with Light[0] do begin
-      Data.On := MenuItemRedOn.Checked;
+    with Light do begin
+      Data[0].On := MenuItemRedOn.Checked;
     end;
 
   end else if Sender = MenuItemGreenOn then begin
-    with Light[1] do begin
-      Data.On := MenuItemGreenOn.Checked;
+    with Light do begin
+      Data[1].On := MenuItemGreenOn.Checked;
     end;
 
   end else if Sender = MenuItemBlueOn then begin
-    with Light[2] do begin
-      Data.On := MenuItemBlueOn.Checked;
+    with Light do begin
+      Data[2].On := MenuItemBlueOn.Checked;
     end;
   end;
 
@@ -349,23 +371,23 @@ begin
   end;
 
   if MenuItemRotateRed.Checked then begin
-    with Light[0].Data do begin
+    with Light.Data[0] do begin
       Pos.RotateA(0.031);
       Pos.RotateB(0.11);
     end;
   end;
 
   if MenuItemRotateGreen.Checked then begin
-    with Light[1].Data do begin
-      Pos.RotateB(0.021);
-      Pos.RotateC(0.15);
+    with Light.Data[1] do begin
+      Pos.RotateB(-0.021);
+      Pos.RotateC(-0.15);
     end;
   end;
 
   if MenuItemRotateBlue.Checked then begin
-    with Light[2].Data do begin
+    with Light.Data[2] do begin
       Pos.RotateA(0.021);
-      Pos.RotateC(0.23);
+      Pos.RotateC(-0.23);
     end;
   end;
 
@@ -375,22 +397,16 @@ end;
 //lineal
 
 (*
-Hier wird die Kegelberechnung ausgeführt.
-
+Im Shader sieht man die beiden Uniform-Blöcke.
+Für die Matrizen im Vertex-Shader, und für die Lichtparameter im Fragment-Shader.
+Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.
 <b>Vertex-Shader:</b>
 *)
 //includeglsl Vertexshader.glsl
 //lineal
 
 (*
-<b>Fragment-Shader</b>
-
-Der wichtigste Parameter ist der Ausstrahlwinkel der Lichtes.
-
-Man muss beachten, das der Winkel doppelt so gross wird. Somit hat Pi/2 einen Austrahlwinkel von 180°.
-1*Pi entpräche einem Ausstrahlwinkel von 380°, somit bekommt man ein Punkt-Licht.
-
-Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.
+<b>Fragment-Shader:</b>
 *)
 //includeglsl Fragmentshader.glsl
 
