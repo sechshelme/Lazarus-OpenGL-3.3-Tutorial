@@ -39,7 +39,7 @@ uniform vec3 RightLightPos;
 out vec4 outColor;  // ausgegebene Farbe
 
 // Abschwächung, abhängig vom Radius des Lichtes.
-float isConeAtt(vec3 LightPos) {
+float ConeAtt(vec3 LightPos) {
   vec3  lightDirection = normalize(DataIn.pos - LightPos);
 
   float D              = length(LightPos - DataIn.pos);
@@ -56,7 +56,7 @@ float isConeAtt(vec3 LightPos) {
 }
 
 // Abschwächung anhängig der Lichtentfernung zum Mesh.
-float isConeExp(vec3 LightPos) {
+float ConeExp(vec3 LightPos) {
   vec3  lightDirection = normalize(DataIn.pos - LightPos);
 
   float angle          = dot(spotDirection, lightDirection);
@@ -84,16 +84,16 @@ void main(void)
   float c;
 
   // Nur Attenuation ( Links )
-  c = isConeAtt(LeftLightPos);
+  c = ConeAtt(LeftLightPos);
   outColor.rgb += vec3(c) * light(LeftLightPos - DataIn.pos, DataIn.Normal) * yellow;
 
   // Nur Exponent ( Mitte )
-  c = isConeExp(CenterLightPos);
+  c = ConeExp(CenterLightPos);
   outColor.rgb += vec3(c)  * light(CenterLightPos - DataIn.pos, DataIn.Normal) * yellow;
 
   // Kombiniert ( Rechte )
-  float c1 = isConeAtt(RightLightPos);
-  float c2 = isConeExp(RightLightPos);
+  float c1 = ConeAtt(RightLightPos);
+  float c2 = ConeExp(RightLightPos);
   c        = c1 * c2; // Beide Abschwächungen multipizieren.
   outColor.rgb += vec3(c)  * light(RightLightPos - DataIn.pos, DataIn.Normal) * yellow;
 }

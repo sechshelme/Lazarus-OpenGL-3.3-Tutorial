@@ -122,7 +122,7 @@ var
 
 var
   VBCube: TVB;
-  FrustumMatrix: TMatrix;
+  FrustumMatrix,
   WorldMatrix,
   ModelMatrix: TMatrix;
 
@@ -157,6 +157,7 @@ begin
     for i := 0 to 2 do begin
       with Data[i] do begin
         On := True;
+        CutOff := cos(pi / 2 / 16);
         Color.FromInt($FF0000 shr (i * 8));
       end;
     end;
@@ -212,8 +213,6 @@ Für die beiden UBOs Speicher reservieren.
 *)
 //code+
 procedure TForm1.InitScene;
-var
-  i: integer;
 begin
   with Light do begin
     // Speicher für UBO reservieren

@@ -54,17 +54,17 @@ void main(void)
   outColor = vec4(ambient, 1.0);
   if (RedOn) {
     if (isCone(RedLightPos)) {
-      outColor.rgb  += light(RedLightPos - DataIn.pos, DataIn.Normal) * red;
+      outColor.rgb += light(RedLightPos - DataIn.pos, DataIn.Normal) * red;
     }
   }
   if (GreenOn) {
     if (isCone(GreenLightPos)) {
-      outColor.rgb  += light(GreenLightPos - DataIn.pos, DataIn.Normal) * green;
+      outColor.rgb += light(GreenLightPos - DataIn.pos, DataIn.Normal) * green;
     }
   }
   if (BlueOn) {
     if (isCone(BlueLightPos)) {
-      outColor.rgb  += light(BlueLightPos - DataIn.pos, DataIn.Normal) * blue;
+      outColor.rgb += light(BlueLightPos - DataIn.pos, DataIn.Normal) * blue;
     }
   }
 }

@@ -1,3 +1,3 @@
-"Auch eine Glühbirne reflektiert"
+"Schneller Wechsel"
 
-Material mit Punkt-Licht.
+Wen man mehrere UBOs hat, kann man sehr schnell die UniformParameter austauschen.

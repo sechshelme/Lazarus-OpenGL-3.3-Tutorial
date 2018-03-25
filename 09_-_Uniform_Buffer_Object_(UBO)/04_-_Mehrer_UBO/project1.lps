@@ -21,7 +21,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="358"/>
+        <TopLine Value="60"/>
         <CursorPos X="108" Y="15"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
@@ -61,7 +61,7 @@
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <EditorIndex Value="4"/>
-        <CursorPos X="19" Y="37"/>
+        <CursorPos X="73" Y="22"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>

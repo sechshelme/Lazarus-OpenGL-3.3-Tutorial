@@ -44,7 +44,7 @@ void main(void)
 {
   outColor = vec4(ambient, 1.0);
   if (RedOn) {
-    outColor.rgb  += isCone(RedLightPos) * red;
+    outColor.rgb += isCone(RedLightPos) * red;
   }
   if (GreenOn) {
     outColor.rgb += isCone(GreenLightPos) * green;
