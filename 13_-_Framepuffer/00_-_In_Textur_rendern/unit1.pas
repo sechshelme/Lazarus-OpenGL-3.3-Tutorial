@@ -38,8 +38,8 @@ implementation
 //image image.png
 
 (*
-Eine Scene kann man auch in eine Textur render, anstelle des Bildschirmes.
-Man kann dies auch gebrauchen, wen man eine Scene in einen Rückspiegel rendern will.
+Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.
+Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.
 *)
 //lineal
 (*
@@ -116,13 +116,13 @@ var
     WorldMatrix_id: GLint;
   end;
 
-  // Je eine Matric für das Rechteck und Würfel.
+  // Je eine Matrix für das Rechteck und Würfel.
   QuadWorldMatrix, CubeWorldMatrix: TMatrix;
 // code-
 
 (*
 Das wichtigste, die ID der Textur, in welche das Quadrat gerendert wird.
-Un die RenderBuffer, welche mit der Textur gekoppelt sind.
+Und die RenderBuffer, welche mit der Textur gekoppelt sind.
 Alles was in diesen Puffer gerendert wird, ist dann auch in der Textur vorhanden.
 *)
 //code+
@@ -279,7 +279,7 @@ end;
 //code-
 
 (*
-Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den BildschirmPuffer.
+Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den Bildschirmpuffer.
 Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.
 Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.
 Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.

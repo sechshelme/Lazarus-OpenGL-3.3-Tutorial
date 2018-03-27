@@ -21,8 +21,8 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="325"/>
-        <CursorPos Y="359"/>
+        <TopLine Value="46"/>
+        <CursorPos X="48" Y="41"/>
         <UsageCount Value="148"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -326,7 +326,7 @@
         <UsageCount Value="10"/>
       </Unit44>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="182" Column="8" TopLine="150"/>
@@ -443,10 +443,6 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="11" Column="36"/>
       </Position29>
-      <Position30>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="191" Column="28" TopLine="260"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

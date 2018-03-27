@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 399
+  Left = 572
   Height = 545
-  Top = 502
+  Top = 432
   Width = 773
   Caption = 'Form1'
   ClientHeight = 545
@@ -16,14 +16,32 @@ object Form1: TForm1
     Width = 773
     Caption = 'ToolBar1'
     TabOrder = 0
-    object ButtonSave: TButton
+    object ButtonTexturSave: TButton
       Left = 1
       Height = 22
       Top = 2
       Width = 75
-      Caption = 'Save'
-      OnClick = ButtonSaveClick
+      Caption = 'Textur'
+      OnClick = ButtonTexturSaveClick
       TabOrder = 0
+    end
+    object ButtonScreenSave: TButton
+      Left = 76
+      Height = 22
+      Top = 2
+      Width = 75
+      Caption = 'Screen'
+      OnClick = ButtonScreenSaveClick
+      TabOrder = 1
+    end
+    object Button1: TButton
+      Left = 151
+      Height = 22
+      Top = 2
+      Width = 75
+      Caption = '24Bit'
+      OnClick = Button1Click
+      TabOrder = 2
     end
   end
   object Timer1: TTimer

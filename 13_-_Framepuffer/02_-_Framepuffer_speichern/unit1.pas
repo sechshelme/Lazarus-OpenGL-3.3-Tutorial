@@ -15,10 +15,14 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    ButtonSave: TButton;
+    Button1: TButton;
+    ButtonScreenSave: TButton;
+    ButtonTexturSave: TButton;
     Timer1: TTimer;
     ToolBar1: TToolBar;
-    procedure ButtonSaveClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure ButtonScreenSaveClick(Sender: TObject);
+    procedure ButtonTexturSaveClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -41,14 +45,9 @@ implementation
 //image image.png
 
 (*
-Eine Scene kann man auch in eine Textur render, anstelle des Bildschirmes.
-Man kann dies auch gebrauchen, wen man eine Scene in einen Rückspiegel rendern will.
+Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.
 *)
 //lineal
-(*
-Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
-*)
-//code+
 const
 
   // --- Vectoren
@@ -58,12 +57,6 @@ const
   // --- Farben
   QuadColor: array[0..1] of Tmat3x3 =
     (((0.0, 2.0, 0.5), (0.0, 0.0, 0.5), (2.0, 0.0, 0.5)), ((0.0, 2.0, 0.5), (2.0, 0.0, 0.5), (2.0, 2.0, 0.5)));
-//code-
-(*
-Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.
-*)
-//code+
-const
 
   // --- Vectoren
   CubeVertex: array[0..11] of Tmat3x3 =
@@ -84,19 +77,9 @@ const
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)));
-//code-
-(*
-Grösse der Textur, auf welcher das Quadrat gerendert wird.
-*)
-//code+
-const
-  TexturSize = 1024;
-//code-
 
-(*
-Das es 2 Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.
-*)
-//code+
+  TexturSize = 1024;
+
 type
   TVB = record
     VAO,
@@ -119,23 +102,14 @@ var
     WorldMatrix_id: GLint;
   end;
 
-  // Je eine Matric für das Rechteck und Würfel.
+  // Je eine Matrix für das Rechteck und Würfel.
   QuadWorldMatrix, CubeWorldMatrix: TMatrix;
-// code-
 
-(*
-Das wichtigste, die ID der Textur, in welche das Quadrat gerendert wird.
-Un die RenderBuffer, welche mit der Textur gekoppelt sind.
-Alles was in diesen Puffer gerendert wird, ist dann auch in der Textur vorhanden.
-*)
-//code+
-var
   // ID der Textur.
   textureID: GLuint;
 
   // Render Puffer
   FramebufferName, depthrenderbuffer: GLuint;
-//code-
 
 { TForm1 }
 
@@ -154,12 +128,12 @@ begin
 end;
 
 (*
-Die Textur, in dem die Scene gerender wurde, kann man auch abspeichern.
-Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da die OS abhängig ist.
+Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.
+Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.
 Dieser Code wurde unter Linux 64Bit getestet.
 *)
 //code+
-procedure TForm1.ButtonSaveClick(Sender: TObject);
+procedure TForm1.ButtonTexturSaveClick(Sender: TObject);
 var
   Picture: TPicture;
 begin
@@ -171,16 +145,67 @@ begin
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
     glReadPixels(0, 0, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 
-    SaveToFile('test.png');
+    SaveToFile('textur.png');
   end;
   Picture.Free;
 end;
 //code-
 
 (*
-Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonders.
+Es ist auch möglich, die komplett gerenderte Scene zu speichern.
+Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.
+Dies kann man aber umgehen, wen man Zeile für Zeile einliest.
+<b>glBindFramebuffer(GL_FRAMEBUFFER, 0);</b> ist nur notwendig, wen man mehrere Framebuffer verwendet.
 *)
 //code+
+procedure TForm1.ButtonScreenSaveClick(Sender: TObject);
+var
+  Picture: TPicture;
+  i: integer;
+begin
+  Picture := TPicture.Create;
+  with Picture.Bitmap do begin
+    PixelFormat := pf32bit;
+    Width := ogc.Width;
+    Height := ogc.Height;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    for i := 0 to Height - 1 do begin
+      glReadPixels(0, Height - i - 1, Width, Height - i, GL_RGBA, GL_UNSIGNED_BYTE, ScanLine[i]);
+    end;
+
+    SaveToFile('screen.png');
+  end;
+  Picture.Free;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  Picture: TPicture;
+  i: integer;
+begin
+  Picture := TPicture.Create;
+  with Picture.Bitmap do begin
+    Width := ogc.Width;
+    Height := ogc.Height;
+    PixelFormat := pf24bit;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    for i := 0 to Height - 1 do begin
+      glReadPixels(0, Height - i - 1, Width, Height - i, GL_RGB8, GL_UNSIGNED_BYTE, ScanLine[i]);
+//      glReadPixels(0, Height - i - 1, Width, Height - i, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT_24_8, ScanLine[i]);
+    end;
+
+    Caption:=IntToStr(RawImage.Description.BitsPerPixel);
+
+//    SaveToFile('screen.png');
+    SaveToFile('screen.bmp');
+  end;
+  Picture.Free;
+end;
+
+//code-
+
 procedure TForm1.CreateScene;
 begin
 
@@ -217,11 +242,7 @@ begin
   CubeWorldMatrix.Identity;
   QuadWorldMatrix.Identity;
 end;
-//code-
-(*
-Die Vertexkoordinaten laden, auch nichts besonderes.
-*)
-//code+
+
 procedure TForm1.InitScene;
 begin
   glEnable(GL_DEPTH_TEST);
@@ -231,6 +252,7 @@ begin
   glCullface(GL_BACK);
 
   QuadWorldMatrix.Scale(2.0);
+  QuadWorldMatrix.Translate(0, 0.5, 0);
 
   // --- Qaudrat
   with Quad_Shader do begin
@@ -265,11 +287,6 @@ begin
     glEnableVertexAttribArray(10);
     glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
   end;
-  //code-
-(*
-Das erzeugen der Textur ist sehr ähnlich, einer normalen Textur, der grosser Unterschied, anstelle eines Pointer aud die Texturdaten, gibt man nur <b>nil</b> mit.
-*)
-  //code+
 
   // ------------ Texturen laden --------------
 
@@ -283,11 +300,6 @@ Das erzeugen der Textur ist sehr ähnlich, einer normalen Textur, der grosser Un
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-  //code-
-(*
-Hier wird die Textur mit dem FrameBuffer gekoppelt.
-*)
-  //code+
 
   // Frame Puffer erzeugen.
   glGenFramebuffers(1, @FramebufferName);
@@ -303,17 +315,7 @@ Hier wird die Textur mit dem FrameBuffer gekoppelt.
   // Die Textur mit dem Framebuffer koppeln
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureID, 0);
 end;
-//code-
 
-(*
-Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den BildschirmPuffer.
-Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.
-Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.
-Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.
-Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.
-Beim Bildschirmpuffer hat dieser keinen Einfluss.
-*)
-//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
 
@@ -357,14 +359,8 @@ begin
 
     ogc.SwapBuffers;
   end;
-
 end;
-//code-
 
-(*
-Zum Schluss alle Puffer frei geben.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
@@ -387,7 +383,6 @@ begin
   Quad_Shader.Shader.Free;
   Cube_Shader.Shader.Free;
 end;
-//code-
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
