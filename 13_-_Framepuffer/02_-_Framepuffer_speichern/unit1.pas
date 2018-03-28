@@ -15,12 +15,10 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Button1: TButton;
     ButtonScreenSave: TButton;
     ButtonTexturSave: TButton;
     Timer1: TTimer;
     ToolBar1: TToolBar;
-    procedure Button1Click(Sender: TObject);
     procedure ButtonScreenSaveClick(Sender: TObject);
     procedure ButtonTexturSaveClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -131,6 +129,7 @@ end;
 Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.
 Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.
 Dieser Code wurde unter Linux 64Bit getestet.
+Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.
 *)
 //code+
 procedure TForm1.ButtonTexturSaveClick(Sender: TObject);
@@ -138,15 +137,14 @@ var
   Picture: TPicture;
 begin
   Picture := TPicture.Create;
-  with Picture do begin
-    Bitmap.PixelFormat := pf32bit;
-    Bitmap.Width := TexturSize;
-    Bitmap.Height := TexturSize;
+  with Picture.Bitmap do begin
+    PixelFormat := pf32bit;  // 32-Bit erzwingen
+    Width := TexturSize;
+    Height := TexturSize;
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    glReadPixels(0, 0, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
-
-    SaveToFile('textur.png');
+    glReadPixels(0, 0, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, RawImage.Data);
   end;
+  Picture.SaveToFile('textur.png');
   Picture.Free;
 end;
 //code-
@@ -165,45 +163,18 @@ var
 begin
   Picture := TPicture.Create;
   with Picture.Bitmap do begin
-    PixelFormat := pf32bit;
+    PixelFormat := pf32bit;               // 32-Bit erzwingen
     Width := ogc.Width;
     Height := ogc.Height;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0); // Screen
 
     for i := 0 to Height - 1 do begin
       glReadPixels(0, Height - i - 1, Width, Height - i, GL_RGBA, GL_UNSIGNED_BYTE, ScanLine[i]);
     end;
-
-    SaveToFile('screen.png');
   end;
+  Picture.SaveToFile('screen.png');
   Picture.Free;
 end;
-
-procedure TForm1.Button1Click(Sender: TObject);
-var
-  Picture: TPicture;
-  i: integer;
-begin
-  Picture := TPicture.Create;
-  with Picture.Bitmap do begin
-    Width := ogc.Width;
-    Height := ogc.Height;
-    PixelFormat := pf24bit;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    for i := 0 to Height - 1 do begin
-      glReadPixels(0, Height - i - 1, Width, Height - i, GL_RGB8, GL_UNSIGNED_BYTE, ScanLine[i]);
-//      glReadPixels(0, Height - i - 1, Width, Height - i, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT_24_8, ScanLine[i]);
-    end;
-
-    Caption:=IntToStr(RawImage.Description.BitsPerPixel);
-
-//    SaveToFile('screen.png');
-    SaveToFile('screen.bmp');
-  end;
-  Picture.Free;
-end;
-
 //code-
 
 procedure TForm1.CreateScene;
@@ -252,9 +223,9 @@ begin
   glCullface(GL_BACK);
 
   QuadWorldMatrix.Scale(2.0);
-  QuadWorldMatrix.Translate(0, 0.5, 0);
+  QuadWorldMatrix.Translate(0.0, 0.5, 0.0);
 
-  // --- Qaudrat
+  // --- Quadrat
   with Quad_Shader do begin
     glBindVertexArray(VBQuad.VAO);
 

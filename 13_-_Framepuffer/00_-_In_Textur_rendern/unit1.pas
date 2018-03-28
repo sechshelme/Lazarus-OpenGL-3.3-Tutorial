@@ -44,6 +44,7 @@ Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen 
 //lineal
 (*
 Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
+Es ist ein Quadrat mit 4 verschieden farbigen Ecken.
 *)
 //code+
 const
@@ -58,6 +59,7 @@ const
 //code-
 (*
 Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.
+Der Würfel braucht Texturkoordinaten.
 *)
 //code+
 const
@@ -92,13 +94,14 @@ const
 
 (*
 Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.
+Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.
 *)
 //code+
 type
   TVB = record
     VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
+    VBOVertex,            // Vertex-Koordinaten
+    VBOTex_Col: GLuint;   // Textur/Color-Koordinaten
   end;
 
 var
@@ -116,13 +119,13 @@ var
     WorldMatrix_id: GLint;
   end;
 
-  // Je eine Matrix für das Rechteck und Würfel.
+  // Je eine Matrix für das Rechteck und den Würfel.
   QuadWorldMatrix, CubeWorldMatrix: TMatrix;
 // code-
 
 (*
 Das wichtigste, die ID der Textur, in welche das Quadrat gerendert wird.
-Und die RenderBuffer, welche mit der Textur gekoppelt sind.
+Und den Renderbuffer, welche mit der Textur gekoppelt ist.
 Alles was in diesen Puffer gerendert wird, ist dann auch in der Textur vorhanden.
 *)
 //code+
@@ -130,7 +133,7 @@ var
   // ID der Textur.
   textureID: GLuint;
 
-  // Render Puffer
+  // Renderpuffer
   FramebufferName, depthrenderbuffer: GLuint;
 //code-
 
@@ -151,7 +154,7 @@ begin
 end;
 
 (*
-Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonders.
+Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.
 *)
 //code+
 procedure TForm1.CreateScene;
@@ -160,11 +163,11 @@ begin
   // Vertex Puffer erzeugen.
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOVertex);
-  glGenBuffers(1, @VBQuad.VBOTex);
+  glGenBuffers(1, @VBQuad.VBOTex_Col);
 
   glGenVertexArrays(1, @VBCube.VAO);
   glGenBuffers(1, @VBCube.VBOVertex);
-  glGenBuffers(1, @VBCube.VBOTex);
+  glGenBuffers(1, @VBCube.VBOTex_Col);
 
   // Shader des Quadrates
   with Quad_Shader do begin
@@ -205,7 +208,7 @@ begin
 
   QuadWorldMatrix.Scale(2.0);
 
-  // --- Qaudrat
+  // --- Quadrat
   with Quad_Shader do begin
     glBindVertexArray(VBQuad.VAO);
 
@@ -216,7 +219,7 @@ begin
     glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
     // Farben
-    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
+    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex_Col);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
@@ -233,18 +236,19 @@ begin
     glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
     // Texturkoordinaten
-    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex);
+    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex_Col);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTextureVertex), @CubeTextureVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(10);
     glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
   end;
   //code-
 (*
-Das erzeugen der Textur ist sehr ähnlich, einer normalen Textur, der grosser Unterschied, anstelle eines Pointer aud die Texturdaten, gibt man nur <b>nil</b> mit.
+Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,
+gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.
 *)
   //code+
 
-  // ------------ Texturen laden --------------
+  // ------------ Texturen erzeugenn --------------
 
   // --- Textur
 
@@ -258,7 +262,7 @@ Das erzeugen der Textur ist sehr ähnlich, einer normalen Textur, der grosser Un
 
   //code-
 (*
-Hier wird die Textur mit dem FrameBuffer gekoppelt.
+Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.
 *)
   //code+
 
@@ -350,11 +354,11 @@ begin
   // Vertex Puffer frei geben.
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
-  glDeleteBuffers(1, @VBQuad.VBOTex);
+  glDeleteBuffers(1, @VBQuad.VBOTex_Col);
 
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOVertex);
-  glDeleteBuffers(1, @VBCube.VBOTex);
+  glDeleteBuffers(1, @VBCube.VBOTex_Col);
 
   // Shader frei geben.
   Quad_Shader.Shader.Free;
