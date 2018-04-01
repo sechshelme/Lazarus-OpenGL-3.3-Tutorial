@@ -217,7 +217,6 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;
-    //    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
@@ -225,7 +224,7 @@ begin
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
-    //    ObjectMatrix.Pop;
+
     for i := 0 to anzTextures - 1 do begin   // mit Textur
       TextBuffer[i].ActiveAndBind(i);
     end;
@@ -346,7 +345,6 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;;
-//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
@@ -354,7 +352,6 @@ begin
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
-//    ObjectMatrix.Pop;
 
     Text.ActiveAndBind(0);
     Normal.ActiveAndBind(1);

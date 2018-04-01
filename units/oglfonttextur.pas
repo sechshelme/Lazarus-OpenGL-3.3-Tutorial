@@ -300,7 +300,6 @@ begin
 
       with Camera do begin
         m := ObjectMatrix;;
-//        ObjectMatrix.Push;
         ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
         ObjectMatrix.Uniform(UniformID.ObjectMatrix);
@@ -309,7 +308,6 @@ begin
         ObjectMatrix.Uniform(UniformID.CameraMatrix);
 
         ObjectMatrix := m;
-//        ObjectMatrix.Pop;
       end;
 
       inherited Draw;

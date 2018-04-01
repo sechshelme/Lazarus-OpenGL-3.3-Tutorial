@@ -340,7 +340,6 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;
-//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
@@ -348,7 +347,6 @@ begin
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
-//    ObjectMatrix.Pop;
 
     glUniform4fv(UniformID.VecColor, 1, @Color);
   end;

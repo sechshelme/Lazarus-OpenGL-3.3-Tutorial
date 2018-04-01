@@ -199,7 +199,6 @@ end;
 constructor THollowCylinder.Create;
 begin
   inherited Create;
-//  Kreis.Aktiv := True;
   Sektoren := 3;
 end;
 

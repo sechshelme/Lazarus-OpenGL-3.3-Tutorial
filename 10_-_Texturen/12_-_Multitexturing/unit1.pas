@@ -110,7 +110,7 @@ begin
     UseProgram;
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler[0]'), 0);  // Dem Sampler[0] 0 zuweisen.
-    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 0 zuweisen.
+    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
   //code-
 

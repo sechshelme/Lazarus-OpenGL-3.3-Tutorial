@@ -149,10 +149,8 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;;
-//    ObjectMatrix.Push;
     ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
     ObjectMatrix.Uniform(CameraMatrix_id);
-//    ObjectMatrix.Pop;
     ObjectMatrix := m;
   end;
 
