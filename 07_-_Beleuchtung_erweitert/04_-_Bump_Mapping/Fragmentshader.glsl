@@ -1,9 +1,7 @@
 #version 330
 
-// Das Licht kommt von Rechts.
 #define LightPos vec3(100.0, 100.0, 50.0)
-
-#define ambient vec3(0.1, 0.1, 0.1)
+#define ambient  vec3(0.1, 0.1, 0.1)
 
 uniform sampler2D Sampler[2];
 
