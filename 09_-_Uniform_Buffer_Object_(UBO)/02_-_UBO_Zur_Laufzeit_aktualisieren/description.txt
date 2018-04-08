@@ -1,4 +1,0 @@
-"Shader-Daten aktualisieren"
-
-Ohne diese Funktion, würden UBOs gar keinen Sinn machen.
-Sämtliche Änderungen zur Laufzeit, Farbe, Licht, etc., werden auf diese Art gemacht.

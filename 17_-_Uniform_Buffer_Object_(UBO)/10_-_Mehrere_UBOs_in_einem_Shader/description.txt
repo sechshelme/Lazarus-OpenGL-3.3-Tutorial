@@ -1,0 +1,3 @@
+"UBOs richtig nutzen"
+
+Es werden alle Parameter, inklusive der Matrizen, via UBO übergeben.

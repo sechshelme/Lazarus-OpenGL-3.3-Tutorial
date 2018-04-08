@@ -1,0 +1,3 @@
+"Mehrere Verbindungen"
+
+Mehrere Verbindungen mit einem UBO sind möglich.

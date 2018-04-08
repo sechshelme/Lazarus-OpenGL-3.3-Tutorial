@@ -1,3 +1,0 @@
-"Bilder direkt aus Bitmap"
-
-Texturen können recht einfach von einer Bitmap in das VRAM kopiert werden, es muss nur das format bekannt sein.

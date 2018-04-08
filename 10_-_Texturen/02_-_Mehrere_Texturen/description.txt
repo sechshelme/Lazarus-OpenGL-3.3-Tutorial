@@ -1,3 +1,0 @@
-"Mehrer Texturen"
-
-Man kann mehrere Texturen auf dem VRAM ablegen. Und diese bei Bedarf abrufen.

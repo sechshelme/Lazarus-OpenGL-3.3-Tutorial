@@ -1,3 +1,0 @@
-"Bewegte Textur"
-
-Mit einer Matrix ist es möglich, eine Textur auf der Mesh zu skalieren/bewegen.
