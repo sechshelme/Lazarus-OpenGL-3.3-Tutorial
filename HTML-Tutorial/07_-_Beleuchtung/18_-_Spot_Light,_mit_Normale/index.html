@@ -99,17 +99,17 @@ Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht
   outColor = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   <b><font color="0000BB">if</font></b> (RedOn) {
     <b><font color="0000BB">if</font></b> (isCone(RedLightPos)) {
-      outColor.rgb  += light(RedLightPos - DataIn.pos, DataIn.Normal) * red;
+      outColor.rgb += light(RedLightPos - DataIn.pos, DataIn.Normal) * red;
     }
   }
   <b><font color="0000BB">if</font></b> (GreenOn) {
     <b><font color="0000BB">if</font></b> (isCone(GreenLightPos)) {
-      outColor.rgb  += light(GreenLightPos - DataIn.pos, DataIn.Normal) * green;
+      outColor.rgb += light(GreenLightPos - DataIn.pos, DataIn.Normal) * green;
     }
   }
   <b><font color="0000BB">if</font></b> (BlueOn) {
     <b><font color="0000BB">if</font></b> (isCone(BlueLightPos)) {
-      outColor.rgb  += light(BlueLightPos - DataIn.pos, DataIn.Normal) * blue;
+      outColor.rgb += light(BlueLightPos - DataIn.pos, DataIn.Normal) * blue;
     }
   }
 }

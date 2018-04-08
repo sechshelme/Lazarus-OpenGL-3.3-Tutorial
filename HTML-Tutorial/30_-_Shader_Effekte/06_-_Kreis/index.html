@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>06 - Kreis</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>30 - Shader Effekte</h1></b>
+    <b><h2>06 - Kreis</h2></b>
+<img src="image.png" alt="Selfhtml"><br><br>
+Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.<br>
+Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.<br>
+Alphablending kann man auch auf Texturen anwenden, zB. um eine Baum zu zeichnen, oder auch nur eine Scheibe. Dazu mehr unter Texturen.<br>
+<hr><br>
+Neben einem Face mit 3 Werten, gibt es jetzt noch eines mit einem vierten, welcher dann den Aplhablending angibt.<br>
+<pre><code><b><font color="0000BB">type</font></b>
+  TFace3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVector3f;
+  TFace4f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVector4f;  <i><font color="#FFFF00">// Mit Alpha</font></i></pre></code>
+Beim Color sieht man auch den vierten Parameter. Wobei <b>0.0</b> voll Transparent ist. und <b>1.0</b> undurchsichtig.<br>
+Wen man nur den RGB-Wert betrachtet, wäre das Dreieck voll rot und das Rechteck grün.<br>
+<pre><code><b><font color="0000BB">const</font></b>
+  QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace3f =
+    (((-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
+    ((-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</pre></code>
+Hier kommen zwie wichtige Zeilen hinzu, mit der Ersten wird Alphablending aktiviert und mit der zweiten gibt man die Art des Blinding an.<br>
+Bei <b>glVertexAttribPointer(...</b> bei der Farbe sieht man, das ein Vector 4 Werte anstelle 3 hat.<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
+
+  glEnable(GL_BLEND);                                  <i><font color="#FFFF00">// Alphablending an</font></i>
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i>
+
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
+
+
+  <i><font color="#FFFF00">// --- Daten für Quadrat</font></i>
+  glBindVertexArray(VBQuad.VAO);
+
+  <i><font color="#FFFF00">// Vektor</font></i>
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</pre></code>
+<hr><br>
+Die Shader sind sehr einfach gehalten. Man könnte mit <b>Color.a</b> direkt einen Alphawert zuordnen.<br>
+Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>vec3</b>.<br>
+<br>
+<b>Vertex-Shader:</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> PosXY;
+
+
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+{
+  <b><font color="0000BB">vec4</font></b> p = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Vektoren mit der Matrix multiplizieren.</font></i>
+  PosXY = p.xy;
+  gl_Position = p;
+}
+</pre></code>
+<hr><br>
+<b>Fragment-Shader:</b><br>
+<pre><code><b><font color="#008800">#ifdef</font></b> GL_ES
+<b><font color="0000BB">precision</font></b> <b><font color="0000BB">mediump</font></b> <b><font color="0000BB">float</font></b>;
+<b><font color="#008800"></font></b>#endif
+
+<b><font color="#008800">#extension</font></b> GL_OES_standard_derivatives : disable
+
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> time;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec2</font></b> mouse;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec2</font></b> resolution;
+
+<b><font color="0000BB">vec3</font></b> lightDir = normalize(<b><font color="0000BB">vec3</font></b>(sin(time * <font color="#0077BB">1</font>.<font color="#0077BB">5</font>), <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, cos(time * <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));
+
+<b><font color="0000BB">mat3</font></b> camera(<b><font color="0000BB">vec3</font></b> ro, <b><font color="0000BB">vec3</font></b> ta, <b><font color="0000BB">vec3</font></b> up) {
+	<b><font color="0000BB">vec3</font></b> nz = normalize(ta - ro);
+	<b><font color="0000BB">vec3</font></b> nx = cross(nz, normalize(up));
+	<b><font color="0000BB">vec3</font></b> ny = cross(nx, nz);
+
+	<b><font color="0000BB">return</font></b> <b><font color="0000BB">mat3</font></b>(nx, ny, nz);
+}
+
+<b><font color="0000BB">float</font></b> plane(<b><font color="0000BB">vec3</font></b> p) {
+	<b><font color="0000BB">return</font></b> p.y+<font color="#0077BB">2</font>.;
+}
+
+<b><font color="0000BB">float</font></b> sphere(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">float</font></b> r) {
+	<b><font color="0000BB">return</font></b> length(p) - r;
+}
+
+<b><font color="0000BB">float</font></b> torus(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">vec2</font></b> t) {
+	<b><font color="0000BB">return</font></b> length(<b><font color="0000BB">vec2</font></b>(length(p.xz) - t.x, p.y)) - t.y;
+}
+
+<b><font color="0000BB">vec4</font></b> scene(<b><font color="0000BB">vec3</font></b> p) {
+
+	<b><font color="0000BB">vec3</font></b> check = sin(p.x * <font color="#0077BB">5</font>.<font color="#0077BB">0</font>) * sin(p.z * <font color="#0077BB">5</font>.<font color="#0077BB">0</font>) > <font color="#0077BB">0</font>.<font color="#0077BB">0</font> ? <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">7</font>) : <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+
+	<b><font color="0000BB">vec4</font></b> resP = <b><font color="0000BB">vec4</font></b>(check, plane(p - <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
+	<b><font color="0000BB">vec4</font></b> resS = <b><font color="0000BB">vec4</font></b>(<b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), sphere(p - <b><font color="0000BB">vec3</font></b>(sin(time) * <font color="#0077BB">2</font>., cos(time) * <font color="#0077BB">2</font>. + <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
+	<b><font color="0000BB">vec4</font></b> resT = <b><font color="0000BB">vec4</font></b>(<b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), torus(p - <b><font color="0000BB">vec3</font></b>(-<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), <b><font color="0000BB">vec2</font></b>(<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));
+
+	<b><font color="0000BB">vec4</font></b> res = resP.w < resS.w ? resP : resS;
+	res = res.w < resT.w ? res : resT;
+
+	<b><font color="0000BB">return</font></b> res;
+}
+
+<b><font color="0000BB">vec3</font></b> normal(<b><font color="0000BB">vec3</font></b> p) {
+	<b><font color="0000BB">float</font></b> d = <font color="#0077BB">0</font>.<font color="#0077BB">0001</font>;
+	<b><font color="0000BB">return</font></b> normalize(<b><font color="0000BB">vec3</font></b>(
+		scene(p + <b><font color="0000BB">vec3</font></b>(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)).w - scene(p + <b><font color="0000BB">vec3</font></b>(-d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)).w,
+		scene(p + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)).w - scene(p + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)).w,
+		scene(p + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, d)).w - scene(p + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -d)).w
+	));
+}
+
+<b><font color="0000BB">float</font></b> softshadow(<b><font color="0000BB">vec3</font></b> ro, <b><font color="0000BB">vec3</font></b> rd) {
+
+	<b><font color="0000BB">float</font></b> v = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
+	<b><font color="0000BB">float</font></b> t = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+	<b><font color="0000BB">vec3</font></b> p = ro;
+	<b><font color="0000BB">for</font></b> (<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < <font color="#0077BB">16</font>; i++) {
+		<b><font color="0000BB">vec4</font></b> res = scene(p);
+		<b><font color="0000BB">float</font></b> d = res.w;
+		<b><font color="0000BB">if</font></b> (d < <font color="#0077BB">0</font>.<font color="#0077BB">001</font>) {
+			<b><font color="0000BB">return</font></b> <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+		}
+		v = min(v, <font color="#0077BB">4</font>.<font color="#0077BB">0</font> * d / t);
+		t += d;
+		p = ro + t * rd;
+	}
+
+	<b><font color="0000BB">return</font></b> v;
+}
+
+<b><font color="0000BB">vec3</font></b> render(<b><font color="0000BB">vec3</font></b> ro, <b><font color="0000BB">vec3</font></b> rd) {
+
+
+	<b><font color="0000BB">vec3</font></b> color = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">9</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+
+	<b><font color="0000BB">float</font></b> tmax = <font color="#0077BB">30</font>.<font color="#0077BB">0</font>;
+
+	<b><font color="0000BB">float</font></b> t = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+	<b><font color="0000BB">float</font></b> d = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+	<b><font color="0000BB">vec3</font></b> p = ro;
+	<b><font color="0000BB">vec3</font></b> c;
+	<b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < <font color="#0077BB">64</font>; i++) {
+		<b><font color="0000BB">vec4</font></b> res = scene(p);
+		c = res.rgb;
+		d = res.w;
+		t += d;
+		p = ro + t * rd;
+		<b><font color="0000BB">if</font></b> (t > tmax) <b><font color="0000BB">break</font></b>;
+	}
+
+	<b><font color="0000BB">if</font></b> (t < tmax) {
+		color = c;
+
+		<b><font color="0000BB">vec3</font></b> nor = normal(p);
+		<b><font color="0000BB">float</font></b> dif = clamp(dot(nor, lightDir), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+		color += <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>) * dif;
+
+		<b><font color="0000BB">vec3</font></b> ref = reflect(rd, nor);
+		<b><font color="0000BB">float</font></b> spe = clamp(dot(ref, lightDir), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+		color += <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">4</font>.<font color="#0077BB">0</font>) * pow(spe, <font color="#0077BB">30</font>.<font color="#0077BB">0</font>);
+
+		<b><font color="0000BB">float</font></b> sf = softshadow(p + nor * <font color="#0077BB">0</font>.<font color="#0077BB">01</font>, lightDir);
+		color *= clamp(sf + <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+	}
+
+
+	color = mix(color, <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">9</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), <font color="#0077BB">1</font>.<font color="#0077BB">0</font> - exp(-<font color="#0077BB">0</font>.<font color="#0077BB">00005</font>  * t * t * t));
+
+
+	<b><font color="0000BB">return</font></b> color;
+
+}
+
+<b><font color="0000BB">void</font></b> main( <b><font color="0000BB">void</font></b> ) {
+
+	<b><font color="0000BB">vec2</font></b> p = (gl_FragCoord.xy * <font color="#0077BB">2</font>.<font color="#0077BB">0</font> - resolution) / resolution;
+	p.x *= resolution.x / resolution.y;
+
+	<b><font color="0000BB">vec3</font></b> ro = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">10</font>.<font color="#0077BB">0</font> * cos(mouse.x * <font color="#0077BB">6</font>.<font color="#0077BB">0</font>), mouse.y * <font color="#0077BB">10</font>., <font color="#0077BB">10</font>.<font color="#0077BB">0</font> * sin(mouse.x * <font color="#0077BB">6</font>.<font color="#0077BB">0</font>));
+	<b><font color="0000BB">vec3</font></b> ta = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+
+	<b><font color="0000BB">vec3</font></b> rd = camera(ro, ta, <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)) * normalize(<b><font color="0000BB">vec3</font></b>(p.xy, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>));
+
+	<b><font color="0000BB">vec3</font></b> col = render(ro, rd);
+
+	gl_FragColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+
+}
+</pre></code>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>

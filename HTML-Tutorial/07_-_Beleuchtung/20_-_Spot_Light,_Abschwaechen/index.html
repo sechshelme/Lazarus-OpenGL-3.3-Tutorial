@@ -133,7 +133,7 @@ Berechnen der 3 Lichtkegel.<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
 <i><font color="#FFFF00">// Abschwächung, abhängig vom Radius des Lichtes.</font></i>
-<b><font color="0000BB">float</font></b> isConeAtt(<b><font color="0000BB">vec3</font></b> LightPos) {
+<b><font color="0000BB">float</font></b> ConeAtt(<b><font color="0000BB">vec3</font></b> LightPos) {
   <b><font color="0000BB">vec3</font></b>  lightDirection = normalize(DataIn.pos - LightPos);
 
   <b><font color="0000BB">float</font></b> D              = length(LightPos - DataIn.pos);
@@ -150,7 +150,7 @@ Berechnen der 3 Lichtkegel.<br>
 }
 
 <i><font color="#FFFF00">// Abschwächung anhängig der Lichtentfernung zum Mesh.</font></i>
-<b><font color="0000BB">float</font></b> isConeExp(<b><font color="0000BB">vec3</font></b> LightPos) {
+<b><font color="0000BB">float</font></b> ConeExp(<b><font color="0000BB">vec3</font></b> LightPos) {
   <b><font color="0000BB">vec3</font></b>  lightDirection = normalize(DataIn.pos - LightPos);
 
   <b><font color="0000BB">float</font></b> angle          = dot(spotDirection, lightDirection);
@@ -178,16 +178,16 @@ Berechnen der 3 Lichtkegel.<br>
   <b><font color="0000BB">float</font></b> c;
 
   <i><font color="#FFFF00">// Nur Attenuation ( Links )</font></i>
-  c = isConeAtt(LeftLightPos);
+  c = ConeAtt(LeftLightPos);
   outColor.rgb += <b><font color="0000BB">vec3</font></b>(c) * light(LeftLightPos - DataIn.pos, DataIn.Normal) * yellow;
 
   <i><font color="#FFFF00">// Nur Exponent ( Mitte )</font></i>
-  c = isConeExp(CenterLightPos);
+  c = ConeExp(CenterLightPos);
   outColor.rgb += <b><font color="0000BB">vec3</font></b>(c)  * light(CenterLightPos - DataIn.pos, DataIn.Normal) * yellow;
 
   <i><font color="#FFFF00">// Kombiniert ( Rechte )</font></i>
-  <b><font color="0000BB">float</font></b> c1 = isConeAtt(RightLightPos);
-  <b><font color="0000BB">float</font></b> c2 = isConeExp(RightLightPos);
+  <b><font color="0000BB">float</font></b> c1 = ConeAtt(RightLightPos);
+  <b><font color="0000BB">float</font></b> c2 = ConeExp(RightLightPos);
   c        = c1 * c2; <i><font color="#FFFF00">// Beide Abschwächungen multipizieren.</font></i>
   outColor.rgb += <b><font color="0000BB">vec3</font></b>(c)  * light(RightLightPos - DataIn.pos, DataIn.Normal) * yellow;
 }

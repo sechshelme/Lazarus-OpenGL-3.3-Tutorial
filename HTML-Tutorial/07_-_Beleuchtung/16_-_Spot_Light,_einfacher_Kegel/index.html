@@ -117,7 +117,7 @@ Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   <b><font color="0000BB">if</font></b> (RedOn) {
-    outColor.rgb  += isCone(RedLightPos) * red;
+    outColor.rgb += isCone(RedLightPos) * red;
   }
   <b><font color="0000BB">if</font></b> (GreenOn) {
     outColor.rgb += isCone(GreenLightPos) * green;

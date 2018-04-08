@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>45 - Wichtige Funktionen</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>45 - Wichtige Funktionen</h2></b>
+Eine kleine Beschreibung der wichtigsten Funktionen in <b>GLSL</b><br>
+Die Funktionen werden in Pascal-Code umgesetzt, so das man sieht, was die Funktionen machen.<br>
+Die meisten Funktionen funktionieren in <b>GLSL</b> auch mit <b>vec2</b>, <b>vec3</b>, <b>vev4</b>.<br>
+<br>
+<b>min</b><br>
+<pre><code><b><font color="0000BB">function</font></b> min(value, min: single): single;
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> value < min <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    Result := min;
+  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+    Result := value;
+  <b><font color="0000BB">end</font></b>;
+<b><font color="0000BB">end</font></b>;</pre></code>
+<b>max</b><br>
+<pre><code><b><font color="0000BB">function</font></b> max(value, max: single): single;
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> value > max <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    Result := max;
+  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+    Result := value;
+  <b><font color="0000BB">end</font></b>;
+<b><font color="0000BB">end</font></b>;</pre></code>
+<b>clamp</b><br>
+<pre><code><b><font color="0000BB">function</font></b> clamp(value, min, max: single): single;
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> value < min <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    Result := min;
+  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">if</font></b> value > max <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    Result := max;
+  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+    Result := value;
+  <b><font color="0000BB">end</font></b>;
+<b><font color="0000BB">end</font></b>;</pre></code>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>
