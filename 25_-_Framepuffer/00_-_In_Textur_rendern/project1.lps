@@ -229,34 +229,34 @@
         <Filename Value="..\..\Licht-Material-Test\Lighting.frag"/>
         <WindowIndex Value="1"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\Licht-Material-Test\Lighting.vert"/>
         <WindowIndex Value="1"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit33>
       <Unit34>
         <Filename Value="textur.vert"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <UsageCount Value="15"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit34>
       <Unit35>
         <Filename Value="triangle.vert"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <UsageCount Value="15"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit35>
       <Unit36>
         <Filename Value="triangle.frag"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <UsageCount Value="15"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit36>
       <Unit37>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
@@ -272,7 +272,7 @@
         <WindowIndex Value="1"/>
         <CursorPos X="2" Y="14"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\..\Units\MyPackages\OpenGL\oglshader.pas"/>

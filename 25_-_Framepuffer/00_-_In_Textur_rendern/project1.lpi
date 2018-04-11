@@ -83,14 +83,9 @@
       <OtherUnitFiles Value="..\..\units"/>
       <UnitOutputDirectory Value="\tmp"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Checks>
-        <RangeChecks Value="True"/>
-        <OverflowChecks Value="True"/>
-      </Checks>
-    </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>
