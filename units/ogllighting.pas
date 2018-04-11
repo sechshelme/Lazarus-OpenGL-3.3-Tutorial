@@ -8,7 +8,7 @@ uses
   LCL, LCLType, SysUtils, Controls,
   Forms, StdCtrls, ExtCtrls, Buttons,
   dglOpenGL,
-  oglVertex, oglMatrix, oglVAO;
+  oglVector, oglMatrix, oglVAO;
 
 type
 

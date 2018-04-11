@@ -7,7 +7,7 @@ unit oglMatrix;
 interface
 
 uses
-  SysUtils, Forms, Dialogs, Clipbrd, dglOpenGL, oglVertex;
+  SysUtils, Forms, Dialogs, Clipbrd, dglOpenGL, oglVector;
 
 type
   Tmat2x2 = array[0..1] of TVector2f;

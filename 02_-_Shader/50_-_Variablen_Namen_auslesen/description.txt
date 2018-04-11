@@ -1,0 +1,4 @@
+"Variable auslesen"
+
+Man kann auch ermitteln, welche Variablen im Shader verwendet werden.
+

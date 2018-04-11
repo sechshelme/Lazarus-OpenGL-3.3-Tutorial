@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  dglOpenGL, oglVertex, oglMatrix;
+  dglOpenGL, oglVector, oglMatrix;
 
 type
   TFace4DArray = array of Tmat3x4;

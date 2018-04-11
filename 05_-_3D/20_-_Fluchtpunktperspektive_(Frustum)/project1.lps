@@ -21,7 +21,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="80"/>
         <CursorPos X="38" Y="121"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
@@ -99,7 +98,7 @@
         <UnitName Value="oglMatrix"/>
         <EditorIndex Value="1"/>
         <TopLine Value="65"/>
-        <CursorPos X="54" Y="498"/>
+        <CursorPos X="54" Y="403"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit11>
@@ -227,15 +226,4 @@
       </Position30>
     </JumpHistory>
   </ProjectSession>
-  <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="unit1.pas"/>
-        <Line Value="78"/>
-      </Item1>
-    </BreakPoints>
-  </Debugging>
 </CONFIG>

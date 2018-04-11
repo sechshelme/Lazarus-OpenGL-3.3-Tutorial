@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,
-  oglVertex, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
+  oglVector, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
 
 type
 

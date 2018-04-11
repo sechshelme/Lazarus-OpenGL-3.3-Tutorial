@@ -124,8 +124,8 @@
         <UnitName Value="ogllogform"/>
       </Item24>
       <Item25>
-        <Filename Value="oglvertex.pas"/>
-        <UnitName Value="oglVertex"/>
+        <Filename Value="oglvector.pas"/>
+        <UnitName Value="oglvector"/>
       </Item25>
     </Files>
     <RequiredPkgs Count="4">

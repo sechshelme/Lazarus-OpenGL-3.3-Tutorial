@@ -20,8 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="214"/>
-        <CursorPos Y="244"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="35" Y="11"/>
         <UsageCount Value="51"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -59,9 +59,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="38"/>
         <CursorPos X="7" Y="91"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>

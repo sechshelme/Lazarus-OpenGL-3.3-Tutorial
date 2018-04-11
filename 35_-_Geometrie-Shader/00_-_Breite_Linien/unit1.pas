@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVertex, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
 type
 

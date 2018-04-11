@@ -1,0 +1,29 @@
+object Form1: TForm1
+  Left = 431
+  Height = 373
+  Top = 296
+  Width = 647
+  Caption = 'Form1'
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.8.0.6'
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 40
+    OnTimer = Timer1Timer
+    left = 80
+    top = 32
+  end
+  object MainMenu1: TMainMenu
+    left = 144
+    top = 32
+    object MenuItem3: TMenuItem
+      Caption = 'Shader'
+      object MenuItem1: TMenuItem
+        Caption = 'Variablen'
+        OnClick = MenuItem1Click
+      end
+    end
+  end
+end
