@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/home/tux/fpcupdeluxe/fpc/bin/x86_64-linux/fpc.sh" Date="1522421051"/>
+  <Params Value=" -Twin32 -Pi386 -MObjFPC -Schi -O3 -l -vewnhibq -Fu/n4800/DATEN/Programmierung/Lazarus/Tutorials/Dialogs -Fu/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/units -Fu/home/tux/fpcupdeluxe/lazarus/packager/units/i386-win32 -Fu/home/tux/fpcupdeluxe/lazarus/components/lazutils/lib/i386-win32 -Fu/home/tux/fpcupdeluxe/lazarus/lcl/units/i386-win32 -Fu/home/tux/fpcupdeluxe/lazarus/lcl/units/i386-win32/win32 -Fu/n4800/DATEN/Programmierung/Lazarus/Units/Packages/bgrabitmap/bgrabitmap/lib/i386-win32/3.1.1 -Fu/home/tux/fpcupdeluxe/lazarus/components/opengl/lib/i386-win32/win32 -FU/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/units/lib/i386-win32/ -dLCL -dLCLwin32 ogl_package.pas"/>
+</CONFIG>

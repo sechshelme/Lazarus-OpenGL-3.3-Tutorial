@@ -30,6 +30,7 @@ type
     property y: GLfloat read GetY write SetY;
     procedure Rotate(Winkel: GLfloat);
     procedure Scale(Ax, Ay: GLfloat);
+    procedure Translate(Ax, Ay: GLfloat);
     procedure Scale(s: GLfloat);
     procedure NormalCut;
     procedure Negate;
@@ -58,6 +59,7 @@ type
     procedure RotateC(Winkel: GLfloat);
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(s: GLfloat);
+    procedure Translate(Ax, Ay, Az: GLfloat);
     procedure NormalCut;
     procedure Negate;
 
@@ -210,6 +212,12 @@ begin
   Scale(s, s);
 end;
 
+procedure TVector2fHelper.Translate(Ax, Ay: GLfloat);
+begin
+  Self[0] += Ax;
+  Self[1] += Ay;
+end;
+
 procedure TVector2fHelper.NormalCut;
 var
   i: integer;
@@ -321,6 +329,13 @@ end;
 procedure TVector3fHelper.Scale(s: GLfloat); inline;
 begin
   Scale(s, s, s);
+end;
+
+procedure TVector3fHelper.Translate(Ax, Ay, Az: GLfloat);
+begin
+  Self[0] += Ax;
+  Self[1] += Ay;
+  Self[2] += Az;
 end;
 
 procedure TVector3fHelper.NormalCut;

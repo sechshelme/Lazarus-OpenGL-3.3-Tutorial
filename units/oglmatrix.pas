@@ -42,6 +42,8 @@ type
 
   { TMatrix }
 
+  { TMatrixHelper }
+
   TMatrixHelper = type Helper for TMatrix
   public
     procedure Identity;
@@ -58,7 +60,8 @@ type
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
-    procedure Translate(x, y, z: GLfloat);
+    procedure Translate(x, y, z: GLfloat); overload;
+    procedure Translate(v: TVector3f); overload;
     procedure NewTranslate(x, y, z: GLfloat);
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
@@ -271,6 +274,13 @@ begin
   Self[3, 0] := Self[3, 0] + x;
   Self[3, 1] := Self[3, 1] + y;
   Self[3, 2] := Self[3, 2] + z;
+end;
+
+procedure TMatrixHelper.Translate(v: TVector3f);
+begin
+  Self[3, 0] := Self[3, 0] + v[0];
+  Self[3, 1] := Self[3, 1] + v[1];
+  Self[3, 2] := Self[3, 2] + v[2];
 end;
 
 procedure TMatrixHelper.NewTranslate(x, y, z: GLfloat);
