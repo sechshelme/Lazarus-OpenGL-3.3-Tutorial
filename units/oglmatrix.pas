@@ -269,18 +269,18 @@ begin
   Rotate(Winkel, a[0], a[1], a[2]);
 end;
 
-procedure TMatrixHelper.Translate(x, y, z: GLfloat);
+procedure TMatrixHelper.Translate(x, y, z: GLfloat); inline;
 begin
-  Self[3, 0] := Self[3, 0] + x;
-  Self[3, 1] := Self[3, 1] + y;
-  Self[3, 2] := Self[3, 2] + z;
+  Self[3, 0] += x;
+  Self[3, 1] += y;
+  Self[3, 2] += z;
 end;
 
-procedure TMatrixHelper.Translate(v: TVector3f);
+procedure TMatrixHelper.Translate(v: TVector3f); inline;
 begin
-  Self[3, 0] := Self[3, 0] + v[0];
-  Self[3, 1] := Self[3, 1] + v[1];
-  Self[3, 2] := Self[3, 2] + v[2];
+  Self[3, 0] += v[0];
+  Self[3, 1] += v[1];
+  Self[3, 2] += v[2];
 end;
 
 procedure TMatrixHelper.NewTranslate(x, y, z: GLfloat);

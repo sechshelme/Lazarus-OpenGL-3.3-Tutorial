@@ -21,6 +21,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
+        <TopLine Value="61"/>
         <CursorPos X="35" Y="11"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
@@ -77,14 +78,14 @@
         <Filename Value="Vertexshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit8>
       <Unit9>
         <Filename Value="Fragmentshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="7"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit9>
       <Unit10>
         <Filename Value="/usr/share/fpcsrc/3.1.1/rtl/inc/objpash.inc"/>

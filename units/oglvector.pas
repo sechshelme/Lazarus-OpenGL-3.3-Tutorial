@@ -73,9 +73,18 @@ type
 
   TVector4fHelper = type Helper for TVector4f
   private
+    function GetX: GLfloat;
     function GetXYZ: TVector3f;
+    function GetY: GLfloat;
+    function GetZ: GLfloat;
+    procedure SetX(AValue: GLfloat);
     procedure SetXYZ(AValue: TVector3f);
+    procedure SetY(AValue: GLfloat);
+    procedure SetZ(AValue: GLfloat);
   public
+    property x: GLfloat read GetX write SetX;
+    property y: GLfloat read GetY write SetY;
+    property z: GLfloat read GetZ write SetZ;
     property xyz: TVector3f read GetXYZ write SetXYZ;
 
     function ToInt: Uint32;
@@ -434,11 +443,41 @@ end;
 
 { TVector4fHelper }
 
+function TVector4fHelper.GetX: GLfloat; inline;
+begin
+  Result := Self[0];
+end;
+
+function TVector4fHelper.GetY: GLfloat; inline;
+begin
+  Result := Self[1];
+end;
+
+function TVector4fHelper.GetZ: GLfloat; inline;
+begin
+  Result := Self[2];
+end;
+
 function TVector4fHelper.GetXYZ: TVector3f; inline;
 begin
   Result[0] := Self[0];
   Result[1] := Self[1];
   Result[2] := Self[2];
+end;
+
+procedure TVector4fHelper.SetX(AValue: GLfloat); inline;
+begin
+  Self[0] := AValue;
+end;
+
+procedure TVector4fHelper.SetY(AValue: GLfloat); inline;
+begin
+  Self[1] := AValue;
+end;
+
+procedure TVector4fHelper.SetZ(AValue: GLfloat); inline;
+begin
+  Self[2] := AValue;
 end;
 
 procedure TVector4fHelper.SetXYZ(AValue: TVector3f); inline;

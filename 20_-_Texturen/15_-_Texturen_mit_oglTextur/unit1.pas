@@ -128,11 +128,14 @@ begin
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
   glBindVertexArray(VBQuad.VAO);
+
+  // Vertex
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
+  // Textur-Koordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
