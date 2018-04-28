@@ -44,7 +44,7 @@ type
 
   { TMatrixHelper }
 
-  TMatrixHelper = type Helper for TMatrix
+  TMatrixHelper = type Helper for Tmat4x4
   public
     procedure Identity;
     procedure Multiply(const m1t, m2t: TMatrix);

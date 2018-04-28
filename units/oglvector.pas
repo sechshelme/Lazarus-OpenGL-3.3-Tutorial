@@ -89,7 +89,8 @@ type
 
     function ToInt: Uint32;
     procedure FromInt(i: UInt32);
-    procedure Scale(x, y, z, w: GLfloat);
+    procedure Scale(Ax, Ay, Az: GLfloat);
+    procedure Scale(Ax, Ay, Az, Aw: GLfloat);
     procedure Scale(s: GLfloat);
   end;
 
@@ -516,12 +517,19 @@ begin
   Self[3] := i div $1000000 / $FF;
 end;
 
-procedure TVector4fHelper.Scale(x, y, z, w: GLfloat); inline;
+procedure TVector4fHelper.Scale(Ax, Ay, Az: GLfloat); inline;
 begin
-  Self[0] *= x;
-  Self[1] *= y;
-  Self[2] *= z;
-  //  Self[3] *= w;
+  Self[0] *= Ax;
+  Self[1] *= Ay;
+  Self[2] *= Az;
+end;
+
+procedure TVector4fHelper.Scale(Ax, Ay, Az, Aw: GLfloat); inline;
+begin
+  Self[0] *= Ax;
+  Self[1] *= Ay;
+  Self[2] *= Az;
+  Self[3] *= Aw;
 end;
 
 procedure TVector4fHelper.Scale(s: GLfloat); inline;
