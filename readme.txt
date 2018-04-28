@@ -15,6 +15,12 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+28.04.2018
+Objekte mit Alpha-Blending sortieren, so das man die unschönen Überlappungen verhindern kann.
+
+08.04.2018
+Bump-Mapping
+
 25.03.2018
 UBO-Tutorial fertigestellt.
 
