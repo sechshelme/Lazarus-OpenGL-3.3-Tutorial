@@ -18,7 +18,7 @@ Für den Boden wird eine Matrix gebrauch, da ich diesen drehe.
 
 Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.
 
-Wie Texturen funktionieren, in einem späteren Kapitel
+Wie Texturen funktionieren, in einem späteren Kapitel.
 *)
 //lineal
 
@@ -190,6 +190,7 @@ Der Boden und die Bäume zeichen.
 Dabei ist es wichtig, das man zuerst den Boden zeichnet, weil die Bäume Alpha-Blending haben.
 Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.
 *)
+//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 
   procedure QuickSort(var ia: array of PTreePos; ALo, AHi: integer);
@@ -236,10 +237,7 @@ begin
 
   glBindVertexArray(VBQuad.VAO);
 
-
-  //code+
   // --- Zeichne Boden
-
   SandTextur.ActiveAndBind;                              // Boden-Textur binden
   Matrix.Identity;
   Matrix.Translate(0.0, 1.0, 0.0);
@@ -269,10 +267,10 @@ begin
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);
   end;
-  //code-
 
   ogc.SwapBuffers;
 end;
+//code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 var

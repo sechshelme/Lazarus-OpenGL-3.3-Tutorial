@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader,oglVector, oglMatrix;
 
 type
 
@@ -97,11 +97,11 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
-  RotMatrix := TMatrix.Create;            // Die drei Konstruktoren
-  ScaleMatrix := TMatrix.Create;
+  RotMatrix.Identity;
+  ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.5);
 
-  prodMatrix := TMatrix.Create;
+  prodMatrix.Identity;
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -132,6 +132,7 @@ begin
 
   for i := 1 to maxLevel do begin
     w := (1 shl (maxLevel - i)) * 256 * 4;
+
     //    w := (1 shl i) * 256;
     WriteLn(w);
     SetLength(tex, w * w);
@@ -143,7 +144,8 @@ begin
       //3: tex[j] := $0FF00;
       //4: tex[j] := $FF000;
       //end;
-      tex[j] := $FF00000 shr (i * 4);
+      tex[j] := ($FF00000 div (w*w) * j)  shr (i * 4);
+//      tex[j] := $FF00000  shr (i * 4);
     end;
 //    WriteLn(IntToHex($FF00000 shr (i * 4), 8));
     glTexImage2D(GL_TEXTURE_2D, i - 1, GL_RGBA, w, w, 0, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(tex));
@@ -171,6 +173,8 @@ end;
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  m:TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -186,11 +190,11 @@ begin
   prodMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 
-  prodMatrix.Push;
+  m:=  prodMatrix;
   prodMatrix.Translate(0.5, 0.0, 0.0);
   prodMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
-  prodMatrix.Pop;
+  prodMatrix := m;
 
   ogc.SwapBuffers;
 end;
@@ -198,10 +202,6 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-
-  prodMatrix.Free;
-  RotMatrix.Free;
-  ScaleMatrix.Free;
 
   Shader.Free;
 
@@ -220,11 +220,11 @@ begin
   if scale > 1.0 then begin
     scale := 0.1;
   end;
-  //  ScaleMatrix.Identity;
-  //  ScaleMatrix.Scale(scale);
+//    ScaleMatrix.Identity;
+//    ScaleMatrix.Scale(scale);
 
 
-  RotMatrix.RotateC(step);
+//RotMatrix.RotateC(step);
 
   ogcDrawScene(Sender);
 end;

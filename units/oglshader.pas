@@ -95,7 +95,6 @@ end;
 function FileToStr(Datei: string): ansistring;
 var
   sl: TStringList;
-  size: integer;
   {$IFDEF Darwin} s: string;{$ENDIF}
 begin
   if FileExists(Datei) then begin

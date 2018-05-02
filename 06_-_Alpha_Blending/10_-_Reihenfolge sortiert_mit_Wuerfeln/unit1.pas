@@ -300,8 +300,6 @@ Gedreht wird nur die WorldMatrix.
 *)
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
-var
-  i: integer;
 begin
   WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse
   WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse

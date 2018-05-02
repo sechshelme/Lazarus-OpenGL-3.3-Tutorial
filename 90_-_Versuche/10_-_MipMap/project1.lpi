@@ -19,6 +19,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">

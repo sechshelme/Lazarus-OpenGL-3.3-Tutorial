@@ -169,8 +169,7 @@ const
   d = 1.8;
   s = 4;
 begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
-
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
 

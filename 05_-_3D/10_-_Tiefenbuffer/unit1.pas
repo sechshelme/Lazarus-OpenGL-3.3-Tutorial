@@ -12,8 +12,8 @@ uses
 
 //image image.png
 (*
-Einen Tiefenbuffer braucht man, das Polygone nicht einfach willkürlich übereinander gezeichnet werden.
-Mit dem Tiefenbuffer wird berechnet, das ein Polygon das sich hinter einem anderen befindet, nicht gezeichnet wird.
+Einen Tiefenpuffer braucht man, das Polygone nicht einfach willkürlich übereinander gezeichnet werden.
+Mit dem Tiefenpuffer wird berechnet, das ein Polygon das sich hinter einem anderen befindet, nicht gezeichnet wird.
 Diese Berechnung läuft auf Pixelebene.
 
 Bei dem Würfelbeispiel, wird der kleine Würfel nicht mehr gezeichnet, da sich dieser hinter den Flächen des grossen Würfels befindet.
@@ -97,8 +97,8 @@ begin
 end;
 
 (*
-Hier wird den Tiefenbufferprüfung eingeschaltet, dies geschieht mit <b>glEnable(GL_DEPTH_TEST);</b>.
-Die Art der Prüfung kann man mit <b>glDepthFunc(...</b> einstellen, wobei defaut auf <b>GL_LESS</b> ist.
+Hier wird den Tiefenpufferprüfung eingeschaltet, dies geschieht mit <b>glEnable(GL_DEPTH_TEST);</b>.
+Die Art der Prüfung kann man mit <b>glDepthFunc(...</b> einstellen, wobei Default auf <b>GL_LESS</b> ist.
 Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf der Pixel gezeichnet werden.
 
 *)
@@ -106,7 +106,7 @@ Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf d
 procedure TForm1.CreateScene;
 begin
   glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
-  glDepthFunc(GL_LESS);     // Kann man weglassen, da default.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
   //code-
 
   WorldMatrix.Identity;
@@ -147,7 +147,7 @@ end;
 
 (*
 Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT</b>.
-Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Buffer gelöscht wird, sondern aud der Tiefenbuffer.
+Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.
 *)
 //code+
@@ -155,7 +155,7 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   TempMatrix: TMatrix;
 begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
   Shader.UseProgram;
 

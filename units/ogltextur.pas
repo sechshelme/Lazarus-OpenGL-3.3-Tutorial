@@ -47,7 +47,7 @@ type
     procedure LoadTextures(Datei: string); overload;
     procedure LoadTextures(w, h: integer; const Dat: array of GLenum); overload;
     procedure LoadTextures8Bit(w, h: integer; const Dat: array of GLbyte); overload;
-    procedure LoadTextures(w, h: integer); overload;
+    procedure LoadTextures(w, h: integer; Clear: boolean = False); overload;
     procedure ActiveAndBind(Nr: integer);
     procedure ActiveAndBind;
   end;
@@ -166,11 +166,11 @@ begin
   for i := 0 to Length(Data) - 1 do begin
     glTexParameteri(GL_TEXTURE_2D, Data[i].pname, Data[i].params);
   end;
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  //  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  //  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-//  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+  //  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+  //  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 
 end;
 
@@ -201,6 +201,7 @@ var
   begin
     //    LogForm.Add('TTexturBuffer, error format: ' + Datei);
     //    LogForm.Show;
+    ShowMessage('Kann Datei: ' + Datei + ' nicht laden !');
   end;
 
 begin
@@ -239,24 +240,25 @@ begin
   glBindTexture(GL_TEXTURE_2D, 0);
 end;
 
-procedure TTexturBuffer.LoadTextures(w, h: integer);
+procedure TTexturBuffer.LoadTextures(w, h: integer; Clear: boolean);
 var
   DataPointer: Pointer;
 begin
-  GetMem(DataPointer, w * h * 4);
-  FillDWord(DataPointer^, w * h, $FF0000FF);
-
   glBindTexture(GL_TEXTURE_2D, FID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, DataPointer);
-  //  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+  if Clear then begin
+    GetMem(DataPointer, w * h * 4);
+    FillDWord(DataPointer^, w * h, $FF0000FF);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, DataPointer);
+    Freemem(DataPointer);
+  end else begin
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+  end;
 
   TexParameter.SetParameter;
   if FIsMipMap then begin
     glGenerateMipmap(GL_TEXTURE_2D);
   end;
   glBindTexture(GL_TEXTURE_2D, 0);
-
-  Freemem(DataPointer);
 end;
 
 procedure TTexturBuffer.LoadTextures(RawImage: TRawImage);
