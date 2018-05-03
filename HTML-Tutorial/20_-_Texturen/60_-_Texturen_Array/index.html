@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>60 - Texturen Array</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>60 - Texturen Array</h2></b>
+<img src="image.png" alt="Selfhtml"><br><br>
+In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.<br>
+Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.<br>
+<hr><br>
+Der Unterschied zur Konstante, das man die Bitmap noch laden muss, und anschliessend einen Zeiger darauf <b>glTexImage2D(...</b> mit gibt.<br>
+Man kann auch eine Bitmap selbst über Canvas zeichnen.<br>
+<br>
+Das es sich hier um eine BMP-Datei handelt, kann man diese direkt mit <b>TBitmap</b> laden.<br>
+<br>
+Anstelle von TBitmap kann man auch TPicture verwenden. Was sehr wichtig ist, man muss wissen in welchen Format die Bitmap gespeichert ist.<br>
+Je nach dem in welchen Format die Bitmap vorliegt, müssen die Parameter in <b>glTexImage2D(...</b> angepasst werden.<br>
+In diesen Beispiel sind es die Konstanten <b>GL_RGB</b> und <b>GL_BGR</b>.<br>
+<br>
+Wen man eine Bitmap mit der Unit <b>oglTextur</b> lädt, werden diese Parameter automatisch angepasst.<br>
+<br>
+Unterumständen könnte es noch exotische Formate geben, welche (noch) nicht unterstützt werden.<br>
+Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen. ;-)<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
+  bit: TPicture;                  <i><font color="#FFFF00">// Bei anderen Formaten TPicture.</font></i>
+<b><font color="0000BB">begin</font></b>
+  bit := TPicture.Create;         <i><font color="#FFFF00">// Bitmap erzeugen.</font></i>
+  <b><font color="0000BB">with</font></b> bit <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    LoadFromFile(<font color="#FF0000">'ziffer.xpm'</font>);   <i><font color="#FFFF00">// BMP in Bitmap laden.</font></i>
+
+    glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+
+    glTexImage3D(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>, GL_RGB, Width, Height <b><font color="0000BB">div</font></b> <font color="#0077BB">6</font>, <font color="#0077BB">6</font>, <font color="#0077BB">0</font>, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
+
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
+    Free;                        <i><font color="#FFFF00">// Bitmap frei geben.</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
+<hr><br>
+<b>Vertex-Shader:</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
+
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+{
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+}
+</pre></code>
+<hr><br>
+<b>Fragment-Shader:</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2DArray</font></b> Sampler;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">int</font></b>            Layer;
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
+
+<b><font color="0000BB">void</font></b> main()
+{
+  FragColor = texture( Sampler, <b><font color="0000BB">vec3</font></b>(UV0, Layer) );
+}
+</pre></code>
+<b>ziffer.xpm:</b><br>
+<pre><code>/* XPM */
+static char *ziffer_xpm[] = {
+
+  /* width height num_colors chars_per_pixel */
+  "     <font color="#0077BB">8</font>    <font color="#0077BB">48</font>       <font color="#0077BB">16</font>            <font color="#0077BB">1</font>",
+
+  /* colors */
+  "` c #<font color="#0077BB">000000</font>", ". c #<font color="#0077BB">800000</font>", "# c #<font color="#0077BB">008000</font>", "a c #<font color="#0077BB">808000</font>",
+  "b c #<font color="#0077BB">000080</font>", "c c #<font color="#0077BB">800080</font>", "d c #<font color="#0077BB">008080</font>", "e c #<font color="#0077BB">808080</font>",
+  "f c #c0c0c0", "g c #ff0000", "h c #<font color="#0077BB">00</font>ff00", "i c #ffff00",
+  "j c #<font color="#0077BB">0000</font>ff", "k c #ff00ff", "l c #<font color="#0077BB">00</font>ffff", "m c #ffffff",
+
+  /* pixels */
+  "jjjjjjjj", "jjjjijjj", "jjjiijjj", "jjijijjj", "jjjjijjj", "jjjjijjj", "jjjjijjj", "jjjjjjjj",
+  "iiiiiiii", "iiijjiii", "iijiijii", "iiiiijii", "iiiijiii", "iiijiiii", "iijjjjii", "iiiiiiii",
+  "kkkkkkkk", "kkkllkkk", "kklkklkk", "kkkklkkk", "kkkkklkk", "kklkklkk", "kkkllkkk", "kkkkkkkk",
+  "hhhhhhhh", "hhmhmhhh", "hhmhmhhh", "hhmhmhhh", "hhmmmmhh", "hhhhmhhh", "hhhhmhhh", "hhhhhhhh",
+  "aaaaaaaa", "aaiiiiaa", "aaiaaaaa", "aaiiiaaa", "aaaaaiaa", "aaaaaiaa", "aaiiiaaa", "aaaaaaaa",
+  "gggggggg", "gggjjjgg", "ggjggggg", "ggjjjggg", "ggjggjgg", "ggjggjgg", "gggjjggg", "gggggggg"
+};
+</pre></code>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>
