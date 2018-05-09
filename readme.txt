@@ -15,6 +15,9 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+08.05.2018
+Textur-Array
+
 28.04.2018
 Objekte mit Alpha-Blending sortieren, so das man die unschönen Überlappungen verhindern kann.
 
