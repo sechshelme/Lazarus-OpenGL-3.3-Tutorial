@@ -9,5 +9,5 @@ out vec4 FragColor;
 
 void main()
 {
-  FragColor = texture( Sampler, vec3(UV0, Layer) );
+  FragColor = texture( Sampler, vec3(UV0, Layer));
 }

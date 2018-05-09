@@ -39,14 +39,15 @@ implementation
 //image image.png
 
 (*
-In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.
-Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.
+Man kann auch in jedem Layer einzel die Texturn laden.
+Der einzige Unterschied zum kompletten laden ist, man ladetdie Texturen einzeln mit SubImage hoch.
+Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
 *)
 //lineal
 const
   QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
-    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
-    (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
+    ((-1.0, -1.0, 0.0), (1.0, 1.0, 0.0), (-1.0, 1.0, 0.0),
+    (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0));
 
   TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
@@ -62,8 +63,7 @@ type
 var
   VBQuad: TVB;
   ScaleMatrix: TMatrix;
-  Layer_ID,
-  Matrix_ID: GLint;
+  Layer_ID, Matrix_ID,
   textureID: GLuint;
 
 { TForm1 }
@@ -85,57 +85,57 @@ end;
 
 procedure TForm1.CreateScene;
 begin
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glGenBuffers(1, @VBQuad.VBOVertex);
-  glGenBuffers(1, @VBQuad.VBOTex);
-
   glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('mat');
-    Layer_ID := UniformLocation('Layer');
+    Layer_ID := UniformLocation('Layer');        // Die ID für den Layer Zugriff.
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
 
+  glGenVertexArrays(1, @VBQuad.VAO);
+  glGenBuffers(1, @VBQuad.VBOVertex);
+  glGenBuffers(1, @VBQuad.VBOTex);
+
   ScaleMatrix.Identity;
-  ScaleMatrix.Scale(0.7, -0.7, 0.0);
+  ScaleMatrix.Scale(0.6, -0.6, 0.0);
 end;
 
 (*
-Der Unterschied zur Konstante, das man die Bitmap noch laden muss, und anschliessend einen Zeiger darauf <b>glTexImage2D(...</b> mit gibt.
-Man kann auch eine Bitmap selbst über Canvas zeichnen.
-
-Das es sich hier um eine BMP-Datei handelt, kann man diese direkt mit <b>TBitmap</b> laden.
-
-Anstelle von TBitmap kann man auch TPicture verwenden. Was sehr wichtig ist, man muss wissen in welchen Format die Bitmap gespeichert ist.
-Je nach dem in welchen Format die Bitmap vorliegt, müssen die Parameter in <b>glTexImage2D(...</b> angepasst werden.
-In diesen Beispiel sind es die Konstanten <b>GL_RGB</b> und <b>GL_BGR</b>.
-
-Wen man eine Bitmap mit der Unit <b>oglTextur</b> lädt, werden diese Parameter automatisch angepasst.
-
-Unterumständen könnte es noch exotische Formate geben, welche (noch) nicht unterstützt werden.
-Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen. ;-)
+Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
+Mit <b>glTexSubImage3D(...</b> werden dann die Texturn Layer für Layer hochgeladen.
+Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .
 *)
 //code+
 procedure TForm1.InitScene;
+const
+  size = 8;      // Grösse der Texturen
+  anzLayer = 6;
 var
-  bit: TPicture;                  // Bei anderen Formaten TPicture.
+  i: integer;
+  bit: TPicture; // Bitmap
 begin
-  bit := TPicture.Create;         // Bitmap erzeugen.
+  bit := TPicture.Create;
   with bit do begin
-    LoadFromFile('ziffer.xpm');   // BMP in Bitmap laden.
 
     glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 
-    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGB, Width, Height div 6, 6, 0, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
-
+    // Speicher reservieren
+    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGB, size, size, anzLayer, 0, GL_BGR, GL_UNSIGNED_BYTE, nil);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    for i := 0 to anzLayer - 1 do begin
 
+      // Bitmap von HD laden.
+      LoadFromFile(IntToStr(i + 1) + '.xpm');   // Die Images laden.
+
+      // Texturen hoch laden
+      glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, Width, Height, 1, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
+    end;
     glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
-    Free;                        // Bitmap frei geben.
+    Free; // Picture frei geben.
   end;
   //code-
   glClearColor(0.6, 0.6, 0.4, 1.0);
@@ -153,18 +153,29 @@ begin
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  x, y: integer;
+  Matrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  // Textur binden.
-
   Shader.UseProgram;
-
-  ScaleMatrix.Uniform(Matrix_ID);
-
-  // Zeichne Quadrat
+  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  // Textur binden.
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+
+  for x := 0 to 2 do begin
+    for y := 0 to 1 do begin
+      Matrix.Identity;
+      Matrix.Scale(0.4);
+      Matrix.Translate(-1.0 + x, -0.5 + y, 0.0);
+      Matrix.Multiply(ScaleMatrix, Matrix);
+      Matrix.Uniform(Matrix_ID);
+
+      glUniform1i(Layer_ID, x + y * 3);    // Layer wechseln
+
+      glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+    end;
+  end;
 
   ogc.SwapBuffers;
 end;
@@ -189,13 +200,14 @@ begin
   if Layer >= 6 then begin
     Layer := 0;
   end;
-  glUniform1i(Layer_ID, Layer);
   ogcDrawScene(Sender);
 end;
 
 //lineal
 
 (*
+Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
+
 <b>Vertex-Shader:</b>
 *)
 //includeglsl Vertexshader.glsl
@@ -205,10 +217,5 @@ end;
 <b>Fragment-Shader:</b>
 *)
 //includeglsl Fragmentshader.glsl
-
-(*
-<b>ziffer.xpm:</b>
-*)
-//includecpp ziffer.xpm
 
 end.
