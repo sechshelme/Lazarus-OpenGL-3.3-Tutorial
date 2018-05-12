@@ -15,11 +15,8 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Timer1: TTimer;
-    Timer2: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader Klasse
@@ -39,7 +36,7 @@ implementation
 //image image.png
 
 (*
-Man kann auch in jedem Layer einzel die Texturn laden.
+Man kann auch in jedem Layer einzeln die Texturn laden.
 Der einzige Unterschied zum kompletten laden ist, man ladetdie Texturen einzeln mit SubImage hoch.
 Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
 *)
@@ -79,8 +76,6 @@ begin
 
   CreateScene;
   InitScene;
-  Timer1.Enabled := True;
-  Timer2.Enabled := True;
 end;
 
 procedure TForm1.CreateScene;
@@ -100,7 +95,7 @@ begin
   glGenBuffers(1, @VBQuad.VBOTex);
 
   ScaleMatrix.Identity;
-  ScaleMatrix.Scale(0.6, -0.6, 0.0);
+  ScaleMatrix.Scale(0.6, -0.6, 1.0);
 end;
 
 (*
@@ -182,25 +177,12 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  Timer1.Enabled := False;
-
   glDeleteTextures(1, @textureID);       // Textur-Puffer frei geben.
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
 
   Shader.Free;
-end;
-
-procedure TForm1.Timer2Timer(Sender: TObject);
-const
-  Layer: integer = 0;
-begin
-  Inc(Layer);
-  if Layer >= 6 then begin
-    Layer := 0;
-  end;
-  ogcDrawScene(Sender);
 end;
 
 //lineal

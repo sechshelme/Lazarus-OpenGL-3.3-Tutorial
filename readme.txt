@@ -25,7 +25,7 @@ Objekte mit Alpha-Blending sortieren, so das man die unschönen Überlappungen v
 Bump-Mapping
 
 25.03.2018
-UBO-Tutorial fertigestellt.
+UBO-Tutorial fertig gestellt.
 
 23.03.2018
 Die Vertex-Funktionen wurden aus der oglMatrix Unit entfernt und in eine seperate Unit oglVetex ausgelagert.
