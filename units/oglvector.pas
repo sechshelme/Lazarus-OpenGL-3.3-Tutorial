@@ -14,6 +14,7 @@ type
   TVector3f = array[0..2] of GLfloat;
   TVector4f = array[0..3] of GLfloat;
 
+  TFace2D = array[0..2] of TVector2f;
   TFace3D = array[0..2] of TVector3f;
   TFace3DArray = array of TFace3D;
 
@@ -94,14 +95,31 @@ type
     procedure Scale(s: GLfloat);
   end;
 
+  { TglFloatArrayHelper }
+
+  TglFloatArrayHelper = type Helper for TglFloatArray
+    procedure AddglFloatf(f: GLfloat);
+    procedure AddVector2f(Vertex: TVector2f);
+    procedure AddVector3f(Vertex: TVector3f);
+    procedure AddVector4f(Vertex: TVector4f);
+
+    procedure AddFace2D(Face: TFace2D); overload;
+    procedure AddFace2D(v0, v1, v2: TVector2f); overload;
+    procedure AddFace2DArray(const Face: array of TFace2D);
+
+    procedure AddFace3D(Face: TFace3D); overload;
+    procedure AddFace3D(v0, v1, v2: TVector3f); overload;
+    procedure AddFace3DArray(const Face: array of TFace3D);
+  end;
+
+
 function vec2(x, y: GLfloat): TVector2f;
-function vec3(x, y, z: GLfloat): TVector3f;
-function vec3(v: TVector2f; z: GLfloat): TVector3f; inline;
+function vec3(x, y, z: GLfloat): TVector3f; overload;
+function vec3(v: TVector2f; z: GLfloat): TVector3f; overload;
 function vec4(x, y, z, w: GLfloat): TVector4f; overload;
 function vec4(xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
-
 
 implementation
 
@@ -222,7 +240,7 @@ begin
   Scale(s, s);
 end;
 
-procedure TVector2fHelper.Translate(Ax, Ay: GLfloat);
+procedure TVector2fHelper.Translate(Ax, Ay: GLfloat); inline;
 begin
   Self[0] += Ax;
   Self[1] += Ay;
@@ -535,6 +553,94 @@ end;
 procedure TVector4fHelper.Scale(s: GLfloat); inline;
 begin
   Scale(s, s, s, s);
+end;
+
+{ TglFloatArrayHelper }
+
+procedure TglFloatArrayHelper.AddglFloatf(f: GLfloat);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 1);
+  Move(f, Self[p], SizeOf(GLfloat));
+end;
+
+procedure TglFloatArrayHelper.AddVector2f(Vertex: TVector2f);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 2);
+  Move(Vertex, Self[p], SizeOf(TVector2f));
+end;
+
+procedure TglFloatArrayHelper.AddVector3f(Vertex: TVector3f);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 3);
+  Move(Vertex, Self[p], SizeOf(TVector3f));
+end;
+
+procedure TglFloatArrayHelper.AddVector4f(Vertex: TVector4f);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 4);
+  Move(Vertex, Self[p], SizeOf(TVector4f));
+end;
+
+procedure TglFloatArrayHelper.AddFace2D(Face: TFace2D);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6);
+  Move(Face, Self[p], SizeOf(TFace2D));
+end;
+
+procedure TglFloatArrayHelper.AddFace2D(v0, v1, v2: TVector2f);
+begin
+  AddVector2f(v0);
+  AddVector2f(v1);
+  AddVector2f(v2);
+end;
+
+procedure TglFloatArrayHelper.AddFace2DArray(const Face: array of TFace2D);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
+end;
+
+procedure TglFloatArrayHelper.AddFace3D(Face: TFace3D);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9);
+  Move(Face, Self[p], SizeOf(TFace3D));
+end;
+
+procedure TglFloatArrayHelper.AddFace3D(v0, v1, v2: TVector3f);
+begin
+  AddVector3f(v0);
+  AddVector3f(v1);
+  AddVector3f(v2);
+end;
+
+procedure TglFloatArrayHelper.AddFace3DArray(const Face: array of TFace3D);
+var
+  p: Integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
 end;
 
 end.

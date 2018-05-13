@@ -19,7 +19,7 @@ type
 
   TVBO = class(TObject)
   private
-    GLfloatArray: array of GLfloat;
+    GLfloatArray: TglFloatArray;
     Primitive_Size: integer;
     procedure SwapGLfloat(var v0, v1: GLfloat);
   protected
@@ -47,9 +47,9 @@ type
   public
     constructor Create;
 
-    procedure Add(Face: Tmat3x2); overload;
+    procedure Add(Face: TFace2D); overload;
     procedure Add(v0, v1, v2: TVector2f); overload;
-    procedure Add(const Face: array of Tmat3x2); overload;
+    procedure Add(const Face: array of TFace2D); overload;
     procedure Copy(von, bis, anz: integer);
     procedure Rotate(winkel: single);
     procedure Scale(Factor: single); overload;
@@ -65,9 +65,9 @@ type
   public
     constructor Create;
 
-    procedure Add(Face: Tmat3x3); overload;
+    procedure Add(Face: TFace3D); overload;
     procedure Add(v0, v1, v2: TVector3f); overload;
-    procedure Add(const Face: array of Tmat3x3); overload;
+    procedure Add(const Face: array of TFace3D); overload;
     procedure Add(const f: TglFloatArray); overload;
     procedure Copy(von, bis, anz: integer);
     procedure RotateB(winkel: single); overload;
@@ -173,31 +173,19 @@ begin
   Primitive_Size := 6;
 end;
 
-procedure TVBO_Triangles2D.Add(Face: Tmat3x2);
-var
-  p, i, j: integer;
+procedure TVBO_Triangles2D.Add(Face: TFace2D); inline;
 begin
-  p := Length(GLfloatArray);
-  SetLength(GLfloatArray, p + 6);
-  for i := 0 to 2 do begin
-    for j := 0 to 1 do begin
-      GLfloatArray[p + i * 2 + j] := Face[i, j];
-    end;
-  end;
+  GLfloatArray.AddFace2D(Face);
 end;
 
-procedure TVBO_Triangles2D.Add(v0, v1, v2: TVector2f);
+procedure TVBO_Triangles2D.Add(v0, v1, v2: TVector2f); inline;
 begin
-  Add(mat3x2(v0, v1, v2));
+  GLfloatArray.AddFace2D(v0, v1, v2);
 end;
 
-procedure TVBO_Triangles2D.Add(const Face: array of Tmat3x2);
-var
-  i: integer;
+procedure TVBO_Triangles2D.Add(const Face: array of TFace2D); inline;
 begin
-  for i := 0 to Length(Face) - 1 do begin
-    Add(Face[i]);
-  end;
+  GLfloatArray.AddFace2DArray(Face);
 end;
 
 procedure TVBO_Triangles2D.Copy(von, bis, anz: integer);
@@ -313,13 +301,9 @@ begin
   Primitive_Size := 9;
 end;
 
-procedure TVBO_Triangles.Add(Face: Tmat3x3);
-var
-  p: integer;
+procedure TVBO_Triangles.Add(Face: TFace3D); inline;
 begin
-  p := Length(GLfloatArray);
-  SetLength(GLfloatArray, p + 9);
-  Move(Face, GLfloatArray[p], SizeOf(Face));
+  GLfloatArray.AddFace3D(Face);
 end;
 
 procedure TVBO_Triangles.Add(v0, v1, v2: TVector3f); inline;
@@ -327,13 +311,9 @@ begin
   Add(mat3(v0, v1, v2));
 end;
 
-procedure TVBO_Triangles.Add(const Face: array of Tmat3x3);
-var
-  i: integer;
+procedure TVBO_Triangles.Add(const Face: array of TFace3D); inline;
 begin
-  for i := 0 to Length(Face) - 1 do begin
-    Add(Face[i]);
-  end;
+  GLfloatArray.AddFace3DArray(Face);
 end;
 
 procedure TVBO_Triangles.Add(const f: TglFloatArray);
@@ -454,15 +434,9 @@ begin
   Primitive_Size := 3;
 end;
 
-procedure TVBO_LineStrip.Add(Vertex: TVector3f);
-var
-  p, i: integer;
+procedure TVBO_LineStrip.Add(Vertex: TVector3f); inline;
 begin
-  p := Length(GLfloatArray);
-  SetLength(GLfloatArray, p + 3);
-  for i := 0 to 2 do begin
-    GLfloatArray[p + i] := Vertex[i];
-  end;
+  GLfloatArray.AddVector3f(Vertex);
 end;
 
 end.
