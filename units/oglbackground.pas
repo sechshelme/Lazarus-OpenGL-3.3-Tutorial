@@ -42,10 +42,11 @@ const
 begin
   with Textur do begin
     TexCoord.Add(Tex);
+    TexCoord.Scale(2,3);
     //    TexCoord.Rotate(Pi/4);
   end;
 
-  with  FVertexdata do begin
+  with FVertexdata do begin
     Pos.Add(Rectangle);
     Pos.Translate(vec3(0.0, 0.0, -0.9999));
   end;
@@ -62,11 +63,9 @@ begin
   Camera.Enabled := False;
   with Camera do begin
     m := ObjectMatrix;
-//    Push;
     ObjectMatrix.Identity;
     inherited Draw(TexturBuffer);
     ObjectMatrix := m;
-//    Pop;
   end;
   Camera.Enabled := dummy;
 end;

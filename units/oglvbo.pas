@@ -43,7 +43,7 @@ type
 
   TVBO_Triangles2D = class(TVBO)
   private
-    procedure Rotate2(winkel: single);
+    procedure Rotate2(Angele: single);
   public
     constructor Create;
 
@@ -51,7 +51,7 @@ type
     procedure Add(v0, v1, v2: TVector2f); overload;
     procedure Add(const Face: array of TFace2D); overload;
     procedure Copy(von, bis, anz: integer);
-    procedure Rotate(winkel: single);
+    procedure Rotate(Angele: single);
     procedure Scale(Factor: single); overload;
     procedure Scale(Factorx, Factory: single); overload;
     procedure Scale(Factor: TVector2f); overload;
@@ -201,7 +201,7 @@ begin
   end;
 end;
 
-procedure TVBO_Triangles2D.Rotate2(winkel: single);
+procedure TVBO_Triangles2D.Rotate2(Angele: single);
 var
   i: integer;
   fa: array of GLfloat;
@@ -212,11 +212,11 @@ begin
   end;
   fa := GLfloatArray;
   for i := 0 to (Length(GLfloatArray) - 1) div 2 do begin
-    va[i].Rotate(winkel);
+    va[i].Rotate(Angele);
   end;
 end;
 
-procedure TVBO_Triangles2D.Rotate(winkel: single);
+procedure TVBO_Triangles2D.Rotate(Angele: single);
 var
   i: integer;
   v: TVector2f;
@@ -226,34 +226,22 @@ begin
   end;
   for i := 0 to (Length(GLfloatArray) - 1) div 2 do begin
     v := vec2(GLfloatArray[i * 2], GLfloatArray[i * 2 + 1]);
-    v.Rotate(winkel);
+    v.Rotate(Angele);
     Move(v, GLfloatArray[i * 2], SizeOf(GLfloat) * 2);
   end;
 end;
 
-procedure TVBO_Triangles2D.Scale(Factor: single);
-var
-  i: integer;
+procedure TVBO_Triangles2D.Scale(Factor: single); inline;
 begin
-  for i := 0 to Length(GLfloatArray) - 1 do begin
-    GLfloatArray[i] *= Factor;
-  end;
+  GLfloatArray.Scale(Factor);
 end;
 
-procedure TVBO_Triangles2D.Scale(Factorx, Factory: single);
-var
-  i: integer;
+procedure TVBO_Triangles2D.Scale(Factorx, Factory: single); inline;
 begin
-  if Length(GLfloatArray) < 1 then begin
-    Exit;
-  end;
-  for i := 0 to (Length(GLfloatArray) - 1) div 2 do begin
-    GLfloatArray[i * 2 + 0] *= FactorX;
-    GLfloatArray[i * 2 + 1] *= FactorY;
-  end;
+  GLfloatArray.Scale(Factorx, Factory);
 end;
 
-procedure TVBO_Triangles2D.Scale(Factor: TVector2f);
+procedure TVBO_Triangles2D.Scale(Factor: TVector2f); inline;
 begin
   Scale(Factor[0], Factor[1]);
 end;

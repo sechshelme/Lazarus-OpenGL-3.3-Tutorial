@@ -38,9 +38,16 @@ implementation
 //image image.png
 
 (*
-Man kann auch in jedem Layer einzel die Texturn laden.
-Der einzige Unterschied zum kompletten laden ist, man ladetdie Texturen einzeln mit SubImage hoch.
-Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
+Mit <b>Textur Cube Map</b> hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.
+Ausser für den einfachen Würfel kann man dies auch für folgendes gebrauchen.
+* Hintergrund in einer 360° Optik.
+* Reflektionen auf einer Mesh.
+Man kann auch eine Kugel oder sonst eine komplizierte Mesh nehmen.
+
+Die Textur-Koordinaten sind 3D-Vektoren, welche auf die Position des Würfels zeigen,
+dabei ist nur die Richtung des Vektores wichtig, die Länge ist egal.
+
+Meistens sind Vertex und Texturkoordinaten gleich. Hier im Beispiel ein Würfel.
 *)
 //lineal
 const
@@ -58,12 +65,11 @@ const
 type
   TVB = record
     VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
+    VBOVertex:GLint;  // Vertex-Koordinaten
   end;
 
 var
-  VBQuad: TVB;
+  VBCube: TVB;
   RotMatrix: TMatrix;
   Matrix_ID,
   textureID: GLuint;
@@ -98,16 +104,16 @@ begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glGenBuffers(1, @VBQuad.VBOVertex);
-  glGenBuffers(1, @VBQuad.VBOTex);
+  glGenVertexArrays(1, @VBCube.VAO);
+  glGenBuffers(1, @VBCube.VBOVertex);
 
   RotMatrix.Identity;
 end;
 
 (*
-Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
-Mit <b>glTexSubImage3D(...</b> werden dann die Texturn Layer für Layer hochgeladen.
+Die 6 Flächen des Würfels werden einzeln in VRAM geladen.
+Dies geschieht ähnlich, wie bei einer Textur-Array.
+
 Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .
 *)
 //code+
@@ -132,10 +138,8 @@ begin
     LoadFromFile('6.xpm');
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, Width, Height, 0, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -146,21 +150,15 @@ begin
   //code-
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
-  glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
+  glBindVertexArray(VBCube.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Cube), @Cube, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Cube), @Cube, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  x, y: integer;
   Matrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
@@ -170,11 +168,12 @@ begin
 
   Shader.UseProgram;
   glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  // Textur binden.
-  glBindVertexArray(VBQuad.VAO);
+  glBindVertexArray(VBCube.VAO);
 
   Matrix.Identity;
   Matrix.Scale(0.8);
   Matrix.Multiply(RotMatrix, Matrix);
+//  Matrix.Translate(0.5, 0.0, 0.0);
   Matrix.Uniform(Matrix_ID);
 
   glDrawArrays(GL_TRIANGLES, 0, Length(Cube) * 3);
@@ -187,9 +186,8 @@ begin
   Timer1.Enabled := False;
 
   glDeleteTextures(1, @textureID);       // Textur-Puffer frei geben.
-  glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBOVertex);
-  glDeleteBuffers(1, @VBQuad.VBOTex);
+  glDeleteVertexArrays(1, @VBCube.VAO);
+  glDeleteBuffers(1, @VBCube.VBOVertex);
 
   Shader.Free;
 end;
@@ -207,12 +205,14 @@ end;
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
 <b>Vertex-Shader:</b>
+Hier sieht man, das für die Textur und Vertex-Koordinaten die gleichen Werte genommen werden.
 *)
 //includeglsl Vertexshader.glsl
 //lineal
 
 (*
 <b>Fragment-Shader:</b>
+Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 *)
 //includeglsl Fragmentshader.glsl
 

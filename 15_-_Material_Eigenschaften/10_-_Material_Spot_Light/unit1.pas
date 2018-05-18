@@ -247,7 +247,7 @@ begin
         Matrix.Multiply(FrustumMatrix, Matrix);
 
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
-        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet einen kleinen Würfel.
+        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.
       end;
     end;
   end;

@@ -75,13 +75,13 @@ type
   TVector4fHelper = type Helper for TVector4f
   private
     function GetX: GLfloat;
-    function GetXYZ: TVector3f;
     function GetY: GLfloat;
     function GetZ: GLfloat;
+    function GetXYZ: TVector3f;
     procedure SetX(AValue: GLfloat);
-    procedure SetXYZ(AValue: TVector3f);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
+    procedure SetXYZ(AValue: TVector3f);
   public
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
@@ -110,12 +110,16 @@ type
     procedure AddFace3D(Face: TFace3D); overload;
     procedure AddFace3D(v0, v1, v2: TVector3f); overload;
     procedure AddFace3DArray(const Face: array of TFace3D);
+
+    procedure Scale(factor: GLfloat); overload;
+    procedure Scale(x, y: GLfloat); overload;
+    procedure Scale(x, y, z: GLfloat); overload;
   end;
 
 
 function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
-function vec3(v: TVector2f; z: GLfloat): TVector3f; overload;
+function vec3(xy: TVector2f; z: GLfloat): TVector3f; overload;
 function vec4(x, y, z, w: GLfloat): TVector4f; overload;
 function vec4(xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
@@ -172,10 +176,10 @@ begin
   Result[2] := z;
 end;
 
-function vec3(v: TVector2f; z: GLfloat): TVector3f; inline;
+function vec3(xy: TVector2f; z: GLfloat): TVector3f; inline;
 begin
-  Result[0] := v[0];
-  Result[1] := v[1];
+  Result[0] := xy[0];
+  Result[1] := xy[1];
   Result[2] := z;
 end;
 
@@ -641,6 +645,34 @@ begin
   p := Length(Self);
   SetLength(Self, p + 9 * Length(Face));
   Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
+end;
+
+procedure TglFloatArrayHelper.Scale(factor: GLfloat);
+var
+  i:Integer;
+begin
+  for i:=0 to Length(Self)-1 do Self[i] *= factor;
+end;
+
+procedure TglFloatArrayHelper.Scale(x, y: GLfloat);
+var
+  i:Integer;
+begin
+  for i:=0 to (Length(Self)-1) div 2 do begin
+    Self[i*2+0] *= x;
+    Self[i*2+1] *= y;
+  end;
+end;
+
+procedure TglFloatArrayHelper.Scale(x, y, z: GLfloat);
+var
+  i:Integer;
+begin
+  for i:=0 to (Length(Self)-1) div 3 do begin
+    Self[i*3+0] *= x;
+    Self[i*3+1] *= y;
+    Self[i*3+2] *= z;
+  end;
 end;
 
 end.

@@ -40,8 +40,6 @@ type
     procedure Frustum(left, right, zNear, zFar: single);       // ??????????????
   end;
 
-  { TMatrix }
-
   { TMatrixHelper }
 
   TMatrixHelper = type Helper for Tmat4x4
@@ -73,13 +71,43 @@ type
 function mat3(v0, v1, v2: TVector3f): Tmat3x3;
 function mat3x2(v0, v1, v2: TVector2f): Tmat3x2;
 
-operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
+operator * (const m1, m2: Tmat2x2) Res: Tmat2x2;
+operator * (const m1, m2: Tmat3x3) Res: Tmat3x3;
+operator * (const m1, m2: Tmat4x4) Res: Tmat4x4;
 
 // === Privater Teil ===
 
 implementation
 
-operator * (const m1, m2: Tmat4x4) res: Tmat4x4;
+operator * (const m1, m2: Tmat2x2) Res: Tmat2x2;
+var
+  i, j, k: integer;
+begin
+  for i := 0 to 1 do begin
+    for j := 0 to 1 do begin
+      Res[i, j] := 0;
+      for k := 0 to 1 do begin
+        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+      end;
+    end;
+  end;
+end;
+
+operator * (const m1, m2: Tmat3x3) Res: Tmat3x3;
+var
+  i, j, k: integer;
+begin
+  for i := 0 to 2 do begin
+    for j := 0 to 2 do begin
+      Res[i, j] := 0;
+      for k := 0 to 2 do begin
+        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+      end;
+    end;
+  end;
+end;
+
+operator * (const m1, m2: Tmat4x4) Res: Tmat4x4;
 var
   i, j, k: integer;
 begin
@@ -92,6 +120,7 @@ begin
     end;
   end;
 end;
+
 
 function mat3(v0, v1, v2: TVector3f): Tmat3x3; inline;
 begin
