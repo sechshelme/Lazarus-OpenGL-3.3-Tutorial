@@ -9,9 +9,9 @@ uses
   dglOpenGL, oglVector, oglMatrix;
 
 type
-  TFace4DArray = array of Tmat3x4;
-  TFace3DArray = array of Tmat3x3;
-  TFace2DArray = array of Tmat3x2;
+  //TFace4DArray = array of Tmat3x4;
+  //TFace3DArray = array of Tmat3x3;
+  //TFace2DArray = array of Tmat3x2;
 
   TModif = set of (CW, neg, normalize);
 

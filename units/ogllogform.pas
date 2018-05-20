@@ -23,22 +23,14 @@ type
   public
     constructor CreateNew(TheOwner: TComponent);
     procedure Add(s: string);
+    procedure AddAndTitle(Title, Comment: string);
+    procedure Clear;
   end;
 
-procedure ShowError(Title, Text: string);
+  var
+  LogForm:TLogForm;
 
 implementation
-
-procedure ShowError(Title, Text: string);
-var
-  lf: TLogForm;
-begin
-  lf := TLogForm.CreateNew(nil);
-  lf.Caption := Title;
-  lf.Add(Text);
-  lf.ShowModal;
-  lf.Free;
-end;
 
 { TLogForm }
 
@@ -125,7 +117,30 @@ end;
 
 procedure TLogForm.Add(s: string);
 begin
-  Memo.Text := s;
+  Memo.Lines.Add(s);
 end;
+
+procedure TLogForm.AddAndTitle(Title, Comment: string);
+begin
+  Add(Title);
+  Add(StringOfChar('=', Length(Title)));
+  Add('');
+  Add(Comment);
+  Add('');
+  Show;
+end;
+
+procedure TLogForm.Clear;
+begin
+  Memo.Lines.Clear;
+end;
+
+initialization
+
+LogForm := TLogForm.CreateNew(nil);
+
+finalization
+
+LogForm.Free;
 
 end.

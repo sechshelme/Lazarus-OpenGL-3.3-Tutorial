@@ -20,8 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="340"/>
-        <CursorPos X="25" Y="357"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="30"/>
+        <CursorPos X="18" Y="212"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -137,10 +138,9 @@
       <Unit16>
         <Filename Value="../../units/ogltextur.pas"/>
         <UnitName Value="oglTextur"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="193"/>
-        <CursorPos X="47" Y="261"/>
+        <TopLine Value="160"/>
+        <CursorPos X="84" Y="202"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit16>

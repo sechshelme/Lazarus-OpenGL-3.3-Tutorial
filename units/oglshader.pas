@@ -36,7 +36,7 @@ type
   end;
 
 
-// Hilfsfunktionen
+// ---- Hilfsfunktionen ----
 
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
 function FileToStr(Datei: string): ansistring;
@@ -44,43 +44,10 @@ function ResourceToStr(Resource: string): ansistring;
 
 procedure InitOpenGLDebug;
 
-procedure WriteLog(s: string);
 procedure checkError(command: string);
 
 
 implementation
-
-
-procedure checkError(command: string);
-var
-  err: integer;
-begin
-  err := glGetError();
-  if err <> 0 then begin
-    // GL_INVALID_ENUM
-    WriteLog('Fehler-Nr: ' + IntToStr(err) + ' bei: ' + command);
-  end;
-end;
-
-procedure WriteLog(s: string);
-const
-  LogFile = 'opengl.log';
-  FirstLog: boolean = True;
-var
-  f: Text;
-begin
-  ShowMessage(s);
-
-  //AssignFile(f, LogFile);
-  //if FirstLog then begin
-  //  Rewrite(f);
-  //end else begin
-  //  FirstLog := True;
-  //  Append(f);
-  //end;
-  //WriteLn(f, s);
-  //CloseFile(f);
-end;
 
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
 var
@@ -110,7 +77,7 @@ begin
     Result := sl.Text;
     sl.Free;
   end else begin
-    WriteLog('FEHLER: Kann Datei ' + Datei + ' nicht finden');
+    LogForm.Add('FEHLER: Kann Datei ' + Datei + ' nicht finden');
     Result := '';
   end;
 end;
@@ -124,6 +91,30 @@ begin
   SetLength(Result, rs.Size);
   rs.Read(PChar(Result)^, rs.Size);
   rs.Free;
+end;
+
+function ShadercodeToStr(code: GLint): string;
+begin
+  case code of
+    GL_VERTEX_SHADER: begin
+      Result := 'Vertex-Shader';
+    end;
+    GL_FRAGMENT_SHADER: begin
+      Result := 'Fragment-Shader';
+    end;
+    GL_GEOMETRY_SHADER: begin
+      Result := 'Geometrie-Shader';
+    end;
+    GL_TESS_CONTROL_SHADER: begin
+      Result := 'Tessellation-Control-Shader';
+    end;
+    GL_TESS_EVALUATION_SHADER: begin
+      Result := 'Tessellation-Evaluation-Shader';
+    end;
+    else begin
+      Result := 'Shader-Code: ' + IntToStr(code);
+    end;
+  end;
 end;
 
 // --- Debugger ---
@@ -204,7 +195,7 @@ begin
     end;
   end;
 
-  WriteLog('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]));
+  LogForm.Add('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]));
 end;
 
 procedure InitOpenGLDebug;
@@ -216,6 +207,16 @@ end;
 
 // --- Debuger Ende ---
 
+procedure checkError(command: string);
+var
+  err: integer;
+begin
+  err := glGetError();
+  if err <> 0 then begin
+    // GL_INVALID_ENUM
+    LogForm.Add('Fehler-Nr: ' + IntToStr(err) + ' bei: ' + command);
+  end;
+end;
 
 { TShader }
 
@@ -268,8 +269,7 @@ begin
   glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, @Str[1]);
 
   if ErrorStatus = GL_FALSE then begin
-    ShowError('SHADER FEHLER: OpenGL Shader Fehler (' + IntToStr(shaderType) + ') in : ', AShader + sLineBreak + sLineBreak + Str);
-    Halt;
+    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', AShader + LineEnding + Str + LineEnding);
   end;
 
   glDeleteShader(ShaderObject);
@@ -301,8 +301,7 @@ begin
       end;
     end;
     else begin
-      ShowMessage('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-      Halt;
+      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
     end;
   end;
 
@@ -315,7 +314,7 @@ begin
     end;
     3: begin
       LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-      LoadShaderObject(sa[1], GL_GEOMETRY_SHADER_EXT);
+      LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
       LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
     end;
   end;
@@ -332,8 +331,7 @@ begin
     SetLength(Str, InfoLogLength + 1);
     //    glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    ShowError('SHADER LINK:', str);
-    Halt;
+    LogForm.AddAndTitle('SHADER LINK:', str);
   end;
 
   UseProgram;
@@ -348,7 +346,8 @@ function TShader.UniformLocation(ch: PGLChar): GLint;
 begin
   Result := glGetUniformLocation(FProgramObject, ch);
   if Result = -1 then begin
-    WriteLog('Uniform Fehler ' + ch + ': ' + IntToStr(Result));
+    LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
+    LogForm.Show;
   end;
 end;
 
@@ -356,7 +355,8 @@ function TShader.UniformBlockIndex(ch: PGLChar): GLint;
 begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
   if Result = -1 then begin
-    WriteLog('UniformBlock Fehler ' + ch + ': ' + IntToStr(Result));
+    LogForm.Add('UniformBlock Fehler: ' + ch + ' code: ' + IntToStr(Result));
+    LogForm.Show;
   end;
 end;
 
@@ -364,7 +364,8 @@ function TShader.AttribLocation(ch: PGLChar): GLint;
 begin
   Result := glGetAttribLocation(FProgramObject, ch);
   if Result = -1 then begin
-    WriteLog('Attrib Fehler ' + ch + ': ' + IntToStr(Result));
+    LogForm.Add('Attrib Fehler: ' + ch + ' code: ' + IntToStr(Result));
+    LogForm.Show;
   end;
 end;
 

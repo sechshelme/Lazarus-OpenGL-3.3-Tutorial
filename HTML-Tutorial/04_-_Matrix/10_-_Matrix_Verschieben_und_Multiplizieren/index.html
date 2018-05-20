@@ -24,7 +24,7 @@ In der Regel muss dann die Matrix mit <b>TMatrix.Indenty</b> auf die Einheits-Ma
 Die Deklaration der drei Matrixen.<br>
 Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt dem Shader übergeben wird.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  RotMatrix, TransMatrix, prodMatrix: TMatrix;   <i><font color="#FFFF00">// Matrixen von der Klasse aus oglMatrix.</font></i>
+  RotMatrix, TransMatrix, prodMatrix: TMatrix;   <i><font color="#FFFF00">// Matrizen von der Unit oglMatrix.</font></i>
   Matrix_ID: GLint;                              <i><font color="#FFFF00">// ID für Matrix.</font></i></pre></code>
 Hier werden die drei Matrixen auf die gesetzt.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
@@ -38,20 +38,25 @@ Hier werden die drei Matrixen auf die gesetzt.<br>
   prodMatrix.Identity;
   TransMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// TransMatrix um 0.5 nach links verschieben.</font></i></pre></code>
 Hier wird das Produkt von TransMatrx und RotMatrix den Shader übergeben.<br>
-Mit der Klasse geht dies einfacht mit <b>xxxx.Uniform(ID)</b><br>
+Mit der Klasse geht dies einfacht mit <b>Matrix.Uniform(ID)</b><br>
 <br>
-<b>xxxx.Multiply(...</b> macht prodMatrix = TransMatrix * RotMatrix .<br>
+<b>Matrix.Multiply(...</b> macht prodMatrix = TransMatrix * RotMatrix .<br>
 Debei wird die Mesh zuerst gedreht und dann verschoben.<br>
 <b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b><br>
 <br>
 Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Ergebniss.<br>
 Dann wird zuerst die Mesh verschoben und dann das Ganze um den Mittelpunkt gedreht.<br>
+<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-  prodMatrix.Multiply(TransMatrix, RotMatrix);
-  prodMatrix.Uniform(Matrix_ID);     <i><font color="#FFFF00">// prodMatrix in den Shader.</font></i></pre></code>
+  prodMatrix.Multiply(TransMatrix, RotMatrix); <i><font color="#FFFF00">// Matrix multiplizieren.</font></i>
+  prodMatrix.Uniform(Matrix_ID);               <i><font color="#FFFF00">// prodMatrix in den Shader schreiben.</font></i></pre></code>
+Alternativ zu <b>Matrix.Multiply(...</b>, kann man den überladenen Multipliktor "<b>*</b>" verwenden.<br>
+<pre><code>  ...
+  prodMatrix := TransMatrix * RotMatrix; <i><font color="#FFFF00">// Matrix multiplizieren.</font></i>
+  prodMatrix.Uniform(Matrix_ID);         <i><font color="#FFFF00">// prodMatrix in den Shader schreiben.</font></i></pre></code>
 Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>

@@ -74,7 +74,7 @@ Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt d
 *)
 //code+
 var
-  RotMatrix, TransMatrix, prodMatrix: TMatrix;   // Matrixen von der Klasse aus oglMatrix.
+  RotMatrix, TransMatrix, prodMatrix: TMatrix;   // Matrizen von der Unit oglMatrix.
   Matrix_ID: GLint;                              // ID für Matrix.
   //code-
   Color_ID: GLint;
@@ -141,10 +141,10 @@ end;
 
 (*
 Hier wird das Produkt von TransMatrx und RotMatrix den Shader übergeben.
-Mit der Klasse geht dies einfacht mit <b>xxxx.Uniform(ID)</b>
+Mit der Klasse geht dies einfacht mit <b>Matrix.Uniform(ID)</b>
 
-<b>xxxx.Multiply(...</b> macht prodMatrix = TransMatrix * RotMatrix .
-Debei wird die Mesh zuerst gedreht und dann verschoben.
+<b>Matrix.Multiply(...</b> entspricht: <b>prodMatrix = TransMatrix * RotMatrix</b> .
+Dabei wird die Mesh zuerst gedreht und dann verschoben.
 <b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b>
 
 Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Ergebniss.
@@ -155,9 +155,17 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-  prodMatrix.Multiply(TransMatrix, RotMatrix);
-  prodMatrix.Uniform(Matrix_ID);     // prodMatrix in den Shader.
+  prodMatrix.Multiply(TransMatrix, RotMatrix); // Matrix multiplizieren.
+  prodMatrix.Uniform(Matrix_ID);               // prodMatrix in den Shader schreiben.
   //code-
+(*
+Alternativ zu <b>Matrix.Multiply(...</b>, kann man den überladenen Multipliktor "<b>*</b>" verwenden.
+//code+
+  ...
+  prodMatrix := TransMatrix * RotMatrix;       // Matrix multiplizieren.
+  prodMatrix.Uniform(Matrix_ID);               // prodMatrix in den Shader schreiben.
+//code-
+*)
 
   // Zeichne Dreieck
   glUniform3f(Color_ID, 1.0, 1.0, 0.0);

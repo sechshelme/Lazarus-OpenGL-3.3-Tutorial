@@ -16,7 +16,7 @@ Im Timer wird eine Matrix-Rotation ausgeführt.<br>
 Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.<br>
 <hr><br>
 Hier wird ein Matrix4x4-Typ deklariert.<br>
-Für die Manipulationen einer Matrix eigenen sich hervorragend ein <b>Typen Helper</b>.<br>
+Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TMatrix = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat;
 
@@ -43,7 +43,7 @@ Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">Self</font></b> := MatrixIndenty;
 <b><font color="0000BB">end</font></b>;</pre></code>
-Mit dieser Procedure, wird die Matrix rotiert.<br>
+Mit dieser Procedure, wird die Matrix um die Z-Achse rotiert.<br>
 Der Winkel wird im <b>Bogenmass</b> angegeben.<br>
 Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Rotate(angele: single);

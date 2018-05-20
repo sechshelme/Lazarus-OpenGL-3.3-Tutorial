@@ -68,8 +68,13 @@ type
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
+// === Hilfsfunktionen, ähnlich GLSL ===
+
 function mat3(v0, v1, v2: TVector3f): Tmat3x3;
+function mat4(v0, v1, v2, v3: TVector4f): Tmat4x4;
 function mat3x2(v0, v1, v2: TVector2f): Tmat3x2;
+
+// === Überladene Opertoren für Matrixmultiplikation ===
 
 operator * (const m1, m2: Tmat2x2) Res: Tmat2x2;
 operator * (const m1, m2: Tmat3x3) Res: Tmat3x3;
@@ -85,7 +90,7 @@ var
 begin
   for i := 0 to 1 do begin
     for j := 0 to 1 do begin
-      Res[i, j] := 0;
+      Res[i, j] := 0.0;
       for k := 0 to 1 do begin
         Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
       end;
@@ -99,7 +104,7 @@ var
 begin
   for i := 0 to 2 do begin
     for j := 0 to 2 do begin
-      Res[i, j] := 0;
+      Res[i, j] := 0.0;
       for k := 0 to 2 do begin
         Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
       end;
@@ -113,7 +118,7 @@ var
 begin
   for i := 0 to 3 do begin
     for j := 0 to 3 do begin
-      Res[i, j] := 0;
+      Res[i, j] := 0.0;
       for k := 0 to 3 do begin
         Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
       end;
@@ -121,12 +126,19 @@ begin
   end;
 end;
 
-
 function mat3(v0, v1, v2: TVector3f): Tmat3x3; inline;
 begin
   Result[0] := v0;
   Result[1] := v1;
   Result[2] := v2;
+end;
+
+function mat4(v0, v1, v2, v3: TVector4f): Tmat4x4; inline;
+begin
+  Result[0] := v0;
+  Result[1] := v1;
+  Result[2] := v2;
+  Result[3] := v3;
 end;
 
 function mat3x2(v0, v1, v2: TVector2f): Tmat3x2; inline;

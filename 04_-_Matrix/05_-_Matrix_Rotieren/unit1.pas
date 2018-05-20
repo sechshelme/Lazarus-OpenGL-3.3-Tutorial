@@ -3,7 +3,6 @@ unit Unit1;
 {$mode objfpc}{$H+}
 {$modeswitch typehelpers}
 
-
 interface
 
 uses
@@ -49,7 +48,7 @@ Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, a
 
 (*
 Hier wird ein Matrix4x4-Typ deklariert.
-Für die Manipulationen einer Matrix eigenen sich hervorragend ein <b>Typen Helper</b>.
+Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.
 *)
 //code+
 type
@@ -110,7 +109,7 @@ end;
 //code-
 
 (*
-Mit dieser Procedure, wird die Matrix rotiert.
+Mit dieser Procedure, wird die Matrix um die Z-Achse rotiert.
 Der Winkel wird im <b>Bogenmass</b> angegeben.
 Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).
 *)

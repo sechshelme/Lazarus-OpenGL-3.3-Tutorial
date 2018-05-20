@@ -92,7 +92,7 @@ end;
 
 procedure TForm1.CreateScene;
 begin
-  glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
+  glGenTextures(1, @textureID);                  // Erzeugen des Textur-Puffer.
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin

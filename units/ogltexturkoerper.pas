@@ -63,7 +63,7 @@ type
 implementation
 
 const
-  Quad: array[0..11] of Tmat3x3 = (
+  QuadVector: array[0..11] of Tmat3x3 = (
     // Umfang
     ((-0.5, +0.5, +0.5), (-0.5, -0.5, +0.5), (+0.5, -0.5, +0.5)), ((-0.5, +0.5, +0.5), (+0.5, -0.5, +0.5), (+0.5, +0.5, +0.5)),
     ((+0.5, +0.5, +0.5), (+0.5, -0.5, +0.5), (+0.5, -0.5, -0.5)), ((+0.5, +0.5, +0.5), (+0.5, -0.5, -0.5), (+0.5, +0.5, -0.5)),
@@ -88,7 +88,7 @@ const
 procedure TBumpmappingTexturBox.WriteVertex;
 begin
   Textur.TexCoord.Add(QuadTextureVertex);
-  FVertexdata.Pos.Add(Quad);
+  FVertexdata.Pos.Add(QuadVector);
   inherited WriteVertex;
 end;
 
@@ -97,7 +97,7 @@ end;
 procedure TTexturBox.WriteVertex;
 begin
   Textur.TexCoord.Add(QuadTextureVertex);
-  FVertexdata.Pos.Add(Quad);
+  FVertexdata.Pos.Add(QuadVector);
   inherited WriteVertex;
 end;
 
