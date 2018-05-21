@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/usr/bin/fpc" Date="1512403968"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq -Fi/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/60_-_Vektoren_und_Matrizen_(_no_OpenGL_)/20_-_Vektoren_Cube/lib/x86_64-linux -Fu/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/units/lib/x86_64-linux -Fu/home/tux/.lazarus/lib/LazOpenGLContext/lib/x86_64-linux/gtk2 -Fu/home/tux/.lazarus/onlinepackagemanager/packages/bgrabitmap-master/bgrabitmap/lib/x86_64-linux/3.0.4 -Fu/usr/share/lazarus/1.8.2/lcl/units/x86_64-linux/gtk2 -Fu/usr/share/lazarus/1.8.2/lcl/units/x86_64-linux -Fu/usr/share/lazarus/1.8.2/components/lazutils/lib/x86_64-linux -Fu/usr/share/lazarus/1.8.2/packager/units/x86_64-linux -Fu/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/60_-_Vektoren_und_Matrizen_(_no_OpenGL_)/20_-_Vektoren_Cube/ -FU/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3/60_-_Vektoren_und_Matrizen_(_no_OpenGL_)/20_-_Vektoren_Cube/lib/x86_64-linux/ -dLCL -dLCLgtk2 project1.lpr"/>
+</CONFIG>

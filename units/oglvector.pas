@@ -14,6 +14,9 @@ type
   TVector3f = array[0..2] of GLfloat;
   TVector4f = array[0..3] of GLfloat;
 
+  TLine2D = array[0..1] of TVector2f;
+  TLine3D = array[0..1] of TVector3f;
+
   TFace2D = array[0..2] of TVector2f;
   TFace3D = array[0..2] of TVector3f;
   TFace3DArray = array of TFace3D;
@@ -74,18 +77,24 @@ type
 
   TVector4fHelper = type Helper for TVector4f
   private
+    function GetW: GLfloat;
     function GetX: GLfloat;
     function GetY: GLfloat;
     function GetZ: GLfloat;
+    function GetXY: TVector2f;
     function GetXYZ: TVector3f;
+    procedure SetW(AValue: GLfloat);
     procedure SetX(AValue: GLfloat);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
+    procedure SetXY(AValue: TVector2f);
     procedure SetXYZ(AValue: TVector3f);
   public
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
     property z: GLfloat read GetZ write SetZ;
+    property w: GLfloat read GetW write SetW;
+    property xy: TVector2f read GetXY write SetXY;
     property xyz: TVector3f read GetXYZ write SetXYZ;
 
     function ToInt: Uint32;
@@ -121,6 +130,7 @@ function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
 function vec3(xy: TVector2f; z: GLfloat): TVector3f; overload;
 function vec4(x, y, z, w: GLfloat): TVector4f; overload;
+function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
@@ -187,6 +197,14 @@ function vec4(x, y, z, w: GLfloat): TVector4f; inline;
 begin
   Result[0] := x;
   Result[1] := y;
+  Result[2] := z;
+  Result[3] := w;
+end;
+
+function vec4(xy: TVector2f; z, w: GLfloat): TVector4f;
+begin
+  Result[0] := xy.x;
+  Result[1] := xy.y;
   Result[2] := z;
   Result[3] := w;
 end;
@@ -481,6 +499,17 @@ begin
   Result := Self[2];
 end;
 
+function TVector4fHelper.GetW: GLfloat; inline;
+begin
+  Result := Self[3];
+end;
+
+function TVector4fHelper.GetXY: TVector2f; inline;
+begin
+  Result[0] := Self[0];
+  Result[1] := Self[1];
+end;
+
 function TVector4fHelper.GetXYZ: TVector3f; inline;
 begin
   Result[0] := Self[0];
@@ -501,6 +530,17 @@ end;
 procedure TVector4fHelper.SetZ(AValue: GLfloat); inline;
 begin
   Self[2] := AValue;
+end;
+
+procedure TVector4fHelper.SetW(AValue: GLfloat); inline;
+begin
+  Self[3] := AValue;
+end;
+
+procedure TVector4fHelper.SetXY(AValue: TVector2f); inline;
+begin
+  Self[0] := AValue[0];
+  Self[1] := AValue[1];
 end;
 
 procedure TVector4fHelper.SetXYZ(AValue: TVector3f); inline;

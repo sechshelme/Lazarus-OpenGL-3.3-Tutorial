@@ -20,9 +20,9 @@ type
   TMatrix = Tmat4x4;
   TMatrix2D = Tmat3x3;
 
-  { TMatrix2DHelper }
+  { Tmat3x3Helper }
 
-  TMatrix2DHelper = type Helper for TMatrix2D  // Arbeitet nicht richtig mit Shader zusammen
+  Tmat3x3Helper = type Helper for Tmat3x3  // Arbeitet nicht richtig mit Shadern zusammen !
   public
     procedure Identity;
     procedure Multiply(m1, m2: TMatrix2D);
@@ -64,6 +64,9 @@ type
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Transpose;
+
+    function Vektor_Multi(Vector: TVector4f): TVector4f;
+
 
     procedure WriteMatrix;   // Für Testzwecke
   end;
@@ -148,16 +151,16 @@ begin
   Result[2] := v2;
 end;
 
-{ TMatrix2DHelper }
+{ Tmat3x3Helper }
 
-procedure TMatrix2DHelper.Identity;
+procedure Tmat3x3Helper.Identity;
 const
   m: TMat3x3 = ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0));
 begin
   Self := m;
 end;
 
-procedure TMatrix2DHelper.Scale(x, y: single);
+procedure Tmat3x3Helper.Scale(x, y: single);
 var
   i: integer;
 begin
@@ -167,18 +170,18 @@ begin
   end;
 end;
 
-procedure TMatrix2DHelper.Scale(s: single);
+procedure Tmat3x3Helper.Scale(s: single);
 begin
   Scale(s, s);
 end;
 
-procedure TMatrix2DHelper.Translate(x, y: single);
+procedure Tmat3x3Helper.Translate(x, y: single);
 begin
   Self[2, 0] := Self[2, 0] + x;
   Self[2, 1] := Self[2, 1] + y;
 end;
 
-procedure TMatrix2DHelper.Rotate(w: single);
+procedure Tmat3x3Helper.Rotate(w: single);
 var
   i: integer;
   x, y: GLfloat;
@@ -191,7 +194,7 @@ begin
   end;
 end;
 
-procedure TMatrix2DHelper.Multiply(m1, m2: TMatrix2D);
+procedure Tmat3x3Helper.Multiply(m1, m2: TMatrix2D);
 var
   i, j, k: integer;
   m: TMat3x3;
@@ -207,12 +210,12 @@ begin
   Self := m;
 end;
 
-procedure TMatrix2DHelper.Uniform(ShaderID: GLint);
+procedure Tmat3x3Helper.Uniform(ShaderID: GLint);
 begin
   glUniformMatrix3fv(ShaderID, 1, False, @Self);
 end;
 
-function TMatrix2DHelper.Vektor_Multi(Vector: TVector3f): TVector3f;
+function Tmat3x3Helper.Vektor_Multi(Vector: TVector3f): TVector3f;
 var
   i: integer;
 begin
@@ -221,13 +224,13 @@ begin
   end;
 end;
 
-procedure TMatrix2DHelper.Shear(x, y: single);
+procedure Tmat3x3Helper.Shear(x, y: single);
 begin
   Self[0, 1] += y;
   Self[1, 0] += x;
 end;
 
-procedure TMatrix2DHelper.Frustum(left, right, zNear, zFar: single); // geht nicht.
+procedure Tmat3x3Helper.Frustum(left, right, zNear, zFar: single); // geht nicht.
 begin
   Identity;
   Self[0, 0] := 2 * zNear / (right - left);
@@ -431,6 +434,15 @@ begin
     end;
   end;
   Self := m;
+end;
+
+function TMatrixHelper.Vektor_Multi(Vector: TVector4f): TVector4f;
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Result[i] := Self[0, i] * Vector[0] + Self[1, i] * Vector[1] + Self[2, i] * Vector[2]+ Self[3, i] * Vector[3];
+  end;
 end;
 
 procedure TMatrixHelper.Uniform(ShaderID: GLint);

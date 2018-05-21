@@ -51,8 +51,9 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
-        <CursorPos X="38" Y="5"/>
+        <CursorPos Y="12"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
@@ -110,10 +111,9 @@
       <Unit13>
         <Filename Value="../../units/oglshader.pas"/>
         <UnitName Value="oglShader"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="281"/>
-        <CursorPos X="5" Y="219"/>
+        <TopLine Value="220"/>
+        <CursorPos X="77" Y="252"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit13>
