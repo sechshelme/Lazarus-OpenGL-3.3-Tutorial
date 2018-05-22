@@ -2,11 +2,11 @@
 
 in vec2 UV0;
 
-uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+uniform sampler2D Sampler;
 
 out vec4 FragColor;
 
 void main()
 {
-  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
+  FragColor = texture( Sampler, UV0 );
 }

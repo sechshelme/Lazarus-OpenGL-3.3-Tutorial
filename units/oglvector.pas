@@ -153,7 +153,6 @@ procedure FaceToNormale(var Face, Normal: array of TFace3D);
     Result[2] := a[0] * b[1] - a[1] * b[0];
 
     Result.NormalCut;
-    ;
   end;
 
 var

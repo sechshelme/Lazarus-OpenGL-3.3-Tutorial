@@ -19,6 +19,8 @@ type
     procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
+    Matrix,
+
     ObjectMatrix,
     RotMatrix,
     WorldMatrix,
@@ -32,7 +34,8 @@ type
 var
   Form1: TForm1;
 
-  ofsx,  ofsy : Integer;
+  scale,
+  ofsx, ofsy: integer;
 
 const
   Cube: array[0..23] of TVector3f = (
@@ -66,22 +69,42 @@ end;
 procedure TForm1.FormPaint(Sender: TObject);
 var
   i: integer;
-  p: TVector2f;
+  TempMatrix: TMatrix;
+var
+  x, y, z: integer;
+const
+  d = 2.7;
+  s = 2;
+
 begin
   Canvas.Pen.Color := clYellow;
-  Canvas.Line(ofsx, 0, ofsx, ofsy*2);
-  Canvas.Line(0, ofsy, ofsx*2, ofsy);
+  Canvas.Line(ofsx, 0, ofsx, ofsy * 2);
+  Canvas.Line(0, ofsy, ofsx * 2, ofsy);
   Canvas.Pen.Color := clBlack;
 
-  for i := 0 to Length(Cube) div 2 - 1 do begin
-    DrawLine(Cube[i * 2 + 0], Cube[i * 2 + 1]);
+  TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix;
+
+  for x := -s to s do begin
+    for y := -s to s do begin
+      for z := -s to s do begin
+        Matrix.Identity;
+        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+        Matrix := TempMatrix * Matrix;
+
+        for i := 0 to Length(Cube) div 2 - 1 do begin
+          DrawLine(Cube[i * 2 + 0], Cube[i * 2 + 1]);
+        end;
+      end;
+    end;
   end;
+
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
 begin
-  ofsx:=ClientWidth div 2;
-  ofsy:=ClientHeight div 2;
+  scale := ClientHeight div 2;
+  ofsx := ClientWidth div 2;
+  ofsy := ClientHeight div 2;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -95,37 +118,15 @@ begin
 end;
 
 procedure TForm1.DrawLine(p0, p1: TVector3f);
-const
-  scale = 200;
 var
-  m: TMatrix;
   p: TVector4f;
 
-var
-  x, y, z: integer;
-const
-  d = 2.7;
-  s = 2;
-
 begin
-  for x := -s to s do begin
-    for y := -s to s do begin
-      for z := -s to s do begin
-        m.Identity;
-        m.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+  p := Matrix * vec4(p0, 1.0);
+  Canvas.MoveTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
 
-//        m := FrustumMatrix * WorldMatrix * RotMatrix * ObjectMatrix;
-        m := FrustumMatrix * WorldMatrix * RotMatrix * m;
-
-        p := m.Vektor_Multi(vec4(p0, 1.0));
-        Canvas.MoveTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
-
-        p := m.Vektor_Multi(vec4(p1, 1.0));
-        Canvas.LineTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
-      end;
-    end;
-  end;
-
+  p := Matrix * vec4(p1, 1.0);
+  Canvas.LineTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
 end;
 
 end.

@@ -35,8 +35,6 @@ type
     procedure Rotate(w: single);
     procedure Shear(x, y: single);
 
-    function Vektor_Multi(Vector: TVector3f): TVector3f;
-
     procedure Frustum(left, right, zNear, zFar: single);       // ??????????????
   end;
 
@@ -65,9 +63,6 @@ type
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Transpose;
 
-    function Vektor_Multi(Vector: TVector4f): TVector4f;
-
-
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
@@ -79,15 +74,46 @@ function mat3x2(v0, v1, v2: TVector2f): Tmat3x2;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const m1, m2: Tmat2x2) Res: Tmat2x2;
-operator * (const m1, m2: Tmat3x3) Res: Tmat3x3;
-operator * (const m1, m2: Tmat4x4) Res: Tmat4x4;
+operator * (const  m: Tmat2x2; v:TVector2f) Res: TVector2f;
+operator * (const  m: Tmat3x3; v:TVector3f) Res: TVector3f;
+operator * (const  m: Tmat4x4; v:TVector4f) Res: TVector4f;
+
+operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
 // === Privater Teil ===
 
 implementation
 
-operator * (const m1, m2: Tmat2x2) Res: Tmat2x2;
+operator * (const m: Tmat2x2; v: TVector2f)Res: TVector2f;
+var
+  i: integer;
+begin
+  for i := 0 to 1 do begin
+    Res[i] := m[0, i] * v[0] + m[1, i] * v[1];
+  end;
+end;
+
+operator * (const m: Tmat3x3; v: TVector3f)Res: TVector3f;
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2];
+  end;
+end;
+
+operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f;
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2]+ m[3, i] * v[3];
+  end;
+end;
+
+operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 var
   i, j, k: integer;
 begin
@@ -95,13 +121,13 @@ begin
     for j := 0 to 1 do begin
       Res[i, j] := 0.0;
       for k := 0 to 1 do begin
-        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
 end;
 
-operator * (const m1, m2: Tmat3x3) Res: Tmat3x3;
+operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
 var
   i, j, k: integer;
 begin
@@ -109,13 +135,13 @@ begin
     for j := 0 to 2 do begin
       Res[i, j] := 0.0;
       for k := 0 to 2 do begin
-        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
 end;
 
-operator * (const m1, m2: Tmat4x4) Res: Tmat4x4;
+operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 var
   i, j, k: integer;
 begin
@@ -123,7 +149,7 @@ begin
     for j := 0 to 3 do begin
       Res[i, j] := 0.0;
       for k := 0 to 3 do begin
-        Res[i, j] := Res[i, j] + m2[i, k] * m1[k, j];
+        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
@@ -213,15 +239,6 @@ end;
 procedure Tmat3x3Helper.Uniform(ShaderID: GLint);
 begin
   glUniformMatrix3fv(ShaderID, 1, False, @Self);
-end;
-
-function Tmat3x3Helper.Vektor_Multi(Vector: TVector3f): TVector3f;
-var
-  i: integer;
-begin
-  for i := 0 to 2 do begin
-    Result[i] := Self[0, i] * Vector[0] + Self[1, i] * Vector[1] + Self[2, i] * Vector[2];
-  end;
 end;
 
 procedure Tmat3x3Helper.Shear(x, y: single);
@@ -434,15 +451,6 @@ begin
     end;
   end;
   Self := m;
-end;
-
-function TMatrixHelper.Vektor_Multi(Vector: TVector4f): TVector4f;
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Result[i] := Self[0, i] * Vector[0] + Self[1, i] * Vector[1] + Self[2, i] * Vector[2]+ Self[3, i] * Vector[3];
-  end;
 end;
 
 procedure TMatrixHelper.Uniform(ShaderID: GLint);
