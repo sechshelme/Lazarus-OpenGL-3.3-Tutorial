@@ -86,7 +86,7 @@ operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
 implementation
 
-operator * (const m: Tmat2x2; v: TVector2f)Res: TVector2f;
+operator * (const m: Tmat2x2; v: TVector2f) Res: TVector2f;
 var
   i: integer;
 begin
@@ -95,7 +95,7 @@ begin
   end;
 end;
 
-operator * (const m: Tmat3x3; v: TVector3f)Res: TVector3f;
+operator * (const m: Tmat3x3; v: TVector3f) Res: TVector3f;
 var
   i: integer;
 begin

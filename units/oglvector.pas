@@ -66,7 +66,7 @@ type
     procedure Translate(Ax, Ay, Az: GLfloat);
     procedure NormalCut;
     procedure Negate;
-
+    procedure CrossProduct(P0, P1, P2: TVector3f);
     procedure FromInt(i: UInt32);
 
     procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
@@ -134,43 +134,150 @@ function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
+procedure SwapglFloat(var f0, f1: GLfloat);
+procedure SwapVertex2f(var f0, f1: TVector2f);
+procedure SwapVertex3f(var f0, f1: TVector3f);
+procedure SwapVertex4f(var f0, f1: TVector4f);
+
+operator + (const v0, v1: TVector2f) Res: TVector2f;
+operator - (const v0, v1: TVector2f) Res: TVector2f;
+operator + (const v0, v1: TVector3f) Res: TVector3f;
+operator - (const v0, v1: TVector3f) Res: TVector3f;
+operator + (const v0, v1: TVector4f) Res: TVector4f;
+operator - (const v0, v1: TVector4f) Res: TVector4f;
+
+operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f;
+operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f;
+operator * (const v: TVector3f; const f: GLfloat) Res: TVector3f;
+operator / (const v: TVector3f; const f: GLfloat) Res: TVector3f;
+operator * (const v: TVector4f; const f: GLfloat) Res: TVector4f;
+operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
+
 
 implementation
 
-procedure FaceToNormale(var Face, Normal: array of TFace3D);
-
-  function GetCrossProduct(P0, P1, P2: TVector3f): TVector3f;
-  var
-    a, b: TVector3f;
-    i: integer;
-  begin
-    for i := 0 to 2 do begin
-      a[i] := P1[i] - P0[i];
-      b[i] := P2[i] - P0[i];
-    end;
-    Result[0] := a[1] * b[2] - a[2] * b[1];
-    Result[1] := a[2] * b[0] - a[0] * b[2];
-    Result[2] := a[0] * b[1] - a[1] * b[0];
-
-    Result.NormalCut;
-  end;
-
-var
-  i: integer;
-  v: TVector3f;
-
+operator + (const v0, v1: TVector2f) Res: TVector2f; inline;
 begin
-  if Length(Normal) < Length(Face) then begin
-    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
-    Exit;
-  end;
-  for i := 0 to Length(Face) - 1 do begin
-    v := GetCrossProduct(Face[i, 0], Face[i, 1], Face[i, 2]);
-    Normal[i, 0] := v;
-    Normal[i, 1] := v;
-    Normal[i, 2] := v;
-  end;
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
 end;
+
+operator - (const v0, v1: TVector2f) Res: TVector2f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+end;
+
+operator + (const v0, v1: TVector3f) Res: TVector3f; inline;
+begin
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
+  Res[2] := v0[2] + v1[2];
+end;
+
+operator - (const v0, v1: TVector3f) Res: TVector3f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+  Res[2] := v0[2] - v1[2];
+end;
+
+operator + (const v0, v1: TVector4f) Res: TVector4f; inline;
+begin
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
+  Res[2] := v0[2] + v1[2];
+  Res[3] := v0[3] + v1[3];
+end;
+
+operator - (const v0, v1: TVector4f) Res: TVector4f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+  Res[2] := v0[2] - v1[2];
+  Res[3] := v0[3] - v1[3];
+end;
+
+operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+end;
+
+operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+end;
+
+operator * (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+  Res[2] := v[2] * f;
+end;
+
+operator / (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+  Res[2] := v[2] / f;
+end;
+
+operator * (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+  Res[2] := v[2] * f;
+  Res[3] := v[3] * f;
+end;
+
+operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+  Res[2] := v[2] / f;
+  Res[3] := v[3] / f;
+end;
+
+
+
+procedure SwapglFloat(var f0, f1: GLfloat); inline;
+var
+  dummy: GLfloat;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex2f(var f0, f1: TVector2f); inline;
+var
+  dummy: TVector2f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex3f(var f0, f1: TVector3f); inline;
+var
+  dummy: TVector3f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex4f(var f0, f1: TVector4f); inline;
+var
+  dummy: TVector4f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
 
 function vec2(x, y: GLfloat): TVector2f; inline;
 begin
@@ -200,7 +307,7 @@ begin
   Result[3] := w;
 end;
 
-function vec4(xy: TVector2f; z, w: GLfloat): TVector4f;
+function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; inline;
 begin
   Result[0] := xy.x;
   Result[1] := xy.y;
@@ -214,6 +321,23 @@ begin
   Result[1] := xyz[1];
   Result[2] := xyz[2];
   Result[3] := w;
+end;
+
+procedure FaceToNormale(var Face, Normal: array of TFace3D);
+var
+  i: integer;
+  v: TVector3f;
+begin
+  if Length(Normal) < Length(Face) then begin
+    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+    Exit;
+  end;
+  for i := 0 to Length(Face) - 1 do begin
+    v.CrossProduct(Face[i, 0], Face[i, 1], Face[i, 2]);
+    Normal[i, 0] := v;
+    Normal[i, 1] := v;
+    Normal[i, 2] := v;
+  end;
 end;
 
 { TVector2fHelper }
@@ -408,6 +532,22 @@ begin
   for i := 0 to 2 do begin
     Self[i] *= (-1);
   end;
+end;
+
+procedure TVector3fHelper.CrossProduct(P0, P1, P2: TVector3f);
+var
+  a, b: TVector3f;
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    a[i] := P1[i] - P0[i];
+    b[i] := P2[i] - P0[i];
+  end;
+  Self[0] := a[1] * b[2] - a[2] * b[1];
+  Self[1] := a[2] * b[0] - a[0] * b[2];
+  Self[2] := a[0] * b[1] - a[1] * b[0];
+
+  NormalCut;
 end;
 
 procedure TVector3fHelper.FromInt(i: UInt32);

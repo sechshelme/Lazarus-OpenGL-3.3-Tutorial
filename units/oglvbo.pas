@@ -21,7 +21,6 @@ type
   private
     GLfloatArray: TglFloatArray;
     Primitive_Size: integer;
-    procedure SwapGLfloat(var v0, v1: GLfloat);
   protected
     VBO: GLint;
     VertexSize: integer;
@@ -131,15 +130,6 @@ destructor TVBO.Destroy;
 begin
   glDeleteBuffers(1, @VBO);
   inherited Destroy;
-end;
-
-procedure TVBO.SwapGLfloat(var v0, v1: GLfloat); inline;
-var
-  v: GLfloat;
-begin
-  v := v0;
-  v0 := v1;
-  v1 := v;
 end;
 
 procedure TVBO.Append(AVertexBufferObject: TVBO);
