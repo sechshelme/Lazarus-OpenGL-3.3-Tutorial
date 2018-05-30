@@ -42,17 +42,24 @@ procedure TForm1.FormPaint(Sender: TObject);
 var
   i: integer;
 begin
-  //  Triangle(200, 60, 230, 10, 20, 90, clRed);
-  //  Triangle(100, 100, 200, 100, 100, 100, clYellow);
   for i := 0 to 0 do begin
     Triangle(
-      vec4(Random(ClientWidth), Random(ClientHeight), 0.0, 1.0),
-      vec4(Random(ClientWidth), Random(ClientHeight), 0.0, 1.0),
-      vec4(Random(ClientWidth), Random(ClientHeight), 0.0, 1.0),
+      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
+      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
+      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
       vec4(Random, Random, Random, 1.0),
       vec4(Random, Random, Random, 1.0),
       vec4(Random, Random, Random, 1.0));
   end;
+//
+//  Triangle(
+//    vec4(550, 50, 0.0, 1.0),
+//    vec4(550, 250, 0.0, 1.0),
+//    vec4(50, 251, 0.0, 1.0),
+//    vec4(Random, Random, Random, 1.0),
+//    vec4(Random, Random, Random, 1.0),
+//    vec4(Random, Random, Random, 1.0));
+//
 
 end;
 
@@ -63,7 +70,7 @@ end;
 
 procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector4f);
 var
-  x: Integer;
+  x,
   len: single;
   cdif,
   c: TVector4f;
@@ -77,37 +84,34 @@ begin
   len := x1 - x0;
   cdif := col1 - col0;
 
-  for x := 0 to trunc(len) do begin
-    c := col0 + cdif / (len / x);
-    c.w := 0;  // Alpha
+  x := x0;
 
-    //    Canvas.Pixels[x + round(x0), round(y)] := c.ToInt;
-    Canvas.Pixels[trunc(x + x0), trunc(y)] := c.ToInt;
-  end;
+  repeat
+    c := col0 + cdif / (len / (x - x0));
+    c.w := 0;  // Alpha-Kanal
+    Canvas.Pixels[trunc(x), trunc(y)] := c.ToInt;
 
-  //x:=x0;
-  //repeat
-  //  c := col0 + cdif / (len / (x-x0));
-  //  c.w := 0;  // Alpha
-  //
-  //  //    Canvas.Pixels[x + round(x0), round(y)] := c.ToInt;
-  //
-  //  Canvas.Pixels[trunc(x), round(y)] := c.ToInt;
-  //  x:=x+1.0;
-  //until x > x1;
-  Canvas.Pixels[trunc(x1), round(y)] := c.ToInt;
+    x := x + 1.0
+  until x > x1;
+  Canvas.Pixels[trunc(x1), trunc(y)] := c.ToInt;
+  WriteLn('x0: ', x0: 10: 2, '    x0: ', trunc(x0): 10, '     x1: ', x1: 10: 2, ' x1: ', trunc(x1): 10);
+
 end;
 
 procedure TForm1.Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
 var
   y: integer;
-  len, len_tot,
+  len_part, len_tot,
   x1, x2, x3: single;        { x-Werte für Scanline-Algorithmus     }
   m1, m2, m3: single;        { Increments für die x-Werte           }
-  cc0, cc1,
-  cdif0, cdif1, c0, c1: TVector4f;
+  addc_part, addc_tot,
+  c0, c1: TVector4f;
 
 begin
+  //colA:=vec4(1,0,0,0);
+  //colB:=vec4(0,1,0,0);
+  //colC:=vec4(0,0,1,0);
+
   if (a.y > b.y) then begin
     SwapglFloat(a[1], b[1]);
     SwapglFloat(a[0], b[0]);
@@ -132,35 +136,39 @@ begin
   m2 := (b.x - c.x) / (b.y - c.y);                      { Increments   B -> c0   }
   m3 := (c.x - a.x) / (c.y - a.y);                      { Increments   A -> c0   }
 
-
   len_tot := c.y - a.y;
-  cdif1 := colC - colA;
 
   // erste Teilfläche
-  len := b.y - 1 - a.y;
-  cdif0 := colB - colA;
+  len_part := b.y - a.y;
 
-  for y := 0 to round(len) do begin
-    c0 := colA + cdif0 / len * y;
-    c1 := colA + cdif1 / len_tot * y;
-    LineX(x1, x3, a.y + y, c0, c1); // horiz. Linie
-    WriteLn(x3: 10: 1);
+  addc_part := (colB - colA) / len_part;
+  c0 := colA;
+
+  addc_tot := (colC - colA) / len_tot;
+  c1 := colA;
+
+  for y := trunc(a.y) to trunc(a.y+ len_part) do begin
+    LineX(x1, x3, y, c0, c1);
     x1 := x1 + m1;
     x3 := x3 + m3;
 
-    //    WriteLn(x1:10:1, x3:10:1);
+    c0 := c0 + addc_part;
+    c1 := c1 + addc_tot;
   end;
 
   // zweite Teilfläche
-  len := c.y - b.y;
-  cdif0 := colC - colB;
-  for y := 0 to round(len) do begin
-    c0 := colB + cdif0 / len * y;
-    c1 := colA + cdif1 / len_tot * (y + (b.y - a.y));
+  len_part := c.y - b.y;
 
-    LineX(x2, x3, b.y + y, c0, c1); // horiz. Linie
+  addc_part := (colC - colB) / len_part;
+  c0 := colB;
+
+  for y := trunc(b.y) to trunc(b.y + len_part) do begin
+    LineX(x2, x3, y, c0, c1);
     x2 := x2 + m2;
     x3 := x3 + m3;
+
+    c0 := c0 + addc_part;
+    c1 := c1 + addc_tot;
   end;
 end;
 

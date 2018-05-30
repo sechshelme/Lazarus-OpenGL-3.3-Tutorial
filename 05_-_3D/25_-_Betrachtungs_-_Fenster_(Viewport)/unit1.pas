@@ -163,31 +163,31 @@ const
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
 
-  glEnable(GL_CULL_FACE);
-  glCullface(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glCullface(GL_BACK);
 
-  Shader.UseProgram;
+    Shader.UseProgram;
 
-  glBindVertexArray(VBCube.VAO);
+    glBindVertexArray(VBCube.VAO);
 
-  // --- Zeichne Würfel
+    // --- Zeichne Würfel
 
-  for x := -s to s do begin
-    for y := -s to s do begin
-      for z := -s to s do begin
-        Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+    for x := -s to s do begin
+      for y := -s to s do begin
+        for z := -s to s do begin
+          Matrix.Identity;
+          Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+          Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
+          Matrix.Multiply(FrustumMatrix, Matrix);
 
-        Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
-        glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
+          Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
+          glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
+        end;
       end;
     end;
-  end;
 
-  ogc.SwapBuffers;
+    ogc.SwapBuffers;
 end;
 
 (*

@@ -241,7 +241,6 @@ begin
 end;
 
 
-
 procedure SwapglFloat(var f0, f1: GLfloat); inline;
 var
   dummy: GLfloat;
