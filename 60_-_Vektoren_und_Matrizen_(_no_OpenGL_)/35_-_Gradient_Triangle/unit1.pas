@@ -51,15 +51,14 @@ begin
       vec4(Random, Random, Random, 1.0),
       vec4(Random, Random, Random, 1.0));
   end;
-//
-//  Triangle(
-//    vec4(550, 50, 0.0, 1.0),
-//    vec4(550, 250, 0.0, 1.0),
-//    vec4(50, 251, 0.0, 1.0),
-//    vec4(Random, Random, Random, 1.0),
-//    vec4(Random, Random, Random, 1.0),
-//    vec4(Random, Random, Random, 1.0));
-//
+
+  //  Triangle(
+  //    vec4(550, 50, 0.0, 1.0),
+  //    vec4(550, 250, 0.0, 1.0),
+  //    vec4(50, 251, 0.0, 1.0),
+  //    vec4(Random, Random, Random, 1.0),
+  //    vec4(Random, Random, Random, 1.0),
+  //    vec4(Random, Random, Random, 1.0));
 
 end;
 
@@ -70,9 +69,9 @@ end;
 
 procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector4f);
 var
-  x,
+  i: integer;
   len: single;
-  cdif,
+  addc,
   c: TVector4f;
 
 begin
@@ -82,20 +81,15 @@ begin
   end;
 
   len := x1 - x0;
-  cdif := col1 - col0;
 
-  x := x0;
+  addc := (col1 - col0) / len;
+  c := col0;
+  c.w := 0.0;
 
-  repeat
-    c := col0 + cdif / (len / (x - x0));
-    c.w := 0;  // Alpha-Kanal
-    Canvas.Pixels[trunc(x), trunc(y)] := c.ToInt;
-
-    x := x + 1.0
-  until x > x1;
-  Canvas.Pixels[trunc(x1), trunc(y)] := c.ToInt;
-  WriteLn('x0: ', x0: 10: 2, '    x0: ', trunc(x0): 10, '     x1: ', x1: 10: 2, ' x1: ', trunc(x1): 10);
-
+  for i := trunc(x0) to trunc(x1) do begin
+    Canvas.Pixels[i, trunc(y)] := c.ToInt;
+    c := c + addc;
+  end;
 end;
 
 procedure TForm1.Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
@@ -108,9 +102,9 @@ var
   c0, c1: TVector4f;
 
 begin
-  //colA:=vec4(1,0,0,0);
-  //colB:=vec4(0,1,0,0);
-  //colC:=vec4(0,0,1,0);
+//  colA := vec4(1, 0, 0, 0);
+//  colB := vec4(0, 1, 0, 0);
+//  colC := vec4(0, 0, 1, 0);
 
   if (a.y > b.y) then begin
     SwapglFloat(a[1], b[1]);
@@ -147,7 +141,7 @@ begin
   addc_tot := (colC - colA) / len_tot;
   c1 := colA;
 
-  for y := trunc(a.y) to trunc(a.y+ len_part) do begin
+  for y := trunc(a.y) to trunc(a.y + len_part) - 1 do begin
     LineX(x1, x3, y, c0, c1);
     x1 := x1 + m1;
     x3 := x3 + m3;
@@ -162,7 +156,7 @@ begin
   addc_part := (colC - colB) / len_part;
   c0 := colB;
 
-  for y := trunc(b.y) to trunc(b.y + len_part) do begin
+  for y := trunc(b.y) to trunc(b.y + len_part) - 1 do begin
     LineX(x2, x3, y, c0, c1);
     x2 := x2 + m2;
     x3 := x3 + m3;

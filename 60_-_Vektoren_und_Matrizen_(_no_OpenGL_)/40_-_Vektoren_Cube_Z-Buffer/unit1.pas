@@ -24,9 +24,8 @@ type
     RotMatrix,
     WorldMatrix,
     FrustumMatrix: TMatrix;
-    procedure DrawTriangle(p, c: Tmat3x3);
-    procedure LineX(x0, x1, y: single; col0, col1: TVector4f);
-    procedure Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
+    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
+    procedure Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
   public
 
   end;
@@ -36,6 +35,7 @@ var
 
   scale,
   ofsx, ofsy: integer;
+  zBuffer: array of single;
 
 type
   TCube = array[0..11] of Tmat3x3;
@@ -69,6 +69,7 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  Color := clBlack;
   FrustumMatrix.Frustum(-1, 1, -1, 1, 2.5, 1000.0);
 
   WorldMatrix.Identity;
@@ -81,12 +82,14 @@ begin
   ObjectMatrix.Translate(-0.5, -0.5, -0.5);
 end;
 
-procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector4f);
+procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
 var
-  x,
+  ofs, i: integer;
   len: single;
-  cdif,
+  addc,
   c: TVector4f;
+  addz,
+  z: single;
 
 begin
   if x0 > x1 then begin
@@ -95,126 +98,137 @@ begin
   end;
 
   len := x1 - x0;
-  cdif := col1 - col0;
-  x := x0;
 
-  repeat
-    c := col0 + cdif / (len / (x - x0));
-    c.w := 0;  // Alpha-Kanal
-    Canvas.Pixels[trunc(x), trunc(y)] := c.ToInt;
+  addc := (col1 - col0) / len;
+  addc.w := 0.0;
+  c := col0;
+  c.w := 0.0;
 
-    x := x + 1.0
-  until x > x1;
-  Canvas.Pixels[trunc(x1), trunc(y)] := c.ToInt;
+  addz := (z1 - z0) / len;
+  z := z0;
+
+  for i := trunc(x0) to trunc(x1) do begin
+
+    ofs := i + trunc(y) * ClientWidth;
+    if z < zBuffer[ofs] then begin
+      Canvas.Pixels[i, trunc(y)] := c.ToInt;
+      zBuffer[ofs] := z;
+    end;
+
+    c := c + addc;
+    z := z + addz;
+  end;
 end;
 
-procedure TForm1.Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
+procedure TForm1.Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
 var
   y: integer;
   len_part, len_tot,
   x1, x2, x3: single;        { x-Werte für Scanline-Algorithmus     }
   m1, m2, m3: single;        { Increments für die x-Werte           }
+
   addc_part, addc_tot,
   c0, c1: TVector4f;
 
+  addz_part, addz_tot,
+  z0, z1: single;
+
 begin
+  v0 := Matrix * v0;
+  v0.x := v0.x / v0.w * scale + ofsx;
+  v0.y := v0.y / v0.w * scale + ofsy;
+
+  v1 := Matrix * v1;
+  v1.x := v1.x / v1.w * scale + ofsx;
+  v1.y := v1.y / v1.w * scale + ofsy;
+
+  v2 := Matrix * v2;
+  v2.x := v2.x / v2.w * scale + ofsx;
+  v2.y := v2.y / v2.w * scale + ofsy;
+
+
   //colA:=vec4(1,0,0,0);
   //colB:=vec4(0,1,0,0);
   //colC:=vec4(0,0,1,0);
 
-  if (a.y > b.y) then begin
-    SwapglFloat(a[1], b[1]);
-    SwapglFloat(a[0], b[0]);
+  if (v0.y > v1.y) then begin
+    SwapglFloat(v0[1], v1[1]);
+    SwapglFloat(v0[0], v1[0]);
     SwapVertex4f(colA, colB);
   end;
-  if (b.y > c.y) then begin
-    SwapglFloat(b[1], c[1]);
-    SwapglFloat(b[0], c[0]);
+  if (v1.y > v2.y) then begin
+    SwapglFloat(v1[1], v2[1]);
+    SwapglFloat(v1[0], v2[0]);
     SwapVertex4f(colB, colC);
   end;
-  if (a.y > b.y) then begin
-    SwapglFloat(a[1], b[1]);
-    SwapglFloat(a[0], b[0]);
+  if (v0.y > v1.y) then begin
+    SwapglFloat(v0[1], v1[1]);
+    SwapglFloat(v0[0], v1[0]);
     SwapVertex4f(colA, colB);
   end;
 
-  x1 := a.x;                                    { x-Wert Linie A -> B   }
-  x2 := b.x;                                    { x-Wert Linie B -> c0   }
-  x3 := a.x;                                    { x-Wert Linie A -> c0   }
+  x1 := v0.x;                                    { x-Wert Linie v0 -> v1   }
+  x2 := v1.x;                                    { x-Wert Linie v1 -> c0   }
+  x3 := v0.x;                                    { x-Wert Linie v0 -> c0   }
 
-  m1 := (b.x - a.x) / (b.y - a.y);                      { Increments   A -> B   }
-  m2 := (b.x - c.x) / (b.y - c.y);                      { Increments   B -> c0   }
-  m3 := (c.x - a.x) / (c.y - a.y);                      { Increments   A -> c0   }
+  m1 := (v1.x - v0.x) / (v1.y - v0.y);                      { Increments   v0 -> v1   }
+  m2 := (v1.x - v2.x) / (v1.y - v2.y);                      { Increments   v1 -> c0   }
+  m3 := (v2.x - v0.x) / (v2.y - v0.y);                      { Increments   v0 -> c0   }
 
-  len_tot := c.y - a.y;
+  len_tot := v2.y - v0.y;
 
   // erste Teilfläche
-  len_part := b.y - a.y;
+  len_part := v1.y - v0.y;
 
   addc_part := (colB - colA) / len_part;
   c0 := colA;
-
   addc_tot := (colC - colA) / len_tot;
   c1 := colA;
 
-  for y := trunc(a.y) to trunc(a.y + len_part) do begin
-    LineX(x1, x3, y, c0, c1);
+  addz_part := (v1.z - v0.z) / len_part;
+  z0 := v0.z;
+  addz_tot := (v2.z - v0.z) / len_tot;
+  z1 := v0.z;
+
+  for y := trunc(v0.y) to trunc(v0.y + len_part) - 1 do begin
+    LineX(x1, x3, y, z0, z1, c0, c1);
     x1 := x1 + m1;
     x3 := x3 + m3;
 
     c0 := c0 + addc_part;
     c1 := c1 + addc_tot;
+
+    z0 := z0 + addz_part;
+    z1 := z1 + addz_tot;
   end;
 
   // zweite Teilfläche
-  len_part := c.y - b.y;
+  len_part := v2.y - v1.y;
 
   addc_part := (colC - colB) / len_part;
   c0 := colB;
 
-  for y := trunc(b.y) to trunc(b.y + len_part) do begin
-    LineX(x2, x3, y, c0, c1);
+  addz_part := (v2.z - v1.z) / len_part;
+  z0 := v1.z;
+
+  for y := trunc(v1.y) to trunc(v1.y + len_part) - 1 do begin
+    LineX(x2, x3, y, z0, z1, c0, c1);
     x2 := x2 + m2;
     x3 := x3 + m3;
 
     c0 := c0 + addc_part;
     c1 := c1 + addc_tot;
+
+    z0 := z0 + addz_part;
+    z1 := z1 + addz_tot;
   end;
 end;
 
 
-procedure TForm1.DrawTriangle(p, c: Tmat3x3);
-var
-  v0, v1, v2: TVector4f;
-
-begin
-  v0 := Matrix * vec4(p[0], 1.0);
-  v0.x := v0.x / v0.w * scale + ofsx;
-  v0.y := v0.y / v0.w * scale + ofsy;
-
-  v1 := Matrix * vec4(p[1], 1.0);
-  v1.x := v1.x / v1.w * scale + ofsx;
-  v1.y := v1.y / v1.w * scale + ofsy;
-
-  v2 := Matrix * vec4(p[2], 1.0);
-  v2.x := v2.x / v2.w * scale + ofsx;
-  v2.y := v2.y / v2.w * scale + ofsy;
-
-
-  //Canvas.MoveTo(trunc(v0.x), trunc(v0.y));
-  //Canvas.LineTo(trunc(v1.x), trunc(v1.y));
-  //Canvas.LineTo(trunc(v2.x), trunc(v2.y));
-  //Canvas.LineTo(trunc(v0.x), trunc(v0.y));
-
-  Triangle(v0, v1, v2, vec4(c[0], 1.0), vec4(c[1], 1.0), vec4(c[2], 1.0));
-end;
-
 procedure TForm1.FormPaint(Sender: TObject);
 var
-  i: integer;
+  i, x, y, z: integer;
   TempMatrix: TMatrix;
-var
-  x, y, z: integer;
 const
   d = 2.7;
   s = 1;
@@ -224,6 +238,11 @@ begin
   Canvas.Line(ofsx, 0, ofsx, ofsy * 2);
   Canvas.Line(0, ofsy, ofsx * 2, ofsy);
   Canvas.Pen.Color := clBlack;
+
+  SetLength(zBuffer, ClientWidth * ClientHeight);
+  for i := 0 to Length(zBuffer) - 1 do begin
+    zBuffer[i] := 1000;
+  end;
 
   TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix;
 
@@ -235,7 +254,9 @@ begin
         Matrix := TempMatrix * Matrix;
 
         for i := 0 to Length(CubeVertex) - 1 do begin
-          DrawTriangle(CubeVertex[i], CubeColor[i]);
+          Triangle(
+            vec4(CubeVertex[i, 0], 1.0), vec4(CubeVertex[i, 1], 1.0), vec4(CubeVertex[i, 2], 1.0),
+            vec4(CubeColor[i, 0], 1.0), vec4(CubeColor[i, 1], 1.0), vec4(CubeColor[i, 2], 1.0));
         end;
       end;
     end;
