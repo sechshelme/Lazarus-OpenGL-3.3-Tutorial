@@ -15,15 +15,18 @@ type
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure FormPaint(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
+    bit: TBitmap;
     Matrix,
     ObjectMatrix,
     RotMatrix,
     WorldMatrix,
     FrustumMatrix: TMatrix;
+    procedure PutPixel(x, y: integer; col: TColor);
     procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
     procedure Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
   public
@@ -78,17 +81,54 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  bit := TBitmap.Create;
+
   Color := clBlack;
   FrustumMatrix.Frustum(-1, 1, -1, 1, 2.5, 1000.0);
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0.0, 0.0, -250);
-  WorldMatrix.Scale(15.0);
+  WorldMatrix.Translate(0.0, 0.0, -150);
+  WorldMatrix.Scale(10.0);
 
   RotMatrix.Identity;
 
   ObjectMatrix.Identity;
   ObjectMatrix.Translate(-0.5, -0.5, -0.5);
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Bit.Free;
+end;
+
+procedure TForm1.PutPixel(x, y: integer; col: TColor);
+var
+  p: PByte;
+  ofs: UInt32;
+begin
+  with bit.RawImage do begin
+//    p := Data;
+//    ofs := (x + y * Description.Width) * 4;
+    p:=GetLineStart(y);
+    ofs:=x*4;
+
+
+
+
+    if (ofs>0)and (ofs > DataSize-4) then begin
+      Exit;
+    end;
+    Inc(p, ofs);
+    p^ := 00;
+    Inc(p, 1);
+    p^ := col mod $100;
+    Inc(p, 1);
+    p^ := col div $100 mod $100;
+    Inc(p, 1);
+    p^ := col div $10000 mod $100;
+  end;
+
+  //  bit.Canvas.Pixels[x,y]:=col;
 end;
 
 procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
@@ -119,11 +159,11 @@ begin
 
   for i := trunc(x0) to trunc(x1) do begin
 
-      ofs := i + trunc(y) * ClientWidth;
-      if (ofs >=0) and (ofs<Length(zBuffer)) then begin
+    ofs := i + trunc(y) * ClientWidth;
+    if (ofs >= 0) and (ofs < Length(zBuffer)) then begin
 
       if z < zBuffer[ofs] then begin
-        Canvas.Pixels[i, trunc(y)] := c.ToInt;
+        PutPixel(i, trunc(y), c.ToInt);
         zBuffer[ofs] := z;
       end;
 
@@ -245,10 +285,15 @@ const
   s = 1;
 
 begin
-  Canvas.Pen.Color := clYellow;
-  Canvas.Line(ofsx, 0, ofsx, ofsy * 2);
-  Canvas.Line(0, ofsy, ofsx * 2, ofsy);
-  Canvas.Pen.Color := clBlack;
+  //  bit.Canvas.Pixels[0,0]:=0;
+
+  //with bit do begin
+  //  Canvas.Pen.Color := clYellow;
+  //  Canvas.Line(ofsx, 0, ofsx, ofsy * 2);
+  //  Canvas.Line(0, ofsy, ofsx * 2, ofsy);
+  //  Canvas.Pen.Color := clBlack;
+
+  //end;
 
   SetLength(zBuffer, ClientWidth * ClientHeight);
   for i := 0 to Length(zBuffer) - 1 do begin
@@ -274,10 +319,26 @@ begin
     end;
   end;
 
+
+  //  bit.Canvas.Pixels[0, 0] := 0;
+  Caption := FloatToStr(Now);
+  WriteLn(bit.PixelFormat);
+  Canvas.Draw(0, 0, bit);
+
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
 begin
+  with bit do begin
+    Width := ClientWidth;
+    Height := ClientHeight;
+    //    RawImage.Description.Init_BPP32_R8G8B8A8_BIO_TTB(ClientWidth,ClientHeight);
+
+    //RawImage.CreateData(True);
+
+    PixelFormat := pf32bit;
+  end;
+
   scale := ClientHeight div 2;
   ofsx := ClientWidth div 2;
   ofsy := ClientHeight div 2;

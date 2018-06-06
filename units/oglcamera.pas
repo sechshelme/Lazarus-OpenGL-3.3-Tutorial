@@ -102,16 +102,12 @@ begin
   if FEnabled then begin
     FCameraMatrix := cm;
     FWorldMatrix := wm;
-//    FCameraMatrix.Pop;
-//    FWorldMatrix.Pop;
   end else begin
     cm := FCameraMatrix;
-//    FCameraMatrix.Push;
     FCameraMatrix.Identity;
     FCameraMatrix.Scale(1.0, 1.0, -1.0); // Weil keine Ortho/Frustumm z-Achse vertauschen
 
     wm := FWorldMatrix;
-//    FWorldMatrix.Push;
     FWorldMatrix.Identity;
   end;
 end;

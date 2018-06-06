@@ -58,6 +58,9 @@ type
     property z: GLfloat read GetZ write SetZ;
     property xy: TVector2f read GetXY write SetXY;
 
+    function ToInt: Uint32;
+    procedure FromInt(i: UInt32);
+
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
@@ -67,7 +70,6 @@ type
     procedure NormalCut;
     procedure Negate;
     procedure CrossProduct(P0, P1, P2: TVector3f);
-    procedure FromInt(i: UInt32);
 
     procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(var Vectoren, Normal: array of TVector3f);
@@ -455,6 +457,34 @@ begin
   Self[1] := AValue[1];
 end;
 
+function TVector3fHelper.ToInt: Uint32;
+
+  function v(s: single): longword; inline;
+  begin
+    Result := Round(s * $FF);
+  end;
+
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    if Self[i] < 0.0 then begin
+      Self[i] := 0.0;
+    end;
+    if Self[i] > 1.0 then begin
+      Self[i] := 1.0;
+    end;
+  end;
+  Result := v(Self[0]) + v(Self[1]) * $100 + v(Self[2]) * $10000;
+end;
+
+procedure TVector3fHelper.FromInt(i: UInt32);
+begin
+  Self[0] := i div $10000 mod $100 / $FF;
+  Self[1] := i div $100 mod $100 / $FF;
+  Self[2] := i div $1 mod $100 / $FF;
+end;
+
 procedure TVector3fHelper.RotateA(Winkel: GLfloat);
 var
   y0, z0, c, s: GLfloat;
@@ -547,13 +577,6 @@ begin
   Self[2] := a[0] * b[1] - a[1] * b[0];
 
   NormalCut;
-end;
-
-procedure TVector3fHelper.FromInt(i: UInt32);
-begin
-  Self[0] := i div $10000 mod $100 / $FF;
-  Self[1] := i div $100 mod $100 / $FF;
-  Self[2] := i div $1 mod $100 / $FF;
 end;
 
 procedure TVector3fHelper.WriteVectoren(var Vector: array of TVector3f);

@@ -7,7 +7,7 @@ interface
 uses
   Classes,
   Dialogs,
-  SysUtils,
+  SysUtils, FileUtil, LazFileUtils,
   //  MyLogForms, MyMessages,
   dglOpenGL,
   Types, Graphics, LResources,
@@ -61,21 +61,26 @@ end;
 
 function FileToStr(Datei: string): ansistring;
 var
-  sl: TStringList;
-  {$IFDEF Darwin} s: string;{$ENDIF}
+  SrcHandle: THandle;
+{$IFDEF Darwin}
+var
+  s: string;
+{$ENDIF}
 begin
   if FileExists(Datei) then begin
     {$IFDEF Darwin}
     if not FileExists(Datei) then begin
       s := LeftStr(paramstr(0), Pos('.app/', paramstr(0))-1);
-      s := ExtractFilePath(s)+ Datei;
+      s := ExtractFilePath(s) + Datei;
       if FileExists(s) then Datei := s;
     end;
     {$ENDIF}
-    sl := TStringList.Create;
-    sl.LoadFromFile(Datei);
-    Result := sl.Text;
-    sl.Free;
+    SetLength(Result, FileSize(Datei));
+    SrcHandle := FileOpenUTF8(Datei, fmOpenRead or fmShareDenyWrite);
+    FileRead(SrcHandle, Result[1], Length(Result));
+    FileClose(SrcHandle);
+
+    //    Result := ReadFileToString(Datei);
   end else begin
     LogForm.Add('FEHLER: Kann Datei ' + Datei + ' nicht finden');
     Result := '';
