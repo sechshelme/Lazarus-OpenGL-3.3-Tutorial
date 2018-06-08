@@ -310,8 +310,8 @@ end;
 
 function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; inline;
 begin
-  Result[0] := xy.x;
-  Result[1] := xy.y;
+  Result[0] := xy[0];
+  Result[1] := xy[1];
   Result[2] := z;
   Result[3] := w;
 end;
@@ -467,7 +467,7 @@ function TVector3fHelper.ToInt: Uint32;
 var
   i: integer;
 begin
-  for i := 0 to 3 do begin
+  for i := 0 to 2 do begin
     if Self[i] < 0.0 then begin
       Self[i] := 0.0;
     end;

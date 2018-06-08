@@ -29,6 +29,7 @@ type
     procedure PutPixel(x, y: integer; col: TColor);
     procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
     procedure Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
+    procedure DrawScene;
   public
 
   end;
@@ -54,24 +55,24 @@ const
     ((0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5)), ((0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, 0.5, 0.5)),
     // unten
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
-  CubeColor: TCube =
-    (((1.0, 0.5, 0.5), (1.0, 0.5, 0.5), (1.0, 0.5, 0.5)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0)),
-    ((0.5, 1.0, 0.5), (0.5, 1.0, 0.5), (0.5, 1.0, 0.5)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)),
-    ((0.5, 0.0, 1.0), (0.5, 0.5, 1.0), (0.5, 0.5, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)),
-    ((0.5, 1.0, 1.0), (0.5, 1.0, 1.0), (0.5, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 1.0, 1.0)),
-    // oben
-    ((1.0, 1.0, 0.5), (1.0, 1.0, 0.5), (1.0, 1.0, 0.5)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
-    // unten
-    ((1.0, 0.5, 1.0), (1.0, 0.5, 1.0), (1.0, 0.5, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.0, 1.0)));
-//CubeColor: TCube =
-//  (((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0)),
-//  ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 1.0, 0.0)),
-//  ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 1.0)),
-//  ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 1.0, 1.0)),
-//  // oben
-//  ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
-//  // unten
-//  ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.0, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.0, 1.0)));
+  //CubeColor: TCube =
+  //  (((1.0, 0.5, 0.5), (1.0, 0.7, 0.5), (1.0, 0.5, 0.5)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.7, 0.0)),
+  //  ((0.5, 1.0, 0.5), (0.5, 0.7, 0.5), (0.5, 1.0, 0.5)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.7, 0.0)),
+  //  ((0.5, 0.0, 1.0), (0.5, 0.7, 1.0), (0.5, 0.5, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.7, 1.0)),
+  //  ((0.5, 1.0, 1.0), (0.5, 0.7, 1.0), (0.5, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.7, 1.0)),
+  //  // oben
+  //  ((1.0, 1.0, 0.5), (1.0, 0.7, 0.5), (1.0, 1.0, 0.5)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 0.7, 0.0)),
+  //  // unten
+  //  ((1.0, 0.5, 1.0), (1.0, 0.7, 1.0), (1.0, 0.5, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.7, 1.0)));
+CubeColor: TCube =
+  (((1.0, 0.0, 0.0), (1.0, 0.7, 0.7), (1.0, 0.0, 0.0)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.3, 0.0, 0.0)),
+  ((0.0, 1.0, 0.0), (0.7, 1.0, 0.7), (0.0, 1.0, 0.0)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.3, 0.0)),
+  ((0.0, 0.0, 1.0), (0.7, 0.7, 1.0), (0.0, 0.0, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 0.3)),
+  ((0.0, 1.0, 1.0), (0.7, 1.0, 1.0), (0.0, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.3, 0.3)),
+  // oben
+  ((1.0, 1.0, 0.0), (1.0, 1.0, 0.7), (1.0, 1.0, 0.0)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (0.3, 0.3, 0.0)),
+  // unten
+  ((1.0, 0.0, 1.0), (1.0, 0.7, 1.0), (1.0, 0.0, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (0.3, 0.0, 0.3)));
 
 implementation
 
@@ -102,33 +103,11 @@ begin
 end;
 
 procedure TForm1.PutPixel(x, y: integer; col: TColor);
-var
-  p: PByte;
-  ofs: UInt32;
+type
+  PColor = ^TColor;
 begin
-  with bit.RawImage do begin
-//    p := Data;
-//    ofs := (x + y * Description.Width) * 4;
-    p:=GetLineStart(y);
-    ofs:=x*4;
-
-
-
-
-    if (ofs>0)and (ofs > DataSize-4) then begin
-      Exit;
-    end;
-    Inc(p, ofs);
-    p^ := 00;
-    Inc(p, 1);
-    p^ := col mod $100;
-    Inc(p, 1);
-    p^ := col div $100 mod $100;
-    Inc(p, 1);
-    p^ := col div $10000 mod $100;
-  end;
-
-  //  bit.Canvas.Pixels[x,y]:=col;
+  if (x < 0) or (y < 0) or (x > ClientWidth) or (y > ClientHeight) then Exit; // y<0 ??
+  PColor(bit.RawImage.GetLineStart(y))[x] := col;
 end;
 
 procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
@@ -275,26 +254,14 @@ begin
   end;
 end;
 
-
-procedure TForm1.FormPaint(Sender: TObject);
+procedure TForm1.DrawScene;
 var
   i, x, y, z: integer;
   TempMatrix: TMatrix;
 const
   d = 2.7;
   s = 1;
-
 begin
-  //  bit.Canvas.Pixels[0,0]:=0;
-
-  //with bit do begin
-  //  Canvas.Pen.Color := clYellow;
-  //  Canvas.Line(ofsx, 0, ofsx, ofsy * 2);
-  //  Canvas.Line(0, ofsy, ofsx * 2, ofsy);
-  //  Canvas.Pen.Color := clBlack;
-
-  //end;
-
   SetLength(zBuffer, ClientWidth * ClientHeight);
   for i := 0 to Length(zBuffer) - 1 do begin
     zBuffer[i] := 1000;
@@ -309,7 +276,6 @@ begin
         Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
         Matrix := TempMatrix * Matrix;
 
-        //        for i := 0 to 3 do begin
         for i := 0 to Length(CubeVertex) - 1 do begin
           Triangle(
             vec4(CubeVertex[i, 0], 1.0), vec4(CubeVertex[i, 1], 1.0), vec4(CubeVertex[i, 2], 1.0),
@@ -319,11 +285,12 @@ begin
     end;
   end;
 
+end;
 
-  //  bit.Canvas.Pixels[0, 0] := 0;
-  Caption := FloatToStr(Now);
-  WriteLn(bit.PixelFormat);
+procedure TForm1.FormPaint(Sender: TObject);
+begin
   Canvas.Draw(0, 0, bit);
+  WriteLn(bit.PixelFormat);
 
 end;
 
@@ -332,11 +299,6 @@ begin
   with bit do begin
     Width := ClientWidth;
     Height := ClientHeight;
-    //    RawImage.Description.Init_BPP32_R8G8B8A8_BIO_TTB(ClientWidth,ClientHeight);
-
-    //RawImage.CreateData(True);
-
-    PixelFormat := pf32bit;
   end;
 
   scale := ClientHeight div 2;
@@ -348,9 +310,18 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   StepB = 0.023;
   StepC = 0.014;
+var
+  p:PByte;
 begin
   RotMatrix.RotateC(StepC);
   RotMatrix.RotateB(StepB);
+
+  p:=bit.RawImage.Data;
+  bit.BeginUpdate();
+  FillDWord(p^, bit.RawImage.DataSize div 4, vec3(1.0, 0.0 ,0.0).ToInt);
+  DrawScene;
+  bit.EndUpdate();
+
   Invalidate;
 end;
 
