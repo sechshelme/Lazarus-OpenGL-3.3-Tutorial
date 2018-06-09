@@ -28,7 +28,7 @@ type
     FrustumMatrix: TMatrix;
     procedure PutPixel(x, y: integer; col: TColor);
     procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
-    procedure Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
+    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
     procedure DrawScene;
   public
 
@@ -64,15 +64,15 @@ const
   //  ((1.0, 1.0, 0.5), (1.0, 0.7, 0.5), (1.0, 1.0, 0.5)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 0.7, 0.0)),
   //  // unten
   //  ((1.0, 0.5, 1.0), (1.0, 0.7, 1.0), (1.0, 0.5, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.7, 1.0)));
-CubeColor: TCube =
-  (((1.0, 0.0, 0.0), (1.0, 0.7, 0.7), (1.0, 0.0, 0.0)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.3, 0.0, 0.0)),
-  ((0.0, 1.0, 0.0), (0.7, 1.0, 0.7), (0.0, 1.0, 0.0)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.3, 0.0)),
-  ((0.0, 0.0, 1.0), (0.7, 0.7, 1.0), (0.0, 0.0, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 0.3)),
-  ((0.0, 1.0, 1.0), (0.7, 1.0, 1.0), (0.0, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.3, 0.3)),
-  // oben
-  ((1.0, 1.0, 0.0), (1.0, 1.0, 0.7), (1.0, 1.0, 0.0)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (0.3, 0.3, 0.0)),
-  // unten
-  ((1.0, 0.0, 1.0), (1.0, 0.7, 1.0), (1.0, 0.0, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (0.3, 0.0, 0.3)));
+  CubeColor: TCube =
+    (((1.0, 0.0, 0.0), (1.0, 0.7, 0.7), (1.0, 0.0, 0.0)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.3, 0.0, 0.0)),
+    ((0.0, 1.0, 0.0), (0.7, 1.0, 0.7), (0.0, 1.0, 0.0)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.3, 0.0)),
+    ((0.0, 0.0, 1.0), (0.7, 0.7, 1.0), (0.0, 0.0, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 0.3)),
+    ((0.0, 1.0, 1.0), (0.7, 1.0, 1.0), (0.0, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.3, 0.3)),
+    // oben
+    ((1.0, 1.0, 0.0), (1.0, 1.0, 0.7), (1.0, 1.0, 0.0)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (0.3, 0.3, 0.0)),
+    // unten
+    ((1.0, 0.0, 1.0), (1.0, 0.7, 1.0), (1.0, 0.0, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (0.3, 0.0, 0.3)));
 
 implementation
 
@@ -82,6 +82,7 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  DoubleBuffered := True;
   bit := TBitmap.Create;
 
   Color := clBlack;
@@ -106,7 +107,9 @@ procedure TForm1.PutPixel(x, y: integer; col: TColor);
 type
   PColor = ^TColor;
 begin
-  if (x < 0) or (y < 0) or (x > ClientWidth) or (y > ClientHeight) then Exit; // y<0 ??
+  if (x < 0) or (y < 0) or (x > ClientWidth) or (y > ClientHeight) then begin
+    Exit;
+  end; // y<0 ??
   PColor(bit.RawImage.GetLineStart(y))[x] := col;
 end;
 
@@ -153,104 +156,101 @@ begin
   end;
 end;
 
-procedure TForm1.Triangle(v0, v1, v2: TVector4f; colA, colB, colC: TVector4f);
+procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
 var
   y: integer;
-  len_part, len_tot,
-  x1, x2, x3: single;        { x-Werte für Scanline-Algorithmus     }
-  m1, m2, m3: single;        { Increments für die x-Werte           }
+  dif,
 
-  addc_part, addc_tot,
-  c0, c1: TVector4f;
+  addx_0, addx_1, addx_2,
+  x0, x1, x2: single;
 
-  addz_part, addz_tot,
-  z0, z1: single;
+  addz_0, addz_1, addz_2,
+  z0, z1, z2: single;
+
+  addc_0, addc_1, addc_2,
+  c0, c1, c2: TVector4f;
 
 begin
+  //col0 := vec4(1, 0, 0, 0);
+  //col1 := vec4(0, 1, 0, 0);
+  //col2 := vec4(0, 0, 1, 0);
+
   v0 := Matrix * v0;
+  v1 := Matrix * v1;
+  v2 := Matrix * v2;
+
+
   v0.x := v0.x / v0.w * scale + ofsx;
   v0.y := v0.y / v0.w * scale + ofsy;
 
-  v1 := Matrix * v1;
   v1.x := v1.x / v1.w * scale + ofsx;
   v1.y := v1.y / v1.w * scale + ofsy;
 
-  v2 := Matrix * v2;
   v2.x := v2.x / v2.w * scale + ofsx;
   v2.y := v2.y / v2.w * scale + ofsy;
 
-
-  //colA:=vec4(1,0,0,0);
-  //colB:=vec4(0,1,0,0);
-  //colC:=vec4(0,0,1,0);
-
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex4f(colA, colB);
+    SwapVertex4f(col0, col1);
   end;
   if (v1.y > v2.y) then begin
     SwapVertex4f(v1, v2);
-    SwapVertex4f(colB, colC);
+    SwapVertex4f(col1, col2);
   end;
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex4f(colA, colB);
+    SwapVertex4f(col0, col1);
   end;
 
-  x1 := v0.x;                                    { x-Wert Linie v0 -> v1   }
-  x2 := v1.x;                                    { x-Wert Linie v1 -> c0   }
-  x3 := v0.x;                                    { x-Wert Linie v0 -> c0   }
+  dif := v1.y - v0.y;
+  addx_0 := (v1.x - v0.x) / dif;
+  x0 := v0.x;
+  addz_0 := (v1.z - v0.z) / dif;
+  z0 := v0.z;
+  addc_0 := (col1 - col0) / dif;
+  c0 := col0;
 
-  m1 := (v1.x - v0.x) / (v1.y - v0.y);                      { Increments   v0 -> v1   }
-  m2 := (v1.x - v2.x) / (v1.y - v2.y);                      { Increments   v1 -> c0   }
-  m3 := (v2.x - v0.x) / (v2.y - v0.y);                      { Increments   v0 -> c0   }
+  dif := v1.y - v2.y;
+  addx_1 := (v1.x - v2.x) / dif;
+  x1 := v1.x;
+  addz_1 := (v1.z - v2.z) / dif;
+  z1 := v1.z;
+  addc_1 := (col1 - col2) / dif;
+  c1 := col1;
 
-  len_tot := v2.y - v0.y;
+  dif := v2.y - v0.y;
+  addx_2 := (v2.x - v0.x) / dif;
+  x2 := v0.x;
+  addz_2 := (v2.z - v0.z) / dif;
+  z2 := v0.z;
+  addc_2 := (col2 - col0) / dif;
+  c2 := col0;
+
 
   // erste Teilfläche
-  len_part := v1.y - v0.y;
+  for y := trunc(v0.y) to trunc(v1.y) - 1 do begin
+    LineX(x0, x2, y, z0, z2, c0, c2);
+    x0 += addx_0;
+    x2 += addx_2;
 
-  addc_part := (colB - colA) / len_part;
-  c0 := colA;
-  addc_tot := (colC - colA) / len_tot;
-  c1 := colA;
+    c0 += addc_0;
+    c2 += addc_2;
 
-  addz_part := (v1.z - v0.z) / len_part;
-  z0 := v0.z;
-  addz_tot := (v2.z - v0.z) / len_tot;
-  z1 := v0.z;
-
-  for y := trunc(v0.y) to trunc(v0.y + len_part) - 1 do begin
-    LineX(x1, x3, y, z0, z1, c0, c1);
-    x1 := x1 + m1;
-    x3 := x3 + m3;
-
-    c0 := c0 + addc_part;
-    c1 := c1 + addc_tot;
-
-    z0 := z0 + addz_part;
-    z1 := z1 + addz_tot;
+    z0 += addz_0;
+    z2 += addz_2;
   end;
 
   // zweite Teilfläche
-  len_part := v2.y - v1.y;
+  for y := trunc(v1.y) to trunc(v2.y) - 1 do begin
+    LineX(x1, x2, y, z1, z2, c1, c2);
+    x1 += addx_1;
+    x2 += addx_2;
 
-  addc_part := (colC - colB) / len_part;
-  c0 := colB;
+    c1 += addc_1;
+    c2 += addc_2;
 
-  addz_part := (v2.z - v1.z) / len_part;
-  z0 := v1.z;
-
-  for y := trunc(v1.y) to trunc(v1.y + len_part) - 1 do begin
-    LineX(x2, x3, y, z0, z1, c0, c1);
-    x2 := x2 + m2;
-    x3 := x3 + m3;
-
-    c0 := c0 + addc_part;
-    c1 := c1 + addc_tot;
-
-    z0 := z0 + addz_part;
-    z1 := z1 + addz_tot;
+    z1 += addz_1;
+    z2 += addz_2;
   end;
 end;
 
@@ -290,8 +290,7 @@ end;
 procedure TForm1.FormPaint(Sender: TObject);
 begin
   Canvas.Draw(0, 0, bit);
-  WriteLn(bit.PixelFormat);
-
+//  WriteLn(bit.PixelFormat);
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
@@ -311,14 +310,14 @@ const
   StepB = 0.023;
   StepC = 0.014;
 var
-  p:PByte;
+  p: PByte;
 begin
   RotMatrix.RotateC(StepC);
   RotMatrix.RotateB(StepB);
 
-  p:=bit.RawImage.Data;
+  p := bit.RawImage.Data;
   bit.BeginUpdate();
-  FillDWord(p^, bit.RawImage.DataSize div 4, vec3(1.0, 0.0 ,0.0).ToInt);
+  FillDWord(p^, bit.RawImage.DataSize div 4, vec3(1.0, 0.0, 0.0).ToInt);
   DrawScene;
   bit.EndUpdate();
 
