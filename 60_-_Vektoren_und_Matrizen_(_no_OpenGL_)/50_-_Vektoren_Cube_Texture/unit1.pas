@@ -13,6 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Image1: TImage;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -26,9 +27,9 @@ type
     RotMatrix,
     WorldMatrix,
     FrustumMatrix: TMatrix;
-    procedure PutPixel(x, y: integer; col: TVector3f);
-    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
-    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
+    procedure PutPixel(x, y: integer; col: TVector2f);
+    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector2f);
+    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector2f);
     procedure DrawScene;
   public
 
@@ -55,24 +56,13 @@ const
     ((0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5)), ((0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, 0.5, 0.5)),
     // unten
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
-  //CubeColor: TCube =
-  //  (((1.0, 0.5, 0.5), (1.0, 0.7, 0.5), (1.0, 0.5, 0.5)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 0.7, 0.0)),
-  //  ((0.5, 1.0, 0.5), (0.5, 0.7, 0.5), (0.5, 1.0, 0.5)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.7, 0.0)),
-  //  ((0.5, 0.0, 1.0), (0.5, 0.7, 1.0), (0.5, 0.5, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.7, 1.0)),
-  //  ((0.5, 1.0, 1.0), (0.5, 0.7, 1.0), (0.5, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.7, 1.0)),
-  //  // oben
-  //  ((1.0, 1.0, 0.5), (1.0, 0.7, 0.5), (1.0, 1.0, 0.5)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (1.0, 0.7, 0.0)),
-  //  // unten
-  //  ((1.0, 0.5, 1.0), (1.0, 0.7, 1.0), (1.0, 0.5, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 0.7, 1.0)));
-  CubeColor: TCube =
-    (((1.0, 0.0, 0.0), (1.0, 0.7, 0.7), (1.0, 0.0, 0.0)), ((1.0, 0.0, 0.0), (1.0, 0.0, 0.0), (0.3, 0.0, 0.0)),
-    ((0.0, 1.0, 0.0), (0.7, 1.0, 0.7), (0.0, 1.0, 0.0)), ((0.0, 1.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.3, 0.0)),
-    ((0.0, 0.0, 1.0), (0.7, 0.7, 1.0), (0.0, 0.0, 1.0)), ((0.0, 0.0, 1.0), (0.0, 0.0, 1.0), (0.0, 0.0, 0.3)),
-    ((0.0, 1.0, 1.0), (0.7, 1.0, 1.0), (0.0, 1.0, 1.0)), ((0.0, 1.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.3, 0.3)),
-    // oben
-    ((1.0, 1.0, 0.0), (1.0, 1.0, 0.7), (1.0, 1.0, 0.0)), ((1.0, 1.0, 0.0), (1.0, 1.0, 0.0), (0.3, 0.3, 0.0)),
-    // unten
-    ((1.0, 0.0, 1.0), (1.0, 0.7, 1.0), (1.0, 0.0, 1.0)), ((1.0, 0.0, 1.0), (1.0, 0.0, 1.0), (0.3, 0.0, 0.3)));
+  CubeColor: array[0..11] of Tmat3x2 = (
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)));
 
 implementation
 
@@ -90,7 +80,7 @@ begin
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -150);
-  WorldMatrix.Scale(10.0);
+  WorldMatrix.Scale(40.0);
 
   RotMatrix.Identity;
 
@@ -103,27 +93,54 @@ begin
   Bit.Free;
 end;
 
-procedure TForm1.PutPixel(x, y: integer; col: TVector3f);
+procedure TForm1.PutPixel(x, y: integer; col: TVector2f);
+type
+  Trgb = packed record
+    b, g, r: byte;
+  end;
+
+  function getPixel(x, y: integer): Trgb;
+  var
+    p: PByte;
+  begin
+    with Image1.Picture.Bitmap do begin
+      if (x < 0) or (y < 0) or (x > Width) or (y > Height) then begin
+        Exit;
+      end;
+
+      p := RawImage.GetLineStart(y);
+      Inc(p, x * (RawImage.Description.BitsPerPixel div 8));
+      Result.b := p^;
+      Inc(p);
+      Result.g := p^;
+      Inc(p);
+      Result.r := p^;
+    end;
+  end;
+
 var
   p: PByte;
-  tc: TColor;
+  tc: Trgb;
+
 begin
-  tc := col.ToInt;
+  with Image1.Picture.Bitmap do begin
+    tc := getPixel(trunc(Width * col.x), trunc(Height * col.y));
+  end;
 
   p := bit.RawImage.GetLineStart(y);
   Inc(p, x * (bit.RawImage.Description.BitsPerPixel div 8));
-  p^ := tc shr 16;
+  p^ := tc.b;
   Inc(p);
-  p^ := tc shr 8;
+  p^ := tc.g;
   Inc(p);
-  p^ := tc;
+  p^ := tc.r;
 end;
 
-procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
+procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector2f);
 var
   ofs, i, iy: integer;
   dif, addz, z: single;
-  addc, c: TVector3f;
+  addc, c: TVector2f;
 
 begin
   if (y < 0.0) or (y > ClientHeight) then begin
@@ -132,7 +149,7 @@ begin
 
   if x0 > x1 then begin
     SwapglFloat(x0, x1);
-    SwapVertex3f(col0, col1);
+    SwapVertex2f(col0, col1);
     SwapglFloat(z0, z1);
   end;
 
@@ -169,7 +186,7 @@ begin
   end;
 end;
 
-procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
+procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector2f);
 var
   y: integer;
   dif,
@@ -181,7 +198,7 @@ var
   z0, z1, z2: single;
 
   addc_0, addc_1, addc_2,
-  c0, c1, c2: TVector3f;
+  c0, c1, c2: TVector2f;
 
 begin
   //col0 := vec4(1, 0, 0, 0);
@@ -208,15 +225,15 @@ begin
 
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex3f(col0, col1);
+    SwapVertex2f(col0, col1);
   end;
   if (v1.y > v2.y) then begin
     SwapVertex4f(v1, v2);
-    SwapVertex3f(col1, col2);
+    SwapVertex2f(col1, col2);
   end;
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex3f(col0, col1);
+    SwapVertex2f(col0, col1);
   end;
 
   dif := v1.y - v0.y;
@@ -278,7 +295,7 @@ var
   TempMatrix: TMatrix;
 const
   d = 2.7;
-  s = 1;
+  s = 0;
 begin
   WriteLn(bit.PixelFormat);
   WriteLn(bit.RawImage.Description.BitsPerPixel);

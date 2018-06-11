@@ -26,9 +26,9 @@ type
     RotMatrix,
     WorldMatrix,
     FrustumMatrix: TMatrix;
-    procedure PutPixel(x, y: integer; col: TVector3f);
-    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
-    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
+    procedure PutPixel(x, y: integer; col: TColor);
+    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
+    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
     procedure DrawScene;
   public
 
@@ -90,7 +90,7 @@ begin
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -150);
-  WorldMatrix.Scale(10.0);
+  WorldMatrix.Scale(20.0);
 
   RotMatrix.Identity;
 
@@ -103,65 +103,78 @@ begin
   Bit.Free;
 end;
 
-procedure TForm1.PutPixel(x, y: integer; col: TVector3f);
+procedure TForm1.PutPixel(x, y: integer; col: TColor);
+type
+  PColor = ^TColor;
 var
+  r, g, b: byte;
   p: PByte;
-  tc: TColor;
 begin
-  tc := col.ToInt;
+  b := col;
+  g := col div $100;
+  r := col div $10000;
 
   p := bit.RawImage.GetLineStart(y);
   Inc(p, x * (bit.RawImage.Description.BitsPerPixel div 8));
-  p^ := tc shr 16;
+  p^ := r;
   Inc(p);
-  p^ := tc shr 8;
+  p^ := g;
   Inc(p);
-  p^ := tc;
+  p^ := b;
+  Inc(p);
+  p^ := $FF;
+
+  //  PColor(bit.RawImage.GetLineStart(y))[x] := col;
 end;
 
-procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
+procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
 var
   ofs, i, iy: integer;
-  dif, addz, z: single;
-  addc, c: TVector3f;
+  len: single;
+  addc,
+  c: TVector4f;
+  addz,
+  z: single;
 
 begin
-  if (y < 0.0) or (y > ClientHeight) then begin
-    Exit;
-  end;
-
   if x0 > x1 then begin
     SwapglFloat(x0, x1);
-    SwapVertex3f(col0, col1);
+    SwapVertex4f(col0, col1);
     SwapglFloat(z0, z1);
   end;
 
-  dif := x1 - x0;
-
-  addz := (z1 - z0) / dif;
-  z := z0;
-
-  addc := (col1 - col0) / dif;
-  c := col0;
-
   if x0 < 0.0 then begin
-    c += addc * -x0;
-    z += addz * -x0;
     x0 := 0.0;
   end;
   if x1 > ClientWidth then begin
     x1 := ClientWidth;
   end;
+  if (y < 0.0) or (y > ClientHeight) then begin
+    Exit;
+  end;
+
+  len := x1 - x0;
+
+  addc := (col1 - col0) / len;
+  addc.w := 0.0;
+  c := col0;
+  c.w := 0.0;
+
+  addz := (z1 - z0) / len;
+  z := z0;
 
   iy := trunc(y);
 
   for i := trunc(x0) to trunc(x1) do begin
 
     ofs := i + iy * ClientWidth;
+    if (ofs >= 0) and (ofs < Length(zBuffer)) then begin
 
-    if z < zBuffer[ofs] then begin
-      PutPixel(i, iy, c);
-      zBuffer[ofs] := z;
+      if z < zBuffer[ofs] then begin
+        PutPixel(i, iy, c.ToInt);
+        zBuffer[ofs] := z;
+      end;
+
     end;
 
     c += addc;
@@ -169,7 +182,7 @@ begin
   end;
 end;
 
-procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
+procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
 var
   y: integer;
   dif,
@@ -181,13 +194,12 @@ var
   z0, z1, z2: single;
 
   addc_0, addc_1, addc_2,
-  c0, c1, c2: TVector3f;
+  c0, c1, c2: TVector4f;
 
 begin
   //col0 := vec4(1, 0, 0, 0);
   //col1 := vec4(0, 1, 0, 0);
   //col2 := vec4(0, 0, 1, 0);
-
   //col0 := vec4(1, 0, 0, 0);
   //col1 := vec4(1, 1, 0, 0);
   //col2 := vec4(1, 0, 1, 0);
@@ -208,15 +220,15 @@ begin
 
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex3f(col0, col1);
+    SwapVertex4f(col0, col1);
   end;
   if (v1.y > v2.y) then begin
     SwapVertex4f(v1, v2);
-    SwapVertex3f(col1, col2);
+    SwapVertex4f(col1, col2);
   end;
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex3f(col0, col1);
+    SwapVertex4f(col0, col1);
   end;
 
   dif := v1.y - v0.y;
@@ -284,7 +296,8 @@ begin
   WriteLn(bit.RawImage.Description.BitsPerPixel);
 
   p := bit.RawImage.Data;
-  FillChar(p^, bit.RawImage.DataSize, $00);
+//  FillDWord(p^, bit.RawImage.DataSize div 4, vec3(1.0, 0.0, 0.0).ToInt);
+  FillDWord(p^, bit.RawImage.DataSize div 4, $00000000);
 
   SetLength(zBuffer, ClientWidth * ClientHeight);
   for i := 0 to Length(zBuffer) - 1 do begin
@@ -303,7 +316,7 @@ begin
         for i := 0 to Length(CubeVertex) - 1 do begin
           Triangle(
             vec4(CubeVertex[i, 0], 1.0), vec4(CubeVertex[i, 1], 1.0), vec4(CubeVertex[i, 2], 1.0),
-            CubeColor[i, 0], CubeColor[i, 1], CubeColor[i, 2]);
+            vec4(CubeColor[i, 0], 1.0), vec4(CubeColor[i, 1], 1.0), vec4(CubeColor[i, 2], 1.0));
         end;
       end;
     end;
@@ -333,8 +346,8 @@ const
   StepB = 0.023;
   StepC = 0.014;
 begin
-  RotMatrix.RotateC(StepC / 4);
-  RotMatrix.RotateB(StepB / 4);
+  RotMatrix.RotateC(StepC);
+  RotMatrix.RotateB(StepB);
 
   bit.BeginUpdate();
   DrawScene;
