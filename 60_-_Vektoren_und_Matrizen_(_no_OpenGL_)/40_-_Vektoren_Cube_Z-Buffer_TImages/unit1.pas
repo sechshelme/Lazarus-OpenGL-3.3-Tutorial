@@ -26,9 +26,9 @@ type
     RotMatrix,
     WorldMatrix,
     FrustumMatrix: TMatrix;
-    procedure PutPixel(x, y: integer; col: TVector4f);
-    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
-    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
+    procedure PutPixel(x, y: integer; col: TVector3f);
+    procedure LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
+    procedure Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
     procedure DrawScene;
   public
 
@@ -90,7 +90,7 @@ begin
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -150);
-  WorldMatrix.Scale(20.0);
+  WorldMatrix.Scale(10.0);
 
   RotMatrix.Identity;
 
@@ -103,33 +103,27 @@ begin
   Bit.Free;
 end;
 
-procedure TForm1.PutPixel(x, y: integer; col: TVector4f);
+procedure TForm1.PutPixel(x, y: integer; col: TVector3f);
 var
-  r, g, b: byte;
   p: PByte;
-  tc:TColor;
+  tc: TColor;
 begin
-  tc:=col.ToInt;
-  b := tc;
-  g := tc shr 8;
-  r := tc shr 16;
+  tc := col.ToInt;
 
   p := bit.RawImage.GetLineStart(y);
   Inc(p, x * (bit.RawImage.Description.BitsPerPixel div 8));
-  p^ := r;
+  p^ := tc shr 16;
   Inc(p);
-  p^ := g;
+  p^ := tc shr 8;
   Inc(p);
-  p^ := b;
-  Inc(p);
-  p^ := $FF;
+  p^ := tc;
 end;
 
-procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector4f);
+procedure TForm1.LineX(x0, x1, y, z0, z1: single; col0, col1: TVector3f);
 var
   ofs, i, iy: integer;
   dif, addz, z: single;
-  addc, c: TVector4f;
+  addc, c: TVector3f;
 
 begin
   if (y < 0.0) or (y > ClientHeight) then begin
@@ -138,7 +132,7 @@ begin
 
   if x0 > x1 then begin
     SwapglFloat(x0, x1);
-    SwapVertex4f(col0, col1);
+    SwapVertex3f(col0, col1);
     SwapglFloat(z0, z1);
   end;
 
@@ -148,9 +142,7 @@ begin
   z := z0;
 
   addc := (col1 - col0) / dif;
-  addc.w := 0.0;
   c := col0;
-  c.w := 0.0;
 
   if x0 < 0.0 then begin
     c += addc * -x0;
@@ -177,7 +169,7 @@ begin
   end;
 end;
 
-procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector4f);
+procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
 var
   y: integer;
   dif,
@@ -189,7 +181,7 @@ var
   z0, z1, z2: single;
 
   addc_0, addc_1, addc_2,
-  c0, c1, c2: TVector4f;
+  c0, c1, c2: TVector3f;
 
 begin
   //col0 := vec4(1, 0, 0, 0);
@@ -216,15 +208,15 @@ begin
 
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex4f(col0, col1);
+    SwapVertex3f(col0, col1);
   end;
   if (v1.y > v2.y) then begin
     SwapVertex4f(v1, v2);
-    SwapVertex4f(col1, col2);
+    SwapVertex3f(col1, col2);
   end;
   if (v0.y > v1.y) then begin
     SwapVertex4f(v0, v1);
-    SwapVertex4f(col0, col1);
+    SwapVertex3f(col0, col1);
   end;
 
   dif := v1.y - v0.y;
@@ -292,7 +284,7 @@ begin
   WriteLn(bit.RawImage.Description.BitsPerPixel);
 
   p := bit.RawImage.Data;
-  FillDWord(p^, bit.RawImage.DataSize div 4, $00000000);
+  FillChar(p^, bit.RawImage.DataSize, $00);
 
   SetLength(zBuffer, ClientWidth * ClientHeight);
   for i := 0 to Length(zBuffer) - 1 do begin
@@ -311,7 +303,7 @@ begin
         for i := 0 to Length(CubeVertex) - 1 do begin
           Triangle(
             vec4(CubeVertex[i, 0], 1.0), vec4(CubeVertex[i, 1], 1.0), vec4(CubeVertex[i, 2], 1.0),
-            vec4(CubeColor[i, 0], 1.0), vec4(CubeColor[i, 1], 1.0), vec4(CubeColor[i, 2], 1.0));
+            CubeColor[i, 0], CubeColor[i, 1], CubeColor[i, 2]);
         end;
       end;
     end;
