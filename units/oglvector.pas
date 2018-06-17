@@ -459,7 +459,7 @@ end;
 
 function TVector3fHelper.ToInt: Uint32;
 
-  function v(s: single): longword; inline;
+  function v(s: GLfloat): longword; inline;
   begin
     Result := Round(s * $FF);
   end;
@@ -521,7 +521,7 @@ begin
   Self[1] := x0 * s + y0 * c;
 end;
 
-procedure TVector3fHelper.Scale(Ax, Ay, Az: GLfloat);
+procedure TVector3fHelper.Scale(Ax, Ay, Az: GLfloat); inline;
 begin
   Self[0] *= Ax;
   Self[1] *= Ay;
@@ -530,10 +530,12 @@ end;
 
 procedure TVector3fHelper.Scale(s: GLfloat); inline;
 begin
-  Scale(s, s, s);
+  Self[0] *= s;
+  Self[1] *= s;
+  Self[2] *= s;
 end;
 
-procedure TVector3fHelper.Translate(Ax, Ay, Az: GLfloat);
+procedure TVector3fHelper.Translate(Ax, Ay, Az: GLfloat); inline;
 begin
   Self[0] += Ax;
   Self[1] += Ay;
@@ -546,7 +548,7 @@ var
   l: GLfloat;
 begin
   l := Sqrt(Sqr(Self[0]) + Sqr(Self[1]) + Sqr(Self[2]));
-  if l = 0 then begin
+  if l = 0.0 then begin
     l := 1.0;
   end;
   for i := 0 to 2 do begin
@@ -713,7 +715,7 @@ end;
 
 function TVector4fHelper.ToInt: Uint32;
 
-  function v(s: single): longword; inline;
+  function v(s: GLfloat): longword; inline;
   begin
     Result := Round(s * $FF);
   end;

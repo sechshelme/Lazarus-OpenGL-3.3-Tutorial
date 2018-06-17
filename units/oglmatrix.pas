@@ -29,13 +29,14 @@ type
 
     procedure Uniform(ShaderID: GLint);
 
-    procedure Scale(x, y: single); overload;
-    procedure Scale(s: single); overload;
-    procedure Translate(x, y: single);
-    procedure Rotate(w: single);
-    procedure Shear(x, y: single);
+    procedure Scale(x, y: GLfloat); overload;
+    procedure Scale(s: GLfloat); overload;
+    procedure Translate(x, y: GLfloat);
+    procedure Rotate(w: GLfloat);
+    procedure Transpose;
+    procedure Shear(x, y: GLfloat);
 
-    procedure Frustum(left, right, zNear, zFar: single);       // ??????????????
+    procedure Frustum(left, right, zNear, zFar: GLfloat);       // ??????????????
   end;
 
   { TMatrixHelper }
@@ -47,21 +48,24 @@ type
 
     procedure Uniform(ShaderID: GLint);
 
-    procedure Ortho(left, right, bottom, top, znear, zfar: single);
-    procedure Frustum(left, right, bottom, top, znear, zfar: single);
-    procedure Perspective(fovy, aspect, znear, zfar: single);
+    procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+    procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
+    procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
+    procedure Scale(Faktor: GLfloat); overload;
+    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
+    procedure Translate(x, y, z: GLfloat); overload;
+    procedure Translate(v: TVector3f); overload;
+    procedure NewTranslate(x, y, z: GLfloat);
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
-    procedure Translate(x, y, z: GLfloat); overload;
-    procedure Translate(v: TVector3f); overload;
-    procedure NewTranslate(x, y, z: GLfloat);
-    procedure Scale(Faktor: GLfloat); overload;
-    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Transpose;
+    procedure ShearA(y, z: GLfloat);
+    procedure ShearB(x, z: GLfloat);
+    procedure ShearC(x, y: GLfloat);
 
     procedure WriteMatrix;   // Für Testzwecke
   end;
@@ -186,7 +190,7 @@ begin
   Self := m;
 end;
 
-procedure Tmat3x3Helper.Scale(x, y: single);
+procedure Tmat3x3Helper.Scale(x, y: GLfloat);
 var
   i: integer;
 begin
@@ -196,18 +200,18 @@ begin
   end;
 end;
 
-procedure Tmat3x3Helper.Scale(s: single);
+procedure Tmat3x3Helper.Scale(s: GLfloat);
 begin
   Scale(s, s);
 end;
 
-procedure Tmat3x3Helper.Translate(x, y: single);
+procedure Tmat3x3Helper.Translate(x, y: GLfloat);
 begin
   Self[2, 0] := Self[2, 0] + x;
   Self[2, 1] := Self[2, 1] + y;
 end;
 
-procedure Tmat3x3Helper.Rotate(w: single);
+procedure Tmat3x3Helper.Rotate(w: GLfloat);
 var
   i: integer;
   x, y: GLfloat;
@@ -218,6 +222,19 @@ begin
     Self[i, 0] := x * cos(w) - y * sin(w);
     Self[i, 1] := x * sin(w) + y * cos(w);
   end;
+end;
+
+procedure Tmat3x3Helper.Transpose;
+var
+  i, j: integer;
+  m: Tmat3x3;
+begin
+  for i := 0 to 2 do begin
+    for j := 0 to 2 do begin
+      m[i, j] := Self[j, i];
+    end;
+  end;
+  Self := m;
 end;
 
 procedure Tmat3x3Helper.Multiply(m1, m2: TMatrix2D);
@@ -241,13 +258,13 @@ begin
   glUniformMatrix3fv(ShaderID, 1, False, @Self);
 end;
 
-procedure Tmat3x3Helper.Shear(x, y: single);
+procedure Tmat3x3Helper.Shear(x, y: GLfloat);
 begin
   Self[0, 1] += y;
   Self[1, 0] += x;
 end;
 
-procedure Tmat3x3Helper.Frustum(left, right, zNear, zFar: single); // geht nicht.
+procedure Tmat3x3Helper.Frustum(left, right, zNear, zFar: GLfloat); // geht nicht.
 begin
   Identity;
   Self[0, 0] := 2 * zNear / (right - left);
@@ -267,7 +284,7 @@ begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Ortho(left, right, bottom, top, znear, zfar: single);
+procedure TMatrixHelper.Ortho(left, right, bottom, top, znear, zfar: GLfloat);
 begin
   Identity;
   Self[0, 0] := 2 / (right - left);
@@ -278,7 +295,7 @@ begin
   Self[3, 2] := -(zfar + znear) / (zfar - znear);
 end;
 
-procedure TMatrixHelper.Frustum(left, right, bottom, top, znear, zfar: single);
+procedure TMatrixHelper.Frustum(left, right, bottom, top, znear, zfar: GLfloat);
 begin
   Identity;
   Self[0, 0] := 2 * znear / (right - left);
@@ -291,9 +308,9 @@ begin
   Self[3, 3] := 0;
 end;
 
-procedure TMatrixHelper.Perspective(fovy, aspect, znear, zfar: single);
+procedure TMatrixHelper.Perspective(fovy, aspect, znear, zfar: GLfloat);
 var
-  p, right, top: single;
+  p, right, top: GLfloat;
 begin
   p := fovy * Pi / 360;
   top := znear * (sin(p) / cos(p));
@@ -401,7 +418,6 @@ begin
   end;
 end;
 
-
 procedure TMatrixHelper.Scale(Faktor: GLfloat);
 var
   x, y: integer;
@@ -423,6 +439,25 @@ begin
     Self[i, 2] *= FaktorZ;
   end;
 end;
+
+procedure TMatrixHelper.ShearA(y, z: GLfloat);
+begin
+  Self[2, 1] += y;
+  Self[1, 2] += z;
+end;
+
+procedure TMatrixHelper.ShearB(x, z: GLfloat);
+begin
+  Self[2, 0] += x;
+  Self[0, 2] += z;
+end;
+
+procedure TMatrixHelper.ShearC(x, y: GLfloat);
+begin
+  Self[1, 0] += x;
+  Self[0, 1] += y;
+end;
+
 
 procedure TMatrixHelper.Transpose;
 var

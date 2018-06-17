@@ -20,7 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="53"/>
         <CursorPos X="86" Y="36"/>
         <UsageCount Value="23"/>
         <Loaded Value="True"/>
@@ -29,7 +30,6 @@
       <Unit2>
         <Filename Value="../../units/oglvector.pas"/>
         <UnitName Value="oglVector"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="21"/>
         <CursorPos X="30" Y="56"/>

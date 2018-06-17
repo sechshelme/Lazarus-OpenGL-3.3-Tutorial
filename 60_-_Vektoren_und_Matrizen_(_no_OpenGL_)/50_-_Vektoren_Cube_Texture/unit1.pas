@@ -13,7 +13,6 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    Image1: TImage;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -21,7 +20,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-    bit: TBitmap;
+    Textur, FrameBuffer: TBitmap;
     Matrix,
     ObjectMatrix,
     RotMatrix,
@@ -57,12 +56,12 @@ const
     // unten
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
   CubeColor: array[0..11] of Tmat3x2 = (
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
-    ((0.0, 0.0), (0.0, 1.0), (1.0, 1.0)), ((0.0, 0.0), (1.0, 1.0), (1.0, 0.0)));
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)));
 
 implementation
 
@@ -73,7 +72,9 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   DoubleBuffered := True;
-  bit := TBitmap.Create;
+  Textur:=TBitmap.Create;
+  Textur.LoadFromFile('2.bmp');
+  FrameBuffer := TBitmap.Create;
 
   Color := clBlack;
   FrustumMatrix.Frustum(-1, 1, -1, 1, 2.5, 1000.0);
@@ -90,7 +91,8 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  Bit.Free;
+  FrameBuffer.Free;
+  Textur.Free;
 end;
 
 procedure TForm1.PutPixel(x, y: integer; col: TVector2f);
@@ -103,7 +105,7 @@ type
   var
     p: PByte;
   begin
-    with Image1.Picture.Bitmap do begin
+    with Textur do begin
       if (x < 0) or (y < 0) or (x > Width) or (y > Height) then begin
         Exit;
       end;
@@ -123,12 +125,12 @@ var
   tc: Trgb;
 
 begin
-  with Image1.Picture.Bitmap do begin
+  with Textur do begin
     tc := getPixel(trunc(Width * col.x), trunc(Height * col.y));
   end;
 
-  p := bit.RawImage.GetLineStart(y);
-  Inc(p, x * (bit.RawImage.Description.BitsPerPixel div 8));
+  p := FrameBuffer.RawImage.GetLineStart(y);
+  Inc(p, x * (FrameBuffer.RawImage.Description.BitsPerPixel div 8));
   p^ := tc.b;
   Inc(p);
   p^ := tc.g;
@@ -297,11 +299,11 @@ const
   d = 2.7;
   s = 0;
 begin
-  WriteLn(bit.PixelFormat);
-  WriteLn(bit.RawImage.Description.BitsPerPixel);
+  WriteLn(FrameBuffer.PixelFormat);
+  WriteLn(FrameBuffer.RawImage.Description.BitsPerPixel);
 
-  p := bit.RawImage.Data;
-  FillChar(p^, bit.RawImage.DataSize, $00);
+  p := FrameBuffer.RawImage.Data;
+  FillChar(p^, FrameBuffer.RawImage.DataSize, $00);
 
   SetLength(zBuffer, ClientWidth * ClientHeight);
   for i := 0 to Length(zBuffer) - 1 do begin
@@ -330,12 +332,12 @@ end;
 
 procedure TForm1.FormPaint(Sender: TObject);
 begin
-  Canvas.Draw(0, 0, bit);
+  Canvas.Draw(0, 0, FrameBuffer);
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
 begin
-  with bit do begin
+  with FrameBuffer do begin
     Width := ClientWidth;
     Height := ClientHeight;
   end;
@@ -353,9 +355,9 @@ begin
   RotMatrix.RotateC(StepC / 4);
   RotMatrix.RotateB(StepB / 4);
 
-  bit.BeginUpdate();
+  FrameBuffer.BeginUpdate();
   DrawScene;
-  bit.EndUpdate();
+  FrameBuffer.EndUpdate();
 
   Invalidate;
 end;
