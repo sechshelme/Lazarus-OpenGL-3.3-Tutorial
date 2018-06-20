@@ -150,7 +150,7 @@ begin
 
   Shader.UseProgram;
 
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
+  ProdMatrix := ScaleMatrix * RotMatrix;
 
   // Zeichne linke Scheibe
   ProdMatrix.Uniform(Matrix_ID);

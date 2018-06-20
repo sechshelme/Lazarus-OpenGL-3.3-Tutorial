@@ -20,7 +20,6 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     Matrix,
-
     ObjectMatrix,
     RotMatrix,
     WorldMatrix,
@@ -38,13 +37,13 @@ var
   ofsx, ofsy: integer;
 
 const
-  Cube: array[0..23] of TVector3f = (
+  Cube: array[0..11, 0..1] of TVector3f = (
     // unten
-    (0, 0, 0), (1, 0, 0), (1, 0, 0), (1, 1, 0), (1, 1, 0), (0, 1, 0), (0, 1, 0), (0, 0, 0),
+    ((0, 0, 0), (1, 0, 0)), ((1, 0, 0), (1, 1, 0)), ((1, 1, 0), (0, 1, 0)), ((0, 1, 0), (0, 0, 0)),
     // Säulen
-    (0, 0, 0), (0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (1, 1, 1),
-    //oben
-    (0, 0, 1), (1, 0, 1), (1, 0, 1), (1, 1, 1), (1, 1, 1), (0, 1, 1), (0, 1, 1), (0, 0, 1));
+    ((0, 0, 0), (0, 0, 1)), ((0, 1, 0), (0, 1, 1)), ((1, 0, 0), (1, 0, 1)), ((1, 1, 0), (1, 1, 1)),
+    // oben
+    ((0, 0, 1), (1, 0, 1)), ((1, 0, 1), (1, 1, 1)), ((1, 1, 1), (0, 1, 1)), ((0, 1, 1), (0, 0, 1)));
 
 implementation
 
@@ -82,17 +81,17 @@ begin
   Canvas.Line(0, ofsy, ofsx * 2, ofsy);
   Canvas.Pen.Color := clBlack;
 
-  TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix;
+  TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix * ObjectMatrix;
 
   for x := -s to s do begin
     for y := -s to s do begin
       for z := -s to s do begin
         Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+        Matrix.Translate(x * d, y * d, z * d);
         Matrix := TempMatrix * Matrix;
 
-        for i := 0 to Length(Cube) div 2 - 1 do begin
-          DrawLine(Cube[i * 2 + 0], Cube[i * 2 + 1]);
+        for i := 0 to Length(Cube) - 1 do begin
+          DrawLine(Cube[i, 0], Cube[i, 1]);
         end;
       end;
     end;
@@ -120,13 +119,12 @@ end;
 procedure TForm1.DrawLine(p0, p1: TVector3f);
 var
   p: TVector4f;
-
 begin
   p := Matrix * vec4(p0, 1.0);
-  Canvas.MoveTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
+  Canvas.MoveTo(round(ofsx + p.x / p.w * scale), round(ofsy + p.y / p.w * scale));
 
   p := Matrix * vec4(p1, 1.0);
-  Canvas.LineTo(ofsx + round(p.x / p.w * scale), ofsy + round(p.y / p.w * scale));
+  Canvas.LineTo(round(ofsx + p.x / p.w * scale), round(ofsy + p.y / p.w * scale));
 end;
 
 end.

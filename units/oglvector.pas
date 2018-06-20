@@ -81,12 +81,14 @@ type
   private
     function GetW: GLfloat;
     function GetX: GLfloat;
+    function GetXYW: TVector3f;
     function GetY: GLfloat;
     function GetZ: GLfloat;
     function GetXY: TVector2f;
     function GetXYZ: TVector3f;
     procedure SetW(AValue: GLfloat);
     procedure SetX(AValue: GLfloat);
+    procedure SetXYW(AValue: TVector3f);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
     procedure SetXY(AValue: TVector2f);
@@ -98,6 +100,7 @@ type
     property w: GLfloat read GetW write SetW;
     property xy: TVector2f read GetXY write SetXY;
     property xyz: TVector3f read GetXYZ write SetXYZ;
+    property xyw: TVector3f read GetXYW write SetXYW;
 
     function ToInt: Uint32;
     procedure FromInt(i: UInt32);
@@ -680,6 +683,13 @@ begin
   Result[2] := Self[2];
 end;
 
+function TVector4fHelper.GetXYW: TVector3f; inline;
+begin
+  Result[0] := Self[0];
+  Result[1] := Self[1];
+  Result[2] := Self[3];
+end;
+
 procedure TVector4fHelper.SetX(AValue: GLfloat); inline;
 begin
   Self[0] := AValue;
@@ -711,6 +721,13 @@ begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
   Self[2] := AValue[2];
+end;
+
+procedure TVector4fHelper.SetXYW(AValue: TVector3f); inline;
+begin
+  Self[0] := AValue[0];
+  Self[1] := AValue[1];
+  Self[3] := AValue[2];
 end;
 
 function TVector4fHelper.ToInt: Uint32;

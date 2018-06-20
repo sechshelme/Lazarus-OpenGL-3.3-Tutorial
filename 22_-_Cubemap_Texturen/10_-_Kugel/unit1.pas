@@ -222,7 +222,7 @@ begin
 
   Matrix.Identity;
   Matrix.Scale(0.8);
-  Matrix.Multiply(RotMatrix, Matrix);
+  Matrix := RotMatrix *  Matrix;
 //  Matrix.Translate(0.5, 0.0, 0.0);
   Matrix.Uniform(Matrix_ID);
 

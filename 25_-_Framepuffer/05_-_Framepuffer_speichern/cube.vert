@@ -1,6 +1,6 @@
 #version 330
 
-layout (location = 0) in vec3 inPos;
+layout (location =  0) in vec3 inPos;
 layout (location = 10) in vec2 vertexUV0;
 
 uniform mat4 Matrix;

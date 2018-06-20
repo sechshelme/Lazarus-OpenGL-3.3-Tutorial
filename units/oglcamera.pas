@@ -90,7 +90,7 @@ end;
 
 procedure TCamera.MatrixMulti;
 begin
-  FCameraMatrix.Multiply(FProjectionMatrix, FRotationsMatrix);
+  FCameraMatrix := FProjectionMatrix *  FRotationsMatrix;
 end;
 
 procedure TCamera.SetEnabled(AValue: boolean);
@@ -159,7 +159,7 @@ begin
   TransMatrix.Scale(scale);
 
   FProjectionMatrix.Perspective(fovy, aspect, near, far);
-  FProjectionMatrix.Multiply(FProjectionMatrix, TransMatrix);
+  FProjectionMatrix := FProjectionMatrix * TransMatrix;
 
   MatrixMulti;
 end;

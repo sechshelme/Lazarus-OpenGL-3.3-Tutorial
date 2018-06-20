@@ -13,7 +13,7 @@ uses
 //image image.png
 (*
 Eine OpenGL-Scene wird immer in einem Bereich von <b>-1</b> bis <b>+1</b> in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.
-Um dies zu umgehen mutipliziert man die Scene mit einer Ortho-Matrix.
+Um dies zu umgehen multipliziert man die Scene mit einer Ortho-Matrix.
 Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs Parametern in der Funktion, kann man den gewünschten Bereich einstellen.
 
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,
@@ -161,10 +161,9 @@ begin
 end;
 
 (*
-Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrixen mutipliziert werden.
-Diese entspricht <b>Matrix = OrthoMatrix * WorldMatrix * Matrix</b>.
-Die Matrixen könnte man auch im Shader multiplizieren, dafür müsste man einfach wür jeder Matrix eine Unifom deklarieren.
-Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgefüht wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.
+Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrizen mutipliziert werden.
+Die Matrizen könnte man auch im Shader multiplizieren, dafür müsste man einfach für jede Matrix eine Uniform deklarieren.
+Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgeführt wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.
 
 Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet werden kann.
 *)
@@ -193,8 +192,7 @@ begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-        Matrix.Multiply(OrthoMatrix, Matrix);
+        Matrix := OrthoMatrix * WorldMatrix * Matrix;          // Matrizen multiplizieren.
 
         Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.

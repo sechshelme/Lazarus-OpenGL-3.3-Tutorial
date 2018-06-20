@@ -161,7 +161,7 @@ begin
   ScaleMatrix.Uniform(Matrix_ID);  // Matrix für die Vektoren.
 
   // --- Texturmatrizen multiplizieren und übergeben.
-  Matrix := TexturRotMatrix *  TexturTransMatrix;
+  Matrix := TexturRotMatrix * TexturTransMatrix;
   Matrix.Uniform(texMatrix_ID);
 
   // --- Zeichne Quadrat

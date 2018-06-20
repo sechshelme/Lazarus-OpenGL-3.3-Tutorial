@@ -174,7 +174,7 @@ begin
 
   Shader.UseProgram;
 
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
+  ProdMatrix := ScaleMatrix * RotMatrix;
 
   // Zeichne linke Scheibe
   TempMatrix := ProdMatrix;

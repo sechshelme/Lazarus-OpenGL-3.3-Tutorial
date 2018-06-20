@@ -15,6 +15,10 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+20.06.2018
+Matrix.Multiply wurde aus oglMatrix entfernt, dafür ist es möglich Matrizen direkt zu multiplizieren.
+Matrix := Matrix * Matrix
+
 08.05.2018
 Textur-Array
 

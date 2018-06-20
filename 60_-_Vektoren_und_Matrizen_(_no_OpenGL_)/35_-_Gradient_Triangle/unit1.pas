@@ -17,8 +17,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormPaint(Sender: TObject);
   private
-    procedure LineX(x0, x1, y: single; col0, col1: TVector4f);
-    procedure Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
+    procedure LineX(x0, x1, y: single; col0, col1: TVector3f);
+    procedure Triangle(v0, v1, v2: TVector2f; col0, col1, col2: TVector3f);
   public
 
   end;
@@ -42,24 +42,15 @@ procedure TForm1.FormPaint(Sender: TObject);
 var
   i: integer;
 begin
-  for i := 0 to 0 do begin
+  for i := 0 to 3 do begin
     Triangle(
-      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
-      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
-      vec4(Random * ClientWidth, Random * ClientHeight, 0.0, 1.0),
-      vec4(Random, Random, Random, 1.0),
-      vec4(Random, Random, Random, 1.0),
-      vec4(Random, Random, Random, 1.0));
+      vec2(Random * ClientWidth, Random * ClientHeight),
+      vec2(Random * ClientWidth, Random * ClientHeight),
+      vec2(Random * ClientWidth, Random * ClientHeight),
+      vec3(Random, Random, Random),
+      vec3(Random, Random, Random),
+      vec3(Random, Random, Random));
   end;
-
-  //  Triangle(
-  //    vec4(550, 50, 0.0, 1.0),
-  //    vec4(550, 250, 0.0, 1.0),
-  //    vec4(50, 251, 0.0, 1.0),
-  //    vec4(Random, Random, Random, 1.0),
-  //    vec4(Random, Random, Random, 1.0),
-  //    vec4(Random, Random, Random, 1.0));
-
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -67,24 +58,20 @@ begin
   Invalidate;
 end;
 
-procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector4f);
+
+procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector3f);
 var
   i: integer;
-  len: single;
-  addc,
-  c: TVector4f;
+  addc, c: TVector3f;
 
 begin
   if x0 > x1 then begin
     SwapglFloat(x0, x1);
-    SwapVertex4f(col0, col1);
+    SwapVertex3f(col0, col1);
   end;
 
-  len := x1 - x0;
-
-  addc := (col1 - col0) / len;
+  addc := (col1 - col0) / (x1 - x0);
   c := col0;
-  c.w := 0.0;
 
   for i := trunc(x0) to trunc(x1) do begin
     Canvas.Pixels[i, trunc(y)] := c.ToInt;
@@ -92,78 +79,69 @@ begin
   end;
 end;
 
-procedure TForm1.Triangle(a, b, c: TVector4f; colA, colB, colC: TVector4f);
+procedure TForm1.Triangle(v0, v1, v2: TVector2f; col0, col1, col2: TVector3f);
 var
   y: integer;
-  len_part, len_tot,
-  x1, x2, x3: single;        { x-Werte für Scanline-Algorithmus     }
-  m1, m2, m3: single;        { Increments für die x-Werte           }
-  addc_part, addc_tot,
-  c0, c1: TVector4f;
+  dif,
+
+  addx_0, addx_1, addx_2,
+  x0, x1, x2: single;
+
+  addc_0, addc_1, addc_2,
+  c0, c1, c2: TVector3f;
 
 begin
-//  colA := vec4(1, 0, 0, 0);
-//  colB := vec4(0, 1, 0, 0);
-//  colC := vec4(0, 0, 1, 0);
-
-  if (a.y > b.y) then begin
-    SwapglFloat(a[1], b[1]);
-    SwapglFloat(a[0], b[0]);
-    SwapVertex4f(colA, colB);
+  if (v0.y > v1.y) then begin
+    SwapVertex2f(v0, v1);
+    SwapVertex3f(col0, col1);
   end;
-  if (b.y > c.y) then begin
-    SwapglFloat(b[1], c[1]);
-    SwapglFloat(b[0], c[0]);
-    SwapVertex4f(colB, colC);
+  if (v1.y > v2.y) then begin
+    SwapVertex2f(v1, v2);
+    SwapVertex3f(col1, col2);
   end;
-  if (a.y > b.y) then begin
-    SwapglFloat(a[1], b[1]);
-    SwapglFloat(a[0], b[0]);
-    SwapVertex4f(colA, colB);
+  if (v0.y > v1.y) then begin
+    SwapVertex2f(v0, v1);
+    SwapVertex3f(col0, col1);
   end;
 
-  x1 := a.x;                                    { x-Wert Linie A -> B   }
-  x2 := b.x;                                    { x-Wert Linie B -> c0   }
-  x3 := a.x;                                    { x-Wert Linie A -> c0   }
+  dif := v1.y - v0.y;
+  addx_0 := (v1.x - v0.x) / dif;
+  x0 := v0.x;
+  addc_0 := (col1 - col0) / dif;
+  c0 := col0;
 
-  m1 := (b.x - a.x) / (b.y - a.y);                      { Increments   A -> B   }
-  m2 := (b.x - c.x) / (b.y - c.y);                      { Increments   B -> c0   }
-  m3 := (c.x - a.x) / (c.y - a.y);                      { Increments   A -> c0   }
+  dif := v1.y - v2.y;
+  addx_1 := (v1.x - v2.x) / dif;
+  x1 := v1.x;
+  addc_1 := (col1 - col2) / dif;
+  c1 := col1;
 
-  len_tot := c.y - a.y;
+  dif := v2.y - v0.y;
+  addx_2 := (v2.x - v0.x) / dif;
+  x2 := v0.x;
+  addc_2 := (col2 - col0) / dif;
+  c2 := col0;
 
-  // erste Teilfläche
-  len_part := b.y - a.y;
+  // erstes Teildreieck
+  for y := trunc(v0.y) to trunc(v1.y) - 1 do begin
+    LineX(x0, x2, y, c0, c2);
+    x0 += addx_0;
+    x2 += addx_2;
 
-  addc_part := (colB - colA) / len_part;
-  c0 := colA;
-
-  addc_tot := (colC - colA) / len_tot;
-  c1 := colA;
-
-  for y := trunc(a.y) to trunc(a.y + len_part) - 1 do begin
-    LineX(x1, x3, y, c0, c1);
-    x1 := x1 + m1;
-    x3 := x3 + m3;
-
-    c0 := c0 + addc_part;
-    c1 := c1 + addc_tot;
+    c0 += addc_0;
+    c2 += addc_2;
   end;
 
-  // zweite Teilfläche
-  len_part := c.y - b.y;
+  // zweites Teildreieck
+  for y := trunc(v1.y) to trunc(v2.y) - 1 do begin
+    LineX(x1, x2, y, c1, c2);
+    x1 += addx_1;
+    x2 += addx_2;
 
-  addc_part := (colC - colB) / len_part;
-  c0 := colB;
-
-  for y := trunc(b.y) to trunc(b.y + len_part) - 1 do begin
-    LineX(x2, x3, y, c0, c1);
-    x2 := x2 + m2;
-    x3 := x3 + m3;
-
-    c0 := c0 + addc_part;
-    c1 := c1 + addc_tot;
+    c1 += addc_1;
+    c2 += addc_2;
   end;
 end;
+
 
 end.

@@ -76,10 +76,10 @@ const
   CubeSize = 5;                                // Anzahl Würfel pro Seite
   CubeTotal = CubeSize * CubeSize * CubeSize;  // Würfel Total
 
-  (*
-  Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.
-  Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.
-  *)
+(*
+Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.
+Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.
+*)
 //code+
 type
   TCubePos = record
@@ -262,13 +262,13 @@ begin
   for i := 0 to CubeTotal - 1 do begin
     CubePosArray[i]^.mat.Identity;
     CubePosArray[i]^.mat.Translate(CubePosArray[i]^.pos);             // Matrix verschieben.
-    CubePosArray[i]^.mat.Multiply(WorldMatrix, CubePosArray[i]^.mat); // Matrixen multiplizieren.
+    CubePosArray[i]^.mat := WorldMatrix * CubePosArray[i]^.mat;       // Matrixen multiplizieren.
   end;
 
   QuickSort(CubePosArray, 0, CubeTotal - 1);                          // Würfel nach der Z-Tiefe sortieren.
 
   for i := 0 to CubeTotal - 1 do begin
-    CubePosArray[i]^.mat.Multiply(FrustumMatrix, CubePosArray[i]^.mat);
+    CubePosArray[i]^.mat := FrustumMatrix * CubePosArray[i]^.mat;
     CubePosArray[i]^.mat.Uniform(Matrix_ID);                          // Matrix dem Shader übergeben.
     glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);            // Zeichnet einen kleinen Würfel.
   end;
@@ -287,7 +287,7 @@ begin
   for i := 0 to CubeTotal - 1 do begin
     New(CubePosArray[i]);
   end;
-//code-
+  //code-
   Shader.Free;
 
   glDeleteVertexArrays(1, @VBCube.VAO);

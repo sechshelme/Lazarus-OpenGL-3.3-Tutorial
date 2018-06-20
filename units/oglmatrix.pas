@@ -25,7 +25,7 @@ type
   Tmat3x3Helper = type Helper for Tmat3x3  // Arbeitet nicht richtig mit Shadern zusammen !
   public
     procedure Identity;
-    procedure Multiply(m1, m2: TMatrix2D);
+//    procedure Multiply(m1, m2: TMatrix2D);
 
     procedure Uniform(ShaderID: GLint);
 
@@ -36,7 +36,7 @@ type
     procedure Transpose;
     procedure Shear(x, y: GLfloat);
 
-    procedure Frustum(left, right, zNear, zFar: GLfloat);       // ??????????????
+    procedure Frustum(left, right, zNear, zFar: GLfloat);
   end;
 
   { TMatrixHelper }
@@ -44,7 +44,7 @@ type
   TMatrixHelper = type Helper for Tmat4x4
   public
     procedure Identity;
-    procedure Multiply(const m1t, m2t: TMatrix);
+//    procedure Multiply(const m1t, m2t: TMatrix);
 
     procedure Uniform(ShaderID: GLint);
 
@@ -237,21 +237,21 @@ begin
   Self := m;
 end;
 
-procedure Tmat3x3Helper.Multiply(m1, m2: TMatrix2D);
-var
-  i, j, k: integer;
-  m: TMat3x3;
-begin
-  for  i := 0 to 2 do begin
-    for j := 0 to 2 do begin
-      m[i, j] := 0;
-      for k := 0 to 2 do begin
-        m[i, j] := m[i, j] + m2[i, k] * m1[k, j];
-      end;
-    end;
-  end;
-  Self := m;
-end;
+//procedure Tmat3x3Helper.Multiply(m1, m2: TMatrix2D);
+//var
+//  i, j, k: integer;
+//  m: TMat3x3;
+//begin
+//  for  i := 0 to 2 do begin
+//    for j := 0 to 2 do begin
+//      m[i, j] := 0;
+//      for k := 0 to 2 do begin
+//        m[i, j] := m[i, j] + m2[i, k] * m1[k, j];
+//      end;
+//    end;
+//  end;
+//  Self := m;
+//end;
 
 procedure Tmat3x3Helper.Uniform(ShaderID: GLint);
 begin
@@ -472,21 +472,21 @@ begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Multiply(const m1t, m2t: TMatrix);
-var
-  x, y, i: integer;
-  m: Tmat4x4;
-begin
-  for x := 0 to 3 do begin
-    for y := 0 to 3 do begin
-      m[x, y] := 0;
-      for i := 0 to 3 do begin
-        m[x, y] += m1t[i, y] * m2t[x, i];
-      end;
-    end;
-  end;
-  Self := m;
-end;
+//procedure TMatrixHelper.Multiply(const m1t, m2t: TMatrix);
+//var
+//  x, y, i: integer;
+//  m: Tmat4x4;
+//begin
+//  for x := 0 to 3 do begin
+//    for y := 0 to 3 do begin
+//      m[x, y] := 0;
+//      for i := 0 to 3 do begin
+//        m[x, y] += m1t[i, y] * m2t[x, i];
+//      end;
+//    end;
+//  end;
+//  Self := m;
+//end;
 
 procedure TMatrixHelper.Uniform(ShaderID: GLint);
 begin

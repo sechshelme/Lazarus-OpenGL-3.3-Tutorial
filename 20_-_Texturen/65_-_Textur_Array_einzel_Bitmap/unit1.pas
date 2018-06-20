@@ -163,7 +163,7 @@ begin
       Matrix.Identity;
       Matrix.Scale(0.4);
       Matrix.Translate(-1.0 + x, -0.5 + y, 0.0);
-      Matrix.Multiply(ScaleMatrix, Matrix);
+      Matrix := ScaleMatrix * Matrix;
       Matrix.Uniform(Matrix_ID);
 
       glUniform1i(Layer_ID, x + y * 3);    // Layer wechseln

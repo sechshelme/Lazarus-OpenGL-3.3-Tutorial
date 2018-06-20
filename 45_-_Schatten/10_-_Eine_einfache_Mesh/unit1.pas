@@ -332,10 +332,10 @@ begin
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
 
-    Matrix.Identity;
-    Matrix.Multiply(ObjectMatrix, Matrix);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+//    Matrix.Identity;
+//    Matrix.Multiply(ObjectMatrix, Matrix);
+//    Matrix.Multiply(WorldMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * ObjectMatrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, 0, Length(vec));
@@ -352,11 +352,9 @@ begin
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
 
-    Matrix.Identity;
-    Matrix.Multiply(ObjectMatrix, Matrix);
+    Matrix :=ObjectMatrix;
     Matrix.Translate(0.5, 0.0, 0.0);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, 0, Length(vec));
@@ -373,8 +371,7 @@ begin
 
     Matrix.Translate(-1.5, 0.0, -0.3);
     Matrix.RotateB(-pi / 2);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, 0, Length(vec));

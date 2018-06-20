@@ -290,16 +290,15 @@ begin
     for y := -CubeSize to CubeSize do begin
       for z := -CubeSize to CubeSize do begin
         Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+        Matrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
         Matrix.Scale(scal);
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
         Matrix.Uniform(ModelMatrix_ID);
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+        Matrix := FrustumMatrix * WorldMatrix *  Matrix;         // Matrixen multiplizieren.
 
-        Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
+        Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet einen kleinen Würfel.
       end;
     end;

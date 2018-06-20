@@ -26,7 +26,7 @@ Wen man dies nicht macht, hat man eine falsche Abdunklung auf den schrägen Drei
 
 Hier wird die einfachste Variante einer Beleuchtung gezeigt.
 Dazu wird das Skalarprodukt zwischen der Normalen und der Lichtposition berechnet.
-Dabei werden die Polygone dunkler, je grösser der Winkel. 0°=weiss; 180°schwarz.
+Dabei werden die Polygone dunkler, je grösser der Winkel. 0°=weiss; 180°=schwarz.
 Diese Beleuchtung ist eigentlich nicht üblich, aber immerhin sieht man die Mehses viel besser.
 Aber es zeigt wenigsten, wie das Grundgerüst einer Beleuchtung aussieht.
 
@@ -238,12 +238,11 @@ begin
       for z := -s to s do begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 // Lokale Translationen.
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
         Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen mit Worlposition und
-        Matrix.Multiply(FrustumMatrix, Matrix);                // Frustum multiplizieren.
+        Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrixen multiplizieren.
 
         Matrix.Uniform(Matrix_ID);                             // Die komplettt berechnete Matrix übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen einzelnen Würfel.

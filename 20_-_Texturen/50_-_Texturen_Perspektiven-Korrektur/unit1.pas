@@ -171,7 +171,7 @@ begin
   glUniform1i(Variante_ID, 0);
   TransMatrix.Identity;
   TransMatrix.Translate(-1.2, 0.0, 0.0);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
   glBindVertexArray(VBO_Trapeze.VAO);
@@ -181,7 +181,7 @@ begin
   glUniform1i(Variante_ID, 1);
   TransMatrix.Identity;
   TransMatrix.Translate(1.2, 1.0, 0.0);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(TrapezeVertex));
 
@@ -189,7 +189,7 @@ begin
   glUniform1i(Variante_ID, 2);
   TransMatrix.Identity;
   TransMatrix.Translate(1.2, -1.0, 0.0);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(TrapezeVertex));
 

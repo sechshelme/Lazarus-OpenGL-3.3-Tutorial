@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="148"/>
-        <CursorPos X="87" Y="122"/>
+        <TopLine Value="31"/>
+        <CursorPos X="75" Y="142"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,7 +53,7 @@
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="13" Y="4"/>
+        <CursorPos X="54" Y="9"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>

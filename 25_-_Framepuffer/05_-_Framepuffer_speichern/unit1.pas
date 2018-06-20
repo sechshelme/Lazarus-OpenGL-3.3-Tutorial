@@ -297,7 +297,11 @@ begin
     // FramePuffer aktivieren.
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
 
-    glClearColor(0.3, 0.3, 1.0, 1.0);
+    glClearColor(0.3, 0.3, 1.0, 0.5);
+
+    glEnable(GL_BLEND);                                  // Alphablending an
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
+
     glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, TexturSize, TexturSize);
 

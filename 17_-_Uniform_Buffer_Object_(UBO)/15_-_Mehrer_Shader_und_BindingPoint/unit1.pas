@@ -331,12 +331,11 @@ begin
     Matrix.Identity;
     Matrix.Translate(d, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
@@ -350,12 +349,11 @@ begin
     Matrix.Identity;
     Matrix.Translate(d + 30, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
@@ -369,12 +367,11 @@ begin
     Matrix.Identity;
     Matrix.Translate(d - 30, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);

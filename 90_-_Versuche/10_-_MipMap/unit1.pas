@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader,oglVector, oglMatrix;
+  oglContext, oglShader, oglVector, oglMatrix;
 
 type
 
@@ -144,10 +144,10 @@ begin
       //3: tex[j] := $0FF00;
       //4: tex[j] := $FF000;
       //end;
-      tex[j] := ($FF00000 div (w*w) * j)  shr (i * 4);
-//      tex[j] := $FF00000  shr (i * 4);
+      tex[j] := ($FF00000 div (w * w) * j) shr (i * 4);
+      //      tex[j] := $FF00000  shr (i * 4);
     end;
-//    WriteLn(IntToHex($FF00000 shr (i * 4), 8));
+    //    WriteLn(IntToHex($FF00000 shr (i * 4), 8));
     glTexImage2D(GL_TEXTURE_2D, i - 1, GL_RGBA, w, w, 0, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(tex));
   end;
 
@@ -174,7 +174,7 @@ end;
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  m:TMatrix;
+  m: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -185,12 +185,12 @@ begin
 
   glBindVertexArray(VBTriangle.VAO);
 
-  prodMatrix.Multiply(ScaleMatrix, RotMatrix);
+  prodMatrix := ScaleMatrix * RotMatrix;
 
   prodMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 
-  m:=  prodMatrix;
+  m := prodMatrix;
   prodMatrix.Translate(0.5, 0.0, 0.0);
   prodMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
@@ -220,11 +220,11 @@ begin
   if scale > 1.0 then begin
     scale := 0.1;
   end;
-//    ScaleMatrix.Identity;
-//    ScaleMatrix.Scale(scale);
+  //    ScaleMatrix.Identity;
+  //    ScaleMatrix.Scale(scale);
 
 
-//RotMatrix.RotateC(step);
+  //RotMatrix.RotateC(step);
 
   ogcDrawScene(Sender);
 end;

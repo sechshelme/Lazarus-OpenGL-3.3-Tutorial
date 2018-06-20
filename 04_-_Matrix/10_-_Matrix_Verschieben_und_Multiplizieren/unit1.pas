@@ -140,10 +140,14 @@ begin
 end;
 
 (*
-Hier wird das Produkt von TransMatrx und RotMatrix den Shader übergeben.
+Hier wird das Produkt von TransMatrix und RotMatrix den Shader übergeben.
 Mit der Klasse geht dies einfacht mit <b>Matrix.Uniform(ID)</b>
 
-<b>Matrix.Multiply(...</b> entspricht: <b>prodMatrix = TransMatrix * RotMatrix</b> .
+Matrizen multiplizieren geht am einfachsten mit der überladenen Multiplikation-Funktion.
+//code+
+Matrix := Matrix * Matrix;
+Matrix := Matrix * Matrix * Matrix;
+//code-
 Dabei wird die Mesh zuerst gedreht und dann verschoben.
 <b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b>
 
@@ -155,17 +159,9 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-  prodMatrix.Multiply(TransMatrix, RotMatrix); // Matrix multiplizieren.
-  prodMatrix.Uniform(Matrix_ID);               // prodMatrix in den Shader schreiben.
-  //code-
-(*
-Alternativ zu <b>Matrix.Multiply(...</b>, kann man den überladenen Multipliktor "<b>*</b>" verwenden.
-//code+
-  ...
   prodMatrix := TransMatrix * RotMatrix;       // Matrix multiplizieren.
   prodMatrix.Uniform(Matrix_ID);               // prodMatrix in den Shader schreiben.
-//code-
-*)
+  //code-
 
   // Zeichne Dreieck
   glUniform3f(Color_ID, 1.0, 1.0, 0.0);

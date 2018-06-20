@@ -127,11 +127,11 @@ begin
   with Camera do begin
     m := ObjectMatrix;;
 //    ObjectMatrix.Push;
-    ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
+    ObjectMatrix := WorldMatrix * ObjectMatrix;
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
-    ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
+    ObjectMatrix := CameraMatrix * ObjectMatrix;
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
 //    ObjectMatrix.Pop;

@@ -175,18 +175,9 @@ var
   c0, c1, c2: TVector3f;
 
 begin
-  //col0 := vec4(1, 0, 0, 0);
-  //col1 := vec4(0, 1, 0, 0);
-  //col2 := vec4(0, 0, 1, 0);
-
-  //col0 := vec4(1, 0, 0, 0);
-  //col1 := vec4(1, 1, 0, 0);
-  //col2 := vec4(1, 0, 1, 0);
-
   v0 := Matrix * v0;
   v1 := Matrix * v1;
   v2 := Matrix * v2;
-
 
   v0.x := v0.x / v0.w * scale + ofsx;
   v0.y := v0.y / v0.w * scale + ofsy;
@@ -288,7 +279,7 @@ begin
     for y := -s to s do begin
       for z := -s to s do begin
         Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+        Matrix.Translate(x * d, y * d, z * d);
         Matrix := TempMatrix * Matrix;
 
         for i := 0 to Length(CubeVertex) - 1 do begin

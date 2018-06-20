@@ -181,7 +181,7 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-puffer löschen.
 
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
@@ -196,35 +196,33 @@ begin
 
   glBindVertexArray(VBCube.VAO);
 
-  // --- Zeichne Würfel
+  // --- Zeichne Quader unten
 
   Matrix.Identity;
   Matrix.Scale(100, 50, 10.0);
   Matrix.Translate(0.0, -20.0, 0.0);
-  Matrix.Multiply(ModelMatrix, Matrix);
+  Matrix := ModelMatrix * Matrix;
 
   Matrix.Uniform(ModelMatrix_ID);
 
-  Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-  Matrix.Multiply(FrustumMatrix, Matrix);
+  Matrix := FrustumMatrix * WorldMatrix *  Matrix;
+  Matrix.Uniform(Matrix_ID);
 
-  Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
-  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
+  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);
 
-  // --- Zeichne Würfel
+  // --- Zeichne Quader oben
 
   Matrix.Identity;
   Matrix.Scale(95, 50, 10.0);
   Matrix.Translate(0.0, 20.0, -10.0);
-  Matrix.Multiply(ModelMatrix, Matrix);
+  Matrix := ModelMatrix * Matrix;
 
   Matrix.Uniform(ModelMatrix_ID);
 
-  Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-  Matrix.Multiply(FrustumMatrix, Matrix);
+  Matrix := FrustumMatrix * WorldMatrix *  Matrix;
+  Matrix.Uniform(Matrix_ID);
 
-  Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
-  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
+  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);
 
   ogc.SwapBuffers;
 end;

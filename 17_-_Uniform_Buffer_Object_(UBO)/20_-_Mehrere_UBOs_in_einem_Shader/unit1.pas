@@ -295,12 +295,11 @@ begin
             Model.Identity;
             Model.Translate(x * d, y * d, z * d);
             Model.Scale(scal);
-            Model.Multiply(ModelMatrix, Model);
+            Model := ModelMatrix * Model;
 
             World := Model;
 
-            World.Multiply(WorldMatrix, World);
-            World.Multiply(FrustumMatrix, World);
+            World := FrustumMatrix * WorldMatrix * World;
           end;
 
           // --- Matrixzen in UBO laden.

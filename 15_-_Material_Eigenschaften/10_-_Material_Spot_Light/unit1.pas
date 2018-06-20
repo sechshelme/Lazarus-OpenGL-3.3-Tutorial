@@ -239,12 +239,11 @@ begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
         Matrix.Scale(scal);
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
-        Matrix.Uniform(ModelMatrix_ID);
+        Matrix.Uniform(ModelMatrix_ID);                          // Erste Übergabe an den Shader.
 
-        Matrix.Multiply(WorldMatrix, Matrix);                    // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+        Matrix := FrustumMatrix * WorldMatrix *  Matrix;         // Matrixen multiplizieren.
 
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.

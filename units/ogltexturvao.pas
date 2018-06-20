@@ -217,11 +217,11 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;
-    ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
+    ObjectMatrix := WorldMatrix * ObjectMatrix;
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
-    ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
+    ObjectMatrix := CameraMatrix * ObjectMatrix;
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
 
@@ -345,11 +345,11 @@ begin
 
   with Camera do begin
     m := ObjectMatrix;;
-    ObjectMatrix.Multiply(WorldMatrix, ObjectMatrix);
+    ObjectMatrix := WorldMatrix * ObjectMatrix;
 
     ObjectMatrix.Uniform(UniformID.ObjectMatrix);
 
-    ObjectMatrix.Multiply(CameraMatrix, ObjectMatrix);
+    ObjectMatrix := CameraMatrix * ObjectMatrix;
     ObjectMatrix.Uniform(UniformID.CameraMatrix);
     ObjectMatrix := m;
 

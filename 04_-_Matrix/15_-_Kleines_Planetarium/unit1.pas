@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVector, oglMatrix;
 
 type
   { TPlanet }
@@ -16,10 +16,9 @@ type
   TPlanet = class(TObject)
   private
     type
-    TFaceArray = array of TFace3D;
-
     TMesh = record
-      Vector, Color: TFaceArray;
+      Vector: array of TFace2D;
+      Color: array of TFace3D;
       size: integer;
     end;
 
@@ -31,7 +30,7 @@ type
     fPlanetSpeed, FMondSpeed, FUmlaufSpeed: GLfloat;
 
     TempMatrix,
-    PlanetRotMatrix, UmlaufTransMatrix, MondRotMatrix, MondTransMatrix, UmlaufRotMatrix: TMatrix;
+    PlanetRotMatrix, UmlaufTransMatrix, MondRotMatrix, MondTransMatrix, UmlaufRotMatrix: TMatrix2D;
 
     procedure SetMondR(AValue: GLfloat);
     procedure SetUmlaufR(AValue: GLfloat);
@@ -76,8 +75,11 @@ implementation
 //image image.png
 
 (*
-Kleines Planetarium, welches die Handhabung von Matrixen demonstriert.
+Kleines Planetarium, welches die Handhabung von Matrizen demonstriert.
 Das es übersichtlicher wird, habe ich die Sonne und die Planeten in eine Klasse gepackt.
+
+Da dieses Beispiel auf einer 2D-Ebene läuft, wird nur eine <b>3x3</b>-Matrix verwendet, auch die Vektor-Koordinaten sind 2D.
+Einzig der Vertex-Shader wird ein wenig komplizierter, da die Z-Achse nicht verwendet wird.
 
 Am Shader wird nur eine Matrix übergeben, welche von der CPU berechnet wird.
 Diese Matrix wird aus verschiedene Transformen berechnet.
@@ -85,7 +87,7 @@ Diese Matrix wird aus verschiedene Transformen berechnet.
 //lineal
 
 (*
-Es gibt nur eine ID, da die ganzen Matrixen-Berechnung mit der CPU ausgeführt werden.
+Es gibt nur eine ID, da die ganze Matrizen-Berechnung mit der CPU ausgeführt werden.
 *)
 //code+
 var
@@ -116,9 +118,9 @@ begin
         Color[i, j] := vec3(col[0] + (Random / 4), col[1] + (Random / 4), col[2] + (Random / 4));
       end;
 
-      Vector[i, 0] := vec3(0.0, 0.0, 0.0);
-      Vector[i, 1] := vec3(sin(Pi * 2 / size * i), cos(Pi * 2 / size * i), 0.0);
-      Vector[i, 2] := vec3(sin(Pi * 2 / size * (i + 1)), cos(Pi * 2 / size * (i + 1)), 0.0);
+      Vector[i, 0] := vec2(0.0, 0.0);
+      Vector[i, 1] := vec2(sin(Pi * 2 / size * i), cos(Pi * 2 / size * i));
+      Vector[i, 2] := vec2(sin(Pi * 2 / size * (i + 1)), cos(Pi * 2 / size * (i + 1)));
     end;
   end;
   //code-
@@ -140,9 +142,9 @@ begin
   with Mesh do begin
     // Vektor
     glBindBuffer(GL_ARRAY_BUFFER, VBOvert);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(TFace3D) * size, Pointer(Vector), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(TFace2D) * size, Pointer(Vector), GL_STATIC_DRAW);
     glEnableVertexAttribArray(10);
-    glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 
     // Farbe
     glBindBuffer(GL_ARRAY_BUFFER, VBOcol);
@@ -167,12 +169,12 @@ Legt die Matrix für die Umlaufbahnen fest.
 //code+
 procedure TPlanet.SetMondR(AValue: GLfloat);
 begin
-  MondTransMatrix.Translate(AValue, 0.0, 0.0);  // Distanz Erde - Mond. ( Erde Mond ist ein Doppelplanet )
+  MondTransMatrix.Translate(AValue, 0.0);  // Distanz Erde - Mond. ( Erde Mond ist ein Doppelplanet )
 end;
 
 procedure TPlanet.SetUmlaufR(AValue: GLfloat);
 begin
-  UmlaufTransMatrix.Translate(AValue, 0.0, 0.0); // Distanz Sonne - Panet.
+  UmlaufTransMatrix.Translate(AValue, 0.0); // Distanz Sonne / Planet.
 end;
 //code-
 
@@ -182,20 +184,14 @@ Hier werden die Bahnen der Planeten berechnet und anschliessend gezeichnet.
 //code+
 procedure TPlanet.Draw;
 begin
-  UmlaufRotMatrix.RotateC(FUmlaufSpeed);
-  PlanetRotMatrix.RotateC(fPlanetSpeed);
-  MondRotMatrix.RotateC(FMondSpeed);
-
-  // TempMatrix = UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * PlanetRotMatrix;
+  UmlaufRotMatrix.Rotate(FUmlaufSpeed);
+  PlanetRotMatrix.Rotate(fPlanetSpeed);
+  MondRotMatrix.Rotate(FMondSpeed);
 
   TempMatrix := PlanetRotMatrix;
   TempMatrix.Scale(fPlanetScale);
 
-  TempMatrix.Multiply(MondTransMatrix, TempMatrix);
-  TempMatrix.Multiply(MondRotMatrix, TempMatrix);
-
-  TempMatrix.Multiply(UmlaufTransMatrix, TempMatrix);
-  TempMatrix.Multiply(UmlaufRotMatrix, TempMatrix);
+  TempMatrix := UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * TempMatrix;
 
   TempMatrix.Uniform(Matrix_ID);
 
@@ -317,6 +313,9 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
+
+Bei der Multiplikation, wird die Z-Achse ignoriert, aus diesem Grund wird <b>glPosition.xyw</b> verwendet.
+Anschliessend wird Z auf <b>0.0</b> gesetzt.
 *)
 //includeglsl Vertexshader.glsl
 //lineal

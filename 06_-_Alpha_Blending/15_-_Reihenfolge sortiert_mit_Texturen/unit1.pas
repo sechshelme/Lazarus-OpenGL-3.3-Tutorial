@@ -14,7 +14,7 @@ uses
 (*
 Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.
 Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.
-Für den Boden wird eine Matrix gebrauch, da ich diesen drehe.
+Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.
 
 Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.
 
@@ -228,7 +228,7 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
 begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);        // Frame und Tiefen-Puffer löschen.
 
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
@@ -238,31 +238,27 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   // --- Zeichne Boden
-  SandTextur.ActiveAndBind;                              // Boden-Textur binden
+  SandTextur.ActiveAndBind;                                   // Boden-Textur binden
   Matrix.Identity;
   Matrix.Translate(0.0, 1.0, 0.0);
   Matrix.Scale(10.0);
   Matrix.RotateA(Pi / 2);
 
-  Matrix.Multiply(GroundPos, Matrix);
+  Matrix := FrustumMatrix * WorldMatrix * GroundPos * Matrix; // Matrizen multiplizieren.
 
-  Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-  Matrix.Multiply(FrustumMatrix, Matrix);
-
-  Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3); // Zeichnet einen kleinen Würfel.
+  Matrix.Uniform(Matrix_ID);                                  // Matrix dem Shader übergeben.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);      // Zeichnet einen kleinen Würfel.
 
   // --- Zeichne Bäume
-  QuickSort(TreePosArray, 0, TreeCount - 1);             // Die Bäume sortieren.
+  QuickSort(TreePosArray, 0, TreeCount - 1);                  // Die Bäume sortieren.
 
-  BaumTextur.ActiveAndBind;                              // Baum-Textur binden
+  BaumTextur.ActiveAndBind;                                   // Baum-Textur binden
 
   for i := 0 to TreeCount - 1 do begin
     Matrix.Identity;
-    Matrix.Translate(TreePosArray[i]^);                  // Die Bäume an die richtige Position bringen
+    Matrix.Translate(TreePosArray[i]^);                       // Die Bäume an die richtige Position bringen
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;           // Matrizen multiplizieren.
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);

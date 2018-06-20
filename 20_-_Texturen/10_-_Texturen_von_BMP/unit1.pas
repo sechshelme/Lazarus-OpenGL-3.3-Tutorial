@@ -155,7 +155,7 @@ begin
 
   Shader.UseProgram;
 
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
+  ProdMatrix := ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
   // Zeichne Quadrat
