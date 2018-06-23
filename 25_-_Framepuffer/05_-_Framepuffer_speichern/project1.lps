@@ -10,7 +10,7 @@
         <IsPartOfProject Value="True"/>
         <WindowIndex Value="1"/>
         <CursorPos X="49" Y="10"/>
-        <UsageCount Value="151"/>
+        <UsageCount Value="152"/>
       </Unit0>
       <Unit1>
         <Filename Value="unit1.pas"/>
@@ -19,11 +19,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="230"/>
-        <CursorPos X="125" Y="254"/>
-        <UsageCount Value="151"/>
+        <CursorPos X="9" Y="10"/>
+        <UsageCount Value="152"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -33,7 +31,7 @@
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <CursorPos X="2" Y="27"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="32"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit2>
       <Unit3>
@@ -42,7 +40,7 @@
         <EditorIndex Value="2"/>
         <WindowIndex Value="1"/>
         <CursorPos X="24" Y="5"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit3>
@@ -52,7 +50,7 @@
         <EditorIndex Value="3"/>
         <WindowIndex Value="1"/>
         <CursorPos X="13" Y="3"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit4>
@@ -62,17 +60,18 @@
         <EditorIndex Value="4"/>
         <WindowIndex Value="1"/>
         <CursorPos X="45" Y="15"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="cube.frag"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="1"/>
         <CursorPos X="2" Y="12"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit6>
@@ -355,8 +354,8 @@
         <Filename Value="..\..\units\dglOpenGL.pas"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
-        <TopLine Value="11871"/>
-        <CursorPos X="3" Y="11926"/>
+        <TopLine Value="8347"/>
+        <CursorPos X="16" Y="8412"/>
         <UsageCount Value="10"/>
       </Unit48>
     </Units>

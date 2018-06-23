@@ -46,14 +46,14 @@ type
   public
     constructor Create;
 
-    procedure Add(Face: TFace2D); overload;
-    procedure Add(v0, v1, v2: TVector2f); overload;
+    procedure Add(const Face: TFace2D); overload;
+    procedure Add(const v0, v1, v2: TVector2f); overload;
     procedure Add(const Face: array of TFace2D); overload;
     procedure Copy(von, bis, anz: integer);
     procedure Rotate(Angele: single);
     procedure Scale(Factor: single); overload;
     procedure Scale(Factorx, Factory: single); overload;
-    procedure Scale(Factor: TVector2f); overload;
+    procedure Scale(const Factor: TVector2f); overload;
     procedure Modif(von, bis: integer; m: TModif);
     procedure Modif(m: TModif);
   end;
@@ -64,14 +64,14 @@ type
   public
     constructor Create;
 
-    procedure Add(Face: TFace3D); overload;
-    procedure Add(v0, v1, v2: TVector3f); overload;
+    procedure Add(const Face: TFace3D); overload;
+    procedure Add(const v0, v1, v2: TVector3f); overload;
     procedure Add(const Face: array of TFace3D); overload;
     procedure Add(const f: TglFloatArray); overload;
     procedure Copy(von, bis, anz: integer);
     procedure RotateB(winkel: single); overload;
     procedure RotateB(winkel: single; von, bis: integer); overload;
-    procedure Translate(v: TVector3f);
+    procedure Translate(const v: TVector3f);
     procedure Modif(von, bis: integer; m: TModif);
     procedure Modif(m: TModif);
   end;
@@ -82,7 +82,7 @@ type
   public
     constructor Create;
 
-    procedure Add(Vertex: TVector3f);
+    procedure Add(const Vertex: TVector3f);
   end;
 
 
@@ -163,12 +163,12 @@ begin
   Primitive_Size := 6;
 end;
 
-procedure TVBO_Triangles2D.Add(Face: TFace2D); inline;
+procedure TVBO_Triangles2D.Add(const Face: TFace2D);
 begin
   GLfloatArray.AddFace2D(Face);
 end;
 
-procedure TVBO_Triangles2D.Add(v0, v1, v2: TVector2f); inline;
+procedure TVBO_Triangles2D.Add(const v0, v1, v2: TVector2f);
 begin
   GLfloatArray.AddFace2D(v0, v1, v2);
 end;
@@ -231,7 +231,7 @@ begin
   GLfloatArray.Scale(Factorx, Factory);
 end;
 
-procedure TVBO_Triangles2D.Scale(Factor: TVector2f); inline;
+procedure TVBO_Triangles2D.Scale(const Factor: TVector2f);
 begin
   Scale(Factor[0], Factor[1]);
 end;
@@ -279,12 +279,12 @@ begin
   Primitive_Size := 9;
 end;
 
-procedure TVBO_Triangles.Add(Face: TFace3D); inline;
+procedure TVBO_Triangles.Add(const Face: TFace3D);
 begin
   GLfloatArray.AddFace3D(Face);
 end;
 
-procedure TVBO_Triangles.Add(v0, v1, v2: TVector3f); inline;
+procedure TVBO_Triangles.Add(const v0, v1, v2: TVector3f);
 begin
   Add(mat3(v0, v1, v2));
 end;
@@ -341,7 +341,7 @@ begin
   end;
 end;
 
-procedure TVBO_Triangles.Translate(v: TVector3f);
+procedure TVBO_Triangles.Translate(const v: TVector3f);
 var
   i, j: integer;
 begin
@@ -412,7 +412,7 @@ begin
   Primitive_Size := 3;
 end;
 
-procedure TVBO_LineStrip.Add(Vertex: TVector3f); inline;
+procedure TVBO_LineStrip.Add(const Vertex: TVector3f);
 begin
   GLfloatArray.AddVector3f(Vertex);
 end;

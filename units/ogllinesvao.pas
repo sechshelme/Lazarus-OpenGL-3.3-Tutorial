@@ -20,7 +20,7 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure Add(v: TVector3f);
+    procedure Add(const v: TVector3f);
     procedure WriteVertex;
   end;
 
@@ -36,7 +36,7 @@ type
     constructor Create(light: boolean = True);
     destructor Destroy; override;
 
-    procedure Add(v, c: TVector3f);
+    procedure Add(const v, c: TVector3f);
     procedure WriteVertex;
 
     procedure draw;
@@ -63,7 +63,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TLinesVAO.Add(v: TVector3f);
+procedure TLinesVAO.Add(const v: TVector3f);
 begin
   LineBuffer.Add(v);
 end;
@@ -129,7 +129,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TColorLinesVAO.Add(v, c: TVector3f);
+procedure TColorLinesVAO.Add(const v, c: TVector3f);
 begin
   inherited Add(v);
   ColorBuffer.Add(c);

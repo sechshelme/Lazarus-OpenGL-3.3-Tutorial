@@ -117,7 +117,7 @@ var
   addc, c: TVector3f;
 
 begin
-  if (y < 0.0) or (y > ClientHeight) then begin
+  if (y < 0.0) or (y >= ClientHeight) then begin
     Exit;
   end;
 
@@ -161,6 +161,7 @@ begin
 end;
 
 procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
+
 var
   y: integer;
   dif,
@@ -260,7 +261,7 @@ var
   TempMatrix: TMatrix;
 const
   d = 2.7;
-  s = 1;
+  s = 3;
 begin
   WriteLn(FrameBuffer.PixelFormat);
   WriteLn(FrameBuffer.RawImage.Description.BitsPerPixel);

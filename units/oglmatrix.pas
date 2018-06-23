@@ -20,23 +20,34 @@ type
   TMatrix = Tmat4x4;
   TMatrix2D = Tmat3x3;
 
+  PMatrix = ^TMatrix;
+
+  { Tmat2x2Helper }
+
+  Tmat2x2Helper = type Helper for Tmat2x2
+  public
+    procedure Identity;
+    procedure Zero;
+  end;
+
   { Tmat3x3Helper }
 
   Tmat3x3Helper = type Helper for Tmat3x3  // Arbeitet nicht richtig mit Shadern zusammen !
   public
     procedure Identity;
-//    procedure Multiply(m1, m2: TMatrix2D);
-
-    procedure Uniform(ShaderID: GLint);
+    procedure Zero;
 
     procedure Scale(x, y: GLfloat); overload;
     procedure Scale(s: GLfloat); overload;
     procedure Translate(x, y: GLfloat);
+    procedure NewTranslate(x, y: GLfloat);
     procedure Rotate(w: GLfloat);
     procedure Transpose;
     procedure Shear(x, y: GLfloat);
 
     procedure Frustum(left, right, zNear, zFar: GLfloat);
+
+    procedure Uniform(ShaderID: GLint);
   end;
 
   { TMatrixHelper }
@@ -44,9 +55,7 @@ type
   TMatrixHelper = type Helper for Tmat4x4
   public
     procedure Identity;
-//    procedure Multiply(const m1t, m2t: TMatrix);
-
-    procedure Uniform(ShaderID: GLint);
+    procedure Zero;
 
     procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
     procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
@@ -55,10 +64,10 @@ type
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Translate(x, y, z: GLfloat); overload;
-    procedure Translate(v: TVector3f); overload;
+    procedure Translate(const v: TVector3f); overload;
     procedure NewTranslate(x, y, z: GLfloat);
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
-    procedure Rotate(Winkel: GLfloat; a: TVector3f); overload;
+    procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
@@ -67,20 +76,30 @@ type
     procedure ShearB(x, z: GLfloat);
     procedure ShearC(x, y: GLfloat);
 
+    procedure Uniform(ShaderID: GLint);
+
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
 // === Hilfsfunktionen, ähnlich GLSL ===
 
-function mat3(v0, v1, v2: TVector3f): Tmat3x3;
-function mat4(v0, v1, v2, v3: TVector4f): Tmat4x4;
-function mat3x2(v0, v1, v2: TVector2f): Tmat3x2;
+function mat3(const v0, v1, v2: TVector3f): Tmat3x3;
+function mat4(const v0, v1, v2, v3: TVector4f): Tmat4x4;
+function mat3x2(const v0, v1, v2: TVector2f): Tmat3x2;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const  m: Tmat2x2; v:TVector2f) Res: TVector2f;
-operator * (const  m: Tmat3x3; v:TVector3f) Res: TVector3f;
-operator * (const  m: Tmat4x4; v:TVector4f) Res: TVector4f;
+operator * (const m: Tmat2x2; v:TVector2f) Res: TVector2f;
+operator * (const m: Tmat3x3; v:TVector3f) Res: TVector3f;
+operator * (const m: Tmat4x4; v:TVector4f) Res: TVector4f;
+
+operator + (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator + (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator + (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
+
+operator - (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator - (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator - (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
 operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
@@ -117,6 +136,48 @@ begin
   end;
 end;
 
+operator + (const mat0, mat1: Tmat2x2)Res: Tmat2x2;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 1 do for j:=0 to 1 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+end;
+
+operator + (const mat0, mat1: Tmat3x3)Res: Tmat3x3;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 2 do for j:=0 to 2 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+end;
+
+operator + (const mat0, mat1: Tmat4x4)Res: Tmat4x4;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 3 do for j:=0 to 3 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+end;
+
+operator - (const mat0, mat1: Tmat2x2)Res: Tmat2x2;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 1 do for j:=0 to 1 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+end;
+
+operator - (const mat0, mat1: Tmat3x3)Res: Tmat3x3;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 2 do for j:=0 to 2 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+end;
+
+operator - (const mat0, mat1: Tmat4x4)Res: Tmat4x4;
+var
+  i, j:Integer;
+begin
+  for i:=0 to 3 do for j:=0 to 3 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+end;
+
 operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 var
   i, j, k: integer;
@@ -125,7 +186,7 @@ begin
     for j := 0 to 1 do begin
       Res[i, j] := 0.0;
       for k := 0 to 1 do begin
-        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
+        Res[i, j] += mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
@@ -139,7 +200,7 @@ begin
     for j := 0 to 2 do begin
       Res[i, j] := 0.0;
       for k := 0 to 2 do begin
-        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
+        Res[i, j] += mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
@@ -153,20 +214,20 @@ begin
     for j := 0 to 3 do begin
       Res[i, j] := 0.0;
       for k := 0 to 3 do begin
-        Res[i, j] := Res[i, j] + mat1[i, k] * mat0[k, j];
+        Res[i, j] += mat1[i, k] * mat0[k, j];
       end;
     end;
   end;
 end;
 
-function mat3(v0, v1, v2: TVector3f): Tmat3x3; inline;
+function mat3(const v0, v1, v2: TVector3f): Tmat3x3; inline;
 begin
   Result[0] := v0;
   Result[1] := v1;
   Result[2] := v2;
 end;
 
-function mat4(v0, v1, v2, v3: TVector4f): Tmat4x4; inline;
+function mat4(const v0, v1, v2, v3: TVector4f): Tmat4x4; inline;
 begin
   Result[0] := v0;
   Result[1] := v1;
@@ -174,18 +235,41 @@ begin
   Result[3] := v3;
 end;
 
-function mat3x2(v0, v1, v2: TVector2f): Tmat3x2; inline;
+function mat3x2(const v0, v1, v2: TVector2f): Tmat3x2; inline;
 begin
   Result[0] := v0;
   Result[1] := v1;
   Result[2] := v2;
 end;
 
+{ Tmat2x2Helper }
+
+procedure Tmat2x2Helper.Identity; inline;
+const
+  m: TMat2x2 = ((1.0, 0.0), (0.0, 1.0));
+begin
+  Self := m;
+end;
+
+procedure Tmat2x2Helper.Zero; inline;
+const
+  m: TMat2x2 = (( 0.0, 0.0), (0.0, 0.0));
+begin
+  Self := m;
+end;
+
 { Tmat3x3Helper }
 
-procedure Tmat3x3Helper.Identity;
+procedure Tmat3x3Helper.Identity; inline;
 const
   m: TMat3x3 = ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0));
+begin
+  Self := m;
+end;
+
+procedure Tmat3x3Helper.Zero; inline;
+const
+  m: TMat3x3 = ((0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (0.0, 0.0, 0.0));
 begin
   Self := m;
 end;
@@ -195,20 +279,34 @@ var
   i: integer;
 begin
   for i := 0 to 1 do begin
-    Self[i, 0] := Self[i, 0] * x;
-    Self[i, 1] := Self[i, 1] * y;
+    Self[i, 0] *= x;
+    Self[i, 1] *= y;
   end;
 end;
 
 procedure Tmat3x3Helper.Scale(s: GLfloat);
+var
+  i: Integer;
 begin
-  Scale(s, s);
+  for i := 0 to 1 do begin
+    Self[i, 0] *= s;
+    Self[i, 1] *= s;
+  end;
 end;
 
-procedure Tmat3x3Helper.Translate(x, y: GLfloat);
+procedure Tmat3x3Helper.Translate(x, y: GLfloat); inline;
 begin
-  Self[2, 0] := Self[2, 0] + x;
-  Self[2, 1] := Self[2, 1] + y;
+  Self[2, 0] += x;
+  Self[2, 1] += y;
+end;
+
+procedure Tmat3x3Helper.NewTranslate(x, y: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    Self[2, i] += Self[0, i] * x + Self[1, i] * y;
+  end;
 end;
 
 procedure Tmat3x3Helper.Rotate(w: GLfloat);
@@ -237,22 +335,6 @@ begin
   Self := m;
 end;
 
-//procedure Tmat3x3Helper.Multiply(m1, m2: TMatrix2D);
-//var
-//  i, j, k: integer;
-//  m: TMat3x3;
-//begin
-//  for  i := 0 to 2 do begin
-//    for j := 0 to 2 do begin
-//      m[i, j] := 0;
-//      for k := 0 to 2 do begin
-//        m[i, j] := m[i, j] + m2[i, k] * m1[k, j];
-//      end;
-//    end;
-//  end;
-//  Self := m;
-//end;
-
 procedure Tmat3x3Helper.Uniform(ShaderID: GLint);
 begin
   glUniformMatrix3fv(ShaderID, 1, False, @Self);
@@ -270,16 +352,23 @@ begin
   Self[0, 0] := 2 * zNear / (right - left);
   Self[1, 0] := (right + left) / (right - left);
   Self[1, 1] := -(zFar + zNear) / (zFar - zNear);
-  Self[1, 2] := -1;
+  Self[1, 2] := -1.0;
   Self[2, 1] := -2 * zFar * zNear / (zFar - zNear);
-  Self[2, 2] := 0;
+  Self[2, 2] := 0.0;
 end;
 
 { TMatrix }
 
-procedure TMatrixHelper.Identity;
+procedure TMatrixHelper.Identity; inline;
 const
   m: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+begin
+  Self := m;
+end;
+
+procedure TMatrixHelper.Zero; inline;
+const
+  m: Tmat4x4 = ((0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0));
 begin
   Self := m;
 end;
@@ -303,9 +392,9 @@ begin
   Self[2, 0] := (right + left) / (right - left);
   Self[2, 1] := (top + bottom) / (top - bottom);
   Self[2, 2] := -(zfar + znear) / (zfar - znear);
-  Self[2, 3] := -1;
+  Self[2, 3] := -1.0;
   Self[3, 2] := -2 * zfar * znear / (zfar - znear);
-  Self[3, 3] := 0;
+  Self[3, 3] := 0.0;
 end;
 
 procedure TMatrixHelper.Perspective(fovy, aspect, znear, zfar: GLfloat);
@@ -313,8 +402,7 @@ var
   p, right, top: GLfloat;
 begin
   p := fovy * Pi / 360;
-  top := znear * (sin(p) / cos(p));
-  //    top := znear * tan(p);
+  top := znear * (sin(p) / cos(p)); // top := znear * tan(p);
   right := top * aspect;
   Frustum(-right, right, -top, top, znear, zfar);
 end;
@@ -342,7 +430,7 @@ begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Rotate(Winkel: GLfloat; a: TVector3f);
+procedure TMatrixHelper.Rotate(Winkel: GLfloat; const a: TVector3f);
 begin
   Rotate(Winkel, a[0], a[1], a[2]);
 end;
@@ -354,7 +442,7 @@ begin
   Self[3, 2] += z;
 end;
 
-procedure TMatrixHelper.Translate(v: TVector3f); inline;
+procedure TMatrixHelper.Translate(const v: TVector3f); inline;
 begin
   Self[3, 0] += v[0];
   Self[3, 1] += v[1];
@@ -472,23 +560,7 @@ begin
   Self := m;
 end;
 
-//procedure TMatrixHelper.Multiply(const m1t, m2t: TMatrix);
-//var
-//  x, y, i: integer;
-//  m: Tmat4x4;
-//begin
-//  for x := 0 to 3 do begin
-//    for y := 0 to 3 do begin
-//      m[x, y] := 0;
-//      for i := 0 to 3 do begin
-//        m[x, y] += m1t[i, y] * m2t[x, i];
-//      end;
-//    end;
-//  end;
-//  Self := m;
-//end;
-
-procedure TMatrixHelper.Uniform(ShaderID: GLint);
+procedure TMatrixHelper.Uniform(ShaderID: GLint); inline;
 begin
   glUniformMatrix4fv(ShaderID, 1, False, @Self);
 end;

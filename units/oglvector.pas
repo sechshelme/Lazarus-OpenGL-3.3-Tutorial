@@ -21,6 +21,8 @@ type
   TFace3D = array[0..2] of TVector3f;
   TFace3DArray = array of TFace3D;
 
+  PVector4f = ^TVector4f;
+
   { TVector2fHelper }
 
   TVector2fHelper = type Helper for TVector2f
@@ -38,6 +40,8 @@ type
     procedure Scale(s: GLfloat);
     procedure NormalCut;
     procedure Negate;
+
+    procedure Uniform(ShaderID: GLint);
   end;
 
   { TVector3fHelper }
@@ -51,7 +55,7 @@ type
     procedure SetX(AValue: GLfloat);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
-    procedure SetXY(AValue: TVector2f);
+    procedure SetXY(const AValue: TVector2f);
   public
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
@@ -69,10 +73,12 @@ type
     procedure Translate(Ax, Ay, Az: GLfloat);
     procedure NormalCut;
     procedure Negate;
-    procedure CrossProduct(P0, P1, P2: TVector3f);
+    procedure CrossProduct(const P0, P1, P2: TVector3f);
 
     procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(var Vectoren, Normal: array of TVector3f);
+
+    procedure Uniform(ShaderID: GLint);
   end;
 
   { TVector4fHelper }
@@ -88,11 +94,11 @@ type
     function GetXYZ: TVector3f;
     procedure SetW(AValue: GLfloat);
     procedure SetX(AValue: GLfloat);
-    procedure SetXYW(AValue: TVector3f);
+    procedure SetXYW(const AValue: TVector3f);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
-    procedure SetXY(AValue: TVector2f);
-    procedure SetXYZ(AValue: TVector3f);
+    procedure SetXY(const AValue: TVector2f);
+    procedure SetXYZ(const AValue: TVector3f);
   public
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
@@ -107,22 +113,24 @@ type
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(Ax, Ay, Az, Aw: GLfloat);
     procedure Scale(s: GLfloat);
+
+    procedure Uniform(ShaderID: GLint);
   end;
 
   { TglFloatArrayHelper }
 
   TglFloatArrayHelper = type Helper for TglFloatArray
     procedure AddglFloatf(f: GLfloat);
-    procedure AddVector2f(Vertex: TVector2f);
-    procedure AddVector3f(Vertex: TVector3f);
-    procedure AddVector4f(Vertex: TVector4f);
+    procedure AddVector2f(const Vertex: TVector2f);
+    procedure AddVector3f(const Vertex: TVector3f);
+    procedure AddVector4f(const Vertex: TVector4f);
 
-    procedure AddFace2D(Face: TFace2D); overload;
-    procedure AddFace2D(v0, v1, v2: TVector2f); overload;
+    procedure AddFace2D(const Face: TFace2D); overload;
+    procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
     procedure AddFace2DArray(const Face: array of TFace2D);
 
-    procedure AddFace3D(Face: TFace3D); overload;
-    procedure AddFace3D(v0, v1, v2: TVector3f); overload;
+    procedure AddFace3D(const Face: TFace3D); overload;
+    procedure AddFace3D(const v0, v1, v2: TVector3f); overload;
     procedure AddFace3DArray(const Face: array of TFace3D);
 
     procedure Scale(factor: GLfloat); overload;
@@ -133,10 +141,10 @@ type
 
 function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
-function vec3(xy: TVector2f; z: GLfloat): TVector3f; overload;
+function vec3(const xy: TVector2f; z: GLfloat): TVector3f; overload;
 function vec4(x, y, z, w: GLfloat): TVector4f; overload;
-function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; overload;
-function vec4(xyz: TVector3f; w: GLfloat): TVector4f; overload;
+function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; overload;
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
 procedure SwapglFloat(var f0, f1: GLfloat);
@@ -296,7 +304,7 @@ begin
   Result[2] := z;
 end;
 
-function vec3(xy: TVector2f; z: GLfloat): TVector3f; inline;
+function vec3(const xy: TVector2f; z: GLfloat): TVector3f;
 begin
   Result[0] := xy[0];
   Result[1] := xy[1];
@@ -311,7 +319,7 @@ begin
   Result[3] := w;
 end;
 
-function vec4(xy: TVector2f; z, w: GLfloat): TVector4f; inline;
+function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f;
 begin
   Result[0] := xy[0];
   Result[1] := xy[1];
@@ -319,7 +327,7 @@ begin
   Result[3] := w;
 end;
 
-function vec4(xyz: TVector3f; w: GLfloat): TVector4f; inline;
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f;
 begin
   Result[0] := xyz[0];
   Result[1] := xyz[1];
@@ -415,6 +423,11 @@ begin
   Self[1] *= (-1);
 end;
 
+procedure TVector2fHelper.Uniform(ShaderID: GLint); inline;
+begin
+  glUniform2fv(ShaderID, 1, @Self);
+end;
+
 
 { TVector3fHelper }
 
@@ -454,7 +467,7 @@ begin
   Result[1] := Self[1];
 end;
 
-procedure TVector3fHelper.SetXY(AValue: TVector2f); inline;
+procedure TVector3fHelper.SetXY(const AValue: TVector2f);
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
@@ -568,7 +581,7 @@ begin
   end;
 end;
 
-procedure TVector3fHelper.CrossProduct(P0, P1, P2: TVector3f);
+procedure TVector3fHelper.CrossProduct(const P0, P1, P2: TVector3f);
 var
   a, b: TVector3f;
   i: integer;
@@ -648,6 +661,11 @@ begin
   ShowMessage('Vectoren und Normale' + LineEnding + s);
 end;
 
+procedure TVector3fHelper.Uniform(ShaderID: GLint); inline;
+begin
+  glUniform3fv(ShaderID, 1, @Self);
+end;
+
 { TVector4fHelper }
 
 function TVector4fHelper.GetX: GLfloat; inline;
@@ -710,20 +728,20 @@ begin
   Self[3] := AValue;
 end;
 
-procedure TVector4fHelper.SetXY(AValue: TVector2f); inline;
+procedure TVector4fHelper.SetXY(const AValue: TVector2f);
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
 end;
 
-procedure TVector4fHelper.SetXYZ(AValue: TVector3f); inline;
+procedure TVector4fHelper.SetXYZ(const AValue: TVector3f);
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
   Self[2] := AValue[2];
 end;
 
-procedure TVector4fHelper.SetXYW(AValue: TVector3f); inline;
+procedure TVector4fHelper.SetXYW(const AValue: TVector3f);
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
@@ -779,6 +797,11 @@ begin
   Scale(s, s, s, s);
 end;
 
+procedure TVector4fHelper.Uniform(ShaderID: GLint); inline;
+begin
+  glUniform4fv(ShaderID, 1, @Self);
+end;
+
 { TglFloatArrayHelper }
 
 procedure TglFloatArrayHelper.AddglFloatf(f: GLfloat);
@@ -790,7 +813,7 @@ begin
   Move(f, Self[p], SizeOf(GLfloat));
 end;
 
-procedure TglFloatArrayHelper.AddVector2f(Vertex: TVector2f);
+procedure TglFloatArrayHelper.AddVector2f(const Vertex: TVector2f);
 var
   p: Integer;
 begin
@@ -799,7 +822,7 @@ begin
   Move(Vertex, Self[p], SizeOf(TVector2f));
 end;
 
-procedure TglFloatArrayHelper.AddVector3f(Vertex: TVector3f);
+procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
 var
   p: Integer;
 begin
@@ -808,7 +831,7 @@ begin
   Move(Vertex, Self[p], SizeOf(TVector3f));
 end;
 
-procedure TglFloatArrayHelper.AddVector4f(Vertex: TVector4f);
+procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
 var
   p: Integer;
 begin
@@ -817,7 +840,7 @@ begin
   Move(Vertex, Self[p], SizeOf(TVector4f));
 end;
 
-procedure TglFloatArrayHelper.AddFace2D(Face: TFace2D);
+procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);
 var
   p: Integer;
 begin
@@ -826,7 +849,7 @@ begin
   Move(Face, Self[p], SizeOf(TFace2D));
 end;
 
-procedure TglFloatArrayHelper.AddFace2D(v0, v1, v2: TVector2f);
+procedure TglFloatArrayHelper.AddFace2D(const v0, v1, v2: TVector2f);
 begin
   AddVector2f(v0);
   AddVector2f(v1);
@@ -842,7 +865,7 @@ begin
   Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
 end;
 
-procedure TglFloatArrayHelper.AddFace3D(Face: TFace3D);
+procedure TglFloatArrayHelper.AddFace3D(const Face: TFace3D);
 var
   p: Integer;
 begin
@@ -851,7 +874,7 @@ begin
   Move(Face, Self[p], SizeOf(TFace3D));
 end;
 
-procedure TglFloatArrayHelper.AddFace3D(v0, v1, v2: TVector3f);
+procedure TglFloatArrayHelper.AddFace3D(const v0, v1, v2: TVector3f);
 begin
   AddVector3f(v0);
   AddVector3f(v1);
