@@ -73,142 +73,133 @@ implementation
 { TForm1 }
 
 
-function VectorMultiplySSE(const mat: TMatrix; const vec: TVector4f): TVector4f; assembler;
-  {$asmmode intel}
-asm
-         // pointer to the first 4 elements of the array:
-         // Move Unaligned Parallel Scalars
-         // load the registers with matrix values:
-         Movups  Xmm4, [mat+$30] // xmm4 contains 1,5, 9,13
-         Movups  Xmm5, [mat+$20] // +16 (4 bytes x 4 elements)
-         // xmm5 contains 2,6,10,14
-         Movups  Xmm6, [mat+$10] // +32 (8 bytes x 4 elements)
-         // xmm6 contains 3,7,11,15
-         Movups  Xmm7, [mat+$00] // +48 (12 bytes x 4
-         // esi contains the starting address of the vec array
-         // [2, 3, 4, 5], so load this vector into xmm0:
-         Movups  Xmm0, [vec] // xmm0 contains 2, 3, 4, 5
-         // we'll store the final result in xmm2, initialize it to 0:
-         Xorps   Xmm2, Xmm2 // xmm2 contains 4x32
-         // bits with zeros
-         // now we need to multiply first column (xmm4)
-         // by the vector (xmm0) and add it to the total (xmm2)
-         // copy content of xmm0 into xmm1:
-         Movups  Xmm1, Xmm0 // xmm1 now contains
-         // [2, 3, 4, 5]
-         // each value in xmm1 has the following mask representation:
-         // mask value: 11 10 01 00
-         // register value: [ 2, 3, 4, 5 ]
-         // Shuffle Parallel Scalars
-         Shufps  Xmm1, Xmm1, $FF // FF mask is 11 11 11 11
-         // xmm1 contains 2, 2, 2, 2
-         // Multiply Parallel Scalars
-         Mulps   Xmm1, Xmm4 // multiply xmm1 (2,2,2,2)
-         // and xmm4 (1,5,9,13)
-         // [ 2*1, 2*5, 2*9, 2*13 ]
-         // save it in xmm1
-         // Add Parallel Scalars
-         Addps   Xmm2, Xmm1 // add xmm2 (0, 0, 0, 0)
-         // and xmm1 (2, 10, 18, 26)
-         // save it in xmm2
-         // xmm2 contains [2,10,18,26]
-         // we multiplied first column of the matrix by the vector,
-         // now we need to repeat these operations for the remaining
-         // columns of the matrix
-         Movups  Xmm1, Xmm0 // 3, 3, 3, 3
-         Shufps  Xmm1, Xmm1, $AA // AA -> 10 10 10 10
-         Mulps   Xmm1, Xmm5 // xmm5: 2, 6, 10, 14
-         Addps   Xmm2, Xmm1 // 2+6, 10+18, 18+30, 26+42
-         Movups  Xmm1, Xmm0 // 4, 4, 4, 4
-         Shufps  Xmm1, Xmm1, $55 // 55 -> 01 01 01 01
-         Mulps   Xmm1, Xmm6 // xmm6: 3, 7, 11, 15
-         Addps   Xmm2, Xmm1 // 8+12, 28+28, 48+44, 68+60
-         Movups  Xmm1, Xmm0 // 5, 5, 5, 5
-         Shufps  Xmm1, Xmm1, $00 // 00 -> 00 00 00 00
-         Mulps   Xmm1, Xmm7 // xmm7: 4, 8, 12, 16
-         Addps   Xmm2, Xmm1 // 20+20, 56+40, 92+60, 128+80
+{$asmmode intel}
 
-         // 40 , 96 , 152 , 208
-         // write the results to vectorOut
-         Movups  [result], Xmm2
+
+function VectorMultiplySSE(const mat: TMatrix; const vec: TVector4f): TVector4f; assembler;
+asm
+         Movups  Xmm4, [mat + $00]
+         Movups  Xmm5, [mat + $10]
+         Movups  Xmm6, [mat + $20]
+         Movups  Xmm7, [mat + $30]
+         Movups  Xmm2, [vec]
+
+         // Zeile 0
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         // Zeile 1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
+
+         // Zeile 2
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
+
+         // Zeile 3
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
+
+         Movups  [Result], Xmm0
 end;
 
-
-function MatrixMultiplySSE(const M1, M2: TMatrix): TMatrix; assembler;
+function MatrixMultiplySSE(const M0, M1: TMatrix): TMatrix; assembler;
 asm
-         // load M1 into xxm entirely as we will need it more than once
-         Movups   Xmm4, [M1+$00] // movaps
-         Movups   Xmm5, [M1+$10]
-         Movups   Xmm6, [M1+$20]
-         Movups   Xmm7, [M1+$30]
-         // compute Result[0]
-         Movss    Xmm0, [M2]
-         Shufps   Xmm0, Xmm0, $00 //xmm0 = 4x M2[0,0]
-         Mulps    Xmm0, Xmm4
-         Movss    Xmm1, [M2+$04]
-         Shufps   Xmm1, Xmm1, $00 //xmm1 = 4x M2[0,1]
-         Mulps    Xmm1, Xmm5
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$08]
-         Shufps   Xmm1, Xmm1, $00 //xmm1 = 4x M2[0,2]
-         Mulps    Xmm1, Xmm6
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$0c]
-         Shufps   Xmm1, Xmm1, $00 //xmm1 = 4x M2[0,3]
-         Mulps    Xmm1, Xmm7
-         Addps    Xmm0, Xmm1
-         Movups   [Result+$00], Xmm0 // movntps
-         // compute Result[1]
-         Movss    Xmm0, [M2+$10]
-         Shufps   Xmm0, Xmm0, $00
-         Mulps    Xmm0, Xmm4
-         Movss    Xmm1, [M2+$14]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm5
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$18]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm6
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$1c]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm7
-         Addps    Xmm0, Xmm1
-         Movups   [Result+$10], Xmm0
-         // compute Result[2]
-         Movss    Xmm0, [M2+$20]
-         Shufps   Xmm0, Xmm0, $00
-         Mulps    Xmm0, Xmm4
-         Movss    Xmm1, [M2+$24]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm5
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$28]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm6
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$2c]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm7
-         Addps    Xmm0, Xmm1
-         Movups   [Result+$20], Xmm0
-         // compute Result[3]
-         Movss    Xmm0, [M2+$30]
-         Shufps   Xmm0, Xmm0, $00
-         Mulps    Xmm0, Xmm4
-         Movss    Xmm1, [M2+$34]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm5
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$38]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm6
-         Addps    Xmm0, Xmm1
-         Movss    Xmm1, [M2+$3c]
-         Shufps   Xmm1, Xmm1, $00
-         Mulps    Xmm1, Xmm7
-         Addps    Xmm0, Xmm1
-         Movups   [Result+$30], Xmm0
+         Movups  Xmm4, [M0 + $00]
+         Movups  Xmm5, [M0 + $10]
+         Movups  Xmm6, [M0 + $20]
+         Movups  Xmm7, [M0 + $30]
+
+         // Spalte 0
+         Movss   Xmm0, [M1 + $00]
+         Shufps  Xmm0, Xmm0, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         Movss   Xmm2, [M1 + $04]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $08]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $0C]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
+
+         Movups  [Result + $00], Xmm0
+
+         // Spalte 1
+         Movss   Xmm0, [M1 + $10]
+         Shufps  Xmm0, Xmm0, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         Movss   Xmm2, [M1 + $14]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $18]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $1C]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
+
+         Movups   [Result + $10], Xmm0
+
+         // Spalte 2
+         Movss   Xmm0, [M1 + $20]
+         Shufps  Xmm0, Xmm0, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         Movss   Xmm2, [M1 + $24]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $28]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $2C]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
+
+         Movups  [Result + $20], Xmm0
+
+         // Spalte 3
+         Movss   Xmm0, [M1 + $30]
+         Shufps  Xmm0, Xmm0, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         Movss   Xmm2, [M1 + $34]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $38]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
+
+         Movss   Xmm2, [M1 + $3C]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
+
+         Movups  [Result + $30], Xmm0
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
