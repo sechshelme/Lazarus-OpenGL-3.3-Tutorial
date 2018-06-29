@@ -121,11 +121,11 @@
       </Item23>
       <Item24>
         <Filename Value="ogllogform.pas"/>
-        <UnitName Value="ogllogform"/>
+        <UnitName Value="oglLogForm"/>
       </Item24>
       <Item25>
         <Filename Value="oglvector.pas"/>
-        <UnitName Value="oglvector"/>
+        <UnitName Value="oglVector"/>
       </Item25>
     </Files>
     <RequiredPkgs Count="4">

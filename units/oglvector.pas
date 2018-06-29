@@ -304,7 +304,7 @@ begin
   Result[2] := z;
 end;
 
-function vec3(const xy: TVector2f; z: GLfloat): TVector3f;
+function vec3(const xy: TVector2f; z: GLfloat): TVector3f; inline;
 begin
   Result[0] := xy[0];
   Result[1] := xy[1];
@@ -319,7 +319,7 @@ begin
   Result[3] := w;
 end;
 
-function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f;
+function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; inline;
 begin
   Result[0] := xy[0];
   Result[1] := xy[1];
@@ -327,7 +327,7 @@ begin
   Result[3] := w;
 end;
 
-function vec4(const xyz: TVector3f; w: GLfloat): TVector4f;
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; inline;
 begin
   Result[0] := xyz[0];
   Result[1] := xyz[1];

@@ -6,18 +6,23 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 234
   ClientWidth = 239
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
-  OnPaint = FormPaint
-  OnResize = FormResize
   LCLVersion = '1.8.4.0'
-  object Button1: TButton
-    Left = 88
+  object Button4x4: TButton
+    Left = 56
     Height = 25
-    Top = 92
+    Top = 48
     Width = 75
-    Caption = 'Button1'
-    OnClick = Button1Click
+    Caption = 'Button4x4'
+    OnClick = Button4x4Click
     TabOrder = 0
+  end
+  object Button8x8: TButton
+    Left = 56
+    Height = 25
+    Top = 96
+    Width = 75
+    Caption = 'Button8x8'
+    OnClick = Button8x8Click
+    TabOrder = 1
   end
 end
