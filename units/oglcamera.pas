@@ -7,7 +7,7 @@ interface
 uses
   Classes,
   SysUtils,
-  oglMatrix;
+  oglVector, oglMatrix;
 
 { TCamera }
 

@@ -16,13 +16,4 @@ object Form1: TForm1
     OnClick = Button4x4Click
     TabOrder = 0
   end
-  object Button8x8: TButton
-    Left = 56
-    Height = 25
-    Top = 96
-    Width = 75
-    Caption = 'Button8x8'
-    OnClick = Button8x8Click
-    TabOrder = 1
-  end
 end

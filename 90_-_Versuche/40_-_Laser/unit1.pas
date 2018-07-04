@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVector, oglMatrix;
 
 type
 
@@ -68,7 +68,12 @@ type
 var
   RotMatrix: TMatrix;
   Matrix_ID: GLint;
+  MandelRot_ID,
+  LichtRichtung_ID,
   Color_ID: GLint;
+
+  LichtRichtung: array[0..3] of GLfloat;
+  MandelRot: GLfloat;
 
   c: single;
 
@@ -91,11 +96,22 @@ begin
 end;
 
 procedure TForm1.CreateScene;
+var
+  i: integer;
 begin
+  Randomize;
+  for i := 0 to Length(LichtRichtung) - 1 do begin
+    LichtRichtung[i] := Random() * pi * 2;
+  end;
+
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  Shader.UseProgram;
-  Color_ID := Shader.UniformLocation('col');
-  Matrix_ID := Shader.UniformLocation('mat');
+  with Shader do begin
+    UseProgram;
+    Color_ID := UniformLocation('col');
+    LichtRichtung_ID := UniformLocation('LichtRichtung');
+    MandelRot_ID := UniformLocation('MandelRot');
+    Matrix_ID := UniformLocation('mat');
+  end;
   RotMatrix.Identity;
 
   glGenVertexArrays(1, @VBQuad.VAO);
@@ -105,7 +121,7 @@ end;
 
 procedure TForm1.InitScene;
 begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  glClearColor(0.2, 0.1, 0.0, 1.0); // Hintergrundfarbe
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -122,7 +138,10 @@ begin
   RotMatrix.Uniform(Matrix_ID);
 
   // Zeichne Quadrat
+
+  glUniform1fv(LichtRichtung_ID, Length(LichtRichtung), @LichtRichtung);
   glUniform1f(Color_ID, c);
+  glUniform1f(MandelRot_ID, MandelRot);
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 
@@ -142,10 +161,24 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step: GLfloat = 0.01;
+var
+  i: integer;
 begin
-  c := c + 0.1;
+  c += 0.1;
   if c >= 10.0 then begin
     c := c - 10.0;
+  end;
+
+  MandelRot += 0.0044;
+  if MandelRot > 2 * pi then begin
+    MandelRot -= 2 * pi;
+  end;
+
+  for i := 0 to Length(LichtRichtung) - 1 do begin
+    LichtRichtung[i] += (0.084 * i / 10);
+    if LichtRichtung[i] > 2 * pi then begin
+      LichtRichtung[i] -= 2 * pi;
+    end;
   end;
 
   RotMatrix.RotateC(step); // RotMatrix rotieren
