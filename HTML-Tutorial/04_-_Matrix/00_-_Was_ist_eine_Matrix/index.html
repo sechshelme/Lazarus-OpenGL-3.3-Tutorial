@@ -12,22 +12,25 @@
     <b><h2>00 - Was ist eine Matrix</h2></b>
 Der mathematische Teil von Matrix wird hier nicht behandelt, in diesem Tutorial geht es nur um die Anwendung davon.<br>
 <br>
-Wen jemmand den mathematischen Teil interessiert, gibt es schon fertige Tutorials dazu.<br>
+Wen jemand den mathematischen Teil interessiert, gibt es schon fertige Tutorials dazu.<br>
 Der zweite Grund, ich versteht das auch nicht Ganz, und somit will ich verhindern, das ich etwas falsches weiter gebe. :ops:<br>
 <br>
-Ich habe eine fertige Bibliotheke für Matrixen, bei der ich die gängigen Funktionen beschreiben will.<br>
-Es wird hier fast nur eine <b>4x4-Matrix</b> verwendet, die Standard mässig so auf gebaut ist:<br>
+Was ein wenig irritiert, auf der <b>2D</b>-Ebene wird eine <b>3x3</b>-Matrix verwendet und in der <b>3D</b>-Ebene eine 4<b>x4</b>-Matrix.<br>
+Einfach gesagt, die vorderen Spalten beinhalten die Richtung und Skalierung, die hinterste Spalte die Position.<br>
+<br>
+Ich habe eine fertige Bibliotheke für Matrizen, bei der ich die gängigen Funktionen beschreiben will.<br>
+Es wird hier fast nur eine <b>4x4</b>-Matrix verwendet, die Standard mässig so auf gebaut ist:<br>
 //matrix+<br>
 | 1 | 0 | 0 | 0 |<br>
 | 0 | 1 | 0 | 0 |<br>
 | 0 | 0 | 1 | 0 |<br>
 | 0 | 0 | 0 | 1 |<br>
 //matrix-<br>
-Die Abbildung zeigt eine Einheitsmatrix, die meisten OpenGL-Funktionen nehmen diese als Basis. Mit der 4x4-Matrix sind alle Bewegungen, Scalierungen, inklusive Perspektive möglich.<br>
-Hier eine kleine Einführung, die zeigt, welche Werte in der Matrix für die verschiedene Bewegungung verändert werden.<br>
+Die Abbildung zeigt eine Einheitsmatrix, die meisten OpenGL-Funktionen nehmen diese als Basis. Mit der 4x4-Matrix sind alle Bewegungen, Skalierungen, inklusive Perspektive möglich.<br>
+Hier eine kleine Einführung, die zeigt, welche Werte in der Matrix für die verschiedenen Bewegungen verändert werden.<br>
 <br>
-Die Matrix bildet die drei Achsen und eine Verschiebung ab. Die grossen Buschstaben zeigen die Achse, die kleinen die Position der Achsen.<br>
-Die hinterste Spalte gibt die Verschiebung an. Die unterste Zeile wird nur verändert bei perspektiven und bei Multiplikationen,<br>
+Die Matrix bildet die drei Achsen und eine Verschiebung ab. Die grossen Buchstaben zeigen die Achse, die kleinen die Position der Achsen.<br>
+Die hinterste Spalte gibt die Verschiebung an. Die unterste Zeile wird nur verändert bei Perspektiven und bei Multiplikationen,<br>
 //matrix+<br>
 | Xx | Yx | Zx | x0 |<br>
 | Xy | Yy | Zy | y0 |<br>

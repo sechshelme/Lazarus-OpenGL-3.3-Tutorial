@@ -128,12 +128,11 @@ Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebun
     Matrix.Identity;
     Matrix.Translate(d, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);
@@ -147,12 +146,11 @@ Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebun
     Matrix.Identity;
     Matrix.Translate(d + <font color="#0077BB">30</font>, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);
@@ -166,12 +164,11 @@ Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebun
     Matrix.Identity;
     Matrix.Translate(d - <font color="#0077BB">30</font>, d, d);
     Matrix.Scale(scal);
-    Matrix.Multiply(ModelMatrix, Matrix);
+    Matrix := ModelMatrix * Matrix;
 
-    Matrix.Uniform(ModelMatrix_ID);
+    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
 
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
 
     Matrix.Uniform(Matrix_ID);
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);

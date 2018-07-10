@@ -40,7 +40,7 @@ type
     procedure Scale(x, y: GLfloat); overload;
     procedure Scale(s: GLfloat); overload;
     procedure Translate(x, y: GLfloat);
-    procedure NewTranslate(x, y: GLfloat);
+    procedure TranslateLocalspace(x, y: GLfloat);
     procedure Rotate(w: GLfloat);
     procedure Transpose;
     procedure Shear(x, y: GLfloat);
@@ -50,9 +50,9 @@ type
     procedure Uniform(ShaderID: GLint);
   end;
 
-  { TMatrixHelper }
+  { Tmat4x4Helper }
 
-  TMatrixHelper = type Helper for Tmat4x4
+  Tmat4x4Helper = type Helper for Tmat4x4
   public
     procedure Identity;
     procedure Zero;
@@ -63,9 +63,9 @@ type
 
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
-    procedure Translate(x, y, z: GLfloat); overload;
+    procedure Translate(x, y, z: GLfloat); overload;       // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
-    procedure NewTranslate(x, y, z: GLfloat);
+    procedure TranslateLocalspace(x, y, z: GLfloat);       // Localspace Translation
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);
@@ -124,15 +124,6 @@ var
 begin
   for i := 0 to 2 do begin
     Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2];
-  end;
-end;
-
-operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f;
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2]+ m[3, i] * v[3];
   end;
 end;
 
@@ -206,6 +197,135 @@ begin
   end;
 end;
 
+{$if defined(cpux86_64) or defined(cpux86)}
+{$asmmode intel}
+operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f; assembler; nostackframe; register;
+asm
+         Movups  Xmm4, [m + $00]
+         Movups  Xmm5, [m + $10]
+         Movups  Xmm6, [m + $20]
+         Movups  Xmm7, [m + $30]
+         Movups  Xmm2, [v]
+
+         // Zeile 0
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
+
+         // Zeile 1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
+
+         // Zeile 2
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
+
+         // Zeile 3
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
+
+         Movups  [Res], Xmm0
+end;
+
+operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4; assembler; nostackframe; register;
+asm
+         Movups Xmm4, [mat0 + $00]
+         Movups Xmm5, [mat0 + $10]
+         Movups Xmm6, [mat0 + $20]
+         Movups Xmm7, [mat0 + $30]
+
+         // Spalte 0
+         Movups Xmm2, [mat1 + $00]
+
+         Pshufd Xmm0, Xmm2, 00000000b
+         Mulps  Xmm0, Xmm4
+
+         Pshufd Xmm1, Xmm2, 01010101b
+         Mulps  Xmm1, Xmm5
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 10101010b
+         Mulps  Xmm1, Xmm6
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 11111111b
+         Mulps  Xmm1, Xmm7
+         Addps  Xmm0, Xmm1
+
+         Movups [Result + $00], Xmm0
+
+         // Spalte 1
+         Movups Xmm2, [mat1 + $10]
+
+         Pshufd Xmm0, Xmm2, 00000000b
+         Mulps  Xmm0, Xmm4
+
+         Pshufd Xmm1, Xmm2, 01010101b
+         Mulps  Xmm1, Xmm5
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 10101010b
+         Mulps  Xmm1, Xmm6
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 11111111b
+         Mulps  Xmm1, Xmm7
+         Addps  Xmm0, Xmm1
+
+         Movups   [Result + $10], Xmm0
+
+         // Spalte 2
+         Movups  Xmm2, [mat1 + $20]
+
+         Pshufd Xmm0, Xmm2, 00000000b
+         Mulps  Xmm0, Xmm4
+
+         Pshufd Xmm1, Xmm2, 01010101b
+         Mulps  Xmm1, Xmm5
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 10101010b
+         Mulps  Xmm1, Xmm6
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 11111111b
+         Mulps  Xmm1, Xmm7
+         Addps  Xmm0, Xmm1
+
+         Movups [Result + $20], Xmm0
+
+         // Spalte 3
+         Movups Xmm2, [mat1 + $30]
+
+         Pshufd Xmm0, Xmm2, 00000000b
+         Mulps  Xmm0, Xmm4
+
+         Pshufd Xmm1, Xmm2, 01010101b
+         Mulps  Xmm1, Xmm5
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 10101010b
+         Mulps  Xmm1, Xmm6
+         Addps  Xmm0, Xmm1
+
+         Pshufd Xmm1, Xmm2, 11111111b
+         Mulps  Xmm1, Xmm7
+         Addps  Xmm0, Xmm1
+
+         Movups [Result + $30], Xmm0
+end;
+{$else}
+operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f;
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2]+ m[3, i] * v[3];
+  end;
+end;
+
 operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 var
   i, j, k: integer;
@@ -219,6 +339,7 @@ begin
     end;
   end;
 end;
+{$endif}
 
 function mat3(const v0, v1, v2: TVector3f): Tmat3x3; inline;
 begin
@@ -300,7 +421,7 @@ begin
   Self[2, 1] += y;
 end;
 
-procedure Tmat3x3Helper.NewTranslate(x, y: GLfloat);
+procedure Tmat3x3Helper.TranslateLocalspace(x, y: GLfloat);
 var
   i: integer;
 begin
@@ -359,21 +480,21 @@ end;
 
 { TMatrix }
 
-procedure TMatrixHelper.Identity; inline;
+procedure Tmat4x4Helper.Identity; inline;
 const
   m: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
 begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Zero; inline;
+procedure Tmat4x4Helper.Zero; inline;
 const
   m: Tmat4x4 = ((0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0));
 begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+procedure Tmat4x4Helper.Ortho(left, right, bottom, top, znear, zfar: GLfloat);
 begin
   Identity;
   Self[0, 0] := 2 / (right - left);
@@ -384,7 +505,7 @@ begin
   Self[3, 2] := -(zfar + znear) / (zfar - znear);
 end;
 
-procedure TMatrixHelper.Frustum(left, right, bottom, top, znear, zfar: GLfloat);
+procedure Tmat4x4Helper.Frustum(left, right, bottom, top, znear, zfar: GLfloat);
 begin
   Identity;
   Self[0, 0] := 2 * znear / (right - left);
@@ -397,7 +518,7 @@ begin
   Self[3, 3] := 0.0;
 end;
 
-procedure TMatrixHelper.Perspective(fovy, aspect, znear, zfar: GLfloat);
+procedure Tmat4x4Helper.Perspective(fovy, aspect, znear, zfar: GLfloat);
 var
   p, right, top: GLfloat;
 begin
@@ -408,7 +529,7 @@ begin
 end;
 
 
-procedure TMatrixHelper.Rotate(Winkel, x, y, z: GLfloat);
+procedure Tmat4x4Helper.Rotate(Winkel, x, y, z: GLfloat);
 var
   c, s: GLfloat;      // Funktionierts ?????
   m: Tmat4x4;
@@ -430,26 +551,26 @@ begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Rotate(Winkel: GLfloat; const a: TVector3f);
+procedure Tmat4x4Helper.Rotate(Winkel: GLfloat; const a: TVector3f);
 begin
   Rotate(Winkel, a[0], a[1], a[2]);
 end;
 
-procedure TMatrixHelper.Translate(x, y, z: GLfloat); inline;
+procedure Tmat4x4Helper.Translate(x, y, z: GLfloat); inline;
 begin
   Self[3, 0] += x;
   Self[3, 1] += y;
   Self[3, 2] += z;
 end;
 
-procedure TMatrixHelper.Translate(const v: TVector3f); inline;
+procedure Tmat4x4Helper.Translate(const v: TVector3f); inline;
 begin
   Self[3, 0] += v[0];
   Self[3, 1] += v[1];
   Self[3, 2] += v[2];
 end;
 
-procedure TMatrixHelper.NewTranslate(x, y, z: GLfloat);
+procedure Tmat4x4Helper.TranslateLocalspace(x, y, z: GLfloat);
 var
   i: integer;
 begin
@@ -459,7 +580,7 @@ begin
 end;
 
 
-procedure TMatrixHelper.RotateA(Winkel: GLfloat);
+procedure Tmat4x4Helper.RotateA(Winkel: GLfloat);
 var
   i: integer;
   y, z, c, s: GLfloat;
@@ -475,7 +596,7 @@ begin
 end;
 
 
-procedure TMatrixHelper.RotateB(Winkel: GLfloat);
+procedure Tmat4x4Helper.RotateB(Winkel: GLfloat);
 var
   i: integer;
   x, z, c, s: GLfloat;
@@ -491,7 +612,7 @@ begin
 end;
 
 
-procedure TMatrixHelper.RotateC(Winkel: GLfloat);
+procedure Tmat4x4Helper.RotateC(Winkel: GLfloat);
 var
   i: integer;
   x, y, c, s: GLfloat;
@@ -506,7 +627,7 @@ begin
   end;
 end;
 
-procedure TMatrixHelper.Scale(Faktor: GLfloat);
+procedure Tmat4x4Helper.Scale(Faktor: GLfloat);
 var
   x, y: integer;
 begin
@@ -517,7 +638,7 @@ begin
   end;
 end;
 
-procedure TMatrixHelper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
 var
   i: integer;
 begin
@@ -528,26 +649,26 @@ begin
   end;
 end;
 
-procedure TMatrixHelper.ShearA(y, z: GLfloat);
+procedure Tmat4x4Helper.ShearA(y, z: GLfloat);
 begin
   Self[2, 1] += y;
   Self[1, 2] += z;
 end;
 
-procedure TMatrixHelper.ShearB(x, z: GLfloat);
+procedure Tmat4x4Helper.ShearB(x, z: GLfloat);
 begin
   Self[2, 0] += x;
   Self[0, 2] += z;
 end;
 
-procedure TMatrixHelper.ShearC(x, y: GLfloat);
+procedure Tmat4x4Helper.ShearC(x, y: GLfloat);
 begin
   Self[1, 0] += x;
   Self[0, 1] += y;
 end;
 
 
-procedure TMatrixHelper.Transpose;
+procedure Tmat4x4Helper.Transpose;
 var
   i, j: integer;
   m: Tmat4x4;
@@ -560,13 +681,13 @@ begin
   Self := m;
 end;
 
-procedure TMatrixHelper.Uniform(ShaderID: GLint); inline;
+procedure Tmat4x4Helper.Uniform(ShaderID: GLint); inline;
 begin
   glUniformMatrix4fv(ShaderID, 1, False, @Self);
 end;
 
 
-procedure TMatrixHelper.WriteMatrix;
+procedure Tmat4x4Helper.WriteMatrix;
 var
   x, y: integer;
 begin

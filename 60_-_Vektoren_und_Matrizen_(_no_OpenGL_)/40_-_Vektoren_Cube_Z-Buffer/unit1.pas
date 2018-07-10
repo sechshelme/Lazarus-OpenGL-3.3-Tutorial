@@ -145,16 +145,16 @@ begin
   end;
 
   iy := trunc(y);
+  ofs := trunc(x0) + iy * ClientWidth;
 
   for i := trunc(x0) to trunc(x1) do begin
-
-    ofs := i + iy * ClientWidth;
 
     if z < zBuffer[ofs] then begin
       PutPixel(i, iy, c);
       zBuffer[ofs] := z;
     end;
 
+    inc(ofs);
     c += addc;
     z += addz;
   end;
@@ -164,13 +164,13 @@ procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
 
 var
   y: integer;
-  dif,
+  dif: Single;
 
   addx_0, addx_1, addx_2,
-  x0, x1, x2: single;
+  x0, x1, x2: Single;
 
   addz_0, addz_1, addz_2,
-  z0, z1, z2: single;
+  z0, z1, z2: Single;
 
   addc_0, addc_1, addc_2,
   c0, c1, c2: TVector3f;

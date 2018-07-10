@@ -89,7 +89,7 @@ Die Matrizen drehen und positionieren nur die Quadrate.<br>
       Matrix.RotateC(x + y * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>);
       Matrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">4</font>);
       Matrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">0</font> + x, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font> + y, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-      Matrix.Multiply(ScaleMatrix, Matrix);
+      Matrix := ScaleMatrix * Matrix;
       Matrix.Uniform(Matrix_ID);
 
       glUniform1i(Layer_ID, x + y * <font color="#0077BB">3</font>);    <i><font color="#FFFF00">// Layer wechseln</font></i>

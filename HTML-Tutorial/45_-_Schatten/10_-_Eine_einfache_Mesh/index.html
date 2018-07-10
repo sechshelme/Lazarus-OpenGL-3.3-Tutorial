@@ -51,10 +51,10 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
 
-    Matrix.Identity;
-    Matrix.Multiply(ObjectMatrix, Matrix);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+<i><font color="#FFFF00">//    Matrix.Identity;</font></i>
+<i><font color="#FFFF00">//    Matrix.Multiply(ObjectMatrix, Matrix);</font></i>
+<i><font color="#FFFF00">//    Matrix.Multiply(WorldMatrix, Matrix);</font></i>
+    Matrix := FrustumMatrix * WorldMatrix * ObjectMatrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));
@@ -71,11 +71,9 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
 
-    Matrix.Identity;
-    Matrix.Multiply(ObjectMatrix, Matrix);
+    Matrix :=ObjectMatrix;
     Matrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));
@@ -92,8 +90,7 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
 
     Matrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
     Matrix.RotateB(-pi / <font color="#0077BB">2</font>);
-    Matrix.Multiply(WorldMatrix, Matrix);
-    Matrix.Multiply(FrustumMatrix, Matrix);
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
 
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));

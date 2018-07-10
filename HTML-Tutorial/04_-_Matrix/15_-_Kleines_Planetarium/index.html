@@ -11,13 +11,16 @@
     <b><h1>04 - Matrix</h1></b>
     <b><h2>15 - Kleines Planetarium</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
-Kleines Planetarium, welches die Handhabung von Matrixen demonstriert.<br>
+Kleines Planetarium, welches die Handhabung von Matrizen demonstriert.<br>
 Das es übersichtlicher wird, habe ich die Sonne und die Planeten in eine Klasse gepackt.<br>
+<br>
+Da dieses Beispiel auf einer 2D-Ebene läuft, wird nur eine <b>3x3</b>-Matrix verwendet, auch die Vektor-Koordinaten sind 2D.<br>
+Einzig der Vertex-Shader wird ein wenig komplizierter, da die Z-Achse nicht verwendet wird.<br>
 <br>
 Am Shader wird nur eine Matrix übergeben, welche von der CPU berechnet wird.<br>
 Diese Matrix wird aus verschiedene Transformen berechnet.<br>
 <hr><br>
-Es gibt nur eine ID, da die ganzen Matrixen-Berechnung mit der CPU ausgeführt werden.<br>
+Es gibt nur eine ID, da die ganze Matrizen-Berechnung mit der CPU ausgeführt werden.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   Matrix_ID: GLint;  <i><font color="#FFFF00">// ID für Matrix.</font></i></pre></code>
 Rendern der Sonne und der Paneten.<br>
@@ -39,38 +42,32 @@ Dies sind nur farbige Kreise. Der Rest wird später über Matrizen brechnet.<br>
         Color[i, j] := vec3(col[<font color="#0077BB">0</font>] + (Random / <font color="#0077BB">4</font>), col[<font color="#0077BB">1</font>] + (Random / <font color="#0077BB">4</font>), col[<font color="#0077BB">2</font>] + (Random / <font color="#0077BB">4</font>));
       <b><font color="0000BB">end</font></b>;
 
-      Vector[i, <font color="#0077BB">0</font>] := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-      Vector[i, <font color="#0077BB">1</font>] := vec3(sin(Pi * <font color="#0077BB">2</font> / size * i), cos(Pi * <font color="#0077BB">2</font> / size * i), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-      Vector[i, <font color="#0077BB">2</font>] := vec3(sin(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)), cos(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+      Vector[i, <font color="#0077BB">0</font>] := vec2(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+      Vector[i, <font color="#0077BB">1</font>] := vec2(sin(Pi * <font color="#0077BB">2</font> / size * i), cos(Pi * <font color="#0077BB">2</font> / size * i));
+      Vector[i, <font color="#0077BB">2</font>] := vec2(sin(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)), cos(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)));
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;</pre></code>
 Legt die Matrix für die Umlaufbahnen fest.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TPlanet.SetMondR(AValue: GLfloat);
 <b><font color="0000BB">begin</font></b>
-  MondTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Distanz Erde - Mond. ( Erde Mond ist ein Doppelplanet )</font></i>
+  MondTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Distanz Erde - Mond. ( Erde Mond ist ein Doppelplanet )</font></i>
 <b><font color="0000BB">end</font></b>;
 
 <b><font color="0000BB">procedure</font></b> TPlanet.SetUmlaufR(AValue: GLfloat);
 <b><font color="0000BB">begin</font></b>
-  UmlaufTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Distanz Sonne - Panet.</font></i>
+  UmlaufTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Distanz Sonne / Planet.</font></i>
 <b><font color="0000BB">end</font></b>;</pre></code>
 Hier werden die Bahnen der Planeten berechnet und anschliessend gezeichnet.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TPlanet.Draw;
 <b><font color="0000BB">begin</font></b>
-  UmlaufRotMatrix.RotateC(FUmlaufSpeed);
-  PlanetRotMatrix.RotateC(fPlanetSpeed);
-  MondRotMatrix.RotateC(FMondSpeed);
-
-  <i><font color="#FFFF00">// TempMatrix = UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * PlanetRotMatrix;</font></i>
+  UmlaufRotMatrix.Rotate(FUmlaufSpeed);
+  PlanetRotMatrix.Rotate(fPlanetSpeed);
+  MondRotMatrix.Rotate(FMondSpeed);
 
   TempMatrix := PlanetRotMatrix;
   TempMatrix.Scale(fPlanetScale);
 
-  TempMatrix.Multiply(MondTransMatrix, TempMatrix);
-  TempMatrix.Multiply(MondRotMatrix, TempMatrix);
-
-  TempMatrix.Multiply(UmlaufTransMatrix, TempMatrix);
-  TempMatrix.Multiply(UmlaufRotMatrix, TempMatrix);
+  TempMatrix := UmlaufRotMatrix * UmlaufTransMatrix * MondRotMatrix * MondTransMatrix * TempMatrix;
 
   TempMatrix.Uniform(Matrix_ID);
 
@@ -137,18 +134,23 @@ Sonne und Planeten zeichnen<br>
 <b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
+<br>
+Bei der Multiplikation, wird die Z-Achse ignoriert, aus diesem Grund wird <b>glPosition.xyw</b> verwendet.<br>
+Anschliessend wird Z auf <b>0.0</b> gesetzt.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten in 2D.</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;                     <i><font color="#FFFF00">// Matrix von Uniform</font></i>
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat3</font></b> mat;                     <i><font color="#FFFF00">// Matrix von Uniform.</font></i>
+
 
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position.xyw = mat * <b><font color="0000BB">vec3</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position.z   = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>

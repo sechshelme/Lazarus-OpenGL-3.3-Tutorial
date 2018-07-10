@@ -14,8 +14,8 @@
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.<br>
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.<br>
 <hr><br>
-  Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.<br>
-  Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.<br>
+Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.<br>
+Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TCubePos = <b><font color="0000BB">record</font></b>
     pos: TVector3f;
@@ -112,13 +112,13 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     CubePosArray[i]^.mat.Identity;
     CubePosArray[i]^.mat.Translate(CubePosArray[i]^.pos);             <i><font color="#FFFF00">// Matrix verschieben.</font></i>
-    CubePosArray[i]^.mat.Multiply(WorldMatrix, CubePosArray[i]^.mat); <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
+    CubePosArray[i]^.mat := WorldMatrix * CubePosArray[i]^.mat;       <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
   <b><font color="0000BB">end</font></b>;
 
   QuickSort(CubePosArray, <font color="#0077BB">0</font>, CubeTotal - <font color="#0077BB">1</font>);                          <i><font color="#FFFF00">// Würfel nach der Z-Tiefe sortieren.</font></i>
 
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    CubePosArray[i]^.mat.Multiply(FrustumMatrix, CubePosArray[i]^.mat);
+    CubePosArray[i]^.mat := FrustumMatrix * CubePosArray[i]^.mat;
     CubePosArray[i]^.mat.Uniform(Matrix_ID);                          <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
     glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);            <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
   <b><font color="0000BB">end</font></b>;

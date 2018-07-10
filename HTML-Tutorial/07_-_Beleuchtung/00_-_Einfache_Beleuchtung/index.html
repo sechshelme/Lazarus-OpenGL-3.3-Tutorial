@@ -25,7 +25,7 @@ Wen man dies nicht macht, hat man eine falsche Abdunklung auf den schrägen Drei
 <br>
 Hier wird die einfachste Variante einer Beleuchtung gezeigt.<br>
 Dazu wird das Skalarprodukt zwischen der Normalen und der Lichtposition berechnet.<br>
-Dabei werden die Polygone dunkler, je grösser der Winkel. 0°=weiss; 180°schwarz.<br>
+Dabei werden die Polygone dunkler, je grösser der Winkel. 0°=weiss; 180°=schwarz.<br>
 Diese Beleuchtung ist eigentlich nicht üblich, aber immerhin sieht man die Mehses viel besser.<br>
 Aber es zeigt wenigsten, wie das Grundgerüst einer Beleuchtung aussieht.<br>
 <br>
@@ -107,12 +107,11 @@ In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwend
       <b><font color="0000BB">for</font></b> z := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Lokale Translationen.</font></i>
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
         Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  <i><font color="#FFFF00">// Matrixen mit Worlposition und</font></i>
-        Matrix.Multiply(FrustumMatrix, Matrix);                <i><font color="#FFFF00">// Frustum multiplizieren.</font></i>
+        Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
 
         Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Die komplettt berechnete Matrix übergeben.</font></i>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen einzelnen Würfel.</font></i>

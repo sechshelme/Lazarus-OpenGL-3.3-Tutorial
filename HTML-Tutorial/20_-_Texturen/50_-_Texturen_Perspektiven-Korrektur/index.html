@@ -69,7 +69,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   glUniform1i(Variante_ID, <font color="#0077BB">0</font>);
   TransMatrix.Identity;
   TransMatrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
   glBindVertexArray(VBO_Trapeze.VAO);
@@ -79,7 +79,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   glUniform1i(Variante_ID, <font color="#0077BB">1</font>);
   TransMatrix.Identity;
   TransMatrix.Translate(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
 
@@ -87,7 +87,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   glUniform1i(Variante_ID, <font color="#0077BB">2</font>);
   TransMatrix.Identity;
   TransMatrix.Translate(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  ProdMatrix.Multiply(ScaleMatrix, TransMatrix);
+  ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
 

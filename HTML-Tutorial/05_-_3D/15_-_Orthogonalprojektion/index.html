@@ -12,7 +12,7 @@
     <b><h2>15 - Orthogonalprojektion</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Eine OpenGL-Scene wird immer in einem Bereich von <b>-1</b> bis <b>+1</b> in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.<br>
-Um dies zu umgehen mutipliziert man die Scene mit einer Ortho-Matrix.<br>
+Um dies zu umgehen multipliziert man die Scene mit einer Ortho-Matrix.<br>
 Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs Parametern in der Funktion, kann man den gewünschten Bereich einstellen.<br>
 <br>
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,<br>
@@ -36,10 +36,9 @@ Die Skalierung der Welt-Matrix hat den Effekt, das die ganze Scene gezoomt wird.
   WorldMatrix.Identity;
   WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">75</font>);                    <i><font color="#FFFF00">// Welt-Matrix zoomen</font></i>
   OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   <i><font color="#FFFF00">// Den Ortho-Bereich einstellen.</font></i></pre></code>
-Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrixen mutipliziert werden.<br>
-Diese entspricht <b>Matrix = OrthoMatrix * WorldMatrix * Matrix</b>.<br>
-Die Matrixen könnte man auch im Shader multiplizieren, dafür müsste man einfach wür jeder Matrix eine Unifom deklarieren.<br>
-Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgefüht wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.<br>
+Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrizen mutipliziert werden.<br>
+Die Matrizen könnte man auch im Shader multiplizieren, dafür müsste man einfach für jede Matrix eine Uniform deklarieren.<br>
+Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgeführt wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.<br>
 <br>
 Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet werden kann.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
@@ -66,8 +65,7 @@ Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet w
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Matrix verschieben.</font></i>
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
-        Matrix.Multiply(OrthoMatrix, Matrix);
+        Matrix := OrthoMatrix * WorldMatrix * Matrix;          <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
 
         Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>

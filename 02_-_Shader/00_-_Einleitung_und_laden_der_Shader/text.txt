@@ -9,6 +9,12 @@ In OpenGL 4.0 wurden noch zwei <b>Tessellations-Shader</b> eingeführt, aber die
 Die Shader werden mit der Programmiersprache <b>OpenGL Shading Language (GLSL)</b> programmiert. Die ist eine C/C++ ähnliche Sprache.
 Daher muss auf <b>Gross- und Kleinschreibung</b> geachtet werden.
 
+Somit sind auch Kommentare wie in C/C++ möglich.
+//codetext+
+// Ich bin ein Kommentar
+/* Ich bin ein Kommentar */
+//codetext-
+
 Der kompilierte Code von GLSL läufen direkt in der Grafikkarte (GPU).
 *)
 

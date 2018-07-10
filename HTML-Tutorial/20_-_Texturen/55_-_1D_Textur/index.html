@@ -72,7 +72,7 @@ Das Zeichnen ist nichts besonderes.<br>
 
   Shader.UseProgram;
 
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
+  ProdMatrix := ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>

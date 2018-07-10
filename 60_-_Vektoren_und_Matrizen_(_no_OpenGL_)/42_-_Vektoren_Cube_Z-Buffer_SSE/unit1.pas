@@ -73,124 +73,104 @@ implementation
 
 
 {$asmmode intel}
-function VectorMultiplySSE(const m: TMatrix; const v: TVector4f): TVector4f; assembler; nostackframe; register;
+//function VectorMultiplySSE(const m: TMatrix; const v: TVector4f): TVector4f; assembler; nostackframe; register;
+//asm
+//         Movups  Xmm4, [m + $00]
+//         Movups  Xmm5, [m + $10]
+//         Movups  Xmm6, [m + $20]
+//         Movups  Xmm7, [m + $30]
+//         Movups  Xmm2, [v]
+//
+//         // Zeile 0
+//         Pshufd  Xmm0, Xmm2, 00000000b
+//         Mulps   Xmm0, Xmm4
+//
+//         // Zeile 1
+//         Pshufd  Xmm1, Xmm2, 01010101b
+//         Mulps   Xmm1, Xmm5
+//         Addps   Xmm0, Xmm1
+//
+//         // Zeile 2
+//         Pshufd  Xmm1, Xmm2, 10101010b
+//         Mulps   Xmm1, Xmm6
+//         Addps   Xmm0, Xmm1
+//
+//         // Zeile 3
+//         Pshufd  Xmm1, Xmm2, 11111111b
+//         Mulps   Xmm1, Xmm7
+//         Addps   Xmm0, Xmm1
+//
+//         Movups  [Result], Xmm0
+//end;
+
+{$asmmode intel}
+function VectorMultiplySSE(const M: TMatrix; const v: TVector4f): TVector4f; assembler; nostackframe; register;
 asm
-         Movups  Xmm4, [m + $00]
-         Movups  Xmm5, [m + $10]
-         Movups  Xmm6, [m + $20]
-         Movups  Xmm7, [m + $30]
-         Movups  Xmm2, [v]
+         Movups  Xmm4, [M + $00]
+         Movups  Xmm5, [M + $10]
+         Movups  Xmm6, [M + $20]
+         Movups  Xmm7, [M + $30]
 
          // Zeile 0
-         Pshufd  Xmm0, Xmm2, 00000000b
+         Movss   Xmm0, [v + $00]
+         Shufps  Xmm0, Xmm0, 00000000b
          Mulps   Xmm0, Xmm4
 
          // Zeile 1
-         Pshufd  Xmm1, Xmm2, 01010101b
-         Mulps   Xmm1, Xmm5
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [v + $04]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
 
          // Zeile 2
-         Pshufd  Xmm1, Xmm2, 10101010b
-         Mulps   Xmm1, Xmm6
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [v + $08]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
 
          // Zeile 3
-         Pshufd  Xmm1, Xmm2, 11111111b
-         Mulps   Xmm1, Xmm7
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [v + $0C]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
 
          Movups  [Result], Xmm0
 end;
 
-function MatrixMultiplySSE(const m0, m1: TMatrix): TMatrix; assembler; nostackframe; register;
+function MatrixMultiplySSE(const M0, M1: Tmat4x4): Tmat4x4; assembler; nostackframe; register;
 asm
-         Movups  Xmm4, [m0 + $00]
-         Movups  Xmm5, [m0 + $10]
-         Movups  Xmm6, [m0 + $20]
-         Movups  Xmm7, [m0 + $30]
+         Movups  Xmm4, [M0 + $00]
+         Movups  Xmm5, [M0 + $10]
+         Movups  Xmm6, [M0 + $20]
+         Movups  Xmm7, [M0 + $30]
 
-         // Spalte 0
-         Movups  Xmm2, [m1 + $00]
-
-         Pshufd  Xmm0, Xmm2, 00000000b
+         Xor     rcx, rcx
+         @loop:
+         Movss   Xmm0, [M1 + $00 + rcx]
+         Shufps  Xmm0, Xmm0, 00000000b
          Mulps   Xmm0, Xmm4
 
-         Pshufd  Xmm1, Xmm2, 01010101b
-         Mulps   Xmm1, Xmm5
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [M1 + $04 + rcx]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm5
+         Addps   Xmm0, Xmm2
 
-         Pshufd  Xmm1, Xmm2, 10101010b
-         Mulps   Xmm1, Xmm6
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [M1 + $08 + rcx]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm6
+         Addps   Xmm0, Xmm2
 
-         Pshufd  Xmm1, Xmm2, 11111111b
-         Mulps   Xmm1, Xmm7
-         Addps   Xmm0, Xmm1
+         Movss   Xmm2, [M1 + $0C + rcx]
+         Shufps  Xmm2, Xmm2, 00000000b
+         Mulps   Xmm2, Xmm7
+         Addps   Xmm0, Xmm2
 
-         Movups  [Result + $00], Xmm0
+         Movups  [Result + rcx], Xmm0
 
-         // Spalte 1
-         Movups  Xmm2, [m1 + $10]
-
-         Pshufd  Xmm0, Xmm2, 00000000b
-         Mulps   Xmm0, Xmm4
-
-         Pshufd  Xmm1, Xmm2, 01010101b
-         Mulps   Xmm1, Xmm5
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 10101010b
-         Mulps   Xmm1, Xmm6
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 11111111b
-         Mulps   Xmm1, Xmm7
-         Addps   Xmm0, Xmm1
-
-         Movups   [Result + $10], Xmm0
-
-         // Spalte 2
-         Movups  Xmm2, [m1 + $20]
-
-         Pshufd  Xmm0, Xmm2, 00000000b
-         Mulps   Xmm0, Xmm4
-
-         Pshufd  Xmm1, Xmm2, 01010101b
-         Mulps   Xmm1, Xmm5
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 10101010b
-         Mulps   Xmm1, Xmm6
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 11111111b
-         Mulps   Xmm1, Xmm7
-         Addps   Xmm0, Xmm1
-
-         Movups  [Result + $20], Xmm0
-
-         // Spalte 3
-         Movups  Xmm2, [m1 + $30]
-
-         Pshufd  Xmm0, Xmm2, 00000000b
-         Mulps   Xmm0, Xmm4
-
-         Pshufd  Xmm1, Xmm2, 01010101b
-         Mulps   Xmm1, Xmm5
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 10101010b
-         Mulps   Xmm1, Xmm6
-         Addps   Xmm0, Xmm1
-
-         Pshufd  Xmm1, Xmm2, 11111111b
-         Mulps   Xmm1, Xmm7
-         Addps   Xmm0, Xmm1
-
-         Movups  [Result + $30], Xmm0
+         Add     rcx, $10
+         Cmp     rcx, $30
+         Jbe     @loop
 end;
-
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -455,5 +435,8 @@ begin
 
   Invalidate;
 end;
+
+begin
+
 
 end.

@@ -56,10 +56,10 @@ Texturen laden<br>
       <i><font color="#FFFF00">//3: tex[j] := $0FF00;</font></i>
       <i><font color="#FFFF00">//4: tex[j] := $FF000;</font></i>
       <i><font color="#FFFF00">//end;</font></i>
-      tex[j] := (<font color="#0077BB">$</font>FF00000 <b><font color="0000BB">div</font></b> (w*w) * j)  <b><font color="0000BB">shr</font></b> (i * <font color="#0077BB">4</font>);
-<i><font color="#FFFF00">//      tex[j] := $FF00000  shr (i * 4);</font></i>
+      tex[j] := (<font color="#0077BB">$</font>FF00000 <b><font color="0000BB">div</font></b> (w * w) * j) <b><font color="0000BB">shr</font></b> (i * <font color="#0077BB">4</font>);
+      <i><font color="#FFFF00">//      tex[j] := $FF00000  shr (i * 4);</font></i>
     <b><font color="0000BB">end</font></b>;
-<i><font color="#FFFF00">//    WriteLn(IntToHex($FF00000 shr (i * 4), 8));</font></i>
+    <i><font color="#FFFF00">//    WriteLn(IntToHex($FF00000 shr (i * 4), 8));</font></i>
     glTexImage2D(GL_TEXTURE_2D, i - <font color="#0077BB">1</font>, GL_RGBA, w, w, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(tex));
   <b><font color="0000BB">end</font></b>;
 
@@ -81,7 +81,7 @@ Texturen laden<br>
 <b><font color="0000BB">end</font></b>;</pre></code>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
-  m:TMatrix;
+  m: TMatrix;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 

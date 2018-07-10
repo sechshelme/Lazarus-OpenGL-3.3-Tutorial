@@ -19,7 +19,7 @@ Der Frustum funktioniert ähnlich wie beim Ortho.<br>
 Nur die Parameter sind ein wenig anders.<br>
 Die Z-Werte müssen immer <b>positiv</b> sein.<br>
 <br>
-Mit den zwei letzten Paramertern von Frustum und der World-Matrix muss man ein bischen probieren, zum Teil wird sonst das Bild verzehrt.<br>
+Mit den zwei letzten Parametern von Frustum und der World-Matrix muss man ein bisschen probieren, zum Teil wird sonst das Bild verzehrt.<br>
 <br>
 Alternativ kann man den Frustum auch mit <b>Perspective(...</b> einstellen.<br>
 Dabei ist der erste Parameter der Betrachtungs-Winkel.<br>
@@ -45,8 +45,7 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Matrix verschieben.</font></i>
 
-        Matrix.Multiply(WorldMatrix, Matrix);                  <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
-        Matrix.Multiply(FrustumMatrix, Matrix);
+        Matrix := FrustumMatrix * WorldMatrix * Matrix;        <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
 
         Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>

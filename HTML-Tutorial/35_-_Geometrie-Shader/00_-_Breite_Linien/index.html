@@ -77,7 +77,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
 
   Shader.UseProgram;
 
-  ProdMatrix.Multiply(ScaleMatrix, RotMatrix);
+  ProdMatrix := ScaleMatrix * RotMatrix;
 
   <i><font color="#FFFF00">// Zeichne linke Scheibe</font></i>
   TempMatrix := ProdMatrix;

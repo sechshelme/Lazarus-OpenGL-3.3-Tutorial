@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader, oglVector, oglMatrix;
 
 //image image.png
 (*
@@ -68,7 +68,7 @@ implementation
 
 type
   TMaterial = record
-//    test: array[0..4, 0..3] of GLfloat;
+    //    test: array[0..4, 0..3] of GLfloat;
     test: array[0..19] of GLfloat;
 
     ambient: TVector3f;             // Umgebungslicht
@@ -195,14 +195,14 @@ begin
 
   CubeSize := 4;
 
-  Matrix := TMatrix.Create;
-  FrustumMatrix := TMatrix.Create;
+  Matrix.Identity;
+  FrustumMatrix.Identity;
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
   WorldMatrix.Scale(2.5);
 
-  ModelMatrix := TMatrix.Create;
+  ModelMatrix.Identity;
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -301,12 +301,11 @@ begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
         Matrix.Scale(scal);
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
         Matrix.Uniform(ModelMatrix_ID);
 
-        Matrix.Multiply(WorldMatrix, Matrix);                    // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+        Matrix := FrustumMatrix * WorldMatrix * Matrix;
 
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet einen kleinen Würfel.
@@ -330,11 +329,6 @@ begin
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBONormal);
   glDeleteBuffers(1, @UBO);
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  ModelMatrix.Free;
-  WorldMatrix.Free;
 end;
 
 procedure TForm1.MenuItemClick(Sender: TObject);
