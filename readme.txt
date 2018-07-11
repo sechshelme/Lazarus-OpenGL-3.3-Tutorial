@@ -45,5 +45,6 @@ Tutorial auf GITHUB hochgeladen.
 Tutorial das erste mal veröffentlicht.
 
 
-Für Suchmaschinen ( Tutorial Lazarus FPC Delphi OpenGL 3.3 Core Matrix )
+Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Matrix 3D
+test
 
