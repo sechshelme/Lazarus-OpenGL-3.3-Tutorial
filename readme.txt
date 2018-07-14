@@ -48,6 +48,6 @@ Tutorial auf GITHUB hochgeladen.
 Tutorial das erste mal veröffentlicht.
 
 
-Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D 
+Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D modern
 
 
