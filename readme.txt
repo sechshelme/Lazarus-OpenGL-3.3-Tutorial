@@ -12,8 +12,7 @@ http://www.lazarusforum.de/viewtopic.php?f=29&t=11373&p=101685&hilit=opengl+3.3#
 Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben sind, diese befinden sich in Arbeit oder sind Fehlerhaft.
 
 
-Neuerungen:
-===========
+# Neuerungen:
 
 14.07.2018
 Funktionen in oglVektor und oglMatrix optimiert.
