@@ -15,6 +15,9 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+14.07.2018
+Funktionen in oglVektor und oglMatrix optimiert.
+
 20.06.2018
 Matrix.Multiply wurde aus oglMatrix entfernt, dafür ist es möglich Matrizen direkt zu multiplizieren.
 Matrix := Matrix * Matrix
@@ -45,6 +48,6 @@ Tutorial auf GITHUB hochgeladen.
 Tutorial das erste mal veröffentlicht.
 
 
-Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Matrix 3D
+Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D 
 
 
