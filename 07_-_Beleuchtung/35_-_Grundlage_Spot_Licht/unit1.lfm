@@ -8,5 +8,5 @@ object Form1: TForm1
   OnMouseDown = FormMouseDown
   OnMouseWheel = FormMouseWheel
   OnPaint = FormPaint
-  LCLVersion = '1.8.0.6'
+  LCLVersion = '1.8.4.0'
 end

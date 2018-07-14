@@ -239,9 +239,9 @@ end;
 
 procedure TBasisTriangleVAO.Triangles(Vector0, Vector1, Vector2, NV0, NV1, NV2: TVector3f);
 begin
-  NV0.NormalCut;
-  NV1.NormalCut;
-  NV2.NormalCut;
+  NV0.Normalize;
+  NV1.Normalize;
+  NV2.Normalize;
 
   FVertexData.Pos.Add(Vector0, Vector1, Vector2);
   FVertexData.Normal.Add(NV0, NV1, NV2);

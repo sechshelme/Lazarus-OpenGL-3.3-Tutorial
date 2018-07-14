@@ -21,6 +21,8 @@ type
   TFace3D = array[0..2] of TVector3f;
   TFace3DArray = array of TFace3D;
 
+  PVector2f = ^TVector2f;
+  PVector3f = ^TVector3f;
   PVector4f = ^TVector4f;
 
   { TVector2fHelper }
@@ -38,7 +40,7 @@ type
     procedure Scale(Ax, Ay: GLfloat);
     procedure Translate(Ax, Ay: GLfloat);
     procedure Scale(s: GLfloat);
-    procedure NormalCut;
+    procedure Normalize;
     procedure Negate;
 
     procedure Uniform(ShaderID: GLint);
@@ -71,9 +73,10 @@ type
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(s: GLfloat);
     procedure Translate(Ax, Ay, Az: GLfloat);
-    procedure NormalCut;
+    procedure Normalize;
     procedure Negate;
-    procedure CrossProduct(const P0, P1, P2: TVector3f);
+    procedure Cross(const v0, v1: TVector3f); overload;
+    procedure Cross(const v0, v1, v2: TVector3f); overload;
 
     procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(var Vectoren, Normal: array of TVector3f);
@@ -112,7 +115,6 @@ type
     procedure FromInt(i: UInt32);
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(Ax, Ay, Az, Aw: GLfloat);
-    procedure Scale(s: GLfloat);
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -169,189 +171,6 @@ operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 
 implementation
 
-operator + (const v0, v1: TVector2f) Res: TVector2f; inline;
-begin
-  Res[0] := v0[0] + v1[0];
-  Res[1] := v0[1] + v1[1];
-end;
-
-operator - (const v0, v1: TVector2f) Res: TVector2f; inline;
-begin
-  Res[0] := v0[0] - v1[0];
-  Res[1] := v0[1] - v1[1];
-end;
-
-operator + (const v0, v1: TVector3f) Res: TVector3f; inline;
-begin
-  Res[0] := v0[0] + v1[0];
-  Res[1] := v0[1] + v1[1];
-  Res[2] := v0[2] + v1[2];
-end;
-
-operator - (const v0, v1: TVector3f) Res: TVector3f; inline;
-begin
-  Res[0] := v0[0] - v1[0];
-  Res[1] := v0[1] - v1[1];
-  Res[2] := v0[2] - v1[2];
-end;
-
-operator + (const v0, v1: TVector4f) Res: TVector4f; inline;
-begin
-  Res[0] := v0[0] + v1[0];
-  Res[1] := v0[1] + v1[1];
-  Res[2] := v0[2] + v1[2];
-  Res[3] := v0[3] + v1[3];
-end;
-
-operator - (const v0, v1: TVector4f) Res: TVector4f; inline;
-begin
-  Res[0] := v0[0] - v1[0];
-  Res[1] := v0[1] - v1[1];
-  Res[2] := v0[2] - v1[2];
-  Res[3] := v0[3] - v1[3];
-end;
-
-operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
-begin
-  Res[0] := v[0] * f;
-  Res[1] := v[1] * f;
-end;
-
-operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
-begin
-  Res[0] := v[0] / f;
-  Res[1] := v[1] / f;
-end;
-
-operator * (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
-begin
-  Res[0] := v[0] * f;
-  Res[1] := v[1] * f;
-  Res[2] := v[2] * f;
-end;
-
-operator / (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
-begin
-  Res[0] := v[0] / f;
-  Res[1] := v[1] / f;
-  Res[2] := v[2] / f;
-end;
-
-operator * (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
-begin
-  Res[0] := v[0] * f;
-  Res[1] := v[1] * f;
-  Res[2] := v[2] * f;
-  Res[3] := v[3] * f;
-end;
-
-operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
-begin
-  Res[0] := v[0] / f;
-  Res[1] := v[1] / f;
-  Res[2] := v[2] / f;
-  Res[3] := v[3] / f;
-end;
-
-
-procedure SwapglFloat(var f0, f1: GLfloat); inline;
-var
-  dummy: GLfloat;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex2f(var f0, f1: TVector2f); inline;
-var
-  dummy: TVector2f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex3f(var f0, f1: TVector3f); inline;
-var
-  dummy: TVector3f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex4f(var f0, f1: TVector4f); inline;
-var
-  dummy: TVector4f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-
-function vec2(x, y: GLfloat): TVector2f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-end;
-
-function vec3(x, y, z: GLfloat): TVector3f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-  Result[2] := z;
-end;
-
-function vec3(const xy: TVector2f; z: GLfloat): TVector3f; inline;
-begin
-  Result[0] := xy[0];
-  Result[1] := xy[1];
-  Result[2] := z;
-end;
-
-function vec4(x, y, z, w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-  Result[2] := z;
-  Result[3] := w;
-end;
-
-function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := xy[0];
-  Result[1] := xy[1];
-  Result[2] := z;
-  Result[3] := w;
-end;
-
-function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := xyz[0];
-  Result[1] := xyz[1];
-  Result[2] := xyz[2];
-  Result[3] := w;
-end;
-
-procedure FaceToNormale(var Face, Normal: array of TFace3D);
-var
-  i: integer;
-  v: TVector3f;
-begin
-  if Length(Normal) < Length(Face) then begin
-    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
-    Exit;
-  end;
-  for i := 0 to Length(Face) - 1 do begin
-    v.CrossProduct(Face[i, 0], Face[i, 1], Face[i, 2]);
-    Normal[i, 0] := v;
-    Normal[i, 1] := v;
-    Normal[i, 2] := v;
-  end;
-end;
-
 { TVector2fHelper }
 
 function TVector2fHelper.GetX: GLfloat; inline;
@@ -403,24 +222,20 @@ begin
   Self[1] += Ay;
 end;
 
-procedure TVector2fHelper.NormalCut;
+procedure TVector2fHelper.Normalize;
 var
-  i: integer;
   l: GLfloat;
 begin
   l := Sqrt(Sqr(Self[0]) + Sqr(Self[1]));
   if l = 0 then begin
     l := 1.0;
   end;
-  for i := 0 to 1 do begin
-    Self[i] := Self[i] / l;
-  end;
+  Self /= l;
 end;
 
 procedure TVector2fHelper.Negate; inline;
 begin
-  Self[0] *= (-1);
-  Self[1] *= (-1);
+  Self *= -1;
 end;
 
 procedure TVector2fHelper.Uniform(ShaderID: GLint); inline;
@@ -467,7 +282,7 @@ begin
   Result[1] := Self[1];
 end;
 
-procedure TVector3fHelper.SetXY(const AValue: TVector2f);
+procedure TVector3fHelper.SetXY(const AValue: TVector2f); inline;
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
@@ -546,9 +361,7 @@ end;
 
 procedure TVector3fHelper.Scale(s: GLfloat); inline;
 begin
-  Self[0] *= s;
-  Self[1] *= s;
-  Self[2] *= s;
+  Self *= s;
 end;
 
 procedure TVector3fHelper.Translate(Ax, Ay, Az: GLfloat); inline;
@@ -558,43 +371,34 @@ begin
   Self[2] += Az;
 end;
 
-procedure TVector3fHelper.NormalCut;
+procedure TVector3fHelper.Normalize;
 var
-  i: integer;
   l: GLfloat;
 begin
   l := Sqrt(Sqr(Self[0]) + Sqr(Self[1]) + Sqr(Self[2]));
   if l = 0.0 then begin
     l := 1.0;
   end;
-  for i := 0 to 2 do begin
-    Self[i] := Self[i] / l;
-  end;
+  Self /= l;
 end;
 
 procedure TVector3fHelper.Negate;
-var
-  i: integer;
 begin
-  for i := 0 to 2 do begin
-    Self[i] *= (-1);
-  end;
+  Self *= -1;
 end;
 
-procedure TVector3fHelper.CrossProduct(const P0, P1, P2: TVector3f);
-var
-  a, b: TVector3f;
-  i: integer;
+procedure TVector3fHelper.Cross(const v0, v1: TVector3f);
 begin
-  for i := 0 to 2 do begin
-    a[i] := P1[i] - P0[i];
-    b[i] := P2[i] - P0[i];
-  end;
-  Self[0] := a[1] * b[2] - a[2] * b[1];
-  Self[1] := a[2] * b[0] - a[0] * b[2];
-  Self[2] := a[0] * b[1] - a[1] * b[0];
+  Self[0] := v0[1] * v1[2] - v0[2] * v1[1];
+  Self[1] := v0[2] * v1[0] - v0[0] * v1[2];
+  Self[2] := v0[0] * v1[1] - v0[1] * v1[0];
 
-  NormalCut;
+  Normalize;
+end;
+
+procedure TVector3fHelper.Cross(const v0, v1, v2: TVector3f); inline;
+begin
+  Cross(v1 - v0, v2 - v0);
 end;
 
 procedure TVector3fHelper.WriteVectoren(var Vector: array of TVector3f);
@@ -792,11 +596,6 @@ begin
   Self[3] *= Aw;
 end;
 
-procedure TVector4fHelper.Scale(s: GLfloat); inline;
-begin
-  Scale(s, s, s, s);
-end;
-
 procedure TVector4fHelper.Uniform(ShaderID: GLint); inline;
 begin
   glUniform4fv(ShaderID, 1, @Self);
@@ -916,6 +715,192 @@ begin
     Self[i*3+1] *= y;
     Self[i*3+2] *= z;
   end;
+end;
+
+procedure FaceToNormale(var Face, Normal: array of TFace3D);
+var
+  i: integer;
+  v: TVector3f;
+begin
+  if Length(Normal) < Length(Face) then begin
+    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+    Exit;
+  end;
+  for i := 0 to Length(Face) - 1 do begin
+    v.Cross(Face[i, 0], Face[i, 1], Face[i, 2]);
+    Normal[i, 0] := v;
+    Normal[i, 1] := v;
+    Normal[i, 2] := v;
+  end;
+end;
+
+// === Hilfsfunktionen
+
+procedure SwapglFloat(var f0, f1: GLfloat); inline;
+var
+  dummy: GLfloat;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex2f(var f0, f1: TVector2f); inline;
+var
+  dummy: TVector2f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex3f(var f0, f1: TVector3f); inline;
+var
+  dummy: TVector3f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex4f(var f0, f1: TVector4f); inline;
+var
+  dummy: TVector4f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+
+function vec2(x, y: GLfloat): TVector2f; inline;
+begin
+  Result[0] := x;
+  Result[1] := y;
+end;
+
+function vec3(x, y, z: GLfloat): TVector3f; inline;
+begin
+  Result[0] := x;
+  Result[1] := y;
+  Result[2] := z;
+end;
+
+function vec3(const xy: TVector2f; z: GLfloat): TVector3f; inline;
+begin
+  Result[0] := xy[0];
+  Result[1] := xy[1];
+  Result[2] := z;
+end;
+
+function vec4(x, y, z, w: GLfloat): TVector4f; inline;
+begin
+  Result[0] := x;
+  Result[1] := y;
+  Result[2] := z;
+  Result[3] := w;
+end;
+
+function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; inline;
+begin
+  Result[0] := xy[0];
+  Result[1] := xy[1];
+  Result[2] := z;
+  Result[3] := w;
+end;
+
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; inline;
+begin
+  Result[0] := xyz[0];
+  Result[1] := xyz[1];
+  Result[2] := xyz[2];
+  Result[3] := w;
+end;
+
+// === Überladene Operatoren
+
+operator + (const v0, v1: TVector2f) Res: TVector2f; inline;
+begin
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
+end;
+
+operator - (const v0, v1: TVector2f) Res: TVector2f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+end;
+
+operator + (const v0, v1: TVector3f) Res: TVector3f; inline;
+begin
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
+  Res[2] := v0[2] + v1[2];
+end;
+
+operator - (const v0, v1: TVector3f) Res: TVector3f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+  Res[2] := v0[2] - v1[2];
+end;
+
+operator + (const v0, v1: TVector4f) Res: TVector4f; inline;
+begin
+  Res[0] := v0[0] + v1[0];
+  Res[1] := v0[1] + v1[1];
+  Res[2] := v0[2] + v1[2];
+  Res[3] := v0[3] + v1[3];
+end;
+
+operator - (const v0, v1: TVector4f) Res: TVector4f; inline;
+begin
+  Res[0] := v0[0] - v1[0];
+  Res[1] := v0[1] - v1[1];
+  Res[2] := v0[2] - v1[2];
+  Res[3] := v0[3] - v1[3];
+end;
+
+operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+end;
+
+operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+end;
+
+operator * (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+  Res[2] := v[2] * f;
+end;
+
+operator / (const v: TVector3f; const f: GLfloat) Res: TVector3f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+  Res[2] := v[2] / f;
+end;
+
+operator * (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
+begin
+  Res[0] := v[0] * f;
+  Res[1] := v[1] * f;
+  Res[2] := v[2] * f;
+  Res[3] := v[3] * f;
+end;
+
+operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f; inline;
+begin
+  Res[0] := v[0] / f;
+  Res[1] := v[1] / f;
+  Res[2] := v[2] / f;
+  Res[3] := v[3] / f;
 end;
 
 end.
