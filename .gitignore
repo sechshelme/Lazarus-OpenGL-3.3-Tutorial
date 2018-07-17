@@ -6,7 +6,7 @@ project1
 *.so
 *.dylib
 *.lrs
-*.res
+# *.res
 *.compiled
 *.dbg
 *.ppu
