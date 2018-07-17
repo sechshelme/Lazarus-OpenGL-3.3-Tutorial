@@ -2,13 +2,11 @@ unit oglUBO;
 
 {$mode objfpc}{$H+}
 
-interface       // Auchtung fehlerhaft !
+interface       // Achtung fehlerhaft !
 
 uses
   Classes, SysUtils, Dialogs,
-  dglOpenGL,
-//  oglShader, MyLogForms;
-oglShader;
+  dglOpenGL, oglShader;
 
 // Achtung !  Darf nicht zuviel aufgerufen werden.
 
@@ -24,6 +22,10 @@ type
     destructor Destroy; override;
 
     procedure UpdateBuffer(Data: PGLvoid; size: GLsizeiptr);
+  end;
+
+  TMaterialUBO=class(TUBO)
+
   end;
 
 

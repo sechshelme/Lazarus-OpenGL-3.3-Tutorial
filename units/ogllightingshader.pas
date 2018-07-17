@@ -9,14 +9,17 @@ uses
   dglOpenGL,
   oglShader, oglVector, oglMatrix, oglUBO;
 
-const
-  MaterialPara: array[0..21] of record
+type
+  TMatrial=record
       Name: string;
       ambient: TVector4f;
       diffuse: TVector4f;
       specular: TVector4f;
       shininess: GLfloat
-    end
+    end;
+
+const
+  MaterialPara: array[0..21] of TMatrial
   = ((
     Name: 'Brass';        // Messing
     ambient: (0.33, 0.22, 0.03, 1.0);
