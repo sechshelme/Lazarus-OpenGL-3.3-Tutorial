@@ -90,9 +90,9 @@ function mat3x2(const v0, v1, v2: TVector2f): Tmat3x2;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const m: Tmat2x2; v:TVector2f) Res: TVector2f;
-operator * (const m: Tmat3x3; v:TVector3f) Res: TVector3f;
-operator * (const m: Tmat4x4; v:TVector4f) Res: TVector4f;
+operator * (const m: Tmat2x2; const v: TVector2f) Res: TVector2f;
+operator * (const m: Tmat3x3; const v: TVector3f) Res: TVector3f;
+operator * (const m: Tmat4x4; const v: TVector4f) Res: TVector4f;
 
 operator + (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 operator + (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
@@ -121,7 +121,7 @@ end;
 
 procedure Tmat2x2Helper.Zero; inline;
 const
-  m: TMat2x2 = (( 0.0, 0.0), (0.0, 0.0));
+  m: TMat2x2 = ((0.0, 0.0), (0.0, 0.0));
 begin
   Self := m;
 end;
@@ -219,7 +219,7 @@ begin
   Self[1, 0] += x;
 end;
 
-procedure Tmat3x3Helper.Frustum(left, right, zNear, zFar: GLfloat); // geht nicht.
+procedure Tmat3x3Helper.Frustum(left, right, zNear, zFar: GLfloat);
 begin
   Identity;
   Self[0, 0] := 2 * zNear / (right - left);
@@ -479,7 +479,7 @@ end;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const m: Tmat2x2; v: TVector2f) Res: TVector2f;
+operator*(const m: Tmat2x2; const v: TVector2f)Res: TVector2f;
 var
   i: integer;
 begin
@@ -488,7 +488,7 @@ begin
   end;
 end;
 
-operator * (const m: Tmat3x3; v: TVector3f) Res: TVector3f;
+operator*(const m: Tmat3x3; const v: TVector3f)Res: TVector3f;
 var
   i: integer;
 begin
@@ -569,7 +569,7 @@ end;
 
 {$if defined(cpux86_64) or defined(cpux86)}
 {$asmmode intel}
-operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f; assembler; nostackframe; register;
+operator*(const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler; nostackframe; register;
 asm
          Movups  Xmm4, [m + $00]
          Movups  Xmm5, [m + $10]
@@ -599,7 +599,7 @@ asm
          Movups  [Res], Xmm0
 end;
 
-operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4; assembler; nostackframe; register;
+operator*(const mat0, mat1: Tmat4x4)Res: Tmat4x4; assembler; nostackframe; register;
 asm
          Movups Xmm4, [mat0 + $00]
          Movups Xmm5, [mat0 + $10]

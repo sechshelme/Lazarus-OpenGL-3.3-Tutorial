@@ -78,8 +78,8 @@ type
     procedure Cross(const v0, v1: TVector3f); overload;
     procedure Cross(const v0, v1, v2: TVector3f); overload;
 
-    procedure WriteVectoren(var Vector: array of TVector3f);   // Für Testzwecke
-    procedure WriteVectoren_and_Normal(var Vectoren, Normal: array of TVector3f);
+    procedure WriteVectoren(const Vector: array of TVector3f);   // Für Testzwecke
+    procedure WriteVectoren_and_Normal(const Vectoren, Normal: array of TVector3f);
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -213,7 +213,8 @@ end;
 
 procedure TVector2fHelper.Scale(s: GLfloat); inline;
 begin
-  Scale(s, s);
+  Self[0] *= s;
+  Self[1] *= s;
 end;
 
 procedure TVector2fHelper.Translate(Ax, Ay: GLfloat); inline;
@@ -290,7 +291,7 @@ end;
 
 function TVector3fHelper.ToInt: Uint32;
 
-  function v(s: GLfloat): longword; inline;
+  function v(s: GLfloat): Byte; inline;
   begin
     Result := Round(s * $FF);
   end;
@@ -401,7 +402,7 @@ begin
   Cross(v1 - v0, v2 - v0);
 end;
 
-procedure TVector3fHelper.WriteVectoren(var Vector: array of TVector3f);
+procedure TVector3fHelper.WriteVectoren(const Vector: array of TVector3f);
 var
   i: integer;
   s: string;
@@ -431,7 +432,7 @@ begin
 end;
 
 
-procedure TVector3fHelper.WriteVectoren_and_Normal(var Vectoren,
+procedure TVector3fHelper.WriteVectoren_and_Normal(const Vectoren,
   Normal: array of TVector3f);
 var
   n, i: integer;
@@ -532,20 +533,20 @@ begin
   Self[3] := AValue;
 end;
 
-procedure TVector4fHelper.SetXY(const AValue: TVector2f);
+procedure TVector4fHelper.SetXY(const AValue: TVector2f); inline;
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
 end;
 
-procedure TVector4fHelper.SetXYZ(const AValue: TVector3f);
+procedure TVector4fHelper.SetXYZ(const AValue: TVector3f); inline;
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
   Self[2] := AValue[2];
 end;
 
-procedure TVector4fHelper.SetXYW(const AValue: TVector3f);
+procedure TVector4fHelper.SetXYW(const AValue: TVector3f); inline;
 begin
   Self[0] := AValue[0];
   Self[1] := AValue[1];
@@ -554,7 +555,7 @@ end;
 
 function TVector4fHelper.ToInt: Uint32;
 
-  function v(s: GLfloat): longword; inline;
+  function v(s: GLfloat): Byte; inline;
   begin
     Result := Round(s * $FF);
   end;
