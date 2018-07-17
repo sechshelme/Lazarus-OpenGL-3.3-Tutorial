@@ -334,7 +334,7 @@ begin
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(Str, InfoLogLength + 1);
-    //    glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
+    //   glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
     LogForm.AddAndTitle('SHADER LINK:', str);
   end;
