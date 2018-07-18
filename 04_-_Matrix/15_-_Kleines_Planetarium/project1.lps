@@ -18,7 +18,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="54"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="201"/>
         <CursorPos X="90" Y="70"/>
         <UsageCount Value="39"/>
         <Loaded Value="True"/>
@@ -49,7 +50,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="61" Y="8"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
@@ -57,7 +58,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="122" Y="9"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
@@ -94,7 +95,7 @@
       <Unit11>
         <Filename Value="../../units/oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="54" Y="10"/>
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
@@ -179,7 +180,7 @@
       <Unit23>
         <Filename Value="../../units/oglvector.pas"/>
         <UnitName Value="oglVector"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="673"/>
         <CursorPos X="61" Y="726"/>
         <UsageCount Value="10"/>
@@ -188,12 +189,10 @@
       <Unit24>
         <Filename Value="../../units/oglcamera.pas"/>
         <UnitName Value="oglCamera"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="57"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="144"/>
         <CursorPos X="17" Y="93"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit24>
     </Units>
     <JumpHistory Count="18" HistoryIndex="17">

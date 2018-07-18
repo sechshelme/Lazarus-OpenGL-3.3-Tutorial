@@ -350,7 +350,7 @@ end;
 function TShader.UniformLocation(ch: PGLChar): GLint;
 begin
   Result := glGetUniformLocation(FProgramObject, ch);
-  if Result = -1 then begin
+  if Result = GL_INVALID_INDEX then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;
@@ -359,7 +359,7 @@ end;
 function TShader.UniformBlockIndex(ch: PGLChar): GLint;
 begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
-  if Result = -1 then begin
+  if Result = GL_INVALID_INDEX then begin
     LogForm.Add('UniformBlock Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;
@@ -368,7 +368,7 @@ end;
 function TShader.AttribLocation(ch: PGLChar): GLint;
 begin
   Result := glGetAttribLocation(FProgramObject, ch);
-  if Result = -1 then begin
+  if Result = GL_INVALID_INDEX then begin
     LogForm.Add('Attrib Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;

@@ -6,17 +6,16 @@ interface
 
 uses
   Classes, SysUtils,
-  dglOpenGL,
-  oglShader, oglVector, oglMatrix, oglUBO;
+  dglOpenGL, oglShader, oglVector, oglMatrix, oglUBO;
 
 type
-  TMatrial=record
-      Name: string;
-      ambient: TVector4f;
-      diffuse: TVector4f;
-      specular: TVector4f;
-      shininess: GLfloat
-    end;
+  TMatrial = record
+    Name: string;
+    ambient: TVector4f;
+    diffuse: TVector4f;
+    specular: TVector4f;
+    shininess: GLfloat
+  end;
 
 const
   MaterialPara: array[0..21] of TMatrial
@@ -157,7 +156,8 @@ type
 
   { TLightingShader }
 
-//  {$define ubo}
+
+  {$define ubo}
 
   TLightingShader = class(TShader)
   private
@@ -190,6 +190,8 @@ type
 
     constructor Create(AShader: array of ansistring; lightON: boolean);
     destructor Destroy; override;
+
+    procedure UseProgram;
 
     procedure SetMaterial(Name: string);
     procedure UpdateMaterial;
@@ -296,8 +298,8 @@ begin
   if Lighting.Enabled then begin
 
     {$ifdef ubo}
-    Lighting.LightUBO := TUBO.Create(self, 'Lighting', SizeOf(LightParams));
-    Lighting.MaterialUBO := TUBO.Create(self, 'Material', SizeOf(MaterialParams));
+    Lighting.MaterialUBO := TUBO.Create(self, 'Material', SizeOf(MaterialParams), 0);
+    Lighting.LightUBO := TUBO.Create(self, 'Lighting', SizeOf(LightParams), 1);
     {$else}
       with Lighting.UniformID do begin
         with Light do begin
@@ -337,6 +339,17 @@ begin
   {$endif}
 end;
 
+procedure TLightingShader.UseProgram;
+begin
+  inherited UseProgram;
+   {$ifdef ubo}
+  with Lighting do begin
+    LightUBO.Bind;
+    MaterialUBO.Bind;
+  end;
+   {$endif}
+end;
+
 procedure TLightingShader.SetMaterial(Name: string);
 var
   i: integer;
@@ -363,7 +376,7 @@ begin
   if Lighting.Enabled then begin
     UseProgram;
     {$ifdef ubo}
-    Lighting.MaterialUBO.UpdateBuffer(@MaterialParams, SizeOf(MaterialParams));
+    Lighting.MaterialUBO.UpdateBuffer(@MaterialParams);
     {$else}
     with Lighting.UniformID.Material do begin
       glUniform4fv(ambient, 1, @MaterialParams.ambient);
@@ -380,7 +393,7 @@ begin
   if Lighting.Enabled then begin
     UseProgram;
     {$ifdef ubo}
-    Lighting.LightUBO.UpdateBuffer(@LightParams, SizeOf(LightParams));
+    Lighting.LightUBO.UpdateBuffer(@LightParams);
     {$else}
     with Lighting.UniformID.Light do begin
       glUniform4fv(position, 1, @LightParams.position);
