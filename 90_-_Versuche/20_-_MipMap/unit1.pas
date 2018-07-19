@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix, oglTextur;
+  oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
 type
 
@@ -97,12 +97,11 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
-  Matrix := TMatrix.Create;
+  Matrix.Identity;
 
-  FrustumMatrix := TMatrix.Create;
   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -200.0); // Die Scene in den sichtbaren Bereich verschieben.
   WorldMatrix.Scale(5.0);              // Und der Grösse anpassen.
 
@@ -136,7 +135,7 @@ begin
 
   Textur[1] := TTexturBuffer.Create;
   with Textur[1] do begin
-    TexParameter.Add( GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    TexParameter.Add(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
     LoadTextures('mauer.xpm');
   end;
@@ -167,7 +166,7 @@ const
   d = 2.0;
   s = 8;
 begin
-  Matrix := TMatrix.Create;
+  Matrix.Identity;
   glClear(GL_COLOR_BUFFER_BIT);
 
   Textur[0].ActiveAndBind();
@@ -190,8 +189,8 @@ begin
       Matrix.Identity;
       Matrix.Translate(x * d, y * d, -4 * d);                 // Matrix verschieben.
 
-      Matrix.Multiply(WorldMatrix, Matrix);                  // Matrixen multiplizieren.
-      Matrix.Multiply(FrustumMatrix, Matrix);
+      Matrix := WorldMatrix * Matrix;                  // Matrixen multiplizieren.
+      Matrix := FrustumMatrix * Matrix;
 
       Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
       glDrawArrays(GL_TRIANGLES, 0, Length(Quad)); // Zeichnet einen kleinen Würfel.
@@ -204,10 +203,6 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-
-  Matrix.Free;
-  FrustumMatrix.Free;
-  WorldMatrix.Free;
 
   Shader.Free;
 

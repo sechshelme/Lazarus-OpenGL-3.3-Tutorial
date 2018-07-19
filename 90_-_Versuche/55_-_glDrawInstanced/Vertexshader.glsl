@@ -5,10 +5,13 @@ layout (location = 10) in vec2 inUV;  // Textur-Koordinaten
 
 out vec2 UV0;
 
-uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+uniform mat4 Matrix[30];              // Matrix für die Drehbewegung und Frustum.
 
 void main(void)
 {
-  gl_Position = Matrix * vec4(inPos, 1.0);
+  mat4 m = Matrix[gl_InstanceID];
+  gl_Position = m * vec4(inPos, 1.0);
+
+//  gl_Position = Matrix[gl_InstanceID] * vec4(inPos, 1.0);
   UV0         = inUV;                 // Textur-Koordinaten weiterleiten.
 }
