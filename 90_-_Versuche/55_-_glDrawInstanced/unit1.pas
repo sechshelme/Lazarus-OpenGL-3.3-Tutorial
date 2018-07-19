@@ -66,10 +66,9 @@ type
   end;
 
   TTreePos = TVector3f;
-  PTreePos = ^TTreePos;
 
 var
-  TreePosArray: array[0..TreeCount - 1] of PTreePos;
+  TreePosArray: array[0..TreeCount - 1] of TTreePos;
   GroundPos: TMatrix;
 
   SandTextur, BaumTextur: TTexturBuffer;
@@ -86,12 +85,7 @@ Den Speicher für die Position der Bäume reservieren.
 //code+
 
 procedure TForm1.FormCreate(Sender: TObject);
-var
-  i: integer;
 begin
-  for i := 0 to TreeCount - 1 do begin
-    New(TreePosArray[i]);
-  end;
   //code-
 
   Randomize;
@@ -147,9 +141,9 @@ var
   i: integer;
 begin
   for i := 0 to TreeCount - 1 do begin
-    TreePosArray[i]^.x := -d / 2 + Random * d;
-    TreePosArray[i]^.y := 0.0;
-    TreePosArray[i]^.z := -d / 2 + Random * d;
+    TreePosArray[i].x := -d / 2 + Random * d;
+    TreePosArray[i].y := 0.0;
+    TreePosArray[i].z := -d / 2 + Random * d;
   end;
   //code-
 
@@ -174,12 +168,14 @@ begin
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+//  glVertexAttribDivisor(0, 1);
 
   // Textur-Koordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+//  glVertexAttribDivisor(10, 1);
 
 end;
 
@@ -191,20 +187,19 @@ Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 
-  procedure QuickSort(var ia: array of PTreePos; ALo, AHi: integer);
+  procedure QuickSort(var ia: array of TTreePos; ALo, AHi: integer);
   var
     Lo, Hi: integer;
-    dummy: PTreePos;
-    Pivot: TTreePos;
+    dummy, Pivot: TTreePos;
   begin
     Lo := ALo;
     Hi := AHi;
-    Pivot := ia[(Lo + Hi) div 2]^;
+    Pivot := ia[(Lo + Hi) div 2];
     repeat
-      while ia[Lo]^.z < Pivot.z do begin
+      while ia[Lo].z < Pivot.z do begin
         Inc(Lo);
       end;
-      while ia[Hi]^.z > Pivot.z do begin
+      while ia[Hi].z > Pivot.z do begin
         Dec(Hi);
       end;
       if Lo <= Hi then begin
@@ -255,27 +250,20 @@ begin
   BaumTextur.ActiveAndBind;                                   // Baum-Textur binden
 
   for i := 0 to TreeCount - 1 do begin
-
     TreeMatrix[i].Identity;
-    TreeMatrix[i].Translate(TreePosArray[i]^);                       // Die Bäume an die richtige Position bringen
+    TreeMatrix[i].Translate(TreePosArray[i]);                       // Die Bäume an die richtige Position bringen
 
     TreeMatrix[i] := FrustumMatrix * WorldMatrix * TreeMatrix[i];           // Matrizen multiplizieren.
   end;
 
-  glUniformMatrix4fv(Shader.ID, TreeCount, False, @TreeMatrix);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex) * 3, TreeCount);
+  glUniformMatrix4fv(Matrix_ID, TreeCount, False, @TreeMatrix);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), TreeCount);
   ogc.SwapBuffers;
 end;
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
-var
-  i: integer;
 begin
-  for i := 0 to TreeCount - 1 do begin
-    Dispose(TreePosArray[i]);
-  end;
-
   Shader.Free;
   BaumTextur.Free;
   SandTextur.Free;
@@ -286,7 +274,7 @@ begin
 end;
 
 (*
-Da sieht man, das es recht nur den Vector zu drehen.
+Da sieht man, das es reicht nur den Vector zu drehen.
 *)
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -296,7 +284,7 @@ var
   i: integer;
 begin
   for i := 0 to TreeCount - 1 do begin
-    TreePosArray[i]^.RotateB(rot);
+    TreePosArray[i].RotateB(rot);
   end;
   GroundPos.RotateB(rot);
 

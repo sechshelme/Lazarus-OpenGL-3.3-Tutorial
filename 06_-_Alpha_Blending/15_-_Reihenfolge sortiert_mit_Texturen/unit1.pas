@@ -261,7 +261,7 @@ begin
     Matrix := FrustumMatrix * WorldMatrix * Matrix;           // Matrizen multiplizieren.
 
     Matrix.Uniform(Matrix_ID);
-    glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);
+    glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
   end;
 
   ogc.SwapBuffers;
@@ -286,7 +286,7 @@ begin
 end;
 
 (*
-Da sieht man, das es recht nur den Vector zu drehen.
+Da sieht man, das es reicht nur den Vector zu drehen.
 *)
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
