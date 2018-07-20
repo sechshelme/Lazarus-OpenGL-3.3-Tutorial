@@ -59,14 +59,14 @@ const
   TreeCount = 30; // Anzahl Bäume
 
 type
+  TTreePos = TVector3f;
+  PTreePos = ^TTreePos;
+
   TVB = record
     VAO,
     VBOVertex,        // Vertex-Koordinaten
     VBOTex: GLuint;   // Textur-Koordianten
   end;
-
-  TTreePos = TVector3f;
-  PTreePos = ^TTreePos;
 
 var
   TreePosArray: array[0..TreeCount - 1] of PTreePos;
