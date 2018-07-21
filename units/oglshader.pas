@@ -219,7 +219,8 @@ begin
   err := glGetError();
   if err <> 0 then begin
     // GL_INVALID_ENUM
-    LogForm.Add('Fehler-Nr: ' + IntToStr(err) + ' bei: ' + command);
+    LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4)+' ('+ IntToStr(err) + ') bei: ' + command);
+    LogForm.Show;
   end;
 end;
 

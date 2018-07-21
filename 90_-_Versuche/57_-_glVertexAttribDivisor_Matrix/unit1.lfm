@@ -7,4 +7,11 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '1.8.4.0'
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 40
+    OnTimer = Timer1Timer
+    left = 156
+    top = 87
+  end
 end
