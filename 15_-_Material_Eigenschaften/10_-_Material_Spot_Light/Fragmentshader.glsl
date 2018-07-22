@@ -91,8 +91,7 @@ vec3 Light(in vec3 p, in vec3 n) {
   return (Mambient * Lambient) + diffuse + specular;
 }
 
-void main(void)
-{
+void main(void) {
   float c  = ConeAtt(Lposition) * ConeExp(Lposition); // Beide Abschwächungen multipizieren.
   outColor = vec4(vec3(c)  * Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);
 }

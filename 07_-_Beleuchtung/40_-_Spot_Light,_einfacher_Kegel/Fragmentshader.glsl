@@ -40,8 +40,7 @@ vec3 isCone(vec3 LightPos) {
   }
 }
 
-void main(void)
-{
+void main(void) {
   outColor = vec4(ambient, 1.0);
   if (RedOn) {
     outColor.rgb += isCone(RedLightPos) * red;

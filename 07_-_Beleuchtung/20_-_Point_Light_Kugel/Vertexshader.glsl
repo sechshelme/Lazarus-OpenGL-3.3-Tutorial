@@ -28,8 +28,7 @@ float light(vec3 p, vec3 n) {
   return clamp(d, 0.0, 1.0);
 }
 
-void main(void)
-{
+void main(void) {
   gl_Position = Matrix * vec4(inPos, 1.0);
 
   vec3 Normal = mat3(ModelMatrix) * inNormal;

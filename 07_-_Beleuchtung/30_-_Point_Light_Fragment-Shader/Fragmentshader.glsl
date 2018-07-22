@@ -28,8 +28,7 @@ float light(vec3 p, vec3 n) {
   return clamp(d, 0.0, 1.0);
 }
 
-void main(void)
-{
+void main(void) {
   outColor = vec4(ambient, 1.0);
   if (RedOn) {
     vec3 colRed   = light(RedLightPos   - DataIn.pos, DataIn.Normal) * red;

@@ -35,7 +35,6 @@ vec3 Light(in vec3 p, in vec3 n) {
   return (Mambient * Lambient) + diffuse + specular;
 }
 
-void main(void)
-{
+void main(void) {
   outColor = vec4(Light(Lposition, DataIn.Normal), 1.0);
 }

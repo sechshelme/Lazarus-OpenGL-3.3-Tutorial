@@ -15,8 +15,7 @@ uniform mat4 ModelMatrix;
 // Matrix für die Drehbewegung und Frustum.
 uniform mat4 Matrix;
 
-void main(void)
-{
+void main(void) {
   gl_Position    = Matrix * vec4(inPos, 1.0);
 
   DataOut.Normal = mat3(ModelMatrix) * inNormal;

@@ -23,8 +23,7 @@ float light(in vec3 p, in vec3 n) {
   return d;
 }
 
-void main(void)
-{
+void main(void) {
   gl_Position  = Matrix * vec4(inPos, 1.0);    // Die komplette Berechnete Matrix.
 
   vec3  Normal = mat3(ModelMatrix) * inNormal; // Matrix mit lokalen Tranformationen.

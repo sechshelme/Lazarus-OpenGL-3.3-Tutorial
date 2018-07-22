@@ -37,8 +37,7 @@ float light(vec3 p, vec3 n) {
   return clamp(d, 0.0, 1.0);  // Bereich der Ausgabe einschränken.
 }
 
-void main(void)
-{
+void main(void) {
   // Vektoren mit komplette vorberechneter Matrix multipizieren.
   gl_Position = Matrix * vec4(inPos, 1.0);
 
