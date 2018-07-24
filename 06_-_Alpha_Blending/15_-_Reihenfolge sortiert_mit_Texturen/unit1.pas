@@ -247,7 +247,7 @@ begin
   Matrix := FrustumMatrix * WorldMatrix * GroundPos * Matrix; // Matrizen multiplizieren.
 
   Matrix.Uniform(Matrix_ID);                                  // Matrix dem Shader übergeben.
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);      // Zeichnet einen kleinen Würfel.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));      // Zeichnet einen kleinen Würfel.
 
   // --- Zeichne Bäume
   QuickSort(TreePosArray, 0, TreeCount - 1);                  // Die Bäume sortieren.
