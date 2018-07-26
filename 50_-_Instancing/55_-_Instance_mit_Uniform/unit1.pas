@@ -38,21 +38,22 @@ implementation
 //image image.png
 
 (*
-Ohne Bewegung ist OpenGL langweilig.
-Hier werden dem Shader ein X- und ein Y-Wert übergeben. Diese Werte werden mit einem Timer verändert.
-Damit die Änderung auch sichtbar wird, wird <b>DrawScene</b> danach manuell ausgelöst.
+Man kann für jede Instance einen eigenen Uniform-Wert zu ordnen. Dafür packt man die Uniform-Werte in ein Array,
+welches >= anzahl Instancen ist.
+
+Dieses Verfahren hat zwei Nachteile.
+1. Man muss die Anzahl Intancen von Anfang an wissen.
+2. Die Anzahl Uniform-Werte ist begrenzt, bei diesem Beispiel und einem Intel4000 ist bei gut 800 Instancen Schluss.
+
+Diese Nachteile kann man umgehen, wen man anstelle von Uniformen VertexAttrib verwendet, dazu im nächasten Thema.
 *)
 
 //lineal
 
-type
-  TVertex3f = array[0..2] of GLfloat;
-  TFace = array[0..2] of TVertex3f;
-
 const
-  Quad: array[0..1] of TFace =
-    (((-0.01, -0.01, 0.0), (-0.01, 0.01, 0.0), (0.01, 0.01, 0.0)),
-    ((-0.01, -0.01, 0.0), (0.01, 0.01, 0.0), (0.01, -0.01, 0.0)));
+  Quad: array[0..1] of TFace2D =
+    (((-0.01, -0.01), (-0.01, 0.01), (0.01, 0.01)),
+    ((-0.01, -0.01), (0.01, 0.01), (0.01, -0.01)));
 
 type
   TVB = record
@@ -61,36 +62,35 @@ type
   end;
 
 (*
-Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.
-<b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.
+Die Anzahl Instance
 *)
 //code+
 const
-  QuadCount = 2000;
+  InstanceCount = 200;
+//code-
 
-
+(*
+Die Deklaration, der Paramter für die einzelnen Instancen.
+Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funktionsweise der Uniform-Übergaben.
+*)
+//code+
 var
-  Pos_ID, Color_ID, Size_ID: GLint;
+  Matrix_ID, Color_ID, Size_ID: GLint;
 
-  //code-
   VBQuad: TVB;
 
   Data: record
-    Position: array[0..QuadCount - 1] of TVector2f;
-    Color: array[0..QuadCount - 1] of TVector3f;
-    Size: array[0..QuadCount - 1] of GLfloat;
+    Size: array[0..InstanceCount - 1] of GLfloat;
+    Matrix: array[0..InstanceCount - 1] of TMatrix;
+    Color: array[0..InstanceCount - 1] of TVector3f;
   end;
+//code-
 
 { TForm1 }
 
-(*
-Den Timer immer erst nach dem Initialisieren starten!
-Im Objektinspektor <b>muss</b> dessen Eigenschaft <b>Enable=(False)</b> sein!
-Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch gar nicht gibt.
-*)
-//code+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  Randomize;
   //remove+
   Width := 340;
   Height := 240;
@@ -102,11 +102,10 @@ begin
   InitScene;
   Timer1.Enabled := True;   // Timer starten
 end;
-//code-
 
 (*
-Dieser Code wurde um zwei <b>UniformLocation</b>-Zeilen erweitert.
-Diese ermitteln die IDs, wo sich <b>x</b> und <b>y</b> im Shader befinden.
+Das auslesen der UniformID. Dies geschieht gleich wie bei einfachen Uniformen.
+Die Instancen-Parameter mit zufälligen Werten belegen.
 *)
 //code+
 procedure TForm1.CreateScene;
@@ -115,21 +114,22 @@ var
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  Color_ID := Shader.UniformLocation('Color');
-  Pos_ID := Shader.UniformLocation('Position');
   Size_ID := Shader.UniformLocation('Size');
-  //code-
+  Matrix_ID := Shader.UniformLocation('mat');
+  Color_ID := Shader.UniformLocation('Color');
 
   glGenVertexArrays(1, @VBQuad.VAO);
 
   glGenBuffers(1, @VBQuad.VBO);
 
-  for i := 0 to Length(Data.Position) - 1 do begin
-    Data.Position[i] := vec2(1.5 - Random * 3.0, 1.5- Random * 3.0);
+  for i := 0 to Length(Data.Matrix) - 1 do begin
+    Data.Size[i] := Random() * 20 + 1.0;
+    Data.Matrix[i].Identity;
+    Data.Matrix[i].Translate(1.5 - Random * 3.0, 1.5- Random * 3.0, 0.0);
     Data.Color[i] := vec3(Random, Random, Random);
-    Data.Size[i] := Random() * 3 + 1.0;
   end;
 end;
+//code-
 
 procedure TForm1.InitScene;
 begin
@@ -140,14 +140,14 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 end;
 
 (*
-Hier werden die Uniform-Variablen x und y dem Shader übergeben.
-Beim Dreieck sind das die Positions-Koordinaten.
-Beim Quad ist es 0, 0 und somit bleibt das Quadrat stehen.
-Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.
+Die Übergabe der Uniform-Werte. Da es sich um Arrays handelt, muss man noch die Länge der Array übergeben.
+Auch sieht man gut, das mal <b>glDrawArraysInstanced(...</b> nur einmal aufrufen muss.
+Würde man dies ohne Instancen lössen, müsste man die Uniformübergabe und glDraw... 200x aufrufen.
+Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte nötig.
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -155,44 +155,36 @@ begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
-  // Zeichne Quadrat
-  glUniform3fv(Color_ID, QuadCount, @Data.Color);
-  glUniform2fv(Pos_ID, QuadCount, @Data.Position);
-  glUniform1fv(Size_ID, QuadCount, @Data.Size);
   glBindVertexArray(VBQuad.VAO);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, QuadCount);
-  //code-
+
+  glUniform1fv(Size_ID, InstanceCount, @Data.Size);
+  glUniformMatrix4fv(Matrix_ID, InstanceCount, False, @Data.Matrix);
+  glUniform3fv(Color_ID, InstanceCount, @Data.Color);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
 
   ogc.SwapBuffers;
 end;
+//code-
 
-(*
-Den Timer vor dem Freigeben anhalten.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-  //code-
-
   Shader.Free;
-
   glDeleteVertexArrays(1, @VBQuad.VAO);
-
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
 (*
-Im Timer wird die Position berechnet, so dass sich das Dreieck bewegt.
-Anschliessend wird neu gezeichnet.
+Die Matrizen drehen.
+Dies muss man 200x machen, aber es sind nicht 200 Übergaben zur Grafikkarte nötig.
 *)
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
   i: integer;
 begin
-  for i := 0 to Length(Data.Position) - 1 do begin
-    Data.Position[i].Rotate(0.02);
+  for i := 0 to Length(Data.Matrix) - 1 do begin
+    Data.Matrix[i].RotateC(0.02);
   end;
 
   ogcDrawScene(Sender);  // Neu zeichnen
@@ -203,9 +195,7 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-
-Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.
-Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shader.
+Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zugegriffen wird.
 *)
 //includeglsl Vertexshader.glsl
 //lineal

@@ -64,7 +64,7 @@ type
 
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
-    procedure Translate(x, y, z: GLfloat); overload;       // Worldspace Translation
+    procedure Translate(x, y, z: GLfloat); overload;     // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
     procedure TranslateLocalspace(x, y, z: GLfloat);       // Localspace Translation
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
@@ -333,7 +333,6 @@ begin
   end;
 end;
 
-
 procedure Tmat4x4Helper.RotateA(Winkel: GLfloat);
 var
   i: integer;
@@ -349,7 +348,6 @@ begin
   end;
 end;
 
-
 procedure Tmat4x4Helper.RotateB(Winkel: GLfloat);
 var
   i: integer;
@@ -364,7 +362,6 @@ begin
     Self[i, 2] := x * s + z * c;
   end;
 end;
-
 
 procedure Tmat4x4Helper.RotateC(Winkel: GLfloat);
 var

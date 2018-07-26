@@ -28,9 +28,9 @@ type
     constructor Create(const AShader: array of ansistring);
     destructor Destroy; override;
 
-    function UniformLocation(ch: PGLChar): GLint;
-    function UniformBlockIndex(ch: PGLChar): GLint;
-    function AttribLocation(ch: PGLChar): GLint;
+    function UniformLocation(ch: PGLChar): GLuint;
+    function UniformBlockIndex(ch: PGLChar): GLuint;
+    function AttribLocation(ch: PGLChar): GLuint;
     procedure UseProgram;
     function ShaderVersion: string;
   end;
@@ -335,7 +335,6 @@ begin
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(Str, InfoLogLength + 1);
-    //   glGetProgramInfoLog(FProgramObject, InfoLogLength, @InfoLogLength, @Str[1]);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
     LogForm.AddAndTitle('SHADER LINK:', str);
   end;
@@ -348,16 +347,17 @@ begin
   glDeleteProgram(FProgramObject);
 end;
 
-function TShader.UniformLocation(ch: PGLChar): GLint;
+function TShader.UniformLocation(ch: PGLChar): GLuint;
 begin
   Result := glGetUniformLocation(FProgramObject, ch);
+  WriteLn(Result);
   if Result = GL_INVALID_INDEX then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;
 end;
 
-function TShader.UniformBlockIndex(ch: PGLChar): GLint;
+function TShader.UniformBlockIndex(ch: PGLChar): GLuint;
 begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
   if Result = GL_INVALID_INDEX then begin
@@ -366,7 +366,7 @@ begin
   end;
 end;
 
-function TShader.AttribLocation(ch: PGLChar): GLint;
+function TShader.AttribLocation(ch: PGLChar): GLuint;
 begin
   Result := glGetAttribLocation(FProgramObject, ch);
   if Result = GL_INVALID_INDEX then begin
