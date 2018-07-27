@@ -1,3 +1,3 @@
-"Detailgetreues Licht"
+"Nur einmal"
 
-Die Berechnung wird in den Fragemnt-Shader ausgelagert. Dies ist nicht mehr so schnell, dafür aber umso Detailreicher.
+Mit Instancen kann man eine Mesh mehrmals mit einem Aufruf zeichen.

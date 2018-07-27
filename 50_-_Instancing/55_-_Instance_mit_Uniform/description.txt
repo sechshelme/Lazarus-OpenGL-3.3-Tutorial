@@ -1,3 +1,4 @@
-"Die Mesh sollte nicht statisch sein"
+"Chaotisch"
 
-Wie bewege ich eine Mesh im Shader.
+Will man eigene Parameter der Meshes, kann man die per Uniform-Array übergeben.
+Die Anzahl der Instancen ist sehr begrenzt.

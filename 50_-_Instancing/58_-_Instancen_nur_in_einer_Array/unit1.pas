@@ -38,9 +38,10 @@ implementation
 //image image.png
 
 (*
-Hier sind sogar 10'000'000 Instancen möglich, gegenüber der Uniform-Variante die bei gut 800 schon Schluss machte.
-Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikkarte vertägt, kann ich nicht sagen.
-Das es eine Diashow ist, das ist was anderes.
+Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.
+Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.
+Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein weniig komplizierter.
+Siehe [[Vertex-Puffer - Nur eine Array]].
 *)
 
 //lineal
@@ -50,40 +51,29 @@ const
     (((-0.01, -0.01), (-0.01, 0.01), (0.01, 0.01)),
     ((-0.01, -0.01), (0.01, 0.01), (0.01, -0.01)));
 
-(*
-Die Anzahl Instance
-*)
-//code+
-const
-  InstanceCount = 10000;
-//code-
-
-(*
-Für die Instancen werden VBOs gebraucht.
-*)
-//code+
+  InstanceCount = 100;
 type
   TVB = record
     VAO,
     VBOVertex,
     VBO_I_Size, VBO_I_Matrix, VBO_I_Color: GLuint;
   end;
-//code-
-
 
 (*
-Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.
+Die Deklaration der Array. Es ist nur noch eine Array.
 *)
 //code+
-var
-  VBQuad: TVB;
-
-  Data: record
-    Scale: array[0..InstanceCount - 1] of GLfloat;
-    Matrix: array[0..InstanceCount - 1] of TMatrix;
-    Color: array[0..InstanceCount - 1] of TVector3f;
+type
+  TData = record
+    Scale: GLfloat;
+    Matrix: TMatrix;
+    Color: TVector3f;
   end;
+
+var
+  Data: array[0..InstanceCount - 1] of TData;
 //code-
+  VBQuad: TVB;
 
 { TForm1 }
 
@@ -102,10 +92,6 @@ begin
   Timer1.Enabled := True;   // Timer starten
 end;
 
-(*
-VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.
-*)
-//code+
 procedure TForm1.CreateScene;
 var
   i: integer;
@@ -120,34 +106,21 @@ begin
   glGenBuffers(1, @VBQuad.VBO_I_Matrix);
   glGenBuffers(1, @VBQuad.VBO_I_Color);
 
-  for i := 0 to Length(Data.Matrix) - 1 do begin
-    Data.Scale[i] := Random * 2 + 1.0;
-    Data.Matrix[i].Identity;
-    Data.Matrix[i].Translate(1.5 - Random * 3.0, 1.5 - Random * 3.0, 0.0);
-    Data.Color[i] := vec3(Random, Random, Random);
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i].Scale := Random * 20 + 1.0;
+    Data[i].Matrix.Identity;
+    Data[i].Matrix.Translate(1.5 - Random * 3.0, 1.5 - Random * 3.0, 0.0);
+    Data[i].Color := vec3(Random, Random, Random);
   end;
 end;
-//code-
 
 (*
-Für die Instancen werden die Puffer gefüllt.
-Da für die Puffer nur Vektoren mit 1-4 Elemeten erlaubt sind, muss man die Matrix in 4 Vektoren unterteilen.
-Dabei werden auch 4 Attribut-Indexe gebraucht.
-Eine <b>glVertexAttribPointer(2, 16,...</b> geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.
-So was geht leider nicht:
-//code+
-  glVertexAttribPointer(2, 16, GL_FLOAT, False, 0, nil);
-//code-
-Mit <b>glVertexAttribDivisor(...</b> teilt man mit das es sich um ein Instance-Attribut handelt.
-Der erste Parameter bestimmt, um welches Vertex-Attribut es sich handelt.
-Der Zweite sagt, das der Zeiger im Vertex-Attribut bei jedem Durchgang um <b>1</b> erhöt wird.
-Setzt man dort <b>0</b> ein, handelt es sich um ein gewöhnliches Attribut.
-Was Werte >1 bedeuten ist bei <b>VertexAttribDivisor</b> beschrieben.
+Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.
 *)
 //code+
 procedure TForm1.InitScene;
 var
-  i: integer;
+  ofs, i: integer;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
@@ -161,36 +134,36 @@ begin
   glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 
   // --- Instancen
+  ofs := 0;
   // Instance Size
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO_I_Size);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Scale), @Data.Scale, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TData), nil);
   glVertexAttribDivisor(1, 1);
+  Inc(ofs, SizeOf(GLfloat));
 
   // Instance Matrix
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO_I_Matrix);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Matrix), nil, GL_STATIC_DRAW); // Nur Speicher reservieren
+  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), nil, GL_STATIC_DRAW); // Nur Speicher reservieren
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TMatrix), Pointer(i * 16));
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
     glVertexAttribDivisor(i + 2, 1);
+    Inc(ofs, SizeOf(TVector4f));
   end;
 
   // Instance Color
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO_I_Color);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Color), @Data.Color, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
   glVertexAttribDivisor(6, 1);
 end;
 //code-
 
 (*
-Die Instance Parameter werden einfache mit <b>glBufferSubData(....</b> übergeben.
-Es werden nur die Matrizen aktualisiert, die anderen Werte bleiben gleich.
-Will man eine andere Anzahl von Instance, dann muss man mit <b>glBufferData(...</b> mehr oder weniger Speicher reservieren.
-Dafür braucht man keine Uniformen.
+An der Zeichenroutine ändert sich nichts.
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -199,7 +172,7 @@ begin
   Shader.UseProgram;
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO_I_Matrix);
-  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data.Matrix), @Data.Matrix);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data), @Data);
 
   glBindVertexArray(VBQuad.VAO);
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
@@ -227,8 +200,8 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 var
   i: integer;
 begin
-  for i := 0 to Length(Data.Matrix) - 1 do begin
-    Data.Matrix[i].RotateC(0.02);
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i].Matrix.RotateC(0.02);
   end;
 
   glBindVertexArray(VBQuad.VAO);
@@ -240,7 +213,7 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-Der Shader sieht sehr einfach aus.
+Am Shader hat sich nicht geändert.
 *)
 //includeglsl Vertexshader.glsl
 //lineal

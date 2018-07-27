@@ -1,3 +1,5 @@
-"Die Mesh sollte nicht statisch sein"
+"Flexibel sollte es sein"
 
-Wie bewege ich eine Mesh im Shader.
+Nimmt man ein Vertex-Attribut ist man viel flexibler mit Instancen.
+Die Anzahl der Instancen ist fast unbegrenzt.
+
