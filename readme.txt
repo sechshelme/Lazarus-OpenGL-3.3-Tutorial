@@ -15,6 +15,9 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+27.07.2018
+Verwendung von Instancen.
+
 14.07.2018
 Funktionen in oglVektor und oglMatrix optimiert.
 

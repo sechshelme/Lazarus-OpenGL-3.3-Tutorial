@@ -1,4 +1,0 @@
-"Alles in einem"
-
-Man kann alle Parameter in ein Record Packen.
-Die ist mit Uniform nicht möglich.
