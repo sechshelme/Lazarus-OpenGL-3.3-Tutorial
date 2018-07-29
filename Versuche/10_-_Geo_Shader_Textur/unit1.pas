@@ -38,25 +38,13 @@ implementation
 //image image.png
 
 (*
-Hier sind sogar 10'000'000 Instancen möglich, gegenüber der Uniform-Variante die bei gut 800 schon Schluss machte.
-Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikkarte vertägt, kann ich nicht sagen.
-Das es eine Diashow ist, das ist was anderes.
 *)
 
 //lineal
 
-(*
-Die Anzahl Instance
-*)
-//code+
 const
   InstanceCount = 12;
-//code-
 
-(*
-Für die Instancen werden VBOs gebraucht.
-*)
-//code+
 type
   TVB = record
     VAO: GLuint;
@@ -64,13 +52,7 @@ type
       Vertex: GLuint;
     end;
   end;
-//code-
 
-
-(*
-Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.
-*)
-//code+
 var
   VBQuad: TVB;
   tb:TTexturBuffer;
@@ -78,7 +60,6 @@ var
   Data: record
     Color: array[0..InstanceCount - 1] of TVector2f;
   end;
-//code-
 
 { TForm1 }
 
@@ -97,10 +78,6 @@ begin
   Timer1.Enabled := True;   // Timer starten
 end;
 
-(*
-VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.
-*)
-//code+
 procedure TForm1.CreateScene;
 var
   i: integer;
@@ -118,11 +95,7 @@ begin
     Data.Color[i] := vec2((-0.5 + Random) * 2, (-0.5 + Random) * 2);
   end;
 end;
-//code-
 
-(*
-*)
-//code+
 procedure TForm1.InitScene;
 var
   i: integer;
@@ -137,15 +110,7 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 end;
-//code-
 
-(*
-Die Instance Parameter werden einfache mit <b>glBufferSubData(....</b> übergeben.
-Es werden nur die Matrizen aktualisiert, die anderen Werte bleiben gleich.
-Will man eine andere Anzahl von Instance, dann muss man mit <b>glBufferData(...</b> mehr oder weniger Speicher reservieren.
-Dafür braucht man keine Uniformen.
-*)
-//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   tb.ActiveAndBind;
@@ -161,7 +126,6 @@ begin
 
   ogc.SwapBuffers;
 end;
-//code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
@@ -172,10 +136,6 @@ begin
   tb.Free;
 end;
 
-(*
-Matrizen neu berechnen.
-*)
-//code+
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
   i: integer;
@@ -187,15 +147,19 @@ begin
   glBindVertexArray(VBQuad.VAO);
   ogcDrawScene(Sender);  // Neu zeichnen
 end;
-//code-
 
 //lineal
 
 (*
 <b>Vertex-Shader:</b>
-Der Shader sieht sehr einfach aus.
 *)
 //includeglsl Vertexshader.glsl
+//lineal
+
+(*
+<b>Geometrie-Shader:</b>
+*)
+//includeglsl Geometrier.glsl
 //lineal
 
 (*
