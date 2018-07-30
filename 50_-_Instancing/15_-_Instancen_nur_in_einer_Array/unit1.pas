@@ -40,8 +40,8 @@ implementation
 (*
 Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.
 Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.
-Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein weniig komplizierter.
-Siehe [[Vertex-Puffer - Nur eine Array]].
+Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizierter.
+Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].
 *)
 
 //lineal
