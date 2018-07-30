@@ -167,10 +167,11 @@ begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
+  glBindVertexArray(VBQuad.VAO);
+
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data), @Data);
 
-  glBindVertexArray(VBQuad.VAO);
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
 
   ogc.SwapBuffers;
