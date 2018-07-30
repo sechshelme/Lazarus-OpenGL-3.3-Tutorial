@@ -197,7 +197,6 @@ begin
     Data[i].Matrix.RotateC(0.02);
   end;
 
-  glBindVertexArray(VBQuad.VAO);
   ogcDrawScene(Sender);  // Neu zeichnen
 end;
 //code-
