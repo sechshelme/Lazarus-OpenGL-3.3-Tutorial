@@ -57,7 +57,7 @@ type
     VAO: GLuint;
     VBO: record
       Vertex,
-      I_Size, I_Matrix, I_Color: GLuint;
+      Instance: GLuint;
     end;
   end;
 
@@ -103,7 +103,7 @@ begin
 
   glGenVertexArrays(1, @VBQuad.VAO);
 
-  glGenBuffers(4, @VBQuad.VBO);
+  glGenBuffers(2, @VBQuad.VBO);
 
   for i := 0 to Length(Data) - 1 do begin
     Data[i].Scale := Random * 20 + 1.0;
@@ -134,17 +134,16 @@ begin
 
   // --- Instancen
   ofs := 0;
-  // Instance Size
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Size);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
+
+  // Instance Size
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TData), nil);
   glVertexAttribDivisor(1, 1);
   Inc(ofs, SizeOf(GLfloat));
 
   // Instance Matrix
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Matrix);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), nil, GL_STATIC_DRAW); // Nur Speicher reservieren
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
     glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
@@ -153,8 +152,6 @@ begin
   end;
 
   // Instance Color
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Color);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
   glEnableVertexAttribArray(6);
   glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
   glVertexAttribDivisor(6, 1);
@@ -170,7 +167,7 @@ begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Matrix);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data), @Data);
 
   glBindVertexArray(VBQuad.VAO);
@@ -185,7 +182,7 @@ begin
   Timer1.Enabled := False;
   Shader.Free;
   glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(4, @VBQuad.VBO);
+  glDeleteBuffers(2, @VBQuad.VBO);
 end;
 
 (*
@@ -209,7 +206,7 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-Am Shader hat sich nicht geändert.
+Am Shader hat sich nichts geändert.
 *)
 //includeglsl Vertexshader.glsl
 //lineal

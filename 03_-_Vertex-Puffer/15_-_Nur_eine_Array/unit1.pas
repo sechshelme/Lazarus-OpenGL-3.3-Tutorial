@@ -17,6 +17,7 @@ In den vorherigen Beispielen hat es für die Vector- und  Color - Daten eine sep
 Hier werden zwei Möglichkeiten vorgestellt, wie die Daten in der Array sind.
 Variante1: <b>Vec0, Col0, ..., Vecn, Coln</b>
 Variante2: <b>Vec0, ..., Vecn, Col0, ..., Coln</b>
+Die hat noch den Vorteil, das nur ein <b>VBO</b> angelegt werden muss, obwohl mehrere Attribute in der Array sind.
 *)
 
 //lineal
@@ -72,8 +73,7 @@ const
 type
   TVB = record
     VAO,
-    VBOvert,
-    VBOcol: GLuint;
+    VBO: GLuint;
   end;
 
 var
@@ -102,25 +102,23 @@ begin
   glGenVertexArrays(1, @VBQuad0.VAO);
   glGenVertexArrays(1, @VBQuad1.VAO);
 
-  glGenBuffers(1, @VBQuad0.VBOvert);
-  glGenBuffers(1, @VBQuad0.VBOcol);
-  glGenBuffers(1, @VBQuad1.VBOvert);
-  glGenBuffers(1, @VBQuad1.VBOcol);
+  glGenBuffers(1, @VBQuad0.VBO);
+  glGenBuffers(1, @VBQuad1.VBO);
 end;
 
 (*
 Hier die wichtigste Änderung:
 Relevant sind die zwei letzten Parameter von <b>glVertexAttribPointer(...</b>
 Was irritiert der einte Parameter ist direkt ein Integer, der andere braucht eine Typenumwandlung auf einen Pointer.
-Der zweitletzte Parameter (stride), gibt das <b>Byte</b> Offset, zum nächsten Attribut-Wert an.
+Der zweitletzte Parameter (stride), gibt das <b>Byte</b> Offset, zum nächsten Attribut-Wert an, repektive die Schritt/Block-grösse.
 Der letzte Parameter (pointer), gibt die Position zum ersten Attribut-Wert an.
 Die Werte sind immer als <b>Byte</b>, somit muss man bei einem <b>glFloat</b> immer <b>4x</b> rechnen.
 
-Varinate0:
+Varinate 0:
 Die Vektoren beginnen bei 0, Die Grösse ist 24Byte = 6 glFloat x 4 entspricht <b>XYZRGB</b>.
 Die Farben beginnen beim 12Byte. Die Grösse ist mit 24Byte gleich wie bei den Vektoren.
 
-Varinate1:
+Varinate 1:
 Da die Vektoren hintereinander stehen, darf dieser Default (0) sein.
 Die Farben beginnen beim 72Byte.
 *)
@@ -131,31 +129,27 @@ begin
 
   // --- Daten für Quadrat 0
   glBindVertexArray(VBQuad0.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO); // Nur ein VBO erforderlich
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
 
   // Vektor
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 24, nil);  // nil = Pointer(0)
 
   // Farbe
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
   glVertexAttribPointer(11, 3, GL_FLOAT, False, 24, Pointer(12));
 
   // --- Daten für Quadrat 1
   glBindVertexArray(VBQuad1.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO); // Nur ein VBO erforderlich
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
 
   // Vektor
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
   // Farbe
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
   glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, Pointer(72));
 end;
@@ -192,10 +186,8 @@ begin
   glDeleteVertexArrays(1, @VBQuad0.VAO);
   glDeleteVertexArrays(1, @VBQuad1.VAO);
 
-  glDeleteBuffers(1, @VBQuad0.VBOvert);
-  glDeleteBuffers(1, @VBQuad0.VBOcol);
-  glDeleteBuffers(1, @VBQuad1.VBOvert);
-  glDeleteBuffers(1, @VBQuad1.VBOcol);
+  glDeleteBuffers(1, @VBQuad0.VBO);
+  glDeleteBuffers(1, @VBQuad1.VBO);
 end;
 
 //lineal
