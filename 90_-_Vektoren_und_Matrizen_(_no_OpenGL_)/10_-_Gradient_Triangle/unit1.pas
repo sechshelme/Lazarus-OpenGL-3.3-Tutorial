@@ -34,6 +34,10 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  //remove+
+  Width := 340;
+  Height := 240;
+  //remove-
   Randomize;
   Color := clBlack;
 end;

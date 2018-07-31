@@ -71,109 +71,12 @@ implementation
 
 { TForm1 }
 
-
-{$asmmode intel}
-//function VectorMultiplySSE(const m: TMatrix; const v: TVector4f): TVector4f; assembler; nostackframe; register;
-//asm
-//         Movups  Xmm4, [m + $00]
-//         Movups  Xmm5, [m + $10]
-//         Movups  Xmm6, [m + $20]
-//         Movups  Xmm7, [m + $30]
-//         Movups  Xmm2, [v]
-//
-//         // Zeile 0
-//         Pshufd  Xmm0, Xmm2, 00000000b
-//         Mulps   Xmm0, Xmm4
-//
-//         // Zeile 1
-//         Pshufd  Xmm1, Xmm2, 01010101b
-//         Mulps   Xmm1, Xmm5
-//         Addps   Xmm0, Xmm1
-//
-//         // Zeile 2
-//         Pshufd  Xmm1, Xmm2, 10101010b
-//         Mulps   Xmm1, Xmm6
-//         Addps   Xmm0, Xmm1
-//
-//         // Zeile 3
-//         Pshufd  Xmm1, Xmm2, 11111111b
-//         Mulps   Xmm1, Xmm7
-//         Addps   Xmm0, Xmm1
-//
-//         Movups  [Result], Xmm0
-//end;
-
-{$asmmode intel}
-function VectorMultiplySSE(const M: TMatrix; const v: TVector4f): TVector4f; assembler; nostackframe; register;
-asm
-         Movups  Xmm4, [M + $00]
-         Movups  Xmm5, [M + $10]
-         Movups  Xmm6, [M + $20]
-         Movups  Xmm7, [M + $30]
-
-         // Zeile 0
-         Movss   Xmm0, [v + $00]
-         Shufps  Xmm0, Xmm0, 00000000b
-         Mulps   Xmm0, Xmm4
-
-         // Zeile 1
-         Movss   Xmm2, [v + $04]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm5
-         Addps   Xmm0, Xmm2
-
-         // Zeile 2
-         Movss   Xmm2, [v + $08]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm6
-         Addps   Xmm0, Xmm2
-
-         // Zeile 3
-         Movss   Xmm2, [v + $0C]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm7
-         Addps   Xmm0, Xmm2
-
-         Movups  [Result], Xmm0
-end;
-
-function MatrixMultiplySSE(const M0, M1: Tmat4x4): Tmat4x4; assembler; nostackframe; register;
-asm
-         Movups  Xmm4, [M0 + $00]
-         Movups  Xmm5, [M0 + $10]
-         Movups  Xmm6, [M0 + $20]
-         Movups  Xmm7, [M0 + $30]
-
-         Xor     rcx, rcx
-         @loop:
-         Movss   Xmm0, [M1 + $00 + rcx]
-         Shufps  Xmm0, Xmm0, 00000000b
-         Mulps   Xmm0, Xmm4
-
-         Movss   Xmm2, [M1 + $04 + rcx]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm5
-         Addps   Xmm0, Xmm2
-
-         Movss   Xmm2, [M1 + $08 + rcx]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm6
-         Addps   Xmm0, Xmm2
-
-         Movss   Xmm2, [M1 + $0C + rcx]
-         Shufps  Xmm2, Xmm2, 00000000b
-         Mulps   Xmm2, Xmm7
-         Addps   Xmm0, Xmm2
-
-         Movups  [Result + rcx], Xmm0
-
-         Add     rcx, $10
-         Cmp     rcx, $30
-         Jbe     @loop
-end;
-
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  //remove+
+  Width := 340;
+  Height := 240;
+  //remove-
   DoubleBuffered := True;
   FrameBuffer := TBitmap.Create;
 
@@ -182,7 +85,7 @@ begin
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -150);
-  WorldMatrix.Scale(10.0);
+  WorldMatrix.Scale(6.0);
 
   RotMatrix.Identity;
 
@@ -202,7 +105,8 @@ var
 begin
   tc := col.ToInt;
 
-  p := FrameBuffer.RawImage.GetLineStart(y);
+//  p := FrameBuffer.RawImage.GetLineStart(y);
+  p := FrameBuffer.ScanLine[y];
   Inc(p, x * (FrameBuffer.RawImage.Description.BitsPerPixel div 8));
   p^ := tc shr 16;
   Inc(p);
@@ -246,16 +150,16 @@ begin
   end;
 
   iy := trunc(y);
+  ofs := trunc(x0) + iy * ClientWidth;
 
   for i := trunc(x0) to trunc(x1) do begin
-
-    ofs := i + iy * ClientWidth;
 
     if z < zBuffer[ofs] then begin
       PutPixel(i, iy, c);
       zBuffer[ofs] := z;
     end;
 
+    inc(ofs);
     c += addc;
     z += addz;
   end;
@@ -265,26 +169,21 @@ procedure TForm1.Triangle(v0, v1, v2: TVector4f; col0, col1, col2: TVector3f);
 
 var
   y: integer;
-  dif,
+  dif: Single;
 
   addx_0, addx_1, addx_2,
-  x0, x1, x2: single;
+  x0, x1, x2: Single;
 
   addz_0, addz_1, addz_2,
-  z0, z1, z2: single;
+  z0, z1, z2: Single;
 
   addc_0, addc_1, addc_2,
   c0, c1, c2: TVector3f;
 
 begin
-  v0 := VectorMultiplySSE(Matrix, v0);
-  v1 := VectorMultiplySSE(Matrix, v1);
-  v2 := VectorMultiplySSE(Matrix, v2);
-
-
-  //    v0 := Matrix * v0;
-  //v1 := Matrix * v1;
-  //v2 := Matrix * v2;
+  v0 := Matrix * v0;
+  v1 := Matrix * v1;
+  v2 := Matrix * v2;
 
   v0.x := v0.x / v0.w * scale + ofsx;
   v0.y := v0.y / v0.w * scale + ofsy;
@@ -367,7 +266,7 @@ var
   TempMatrix: TMatrix;
 const
   d = 2.7;
-  s = 3;
+  s = 2;
 begin
   WriteLn(FrameBuffer.PixelFormat);
   WriteLn(FrameBuffer.RawImage.Description.BitsPerPixel);
@@ -380,18 +279,14 @@ begin
     zBuffer[i] := 1000;
   end;
 
-  // TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix;
-  TempMatrix := MatrixMultiplySSE(WorldMatrix, RotMatrix);
-  TempMatrix := MatrixMultiplySSE(FrustumMatrix, TempMatrix);
+  TempMatrix := FrustumMatrix * WorldMatrix * RotMatrix;
 
   for x := -s to s do begin
     for y := -s to s do begin
       for z := -s to s do begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);
-
-        //        Matrix := TempMatrix * Matrix;
-        Matrix := MatrixMultiplySSE(TempMatrix, Matrix);
+        Matrix := TempMatrix * Matrix;
 
         for i := 0 to Length(CubeVertex) - 1 do begin
           Triangle(
@@ -435,8 +330,5 @@ begin
 
   Invalidate;
 end;
-
-begin
-
 
 end.

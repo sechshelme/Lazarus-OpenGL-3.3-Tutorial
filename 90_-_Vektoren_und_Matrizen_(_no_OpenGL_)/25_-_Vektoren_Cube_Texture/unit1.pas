@@ -71,6 +71,10 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  //remove+
+  Width := 340;
+  Height := 240;
+  //remove-
   DoubleBuffered := True;
   Textur:=TBitmap.Create;
   Textur.LoadFromFile('2.bmp');
@@ -81,7 +85,7 @@ begin
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -150);
-  WorldMatrix.Scale(40.0);
+  WorldMatrix.Scale(60.0);
 
   RotMatrix.Identity;
 

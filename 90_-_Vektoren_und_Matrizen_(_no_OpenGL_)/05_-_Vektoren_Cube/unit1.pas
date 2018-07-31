@@ -53,11 +53,15 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  //remove+
+  Width := 340;
+  Height := 240;
+  //remove-
   FrustumMatrix.Frustum(-1, 1, -1, 1, 2.5, 1000.0);
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0.0, 0.0, -200);
-  WorldMatrix.Scale(5.0);
+  WorldMatrix.Scale(8.0);
 
   RotMatrix.Identity;
 

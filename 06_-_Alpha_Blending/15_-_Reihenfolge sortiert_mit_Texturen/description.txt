@@ -1,3 +1,3 @@
-"Vorn ist grösser"
+"Auch Texturen müssen sortiert werden"
 
-Mit der Fluchtpunktperspektive werden Objekte kleiner je weiter sie von einem weg sind, so wie es in der Realität auch der Fall ist.
+Auch bei Texturen mit Alphablending ist die Reiehnfolge wichtig.
