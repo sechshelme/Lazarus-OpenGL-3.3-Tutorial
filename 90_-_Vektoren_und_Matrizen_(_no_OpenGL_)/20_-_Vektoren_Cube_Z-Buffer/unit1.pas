@@ -105,7 +105,6 @@ var
 begin
   tc := col.ToInt;
 
-//  p := FrameBuffer.RawImage.GetLineStart(y);
   p := FrameBuffer.ScanLine[y];
   Inc(p, x * (FrameBuffer.RawImage.Description.BitsPerPixel div 8));
   p^ := tc shr 16;

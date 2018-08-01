@@ -137,7 +137,7 @@ begin
 end;
 
 (*
-Bei <b>glDrawElements(...</b>, muss als dritte Parameter der Zeiger auf die Indicien-Array übergeben werden.
+Bei <b>glDrawElements(...</b>, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.
 Ansonsten geht das Zeichen gleich, wie bei der einfachen Methode.
 Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sieht.
 *)

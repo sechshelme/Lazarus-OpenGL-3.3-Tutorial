@@ -115,7 +115,7 @@ end;
 Hier werden die IBO-Daten in den Buffer geladen, dies geschieht ähnlich, wie bei den Vertex-Daten.
 Der Unterschied ist der zweite Parameter, dieser muss <b>GL_ELEMENT_ARRAY_BUFFER</b> sein.
 *)
-
+//code+
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
@@ -123,6 +123,7 @@ begin
   // --- Daten für das Dreieck
   glBindVertexArray(VBTriangle.VAO);
 
+  // VBO der Vertex-Koordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
 
@@ -136,6 +137,7 @@ begin
   // --- Daten für das Quadrat
   glBindVertexArray(VBQuad.VAO);
 
+  // VBO der Vertex-Koordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
 
@@ -146,6 +148,7 @@ begin
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 end;
+//code-
 
 (*
 Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei <b>glDrawElements(...</b>, nil sein.

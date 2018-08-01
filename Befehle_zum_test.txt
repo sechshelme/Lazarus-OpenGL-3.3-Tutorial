@@ -2,3 +2,5 @@ glDrawArraysInstanced
 glVertexAttribDivisor
 glMultiDrawArrays
 glDrawElementsInstanced
+
+gl_VertexID

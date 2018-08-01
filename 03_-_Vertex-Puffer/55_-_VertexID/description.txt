@@ -1,0 +1,3 @@
+"Welcher Vertex ?"
+
+Mit gl_VertexID kann man im Vertex-Shader ermitteln, welcher Vertex gerade gezeichnet wird.
