@@ -1,0 +1,3 @@
+"Transparent ingnorieren"
+
+Bei Transparent den Z-Buffer ingnorieren.

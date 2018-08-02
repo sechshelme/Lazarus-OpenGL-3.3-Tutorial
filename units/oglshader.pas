@@ -28,9 +28,9 @@ type
     constructor Create(const AShader: array of ansistring);
     destructor Destroy; override;
 
-    function UniformLocation(ch: PGLChar): GLuint;
+    function UniformLocation(ch: PGLChar): GLint;
     function UniformBlockIndex(ch: PGLChar): GLuint;
-    function AttribLocation(ch: PGLChar): GLuint;
+    function AttribLocation(ch: PGLChar): GLint;
     procedure UseProgram;
     function ShaderVersion: string;
   end;
@@ -347,11 +347,10 @@ begin
   glDeleteProgram(FProgramObject);
 end;
 
-function TShader.UniformLocation(ch: PGLChar): GLuint;
+function TShader.UniformLocation(ch: PGLChar): GLint;
 begin
   Result := glGetUniformLocation(FProgramObject, ch);
-  WriteLn(Result);
-  if Result = GL_INVALID_INDEX then begin
+  if Result = -1 then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;
@@ -360,16 +359,16 @@ end;
 function TShader.UniformBlockIndex(ch: PGLChar): GLuint;
 begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
-  if Result = GL_INVALID_INDEX then begin
+  if Result = $FFFFFFFF then begin
     LogForm.Add('UniformBlock Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;
 end;
 
-function TShader.AttribLocation(ch: PGLChar): GLuint;
+function TShader.AttribLocation(ch: PGLChar): GLint;
 begin
   Result := glGetAttribLocation(FProgramObject, ch);
-  if Result = GL_INVALID_INDEX then begin
+  if Result = -1 then begin
     LogForm.Add('Attrib Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;

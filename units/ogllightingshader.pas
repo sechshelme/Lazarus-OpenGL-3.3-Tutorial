@@ -5,7 +5,7 @@ unit oglLightingShader;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Dialogs,
   dglOpenGL, oglShader, oglVector, oglMatrix, oglUBO;
 
 type
@@ -155,8 +155,6 @@ const
 type
 
   { TLightingShader }
-
-
   {$define ubo}
 
   TLightingShader = class(TShader)
@@ -343,9 +341,9 @@ procedure TLightingShader.UseProgram;
 begin
   inherited UseProgram;
    {$ifdef ubo}
-  with Lighting do begin
-    LightUBO.Bind;
-    MaterialUBO.Bind;
+  if Lighting.Enabled then begin
+    Lighting.LightUBO.Bind;
+    Lighting.MaterialUBO.Bind;
   end;
    {$endif}
 end;

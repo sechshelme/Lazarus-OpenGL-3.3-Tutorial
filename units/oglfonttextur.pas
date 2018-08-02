@@ -6,7 +6,7 @@ interface
 
 uses
   Classes,
-  SysUtils, TypInfo, LCLType, LazUTF8,LConvEncoding,
+  SysUtils, TypInfo, LCLType, LazUTF8, LConvEncoding,
   Graphics, IntfGraphics, GraphType,
   Dialogs,
   oglVAO,
@@ -48,7 +48,7 @@ type
   public
     Font: TFont;
     gradient: boolean;
-    constructor Create(light: boolean = True);
+    constructor Create(Lighting: boolean = True);
     destructor Destroy; override;
     procedure WriteVertex;
     procedure Draw(Text: string); overload;
@@ -60,7 +60,7 @@ type
 
 implementation
 
-constructor TFontTextur.Create(light: boolean = True);
+constructor TFontTextur.Create(Lighting: boolean = True);
 const
   Vert_Shader =
     '  #version 330' + LineEnding +
@@ -110,21 +110,25 @@ const
     '  void main() {' + LineEnding +
     '    OutColor = texture( myTextureSampler, DataIn.UV );' + LineEnding +
     '    float cdummy = OutColor.a;' + LineEnding +
-    '    OutColor = OutColor * Light(DataIn.Normal, DataIn.Position);' + LineEnding +
-    '    OutColor.a = cdummy;' + LineEnding +
+    '    if (cdummy > 0.5) {' + LineEnding +
+    '      OutColor = OutColor * Light(DataIn.Normal, DataIn.Position);' + LineEnding +
+    '      OutColor.a = cdummy;' + LineEnding +
+    '    } else {' + LineEnding +
+    '      discard; // Wen transparent, Pixel nicht ausgeben.' + LineEnding +
+    '    }' + LineEnding +
     '  }';
 
 begin
-  inherited Create;
-  LightingShader := TLightingShader.Create([Vert_Shader, Frag_Shader], light);
+  inherited Create(Lighting);
+  LightingShader := TLightingShader.Create([Vert_Shader, Frag_Shader], Lighting);
 
   TexturFace := TVBO_Triangles2D.Create;
 
-  with LightingShader, UniformID do begin
+  with LightingShader do begin
     UseProgram;
-    ObjectMatrix := UniformLocation('ObjectMatrix');
-    CameraMatrix := UniformLocation('CameraMatrix');
-    Transforms := UniformLocation('Transforms');
+    UniformID.ObjectMatrix := UniformLocation('ObjectMatrix');
+    UniformID.CameraMatrix := UniformLocation('CameraMatrix');
+    UniformID.Transforms := UniformLocation('Transforms');
   end;
 
   with CharTab do begin
@@ -176,7 +180,7 @@ var
 
   sizey: integer;
   w, i: integer;
-  c: String;
+  c: string;
   maxWidth: integer;
 
   TexturPos: array of record
@@ -210,7 +214,7 @@ begin
   maxWidth := 0;
 
   for i := 0 to anzChar - 1 do begin
-    c := CP437ToUTF8(Char(i + CharTab.min));
+    c := CP437ToUTF8(char(i + CharTab.min));
 
     w := BGRABitmap.TextSize(c).cx;
     TexturPos[i].Width := w;
@@ -232,9 +236,9 @@ begin
   end;
   for i := 0 to anzChar - 1 do begin
     if gradient then begin
-      BGRABitmap.TextOut(TexturPos[i].Left, 0, CP437ToUTF8(Char(i + CharTab.min)), BGRAGradientScanner);
+      BGRABitmap.TextOut(TexturPos[i].Left, 0, CP437ToUTF8(char(i + CharTab.min)), BGRAGradientScanner);
     end else begin
-      BGRABitmap.TextOut(TexturPos[i].Left, 0, CP437ToUTF8(Char(i + CharTab.min)), Font.Color);
+      BGRABitmap.TextOut(TexturPos[i].Left, 0, CP437ToUTF8(char(i + CharTab.min)), Font.Color);
     end;
 
     with CharPos[i] do begin
@@ -255,7 +259,7 @@ begin
   TexturBuffer.TexParameter.Add(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   TexturBuffer.TexParameter.Add(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-//    BGRABitmap.SaveToFile('test.bmp');
+  //    BGRABitmap.SaveToFile('test.bmp');
   TexturBuffer.LoadTextures(BGRABitmap.Bitmap.RawImage);
 
   BGRABitmap.Free;
@@ -281,9 +285,8 @@ var
   m: TMatrix;
 
 begin
-  TexturBuffer.ActiveAndBind;
-
   LightingShader.UseProgram;
+  TexturBuffer.ActiveAndBind;
 
   Text := UTF8ToCP437(Text);
 
@@ -299,7 +302,8 @@ begin
       end;
 
       with Camera do begin
-        m := ObjectMatrix;;
+        m := ObjectMatrix;
+        ;
         ObjectMatrix := WorldMatrix * ObjectMatrix;
 
         ObjectMatrix.Uniform(UniformID.ObjectMatrix);

@@ -121,8 +121,13 @@ const
 
   Fuss_Frag =
     '  float cdummy = OutColor.a;' + LineEnding +
-    '  OutColor = OutColor * Light(DataIn.Normal, DataIn.Position);' + LineEnding +
-    '  OutColor.a = cdummy;' + LineEnding +
+
+    '  if (cdummy > 0.5) {' + LineEnding +
+    '    OutColor = OutColor * Light(DataIn.Normal, DataIn.Position);' + LineEnding +
+    '    OutColor.a = cdummy;' + LineEnding +
+    '  } else {' + LineEnding +
+    '    discard; // Wen transparent, Pixel nicht ausgeben.' + LineEnding +
+    '  }' + LineEnding +
     '}';
 var
   Frag_Shader: string;
