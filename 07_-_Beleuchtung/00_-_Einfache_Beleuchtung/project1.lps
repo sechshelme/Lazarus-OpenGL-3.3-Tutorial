@@ -18,9 +18,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="195"/>
-        <CursorPos X="62" Y="227"/>
+        <TopLine Value="127"/>
+        <CursorPos X="13" Y="149"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -50,15 +49,15 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="2"/>
-        <CursorPos X="84" Y="34"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="84" Y="33"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="18" Y="3"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -108,13 +107,15 @@
       <Unit13>
         <Filename Value="../../units/oglvector.pas"/>
         <UnitName Value="oglVector"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="19"/>
-        <CursorPos X="82" Y="34"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="465"/>
+        <CursorPos X="46" Y="480"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit13>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="25" HistoryIndex="24">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="110" Column="42" TopLine="77"/>
@@ -207,6 +208,14 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="245" Column="76" TopLine="205"/>
       </Position23>
+      <Position24>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="149" Column="13" TopLine="127"/>
+      </Position24>
+      <Position25>
+        <Filename Value="../../units/oglvector.pas"/>
+        <Caret Line="151" Column="14" TopLine="118"/>
+      </Position25>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

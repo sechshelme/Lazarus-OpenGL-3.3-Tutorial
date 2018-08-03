@@ -247,7 +247,7 @@ begin
   glBindTexture(GL_TEXTURE_2D, FID);
   if Clear then begin
     GetMem(DataPointer, w * h * 4);
-    FillDWord(DataPointer^, w * h, $FF0000FF);
+    FillDWord(DataPointer^, w * h, $FF000000);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, DataPointer);
     Freemem(DataPointer);
   end else begin

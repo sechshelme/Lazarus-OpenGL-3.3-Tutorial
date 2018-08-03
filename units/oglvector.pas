@@ -43,6 +43,8 @@ type
     procedure Normalize;
     procedure Negate;
 
+    function Size: GLfloat;
+
     procedure Uniform(ShaderID: GLint);
   end;
 
@@ -80,6 +82,8 @@ type
 
     procedure WriteVectoren(const Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(const Vectoren, Normal: array of TVector3f);
+
+    function Size: GLfloat;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -237,6 +241,11 @@ end;
 procedure TVector2fHelper.Negate; inline;
 begin
   Self *= -1;
+end;
+
+function TVector2fHelper.Size: GLfloat;
+begin
+  Result := sqrt(sqr(Self[0]) + sqr(Self[1]));
 end;
 
 procedure TVector2fHelper.Uniform(ShaderID: GLint); inline;
@@ -464,6 +473,11 @@ begin
     end;
   end;
   ShowMessage('Vectoren und Normale' + LineEnding + s);
+end;
+
+function TVector3fHelper.Size: GLfloat;
+begin
+  Result := sqrt(sqr(Self[0]) + sqr(Self[1]) + sqr(Self[2]));
 end;
 
 procedure TVector3fHelper.Uniform(ShaderID: GLint); inline;

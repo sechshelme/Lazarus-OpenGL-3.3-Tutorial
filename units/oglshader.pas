@@ -359,7 +359,7 @@ end;
 function TShader.UniformBlockIndex(ch: PGLChar): GLuint;
 begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
-  if Result = $FFFFFFFF then begin
+  if Result = GL_INVALID_INDEX then begin
     LogForm.Add('UniformBlock Fehler: ' + ch + ' code: ' + IntToStr(Result));
     LogForm.Show;
   end;

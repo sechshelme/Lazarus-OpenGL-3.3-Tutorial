@@ -5,7 +5,7 @@ unit oglBackground;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, dglOpenGL,
   oglVector, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
 
 type
@@ -15,7 +15,7 @@ type
   TBackGround = class(TMultiTexturVAO)
   public
     constructor Create(anzTextures: integer; Lighting: boolean=False);
-    procedure WriteVertex;
+    procedure WriteVertex(Xscale: GLfloat=1.0; Yscale: GLfloat=1.0);
     procedure Draw(TexturBuffer: array of TTexturBuffer);
   end;
 
@@ -31,7 +31,7 @@ begin
   Color := vec4(0.1, 0.3, 0.1, 1.0);
 end;
 
-procedure TBackGround.WriteVertex;
+procedure TBackGround.WriteVertex(Xscale : GLfloat = 1.0; Yscale: GLfloat = 1.0);
 const
   Rectangle: array [0..1] of Tmat3x3 = (
     ((-1.0, -1.0, 0.0), (1.0, 1.0, 0.0), (-1.0, 1.0, 0.0)),
@@ -42,7 +42,7 @@ const
 begin
   with Textur do begin
     TexCoord.Add(Tex);
-    TexCoord.Scale(2,3);
+    TexCoord.Scale(Xscale, Yscale);
     //    TexCoord.Rotate(Pi/4);
   end;
 
