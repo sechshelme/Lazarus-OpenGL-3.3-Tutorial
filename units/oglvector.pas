@@ -43,7 +43,7 @@ type
     procedure Normalize;
     procedure Negate;
 
-    function Size: GLfloat;
+    function Length: GLfloat;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -83,7 +83,7 @@ type
     procedure WriteVectoren(const Vector: array of TVector3f);   // Für Testzwecke
     procedure WriteVectoren_and_Normal(const Vectoren, Normal: array of TVector3f);
 
-    function Size: GLfloat;
+    function Length: GLfloat;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -243,7 +243,7 @@ begin
   Self *= -1;
 end;
 
-function TVector2fHelper.Size: GLfloat;
+function TVector2fHelper.Length: GLfloat;
 begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]));
 end;
@@ -426,7 +426,7 @@ var
 
 begin
   s := '';
-  for i := 0 to Length(Vector) - 1 do begin
+  for i := 0 to System.Length(Vector) - 1 do begin
     if i mod 3 = 0 then begin
       s := s + 'Vectoren:' + #13#10;
     end;
@@ -457,10 +457,10 @@ var
 
 begin
   s := '';
-  if Length(Vectoren) <> Length(Normal) then begin
+  if System.Length(Vectoren) <> System.Length(Normal) then begin
     s := 'Fehler: Ungleiche Anzahl Normale und Vectoren!';
   end else begin
-    for i := 0 to (Length(Vectoren) div 3) - 1 do begin
+    for i := 0 to (System.Length(Vectoren) div 3) - 1 do begin
       n := i * 3;
       s := s + 'Vectoren:' + #13#10;
       s := s + 'x: ' + f(Vectoren[n + 0, 0]) + 'y: ' + f(Vectoren[n + 0, 1]) + 'z: ' + f(Vectoren[n + 0, 2]) + '     ';
@@ -475,7 +475,7 @@ begin
   ShowMessage('Vectoren und Normale' + LineEnding + s);
 end;
 
-function TVector3fHelper.Size: GLfloat;
+function TVector3fHelper.Length: GLfloat;
 begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]) + sqr(Self[2]));
 end;
