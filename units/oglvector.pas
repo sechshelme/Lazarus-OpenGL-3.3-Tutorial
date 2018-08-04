@@ -44,6 +44,7 @@ type
     procedure Negate;
 
     function Length: GLfloat;
+    function ToString: String;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -80,10 +81,8 @@ type
     procedure Cross(const v0, v1: TVector3f); overload;
     procedure Cross(const v0, v1, v2: TVector3f); overload;
 
-    procedure WriteVectoren(const Vector: array of TVector3f);   // Für Testzwecke
-    procedure WriteVectoren_and_Normal(const Vectoren, Normal: array of TVector3f);
-
     function Length: GLfloat;
+    function ToString: String;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -119,6 +118,8 @@ type
     procedure FromInt(i: UInt32);
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(Ax, Ay, Az, Aw: GLfloat);
+
+    function ToString: String;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -246,6 +247,16 @@ end;
 function TVector2fHelper.Length: GLfloat;
 begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]));
+end;
+
+function TVector2fHelper.ToString: String;
+var
+  s:String;
+begin
+  Str(Self[0]:1:1, s);
+  Result:=s+' ';
+  Str(Self[1]:1:1, s);
+  Result+=s;
 end;
 
 procedure TVector2fHelper.Uniform(ShaderID: GLint); inline;
@@ -411,73 +422,21 @@ begin
   Cross(v1 - v0, v2 - v0);
 end;
 
-procedure TVector3fHelper.WriteVectoren(const Vector: array of TVector3f);
-var
-  i: integer;
-  s: string;
-
-  function f(f1: GLfloat): string;
-  begin
-    f := FormatFloat('###0.00', f1) + '  ';
-    if Pos('-', f) = 0 then begin
-      f := ' ' + f;
-    end;
-  end;
-
-begin
-  s := '';
-  for i := 0 to System.Length(Vector) - 1 do begin
-    if i mod 3 = 0 then begin
-      s := s + 'Vectoren:' + #13#10;
-    end;
-    s := s + 'x: ' + f(Vector[i, 0]) + 'y: ' + f(Vector[i, 1]) + 'z: ' + f(Vector[i, 2]);
-    if i mod 3 = 2 then begin
-      s := s + #13#10#13#10;
-    end else begin
-      s := s + ' ';
-    end;
-  end;
-  Clipboard.AsText := s;
-end;
-
-
-procedure TVector3fHelper.WriteVectoren_and_Normal(const Vectoren,
-  Normal: array of TVector3f);
-var
-  n, i: integer;
-  s: string;
-
-  function f(f1: GLfloat): string;
-  begin
-    Result := FormatFloat('###0.00', f1) + '  ';
-    if Pos('-', Result) = 0 then begin
-      Result := ' ' + Result;
-    end;
-  end;
-
-begin
-  s := '';
-  if System.Length(Vectoren) <> System.Length(Normal) then begin
-    s := 'Fehler: Ungleiche Anzahl Normale und Vectoren!';
-  end else begin
-    for i := 0 to (System.Length(Vectoren) div 3) - 1 do begin
-      n := i * 3;
-      s := s + 'Vectoren:' + #13#10;
-      s := s + 'x: ' + f(Vectoren[n + 0, 0]) + 'y: ' + f(Vectoren[n + 0, 1]) + 'z: ' + f(Vectoren[n + 0, 2]) + '     ';
-      s := s + 'x: ' + f(Vectoren[n + 1, 0]) + 'y: ' + f(Vectoren[n + 1, 1]) + 'z: ' + f(Vectoren[n + 1, 2]) + '     ';
-      s := s + 'x: ' + f(Vectoren[n + 2, 0]) + 'y: ' + f(Vectoren[n + 2, 1]) + 'z: ' + f(Vectoren[n + 2, 2]) + #13#10;
-      s := s + 'Normale:' + #13#10;
-      s := s + 'x: ' + f(Normal[n + 0, 0]) + 'y: ' + f(Normal[n + 0, 1]) + 'z: ' + f(Normal[n + 0, 2]) + '     ';
-      s := s + 'x: ' + f(Normal[n + 1, 0]) + 'y: ' + f(Normal[n + 1, 1]) + 'z: ' + f(Normal[n + 1, 2]) + '     ';
-      s := s + 'x: ' + f(Normal[n + 2, 0]) + 'y: ' + f(Normal[n + 2, 1]) + 'z: ' + f(Normal[n + 2, 2]) + #13#10#13#10;
-    end;
-  end;
-  ShowMessage('Vectoren und Normale' + LineEnding + s);
-end;
-
 function TVector3fHelper.Length: GLfloat;
 begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]) + sqr(Self[2]));
+end;
+
+function TVector3fHelper.ToString: String;
+var
+  s:String;
+begin
+  Str(Self[0]:1:1, s);
+  Result:=s+' ';
+  Str(Self[1]:1:1, s);
+  Result+=s+' ';
+  Str(Self[2]:1:1, s);
+  Result+=s;
 end;
 
 procedure TVector3fHelper.Uniform(ShaderID: GLint); inline;
@@ -611,6 +570,20 @@ begin
   Self[3] *= Aw;
 end;
 
+function TVector4fHelper.ToString: String;
+var
+  s:String;
+begin
+  Str(Self[0]:1:1, s);
+  Result:=s+' ';
+  Str(Self[1]:1:1, s);
+  Result+=s+' ';
+  Str(Self[2]:1:1, s);
+  Result+=s+' ';
+  Str(Self[3]:1:1, s);
+  Result+=s;
+end;
+
 procedure TVector4fHelper.Uniform(ShaderID: GLint); inline;
 begin
   glUniform4fv(ShaderID, 1, @Self);
@@ -737,7 +710,7 @@ var
   i: integer;
   v: TVector3f;
 begin
-  if Length(Normal) < Length(Face) then begin
+  if Length(Normal) <> Length(Face) then begin
     ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
     Exit;
   end;
