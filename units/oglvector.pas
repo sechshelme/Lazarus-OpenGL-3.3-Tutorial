@@ -44,7 +44,7 @@ type
     procedure Negate;
 
     function Length: GLfloat;
-    function ToString: String;
+    function ToString: string;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -82,7 +82,7 @@ type
     procedure Cross(const v0, v1, v2: TVector3f); overload;
 
     function Length: GLfloat;
-    function ToString: String;
+    function ToString: string;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -119,7 +119,7 @@ type
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(Ax, Ay, Az, Aw: GLfloat);
 
-    function ToString: String;
+    function ToString: string;
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -159,12 +159,12 @@ procedure SwapVertex2f(var f0, f1: TVector2f);
 procedure SwapVertex3f(var f0, f1: TVector3f);
 procedure SwapVertex4f(var f0, f1: TVector4f);
 
-operator + (const v0, v1: TVector2f) Res: TVector2f;
-operator - (const v0, v1: TVector2f) Res: TVector2f;
-operator + (const v0, v1: TVector3f) Res: TVector3f;
-operator - (const v0, v1: TVector3f) Res: TVector3f;
-operator + (const v0, v1: TVector4f) Res: TVector4f;
-operator - (const v0, v1: TVector4f) Res: TVector4f;
+operator +(const v0, v1: TVector2f) Res: TVector2f;
+operator -(const v0, v1: TVector2f) Res: TVector2f;
+operator +(const v0, v1: TVector3f) Res: TVector3f;
+operator -(const v0, v1: TVector3f) Res: TVector3f;
+operator +(const v0, v1: TVector4f) Res: TVector4f;
+operator -(const v0, v1: TVector4f) Res: TVector4f;
 
 operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f;
 operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f;
@@ -249,14 +249,14 @@ begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]));
 end;
 
-function TVector2fHelper.ToString: String;
+function TVector2fHelper.ToString: string;
 var
-  s:String;
+  s: string;
 begin
-  Str(Self[0]:1:1, s);
-  Result:=s+' ';
-  Str(Self[1]:1:1, s);
-  Result+=s;
+  Str(Self[0]: 1: 1, s);
+  Result := s + ' ';
+  Str(Self[1]: 1: 1, s);
+  Result += s;
 end;
 
 procedure TVector2fHelper.Uniform(ShaderID: GLint); inline;
@@ -311,7 +311,7 @@ end;
 
 function TVector3fHelper.ToInt: Uint32;
 
-  function v(s: GLfloat): Byte; inline;
+  function v(s: GLfloat): byte; inline;
   begin
     Result := Round(s * $FF);
   end;
@@ -427,16 +427,16 @@ begin
   Result := sqrt(sqr(Self[0]) + sqr(Self[1]) + sqr(Self[2]));
 end;
 
-function TVector3fHelper.ToString: String;
+function TVector3fHelper.ToString: string;
 var
-  s:String;
+  s: string;
 begin
-  Str(Self[0]:1:1, s);
-  Result:=s+' ';
-  Str(Self[1]:1:1, s);
-  Result+=s+' ';
-  Str(Self[2]:1:1, s);
-  Result+=s;
+  Str(Self[0]: 1: 1, s);
+  Result := s + ' ';
+  Str(Self[1]: 1: 1, s);
+  Result += s + ' ';
+  Str(Self[2]: 1: 1, s);
+  Result += s;
 end;
 
 procedure TVector3fHelper.Uniform(ShaderID: GLint); inline;
@@ -528,7 +528,7 @@ end;
 
 function TVector4fHelper.ToInt: Uint32;
 
-  function v(s: GLfloat): Byte; inline;
+  function v(s: GLfloat): byte; inline;
   begin
     Result := Round(s * $FF);
   end;
@@ -570,18 +570,18 @@ begin
   Self[3] *= Aw;
 end;
 
-function TVector4fHelper.ToString: String;
+function TVector4fHelper.ToString: string;
 var
-  s:String;
+  s: string;
 begin
-  Str(Self[0]:1:1, s);
-  Result:=s+' ';
-  Str(Self[1]:1:1, s);
-  Result+=s+' ';
-  Str(Self[2]:1:1, s);
-  Result+=s+' ';
-  Str(Self[3]:1:1, s);
-  Result+=s;
+  Str(Self[0]: 1: 1, s);
+  Result := s + ' ';
+  Str(Self[1]: 1: 1, s);
+  Result += s + ' ';
+  Str(Self[2]: 1: 1, s);
+  Result += s + ' ';
+  Str(Self[3]: 1: 1, s);
+  Result += s;
 end;
 
 procedure TVector4fHelper.Uniform(ShaderID: GLint); inline;
@@ -593,7 +593,7 @@ end;
 
 procedure TglFloatArrayHelper.AddglFloatf(f: GLfloat);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 1);
@@ -602,7 +602,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector2f(const Vertex: TVector2f);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 2);
@@ -611,7 +611,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 3);
@@ -620,7 +620,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 4);
@@ -629,7 +629,7 @@ end;
 
 procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 6);
@@ -645,7 +645,7 @@ end;
 
 procedure TglFloatArrayHelper.AddFace2DArray(const Face: array of TFace2D);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 6 * Length(Face));
@@ -654,7 +654,7 @@ end;
 
 procedure TglFloatArrayHelper.AddFace3D(const Face: TFace3D);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 9);
@@ -670,7 +670,7 @@ end;
 
 procedure TglFloatArrayHelper.AddFace3DArray(const Face: array of TFace3D);
 var
-  p: Integer;
+  p: integer;
 begin
   p := Length(Self);
   SetLength(Self, p + 9 * Length(Face));
@@ -679,29 +679,31 @@ end;
 
 procedure TglFloatArrayHelper.Scale(factor: GLfloat);
 var
-  i:Integer;
+  i: integer;
 begin
-  for i:=0 to Length(Self)-1 do Self[i] *= factor;
+  for i := 0 to Length(Self) - 1 do begin
+    Self[i] *= factor;
+  end;
 end;
 
 procedure TglFloatArrayHelper.Scale(x, y: GLfloat);
 var
-  i:Integer;
+  i: integer;
 begin
-  for i:=0 to (Length(Self)-1) div 2 do begin
-    Self[i*2+0] *= x;
-    Self[i*2+1] *= y;
+  for i := 0 to (Length(Self) - 1) div 2 do begin
+    Self[i * 2 + 0] *= x;
+    Self[i * 2 + 1] *= y;
   end;
 end;
 
 procedure TglFloatArrayHelper.Scale(x, y, z: GLfloat);
 var
-  i:Integer;
+  i: integer;
 begin
-  for i:=0 to (Length(Self)-1) div 3 do begin
-    Self[i*3+0] *= x;
-    Self[i*3+1] *= y;
-    Self[i*3+2] *= z;
+  for i := 0 to (Length(Self) - 1) div 3 do begin
+    Self[i * 3 + 0] *= x;
+    Self[i * 3 + 1] *= y;
+    Self[i * 3 + 2] *= z;
   end;
 end;
 
@@ -807,33 +809,33 @@ end;
 
 // === Überladene Operatoren
 
-operator + (const v0, v1: TVector2f) Res: TVector2f; inline;
+operator +(const v0, v1: TVector2f) Res: TVector2f; inline;
 begin
   Res[0] := v0[0] + v1[0];
   Res[1] := v0[1] + v1[1];
 end;
 
-operator - (const v0, v1: TVector2f) Res: TVector2f; inline;
+operator -(const v0, v1: TVector2f) Res: TVector2f; inline;
 begin
   Res[0] := v0[0] - v1[0];
   Res[1] := v0[1] - v1[1];
 end;
 
-operator + (const v0, v1: TVector3f) Res: TVector3f; inline;
+operator +(const v0, v1: TVector3f) Res: TVector3f; inline;
 begin
   Res[0] := v0[0] + v1[0];
   Res[1] := v0[1] + v1[1];
   Res[2] := v0[2] + v1[2];
 end;
 
-operator - (const v0, v1: TVector3f) Res: TVector3f; inline;
+operator -(const v0, v1: TVector3f) Res: TVector3f; inline;
 begin
   Res[0] := v0[0] - v1[0];
   Res[1] := v0[1] - v1[1];
   Res[2] := v0[2] - v1[2];
 end;
 
-operator + (const v0, v1: TVector4f) Res: TVector4f; inline;
+operator +(const v0, v1: TVector4f) Res: TVector4f; inline;
 begin
   Res[0] := v0[0] + v1[0];
   Res[1] := v0[1] + v1[1];
@@ -841,7 +843,7 @@ begin
   Res[3] := v0[3] + v1[3];
 end;
 
-operator - (const v0, v1: TVector4f) Res: TVector4f; inline;
+operator -(const v0, v1: TVector4f) Res: TVector4f; inline;
 begin
   Res[0] := v0[0] - v1[0];
   Res[1] := v0[1] - v1[1];
@@ -892,5 +894,3 @@ begin
 end;
 
 end.
-
-
