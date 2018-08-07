@@ -24,10 +24,11 @@ begin
   Align := alClient;
   //  MultiSampling:=4;
   Parent := TheOwner;
-  MakeCurrent;
 
   InitOpenGL;
-  //ReadExtensions;
+  MakeCurrent;
+
+//  ReadExtensions;
   ReadOpenGLCore;
   ReadImplementationProperties;
 end;
