@@ -222,10 +222,7 @@ type
       end else begin
         Buffer[i] := 0;
       end;
-      ;
-
     end;
-
     glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, Layer, bit.Width, bit.Height, 1, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(Buffer));
   end;
 
@@ -233,7 +230,7 @@ var
   bit: TBitmap;
 begin
   bit := TBitmap.Create;
-  bit.LoadFromFile('Ameise0.bmp');
+  bit.LoadFromFile('Ameise.bmp');
 
   glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 
@@ -250,7 +247,6 @@ begin
 
   glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
   bit.Free;
-
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
