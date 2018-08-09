@@ -15,14 +15,17 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader Klasse
     procedure CreateScene;
     procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
+    procedure LoadAmeise;
   public
   end;
 
@@ -42,9 +45,9 @@ Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
 *)
 //lineal
 const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
-    ((-1.0, -1.0, 0.0), (1.0, 1.0, 0.0), (-1.0, 1.0, 0.0),
-    (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0));
+  QuadVertex: array[0..5] of TVector2f =       // Koordinaten der Polygone.
+    ((-1.0, -1.0), (1.0, 1.0), (-1.0, 1.0),
+    (-1.0, -1.0), (1.0, -1.0), (1.0, 1.0));
 
   TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
@@ -62,6 +65,7 @@ type
 
   TInstance = record
     Layer: GLfloat;
+    Angle: GLfloat;
     Trans: TVector2f;
   end;
 
@@ -102,6 +106,7 @@ begin
       Layer := i;
       Trans := vec2(0.0, 0.0);
       Trans.Translate(-tr + tr * (i mod 3), -tr / 2 + tr * (i div 3));
+      Angle := Random * 2 * Pi;
     end;
   end;
 
@@ -119,6 +124,8 @@ begin
 
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(scale, -scale, 1.0);
+
+  Timer1.Enabled := True;
 end;
 
 (*
@@ -128,42 +135,22 @@ Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .
 *)
 //code+
 procedure TForm1.InitScene;
-const
-  size = 8;      // Grösse der Texturen
-  anzLayer = 6;
 var
   i, ofs: integer;
-  bit: TPicture; // Bitmap
 begin
-  bit := TPicture.Create;
-  with bit do begin
-
-    glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
-
-    // Speicher reservieren
-    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGB, size, size, anzLayer, 0, GL_BGR, GL_UNSIGNED_BYTE, nil);
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    for i := 0 to anzLayer - 1 do begin
-
-      // Bitmap von HD laden.
-      LoadFromFile(IntToStr(i + 1) + '.xpm');   // Die Images laden.
-
-      // Texturen hoch laden
-      glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, Width, Height, 1, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
-    end;
-    glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
-    Free; // Picture frei geben.
-  end;
+  LoadAmeise;
   //code-
   glClearColor(0.6, 0.6, 0.4, 1.0);
+
+  glEnable(GL_BLEND);                                  // Alphablending an
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
 
   glBindVertexArray(VBQuad.VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Tex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
@@ -171,7 +158,7 @@ begin
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 
 
-  // Instance
+  // --- Instance
   ofs := 0;
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Instances), @Instances, GL_STATIC_DRAW);
@@ -182,10 +169,16 @@ begin
   glVertexAttribDivisor(5, 1);
   Inc(ofs, SizeOf(GLfloat));
 
-  // Translate
+  // Angele
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 2, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
+  glVertexAttribPointer(6, 1, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
   glVertexAttribDivisor(6, 1);
+  Inc(ofs, SizeOf(GLfloat));
+
+  // Translate
+  glEnableVertexAttribArray(7);
+  glVertexAttribPointer(7, 2, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
+  glVertexAttribDivisor(7, 1);
 
 end;
 
@@ -200,21 +193,64 @@ begin
   glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  // Textur binden.
   glBindVertexArray(VBQuad.VAO);
 
-  //  for x := 0 to 2 do begin
-  //  for y := 0 to 1 do begin
   Matrix.Identity;
   Matrix.Scale(0.2);
-  //      Matrix.Translate(-1.0 + x, -0.5 + y, 0.0);
+
   Matrix := ScaleMatrix * Matrix;
   Matrix.Uniform(Matrix_ID);
 
-  //      glUniform1i(Layer_ID, x + y * 3);    // Layer wechseln
-
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(Instances));
-  //    end;
-  //  end;
 
   ogc.SwapBuffers;
+end;
+
+procedure TForm1.LoadAmeise;
+const
+  anzLayer = 6;
+type
+  TBuffer = array of UInt32;
+
+  procedure LoadTexture(bit: TBitmap; Layer: integer; col: UInt32);
+  var
+    Buffer: TBuffer;
+    i: integer;
+  begin
+    SetLength(Buffer, bit.Width * bit.Height);
+    for i := 0 to Length(Buffer) - 1 do begin
+      if bit.Canvas.Pixels[i mod bit.Width, i div bit.Width] = 0 then begin
+        Buffer[i] := col or $FF000000;
+      end else begin
+        Buffer[i] := 0;
+      end;
+      ;
+
+    end;
+
+    glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, Layer, bit.Width, bit.Height, 1, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(Buffer));
+  end;
+
+var
+  bit: TBitmap;
+begin
+  bit := TBitmap.Create;
+  bit.LoadFromFile('Ameise0.bmp');
+
+  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+
+  glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA8, bit.Width, bit.Height, anzLayer, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+  LoadTexture(bit, 0, $FF);     // Rot
+  LoadTexture(bit, 1, $FF00);   // Grün
+  LoadTexture(bit, 2, $FF0000); // Blau
+  LoadTexture(bit, 3, $FFFF);
+  LoadTexture(bit, 4, $FFFF00);
+  LoadTexture(bit, 5, $FF00FF);
+
+  glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
+  bit.Free;
+
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -224,6 +260,49 @@ begin
   glDeleteBuffers(3, @VBQuad.VBO);
 
   Shader.Free;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  a = 0.1;
+  m = 7.0;
+var
+  i: integer;
+  t: TVector2f;
+begin
+
+  for i := 0 to Length(Instances) do begin
+    with Instances[i] do begin
+
+      Angle += -a + Random * a * 2;
+      t := vec2(0.0, 0.1);
+      t.Rotate(-Angle);
+      Trans -= t;
+
+      if Trans.x > m then begin
+        Trans.x := -m;
+      end;
+      if Trans.y > m then begin
+        Trans.y := -m;
+      end;
+      if Trans.x < -m then begin
+        Trans.x := m;
+      end;
+      if Trans.y < -m then begin
+        Trans.y := m;
+      end;
+    end;
+  end;
+
+
+  glBindVertexArray(VBQuad.VAO);
+
+  // Instance
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(TInstances), @Instances);
+
+
+  ogc.Invalidate;
 end;
 
 //lineal
