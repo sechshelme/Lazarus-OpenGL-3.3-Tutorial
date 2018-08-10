@@ -45,13 +45,16 @@ Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
 *)
 //lineal
 const
-  QuadVertex: array[0..5] of TVector2f =       // Koordinaten der Polygone.
+  AmeiseVertex: array[0..5] of TVector2f =       // Koordinaten der Polygone.
     ((-1.0, -1.0), (1.0, 1.0), (-1.0, 1.0),
     (-1.0, -1.0), (1.0, -1.0), (1.0, 1.0));
 
-  TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
+  AmeiseTextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
     (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
+
+  Scale = 20;
+  InstanceCount = 20;
 
 type
   TVB = record
@@ -69,12 +72,12 @@ type
     Trans: TVector2f;
   end;
 
-  TInstances = array[0..5] of TInstance;
+  TInstances = array of TInstance;
 
 var
   VBQuad: TVB;
   ScaleMatrix: TMatrix;
-  Layer_ID, Matrix_ID,
+  Matrix_ID,
   textureID: GLuint;
 
   Instances: TInstances;
@@ -87,6 +90,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
+  Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
 
@@ -95,24 +99,21 @@ begin
 end;
 
 procedure TForm1.CreateScene;
-const
-  tr = 3.0;
-  scale = 0.8;
 var
   i: integer;
 begin
-  for i := 0 to Length(Instances) do begin
+  SetLength(Instances, InstanceCount);
+  for i := 0 to Length(Instances) - 1 do begin
     with Instances[i] do begin
       Layer := i;
       Trans := vec2(0.0, 0.0);
-      Trans.Translate(-tr + tr * (i mod 3), -tr / 2 + tr * (i div 3));
       Angle := Random * 2 * Pi;
     end;
   end;
 
   glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([FileToStr('Ameise.vert'), FileToStr('Ameise.frag')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('mat');
@@ -123,7 +124,6 @@ begin
   glGenBuffers(3, @VBQuad.VBO);
 
   ScaleMatrix.Identity;
-  ScaleMatrix.Scale(scale, -scale, 1.0);
 
   Timer1.Enabled := True;
 end;
@@ -148,12 +148,12 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(AmeiseVertex), @AmeiseVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Tex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(AmeiseTextureVertex), @AmeiseTextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 
@@ -161,7 +161,7 @@ begin
   // --- Instance
   ofs := 0;
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Instances), @Instances, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Instances) * SizeOf(TInstance), nil, GL_STATIC_DRAW);
 
   // Layer
   glEnableVertexAttribArray(5);
@@ -184,7 +184,6 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  x, y: integer;
   Matrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -194,56 +193,48 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   Matrix.Identity;
-  Matrix.Scale(0.2);
+  Matrix.Scale(1 / Scale);
 
   Matrix := ScaleMatrix * Matrix;
   Matrix.Uniform(Matrix_ID);
 
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(Instances));
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(AmeiseVertex), Length(Instances));
 
   ogc.SwapBuffers;
 end;
 
 procedure TForm1.LoadAmeise;
-const
-  anzLayer = 6;
-type
-  TBuffer = array of UInt32;
-
-  procedure LoadTexture(bit: TBitmap; Layer: integer; col: UInt32);
-  var
-    Buffer: TBuffer;
-    i: integer;
-  begin
-    SetLength(Buffer, bit.Width * bit.Height);
-    for i := 0 to Length(Buffer) - 1 do begin
-      if bit.Canvas.Pixels[i mod bit.Width, i div bit.Width] = 0 then begin
-        Buffer[i] := col or $FF000000;
-      end else begin
-        Buffer[i] := 0;
-      end;
-    end;
-    glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, Layer, bit.Width, bit.Height, 1, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(Buffer));
-  end;
-
 var
+  Buffer: array of UInt32;
+  i, j: integer;
+  col: UInt32;
+  pix: TColor;
+  imageSize: integer;
   bit: TBitmap;
+
 begin
   bit := TBitmap.Create;
   bit.LoadFromFile('Ameise.bmp');
 
-  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+  imageSize := bit.Width * bit.Height;
+  SetLength(Buffer, InstanceCount * imageSize);
+  for i := 0 to imageSize - 1 do begin
+    pix := bit.Canvas.Pixels[i mod bit.Width, i div bit.Width];
 
-  glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA8, bit.Width, bit.Height, anzLayer, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+    for j := 0 to InstanceCount - 1 do begin
+      if pix = 0 then begin
+        col := $FFFFFF div InstanceCount * j;
+        Buffer[j * imageSize + i] := col or $FF000000;
+      end else begin
+        Buffer[j * imageSize + i] := 0;
+      end;
+    end;
+  end;
+
+  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
+  glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA8, bit.Width, bit.Height, InstanceCount, 0, GL_RGBA, GL_UNSIGNED_BYTE, Pointer(Buffer));
   glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-  LoadTexture(bit, 0, $FF);     // Rot
-  LoadTexture(bit, 1, $FF00);   // Grün
-  LoadTexture(bit, 2, $FF0000); // Blau
-  LoadTexture(bit, 3, $FFFF);
-  LoadTexture(bit, 4, $FFFF00);
-  LoadTexture(bit, 5, $FF00FF);
 
   glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
   bit.Free;
@@ -261,11 +252,12 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
   a = 0.1;
-  m = 7.0;
 var
   i: integer;
   t: TVector2f;
+  m: single;
 begin
+  m := Scale;
 
   for i := 0 to Length(Instances) do begin
     with Instances[i] do begin
@@ -290,13 +282,11 @@ begin
     end;
   end;
 
-
   glBindVertexArray(VBQuad.VAO);
 
   // Instance
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
-  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(TInstances), @Instances);
-
+  glBufferSubData(GL_ARRAY_BUFFER, 0, Length(Instances) * SizeOf(TInstance), Pointer(Instances));
 
   ogc.Invalidate;
 end;
@@ -308,12 +298,12 @@ Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
 <b>Vertex-Shader:</b>
 *)
-//includeglsl Vertexshader.glsl
+//includeglsl Ameise.vert
 //lineal
 
 (*
 <b>Fragment-Shader:</b>
 *)
-//includeglsl Fragmentshader.glsl
+//includeglsl Ameise.frag
 
 end.
