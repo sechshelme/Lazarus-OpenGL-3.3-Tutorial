@@ -39,7 +39,7 @@ type
 
     Shader: TShader;
 
-   textureID: GLuint;
+    textureID: GLuint;
   public
     constructor Create;
     procedure InitScene;
@@ -53,8 +53,6 @@ implementation
 
 constructor TZylinder.Create;
 begin
-  glGenTextures(1, @textureID);
-
   Shader := TShader.Create([FileToStr('Zylinder.vert'), FileToStr('Zylinder.frag')]);
   with Shader do begin
     UseProgram;
@@ -62,6 +60,8 @@ begin
     Matrix_ID := UniformLocation('Matrix');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
+
+  glGenTextures(1, @textureID);
 
   glGenVertexArrays(1, @VBZylinder.VAO);
   glGenBuffers(3, @VBZylinder.VBO);
@@ -74,19 +74,16 @@ var
   t: GLfloat;
 
 begin
-  t:= 2*pi/Sector;
   SetLength(Vertex, Sector * 2);
   SetLength(Normal, Sector * 2);
   SetLength(TextureVertex, Sector * 2);
 
   SetLength(k, Sector + 1);
+  t := 2 * pi / Sector;
   for i := 0 to Sector do begin
-//    k[i].x := sin(1 / Sector * i);
-//    k[i].y := cos(1 / Sector * i);
     k[i].x := sin(t * i);
     k[i].y := cos(t * i);
   end;
-
 
   for i := 0 to Sector - 1 do begin
     Vertex[i * 2, 0] := vec3(k[i + 1], 1.0);
@@ -96,14 +93,12 @@ begin
     Vertex[i * 2 + 1, 1] := vec3(k[i + 0], -1.0);
     Vertex[i * 2 + 1, 2] := vec3(k[i + 0], 1.0);
 
-
     Normal[i * 2, 0] := vec3(k[i + 1], 0.0);
     Normal[i * 2, 1] := vec3(k[i + 1], 0.0);
     Normal[i * 2, 2] := vec3(k[i + 0], 0.0);
     Normal[i * 2 + 1, 0] := vec3(k[i + 1], 0.0);
     Normal[i * 2 + 1, 1] := vec3(k[i + 0], 0.0);
     Normal[i * 2 + 1, 2] := vec3(k[i + 0], 0.0);
-
 
     TextureVertex[i * 2, 0] := vec2((i + 1) / Sector, 1.0);
     TextureVertex[i * 2, 1] := vec2((i + 1) / Sector, 0.0);
@@ -113,8 +108,8 @@ begin
     TextureVertex[i * 2 + 1, 2] := vec2((i + 0) / Sector, 1.0);
   end;
 
-  glEnable(GL_BLEND);                                  // Alphablending an
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   glBindVertexArray(VBZylinder.VAO);
 
@@ -122,27 +117,27 @@ begin
 
   // Vertex
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Vertex);
-  glBufferData(GL_ARRAY_BUFFER, Length(Vertex)* sizeof(TFace3D),  Pointer(Vertex), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Vertex) * sizeof(TFace3D), Pointer(Vertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Normal
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Normal);
-  glBufferData(GL_ARRAY_BUFFER,Length(Normal)* sizeof(TFace3D), Pointer(Normal), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Normal) * sizeof(TFace3D), Pointer(Normal), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // TexturVertex
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Tex);
-  glBufferData(GL_ARRAY_BUFFER,Length(TextureVertex)* sizeof(TFace3D),Pointer(TextureVertex), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(TextureVertex) * sizeof(TFace3D), Pointer(TextureVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 2, GL_FLOAT, False, 0, nil);
 
 end;
 
-procedure TZylinder.DrawScene(FrameTextur_ID:GLuint);
+procedure TZylinder.DrawScene(FrameTextur_ID: GLuint);
 var
-  m:TMatrix;
+  m: TMatrix;
 begin
 
   glClearColor(0.3, 0.3, 1.0, 1.0);
@@ -152,8 +147,6 @@ begin
 
   Shader.UseProgram;
   glBindTexture(GL_TEXTURE_2D, FrameTextur_ID);  // Textur binden.
-//  glBindTexture(GL_TEXTURE_2D, textureID);  // Textur binden.
-
 
   glBindVertexArray(VBZylinder.VAO);
 
@@ -163,20 +156,19 @@ begin
   m.RotateA(Pi / 2);
   m.Uniform(Matrix_id);
 
-
-
   glDrawArrays(GL_TRIANGLES, 0, Length(Vertex) * 3);
-
 end;
 
 destructor TZylinder.Destroy;
 begin
-
   glDeleteTextures(1, @textureID);
+
+  glDeleteVertexArrays(1, @VBZylinder.VAO);
+  glDeleteBuffers(3, @VBZylinder.VBO);
+
+  Shader.Free;
+
   inherited Destroy;
 end;
 
 end.
-
-
-

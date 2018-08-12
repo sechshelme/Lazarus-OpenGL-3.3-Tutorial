@@ -11,9 +11,26 @@ uses
   oglContext, oglShader, oglVector, oglMatrix;
 
 
-{ TAmeise }
-
 type
+  TVB = record
+    VAO: GLuint;
+    VBO: record
+      Vertex,
+      Tex,
+      Instance: GLuint;
+    end;
+  end;
+
+  TInstance = record
+    Layer: GLfloat;
+    Angle: GLfloat;
+    Trans: TVector2f;
+  end;
+
+  TInstances = array of TInstance;
+
+  { TAmeise }
+
   TAmeise = class(TObject)
   private
   const
@@ -29,41 +46,25 @@ type
     InstanceCount = 50;
     TexturSize = 1024;
 
-    type
-    TVB = record
-      VAO: GLuint;
-      VBO: record
-        Vertex,
-        Tex,
-        Instance: GLuint;
-      end;
-    end;
-
-    TInstance = record
-      Layer: GLfloat;
-      Angle: GLfloat;
-      Trans: TVector2f;
-    end;
-
-    TInstances = array of TInstance;
   var
     VBAmeise: TVB;
     Matrix_ID,
     AmeiseTextureID: GLuint;
 
+    Instances: TInstances;
+    Shader: TShader;
+
     // Renderpuffer
     fFrameTextureID: GLuint;
     FramebufferName, depthrenderbuffer: GLuint;
 
-    Instances: TInstances;
-    Shader: TShader; // Shader Klasse
     procedure CreateAmeise;
   public
-    property FrameTexturID:GLuint read fFrameTextureID;
+    property FrameTexturID: GLuint read fFrameTextureID;
 
     constructor Create;
     procedure InitScene;
-    procedure Calculate;
+    procedure Translate;
     procedure DrawScene;
     destructor Destroy; override;
   end;
@@ -76,8 +77,7 @@ procedure TAmeise.CreateAmeise;
 var
   Buffer: array of UInt32;
   i, j: integer;
-  col: UInt32;
-  pix: TColor;
+  col: TColor;
   imageSize: integer;
   bit: TBitmap;
 
@@ -88,12 +88,11 @@ begin
   imageSize := bit.Width * bit.Height;
   SetLength(Buffer, InstanceCount * imageSize);
   for i := 0 to imageSize - 1 do begin
-    pix := bit.Canvas.Pixels[i mod bit.Width, i div bit.Width];
+    col := bit.Canvas.Pixels[i mod bit.Width, i div bit.Width];
 
     for j := 0 to InstanceCount - 1 do begin
-      if pix = 0 then begin
-        col := $FFFFFF div InstanceCount * j;
-        Buffer[j * imageSize + i] := col or $FF000000;
+      if col = 0 then begin
+        Buffer[j * imageSize + i] := ($FFFFFF div InstanceCount * j) or $FF000000;
       end else begin
         Buffer[j * imageSize + i] := 0;
       end;
@@ -182,6 +181,7 @@ begin
 
 
   // --- Frame Puffer
+  // Textur für Frame Puffer
   glGenTextures(1, @fFrameTextureID);
   glBindTexture(GL_TEXTURE_2D, fFrameTextureID);
 
@@ -206,16 +206,13 @@ begin
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, fFrameTextureID, 0);
 end;
 
-procedure TAmeise.Calculate;
+procedure TAmeise.Translate;
 const
   a = 0.1;
 var
   i: integer;
   t: TVector2f;
-  m: GLfloat;
 begin
-  m := Scale;
-
   for i := 0 to Length(Instances) - 1 do begin
     with Instances[i] do begin
 
@@ -224,17 +221,17 @@ begin
       t.Rotate(-Angle);
       Trans -= t;
 
-      if Trans.x > m then begin
-        Trans.x := -m;
+      if Trans.x > Scale then begin
+        Trans.x := -Scale;
       end;
-      if Trans.y > m then begin
-        Trans.y := -m;
+      if Trans.y > Scale then begin
+        Trans.y := -Scale;
       end;
-      if Trans.x < -m then begin
-        Trans.x := m;
+      if Trans.x < -Scale then begin
+        Trans.x := Scale;
       end;
-      if Trans.y < -m then begin
-        Trans.y := m;
+      if Trans.y < -Scale then begin
+        Trans.y := Scale;
       end;
     end;
   end;
@@ -244,6 +241,7 @@ procedure TAmeise.DrawScene;
 var
   Matrix: TMatrix;
 begin
+  // Ausgabe in Framebuffer
   glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
   glViewport(0, 0, TexturSize, TexturSize);
 
@@ -256,11 +254,12 @@ begin
   glBindVertexArray(VBAmeise.VAO);
 
   // Instance
-  Calculate;
+  Translate;
   glBindBuffer(GL_ARRAY_BUFFER, VBAmeise.VBO.Instance);
   glBufferSubData(GL_ARRAY_BUFFER, 0, Length(Instances) * SizeOf(TInstance), Pointer(Instances));
 
-  glBindTexture(GL_TEXTURE_2D_ARRAY, AmeiseTextureID);  // Ameise.Textur binden.
+  // Ameise Textur binden.
+  glBindTexture(GL_TEXTURE_2D_ARRAY, AmeiseTextureID);
 
   Matrix.Identity;
   Matrix.Scale(1 / Scale);
@@ -268,16 +267,18 @@ begin
   Matrix.Uniform(Matrix_ID);
 
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(AmeiseVertex), Length(Instances));
+
+  // Ausgabe wieder auf Bildschirm
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 end;
 
 destructor TAmeise.Destroy;
 begin
-  glDeleteTextures(1, @AmeiseTextureID);       // Textur-Puffer frei geben.
-  glDeleteTextures(1, @fFrameTextureID);       // Textur-Puffer frei geben.
+  glDeleteTextures(1, @AmeiseTextureID);
   glDeleteVertexArrays(1, @VBAmeise.VAO);
   glDeleteBuffers(3, @VBAmeise.VBO);
 
+  glDeleteTextures(1, @fFrameTextureID);
   glDeleteFramebuffers(1, @FramebufferName);
   glDeleteRenderbuffers(1, @depthrenderbuffer);
   Shader.Free;
