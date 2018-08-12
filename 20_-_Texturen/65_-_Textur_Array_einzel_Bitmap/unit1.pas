@@ -36,8 +36,8 @@ implementation
 //image image.png
 
 (*
-Man kann auch in jedem Layer einzeln die Texturn laden.
-Der einzige Unterschied zum kompletten laden ist, man ladetdie Texturen einzeln mit SubImage hoch.
+Man kann auch in jedem Layer einzeln die Texturen laden.
+Der einzige Unterschied zum kompletten laden ist, man ladet die Texturen einzeln mit SubImage hoch.
 Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
 *)
 //lineal
@@ -100,8 +100,8 @@ end;
 
 (*
 Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
-Mit <b>glTexSubImage3D(...</b> werden dann die Texturn Layer für Layer hochgeladen.
-Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .
+Mit <b>glTexSubImage3D(...</b> werden dann die Texturen Layer für Layer hochgeladen.
+Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .
 *)
 //code+
 procedure TForm1.InitScene;

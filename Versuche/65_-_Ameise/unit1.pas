@@ -81,7 +81,8 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  ogc.Invalidate;
+  ogcDrawScene(Sender);
+//  ogc.Invalidate;
 end;
 
 //lineal

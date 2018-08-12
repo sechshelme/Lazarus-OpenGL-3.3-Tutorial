@@ -1,3 +1,6 @@
 glMultiDrawArrays
 glDrawElementsInstanced
 
+glStencilFunc
+
+glBindBuffer
