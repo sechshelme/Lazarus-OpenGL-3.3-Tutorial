@@ -39,6 +39,7 @@ implementation
 
 (*
 Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.
+Dies ist auch mit einem <b>Texturauschnitt</b> möglich.
 Dies geschieht mit <b>glTexSubImage2D(...</b>.
 *)
 
@@ -47,7 +48,16 @@ Dies geschieht mit <b>glTexSubImage2D(...</b>.
 type
   TQuad = array[0..1] of TFace3D;
 
+(*
+Big ist die Totalgrösse der Texturdaten.
+Small ist ein Auschnitt.
+*)
+//code+
 const
+  TextursizeBig = 256;
+  TextursizeSmall = 64;
+//code-
+
   Quad: TQuad =
     (((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0)),
     ((-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0)));
@@ -56,8 +66,6 @@ const
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
     (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
-  Textur32_0: packed array[0..1, 0..1, 0..3] of byte = ((($FF, $00, $00, $FF), ($00, $FF, $00, $FF)), (($00, $00, $FF, $FF), ($FF, $00, $00, $FF)));
-  Textur32_1: packed array[0..1, 0..1, 0..3] of byte = ((($00, $FF, $FF, $FF), ($FF, $00, $FF, $FF)), (($FF, $FF, $00, $FF), ($00, $FF, $FF, $FF)));
 
 type
   TVB = record
@@ -65,13 +73,19 @@ type
     VBOVertex, VBOTex: GLuint;
   end;
 
+(*
+3 Datenpuffer, welche sehr mit sehr einfachen Werten geladen werden.
+*)
+//code+
 var
-  RotMatrix, TransMatrix, prodMatrix: TMatrix;
+  TexturBig: packed array [0..TextursizeBig*TextursizeBig-1] of UInt32 ;
+  TexturSmall0, TexturSmall1: packed array [0..TextursizeSmall*TextursizeSmall-1]of UInt32;
+  textureID: GLuint;
+//code-
+  RotMatrix, TransMatrix: TMatrix;
   Matrix_ID: GLint;
 
   VBQuad: TVB;
-  textureID0: GLuint;
-
 
 { TForm1 }
 
@@ -99,8 +113,6 @@ begin
   end;
   RotMatrix.Identity;
   TransMatrix.Identity;
-  prodMatrix.Identity;
-  TransMatrix.Translate(0.5, 0.0, 0.0);   // TransMatrix um 0.5 nach links verschieben.
 
   glGenVertexArrays(1, @VBQuad.VAO);
 
@@ -109,17 +121,38 @@ begin
 end;
 
 (*
-Texturen laden
+Es werden sehr einfache Datenbuffer mit Daten befüllt.
+In der Praxis werden die Puffer meistens mit Bitmaps gefüllt.
+Der grosse Texturbuffer füllt die ganze Textur auf.
+Die kleinen Datenbuffer werden später zur Laufzeit abwechslungsweise geladen.
 *)
 //code+
 procedure TForm1.InitScene;
+var
+  i: integer;
 begin
-  // ------------ Texture laden --------------
+  // Einfache Datenbuffer erzeugen.
+  for i := 0 to TextursizeBig * TextursizeBig - 1 do begin
+    TexturBig[i] := i or $FF000000;
+  end;
 
-  glGenTextures(1, @textureID0);
-  glBindTexture(GL_TEXTURE_2D, textureID0);
+  for i := 0 to TextursizeSmall * TextursizeSmall - 1 do begin
+    TexturSmall0[i] := i or $FF000000;
+    TexturSmall1[i] := (not i) or $FF000000;
+  end;
 
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+
+  // --- Texturbuffer erzeugen und anschliessend mit Daten der grossen Textur befüllen.
+
+  glGenTextures(1, @textureID);
+  glBindTexture(GL_TEXTURE_2D, textureID);
+
+  // Nur Speicher reservieren
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TextursizeBig, TextursizeBig, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+
+  // Texturbuffer mit dem grossen Datenbuffer befüllen.
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, TextursizeBig, TextursizeBig, GL_RGBA, GL_UNSIGNED_BYTE, @TexturBig);
+//code-
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glBindTexture(GL_TEXTURE_2D, 0);
@@ -138,27 +171,23 @@ begin
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 end;
-//code-
 
-(*
-*)
-//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  Matrix:TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glBindTexture(GL_TEXTURE_2D, textureID0);
-  //code-
+  glBindTexture(GL_TEXTURE_2D, textureID);
 
   Shader.UseProgram;
 
-  prodMatrix := TransMatrix * RotMatrix;
-  prodMatrix.Uniform(Matrix_ID);
+  Matrix := TransMatrix * RotMatrix;
+  Matrix.Uniform(Matrix_ID);
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
-
 
   ogc.SwapBuffers;
 end;
@@ -169,23 +198,27 @@ begin
 
   Shader.Free;
 
-  glDeleteTextures(1, @textureID0);
+  glDeleteTextures(1, @textureID);
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
 end;
 
+(*
+Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht
+*)
+//code+
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step: GLfloat = 0.01;
-
-const  z: integer=1;
+  z: integer = 1;
 begin
   if z > 10 then begin
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 2, 2, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall0);
   end else begin
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 2, 2, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_1);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall1);
   end;
+  //code-
   if z > 20 then begin
     z := 0;
   end;
