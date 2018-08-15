@@ -111,7 +111,7 @@ begin
 end;
 
 (*
-Hier wird die Backface Culling
+Hier wird die Backface Culling aktiviert:
 *)
 
 //code+

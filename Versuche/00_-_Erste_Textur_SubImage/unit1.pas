@@ -38,14 +38,8 @@ implementation
 //image image.png
 
 (*
-Hier wird die Mesh verschoben, und anschliessend gedreht.
-
-Dazu werden zwei 4x4 Matrixen verwendet, eine für das Verschieben und die andere für die Drehung.
-Eine dritte Matrix ist noch für das Produkt von den zweit Matrixen, welche dann am Shader übergeben wird.
-Im Timer wird Matrix-Rotation ausgeführt.
-
-Für Matrixen, wird ab jetzt Klassen aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.
-Im Constructor wird die Matrix von Anfang an auf die Einheits-Matrix gesetzt.
+Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.
+Dies geschieht mit <b>glTexSubImage2D(...</b>.
 *)
 
 //lineal
@@ -71,18 +65,11 @@ type
     VBOVertex, VBOTex: GLuint;
   end;
 
-(*
-Die Deklaration der drei Matrixen.
-Und die ID für den Shader. ID wird nur eine gebraucht, da nur da Produkt dem Shader übergeben wird.
-*)
-//code+
 var
-  RotMatrix, TransMatrix, prodMatrix: TMatrix;   // Matrixen von der Klasse aus oglMatrix.
-  Matrix_ID: GLint;                              // ID für Matrix.
-  //code-
+  RotMatrix, TransMatrix, prodMatrix: TMatrix;
+  Matrix_ID: GLint;
 
-  VBTriangle: TVB;
-
+  VBQuad: TVB;
   textureID0: GLuint;
 
 
@@ -102,11 +89,6 @@ begin
   Timer1.Enabled := True;
 end;
 
-(*
-Hier werden die drei Matrixen-Klassen erzeugt.
-Mit diesem Kontruktor wird die Matrix automatisch auf die Einheits-Matrix gesetzt.
-*)
-//code+
 procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
@@ -119,12 +101,11 @@ begin
   TransMatrix.Identity;
   prodMatrix.Identity;
   TransMatrix.Translate(0.5, 0.0, 0.0);   // TransMatrix um 0.5 nach links verschieben.
-  //code-
 
-  glGenVertexArrays(1, @VBTriangle.VAO);
+  glGenVertexArrays(1, @VBQuad.VAO);
 
-  glGenBuffers(1, @VBTriangle.VBOVertex);
-  glGenBuffers(1, @VBTriangle.VBOTex);
+  glGenBuffers(1, @VBQuad.VBOVertex);
+  glGenBuffers(1, @VBQuad.VBOTex);
 end;
 
 (*
@@ -140,23 +121,19 @@ begin
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
 
-  //  glTexStorage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2);
-  //  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 2, 2, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32);
-
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glBindTexture(GL_TEXTURE_2D, 0);
 
-
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
-  // Daten für Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOVertex);
+  // Daten für Rechteck
+  glBindVertexArray(VBQuad.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOTex);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
@@ -179,7 +156,7 @@ begin
   prodMatrix.Uniform(Matrix_ID);
 
   // Zeichne Quadrat
-  glBindVertexArray(VBTriangle.VAO);
+  glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 
 
@@ -193,9 +170,9 @@ begin
   Shader.Free;
 
   glDeleteTextures(1, @textureID0);
-  glDeleteVertexArrays(1, @VBTriangle.VAO);
-  glDeleteBuffers(1, @VBTriangle.VBOVertex);
-  glDeleteBuffers(1, @VBTriangle.VBOTex);
+  glDeleteVertexArrays(1, @VBQuad.VAO);
+  glDeleteBuffers(1, @VBQuad.VBOVertex);
+  glDeleteBuffers(1, @VBQuad.VBOTex);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -222,9 +199,6 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-
-Hier ist die Uniform-Variable <b>mat</b> hinzugekommen.
-Diese wird im Vertex-Shader deklariert, Bewegungen kommen immer in diesen Shader.
 *)
 //includeglsl Vertexshader.glsl
 //lineal

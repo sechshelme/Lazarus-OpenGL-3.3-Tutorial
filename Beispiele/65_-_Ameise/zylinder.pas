@@ -17,7 +17,7 @@ type
   TZylinder = class(TObject)
   private
   const
-    Sector = 20;
+    Sector = 36;
 
     type
     TVB = record
@@ -32,6 +32,8 @@ type
   var
     VBZylinder: TVB;
     Matrix_ID, ModelMatrix_ID: GLuint;
+
+    FrustumMatrix, WorldMatrix: TMatrix;
 
     Vertex: array of TFace3D;
     Normal: array of TFace3D;
@@ -52,6 +54,8 @@ implementation
 { TZylinder }
 
 constructor TZylinder.Create;
+const
+  w = 1.0;
 begin
   Shader := TShader.Create([FileToStr('Zylinder.vert'), FileToStr('Zylinder.frag')]);
   with Shader do begin
@@ -65,6 +69,12 @@ begin
 
   glGenVertexArrays(1, @VBZylinder.VAO);
   glGenBuffers(3, @VBZylinder.VBO);
+
+  FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
+
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(0.0, 0.0, -200.0);
+  WorldMatrix.Scale(50.0);
 end;
 
 procedure TZylinder.InitScene;
@@ -108,9 +118,6 @@ begin
     TextureVertex[i * 2 + 1, 2] := vec2((i + 0) / Sector, 1.0);
   end;
 
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
   glBindVertexArray(VBZylinder.VAO);
 
   // --- Koordinatem
@@ -137,10 +144,11 @@ end;
 
 procedure TZylinder.DrawScene(FrameTextur_ID: GLuint);
 var
-  m: TMatrix;
+  Matrix: TMatrix;
 begin
 
   glClearColor(0.3, 0.3, 1.0, 1.0);
+  glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);                                  // Alphablending an
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
@@ -150,11 +158,13 @@ begin
 
   glBindVertexArray(VBZylinder.VAO);
 
-  m.Identity;
-  m.Uniform(ModelMatrix_ID);
-  m.Scale(0.5);
-  m.RotateA(Pi / 2);
-  m.Uniform(Matrix_id);
+  Matrix.Identity;
+  Matrix.Uniform(ModelMatrix_ID);
+  Matrix.RotateA(-Pi / 2);
+
+  Matrix := FrustumMatrix * WorldMatrix * Matrix;        // Matrizen multiplizieren.
+
+  Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
 
   glDrawArrays(GL_TRIANGLES, 0, Length(Vertex) * 3);
 end;

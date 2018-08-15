@@ -111,12 +111,18 @@ end;
 constructor TAmeise.Create;
 var
   i: integer;
+
+  function r: single; inline;
+  begin
+    Result := -Scale + Random * Scale * 2;
+  end;
+
 begin
   SetLength(Instances, InstanceCount);
   for i := 0 to Length(Instances) - 1 do begin
     with Instances[i] do begin
       Layer := i;
-      Trans := vec2(0.0, 0.0);
+      Trans := vec2(r, r);
       Angle := Random * 2 * Pi;
     end;
   end;
@@ -246,6 +252,7 @@ begin
   glViewport(0, 0, TexturSize, TexturSize);
 
   glClearColor(1.0, 1.0, 1.0, 1.0);
+  glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
