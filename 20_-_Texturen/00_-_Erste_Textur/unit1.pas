@@ -215,7 +215,7 @@ begin
 end;
 
 (*
-Am Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.
+Zum Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.
 *)
 //code+
 procedure TForm1.FormDestroy(Sender: TObject);

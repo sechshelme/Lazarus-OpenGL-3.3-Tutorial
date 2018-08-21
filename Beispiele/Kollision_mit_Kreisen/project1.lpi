@@ -24,7 +24,7 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="LazOpenGLContext"/>
+        <PackageName Value="ogl_Package"/>
       </Item1>
       <Item2>
         <PackageName Value="LCL"/>
@@ -52,13 +52,9 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../units"/>
       <UnitOutputDirectory Value="/tmp"/>
     </SearchPaths>
     <Linking>
-      <Debugging>
-        <GenerateDebugInfo Value="False"/>
-      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>

@@ -66,7 +66,7 @@ type
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Translate(x, y, z: GLfloat); overload;     // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
-    procedure TranslateLocalspace(x, y, z: GLfloat);       // Localspace Translation
+    procedure TranslateLocalspace(x, y, z: GLfloat);     // Localspace Translation
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);

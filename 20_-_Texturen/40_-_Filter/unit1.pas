@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, Menus, Grids,
+  Dialogs, ExtCtrls,
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix;
 
@@ -36,14 +36,14 @@ implementation
 //image image.png
 
 (*
-Hier wird gezeigt, wie man mehrere Texturen laden kann, im Prinzip geht dies fast gleich wie bei einer Textur.
-In diesem Beispiel werden zwei Texturen geladen.
+Hier wird gezeigt, wie man Filter für Texturen verwenden kann.
+In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter verwendet.
 
-Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textur bindet.
+Die Filter verstellt man mit <b>glTexParameter(...</b>.
 *)
 //lineal
 const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
+  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Rechtecke.
     ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
     (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
 
@@ -60,16 +60,9 @@ type
 
 var
   VBQuad: TVB;
-  ScaleMatrix, ProdMatrix: TMatrix;
+  ScaleMatrix: TMatrix;
   Matrix_ID: GLint;
-
-(*
-Da es zwei Texturen hat, bracuht es auch zwei IDs.
-*)
-//code+
-var
   textureID: GLuint;
-//code-
 
 { TForm1 }
 
@@ -86,59 +79,46 @@ begin
   InitScene;
 end;
 
-(*
-Da die Textur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
-Dazu gebe ich als ersten Parameter die Länge der Array an.
-Natürlich könnte man die Puffer auch einzeln erzeugen.
-
-Das selbe könnte man auch bei den VAOs und VBOs machen.
-*)
-//code+
 procedure TForm1.CreateScene;
 begin
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOVertex);
   glGenBuffers(1, @VBQuad.VBOTex);
 
-  glGenTextures(1, @textureID);  // Erster Parameter die Länge der Arrray.
-  //code-
+  glGenTextures(1, @textureID);
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('mat');
-    glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
+    glUniform1i(UniformLocation('Sampler'), 0);
   end;
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.5);
-  ProdMatrix.Identity;
 end;
 
 (*
-Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.
+Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welcher für alle Ausgaben gültig ist.
 *)
 //code+
 procedure TForm1.InitScene;
 var
   pic: TPicture;
-  border: array[0..3] of GLfloat = (0.0, 1.0, 0.0, 1.0);
 
 begin
   pic := TPicture.Create;
   with pic do begin
     LoadFromFile('bild.xpm');
 
-    // Textur laden.
+    // Textur laden
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, Width, Height, 0, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    // Globaler Filter
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, @border);
-
     glBindTexture(GL_TEXTURE_2D, 0);
-    Free;  // pic
+    Free;
   end;
   //code-
 
@@ -157,12 +137,15 @@ begin
 end;
 
 (*
-Hier sieht man, das ich für die beiden Qudrate unterschiedliche Texturen binde.
-Koordinaten verwende ich für beide Qudrate die gleichen, einziger Unterschied, ich verschiebe die Matrix in unterschiedliche Richtungen.
-Aus diesem Grund wird die VAO auch nur einmal gebunden.
+Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe festlegen.
 *)
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+// Hintergrundfarbe für Clamp_to_Border, ein Dunkelgrün.
+const
+  border: array[0..3] of GLfloat = (0.0, 0.3, 0.0, 1.0);
+var
+  ProdMatrix: TMatrix;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -184,6 +167,8 @@ begin
   // Rechts-Oben
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, @border);
 
   ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(0.5, 0.5, 0.0);
@@ -205,6 +190,7 @@ begin
   // Rechts-Unten
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(0.5, -0.5, 0.0);
@@ -216,14 +202,9 @@ begin
 end;
 //code-
 
-(*
-Logischerweise muss man auch wieder beide Textur-Puffer frei geben.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  glDeleteTextures(1, @textureID); // Textur-Puffer frei geben.
-  //code-
+  glDeleteTextures(1, @textureID);
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
@@ -234,8 +215,6 @@ end;
 //lineal
 
 (*
-Die Shader sind genau gleich, wie bei einer Textur.
-
 <b>Vertex-Shader:</b>
 
 *)

@@ -141,7 +141,6 @@ begin
     TexturSmall1[i] := (not i) or $FF000000;
   end;
 
-
   // --- Texturbuffer erzeugen und anschliessend mit Daten der grossen Textur befüllen.
 
   glGenTextures(1, @textureID);
@@ -210,7 +209,7 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step: GLfloat = 0.01;
+  step = 0.01;
   z: integer = 1;
 begin
   if z > 10 then begin
