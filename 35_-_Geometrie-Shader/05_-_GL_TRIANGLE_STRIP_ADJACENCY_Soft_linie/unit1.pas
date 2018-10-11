@@ -67,29 +67,6 @@ begin
     Linies[i].x := sin(Pi * 2 / Sektoren * i) * r * i;
     Linies[i].y := cos(Pi * 2 / Sektoren * i) * r * i;
   end;
-  exit;
-
-  Randomize;
-  SetLength(Linies, Sektoren);
-  Linies[0]. := -1.0 + 1.0 / Sektoren * i * 2;
-  Linies[0, 1] := 0.0;
-  for i := 1 to Sektoren - 1 do begin
-    Linies[i, 0] := -1.0 + 1.0 / Sektoren * i * 2;
-    Linies[i, 1] := Linies[i - 1, 1] + (-0.08 + Random * 0.16);
-  end;
-  exit;
-
-  SetLength(Linies, 9);
-  Linies[0] := vec2(0.0, 0.0);
-  Linies[1] := vec2(-0.5, -0.5);
-  Linies[2] := vec2(0.5, -0.5);
-  Linies[3] := vec2(0.5, 0.5);
-  Linies[4] := vec2(-0.5, 0.5);
-  Linies[5] := vec2(-1.0, 0.5);
-  Linies[6] := vec2(-0.2, 0.25);
-  Linies[7] := vec2(-0.2, -0.25);
-  Linies[8] := vec2(0.0, 0.0);
-
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
     <Units Count="10">
       <Unit0>
@@ -20,8 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="83"/>
-        <CursorPos X="64" Y="108"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="107"/>
+        <CursorPos X="25" Y="152"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -59,9 +60,8 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="2" Y="35"/>
+        <CursorPos X="61" Y="30"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="C++"/>
@@ -210,5 +210,9 @@
         <Caret Line="99" Column="22" TopLine="62"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

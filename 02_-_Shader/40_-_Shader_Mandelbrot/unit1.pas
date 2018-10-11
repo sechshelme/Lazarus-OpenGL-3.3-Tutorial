@@ -149,7 +149,7 @@ begin
   end;
 
   RotMatrix.RotateC(step); // RotMatrix rotieren
-  ogcDrawScene(Sender);    // Neu zeichnen
+  ogc.Invalidate;          // Neu zeichnen
 end;
 
 (*

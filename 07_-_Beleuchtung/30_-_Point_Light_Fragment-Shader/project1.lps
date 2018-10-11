@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="11"/>
     <BuildModes Active="Default"/>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -20,8 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="206"/>
-        <CursorPos X="9" Y="245"/>
+        <TopLine Value="266"/>
+        <CursorPos X="59" Y="299"/>
         <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -51,20 +51,19 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos Y="15"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
-        <CursorPos X="121" Y="33"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="75" Y="18"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -97,7 +96,7 @@
       <Unit11>
         <Filename Value="../../units/oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="147"/>
         <CursorPos X="10" Y="183"/>
         <UsageCount Value="16"/>
@@ -109,6 +108,16 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="11"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="../../../AVR/Test_Package/avr_project_options_form.pas"/>
+        <UnitName Value="AVR_Project_Options_Form"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="21"/>
+        <CursorPos X="39" Y="60"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit13>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
