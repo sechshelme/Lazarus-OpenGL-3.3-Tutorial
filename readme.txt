@@ -15,6 +15,9 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+28.10.2018
+Bug behoben bei "Normalize"
+
 30.07.2018
 Fehler bei Verwendung von "Nur einer Array" wurde behoben, es wurden versehentlicht zweimal die Daten in den Vertex-Buffer geschrieben.
 
