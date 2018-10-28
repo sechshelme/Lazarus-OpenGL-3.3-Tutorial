@@ -140,9 +140,9 @@ procedure TForm1.CalcSphere;
     SphereVertex[l, 1] := Vector1;
     SphereVertex[l, 2] := Vector2;
 
-    Vector0.NormalCut;
-    Vector1.NormalCut;
-    Vector2.NormalCut;
+    Vector0.Normalize;
+    Vector1.Normalize;
+    Vector2.Normalize;
 
     SphereNormal[l, 0] := Vector0;
     SphereNormal[l, 1] := Vector1;
