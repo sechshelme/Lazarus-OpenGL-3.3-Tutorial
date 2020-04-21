@@ -7,17 +7,17 @@ object Form1: TForm1
   Menu = MainMenu1
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.4.0'
+  LCLVersion = '2.0.8.0'
   object Timer1: TTimer
     Enabled = False
     Interval = 40
     OnTimer = Timer1Timer
-    left = 80
-    top = 32
+    Left = 80
+    Top = 32
   end
   object MainMenu1: TMainMenu
-    left = 144
-    top = 32
+    Left = 144
+    Top = 32
     object MenuItem2: TMenuItem
       Caption = 'Rotate'
       object MenuItemRotateCube: TMenuItem
@@ -30,7 +30,7 @@ object Form1: TForm1
   object Timer2: TTimer
     Enabled = False
     OnTimer = Timer2Timer
-    left = 80
-    top = 96
+    Left = 80
+    Top = 96
   end
 end

@@ -25,6 +25,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
+    <Description Value="Mathias"/>
     <Version Major="1"/>
     <Files Count="25">
       <Item1>
