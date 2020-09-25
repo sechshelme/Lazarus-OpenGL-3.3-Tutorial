@@ -159,12 +159,12 @@ procedure SwapVertex2f(var f0, f1: TVector2f);
 procedure SwapVertex3f(var f0, f1: TVector3f);
 procedure SwapVertex4f(var f0, f1: TVector4f);
 
-operator +(const v0, v1: TVector2f) Res: TVector2f;
-operator -(const v0, v1: TVector2f) Res: TVector2f;
-operator +(const v0, v1: TVector3f) Res: TVector3f;
-operator -(const v0, v1: TVector3f) Res: TVector3f;
-operator +(const v0, v1: TVector4f) Res: TVector4f;
-operator -(const v0, v1: TVector4f) Res: TVector4f;
+operator + (const v0, v1: TVector2f) Res: TVector2f;
+operator - (const v0, v1: TVector2f) Res: TVector2f;
+operator + (const v0, v1: TVector3f) Res: TVector3f;
+operator - (const v0, v1: TVector3f) Res: TVector3f;
+operator + (const v0, v1: TVector4f) Res: TVector4f;
+operator - (const v0, v1: TVector4f) Res: TVector4f;
 
 operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f;
 operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f;
