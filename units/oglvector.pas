@@ -403,7 +403,7 @@ begin
   Self /= l;
 end;
 
-procedure TVector3fHelper.Negate;
+procedure TVector3fHelper.Negate; inline;
 begin
   Self *= -1;
 end;
