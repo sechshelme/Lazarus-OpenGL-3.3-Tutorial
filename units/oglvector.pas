@@ -56,7 +56,7 @@ type
     function GetX: GLfloat;
     function GetY: GLfloat;
     function GetZ: GLfloat;
-    function Getxy: TVector2f;
+    function GetXY: TVector2f;
     procedure SetX(AValue: GLfloat);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
@@ -91,20 +91,20 @@ type
 
   TVector4fHelper = type Helper for TVector4f
   private
-    function GetW: GLfloat;
     function GetX: GLfloat;
-    function GetXYW: TVector3f;
     function GetY: GLfloat;
     function GetZ: GLfloat;
+    function GetW: GLfloat;
     function GetXY: TVector2f;
     function GetXYZ: TVector3f;
-    procedure SetW(AValue: GLfloat);
+    function GetXYW: TVector3f;
     procedure SetX(AValue: GLfloat);
-    procedure SetXYW(const AValue: TVector3f);
     procedure SetY(AValue: GLfloat);
     procedure SetZ(AValue: GLfloat);
+    procedure SetW(AValue: GLfloat);
     procedure SetXY(const AValue: TVector2f);
     procedure SetXYZ(const AValue: TVector3f);
+    procedure SetXYW(const AValue: TVector3f);
   public
     property x: GLfloat read GetX write SetX;
     property y: GLfloat read GetY write SetY;
@@ -297,7 +297,7 @@ begin
   Self[2] := AValue;
 end;
 
-function TVector3fHelper.Getxy: TVector2f; inline;
+function TVector3fHelper.GetXY: TVector2f; inline;
 begin
   Result[0] := Self[0];
   Result[1] := Self[1];
