@@ -4,4 +4,4 @@ glDrawElementsInstanced
 glStencilFunc
 
 glBindBuffer
-glTexImage2D(GL_TEXTURE_RECTANGLE
+glTexImage2D(GL_TEXTURE_RECTANGLE,,,
