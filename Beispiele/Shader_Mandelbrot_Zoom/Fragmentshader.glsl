@@ -1,5 +1,5 @@
 #version 330
-#define depth 1000.0
+#define depth 10000.0
 
 in vec2 pos;       // Interpolierte Koordinaten vom Vertex-Shader
 
@@ -13,10 +13,8 @@ uniform float bottom;
 out vec4 outColor;
 
 void main(void) {
-//  float creal = pos.x * 1.5 - 0.3;
-//  float cimag = pos.y * 1.5;
   float creal = pos.x * (left - right) - (left + right) / 2;
-  float cimag = pos.y * (top - bottom) - (top + bottom) / 2;
+  float cimag = pos.y * (bottom - top) - (top + bottom) / 2;
 
   float Color = 0.0;
   float XPos  = 0.0;

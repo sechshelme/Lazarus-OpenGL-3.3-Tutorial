@@ -56,13 +56,17 @@ type
 
 const
   Quad: array[0..1] of TFace =
-    (((-0.8, -0.8, 0.0), (-0.8, 0.8, 0.0), (0.8, 0.8, 0.0)),
-    ((-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0)));
+    (((-1.0, -1.0, 0.0), (-1.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
+    ((-1.0, -1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
 
 type
   TVB = record
     VAO,
     VBO: GLuint;
+  end;
+
+  TRectR = record
+    Left, Right, Top, Bottom: single;
   end;
 
 var
@@ -71,11 +75,9 @@ var
 
   Left_ID, Right_ID, Top_ID, Bottom_ID, Color_ID: GLint;
 
-  Koor: record
-    Left, Right, Top, Bottom: single;
-  end;
+  StartKoor, EndKoor, CalcKoor: TRectR;
 
-  zoomStep: Single;
+  zoomStep: single;
   col: single;
 
   VBQuad: TVB;
@@ -83,6 +85,10 @@ var
 { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  sl: TStringList;
+  s: string;
+  c: integer;
 begin
   //remove+
   Width := 340;
@@ -96,6 +102,44 @@ begin
   Timer1.Enabled := True;
 
   zoomStep := 0;
+
+  sl := TStringList.Create;
+  sl.LoadFromFile('Koordinaten.cfg');
+  c := 0;
+
+  repeat
+    if pos('*', sl[c]) > 0 then begin
+      s := sl[c + 1];
+      s := Copy(s, pos(':', s) + 1);
+      EndKoor.Left := s.ToSingle;
+
+      s := sl[c + 2];
+      s := Copy(s, pos(':', s) + 1);
+      EndKoor.Right := s.ToSingle;
+
+      s := sl[c + 3];
+      s := Copy(s, pos(':', s) + 1);
+      EndKoor.Top := s.ToSingle;
+
+      s := sl[c + 4];
+      s := Copy(s, pos(':', s) + 1);
+      EndKoor.Bottom := s.ToSingle;
+
+
+
+      //      ShowMessage(s+#13+EndKoor.Left.ToString);
+    end;
+
+    Inc(c);
+  until c >= sl.Count;
+
+//
+//  EndKoor.Left := -0.604488646155;
+//  EndKoor.Right := -0.604454446072;
+//  EndKoor.Top := -0.615292225271;
+//  EndKoor.Bottom := -0.615268845830;
+
+  sl.Free;
 end;
 
 procedure TForm1.CreateScene;
@@ -136,10 +180,10 @@ begin
   RotMatrix.Uniform(Matrix_ID);
 
   // Zeichne Quadrat
-  glUniform1f(Left_ID, Koor.Left);
-  glUniform1f(Right_ID, Koor.Right);
-  glUniform1f(Top_ID, Koor.Top);
-  glUniform1f(Bottom_ID, Koor.Bottom);
+  glUniform1f(Left_ID, CalcKoor.Left);
+  glUniform1f(Right_ID, CalcKoor.Right);
+  glUniform1f(Top_ID, CalcKoor.Top);
+  glUniform1f(Bottom_ID, CalcKoor.Bottom);
 
   glUniform1f(Color_ID, col);
 
@@ -161,39 +205,35 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
-  s: single;
+z,  s: single;
 const
   step: GLfloat = 0.01;
 
-  L = -0.604488646155;
-  R = -0.604454446072;
-  T = -0.615292225271;
-  B = -0.615268845830;
-
 begin
-  s := (-2 - L) / 1000;
-  Koor.Left := -(l + s * zoomStep);
+  StartKoor.Left := -2.0;
+  StartKoor.Right := 2.0;
+  StartKoor.Top := -2.0;
+  StartKoor.Bottom := 2.0;
 
-  s := (2 - R) / 1000;
-  Koor.Right := -(r + s * zoomStep);
+  s := (StartKoor.Left - EndKoor.Left) / 1000;
+  CalcKoor.Left := -(EndKoor.Left + s * zoomStep);
 
-  s := (2 - b) / 1000;
-  Koor.Top := -(b + s * zoomStep);
+  s := (StartKoor.Right - EndKoor.Right) / 1000;
+  CalcKoor.Right := -(EndKoor.Right + s * zoomStep);
 
-  s := (-2 - t) / 1000;
-  Koor.Bottom := -(t + s * zoomStep);
+  s := (StartKoor.Top - EndKoor.Top) / 1000;
+  CalcKoor.Top := -(EndKoor.Top + s * zoomStep);
 
-  //Koor.Left := -l;
-  //Koor.Right := -r;
-  //Koor.Top := -b;
-  //Koor.Bottom := -t;
-  //
+  s := (StartKoor.Bottom - EndKoor.Bottom) / 1000;
+  CalcKoor.Bottom := -(EndKoor.Bottom + s * zoomStep);
 
+  z:=zoomStep;
   zoomStep /= 1.01;
   if zoomStep < 0.01 then begin
     zoomStep := 1000;
+//    zoomStep:=z;
   end;
-  Caption:=zoomStep.ToString;
+  Caption := zoomStep.ToString;
 
   //col := col + 0.1;
   //if col >= 10.0 then begin
