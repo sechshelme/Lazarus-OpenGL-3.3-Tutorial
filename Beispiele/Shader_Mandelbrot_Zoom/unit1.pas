@@ -185,6 +185,7 @@ begin
   glUniform1f(Top_ID, CalcKoor.Top);
   glUniform1f(Bottom_ID, CalcKoor.Bottom);
 
+  col := 0.0;
   glUniform1f(Color_ID, col);
 
   glBindVertexArray(VBQuad.VAO);

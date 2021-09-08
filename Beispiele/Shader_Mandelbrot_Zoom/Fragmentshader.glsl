@@ -13,6 +13,7 @@ uniform float bottom;
 out vec4 outColor;
 
 void main(void) {
+
   float creal = pos.x * (left - right) - (left + right) / 2;
   float cimag = pos.y * (bottom - top) - (top + bottom) / 2;
 
