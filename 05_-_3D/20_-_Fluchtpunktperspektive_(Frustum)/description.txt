@@ -1,3 +1,3 @@
-"Vorn ist grösser"
+"Vorne ist grösser"
 
 Mit der Fluchtpunktperspektive werden Objekte kleiner je weiter sie von einem weg sind, so wie es in der Realität auch der Fall ist.
