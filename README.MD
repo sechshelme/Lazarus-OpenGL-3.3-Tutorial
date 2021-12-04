@@ -15,6 +15,12 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 Neuerungen:
 ===========
 
+04.12.2021
+Tippfehler korrigiert.
+
+02.05.2020 
+readme.me in jedem Unterverzeichniss mit Images eingefügt.
+
 28.10.2018
 Bug behoben bei "Normalize"
 
