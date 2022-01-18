@@ -114,7 +114,7 @@ begin
     end;
     s := s + #13#10;
   end;
-  ShowMessage(s);
+//  ShowMessage(s);
 end;
 
 { TForm }
@@ -200,10 +200,10 @@ begin
   QuadScaleMatrix.Identity;
   TriangleMatrix.Identity;
 
-  //PerspektiveMatrix: TMat3x3 = ((1.0, 0.5, 0), (0.0, 1.0, 0), (0.0, -0, 1.0));
+  // PerspektiveMatrix: TMat3x3 = ((1.0, 0.5, 0), (0.0, 1.0, 0), (0.0, -0, 1.0));
 
-  //PerspektiveMatrix: TMat3x3 = ((-0.07, -0.44, 0.0), (0.01, 0.66, 0.0), (75.88, 45.76, 1));
-  //    PerspektiveMatrix: TMat3x3 = ((-0.07, -0.01, 75.88), (-0.44, 0.66, 45.76), (0, 0, 1));
+  // PerspektiveMatrix: TMat3x3 = ((-0.07, -0.44, 0.0), (0.01, 0.66, 0.0), (75.88, 45.76, 1));
+  // PerspektiveMatrix: TMat3x3 = ((-0.07, -0.01, 75.88), (-0.44, 0.66, 45.76), (0, 0, 1));
 
 
   QuadMatrix.Shear(1.0, 0.0);
@@ -217,7 +217,8 @@ begin
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
-var     FrustumMatrix: TMatrix2D;
+var
+  FrustumMatrix: TMatrix2D;
 begin
   PerspektiveMatrix.Identity;
   PerspektiveMatrix.Translate(0, 3.0);
@@ -233,7 +234,7 @@ var
   Matrix: TMatrix2D;
 begin
   Canvas.brush.color := Color;
-  Canvas.fillrect(rect(0, 0, Width, Height));
+  Canvas.FillRect(rect(0, 0, Width, Height));
   Canvas.Refresh;
 
   Matrix := QuadMatrix * QuadScaleMatrix;
@@ -277,7 +278,9 @@ begin
 
     for j := 0 to 1 do begin
       v := Matrix * vec3(Linien[i, j], 1.0);
-      //      v[2]:=1;
+      if v[0]=0 then v[0] := 0.00001;
+      if v[1]=0 then v[1] := 0.00001;
+      if v[2]=0 then v[2] := 0.00001;
       Linien[i, j, 0] := v[0] / v[2];
       Linien[i, j, 1] := v[1] / v[2];
     end;
