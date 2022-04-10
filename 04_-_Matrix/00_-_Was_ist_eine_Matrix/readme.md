@@ -79,7 +79,7 @@ Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht ma
   Matrix.Indenty;                <i><font color="#FFFF00">// Matrix Indenty setzen.</font></i>
 
   Matrix.xxxx(...);              <i><font color="#FFFF00">// Modifikationen der Matrix.</font></i>
-  Matrix.Uniform(ID_im_Shader);  <i><font color="#FFFF00">// Die Matrix dem Shader übergeben.</font></i></pre></code>
+  Matrix.Uniform(ID_im_Shader);  <i><font color="#FFFF00">// Die Matrix dem Shader übergeben.</font></i></code></pre>
 Ausser im ersten Beispiel werde ich nur noch diese <b>Bibliothek</b> verwenden. Somit werden die Beispiele sehr übersichtlich.<br>
 
 </html>

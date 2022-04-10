@@ -16,7 +16,7 @@ Den Speicher für die Position der Bäume reservieren.<br>
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TreeCount - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">New</font></b>(TreePosArray[i]);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Die Position der Bäume  wird zufällig bestimmt.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
@@ -28,7 +28,7 @@ Die Position der Bäume  wird zufällig bestimmt.<br>
     TreePosArray[i]^.x := -d / <font color="#0077BB">2</font> + Random * d;
     TreePosArray[i]^.y := <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
     TreePosArray[i]^.z := -d / <font color="#0077BB">2</font> + Random * d;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Der Boden und die Bäume zeichen.<br>
 Dabei ist es wichtig, das man zuerst den Boden zeichnet, weil die Bäume Alpha-Blending haben.<br>
 Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
@@ -106,7 +106,7 @@ Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
   <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Da sieht man, das es reicht nur den Vector zu drehen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -120,7 +120,7 @@ Da sieht man, das es reicht nur den Vector zu drehen.<br>
   GroundPos.RotateB(rot);
 
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -137,7 +137,7 @@ Da sieht man, das es reicht nur den Vector zu drehen.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0         = inUV;                 <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -152,6 +152,6 @@ Da sieht man, das es reicht nur den Vector zu drehen.<br>
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

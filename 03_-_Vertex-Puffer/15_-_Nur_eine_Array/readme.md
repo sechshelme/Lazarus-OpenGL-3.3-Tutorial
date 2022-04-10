@@ -23,7 +23,7 @@ Bei dem zweiten Quadrat, sind die Y-Werte gespiegelt, es sollten zwei Quadrate s
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
     <i><font color="#FFFF00">// Col</font></i>
     ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</pre></code>
+    ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</code></pre>
 Hier die wichtigste Änderung:<br>
 Relevant sind die zwei letzten Parameter von <b>glVertexAttribPointer(...</b><br>
 Was irritiert der einte Parameter ist direkt ein Integer, der andere braucht eine Typenumwandlung auf einen Pointer.<br>
@@ -67,7 +67,7 @@ Die Farben beginnen beim 72Byte.<br>
   <i><font color="#FFFF00">// Farbe</font></i>
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, Pointer(<font color="#0077BB">72</font>));
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Das Zeichnen ist gleich, wie wen man separate Datenblöcke hätte. <br>
 Es wurde das <b>Length(...</b> entfernt, da die einte Array zwei und die andere vier Elemente hat.<br>
 Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
@@ -77,7 +77,7 @@ Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
 
   <i><font color="#FFFF00">// Zeichne Quadrat 1</font></i>
   glBindVertexArray(VBQuad1.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i></pre></code>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i></code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
@@ -94,7 +94,7 @@ Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribP
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -106,6 +106,6 @@ Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribP
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

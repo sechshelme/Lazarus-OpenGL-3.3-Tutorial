@@ -18,7 +18,7 @@ Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werde
   <b><font color="0000BB">end</font></b>;
 
 <b><font color="0000BB">var</font></b>
-  mRubin, mJade: TMaterial;</pre></code>
+  mRubin, mJade: TMaterial;</code></pre>
 Material-Daten in den UBO-Puffer laden und binden<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
@@ -48,7 +48,7 @@ Material-Daten in den UBO-Puffer laden und binden<br>
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
 
   <i><font color="#FFFF00">// Timer manuell aufrufen, so das die ersten Daten in den UBO-kopiert werden.</font></i>
-  Timer2Timer(<b><font color="0000BB">nil</font></b>);</pre></code>
+  Timer2Timer(<b><font color="0000BB">nil</font></b>);</code></pre>
 Hier sieht man gut, wie die UBO-Daten aktualisiert werden.<br>
 Der Timer wird alle 1s aufgerufen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
@@ -70,7 +70,7 @@ Der Timer wird alle 1s aufgerufen.<br>
   <b><font color="0000BB">if</font></b> m > <font color="#0077BB">1</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     m := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Der Shader ist der selbe wie im ersten Beispiel.<br>
 <br>
@@ -99,7 +99,7 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -146,6 +146,6 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
-</pre></code>
+</code></pre>
 
 </html>

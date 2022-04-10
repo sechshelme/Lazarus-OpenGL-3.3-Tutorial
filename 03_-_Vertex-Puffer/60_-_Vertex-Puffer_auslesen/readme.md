@@ -13,7 +13,7 @@ Diese Vertex-Daten sollen auch in der MessageBox erscheinen.<br>
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>)),
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>)));
   QuadColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TVertex3f =
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</pre></code>
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</code></pre>
 Vertex-Daten auslesen.<br>
 Wie üblich müssen die Puffer VAO und VBO gebunden werden.<br>
 Mit <b>glGetBufferParameteriv(...</b> wird die Grösse des Puffer ermittelt.<br>
@@ -60,7 +60,7 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
 
   ShowMessage(sl.Text);
   sl.Free;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -75,7 +75,7 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);    <i><font color="#FFFF00">// Z ist immer 0.0</font></i>
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);     <i><font color="#FFFF00">// Der Rot- und Grün - Teil, ist 0.0</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -87,6 +87,6 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

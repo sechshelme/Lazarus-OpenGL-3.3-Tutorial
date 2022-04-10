@@ -34,7 +34,7 @@ Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .<br>
     <b><font color="0000BB">end</font></b>;
     glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
     Free; <i><font color="#FFFF00">// Picture frei geben.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 <br>
@@ -53,7 +53,7 @@ Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -69,6 +69,6 @@ Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 {
   FragColor = texture( Sampler, <b><font color="0000BB">vec3</font></b>(UV0, Layer));
 }
-</pre></code>
+</code></pre>
 
 </html>

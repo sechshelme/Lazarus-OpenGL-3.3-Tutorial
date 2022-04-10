@@ -20,7 +20,7 @@ Die Farbe und Alpha-Kanal werden per Uniform dem Shader übergeben.<br>
 <b><font color="0000BB">const</font></b>
   QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace3f =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</pre></code>
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</code></pre>
 Bei einem einfachen Quadrat ist InitScene sehr einfach gehalten.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
@@ -40,7 +40,7 @@ Bei einem einfachen Quadrat ist InitScene sehr einfach gehalten.<br>
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);                     <i><font color="#FFFF00">// 10 ist die Location in inPos Shader.</font></i>
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Zeichnen der 4 Rechtecke.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -93,7 +93,7 @@ Zeichnen der 4 Rechtecke.<br>
   MatrixTrans := TempMatrix;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix und dem Color mit Alpha.<br>
 <br>
@@ -107,7 +107,7 @@ Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix u
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Vektoren mit der Matrix multiplizieren.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -119,6 +119,6 @@ Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix u
 {
   outColor = Color;
 }
-</pre></code>
+</code></pre>
 
 </html>

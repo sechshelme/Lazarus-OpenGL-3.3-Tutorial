@@ -35,7 +35,7 @@ Der Rest der Beleuchtung läuft gleich ab, so wie bei den anderen Beleuchtungen 
   DataOut.pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
   DataOut.UV     = inUV;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <br>
@@ -79,6 +79,6 @@ Hier sieht man, das die <b>Normal-Map</b> zur Normalen addiert wird.<br>
   <i><font color="#FFFF00">// Einfache Lichtberechnung.</font></i>
   outColor = light(LightPos - DataIn.pos, n);
 }
-</pre></code>
+</code></pre>
 
 </html>

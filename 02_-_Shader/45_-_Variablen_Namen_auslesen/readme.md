@@ -43,7 +43,7 @@ Der komplexe Beleuchtungs-Shader wird später beschrieben.<br>
 
   ShowMessage(sl.Text);
   sl.Free;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.<br>
 <br>
@@ -72,7 +72,7 @@ Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Co
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -119,6 +119,6 @@ Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Co
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
-</pre></code>
+</code></pre>
 
 </html>

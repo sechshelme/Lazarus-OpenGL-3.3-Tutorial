@@ -44,7 +44,7 @@ Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .<br>
 
     glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
     Free; <i><font color="#FFFF00">// Picture frei geben.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 <br>
@@ -66,7 +66,7 @@ Hier sieht man, das für die Textur und Vertex-Koordinaten die gleichen Werte ge
 <i><font color="#FFFF00">//  gl_Position = vec4(inPos, 1.0);</font></i>
   UV0 = (rotmat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.<br>
@@ -82,6 +82,6 @@ Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 {
   FragColor = texture(Sampler, UV0);
 }
-</pre></code>
+</code></pre>
 
 </html>

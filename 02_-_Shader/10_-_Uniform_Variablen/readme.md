@@ -8,7 +8,7 @@ Deklaration der ID, welche auf die Unifom-Variable im Shader zeigt, und die Vari
 Da man die Farbe als Vektor übergibt, habe ich dafür den Typ <b>TVertex3f</b> gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   Color_ID: GLint;      <i><font color="#FFFF00">// ID</font></i>
-  MyColor: TVertex3f;   <i><font color="#FFFF00">// Farbe</font></i></pre></code>
+  MyColor: TVertex3f;   <i><font color="#FFFF00">// Farbe</font></i></code></pre>
 Dieser Code wurde um eine Zeile <b>UniformLocation</b> erweitert.<br>
 Diese ermittelt die ID, wo sich <b>Color</b> im Shader befindet.<br>
 <br>
@@ -25,7 +25,7 @@ Der String in <b>UniformLocation</b> muss indentisch mit dem Namen der Uniform-V
   <i><font color="#FFFF00">// MyColor Blau zuweisen.</font></i>
   MyColor[<font color="#0077BB">0</font>] := <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
   MyColor[<font color="#0077BB">1</font>] := <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
-  MyColor[<font color="#0077BB">2</font>] := <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;</pre></code>
+  MyColor[<font color="#0077BB">2</font>] := <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;</code></pre>
 Hier wird die Uniform-Variable übergeben. Für diese vec3-Variable gibt es zwei Möglichkeiten.<br>
 Mit <b>glUniform3fv...</b> kann man sie als ganzen Vektor übergeben.<br>
 Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übergeben.<br>
@@ -45,7 +45,7 @@ Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übe
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Folgende Prozedur weist dem Vektor <b<MyColor</b> eine andere Farbe zu.<br>
 Dafür wird ein einfaches Menü verwendet.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
@@ -68,7 +68,7 @@ Dafür wird ein einfaches Menü verwendet.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
   ogc.Invalidate;   <i><font color="#FFFF00">// Manuelle Aufruf von DrawScene.</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -79,7 +79,7 @@ Dafür wird ein einfaches Menü verwendet.<br>
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <br>
@@ -94,6 +94,6 @@ Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wi
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

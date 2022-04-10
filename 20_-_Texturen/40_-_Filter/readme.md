@@ -24,7 +24,7 @@ Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welche
 
     glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);
     Free;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe festlegen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <i><font color="#FFFF00">// Hintergrundfarbe für Clamp_to_Border, ein Dunkelgrün.</font></i>
@@ -85,7 +85,7 @@ Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe fes
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
@@ -103,7 +103,7 @@ Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe fes
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Texur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <br>
@@ -119,7 +119,7 @@ Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe fes
 {
     FragColor = texture( Sampler, UV0 );
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>bild.xpm</b><br>
 <br>
@@ -141,6 +141,6 @@ static char *XPM_mauer[] = {
   "*bb**yy*",
   "b******y"
 };
-</pre></code>
+</code></pre>
 
 </html>

@@ -22,7 +22,7 @@ Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben wer
   <b><font color="0000BB">with</font></b> TexturTransform <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     scale := <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
     direction := <b><font color="0000BB">True</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen multiplizieren und den Shader übergeben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -43,7 +43,7 @@ Matrizen multiplizieren und den Shader übergeben.<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Berechnen der Matrix-Bewegungen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -76,7 +76,7 @@ Berechnen der Matrix-Bewegungen.<br>
     TexturRotMatrix.Rotate(winkel);
   <b><font color="0000BB">end</font></b>;
   ogcDrawScene(Sender);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.<br>
 <br>
@@ -98,7 +98,7 @@ Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.<
   <i><font color="#FFFF00">// Texturkoordinaten transformieren</font></i>
   UV0 = (texMat * <b><font color="0000BB">vec3</font></b>(inUV, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xy;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -113,6 +113,6 @@ Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.<
 {
   FragColor = texture( Sampler, UV0 );
 }
-</pre></code>
+</code></pre>
 
 </html>

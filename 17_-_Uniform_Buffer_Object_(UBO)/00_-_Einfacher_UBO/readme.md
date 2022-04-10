@@ -25,7 +25,7 @@ Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16
     pad1: GLfloat;           <i><font color="#FFFF00">// padding 4Byte</font></i>
     specular: TVector3f;     <i><font color="#FFFF00">// Spiegelnd</font></i>
     shininess: GLfloat;      <i><font color="#FFFF00">// Glanz</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 So was geht leider <b>nicht</b>.<br>
 Diffuse muss in den nächsten 16Byte-Block !<br>
 <pre><code><b><font color="0000BB">type</font></b>    <i><font color="#FFFF00">// Unbrauchbare Deklaration !</font></i>
@@ -34,14 +34,14 @@ Diffuse muss in den nächsten 16Byte-Block !<br>
     diffuse: TVector3f;      <i><font color="#FFFF00">// 3Byte</font></i>
     specular: TVector3f;     <i><font color="#FFFF00">// 3Byte</font></i>
     shininess: GLfloat;      <i><font color="#FFFF00">// 3Byte</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <br>
 Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer auch anders anlegen, zB. in eine Float-Array, dies macht aber wenig Sinn.<br>
 Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.<br>
 Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   UBO: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
-  Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></pre></code>
+  Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></code></pre>
 ID und Puffer generieren.<br>
 Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlockIndex(...</b> auslesen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
@@ -59,7 +59,7 @@ Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlock
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
 
-  glGenBuffers(<font color="#0077BB">1</font>, @UBO);                          <i><font color="#FFFF00">// UB0-Puffer generieren.</font></i></pre></code>
+  glGenBuffers(<font color="#0077BB">1</font>, @UBO);                          <i><font color="#FFFF00">// UB0-Puffer generieren.</font></i></code></pre>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Pro UBO-Block, wird ein BindingPoint gebraucht.<br>
 Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gleichen BindingPoint verwenden, dazu später.<br>
@@ -82,7 +82,7 @@ Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gl
 
   <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</pre></code>
+  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</code></pre>
 Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -91,7 +91,7 @@ Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @UBO);  <i><font color="#FFFF00">// UBO löschen.</font></i></pre></code>
+  glDeleteBuffers(<font color="#0077BB">1</font>, @UBO);  <i><font color="#FFFF00">// UBO löschen.</font></i></code></pre>
 <hr><br>
 Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.<br>
 Im Shader wird kein Padding gebraucht.<br>
@@ -121,7 +121,7 @@ Im Shader wird kein Padding gebraucht.<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -168,6 +168,6 @@ Im Shader wird kein Padding gebraucht.<br>
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
-</pre></code>
+</code></pre>
 
 </html>

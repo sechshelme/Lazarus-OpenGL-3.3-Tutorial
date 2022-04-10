@@ -28,7 +28,7 @@ Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.<br
 
     Blue := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
     Blue.Scale(LichtPositionRadius);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Hier wird die Kegelberechnung ausgeführt.<br>
 <br>
@@ -48,7 +48,7 @@ Hier wird die Kegelberechnung ausgeführt.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   DataOut.pos = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <br>
@@ -113,6 +113,6 @@ Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
   }
 }
 
-</pre></code>
+</code></pre>
 
 </html>

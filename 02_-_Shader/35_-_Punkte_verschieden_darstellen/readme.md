@@ -6,7 +6,7 @@ Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.<br>
 Die Deklaration der Koordianten und Punktgrösse.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   Point: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f;
-  PointSize: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> GLfloat;</pre></code>
+  PointSize: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> GLfloat;</code></pre>
 Daten für die Punkte in die Grafikkarte übertragen<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
@@ -25,7 +25,7 @@ Daten für die Punkte in die Grafikkarte übertragen<br>
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(PointSize), Pointer(PointSize), GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Zeichnen der Punkte<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -66,7 +66,7 @@ Zeichnen der Punkte<br>
   glDrawArrays(GL_POINTS, <font color="#0077BB">0</font>, Length(Point));
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -84,7 +84,7 @@ Zeichnen der Punkte<br>
   gl_PointSize = inSize;
   gl_Position  = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);   <i><font color="#FFFF00">// Der zweiter Parameter (Z) auf 0.0</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -126,6 +126,6 @@ Zeichnen der Punkte<br>
 
   }
 }
-</pre></code>
+</code></pre>
 
 </html>

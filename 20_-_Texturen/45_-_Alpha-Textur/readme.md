@@ -9,7 +9,7 @@ Wichtig ist, das man OpenGL mitteilt, das man Alpha-Blending will.<br>
 <b><font color="0000BB">begin</font></b>
   Textur.LoadTextures(<font color="#FF0000">'baum.png'</font>);
   glEnable(GL_BLEND);                                  <i><font color="#FFFF00">// Alphablending an</font></i>
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i></pre></code>
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i></code></pre>
 <hr><br>
 Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 <br>
@@ -28,7 +28,7 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -43,6 +43,6 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

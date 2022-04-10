@@ -13,7 +13,7 @@ Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen s
   PCubePos = ^TCubePos; <i><font color="#FFFF00">// Pointer für Cube</font></i>
 
 <b><font color="0000BB">var</font></b>
-  CubePosArray: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..CubeTotal - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> PCubePos; <i><font color="#FFFF00">// Alle Würfel</font></i></pre></code>
+  CubePosArray: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..CubeTotal - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> PCubePos; <i><font color="#FFFF00">// Alle Würfel</font></i></code></pre>
 Hier wird der Speicher für die Würfel angefordert.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
@@ -23,7 +23,7 @@ Hier wird der Speicher für die Würfel angefordert.<br>
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">New</font></b>(CubePosArray[i]);  <i><font color="#FFFF00">// Speicher anfordern.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Startpositionen der einzelnen Würfel definieren.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
@@ -36,7 +36,7 @@ Startpositionen der einzelnen Würfel definieren.<br>
     CubePosArray[i]^.pos.x := ((i <b><font color="0000BB">mod</font></b> CubeSize) - s) * d;
     CubePosArray[i]^.pos.y := ((i <b><font color="0000BB">div</font></b> CubeSize) <b><font color="0000BB">mod</font></b> CubeSize - s) * d;
     CubePosArray[i]^.pos.z := (i <b><font color="0000BB">div</font></b> (CubeSize * CubeSize) - s) * d;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Hier sieht man, das ich die Matrizen vor dem Zeichnen mit einem Quick-Sort sortiere.<br>
 Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den Wert als Vergleich für die Sortierung.<br>
 <pre><code>
@@ -78,7 +78,7 @@ Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den W
   <b><font color="0000BB">if</font></b> Lo < AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     QuickSort(ia, Lo, AHi);
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.<br>
 Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.<br>
 Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.<br>
@@ -113,7 +113,7 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
   <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Den Speicher von den CubePos wieder frei geben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -121,7 +121,7 @@ Den Speicher von den CubePos wieder frei geben.<br>
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">New</font></b>(CubePosArray[i]);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Gedreht wird nur die WorldMatrix.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -129,7 +129,7 @@ Gedreht wird nur die WorldMatrix.<br>
   WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
 
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -146,7 +146,7 @@ Gedreht wird nur die WorldMatrix.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -159,6 +159,6 @@ Gedreht wird nur die WorldMatrix.<br>
   outColor   = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
   outColor.a = <font color="#0077BB">0</font>.<font color="#0077BB">2</font>;   <i><font color="#FFFF00">// Farbe soll halb transparent sein.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

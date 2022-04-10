@@ -11,7 +11,7 @@ Deklaration der drei Matrixen.<br>
   OrthoMatrix,         <i><font color="#FFFF00">// Matrix für Ortho.</font></i>
   WorldMatrix,         <i><font color="#FFFF00">// Matrix für Welt.</font></i>
   Matrix: TMatrix;     <i><font color="#FFFF00">// Matrix, welche dem Shader übergeben wird.</font></i>
-  Matrix_ID: GLint;    <i><font color="#FFFF00">// ID der Matrix für den Shader.</font></i></pre></code>
+  Matrix_ID: GLint;    <i><font color="#FFFF00">// ID der Matrix für den Shader.</font></i></code></pre>
 So sieht die Funktion aus: <b>Ortho(left, right, bottom, top, znear, zfar);</b>.<br>
 Hier wird die OrthoMatrix erzeugt, und mit neuen Werten eingestellt.<br>
 Im Beispiel ist dies eine Seitenlänge in allen Achsen um 24.0 (2 * 12.0).<br>
@@ -24,7 +24,7 @@ Die Skalierung der Welt-Matrix hat den Effekt, das die ganze Scene gezoomt wird.
   Matrix.Identity;
   WorldMatrix.Identity;
   WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">75</font>);                    <i><font color="#FFFF00">// Welt-Matrix zoomen</font></i>
-  OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   <i><font color="#FFFF00">// Den Ortho-Bereich einstellen.</font></i></pre></code>
+  OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   <i><font color="#FFFF00">// Den Ortho-Bereich einstellen.</font></i></code></pre>
 Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrizen mutipliziert werden.<br>
 Die Matrizen könnte man auch im Shader multiplizieren, dafür müsste man einfach für jede Matrix eine Uniform deklarieren.<br>
 Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgeführt wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.<br>
@@ -63,12 +63,12 @@ Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet w
   <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Kamera um die Mesh bewegen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
-  WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i></pre></code>
+  WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i></code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -85,7 +85,7 @@ Kamera um die Mesh bewegen.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -97,6 +97,6 @@ Kamera um die Mesh bewegen.<br>
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

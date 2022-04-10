@@ -30,7 +30,7 @@ Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen.
     glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);
 
     Free;                        <i><font color="#FFFF00">// Bitmap frei geben.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -47,7 +47,7 @@ Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen.
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -62,6 +62,6 @@ Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen.
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

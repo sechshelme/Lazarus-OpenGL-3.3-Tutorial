@@ -59,7 +59,7 @@ Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.<br>
     Color.rgb += colBlue;
   }
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -70,6 +70,6 @@ Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

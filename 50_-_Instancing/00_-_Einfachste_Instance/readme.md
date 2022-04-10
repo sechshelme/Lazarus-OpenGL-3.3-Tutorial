@@ -34,7 +34,7 @@ Die Matrix muss nur <b>einmal</b> berechnet werden, da es nur <b>einen</b> Aufru
   glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>, size);
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Das grosse Arbeit bei Instancing leistet der Vertex-Shader.<br>
 <br>
 <b>Vertex-Shader:</b><br>
@@ -65,7 +65,7 @@ Das grosse Arbeit bei Instancing leistet der Vertex-Shader.<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(p, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -94,6 +94,6 @@ Das grosse Arbeit bei Instancing leistet der Vertex-Shader.<br>
   outColor      = <b><font color="0000BB">vec4</font></b>(<b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">05</font>), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   outColor.rgb += <b><font color="0000BB">vec3</font></b>(light(LightPos - DataIn.pos, DataIn.Normal)) * Diffuse;
 }
-</pre></code>
+</code></pre>
 
 </html>

@@ -22,11 +22,11 @@ Bei einem sehr grossen Mesh kann man damit kostbares RAM sparen.<br>
     Vector, Color: TFaceArray;       <i><font color="#FFFF00">// Vertex-Daten.</font></i>
     size: integer;                   <i><font color="#FFFF00">// Die Grösse der Vertex-Daten.</font></i>
     VBuffer: TVB;                    <i><font color="#FFFF00">// VBO und VAO der Mesh.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Deklaration der beiden Meshes. Ich habe bewusst die Meshes in ein Array genommen.<br>
 Somit kann man vieles mit einer For-To-Schleife machen. Was den Vorteil hat, wen man mehrere Meshes hat, man erspart sich viel Tipparbeit.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  CircleMesh: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TMesh;</pre></code>
+  CircleMesh: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TMesh;</code></pre>
 Mit dieser Funktion werden neue Vertex-Daten berechnet.<br>
 Es wird ein Kreis mit zufälliger Anzahl Sektoren erzeugt, somit hat man unterschiedlich lange Vertex-Daten.<br>
 Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
@@ -60,7 +60,7 @@ Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
       Vector[i, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden schon mal die ersten Vertex-Daten erzeugt.<br>
 Später werden neue Daten in einem Timer erzeugt.<br>
 Mit UpdateScene werden sie dann in das VRAM geladen.<br>
@@ -79,7 +79,7 @@ Mit UpdateScene werden sie dann in das VRAM geladen.<br>
   UpdateScene(<font color="#0077BB">0</font>);                     <i><font color="#FFFF00">// Vertex-Daten in VRAM schreiben.</font></i>
   UpdateScene(<font color="#0077BB">1</font>);                     <i><font color="#FFFF00">// Vertex-Daten in VRAM schreiben.</font></i>
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Das Anlegen der Puffer geht mit einer Schleife viel einfacher.<br>
 Bei den zwei Meshes wie bei diesem Beispiel hier, sind die Ersparnisse nicht so gross, aber will man zB. 20 Kreise darstellen, sieht dies schon viel anders aus.<br>
 <br>
@@ -114,7 +114,7 @@ Auch ist der zweite Parameter (size) etwas anders angegeben, wen man nur SizeOf(
       glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Da der Speicher im VRAM schon reserviert ist, kann man mit <b>glBufferSubData(...</b> nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.<br>
 <br>
 Nach dem schreiben ins VRAM , kann mit <b>SetLength(...</b> die Daten im RAM entfernt werden.<br>
@@ -145,7 +145,7 @@ Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden 
     glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(TFace) * size, Pointer(Color));
     SetLength(Color, <font color="#0077BB">0</font>);
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Das Zeichen ist nichts besonderes, ausser das es jetzt mit einer Schleife läuft.<br>
 <pre><code><i><font color="#FFFF00">// Zeichne Kreise</font></i>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(CircleMesh) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -153,7 +153,7 @@ Das Zeichen ist nichts besonderes, ausser das es jetzt mit einer Schleife läuft
       glBindVertexArray(VBuffer.VAO);
       glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, size * <font color="#0077BB">3</font>);
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Mit einem Timer werden alle 1/2 Sekunden neue Vertex-Daten erzeugt und in das VRAM geladen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -170,7 +170,7 @@ Mit einem Timer werden alle 1/2 Sekunden neue Vertex-Daten erzeugt und in das VR
     ogc.Invalidate;                       <i><font color="#FFFF00">// Neu zeichnen.</font></i>
     za := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Bei den Shadern gibt es nichts besonders.<br>
 <br>
@@ -187,7 +187,7 @@ Bei den Shadern gibt es nichts besonders.<br>
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -199,6 +199,6 @@ Bei den Shadern gibt es nichts besonders.<br>
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

@@ -21,7 +21,7 @@ Hier werden die Lichtpositionen der drei Lampen festgelegt.<br>
 
     Blue := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Blue.Scale(LichtPositionRadius);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -54,7 +54,7 @@ Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
   LightPos.Blue.z := ZPos;
 
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Berechnen der 3 Lichtkegel.<br>
 <br>
 <b>Vertex-Shader:</b><br>
@@ -77,7 +77,7 @@ Berechnen der 3 Lichtkegel.<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -179,6 +179,6 @@ Berechnen der 3 Lichtkegel.<br>
   outColor.rgb += <b><font color="0000BB">vec3</font></b>(c)  * light(RightLightPos - DataIn.pos, DataIn.Normal) * yellow;
 }
 
-</pre></code>
+</code></pre>
 
 </html>

@@ -8,10 +8,10 @@ ID im Shader wird nur eine gebraucht.<br>
   UBO: <b><font color="0000BB">record</font></b>
     Rubin, Jade, Smaragdgruen: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
   <b><font color="0000BB">end</font></b>;
-  Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></pre></code>
+  Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></code></pre>
 Der BindingPoint muss global deklariert werden, da er fürs Binden im Timer auch gebraucht wird.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  bindingPoint: gluint = <font color="#0077BB">0</font>;</pre></code>
+  bindingPoint: gluint = <font color="#0077BB">0</font>;</code></pre>
 ID und Puffer generieren.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
@@ -28,7 +28,7 @@ ID und Puffer generieren.<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
 
-  glGenBuffers(<font color="#0077BB">3</font>, @UBO);          <i><font color="#FFFF00">// Die 3 UB0-Puffer generieren.</font></i></pre></code>
+  glGenBuffers(<font color="#0077BB">3</font>, @UBO);          <i><font color="#FFFF00">// Die 3 UB0-Puffer generieren.</font></i></code></pre>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Da die UBO-Daten im VRAM abgelegt sind, kann man gut für die verschiedenen Puffer einfach die Material-Daten überschreiben.<br>
 Dies ist gleich wie bei den Vertex-Pufferen.<br>
@@ -68,7 +68,7 @@ Dies ist gleich wie bei den Vertex-Pufferen.<br>
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
 
   <i><font color="#FFFF00">// Timer manuell aufrufen, so das die ersten Daten in den UBO-kopiert werden.</font></i>
-  Timer2Timer(<b><font color="0000BB">nil</font></b>);</pre></code>
+  Timer2Timer(<b><font color="0000BB">nil</font></b>);</code></pre>
 Für die verscheidenen Materialien, wir einfach nur ein anderer UBO über den Bindingpoint mit dem Shader verbunden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -90,7 +90,7 @@ Für die verscheidenen Materialien, wir einfach nur ein anderer UBO über den Bi
   <b><font color="0000BB">if</font></b> m > <font color="#0077BB">2</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     m := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Der Shader ist der selbe wie im ersten Beispiel.<br>
 <br>
@@ -119,7 +119,7 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -166,6 +166,6 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
-</pre></code>
+</code></pre>
 
 </html>

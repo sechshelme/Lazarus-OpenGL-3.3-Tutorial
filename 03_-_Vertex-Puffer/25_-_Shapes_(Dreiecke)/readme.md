@@ -12,17 +12,17 @@ Die Darstellung sieht folgendermassen aus:<br>
 <b>GL_TRIANGLES</b><br>
 <pre><code>4 - 3     2
 | /     / |
-5     0 - 1</pre></code>
+5     0 - 1</code></pre>
 <b>GL_TRIANGLES_STRIP</b><br>
 <pre><code>  5 - 3 - 1
  / \ / \ / \
-6 - 4 - 2 - 0</pre></code>
+6 - 4 - 2 - 0</code></pre>
 <b>GL_TRIANGLES_FAN</b><br>
 <pre><code>  5 - 4
  / \ / \
 6 - 0 - 3
  \ / \ /
-  1 - 2</pre></code>
+  1 - 2</code></pre>
 <br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.<br>
@@ -35,7 +35,7 @@ Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nu
     ((<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
   <i><font color="#FFFF00">// Dreiecke als Wedel, Fan  ( Grün )</font></i>
   Triangle_Fan: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">6</font>] <b><font color="0000BB">of</font></b> TVertex2f =
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</pre></code>
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</code></pre>
 Hier werden die Daten in die Grafikkarte geschrieben.<br>
 Es hat nichts besonderes.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
@@ -62,7 +62,7 @@ Es hat nichts besonderes.<br>
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Fan), @Triangle_Fan, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -88,7 +88,7 @@ Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird an
   glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   glUniform1f(Y_ID, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>);
   glBindVertexArray(VBTriangle_Fan.VAO);
-  glDrawArrays(GL_TRIANGLE_FAN, <font color="#0077BB">0</font>, Length(Triangle_Fan));</pre></code>
+  glDrawArrays(GL_TRIANGLE_FAN, <font color="#0077BB">0</font>, Length(Triangle_Fan));</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
@@ -106,7 +106,7 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
   pos.y = pos.y + y;
   gl_Position = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Der zweiter Parameter (Z) auf 0.0</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -118,6 +118,6 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
 </html>

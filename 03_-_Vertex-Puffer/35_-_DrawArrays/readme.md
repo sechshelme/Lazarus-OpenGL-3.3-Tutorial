@@ -26,7 +26,7 @@ Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">3</font>, <font color="#0077BB">3</font>);      <i><font color="#FFFF00">// zweites Polygon</font></i>
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -37,7 +37,7 @@ Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -49,6 +49,6 @@ Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

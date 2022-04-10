@@ -20,7 +20,7 @@ Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.<br>
   <b><font color="0000BB">end</font></b>;
   Picture.SaveToFile(<font color="#FF0000">'textur.png'</font>);
   Picture.Free;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Es ist auch möglich, die komplett gerenderte Scene zu speichern.<br>
 Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.<br>
 Dies kann man aber umgehen, wen man Zeile für Zeile einliest.<br>
@@ -43,7 +43,7 @@ Dies kann man aber umgehen, wen man Zeile für Zeile einliest.<br>
   <b><font color="0000BB">end</font></b>;
   Picture.SaveToFile(<font color="#FF0000">'screen.png'</font>);
   Picture.Free;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.<br>
 Der Shader des Würfels, gibt Texturen aus.<br>
@@ -65,7 +65,7 @@ Der Shader des Würfels, gibt Texturen aus.<br>
   UV0 = vertexUV0;
 }
 
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader Quadrat:</b><br>
 <br>
@@ -81,7 +81,7 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 {
   FragColor = texture( Sampler0, UV0 );
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Vertex-Shader Würfel:</b><br>
 <br>
@@ -99,7 +99,7 @@ Der Shader des Würfels, gibt Texturen aus.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Col = inCol;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader Würfel:</b><br>
 <br>
@@ -112,6 +112,6 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
 </html>

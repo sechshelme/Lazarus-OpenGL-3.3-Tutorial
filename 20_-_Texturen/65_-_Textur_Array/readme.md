@@ -16,7 +16,7 @@ Die Koordinaten sind gleich, wie bei einer einzelnen Textur.<br>
 
   TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
     ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
-    (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</pre></code>
+    (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</code></pre>
 Dieser Puffer wird gleich reserviert, wie bei der einzelnen Textur.<br>
 Im Shader ist der Layer eine Unifom-Variable.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
@@ -33,7 +33,7 @@ Im Shader ist der Layer eine Unifom-Variable.<br>
 
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);</pre></code>
+  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);</code></pre>
 Die Ziffern befinde sich alle in einer Bitmap, welche alle Ziffern übereinander beinhaltet.<br>
 Man sieht hier gut, das man anstelle von <b>GL_TEXTURE_2D</b>, <b>GL_TEXTURE_2D_ARRAY</b> verwenden muss.<br>
 Die Textur-Daten werden mit <b>glTexImage3D(GL_TEXTURE_2D_ARRAY,...</b> übegeben. Neben der Breite und Höhe, muss man noch die Anzahl Layer mitgeben.<br>
@@ -57,7 +57,7 @@ Die Höhe muss man noch durch die Anzahl Layer teilen.<br>
 
     glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
     Free;                        <i><font color="#FFFF00">// Bitmap frei geben.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Zeichnen der einzelnen Quadrate. Hier sieht man gut, das nur eine Textur gebunden wird.<br>
 Für den Textur-Wechsel muss man nur den Layer übergeben.<br>
 Die Matrizen drehen und positionieren nur die Quadrate.<br>
@@ -85,7 +85,7 @@ Die Matrizen drehen und positionieren nur die Quadrate.<br>
 
       glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Im Fragment-Shader muss ein 2D-Array-Sampler verwendet werden.<br>
 Dieser hat ein 3. Parameter, welcher den Layer enthält.<br>
@@ -106,7 +106,7 @@ Ansonsten ist der Shader sehr einfach.<br>
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -122,7 +122,7 @@ Ansonsten ist der Shader sehr einfach.<br>
 {
   FragColor = texture( Sampler, <b><font color="0000BB">vec3</font></b>(UV0, Layer));
 }
-</pre></code>
+</code></pre>
 <b>ziffer.xpm:</b><br>
 <pre><code>/* XPM */
 static char *ziffer_xpm[] = {
@@ -144,6 +144,6 @@ static char *ziffer_xpm[] = {
   "aaaaaaaa", "aaiiiiaa", "aaiaaaaa", "aaiiiaaa", "aaaaaiaa", "aaaaaiaa", "aaiiiaaa", "aaaaaaaa",
   "gggggggg", "gggjjjgg", "ggjggggg", "ggjjjggg", "ggjggjgg", "ggjggjgg", "gggjjggg", "gggggggg"
 };
-</pre></code>
+</code></pre>
 
 </html>

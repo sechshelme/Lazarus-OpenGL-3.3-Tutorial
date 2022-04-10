@@ -24,7 +24,7 @@ Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.<br>
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
-  WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></pre></code>
+  WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></code></pre>
 Das Zeichnen ist das Selbe wie bei Ortho.<br>
 <pre><code>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
 
@@ -40,7 +40,7 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -57,7 +57,7 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -69,6 +69,6 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
 </html>

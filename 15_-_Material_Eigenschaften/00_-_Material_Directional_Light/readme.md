@@ -38,7 +38,7 @@ Im Shader sind alle Material-Eigenschaft als <b>#define</b> deklariert. Dies kö
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
 }
 
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -81,6 +81,6 @@ Im Shader sind alle Material-Eigenschaft als <b>#define</b> deklariert. Dies kö
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
 </html>

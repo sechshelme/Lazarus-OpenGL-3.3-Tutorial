@@ -7,7 +7,7 @@ In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts
 <hr><br>
 Die ID, welche auf den Shader zeigt.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  ProgramID: GLuint;</pre></code>
+  ProgramID: GLuint;</code></pre>
 Lädt den Vertex- und Fragment-Shader in die Grafikkarte.<br>
 In diesem Beispiel sind die beiden Shader in einer Textdatei.<br>
 Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarieren.<br>
@@ -83,7 +83,7 @@ Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarie
 
   Result := ProgramObject;
   sl.Free;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Dieser Code wurde um 2 Zeilen erweitert.<br>
 <br>
 In der ersten Zeile wird der Shader in die Grafikkarte geladen.<br>
@@ -93,19 +93,19 @@ Näheres im Kapitel Shader.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   ProgramID := InitShader(<font color="#FF0000">'Vertexshader.glsl'</font>, <font color="#FF0000">'Fragmentshader.glsl'</font>);
-  glUseProgram(programID);</pre></code>
+  glUseProgram(programID);</code></pre>
 Beim Zeichnen muss man auch mit <b>glUseProgram(...</b> den Shader wählen, mit welchem das Mesh gezeichnet wird.<br>
 Bei diesem Mini-Code könnte dies weggelassen werden, da nur ein Shader verwendet wird und dieser bereits in TForm1.CreateScene aktiviert wurde.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glUseProgram(programID);</pre></code>
+  glUseProgram(programID);</code></pre>
 Am Ende noch mit <b>glDeleteShader(...</b> die Shader in der Grafikkarte wieder freigeben.<br>
 In diesem Code ist dies nur einer.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
-  glDeleteProgram(ProgramID);</pre></code>
+  glDeleteProgram(ProgramID);</code></pre>
 <hr><br>
 Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 <br>
@@ -118,7 +118,7 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -129,6 +129,6 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
 </html>

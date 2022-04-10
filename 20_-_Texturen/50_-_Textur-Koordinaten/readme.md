@@ -59,7 +59,7 @@ Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.<br>
     Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].TexkoorR := TextureVertex[<font color="#0077BB">1</font>];
     Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].TexkoorR := TextureVertex[<font color="#0077BB">2</font>];
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinaten weichen ab.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
@@ -89,7 +89,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">20</font>));
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   TempMatrix: TMatrix;
@@ -119,7 +119,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Disc) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet die rechte Scheibe</font></i>
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -136,7 +136,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -152,7 +152,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
   FragColor.a = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>muster.xpm:</b><br>
 <pre><code>/* XPM */
@@ -170,6 +170,6 @@ static char *XPM_mauer[] = {
   " ****** ",
   "        "
 };
-</pre></code>
+</code></pre>
 
 </html>
