@@ -103,7 +103,9 @@ begin
   sl2.Add('</html>');
 
   ForceDirectories(TutPara.HTMLPfad + fFolder + DirectorySeparator);
-  CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.HTMLPfad + fFolder + '/image.png');
+  if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin
+    CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.HTMLPfad + fFolder + '/image.png');
+  end;
   sl2.SaveToFile(TutPara.HTMLPfad + fFolder + DirectorySeparator + 'index.html');
 
   sl2.Free;
@@ -172,8 +174,7 @@ end;
 
 function TCreateHTMLTutorial.TagNumberAndStringGLSL(const s: string): string;
 var
-  p,
-  ComentPos: integer;   // Position Kommentar
+  p, ComentPos: integer;   // Position Kommentar
   isString,             // String wird getagt
   isNumber,             // Zahl wird getagt
   isNoNumber: boolean;  // Kein Zahlenwert, Zahl ist in Variablen-Bezeichner
@@ -238,8 +239,7 @@ end;
 
 function TCreateHTMLTutorial.TagNumberAndStringPascal(const s: string): string;
 var
-  p,
-  ComentPos: integer;   // Position Kommentar
+  p, ComentPos: integer;   // Position Kommentar
   isString,             // String wird getagt
   isComment,            // { und }
   isNumber,             // Zahl wird getagt
