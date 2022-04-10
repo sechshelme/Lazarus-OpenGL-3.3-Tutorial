@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>04 - Matrix</h1></b>
     <b><h2>15 - Kleines Planetarium</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -159,4 +157,3 @@ Anschliessend wird Z auf <b>0.0</b> gesetzt.<br>
 }
 </pre></code>
 
-</html>

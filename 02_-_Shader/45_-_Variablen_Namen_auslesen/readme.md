@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>02 - Shader</h1></b>
     <b><h2>45 - Variablen Namen auslesen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -124,4 +122,3 @@ Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Co
 
 </pre></code>
 
-</html>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>25 - Framepuffer</h1></b>
     <b><h2>00 - In Textur rendern</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -307,4 +305,3 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 }
 </pre></code>
 
-</html>

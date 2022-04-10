@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>10 - Vertex-Puffer in 2D</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -78,4 +76,3 @@ Die Farbe kommt nur noch in einem <b>float</b> an, aus diesem Grund hat <b>Grün
 }
 </pre></code>
 
-</html>

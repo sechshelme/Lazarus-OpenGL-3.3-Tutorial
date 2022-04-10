@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>05 - Ambient Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -40,4 +38,3 @@ Am Shader an sieht man, wie einfach Ambient ist.<br>
 }
 </pre></code>
 
-</html>

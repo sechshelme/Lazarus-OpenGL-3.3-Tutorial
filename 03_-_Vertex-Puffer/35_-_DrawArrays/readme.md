@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>35 - DrawArrays</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -54,4 +52,3 @@ Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
 }
 </pre></code>
 
-</html>

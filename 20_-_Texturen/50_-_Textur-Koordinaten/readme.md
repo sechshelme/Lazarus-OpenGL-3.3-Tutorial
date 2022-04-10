@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>50 - Textur-Koordinaten</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -175,4 +173,3 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
-</html>

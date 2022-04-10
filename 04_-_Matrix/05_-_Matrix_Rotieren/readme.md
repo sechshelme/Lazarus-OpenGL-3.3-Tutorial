@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>04 - Matrix</h1></b>
     <b><h2>05 - Matrix Rotieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -109,4 +107,3 @@ Aus diesem Grund haben Gaming-Grafikkarten solch eine grosse Leistung.<br>
 }
 </pre></code>
 
-</html>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>15 - Material Eigenschaften</h1></b>
     <b><h2>05 - Material Point Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -82,4 +80,3 @@ Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader
 
 </pre></code>
 
-</html>

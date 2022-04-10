@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
     <b><h2>15 - Mehrer Shader und BindingPoint</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -265,4 +263,3 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
 
 </pre></code>
 
-</html>

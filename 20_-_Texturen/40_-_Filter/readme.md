@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>40 - Filter</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -146,4 +144,3 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
-</html>

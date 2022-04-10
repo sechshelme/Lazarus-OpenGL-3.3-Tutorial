@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>05 - 3D</h1></b>
     <b><h2>20 - Fluchtpunktperspektive (Frustum)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -74,4 +72,3 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
 }
 </pre></code>
 
-</html>

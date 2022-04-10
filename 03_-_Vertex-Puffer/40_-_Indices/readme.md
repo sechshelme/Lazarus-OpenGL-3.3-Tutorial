@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>40 - Indices</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -77,4 +75,3 @@ Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sie
 }
 </pre></code>
 
-</html>

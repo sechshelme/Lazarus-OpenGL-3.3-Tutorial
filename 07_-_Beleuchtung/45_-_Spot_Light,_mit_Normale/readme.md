@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>45 - Spot Light, mit Normale</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -106,4 +104,3 @@ Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht
 
 </pre></code>
 
-</html>

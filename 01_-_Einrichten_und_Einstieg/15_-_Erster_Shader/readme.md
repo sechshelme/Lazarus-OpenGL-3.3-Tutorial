@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>15 - Erster Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -134,4 +132,3 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 }
 </pre></code>
 
-</html>

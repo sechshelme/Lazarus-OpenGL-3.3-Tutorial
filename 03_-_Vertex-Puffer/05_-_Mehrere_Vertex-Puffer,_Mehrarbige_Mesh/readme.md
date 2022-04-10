@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>05 - Mehrere Vertex-Puffer, Mehrarbige Mesh</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -111,4 +109,3 @@ Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Numme
 }
 </pre></code>
 
-</html>

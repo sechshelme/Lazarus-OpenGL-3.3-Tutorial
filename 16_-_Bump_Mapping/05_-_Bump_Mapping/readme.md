@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>16 - Bump Mapping</h1></b>
     <b><h2>05 - Bump Mapping</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -85,4 +83,3 @@ Zum einfachen Bump-Mapping wir noch mit einer Textur multipliziert, welche die F
 }
 </pre></code>
 
-</html>

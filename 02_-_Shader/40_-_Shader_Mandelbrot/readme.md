@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>02 - Shader</h1></b>
     <b><h2>40 - Shader Mandelbrot</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -67,4 +65,3 @@ Hier steckt die ganze Berechnung für das Mandelbrot.<br>
 }
 </pre></code>
 
-</html>

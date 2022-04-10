@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>10 - Texturn austauschen, Auschnitt laden</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -88,4 +86,3 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
 }
 </pre></code>
 
-</html>

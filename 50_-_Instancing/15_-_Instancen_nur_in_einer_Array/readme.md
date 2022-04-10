@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>50 - Instancing</h1></b>
     <b><h2>15 - Instancen nur in einer Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -122,4 +120,3 @@ Am Shader hat sich nichts geändert.<br>
 }
 </pre></code>
 
-</html>

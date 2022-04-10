@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>35 - Grundlage Spot Licht</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -101,4 +99,3 @@ Zeichen der ganzen Scene.<br>
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</pre></code>
 
-</html>

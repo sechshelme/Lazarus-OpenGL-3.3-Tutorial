@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>65 - Textur Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -149,4 +147,3 @@ static char *ziffer_xpm[] = {
 };
 </pre></code>
 
-</html>

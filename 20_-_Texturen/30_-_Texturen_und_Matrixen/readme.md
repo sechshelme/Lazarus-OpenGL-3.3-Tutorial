@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>30 - Texturen und Matrixen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -118,4 +116,3 @@ Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.<
 }
 </pre></code>
 
-</html>

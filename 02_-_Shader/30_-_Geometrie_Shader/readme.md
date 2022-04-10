@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>02 - Shader</h1></b>
     <b><h2>30 - Geometrie Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -79,4 +77,3 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 }
 </pre></code>
 
-</html>

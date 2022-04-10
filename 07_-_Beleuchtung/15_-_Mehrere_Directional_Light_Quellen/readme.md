@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>15 - Mehrere Directional Light Quellen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -154,4 +152,3 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
 }
 </pre></code>
 
-</html>

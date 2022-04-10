@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>10 - Directional Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -65,4 +63,3 @@ Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.<br>
 }
 </pre></code>
 
-</html>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>90 - Vektoren und Matrizen ( no OpenGL )</h1></b>
     <b><h2>00 - Einleitung Vektorgrafik</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -12,4 +10,3 @@ Oder für eine Textur auf einer Fläche.<br>
 <br>
 Da die Berechnung für die Vektoren und Matrizen gleich ist wie bei OpenGL 3.3, habe ich dafür die gleichen Bibliotheken verwendet.<br>
 
-</html>

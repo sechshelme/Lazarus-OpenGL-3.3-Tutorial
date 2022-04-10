@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>20 - Texturen mit oglTextur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -65,4 +63,3 @@ Am Ende muss man die Klasse noch frei geben.<br>
 }
 </pre></code>
 
-</html>

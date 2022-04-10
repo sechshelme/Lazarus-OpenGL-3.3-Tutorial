@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>02 - Shader</h1></b>
     <b><h2>15 - Erste Bewegung</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -132,4 +130,3 @@ Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shad
 }
 </pre></code>
 
-</html>

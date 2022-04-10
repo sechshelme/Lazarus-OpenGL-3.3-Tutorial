@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>60 - 1D Textur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -108,4 +106,3 @@ Man beachte, das die UV-Koordinaten nur ein <b>Float</b> ist.<br>
 }
 </pre></code>
 
-</html>

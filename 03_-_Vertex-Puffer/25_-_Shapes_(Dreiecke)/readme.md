@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>25 - Shapes (Dreiecke)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -123,4 +121,3 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
 }
 </pre></code>
 
-</html>

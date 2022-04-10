@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>15 - Texturen von BMP</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -67,4 +65,3 @@ Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen.
 }
 </pre></code>
 
-</html>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
     <b><h2>00 - Einfacher UBO</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -173,4 +171,3 @@ Im Shader wird kein Padding gebraucht.<br>
 
 </pre></code>
 
-</html>

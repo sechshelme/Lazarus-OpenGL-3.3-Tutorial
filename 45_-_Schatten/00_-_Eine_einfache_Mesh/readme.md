@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>45 - Schatten</h1></b>
     <b><h2>00 - Eine einfache Mesh</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -168,4 +166,3 @@ $fragment
 }
 </pre></code>
 
-</html>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>22 - Cubemap Texturen</h1></b>
     <b><h2>00 - Wuerfel</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -84,4 +82,3 @@ Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 }
 </pre></code>
 
-</html>

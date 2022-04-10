@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>05 - 3D</h1></b>
     <b><h2>05 - Polygon - Seite (Backface Culling)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -68,4 +66,3 @@ Man sagt immer, welche Seite nicht gezeichnet wird.<br>
 }
 </pre></code>
 
-</html>

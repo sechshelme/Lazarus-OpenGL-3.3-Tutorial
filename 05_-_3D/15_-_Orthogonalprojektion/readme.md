@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>05 - 3D</h1></b>
     <b><h2>15 - Orthogonalprojektion</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -102,4 +100,3 @@ Kamera um die Mesh bewegen.<br>
 }
 </pre></code>
 
-</html>

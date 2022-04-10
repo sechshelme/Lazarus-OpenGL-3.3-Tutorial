@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>35 - Geometrie-Shader</h1></b>
     <b><h2>00 - Breite Linien</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -141,4 +139,3 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
-</html>

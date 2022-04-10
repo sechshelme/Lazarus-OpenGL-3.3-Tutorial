@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>50 - Instancing</h1></b>
     <b><h2>20 - VertexAttribDivisor</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -108,4 +106,3 @@ Matrizen drehen und anschliessend, neu laden.<br>
 }
 </pre></code>
 
-</html>

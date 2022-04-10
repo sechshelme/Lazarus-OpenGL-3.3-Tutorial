@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>45 - Index-Puffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -104,4 +102,3 @@ IBO Freigabe ist glech wie bei dem VBO.<br>
 }
 </pre></code>
 
-</html>

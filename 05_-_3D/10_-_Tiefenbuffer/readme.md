@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>05 - 3D</h1></b>
     <b><h2>10 - Tiefenbuffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -75,4 +73,3 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
 }
 </pre></code>
 
-</html>

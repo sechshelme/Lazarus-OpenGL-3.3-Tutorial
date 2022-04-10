@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>70 - Textur Array einzel Bitmap</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -74,4 +72,3 @@ Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 }
 </pre></code>
 
-</html>

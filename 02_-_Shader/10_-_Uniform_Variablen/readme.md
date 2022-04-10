@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>02 - Shader</h1></b>
     <b><h2>10 - Uniform Variablen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -99,4 +97,3 @@ Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wi
 }
 </pre></code>
 
-</html>

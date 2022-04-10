@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>50 - Instancing</h1></b>
     <b><h2>00 - Einfachste Instance</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -99,4 +97,3 @@ Das grosse Arbeit bei Instancing leistet der Vertex-Shader.<br>
 }
 </pre></code>
 
-</html>

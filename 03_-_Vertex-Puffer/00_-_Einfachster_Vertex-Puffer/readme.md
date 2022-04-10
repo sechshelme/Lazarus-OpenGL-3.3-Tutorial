@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>00 - Einfachster Vertex-Puffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -73,4 +71,3 @@ Hier im Beispiel, sind dies einfache Dreiecke.<br>
 }
 </pre></code>
 
-</html>

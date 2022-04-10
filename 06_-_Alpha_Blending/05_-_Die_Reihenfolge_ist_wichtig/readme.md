@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>06 - Alpha Blending</h1></b>
     <b><h2>05 - Die Reihenfolge ist wichtig</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -124,4 +122,3 @@ Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix u
 }
 </pre></code>
 
-</html>

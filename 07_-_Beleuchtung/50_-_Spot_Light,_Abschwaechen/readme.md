@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>50 - Spot Light, Abschwaechen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -184,4 +182,3 @@ Berechnen der 3 Lichtkegel.<br>
 
 </pre></code>
 
-</html>

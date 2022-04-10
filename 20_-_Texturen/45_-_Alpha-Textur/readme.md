@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
     <b><h1>20 - Texturen</h1></b>
     <b><h2>45 - Alpha-Textur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -48,4 +46,3 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 }
 </pre></code>
 
-</html>
