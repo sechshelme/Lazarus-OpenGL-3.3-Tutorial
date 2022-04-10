@@ -103,7 +103,7 @@ begin
   sl2.Add('</html>');
 
   ForceDirectories(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator);
-  CopyFile(TutPara.ReadmeMDPfad + fFolder + '/image.png', TutPara.ReadmeMDPfad + fFolder + '/image.png');
+//  CopyFile(TutPara.ReadmeMDPfad + fFolder + '/image.png', TutPara.ReadmeMDPfad + fFolder + '/image.png');
   sl2.SaveToFile(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator + 'readme.md');
 
   sl2.Free;
