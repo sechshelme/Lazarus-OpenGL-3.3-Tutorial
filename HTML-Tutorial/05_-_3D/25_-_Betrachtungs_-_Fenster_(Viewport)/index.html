@@ -26,13 +26,13 @@ Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.<br>
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
-  ogc.OnResize := @ogcResize;   <i><font color="#FFFF00">// neues Ereigniss</font></i></pre></code>
+  ogc.OnResize := @ogcResize;   <i><font color="#FFFF00">// neues Ereigniss</font></i></code></pre>
 Hier wird bei einer Grössenänderung des Fenster die Perspektive angepasst.<br>
 Dabei ist der zweite Parameter relevant.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcResize(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   FrustumMatrix.Perspective(<font color="#0077BB">45</font>, ClientWidth / ClientHeight, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -49,7 +49,7 @@ Dabei ist der zweite Parameter relevant.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -61,7 +61,7 @@ Dabei ist der zweite Parameter relevant.<br>
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

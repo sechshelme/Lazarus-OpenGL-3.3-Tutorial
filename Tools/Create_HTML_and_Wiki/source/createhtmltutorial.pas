@@ -437,7 +437,7 @@ begin
 
   TagPascal(sl);
 
-  slHTML.Add('<pre><code>' + sl.Text + '</pre></code>');
+  slHTML.Add('<pre><code>' + sl.Text + '</code></pre>');
 
   sl.Free;
 end;
@@ -450,7 +450,7 @@ begin
   sl.LoadFromFile(datei);
   sl.SkipLastLineBreak := False;
 
-  slHTML.Add('<pre><code>' + sl.Text + '</pre></code>');
+  slHTML.Add('<pre><code>' + sl.Text + '</code></pre>');
 
   sl.Free;
 end;
@@ -465,7 +465,7 @@ begin
 
   TagGLSL(slGLSL);
 
-  slHTML.Add('<pre><code>' + slGLSL.Text + '</pre></code>');
+  slHTML.Add('<pre><code>' + slGLSL.Text + '</code></pre>');
 
   slGLSL.Free;
 end;
@@ -510,14 +510,14 @@ begin
     end else if Pos('//code-', slUnit[i]) > 0 then begin
       isCode := False;
       TagPascal(slCode);
-      slHTML.Add('<pre><code>' + slCode.Text + '</pre></code>');
+      slHTML.Add('<pre><code>' + slCode.Text + '</code></pre>');
       // Text Code ( Keine Systaxhiglight )
     end else if Pos('//codetext+', slUnit[i]) > 0 then begin
       isCode := True;
       slCode.Clear;
     end else if Pos('//codetext-', slUnit[i]) > 0 then begin
       isCode := False;
-      slHTML.Add('<pre><code>' + slCode.Text + '</pre></code>');
+      slHTML.Add('<pre><code>' + slCode.Text + '</code></pre>');
     end else if Pos('(*', slUnit[i]) > 0 then begin
       isText := True;
     end else if Pos('*)', slUnit[i]) > 0 then begin

@@ -19,10 +19,10 @@ Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textu
 Da es zwei Texturn hat, ist noch eine zweite Textur-Konstnate dazu gekommen.<br>
 <pre><code><b><font color="0000BB">const</font></b>
   Textur32_0: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)));
-  Textur32_1: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)));</pre></code>
+  Textur32_1: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)));</code></pre>
 Da es zwei Texturen hat, bracuht es auch zwei IDs.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  textureID: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLuint;</pre></code>
+  textureID: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLuint;</code></pre>
 Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.<br>
 Dazu gebe ich als ersten Parameter die Länge der Array an.<br>
 Natürlich könnte man die Puffer auch einzeln erzeugen.<br>
@@ -34,7 +34,7 @@ Das selbe könnte man auch bei den VAOs und VBOs machen.<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);
 
-  glGenTextures(Length(textureID), @textureID);  <i><font color="#FFFF00">// Erster Parameter die Länge der Arrray.</font></i></pre></code>
+  glGenTextures(Length(textureID), @textureID);  <i><font color="#FFFF00">// Erster Parameter die Länge der Arrray.</font></i></code></pre>
 Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
@@ -48,7 +48,7 @@ Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
   glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_1);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-  glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);</pre></code>
+  glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);</code></pre>
 Hier sieht man, das ich für die beiden Qudrate unterschiedliche Texturen binde.<br>
 Koordinaten verwende ich für beide Qudrate die gleichen, einziger Unterschied, ich verschiebe die Matrix in unterschiedliche Richtungen.<br>
 Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
@@ -75,11 +75,11 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
 
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Logischerweise muss man auch wieder beide Textur-Puffer frei geben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
-  glDeleteTextures(Length(textureID), @textureID); <i><font color="#FFFF00">// Textur-Puffer frei geben.</font></i></pre></code>
+  glDeleteTextures(Length(textureID), @textureID); <i><font color="#FFFF00">// Textur-Puffer frei geben.</font></i></code></pre>
 <hr><br>
 Die Shader sind genau gleich, wie bei einer Textur.<br>
 <br>
@@ -99,7 +99,7 @@ Die Shader sind genau gleich, wie bei einer Textur.<br>
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Texur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <br>
@@ -115,7 +115,7 @@ Die Shader sind genau gleich, wie bei einer Textur.<br>
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinaten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

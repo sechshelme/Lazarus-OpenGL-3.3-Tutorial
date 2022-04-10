@@ -36,7 +36,7 @@ Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
   ModelMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">25</font>);
 
   ZPos += Step;
-  <b><font color="0000BB">if</font></b> (ZPos > max) <b><font color="0000BB">or</font></b> (ZPos < min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> (ZPos &gt; max) <b><font color="0000BB">or</font></b> (ZPos &lt; min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     Step *= -<font color="#0077BB">1</font>;
   <b><font color="0000BB">end</font></b>;
   LightPos.Red.z := ZPos;

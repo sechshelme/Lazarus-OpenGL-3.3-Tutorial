@@ -17,7 +17,7 @@ Das es eine Diashow ist, das ist was anderes.<br>
 <hr><br>
 Die Anzahl Instance<br>
 <pre><code><b><font color="0000BB">const</font></b>
-  InstanceCount = <font color="#0077BB">10000</font>;</pre></code>
+  InstanceCount = <font color="#0077BB">10000</font>;</code></pre>
 Für die Instancen werden VBOs gebraucht.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TVB = <b><font color="0000BB">record</font></b>
@@ -26,7 +26,7 @@ Für die Instancen werden VBOs gebraucht.<br>
       Vertex,
       I_Size, I_Matrix, I_Color: GLuint;
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   VBQuad: TVB;
@@ -35,7 +35,7 @@ Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.<br>
     Scale: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLfloat;
     Matrix: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TMatrix;
     Color: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TVector3f;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
@@ -54,13 +54,13 @@ VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.<br>
     Data.Matrix[i].Translate(<font color="#0077BB">1</font>.<font color="#0077BB">5</font> - Random * <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font> - Random * <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
     Data.Color[i] := vec3(Random, Random, Random);
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Für die Instancen werden die Puffer gefüllt.<br>
 Da für die Puffer nur Vektoren mit 1-4 Elemeten erlaubt sind, muss man die Matrix in 4 Vektoren unterteilen.<br>
 Dabei werden auch 4 Attribut-Indexe gebraucht.<br>
 Eine <b>glVertexAttribPointer(2, 16,...</b> geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.<br>
 So was geht leider nicht:<br>
-<pre><code>  glVertexAttribPointer(<font color="#0077BB">2</font>, <font color="#0077BB">16</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</pre></code>
+<pre><code>  glVertexAttribPointer(<font color="#0077BB">2</font>, <font color="#0077BB">16</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
 Mit <b>glVertexAttribDivisor(...</b> teilt man mit das es sich um ein Instance-Attribut handelt.<br>
 Der erste Parameter bestimmt, um welches Vertex-Attribut es sich handelt.<br>
 Der Zweite sagt, das der Zeiger im Vertex-Attribut bei jedem Durchgang um <b>1</b> erhöt wird.<br>
@@ -104,7 +104,7 @@ Was Werte >1 bedeuten ist bei <b>VertexAttribDivisor</b> beschrieben.<br>
   glEnableVertexAttribArray(<font color="#0077BB">6</font>);
   glVertexAttribPointer(<font color="#0077BB">6</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
   glVertexAttribDivisor(<font color="#0077BB">6</font>, <font color="#0077BB">1</font>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Die Instance Parameter werden einfache mit <b>glBufferSubData(....</b> übergeben.<br>
 Es werden nur die Matrizen aktualisiert, die anderen Werte bleiben gleich.<br>
 Will man eine andere Anzahl von Instance, dann muss man mit <b>glBufferData(...</b> mehr oder weniger Speicher reservieren.<br>
@@ -121,7 +121,7 @@ Dafür braucht man keine Uniformen.<br>
   glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen neu berechnen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -133,7 +133,7 @@ Matrizen neu berechnen.<br>
 
   glBindVertexArray(VBQuad.VAO);
   ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 Der Shader sieht sehr einfach aus.<br>
@@ -157,7 +157,7 @@ Der Shader sieht sehr einfach aus.<br>
 
   col = Color;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -170,7 +170,7 @@ Der Shader sieht sehr einfach aus.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

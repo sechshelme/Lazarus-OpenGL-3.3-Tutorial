@@ -29,7 +29,7 @@ Mit den Indicen kann ich sagen, zeichen von Punkt 0-1-2 und von Punkt 0-2-3.<br>
 <br>
 <pre><code>3 - 2
 | / |
-0 - 1</pre></code>
+0 - 1</code></pre>
 <pre><code><b><font color="0000BB">const</font></b>
   <i><font color="#FFFF00">// --- Dreieck</font></i>
   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
@@ -43,7 +43,7 @@ Mit den Indicen kann ich sagen, zeichen von Punkt 0-1-2 und von Punkt 0-2-3.<br>
   Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> TVertex3f =
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
   <i><font color="#FFFF00">// Indicien ( Reihenfolge )</font></i>
-  Quad_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, <font color="#0077BB">2</font>, <font color="#0077BB">3</font>);</pre></code>
+  Quad_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, <font color="#0077BB">2</font>, <font color="#0077BB">3</font>);</code></pre>
 Bei <b>glDrawElements(...</b>, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.<br>
 Ansonsten geht das Zeichen gleich, wie bei der einfachen Methode.<br>
 Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sieht.<br>
@@ -59,7 +59,7 @@ Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sie
 
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
-  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);</pre></code>
+  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
@@ -71,7 +71,7 @@ Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sie
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -83,7 +83,7 @@ Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sie
   <b><font color="0000BB">vec3</font></b> col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

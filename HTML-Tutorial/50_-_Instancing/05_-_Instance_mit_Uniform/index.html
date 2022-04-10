@@ -22,7 +22,7 @@ Diese Nachteile kann man umgehen, wen man anstelle von Uniformen VertexAttrib ve
 <hr><br>
 Die Anzahl Instance<br>
 <pre><code><b><font color="0000BB">const</font></b>
-  InstanceCount = <font color="#0077BB">200</font>;</pre></code>
+  InstanceCount = <font color="#0077BB">200</font>;</code></pre>
 Die Deklaration, der Paramter für die einzelnen Instancen.<br>
 Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funktionsweise der Uniform-Übergaben.<br>
 <pre><code><b><font color="0000BB">var</font></b>
@@ -34,7 +34,7 @@ Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funkti
     Size: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLfloat;
     Matrix: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TMatrix;
     Color: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TVector3f;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Das Auslesen der UniformID. Dies geschieht gleich wie bei einfachen Uniformen.<br>
 Die Instancen-Parameter mit zufälligen Werten belegen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
@@ -57,7 +57,7 @@ Die Instancen-Parameter mit zufälligen Werten belegen.<br>
     Data.Matrix[i].Translate(<font color="#0077BB">1</font>.<font color="#0077BB">5</font> - Random * <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>- Random * <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
     Data.Color[i] := vec3(Random, Random, Random);
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Die Übergabe der Uniform-Werte. Da es sich um Arrays handelt, muss man noch die Länge der Array übergeben.<br>
 Auch sieht man gut, das mal <b>glDrawArraysInstanced(...</b> nur einmal aufrufen muss.<br>
 Würde man dies ohne Instancen lössen, müsste man die Uniformübergabe und glDraw... 200x aufrufen.<br>
@@ -75,7 +75,7 @@ Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte n
   glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Die Matrizen drehen.<br>
 Dies muss man 200x machen, aber es sind nicht 200 Übergaben zur Grafikkarte nötig.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
@@ -87,7 +87,7 @@ Dies muss man 200x machen, aber es sind nicht 200 Übergaben zur Grafikkarte nö
   <b><font color="0000BB">end</font></b>;
 
   ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zugegriffen wird.<br>
@@ -109,7 +109,7 @@ Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zug
 
   col = Color[gl_InstanceID];
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -122,7 +122,7 @@ Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zug
 {
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

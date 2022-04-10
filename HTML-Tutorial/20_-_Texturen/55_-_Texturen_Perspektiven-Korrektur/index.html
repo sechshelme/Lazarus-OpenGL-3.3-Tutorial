@@ -30,7 +30,7 @@ Diese enthält einen Korrekturwert für die Perspektive.<br>
   <i><font color="#FFFF00">// Textur-Koordinaten mit Perspektivenkorrektur.</font></i>
   TexturePerspVertex1: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>),
-    (-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>));</pre></code>
+    (-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>));</code></pre>
 Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspektivenkorrigierte Variante auch ein Vec3 ist.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
@@ -57,7 +57,7 @@ Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspek
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[<font color="#0077BB">1</font>]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex1), @TexturePerspVertex1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
-  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</pre></code>
+  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
 Zeichnen der 3 verschiedenne Varianten.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -92,7 +92,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -114,7 +114,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   DataOut.UV0 = inUV0;
   DataOut.UV1 = inUV1;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -145,7 +145,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
     <b><font color="0000BB">case</font></b> <font color="#0077BB">2</font>: FragColor = texture2DProj( Sampler, DataIn.UV1 );
   }
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>mauer.xpm:</b><br>
 <pre><code>/* XPM */
@@ -162,7 +162,7 @@ static char *XPM_mauer[] = {
   "  *   * ",
   "  *   * "
 };
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

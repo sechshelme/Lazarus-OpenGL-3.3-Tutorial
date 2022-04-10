@@ -25,7 +25,7 @@ Die Deklaration der Array. Es ist nur noch eine Array.<br>
   <b><font color="0000BB">end</font></b>;
 
 <b><font color="0000BB">var</font></b>
-  Data: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TData;</pre></code>
+  Data: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TData;</code></pre>
 Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
@@ -65,7 +65,7 @@ Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
   glEnableVertexAttribArray(<font color="#0077BB">6</font>);
   glVertexAttribPointer(<font color="#0077BB">6</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), Pointer(ofs));
   glVertexAttribDivisor(<font color="#0077BB">6</font>, <font color="#0077BB">1</font>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 An der Zeichenroutine ändert sich nichts.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -80,7 +80,7 @@ An der Zeichenroutine ändert sich nichts.<br>
   glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen neu berechnen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -91,7 +91,7 @@ Matrizen neu berechnen.<br>
   <b><font color="0000BB">end</font></b>;
 
   ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 Am Shader hat sich nichts geändert.<br>
@@ -115,7 +115,7 @@ Am Shader hat sich nichts geändert.<br>
 
   col = Color;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -128,7 +128,7 @@ Am Shader hat sich nichts geändert.<br>
 {
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

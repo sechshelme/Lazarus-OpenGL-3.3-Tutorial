@@ -30,7 +30,7 @@ Die Lichtpositionen als 3D-Vektorn definiert.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   LightPos: <b><font color="0000BB">record</font></b>
     Red, Green, Blue: TVector3f;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden die verschiedenen Parameter für die Lichtparamter über Uniform am Shader übergeben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
@@ -56,7 +56,7 @@ Hier werden die verschiedenen Parameter für die Lichtparamter über Uniform am 
     glUniform1i(Red, GLint(MenuItemRedOn.Checked));
     glUniform1i(Green, GLint(MenuItemGreenOn.Checked));
     glUniform1i(Blue, GLint(MenuItemBlueOn.Checked));
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Auf verlangen Würfel drehen und Lichtposition verändern.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
@@ -80,7 +80,7 @@ Auf verlangen Würfel drehen und Lichtposition verändern.<br>
       Blue.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">021</font>);
       Blue.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">023</font>);
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Wen man mehrere Lichtquellen hat, werden diese alle <b>addiert</b>.<br>
 Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
@@ -149,7 +149,7 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
     Color.rgb += colBlue;
   }
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -160,7 +160,7 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

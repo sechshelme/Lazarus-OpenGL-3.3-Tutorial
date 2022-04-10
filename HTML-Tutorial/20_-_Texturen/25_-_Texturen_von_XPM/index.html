@@ -25,7 +25,7 @@ Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG,
     LoadFromFile(<font color="#FF0000">'mauer.xpm'</font>);                <i><font color="#FFFF00">// XPM-Datei laden.</font></i>
     Textur.LoadTextures(pic.Bitmap.RawImage); <i><font color="#FFFF00">// Bitmap in VRAM laden.</font></i>
     Free;                                     <i><font color="#FFFF00">// Picture frei geben.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -42,7 +42,7 @@ Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG,
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -57,7 +57,7 @@ Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG,
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>mauer.xpm:</b><br>
 <pre><code>/* XPM */
@@ -74,7 +74,7 @@ static char *XPM_mauer[] = {
   "  *   * ",
   "  *   * "
 };
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

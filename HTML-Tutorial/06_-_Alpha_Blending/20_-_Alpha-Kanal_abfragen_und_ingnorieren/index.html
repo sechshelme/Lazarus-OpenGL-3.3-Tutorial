@@ -59,7 +59,7 @@ Aber es muss nicht mehr sortiert werden.<br>
   <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -76,7 +76,7 @@ Aber es muss nicht mehr sortiert werden.<br>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0         = inUV;                 <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 Hier wird abgefragt, ob der Pixel transparent ist, wen ja wird er nicht ausgegeben und<br>
@@ -101,7 +101,7 @@ Da muss man abschätzen, wie streng die Prüfung sein soll.<br>
     <b><font color="0000BB">discard</font></b>; <i><font color="#FFFF00">// Wen transparent, Pixel nicht ausgeben.</font></i>
   }
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

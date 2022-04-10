@@ -19,27 +19,27 @@ Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> er
 <hr><br>
 Den Textur-Puffer deklarieren.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  Textur: TTexturBuffer;</pre></code>
+  Textur: TTexturBuffer;</code></pre>
 Textur-Puffer erzeugen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
-  Textur := TTexturBuffer.Create;</pre></code>
+  Textur := TTexturBuffer.Create;</code></pre>
 Mit diesr Klasse geht das laden einer Bitmap sehr einfach.<br>
 Man kann die Texturen auch von einem <b>TRawImages</b> laden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
-  Textur.LoadTextures(<font color="#FF0000">'mauer.bmp'</font>);</pre></code>
+  Textur.LoadTextures(<font color="#FF0000">'mauer.bmp'</font>);</code></pre>
 Das Binden geht auch sehr einfach.<br>
 Man kann dieser Funktion noch eine Nummer mitgeben, aber diese wird nur bei Multitexturing gebraucht, dazu später.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
-  Textur.ActiveAndBind; <i><font color="#FFFF00">// Textur binden</font></i></pre></code>
+  Textur.ActiveAndBind; <i><font color="#FFFF00">// Textur binden</font></i></code></pre>
 Am Ende muss man die Klasse noch frei geben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
-  Textur.Free;</pre></code>
+  Textur.Free;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -56,7 +56,7 @@ Am Ende muss man die Klasse noch frei geben.<br>
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -71,7 +71,7 @@ Am Ende muss man die Klasse noch frei geben.<br>
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

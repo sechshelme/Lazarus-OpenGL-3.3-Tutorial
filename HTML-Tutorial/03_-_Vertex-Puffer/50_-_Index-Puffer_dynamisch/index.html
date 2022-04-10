@@ -25,7 +25,7 @@ Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden i
     Indicies: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> GLint;           <i><font color="#FFFF00">// Indicies-Daten.</font></i>
     Indicies_Count: integer;            <i><font color="#FFFF00">// Die Grösser der Indicies-Array.</font></i>
     VBuffer: TVB;                       <i><font color="#FFFF00">// VBO und VAO der Mesh.</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Mit dieser Funktion werden die Vertex-Daten und die Indicen berechnet.<br>
 Es wird ein Kreis mit zufälliger Anzahl Sektoren erzeugt, somit hat man unterschiedlich lange Vertex-Daten.<br>
 Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
@@ -68,7 +68,7 @@ Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
     <i><font color="#FFFF00">// Der Letzte Index muss auf den ersten Vektor zeigen.</font></i>
     Indicies[Indicies_Count - <font color="#0077BB">1</font>] := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden schon mal die ersten Vertex-Daten und Indicien erzeugt.<br>
 Später werden neue Daten in einem Timer erzeugt.<br>
 Mit UpdateScene werden sie dann in das VRAM geladen.<br>
@@ -87,7 +87,7 @@ Mit UpdateScene werden sie dann in das VRAM geladen.<br>
   UpdateScene(<font color="#0077BB">0</font>);                                  <i><font color="#FFFF00">// Daten in VRAM schreiben.</font></i>
   UpdateScene(<font color="#0077BB">1</font>);                                  <i><font color="#FFFF00">// Daten in VRAM schreiben.</font></i>
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBufferData(...</b> nur der Speicher dafür reserviert.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
@@ -122,7 +122,7 @@ Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBu
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) * maxSektor * <font color="#0077BB">3</font>, <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Da der Speicher im VRAM schon reserviert ist, kann man mit <b>glBufferSubData(...</b> nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.<br>
 <br>
 Nach dem schreiben ins VRAM , kann mit <b>SetLength(...</b> die Daten im RAM entfernt werden.<br>
@@ -151,7 +151,7 @@ Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden 
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(GLint) * Indicies_Count, Pointer(Indicies)); <i><font color="#FFFF00">// Daten ins VRAM schreiben.</font></i>
     SetLength(Indicies, <font color="#0077BB">0</font>);                                                                         <i><font color="#FFFF00">// Daten im RAM entfernen.</font></i>
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Gezeichnet wird dann mit <b>glDrawElements(...</b>, wobei der letzte Paramter nur noch <b>Nil</b> ist, da sich die Daten bereits im VRAM befinden.<br>
 <pre><code>  <i><font color="#FFFF00">// Zeichne Kreise</font></i>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(CircleMesh) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -159,7 +159,7 @@ Gezeichnet wird dann mit <b>glDrawElements(...</b>, wobei der letzte Paramter nu
       glBindVertexArray(VBuffer.VAO);
       glDrawElements(GL_TRIANGLES, Indicies_Count, GL_UNSIGNED_INT, <b><font color="0000BB">nil</font></b>);  <i><font color="#FFFF00">// Hier Nil</font></i>
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Mit einem Timer werden alle 1/2 Sekunden neue Vertex-Daten erzeugt und in das VRAM geladen.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
@@ -176,7 +176,7 @@ Mit einem Timer werden alle 1/2 Sekunden neue Vertex-Daten erzeugt und in das VR
     ogc.Invalidate;                                <i><font color="#FFFF00">// Neu zeichnen.</font></i>
     za := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Bei den Shadern gibt es nichts besonders.<br>
 <br>
@@ -193,7 +193,7 @@ Bei den Shadern gibt es nichts besonders.<br>
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -205,7 +205,7 @@ Bei den Shadern gibt es nichts besonders.<br>
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

@@ -47,7 +47,7 @@ Die Deklaration der Lichtparameter und der Matrizen für den UBO.<br>
 
 <b><font color="0000BB">var</font></b>
   Light: TLight;
-  MatrixRec: TMatrixRec;</pre></code>
+  MatrixRec: TMatrixRec;</code></pre>
 Die Lichtparameter mit Anfangswerten laden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
@@ -79,7 +79,7 @@ Die Lichtparameter mit Anfangswerten laden.<br>
       Pos := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
       Pos.Scale(LichtPositionRadius);
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Für die beiden UBOs Speicher reservieren.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
@@ -103,7 +103,7 @@ Für die beiden UBOs Speicher reservieren.<br>
     <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
     glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
     glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  <b><font color="0000BB">end</font></b>;</code></pre>
 Hier sieht man gut, wie die UBO-Daten neu in den Puffer geladen werden.<br>
 Die Lichtparamter, werden über das Menü und dem Timer verändert.<br>
 Die Matrizen werden hier berechnet.<br>
@@ -165,7 +165,7 @@ Die Matrizen werden hier berechnet.<br>
   <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 Im Shader sieht man die beiden Uniform-Blöcke.<br>
 Für die Matrizen im Vertex-Shader, und für die Lichtparameter im Fragment-Shader.<br>
@@ -190,7 +190,7 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
   gl_Position  = matrix.WorldMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   DataOut.pos  = (matrix.ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -248,7 +248,7 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
   }
 }
 
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

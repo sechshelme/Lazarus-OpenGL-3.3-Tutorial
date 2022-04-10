@@ -24,7 +24,7 @@ Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf d
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glEnable(GL_DEPTH_TEST);  <i><font color="#FFFF00">// Tiefenprüfung einschalten.</font></i>
-  glDepthFunc(GL_LESS);     <i><font color="#FFFF00">// Kann man weglassen, da Default.</font></i></pre></code>
+  glDepthFunc(GL_LESS);     <i><font color="#FFFF00">// Kann man weglassen, da Default.</font></i></code></pre>
 Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT</b>.<br>
 Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.<br>
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.<br>
@@ -52,7 +52,7 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
   WorldMatrix := TempMatrix;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -69,7 +69,7 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -81,7 +81,7 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

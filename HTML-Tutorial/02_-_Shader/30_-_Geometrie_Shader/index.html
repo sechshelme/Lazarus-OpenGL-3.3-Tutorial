@@ -28,7 +28,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Geometrieshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
-  Shader.UseProgram;</pre></code>
+  Shader.UseProgram;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -39,7 +39,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Geometrie-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -73,7 +73,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
    }
    EndPrimitive();
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -85,7 +85,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

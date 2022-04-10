@@ -20,7 +20,7 @@ Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschie
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.<br>
 <pre><code><b><font color="0000BB">var</font></b>
-  Linies: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f; <i><font color="#FFFF00">// XY-Koordinaten</font></i></pre></code>
+  Linies: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f; <i><font color="#FFFF00">// XY-Koordinaten</font></i></code></pre>
 Hier werden die Daten in die Grafikkarte geschrieben.<br>
 Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
@@ -33,7 +33,7 @@ Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet w
   glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Linies), Pointer(Linies), GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<b><font color="0000BB">end</font></b>;</code></pre>
 Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.<br>
 Hier werden vier Möglichkeiten gezeigt, dazu werden immer die gleichen Vertex-Koordinaten verwendet. Daher sieht man den Unterschied gut.<br>
 <br>
@@ -76,7 +76,7 @@ Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben d
   glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Blau</font></i>
   glUniform1f(X_ID, -ofs);               <i><font color="#FFFF00">// links-</font></i>
   glUniform1f(Y_ID, ofs);                <i><font color="#FFFF00">// oben</font></i>
-  glDrawArrays(GL_POINTS, <font color="#0077BB">0</font>, Length(Linies));</pre></code>
+  glDrawArrays(GL_POINTS, <font color="#0077BB">0</font>, Length(Linies));</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
@@ -94,7 +94,7 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
   pos.y = pos.y + y;
   gl_Position = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Der zweiter Parameter (Z) auf 0.0</font></i>
 }
-</pre></code>
+</code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
@@ -106,7 +106,7 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-</pre></code>
+</code></pre>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>
