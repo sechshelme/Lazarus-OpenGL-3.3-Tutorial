@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 UBO-Daten können auch zur Laufzeit geändert/neu geladen werden, so wie es beim Vertex-Puffer auch geht.<br>
 Auf diese Art, werden die Uniform-Daten aktualisiert. Dies ersetzt die Aktualisierung mit <b>glUniformxxx</b>.<br>
@@ -147,3 +148,4 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
 
 </pre></code>
 
+</html>

@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wie schon beschrieben, sind auch mehrere Lichtquellen möglich.<br>
 <br>
@@ -150,3 +151,4 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
 }
 </pre></code>
 
+</html>

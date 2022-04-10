@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.<br>
 Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.<br>
@@ -130,3 +131,4 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 }
 </pre></code>
 
+</html>

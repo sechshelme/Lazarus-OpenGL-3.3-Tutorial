@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Normalerweise, werden die Polygone der Reihenfolge der Vertex-Konstanten abgearbeitet.<br>
 Man kann aber auch selbst bestimmen, welche Koordinate abgearbeitet werden.<br>
@@ -73,3 +74,4 @@ Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sie
 }
 </pre></code>
 
+</html>

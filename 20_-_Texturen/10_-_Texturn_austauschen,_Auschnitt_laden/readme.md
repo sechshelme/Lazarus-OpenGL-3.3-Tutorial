@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.<br>
 Dies ist auch mit einem <b>Texturauschnitt</b> möglich.<br>
@@ -84,3 +85,4 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
 }
 </pre></code>
 
+</html>

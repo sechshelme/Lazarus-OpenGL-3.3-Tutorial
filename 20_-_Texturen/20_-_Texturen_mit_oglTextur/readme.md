@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.<br>
 Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.<br>
@@ -61,3 +62,4 @@ Am Ende muss man die Klasse noch frei geben.<br>
 }
 </pre></code>
 
+</html>

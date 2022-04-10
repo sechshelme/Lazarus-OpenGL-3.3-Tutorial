@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 <b>Vorwort:</b><br><br>
 <b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.<br>
@@ -68,3 +69,4 @@ Wenn Fehler gefunden werden, dann bitte hier melden:<br>
 oder<br>
 <a href="http://www.lazarusforum.de/viewtopic.php?f=29&t=11373&hilit=opengl+tutorial ">Lazarus-Forum</a>
 
+</html>

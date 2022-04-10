@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Texturen werden erst richtig interessant, wen noch der Alpha-Kanal verwendet wird.<br>
 Wie hier im Beispiel ein Baum.<br>
@@ -44,3 +45,4 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 }
 </pre></code>
 
+</html>

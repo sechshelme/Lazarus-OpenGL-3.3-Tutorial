@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Jetzt wird auch die normale berücksicht. Somit wird nur die Vorderseite der Dreiecke beleuchtet, so wie es beim Punktlicht auch der Fall ist.<br>
 Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine <b>Normale</b> gebraucht.<br>
@@ -102,3 +103,4 @@ Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht
 
 </pre></code>
 
+</html>

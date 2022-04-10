@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.<br>
 Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.<br>
@@ -119,3 +120,4 @@ static char *XPM_licht[] = {
 };
 </pre></code>
 
+</html>

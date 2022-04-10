@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bis jetzt waren die Vertexdaten immer statisch. Man kann diese aber auch zur Laufzeit neu in den Vertex-Puffer schreiben.<br>
 <br>
@@ -200,3 +201,4 @@ Bei den Shadern gibt es nichts besonders.<br>
 }
 </pre></code>
 
+</html>

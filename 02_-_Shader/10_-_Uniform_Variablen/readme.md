@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird die Farbe des Meshes über eine Unifom-Variable an den Shader übergeben, somit kann die Farbe zur Laufzeit geändert werden.<br>
 Unifom-Variablen dienen dazu, um Parameter den Shader-Objecte zu übergeben. Meistens sind dies Matrixen, oder wie hier im Beispiel die Farben.<br>
@@ -95,3 +96,4 @@ Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wi
 }
 </pre></code>
 
+</html>

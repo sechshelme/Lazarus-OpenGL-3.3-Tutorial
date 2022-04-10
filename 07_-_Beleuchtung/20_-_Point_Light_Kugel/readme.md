@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 In diesem Beispiel sieht man die Punkt-Beleuchtung gut, man kann beobachten, wie sich das Licht innerhalb der Kugeln bewegt.<br>
 Am besten man schaltet nur eine Lichtquelle ein.<br>
@@ -71,3 +72,4 @@ Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.<br>
 }
 </pre></code>
 
+</html>

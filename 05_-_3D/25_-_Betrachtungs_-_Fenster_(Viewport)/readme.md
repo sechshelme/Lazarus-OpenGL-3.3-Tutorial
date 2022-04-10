@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.<br>
 Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.<br>
@@ -51,3 +52,4 @@ Dabei ist der zweite Parameter relevant.<br>
 }
 </pre></code>
 
+</html>

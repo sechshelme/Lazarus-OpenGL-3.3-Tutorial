@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.<br>
 Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.<br>
@@ -153,3 +154,4 @@ Da sieht man, das es reicht nur den Vector zu drehen.<br>
 }
 </pre></code>
 
+</html>

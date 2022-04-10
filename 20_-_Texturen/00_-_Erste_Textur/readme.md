@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit Texturen sieht eine Mesh um einiges besser aus, als wen es nur einfache Farbverläufe sind.<br>
 Mit OpenGL kann man recht einfach Texturen in das VRAM laden.<br>
@@ -139,3 +140,4 @@ Die UV-Koordinate gibt an, von welchem Bereich der Pixel aus der Textur gelesen 
 }
 </pre></code>
 
+</html>

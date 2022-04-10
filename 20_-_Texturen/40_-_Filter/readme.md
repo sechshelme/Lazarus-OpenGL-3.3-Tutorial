@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie man Filter für Texturen verwenden kann.<br>
 In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter verwendet.<br>
@@ -142,3 +143,4 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
+</html>

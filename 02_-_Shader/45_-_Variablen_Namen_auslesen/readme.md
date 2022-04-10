@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.<br>
 In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.<br>
@@ -120,3 +121,4 @@ Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Co
 
 </pre></code>
 
+</html>

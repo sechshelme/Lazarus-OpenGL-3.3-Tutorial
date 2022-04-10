@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die meisten Texturen sind eine Bitmap(Foto) welche im 2D-Format vorliegen.<br>
 Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 1D-Textur.<br>
@@ -104,3 +105,4 @@ Man beachte, das die UV-Koordinaten nur ein <b>Float</b> ist.<br>
 }
 </pre></code>
 
+</html>

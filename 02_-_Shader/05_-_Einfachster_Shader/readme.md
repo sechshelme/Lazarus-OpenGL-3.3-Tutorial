@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.<br>
 <hr><br>
@@ -70,3 +71,4 @@ So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlech
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>){gl_Position=<b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);}
 </pre></code>
 
+</html>

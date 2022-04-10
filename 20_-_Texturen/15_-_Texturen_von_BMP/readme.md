@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.<br>
 Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.<br>
@@ -63,3 +64,4 @@ Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen.
 }
 </pre></code>
 
+</html>

@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man sehr schnell eine einfache Textur mit einem Text-Editor erstellen.<br>
 <hr><br>
@@ -64,3 +65,4 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
+</html>

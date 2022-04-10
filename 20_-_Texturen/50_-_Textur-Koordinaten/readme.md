@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.<br>
 Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.<br>
@@ -171,3 +172,4 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
+</html>

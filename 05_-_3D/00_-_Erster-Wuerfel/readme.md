@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Jetzt wird das erste mal 3D gerendert.<br>
 Dafür wird ein einfacher Würfel genommen, welcher sechs unterschiedlich farbige Flächen hat.<br>
@@ -95,3 +96,4 @@ Mit einem Timer wird der Würfel gedreht und neu gezeichnet.<br>
 }
 </pre></code>
 
+</html>

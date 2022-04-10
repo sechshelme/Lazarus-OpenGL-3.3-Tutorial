@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 In GLSL gibt es auch Schleifen, im Beispiel wird eine <b>if-else</b>-Schleife gezeigt, welche die Mesh Rot oder Schwarz darstellt.<br>
 Es gibt auch <b>for</b> und <b>while-do</b>-Schleifen.<br>
@@ -65,3 +66,4 @@ Die Auswertung erfolgt über eine if-else-Schleife.<br>
 }
 </pre></code>
 
+</html>

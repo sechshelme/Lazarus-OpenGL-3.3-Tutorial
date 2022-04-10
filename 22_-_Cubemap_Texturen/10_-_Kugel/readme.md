@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b>Textur Cube Map</b> hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.<br>
 Ausser für den einfachen Würfel kann man dies auch für folgendes gebrauchen.<br>
@@ -80,3 +81,4 @@ Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 }
 </pre></code>
 
+</html>

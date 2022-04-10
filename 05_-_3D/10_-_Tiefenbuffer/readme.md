@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Einen Tiefenpuffer braucht man, das Polygone nicht einfach willkürlich übereinander gezeichnet werden.<br>
 Mit dem Tiefenpuffer wird berechnet, das ein Polygon das sich hinter einem anderen befindet, nicht gezeichnet wird.<br>
@@ -71,3 +72,4 @@ Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter de
 }
 </pre></code>
 
+</html>

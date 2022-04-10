@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Das Directional-Light entspricht in etwa dem Sonnen-Licht, die Lichtstrahlen kommen alle von der gleichen Richtung.<br>
 Im Grunde ist die Sonne auch ein Punktlicht, aber auf der Erde nimmt man es als Directional-Light war.<br>
@@ -61,3 +62,4 @@ Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.<br>
 }
 </pre></code>
 
+</html>

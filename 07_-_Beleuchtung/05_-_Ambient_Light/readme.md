@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.<br>
 Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.<br>
@@ -36,3 +37,4 @@ Am Shader an sieht man, wie einfach Ambient ist.<br>
 }
 </pre></code>
 
+</html>

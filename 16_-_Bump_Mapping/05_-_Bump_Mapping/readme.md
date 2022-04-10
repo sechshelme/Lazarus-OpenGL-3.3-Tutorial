@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bump-Mapping verwendet man meisten in Kombination mit einer Textur.<br>
 <br>
@@ -81,3 +82,4 @@ Zum einfachen Bump-Mapping wir noch mit einer Textur multipliziert, welche die F
 }
 </pre></code>
 
+</html>

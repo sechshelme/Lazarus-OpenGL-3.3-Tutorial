@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.<br>
 Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.<br>
@@ -118,3 +119,4 @@ Am Shader hat sich nichts geändert.<br>
 }
 </pre></code>
 
+</html>

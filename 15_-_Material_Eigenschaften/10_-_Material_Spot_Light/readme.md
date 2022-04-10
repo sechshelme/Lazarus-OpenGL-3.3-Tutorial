@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Material-Eigenschaften sind auch mit Spot-Light möglich.<br>
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.<br>
@@ -135,3 +136,4 @@ Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksi
 
 </pre></code>
 
+</html>

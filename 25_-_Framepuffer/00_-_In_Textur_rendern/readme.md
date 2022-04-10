@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.<br>
 Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.<br>
@@ -303,3 +304,4 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 }
 </pre></code>
 
+</html>

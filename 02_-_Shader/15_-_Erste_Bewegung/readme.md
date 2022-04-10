@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Ohne Bewegung ist OpenGL langweilig.<br>
 Hier werden dem Shader ein X- und ein Y-Wert übergeben. Diese Werte werden mit einem Timer verändert.<br>
@@ -128,3 +129,4 @@ Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shad
 }
 </pre></code>
 
+</html>

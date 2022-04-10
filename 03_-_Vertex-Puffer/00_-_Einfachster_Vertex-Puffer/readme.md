@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten.<br>
@@ -69,3 +70,4 @@ Hier im Beispiel, sind dies einfache Dreiecke.<br>
 }
 </pre></code>
 
+</html>

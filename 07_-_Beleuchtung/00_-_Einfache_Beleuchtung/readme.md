@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Ohne Beleuchtung sehen die Object statisch aus, wen man noch Beleuchtung ins Spiel bringt, wirkt eine OpenGL-Scene viel realistischer.<br>
 Dabei gibt es verschiedene Arten von Beleuchtung. Die meist verwendete ist das <b>Directional Light</b>, dies entspricht dem Sonnenlicht.<br>
@@ -161,3 +162,4 @@ Hier sieht man, das verschiedene Matrizen für <b>Normale</b> und <b>Vertex</b> 
 }
 </pre></code>
 
+</html>

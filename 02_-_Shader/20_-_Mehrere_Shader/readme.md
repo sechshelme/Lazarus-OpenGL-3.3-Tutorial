@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.<br>
 Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.<br>
@@ -61,3 +62,4 @@ Der Vertex-Shader ist bei beiden Shader gleich.<br>
 </pre></code>
 In der zweit letzten Zeile sieht man, dass man eine andere Farbe an den Ausgang übergibt.<br>
 
+</html>

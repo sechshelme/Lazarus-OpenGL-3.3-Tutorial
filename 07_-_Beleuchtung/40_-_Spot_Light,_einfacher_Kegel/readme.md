@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Da es für ein Spotlicht mehrere Schritte braucht, wird dies in mehreren Beispielen gezeigt.<br>
 <br>
@@ -114,3 +115,4 @@ Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
 
 </pre></code>
 
+</html>

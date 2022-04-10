@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Standartmässig stellt OpenGL Polygone flächenfüllend dar.<br>
 Man kann aber die Polygone auch als Drahtgitter, oder nur die Eckpunkte als Punkte darstellen.<br>
@@ -49,3 +50,4 @@ Die Shader haben keinen Einfluss auf die Polygonmodis.<br>
 }
 </pre></code>
 
+</html>

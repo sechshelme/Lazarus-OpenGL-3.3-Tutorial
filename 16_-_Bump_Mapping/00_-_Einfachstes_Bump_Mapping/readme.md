@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit Bump-Maping kann man eine Oberfläche noch realistischer gestalten.<br>
 Da viele Oberflächen nicht absolut flach sind, so wie die Fugen im Beispiel, drift das Licht nicht immer gleichen Winkel auf die gesamte Oberfläche.<br>
@@ -80,3 +81,4 @@ Hier sieht man, das die <b>Normal-Map</b> zur Normalen addiert wird.<br>
 }
 </pre></code>
 
+</html>

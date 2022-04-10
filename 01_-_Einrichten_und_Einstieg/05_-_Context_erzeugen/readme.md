@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 OpenGL Context 3.3 erzeugen und OpenGL initialisieren.<br>
 <b>Parent</b> kann z.B. auch ein TPanel sein. (Parent := Panel1;)<br>
@@ -52,3 +53,4 @@ Somit ist nur der Hintergrund sichtbar und man sieht keine Änderung.<br>
   ogc.SwapBuffers;               <i><font color="#FFFF00">// Frame-Buffer auf den Bildschirm kopieren.</font></i>
 <b><font color="0000BB">end</font></b>;</pre></code>
 
+</html>

@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.<br>
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.<br>
@@ -97,3 +98,4 @@ Zeichen der ganzen Scene.<br>
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</pre></code>
 
+</html>

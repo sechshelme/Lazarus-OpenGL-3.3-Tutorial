@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.<br>
 <hr><br>
@@ -88,3 +89,4 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
 }
 </pre></code>
 
+</html>

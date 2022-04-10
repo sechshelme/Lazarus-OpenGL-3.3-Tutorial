@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Material-Eigenschaften sind auch mit <b>Point-Light</b> möglich.<br>
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.<br>
@@ -78,3 +79,4 @@ Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader
 
 </pre></code>
 
+</html>

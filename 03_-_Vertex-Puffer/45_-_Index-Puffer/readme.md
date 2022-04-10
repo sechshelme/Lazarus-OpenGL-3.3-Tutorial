@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die Indicien, kann man auch von Anfang an ins VRAM laden, so müssen die Daten nich jedes mal mit <b>glDrawElements(...</b> neu übegeben werden.<br>
 Dafür gibt es den <b> Index Buffer Objects</b> (IBO).<br>
@@ -100,3 +101,4 @@ IBO Freigabe ist glech wie bei dem VBO.<br>
 }
 </pre></code>
 
+</html>

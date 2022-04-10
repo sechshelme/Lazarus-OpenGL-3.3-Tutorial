@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen das Licht schwächer wird, je weiter es von der Mesh entfernt wird, sieht es viel realistischer aus.<br>
 Auch wird ein Lichtstrahl schwächer je weit er vom Zentrum weg ist.<br>
@@ -180,3 +181,4 @@ Berechnen der 3 Lichtkegel.<br>
 
 </pre></code>
 
+</html>

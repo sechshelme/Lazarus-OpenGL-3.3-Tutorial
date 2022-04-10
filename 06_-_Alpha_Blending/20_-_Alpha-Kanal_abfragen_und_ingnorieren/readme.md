@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bei Texturen mit Alphablending gibt es noch eine einfacher Variante als sortieren.<br>
 Voraus gesetzt der Alphakanal ist voll transparent.<br>
@@ -91,3 +92,4 @@ Da muss man abschätzen, wie streng die Prüfung sein soll.<br>
 }
 </pre></code>
 
+</html>

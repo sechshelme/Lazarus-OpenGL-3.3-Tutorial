@@ -83,7 +83,7 @@ begin
   sl2 := TStringList.Create;
 
   //sl2.Add('<!DOCTYPE html>');
-  //sl2.Add('<html>');
+sl2.Add('<html>');
   //sl2.Add('  <head>');
   //sl2.Add('    <meta charset="utf-8">');
   //sl2.Add('    <title>' + getTitle + '</title>');
@@ -100,7 +100,7 @@ begin
 //  sl2.Add('    <br><br><br>');
 //  sl2.Add('<h2>' + HTMLAddLink('../../index.html', 'zurück') + '</h2>');
 //  sl2.Add('  </body>');
-//  sl2.Add('</html>');
+  sl2.Add('</html>');
 
   ForceDirectories(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator);
   if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin

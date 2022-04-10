@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Zum Schluss eine kleine Spielerei: Hier wird ein Mandelbrot im Shader (also auf der GPU) berechnet.<br>
 Mit der CPU hatte ich noch keine so schnelle Berechnung hingekriegt, trotz Assembler.<br>
@@ -63,3 +64,4 @@ Hier steckt die ganze Berechnung für das Mandelbrot.<br>
 }
 </pre></code>
 
+</html>

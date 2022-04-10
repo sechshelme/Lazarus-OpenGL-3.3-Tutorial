@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 In diesem Beispiel werden Würfel anstelle der Kugeln verwendet.<br>
 <br>
@@ -69,3 +70,4 @@ Bei den Kugel war dieser Effekt kaum sichtbar, das sehr kleine Dreiecke verwende
 }
 </pre></code>
 
+</html>

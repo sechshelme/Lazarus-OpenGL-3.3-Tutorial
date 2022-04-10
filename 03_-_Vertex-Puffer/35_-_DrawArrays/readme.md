@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b> glDrawArrays(...</b> muss man nicht die ganze Meshes auf einmal zeichnen, man kann auch nur ein Teil davon zeichnen.<br>
 Hier im Beispiel, wir das Quadrat in zwei Teilen gezeichnet, so hat man die Möglichkeit zwischendurch zB. die Farbe zu ändern.<br>
@@ -50,3 +51,4 @@ Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
 }
 </pre></code>
 
+</html>

@@ -1,3 +1,4 @@
+<html>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die Berechnung des Lichtes wurde in den Fertex-Shader ausgelagert, somit sieht das Punkt-Licht viel realistischer aus.<br>
 Am besten sieht man dies, wen man nur ein Würfel darstellt.<br>
@@ -77,3 +78,4 @@ Hier sieht man, das die Berechnung des Lichtes im Fragment-Shader ist.<br>
 }
 </pre></code>
 
+</html>
