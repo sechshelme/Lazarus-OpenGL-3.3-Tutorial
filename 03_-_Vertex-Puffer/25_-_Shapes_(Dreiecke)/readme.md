@@ -1,4 +1,6 @@
 <html>
+    <b><h1>03 - Vertex-Puffer</h1></b>
+    <b><h2>25 - Shapes (Dreiecke)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.<br>
 Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.<br>

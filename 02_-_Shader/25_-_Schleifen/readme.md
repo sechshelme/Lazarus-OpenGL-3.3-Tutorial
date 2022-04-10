@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>25 - Schleifen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 In GLSL gibt es auch Schleifen, im Beispiel wird eine <b>if-else</b>-Schleife gezeigt, welche die Mesh Rot oder Schwarz darstellt.<br>
 Es gibt auch <b>for</b> und <b>while-do</b>-Schleifen.<br>

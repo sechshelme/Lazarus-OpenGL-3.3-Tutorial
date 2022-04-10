@@ -1,4 +1,6 @@
 <html>
+    <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
+    <b><h2>10 - Mehrer UBO</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell zwischen den Datenblöcken umschalten.<br>
 <hr><br>

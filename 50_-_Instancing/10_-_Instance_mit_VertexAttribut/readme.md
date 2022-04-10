@@ -1,4 +1,6 @@
 <html>
+    <b><h1>50 - Instancing</h1></b>
+    <b><h2>10 - Instance mit VertexAttribut</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier sind sogar 10'000'000 Instancen möglich, gegenüber der Uniform-Variante die bei gut 800 schon Schluss machte.<br>
 Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikkarte vertägt, kann ich nicht sagen.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>70 - Textur Array einzel Bitmap</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann auch in jedem Layer einzeln die Texturen laden.<br>
 Der einzige Unterschied zum kompletten laden ist, man ladet die Texturen einzeln mit SubImage hoch.<br>

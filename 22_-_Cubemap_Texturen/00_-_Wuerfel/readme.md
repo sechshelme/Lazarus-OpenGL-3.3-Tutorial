@@ -1,4 +1,6 @@
 <html>
+    <b><h1>22 - Cubemap Texturen</h1></b>
+    <b><h2>00 - Wuerfel</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b>Textur Cube Map</b> hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.<br>
 Ausser für den einfachen Würfel kann man dies auch für folgendes gebrauchen.<br>

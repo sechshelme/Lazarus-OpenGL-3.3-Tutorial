@@ -1,4 +1,6 @@
 <html>
+    <b><h1>03 - Vertex-Puffer</h1></b>
+    <b><h2>45 - Index-Puffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die Indicien, kann man auch von Anfang an ins VRAM laden, so müssen die Daten nich jedes mal mit <b>glDrawElements(...</b> neu übegeben werden.<br>
 Dafür gibt es den <b> Index Buffer Objects</b> (IBO).<br>

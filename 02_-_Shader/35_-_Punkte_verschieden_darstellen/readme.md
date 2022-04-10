@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>35 - Punkte verschieden darstellen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann auch Punkte mit dem Shader darstellen, dies kann man auf verschiedene Weise.<br>
 Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.<br>

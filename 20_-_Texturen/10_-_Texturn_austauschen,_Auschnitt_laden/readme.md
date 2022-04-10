@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>10 - Texturn austauschen, Auschnitt laden</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.<br>
 Dies ist auch mit einem <b>Texturauschnitt</b> möglich.<br>

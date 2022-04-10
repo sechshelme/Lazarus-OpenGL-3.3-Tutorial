@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>45 - Variablen Namen auslesen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.<br>
 In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>01 - Einrichten und Einstieg</h1></b>
+    <b><h2>10 - VAO - Daten laden</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.<br>
 <b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.<br>

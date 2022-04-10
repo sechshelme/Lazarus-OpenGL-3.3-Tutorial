@@ -1,4 +1,6 @@
 <html>
+    <b><h1>03 - Vertex-Puffer</h1></b>
+    <b><h2>60 - Vertex-Puffer auslesen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.<br>
 <hr><br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>05 - Mehrere Texturen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie man mehrere Texturen laden kann, im Prinzip geht dies fast gleich wie bei einer Textur.<br>
 In diesem Beispiel werden zwei Texturen geladen.<br>

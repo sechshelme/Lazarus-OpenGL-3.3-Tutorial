@@ -1,4 +1,6 @@
 <html>
+    <b><h1>45 - Schatten</h1></b>
+    <b><h2>00 - Eine einfache Mesh</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.<br>
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.<br>

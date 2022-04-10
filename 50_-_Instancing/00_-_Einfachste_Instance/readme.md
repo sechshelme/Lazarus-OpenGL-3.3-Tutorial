@@ -1,4 +1,6 @@
 <html>
+    <b><h1>50 - Instancing</h1></b>
+    <b><h2>00 - Einfachste Instance</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b>Instancing</b> hat man die Möglichkeit die Mesh mit <b>einem<b> glDraw... Aufruf mehrmals zu zeichnen.<br>
 Bei dieser regelmässigen Anordnung ist dies sehr einfach.<br>

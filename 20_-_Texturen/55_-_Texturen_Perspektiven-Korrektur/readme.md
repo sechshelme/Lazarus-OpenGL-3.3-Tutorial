@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>55 - Texturen Perspektiven-Korrektur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Stellt man eine Textur auf einem Trapez dar, gibt es unschöne Verzerrungen, das sieht man beim Trapez Links gut.<br>
 Die beiden Trapeze Rechts sind korrigiert, auf 2 verschiedene Varianten. Der Unterschied sieht man im Shader.<br>

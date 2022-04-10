@@ -1,4 +1,6 @@
 <html>
+    <b><h1>07 - Beleuchtung</h1></b>
+    <b><h2>10 - Directional Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Das Directional-Light entspricht in etwa dem Sonnen-Licht, die Lichtstrahlen kommen alle von der gleichen Richtung.<br>
 Im Grunde ist die Sonne auch ein Punktlicht, aber auf der Erde nimmt man es als Directional-Light war.<br>

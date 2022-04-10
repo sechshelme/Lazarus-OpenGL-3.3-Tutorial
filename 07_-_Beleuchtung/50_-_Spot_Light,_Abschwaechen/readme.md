@@ -1,4 +1,6 @@
 <html>
+    <b><h1>07 - Beleuchtung</h1></b>
+    <b><h2>50 - Spot Light, Abschwaechen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen das Licht schwächer wird, je weiter es von der Mesh entfernt wird, sieht es viel realistischer aus.<br>
 Auch wird ein Lichtstrahl schwächer je weit er vom Zentrum weg ist.<br>

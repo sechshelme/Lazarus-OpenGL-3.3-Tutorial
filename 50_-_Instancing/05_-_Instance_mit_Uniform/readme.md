@@ -1,4 +1,6 @@
 <html>
+    <b><h1>50 - Instancing</h1></b>
+    <b><h2>05 - Instance mit Uniform</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann für jede Instance einen eigenen Uniform-Wert zu ordnen. Dafür packt man die Uniform-Werte in ein Array,<br>
 welches >= anzahl Instancen ist.<br>

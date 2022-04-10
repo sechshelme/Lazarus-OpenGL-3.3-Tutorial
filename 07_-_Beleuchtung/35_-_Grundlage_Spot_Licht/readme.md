@@ -1,4 +1,6 @@
 <html>
+    <b><h1>07 - Beleuchtung</h1></b>
+    <b><h2>35 - Grundlage Spot Licht</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.<br>
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.<br>

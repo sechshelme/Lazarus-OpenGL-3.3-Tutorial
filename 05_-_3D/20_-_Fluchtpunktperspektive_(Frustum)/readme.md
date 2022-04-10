@@ -1,4 +1,6 @@
 <html>
+    <b><h1>05 - 3D</h1></b>
+    <b><h2>20 - Fluchtpunktperspektive (Frustum)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Will man die Scene realistisch proportional darstellen, nimmt man eine Frustum-Matrix.<br>
 Dies hat den Einfluss, das Objekte kleiner erscheinen, je weiter die Scene von einem weg ist.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>50 - Textur-Koordinaten</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.<br>
 Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.<br>

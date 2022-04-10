@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>00 - Erste Textur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit Texturen sieht eine Mesh um einiges besser aus, als wen es nur einfache Farbverläufe sind.<br>
 Mit OpenGL kann man recht einfach Texturen in das VRAM laden.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>40 - Filter</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie man Filter für Texturen verwenden kann.<br>
 In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter verwendet.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>10 - Uniform Variablen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird die Farbe des Meshes über eine Unifom-Variable an den Shader übergeben, somit kann die Farbe zur Laufzeit geändert werden.<br>
 Unifom-Variablen dienen dazu, um Parameter den Shader-Objecte zu übergeben. Meistens sind dies Matrixen, oder wie hier im Beispiel die Farben.<br>

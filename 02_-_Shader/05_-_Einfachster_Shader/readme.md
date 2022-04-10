@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>05 - Einfachster Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.<br>
 <hr><br>

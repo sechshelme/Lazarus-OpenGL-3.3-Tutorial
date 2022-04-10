@@ -1,4 +1,6 @@
 <html>
+    <b><h1>05 - 3D</h1></b>
+    <b><h2>15 - Orthogonalprojektion</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Eine OpenGL-Scene wird immer in einem Bereich von <b>-1</b> bis <b>+1</b> in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.<br>
 Um dies zu umgehen multipliziert man die Scene mit einer Ortho-Matrix.<br>

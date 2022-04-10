@@ -1,4 +1,6 @@
 <html>
+    <b><h1>25 - Framepuffer</h1></b>
+    <b><h2>05 - Framepuffer speichern</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.<br>
 <hr><br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>03 - Vertex-Puffer</h1></b>
+    <b><h2>40 - Indices</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Normalerweise, werden die Polygone der Reihenfolge der Vertex-Konstanten abgearbeitet.<br>
 Man kann aber auch selbst bestimmen, welche Koordinate abgearbeitet werden.<br>

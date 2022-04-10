@@ -92,8 +92,8 @@ sl2.Add('<html>');
   //sl2.Add('    </style>');
   //sl2.Add('  </head>');
   //sl2.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
-//  sl2.Add('    <b><h1>' + fKapitel + '</h1></b>');
- // sl2.Add('    <b><h2>' + getTitle + '</h2></b>');
+  sl2.Add('    <b><h1>' + fKapitel + '</h1></b>');
+ sl2.Add('    <b><h2>' + getTitle + '</h2></b>');
 
   sl2.Add(slHTML.Text);
 

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>20 - Mehrere Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.<br>
 Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>15 - Erste Bewegung</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Ohne Bewegung ist OpenGL langweilig.<br>
 Hier werden dem Shader ein X- und ein Y-Wert übergeben. Diese Werte werden mit einem Timer verändert.<br>

@@ -1,4 +1,6 @@
 <html>
+    <b><h1>02 - Shader</h1></b>
+    <b><h2>30 - Geometrie Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird ganz kurz der Geometrie-Shader erwähnt.<br>
 In diesem Beispiel wird nicht ins Detail eingegangen, es sollte nur zeigen für was ein Geometrie-Shader gut ist.<br>

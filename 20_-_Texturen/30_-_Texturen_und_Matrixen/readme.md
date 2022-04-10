@@ -1,4 +1,6 @@
 <html>
+    <b><h1>20 - Texturen</h1></b>
+    <b><h2>30 - Texturen und Matrixen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die Textur-Koordinaten kann man im Shader auch mit einer Matrix multipizieren.<br>
 Dies geschieht ähnlich, wie bei den Vertex-Koordinanten, der grösste Unterschied dabei ist, das es sich um 2D-Koordinaten handelt.<br>
