@@ -67,7 +67,7 @@ Der Timer wird alle 1s aufgerufen.<br>
   <b><font color="0000BB">end</font></b>;
 
   Inc(m);
-  <b><font color="0000BB">if</font></b> m > <font color="#0077BB">1</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> m &gt; <font color="#0077BB">1</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     m := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>
@@ -130,7 +130,7 @@ Der Shader ist der selbe wie im ersten Beispiel.<br>
   <b><font color="0000BB">vec3</font></b> diffuse;   <i><font color="#FFFF00">// Licht</font></i>
   <b><font color="0000BB">vec3</font></b> specular;  <i><font color="#FFFF00">// Reflektion</font></i>
   <b><font color="0000BB">float</font></b> angele = max(dot(nn, np), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (angele > <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
+  <b><font color="0000BB">if</font></b> (angele &gt; <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
     <b><font color="0000BB">vec3</font></b> eye = normalize(np + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
     specular = pow(max(dot(eye, nn), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;

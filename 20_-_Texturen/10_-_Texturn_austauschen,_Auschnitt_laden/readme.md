@@ -48,7 +48,7 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
   step = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;
   z: integer = <font color="#0077BB">1</font>;
 <b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">if</font></b> z > <font color="#0077BB">10</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> z &gt; <font color="#0077BB">10</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">64</font>, <font color="#0077BB">64</font>, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall0);
   <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
     glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">64</font>, <font color="#0077BB">64</font>, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall1);

@@ -102,22 +102,22 @@ Zeichnen der Punkte<br>
   <b><font color="0000BB">float</font></b> theta = atan(p.y, p.x);
 
   <b><font color="0000BB">switch</font></b> (PointTyp){
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">0</font>: <b><font color="0000BB">if</font></b>(dot(gl_PointCoord - <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, gl_PointCoord - <font color="#0077BB">0</font>.<font color="#0077BB">5</font>) > <font color="#0077BB">0</font>.<font color="#0077BB">25</font>)
+    <b><font color="0000BB">case</font></b> <font color="#0077BB">0</font>: <b><font color="0000BB">if</font></b>(dot(gl_PointCoord - <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, gl_PointCoord - <font color="#0077BB">0</font>.<font color="#0077BB">5</font>) &gt; <font color="#0077BB">0</font>.<font color="#0077BB">25</font>)
               <b><font color="0000BB">discard</font></b>;
             <b><font color="0000BB">else</font></b>
               outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">1</font>: <b><font color="0000BB">if</font></b>(dot(p, p) > cos(theta * <font color="#0077BB">5</font>))
+    <b><font color="0000BB">case</font></b> <font color="#0077BB">1</font>: <b><font color="0000BB">if</font></b>(dot(p, p) &gt; cos(theta * <font color="#0077BB">5</font>))
               <b><font color="0000BB">discard</font></b>;
             <b><font color="0000BB">else</font></b>
               outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">2</font>: <b><font color="0000BB">if</font></b>(dot(p, p) > r || dot(p, p) < r * <font color="#0077BB">0</font>.<font color="#0077BB">75</font>)
+    <b><font color="0000BB">case</font></b> <font color="#0077BB">2</font>: <b><font color="0000BB">if</font></b>(dot(p, p) &gt; r || dot(p, p) &lt; r * <font color="#0077BB">0</font>.<font color="#0077BB">75</font>)
               <b><font color="0000BB">discard</font></b>;
             <b><font color="0000BB">else</font></b>
               outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">3</font>: <b><font color="0000BB">if</font></b>(dot(p, p) > <font color="#0077BB">5</font>.<font color="#0077BB">0</font> / cos(theta - <font color="#0077BB">20</font> * r))
+    <b><font color="0000BB">case</font></b> <font color="#0077BB">3</font>: <b><font color="0000BB">if</font></b>(dot(p, p) &gt; <font color="#0077BB">5</font>.<font color="#0077BB">0</font> / cos(theta - <font color="#0077BB">20</font> * r))
               <b><font color="0000BB">discard</font></b>;
             <b><font color="0000BB">else</font></b>
               outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);

@@ -42,13 +42,13 @@ Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
   LightPos.Red.z := ZPos;
 
   ZPos += Step;
-  <b><font color="0000BB">if</font></b> (ZPos > max) <b><font color="0000BB">or</font></b> (ZPos < min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> (ZPos &gt; max) <b><font color="0000BB">or</font></b> (ZPos &lt; min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     Step *= -<font color="#0077BB">1</font>;
   <b><font color="0000BB">end</font></b>;
   LightPos.Green.z := ZPos;
 
   ZPos += Step;
-  <b><font color="0000BB">if</font></b> (ZPos > max) <b><font color="0000BB">or</font></b> (ZPos < min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> (ZPos &gt; max) <b><font color="0000BB">or</font></b> (ZPos &lt; min) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     Step *= -<font color="#0077BB">1</font>;
   <b><font color="0000BB">end</font></b>;
   LightPos.Blue.z := ZPos;
@@ -130,7 +130,7 @@ Berechnen der 3 Lichtkegel.<br>
   <b><font color="0000BB">float</font></b> angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
     <b><font color="0000BB">return</font></b> attenuation;
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
@@ -144,7 +144,7 @@ Berechnen der 3 Lichtkegel.<br>
   <b><font color="0000BB">float</font></b> angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
     <b><font color="0000BB">return</font></b> pow(angle, spotExponent);
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;

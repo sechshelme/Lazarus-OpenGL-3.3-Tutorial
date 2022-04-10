@@ -80,7 +80,7 @@ Das Mausrad ändert den Austrahlwinkel.<br>
   winkel := dot(lr, lp);
 
   <i><font color="#FFFF00">// Prüfen, ob sicher der Pixel im Lichtstrahl befindet.</font></i>
-  Result := (winkel > cos(pi / LichtOefffnung));
+  Result := (winkel &gt; cos(pi / LichtOefffnung));
 <b><font color="0000BB">end</font></b>;</code></pre>
 Zeichen der ganzen Scene.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormPaint(Sender: TObject);

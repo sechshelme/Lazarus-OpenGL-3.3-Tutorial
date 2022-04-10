@@ -90,7 +90,7 @@ Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksi
   <b><font color="0000BB">float</font></b> angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
     <b><font color="0000BB">return</font></b> attenuation;
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
@@ -104,7 +104,7 @@ Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksi
   <b><font color="0000BB">float</font></b> angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
     <b><font color="0000BB">return</font></b> pow(angle, spotExponent);
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
@@ -118,7 +118,7 @@ Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksi
   <b><font color="0000BB">vec3</font></b> diffuse;   <i><font color="#FFFF00">// Licht</font></i>
   <b><font color="0000BB">vec3</font></b> specular;  <i><font color="#FFFF00">// Reflektion</font></i>
   <b><font color="0000BB">float</font></b> angele = max(dot(nn, np), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (angele > <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
+  <b><font color="0000BB">if</font></b> (angele &gt; <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
     <b><font color="0000BB">vec3</font></b> eye = normalize(np + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
     specular = pow(max(dot(eye, nn), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;

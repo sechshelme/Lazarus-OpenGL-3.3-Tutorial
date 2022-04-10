@@ -9,7 +9,7 @@ Dieser Umweg kann man sich sparen, es gibt zwar so ein kleiner Rechnungsfehler, 
 Dies hat sogar den Vorteil, wen der Einstrahlwinkel des Lichtes flacher als 90° ist, ist die Beleuchtungsstärke gleich null.<br>
 Als was flacher als 90° ist, ist negativ.<br>
 Für dies gibt es in GLSL eine fertige Funktion <b>clamp</b>, mit der kann man einen Bereich festlegen.<br>
-So das es in diesem Beispiel keinen Wert < <b>0.0</b> oder > <b>1.0</b> gibt.<br>
+So das es in diesem Beispiel keinen Wert &lt; <b>0.0</b> oder &gt; <b>1.0</b> gibt.<br>
 <br>
 Der einzige Unterschied zu vorherigem Beispiel ist im Shader-Code. Auch der Hintergrund wurde etwas dunkler gemacht, das man den Licht-Effekt besser sieht.<br>
 <br>
@@ -37,7 +37,7 @@ Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.<br>
   <b><font color="0000BB">vec3</font></b>  v1 = normalize(p);       <i><font color="#FFFF00">// Vektoren normalisieren,</font></i>
   <b><font color="0000BB">vec3</font></b>  v2 = normalize(n);       <i><font color="#FFFF00">// so das die Länge des Vektors immer 1.0 ist.</font></i>
   <b><font color="0000BB">float</font></b> d  = dot(v1, v2);        <i><font color="#FFFF00">// Skalarprodukt aus beiden Vektoren berechnen.</font></i>
-  <b><font color="0000BB">float</font></b> c  = clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Alles > 1.0 und < 0.0, wird zwischen 0.0 und 1.0 gesetzt.</font></i>
+  <b><font color="0000BB">float</font></b> c  = clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Alles &gt; 1.0 und &lt; 0.0, wird zwischen 0.0 und 1.0 gesetzt.</font></i>
   <b><font color="0000BB">return</font></b> c;                      <i><font color="#FFFF00">// Lichtstärke als Rückgabewert.</font></i>
 }
 

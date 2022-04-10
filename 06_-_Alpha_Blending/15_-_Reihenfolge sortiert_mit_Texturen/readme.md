@@ -44,10 +44,10 @@ Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
     Hi := AHi;
     Pivot := ia[(Lo + Hi) <b><font color="0000BB">div</font></b> <font color="#0077BB">2</font>]^;
     <b><font color="0000BB">repeat</font></b>
-      <b><font color="0000BB">while</font></b> ia[Lo]^.z < Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">while</font></b> ia[Lo]^.z &lt; Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
         Inc(Lo);
       <b><font color="0000BB">end</font></b>;
-      <b><font color="0000BB">while</font></b> ia[Hi]^.z > Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">while</font></b> ia[Hi]^.z &gt; Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
         Dec(Hi);
       <b><font color="0000BB">end</font></b>;
       <b><font color="0000BB">if</font></b> Lo <= Hi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
@@ -57,11 +57,11 @@ Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
         Inc(Lo);
         Dec(Hi);
       <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">until</font></b> Lo > Hi;
-    <b><font color="0000BB">if</font></b> Hi > ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">until</font></b> Lo &gt; Hi;
+    <b><font color="0000BB">if</font></b> Hi &gt; ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       QuickSort(ia, ALo, Hi);
     <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">if</font></b> Lo < AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">if</font></b> Lo &lt; AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       QuickSort(ia, Lo, AHi);
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;

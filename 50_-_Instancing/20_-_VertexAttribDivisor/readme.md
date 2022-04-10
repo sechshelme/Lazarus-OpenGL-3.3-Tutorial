@@ -58,7 +58,7 @@ Matrizen drehen und anschliessend, neu laden.<br>
   i: integer;
 <b><font color="0000BB">begin</font></b>
   r += <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;
-  <b><font color="0000BB">if</font></b> r > <font color="#0077BB">2</font> * pi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> r &gt; <font color="#0077BB">2</font> * pi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     r -= <font color="#0077BB">2</font> * pi;
   <b><font color="0000BB">end</font></b>;
 

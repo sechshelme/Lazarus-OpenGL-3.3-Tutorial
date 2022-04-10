@@ -106,6 +106,10 @@ sl2.Add('<html>');
   if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin
     CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.ReadmeMDPfad + fFolder + '/image.png');
   end;
+
+  sl2.Text:=StringReplace(sl2.Text, ' < ', ' &lt; ', [rfReplaceAll, rfIgnoreCase]);
+  sl2.Text:=StringReplace(sl2.Text, ' > ', ' &gt; ', [rfReplaceAll, rfIgnoreCase]);
+
   sl2.SaveToFile(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator + 'readme.md');
 
   sl2.Free;

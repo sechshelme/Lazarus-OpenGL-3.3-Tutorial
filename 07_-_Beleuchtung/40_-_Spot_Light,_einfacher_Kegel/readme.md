@@ -93,7 +93,7 @@ Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
   <b><font color="0000BB">float</font></b> angle = dot(spotDirection, lightDirection);
   angle = max(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);

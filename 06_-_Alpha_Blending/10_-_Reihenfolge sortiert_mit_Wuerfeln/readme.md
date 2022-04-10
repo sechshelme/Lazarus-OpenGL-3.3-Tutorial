@@ -60,10 +60,10 @@ Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den W
   Hi := AHi;
   Pivot := ia[(Lo + Hi) <b><font color="0000BB">div</font></b> <font color="#0077BB">2</font>]^;
   <b><font color="0000BB">repeat</font></b>
-    <b><font color="0000BB">while</font></b> ia[Lo]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] < Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">while</font></b> ia[Lo]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] &lt; Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Inc(Lo);
     <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">while</font></b> ia[Hi]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] > Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">while</font></b> ia[Hi]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] &gt; Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Dec(Hi);
     <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">if</font></b> Lo <= Hi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
@@ -71,11 +71,11 @@ Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den W
       Inc(Lo);
       Dec(Hi);
     <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">until</font></b> Lo > Hi;
-  <b><font color="0000BB">if</font></b> Hi > ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">until</font></b> Lo &gt; Hi;
+  <b><font color="0000BB">if</font></b> Hi &gt; ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     QuickSort(ia, ALo, Hi);
   <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">if</font></b> Lo < AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> Lo &lt; AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     QuickSort(ia, Lo, AHi);
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>

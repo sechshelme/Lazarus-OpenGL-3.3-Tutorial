@@ -44,7 +44,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 {
 
 <i><font color="#FFFF00">// Linke Meshes</font></i>
-   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < gl_in.length(); i++)
+   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i &lt; gl_in.length(); i++)
    {
       gl_Position = gl_in[i].gl_Position + <b><font color="0000BB">vec4</font></b>(-distance, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// nach Links verschieben</font></i>
       Color = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);                                         <i><font color="#FFFF00">// Links Rot</font></i>
@@ -54,7 +54,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 
 
 <i><font color="#FFFF00">// Rechte Meshes</font></i>
-   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < gl_in.length(); i++)
+   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i &lt; gl_in.length(); i++)
    {
       gl_Position = gl_in[i].gl_Position + <b><font color="0000BB">vec4</font></b>(distance, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// nach Rechts verschieben</font></i>
       Color = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);                                         <i><font color="#FFFF00">// Rechts Grün</font></i>

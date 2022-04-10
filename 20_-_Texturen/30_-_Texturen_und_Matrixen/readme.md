@@ -55,18 +55,18 @@ Berechnen der Matrix-Bewegungen.<br>
   <b><font color="0000BB">with</font></b> TexturTransform <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">if</font></b> direction <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       scale *= sstep;
-      <b><font color="0000BB">if</font></b> scale > <font color="#0077BB">15</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> scale &gt; <font color="#0077BB">15</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         direction := <b><font color="0000BB">False</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
       scale /= sstep;
-      <b><font color="0000BB">if</font></b> scale < <font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> scale &lt; <font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         direction := <b><font color="0000BB">True</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;
 
     winkel := winkel + rstep;
-    <b><font color="0000BB">if</font></b> winkel > <font color="#0077BB">2</font> * pi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">if</font></b> winkel &gt; <font color="#0077BB">2</font> * pi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       winkel := winkel - <font color="#0077BB">2</font> * pi;
     <b><font color="0000BB">end</font></b>;
 

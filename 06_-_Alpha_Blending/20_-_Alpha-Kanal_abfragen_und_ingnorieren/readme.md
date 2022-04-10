@@ -84,7 +84,7 @@ Da muss man abschätzen, wie streng die Prüfung sein soll.<br>
 <b><font color="0000BB">void</font></b> main()
 {
   <b><font color="0000BB">vec4</font></b> c = texture( Sampler, UV0 );
-  <b><font color="0000BB">if</font></b> (c.a > <font color="#0077BB">0</font>.<font color="#0077BB">5</font>) {
+  <b><font color="0000BB">if</font></b> (c.a &gt; <font color="#0077BB">0</font>.<font color="#0077BB">5</font>) {
     FragColor =  c;
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">discard</font></b>; <i><font color="#FFFF00">// Wen transparent, Pixel nicht ausgeben.</font></i>

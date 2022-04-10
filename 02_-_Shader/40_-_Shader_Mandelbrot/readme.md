@@ -52,11 +52,11 @@ Hier steckt die ganze Berechnung für das Mandelbrot.<br>
     YPos   = XPos * YPos * <font color="#0077BB">2</font> + cimag;
     XPos   = SqrX - SqrY + creal;
     Color += <font color="#0077BB">1</font>;
-  } <b><font color="0000BB">while</font></b> (!((SqrX + SqrY > <font color="#0077BB">8</font>) || (Color > depth)));
+  } <b><font color="0000BB">while</font></b> (!((SqrX + SqrY &gt; <font color="#0077BB">8</font>) || (Color &gt; depth)));
 
   Color += col;
 
-  <b><font color="0000BB">if</font></b> (Color > depth) {
+  <b><font color="0000BB">if</font></b> (Color &gt; depth) {
     Color -= depth;
   }
 

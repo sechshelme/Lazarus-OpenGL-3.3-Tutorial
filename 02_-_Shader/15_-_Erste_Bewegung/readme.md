@@ -73,23 +73,23 @@ Anschliessend wird neu gezeichnet.<br>
   <b><font color="0000BB">with</font></b> TrianglePos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">if</font></b> xr <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       x := x - stepx;
-      <b><font color="0000BB">if</font></b> x < -<font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> x &lt; -<font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         xr := <b><font color="0000BB">False</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
       x := x + stepx;
-      <b><font color="0000BB">if</font></b> x > <font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> x &gt; <font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         xr := <b><font color="0000BB">True</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">if</font></b> yr <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       y := y - stepy;
-      <b><font color="0000BB">if</font></b> y < -<font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> y &lt; -<font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         yr := <b><font color="0000BB">False</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
       y := y + stepy;
-      <b><font color="0000BB">if</font></b> y > <font color="#0077BB">0</font>.<font color="#0077BB">3</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      <b><font color="0000BB">if</font></b> y &gt; <font color="#0077BB">0</font>.<font color="#0077BB">3</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
         yr := <b><font color="0000BB">True</font></b>;
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;

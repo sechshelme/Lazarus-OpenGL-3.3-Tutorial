@@ -120,7 +120,7 @@ Die Matrizen werden hier berechnet.<br>
 
   d := (<font color="#0077BB">7</font> / (CubeSize * <font color="#0077BB">2</font> + <font color="#0077BB">1</font>)) * <font color="#0077BB">8</font>;
 
-  <b><font color="0000BB">if</font></b> CubeSize > <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">if</font></b> CubeSize &gt; <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     scal := <font color="#0077BB">40</font> / (CubeSize * <font color="#0077BB">2</font> + <font color="#0077BB">1</font>);
   <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
     scal := <font color="#0077BB">60</font>;
@@ -218,7 +218,7 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
   <b><font color="0000BB">float</font></b> angle = dot(spotDirection, lightDirection);
   angle = max(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
 
-  <b><font color="0000BB">if</font></b>(angle > light.CutOff) {
+  <b><font color="0000BB">if</font></b>(angle &gt; light.CutOff) {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
