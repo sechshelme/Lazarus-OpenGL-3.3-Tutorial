@@ -17,7 +17,7 @@ Deklarationen der benütigenten Variablen.<br>
 Entspricht dem <b>vec2</b> von <b>GLSL</b>.<br>
 <pre><code><b><font color="0000BB">function</font></b> vec2(x, y: single): TVec2; <b><font color="0000BB">inline</font></b>;
 <b><font color="0000BB">begin</font></b>
-  Result[<font color="#0077BB">0</font>] := x;
+  Result[0] := x;
   Result[<font color="#0077BB">1</font>] := y;
 <b><font color="0000BB">end</font></b>;</pre></code>
 Entspricht dem <b>normalize(vec2)</b> von <b>GLSL</b>.<br>
