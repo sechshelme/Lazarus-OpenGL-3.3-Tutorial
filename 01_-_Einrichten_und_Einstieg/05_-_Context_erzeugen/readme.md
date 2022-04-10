@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>05 - Context erzeugen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -57,7 +56,4 @@ Somit ist nur der Hintergrund sichtbar und man sieht keine Änderung.<br>
   ogc.SwapBuffers;               <i><font color="#FFFF00">// Frame-Buffer auf den Bildschirm kopieren.</font></i>
 <b><font color="0000BB">end</font></b>;</pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

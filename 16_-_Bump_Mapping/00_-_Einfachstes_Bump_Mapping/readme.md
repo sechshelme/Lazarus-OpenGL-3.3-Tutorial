@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>16 - Bump Mapping</h1></b>
     <b><h2>00 - Einfachstes Bump Mapping</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -85,7 +84,4 @@ Hier sieht man, das die <b>Normal-Map</b> zur Normalen addiert wird.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

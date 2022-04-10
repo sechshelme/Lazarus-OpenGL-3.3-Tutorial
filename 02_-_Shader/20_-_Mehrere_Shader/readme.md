@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>20 - Mehrere Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -66,7 +65,4 @@ Der Vertex-Shader ist bei beiden Shader gleich.<br>
 </pre></code>
 In der zweit letzten Zeile sieht man, dass man eine andere Farbe an den Ausgang übergibt.<br>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

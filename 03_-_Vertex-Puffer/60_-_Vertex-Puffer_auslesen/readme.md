@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>60 - Vertex-Puffer auslesen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -93,7 +92,4 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

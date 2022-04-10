@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
     <b><h2>20 - Mehrere UBOs in einem Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -243,7 +242,4 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
 
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

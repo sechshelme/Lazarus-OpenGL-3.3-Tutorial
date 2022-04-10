@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>20 - Polygonmodus</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -54,7 +53,4 @@ Die Shader haben keinen Einfluss auf die Polygonmodis.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

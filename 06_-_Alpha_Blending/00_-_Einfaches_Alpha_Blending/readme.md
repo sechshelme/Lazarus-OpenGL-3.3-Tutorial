@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>06 - Alpha Blending</h1></b>
     <b><h2>00 - Einfaches Alpha Blending</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -85,7 +84,4 @@ Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>ve
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

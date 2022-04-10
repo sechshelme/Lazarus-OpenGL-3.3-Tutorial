@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>45 - Spot Light, mit Normale</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -107,7 +106,4 @@ Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht
 
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

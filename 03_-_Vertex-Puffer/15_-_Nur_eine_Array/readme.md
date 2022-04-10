@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>15 - Nur eine Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -112,7 +111,4 @@ Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribP
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

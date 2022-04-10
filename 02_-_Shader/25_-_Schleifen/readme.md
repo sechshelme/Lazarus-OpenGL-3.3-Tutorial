@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>25 - Schleifen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -70,7 +69,4 @@ Die Auswertung erfolgt über eine if-else-Schleife.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

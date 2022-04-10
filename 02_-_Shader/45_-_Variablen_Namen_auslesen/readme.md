@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>45 - Variablen Namen auslesen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -125,7 +124,4 @@ Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Co
 
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

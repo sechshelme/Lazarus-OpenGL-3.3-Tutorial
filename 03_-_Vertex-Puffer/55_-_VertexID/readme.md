@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>55 - VertexID</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -56,7 +55,4 @@ Da es in diesem Beispiel nur maximal 6 Vertex-Punkte gibt, habe ich die VertexID
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

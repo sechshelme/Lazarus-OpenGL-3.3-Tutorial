@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>04 - Matrix</h1></b>
     <b><h2>00 - Was ist eine Matrix</h2></b>
 Der mathematische Teil von Matrix wird hier nicht behandelt, in diesem Tutorial geht es nur um die Anwendung davon.<br>
@@ -86,7 +85,4 @@ Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht ma
   Matrix.Uniform(ID_im_Shader);  <i><font color="#FFFF00">// Die Matrix dem Shader übergeben.</font></i></pre></code>
 Ausser im ersten Beispiel werde ich nur noch diese <b>Bibliothek</b> verwenden. Somit werden die Beispiele sehr übersichtlich.<br>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

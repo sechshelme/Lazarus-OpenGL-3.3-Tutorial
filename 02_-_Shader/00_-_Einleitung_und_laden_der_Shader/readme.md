@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>00 - Einleitung und laden der Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -34,7 +33,4 @@ Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.<br>
 In folgenden Beispielen werden die Shader nur noch mit dieser Klasse geladen, damit es übersichtlicher wird.<br>
 Wie man es nativ machen kann, wird im <b>Einstiegs-Tutorial</b> unter <b>erster Shader</b> gezeigt.<br>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

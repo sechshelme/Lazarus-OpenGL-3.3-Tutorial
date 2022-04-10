@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>20 - Texturen</h1></b>
     <b><h2>65 - Textur Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -150,7 +149,4 @@ static char *ziffer_xpm[] = {
 };
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

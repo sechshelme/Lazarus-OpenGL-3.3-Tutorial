@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>45 - Schatten</h1></b>
     <b><h2>00 - Eine einfache Mesh</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -169,7 +168,4 @@ $fragment
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

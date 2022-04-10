@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>05 - 3D</h1></b>
     <b><h2>25 - Betrachtungs - Fenster (Viewport)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -56,7 +55,4 @@ Dabei ist der zweite Parameter relevant.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

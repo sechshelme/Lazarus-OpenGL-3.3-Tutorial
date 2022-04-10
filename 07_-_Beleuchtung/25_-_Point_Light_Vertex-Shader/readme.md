@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>25 - Point Light Vertex-Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -74,7 +73,4 @@ Bei den Kugel war dieser Effekt kaum sichtbar, das sehr kleine Dreiecke verwende
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

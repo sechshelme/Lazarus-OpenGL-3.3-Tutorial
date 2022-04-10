@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>35 - Geometrie-Shader</h1></b>
     <b><h2>00 - Breite Linien</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -142,7 +141,4 @@ static char *XPM_mauer[] = {
 };
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

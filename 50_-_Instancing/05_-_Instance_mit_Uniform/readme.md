@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>50 - Instancing</h1></b>
     <b><h2>05 - Instance mit Uniform</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -117,7 +116,4 @@ Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zug
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

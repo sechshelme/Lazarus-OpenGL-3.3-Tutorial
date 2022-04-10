@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>15 - Material Eigenschaften</h1></b>
     <b><h2>10 - Material Spot Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -140,7 +139,4 @@ Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksi
 
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

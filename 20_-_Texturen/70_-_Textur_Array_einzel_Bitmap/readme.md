@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>20 - Texturen</h1></b>
     <b><h2>70 - Textur Array einzel Bitmap</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -75,7 +74,4 @@ Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

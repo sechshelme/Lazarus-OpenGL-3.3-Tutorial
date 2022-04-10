@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>06 - Alpha Blending</h1></b>
     <b><h2>20 - Alpha-Kanal abfragen und ingnorieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -96,7 +95,4 @@ Da muss man abschätzen, wie streng die Prüfung sein soll.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

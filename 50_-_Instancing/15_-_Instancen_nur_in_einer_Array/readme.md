@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>50 - Instancing</h1></b>
     <b><h2>15 - Instancen nur in einer Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -123,7 +122,4 @@ Am Shader hat sich nichts geändert.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

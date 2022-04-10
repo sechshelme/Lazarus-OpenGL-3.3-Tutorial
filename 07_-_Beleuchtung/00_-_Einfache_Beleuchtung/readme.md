@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>00 - Einfache Beleuchtung</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -166,7 +165,4 @@ Hier sieht man, das verschiedene Matrizen für <b>Normale</b> und <b>Vertex</b> 
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>10 - Uniform Variablen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -100,7 +99,4 @@ Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wi
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

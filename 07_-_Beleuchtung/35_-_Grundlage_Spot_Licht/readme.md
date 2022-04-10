@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>35 - Grundlage Spot Licht</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -17,7 +16,7 @@ Deklarationen der benütigenten Variablen.<br>
 Entspricht dem <b>vec2</b> von <b>GLSL</b>.<br>
 <pre><code><b><font color="0000BB">function</font></b> vec2(x, y: single): TVec2; <b><font color="0000BB">inline</font></b>;
 <b><font color="0000BB">begin</font></b>
-  Result[0] := x;
+  Result[<font color="#0077BB">0</font>] := x;
   Result[<font color="#0077BB">1</font>] := y;
 <b><font color="0000BB">end</font></b>;</pre></code>
 Entspricht dem <b>normalize(vec2)</b> von <b>GLSL</b>.<br>
@@ -102,7 +101,4 @@ Zeichen der ganzen Scene.<br>
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

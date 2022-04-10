@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>02 - Shader</h1></b>
     <b><h2>35 - Punkte verschieden darstellen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -132,7 +131,4 @@ Zeichnen der Punkte<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

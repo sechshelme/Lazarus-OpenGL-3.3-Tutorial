@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>00 - Lazarus fuer OpenGL einrichten</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -73,7 +72,4 @@ Wenn Fehler gefunden werden, dann bitte hier melden:<br>
 oder<br>
 <a href="http://www.lazarusforum.de/viewtopic.php?f=29&t=11373&hilit=opengl+tutorial ">Lazarus-Forum</a>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>04 - Matrix</h1></b>
     <b><h2>10 - Matrix Verschieben und Multiplizieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -83,7 +82,4 @@ Diese wird im Vertex-Shader deklariert, Bewegungen kommen immer in diesen Shader
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

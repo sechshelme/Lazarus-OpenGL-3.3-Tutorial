@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>50 - Index-Puffer dynamisch</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -200,7 +199,4 @@ Bei den Shadern gibt es nichts besonders.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>15 - Erster Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -135,7 +134,4 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>05 - Ambient Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -41,7 +40,4 @@ Am Shader an sieht man, wie einfach Ambient ist.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

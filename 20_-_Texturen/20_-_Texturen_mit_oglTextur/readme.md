@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>20 - Texturen</h1></b>
     <b><h2>20 - Texturen mit oglTextur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -66,7 +65,4 @@ Am Ende muss man die Klasse noch frei geben.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

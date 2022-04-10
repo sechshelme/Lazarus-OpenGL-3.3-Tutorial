@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>01 - Einrichten und Einstieg</h1></b>
     <b><h2>10 - VAO - Daten laden</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -121,7 +120,4 @@ Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer
 <b><font color="0000BB">end</font></b>;
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

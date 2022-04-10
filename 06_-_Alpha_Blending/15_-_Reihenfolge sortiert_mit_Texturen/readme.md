@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>06 - Alpha Blending</h1></b>
     <b><h2>15 - Reihenfolge sortiert mit Texturen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -158,7 +157,4 @@ Da sieht man, das es reicht nur den Vector zu drehen.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

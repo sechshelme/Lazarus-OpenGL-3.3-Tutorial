@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>30 - Point Light Fragment-Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -82,7 +81,4 @@ Hier sieht man, das die Berechnung des Lichtes im Fragment-Shader ist.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

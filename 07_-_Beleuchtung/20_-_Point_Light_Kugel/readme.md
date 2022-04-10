@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>20 - Point Light Kugel</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -76,7 +75,4 @@ Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

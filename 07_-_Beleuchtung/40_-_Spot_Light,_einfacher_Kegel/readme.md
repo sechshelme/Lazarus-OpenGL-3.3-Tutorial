@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>07 - Beleuchtung</h1></b>
     <b><h2>40 - Spot Light, einfacher Kegel</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -119,7 +118,4 @@ Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
 
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>

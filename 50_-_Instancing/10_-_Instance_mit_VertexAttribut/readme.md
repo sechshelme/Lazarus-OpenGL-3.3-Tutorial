@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <body bgcolor="#DDDDFF">
     <b><h1>50 - Instancing</h1></b>
     <b><h2>10 - Instance mit VertexAttribut</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
@@ -165,7 +164,4 @@ Der Shader sieht sehr einfach aus.<br>
 }
 </pre></code>
 
-    <br><br><br>
-<h2><a href="../../index.html">zurück</a></h2>
-  </body>
 </html>
