@@ -1,5 +1,3 @@
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>40 - Spot Light, einfacher Kegel</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Da es für ein Spotlicht mehrere Schritte braucht, wird dies in mehreren Beispielen gezeigt.<br>
 <br>

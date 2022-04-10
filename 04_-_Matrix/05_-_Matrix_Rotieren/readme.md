@@ -1,5 +1,3 @@
-    <b><h1>04 - Matrix</h1></b>
-    <b><h2>05 - Matrix Rotieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird eine <b>4x4 Matrix</b> verwendet, dies ist Standard bei allen Mesh Translationen.<br>
 Im Timer wird eine Matrix-Rotation ausgeführt.<br>

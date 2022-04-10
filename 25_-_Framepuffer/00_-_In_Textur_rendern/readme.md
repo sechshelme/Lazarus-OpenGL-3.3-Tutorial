@@ -1,5 +1,3 @@
-    <b><h1>25 - Framepuffer</h1></b>
-    <b><h2>00 - In Textur rendern</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.<br>
 Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.<br>

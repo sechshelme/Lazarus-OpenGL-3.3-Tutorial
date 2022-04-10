@@ -1,5 +1,3 @@
-    <b><h1>05 - 3D</h1></b>
-    <b><h2>25 - Betrachtungs - Fenster (Viewport)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.<br>
 Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.<br>

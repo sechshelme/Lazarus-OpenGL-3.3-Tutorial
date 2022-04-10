@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>50 - Index-Puffer dynamisch</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Indicien kann man auch zur Laufzeit im VRAM verändern, dies geht fast gleich, wie bei den Vertex-Daten.<br>
 Man macht dies auch mit <b>glBufferSubData(...</b>.<br>

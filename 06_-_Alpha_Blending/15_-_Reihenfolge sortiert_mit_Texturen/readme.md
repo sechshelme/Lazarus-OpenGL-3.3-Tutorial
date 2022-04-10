@@ -1,5 +1,3 @@
-    <b><h1>06 - Alpha Blending</h1></b>
-    <b><h2>15 - Reihenfolge sortiert mit Texturen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.<br>
 Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.<br>

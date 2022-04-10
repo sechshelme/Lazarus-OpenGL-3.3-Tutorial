@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>15 - Nur eine Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Man kann die Vertex-Daten, auch alles in einen Daten-Block schreiben. Hier werden die Vector- und Color - Daten alle in einen Block geschrieben.<br>
 In den vorherigen Beispielen hat es für die Vector- und  Color - Daten eine separate TFace-Array gehabt.<br>

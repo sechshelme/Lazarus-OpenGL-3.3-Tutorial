@@ -1,5 +1,3 @@
-    <b><h1>15 - Material Eigenschaften</h1></b>
-    <b><h2>05 - Material Point Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Material-Eigenschaften sind auch mit <b>Point-Light</b> möglich.<br>
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.<br>

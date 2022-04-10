@@ -1,5 +1,3 @@
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>20 - Polygonmodus</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Standartmässig stellt OpenGL Polygone flächenfüllend dar.<br>
 Man kann aber die Polygone auch als Drahtgitter, oder nur die Eckpunkte als Punkte darstellen.<br>

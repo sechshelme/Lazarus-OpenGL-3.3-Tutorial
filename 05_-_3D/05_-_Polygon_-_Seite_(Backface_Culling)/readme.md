@@ -1,5 +1,3 @@
-    <b><h1>05 - 3D</h1></b>
-    <b><h2>05 - Polygon - Seite (Backface Culling)</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die Meshes ist hier noch 2D, aber <b>Backface Culling</b> wird in folgenden 3D-Beispielen gebraucht.<br>
 <br>

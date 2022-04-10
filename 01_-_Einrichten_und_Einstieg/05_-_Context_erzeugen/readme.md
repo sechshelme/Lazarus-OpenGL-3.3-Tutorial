@@ -1,5 +1,3 @@
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>05 - Context erzeugen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 OpenGL Context 3.3 erzeugen und OpenGL initialisieren.<br>
 <b>Parent</b> kann z.B. auch ein TPanel sein. (Parent := Panel1;)<br>

@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>10 - Vertex-Puffer in 2D</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen man nur eine 2D-Mesh hat, kann man die Vektor-Koordinaten auch als <b>2D</b> in das VRAM laden.<br>
 Man kann sich dabei den <b>Z-Wert</b> sparen. Matrix-Operation mit eine 4x4 Matrix funktionieren wie wen es 3D wäre.<br>

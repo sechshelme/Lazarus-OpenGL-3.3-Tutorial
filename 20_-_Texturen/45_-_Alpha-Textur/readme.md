@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>45 - Alpha-Textur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Texturen werden erst richtig interessant, wen noch der Alpha-Kanal verwendet wird.<br>
 Wie hier im Beispiel ein Baum.<br>

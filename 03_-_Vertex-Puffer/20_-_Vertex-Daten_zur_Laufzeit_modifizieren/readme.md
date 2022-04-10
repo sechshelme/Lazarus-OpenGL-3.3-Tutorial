@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>20 - Vertex-Daten zur Laufzeit modifizieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bis jetzt waren die Vertexdaten immer statisch. Man kann diese aber auch zur Laufzeit neu in den Vertex-Puffer schreiben.<br>
 <br>

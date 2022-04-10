@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>20 - Texturen mit oglTextur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.<br>
 Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.<br>

@@ -1,5 +1,3 @@
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>15 - Erster Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.<br>
 Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.<br>

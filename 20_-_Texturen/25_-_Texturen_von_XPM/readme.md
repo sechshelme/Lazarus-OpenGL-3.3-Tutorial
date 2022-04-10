@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>25 - Texturen von XPM</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man sehr schnell eine einfache Textur mit einem Text-Editor erstellen.<br>
 <hr><br>

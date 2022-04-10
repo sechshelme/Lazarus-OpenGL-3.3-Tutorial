@@ -1,5 +1,3 @@
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>25 - Point Light Vertex-Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 In diesem Beispiel werden Würfel anstelle der Kugeln verwendet.<br>
 <br>

@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>55 - VertexID</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b>gl_VertexID</b> kann man im Vertex-Shader ermitteln, welcher Vertex aus der Vertex-Array gezeichnet wird.<br>
 Das Rendering ist nicht besonderes, es spielt sich alles im Vertex-Shader ab.<br>

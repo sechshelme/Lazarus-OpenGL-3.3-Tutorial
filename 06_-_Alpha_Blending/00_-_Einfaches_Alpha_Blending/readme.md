@@ -1,5 +1,3 @@
-    <b><h1>06 - Alpha Blending</h1></b>
-    <b><h2>00 - Einfaches Alpha Blending</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.<br>
 Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.<br>

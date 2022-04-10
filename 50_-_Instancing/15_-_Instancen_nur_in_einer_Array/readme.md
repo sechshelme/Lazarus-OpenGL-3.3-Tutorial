@@ -1,5 +1,3 @@
-    <b><h1>50 - Instancing</h1></b>
-    <b><h2>15 - Instancen nur in einer Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.<br>
 Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.<br>

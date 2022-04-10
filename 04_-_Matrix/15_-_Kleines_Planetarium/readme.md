@@ -1,5 +1,3 @@
-    <b><h1>04 - Matrix</h1></b>
-    <b><h2>15 - Kleines Planetarium</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Kleines Planetarium, welches die Handhabung von Matrizen demonstriert.<br>
 Das es übersichtlicher wird, habe ich die Sonne und die Planeten in eine Klasse gepackt.<br>

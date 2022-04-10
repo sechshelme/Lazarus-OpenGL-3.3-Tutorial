@@ -1,5 +1,3 @@
-    <b><h1>50 - Instancing</h1></b>
-    <b><h2>20 - VertexAttribDivisor</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Mit <b>VertexAttribDivisor</b> kann man nicht nur bestimmen, das es sich im ein Instance-Attribut handelt.<br>
 Man kann auch festlegen, das ein Attribut-Wert mehrmals verwendet wird, bevor er um eins weiter springt.<br>

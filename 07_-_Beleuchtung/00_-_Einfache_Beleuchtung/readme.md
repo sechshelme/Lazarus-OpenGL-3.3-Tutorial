@@ -1,5 +1,3 @@
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>00 - Einfache Beleuchtung</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Ohne Beleuchtung sehen die Object statisch aus, wen man noch Beleuchtung ins Spiel bringt, wirkt eine OpenGL-Scene viel realistischer.<br>
 Dabei gibt es verschiedene Arten von Beleuchtung. Die meist verwendete ist das <b>Directional Light</b>, dies entspricht dem Sonnenlicht.<br>

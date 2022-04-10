@@ -1,5 +1,3 @@
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>00 - Einfachster Vertex-Puffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten.<br>

@@ -1,5 +1,3 @@
-    <b><h1>06 - Alpha Blending</h1></b>
-    <b><h2>20 - Alpha-Kanal abfragen und ingnorieren</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Bei Texturen mit Alphablending gibt es noch eine einfacher Variante als sortieren.<br>
 Voraus gesetzt der Alphakanal ist voll transparent.<br>

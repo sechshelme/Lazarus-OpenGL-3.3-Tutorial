@@ -1,5 +1,3 @@
-    <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
-    <b><h2>20 - Mehrere UBOs in einem Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Es ist auch möglich, mehrere Unifom-Blöcke im Shader anzulegen.<br>
 Ein Uniform-Block wurde verwendet für die Matrizen.<br>

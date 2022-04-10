@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>35 - Multitexturing</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.<br>
 Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.<br>

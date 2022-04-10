@@ -1,5 +1,3 @@
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>00 - Einleitung und laden der Shader</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 In <b>OpenGL 3.3</b> gibt es drei verschiedene <b>Shadertypen</b>, den <b>Vertex-</b>, <b>Geometry-</b> und <b>Fragment-Shader</b>.<br>
 Wobei der <b>Vertex-Shader immer</b> vorhanden sein muss. Der <b>Fragment-Shader</b> wird benötigt, wenn die Ausgabe des Rendervorgangs ein Bild sein soll, also fast immer.<br>

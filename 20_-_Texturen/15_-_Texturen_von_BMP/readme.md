@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>15 - Texturen von BMP</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.<br>
 Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.<br>

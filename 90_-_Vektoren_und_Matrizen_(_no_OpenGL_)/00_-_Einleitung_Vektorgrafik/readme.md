@@ -1,5 +1,3 @@
-    <b><h1>90 - Vektoren und Matrizen ( no OpenGL )</h1></b>
-    <b><h2>00 - Einleitung Vektorgrafik</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die folgeden Beispiele sollten zeigen, was OpenGL einem im Hintergrund für Arbeit abnimmt.<br>
 <br>

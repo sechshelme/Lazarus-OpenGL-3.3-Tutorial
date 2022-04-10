@@ -1,5 +1,3 @@
-    <b><h1>15 - Material Eigenschaften</h1></b>
-    <b><h2>00 - Material Directional Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Nur eine Beleuchtung reicht nicht, das eine Mesh realistisch aussieht.<br>
 Aus diesem Grund, kann man der Mesh Materialeigenschaften mitgeben, dies sind Reflektionen des Lichtes.<br>

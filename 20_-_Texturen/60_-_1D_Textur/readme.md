@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>60 - 1D Textur</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Die meisten Texturen sind eine Bitmap(Foto) welche im 2D-Format vorliegen.<br>
 Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 1D-Textur.<br>

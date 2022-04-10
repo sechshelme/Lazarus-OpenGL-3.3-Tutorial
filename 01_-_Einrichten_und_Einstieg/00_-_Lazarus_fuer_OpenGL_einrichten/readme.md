@@ -1,5 +1,3 @@
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>00 - Lazarus fuer OpenGL einrichten</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 <b>Vorwort:</b><br><br>
 <b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.<br>

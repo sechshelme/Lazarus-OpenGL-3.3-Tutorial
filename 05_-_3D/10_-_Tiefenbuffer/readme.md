@@ -1,5 +1,3 @@
-    <b><h1>05 - 3D</h1></b>
-    <b><h2>10 - Tiefenbuffer</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Einen Tiefenpuffer braucht man, das Polygone nicht einfach willkürlich übereinander gezeichnet werden.<br>
 Mit dem Tiefenpuffer wird berechnet, das ein Polygon das sich hinter einem anderen befindet, nicht gezeichnet wird.<br>

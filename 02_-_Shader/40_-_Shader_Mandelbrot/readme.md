@@ -1,5 +1,3 @@
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>40 - Shader Mandelbrot</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Zum Schluss eine kleine Spielerei: Hier wird ein Mandelbrot im Shader (also auf der GPU) berechnet.<br>
 Mit der CPU hatte ich noch keine so schnelle Berechnung hingekriegt, trotz Assembler.<br>

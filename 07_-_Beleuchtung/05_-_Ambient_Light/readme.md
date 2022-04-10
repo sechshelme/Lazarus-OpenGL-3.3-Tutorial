@@ -1,5 +1,3 @@
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>05 - Ambient Light</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.<br>
 Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.<br>

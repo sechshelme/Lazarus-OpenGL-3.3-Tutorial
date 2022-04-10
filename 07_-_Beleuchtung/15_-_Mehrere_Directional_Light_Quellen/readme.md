@@ -1,5 +1,3 @@
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>15 - Mehrere Directional Light Quellen</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wie schon beschrieben, sind auch mehrere Lichtquellen möglich.<br>
 <br>

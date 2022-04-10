@@ -1,5 +1,3 @@
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>65 - Textur Array</h2></b>
 <img src="image.png" alt="Selfhtml"><br><br>
 Wen man mehrere Texturen im gleichen Format hat, kann man diese in einem einzigen Puffer ablegen.<br>
 Dafür gibt es <b>GL_TEXTURE_2D_ARRAY</b>.<br>
