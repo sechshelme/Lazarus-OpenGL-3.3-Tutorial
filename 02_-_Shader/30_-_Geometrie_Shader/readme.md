@@ -18,50 +18,50 @@ Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geome
 Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter Shader-Code mitgegeben.<br>
 <br>
 Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.<br>
-<pre><code>procedure TForm1.CreateScene;
-begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">begin</font></b>
+  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Geometrieshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
  
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = vec4(inPos, 1.0);</font>
+  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Geometrie-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-#define distance 0.5</font>
+<b><font color="#008800">#define</font></b> distance <font color="#0077BB">0</font>.<font color="#0077BB">5</font>
 
-layout(triangles) in;
-layout(triangle_strip, max_vertices = 9) out;</font>
+<b><font color="0000BB">layout</font></b>(triangles) <b><font color="0000BB">in</font></b>;
+<b><font color="0000BB">layout</font></b>(triangle_strip, max_vertices = <font color="#0077BB">9</font>) <b><font color="0000BB">out</font></b>;
 
-out vec3 Color; // Farb-Ausgabe für den Fragment-Shader 
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> Color; <i><font color="#FFFF00">// Farb-Ausgabe für den Fragment-Shader </font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
 
-// Linke Meshes
-   for(int i = 0; i < gl_in.length(); i++)
+<i><font color="#FFFF00">// Linke Meshes</font></i>
+   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < gl_in.length(); i++)
    {
-      gl_Position = gl_in[i].gl_Position + vec4(-distance, 0.0, 0.0, 0.0); // nach Links verschieben</font>
-      Color = vec3(1.0, 0.0, 0.0);                                         // Links Rot
+      gl_Position = gl_in[i].gl_Position + <b><font color="0000BB">vec4</font></b>(-distance, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// nach Links verschieben</font></i>
+      Color = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);                                         <i><font color="#FFFF00">// Links Rot</font></i>
       EmitVertex();
    }
    EndPrimitive();
 
 
-// Rechte Meshes
-   for(int i = 0; i < gl_in.length(); i++)
+<i><font color="#FFFF00">// Rechte Meshes</font></i>
+   <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i < gl_in.length(); i++)
    {
-      gl_Position = gl_in[i].gl_Position + vec4(distance, 0.0, 0.0, 0.0);  // nach Rechts verschieben</font>
-      Color = vec3(0.0, 1.0, 0.0);                                         // Rechts Grün
+      gl_Position = gl_in[i].gl_Position + <b><font color="0000BB">vec4</font></b>(distance, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// nach Rechts verschieben</font></i>
+      Color = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);                                         <i><font color="#FFFF00">// Rechts Grün</font></i>
       EmitVertex();
    }
    EndPrimitive();
@@ -69,14 +69,14 @@ void main(void)
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec3 Color;      // Farbe vom Geometrie-Shader.
-out vec4 outColor;  // Ausgegebene Farbe.
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Color;      <i><font color="#FFFF00">// Farbe vom Geometrie-Shader.</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// Ausgegebene Farbe.</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(Color, 0.1);</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
 }
 </pre></code>
 

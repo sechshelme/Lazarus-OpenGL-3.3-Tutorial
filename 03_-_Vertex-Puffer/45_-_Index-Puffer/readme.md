@@ -9,99 +9,99 @@ Dafür gibt es den <b> Index Buffer Objects</b> (IBO).<br>
 Das Laden geschieht ähnlich wie mit den Vertex-Daten.<br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten, dies ist gleich wie ohne Buffer.<br>
-<pre><code>const
-  // --- Dreieck
-  // Vertex-Koordinaten
-  Triangle: array[0..2] of TVertex3f =</font>
-    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));</font>
-  // Indicien ( Reihenfolge )
-  Triangle_Indices: array[0..2] of GLint = (0, 1, 2);
+<pre><code><b><font color="0000BB">const</font></b>
+  <i><font color="#FFFF00">// --- Dreieck</font></i>
+  <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f =
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
+  <i><font color="#FFFF00">// Indicien ( Reihenfolge )</font></i>
+  Triangle_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>);
 
-  // --- Quadrat
-  // Vertex-Koordinaten
-  Quad: array[0..3] of TVertex3f =</font>
-    ((-0.2, -0.6, 0.0), (0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (-0.2, -0.1, 0.0));</font>
-  // Indicien ( Reihenfolge )
-  Quad_Indices: array[0..5] of GLint = (0, 1, 2, 0, 2, 3);</font></pre></code>
+  <i><font color="#FFFF00">// --- Quadrat</font></i>
+  <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> TVertex3f =
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
+  <i><font color="#FFFF00">// Indicien ( Reihenfolge )</font></i>
+  Quad_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, <font color="#0077BB">2</font>, <font color="#0077BB">3</font>);</pre></code>
 Der IBO muss noch deklariert werden.<br>
 Das Erzeugen des IBI-Puffer geht gleich wie beim VBO-Puffer.<br>
 Hier werden die IBO-Daten in den Buffer geladen, dies geschieht ähnlich, wie bei den Vertex-Daten.<br>
 Der Unterschied ist der zweite Parameter, dieser muss <b>GL_ELEMENT_ARRAY_BUFFER</b> sein.<br>
-<pre><code>procedure TForm1.InitScene;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 
-  // --- Daten für das Dreieck
+  <i><font color="#FFFF00">// --- Daten für das Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
 
-  // VBO der Vertex-Koordinaten
+  <i><font color="#FFFF00">// VBO der Vertex-Koordinaten</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
 
-  // IBO binden und mit den Indices-Daten laden
+  <i><font color="#FFFF00">// IBO binden und mit den Indices-Daten laden</font></i>
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.IBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Triangle_Indices), @Triangle_Indices, GL_STATIC_DRAW);
 
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // --- Daten für das Quadrat
+  <i><font color="#FFFF00">// --- Daten für das Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
 
-  // VBO der Vertex-Koordinaten
+  <i><font color="#FFFF00">// VBO der Vertex-Koordinaten</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
 
-  // IBO binden und mit den Indices-Daten laden
+  <i><font color="#FFFF00">// IBO binden und mit den Indices-Daten laden</font></i>
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBQuad.IBO);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Quad_Indices), @Quad_Indices, GL_STATIC_DRAW);
 
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
-end;</pre></code>
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei <b>glDrawElements(...</b>, nil sein.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   // Linien
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   <i><font color="#FFFF00">// Linien</font></i>
   Shader.UseProgram;
 
-  // Zeichne Dreieck
+  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
-  glDrawElements(GL_TRIANGLES, Length(Triangle_Indices), GL_UNSIGNED_INT, Nil);  // Hier Nil
+  glDrawElements(GL_TRIANGLES, Length(Triangle_Indices), GL_UNSIGNED_INT, <b><font color="0000BB">Nil</font></b>);  <i><font color="#FFFF00">// Hier Nil</font></i>
 
-  // Zeichne Quadrat
+  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
-  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, Nil);      // Hier Nil</pre></code>
+  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, <b><font color="0000BB">Nil</font></b>);      <i><font color="#FFFF00">// Hier Nil</font></i></pre></code>
 IBO Freigabe ist glech wie bei dem VBO.<br>
-<pre><code>procedure TForm1.FormDestroy(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   Shader.Free;
 
-  glDeleteBuffers(1, @VBTriangle.IBO);  // Indices-Buffer freigeben.</font>
-  glDeleteBuffers(1, @VBQuad.IBO);</font></pre></code>
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.IBO);  <i><font color="#FFFF00">// Indices-Buffer freigeben.</font></i>
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.IBO);</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = vec4(inPos, 1.0);</font>
+  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-out vec4 outColor;   // ausgegebene Farbe
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  vec3 col = vec3(0.0, 1.0, 1.0); // Mint</font>
-  outColor = vec4(col, 1.0);</font>
+  <b><font color="0000BB">vec3</font></b> col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Mint</font></i>
+  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 

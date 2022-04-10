@@ -20,51 +20,51 @@ Wen man eine Bitmap mit der Unit <b>oglTextur</b> lädt, werden diese Parameter 
 <br>
 Unterumständen könnte es noch exotische Formate geben, welche (noch) nicht unterstützt werden.<br>
 Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen. ;-)<br>
-<pre><code>procedure TForm1.InitScene;
-var
-  bit: TBitmap;                  // Bei anderen Formaten TPicture.
-begin
-  bit := TBitmap.Create;         // Bitmap erzeugen.
-  with bit do begin
-    LoadFromFile('mauer.bmp');   // BMP in Bitmap laden.</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
+  bit: TBitmap;                  <i><font color="#FFFF00">// Bei anderen Formaten TPicture.</font></i>
+<b><font color="0000BB">begin</font></b>
+  bit := TBitmap.Create;         <i><font color="#FFFF00">// Bitmap erzeugen.</font></i>
+  <b><font color="0000BB">with</font></b> bit <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    LoadFromFile(<font color="#FF0000">'mauer.bmp'</font>);   <i><font color="#FFFF00">// BMP in Bitmap laden.</font></i>
 
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_BGR, GL_UNSIGNED_BYTE, RawImage.Data); // Zeiger auf Bitmap übergeben.
+    glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGB, Width, Height, <font color="#0077BB">0</font>, GL_BGR, GL_UNSIGNED_BYTE, RawImage.Data); <i><font color="#FFFF00">// Zeiger auf Bitmap übergeben.</font></i>
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glBindTexture(GL_TEXTURE_2D, 0);</font>
+    glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);
 
-    Free;                        // Bitmap frei geben.
-  end;</pre></code>
+    Free;                        <i><font color="#FFFF00">// Bitmap frei geben.</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten</font>
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out vec2 UV0;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec2 UV0;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
 
-out vec4 FragColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
 
-void main()
+<b><font color="0000BB">void</font></b> main()
 {
-  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
+  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
 </pre></code>
 

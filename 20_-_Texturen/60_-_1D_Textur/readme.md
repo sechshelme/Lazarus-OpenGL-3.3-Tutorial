@@ -9,58 +9,58 @@ Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 
 Eine 1D-Textur kann man sich am besten als eine farbige Linie vorstellen.<br>
 <hr><br>
 Die Texturkoordinaten sind nun keine Vectorenarray mehr sondern nur eine einfache Float-Array.<br>
-<pre><code>const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
-    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0), (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));</font>
+<pre><code><b><font color="0000BB">const</font></b>
+  QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
 
-  TextureVertex: array[0..5] of GLfloat =</font>
-    (0.0, 3.0, 0.0, 0.0, 3.0, 3.0);</pre></code>
+  TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLfloat =
+    (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>);</pre></code>
 Eine Einfache 1D-Textur mit 5 Pixeln.<br>
-<pre><code>const
-  Textur24: packed array[0..4, 0..2] of byte =</font>
-    (($FF, $00, $00), ($00, $FF, $00), ($00, $00, $FF), ($FF, $FF, $00), ($FF, $FF, $FF));</font></pre></code>
+<pre><code><b><font color="0000BB">const</font></b>
+  Textur24: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">4</font>, <font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> byte =
+    ((<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>), (<font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF));</pre></code>
 Generieren des Texturbuffers.<br>
 Dies geschieht gleich wie bei der normalen 2D-Textur.<br>
-<pre><code>procedure TForm1.CreateScene;
-begin
-  glGenTextures(1, @textureID);  // Erzeugen des Textur-Puffer.</font></pre></code>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">begin</font></b>
+  glGenTextures(<font color="#0077BB">1</font>, @textureID);  <i><font color="#FFFF00">// Erzeugen des Textur-Puffer.</font></i></pre></code>
 Beim laden muss man bei den Textur-Befehlen beachten, das man <b>GL_TEXTURE_1D</b> nimmt.<br>
 Beim VertexAttribut wird für die Textur-Koordinaten nur eine Float-Array übergeben.<br>
-<pre><code>procedure TForm1.InitScene;
-begin
-  // Textur binden.
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindTexture(GL_TEXTURE_1D, textureID);
 
-  // Textur laden.
-  glTexImage1D(GL_TEXTURE_1D, 0, GL_RGB, 5, 0, GL_RGB, GL_UNSIGNED_BYTE, @Textur24);
+  <i><font color="#FFFF00">// Textur laden.</font></i>
+  glTexImage1D(GL_TEXTURE_1D, <font color="#0077BB">0</font>, GL_RGB, <font color="#0077BB">5</font>, <font color="#0077BB">0</font>, GL_RGB, GL_UNSIGNED_BYTE, @Textur24);
 
-  // Ein minimalst Filter aktivieren, ansonsten bleibt die Ausgabe schwarz.
+  <i><font color="#FFFF00">// Ein minimalst Filter aktivieren, ansonsten bleibt die Ausgabe schwarz.</font></i>
   glTexParameterf(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-  // Textur entbinden.
-  glBindTexture(GL_TEXTURE_1D, 0);</font>
+  <i><font color="#FFFF00">// Textur entbinden.</font></i>
+  glBindTexture(GL_TEXTURE_1D, <font color="#0077BB">0</font>);
 
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe</font>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 
-  // Vektorkoordinaten
+  <i><font color="#FFFF00">// Vektorkoordinaten</font></i>
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);</font>
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
+  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // Nur eine Float-Array
+  <i><font color="#FFFF00">// Nur eine Float-Array</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 1, GL_FLOAT, False, 0, nil);
-end;</pre></code>
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 Das Zeichnen ist nichts besonderes.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
-  // Textur binden.
+  <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindTexture(GL_TEXTURE_1D, textureID);
 
   Shader.UseProgram;
@@ -68,44 +68,44 @@ begin
   ProdMatrix := ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
-  // Zeichne Quadrat
+  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
 Man beachte, das die UV-Koordinaten nur ein <b>Float</b> ist.<br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location =  0) in vec3  inPos;   // Vertex-Koordinaten</font>
-layout (location = 10) in float inUV;    // Textur-Koordinaten als Float-Array</font>
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b>  inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten als Float-Array</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out float UV0;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">float</font></b> UV0;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in float UV0;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> UV0;
 
-uniform sampler1D Sampler;              // Ein 1D-Sampler
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler1D</font></b> Sampler;              <i><font color="#FFFF00">// Ein 1D-Sampler</font></i>
 
-out vec4 FragColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
 
-void main()
+<b><font color="0000BB">void</font></b> main()
 {
-  FragColor = texture( Sampler, UV0 );  // UV0 ist nur ein Float.
+  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// UV0 ist nur ein Float.</font></i>
 }
 </pre></code>
 

@@ -14,57 +14,57 @@ Der Lazarus-Code ist nichts besonderes, es wird nur ein Rechteck gerendert und a
 Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader verkleinert werden.<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos;   // Vertex-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out vec2 pos;                           // Koordinaten für den Fragment-Shader
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> pos;                           <i><font color="#FFFF00">// Koordinaten für den Fragment-Shader</font></i>
 
-void main(void) {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  pos = gl_Position.xy;                 // XY an Fragment-Shader
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  pos = gl_Position.xy;                 <i><font color="#FFFF00">// XY an Fragment-Shader</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <br>
 Hier steckt die ganze Berechnung für das Mandelbrot.<br>
-<pre><code>#version 330</font>
-#define depth 1000.0</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<b><font color="#008800">#define</font></b> depth <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>
 
-in vec2 pos;       // Interpolierte Koordinaten vom Vertex-Shader
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> pos;       <i><font color="#FFFF00">// Interpolierte Koordinaten vom Vertex-Shader</font></i>
 
-uniform float col; // Start-Wert, für Farben-Spielerei
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> col; <i><font color="#FFFF00">// Start-Wert, für Farben-Spielerei</font></i>
 
-out vec4 outColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
 
-void main(void) {
-  float creal = pos.x * 1.5 - 0.3;</font>
-  float cimag = pos.y * 1.5;</font>
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
+  <b><font color="0000BB">float</font></b> creal = pos.x * <font color="#0077BB">1</font>.<font color="#0077BB">5</font> - <font color="#0077BB">0</font>.<font color="#0077BB">3</font>;
+  <b><font color="0000BB">float</font></b> cimag = pos.y * <font color="#0077BB">1</font>.<font color="#0077BB">5</font>;
 
-  float Color = 0.0;</font>
-  float XPos  = 0.0;</font>
-  float YPos  = 0.0;</font>
+  <b><font color="0000BB">float</font></b> Color = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+  <b><font color="0000BB">float</font></b> XPos  = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
+  <b><font color="0000BB">float</font></b> YPos  = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
 
-  float SqrX, SqrY;
+  <b><font color="0000BB">float</font></b> SqrX, SqrY;
 
-  do {
+  <b><font color="0000BB">do</font></b> {
     SqrX   = XPos * XPos;
     SqrY   = YPos * YPos;
-    YPos   = XPos * YPos * 2 + cimag;</font>
+    YPos   = XPos * YPos * <font color="#0077BB">2</font> + cimag;
     XPos   = SqrX - SqrY + creal;
-    Color += 1;</font>
-  } while (!((SqrX + SqrY > 8) || (Color > depth)));
+    Color += <font color="#0077BB">1</font>;
+  } <b><font color="0000BB">while</font></b> (!((SqrX + SqrY > <font color="#0077BB">8</font>) || (Color > depth)));
 
   Color += col;
 
-  if (Color > depth) {
+  <b><font color="0000BB">if</font></b> (Color > depth) {
     Color -= depth;
   }
 
-  outColor = vec4(Color / 3, Color / 10 , Color / 100, 1.0);</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(Color / <font color="#0077BB">3</font>, Color / <font color="#0077BB">10</font> , Color / <font color="#0077BB">100</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 

@@ -22,15 +22,15 @@ Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit
 Somit ist der Ablauf sehr einfach.<br>
 Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object als Dateien vorliegen, habe ich eine Hilfs-Funktion in de Shader Unit.<br>
 Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.<br>
-<pre><code>var
+<pre><code><b><font color="0000BB">var</font></b>
   Shader : TShader;
 
-begin
-  Shader := TShader.Create(Vertex_Shader, Fragment_Shader);  // Shader laden
+<b><font color="0000BB">begin</font></b>
+  Shader := TShader.Create(Vertex_Shader, Fragment_Shader);  <i><font color="#FFFF00">// Shader laden</font></i>
 
-  Shader.UseProgram;  // Aktiviert den Shader
+  Shader.UseProgram;  <i><font color="#FFFF00">// Aktiviert den Shader</font></i>
 
-  Shader.Free         // Gibt den Shader frei</pre></code>
+  Shader.Free         <i><font color="#FFFF00">// Gibt den Shader frei</font></i></pre></code>
 In folgenden Beispielen werden die Shader nur noch mit dieser Klasse geladen, damit es übersichtlicher wird.<br>
 Wie man es nativ machen kann, wird im <b>Einstiegs-Tutorial</b> unter <b>erster Shader</b> gezeigt.<br>
 

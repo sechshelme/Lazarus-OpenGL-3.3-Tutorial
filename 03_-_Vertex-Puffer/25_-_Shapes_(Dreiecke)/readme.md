@@ -30,97 +30,97 @@ Die Darstellung sieht folgendermassen aus:<br>
 <br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.<br>
-<pre><code>const
-  // Einfache Dreiecke        ( Gelb )
-  Triangles: array[0..5] of TVertex2f =</font>
-    ((0.1, 0.0), (0.6, 0.0), (0.6, 0.5), (0.5, 0.6), (0.0, 0.5), (0.0, 0.1));</font>
-  // Dreicke als Band, Strip  ( Rot )
-  Triangle_Strip: array[0..6] of TVertex2f =</font>
-    ((0.6, 0.0), (0.5, 0.5), (0.4, 0.2), (0.3, 0.5), (0.2, 0.0), (0.1, 0.4), (0.0, 0.0));</font>
-  // Dreiecke als Wedel, Fan  ( Grün )
-  Triangle_Fan: array[0..6] of TVertex2f =</font>
-    ((0.0, 0.0), (-0.2, -0.3), (0.2, -0.3), (0.3, 0.0), (0.2, 0.3), (-0.2, 0.3), (-0.3, 0.0));</pre></code>
+<pre><code><b><font color="0000BB">const</font></b>
+  <i><font color="#FFFF00">// Einfache Dreiecke        ( Gelb )</font></i>
+  Triangles: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVertex2f =
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>));
+  <i><font color="#FFFF00">// Dreicke als Band, Strip  ( Rot )</font></i>
+  Triangle_Strip: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">6</font>] <b><font color="0000BB">of</font></b> TVertex2f =
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
+  <i><font color="#FFFF00">// Dreiecke als Wedel, Fan  ( Grün )</font></i>
+  Triangle_Fan: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">6</font>] <b><font color="0000BB">of</font></b> TVertex2f =
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</pre></code>
 Hier werden die Daten in die Grafikkarte geschrieben.<br>
 Es hat nichts besonderes.<br>
-<pre><code>procedure TForm1.InitScene;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 
-  // Daten für GL_TRIANGLE
+  <i><font color="#FFFF00">// Daten für GL_TRIANGLE</font></i>
   glBindVertexArray(VBTriangles.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangles.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangles), @Triangles, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // Daten für GL_TRIANGLE_STRIP
+  <i><font color="#FFFF00">// Daten für GL_TRIANGLE_STRIP</font></i>
   glBindVertexArray(VBTriangle_Strip.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Strip.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Strip), @Triangle_Strip, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // Daten für GL_TRIANGLE_FAN
+  <i><font color="#FFFF00">// Daten für GL_TRIANGLE_FAN</font></i>
   glBindVertexArray(VBTriangle_Fan.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Fan.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Fan), @Triangle_Fan, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);</font>
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
-end;</pre></code>
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
-  // Zeichne GL_TRIANGLE
-  glUniform3f(Color_ID, 1.0, 1.0, 0.0); // Gelb</font>
-  glUniform1f(X_ID, -0.9);</font>
-  glUniform1f(Y_ID, -0.7);</font>
+  <i><font color="#FFFF00">// Zeichne GL_TRIANGLE</font></i>
+  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
+  glUniform1f(X_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">9</font>);
+  glUniform1f(Y_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">7</font>);
   glBindVertexArray(VBTriangles.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Triangles));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangles));
 
-  // Zeichne GL_TRIANGLE_STRIP
-  glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Rot</font>
-  glUniform1f(X_ID, 0.3);</font>
-  glUniform1f(Y_ID, -0.6);</font>
+  <i><font color="#FFFF00">// Zeichne GL_TRIANGLE_STRIP</font></i>
+  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
+  glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
+  glUniform1f(Y_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>);
   glBindVertexArray(VBTriangle_Strip.VAO);
-  glDrawArrays(GL_TRIANGLE_STRIP, 0, Length(Triangle_Strip));
+  glDrawArrays(GL_TRIANGLE_STRIP, <font color="#0077BB">0</font>, Length(Triangle_Strip));
 
-  // Zeichne GL_TRIANGLE_FAN
-  glUniform3f(Color_ID, 0.0, 1.0, 0.0);  // Grün</font>
-  glUniform1f(X_ID, 0.0);</font>
-  glUniform1f(Y_ID, 0.4);</font>
+  <i><font color="#FFFF00">// Zeichne GL_TRIANGLE_FAN</font></i>
+  glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
+  glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  glUniform1f(Y_ID, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>);
   glBindVertexArray(VBTriangle_Fan.VAO);
-  glDrawArrays(GL_TRIANGLE_FAN, 0, Length(Triangle_Fan));</pre></code>
+  glDrawArrays(GL_TRIANGLE_FAN, <font color="#0077BB">0</font>, Length(Triangle_Fan));</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.<br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec2 inPos; // Vertex-Koordinaten in 2D</font>
-uniform float x;                      // Richtung von Uniform
-uniform float y;
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten in 2D</font></i>
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
  
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  vec2 pos = inPos;
+  <b><font color="0000BB">vec2</font></b> pos = inPos;
   pos.x = pos.x + x;
   pos.y = pos.y + y;
-  gl_Position = vec4(pos, 0.0, 1.0);  // Der zweiter Parameter (Z) auf 0.0</font>
+  gl_Position = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Der zweiter Parameter (Z) auf 0.0</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-uniform vec3 Color;  // Farbe von Uniform
-out vec4 outColor;   // ausgegebene Farbe
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(Color, 1.0);</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 

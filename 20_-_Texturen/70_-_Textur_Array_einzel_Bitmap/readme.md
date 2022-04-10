@@ -11,67 +11,67 @@ Der Rest ist gleich, wie wen man alles miteinander hoch ladet.<br>
 Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.<br>
 Mit <b>glTexSubImage3D(...</b> werden dann die Texturen Layer für Layer hochgeladen.<br>
 Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .<br>
-<pre><code>procedure TForm1.InitScene;
-const
-  size = 8;      // Grösse der Texturen</font>
-  anzLayer = 6;</font>
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">const</font></b>
+  size = <font color="#0077BB">8</font>;      <i><font color="#FFFF00">// Grösse der Texturen</font></i>
+  anzLayer = <font color="#0077BB">6</font>;
+<b><font color="0000BB">var</font></b>
   i: integer;
-  bit: TPicture; // Bitmap
-begin
+  bit: TPicture; <i><font color="#FFFF00">// Bitmap</font></i>
+<b><font color="0000BB">begin</font></b>
   bit := TPicture.Create;
-  with bit do begin
+  <b><font color="0000BB">with</font></b> bit <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
 
     glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 
-    // Speicher reservieren
-    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGB, size, size, anzLayer, 0, GL_BGR, GL_UNSIGNED_BYTE, nil);
+    <i><font color="#FFFF00">// Speicher reservieren</font></i>
+    glTexImage3D(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>, GL_RGB, size, size, anzLayer, <font color="#0077BB">0</font>, GL_BGR, GL_UNSIGNED_BYTE, <b><font color="0000BB">nil</font></b>);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    for i := 0 to anzLayer - 1 do begin
+    <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> anzLayer - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
 
-      // Bitmap von HD laden.
-      LoadFromFile(IntToStr(i + 1) + '.xpm');   // Die Images laden.</font>
+      <i><font color="#FFFF00">// Bitmap von HD laden.</font></i>
+      LoadFromFile(IntToStr(i + <font color="#0077BB">1</font>) + <font color="#FF0000">'.xpm'</font>);   <i><font color="#FFFF00">// Die Images laden.</font></i>
 
-      // Texturen hoch laden
-      glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, Width, Height, 1, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
-    end;
-    glBindTexture(GL_TEXTURE_2D_ARRAY, 0);</font>
-    Free; // Picture frei geben.
-  end;</pre></code>
+      <i><font color="#FFFF00">// Texturen hoch laden</font></i>
+      glTexSubImage3D(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, i, Width, Height, <font color="#0077BB">1</font>, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
+    <b><font color="0000BB">end</font></b>;
+    glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
+    Free; <i><font color="#FFFF00">// Picture frei geben.</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten</font>
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out vec2 UV0;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec2 UV0;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-uniform sampler2DArray Sampler;
-uniform int            Layer;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2DArray</font></b> Sampler;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">int</font></b>            Layer;
 
-out vec4 FragColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
 
-void main()
+<b><font color="0000BB">void</font></b> main()
 {
-  FragColor = texture( Sampler, vec3(UV0, Layer));
+  FragColor = texture( Sampler, <b><font color="0000BB">vec3</font></b>(UV0, Layer));
 }
 </pre></code>
 

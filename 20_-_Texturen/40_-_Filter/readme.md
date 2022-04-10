@@ -10,116 +10,116 @@ In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter
 Die Filter verstellt man mit <b>glTexParameter(...</b>.<br>
 <hr><br>
 Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welcher für alle Ausgaben gültig ist.<br>
-<pre><code>procedure TForm1.InitScene;
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
   pic: TPicture;
 
-begin
+<b><font color="0000BB">begin</font></b>
   pic := TPicture.Create;
-  with pic do begin
-    LoadFromFile('bild.xpm');</font>
+  <b><font color="0000BB">with</font></b> pic <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    LoadFromFile(<font color="#FF0000">'bild.xpm'</font>);
 
-    // Textur laden
+    <i><font color="#FFFF00">// Textur laden</font></i>
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, Width, Height, 0, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
+    glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGB8, Width, Height, <font color="#0077BB">0</font>, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 
-    // Globaler Filter
+    <i><font color="#FFFF00">// Globaler Filter</font></i>
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-    glBindTexture(GL_TEXTURE_2D, 0);</font>
+    glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);
     Free;
-  end;</pre></code>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe festlegen.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-// Hintergrundfarbe für Clamp_to_Border, ein Dunkelgrün.
-const
-  border: array[0..3] of GLfloat = (0.0, 0.3, 0.0, 1.0);</font>
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<i><font color="#FFFF00">// Hintergrundfarbe für Clamp_to_Border, ein Dunkelgrün.</font></i>
+<b><font color="0000BB">const</font></b>
+  border: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat = (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+<b><font color="0000BB">var</font></b>
   ProdMatrix: TMatrix;
-begin
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
   glBindVertexArray(VBQuad.VAO);
-  glBindTexture(GL_TEXTURE_2D, textureID);  // Textur binden.
+  glBindTexture(GL_TEXTURE_2D, textureID);  <i><font color="#FFFF00">// Textur binden.</font></i>
 
-  // Links-Oben
+  <i><font color="#FFFF00">// Links-Oben</font></i>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   ProdMatrix := ScaleMatrix;
-  ProdMatrix.Translate(-0.5, 0.5, 0.0);</font>
+  ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
-  // Rechts-Oben
+  <i><font color="#FFFF00">// Rechts-Oben</font></i>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, @border);
 
   ProdMatrix := ScaleMatrix;
-  ProdMatrix.Translate(0.5, 0.5, 0.0);</font>
+  ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
-  // Links-Unten
+  <i><font color="#FFFF00">// Links-Unten</font></i>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   ProdMatrix := ScaleMatrix;
-  ProdMatrix.Translate(-0.5, -0.5, 0.0);</font>
+  ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
-  // Rechts-Unten
+  <i><font color="#FFFF00">// Rechts-Unten</font></i>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   ProdMatrix := ScaleMatrix;
-  ProdMatrix.Translate(0.5, -0.5, 0.0);</font>
+  ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
 
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten</font>
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out vec2 UV0;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  UV0 = inUV;                           // Texur-Koordinaten weiterleiten.
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Texur-Koordinaten weiterleiten.</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec2 UV0;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-uniform sampler2D Sampler;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;
 
-out vec4 FragColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
 
-void main()
+<b><font color="0000BB">void</font></b> main()
 {
     FragColor = texture( Sampler, UV0 );
 }
@@ -129,13 +129,13 @@ void main()
 <br>
 <pre><code>/* XPM */
 static char *XPM_mauer[] = {
-  "8 8 6 1",</font>
-  "  c #882222",</font>
+  "<font color="#0077BB">8</font> <font color="#0077BB">8</font> <font color="#0077BB">6</font> <font color="#0077BB">1</font>",
+  "  c #<font color="#0077BB">882222</font>",
   "* c #FFFFFF",
   "r c #FF0000",
-  "g c #00FF00",</font>
-  "b c #0000FF",</font>
-  "y c #00FFFF",</font>
+  "g c #<font color="#0077BB">00</font>FF00",
+  "b c #<font color="#0077BB">0000</font>FF",
+  "y c #<font color="#0077BB">00</font>FFFF",
   "r******g",
   "*rr**gg*",
   "*rr**gg*",

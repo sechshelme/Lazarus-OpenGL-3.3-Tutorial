@@ -12,46 +12,46 @@ Dafür gibt es in <b>glDrawArrays(...</b> zwei Parameter.<br>
 Der Zweite gibt das Offset der Vertex-Array an, und der Dritte, wie viele Vertex-Daten.<br>
 Das erste Polygon, fängt bei 0 und ist 3 Vertex lang.<br>
 Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
-  // Zeichne Dreieck
+  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
-  glUniform3f(Color_ID, 0.0, 0.0, 1.0);</font>
-  glDrawArrays(GL_TRIANGLES, 0, 3);</font>
+  glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">3</font>);
 
-  // Zeichne Quadrat
+  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
-  glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Farbe ändern</font>
-  glDrawArrays(GL_TRIANGLES, 0, 3);      // zweites Polygon</font>
-  glUniform3f(Color_ID, 1.0, 0.0, 1.0);  // Farbe ändern</font>
-  glDrawArrays(GL_TRIANGLES, 3, 3);      // zweites Polygon</font>
+  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Farbe ändern</font></i>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">3</font>);      <i><font color="#FFFF00">// zweites Polygon</font></i>
+  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Farbe ändern</font></i>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">3</font>, <font color="#0077BB">3</font>);      <i><font color="#FFFF00">// zweites Polygon</font></i>
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
  
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = vec4(inPos, 1.0);</font>
+  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-uniform vec3 Color;  // Farbe von Uniform
-out vec4 outColor;   // ausgegebene Farbe
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(Color, 1.0); // Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.</font></i>
 }
 </pre></code>
 

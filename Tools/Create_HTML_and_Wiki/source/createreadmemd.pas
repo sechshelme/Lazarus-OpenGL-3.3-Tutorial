@@ -159,8 +159,8 @@ begin
         if TestLeft(Result, PosNeu + PosAlt) then begin
           if TestRight(Result, ResWort, PosNeu + PosAlt) then begin
 
-//            Insert(TagRight, Result, PosNeu + PosAlt + Length(ResWort));
-//            Insert(TagLeft, Result, PosNeu + PosAlt);
+            Insert(TagRight, Result, PosNeu + PosAlt + Length(ResWort));
+            Insert(TagLeft, Result, PosNeu + PosAlt);
 
             PosAlt := PosAlt + TagSize;
           end;
@@ -174,10 +174,10 @@ end;
 
 function TCreateReadmeMD.TagNumberAndStringGLSL(const s: string): string;
 var
-  p, ComentPos: integer;  // Position Kommentar
-  isString,               // String wird getagt
-  isNumber,               // Zahl wird getagt
-  isNoNumber: boolean;    // Kein Zahlenwert, Zahl ist in Variablen-Bezeichner
+  p, ComentPos: integer;   // Position Kommentar
+  isString,             // String wird getagt
+  isNumber,             // Zahl wird getagt
+  isNoNumber: boolean;  // Kein Zahlenwert, Zahl ist in Variablen-Bezeichner
 begin
   Result := s;
   p := 1;
@@ -186,13 +186,14 @@ begin
   if Length(Result) > 1 then begin
     repeat
 
+      // String         ???????
       if (Result[p] = #39) then begin
         isString := not isString;
         if isString then begin
-//          Insert('<font color="#' + StringColor + '">', Result, p);
+          Insert('<font color="#' + StringColor + '">', Result, p);
           Inc(p, 22);
         end else begin
-//          Insert('</font>', Result, p + 1);
+          Insert('</font>', Result, p + 1);
           Inc(p, 7);
         end;
       end;
@@ -214,13 +215,13 @@ begin
           if Result[p] in ['0'..'9'] then begin
             if not isNumber then begin
               isNumber := True;
-//              Insert('<font color="#' + NumberColor + '">', Result, p);
+              Insert('<font color="#' + NumberColor + '">', Result, p);
               Inc(p, 22);
             end;
           end else begin
             if isNumber then begin
               isNumber := False;
-//              Insert('</font>', Result, p);
+              Insert('</font>', Result, p);
               Inc(p, 7);
             end;
           end;
@@ -256,10 +257,10 @@ begin
       if Result[p] in ['{', '}'] then begin
         isComment := not isComment;
         if isComment then begin
-//          Insert('<font color="#' + ComentColor + '">', Result, p);
+          Insert('<font color="#' + ComentColor + '">', Result, p);
           Inc(p, 22);
         end else begin
-//          Insert('</font>', Result, p + 1);
+          Insert('</font>', Result, p + 1);
           Inc(p, 7);
         end;
       end;
@@ -270,10 +271,10 @@ begin
         if (Result[p] = #39) and (not isNumber) then begin
           isString := not isString;
           if isString then begin
-//            Insert('<font color="#' + StringColor + '">', Result, p);
+            Insert('<font color="#' + StringColor + '">', Result, p);
             Inc(p, 22);
           end else begin
-//            Insert('</font>', Result, p + 1);
+            Insert('</font>', Result, p + 1);
             Inc(p, 7);
           end;
         end;
@@ -298,16 +299,16 @@ begin
               if not isNumber then begin
                 isNumber := True;
                 if Result[p] = '#' then begin  // Zeichen-Konstante
-//                  Insert('<font color="#' + StringColor + '">', Result, p);
+                  Insert('<font color="#' + StringColor + '">', Result, p);
                 end else begin                 // Int und Float
-//                  Insert('<font color="#' + NumberColor + '">', Result, p);
+                  Insert('<font color="#' + NumberColor + '">', Result, p);
                 end;
                 Inc(p, 22);
               end;
             end else begin
               if isNumber then begin
                 isNumber := False;
-//                Insert('</font>', Result, p + 0);
+                Insert('</font>', Result, p + 0);
                 Inc(p, 6);
               end;
             end;
@@ -340,8 +341,8 @@ begin
     p := Pos('//', CodeSL[i]);
     if p > 0 then begin
       s := CodeSL[i];
-//      Insert('<i><font color="#' + ComentColor + '">', s, p);
-//      s := s + '</font></i>';
+      Insert('<i><font color="#' + ComentColor + '">', s, p);
+      s := s + '</font></i>';
       CodeSL[i] := s;
     end;
 
@@ -365,16 +366,16 @@ begin
     if p = 1 then begin
       s := glslCodeSL[i];
 
-//      Insert('</font></b>', s, Pos(' ', s));
-//      Insert('<b><font color="#' + DefineColor + '">', s, p);
+      Insert('</font></b>', s, Pos(' ', s));
+      Insert('<b><font color="#' + DefineColor + '">', s, p);
 
       glslCodeSL[i] := s;
     end;
     p := Pos('//', glslCodeSL[i]);
     if p > 0 then begin
       s := glslCodeSL[i];
-//      Insert('<i><font color="#' + ComentColor + '">', s, p);
-//      s := s + '</font></i>';
+      Insert('<i><font color="#' + ComentColor + '">', s, p);
+      s := s + '</font></i>';
       glslCodeSL[i] := s;
     end;
   end;

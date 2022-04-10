@@ -21,155 +21,155 @@ Ein Float mit <b>4Byte</b> ist gut dafür gut geeignet.<br>
 Im Shader-Code, muss dies bei den Uniform-Blöcken nicht beachtet werden.<br>
 <br>
 Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16Byte gross ist.<br>
-<pre><code>type
-  TMaterial = record
-    ambient: TVector3f;      // Umgebungslicht
-    pad0: GLfloat;           // padding 4Byte
-    diffuse: TVector3f;      // Farbe
-    pad1: GLfloat;           // padding 4Byte
-    specular: TVector3f;     // Spiegelnd
-    shininess: GLfloat;      // Glanz
-  end;</pre></code>
+<pre><code><b><font color="0000BB">type</font></b>
+  TMaterial = <b><font color="0000BB">record</font></b>
+    ambient: TVector3f;      <i><font color="#FFFF00">// Umgebungslicht</font></i>
+    pad0: GLfloat;           <i><font color="#FFFF00">// padding 4Byte</font></i>
+    diffuse: TVector3f;      <i><font color="#FFFF00">// Farbe</font></i>
+    pad1: GLfloat;           <i><font color="#FFFF00">// padding 4Byte</font></i>
+    specular: TVector3f;     <i><font color="#FFFF00">// Spiegelnd</font></i>
+    shininess: GLfloat;      <i><font color="#FFFF00">// Glanz</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 So was geht leider <b>nicht</b>.<br>
 Diffuse muss in den nächsten 16Byte-Block !<br>
-<pre><code>type    // Unbrauchbare Deklaration !
-  TMaterial = record
-    ambient: TVector3f;      // 3Byte
-    diffuse: TVector3f;      // 3Byte
-    specular: TVector3f;     // 3Byte
-    shininess: GLfloat;      // 3Byte
-  end;</pre></code>
+<pre><code><b><font color="0000BB">type</font></b>    <i><font color="#FFFF00">// Unbrauchbare Deklaration !</font></i>
+  TMaterial = <b><font color="0000BB">record</font></b>
+    ambient: TVector3f;      <i><font color="#FFFF00">// 3Byte</font></i>
+    diffuse: TVector3f;      <i><font color="#FFFF00">// 3Byte</font></i>
+    specular: TVector3f;     <i><font color="#FFFF00">// 3Byte</font></i>
+    shininess: GLfloat;      <i><font color="#FFFF00">// 3Byte</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 <br>
 Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer auch anders anlegen, zB. in eine Float-Array, dies macht aber wenig Sinn.<br>
 Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.<br>
 Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.<br>
-<pre><code>var
-  UBO: GLuint;        // Puffer-Zeiger
-  Material_ID: GLint; // ID im Shader</pre></code>
+<pre><code><b><font color="0000BB">var</font></b>
+  UBO: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
+  Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></pre></code>
 ID und Puffer generieren.<br>
 Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlockIndex(...</b> auslesen.<br>
-<pre><code>procedure TForm1.CreateScene;
-begin
-  with Shader do begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
-    Matrix_ID := UniformLocation('Matrix');</font>
-    ModelMatrix_ID := UniformLocation('ModelMatrix');</font>
+    Matrix_ID := UniformLocation(<font color="#FF0000">'Matrix'</font>);
+    ModelMatrix_ID := UniformLocation(<font color="#FF0000">'ModelMatrix'</font>);
 
-    Material_ID := UniformBlockIndex('Material'); // UBO-Block ID aus dem Shader holen.</font>
-  end;
+    Material_ID := UniformBlockIndex(<font color="#FF0000">'Material'</font>); <i><font color="#FFFF00">// UBO-Block ID aus dem Shader holen.</font></i>
+  <b><font color="0000BB">end</font></b>;
 
-  glGenVertexArrays(1, @VBCube.VAO);</font>
+  glGenVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
 
-  glGenBuffers(1, @VBCube.VBOvert);</font>
-  glGenBuffers(1, @VBCube.VBONormal);</font>
+  glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
+  glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
 
-  glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.</pre></code>
+  glGenBuffers(<font color="#0077BB">1</font>, @UBO);                          <i><font color="#FFFF00">// UB0-Puffer generieren.</font></i></pre></code>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Pro UBO-Block, wird ein BindingPoint gebraucht.<br>
 Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gleichen BindingPoint verwenden, dazu später.<br>
-<pre><code>procedure TForm1.InitScene;
-var
-  bindingPoint: gluint = 0; // Pro Verbindung wird ein BindingPoint gebraucht.</font>
-begin
-  // Material-Werte inizialisieren
-  with mRubin do begin
-    ambient := vec3(0.17, 0.01, 0.01);</font>
-    diffuse := vec3(0.61, 0.04, 0.04);</font>
-    specular := vec3(0.73, 0.63, 0.63);</font>
-    shininess := 76.8;</font>
-  end;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
+  bindingPoint: gluint = <font color="#0077BB">0</font>; <i><font color="#FFFF00">// Pro Verbindung wird ein BindingPoint gebraucht.</font></i>
+<b><font color="0000BB">begin</font></b>
+  <i><font color="#FFFF00">// Material-Werte inizialisieren</font></i>
+  <b><font color="0000BB">with</font></b> mRubin <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    ambient := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">17</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>);
+    diffuse := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">61</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>);
+    specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">73</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
+    shininess := <font color="#0077BB">76</font>.<font color="#0077BB">8</font>;
+  <b><font color="0000BB">end</font></b>;
 
 
-  // UBO mit Daten laden
+  <i><font color="#FFFF00">// UBO mit Daten laden</font></i>
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TMaterial), @mRubin, GL_DYNAMIC_DRAW);
 
-  // UBO mit dem Shader verbinden
+  <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</pre></code>
 Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
-<pre><code>procedure TForm1.FormDestroy(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VBCube.VAO);</font>
-  glDeleteBuffers(1, @VBCube.VBOvert);</font>
-  glDeleteBuffers(1, @VBCube.VBONormal);</font>
-  glDeleteBuffers(1, @UBO);  // UBO löschen.</font></pre></code>
+  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @UBO);  <i><font color="#FFFF00">// UBO löschen.</font></i></pre></code>
 <hr><br>
 Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.<br>
 Im Shader wird kein Padding gebraucht.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten</font>
-layout (location = 1) in vec3 inNormal; // Normale</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
 
-// Daten für Fragment-shader
-out Data {
-  vec3 Pos;
-  vec3 Normal;
+<i><font color="#FFFF00">// Daten für Fragment-shader</font></i>
+<b><font color="0000BB">out</font></b> Data {
+  <b><font color="0000BB">vec3</font></b> Pos;
+  <b><font color="0000BB">vec3</font></b> Normal;
 } DataOut;
 
-// Matrix des Modeles, ohne Frustum-Beeinflussung.
-uniform mat4 ModelMatrix;
+<i><font color="#FFFF00">// Matrix des Modeles, ohne Frustum-Beeinflussung.</font></i>
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
 
-// Matrix für die Drehbewegung und Frustum.
-uniform mat4 Matrix;
+<i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position    = Matrix * vec4(inPos, 1.0);</font>
+  gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  DataOut.Normal = mat3(ModelMatrix) * inNormal;
-  DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;</font>
+  DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
+  DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-// Licht
-#define Lposition  vec3(35.0, 17.5, 35.0)</font>
-#define Lambient   vec3(1.8, 1.8, 1.8)</font>
-#define Ldiffuse   vec3(1.5, 1.5, 1.5)</font>
+<i><font color="#FFFF00">// Licht</font></i>
+<b><font color="#008800">#define</font></b> Lposition  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">35</font>.<font color="#0077BB">0</font>, <font color="#0077BB">17</font>.<font color="#0077BB">5</font>, <font color="#0077BB">35</font>.<font color="#0077BB">0</font>)
+<b><font color="#008800">#define</font></b> Lambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>)
+<b><font color="#008800">#define</font></b> Ldiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>)
 
-// Daten vom Vertex-Shader
-in Data {
-  vec3 Pos;
-  vec3 Normal;
+<i><font color="#FFFF00">// Daten vom Vertex-Shader</font></i>
+<b><font color="0000BB">in</font></b> Data {
+  <b><font color="0000BB">vec3</font></b> Pos;
+  <b><font color="0000BB">vec3</font></b> Normal;
 } DataIn;
 
-layout (std140) uniform Material {
-  vec3  Mambient;   // Umgebungslicht
-  vec3  Mdiffuse;   // Farbe
-  vec3  Mspecular;  // Spiegelnd
-  float Mshininess; // Glanz
+<b><font color="0000BB">layout</font></b> (std140) <b><font color="0000BB">uniform</font></b> Material {
+  <b><font color="0000BB">vec3</font></b>  Mambient;   <i><font color="#FFFF00">// Umgebungslicht</font></i>
+  <b><font color="0000BB">vec3</font></b>  Mdiffuse;   <i><font color="#FFFF00">// Farbe</font></i>
+  <b><font color="0000BB">vec3</font></b>  Mspecular;  <i><font color="#FFFF00">// Spiegelnd</font></i>
+  <b><font color="0000BB">float</font></b> Mshininess; <i><font color="#FFFF00">// Glanz</font></i>
 };
 
-out vec4 outColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
 
-vec3 Light(in vec3 p, in vec3 n) {
-  vec3 nn = normalize(n);
-  vec3 np = normalize(p);
-  vec3 diffuse;   // Licht
-  vec3 specular;  // Reflektion
-  float angele = max(dot(nn, np), 0.0);</font>
-  if (angele > 0.0) {</font>
-    vec3 eye = normalize(np + vec3(0.0, 0.0, 1.0));</font>
-    specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
+<b><font color="0000BB">vec3</font></b> Light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
+  <b><font color="0000BB">vec3</font></b> nn = normalize(n);
+  <b><font color="0000BB">vec3</font></b> np = normalize(p);
+  <b><font color="0000BB">vec3</font></b> diffuse;   <i><font color="#FFFF00">// Licht</font></i>
+  <b><font color="0000BB">vec3</font></b> specular;  <i><font color="#FFFF00">// Reflektion</font></i>
+  <b><font color="0000BB">float</font></b> angele = max(dot(nn, np), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  <b><font color="0000BB">if</font></b> (angele > <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
+    <b><font color="0000BB">vec3</font></b> eye = normalize(np + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
+    specular = pow(max(dot(eye, nn), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
-  } else {
-    specular = vec3(0.0);</font>
-    diffuse  = vec3(0.0);</font>
+  } <b><font color="0000BB">else</font></b> {
+    specular = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+    diffuse  = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   }
-  return (Mambient * Lambient) + diffuse + specular;
+  <b><font color="0000BB">return</font></b> (Mambient * Lambient) + diffuse + specular;
 }
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
 </pre></code>

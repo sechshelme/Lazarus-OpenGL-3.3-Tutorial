@@ -13,118 +13,118 @@ Eine Textur-Array kann man auch für Multitexturing verwenden. Man muss im Fragm
 Eine andere Anwendung wäre, bei einem 2D-Spiel, Sprites in eine Textur-Array abzulegen.<br>
 <hr><br>
 Die Koordinaten sind gleich, wie bei einer einzelnen Textur.<br>
-<pre><code>const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
-    ((-1.0, -1.0, 0.0), (1.0, 1.0, 0.0), (-1.0, 1.0, 0.0),</font>
-    (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0));</font>
+<pre><code><b><font color="0000BB">const</font></b>
+  QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
+    ((-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
+    (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
 
-  TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
-    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),</font>
-    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));</font></pre></code>
+  TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
+    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
+    (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</pre></code>
 Dieser Puffer wird gleich reserviert, wie bei der einzelnen Textur.<br>
 Im Shader ist der Layer eine Unifom-Variable.<br>
-<pre><code>procedure TForm1.CreateScene;
-begin
-  glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">begin</font></b>
+  glGenTextures(<font color="#0077BB">1</font>, @textureID);                 <i><font color="#FFFF00">// Erzeugen des Textur-Puffer.</font></i>
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);</font>
-  with Shader do begin
+  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
+  <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
-    Matrix_ID := UniformLocation('mat');</font>
-    Layer_ID := UniformLocation('Layer');        // Die ID für den Layer Zugriff.</font>
-    glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.</font>
-  end;
+    Matrix_ID := UniformLocation(<font color="#FF0000">'mat'</font>);
+    Layer_ID := UniformLocation(<font color="#FF0000">'Layer'</font>);        <i><font color="#FFFF00">// Die ID für den Layer Zugriff.</font></i>
+    glUniform1i(UniformLocation(<font color="#FF0000">'Sampler'</font>), <font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Dem Sampler 0 zuweisen.</font></i>
+  <b><font color="0000BB">end</font></b>;
 
-  glGenVertexArrays(1, @VBQuad.VAO);</font>
-  glGenBuffers(1, @VBQuad.VBOVertex);</font>
-  glGenBuffers(1, @VBQuad.VBOTex);</font></pre></code>
+  glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
+  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
+  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);</pre></code>
 Die Ziffern befinde sich alle in einer Bitmap, welche alle Ziffern übereinander beinhaltet.<br>
 Man sieht hier gut, das man anstelle von <b>GL_TEXTURE_2D</b>, <b>GL_TEXTURE_2D_ARRAY</b> verwenden muss.<br>
 Die Textur-Daten werden mit <b>glTexImage3D(GL_TEXTURE_2D_ARRAY,...</b> übegeben. Neben der Breite und Höhe, muss man noch die Anzahl Layer mitgeben.<br>
 Die Höhe muss man noch durch die Anzahl Layer teilen.<br>
-<pre><code>procedure TForm1.InitScene;
-const
-  anzLayer = 6;</font>
-var
-  bit: TPicture;                  // Bitmap
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">const</font></b>
+  anzLayer = <font color="#0077BB">6</font>;
+<b><font color="0000BB">var</font></b>
+  bit: TPicture;                  <i><font color="#FFFF00">// Bitmap</font></i>
+<b><font color="0000BB">begin</font></b>
   bit := TPicture.Create;
-  with bit do begin
-    LoadFromFile('ziffer.xpm');   // Das Images laden.</font>
+  <b><font color="0000BB">with</font></b> bit <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    LoadFromFile(<font color="#FF0000">'ziffer.xpm'</font>);   <i><font color="#FFFF00">// Das Images laden.</font></i>
 
     glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
 
-    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGB, Width, Height div anzLayer, anzLayer, 0, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
+    glTexImage3D(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>, GL_RGB, Width, Height <b><font color="0000BB">div</font></b> anzLayer, anzLayer, <font color="#0077BB">0</font>, GL_BGR, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    glBindTexture(GL_TEXTURE_2D_ARRAY, 0);</font>
-    Free;                        // Bitmap frei geben.
-  end;</pre></code>
+    glBindTexture(GL_TEXTURE_2D_ARRAY, <font color="#0077BB">0</font>);
+    Free;                        <i><font color="#FFFF00">// Bitmap frei geben.</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 Zeichnen der einzelnen Quadrate. Hier sieht man gut, das nur eine Textur gebunden wird.<br>
 Für den Textur-Wechsel muss man nur den Layer übergeben.<br>
 Die Matrizen drehen und positionieren nur die Quadrate.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
   x, y: integer;
   Matrix: TMatrix;
-begin
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
   Shader.UseProgram;
-  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  // Textur binden.
+  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);  <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindVertexArray(VBQuad.VAO);
 
-  for x := 0 to 2 do begin</font>
-    for y := 0 to 1 do begin</font>
+  <b><font color="0000BB">for</font></b> x := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">2</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">for</font></b> y := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Matrix.Identity;
-      Matrix.RotateC(x + y * 3 + 1);</font>
-      Matrix.Scale(0.4);</font>
-      Matrix.Translate(-1.0 + x, -0.5 + y, 0.0);
+      Matrix.RotateC(x + y * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>);
+      Matrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">4</font>);
+      Matrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">0</font> + x, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font> + y, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
       Matrix := ScaleMatrix * Matrix;
       Matrix.Uniform(Matrix_ID);
 
-      glUniform1i(Layer_ID, x + y * 3);    // Layer wechseln</font>
+      glUniform1i(Layer_ID, x + y * <font color="#0077BB">3</font>);    <i><font color="#FFFF00">// Layer wechseln</font></i>
 
-      glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));</font>
-    end;
-  end;</pre></code>
+      glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
+    <b><font color="0000BB">end</font></b>;
+  <b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 Im Fragment-Shader muss ein 2D-Array-Sampler verwendet werden.<br>
 Dieser hat ein 3. Parameter, welcher den Layer enthält.<br>
 Ansonsten ist der Shader sehr einfach.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten</font>
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten</font>
+<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 
-uniform mat4 mat;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
 
-out vec2 UV0;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4(inPos, 1.0);</font>
-  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec2 UV0;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 
-uniform sampler2DArray Sampler;
-uniform int            Layer;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2DArray</font></b> Sampler;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">int</font></b>            Layer;
 
-out vec4 FragColor;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
 
-void main()
+<b><font color="0000BB">void</font></b> main()
 {
-  FragColor = texture( Sampler, vec3(UV0, Layer));
+  FragColor = texture( Sampler, <b><font color="0000BB">vec3</font></b>(UV0, Layer));
 }
 </pre></code>
 <b>ziffer.xpm:</b><br>
@@ -132,13 +132,13 @@ void main()
 static char *ziffer_xpm[] = {
 
   /* width height num_colors chars_per_pixel */
-  "     8    48       16            1",
+  "     <font color="#0077BB">8</font>    <font color="#0077BB">48</font>       <font color="#0077BB">16</font>            <font color="#0077BB">1</font>",
 
   /* colors */
-  "` c #000000", ". c #800000", "# c #008000", "a c #808000",</font>
-  "b c #000080", "c c #800080", "d c #008080", "e c #808080",</font>
-  "f c #c0c0c0", "g c #ff0000", "h c #00ff00", "i c #ffff00",</font>
-  "j c #0000ff", "k c #ff00ff", "l c #00ffff", "m c #ffffff",</font>
+  "` c #<font color="#0077BB">000000</font>", ". c #<font color="#0077BB">800000</font>", "# c #<font color="#0077BB">008000</font>", "a c #<font color="#0077BB">808000</font>",
+  "b c #<font color="#0077BB">000080</font>", "c c #<font color="#0077BB">800080</font>", "d c #<font color="#0077BB">008080</font>", "e c #<font color="#0077BB">808080</font>",
+  "f c #c0c0c0", "g c #ff0000", "h c #<font color="#0077BB">00</font>ff00", "i c #ffff00",
+  "j c #<font color="#0077BB">0000</font>ff", "k c #ff00ff", "l c #<font color="#0077BB">00</font>ffff", "m c #ffffff",
 
   /* pixels */
   "jjjjjjjj", "jjjjijjj", "jjjiijjj", "jjijijjj", "jjjjijjj", "jjjjijjj", "jjjjijjj", "jjjjjjjj",

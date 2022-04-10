@@ -11,66 +11,66 @@ Dafür ist di Darstellung des Point-Lichtes unrealistisch. Das sieht man gut, we
 Bei den Kugel war dieser Effekt kaum sichtbar, das sehr kleine Dreiecke verwendet werden.<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-#define ambient vec3(0.2, 0.2, 0.2)</font>
-#define red     vec3(1.0, 0.0, 0.0)</font>
-#define green   vec3(0.0, 1.0, 0.0)</font>
-#define blue    vec3(0.0, 0.0, 1.0)</font>
+<b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
+<b><font color="#008800">#define</font></b> red     <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
+<b><font color="#008800">#define</font></b> green   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
+<b><font color="#008800">#define</font></b> blue    <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)
 
-layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten</font>
-layout (location = 1) in vec3 inNormal; // Normale</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
 
-out vec4 Color;                         // Farbe, an Fragment-Shader übergeben.
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                         <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
 
-uniform mat4 ModelMatrix;
-uniform mat4 Matrix;                    // Matrix für die Drehbewegung und Frustum.
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 
-uniform bool RedOn;
-uniform bool GreenOn;
-uniform bool BlueOn;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> RedOn;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> GreenOn;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> BlueOn;
 
-uniform vec3 RedLightPos;
-uniform vec3 GreenLightPos;
-uniform vec3 BlueLightPos;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> RedLightPos;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> GreenLightPos;
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> BlueLightPos;
 
-float light(vec3 p, vec3 n) {
-  vec3 v1 = normalize(p);     // Vektoren normalisieren, so das die Länge des Vektors immer 1.0 ist.
-  vec3 v2 = normalize(n);
-  float d = dot(v1, v2);      // Skalarprodukt aus beiden Vektoren berechnen.
-  return clamp(d, 0.0, 1.0);</font>
+<b><font color="0000BB">float</font></b> light(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">vec3</font></b> n) {
+  <b><font color="0000BB">vec3</font></b> v1 = normalize(p);     <i><font color="#FFFF00">// Vektoren normalisieren, so das die Länge des Vektors immer 1.0 ist.</font></i>
+  <b><font color="0000BB">vec3</font></b> v2 = normalize(n);
+  <b><font color="0000BB">float</font></b> d = dot(v1, v2);      <i><font color="#FFFF00">// Skalarprodukt aus beiden Vektoren berechnen.</font></i>
+  <b><font color="0000BB">return</font></b> clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 
-void main(void) {
-  gl_Position = Matrix * vec4(inPos, 1.0);</font>
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
+  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
-  vec3 Normal = mat3(ModelMatrix) * inNormal;
-  vec3 pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;</font>
+  <b><font color="0000BB">vec3</font></b> Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
+  <b><font color="0000BB">vec3</font></b> pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 
-  Color = vec4(ambient, 1.0);</font>
-  if (RedOn) {
-    vec3 colRed = light(RedLightPos - pos, Normal) * red;
+  Color = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  <b><font color="0000BB">if</font></b> (RedOn) {
+    <b><font color="0000BB">vec3</font></b> colRed = light(RedLightPos - pos, Normal) * red;
     Color.rgb += colRed;
   }
-  if (GreenOn) {
-    vec3 colGreen = light(GreenLightPos - pos, Normal) * green;
+  <b><font color="0000BB">if</font></b> (GreenOn) {
+    <b><font color="0000BB">vec3</font></b> colGreen = light(GreenLightPos - pos, Normal) * green;
     Color.rgb += colGreen;
   }
-  if (BlueOn) {
-    vec3 colBlue = light(BlueLightPos - pos, Normal) * blue;
+  <b><font color="0000BB">if</font></b> (BlueOn) {
+    <b><font color="0000BB">vec3</font></b> colBlue = light(BlueLightPos - pos, Normal) * blue;
     Color.rgb += colBlue;
   }
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in  vec4 Color;      // interpolierte Farbe vom Vertexshader
-out vec4 outColor;  // ausgegebene Farbe
+<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void) {
-  outColor = Color; // Die Ausgabe der Farbe
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
+  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </pre></code>
 

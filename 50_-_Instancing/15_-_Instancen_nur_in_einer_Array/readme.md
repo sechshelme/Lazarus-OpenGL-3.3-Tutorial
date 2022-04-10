@@ -10,116 +10,116 @@ Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizi
 Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].<br>
 <hr><br>
 Die Deklaration der Array. Es ist nur noch eine Array.<br>
-<pre><code>type
-  TData = record
+<pre><code><b><font color="0000BB">type</font></b>
+  TData = <b><font color="0000BB">record</font></b>
     Scale: GLfloat;
     Matrix: TMatrix;
     Color: TVector3f;
-  end;
+  <b><font color="0000BB">end</font></b>;
 
-var
-  Data: array[0..InstanceCount - 1] of TData;</pre></code>
+<b><font color="0000BB">var</font></b>
+  Data: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TData;</pre></code>
 Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
-<pre><code>procedure TForm1.InitScene;
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">var</font></b>
   ofs, i: integer;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe</font>
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 
   glBindVertexArray(VBQuad.VAO);
 
-  // --- Normale Vektordaten
-  // Daten für Vektoren
+  <i><font color="#FFFF00">// --- Normale Vektordaten</font></i>
+  <i><font color="#FFFF00">// Daten für Vektoren</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);</font>
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
+  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // --- Instancen
-  ofs := 0;</font>
+  <i><font color="#FFFF00">// --- Instancen</font></i>
+  ofs := <font color="#0077BB">0</font>;
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
 
-  // Instance Size
-  glEnableVertexAttribArray(1);</font>
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TData), nil);
-  glVertexAttribDivisor(1, 1);</font>
+  <i><font color="#FFFF00">// Instance Size</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">1</font>);
+  glVertexAttribPointer(<font color="#0077BB">1</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), <b><font color="0000BB">nil</font></b>);
+  glVertexAttribDivisor(<font color="#0077BB">1</font>, <font color="#0077BB">1</font>);
   Inc(ofs, SizeOf(GLfloat));
 
-  // Instance Matrix
-  for i := 0 to 3 do begin</font>
-    glEnableVertexAttribArray(i + 2);</font>
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
-    glVertexAttribDivisor(i + 2, 1);</font>
+  <i><font color="#FFFF00">// Instance Matrix</font></i>
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">3</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    glEnableVertexAttribArray(i + <font color="#0077BB">2</font>);
+    glVertexAttribPointer(i + <font color="#0077BB">2</font>, <font color="#0077BB">4</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), Pointer(ofs));
+    glVertexAttribDivisor(i + <font color="#0077BB">2</font>, <font color="#0077BB">1</font>);
     Inc(ofs, SizeOf(TVector4f));
-  end;
+  <b><font color="0000BB">end</font></b>;
 
-  // Instance Color
-  glEnableVertexAttribArray(6);</font>
-  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
-  glVertexAttribDivisor(6, 1);</font>
-end;</pre></code>
+  <i><font color="#FFFF00">// Instance Color</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">6</font>);
+  glVertexAttribPointer(<font color="#0077BB">6</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), Pointer(ofs));
+  glVertexAttribDivisor(<font color="#0077BB">6</font>, <font color="#0077BB">1</font>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 An der Zeichenroutine ändert sich nichts.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
   glBindVertexArray(VBQuad.VAO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
-  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data), @Data);
+  glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, SizeOf(Data), @Data);
 
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
+  glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 Matrizen neu berechnen.<br>
-<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<b><font color="0000BB">var</font></b>
   i: integer;
-begin
-  for i := 0 to Length(Data) - 1 do begin
-    Data[i].Matrix.RotateC(0.02);</font>
-  end;
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(Data) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    Data[i].Matrix.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">02</font>);
+  <b><font color="0000BB">end</font></b>;
 
-  ogcDrawScene(Sender);  // Neu zeichnen
-end;</pre></code>
+  ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 Am Shader hat sich nichts geändert.<br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-#define Instance_Count 200</font>
+<b><font color="#008800">#define</font></b> Instance_Count <font color="#0077BB">200</font>
 
-// Vektor-Daten
-layout (location = 0) in vec2 inPos;</font>
+<i><font color="#FFFF00">// Vektor-Daten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;
 
-// Instancen
-layout (location = 1) in float Size;</font>
-layout (location = 2) in mat4 mat;</font>
-layout (location = 6) in vec3 Color;</font>
+<i><font color="#FFFF00">// Instancen</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> Size;
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">2</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">mat4</font></b> mat;
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">6</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Color;
 
-out vec3 col;
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> col;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = mat * vec4((inPos * Size), 0.0, 1.0);</font>
+  gl_Position = mat * <b><font color="0000BB">vec4</font></b>((inPos * Size), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 
   col = Color;
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-out vec4 outColor;   // ausgegebene Farbe
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-in vec3 col;
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> col;
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(col, 1.0);</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 

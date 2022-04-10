@@ -76,14 +76,14 @@ Für die Rotation C-Achse (<b>RotateC</b>):<br>
 //matrix-<br>
 <hr><br>
 Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.<br>
-<pre><code>var
+<pre><code><b><font color="0000BB">var</font></b>
   Matrix : TMatrix;
 
-begin
-  Matrix.Indenty;                // Matrix Indenty setzen.
+<b><font color="0000BB">begin</font></b>
+  Matrix.Indenty;                <i><font color="#FFFF00">// Matrix Indenty setzen.</font></i>
 
-  Matrix.xxxx(...);              // Modifikationen der Matrix.
-  Matrix.Uniform(ID_im_Shader);  // Die Matrix dem Shader übergeben.</pre></code>
+  Matrix.xxxx(...);              <i><font color="#FFFF00">// Modifikationen der Matrix.</font></i>
+  Matrix.Uniform(ID_im_Shader);  <i><font color="#FFFF00">// Die Matrix dem Shader übergeben.</font></i></pre></code>
 Ausser im ersten Beispiel werde ich nur noch diese <b>Bibliothek</b> verwenden. Somit werden die Beispiele sehr übersichtlich.<br>
 
     <br><br><br>

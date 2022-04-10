@@ -10,40 +10,40 @@ Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Wind
 Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.<br>
 <hr><br>
 Typen-Deklaration für die Face-Daten.<br>
-<pre><code>type
-  TVertex3f = array[0..2] of GLfloat;</font>
-  TFace = array[0..2] of TVertex3f;</font></pre></code>
+<pre><code><b><font color="0000BB">type</font></b>
+  TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
+  TFace = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f;</pre></code>
 Koordinaten für das Mesh, hier ein Dreieck und ein Quadrat, welches wir später in das VRAM (Video-Ram) rendern.<br>
-<pre><code>const
-  Triangle: array[0..0] of TFace =</font>
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));</font>
-  Quad: array[0..1] of TFace =</font>
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));</font></pre></code>
+<pre><code><b><font color="0000BB">const</font></b>
+  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
+    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
+  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
+    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</pre></code>
 Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der grösste Teil, die Klasse <b>TContext</b>, der Unit <b>oglContext</b>.<br>
 Anstelle von <b>Self</b>, kann auch ein anderes <b>TWinControl</b> angegeben werden, zB. ein <b>TPanel</b>.<br>
 <br>
 Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffer für die Mesh erzeugen und die Vertexkoordinaten in den Puffer laden.<br>
-<pre><code>procedure TForm1.FormCreate(Sender: TObject);
-begin
-  ogc := TContext.Create(Self);  // Den Context erzeugen und OpenGL inizialisieren.
-  ogc.OnPaint := @ogcDrawScene;  // OnPaint-Ereigniss von dem Contextfenster.
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);  <i><font color="#FFFF00">// Den Context erzeugen und OpenGL inizialisieren.</font></i>
+  ogc.OnPaint := @ogcDrawScene;  <i><font color="#FFFF00">// OnPaint-Ereigniss von dem Contextfenster.</font></i>
 
-  CreateScene;                   // Puffer anlegen.
-  InitScene;                     // Vertex-Daten in den Buffer schreiben.
-end;</pre></code>
+  CreateScene;                   <i><font color="#FFFF00">// Puffer anlegen.</font></i>
+  InitScene;                     <i><font color="#FFFF00">// Vertex-Daten in den Buffer schreiben.</font></i>
+<b><font color="0000BB">end</font></b>;</pre></code>
 Buffer für Vertex-Daten anlegen.<br>
 <br>
 Mit <b>glGenVertexArrays(...</b> wird ein <b>Vertex Array Object</b> für jedes Mesh erzeugt.<br>
 Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex-Daten des Meshes erzeugt.<br>
-<pre><code>procedure TForm1.CreateScene;
-begin
-  glGenVertexArrays(1, @VBTriangle.VAO);</font>
-  glGenVertexArrays(1, @VBQuad.VAO);</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">begin</font></b>
+  glGenVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
+  glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
 
-  glGenBuffers(1, @VBTriangle.VBO);</font>
-  glGenBuffers(1, @VBQuad.VBO);</font>
-end;</pre></code>
+  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
+  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
+<b><font color="0000BB">end</font></b>;</pre></code>
 Die folgenden Anweisungen laden die Vertex-Daten in das VRAM.<br>
 <br>
 Mit <b>glBindVertexArray(...</b> wird das gewünschte Mesh gebunden, so das man mit <b>glBufferData(...</b> die Vertex-Daten in das VRAM schreiben kann.<br>
@@ -52,24 +52,24 @@ Mit <b>glVertexAttribPointer(...</b> gibt man an, in welchem Format man die Vert
 Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.<br>
 <br>
 <b>InitScene</b> kann zur Laufzeit mit anderen Daten geladen werden.<br>
-<pre><code>procedure TForm1.InitScene;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 
-  // Daten für das Dreieck
+  <i><font color="#FFFF00">// Daten für das Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);</font>
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
+  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 
-  // Daten für das Quadrat
+  <i><font color="#FFFF00">// Daten für das Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);</font>
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
-end;</pre></code>
+  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
+  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 Jetzt wird das gerenderte Objekt im VRAM auf dem Bildschirm ausgegeben.<br>
 <br>
 Da kommt ein grosser Vorteil von OpenGL 3.3 zu Geltung.<br>
@@ -96,29 +96,29 @@ Den Geometrie-Shader werde ich später erwähnen.<br>
 * GL_TRIANGLE_STRIP_ADJACENCY<br>
 <br>
 Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 
-  // Zeichne Dreieck
+  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
 
-  // Zeichne Quadrat
+  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);</font>
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.<br>
-<pre><code>procedure TForm1.FormDestroy(Sender: TObject);
-begin
-  glDeleteVertexArrays(1, @VBTriangle.VAO);</font>
-  glDeleteVertexArrays(1, @VBQuad.VAO);</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
+  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
 
-  glDeleteBuffers(1, @VBTriangle.VBO);</font>
-  glDeleteBuffers(1, @VBQuad.VBO);</font>
-end;
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
+  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
+<b><font color="0000BB">end</font></b>;
 </pre></code>
 
     <br><br><br>

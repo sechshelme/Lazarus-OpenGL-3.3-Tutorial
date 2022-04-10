@@ -16,41 +16,41 @@ Hier werden die verschiedenen Polygone-Modis eingestellt.<br>
 Mit <b>glPolygonMode(...</b> und dem zweiten Parameter werden die verschiedenen Modis eingestellt.<br>
 Dabei muss der erste Paramter immer <b>GL_FRONT_AND_BACK</b> sein, die beiden Parameter <b>GL_FRONT</b> und <b>GL_BACK</b> gehen mit OpenGL >= 3.3 nicht mehr.<br>
 <b>glPolygonMode(...</b> kann auch bei DrawScene aufgerufen werden. ZB. wen man zwei Meshes hat, kann man die einte Fächenfüllend und die andere als Drahtgitter darstellen.<br>
-<pre><code>procedure TForm1.MenuItemClick(Sender: TObject);
-begin
-  case TMainMenu(Sender).Tag of
-    1: begin</font>
-      glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);  // Punkte
-    end;
-    2: begin</font>
-      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   // Linien
-    end;
-    3: begin</font>
-      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   // Flächenfüllend
-    end;
-  end;
-  ogc.Invalidate;   // Manuelle Aufruf von DrawScene.
-end;</pre></code>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">case</font></b> TMainMenu(Sender).Tag <b><font color="0000BB">of</font></b>
+    <font color="#0077BB">1</font>: <b><font color="0000BB">begin</font></b>
+      glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);  <i><font color="#FFFF00">// Punkte</font></i>
+    <b><font color="0000BB">end</font></b>;
+    <font color="#0077BB">2</font>: <b><font color="0000BB">begin</font></b>
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   <i><font color="#FFFF00">// Linien</font></i>
+    <b><font color="0000BB">end</font></b>;
+    <font color="#0077BB">3</font>: <b><font color="0000BB">begin</font></b>
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);   <i><font color="#FFFF00">// Flächenfüllend</font></i>
+    <b><font color="0000BB">end</font></b>;
+  <b><font color="0000BB">end</font></b>;
+  ogc.Invalidate;   <i><font color="#FFFF00">// Manuelle Aufruf von DrawScene.</font></i>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 Die Shader haben keinen Einfluss auf die Polygonmodis.<br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
-layout (location = 0) in vec3 inPos;  // Vertex-Koordinaten</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;  <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = vec4(inPos, 1.0);</font>
+  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-out vec4 outColor; // ausgegebene Farbe
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = vec4(1.0, 1.0, 0.0, 1.0); // Gelb</font>
+  outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
 }
 </pre></code>
 

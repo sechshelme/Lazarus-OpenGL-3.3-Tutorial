@@ -9,88 +9,88 @@ Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ic
 <hr><br>
 Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.<br>
 Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.<br>
-<pre><code>type
-  TCubePos = record
+<pre><code><b><font color="0000BB">type</font></b>
+  TCubePos = <b><font color="0000BB">record</font></b>
     pos: TVector3f;
     mat: TMatrix;
-  end;
-  PCubePos = ^TCubePos; // Pointer für Cube
+  <b><font color="0000BB">end</font></b>;
+  PCubePos = ^TCubePos; <i><font color="#FFFF00">// Pointer für Cube</font></i>
 
-var
-  CubePosArray: array[0..CubeTotal - 1] of PCubePos; // Alle Würfel</pre></code>
+<b><font color="0000BB">var</font></b>
+  CubePosArray: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..CubeTotal - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> PCubePos; <i><font color="#FFFF00">// Alle Würfel</font></i></pre></code>
 Hier wird der Speicher für die Würfel angefordert.<br>
-<pre><code>procedure TForm1.CreateScene;
-const
-  w = 1.0;</font>
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<b><font color="0000BB">const</font></b>
+  w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
+<b><font color="0000BB">var</font></b>
   i: integer;
-begin
-  for i := 0 to CubeTotal - 1 do begin
-    New(CubePosArray[i]);  // Speicher anfordern.
-  end;</pre></code>
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">New</font></b>(CubePosArray[i]);  <i><font color="#FFFF00">// Speicher anfordern.</font></i>
+  <b><font color="0000BB">end</font></b>;</pre></code>
 Startpositionen der einzelnen Würfel definieren.<br>
-<pre><code>procedure TForm1.InitScene;
-const
-  d = 1.8;</font>
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">const</font></b>
+  d = <font color="#0077BB">1</font>.<font color="#0077BB">8</font>;
+<b><font color="0000BB">var</font></b>
   i, s: integer;
-begin
-  s := CubeSize div 2;</font>
-  for i := 0 to CubeTotal - 1 do begin
-    CubePosArray[i]^.pos.x := ((i mod CubeSize) - s) * d;
-    CubePosArray[i]^.pos.y := ((i div CubeSize) mod CubeSize - s) * d;
-    CubePosArray[i]^.pos.z := (i div (CubeSize * CubeSize) - s) * d;
-  end;</pre></code>
+<b><font color="0000BB">begin</font></b>
+  s := CubeSize <b><font color="0000BB">div</font></b> <font color="#0077BB">2</font>;
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    CubePosArray[i]^.pos.x := ((i <b><font color="0000BB">mod</font></b> CubeSize) - s) * d;
+    CubePosArray[i]^.pos.y := ((i <b><font color="0000BB">div</font></b> CubeSize) <b><font color="0000BB">mod</font></b> CubeSize - s) * d;
+    CubePosArray[i]^.pos.z := (i <b><font color="0000BB">div</font></b> (CubeSize * CubeSize) - s) * d;
+  <b><font color="0000BB">end</font></b>;</pre></code>
 Hier sieht man, das ich die Matrizen vor dem Zeichnen mit einem Quick-Sort sortiere.<br>
 Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den Wert als Vergleich für die Sortierung.<br>
 <pre><code>
-// Pointer vertauschen
-procedure SwapPointer(var p1, p2: Pointer); inline;
-var
+<i><font color="#FFFF00">// Pointer vertauschen</font></i>
+<b><font color="0000BB">procedure</font></b> SwapPointer(<b><font color="0000BB">var</font></b> p1, p2: Pointer); <b><font color="0000BB">inline</font></b>;
+<b><font color="0000BB">var</font></b>
   dummy: Pointer;
-begin
+<b><font color="0000BB">begin</font></b>
   dummy := p1;
   p1 := p2;
   p2 := dummy;
-end;
+<b><font color="0000BB">end</font></b>;
 
-// Der Quick-Sort
-procedure QuickSort(var ia: array of PCubePos; ALo, AHi: integer);
-var
+<i><font color="#FFFF00">// Der Quick-Sort</font></i>
+<b><font color="0000BB">procedure</font></b> QuickSort(<b><font color="0000BB">var</font></b> ia: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> PCubePos; ALo, AHi: integer);
+<b><font color="0000BB">var</font></b>
   Lo, Hi: integer;
   Pivot: TCubePos;
-begin
+<b><font color="0000BB">begin</font></b>
   Lo := ALo;
   Hi := AHi;
-  Pivot := ia[(Lo + Hi) div 2]^;</font>
-  repeat
-    while ia[Lo]^.mat[3, 2] < Pivot.mat[3, 2] do begin
+  Pivot := ia[(Lo + Hi) <b><font color="0000BB">div</font></b> <font color="#0077BB">2</font>]^;
+  <b><font color="0000BB">repeat</font></b>
+    <b><font color="0000BB">while</font></b> ia[Lo]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] < Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Inc(Lo);
-    end;
-    while ia[Hi]^.mat[3, 2] > Pivot.mat[3, 2] do begin
+    <b><font color="0000BB">end</font></b>;
+    <b><font color="0000BB">while</font></b> ia[Hi]^.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] > Pivot.mat[<font color="#0077BB">3</font>, <font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Dec(Hi);
-    end;
-    if Lo <= Hi then begin
+    <b><font color="0000BB">end</font></b>;
+    <b><font color="0000BB">if</font></b> Lo <= Hi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       SwapPointer(ia[Lo], ia[Hi]);
       Inc(Lo);
       Dec(Hi);
-    end;
-  until Lo > Hi;
-  if Hi > ALo then begin
+    <b><font color="0000BB">end</font></b>;
+  <b><font color="0000BB">until</font></b> Lo > Hi;
+  <b><font color="0000BB">if</font></b> Hi > ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     QuickSort(ia, ALo, Hi);
-  end;
-  if Lo < AHi then begin
+  <b><font color="0000BB">end</font></b>;
+  <b><font color="0000BB">if</font></b> Lo < AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     QuickSort(ia, Lo, AHi);
-  end;
-end;</pre></code>
+  <b><font color="0000BB">end</font></b>;
+<b><font color="0000BB">end</font></b>;</pre></code>
 Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.<br>
 Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.<br>
 Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.<br>
-<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<b><font color="0000BB">var</font></b>
   i: integer;
-begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer CubeSizeöschen.
+<b><font color="0000BB">begin</font></b>
+  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer CubeSizeöschen.</font></i>
 
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
@@ -100,68 +100,68 @@ begin
   glBindVertexArray(VBCube.VAO);
 
 
-  // --- Zeichne Würfel
+  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
 
-  for i := 0 to CubeTotal - 1 do begin
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     CubePosArray[i]^.mat.Identity;
-    CubePosArray[i]^.mat.Translate(CubePosArray[i]^.pos);             // Matrix verschieben.
-    CubePosArray[i]^.mat := WorldMatrix * CubePosArray[i]^.mat;       // Matrixen multiplizieren.
-  end;
+    CubePosArray[i]^.mat.Translate(CubePosArray[i]^.pos);             <i><font color="#FFFF00">// Matrix verschieben.</font></i>
+    CubePosArray[i]^.mat := WorldMatrix * CubePosArray[i]^.mat;       <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
+  <b><font color="0000BB">end</font></b>;
 
-  QuickSort(CubePosArray, 0, CubeTotal - 1);                          // Würfel nach der Z-Tiefe sortieren.
+  QuickSort(CubePosArray, <font color="#0077BB">0</font>, CubeTotal - <font color="#0077BB">1</font>);                          <i><font color="#FFFF00">// Würfel nach der Z-Tiefe sortieren.</font></i>
 
-  for i := 0 to CubeTotal - 1 do begin
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     CubePosArray[i]^.mat := FrustumMatrix * CubePosArray[i]^.mat;
-    CubePosArray[i]^.mat.Uniform(Matrix_ID);                          // Matrix dem Shader übergeben.
-    glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);            // Zeichnet einen kleinen Würfel.
-  end;
+    CubePosArray[i]^.mat.Uniform(Matrix_ID);                          <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
+    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);            <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
+  <b><font color="0000BB">end</font></b>;
 
   ogc.SwapBuffers;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 Den Speicher von den CubePos wieder frei geben.<br>
-<pre><code>procedure TForm1.FormDestroy(Sender: TObject);
-var
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<b><font color="0000BB">var</font></b>
   i: integer;
-begin
-  for i := 0 to CubeTotal - 1 do begin
-    New(CubePosArray[i]);
-  end;</pre></code>
+<b><font color="0000BB">begin</font></b>
+  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> CubeTotal - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    <b><font color="0000BB">New</font></b>(CubePosArray[i]);
+  <b><font color="0000BB">end</font></b>;</pre></code>
 Gedreht wird nur die WorldMatrix.<br>
-<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
-begin
-  WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse</font>
-  WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse</font>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
+  WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
 
   ogc.Invalidate;
-end;</pre></code>
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
-layout (location = 11) in vec3 inCol; // Farbe</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
 
-out vec4 Color;                       // Farbe, an Fragment-Shader übergeben.
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
 
-uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = Matrix * vec4(inPos, 1.0);</font>
-  Color = vec4(inCol, 1.0);</font>
+  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in  vec4 Color;     // interpolierte Farbe vom Vertexshader
-out vec4 outColor;  // ausgegebene Farbe
+<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor   = Color; // Die Ausgabe der Farbe
-  outColor.a = 0.2;   // Farbe soll halb transparent sein.</font>
+  outColor   = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor.a = <font color="#0077BB">0</font>.<font color="#0077BB">2</font>;   <i><font color="#FFFF00">// Farbe soll halb transparent sein.</font></i>
 }
 </pre></code>
 

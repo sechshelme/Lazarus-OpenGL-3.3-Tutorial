@@ -15,44 +15,44 @@ Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.<br>
 Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.<br>
 <hr><br>
 Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.<br>
-<pre><code>procedure TForm1.FormCreate(Sender: TObject);
-begin
-  ogc := TContext.Create(Self);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
-  ogc.OnResize := @ogcResize;   // neues Ereigniss</pre></code>
+  ogc.OnResize := @ogcResize;   <i><font color="#FFFF00">// neues Ereigniss</font></i></pre></code>
 Hier wird bei einer Grössenänderung des Fenster die Perspektive angepasst.<br>
 Dabei ist der zweite Parameter relevant.<br>
-<pre><code>procedure TForm1.ogcResize(Sender: TObject);
-begin
-  FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);</font>
-end;</pre></code>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcResize(Sender: TObject);
+<b><font color="0000BB">begin</font></b>
+  FrustumMatrix.Perspective(<font color="#0077BB">45</font>, ClientWidth / ClientHeight, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
+<b><font color="0000BB">end</font></b>;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
-layout (location = 11) in vec3 inCol; // Farbe</font>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
 
-out vec4 Color;                       // Farbe, an Fragment-Shader übergeben.
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
 
-uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  gl_Position = Matrix * vec4(inPos, 1.0);</font>
-  Color = vec4(inCol, 1.0);</font>
+  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code>#version 330</font>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 
-in vec4 Color;      // interpolierte Farbe vom Vertexshader
-out vec4 outColor;  // ausgegebene Farbe
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
 
-void main(void)
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-  outColor = Color; // Die Ausgabe der Farbe
+  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </pre></code>
 
