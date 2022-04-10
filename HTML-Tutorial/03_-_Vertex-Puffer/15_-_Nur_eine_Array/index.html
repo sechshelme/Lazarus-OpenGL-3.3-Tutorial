@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>15 - Nur eine Array</title>
+    <style>
+      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
+    </style>
+  </head>
+  <body bgcolor="#DDDDFF">
+    <b><h1>03 - Vertex-Puffer</h1></b>
+    <b><h2>15 - Nur eine Array</h2></b>
+<img src="image.png" alt="Selfhtml"><br><br>
+Man kann die Vertex-Daten, auch alles in einen Daten-Block schreiben. Hier werden die Vector- und Color - Daten alle in einen Block geschrieben.<br>
+In den vorherigen Beispielen hat es für die Vector- und  Color - Daten eine separate TFace-Array gehabt.<br>
+Hier werden zwei Möglichkeiten vorgestellt, wie die Daten in der Array sind.<br>
+Variante1: <b>Vec0, Col0, ..., Vecn, Coln</b><br>
+Variante2: <b>Vec0, ..., Vecn, Col0, ..., Coln</b><br>
+Die hat noch den Vorteil, das nur ein <b>VBO</b> angelegt werden muss, obwohl mehrere Attribute in der Array sind.<br>
+<hr><br>
+Die zwei Daten-Varianten:<br>
+Variante 0: <b>XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB</b><br>
+Variante 1: <b>XYZ XYZ XYZ XYZ XYZ XYZ RGB RGB RGB RGB RGB RGB</b><br>
+<br>
+Bei dem zweiten Quadrat, sind die Y-Werte gespiegelt, es sollten zwei Quadrate sichtbar sein.<br>
+<pre><code><b><font color="0000BB">const</font></b>
+  QuadVektor0: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace2 =
+    <i><font color="#FFFF00">// Vec, Col, Vec, Col, ....</font></i>
+    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));
+  QuadVektor1: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> TFace =
+    <i><font color="#FFFF00">// Vec</font></i>
+    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
+    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
+    <i><font color="#FFFF00">// Col</font></i>
+    ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
+    ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</pre></code>
+Hier die wichtigste Änderung:<br>
+Relevant sind die zwei letzten Parameter von <b>glVertexAttribPointer(...</b><br>
+Was irritiert der einte Parameter ist direkt ein Integer, der andere braucht eine Typenumwandlung auf einen Pointer.<br>
+Der zweitletzte Parameter (stride), gibt das <b>Byte</b> Offset, zum nächsten Attribut-Wert an, repektive die Schritt/Block-grösse.<br>
+Der letzte Parameter (pointer), gibt die Position zum ersten Attribut-Wert an.<br>
+Die Werte sind immer als <b>Byte</b>, somit muss man bei einem <b>glFloat</b> immer <b>4x</b> rechnen.<br>
+<br>
+Varinate 0:<br>
+Die Vektoren beginnen bei 0, Die Grösse ist 24Byte = 6 glFloat x 4 entspricht <b>XYZRGB</b>.<br>
+Die Farben beginnen beim 12Byte. Die Grösse ist mit 24Byte gleich wie bei den Vektoren.<br>
+<br>
+Varinate 1:<br>
+Da die Vektoren hintereinander stehen, darf dieser Default (0) sein.<br>
+Die Farben beginnen beim 72Byte.<br>
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<b><font color="0000BB">begin</font></b>
+  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
+
+  <i><font color="#FFFF00">// --- Daten für Quadrat 0</font></i>
+  glBindVertexArray(VBQuad0.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO); <i><font color="#FFFF00">// Nur ein VBO erforderlich</font></i>
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
+
+  <i><font color="#FFFF00">// Vektor</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">24</font>, <b><font color="0000BB">nil</font></b>);  <i><font color="#FFFF00">// nil = Pointer(0)</font></i>
+
+  <i><font color="#FFFF00">// Farbe</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">11</font>);
+  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">24</font>, Pointer(<font color="#0077BB">12</font>));
+
+  <i><font color="#FFFF00">// --- Daten für Quadrat 1</font></i>
+  glBindVertexArray(VBQuad1.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO); <i><font color="#FFFF00">// Nur ein VBO erforderlich</font></i>
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
+
+  <i><font color="#FFFF00">// Vektor</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
+  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
+
+  <i><font color="#FFFF00">// Farbe</font></i>
+  glEnableVertexAttribArray(<font color="#0077BB">11</font>);
+  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, Pointer(<font color="#0077BB">72</font>));
+<b><font color="0000BB">end</font></b>;</pre></code>
+Das Zeichnen ist gleich, wie wen man separate Datenblöcke hätte. <br>
+Es wurde das <b>Length(...</b> entfernt, da die einte Array zwei und die andere vier Elemente hat.<br>
+Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
+<pre><code>  <i><font color="#FFFF00">// Zeichne Quadrat 0</font></i>
+  glBindVertexArray(VBQuad0.VAO);
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i>
+
+  <i><font color="#FFFF00">// Zeichne Quadrat 1</font></i>
+  glBindVertexArray(VBQuad1.VAO);
+  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i></pre></code>
+<hr><br>
+<b>Vertex-Shader:</b><br>
+<br>
+Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribPointer(...</b> die Daten übergibt.<br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
+
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
+
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+{
+  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+}
+</pre></code>
+<hr><br>
+<b>Fragment-Shader</b><br>
+<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+
+<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
+<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+
+<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+{
+  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+}
+</pre></code>
+
+    <br><br><br>
+<h2><a href="../../index.html">zurück</a></h2>
+  </body>
+</html>
