@@ -11,37 +11,37 @@ Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,<br>
 <hr><br>
 Deklaration der drei Matrixen.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  OrthoMatrix,         <i><font color="#FFFF00">// Matrix für Ortho.</font></i>
-  WorldMatrix,         <i><font color="#FFFF00">// Matrix für Welt.</font></i>
-  Matrix: TMatrix;     <i><font color="#FFFF00">// Matrix, welche dem Shader übergeben wird.</font></i>
-  Matrix_ID: GLint;    <i><font color="#FFFF00">// ID der Matrix für den Shader.</font></i></pre></code>
+<pre><code>var
+  OrthoMatrix,         // Matrix für Ortho.
+  WorldMatrix,         // Matrix für Welt.
+  Matrix: TMatrix;     // Matrix, welche dem Shader übergeben wird.
+  Matrix_ID: GLint;    // ID der Matrix für den Shader.</pre></code>
 So sieht die Funktion aus: <b>Ortho(left, right, bottom, top, znear, zfar);</b>.<br>
 Hier wird die OrthoMatrix erzeugt, und mit neuen Werten eingestellt.<br>
 Im Beispiel ist dies eine Seitenlänge in allen Achsen um 24.0 (2 * 12.0).<br>
 <br>
 Die Skalierung der Welt-Matrix hat den Effekt, das die ganze Scene gezoomt wird.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">const</font></b>
-  w = <font color="#0077BB">12</font>.<font color="#0077BB">0</font>;  <i><font color="#FFFF00">// Seiten-Länge</font></i>
-<b><font color="0000BB">begin</font></b>
+<pre><code>procedure TForm1.CreateScene;
+const
+  w = 12.0;  // Seiten-Länge</font>
+begin
   Matrix.Identity;
   WorldMatrix.Identity;
-  WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">75</font>);                    <i><font color="#FFFF00">// Welt-Matrix zoomen</font></i>
-  OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   <i><font color="#FFFF00">// Den Ortho-Bereich einstellen.</font></i></pre></code>
+  WorldMatrix.Scale(0.75);                    // Welt-Matrix zoomen
+  OrthoMatrix.Ortho(-w, w, -w, +w, -w, +w);   // Den Ortho-Bereich einstellen.</pre></code>
 Hier werden die einzelnen kleinen Würfel gezeichnet, dabei sieht man gut, wie alle drei Matrizen mutipliziert werden.<br>
 Die Matrizen könnte man auch im Shader multiplizieren, dafür müsste man einfach für jede Matrix eine Uniform deklarieren.<br>
 Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgeführt wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.<br>
 <br>
 Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet werden kann.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   x, y, z: integer;
-<b><font color="0000BB">const</font></b>
-  d = <font color="#0077BB">1</font>.<font color="#0077BB">8</font>;  <i><font color="#FFFF00">// Abstand der Würfel.</font></i>
-  s = <font color="#0077BB">4</font>;
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
+const
+  d = 1.8;  // Abstand der Würfel.</font>
+  s = 4;</font>
+begin
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
@@ -50,56 +50,56 @@ Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet w
 
   glBindVertexArray(VBCube.VAO);
 
-  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
+  // --- Zeichne Würfel
 
-  <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">for</font></b> y := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-      <b><font color="0000BB">for</font></b> z := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+  for x := -s to s do begin
+    for y := -s to s do begin
+      for z := -s to s do begin
         Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Matrix verschieben.</font></i>
+        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
 
-        Matrix := OrthoMatrix * WorldMatrix * Matrix;          <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
+        Matrix := OrthoMatrix * WorldMatrix * Matrix;          // Matrizen multiplizieren.
 
-        Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
-        glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
+        Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
+        glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // Zeichnet einen kleinen Würfel.
+      end;
+    end;
+  end;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 Kamera um die Mesh bewegen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
-  WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i></pre></code>
+<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse</font>
+  WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse</font></pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+layout (location = 11) in vec3 inCol; // Farbe</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
+out vec4 Color;                       // Farbe, an Fragment-Shader übergeben
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Ortho</font></i>
+uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Ortho
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);</font>
+  Color = vec4(inCol, 1.0);</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+in  vec4 Color;     // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor = Color; // Die Ausgabe der Farbe
 }
 </pre></code>
 

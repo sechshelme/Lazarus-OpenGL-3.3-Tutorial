@@ -9,43 +9,43 @@ Wie hier im Beispiel ein Baum.<br>
 <b>Hinweis:</b> Das Z-Bufferproblem, wie bei einfachen Alphablending muss bei Alphatexturen auch beachtet werden. Siehe [[Lazarus_-_OpenGL_3.3_Tutorial#Alpha_Blending|Alphablending]].<br>
 <hr><br>
 Wichtig ist, das man OpenGL mitteilt, das man Alpha-Blending will.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  Textur.LoadTextures(<font color="#FF0000">'baum.png'</font>);
-  glEnable(GL_BLEND);                                  <i><font color="#FFFF00">// Alphablending an</font></i>
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i></pre></code>
+<pre><code>procedure TForm1.InitScene;
+begin
+  Textur.LoadTextures('baum.png');</font>
+  glEnable(GL_BLEND);                                  // Alphablending an
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.</pre></code>
 <hr><br>
 Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten</font>
+layout (location = 10) in vec2 inUV;    // Textur-Koordinaten</font>
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
+uniform mat4 mat;
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+out vec2 UV0;
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);</font>
+  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+in vec2 UV0;
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
+uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
+out vec4 FragColor;
 
-<b><font color="0000BB">void</font></b> main()
+void main()
 {
-  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
+  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
 }
 </pre></code>
 

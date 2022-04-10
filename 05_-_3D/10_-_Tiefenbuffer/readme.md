@@ -14,65 +14,65 @@ Hier wird den Tiefenpufferprüfung eingeschaltet, dies geschieht mit <b>glEnable
 Die Art der Prüfung kann man mit <b>glDepthFunc(...</b> einstellen, wobei Default auf <b>GL_LESS</b> ist.<br>
 Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf der Pixel gezeichnet werden.<br>
 <br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  glEnable(GL_DEPTH_TEST);  <i><font color="#FFFF00">// Tiefenprüfung einschalten.</font></i>
-  glDepthFunc(GL_LESS);     <i><font color="#FFFF00">// Kann man weglassen, da Default.</font></i></pre></code>
+<pre><code>procedure TForm1.CreateScene;
+begin
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.</pre></code>
 Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT</b>.<br>
 Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.<br>
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   TempMatrix: TMatrix;
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Puffer löschen.</font></i>
+begin
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
   Shader.UseProgram;
 
-  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
+  // --- Zeichne Würfel
 
   glBindVertexArray(VBCube.VAO);
 
   WorldMatrix.Uniform(WorldMatrix_ID);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);
+  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3);
 
   TempMatrix := WorldMatrix;
 
-  WorldMatrix.Scale(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>);
+  WorldMatrix.Scale(0.5);</font>
   WorldMatrix.Uniform(WorldMatrix_ID);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// wird nicht gezeichnet.</font></i>
+  glDrawArrays(GL_TRIANGLES, 0, Length(CubeVertex) * 3); // wird nicht gezeichnet.
 
   WorldMatrix := TempMatrix;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+layout (location = 11) in vec3 inCol; // Farbe</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
+out vec4 Color;                       // Farbe, an Fragment-Shader übergeben
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung</font></i>
+uniform mat4 Matrix;                  // Matrix für die Drehbewegung
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);</font>
+  Color = vec4(inCol, 1.0);</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+in  vec4 Color;     // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor = Color; // Die Ausgabe der Farbe
 }
 </pre></code>
 

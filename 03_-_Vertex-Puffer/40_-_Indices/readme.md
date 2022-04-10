@@ -23,58 +23,58 @@ Mit den Indicen kann ich sagen, zeichen von Punkt 0-1-2 und von Punkt 0-2-3.<br>
 <pre><code>3 - 2
 | / |
 0 - 1</pre></code>
-<pre><code><b><font color="0000BB">const</font></b>
-  <i><font color="#FFFF00">// --- Dreieck</font></i>
-  <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f =
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
-  <i><font color="#FFFF00">// Indicien ( Reihenfolge )</font></i>
-  Triangle_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>);
+<pre><code>const
+  // --- Dreieck
+  // Vertex-Koordinaten
+  Triangle: array[0..2] of TVertex3f =</font>
+    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));</font>
+  // Indicien ( Reihenfolge )
+  Triangle_Indices: array[0..2] of GLint = (0, 1, 2);
 
-  <i><font color="#FFFF00">// --- Quadrat</font></i>
-  <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> TVertex3f =
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
-  <i><font color="#FFFF00">// Indicien ( Reihenfolge )</font></i>
-  Quad_Indices: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLint = (<font color="#0077BB">0</font>, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, <font color="#0077BB">2</font>, <font color="#0077BB">3</font>);</pre></code>
+  // --- Quadrat
+  // Vertex-Koordinaten
+  Quad: array[0..3] of TVertex3f =</font>
+    ((-0.2, -0.6, 0.0), (0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (-0.2, -0.1, 0.0));</font>
+  // Indicien ( Reihenfolge )
+  Quad_Indices: array[0..5] of GLint = (0, 1, 2, 0, 2, 3);</font></pre></code>
 Bei <b>glDrawElements(...</b>, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.<br>
 Ansonsten geht das Zeichen gleich, wie bei der einfachen Methode.<br>
 Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sieht.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   <i><font color="#FFFF00">// Linien</font></i>
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   // Linien
   Shader.UseProgram;
 
-  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+  // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glDrawElements(GL_TRIANGLES, Length(Triangle_Indices), GL_UNSIGNED_INT, @Triangle_Indices);
 
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
+  // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+out vec4 outColor;   // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  <b><font color="0000BB">vec3</font></b> col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
-  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  vec3 col = vec3(1.0, 1.0, 0.0); // Gelb</font>
+  outColor = vec4(col, 1.0);</font>
 }
 </pre></code>
 

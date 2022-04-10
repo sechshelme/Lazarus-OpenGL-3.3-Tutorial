@@ -10,126 +10,126 @@ Damit die Änderung auch sichtbar wird, wird <b>DrawScene</b> danach manuell aus
 <hr><br>
 Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.<br>
 <b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  X_ID, Y_ID: GLint;      <i><font color="#FFFF00">// ID für X und Y.</font></i>
+<pre><code>var
+  X_ID, Y_ID: GLint;      // ID für X und Y.
   Color_ID: GLint;
 
-  TrianglePos: <b><font color="0000BB">record</font></b>
-    x, y: GLfloat;        <i><font color="#FFFF00">// Position</font></i>
-    xr, yr: boolean;      <i><font color="#FFFF00">// Richtung</font></i>
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  TrianglePos: record
+    x, y: GLfloat;        // Position
+    xr, yr: boolean;      // Richtung
+  end;</pre></code>
 Den Timer immer erst nach dem Initialisieren starten!<br>
 Im Objektinspektor <b>muss</b> dessen Eigenschaft <b>Enable=(False)</b> sein!<br>
 Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch gar nicht gibt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
+<pre><code>procedure TForm1.FormCreate(Sender: TObject);
+begin
+  ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
   InitScene;
-  Timer1.Enabled := <b><font color="0000BB">True</font></b>;   <i><font color="#FFFF00">// Timer starten</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+  Timer1.Enabled := True;   // Timer starten
+end;</pre></code>
 Dieser Code wurde um zwei <b>UniformLocation</b>-Zeilen erweitert.<br>
 Diese ermitteln die IDs, wo sich <b>x</b> und <b>y</b> im Shader befinden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
+<pre><code>procedure TForm1.CreateScene;
+begin
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);</font>
   Shader.UseProgram;
-  Color_ID := Shader.UniformLocation(<font color="#FF0000">'Color'</font>);
-  X_ID := Shader.UniformLocation(<font color="#FF0000">'x'</font>); <i><font color="#FFFF00">// Ermittelt die ID von x.</font></i>
-  Y_ID := Shader.UniformLocation(<font color="#FF0000">'y'</font>); <i><font color="#FFFF00">// Ermittelt die ID von y.</font></i></pre></code>
+  Color_ID := Shader.UniformLocation('Color');</font>
+  X_ID := Shader.UniformLocation('x'); // Ermittelt die ID von x.</font>
+  Y_ID := Shader.UniformLocation('y'); // Ermittelt die ID von y.</font></pre></code>
 Hier werden die Uniform-Variablen x und y dem Shader übergeben.<br>
 Beim Dreieck sind das die Positions-Koordinaten.<br>
 Beim Quad ist es 0, 0 und somit bleibt das Quadrat stehen.<br>
 Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
-  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
-  <b><font color="0000BB">with</font></b> TrianglePos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>  <i><font color="#FFFF00">// Beim Dreieck, die xy-Werte.</font></i>
+  // Zeichne Dreieck
+  glUniform3f(Color_ID, 1.0, 1.0, 0.0); // Gelb</font>
+  with TrianglePos do begin  // Beim Dreieck, die xy-Werte.
     glUniform1f(X_ID, x);
     glUniform1f(Y_ID, y);
-  <b><font color="0000BB">end</font></b>;
+  end;
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
+  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
 
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
-  glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Beim Quadrat keine Verschiebung, daher 0.0, 0.0 .</font></i>
-  glUniform1f(Y_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  // Zeichne Quadrat
+  glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Rot</font>
+  glUniform1f(X_ID, 0.0);  // Beim Quadrat keine Verschiebung, daher 0.0, 0.0 .</font>
+  glUniform1f(Y_ID, 0.0);</font>
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);</pre></code>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);</font></pre></code>
 Den Timer vor dem Freigeben anhalten.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Timer1.Enabled := <b><font color="0000BB">False</font></b>;</pre></code>
+<pre><code>procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Timer1.Enabled := False;</pre></code>
 Im Timer wird die Position berechnet, so dass sich das Dreieck bewegt.<br>
 Anschliessend wird neu gezeichnet.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  stepx: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">010</font>;
-  stepy: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">0133</font>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">with</font></b> TrianglePos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">if</font></b> xr <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  stepx: GLfloat = 0.010;</font>
+  stepy: GLfloat = 0.0133;</font>
+begin
+  with TrianglePos do begin
+    if xr then begin
       x := x - stepx;
-      <b><font color="0000BB">if</font></b> x < -<font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        xr := <b><font color="0000BB">False</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+      if x < -0.5 then begin</font>
+        xr := False;
+      end;
+    end else begin
       x := x + stepx;
-      <b><font color="0000BB">if</font></b> x > <font color="#0077BB">0</font>.<font color="#0077BB">5</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        xr := <b><font color="0000BB">True</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">if</font></b> yr <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      if x > 0.5 then begin</font>
+        xr := True;
+      end;
+    end;
+    if yr then begin
       y := y - stepy;
-      <b><font color="0000BB">if</font></b> y < -<font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        yr := <b><font color="0000BB">False</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+      if y < -1.0 then begin</font>
+        yr := False;
+      end;
+    end else begin
       y := y + stepy;
-      <b><font color="0000BB">if</font></b> y > <font color="#0077BB">0</font>.<font color="#0077BB">3</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        yr := <b><font color="0000BB">True</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-  ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+      if y > 0.3 then begin</font>
+        yr := True;
+      end;
+    end;
+  end;
+  ogcDrawScene(Sender);  // Neu zeichnen
+end;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
 Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.<br>
 Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shader.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
+uniform float x;                      // Richtung von Uniform
+uniform float y;
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  <b><font color="0000BB">vec3</font></b> pos;
+  vec3 pos;
   pos.x = inPos.x + x;
   pos.y = inPos.y + y;
   pos.z = inPos.z;
-  gl_Position = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(pos, 1.0);</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+uniform vec3 Color;  // Farbe von Uniform
+out vec4 outColor;   // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Color, 1.0);</font>
 }
 </pre></code>
 

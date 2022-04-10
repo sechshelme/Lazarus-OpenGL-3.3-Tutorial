@@ -19,38 +19,38 @@ Die Lichtquelle befindet sich somit in dem kompletten Würfel-Körper.<br>
 Als Versuch kann man den Radius mal auf 50.0 setzen, dann wird man sehen, das die Lichtquelle ausserhalb der Meshes ist.<br>
 <br>
 Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">const</font></b>
-  LichtPositionRadius = <font color="#0077BB">25</font>.<font color="#0077BB">0</font>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">with</font></b> LightPos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Red := vec3(-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+<pre><code>procedure TForm1.CreateScene;
+const
+  LichtPositionRadius = 25.0;</font>
+begin
+  with LightPos do begin
+    Red := vec3(-1.0, 0.0, 0.0);</font>
     Red.Scale(LichtPositionRadius);
 
-    Green := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+    Green := vec3(0.0, 1.0, 0.0);</font>
     Green.Scale(LichtPositionRadius);
 
-    Blue := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+    Blue := vec3(1.0, 1.0, -1.0);</font>
     Blue.Scale(LichtPositionRadius);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+  end;</pre></code>
 <hr><br>
 Hier wird die Kegelberechnung ausgeführt.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten</font>
 
-<b><font color="0000BB">out</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> pos;
+out Data {
+  vec3 pos;
 } DataOut;
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
+uniform mat4 ModelMatrix;
+uniform mat4 Matrix;                    // Matrix für die Drehbewegung und Frustum.
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  DataOut.pos = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
+void main(void) {
+  gl_Position = Matrix * vec4(inPos, 1.0);</font>
+  DataOut.pos = (ModelMatrix * vec4(inPos, 1.0)).xyz;</font>
 }
 </pre></code>
 <hr><br>
@@ -62,57 +62,57 @@ Man muss beachten, das der Winkel doppelt so gross wird. Somit hat Pi/2 einen Au
 1*Pi entpräche einem Ausstrahlwinkel von 380°, somit bekommt man ein Punkt-Licht.<br>
 <br>
 Für die Berechnung des Kegels wird ein Skalarprodukt verwendet.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
-<b><font color="#008800">#define</font></b> red     <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> green   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> blue    <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)
+#define ambient vec3(0.2, 0.2, 0.2)</font>
+#define red     vec3(1.0, 0.0, 0.0)</font>
+#define green   vec3(0.0, 1.0, 0.0)</font>
+#define blue    vec3(0.0, 0.0, 1.0)</font>
 
-<b><font color="#008800">#define</font></b> PI      <font color="#0077BB">3</font>.<font color="#0077BB">1415</font>
-<b><font color="#008800">#define</font></b> Cutoff  cos(PI / <font color="#0077BB">2</font> / <font color="#0077BB">4</font>)
+#define PI      3.1415</font>
+#define Cutoff  cos(PI / 2 / 4)</font>
 
-<b><font color="0000BB">in</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> pos;
+in Data {
+  vec3 pos;
 } DataIn;
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> RedOn;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> GreenOn;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> BlueOn;
+uniform bool RedOn;
+uniform bool GreenOn;
+uniform bool BlueOn;
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> RedLightPos;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> GreenLightPos;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> BlueLightPos;
+uniform vec3 RedLightPos;
+uniform vec3 GreenLightPos;
+uniform vec3 BlueLightPos;
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+out vec4 outColor;  // ausgegebene Farbe
 
-<i><font color="#FFFF00">// Prüfen ob Fragment in Lichtkegel</font></i>
-<b><font color="0000BB">vec3</font></b> isCone(<b><font color="0000BB">vec3</font></b> LightPos) {
+// Prüfen ob Fragment in Lichtkegel
+vec3 isCone(vec3 LightPos) {
 
-  <b><font color="0000BB">vec3</font></b> lp = LightPos;
+  vec3 lp = LightPos;
 
-  <b><font color="0000BB">vec3</font></b> lightDirection = normalize(DataIn.pos - lp);
-  <b><font color="0000BB">vec3</font></b> spotDirection  = normalize(-LightPos);
+  vec3 lightDirection = normalize(DataIn.pos - lp);
+  vec3 spotDirection  = normalize(-LightPos);
 
-  <b><font color="0000BB">float</font></b> angle = dot(spotDirection, lightDirection);
-  angle = max(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  float angle = dot(spotDirection, lightDirection);
+  angle = max(angle, 0.0);</font>
 
-  <b><font color="0000BB">if</font></b>(angle > Cutoff) {
-    <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  } <b><font color="0000BB">else</font></b> {
-    <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  if(angle > Cutoff) {
+    return vec3(1.0);</font>
+  } else {
+    return vec3(0.0);</font>
   }
 }
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  outColor = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (RedOn) {
+void main(void) {
+  outColor = vec4(ambient, 1.0);</font>
+  if (RedOn) {
     outColor.rgb += isCone(RedLightPos) * red;
   }
-  <b><font color="0000BB">if</font></b> (GreenOn) {
+  if (GreenOn) {
     outColor.rgb += isCone(GreenLightPos) * green;
   }
-  <b><font color="0000BB">if</font></b> (BlueOn) {
+  if (BlueOn) {
     outColor.rgb += isCone(BlueLightPos) * blue;
   }
 }

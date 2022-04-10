@@ -8,99 +8,99 @@ Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.<br>
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.<br>
 <hr><br>
 Deklarationen der benütigenten Variablen.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TVec2 = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> single;
+<pre><code>type
+  TVec2 = array[0..1] of single;</font>
 
-<b><font color="0000BB">var</font></b>
+var
   LichtOefffnung: single;
   LichtPos, LichtRichtung: TVec2;</pre></code>
 Entspricht dem <b>vec2</b> von <b>GLSL</b>.<br>
-<pre><code><b><font color="0000BB">function</font></b> vec2(x, y: single): TVec2; <b><font color="0000BB">inline</font></b>;
-<b><font color="0000BB">begin</font></b>
-  Result[<font color="#0077BB">0</font>] := x;
-  Result[<font color="#0077BB">1</font>] := y;
-<b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>function vec2(x, y: single): TVec2; inline;
+begin
+  Result[0] := x;</font>
+  Result[1] := y;</font>
+end;</pre></code>
 Entspricht dem <b>normalize(vec2)</b> von <b>GLSL</b>.<br>
 Dies normalisiert den 2D-Vektor.<br>
-<pre><code><b><font color="0000BB">function</font></b> normalize(v: TVec2): TVec2;
-<b><font color="0000BB">var</font></b>
+<pre><code>function normalize(v: TVec2): TVec2;
+var
   i: integer;
   l: single;
-<b><font color="0000BB">begin</font></b>
-  l := Sqrt(Sqr(v[<font color="#0077BB">0</font>]) + Sqr(v[<font color="#0077BB">1</font>]));
-  <b><font color="0000BB">if</font></b> l = <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-    l := <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
-  <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+begin
+  l := Sqrt(Sqr(v[0]) + Sqr(v[1]));</font>
+  if l = 0 then begin</font>
+    l := 1.0;</font>
+  end;
+  for i := 0 to 1 do begin</font>
     Result[i] := v[i] / l;
-  <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+  end;
+end;</pre></code>
 Entspricht dem <b>dot(vec2)</b> von <b>GLSL</b>.<br>
 Hier wird das Skalarprodukt aus 2 Vektoren berechnent.<br>
 <b>arccos(Result)</b>, gibt den Winkel der beiden Vektoren im Bogenmass aus.<br>
-<pre><code><b><font color="0000BB">function</font></b> dot(v1, v2: TVec2): single;
-<b><font color="0000BB">begin</font></b>
-  Result := ((v1[<font color="#0077BB">0</font>] * v2[<font color="#0077BB">0</font>] + v1[<font color="#0077BB">1</font>] * v2[<font color="#0077BB">1</font>]) / (sqrt(v1[<font color="#0077BB">0</font>] * v1[<font color="#0077BB">0</font>] + v1[<font color="#0077BB">1</font>] * v1[<font color="#0077BB">1</font>]) * sqrt(v2[<font color="#0077BB">0</font>] * v2[<font color="#0077BB">0</font>] + v2[<font color="#0077BB">1</font>] * v2[<font color="#0077BB">1</font>])));
-<b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>function dot(v1, v2: TVec2): single;
+begin
+  Result := ((v1[0] * v2[0] + v1[1] * v2[1]) / (sqrt(v1[0] * v1[0] + v1[1] * v1[1]) * sqrt(v2[0] * v2[0] + v2[1] * v2[1])));
+end;</pre></code>
 Startwerte für die Lichtparameter.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  LichtOefffnung := <font color="#0077BB">8</font>; <i><font color="#FFFF00">// Ausstrahl-Winkel 45°  ( PI / 8 )</font></i>
-  LichtPos := vec2(<font color="#0077BB">200</font>, <font color="#0077BB">100</font>);
-  LichtRichtung := vec2(<font color="#0077BB">2</font>, <font color="#0077BB">2</font>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>procedure TForm1.FormCreate(Sender: TObject);
+begin
+  LichtOefffnung := 8; // Ausstrahl-Winkel 45°  ( PI / 8 )</font>
+  LichtPos := vec2(200, 100);</font>
+  LichtRichtung := vec2(2, 2);</font>
+end;</pre></code>
 Die Maustasten ändern die Licht und Austrahl-Position.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+<pre><code>procedure TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">case</font></b> Button <b><font color="0000BB">of</font></b>
-    mbLeft: <b><font color="0000BB">begin</font></b>
-      LichtRichtung[<font color="#0077BB">0</font>] := x - LichtPos[<font color="#0077BB">0</font>];
-      LichtRichtung[<font color="#0077BB">1</font>] := y - LichtPos[<font color="#0077BB">1</font>];
-    <b><font color="0000BB">end</font></b>;
-    mbRight: <b><font color="0000BB">begin</font></b>
-      LichtPos[<font color="#0077BB">0</font>] := x;
-      LichtPos[<font color="#0077BB">1</font>] := y;
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
+begin
+  case Button of
+    mbLeft: begin
+      LichtRichtung[0] := x - LichtPos[0];</font>
+      LichtRichtung[1] := y - LichtPos[1];</font>
+    end;
+    mbRight: begin
+      LichtPos[0] := x;</font>
+      LichtPos[1] := y;</font>
+    end;
+  end;
   Invalidate;
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 Das Mausrad ändert den Austrahlwinkel.<br>
-<pre><code><b><font color="0000BB">function</font></b> isCone(x, y: integer): boolean;
-<b><font color="0000BB">var</font></b>
+<pre><code>function isCone(x, y: integer): boolean;
+var
   winkel: single;
   lr, lp: TVec2;
-<b><font color="0000BB">begin</font></b>
-  <i><font color="#FFFF00">// Lichtrichtung Normalisieren.</font></i>
+begin
+  // Lichtrichtung Normalisieren.
   lr := normalize(LichtRichtung);
 
-  <i><font color="#FFFF00">// Lichtposition inkremtal berechnen.</font></i>
-  lp :=vec2(x - LichtPos[<font color="#0077BB">0</font>], y - LichtPos[<font color="#0077BB">1</font>]);
+  // Lichtposition inkremtal berechnen.
+  lp :=vec2(x - LichtPos[0], y - LichtPos[1]);</font>
 
-  <i><font color="#FFFF00">// Lichtposition Normlisieren.</font></i>
+  // Lichtposition Normlisieren.
   lp := normalize(lp);
 
-  <i><font color="#FFFF00">// Skalarprodukt berechen.</font></i>
+  // Skalarprodukt berechen.
   winkel := dot(lr, lp);
 
-  <i><font color="#FFFF00">// Prüfen, ob sicher der Pixel im Lichtstrahl befindet.</font></i>
+  // Prüfen, ob sicher der Pixel im Lichtstrahl befindet.
   Result := (winkel > cos(pi / LichtOefffnung));
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 Zeichen der ganzen Scene.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormPaint(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+<pre><code>procedure TForm1.FormPaint(Sender: TObject);
+var
   x, y: integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> x := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> ClientWidth - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">for</font></b> y := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> ClientHeight - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-      <b><font color="0000BB">if</font></b> isCone(x, y) <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+begin
+  for x := 0 to ClientWidth - 1 do begin
+    for y := 0 to ClientHeight - 1 do begin
+      if isCone(x, y) then begin
         Canvas.Pixels[x, y] := clYellow;
-      <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+      end else begin
         Canvas.Pixels[x, y] := clBlack;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</pre></code>
+      end;
+    end;
+  end;
+end;</pre></code>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

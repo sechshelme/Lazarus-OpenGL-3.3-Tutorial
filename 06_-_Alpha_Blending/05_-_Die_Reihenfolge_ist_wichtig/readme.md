@@ -18,108 +18,108 @@ Bei komplexen Szenen kommt man nicht um das sortieren der Meshes.<br>
 <hr><br>
 Für den Vertex-Puffer wird nur ein einfaches Quadrat gebraucht.<br>
 Die Farbe und Alpha-Kanal werden per Uniform dem Shader übergeben.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TFace3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVector3f;
+<pre><code>type
+  TFace3f = array[0..2] of TVector3f;</font>
 
-<b><font color="0000BB">const</font></b>
-  QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace3f =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</pre></code>
+const
+  QuadVector: array[0..1] of TFace3f =</font>
+    (((-0.3, -0.4, 0.0), (-0.3, 0.4, 0.0), (0.3, 0.4, 0.0)),</font>
+    ((-0.3, -0.4, 0.0), (0.3, 0.4, 0.0), (0.3, -0.4, 0.0)));</font></pre></code>
 Bei einem einfachen Quadrat ist InitScene sehr einfach gehalten.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
+<pre><code>procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0);                  // Hintergrundfarbe
 
-  glEnable(GL_BLEND);                                <i><font color="#FFFF00">// Alphablending an</font></i>
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i>
+  glEnable(GL_BLEND);                                // Alphablending an
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Sortierung der Primitiven von hinten nach vorne.
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  <i><font color="#FFFF00">// --- Daten für Quadrat</font></i>
+  // --- Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
 
-  <i><font color="#FFFF00">// Vektor</font></i>
+  // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);                     <i><font color="#FFFF00">// 10 ist die Location in inPos Shader.</font></i>
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</pre></code>
+  glEnableVertexAttribArray(10);                     // 10 ist die Location in inPos Shader.
+  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+end;</pre></code>
 Zeichnen der 4 Rechtecke.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+<pre><code>procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   col: TVector4f;
   TempMatrix: TMatrix;
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer löschen.</font></i>
+begin
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
   Shader.UseProgram;
   MatrixTrans.Identity;
 
   glBindVertexArray(VBQuad.VAO);
 
-  <i><font color="#FFFF00">// --- Links ( Richtige Darstellung )</font></i>
-  <i><font color="#FFFF00">// Rot</font></i>
-  col := vec4(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  glUniform4fv(Color_ID, <font color="#0077BB">1</font>, @col);   <i><font color="#FFFF00">// Als Vektor</font></i>
+  // --- Links ( Richtige Darstellung )
+  // Rot
+  col := vec4(1.0, 0.0, 0.0, 1.0);</font>
+  glUniform4fv(Color_ID, 1, @col);   // Als Vektor</font>
   TempMatrix := MatrixTrans;
-  MatrixTrans.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
-  MatrixTrans.Uniform(MatrixRot_ID);                      <i><font color="#FFFF00">// MatrixTrans in den Shader.</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);
+  MatrixTrans.Translate(-0.5, 0.2, 0.1);</font>
+  MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
   MatrixTrans := TempMatrix;
 
-  <i><font color="#FFFF00">// blau transparent</font></i>
-  col := vec4(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
-  glUniform4fv(Color_ID, <font color="#0077BB">1</font>, @col);   <i><font color="#FFFF00">// Als Vektor</font></i>
+  // blau transparent
+  col := vec4(0.0, 0.0, 1.0, 0.3);</font>
+  glUniform4fv(Color_ID, 1, @col);   // Als Vektor</font>
   TempMatrix := MatrixTrans;
-  MatrixTrans.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
-  MatrixTrans.Uniform(MatrixRot_ID);                      <i><font color="#FFFF00">// MatrixTrans in den Shader.</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);
+  MatrixTrans.Translate(-0.4, -0.2, -0.1);</font>
+  MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
   MatrixTrans := TempMatrix;
 
 
-  <i><font color="#FFFF00">// --- Rechts ( Falsche Darstellung )</font></i>
-  <i><font color="#FFFF00">// blau transparent</font></i>
-  col := vec4(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
-  glUniform4fv(Color_ID, <font color="#0077BB">1</font>, @col);   <i><font color="#FFFF00">// Als Vektor</font></i>
+  // --- Rechts ( Falsche Darstellung )
+  // blau transparent
+  col := vec4(0.0, 0.0, 1.0, 0.3);</font>
+  glUniform4fv(Color_ID, 1, @col);   // Als Vektor</font>
   TempMatrix := MatrixTrans;
-  MatrixTrans.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
-  MatrixTrans.Uniform(MatrixRot_ID);                      <i><font color="#FFFF00">// MatrixTrans in den Shader.</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);
+  MatrixTrans.Translate(0.4, -0.2, -0.1);</font>
+  MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
   MatrixTrans := TempMatrix;
 
-  <i><font color="#FFFF00">// Rot</font></i>
-  col := vec4(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  glUniform4fv(Color_ID, <font color="#0077BB">1</font>, @col);   <i><font color="#FFFF00">// Als Vektor</font></i>
+  // Rot
+  col := vec4(1.0, 0.0, 0.0, 1.0);</font>
+  glUniform4fv(Color_ID, 1, @col);   // Als Vektor</font>
   TempMatrix := MatrixTrans;
-  MatrixTrans.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
-  MatrixTrans.Uniform(MatrixRot_ID);                      <i><font color="#FFFF00">// MatrixTrans in den Shader.</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);
+  MatrixTrans.Translate(0.5, 0.2, 0.1);</font>
+  MatrixTrans.Uniform(MatrixRot_ID);                      // MatrixTrans in den Shader.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
   MatrixTrans := TempMatrix;
 
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 <hr><br>
 Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix und dem Color mit Alpha.<br>
 <br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;                        <i><font color="#FFFF00">// Matrix von Uniform</font></i>
+layout (location = 10) in vec3 inPos;    // Vertex-Koordinaten</font>
+uniform mat4 mat;                        // Matrix von Uniform
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Vektoren mit der Matrix multiplizieren.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);  // Vektoren mit der Matrix multiplizieren.</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec4</font></b> Color;
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+uniform vec4 Color;
+out vec4 outColor;   // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
   outColor = Color;
 }

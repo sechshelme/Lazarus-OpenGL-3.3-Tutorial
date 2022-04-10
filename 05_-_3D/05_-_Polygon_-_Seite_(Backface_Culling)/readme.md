@@ -17,55 +17,55 @@ Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerender
 Dafür gibt es die Parameter <b>GL_CW</b> für Uhrzeigersinn, und den Default-Parameter <b>GL_CCW</b>.<br>
 <hr><br>
 Wen man die Konstanten genau anschaut, sieht man, das das Dreieck im Gegenuhrzegersinn und das Qaudrat im Uhrzeigersinn deklariert ist.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  <i><font color="#FFFF00">// Dreieck</font></i>
-  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
+<pre><code>const
+  // Dreieck
+  Triangle: array[0..0] of TFace =</font>
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));</font>
 
-  <i><font color="#FFFF00">// Quadrat</font></i>
-  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</pre></code>
+  // Quadrat
+  Quad: array[0..1] of TFace =</font>
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));</font></pre></code>
 Hier wird die Backface Culling aktiviert:<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glEnable(GL_CULL_FACE);           <i><font color="#FFFF00">// Überprüfung einschalten</font></i></pre></code>
+<pre><code>procedure TForm1.InitScene;
+begin
+  glEnable(GL_CULL_FACE);           // Überprüfung einschalten</pre></code>
 Hier wird zwischen der Rück und Vorder-Seite umgesschalten.<br>
 Man sagt immer, welche Seite nicht gezeichnet wird.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  CullFace: boolean = <b><font color="0000BB">False</font></b>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">if</font></b> CullFace <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-    glCullFace(GL_BACK);      <i><font color="#FFFF00">// Rückseite nicht zeichnen.</font></i>
-  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
-    glCullFace(GL_FRONT);     <i><font color="#FFFF00">// Vorderseite nicht zeichnen.</font></i>
-  <b><font color="0000BB">end</font></b>;
-  CullFace := <b><font color="0000BB">not</font></b> CullFace;
+<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  CullFace: boolean = False;
+begin
+  if CullFace then begin
+    glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+  end else begin
+    glCullFace(GL_FRONT);     // Vorderseite nicht zeichnen.
+  end;
+  CullFace := not CullFace;
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</pre></code>
+end;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten</font>
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);</font>
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
+out vec4 outColor;   // ausgegebene Farbe
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  <b><font color="0000BB">vec3</font></b> col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  vec3 col = vec3(1.0, 0.0, 0.0);</font>
+  outColor = vec4(col, 1.0);</font>
 }
 </pre></code>
 

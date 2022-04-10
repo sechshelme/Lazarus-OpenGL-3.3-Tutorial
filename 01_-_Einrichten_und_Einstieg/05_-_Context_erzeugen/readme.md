@@ -11,31 +11,31 @@ Man kann die <b>TOpenGLControl</b>-Komponente auch über die Komponenten-Leiste 
 Aber meine Erfahrung hat gezeigt, wenn man eine neuere Lazarus-Version installiert, dass es dann zu Problemen kommen kann.<br>
 <hr><br>
 Den Zeichen-Context mit <b>TOpenGLControl</b> deklarieren.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TForm1 = <b><font color="0000BB">class</font></b>(TForm)
-    <b><font color="0000BB">procedure</font></b> FormCreate(Sender: TObject);
-  <b><font color="0000BB">private</font></b>
-    ogc: TOpenGLControl;   <i><font color="#FFFF00">// Deklaration von ogc</font></i>
-    <b><font color="0000BB">procedure</font></b> InitScene;
-    <b><font color="0000BB">procedure</font></b> DrawScene(Sender: TObject);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>type
+  TForm1 = class(TForm)
+    procedure FormCreate(Sender: TObject);
+  private
+    ogc: TOpenGLControl;   // Deklaration von ogc
+    procedure InitScene;
+    procedure DrawScene(Sender: TObject);
+  end;</pre></code>
 Den Zeichen-Context erzeugen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  ogc := TOpenGLControl.Create(<b><font color="0000BB">Self</font></b>); <i><font color="#FFFF00">// Den Zeichen-Context erzeugen.</font></i>
-  <b><font color="0000BB">with</font></b> ogc <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Parent := <b><font color="0000BB">Self</font></b>;
+<pre><code>procedure TForm1.FormCreate(Sender: TObject);
+begin
+  ogc := TOpenGLControl.Create(Self); // Den Zeichen-Context erzeugen.
+  with ogc do begin
+    Parent := Self;
     Align := alClient;
-    OpenGLMajorVersion := <font color="#0077BB">3</font>;          <i><font color="#FFFF00">// Dies ist wichtig, dass der Context 3.3 verwendet wird.</font></i>
-    OpenGLMinorVersion := <font color="#0077BB">3</font>;
+    OpenGLMajorVersion := 3;          // Dies ist wichtig, dass der Context 3.3 verwendet wird.</font>
+    OpenGLMinorVersion := 3;</font>
     OnPaint := @DrawScene;
     InitOpenGL;
     MakeCurrent;
     ReadExtensions;
     ReadImplementationProperties;
-  <b><font color="0000BB">end</font></b>;
-  InitScene;                          <i><font color="#FFFF00">// Rendert die Szene</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+  end;
+  InitScene;                          // Rendert die Szene
+end;</pre></code>
 Für die Contexterzeugung, habe ich eine Klasse geschrieben, diese beinhaltet den Teil im <b>with</b>-Block, ausgenommen <b>OnPaint</b>.<br>
 In späteren Tutorial wird nur noch diese verwendet.<br>
 <hr><br>
@@ -43,19 +43,19 @@ Rendern der Szene, momentan wird nur die Hintergrundfarbe festgelegt.<br>
 Die Werte werden bei <b>glClearColor(...</b> als R, G, B, A eingegeben, wobei A keinen Einfluss hat.<br>
 0.0 ist dunkel und 1.0 ist volle Intensität, somit wäre 0.0, 0.0, 0.0 Schwarz und 1.0, 1.0, 1.0 Weiss.<br>
 Hier im Beispiel ist es ein Olivgrün.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0);  // Hintergrundfarbe</font>
+end;</pre></code>
 Darstellen der Szene, momentan wird mit <b>glClear(...</b> nur der Frame-Puffer geleert und und mit der mit <b>glClearColor(...</b> festgelegten Farbe gefüllt.<br>
 Der noch leere Frame-Puffer wird mit <b>ogc.SwapBuffers;</b> auf dem Bildschirm dargestellt.<br>
 Somit ist nur der Hintergrund sichtbar und man sieht keine Änderung.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.DrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT);  <i><font color="#FFFF00">// Frame-Buffer löschen und einfärben.</font></i>
+<pre><code>procedure TForm1.DrawScene(Sender: TObject);
+begin
+  glClear(GL_COLOR_BUFFER_BIT);  // Frame-Buffer löschen und einfärben.
 
-  ogc.SwapBuffers;               <i><font color="#FFFF00">// Frame-Buffer auf den Bildschirm kopieren.</font></i>
-<b><font color="0000BB">end</font></b>;</pre></code>
+  ogc.SwapBuffers;               // Frame-Buffer auf den Bildschirm kopieren.
+end;</pre></code>
 
     <br><br><br>
 <h2><a href="../../index.html">zurück</a></h2>

@@ -10,80 +10,80 @@ Dies geschieht mit <b>glTexSubImage2D(...</b>.<br>
 <hr><br>
 Big ist die Totalgrösse der Texturdaten.<br>
 Small ist ein Auschnitt.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  TextursizeBig = <font color="#0077BB">256</font>;
-  TextursizeSmall = <font color="#0077BB">64</font>;</pre></code>
+<pre><code>const
+  TextursizeBig = 256;</font>
+  TextursizeSmall = 64;</font></pre></code>
 3 Datenpuffer, welche sehr mit sehr einfachen Werten geladen werden.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  TexturBig: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..TextursizeBig*TextursizeBig-<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> UInt32 ;
-  TexturSmall0, TexturSmall1: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..TextursizeSmall*TextursizeSmall-<font color="#0077BB">1</font>]<b><font color="0000BB">of</font></b> UInt32;
+<pre><code>var
+  TexturBig: packed array [0..TextursizeBig*TextursizeBig-1] of UInt32 ;</font>
+  TexturSmall0, TexturSmall1: packed array [0..TextursizeSmall*TextursizeSmall-1]of UInt32;</font>
   textureID: GLuint;</pre></code>
 Es werden sehr einfache Datenbuffer mit Daten befüllt.<br>
 In der Praxis werden die Puffer meistens mit Bitmaps gefüllt.<br>
 Der grosse Texturbuffer füllt die ganze Textur auf.<br>
 Die kleinen Datenbuffer werden später zur Laufzeit abwechslungsweise geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">var</font></b>
+<pre><code>procedure TForm1.InitScene;
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  <i><font color="#FFFF00">// Einfache Datenbuffer erzeugen.</font></i>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TextursizeBig * TextursizeBig - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    TexturBig[i] := i <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
-  <b><font color="0000BB">end</font></b>;
+begin
+  // Einfache Datenbuffer erzeugen.
+  for i := 0 to TextursizeBig * TextursizeBig - 1 do begin</font>
+    TexturBig[i] := i or $FF000000;</font>
+  end;
 
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TextursizeSmall * TextursizeSmall - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    TexturSmall0[i] := i <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
-    TexturSmall1[i] := (<b><font color="0000BB">not</font></b> i) <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
-  <b><font color="0000BB">end</font></b>;
+  for i := 0 to TextursizeSmall * TextursizeSmall - 1 do begin</font>
+    TexturSmall0[i] := i or $FF000000;</font>
+    TexturSmall1[i] := (not i) or $FF000000;</font>
+  end;
 
-  <i><font color="#FFFF00">// --- Texturbuffer erzeugen und anschliessend mit Daten der grossen Textur befüllen.</font></i>
+  // --- Texturbuffer erzeugen und anschliessend mit Daten der grossen Textur befüllen.
 
-  glGenTextures(<font color="#0077BB">1</font>, @textureID);
+  glGenTextures(1, @textureID);</font>
   glBindTexture(GL_TEXTURE_2D, textureID);
 
-  <i><font color="#FFFF00">// Nur Speicher reservieren</font></i>
-  glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, TextursizeBig, TextursizeBig, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, <b><font color="0000BB">nil</font></b>);
+  // Nur Speicher reservieren
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TextursizeBig, TextursizeBig, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
 
-  <i><font color="#FFFF00">// Texturbuffer mit dem grossen Datenbuffer befüllen.</font></i>
-  glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TextursizeBig, TextursizeBig, GL_RGBA, GL_UNSIGNED_BYTE, @TexturBig);</pre></code>
+  // Texturbuffer mit dem grossen Datenbuffer befüllen.
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, TextursizeBig, TextursizeBig, GL_RGBA, GL_UNSIGNED_BYTE, @TexturBig);</pre></code>
 Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  step = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;
-  z: integer = <font color="#0077BB">1</font>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">if</font></b> z > <font color="#0077BB">10</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-    glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">64</font>, <font color="#0077BB">64</font>, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall0);
-  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
-    glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">64</font>, <font color="#0077BB">64</font>, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall1);
-  <b><font color="0000BB">end</font></b>;</pre></code>
+<pre><code>procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  step = 0.01;</font>
+  z: integer = 1;</font>
+begin
+  if z > 10 then begin</font>
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall0);
+  end else begin
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall1);
+  end;</pre></code>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;  <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
+layout (location =  0) in vec3 inPos; // Vertex-Koordinaten</font>
+layout (location = 10) in vec2 inUV;  // Textur-Koordinaten</font>
+uniform mat4 mat;
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+out vec2 UV0;
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = mat * vec4(inPos, 1.0);</font>
   UV0         = inUV;
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
+in vec2 UV0;
 
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;
+uniform sampler2D Sampler;
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
+out vec4 FragColor;
 
-<b><font color="0000BB">void</font></b> main()
+void main()
 {
   FragColor = texture( Sampler, UV0 );
 }

@@ -8,51 +8,51 @@ Mit <b>gl_VertexID</b> kann man im Vertex-Shader ermitteln, welcher Vertex aus d
 Das Rendering ist nicht besonderes, es spielt sich alles im Vertex-Shader ab.<br>
 <hr><br>
 Die Koordinaten der Mesh, maximal 6 Stück<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace2D =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>)));
-  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace2D =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>)),
-    (( -<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>)));</pre></code>
+<pre><code>const
+  Triangle: array[0..0] of TFace2D =</font>
+    (((-0.4, 0.1), (0.4, 0.1), (0.0, 0.7)));</font>
+  Quad: array[0..1] of TFace2D =</font>
+    (((-0.2, -0.6), (-0.2, -0.1), (0.2, -0.1)),</font>
+    (( -0.2, -0.6), (0.2, -0.1), (0.2, -0.6)));</font></pre></code>
 <hr><br>
 Da es in diesem Beispiel nur maximal 6 Vertex-Punkte gibt, habe ich die VertexID mit einer einfachen Case-Schleife ausgewertet.<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;
+layout (location = 10) in vec2 inPos;</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> col;
+out vec3 col;
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">switch</font></b> (gl_VertexID) <i><font color="#FFFF00">// Den aktuellen Vertex abfragen.</font></i>
+  gl_Position = vec4(inPos, 0.0, 1.0);</font>
+  switch (gl_VertexID) // Den aktuellen Vertex abfragen.
   {
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">0</font>:  col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">1</font>:  col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">2</font>:  col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">3</font>:  col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">case</font></b> <font color="#0077BB">4</font>:  col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-             <b><font color="0000BB">break</font></b>;
-    <b><font color="0000BB">default</font></b>: col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+    case 0:  col = vec3(1.0, 0.0, 0.0);
+             break;
+    case 1:  col = vec3(0.0, 1.0, 0.0);
+             break;
+    case 2:  col = vec3(0.0, 0.0, 1.0);
+             break;
+    case 3:  col = vec3(1.0, 1.0, 0.0);
+             break;
+    case 4:  col = vec3(0.0, 1.0, 1.0);
+             break;
+    default: col = vec3(1.0, 0.0, 1.0);</font>
   }
 }
 </pre></code>
 <hr><br>
 <b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
+<pre><code>#version 330</font>
 
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
+out vec4 outColor;
 
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec3</font></b> col;
+in  vec3 col;
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+void main(void) {
+  outColor = vec4(col, 1.0);</font>
 }
 </pre></code>
 
