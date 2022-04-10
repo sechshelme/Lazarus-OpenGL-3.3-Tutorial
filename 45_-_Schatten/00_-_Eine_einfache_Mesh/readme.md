@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>00 - Eine einfache Mesh</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>45 - Schatten</h1></b>
     <b><h2>00 - Eine einfache Mesh</h2></b>

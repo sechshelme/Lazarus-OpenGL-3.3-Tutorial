@@ -84,13 +84,13 @@ begin
 
   sl2.Add('<!DOCTYPE html>');
   sl2.Add('<html>');
-  sl2.Add('  <head>');
-  sl2.Add('    <meta charset="utf-8">');
-  sl2.Add('    <title>' + getTitle + '</title>');
-  sl2.Add('    <style>');
-  sl2.Add('      pre {background-color:#' + BKColor + '; color:#' + FontColor + '; font-family: Fixedsys,Courier,monospace; padding:10px;}');
-  sl2.Add('    </style>');
-  sl2.Add('  </head>');
+  //sl2.Add('  <head>');
+  //sl2.Add('    <meta charset="utf-8">');
+  //sl2.Add('    <title>' + getTitle + '</title>');
+  //sl2.Add('    <style>');
+  //sl2.Add('      pre {background-color:#' + BKColor + '; color:#' + FontColor + '; font-family: Fixedsys,Courier,monospace; padding:10px;}');
+  //sl2.Add('    </style>');
+  //sl2.Add('  </head>');
   sl2.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
   sl2.Add('    <b><h1>' + fKapitel + '</h1></b>');
   sl2.Add('    <b><h2>' + getTitle + '</h2></b>');

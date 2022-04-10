@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>15 - Kleines Planetarium</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>04 - Matrix</h1></b>
     <b><h2>15 - Kleines Planetarium</h2></b>

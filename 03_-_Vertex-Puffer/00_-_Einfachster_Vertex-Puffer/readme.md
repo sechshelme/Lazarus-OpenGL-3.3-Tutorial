@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>00 - Einfachster Vertex-Puffer</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>03 - Vertex-Puffer</h1></b>
     <b><h2>00 - Einfachster Vertex-Puffer</h2></b>

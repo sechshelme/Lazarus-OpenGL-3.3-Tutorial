@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>40 - Filter</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>20 - Texturen</h1></b>
     <b><h2>40 - Filter</h2></b>

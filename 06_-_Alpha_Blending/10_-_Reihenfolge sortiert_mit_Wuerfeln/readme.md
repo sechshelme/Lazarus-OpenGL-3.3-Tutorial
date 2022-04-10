@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>10 - Reihenfolge sortiert mit Wuerfeln</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>06 - Alpha Blending</h1></b>
     <b><h2>10 - Reihenfolge sortiert mit Wuerfeln</h2></b>

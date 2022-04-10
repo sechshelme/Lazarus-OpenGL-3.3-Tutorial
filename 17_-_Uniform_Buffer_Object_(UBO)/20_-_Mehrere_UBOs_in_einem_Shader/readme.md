@@ -1,12 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>20 - Mehrere UBOs in einem Shader</title>
-    <style>
-      pre {background-color:#BBBBFF; color:#000000; font-family: Fixedsys,Courier,monospace; padding:10px;}
-    </style>
-  </head>
   <body bgcolor="#DDDDFF">
     <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
     <b><h2>20 - Mehrere UBOs in einem Shader</h2></b>
