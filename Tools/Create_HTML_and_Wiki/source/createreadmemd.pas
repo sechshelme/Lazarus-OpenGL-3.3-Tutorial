@@ -442,7 +442,7 @@ begin
 
   TagPascal(sl);
 
-  slHTML.Add('<pre><code=pascal>' + sl.Text + '</code></pre>');
+  slHTML.Add('<pre><codel>' + sl.Text + '</code></pre>');
 
   sl.Free;
 end;
