@@ -6,16 +6,16 @@ Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnel
 <hr><br>
 Es werden drei UBOs angelegt.<br>
 ID im Shader wird nur eine gebraucht.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   UBO: <b><font color="0000BB">record</font></b>
     Rubin, Jade, Smaragdgruen: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
   <b><font color="0000BB">end</font></b>;
   Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></code></pre>
 Der BindingPoint muss global deklariert werden, da er fürs Binden im Timer auch gebraucht wird.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   bindingPoint: gluint = <font color="#0077BB">0</font>;</code></pre>
 ID und Puffer generieren.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
@@ -34,7 +34,7 @@ ID und Puffer generieren.<br>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Da die UBO-Daten im VRAM abgelegt sind, kann man gut für die verschiedenen Puffer einfach die Material-Daten überschreiben.<br>
 Dies ist gleich wie bei den Vertex-Pufferen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Puffer für Rubin anlegen.</font></i>
   <b><font color="0000BB">with</font></b> Material <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -72,7 +72,7 @@ Dies ist gleich wie bei den Vertex-Pufferen.<br>
   <i><font color="#FFFF00">// Timer manuell aufrufen, so das die ersten Daten in den UBO-kopiert werden.</font></i>
   Timer2Timer(<b><font color="0000BB">nil</font></b>);</code></pre>
 Für die verscheidenen Materialien, wir einfach nur ein anderer UBO über den Bindingpoint mit dem Shader verbunden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   m: integer = <font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>

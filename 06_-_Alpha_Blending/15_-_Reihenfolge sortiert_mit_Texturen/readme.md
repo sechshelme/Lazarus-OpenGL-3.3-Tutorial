@@ -11,7 +11,7 @@ Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die S
 Wie Texturen funktionieren, in einem späteren Kapitel.<br>
 <hr><br>
 Den Speicher für die Position der Bäume reservieren.<br>
-<pre><code=scal>
+<pre><code>
 <b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: Integer;
@@ -20,7 +20,7 @@ Den Speicher für die Position der Bäume reservieren.<br>
     <b><font color="0000BB">New</font></b>(TreePosArray[i]);
   <b><font color="0000BB">end</font></b>;</code></pre>
 Die Position der Bäume  wird zufällig bestimmt.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
   d = <font color="#0077BB">10</font>;
 <b><font color="0000BB">var</font></b>
@@ -34,7 +34,7 @@ Die Position der Bäume  wird zufällig bestimmt.<br>
 Der Boden und die Bäume zeichen.<br>
 Dabei ist es wichtig, das man zuerst den Boden zeichnet, weil die Bäume Alpha-Blending haben.<br>
 Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <br>
   <b><font color="0000BB">procedure</font></b> QuickSort(<b><font color="0000BB">var</font></b> ia: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> PTreePos; ALo, AHi: integer);
   <b><font color="0000BB">var</font></b>
@@ -110,7 +110,7 @@ Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Da sieht man, das es reicht nur den Vector zu drehen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   rot = <font color="#0077BB">0</font>.<font color="#0077BB">0134</font>;
 <b><font color="0000BB">var</font></b>

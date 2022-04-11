@@ -12,11 +12,11 @@ Dieses Verfahren hat zwei Nachteile.<br>
 Diese Nachteile kann man umgehen, wen man anstelle von Uniformen VertexAttrib verwendet, dazu im nächasten Thema.<br>
 <hr><br>
 Die Anzahl Instance<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
   InstanceCount = <font color="#0077BB">200</font>;</code></pre>
 Die Deklaration, der Paramter für die einzelnen Instancen.<br>
 Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funktionsweise der Uniform-Übergaben.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   Matrix_ID, Color_ID, Size_ID: GLint;
 <br>
   VBQuad: TVB;
@@ -28,7 +28,7 @@ Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funkti
   <b><font color="0000BB">end</font></b>;</code></pre>
 Das Auslesen der UniformID. Dies geschieht gleich wie bei einfachen Uniformen.<br>
 Die Instancen-Parameter mit zufälligen Werten belegen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -53,7 +53,7 @@ Die Übergabe der Uniform-Werte. Da es sich um Arrays handelt, muss man noch die
 Auch sieht man gut, das mal <b>glDrawArraysInstanced(...</b> nur einmal aufrufen muss.<br>
 Würde man dies ohne Instancen lössen, müsste man die Uniformübergabe und glDraw... 200x aufrufen.<br>
 Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte nötig.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -69,7 +69,7 @@ Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte n
 <b><font color="0000BB">end</font></b>;</code></pre>
 Die Matrizen drehen.<br>
 Dies muss man 200x machen, aber es sind nicht 200 Übergaben zur Grafikkarte nötig.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>

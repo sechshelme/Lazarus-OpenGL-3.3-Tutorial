@@ -7,7 +7,7 @@ Wie hier im Beispiel ein Baum.<br>
 <b>Hinweis:</b> Das Z-Bufferproblem, wie bei einfachen Alphablending muss bei Alphatexturen auch beachtet werden. Siehe [[Lazarus_-_OpenGL_3.3_Tutorial#Alpha_Blending|Alphablending]].<br>
 <hr><br>
 Wichtig ist, das man OpenGL mitteilt, das man Alpha-Blending will.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   Textur.LoadTextures(<font color="#FF0000">'baum.png'</font>);
   glEnable(GL_BLEND);                                  <i><font color="#FFFF00">// Alphablending an</font></i>

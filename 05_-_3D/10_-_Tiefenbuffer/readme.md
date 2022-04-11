@@ -12,14 +12,14 @@ Hier wird den Tiefenpufferprüfung eingeschaltet, dies geschieht mit <b>glEnable
 Die Art der Prüfung kann man mit <b>glDepthFunc(...</b> einstellen, wobei Default auf <b>GL_LESS</b> ist.<br>
 Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf der Pixel gezeichnet werden.<br>
 <br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glEnable(GL_DEPTH_TEST);  <i><font color="#FFFF00">// Tiefenprüfung einschalten.</font></i>
   glDepthFunc(GL_LESS);     <i><font color="#FFFF00">// Kann man weglassen, da Default.</font></i></code></pre>
 Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT</b>.<br>
 Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.<br>
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>

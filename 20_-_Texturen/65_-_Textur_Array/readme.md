@@ -11,7 +11,7 @@ Eine Textur-Array kann man auch für Multitexturing verwenden. Man muss im Fragm
 Eine andere Anwendung wäre, bei einem 2D-Spiel, Sprites in eine Textur-Array abzulegen.<br>
 <hr><br>
 Die Koordinaten sind gleich, wie bei einer einzelnen Textur.<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
   QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
     (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
@@ -21,7 +21,7 @@ Die Koordinaten sind gleich, wie bei einer einzelnen Textur.<br>
     (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</code></pre>
 Dieser Puffer wird gleich reserviert, wie bei der einzelnen Textur.<br>
 Im Shader ist der Layer eine Unifom-Variable.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glGenTextures(<font color="#0077BB">1</font>, @textureID);                 <i><font color="#FFFF00">// Erzeugen des Textur-Puffer.</font></i>
 <br>
@@ -40,7 +40,7 @@ Die Ziffern befinde sich alle in einer Bitmap, welche alle Ziffern übereinander
 Man sieht hier gut, das man anstelle von <b>GL_TEXTURE_2D</b>, <b>GL_TEXTURE_2D_ARRAY</b> verwenden muss.<br>
 Die Textur-Daten werden mit <b>glTexImage3D(GL_TEXTURE_2D_ARRAY,...</b> übegeben. Neben der Breite und Höhe, muss man noch die Anzahl Layer mitgeben.<br>
 Die Höhe muss man noch durch die Anzahl Layer teilen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
   anzLayer = <font color="#0077BB">6</font>;
 <b><font color="0000BB">var</font></b>
@@ -63,7 +63,7 @@ Die Höhe muss man noch durch die Anzahl Layer teilen.<br>
 Zeichnen der einzelnen Quadrate. Hier sieht man gut, das nur eine Textur gebunden wird.<br>
 Für den Textur-Wechsel muss man nur den Layer übergeben.<br>
 Die Matrizen drehen und positionieren nur die Quadrate.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   x, y: integer;
   Matrix: TMatrix;

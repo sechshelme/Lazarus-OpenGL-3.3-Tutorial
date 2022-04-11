@@ -7,7 +7,7 @@ Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen 
 <hr><br>
 Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.<br>
 Es ist ein Quadrat mit 4 verschieden farbigen Ecken.<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
 <br>
   <i><font color="#FFFF00">// --- Vectoren</font></i>
   QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> Tmat3x3 =
@@ -18,7 +18,7 @@ Es ist ein Quadrat mit 4 verschieden farbigen Ecken.<br>
     (((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));</code></pre>
 Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.<br>
 Der Würfel braucht Texturkoordinaten.<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
 <br>
   <i><font color="#FFFF00">// --- Vectoren</font></i>
   CubeVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">11</font>] <b><font color="0000BB">of</font></b> Tmat3x3 =
@@ -40,18 +40,18 @@ Der Würfel braucht Texturkoordinaten.<br>
     ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
     ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</code></pre>
 Grösse der Textur, auf welcher das Quadrat gerendert wird.<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
   TexturSize = <font color="#0077BB">2048</font>;</code></pre>
 Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.<br>
 Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   <i><font color="#FFFF00">// ID der Textur.</font></i>
   textureID: GLuint;
 <br>
   <i><font color="#FFFF00">// Renderpuffer</font></i>
   FramebufferName, depthrenderbuffer: GLuint;</code></pre>
 Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
 <br>
   <i><font color="#FFFF00">// Vertex Puffer erzeugen.</font></i>
@@ -88,7 +88,7 @@ Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.<br>
   QuadWorldMatrix.Identity;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Die Vertexkoordinaten laden, auch nichts besonderes.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -133,7 +133,7 @@ Die Vertexkoordinaten laden, auch nichts besonderes.<br>
   <b><font color="0000BB">end</font></b>;</code></pre>
 Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,<br>
 gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.<br>
-<pre><code=scal>
+<pre><code>
   <i><font color="#FFFF00">// ------------ Texturen erzeugenn --------------</font></i>
 <br>
   <i><font color="#FFFF00">// --- Textur</font></i>
@@ -147,7 +147,7 @@ gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.<br>
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 </code></pre>
 Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.<br>
-<pre><code=scal>
+<pre><code>
   <i><font color="#FFFF00">// Frame Puffer erzeugen.</font></i>
   glGenFramebuffers(<font color="#0077BB">1</font>, @FramebufferName);
   glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
@@ -168,7 +168,7 @@ Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>Swap
 Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.<br>
 Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.<br>
 Beim Bildschirmpuffer hat dieser keinen Einfluss.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
 <br>
   <i><font color="#FFFF00">// --- In den Texturpuffer render.</font></i>
@@ -214,7 +214,7 @@ Beim Bildschirmpuffer hat dieser keinen Einfluss.<br>
 <br>
 <b><font color="0000BB">end</font></b>;</code></pre>
 Zum Schluss alle Puffer frei geben.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Timer1.Enabled := <b><font color="0000BB">False</font></b>;
 <br>

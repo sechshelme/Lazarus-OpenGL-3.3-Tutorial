@@ -9,7 +9,7 @@ Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,<br>
 <hr><br>
 Deklaration der drei Matrixen.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   OrthoMatrix,         <i><font color="#FFFF00">// Matrix für Ortho.</font></i>
   WorldMatrix,         <i><font color="#FFFF00">// Matrix für Welt.</font></i>
   Matrix: TMatrix;     <i><font color="#FFFF00">// Matrix, welche dem Shader übergeben wird.</font></i>
@@ -19,7 +19,7 @@ Hier wird die OrthoMatrix erzeugt, und mit neuen Werten eingestellt.<br>
 Im Beispiel ist dies eine Seitenlänge in allen Achsen um 24.0 (2 * 12.0).<br>
 <br>
 Die Skalierung der Welt-Matrix hat den Effekt, das die ganze Scene gezoomt wird.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">12</font>.<font color="#0077BB">0</font>;  <i><font color="#FFFF00">// Seiten-Länge</font></i>
 <b><font color="0000BB">begin</font></b>
@@ -32,7 +32,7 @@ Die Matrizen könnte man auch im Shader multiplizieren, dafür müsste man einfa
 Dies hat aber den Nachteil, das die Multiplikation bei jedem Vektor ausgeführt wird, bei Meshes mit hoher Vektor-Zahl merkt man dies bemerklich.<br>
 <br>
 Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet werden kann.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   x, y, z: integer;
 <b><font color="0000BB">const</font></b>
@@ -67,7 +67,7 @@ Hier sieht man auch gut, das man eine Mesh nach dem Binden mehrmals gezeichnet w
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Kamera um die Mesh bewegen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
   WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i></code></pre>

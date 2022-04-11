@@ -13,14 +13,14 @@ Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.<br>
 Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.<br>
 <hr><br>
 Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
   ogc.OnResize := @ogcResize;   <i><font color="#FFFF00">// neues Ereigniss</font></i></code></pre>
 Hier wird bei einer Grössenänderung des Fenster die Perspektive angepasst.<br>
 Dabei ist der zweite Parameter relevant.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcResize(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcResize(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   FrustumMatrix.Perspective(<font color="#0077BB">45</font>, ClientWidth / ClientHeight, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
 <b><font color="0000BB">end</font></b>;</code></pre>

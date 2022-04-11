@@ -8,7 +8,7 @@ Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizi
 Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].<br>
 <hr><br>
 Die Deklaration der Array. Es ist nur noch eine Array.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
   TData = <b><font color="0000BB">record</font></b>
     Scale: GLfloat;
     Matrix: TMatrix;
@@ -18,7 +18,7 @@ Die Deklaration der Array. Es ist nur noch eine Array.<br>
 <b><font color="0000BB">var</font></b>
   Data: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TData;</code></pre>
 Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   ofs, i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -58,7 +58,7 @@ Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
   glVertexAttribDivisor(<font color="#0077BB">6</font>, <font color="#0077BB">1</font>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 An der Zeichenroutine ändert sich nichts.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -73,7 +73,7 @@ An der Zeichenroutine ändert sich nichts.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen neu berechnen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>

@@ -7,7 +7,7 @@ Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, d
 Rechts ist jede Koordinate von 0.0-1.0, somit wird die Textur um die Scheibe gezogen. Jedes Rechteck enthält die ganze Textur.<br>
 <hr><br>
 Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CalcCircle;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CalcCircle;
 <b><font color="0000BB">const</font></b>
   TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
     ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
@@ -63,7 +63,7 @@ Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.<br>
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinaten weichen ab.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   TextureBuffer.ActiveAndBind;
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -92,7 +92,7 @@ Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinat
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">20</font>));
 <b><font color="0000BB">end</font></b>;</code></pre>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>

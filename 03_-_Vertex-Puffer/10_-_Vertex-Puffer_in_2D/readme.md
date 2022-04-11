@@ -9,11 +9,11 @@ Für die Farbe wird hier nur eine <b>1D-Array</b> verwendet, da die Mesh nur Rot
 Man könnte zusätzlich noch einen <b>VBO</b> für <b>Rot</b> und <b>Grün</b> erzeugen. Somit könnte man jede Farbe einzeln in eine Array schreiben.<br>
 <hr><br>
 Ein 2D-Vertex ist noch dazu gekommen.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
   TVertex2f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLfloat;</code></pre>
 Die Vector-Konstanten sind nur noch 2D, der Z-Wert fehlt.<br>
 Die Farbe ist nur noch ein einfacher <b>float</b>, da nur Rot ausgegeben wird.<br>
-<pre><code=scal><b><font color="0000BB">const</font></b>
+<pre><code><b><font color="0000BB">const</font></b>
   TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace2D =                     <i><font color="#FFFF00">// Nur noch eine 2D-Array (XY).</font></i>
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>)));
   TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TVertex3f = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)); <i><font color="#FFFF00">// Nur eine Float-Array.</font></i>
@@ -25,7 +25,7 @@ Die Farbe ist nur noch ein einfacher <b>float</b>, da nur Rot ausgegeben wird.<b
 Bei <b>glVertexAttribPointer(...</b> wurde der zweite Parameter, von <b>3</b> auf <b>2</b> ersetzt.<br>
 Bei einer Farb-Übergabe mit Alpha-Blending (RGBA), kann es auch eine <b>4</b> sein.<br>
 Hier wird sogar nur eine <b>1</b> verwendet, da die Rot-Töne nur eine einfache Array ist.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>

@@ -7,7 +7,7 @@ Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ic
 <hr><br>
 Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.<br>
 Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
   TCubePos = <b><font color="0000BB">record</font></b>
     pos: TVector3f;
     mat: TMatrix;
@@ -17,7 +17,7 @@ Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen s
 <b><font color="0000BB">var</font></b>
   CubePosArray: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..CubeTotal - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> PCubePos; <i><font color="#FFFF00">// Alle Würfel</font></i></code></pre>
 Hier wird der Speicher für die Würfel angefordert.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">var</font></b>
@@ -27,7 +27,7 @@ Hier wird der Speicher für die Würfel angefordert.<br>
     <b><font color="0000BB">New</font></b>(CubePosArray[i]);  <i><font color="#FFFF00">// Speicher anfordern.</font></i>
   <b><font color="0000BB">end</font></b>;</code></pre>
 Startpositionen der einzelnen Würfel definieren.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
   d = <font color="#0077BB">1</font>.<font color="#0077BB">8</font>;
 <b><font color="0000BB">var</font></b>
@@ -41,7 +41,7 @@ Startpositionen der einzelnen Würfel definieren.<br>
   <b><font color="0000BB">end</font></b>;</code></pre>
 Hier sieht man, das ich die Matrizen vor dem Zeichnen mit einem Quick-Sort sortiere.<br>
 Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den Wert als Vergleich für die Sortierung.<br>
-<pre><code=scal>
+<pre><code>
 <i><font color="#FFFF00">// Pointer vertauschen</font></i>
 <b><font color="0000BB">procedure</font></b> SwapPointer(<b><font color="0000BB">var</font></b> p1, p2: Pointer); <b><font color="0000BB">inline</font></b>;
 <b><font color="0000BB">var</font></b>
@@ -84,7 +84,7 @@ Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den W
 Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.<br>
 Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.<br>
 Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -117,7 +117,7 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Den Speicher von den CubePos wieder frei geben.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -125,7 +125,7 @@ Den Speicher von den CubePos wieder frei geben.<br>
     <b><font color="0000BB">New</font></b>(CubePosArray[i]);
   <b><font color="0000BB">end</font></b>;</code></pre>
 Gedreht wird nur die WorldMatrix.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
   WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>

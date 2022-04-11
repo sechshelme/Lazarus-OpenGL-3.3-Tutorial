@@ -8,7 +8,7 @@ Oder auch Beleuchtung-Parameter, zB. die Position des Lichtes.<br>
 <hr><br>
 Deklaration der ID, welche auf die Unifom-Variable im Shader zeigt, und die Variable, welche die Farbe für den Vektor enthält.<br>
 Da man die Farbe als Vektor übergibt, habe ich dafür den Typ <b>TVertex3f</b> gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   Color_ID: GLint;      <i><font color="#FFFF00">// ID</font></i>
   MyColor: TVertex3f;   <i><font color="#FFFF00">// Farbe</font></i></code></pre>
 Dieser Code wurde um eine Zeile <b>UniformLocation</b> erweitert.<br>
@@ -19,7 +19,7 @@ Im Hintergrund wird dabei <b>glGetUniformLocation(ProgrammID,...</b> aufgerufen.
 Der Vektor von MyColor ist in RGB (Rot, Grün, Blau).<br>
 <br>
 Der String in <b>UniformLocation</b> muss indentisch mit dem Namen der Uniform-Variable im Shader sein. <b>Wichtig:</b> Es muss auf Gross- und Kleinschreibung geachtet werden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
@@ -31,7 +31,7 @@ Der String in <b>UniformLocation</b> muss indentisch mit dem Namen der Uniform-V
 Hier wird die Uniform-Variable übergeben. Für diese vec3-Variable gibt es zwei Möglichkeiten.<br>
 Mit <b>glUniform3fv...</b> kann man sie als ganzen Vektor übergeben.<br>
 Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übergeben.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -50,7 +50,7 @@ Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übe
 <b><font color="0000BB">end</font></b>;</code></pre>
 Folgende Prozedur weist dem Vektor <b<MyColor</b> eine andere Farbe zu.<br>
 Dafür wird ein einfaches Menü verwendet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">case</font></b> TMainMenu(Sender).Tag <b><font color="0000BB">of</font></b>
     <font color="#0077BB">0</font>: <b><font color="0000BB">begin</font></b>   <i><font color="#FFFF00">// Rot</font></i>

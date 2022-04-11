@@ -10,7 +10,7 @@ Dafür gibt es in <b>glDrawArrays(...</b> zwei Parameter.<br>
 Der Zweite gibt das Offset der Vertex-Array an, und der Dritte, wie viele Vertex-Daten.<br>
 Das erste Polygon, fängt bei 0 und ist 3 Vertex lang.<br>
 Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;

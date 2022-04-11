@@ -515,7 +515,7 @@ begin
     end else if Pos('//code-', slUnit[i]) > 0 then begin
       isCode := False;
       TagPascal(slCode);
-      slHTML.Add('<pre><code=scal>' + slCode.Text + '</code></pre>');
+      slHTML.Add('<pre><code>' + slCode.Text + '</code></pre>');
       // Text Code ( Keine Systaxhiglight )
     end else if Pos('//codetext+', slUnit[i]) > 0 then begin
       isCode := True;

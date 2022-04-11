@@ -74,7 +74,7 @@ Für die Rotation C-Achse (<b>RotateC</b>):<br>
 //matrix-<br>
 <hr><br>
 Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   Matrix : TMatrix;
 <br>
 <b><font color="0000BB">begin</font></b>

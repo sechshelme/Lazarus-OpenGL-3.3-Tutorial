@@ -5,7 +5,7 @@
 Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.<br>
 <hr><br>
 Hier wird noch ein Objekt der Klasse TShader deklariert.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
 <br>
   <font color="#FFFF00">{ TForm1 }</font>
 <br>
@@ -20,21 +20,21 @@ Dieser Code wurde um 2 Zeilen erweitert.<br>
 In der ersten Zeile wird der Shader in die Grafikkarte geladen.<br>
 Da die Shader-Objecte als Text-Dateien vorliegen, wird hier <b>FileToStr(Datei)</b> verwendet.<br>
 Die zweite Zeile aktiviert den Shader.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;</code></pre>
 Beim Zeichnen muss man auch mit <b>Shader[x].UseProgram(...</b> den Shader wählen, wenn man mehr als einen Shader verwendet.<br>
 In der Shader-Klasse steht nichts anderes als<b>glUseProgram(ShaderID);</b> .<br>
 Bei diesem Mini-Code mit nur einem Shader könnte dies weggelassen werden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
   Shader.UseProgram;</code></pre>
 Am Ende werden mit <b>Shader.Free</b> die Shader in der Grafikkarte wieder freigeben.<br>
 In diesem Destruktor steht <b>glDeleteShader(ShaderID);</b><br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Shader.Free;</code></pre>
 <hr><br>

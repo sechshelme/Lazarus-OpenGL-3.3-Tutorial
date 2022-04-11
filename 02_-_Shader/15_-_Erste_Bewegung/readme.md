@@ -8,7 +8,7 @@ Damit die Änderung auch sichtbar wird, wird <b>DrawScene</b> danach manuell aus
 <hr><br>
 Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.<br>
 <b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   X_ID, Y_ID: GLint;      <i><font color="#FFFF00">// ID für X und Y.</font></i>
   Color_ID: GLint;
 <br>
@@ -19,7 +19,7 @@ Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.<br>
 Den Timer immer erst nach dem Initialisieren starten!<br>
 Im Objektinspektor <b>muss</b> dessen Eigenschaft <b>Enable=(False)</b> sein!<br>
 Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch gar nicht gibt.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
@@ -30,7 +30,7 @@ Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch
 <b><font color="0000BB">end</font></b>;</code></pre>
 Dieser Code wurde um zwei <b>UniformLocation</b>-Zeilen erweitert.<br>
 Diese ermitteln die IDs, wo sich <b>x</b> und <b>y</b> im Shader befinden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
@@ -41,7 +41,7 @@ Hier werden die Uniform-Variablen x und y dem Shader übergeben.<br>
 Beim Dreieck sind das die Positions-Koordinaten.<br>
 Beim Quad ist es 0, 0 und somit bleibt das Quadrat stehen.<br>
 Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -62,12 +62,12 @@ Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.<br>
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);</code></pre>
 Den Timer vor dem Freigeben anhalten.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Timer1.Enabled := <b><font color="0000BB">False</font></b>;</code></pre>
 Im Timer wird die Position berechnet, so dass sich das Dreieck bewegt.<br>
 Anschliessend wird neu gezeichnet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   stepx: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">010</font>;
   stepy: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">0133</font>;

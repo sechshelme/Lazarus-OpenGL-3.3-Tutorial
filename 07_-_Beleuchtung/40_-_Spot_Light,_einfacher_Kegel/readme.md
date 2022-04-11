@@ -17,7 +17,7 @@ Die Lichtquelle befindet sich somit in dem kompletten Würfel-Körper.<br>
 Als Versuch kann man den Radius mal auf 50.0 setzen, dann wird man sehen, das die Lichtquelle ausserhalb der Meshes ist.<br>
 <br>
 Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   LichtPositionRadius = <font color="#0077BB">25</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>

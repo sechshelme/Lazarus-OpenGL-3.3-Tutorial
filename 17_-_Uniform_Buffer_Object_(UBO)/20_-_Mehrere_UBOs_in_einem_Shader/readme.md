@@ -10,7 +10,7 @@ Hier sieht man auch gut wie einfach es ist, alle Parameter für die 3 Lampen in 
 glUniform müsste man dazu zig mal aufrufen und wen man mehrere Shader verwendet, müsste man dies sogar bei jeden Shader einzeln machen.<br>
 <hr><br>
 Die Deklaration der Lichtparameter und der Matrizen für den UBO.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
   TLight = <b><font color="0000BB">record</font></b>
     Uniform_ID,
     UBO: GLuint;
@@ -40,7 +40,7 @@ Die Deklaration der Lichtparameter und der Matrizen für den UBO.<br>
   Light: TLight;
   MatrixRec: TMatrixRec;</code></pre>
 Die Lichtparameter mit Anfangswerten laden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   LichtPositionRadius = <font color="#0077BB">50</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">var</font></b>
@@ -72,7 +72,7 @@ Die Lichtparameter mit Anfangswerten laden.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Für die beiden UBOs Speicher reservieren.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">with</font></b> Light <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <i><font color="#FFFF00">// Speicher für UBO reservieren</font></i>
@@ -98,7 +98,7 @@ Für die beiden UBOs Speicher reservieren.<br>
 Hier sieht man gut, wie die UBO-Daten neu in den Puffer geladen werden.<br>
 Die Lichtparamter, werden über das Menü und dem Timer verändert.<br>
 Die Matrizen werden hier berechnet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   x, y, z: integer;
   scal, d: single;

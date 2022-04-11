@@ -8,7 +8,7 @@ Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.<br>
 Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.<br>
 Dieser Code wurde unter Linux 64Bit getestet.<br>
 Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ButtonTexturSaveClick(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ButtonTexturSaveClick(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   Picture: TPicture;
 <b><font color="0000BB">begin</font></b>
@@ -27,7 +27,7 @@ Es ist auch möglich, die komplett gerenderte Scene zu speichern.<br>
 Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.<br>
 Dies kann man aber umgehen, wen man Zeile für Zeile einliest.<br>
 <b>glBindFramebuffer(GL_FRAMEBUFFER, 0);</b> ist nur notwendig, wen man mehrere Framebuffer verwendet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ButtonScreenSaveClick(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ButtonScreenSaveClick(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   Picture: TPicture;
   i: integer;

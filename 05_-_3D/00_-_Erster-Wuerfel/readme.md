@@ -9,7 +9,7 @@ In diesem Beispiel wird bewusst noch auf den Tiefenbuffer verzichtet.<br>
 Somit sieht man gut, was passiert wen man diesen nicht berücksichtigt.<br>
 <hr><br>
 Hier sind die Koordinaten und die Farben des Würfels deklariert.<br>
-<pre><code=scal><b><font color="0000BB">type</font></b>
+<pre><code><b><font color="0000BB">type</font></b>
   TCube = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">11</font>] <b><font color="0000BB">of</font></b> Tmat3x3;
 <br>
 <b><font color="0000BB">const</font></b>
@@ -35,7 +35,7 @@ Hier sind die Koordinaten und die Farben des Würfels deklariert.<br>
 Ohne Tiefenbuffer wird einfach alles gezeichnet, auch wen es verdeckt hinter einem anderen Object ist.<br>
 Das man dies gut sieht, zeichne ich einen kleinen Würfel in den Grossen.<br>
 Der Kleine übermahlt einfach den grossen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   TempMatrix: TMatrix;
 <b><font color="0000BB">begin</font></b>
@@ -61,7 +61,7 @@ Der Kleine übermahlt einfach den grossen.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Mit einem Timer wird der Würfel gedreht und neu gezeichnet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   WorldMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
   WorldMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>

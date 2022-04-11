@@ -9,26 +9,26 @@ Mit der Klasse <b>TTexturBuffer</b> welche dort enthalten ist, geht dies sehr ei
 Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> erkannt werden.<br>
 <hr><br>
 Den Textur-Puffer deklarieren.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   Textur: TTexturBuffer;</code></pre>
 Textur-Puffer erzeugen.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Textur := TTexturBuffer.Create;</code></pre>
 Mit diesr Klasse geht das laden einer Bitmap sehr einfach.<br>
 Man kann die Texturen auch von einem <b>TRawImages</b> laden.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   Textur.LoadTextures(<font color="#FF0000">'mauer.bmp'</font>);</code></pre>
 Das Binden geht auch sehr einfach.<br>
 Man kann dieser Funktion noch eine Nummer mitgeben, aber diese wird nur bei Multitexturing gebraucht, dazu später.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
   Textur.ActiveAndBind; <i><font color="#FFFF00">// Textur binden</font></i></code></pre>
 Am Ende muss man die Klasse noch frei geben.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Textur.Free;</code></pre>
 <hr><br>

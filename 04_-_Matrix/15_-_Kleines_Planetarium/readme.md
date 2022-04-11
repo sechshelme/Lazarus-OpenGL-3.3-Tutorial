@@ -12,11 +12,11 @@ Am Shader wird nur eine Matrix übergeben, welche von der CPU berechnet wird.<br
 Diese Matrix wird aus verschiedene Transformen berechnet.<br>
 <hr><br>
 Es gibt nur eine ID, da die ganze Matrizen-Berechnung mit der CPU ausgeführt werden.<br>
-<pre><code=scal><b><font color="0000BB">var</font></b>
+<pre><code><b><font color="0000BB">var</font></b>
   Matrix_ID: GLint;  <i><font color="#FFFF00">// ID für Matrix.</font></i></code></pre>
 Rendern der Sonne und der Paneten.<br>
 Dies sind nur farbige Kreise. Der Rest wird später über Matrizen brechnet.<br>
-<pre><code=scal><b><font color="0000BB">constructor</font></b> TPlanet.Create(col: TVector3f);
+<pre><code><b><font color="0000BB">constructor</font></b> TPlanet.Create(col: TVector3f);
 <b><font color="0000BB">const</font></b>
   maxSektor = <font color="#0077BB">17</font>;  <i><font color="#FFFF00">// Anzahl Sektoren der Kreise.</font></i>
 <b><font color="0000BB">var</font></b>
@@ -39,7 +39,7 @@ Dies sind nur farbige Kreise. Der Rest wird später über Matrizen brechnet.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Legt die Matrix für die Umlaufbahnen fest.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TPlanet.SetMondR(AValue: GLfloat);
+<pre><code><b><font color="0000BB">procedure</font></b> TPlanet.SetMondR(AValue: GLfloat);
 <b><font color="0000BB">begin</font></b>
   MondTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Distanz Erde - Mond. ( Erde Mond ist ein Doppelplanet )</font></i>
 <b><font color="0000BB">end</font></b>;
@@ -49,7 +49,7 @@ Legt die Matrix für die Umlaufbahnen fest.<br>
   UmlaufTransMatrix.Translate(AValue, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Distanz Sonne / Planet.</font></i>
 <b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden die Bahnen der Planeten berechnet und anschliessend gezeichnet.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TPlanet.Draw;
+<pre><code><b><font color="0000BB">procedure</font></b> TPlanet.Draw;
 <b><font color="0000BB">begin</font></b>
   UmlaufRotMatrix.Rotate(FUmlaufSpeed);
   PlanetRotMatrix.Rotate(fPlanetSpeed);
@@ -66,7 +66,7 @@ Hier werden die Bahnen der Planeten berechnet und anschliessend gezeichnet.<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Mesh.size * <font color="#0077BB">3</font>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Die Parameter für die Sonne und Planeten.<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Sonne := TPlanet.Create(vec3(<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
   <b><font color="0000BB">with</font></b> Sonne <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -109,7 +109,7 @@ Die Parameter für die Sonne und Planeten.<br>
     UmlaufR := <font color="#0077BB">0</font>.<font color="#0077BB">6</font>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Sonne und Planeten zeichnen<br>
-<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
