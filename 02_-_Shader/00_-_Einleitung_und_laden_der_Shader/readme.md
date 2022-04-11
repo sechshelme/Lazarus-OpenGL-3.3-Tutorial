@@ -20,7 +20,7 @@ Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit
 Somit ist der Ablauf sehr einfach.<br>
 Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object als Dateien vorliegen, habe ich eine Hilfs-Funktion in de Shader Unit.<br>
 Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   Shader : TShader;
 <br>
 <b><font color="0000BB">begin</font></b>

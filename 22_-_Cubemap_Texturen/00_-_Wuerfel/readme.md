@@ -17,7 +17,7 @@ Die 6 Flächen des Würfels werden einzeln in VRAM geladen.<br>
 Dies geschieht ähnlich, wie bei einer Textur-Array.<br>
 <br>
 Die sechs einelnen Bitmap heisen 1.xpm - 6.xpm .<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   bit: TPicture; <i><font color="#FFFF00">// Bitmap</font></i>
 <b><font color="0000BB">begin</font></b>

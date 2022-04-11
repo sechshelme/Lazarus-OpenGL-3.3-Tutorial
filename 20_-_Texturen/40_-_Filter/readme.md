@@ -8,7 +8,7 @@ In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter
 Die Filter verstellt man mit <b>glTexParameter(...</b>.<br>
 <hr><br>
 Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welcher für alle Ausgaben gültig ist.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   pic: TPicture;
 <br>
@@ -28,7 +28,7 @@ Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welche
     Free;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe festlegen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <i><font color="#FFFF00">// Hintergrundfarbe für Clamp_to_Border, ein Dunkelgrün.</font></i>
 <b><font color="0000BB">const</font></b>
   border: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat = (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);

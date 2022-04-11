@@ -11,7 +11,7 @@ Die Uniform IDs werden füür jeden Shader einzeln ID gebraucht.<br>
 Daher habe ich es in einem Record zusammengefasst.<br>
 <br>
 Man sieht auch, das 2 BindingPoints verwendet werden.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   UBO: <b><font color="0000BB">record</font></b>
     Rubin, Jade, Smaragdgruen: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
   <b><font color="0000BB">end</font></b>;
@@ -26,7 +26,7 @@ Man sieht auch, das 2 BindingPoints verwendet werden.<br>
   bindingPoint0: gluint = <font color="#0077BB">0</font>;
   bindingPoint1: gluint = <font color="#0077BB">1</font>;</code></pre>
 Es werden 3 Shader geladen in die Uniform-IDs ausgelesen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -45,7 +45,7 @@ Es werden 3 Shader geladen in die Uniform-IDs ausgelesen.<br>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 <br>
 Man sieht, das beim Shader[2] ein anderer BindingPoint verwendet wird.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Puffer für Rubin anlegen.</font></i>
   <b><font color="0000BB">with</font></b> Material <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -97,7 +97,7 @@ Man sieht, das beim Shader[2] ein anderer BindingPoint verwendet wird.<br>
 </code></pre>
 Die Scene wird drei mal mit unterschiedlichen Shadern gezeichnet.<br>
 Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebunden sind.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   scal, d: single;
 <b><font color="0000BB">begin</font></b>
@@ -169,7 +169,7 @@ Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebun
 <b><font color="0000BB">end</font></b>;</code></pre>
 Es wird nur der BindingPoint 0 geändert.<br>
 Somit sit man beim <b>Shader[2]</b> der mit <b>BindingPoint 1</b> gebunden ist keine Änderung.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   m: integer = <font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>

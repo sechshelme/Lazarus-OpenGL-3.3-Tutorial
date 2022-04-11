@@ -9,7 +9,7 @@ Der Rest ist gleich, wie wen man alles miteinander hoch ladet.<br>
 Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.<br>
 Mit <b>glTexSubImage3D(...</b> werden dann die Texturen Layer für Layer hochgeladen.<br>
 Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">const</font></b>
   size = <font color="#0077BB">8</font>;      <i><font color="#FFFF00">// Grösse der Texturen</font></i>
   anzLayer = <font color="#0077BB">6</font>;

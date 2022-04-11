@@ -6,7 +6,7 @@ Mit <b>gl_VertexID</b> kann man im Vertex-Shader ermitteln, welcher Vertex aus d
 Das Rendering ist nicht besonderes, es spielt sich alles im Vertex-Shader ab.<br>
 <hr><br>
 Die Koordinaten der Mesh, maximal 6 Stück<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace2D =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>)));
   Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace2D =

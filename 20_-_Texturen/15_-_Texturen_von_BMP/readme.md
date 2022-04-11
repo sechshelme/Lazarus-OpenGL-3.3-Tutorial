@@ -18,7 +18,7 @@ Wen man eine Bitmap mit der Unit <b>oglTextur</b> lädt, werden diese Parameter 
 <br>
 Unterumständen könnte es noch exotische Formate geben, welche (noch) nicht unterstützt werden.<br>
 Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen. ;-)<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   bit: TBitmap;                  <i><font color="#FFFF00">// Bei anderen Formaten TPicture.</font></i>
 <b><font color="0000BB">begin</font></b>

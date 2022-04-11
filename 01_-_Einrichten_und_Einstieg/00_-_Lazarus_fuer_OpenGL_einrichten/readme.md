@@ -6,7 +6,7 @@
 <b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.<br>
 Man wird von Anfang an mit vielem Neuen konfrontiert.<br>
 Früher konnte man einfach<br>
-<pre><code>glBegin(...
+<pre><code=pascal>glBegin(...
 ..
 glEnd</code></pre>
 und fertig.<br>
@@ -43,7 +43,7 @@ Das Tutorial sollte unter Linux und Windows laufen, auf dem Mac habe ich es nich
 <br>
 Wenn Lazarus bei der Neukompilierung unter Linux Probleme macht, könnte Folgendes das Problem sein.<br>
 Unter auf Debian oder Ubuntu basierenden Linux-Distributionen muss evtl. noch Folgendes installiert werden.<br>
-<pre><code>sudo apt-get install freeglut3-dev</code></pre>
+<pre><code=pascal>sudo apt-get install freeglut3-dev</code></pre>
 Somit sollten alle Beispiele kompilierbar sein.<br>
 <br>
 Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.<br>

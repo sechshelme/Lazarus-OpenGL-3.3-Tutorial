@@ -6,14 +6,14 @@ Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst d
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.<br>
 <hr><br>
 Hier wird der Speicher für die Würfel angefordert.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b></code></pre>
 Startpositionen der einzelnen Würfel definieren.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   CreateTree;
   CreateWand;
@@ -21,7 +21,7 @@ Startpositionen der einzelnen Würfel definieren.<br>
 Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.<br>
 Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.<br>
 Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
   Matrix: TMatrix;
@@ -90,12 +90,12 @@ Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Den Speicher von den CubePos wieder frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b></code></pre>
 Gedreht wird nur der Baum.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">//    WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse</font></i>
   Tree.ObjectMatrix.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>

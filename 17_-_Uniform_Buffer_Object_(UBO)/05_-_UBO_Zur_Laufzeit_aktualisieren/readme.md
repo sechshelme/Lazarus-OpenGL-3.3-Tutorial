@@ -9,7 +9,7 @@ In diesem Beispiel wird das Material der Kugeln gewechselt, abwechslungsweise Ru
 Dazu wird alle 1s die UBO-Daten aktualisiert.<br>
 <hr><br>
 Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werden.<br>
-<pre><code><b><font color="0000BB">type</font></b>
+<pre><code=pascal><b><font color="0000BB">type</font></b>
   TMaterial = <b><font color="0000BB">record</font></b>
     ambient: TVector3f;      <i><font color="#FFFF00">// Umgebungslicht</font></i>
     pad0: GLfloat;           <i><font color="#FFFF00">// padding 4Byte</font></i>
@@ -22,7 +22,7 @@ Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werde
 <b><font color="0000BB">var</font></b>
   mRubin, mJade: TMaterial;</code></pre>
 Material-Daten in den UBO-Puffer laden und binden<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   bindingPoint: gluint = <font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>
@@ -53,7 +53,7 @@ Material-Daten in den UBO-Puffer laden und binden<br>
   Timer2Timer(<b><font color="0000BB">nil</font></b>);</code></pre>
 Hier sieht man gut, wie die UBO-Daten aktualisiert werden.<br>
 Der Timer wird alle 1s aufgerufen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   m: integer = <font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>

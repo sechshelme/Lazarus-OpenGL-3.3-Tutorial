@@ -7,7 +7,7 @@ Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wi
 Für diesen Zweck gibt es die Funktion <b>glGetBufferSubData(...</b>.<br>
 <hr><br>
 Diese Vertex-Daten sollen auch in der MessageBox erscheinen.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace2D =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>)));
   TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TVertex3f = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
@@ -20,7 +20,7 @@ Vertex-Daten auslesen.<br>
 Wie üblich müssen die Puffer VAO und VBO gebunden werden.<br>
 Mit <b>glGetBufferParameteriv(...</b> wird die Grösse des Puffer ermittelt.<br>
 Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelesen werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   TempBuffer: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> <b><font color="0000BB">record</font></b>   <i><font color="#FFFF00">// Zum speichern der Daten</font></i>
     x, y: glFloat;

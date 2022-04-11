@@ -15,7 +15,7 @@ Mit den zwei letzten Parametern von Frustum und der World-Matrix muss man ein bi
 Alternativ kann man den Frustum auch mit <b>Perspective(...</b> einstellen.<br>
 Dabei ist der erste Parameter der Betrachtungs-Winkel.<br>
 Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>
@@ -28,7 +28,7 @@ Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.<br>
   WorldMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
   WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></code></pre>
 Das Zeichnen ist das Selbe wie bei Ortho.<br>
-<pre><code>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
+<pre><code=pascal>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
 <br>
   <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">for</font></b> y := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>

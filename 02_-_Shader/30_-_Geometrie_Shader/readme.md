@@ -16,7 +16,7 @@ Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geome
 Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter Shader-Code mitgegeben.<br>
 <br>
 Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Geometrieshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;</code></pre>

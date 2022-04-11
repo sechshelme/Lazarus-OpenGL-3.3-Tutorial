@@ -14,7 +14,7 @@ Variante 0: <b>XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB</b><br>
 Variante 1: <b>XYZ XYZ XYZ XYZ XYZ XYZ RGB RGB RGB RGB RGB RGB</b><br>
 <br>
 Bei dem zweiten Quadrat, sind die Y-Werte gespiegelt, es sollten zwei Quadrate sichtbar sein.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   QuadVektor0: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace2 =
     <i><font color="#FFFF00">// Vec, Col, Vec, Col, ....</font></i>
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
@@ -40,7 +40,7 @@ Die Farben beginnen beim 12Byte. Die Grösse ist mit 24Byte gleich wie bei den V
 Varinate 1:<br>
 Da die Vektoren hintereinander stehen, darf dieser Default (0) sein.<br>
 Die Farben beginnen beim 72Byte.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -73,7 +73,7 @@ Die Farben beginnen beim 72Byte.<br>
 Das Zeichnen ist gleich, wie wen man separate Datenblöcke hätte. <br>
 Es wurde das <b>Length(...</b> entfernt, da die einte Array zwei und die andere vier Elemente hat.<br>
 Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
-<pre><code>  <i><font color="#FFFF00">// Zeichne Quadrat 0</font></i>
+<pre><code=pascal>  <i><font color="#FFFF00">// Zeichne Quadrat 0</font></i>
   glBindVertexArray(VBQuad0.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i>
 <br>

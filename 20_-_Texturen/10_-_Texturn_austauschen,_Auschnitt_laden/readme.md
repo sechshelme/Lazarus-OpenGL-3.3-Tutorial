@@ -8,11 +8,11 @@ Dies geschieht mit <b>glTexSubImage2D(...</b>.<br>
 <hr><br>
 Big ist die Totalgrösse der Texturdaten.<br>
 Small ist ein Auschnitt.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   TextursizeBig = <font color="#0077BB">256</font>;
   TextursizeSmall = <font color="#0077BB">64</font>;</code></pre>
 3 Datenpuffer, welche sehr mit sehr einfachen Werten geladen werden.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   TexturBig: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..TextursizeBig*TextursizeBig-<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> UInt32 ;
   TexturSmall0, TexturSmall1: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..TextursizeSmall*TextursizeSmall-<font color="#0077BB">1</font>]<b><font color="0000BB">of</font></b> UInt32;
   textureID: GLuint;</code></pre>
@@ -20,7 +20,7 @@ Es werden sehr einfache Datenbuffer mit Daten befüllt.<br>
 In der Praxis werden die Puffer meistens mit Bitmaps gefüllt.<br>
 Der grosse Texturbuffer füllt die ganze Textur auf.<br>
 Die kleinen Datenbuffer werden später zur Laufzeit abwechslungsweise geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -45,7 +45,7 @@ Die kleinen Datenbuffer werden später zur Laufzeit abwechslungsweise geladen.<b
   <i><font color="#FFFF00">// Texturbuffer mit dem grossen Datenbuffer befüllen.</font></i>
   glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TextursizeBig, TextursizeBig, GL_RGBA, GL_UNSIGNED_BYTE, @TexturBig);</code></pre>
 Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   step = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;
   z: integer = <font color="#0077BB">1</font>;

@@ -10,7 +10,7 @@ Dies wird in den nächsten Themen behandelt.<br>
 Das Zeichnen ist sehr einfach und übersichtlich geworden.<br>
 Es braucht <b>keine</b> for-to-Schleifen für die Cube-Array, dieser Teile erledigt alles der Vertex-Shader.<br>
 Die Matrix muss nur <b>einmal</b> berechnet werden, da es nur <b>einen</b> Aufruf von <b>glDraw...</b> gibt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   s = <font color="#0077BB">10</font>;            <i><font color="#FFFF00">// Eine Seite hat 10 Würfel.</font></i>
   size = s * s * s;

@@ -10,13 +10,13 @@ In diesem Codeausschnitt sind die ersten beiden Zeilen interessant.<br>
 Hier werden die zwei Shader in die Grafikkarte geladen.<br>
 <br>
 Der Vertex-Shader ist in beiden Shader-Programs der Gleiche, daher wird zwei mal die gleiche glsl-Datei geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader[<font color="#0077BB">0</font>] := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader0.glsl'</font>)]);
   Shader[<font color="#0077BB">1</font>] := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader1.glsl'</font>)]);</code></pre>
 Beim Zeichnen muss man jetzt tatsächlich mit <b>Shader[x].UseProgram(...</b> den Shader wählen, da mehr als ein Shader verwendet wird.<br>
 Die Meshes sollten nun zwei verschiedene Farben haben.<br>
-<pre><code>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+<pre><code=pascal>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   Shader[<font color="#0077BB">0</font>].UseProgram;  <i><font color="#FFFF00">//  Shader 0 wählen  ( Rot )</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
@@ -27,7 +27,7 @@ Die Meshes sollten nun zwei verschiedene Farben haben.<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
 </code></pre>
 Am Ende noch mit <b>Shader[x].Free</b> die Shader in der Grafikkarte wieder freigeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Shader[<font color="#0077BB">0</font>].Free;
   Shader[<font color="#0077BB">1</font>].Free;</code></pre>

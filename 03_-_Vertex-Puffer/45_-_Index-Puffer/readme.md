@@ -7,7 +7,7 @@ Dafür gibt es den <b> Index Buffer Objects</b> (IBO).<br>
 Das Laden geschieht ähnlich wie mit den Vertex-Daten.<br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten, dies ist gleich wie ohne Buffer.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   <i><font color="#FFFF00">// --- Dreieck</font></i>
   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
   Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f =
@@ -25,7 +25,7 @@ Der IBO muss noch deklariert werden.<br>
 Das Erzeugen des IBI-Puffer geht gleich wie beim VBO-Puffer.<br>
 Hier werden die IBO-Daten in den Buffer geladen, dies geschieht ähnlich, wie bei den Vertex-Daten.<br>
 Der Unterschied ist der zweite Parameter, dieser muss <b>GL_ELEMENT_ARRAY_BUFFER</b> sein.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -58,7 +58,7 @@ Der Unterschied ist der zweite Parameter, dieser muss <b>GL_ELEMENT_ARRAY_BUFFER
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei <b>glDrawElements(...</b>, nil sein.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   <i><font color="#FFFF00">// Linien</font></i>
@@ -72,7 +72,7 @@ Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei <b>glDrawEl
   glBindVertexArray(VBQuad.VAO);
   glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, <b><font color="0000BB">Nil</font></b>);      <i><font color="#FFFF00">// Hier Nil</font></i></code></pre>
 IBO Freigabe ist glech wie bei dem VBO.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Shader.Free;
 <br>

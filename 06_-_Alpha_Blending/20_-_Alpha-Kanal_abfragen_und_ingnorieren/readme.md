@@ -10,7 +10,7 @@ Dies spielt sich im FragmentShader ab.<br>
 <hr><br>
 Es empfieht sich trotzdem immer die Objecte mit Alpha-Blending zum Schluss zu zeichnen.<br>
 Aber es muss nicht mehr sortiert werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <br>
 <b><font color="0000BB">var</font></b>
   i: integer;

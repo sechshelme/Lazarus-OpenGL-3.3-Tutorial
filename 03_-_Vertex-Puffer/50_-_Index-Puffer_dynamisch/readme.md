@@ -7,7 +7,7 @@ Man macht dies auch mit <b>glBufferSubData(...</b>.<br>
 <hr><br>
 Dafür nimmt man für die Indicen auch eine dynamische Array.<br>
 Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden ins VRAM aus dem RAM entfernen kann.<br>
-<pre><code><b><font color="0000BB">type</font></b>
+<pre><code=pascal><b><font color="0000BB">type</font></b>
   TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
 <br>
   TMesh = <b><font color="0000BB">record</font></b>                        <i><font color="#FFFF00">// Record für die Mesh-Daten, welcher auch size enthält.</font></i>
@@ -20,7 +20,7 @@ Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden i
 Mit dieser Funktion werden die Vertex-Daten und die Indicen berechnet.<br>
 Es wird ein Kreis mit zufälliger Anzahl Sektoren erzeugt, somit hat man unterschiedlich lange Vertex-Daten.<br>
 Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateVertex_and_Indicien(<b><font color="0000BB">var</font></b> Mesh: TMesh; ofsx: GLfloat);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateVertex_and_Indicien(<b><font color="0000BB">var</font></b> Mesh: TMesh; ofsx: GLfloat);
 <b><font color="0000BB">const</font></b>
   r = <font color="#0077BB">0</font>.<font color="#0077BB">5</font>;  <i><font color="#FFFF00">// Radius des Kreises.</font></i>
 <b><font color="0000BB">var</font></b>
@@ -63,7 +63,7 @@ Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
 Hier werden schon mal die ersten Vertex-Daten und Indicien erzeugt.<br>
 Später werden neue Daten in einem Timer erzeugt.<br>
 Mit UpdateScene werden sie dann in das VRAM geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
@@ -80,7 +80,7 @@ Mit UpdateScene werden sie dann in das VRAM geladen.<br>
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBufferData(...</b> nur der Speicher dafür reserviert.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -120,7 +120,7 @@ Nach dem schreiben ins VRAM , kann mit <b>SetLength(...</b> die Daten im RAM ent
 Wen die Daten einmal im VRAM sind, werden sie im RAM nicht mehr gebraucht.<br>
 <br>
 Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden soll.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.UpdateScene(MeshNr: integer);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.UpdateScene(MeshNr: integer);
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 <br>
@@ -144,7 +144,7 @@ Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden 
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Gezeichnet wird dann mit <b>glDrawElements(...</b>, wobei der letzte Paramter nur noch <b>Nil</b> ist, da sich die Daten bereits im VRAM befinden.<br>
-<pre><code>  <i><font color="#FFFF00">// Zeichne Kreise</font></i>
+<pre><code=pascal>  <i><font color="#FFFF00">// Zeichne Kreise</font></i>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(CircleMesh) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">with</font></b> CircleMesh[i] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       glBindVertexArray(VBuffer.VAO);
@@ -152,7 +152,7 @@ Gezeichnet wird dann mit <b>glDrawElements(...</b>, wobei der letzte Paramter nu
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Mit einem Timer werden alle 1/2 Sekunden neue Vertex-Daten erzeugt und in das VRAM geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   za: integer = <font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>

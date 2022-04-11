@@ -10,11 +10,11 @@ Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpu
 Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.<br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   Linies: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f; <i><font color="#FFFF00">// XY-Koordinaten</font></i></code></pre>
 Hier werden die Daten in die Grafikkarte geschrieben.<br>
 Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -33,7 +33,7 @@ Mit <b>glPointSize(...</b> kann der Durchmesser der Punkte angegeben werden, def
 Für die Punkte gibt es noch eine andere Möglichkeit, man kann den Durchmesser auch im Shader angegeben, dazu später.<br>
 <br>
 Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben diese beiden Parameter auch einen Einfluss.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   ofs = <font color="#0077BB">0</font>.<font color="#0077BB">4</font>;
 <b><font color="0000BB">begin</font></b>

@@ -18,12 +18,12 @@ Wen man alle 3 Lichter ausschaltet, dann sieht man die Ambiente Hintergrund-Bele
 Die Lichtposition ist nicht mehr im Shader als Konstante deklariert, sie wurde mit einer <b>Uniform-Variable</b> nach aussen verlagert.<br>
 <hr><br>
 Die Lichtpositionen als 3D-Vektorn definiert.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   LightPos: <b><font color="0000BB">record</font></b>
     Red, Green, Blue: TVector3f;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden die verschiedenen Parameter für die Lichtparamter über Uniform am Shader übergeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   x, y, z: integer;
   scal, d: single;
@@ -49,7 +49,7 @@ Hier werden die verschiedenen Parameter für die Lichtparamter über Uniform am 
     glUniform1i(Blue, GLint(MenuItemBlueOn.Checked));
   <b><font color="0000BB">end</font></b>;</code></pre>
 Auf verlangen Würfel drehen und Lichtposition verändern.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">if</font></b> MenuItemRotateCube.Checked <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     ModelMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>

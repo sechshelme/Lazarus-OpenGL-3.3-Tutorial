@@ -9,7 +9,7 @@ Dabei ist zu beachten, das beim Drehen/Verschieben die Transformationen in umgek
 im Gegensatz zu Vertex-Koordinaten.<br>
 <hr><br>
 Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(<font color="#0077BB">1</font>.<font color="#0077BB">1</font>);
@@ -26,7 +26,7 @@ Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben wer
     direction := <b><font color="0000BB">True</font></b>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen multiplizieren und den Shader übergeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   Matrix: TMatrix2D;
 <b><font color="0000BB">begin</font></b>
@@ -47,7 +47,7 @@ Matrizen multiplizieren und den Shader übergeben.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Berechnen der Matrix-Bewegungen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   sstep = <font color="#0077BB">1</font>.<font color="#0077BB">03</font>;  <i><font color="#FFFF00">// Schritt für Skalierung</font></i>
   rstep = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;  <i><font color="#FFFF00">// Schritt für Rotation</font></i>

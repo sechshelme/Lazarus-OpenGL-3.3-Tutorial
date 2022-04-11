@@ -6,21 +6,21 @@ Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.<br>
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.<br>
 <hr><br>
 Deklarationen der benütigenten Variablen.<br>
-<pre><code><b><font color="0000BB">type</font></b>
+<pre><code=pascal><b><font color="0000BB">type</font></b>
   TVec2 = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> single;
 <br>
 <b><font color="0000BB">var</font></b>
   LichtOefffnung: single;
   LichtPos, LichtRichtung: TVec2;</code></pre>
 Entspricht dem <b>vec2</b> von <b>GLSL</b>.<br>
-<pre><code><b><font color="0000BB">function</font></b> vec2(x, y: single): TVec2; <b><font color="0000BB">inline</font></b>;
+<pre><code=pascal><b><font color="0000BB">function</font></b> vec2(x, y: single): TVec2; <b><font color="0000BB">inline</font></b>;
 <b><font color="0000BB">begin</font></b>
   Result[<font color="#0077BB">0</font>] := x;
   Result[<font color="#0077BB">1</font>] := y;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Entspricht dem <b>normalize(vec2)</b> von <b>GLSL</b>.<br>
 Dies normalisiert den 2D-Vektor.<br>
-<pre><code><b><font color="0000BB">function</font></b> normalize(v: TVec2): TVec2;
+<pre><code=pascal><b><font color="0000BB">function</font></b> normalize(v: TVec2): TVec2;
 <b><font color="0000BB">var</font></b>
   i: integer;
   l: single;
@@ -36,19 +36,19 @@ Dies normalisiert den 2D-Vektor.<br>
 Entspricht dem <b>dot(vec2)</b> von <b>GLSL</b>.<br>
 Hier wird das Skalarprodukt aus 2 Vektoren berechnent.<br>
 <b>arccos(Result)</b>, gibt den Winkel der beiden Vektoren im Bogenmass aus.<br>
-<pre><code><b><font color="0000BB">function</font></b> dot(v1, v2: TVec2): single;
+<pre><code=pascal><b><font color="0000BB">function</font></b> dot(v1, v2: TVec2): single;
 <b><font color="0000BB">begin</font></b>
   Result := ((v1[<font color="#0077BB">0</font>] * v2[<font color="#0077BB">0</font>] + v1[<font color="#0077BB">1</font>] * v2[<font color="#0077BB">1</font>]) / (sqrt(v1[<font color="#0077BB">0</font>] * v1[<font color="#0077BB">0</font>] + v1[<font color="#0077BB">1</font>] * v1[<font color="#0077BB">1</font>]) * sqrt(v2[<font color="#0077BB">0</font>] * v2[<font color="#0077BB">0</font>] + v2[<font color="#0077BB">1</font>] * v2[<font color="#0077BB">1</font>])));
 <b><font color="0000BB">end</font></b>;</code></pre>
 Startwerte für die Lichtparameter.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   LichtOefffnung := <font color="#0077BB">8</font>; <i><font color="#FFFF00">// Ausstrahl-Winkel 45°  ( PI / 8 )</font></i>
   LichtPos := vec2(<font color="#0077BB">200</font>, <font color="#0077BB">100</font>);
   LichtRichtung := vec2(<font color="#0077BB">2</font>, <font color="#0077BB">2</font>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Die Maustasten ändern die Licht und Austrahl-Position.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">case</font></b> Button <b><font color="0000BB">of</font></b>
@@ -64,7 +64,7 @@ Die Maustasten ändern die Licht und Austrahl-Position.<br>
   Invalidate;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Das Mausrad ändert den Austrahlwinkel.<br>
-<pre><code><b><font color="0000BB">function</font></b> isCone(x, y: integer): boolean;
+<pre><code=pascal><b><font color="0000BB">function</font></b> isCone(x, y: integer): boolean;
 <b><font color="0000BB">var</font></b>
   winkel: single;
   lr, lp: TVec2;
@@ -85,7 +85,7 @@ Das Mausrad ändert den Austrahlwinkel.<br>
   Result := (winkel &gt; cos(pi / LichtOefffnung));
 <b><font color="0000BB">end</font></b>;</code></pre>
 Zeichen der ganzen Scene.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormPaint(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormPaint(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   x, y: integer;
 <b><font color="0000BB">begin</font></b>

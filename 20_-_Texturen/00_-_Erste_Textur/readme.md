@@ -16,7 +16,7 @@ Hier im Beispiel, ist dies von einem Bereich von 0.0 bis 1.0, somit ist die ganz
 Als Versuch kann man die 1.0 durch 2.0 ersetzen, dann wird man sehen, das die Textur doppelt vorhanden ist.<br>
 Umgekehrt, mit 0.5 ist nur die halbe Textur sichtbar.<br>
 Natürlich kann man dies auch mit einer Matrix modfizieren, dazu später.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
     (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
@@ -30,10 +30,10 @@ Der Alpha-Kanal ist hier Bedeutungslos, er wird nur gebraucht, das ein Pixel auf
 <br>
 Bei der Seitenlänge einer Textur sollt darauf geachtet werden, das diese <b>2<sup>x</sup></b> ist.<br>
 Andere Werte gehen zwar auch bei modernen OpenGL, aber dann muss mit Performanceeinbrüchen rechnen.<br>
-<pre><code><b><font color="0000BB">const</font></b>
+<pre><code=pascal><b><font color="0000BB">const</font></b>
   Textur32_0: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)));</code></pre>
 Für die Textur-Koordinaten ist noch ein VBO dazu gekommen.<br>
-<pre><code><b><font color="0000BB">type</font></b>
+<pre><code=pascal><b><font color="0000BB">type</font></b>
   TVB = <b><font color="0000BB">record</font></b>
     VAO,
     VBOVertex,        <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
@@ -44,7 +44,7 @@ Für die Textur-Koordinaten ist noch ein VBO dazu gekommen.<br>
   VBQuad: TVB;</code></pre>
 Wie in OpenGL üblich, braucht auch der Textur-Puffer eine ID.<br>
 Solche BPffer können auch mehrere vorkommen, eine Scene hat selten nur eine Textur.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   textureID: GLuint;</code></pre>
 Hier wird der Textur-Puffer mit <b>glGenTextures(...</b> erzeugt, ähnlich wie andere Puffer auch.<br>
 Für den Shader muss noch eine Sampler-Nr. zugeordnet werden, diese numeriert man fortlaufend durch.<br>
@@ -53,7 +53,7 @@ Ich hatte schon versucht, diese Nummer als Konstante in den Shader zu schreiben,
 <br>
 Da hier nur eine Textur verwendet wird, könnte man dies auch weglassen, weil dies default auf <b>0</b> ist.<br>
 Bei Multitexturing ist dies natürlich nicht mehr der Fall.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
@@ -72,7 +72,7 @@ Das wichtigste dabei ist <b>glTexImage2D(...</b>. Hier gibt man eine Zeiger auf 
 Die Textur-Daten im RAM könnte man anschliessend löschen, aber hier geht dies natürlich nicht, da es sich um eine Konstae handelt.<br>
 Dies wird erst interessant, wen man die Daten von der Festplatte lädt.<br>
 Da es sich um eine 2D-Texur handelt muss man über alll noch <b>GL_TEXTURE_2D</b> angeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID);
@@ -88,13 +88,13 @@ Da es sich um eine 2D-Texur handelt muss man über alll noch <b>GL_TEXTURE_2D</b
   glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);</code></pre>
 Bevor man ein Polygon zeichnet, muss man die Texur binden. Dies geschieht mit <b>glBindTexture(...</b>.<br>
 Anschliessend kann ganz normal gezeichnet werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
   glBindTexture(GL_TEXTURE_2D, textureID);  <i><font color="#FFFF00">// Textur binden.</font></i></code></pre>
 Zum Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Timer1.Enabled := <b><font color="0000BB">False</font></b>;
 <br>

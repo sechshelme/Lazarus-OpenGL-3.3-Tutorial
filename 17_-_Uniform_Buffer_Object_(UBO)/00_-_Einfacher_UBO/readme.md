@@ -19,7 +19,7 @@ Ein Float mit <b>4Byte</b> ist gut dafür gut geeignet.<br>
 Im Shader-Code, muss dies bei den Uniform-Blöcken nicht beachtet werden.<br>
 <br>
 Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16Byte gross ist.<br>
-<pre><code><b><font color="0000BB">type</font></b>
+<pre><code=pascal><b><font color="0000BB">type</font></b>
   TMaterial = <b><font color="0000BB">record</font></b>
     ambient: TVector3f;      <i><font color="#FFFF00">// Umgebungslicht</font></i>
     pad0: GLfloat;           <i><font color="#FFFF00">// padding 4Byte</font></i>
@@ -30,7 +30,7 @@ Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16
   <b><font color="0000BB">end</font></b>;</code></pre>
 So was geht leider <b>nicht</b>.<br>
 Diffuse muss in den nächsten 16Byte-Block !<br>
-<pre><code><b><font color="0000BB">type</font></b>    <i><font color="#FFFF00">// Unbrauchbare Deklaration !</font></i>
+<pre><code=pascal><b><font color="0000BB">type</font></b>    <i><font color="#FFFF00">// Unbrauchbare Deklaration !</font></i>
   TMaterial = <b><font color="0000BB">record</font></b>
     ambient: TVector3f;      <i><font color="#FFFF00">// 3Byte</font></i>
     diffuse: TVector3f;      <i><font color="#FFFF00">// 3Byte</font></i>
@@ -41,12 +41,12 @@ Diffuse muss in den nächsten 16Byte-Block !<br>
 Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer auch anders anlegen, zB. in eine Float-Array, dies macht aber wenig Sinn.<br>
 Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.<br>
 Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.<br>
-<pre><code><b><font color="0000BB">var</font></b>
+<pre><code=pascal><b><font color="0000BB">var</font></b>
   UBO: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
   Material_ID: GLint; <i><font color="#FFFF00">// ID im Shader</font></i></code></pre>
 ID und Puffer generieren.<br>
 Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlockIndex(...</b> auslesen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
@@ -65,7 +65,7 @@ Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlock
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Pro UBO-Block, wird ein BindingPoint gebraucht.<br>
 Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gleichen BindingPoint verwenden, dazu später.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   bindingPoint: gluint = <font color="#0077BB">0</font>; <i><font color="#FFFF00">// Pro Verbindung wird ein BindingPoint gebraucht.</font></i>
 <b><font color="0000BB">begin</font></b>
@@ -86,7 +86,7 @@ Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gl
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</code></pre>
 Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Shader.Free;
 <br>
