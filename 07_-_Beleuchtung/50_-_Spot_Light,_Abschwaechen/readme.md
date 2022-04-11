@@ -17,8 +17,10 @@ Hier werden die Lichtpositionen der drei Lampen festgelegt.<br>
   <b><font color="0000BB">with</font></b> LightPos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     Red := vec3(-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Red.Scale(LichtPositionRadius);
+
     Green := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Green.Scale(LichtPositionRadius);
+
     Blue := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Blue.Scale(LichtPositionRadius);
   <b><font color="0000BB">end</font></b>;</code></pre>
@@ -28,8 +30,8 @@ Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
   Step: single = <font color="#0077BB">0</font>.<font color="#0077BB">5</font>;
   min = <font color="#0077BB">40</font>.<font color="#0077BB">0</font>;
   max = <font color="#0077BB">80</font>.<font color="#0077BB">0</font>;
-<br>
   ZPos: single = (max + min) / <font color="#0077BB">2</font>;
+
 <b><font color="0000BB">begin</font></b>
   ModelMatrix.Identity;
   ModelMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">30</font>);
