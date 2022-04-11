@@ -28,7 +28,7 @@ Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
   Step: single = <font color="#0077BB">0</font>.<font color="#0077BB">5</font>;
   min = <font color="#0077BB">40</font>.<font color="#0077BB">0</font>;
   max = <font color="#0077BB">80</font>.<font color="#0077BB">0</font>;
-
+<br>
   ZPos: single = (max + min) / <font color="#0077BB">2</font>;
 <b><font color="0000BB">begin</font></b>
   ModelMatrix.Identity;
