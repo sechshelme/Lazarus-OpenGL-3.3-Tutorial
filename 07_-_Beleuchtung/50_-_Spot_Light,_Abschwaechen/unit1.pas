@@ -250,8 +250,8 @@ const
   Step: single = 0.5;
   min = 40.0;
   max = 80.0;
-
   ZPos: single = (max + min) / 2;
+
 begin
   ModelMatrix.Identity;
   ModelMatrix.Translate(0.0, 0.0, 30);
