@@ -4,7 +4,7 @@
 <img src="image.png" alt="Selfhtml"><br><br>
 <hr><br>
 Die Deklaration der Vektor-Koordianten Konstanten.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   <i><font color="#FFFF00">// Dreieck</font></i>
   Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
@@ -15,7 +15,7 @@ Die Deklaration der Vektor-Koordianten Konstanten.<br>
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</code></pre>
 Hier werden die Daten in die Grafikkarte geschrieben.<br>
 Es hat nichts besonderes.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -35,7 +35,7 @@ Es hat nichts besonderes.<br>
 <b><font color="0000BB">end</font></b>;</code></pre>
 Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.<br>
 Hier im Beispiel, sind dies einfache Dreiecke.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;

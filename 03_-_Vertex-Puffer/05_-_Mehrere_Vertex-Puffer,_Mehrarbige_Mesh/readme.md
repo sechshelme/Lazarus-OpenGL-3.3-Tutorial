@@ -6,7 +6,7 @@ Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zwei
 Somit werden die Mesh mehrfarbig.<br>
 <hr><br>
 Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
   TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =   <i><font color="#FFFF00">// Rot / Grün / Blau</font></i>
@@ -18,7 +18,7 @@ Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der
     (((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
     ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</code></pre>
 Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.<br>
-<pre><code=pascal><b><font color="0000BB">type</font></b>
+<pre><code=scal><b><font color="0000BB">type</font></b>
   TVB = <b><font color="0000BB">record</font></b>
     VAO,
     VBOvert,         <i><font color="#FFFF00">// VBO für Vektor.</font></i>
@@ -26,13 +26,13 @@ Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugeko
   <b><font color="0000BB">end</font></b>;</code></pre>
 CreateScene wurde um zwei Zeilen erweitert.<br>
 Die VB0 für den Farben-Puffer müssen noch generiert werden.<br>
-<pre><code=pascal>  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
+<pre><code=scal>  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
   glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOcol);   <i><font color="#FFFF00">// neu hinzugekommen</font></i>
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOvert);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOcol);       <i><font color="#FFFF00">// neu hinzugekommen</font></i></code></pre>
 Hier fast der wichtigste Teil, pro <b>Vertex Array Object</b> (VAO) wird ein zweiter Puffer in das VRAM geladen.<br>
 Die 10 und 11, muss indentisch sein, mit dem <b>location</b> im Shader.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -67,7 +67,7 @@ Die 10 und 11, muss indentisch sein, mit dem <b>location</b> im Shader.<br>
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich einfach wie wen man nur ein VBO hat.<br>
-<pre><code=pascal>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+<pre><code=scal>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TriangleVector) * <font color="#0077BB">3</font>);
 <br>
@@ -76,7 +76,7 @@ Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich 
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);</code></pre>
 Am Ende müssen noch die zusätzlichen VBO-Puffer frei gegeben werden.<br>
 Freigaben müssen immer gleich viele sein wie Erzeugungen.<br>
-<pre><code=pascal>  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
+<pre><code=scal>  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOcol);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOvert);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOcol);</code></pre>

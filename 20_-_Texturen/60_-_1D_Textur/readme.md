@@ -7,24 +7,24 @@ Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 
 Eine 1D-Textur kann man sich am besten als eine farbige Linie vorstellen.<br>
 <hr><br>
 Die Texturkoordinaten sind nun keine Vectorenarray mehr sondern nur eine einfache Float-Array.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
 <br>
   TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> GLfloat =
     (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>, <font color="#0077BB">3</font>.<font color="#0077BB">0</font>);</code></pre>
 Eine Einfache 1D-Textur mit 5 Pixeln.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   Textur24: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">4</font>, <font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> byte =
     ((<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>), (<font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF));</code></pre>
 Generieren des Texturbuffers.<br>
 Dies geschieht gleich wie bei der normalen 2D-Textur.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glGenTextures(<font color="#0077BB">1</font>, @textureID);  <i><font color="#FFFF00">// Erzeugen des Textur-Puffer.</font></i></code></pre>
 Beim laden muss man bei den Textur-Befehlen beachten, das man <b>GL_TEXTURE_1D</b> nimmt.<br>
 Beim VertexAttribut wird für die Textur-Koordinaten nur eine Float-Array übergeben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindTexture(GL_TEXTURE_1D, textureID);
@@ -54,7 +54,7 @@ Beim VertexAttribut wird für die Textur-Koordinaten nur eine Float-Array überg
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Das Zeichnen ist nichts besonderes.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>

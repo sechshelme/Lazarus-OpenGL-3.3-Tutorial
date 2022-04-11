@@ -35,7 +35,7 @@ Das sieht man gut bei den mehrfarbigen Beleuchtungbeispielen. Da sieht man auch,
 Dazu später.<br>
 <hr><br>
 Die Konstanten der Würfel-Vektoren.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   CubeVertex: TCube =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
     ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
@@ -47,10 +47,10 @@ Die Konstanten der Würfel-Vektoren.<br>
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));</code></pre>
 Für die Normale wird nur eine Variable für Vektoren deklariert, da diese aus den Vektoren des Würfels berechnet werden.<br>
 Diese zeigt dann senkrecht auf das Dreieck.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   CubeNormal: TCube;</code></pre>
 Für die Normale braucht es noch eine VBO.<br>
-<pre><code=pascal><b><font color="0000BB">type</font></b>
+<pre><code=scal><b><font color="0000BB">type</font></b>
   TVB = <b><font color="0000BB">record</font></b>
     VAO,
     VBOvert,            <i><font color="#FFFF00">// VBO für Vektor.</font></i>
@@ -59,11 +59,11 @@ Für die Normale braucht es noch eine VBO.<br>
 In der Unit Matrix hat es eine fertige Funktion, welche die Normale aus den Vertex-Koordinaten berechnet.<br>
 Diese Funktion sollte  man <b>nur</b> verwenden, wen die <b>Normale</b> senkrecht auf dem Dreieck steht.<br>
 Bei runden Objekten ist dies nicht der Fall.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   FaceToNormale(CubeVertex, CubeNormal);</code></pre>
 Die Normale wird auf gleiche weise in den VRAM geladen, wie die Vertex-Koordinaten.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -93,7 +93,7 @@ Das wird in <b>allen</b> Beleuchtungsbeispielen so gemacht, egal ob Punkt, Direc
 Ausser bei Ambient, da es dort <b>keine</b> Normalen gibt.<br>
 <br>
 In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwendet wird, gibt es pro Würfel eine Berechnung.<br>
-<pre><code=pascal>  <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+<pre><code=scal>  <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">for</font></b> y := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       <b><font color="0000BB">for</font></b> z := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
         Matrix.Identity;

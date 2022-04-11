@@ -8,7 +8,7 @@ Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, a
 <hr><br>
 Hier wird ein Matrix4x4-Typ deklariert.<br>
 Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.<br>
-<pre><code=pascal><b><font color="0000BB">type</font></b>
+<pre><code=scal><b><font color="0000BB">type</font></b>
   TMatrix = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat;
 <br>
   TMatrixfHelper = <b><font color="0000BB">Type</font></b> Helper <b><font color="0000BB">for</font></b> TMatrix
@@ -17,7 +17,7 @@ Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper
   <b><font color="0000BB">end</font></b>;</code></pre>
 Die Matrix selbst, die rotiert wird.<br>
 Und die ID für den Shader.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   MatrixRot: TMatrix;     <i><font color="#FFFF00">// Matrix</font></i>
   MatrixRot_ID: GLint;    <i><font color="#FFFF00">// ID für Matrix.</font></i></code></pre>
 Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:<br>
@@ -28,7 +28,7 @@ Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 | 0 | 0 | 1 | 0 |<br>
 | 0 | 0 | 0 | 1 |<br>
 //matrix-<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Indenty;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Indenty;
 <b><font color="0000BB">const</font></b>
   MatrixIndenty: TMatrix = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
 <b><font color="0000BB">begin</font></b>
@@ -37,7 +37,7 @@ Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 Mit dieser Procedure, wird die Matrix um die Z-Achse rotiert.<br>
 Der Winkel wird im <b>Bogenmass</b> angegeben.<br>
 Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Rotate(angele: single);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TMatrixfHelper.Rotate(angele: single);
 <b><font color="0000BB">var</font></b>
   i: integer;
   x, y: GLfloat;
@@ -53,7 +53,7 @@ Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).<br>
 In diesem Code sind zwei Zeilen relevant, eine mit <b>UniformLocation</b> für die Matrix-ID.<br>
 In der anderen wird die Matrix, die gedreht wird, erst mal als Einheits-Matrix gesetzt.<br>
 Dies ist wichtig, ansonsten sieht man keine Mesh mehr, da diese unendlich klein skaliert wird.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
@@ -63,13 +63,13 @@ Dies ist wichtig, ansonsten sieht man keine Mesh mehr, da diese unendlich klein 
 Hier wird die Uniform-Variable <b>MatrixRot</b> dem Shader übergeben.<br>
 Mit <b>glUniform4fv(...</b> kann man eine <b>4x4 Matrix</b> dem Shader übergeben.<br>
 Für eine 2x2 Matrix wäre dies <b>glUniform2fv(...</b> und für die 3x3 <b>glUniform3fv(...</b>.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glUniformMatrix4fv(MatrixRot_ID, <font color="#0077BB">1</font>, <b><font color="0000BB">False</font></b>, @MatrixRot); <i><font color="#FFFF00">// MatrixRot in den Shader.</font></i></code></pre>
 Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   step: GLfloat = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;          <i><font color="#FFFF00">// Der Winkel ist im Bogenmass.</font></i>
 <b><font color="0000BB">begin</font></b>

@@ -8,12 +8,12 @@ Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, 
 In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.<br>
 <hr><br>
 Die ID, welche auf den Shader zeigt.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   ProgramID: GLuint;</code></pre>
 Lädt den Vertex- und Fragment-Shader in die Grafikkarte.<br>
 In diesem Beispiel sind die beiden Shader in einer Textdatei.<br>
 Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarieren.<br>
-<pre><code=pascal><b><font color="0000BB">function</font></b> Initshader(VertexDatei, FragmentDatei: <b><font color="0000BB">string</font></b>): GLuint;
+<pre><code=scal><b><font color="0000BB">function</font></b> Initshader(VertexDatei, FragmentDatei: <b><font color="0000BB">string</font></b>): GLuint;
 <b><font color="0000BB">var</font></b>
   sl: TStringList;
   s: <b><font color="0000BB">string</font></b>;
@@ -92,20 +92,20 @@ In der ersten Zeile wird der Shader in die Grafikkarte geladen.<br>
 Die zweite Zeile aktiviert den Shader.<br>
 Dies wird spätestens dann interessant, wenn man mehrere Shader verwendet.<br>
 Näheres im Kapitel Shader.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   ProgramID := InitShader(<font color="#FF0000">'Vertexshader.glsl'</font>, <font color="#FF0000">'Fragmentshader.glsl'</font>);
   glUseProgram(programID);</code></pre>
 Beim Zeichnen muss man auch mit <b>glUseProgram(...</b> den Shader wählen, mit welchem das Mesh gezeichnet wird.<br>
 Bei diesem Mini-Code könnte dies weggelassen werden, da nur ein Shader verwendet wird und dieser bereits in TForm1.CreateScene aktiviert wurde.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
   glUseProgram(programID);</code></pre>
 Am Ende noch mit <b>glDeleteShader(...</b> die Shader in der Grafikkarte wieder freigeben.<br>
 In diesem Code ist dies nur einer.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glDeleteProgram(ProgramID);</code></pre>
 <hr><br>

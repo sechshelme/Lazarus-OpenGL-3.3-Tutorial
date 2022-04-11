@@ -14,7 +14,7 @@ Hier werden die verschiedenen Polygone-Modis eingestellt.<br>
 Mit <b>glPolygonMode(...</b> und dem zweiten Parameter werden die verschiedenen Modis eingestellt.<br>
 Dabei muss der erste Paramter immer <b>GL_FRONT_AND_BACK</b> sein, die beiden Parameter <b>GL_FRONT</b> und <b>GL_BACK</b> gehen mit OpenGL >= 3.3 nicht mehr.<br>
 <b>glPolygonMode(...</b> kann auch bei DrawScene aufgerufen werden. ZB. wen man zwei Meshes hat, kann man die einte Fächenfüllend und die andere als Drahtgitter darstellen.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.MenuItemClick(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   <b><font color="0000BB">case</font></b> TMainMenu(Sender).Tag <b><font color="0000BB">of</font></b>
     <font color="#0077BB">1</font>: <b><font color="0000BB">begin</font></b>

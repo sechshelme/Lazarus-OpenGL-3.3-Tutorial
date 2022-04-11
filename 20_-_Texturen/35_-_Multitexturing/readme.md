@@ -9,11 +9,11 @@ Somit muss man auch mehrere Texturen beim Zeichenen mittels <b>glActiveTexture(.
 Hier im Beispiel, ist es ein Stück Mauer, welches mit einer farbigen Lampe angeleuchtet wird.<br>
 <hr><br>
 Die Textur-Puffer deklarieren, sehr einfach geht dies mit einer Array.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   Textur: <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TTexturBuffer;</code></pre>
 Textur-Puffer erzeugen und Shader vorbereiten.<br>
 Die Textur-Sampler muss man durchnummerieren.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Textur[<font color="#0077BB">0</font>] := TTexturBuffer.Create;
   Textur[<font color="#0077BB">1</font>] := TTexturBuffer.Create;
@@ -27,7 +27,7 @@ Die Textur-Sampler muss man durchnummerieren.<br>
   <b><font color="0000BB">end</font></b>;</code></pre>
 Mit diesr Klasse geht das laden einer Bitmap sehr einfach.<br>
 Man kann die Texturen auch von einem <b>TRawImages</b> laden.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   Textur[<font color="#0077BB">0</font>].LoadTextures(<font color="#FF0000">'mauer.xpm'</font>);
   Textur[<font color="#0077BB">1</font>].LoadTextures(<font color="#FF0000">'licht.xpm'</font>);</code></pre>
@@ -35,20 +35,20 @@ Da man bei Multitexturing mehrere Sampler braucht, muss man mitteilen, welche Te
 Dies macht man mit <b>glActiveTexture(...</b>, Dazu muss man als Parameter die <b>Sampler-Nr + GL_TEXTURE0</b> mitgeben.<br>
 <br>
 Das sieht man auch gut in der TTexturBuffer Class.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TTexturBuffer.ActiveAndBind(Nr: integer);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TTexturBuffer.ActiveAndBind(Nr: integer);
 <b><font color="0000BB">begin</font></b>
   glActiveTexture(GL_TEXTURE0 + Nr);
   glBindTexture(GL_TEXTURE_2D, FID);  <i><font color="#FFFF00">// FID ist Textur-ID.</font></i>
 <b><font color="0000BB">end</font></b>;</code></pre>
 <br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
   Textur[<font color="#0077BB">0</font>].ActiveAndBind(<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Textur 0 mit Sampler 0 binden.</font></i>
   Textur[<font color="#0077BB">1</font>].ActiveAndBind(<font color="#0077BB">1</font>); <i><font color="#FFFF00">// Textur 1 mit Sampler 1 binden.</font></i></code></pre>
 Die beiden Texturen am Ende wieder frei geben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Textur[<font color="#0077BB">0</font>].Free;  <i><font color="#FFFF00">// Texturen frei geben.</font></i>
   Textur[<font color="#0077BB">1</font>].Free;</code></pre>

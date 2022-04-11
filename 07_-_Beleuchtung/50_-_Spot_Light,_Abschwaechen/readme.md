@@ -10,7 +10,7 @@ Die beiden linken Lichter wird nur eine Abschwächung angewendet. Das rechte Lic
 Dies Distanzabhängige Abschwächung, kann man auch bei einer Punkt-Beleuchtung anwenden.<br>
 <hr><br>
 Hier werden die Lichtpositionen der drei Lampen festgelegt.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">const</font></b>
   LichtPositionRadius = <font color="#0077BB">25</font>.<font color="#0077BB">0</font>;
 <b><font color="0000BB">begin</font></b>
@@ -25,7 +25,7 @@ Hier werden die Lichtpositionen der drei Lampen festgelegt.<br>
     Blue.Scale(LichtPositionRadius);
   <b><font color="0000BB">end</font></b>;</code></pre>
 Hier werden die 3 Lichter in der Z-Achse bewegt.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   Step: single = <font color="#0077BB">0</font>.<font color="#0077BB">5</font>;
   min = <font color="#0077BB">40</font>.<font color="#0077BB">0</font>;

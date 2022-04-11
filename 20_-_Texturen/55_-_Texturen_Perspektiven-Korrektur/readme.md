@@ -7,7 +7,7 @@ Die beiden Trapeze Rechts sind korrigiert, auf 2 verschiedene Varianten. Der Unt
 <hr><br>
 Es hat eine 2. Variante für die Textur-Koordinaten gegeben, welche einen Wert für eine Perspektivenkorrektur hat.<br>
 Diese enthält einen Korrekturwert für die Perspektive.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   <i><font color="#FFFF00">// Koordinaten für Trapez.</font></i>
   TrapezeVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
@@ -23,7 +23,7 @@ Diese enthält einen Korrekturwert für die Perspektive.<br>
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>),
     (-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>));</code></pre>
 Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspektivenkorrigierte Variante auch ein Vec3 ist.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   pic: TPicture;
   i: integer;
@@ -50,7 +50,7 @@ Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspek
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
 Zeichnen der 3 verschiedenne Varianten.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;  <i><font color="#FFFF00">// Textur binden.</font></i>

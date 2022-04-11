@@ -8,18 +8,18 @@ Es gibt auch <b>for</b> und <b>while-do</b>-Schleifen.<br>
 <hr><br>
 Für die <b>if</b>-Abfrage im Beispiel wird ein Boolean verwendet, man kann aber auch Integer, Float, etc. verwenden.<br>
 Der ID, ist es egal, um welchen Unifom-Variablentyp es sich handelt, aus diesem Grund ist sie immer ein GLint.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   rot_ID: GLint;      <i><font color="#FFFF00">// ID für uniform "rot"</font></i></code></pre>
 Der Location-Abfrage ist es gleich, was für ein Variablen-Typ die Uniform ist.<br>
 Das Ermitteln geht bei allen Typen gleich.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
   rot_ID := Shader.UniformLocation(<font color="#FF0000">'rot'</font>); <i><font color="#FFFF00">// Ermittelt die ID von "rot".</font></i></code></pre>
 Mit <b>glUniform1i(...</b> wird der Boolean übergeben.<br>
 Ein Boolean, muss man als Integer übergeben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;

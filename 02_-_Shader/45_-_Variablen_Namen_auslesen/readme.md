@@ -10,7 +10,7 @@ Auch die Beleuchtung, etc. wird später behandelt.<br>
 Mit <b>glGetProgramiv(...</b> wird ermittelt, wie viele Variablen dieses Typen hat.<br>
 Mit <b>glGetActiveAttrib(...</b> wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. <b>vec3</b>, <b>mat4</b>, etc.<br>
 Der komplexe Beleuchtungs-Shader wird später beschrieben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   s: ansistring;
   i, Count, len, size, Typ: integer;

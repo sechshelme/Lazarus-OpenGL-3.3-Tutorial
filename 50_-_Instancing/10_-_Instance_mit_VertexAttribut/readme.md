@@ -7,10 +7,10 @@ Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikk
 Das es eine Diashow ist, das ist was anderes.<br>
 <hr><br>
 Die Anzahl Instance<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   InstanceCount = <font color="#0077BB">10000</font>;</code></pre>
 Für die Instancen werden VBOs gebraucht.<br>
-<pre><code=pascal><b><font color="0000BB">type</font></b>
+<pre><code=scal><b><font color="0000BB">type</font></b>
   TVB = <b><font color="0000BB">record</font></b>
     VAO: GLuint;
     VBO: <b><font color="0000BB">record</font></b>
@@ -19,7 +19,7 @@ Für die Instancen werden VBOs gebraucht.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;</code></pre>
 Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   VBQuad: TVB;
 <br>
   Data: <b><font color="0000BB">record</font></b>
@@ -28,7 +28,7 @@ Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.<br>
     Color: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TVector3f;
   <b><font color="0000BB">end</font></b>;</code></pre>
 VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -51,13 +51,13 @@ Da für die Puffer nur Vektoren mit 1-4 Elemeten erlaubt sind, muss man die Matr
 Dabei werden auch 4 Attribut-Indexe gebraucht.<br>
 Eine <b>glVertexAttribPointer(2, 16,...</b> geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.<br>
 So was geht leider nicht:<br>
-<pre><code=pascal>  glVertexAttribPointer(<font color="#0077BB">2</font>, <font color="#0077BB">16</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
+<pre><code=scal>  glVertexAttribPointer(<font color="#0077BB">2</font>, <font color="#0077BB">16</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
 Mit <b>glVertexAttribDivisor(...</b> teilt man mit das es sich um ein Instance-Attribut handelt.<br>
 Der erste Parameter bestimmt, um welches Vertex-Attribut es sich handelt.<br>
 Der Zweite sagt, das der Zeiger im Vertex-Attribut bei jedem Durchgang um <b>1</b> erhöt wird.<br>
 Setzt man dort <b>0</b> ein, handelt es sich um ein gewöhnliches Attribut.<br>
 Was Werte >1 bedeuten ist bei <b>VertexAttribDivisor</b> beschrieben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>
@@ -100,7 +100,7 @@ Die Instance Parameter werden einfache mit <b>glBufferSubData(....</b> übergebe
 Es werden nur die Matrizen aktualisiert, die anderen Werte bleiben gleich.<br>
 Will man eine andere Anzahl von Instance, dann muss man mit <b>glBufferData(...</b> mehr oder weniger Speicher reservieren.<br>
 Dafür braucht man keine Uniformen.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -114,7 +114,7 @@ Dafür braucht man keine Uniformen.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Matrizen neu berechnen.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
 <b><font color="0000BB">var</font></b>
   i: integer;
 <b><font color="0000BB">begin</font></b>

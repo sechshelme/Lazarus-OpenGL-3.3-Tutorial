@@ -8,11 +8,11 @@ Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Wind
 Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.<br>
 <hr><br>
 Typen-Deklaration für die Face-Daten.<br>
-<pre><code=pascal><b><font color="0000BB">type</font></b>
+<pre><code=scal><b><font color="0000BB">type</font></b>
   TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
   TFace = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f;</code></pre>
 Koordinaten für das Mesh, hier ein Dreieck und ein Quadrat, welches wir später in das VRAM (Video-Ram) rendern.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
     (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
   Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
@@ -22,7 +22,7 @@ Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der g
 Anstelle von <b>Self</b>, kann auch ein anderes <b>TWinControl</b> angegeben werden, zB. ein <b>TPanel</b>.<br>
 <br>
 Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffer für die Mesh erzeugen und die Vertexkoordinaten in den Puffer laden.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);  <i><font color="#FFFF00">// Den Context erzeugen und OpenGL inizialisieren.</font></i>
   ogc.OnPaint := @ogcDrawScene;  <i><font color="#FFFF00">// OnPaint-Ereigniss von dem Contextfenster.</font></i>
@@ -34,7 +34,7 @@ Buffer für Vertex-Daten anlegen.<br>
 <br>
 Mit <b>glGenVertexArrays(...</b> wird ein <b>Vertex Array Object</b> für jedes Mesh erzeugt.<br>
 Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex-Daten des Meshes erzeugt.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
@@ -50,7 +50,7 @@ Mit <b>glVertexAttribPointer(...</b> gibt man an, in welchem Format man die Vert
 Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.<br>
 <br>
 <b>InitScene</b> kann zur Laufzeit mit anderen Daten geladen werden.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -94,7 +94,7 @@ Den Geometrie-Shader werde ich später erwähnen.<br>
 * GL_TRIANGLE_STRIP_ADJACENCY<br>
 <br>
 Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
 <br>
@@ -109,7 +109,7 @@ Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);

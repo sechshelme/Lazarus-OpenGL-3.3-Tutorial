@@ -6,11 +6,11 @@ Man kann auch Punkte mit dem Shader darstellen, dies kann man auf verschiedene W
 Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.<br>
 <hr><br>
 Die Deklaration der Koordianten und Punktgrösse.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   Point: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f;
   PointSize: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> GLfloat;</code></pre>
 Daten für die Punkte in die Grafikkarte übertragen<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
 <br>
@@ -29,7 +29,7 @@ Daten für die Punkte in die Grafikkarte übertragen<br>
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
 <b><font color="0000BB">end</font></b>;</code></pre>
 Zeichnen der Punkte<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">const</font></b>
   ofs = <font color="#0077BB">0</font>.<font color="#0077BB">4</font>;
 <b><font color="0000BB">begin</font></b>

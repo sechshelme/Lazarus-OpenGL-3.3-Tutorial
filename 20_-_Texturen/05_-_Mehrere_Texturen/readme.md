@@ -8,18 +8,18 @@ In diesem Beispiel werden zwei Texturen geladen.<br>
 Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textur bindet.<br>
 <hr><br>
 Da es zwei Texturn hat, ist noch eine zweite Textur-Konstnate dazu gekommen.<br>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   Textur32_0: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF)));
   Textur32_1: <b><font color="0000BB">packed</font></b> <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">1</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> byte = (((<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)), ((<font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF), (<font color="#0077BB">$00</font>, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF, <font color="#0077BB">$</font>FF)));</code></pre>
 Da es zwei Texturen hat, bracuht es auch zwei IDs.<br>
-<pre><code=pascal><b><font color="0000BB">var</font></b>
+<pre><code=scal><b><font color="0000BB">var</font></b>
   textureID: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLuint;</code></pre>
 Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.<br>
 Dazu gebe ich als ersten Parameter die Länge der Array an.<br>
 Natürlich könnte man die Puffer auch einzeln erzeugen.<br>
 <br>
 Das selbe könnte man auch bei den VAOs und VBOs machen.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
 <b><font color="0000BB">begin</font></b>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
@@ -27,7 +27,7 @@ Das selbe könnte man auch bei den VAOs und VBOs machen.<br>
 <br>
   glGenTextures(Length(textureID), @textureID);  <i><font color="#FFFF00">// Erster Parameter die Länge der Arrray.</font></i></code></pre>
 Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Textur 0 laden.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">0</font>]);
@@ -43,7 +43,7 @@ Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
 Hier sieht man, das ich für die beiden Qudrate unterschiedliche Texturen binde.<br>
 Koordinaten verwende ich für beide Qudrate die gleichen, einziger Unterschied, ich verschiebe die Matrix in unterschiedliche Richtungen.<br>
 Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -68,7 +68,7 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Logischerweise muss man auch wieder beide Textur-Puffer frei geben.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glDeleteTextures(Length(textureID), @textureID); <i><font color="#FFFF00">// Textur-Puffer frei geben.</font></i></code></pre>
 <hr><br>

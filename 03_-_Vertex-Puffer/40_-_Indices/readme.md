@@ -21,7 +21,7 @@ Mit den Indicen kann ich sagen, zeichen von Punkt 0-1-2 und von Punkt 0-2-3.<br>
 <pre><code>3 - 2
 | / |
 0 - 1</code></pre>
-<pre><code=pascal><b><font color="0000BB">const</font></b>
+<pre><code=scal><b><font color="0000BB">const</font></b>
   <i><font color="#FFFF00">// --- Dreieck</font></i>
   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
   Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f =
@@ -38,7 +38,7 @@ Mit den Indicen kann ich sagen, zeichen von Punkt 0-1-2 und von Punkt 0-2-3.<br>
 Bei <b>glDrawElements(...</b>, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.<br>
 Ansonsten geht das Zeichen gleich, wie bei der einfachen Methode.<br>
 Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sieht.<br>
-<pre><code=pascal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
+<pre><code=scal><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);   <i><font color="#FFFF00">// Linien</font></i>
