@@ -72,7 +72,7 @@ Das Mausrad ändert den Austrahlwinkel.<br>
   <i><font color="#FFFF00">// Lichtrichtung Normalisieren.</font></i>
   lr := normalize(LichtRichtung);
 <br>
-  <i><font color="#FFFF00">// Lichtposition inkremtal berechnen.</font></i>
+  <i><font color="#FFFF00">// Lichtposition inkremebtal berechnen.</font></i>
   lp :=vec2(x - LichtPos[<font color="#0077BB">0</font>], y - LichtPos[<font color="#0077BB">1</font>]);
 <br>
   <i><font color="#FFFF00">// Lichtposition Normlisieren.</font></i>

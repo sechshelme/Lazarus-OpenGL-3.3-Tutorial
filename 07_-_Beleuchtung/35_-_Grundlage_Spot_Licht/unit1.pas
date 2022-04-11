@@ -163,7 +163,7 @@ begin
   // Lichtrichtung Normalisieren.
   lr := normalize(LichtRichtung);
 
-  // Lichtposition inkremtal berechnen.
+  // Lichtposition inkremebtal berechnen.
   lp :=vec2(x - LichtPos[0], y - LichtPos[1]);
 
   // Lichtposition Normlisieren.

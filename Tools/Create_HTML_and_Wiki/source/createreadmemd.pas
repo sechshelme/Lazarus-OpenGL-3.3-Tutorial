@@ -83,7 +83,7 @@ begin
   sl2 := TStringList.Create;
 
   //sl2.Add('<!DOCTYPE html>');
-sl2.Add('<html>');
+  sl2.Add('<html>');
   //sl2.Add('  <head>');
   //sl2.Add('    <meta charset="utf-8">');
   //sl2.Add('    <title>' + getTitle + '</title>');
@@ -93,13 +93,13 @@ sl2.Add('<html>');
   //sl2.Add('  </head>');
   //sl2.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
   sl2.Add('    <b><h1>' + fKapitel + '</h1></b>');
- sl2.Add('    <b><h2>' + getTitle + '</h2></b>');
+  sl2.Add('    <b><h2>' + getTitle + '</h2></b>');
 
   sl2.Add(slHTML.Text);
 
-//  sl2.Add('    <br><br><br>');
-//  sl2.Add('<h2>' + HTMLAddLink('../../index.html', 'zurück') + '</h2>');
-//  sl2.Add('  </body>');
+  //  sl2.Add('    <br><br><br>');
+  //  sl2.Add('<h2>' + HTMLAddLink('../../index.html', 'zurück') + '</h2>');
+  //  sl2.Add('  </body>');
   sl2.Add('</html>');
 
   ForceDirectories(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator);
@@ -107,9 +107,9 @@ sl2.Add('<html>');
     CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.ReadmeMDPfad + fFolder + '/image.png');
   end;
 
-  sl2.Text:=StringReplace(sl2.Text, ' < ', ' &lt; ', [rfReplaceAll, rfIgnoreCase]);
-  sl2.Text:=StringReplace(sl2.Text, ' > ', ' &gt; ', [rfReplaceAll, rfIgnoreCase]);
-  sl2.Text:=StringReplace(sl2.Text, LineEnding+LineEnding, LineEnding+'<br>'+LineEnding, [rfReplaceAll, rfIgnoreCase]);
+  sl2.Text := StringReplace(sl2.Text, ' < ', ' &lt; ', [rfReplaceAll, rfIgnoreCase]);
+  sl2.Text := StringReplace(sl2.Text, ' > ', ' &gt; ', [rfReplaceAll, rfIgnoreCase]);
+  sl2.Text := StringReplace(sl2.Text, LineEnding + LineEnding, LineEnding + '<br>' + LineEnding, [rfReplaceAll, rfIgnoreCase]);
 
   sl2.SaveToFile(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator + 'readme.md');
 
