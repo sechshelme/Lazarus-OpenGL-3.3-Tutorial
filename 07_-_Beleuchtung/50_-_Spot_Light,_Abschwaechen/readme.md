@@ -17,10 +17,8 @@ Hier werden die Lichtpositionen der drei Lampen festgelegt.<br>
   <b><font color="0000BB">with</font></b> LightPos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     Red := vec3(-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Red.Scale(LichtPositionRadius);
-
     Green := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Green.Scale(LichtPositionRadius);
-
     Blue := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">4</font>.<font color="#0077BB">0</font>);
     Blue.Scale(LichtPositionRadius);
   <b><font color="0000BB">end</font></b>;</code></pre>
