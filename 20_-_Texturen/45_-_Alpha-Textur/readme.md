@@ -17,14 +17,14 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -34,17 +34,17 @@ Die Shader sehen gleich aus, wie bei einer einfachen Textur.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
 </code></pre>
-
+<br>
 </html>

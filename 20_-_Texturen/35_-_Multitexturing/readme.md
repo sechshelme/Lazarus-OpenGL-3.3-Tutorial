@@ -17,7 +17,7 @@ Die Textur-Sampler muss man durchnummerieren.<br>
 <b><font color="0000BB">begin</font></b>
   Textur[<font color="#0077BB">0</font>] := TTexturBuffer.Create;
   Textur[<font color="#0077BB">1</font>] := TTexturBuffer.Create;
-
+<br>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
@@ -44,7 +44,7 @@ Das sieht man auch gut in der TTexturBuffer Class.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
-
+<br>
   Textur[<font color="#0077BB">0</font>].ActiveAndBind(<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Textur 0 mit Sampler 0 binden.</font></i>
   Textur[<font color="#0077BB">1</font>].ActiveAndBind(<font color="#0077BB">1</font>); <i><font color="#FFFF00">// Textur 1 mit Sampler 1 binden.</font></i></code></pre>
 Die beiden Texturen am Ende wieder frei geben.<br>
@@ -55,16 +55,16 @@ Die beiden Texturen am Ende wieder frei geben.<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;     <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV0;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV1;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV1;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -77,14 +77,14 @@ Die beiden Texturen am Ende wieder frei geben.<br>
 <br>
 Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und anschliessend duch 2 geteilt.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV1;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler[<font color="#0077BB">2</font>];                      <i><font color="#FFFF00">// 2 Sampler deklarieren.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = (texture( Sampler[<font color="#0077BB">0</font>], UV0 ) +        <i><font color="#FFFF00">// Die beiden Farben zusammenzählen und anschliessend durch 2 teilen.</font></i>
@@ -121,5 +121,5 @@ static char *XPM_licht[] = {
   "<font color="#0077BB">34</font>"
 };
 </code></pre>
-
+<br>
 </html>

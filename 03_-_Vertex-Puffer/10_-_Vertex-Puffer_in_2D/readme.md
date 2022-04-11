@@ -28,16 +28,16 @@ Hier wird sogar nur eine <b>1</b> verwendet, da die Rot-Töne nur eine einfache 
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// --- Daten für Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
-
+<br>
   <i><font color="#FFFF00">// Vektor</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>); <i><font color="#FFFF00">// Der zweite Wert ist eine 2 für 2D.</font></i>
-
+<br>
   <i><font color="#FFFF00">// Farbe</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
@@ -52,12 +52,12 @@ Die <b>in</b>-Variable könnte man auch auf <b>vec3</b> belassen, wie bei einem 
 <br>
 Die Farbe kommt nur noch in einem <b>float</b> an, aus diesem Grund hat <b>Grün</b> und <b>Blau</b> eine feste Konstante <b>0.0</b>.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;     <i><font color="#FFFF00">// Vertex-Koordinaten, nur XY.</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> inCol;    <i><font color="#FFFF00">// Farbe, es kommt nur Rot.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                           <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);    <i><font color="#FFFF00">// Z ist immer 0.0</font></i>
@@ -67,14 +67,14 @@ Die Farbe kommt nur noch in einem <b>float</b> an, aus diesem Grund hat <b>Grün
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

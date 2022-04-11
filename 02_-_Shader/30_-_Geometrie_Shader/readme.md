@@ -23,7 +23,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
  
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
@@ -34,17 +34,17 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 <hr><br>
 <b>Geometrie-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="#008800">#define</font></b> distance <font color="#0077BB">0</font>.<font color="#0077BB">5</font>
-
+<br>
 <b><font color="0000BB">layout</font></b>(triangles) <b><font color="0000BB">in</font></b>;
 <b><font color="0000BB">layout</font></b>(triangle_strip, max_vertices = <font color="#0077BB">9</font>) <b><font color="0000BB">out</font></b>;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> Color; <i><font color="#FFFF00">// Farb-Ausgabe für den Fragment-Shader </font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
-
+<br>
 <i><font color="#FFFF00">// Linke Meshes</font></i>
    <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i &lt; gl_in.length(); i++)
    {
@@ -53,7 +53,7 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
       EmitVertex();
    }
    EndPrimitive();
-
+<br>
 
 <i><font color="#FFFF00">// Rechte Meshes</font></i>
    <b><font color="0000BB">for</font></b>(<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i &lt; gl_in.length(); i++)
@@ -68,14 +68,14 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Color;      <i><font color="#FFFF00">// Farbe vom Geometrie-Shader.</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// Ausgegebene Farbe.</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>);
 }
 </code></pre>
-
+<br>
 </html>

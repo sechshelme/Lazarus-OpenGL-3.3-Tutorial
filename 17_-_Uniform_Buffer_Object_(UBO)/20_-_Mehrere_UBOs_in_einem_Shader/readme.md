@@ -25,7 +25,7 @@ Die Deklaration der Lichtparameter und der Matrizen für den UBO.<br>
       pad2: GLfloat;
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-
+<br>
   TMatrixRec = <b><font color="0000BB">record</font></b>
     Uniform_ID,
     UBO: GLuint;
@@ -35,7 +35,7 @@ Die Deklaration der Lichtparameter und der Matrizen für den UBO.<br>
       World: TMatrix;
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-
+<br>
 <b><font color="0000BB">var</font></b>
   Light: TLight;
   MatrixRec: TMatrixRec;</code></pre>
@@ -55,17 +55,17 @@ Die Lichtparameter mit Anfangswerten laden.<br>
         Color.FromInt(<font color="#0077BB">$</font>FF0000 <b><font color="0000BB">shr</font></b> (i * <font color="#0077BB">8</font>));
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">with</font></b> Data[<font color="#0077BB">0</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Pos := vec3(-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
       Pos.Scale(LichtPositionRadius);
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">with</font></b> Data[<font color="#0077BB">1</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Pos := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
       Pos.Scale(LichtPositionRadius);
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">with</font></b> Data[<font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Pos := vec3(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
       Pos.Scale(LichtPositionRadius);
@@ -78,19 +78,19 @@ Für die beiden UBOs Speicher reservieren.<br>
     <i><font color="#FFFF00">// Speicher für UBO reservieren</font></i>
     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
-
+<br>
     <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
     glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
     glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <b><font color="0000BB">with</font></b> MatrixRec <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     bindingPoint := <font color="#0077BB">3</font>;
-
+<br>
     <i><font color="#FFFF00">// Speicher für UBO reservieren</font></i>
     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(Data), <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
-
+<br>
     <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
     glUniformBlockBinding(Shader.ID, Uniform_ID, bindingPoint);
     glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
@@ -104,31 +104,31 @@ Die Matrizen werden hier berechnet.<br>
   scal, d: single;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer löschen.</font></i>
-
+<br>
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-
+<br>
   Shader.UseProgram;
-
+<br>
   <i><font color="#FFFF00">// --- Lichtparameter in UBO laden.</font></i>
   <b><font color="0000BB">with</font></b> Light <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     glBindBuffer(GL_UNIFORM_BUFFER, UBO);
     glBufferSubData(GL_UNIFORM_BUFFER, <font color="#0077BB">0</font>, sizeof(Data), @Data);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   glBindVertexArray(VBCube.VAO);
-
+<br>
   <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
-
+<br>
   d := (<font color="#0077BB">7</font> / (CubeSize * <font color="#0077BB">2</font> + <font color="#0077BB">1</font>)) * <font color="#0077BB">8</font>;
-
+<br>
   <b><font color="0000BB">if</font></b> CubeSize &gt; <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     scal := <font color="#0077BB">40</font> / (CubeSize * <font color="#0077BB">2</font> + <font color="#0077BB">1</font>);
   <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
     scal := <font color="#0077BB">60</font>;
   <b><font color="0000BB">end</font></b>;
   scal /= <font color="#0077BB">2</font>;
-
+<br>
   <b><font color="0000BB">for</font></b> x := -CubeSize <b><font color="0000BB">to</font></b> CubeSize <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">for</font></b> y := -CubeSize <b><font color="0000BB">to</font></b> CubeSize <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       <b><font color="0000BB">for</font></b> z := -CubeSize <b><font color="0000BB">to</font></b> CubeSize <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
@@ -139,22 +139,22 @@ Die Matrizen werden hier berechnet.<br>
             Model.Translate(x * d, y * d, z * d);
             Model.Scale(scal);
             Model := ModelMatrix * Model;
-
+<br>
             World := Model;
-
+<br>
             World := FrustumMatrix * WorldMatrix * World;
           <b><font color="0000BB">end</font></b>;
-
+<br>
           <i><font color="#FFFF00">// --- Matrixzen in UBO laden.</font></i>
           glBindBuffer(GL_UNIFORM_BUFFER, UBO);
           glBufferSubData(GL_UNIFORM_BUFFER, <font color="#0077BB">0</font>, sizeof(Data), @Data);
         <b><font color="0000BB">end</font></b>;
-
+<br>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
       <b><font color="0000BB">end</font></b>;
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
-
+<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
@@ -163,19 +163,19 @@ Für die Matrizen im Vertex-Shader, und für die Lichtparameter im Fragment-Shad
 Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> Data {
   <b><font color="0000BB">vec3</font></b> pos;
 } DataOut;
-
+<br>
 <i><font color="#FFFF00">// Matrizen zu einem Block zusammengefasst.</font></i>
 <b><font color="0000BB">layout</font></b>(std140) <b><font color="0000BB">uniform</font></b> Matrix {
   <b><font color="0000BB">mat4</font></b> ModelMatrix;
   <b><font color="0000BB">mat4</font></b> WorldMatrix;
 } matrix;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position  = matrix.WorldMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -185,15 +185,15 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
-
+<br>
 <b><font color="#008800">#define</font></b> PI      <font color="#0077BB">3</font>.<font color="#0077BB">1415</font>
-
+<br>
 <b><font color="0000BB">in</font></b> Data {
   <b><font color="0000BB">vec3</font></b> pos;
 } DataIn;
-
+<br>
 <i><font color="#FFFF00">// Struktur einer Lichtquelle.</font></i>
 <b><font color="0000BB">struct</font></b>  Light {
   <b><font color="0000BB">bool</font></b>  On;
@@ -201,44 +201,44 @@ Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.<br>
   <b><font color="0000BB">vec3</font></b>  Pos;
   <b><font color="0000BB">vec3</font></b>  Color;
 };
-
+<br>
 <i><font color="#FFFF00">// Drei Lichtquellen in der Array.</font></i>
 <b><font color="0000BB">layout</font></b>(std140) <b><font color="0000BB">uniform</font></b> light0 {
   Light light[<font color="#0077BB">3</font>];
 };
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <i><font color="#FFFF00">// Berechnet die einzelnen Lichtquellen.</font></i>
 <b><font color="0000BB">vec3</font></b> CalcLight(Light light) {
-
+<br>
   <b><font color="0000BB">vec3</font></b> lp = light.Pos;
-
+<br>
   <b><font color="0000BB">vec3</font></b> lightDirection = normalize(DataIn.pos - lp);
   <b><font color="0000BB">vec3</font></b> spotDirection  = normalize(-light.Pos);
-
+<br>
   <b><font color="0000BB">float</font></b> angle = dot(spotDirection, lightDirection);
   angle = max(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-
+<br>
   <b><font color="0000BB">if</font></b>(angle &gt; light.CutOff) {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   } <b><font color="0000BB">else</font></b> {
     <b><font color="0000BB">return</font></b> <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   }
 }
-
+<br>
 <i><font color="#FFFF00">// In der Schleife werden alle Lichtquellen addieren.</font></i>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <b><font color="0000BB">for</font></b> (<b><font color="0000BB">int</font></b> i = <font color="#0077BB">0</font>; i <= <font color="#0077BB">2</font>; i++) {
     <b><font color="0000BB">if</font></b> (light[i].On) {
       outColor.rgb += CalcLight(light[i]) * light[i].Color;
     }
   }
 }
-
+<br>
 </code></pre>
-
+<br>
 </html>

@@ -29,19 +29,19 @@ Hier werden die verschiedenen Parameter für die Lichtparamter über Uniform am 
   scal, d: single;
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer löschen.</font></i>
-
+<br>
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-
+<br>
   Shader.UseProgram;
-
+<br>
   <i><font color="#FFFF00">// Lichtpositionen</font></i>
   <b><font color="0000BB">with</font></b> LightPos_ID <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     glUniform3fv(Red, <font color="#0077BB">1</font>, @LightPos.Red);
     glUniform3fv(Green, <font color="#0077BB">1</font>, @LightPos.Green);
     glUniform3fv(Blue, <font color="#0077BB">1</font>, @LightPos.Blue);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <i><font color="#FFFF00">// Licht Ein/Aus - Parameter</font></i>
   <b><font color="0000BB">with</font></b> ColorOn_ID <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     glUniform1i(Red, GLint(MenuItemRedOn.Checked));
@@ -55,18 +55,18 @@ Auf verlangen Würfel drehen und Lichtposition verändern.<br>
     ModelMatrix.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">0123</font>);  <i><font color="#FFFF00">// Drehe um X-Achse</font></i>
     ModelMatrix.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <b><font color="0000BB">with</font></b> LightPos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">if</font></b> MenuItemRotateRed.Checked <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       Red.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">031</font>);
       Red.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">011</font>);
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">if</font></b> MenuItemRotateGreen.Checked <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       Green.RotateB(<font color="#0077BB">0</font>.<font color="#0077BB">021</font>);
       Green.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">015</font>);
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">if</font></b> MenuItemRotateBlue.Checked <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
       Blue.RotateA(<font color="#0077BB">0</font>.<font color="#0077BB">021</font>);
       Blue.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">023</font>);
@@ -78,36 +78,36 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <i><font color="#FFFF00">// Konstante für Abiente Hintergrundbeleuchung.</font></i>
 <b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
-
+<br>
 <i><font color="#FFFF00">// Die Farben der Lichtstrahlen.</font></i>
 <b><font color="#008800">#define</font></b> red     <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
 <b><font color="#008800">#define</font></b> green   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
 <b><font color="#008800">#define</font></b> blue    <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                         <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <i><font color="#FFFF00">// Matrix des Modeles, ohne Frustum-Beeinflussung.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-
+<br>
 <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-
+<br>
 <i><font color="#FFFF00">// Einzelne Lichtquellen Ein/Aus.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> RedOn;
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> GreenOn;
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> BlueOn;
-
+<br>
 <i><font color="#FFFF00">// Position der Lichtquellen.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> RedLightPos;
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> GreenLightPos;
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> BlueLightPos;
-
+<br>
 <i><font color="#FFFF00">// Berechnet die Ausleuchtung der einzelnen Faces.</font></i>
 <b><font color="0000BB">float</font></b> light(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">vec3</font></b> n) {
   <b><font color="0000BB">vec3</font></b> v1 = normalize(p);     <i><font color="#FFFF00">// Vektoren normalisieren,</font></i>
@@ -115,17 +115,17 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
   <b><font color="0000BB">float</font></b> d = dot(v1, v2);      <i><font color="#FFFF00">// Skalarprodukt aus beiden Vektoren berechnen.</font></i>
   <b><font color="0000BB">return</font></b> clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Bereich der Ausgabe einschränken.</font></i>
 }
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   <i><font color="#FFFF00">// Vektoren mit komplette vorberechneter Matrix multipizieren.</font></i>
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <i><font color="#FFFF00">// Normale nur mit lokaler Matrix Multipizieren.</font></i>
   <b><font color="0000BB">vec3</font></b> Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
-
+<br>
   <i><font color="#FFFF00">// Ambiente Lichtquelle</font></i>
   Color = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <i><font color="#FFFF00">// Lichtquellen auf verlangen berechnen und addieren.</font></i>
   <b><font color="0000BB">if</font></b> (RedOn) {
     <b><font color="0000BB">vec3</font></b> colRed = light(RedLightPos, Normal) * red;
@@ -144,13 +144,13 @@ Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.<br>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

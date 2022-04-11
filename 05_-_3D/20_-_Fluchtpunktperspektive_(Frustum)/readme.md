@@ -21,23 +21,23 @@ Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.<br>
 <b><font color="0000BB">begin</font></b>
   Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
-
+<br>
 <i><font color="#FFFF00">//   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ</font></i>
-
+<br>
   WorldMatrix.Identity;
   WorldMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">200</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Scene in den sichtbaren Bereich verschieben.</font></i>
   WorldMatrix.Scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);                  <i><font color="#FFFF00">// Und der Grösse anpassen.</font></i></code></pre>
 Das Zeichnen ist das Selbe wie bei Ortho.<br>
 <pre><code>  <i><font color="#FFFF00">// --- Zeichne Würfel</font></i>
-
+<br>
   <b><font color="0000BB">for</font></b> x := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">for</font></b> y := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       <b><font color="0000BB">for</font></b> z := -s <b><font color="0000BB">to</font></b> s <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Matrix verschieben.</font></i>
-
+<br>
         Matrix := FrustumMatrix * WorldMatrix * Matrix;        <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-
+<br>
         Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
       <b><font color="0000BB">end</font></b>;
@@ -46,14 +46,14 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -63,14 +63,14 @@ Das Zeichnen ist das Selbe wie bei Ortho.<br>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

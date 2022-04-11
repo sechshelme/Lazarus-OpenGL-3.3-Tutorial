@@ -20,7 +20,7 @@ Natürlich kann man dies auch mit einer Matrix modfizieren, dazu später.<br>
   QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =       <i><font color="#FFFF00">// Koordinaten der Polygone.</font></i>
     ((-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
     (-<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
-
+<br>
   TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
     ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
     (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));</code></pre>
@@ -39,7 +39,7 @@ Für die Textur-Koordinaten ist noch ein VBO dazu gekommen.<br>
     VBOVertex,        <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
     VBOTex: GLuint;   <i><font color="#FFFF00">// Textur-Koordianten</font></i>
   <b><font color="0000BB">end</font></b>;
-
+<br>
 <b><font color="0000BB">var</font></b>
   VBQuad: TVB;</code></pre>
 Wie in OpenGL üblich, braucht auch der Textur-Puffer eine ID.<br>
@@ -58,9 +58,9 @@ Bei Multitexturing ist dies natürlich nicht mehr der Fall.<br>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);
-
+<br>
   glGenTextures(<font color="#0077BB">1</font>, @textureID);                 <i><font color="#FFFF00">// Erzeugen des Textur-Puffer.</font></i>
-
+<br>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     UseProgram;
@@ -76,14 +76,14 @@ Da es sich um eine 2D-Texur handelt muss man über alll noch <b>GL_TEXTURE_2D</b
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Textur binden.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID);
-
+<br>
   <i><font color="#FFFF00">// Textur laden.</font></i>
   glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
-
+<br>
   <i><font color="#FFFF00">// Ein minimalst Filter aktivieren, ansonsten bleibt die Ausgabe schwarz.</font></i>
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 <i><font color="#FFFF00">//  glGenerateMipmap(GL_TEXTURE_2D);</font></i>
-
+<br>
   <i><font color="#FFFF00">// Am Schluss kann man die Tetxur entbinden, dies ist aber nicht zwingend.</font></i>
   glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);</code></pre>
 Bevor man ein Polygon zeichnet, muss man die Texur binden. Dies geschieht mit <b>glBindTexture(...</b>.<br>
@@ -91,13 +91,13 @@ Anschliessend kann ganz normal gezeichnet werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
-
+<br>
   glBindTexture(GL_TEXTURE_2D, textureID);  <i><font color="#FFFF00">// Textur binden.</font></i></code></pre>
 Zum Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Timer1.Enabled := <b><font color="0000BB">False</font></b>;
-
+<br>
   glDeleteTextures(<font color="#0077BB">1</font>, @textureID);       <i><font color="#FFFF00">// Textur-Puffer frei geben.</font></i>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
@@ -108,14 +108,14 @@ Zum Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.<br>
 Hier sieht man, das die Textur-Koordinaten gleich behandelt werden wie Vertex-Attribute.<br>
 Dies muss man dann aber dem Fragment-Shader weiterleiten. So wurde es auch schon mit den Color-Vectoren gemacht.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -129,17 +129,17 @@ Hier ist der Sampler für die Zuordnung dazu gekommen.<br>
 Und man sieht auch, das die Farb-Ausgabe von der Textur kommen.<br>
 Die UV-Koordinate gibt an, von welchem Bereich der Pixel aus der Textur gelesen wird.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
 }
 </code></pre>
-
+<br>
 </html>

@@ -6,9 +6,9 @@ Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als d
 <hr><br>
 Hier wird noch ein Objekt der Klasse TShader deklariert.<br>
 <pre><code><b><font color="0000BB">type</font></b>
-
+<br>
   <font color="#FFFF00">{ TForm1 }</font>
-
+<br>
   TForm1 = <b><font color="0000BB">class</font></b>(TForm)
     <b><font color="0000BB">procedure</font></b> FormCreate(Sender: TObject);
     <b><font color="0000BB">procedure</font></b> FormDestroy(Sender: TObject);
@@ -30,7 +30,7 @@ Bei diesem Mini-Code mit nur einem Shader könnte dies weggelassen werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
-
+<br>
   Shader.UseProgram;</code></pre>
 Am Ende werden mit <b>Shader.Free</b> die Shader in der Grafikkarte wieder freigeben.<br>
 In diesem Destruktor steht <b>glDeleteShader(ShaderID);</b><br>
@@ -46,7 +46,7 @@ Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übe
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
  
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
@@ -57,9 +57,9 @@ Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übe
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;                     <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Ausgabe ist immer Rot</font></i>
@@ -72,5 +72,5 @@ So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlech
 <b><font color="0000BB">layout</font></b>(location=<font color="#0077BB">10</font>)<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>){gl_Position=<b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);}
 </code></pre>
-
+<br>
 </html>

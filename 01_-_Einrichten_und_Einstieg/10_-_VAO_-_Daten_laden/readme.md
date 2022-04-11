@@ -26,7 +26,7 @@ Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffe
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);  <i><font color="#FFFF00">// Den Context erzeugen und OpenGL inizialisieren.</font></i>
   ogc.OnPaint := @ogcDrawScene;  <i><font color="#FFFF00">// OnPaint-Ereigniss von dem Contextfenster.</font></i>
-
+<br>
   CreateScene;                   <i><font color="#FFFF00">// Puffer anlegen.</font></i>
   InitScene;                     <i><font color="#FFFF00">// Vertex-Daten in den Buffer schreiben.</font></i>
 <b><font color="0000BB">end</font></b>;</code></pre>
@@ -38,7 +38,7 @@ Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex
 <b><font color="0000BB">begin</font></b>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-
+<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
 <b><font color="0000BB">end</font></b>;</code></pre>
@@ -53,14 +53,14 @@ Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shad
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// Daten für das Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">0</font>);
   glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Daten für das Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
@@ -97,15 +97,15 @@ Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
-
+<br>
   <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-
+<br>
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
-
+<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.<br>
@@ -113,10 +113,10 @@ Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer
 <b><font color="0000BB">begin</font></b>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-
+<br>
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
 <b><font color="0000BB">end</font></b>;
 </code></pre>
-
+<br>
 </html>

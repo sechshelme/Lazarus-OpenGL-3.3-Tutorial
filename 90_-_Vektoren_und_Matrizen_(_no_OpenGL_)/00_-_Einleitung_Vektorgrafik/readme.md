@@ -10,5 +10,5 @@ Man sieht gut, was es alles braucht, wen man ein Dreieck mit Gradientverlauf aus
 Oder für eine Textur auf einer Fläche.<br>
 <br>
 Da die Berechnung für die Vektoren und Matrizen gleich ist wie bei OpenGL 3.3, habe ich dafür die gleichen Bibliotheken verwendet.<br>
-
+<br>
 </html>

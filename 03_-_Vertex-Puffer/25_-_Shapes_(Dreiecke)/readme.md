@@ -43,21 +43,21 @@ Es hat nichts besonderes.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// Daten für GL_TRIANGLE</font></i>
   glBindVertexArray(VBTriangles.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangles.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangles), @Triangles, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Daten für GL_TRIANGLE_STRIP</font></i>
   glBindVertexArray(VBTriangle_Strip.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Strip.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Strip), @Triangle_Strip, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Daten für GL_TRIANGLE_FAN</font></i>
   glBindVertexArray(VBTriangle_Fan.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Fan.VBO);
@@ -70,21 +70,21 @@ Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird an
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_TRIANGLE</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
   glUniform1f(X_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">9</font>);
   glUniform1f(Y_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">7</font>);
   glBindVertexArray(VBTriangles.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangles));
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_TRIANGLE_STRIP</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
   glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
   glUniform1f(Y_ID, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>);
   glBindVertexArray(VBTriangle_Strip.VAO);
   glDrawArrays(GL_TRIANGLE_STRIP, <font color="#0077BB">0</font>, Length(Triangle_Strip));
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_TRIANGLE_FAN</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
   glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
@@ -96,7 +96,7 @@ Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird an
 <br>
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten in 2D</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
@@ -112,14 +112,14 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

@@ -20,49 +20,49 @@ Im Shader sind alle Material-Eigenschaft als <b>#define</b> deklariert. Dies kö
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-
+<br>
 <i><font color="#FFFF00">// Daten für Fragment-shader</font></i>
 <b><font color="0000BB">out</font></b> Data {
   <b><font color="0000BB">vec3</font></b> Normal;
 } DataOut;
-
+<br>
 <i><font color="#FFFF00">// Matrix des Modeles, ohne Frustum-Beeinflussung.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-
+<br>
 <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
 }
-
+<br>
 </code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <i><font color="#FFFF00">// Licht</font></i>
 <b><font color="#008800">#define</font></b> Lposition  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)
 <b><font color="#008800">#define</font></b> Lambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>)
 <b><font color="#008800">#define</font></b> Ldiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>)
-
+<br>
 <i><font color="#FFFF00">// Material ( Gold )</font></i>
 <b><font color="#008800">#define</font></b> Mambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">25</font>, <font color="#0077BB">0</font>.<font color="#0077BB">20</font>, <font color="#0077BB">0</font>.<font color="#0077BB">07</font>)
 <b><font color="#008800">#define</font></b> Mdiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">75</font>, <font color="#0077BB">0</font>.<font color="#0077BB">60</font>, <font color="#0077BB">0</font>.<font color="#0077BB">23</font>)
 <b><font color="#008800">#define</font></b> Mspecular  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">56</font>, <font color="#0077BB">0</font>.<font color="#0077BB">37</font>)
 <b><font color="#008800">#define</font></b> Mshininess <font color="#0077BB">51</font>.<font color="#0077BB">2</font>
-
+<br>
 <i><font color="#FFFF00">// Daten vom Vertex-Shader</font></i>
 <b><font color="0000BB">in</font></b> Data {
   <b><font color="0000BB">vec3</font></b> Normal;
 } DataIn;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-
+<br>
 <b><font color="0000BB">vec3</font></b> Light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
   <b><font color="0000BB">vec3</font></b> nn = normalize(n);
   <b><font color="0000BB">vec3</font></b> np = normalize(p);
@@ -79,10 +79,10 @@ Im Shader sind alle Material-Eigenschaft als <b>#define</b> deklariert. Dies kö
   }
   <b><font color="0000BB">return</font></b> (Mambient * Lambient) + diffuse + specular;
 }
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

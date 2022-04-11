@@ -51,8 +51,8 @@ Somit ist nur der Hintergrund sichtbar und man sieht keine Änderung.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.DrawScene(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);  <i><font color="#FFFF00">// Frame-Buffer löschen und einfärben.</font></i>
-
+<br>
   ogc.SwapBuffers;               <i><font color="#FFFF00">// Frame-Buffer auf den Bildschirm kopieren.</font></i>
 <b><font color="0000BB">end</font></b>;</code></pre>
-
+<br>
 </html>

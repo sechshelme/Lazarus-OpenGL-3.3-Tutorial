@@ -23,18 +23,18 @@ Die Lichtposition wird im Vertex-Shader als Konstante definiert.<br>
 Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.<br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <i><font color="#FFFF00">// Das Licht kommt von Rechts.</font></i>
 <b><font color="#008800">#define</font></b> LightPos <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                         <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;               <i><font color="#FFFF00">// Matrix des Modell, ohne Frustumeinfluss.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-
+<br>
 <b><font color="0000BB">float</font></b> light(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">vec3</font></b> n) {
   <b><font color="0000BB">vec3</font></b>  v1 = normalize(p);       <i><font color="#FFFF00">// Vektoren normalisieren,</font></i>
   <b><font color="0000BB">vec3</font></b>  v2 = normalize(n);       <i><font color="#FFFF00">// so das die Länge des Vektors immer 1.0 ist.</font></i>
@@ -42,26 +42,26 @@ Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.<br>
   <b><font color="0000BB">float</font></b> c  = clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Alles &gt; 1.0 und &lt; 0.0, wird zwischen 0.0 und 1.0 gesetzt.</font></i>
   <b><font color="0000BB">return</font></b> c;                      <i><font color="#FFFF00">// Lichtstärke als Rückgabewert.</font></i>
 }
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   gl_Position  = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <b><font color="0000BB">vec3</font></b>  Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   <b><font color="0000BB">float</font></b> col    = light(LightPos, Normal);
-
+<br>
   Color        = <b><font color="0000BB">vec4</font></b>(col, col, col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

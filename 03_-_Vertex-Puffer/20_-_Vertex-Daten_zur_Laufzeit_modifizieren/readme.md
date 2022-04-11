@@ -19,7 +19,7 @@ Bei einem sehr grossen Mesh kann man damit kostbares RAM sparen.<br>
   TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
   TFace = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f;
   TFaceArray = <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TFace;       <i><font color="#FFFF00">// neu</font></i>
-
+<br>
   TMesh = <b><font color="0000BB">record</font></b>                     <i><font color="#FFFF00">// Record für die Mesh-Daten, welcher auch size enthält.</font></i>
     Vector, Color: TFaceArray;       <i><font color="#FFFF00">// Vertex-Daten.</font></i>
     size: integer;                   <i><font color="#FFFF00">// Die Grösse der Vertex-Daten.</font></i>
@@ -48,15 +48,15 @@ Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
         Color[i, j, <font color="#0077BB">1</font>] := Random();
         Color[i, j, <font color="#0077BB">2</font>] := Random();
       <b><font color="0000BB">end</font></b>;
-
+<br>
       Vector[i, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>] := ofsx;
       Vector[i, <font color="#0077BB">0</font>, <font color="#0077BB">1</font>] := <font color="#0077BB">0</font>;
       Vector[i, <font color="#0077BB">0</font>, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
-
+<br>
       Vector[i, <font color="#0077BB">1</font>, <font color="#0077BB">0</font>] := sin(Pi * <font color="#0077BB">2</font> / size * i) * r + ofsx;
       Vector[i, <font color="#0077BB">1</font>, <font color="#0077BB">1</font>] := cos(Pi * <font color="#0077BB">2</font> / size * i) * r;
       Vector[i, <font color="#0077BB">1</font>, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
-
+<br>
       Vector[i, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>] := sin(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)) * r + ofsx;
       Vector[i, <font color="#0077BB">2</font>, <font color="#0077BB">1</font>] := cos(Pi * <font color="#0077BB">2</font> / size * (i + <font color="#0077BB">1</font>)) * r;
       Vector[i, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
@@ -70,14 +70,14 @@ Mit UpdateScene werden sie dann in das VRAM geladen.<br>
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
-
+<br>
   Randomize;
-
+<br>
   CreateScene;
-
+<br>
   CreateVertex(CircleMesh[<font color="#0077BB">0</font>], <font color="#0077BB">0</font>.<font color="#0077BB">5</font>);   <i><font color="#FFFF00">// Vertex-Daten erzeugen.</font></i>
   CreateVertex(CircleMesh[<font color="#0077BB">1</font>], -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>);
-
+<br>
   UpdateScene(<font color="#0077BB">0</font>);                     <i><font color="#FFFF00">// Vertex-Daten in VRAM schreiben.</font></i>
   UpdateScene(<font color="#0077BB">1</font>);                     <i><font color="#FFFF00">// Vertex-Daten in VRAM schreiben.</font></i>
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;
@@ -94,21 +94,21 @@ Auch ist der zweite Parameter (size) etwas anders angegeben, wen man nur SizeOf(
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
-
+<br>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(CircleMesh) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">with</font></b> CircleMesh[i] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       glGenVertexArrays(<font color="#0077BB">1</font>, @VBuffer.VAO);
       glGenBuffers(<font color="#0077BB">1</font>, @VBuffer.VBOvert);
       glGenBuffers(<font color="#0077BB">1</font>, @VBuffer.VBOcol);
-
+<br>
       glBindVertexArray(VBuffer.VAO);
-
+<br>
       <i><font color="#FFFF00">// Vektor</font></i>
       glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOvert);
       glBufferData(GL_ARRAY_BUFFER, sizeof(TFace) * maxSektor, <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW); <i><font color="#FFFF00">// Nur Speicher reservieren.</font></i>
       glEnableVertexAttribArray(<font color="#0077BB">10</font>);
       glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
       <i><font color="#FFFF00">// Farbe</font></i>
       glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOcol);
       glBufferData(GL_ARRAY_BUFFER, sizeof(TFace) * maxSektor, <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
@@ -133,15 +133,15 @@ Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden 
   i: integer;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <b><font color="0000BB">with</font></b> CircleMesh[MeshNr] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     glBindVertexArray(VBuffer.VAO);
-
+<br>
     <i><font color="#FFFF00">// Vektor</font></i>
     glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOvert);
     glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(TFace) * size, Pointer(Vector)); <i><font color="#FFFF00">// Daten ins VRAM schreiben.</font></i>
     SetLength(Vector, <font color="#0077BB">0</font>);                                                       <i><font color="#FFFF00">// Daten im RAM entfernen.</font></i>
-
+<br>
     <i><font color="#FFFF00">// Farbe</font></i>
     glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOcol);
     glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(TFace) * size, Pointer(Color));
@@ -178,12 +178,12 @@ Bei den Shadern gibt es nichts besonders.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -193,14 +193,14 @@ Bei den Shadern gibt es nichts besonders.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

@@ -20,7 +20,7 @@ Die Meshes sollten nun zwei verschiedene Farben haben.<br>
   Shader[<font color="#0077BB">0</font>].UseProgram;  <i><font color="#FFFF00">//  Shader 0 wählen  ( Rot )</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-
+<br>
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   Shader[<font color="#0077BB">1</font>].UseProgram;  <i><font color="#FFFF00">//  Shader 1 wählen  ( Grün )</font></i>
   glBindVertexArray(VBQuad.VAO);
@@ -36,7 +36,7 @@ Am Ende noch mit <b>Shader[x].Free</b> die Shader in der Grafikkarte wieder frei
 Der Vertex-Shader ist bei beiden Shader gleich.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -44,9 +44,9 @@ Der Vertex-Shader ist bei beiden Shader gleich.<br>
 </code></pre>
 <b>Fragment-Shader 0:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
@@ -54,14 +54,14 @@ Der Vertex-Shader ist bei beiden Shader gleich.<br>
 </code></pre>
 <b>Fragment-Shader 1:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
 }
 </code></pre>
 In der zweit letzten Zeile sieht man, dass man eine andere Farbe an den Ausgang übergibt.<br>
-
+<br>
 </html>

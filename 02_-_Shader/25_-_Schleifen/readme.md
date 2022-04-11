@@ -23,23 +23,23 @@ Ein Boolean, muss man als Integer übergeben.<br>
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-
+<br>
   <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glUniform1i(rot_ID, GLint(<b><font color="0000BB">True</font></b>));   <i><font color="#FFFF00">// True = rot</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-
+<br>
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glUniform1i(rot_ID, GLint(<b><font color="0000BB">False</font></b>));  <i><font color="#FFFF00">// False = schwarz</font></i>
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
-
+<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
  
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
@@ -53,10 +53,10 @@ Ein Boolean, muss man als Integer übergeben.<br>
 Mit der Uniform-Variable "rot" wird ermittelt, ob die Mesh Rot oder schwarz ist.<br>
 Die Auswertung erfolgt über eine if-else-Schleife.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> rot;   <i><font color="#FFFF00">// Ist es "rot" ?</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   <i><font color="#FFFF00">// Die if-Abfrage</font></i>
@@ -67,5 +67,5 @@ Die Auswertung erfolgt über eine if-else-Schleife.<br>
   }
 }
 </code></pre>
-
+<br>
 </html>

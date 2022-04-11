@@ -43,29 +43,29 @@ Die Farben beginnen beim 72Byte.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// --- Daten für Quadrat 0</font></i>
   glBindVertexArray(VBQuad0.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO); <i><font color="#FFFF00">// Nur ein VBO erforderlich</font></i>
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
-
+<br>
   <i><font color="#FFFF00">// Vektor</font></i>
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">24</font>, <b><font color="0000BB">nil</font></b>);  <i><font color="#FFFF00">// nil = Pointer(0)</font></i>
-
+<br>
   <i><font color="#FFFF00">// Farbe</font></i>
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">24</font>, Pointer(<font color="#0077BB">12</font>));
-
+<br>
   <i><font color="#FFFF00">// --- Daten für Quadrat 1</font></i>
   glBindVertexArray(VBQuad1.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO); <i><font color="#FFFF00">// Nur ein VBO erforderlich</font></i>
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
-
+<br>
   <i><font color="#FFFF00">// Vektor</font></i>
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Farbe</font></i>
   glEnableVertexAttribArray(<font color="#0077BB">11</font>);
   glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, Pointer(<font color="#0077BB">72</font>));
@@ -76,7 +76,7 @@ Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
 <pre><code>  <i><font color="#FFFF00">// Zeichne Quadrat 0</font></i>
   glBindVertexArray(VBQuad0.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i>
-
+<br>
   <i><font color="#FFFF00">// Zeichne Quadrat 1</font></i>
   glBindVertexArray(VBQuad1.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">6</font>);  <i><font color="#FFFF00">// 6 Vertex pro Quadrat</font></i></code></pre>
@@ -85,12 +85,12 @@ Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.<br>
 <br>
 Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribPointer(...</b> die Daten übergibt.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -100,14 +100,14 @@ Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribP
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

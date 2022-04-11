@@ -38,7 +38,7 @@ Dies kann man aber umgehen, wen man Zeile für Zeile einliest.<br>
     Width := ogc.Width;
     Height := ogc.Height;
     glBindFramebuffer(GL_FRAMEBUFFER, <font color="#0077BB">0</font>); <i><font color="#FFFF00">// Screen</font></i>
-
+<br>
     <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Height - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       glReadPixels(<font color="#0077BB">0</font>, Height - i - <font color="#0077BB">1</font>, Width, Height - i, GL_RGBA, GL_UNSIGNED_BYTE, ScanLine[i]);
     <b><font color="0000BB">end</font></b>;
@@ -53,32 +53,32 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 <b>Vertex-Shader Quadrat:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> vertexUV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   UV0 = vertexUV0;
 }
-
+<br>
 </code></pre>
 <hr><br>
 <b>Fragment-Shader Quadrat:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler0;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = texture( Sampler0, UV0 );
@@ -88,14 +88,14 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 <b>Vertex-Shader Würfel:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> Col;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -106,14 +106,14 @@ Der Shader des Würfels, gibt Texturen aus.<br>
 <b>Fragment-Shader Würfel:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Col;
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

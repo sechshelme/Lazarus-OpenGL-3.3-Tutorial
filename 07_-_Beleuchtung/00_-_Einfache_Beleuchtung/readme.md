@@ -66,22 +66,22 @@ Die Normale wird auf gleiche weise in den VRAM geladen, wie die Vertex-Koordinat
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// --- Daten für Würfel</font></i>
   glBindVertexArray(VBCube.VAO);
-
+<br>
   <i><font color="#FFFF00">// Vektor</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertex), @CubeVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">0</font>);
   glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Normale</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBONormal);
   glBufferData(GL_ARRAY_BUFFER, sizeof(CubeNormal), @CubeNormal, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">1</font>);
   glVertexAttribPointer(<font color="#0077BB">1</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
 <b><font color="0000BB">end</font></b>;</code></pre>
 Hier sieht man gut, das 2 Matrizen dem Shader übergeben werden.<br>
 Bevor die Matrix mit Frustum und Worldposition beinflusst wird, wird sie das erste mal dem Shader übergeben.<br>
@@ -99,11 +99,11 @@ In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwend
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                 <i><font color="#FFFF00">// Lokale Translationen.</font></i>
         Matrix := ModelMatrix * Matrix;
-
+<br>
         Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
-
+<br>
         Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrixen multiplizieren.</font></i>
-
+<br>
         Matrix.Uniform(Matrix_ID);                             <i><font color="#FFFF00">// Die komplettt berechnete Matrix übergeben.</font></i>
         glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet einen einzelnen Würfel.</font></i>
       <b><font color="0000BB">end</font></b>;
@@ -119,49 +119,49 @@ Dafür wird aber mehr Berechnugszeit benötigt.<br>
 Die Berechnug für das Licht des einfachen Beispieles ist hier im Vetex-Shader.<br>
 Hier sieht man, das verschiedene Matrizen für <b>Normale</b> und <b>Vertex</b> verwendet werden.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <i><font color="#FFFF00">// Die Lichtquelle befindet sich Links.</font></i>
 <b><font color="#008800">#define</font></b> LightPos <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
 <b><font color="#008800">#define</font></b> PI       <font color="#0077BB">3</font>.<font color="#0077BB">1415</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                         <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;               <i><font color="#FFFF00">// Matrix des Modeles, ohne Einfluss von Frustum.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-
+<br>
 <b><font color="0000BB">float</font></b> light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
   <b><font color="0000BB">vec3</font></b>  v1 = normalize(p); <i><font color="#FFFF00">// Vektoren normalisieren, so das die Länge des Vektors immer 1.0 ist.</font></i>
   <b><font color="0000BB">vec3</font></b>  v2 = normalize(n); <i><font color="#FFFF00">// In diesem Beispiel sind diese schon 1.0, aber in der Praxis können auch andere Werte ankommen.</font></i>
   <b><font color="0000BB">float</font></b> d  = dot(v1, v2);  <i><font color="#FFFF00">// Skalarprodukt ( Winkel ) aus beiden Vektoren berechnen.</font></i>
                            <i><font color="#FFFF00">// Der Winkel ist bei 180° = Pi.</font></i>
-
+<br>
   d  = acos(d);            <i><font color="#FFFF00">// Davon noch den Arkuskosinus berechnen. Somit hat man den Winkel zwischen den beiden Vektoren.</font></i>
   d /= PI;                 <i><font color="#FFFF00">// Anschliessend diesen noch durch Pi teilen, da 0° Weiss und 180° Schwarz sein soll.</font></i>
   <b><font color="0000BB">return</font></b> d;
 }
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   gl_Position  = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);    <i><font color="#FFFF00">// Die komplette Berechnete Matrix.</font></i>
-
+<br>
   <b><font color="0000BB">vec3</font></b>  Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal; <i><font color="#FFFF00">// Matrix mit lokalen Tranformationen.</font></i>
   <b><font color="0000BB">float</font></b> col    = light(LightPos, Normal);      <i><font color="#FFFF00">// Licht berechnen.</font></i>
-
+<br>
   Color        = <b><font color="0000BB">vec4</font></b>(col, col, col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

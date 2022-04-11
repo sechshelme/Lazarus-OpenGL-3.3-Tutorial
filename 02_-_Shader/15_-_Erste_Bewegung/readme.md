@@ -11,7 +11,7 @@ Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   X_ID, Y_ID: GLint;      <i><font color="#FFFF00">// ID für X und Y.</font></i>
   Color_ID: GLint;
-
+<br>
   TrianglePos: <b><font color="0000BB">record</font></b>
     x, y: GLfloat;        <i><font color="#FFFF00">// Position</font></i>
     xr, yr: boolean;      <i><font color="#FFFF00">// Richtung</font></i>
@@ -23,7 +23,7 @@ Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
-
+<br>
   CreateScene;
   InitScene;
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;   <i><font color="#FFFF00">// Timer starten</font></i>
@@ -45,7 +45,7 @@ Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.<br>
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-
+<br>
   <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Gelb</font></i>
   <b><font color="0000BB">with</font></b> TrianglePos <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>  <i><font color="#FFFF00">// Beim Dreieck, die xy-Werte.</font></i>
@@ -54,7 +54,7 @@ Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.<br>
   <b><font color="0000BB">end</font></b>;
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-
+<br>
   <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
   glUniform1f(X_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Beim Quadrat keine Verschiebung, daher 0.0, 0.0 .</font></i>
@@ -104,7 +104,7 @@ Anschliessend wird neu gezeichnet.<br>
 Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.<br>
 Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shader.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
@@ -121,14 +121,14 @@ Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shad
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

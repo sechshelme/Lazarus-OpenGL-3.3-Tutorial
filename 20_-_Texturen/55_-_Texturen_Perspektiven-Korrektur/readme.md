@@ -12,12 +12,12 @@ Diese enthält einen Korrekturwert für die Perspektive.<br>
   TrapezeVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>),
     (-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
-
+<br>
   <i><font color="#FFFF00">// Normale unkorrigierte Textur-Koordinaten.</font></i>
   TextureNormalVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
     (-<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
-
+<br>
   <i><font color="#FFFF00">// Textur-Koordinaten mit Perspektivenkorrektur.</font></i>
   TexturePerspVertex1: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector3f =
     ((-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">2</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>),
@@ -29,21 +29,21 @@ Vertex-Daten hochladen, dies ist nichts besonderes, ausser, das für die Perspek
   i: integer;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   glBindVertexArray(VBO_Trapeze.VAO);
-
+<br>
   <i><font color="#FFFF00">// Vektoren Trapez</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TrapezeVertex), @TrapezeVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">0</font>);
   glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Unkorrigierte Textur-Koordinaten</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[<font color="#0077BB">0</font>]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureNormalVertex), @TextureNormalVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(<font color="#0077BB">10</font>);
   glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Perspektivenkorrigiert Variante</font></i>
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[<font color="#0077BB">1</font>]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex1), @TexturePerspVertex1, GL_STATIC_DRAW);
@@ -54,7 +54,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;  <i><font color="#FFFF00">// Textur binden.</font></i>
-
+<br>
   <i><font color="#FFFF00">// Zeichne Unkorrigiert (Links)</font></i>
   Shader.UseProgram;
   glUniform1i(Variante_ID, <font color="#0077BB">0</font>);
@@ -62,10 +62,10 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   TransMatrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
-
+<br>
   glBindVertexArray(VBO_Trapeze.VAO);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
-
+<br>
   <i><font color="#FFFF00">// Zeichne korrigiert Variante 1 (Rechts Oben)</font></i>
   glUniform1i(Variante_ID, <font color="#0077BB">1</font>);
   TransMatrix.Identity;
@@ -73,7 +73,7 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
-
+<br>
   <i><font color="#FFFF00">// Zeichne korrigiert Variante 2 (Rechts Unten)</font></i>
   glUniform1i(Variante_ID, <font color="#0077BB">2</font>);
   TransMatrix.Identity;
@@ -81,24 +81,24 @@ Zeichnen der 3 verschiedenne Varianten.<br>
   ProdMatrix := ScaleMatrix * TransMatrix;
   ProdMatrix.Uniform(Matrix_ID);
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TrapezeVertex));
-
+<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV0;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inUV1;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> Data {
   <b><font color="0000BB">vec2</font></b> UV0;
   <b><font color="0000BB">vec3</font></b> UV1;
 } DataOut;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -109,29 +109,29 @@ Zeichnen der 3 verschiedenne Varianten.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> Data {
   <b><font color="0000BB">vec2</font></b> UV0;
   <b><font color="0000BB">vec3</font></b> UV1;
 } DataIn;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler; <i><font color="#FFFF00">// Textursampler</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">int</font></b> variante;      <i><font color="#FFFF00">// Variante der Texturberechnung</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   <b><font color="0000BB">switch</font></b> (variante) {
-
+<br>
     <i><font color="#FFFF00">// Unkorrigiert</font></i>
     <b><font color="0000BB">case</font></b> <font color="#0077BB">0</font>: FragColor = texture( Sampler, DataIn.UV0 );
             <b><font color="0000BB">break</font></b>;
-
+<br>
     <i><font color="#FFFF00">// Korrigiert Variante 1</font></i>
     <b><font color="0000BB">case</font></b> <font color="#0077BB">1</font>: FragColor = texture( Sampler, DataIn.UV1.xy / DataIn.UV1.z );
             <b><font color="0000BB">break</font></b>;
-
+<br>
     <i><font color="#FFFF00">// Korrigiert Variante 2</font></i>
     <b><font color="0000BB">case</font></b> <font color="#0077BB">2</font>: FragColor = texture2DProj( Sampler, DataIn.UV1 );
   }
@@ -154,5 +154,5 @@ static char *XPM_mauer[] = {
   "  *   * "
 };
 </code></pre>
-
+<br>
 </html>

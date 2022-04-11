@@ -28,20 +28,20 @@ Die kleinen Datenbuffer werden später zur Laufzeit abwechslungsweise geladen.<b
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TextursizeBig * TextursizeBig - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     TexturBig[i] := i <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TextursizeSmall * TextursizeSmall - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     TexturSmall0[i] := i <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
     TexturSmall1[i] := (<b><font color="0000BB">not</font></b> i) <b><font color="0000BB">or</font></b> <font color="#0077BB">$</font>FF000000;
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <i><font color="#FFFF00">// --- Texturbuffer erzeugen und anschliessend mit Daten der grossen Textur befüllen.</font></i>
-
+<br>
   glGenTextures(<font color="#0077BB">1</font>, @textureID);
   glBindTexture(GL_TEXTURE_2D, textureID);
-
+<br>
   <i><font color="#FFFF00">// Nur Speicher reservieren</font></i>
   glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, TextursizeBig, TextursizeBig, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, <b><font color="0000BB">nil</font></b>);
-
+<br>
   <i><font color="#FFFF00">// Texturbuffer mit dem grossen Datenbuffer befüllen.</font></i>
   glTexSubImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TextursizeBig, TextursizeBig, GL_RGBA, GL_UNSIGNED_BYTE, @TexturBig);</code></pre>
 Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
@@ -58,13 +58,13 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;  <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -74,17 +74,17 @@ Ein Auschnitt der Textur wird zur Laufzeit abwechslungsweise ausgtauscht<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = texture( Sampler, UV0 );
 }
 </code></pre>
-
+<br>
 </html>

@@ -13,13 +13,13 @@ Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader 
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> pos;                           <i><font color="#FFFF00">// Koordinaten für den Fragment-Shader</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
   pos = gl_Position.xy;                 <i><font color="#FFFF00">// XY an Fragment-Shader</font></i>
@@ -31,23 +31,23 @@ Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader 
 Hier steckt die ganze Berechnung für das Mandelbrot.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
 <b><font color="#008800">#define</font></b> depth <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> pos;       <i><font color="#FFFF00">// Interpolierte Koordinaten vom Vertex-Shader</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> col; <i><font color="#FFFF00">// Start-Wert, für Farben-Spielerei</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   <b><font color="0000BB">float</font></b> creal = pos.x * <font color="#0077BB">1</font>.<font color="#0077BB">5</font> - <font color="#0077BB">0</font>.<font color="#0077BB">3</font>;
   <b><font color="0000BB">float</font></b> cimag = pos.y * <font color="#0077BB">1</font>.<font color="#0077BB">5</font>;
-
+<br>
   <b><font color="0000BB">float</font></b> Color = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
   <b><font color="0000BB">float</font></b> XPos  = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
   <b><font color="0000BB">float</font></b> YPos  = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
-
+<br>
   <b><font color="0000BB">float</font></b> SqrX, SqrY;
-
+<br>
   <b><font color="0000BB">do</font></b> {
     SqrX   = XPos * XPos;
     SqrY   = YPos * YPos;
@@ -55,15 +55,15 @@ Hier steckt die ganze Berechnung für das Mandelbrot.<br>
     XPos   = SqrX - SqrY + creal;
     Color += <font color="#0077BB">1</font>;
   } <b><font color="0000BB">while</font></b> (!((SqrX + SqrY &gt; <font color="#0077BB">8</font>) || (Color &gt; depth)));
-
+<br>
   Color += col;
-
+<br>
   <b><font color="0000BB">if</font></b> (Color &gt; depth) {
     Color -= depth;
   }
-
+<br>
   outColor = <b><font color="0000BB">vec4</font></b>(Color / <font color="#0077BB">3</font>, Color / <font color="#0077BB">10</font> , Color / <font color="#0077BB">100</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

@@ -22,14 +22,14 @@ Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object al
 Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   Shader : TShader;
-
+<br>
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create(Vertex_Shader, Fragment_Shader);  <i><font color="#FFFF00">// Shader laden</font></i>
-
+<br>
   Shader.UseProgram;  <i><font color="#FFFF00">// Aktiviert den Shader</font></i>
-
+<br>
   Shader.Free         <i><font color="#FFFF00">// Gibt den Shader frei</font></i></code></pre>
 In folgenden Beispielen werden die Shader nur noch mit dieser Klasse geladen, damit es übersichtlicher wird.<br>
 Wie man es nativ machen kann, wird im <b>Einstiegs-Tutorial</b> unter <b>erster Shader</b> gezeigt.<br>
-
+<br>
 </html>

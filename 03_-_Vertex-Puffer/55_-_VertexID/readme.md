@@ -17,9 +17,9 @@ Da es in diesem Beispiel nur maximal 6 Vertex-Punkte gibt, habe ich die VertexID
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> col;
  
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
@@ -44,14 +44,14 @@ Da es in diesem Beispiel nur maximal 6 Vertex-Punkte gibt, habe ich die VertexID
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-
+<br>
 <b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec3</font></b> col;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

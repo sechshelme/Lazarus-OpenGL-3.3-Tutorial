@@ -9,7 +9,7 @@ Dafür nimmt man für die Indicen auch eine dynamische Array.<br>
 Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden ins VRAM aus dem RAM entfernen kann.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
-
+<br>
   TMesh = <b><font color="0000BB">record</font></b>                        <i><font color="#FFFF00">// Record für die Mesh-Daten, welcher auch size enthält.</font></i>
     Vector, Color: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex3f;  <i><font color="#FFFF00">// Vertex-Daten.</font></i>
     Vec_Count: integer;                 <i><font color="#FFFF00">// Die Grösse der Vertex-Daten.</font></i>
@@ -30,32 +30,32 @@ Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.<br>
     Vec_Count := Random(maxSektor - <font color="#0077BB">3</font>) + <font color="#0077BB">3</font>;
     Indicies_Count := Vec_Count * <font color="#0077BB">3</font>;
     Inc(Vec_Count);
-
+<br>
     SetLength(Vector, Vec_Count);
     SetLength(Color, Vec_Count);
     SetLength(Indicies, Indicies_Count);
-
+<br>
     <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Vec_Count - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Color[i, <font color="#0077BB">0</font>] := Random();
       Color[i, <font color="#0077BB">1</font>] := Random();
       Color[i, <font color="#0077BB">2</font>] := Random();
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Vec_Count - <font color="#0077BB">2</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       Vector[i, <font color="#0077BB">0</font>] := sin(Pi * <font color="#0077BB">2</font> / (Vec_Count - <font color="#0077BB">1</font>) * i) * r + ofsx;
       Vector[i, <font color="#0077BB">1</font>] := cos(Pi * <font color="#0077BB">2</font> / (Vec_Count - <font color="#0077BB">1</font>) * i) * r;
       Vector[i, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
-
+<br>
       Indicies[i * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>] := Vec_Count - <font color="#0077BB">1</font>;
       Indicies[i * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>] := i;
       Indicies[i * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>] := i + <font color="#0077BB">1</font>;
     <b><font color="0000BB">end</font></b>;
-
+<br>
     <i><font color="#FFFF00">// Das letzte Array-Element ist das Zentrum.</font></i>
     Vector[Vec_Count - <font color="#0077BB">1</font>, <font color="#0077BB">0</font>] := ofsx;
     Vector[Vec_Count - <font color="#0077BB">1</font>, <font color="#0077BB">1</font>] := <font color="#0077BB">0</font>;
     Vector[Vec_Count - <font color="#0077BB">1</font>, <font color="#0077BB">2</font>] := <font color="#0077BB">0</font>;
-
+<br>
     <i><font color="#FFFF00">// Der Letzte Index muss auf den ersten Vektor zeigen.</font></i>
     Indicies[Indicies_Count - <font color="#0077BB">1</font>] := <font color="#0077BB">0</font>;
   <b><font color="0000BB">end</font></b>;
@@ -67,14 +67,14 @@ Mit UpdateScene werden sie dann in das VRAM geladen.<br>
 <b><font color="0000BB">begin</font></b>
   ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
   ogc.OnPaint := @ogcDrawScene;
-
+<br>
   Randomize;
-
+<br>
   CreateScene;
-
+<br>
   CreateVertex_and_Indicien(CircleMesh[<font color="#0077BB">0</font>], <font color="#0077BB">0</font>.<font color="#0077BB">5</font>);   <i><font color="#FFFF00">// Vertex-Daten erzeugen.</font></i>
   CreateVertex_and_Indicien(CircleMesh[<font color="#0077BB">1</font>], -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>);
-
+<br>
   UpdateScene(<font color="#0077BB">0</font>);                                  <i><font color="#FFFF00">// Daten in VRAM schreiben.</font></i>
   UpdateScene(<font color="#0077BB">1</font>);                                  <i><font color="#FFFF00">// Daten in VRAM schreiben.</font></i>
   Timer1.Enabled := <b><font color="0000BB">True</font></b>;
@@ -86,28 +86,28 @@ Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBu
 <b><font color="0000BB">begin</font></b>
   Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
   Shader.UseProgram;
-
+<br>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(CircleMesh) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     <b><font color="0000BB">with</font></b> CircleMesh[i] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
       glGenVertexArrays(<font color="#0077BB">1</font>, @VBuffer.VAO);
       glGenBuffers(<font color="#0077BB">1</font>, @VBuffer.VBOvert);
       glGenBuffers(<font color="#0077BB">1</font>, @VBuffer.VBOcol);
       glGenBuffers(<font color="#0077BB">1</font>, @VBuffer.IBO);
-
+<br>
       glBindVertexArray(VBuffer.VAO);
-
+<br>
       <i><font color="#FFFF00">// Vektor</font></i>
       glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOvert);
       glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex3f) * (maxSektor + <font color="#0077BB">1</font>), <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW); <i><font color="#FFFF00">// Nur Speicher reservieren.</font></i>
       glEnableVertexAttribArray(<font color="#0077BB">10</font>);
       glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
       <i><font color="#FFFF00">// Farbe</font></i>
       glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOcol);
       glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex3f) * (maxSektor + <font color="#0077BB">1</font>), <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
       glEnableVertexAttribArray(<font color="#0077BB">11</font>);
       glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-
+<br>
       <i><font color="#FFFF00">// Indicien</font></i>
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBuffer.IBO);
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLint) * maxSektor * <font color="#0077BB">3</font>, <b><font color="0000BB">nil</font></b>, GL_DYNAMIC_DRAW);
@@ -123,20 +123,20 @@ Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden 
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.UpdateScene(MeshNr: integer);
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   <b><font color="0000BB">with</font></b> CircleMesh[MeshNr] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     glBindVertexArray(VBuffer.VAO);
-
+<br>
     <i><font color="#FFFF00">// Vektor</font></i>
     glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOvert);
     glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(TVertex3f) * Vec_Count, Pointer(Vector)); 
     SetLength(Vector, <font color="#0077BB">0</font>);                                                                
-
+<br>
     <i><font color="#FFFF00">// Farbe</font></i>
     glBindBuffer(GL_ARRAY_BUFFER, VBuffer.VBOcol);
     glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(TVertex3f) * Vec_Count, Pointer(Color));
     SetLength(Color, <font color="#0077BB">0</font>);
-
+<br>
     <i><font color="#FFFF00">// Indicien</font></i>
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBuffer.IBO);
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, <font color="#0077BB">0</font>, sizeof(GLint) * Indicies_Count, Pointer(Indicies)); <i><font color="#FFFF00">// Daten ins VRAM schreiben.</font></i>
@@ -173,12 +173,12 @@ Bei den Shadern gibt es nichts besonders.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -188,14 +188,14 @@ Bei den Shadern gibt es nichts besonders.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

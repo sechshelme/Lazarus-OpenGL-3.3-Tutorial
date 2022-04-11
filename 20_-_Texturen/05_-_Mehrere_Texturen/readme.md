@@ -24,7 +24,7 @@ Das selbe könnte man auch bei den VAOs und VBOs machen.<br>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex);
-
+<br>
   glGenTextures(Length(textureID), @textureID);  <i><font color="#FFFF00">// Erster Parameter die Länge der Arrray.</font></i></code></pre>
 Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
@@ -33,12 +33,12 @@ Mehrer Texturen laden geht genaus so einfache, wie wen man nur eine hat.<br>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">0</font>]);
   glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
+<br>
   <i><font color="#FFFF00">// Textur 1 laden.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">1</font>]);
   glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, <font color="#0077BB">2</font>, <font color="#0077BB">2</font>, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_1);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
+<br>
   glBindTexture(GL_TEXTURE_2D, <font color="#0077BB">0</font>);</code></pre>
 Hier sieht man, das ich für die beiden Qudrate unterschiedliche Texturen binde.<br>
 Koordinaten verwende ich für beide Qudrate die gleichen, einziger Unterschied, ich verschiebe die Matrix in unterschiedliche Richtungen.<br>
@@ -47,23 +47,23 @@ Aus diesem Grund wird die VAO auch nur einmal gebunden.<br>
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-
+<br>
   glBindVertexArray(VBQuad.VAO);
-
+<br>
   <i><font color="#FFFF00">// Linkes Quadrat.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">0</font>]);  <i><font color="#FFFF00">// Textur 0 binden.</font></i>
   ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
-
+<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
-
+<br>
   <i><font color="#FFFF00">// Rechtes Quadrat.</font></i>
   glBindTexture(GL_TEXTURE_2D, textureID[<font color="#0077BB">1</font>]);  <i><font color="#FFFF00">// Textur 1 binden.</font></i>
   ProdMatrix := ScaleMatrix;
   ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
   ProdMatrix.Uniform(Matrix_ID);
-
+<br>
   glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
@@ -77,14 +77,14 @@ Die Shader sind genau gleich, wie bei einer Textur.<br>
 <b>Vertex-Shader:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
@@ -95,17 +95,17 @@ Die Shader sind genau gleich, wie bei einer Textur.<br>
 <b>Fragment-Shader:</b><br>
 <br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-
+<br>
 <b><font color="0000BB">void</font></b> main()
 {
   FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinaten auslesen.</font></i>
 }
 </code></pre>
-
+<br>
 </html>

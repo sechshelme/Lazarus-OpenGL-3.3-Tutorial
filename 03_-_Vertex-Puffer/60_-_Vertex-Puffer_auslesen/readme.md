@@ -31,7 +31,7 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
   sl: TStringList;              <i><font color="#FFFF00">// Für Ausgabe.</font></i>
 <b><font color="0000BB">begin</font></b>
   sl := TStringList.Create;
-
+<br>
   <i><font color="#FFFF00">// Puffer binden.</font></i>
   <b><font color="0000BB">if</font></b> TMenuItem(Sender).Caption = <font color="#FF0000">'Dreieck'</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
     glBindVertexArray(VBTriangle.VAO);
@@ -40,38 +40,38 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
     glBindVertexArray(VBQuad.VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   <i><font color="#FFFF00">// Die Grösse des Puffers ermitteln.</font></i>
   glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, @BufSize);
-
+<br>
   <i><font color="#FFFF00">// Ram für den Puffer reservieren.</font></i>
   SetLength(TempBuffer, BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font>);
-
+<br>
   <i><font color="#FFFF00">// Puffer in den Ram kopieren.</font></i>
   glGetBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, BufSize, Pointer(TempBuffer));
-
+<br>
   <i><font color="#FFFF00">// Puffer formatieren und ausgeben.</font></i>
   sl.Add(<font color="#FF0000">'Anzahl Vektoren: '</font> + IntToStr(BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font>));
   sl.Add(<font color="#FF0000">''</font>);
-
+<br>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font> - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     Str(TempBuffer[i].x: <font color="#0077BB">6</font>: <font color="#0077BB">3</font>, sx);
     Str(TempBuffer[i].y: <font color="#0077BB">6</font>: <font color="#0077BB">3</font>, sy);
     sl.Add(<font color="#FF0000">'X: '</font> + sx + <font color="#FF0000">' Y: '</font> + sy);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   ShowMessage(sl.Text);
   sl.Free;
 <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;     <i><font color="#FFFF00">// Vertex-Koordinaten, nur XY.</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> inCol;    <i><font color="#FFFF00">// Farbe, es kommt nur Rot.</font></i>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                           <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);    <i><font color="#FFFF00">// Z ist immer 0.0</font></i>
@@ -81,14 +81,14 @@ Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelese
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
 }
 </code></pre>
-
+<br>
 </html>

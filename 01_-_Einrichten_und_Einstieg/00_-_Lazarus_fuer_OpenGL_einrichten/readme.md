@@ -70,5 +70,5 @@ Wenn Fehler gefunden werden, dann bitte hier melden:<br>
 <a href="https://delphigl.com/forum/viewtopic.php?f=14&t=11566 ">DGL-Forum</a>
 oder<br>
 <a href="http://www.lazarusforum.de/viewtopic.php?f=29&t=11373&hilit=opengl+tutorial ">Lazarus-Forum</a>
-
+<br>
 </html>

@@ -10,7 +10,7 @@ Hier wird ein Matrix4x4-Typ deklariert.<br>
 Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TMatrix = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">3</font>, <font color="#0077BB">0</font>..<font color="#0077BB">3</font>] <b><font color="0000BB">of</font></b> GLfloat;
-
+<br>
   TMatrixfHelper = <b><font color="0000BB">Type</font></b> Helper <b><font color="0000BB">for</font></b> TMatrix
     <b><font color="0000BB">procedure</font></b> Indenty;                  <i><font color="#FFFF00">// Generiere eine Einheitsmatrix</font></i>
     <b><font color="0000BB">procedure</font></b> Rotate(angele: single);   <i><font color="#FFFF00">// Drehe Matrix</font></i>
@@ -86,10 +86,10 @@ Man sieht dort auch gut, das die <b>Vektoren</b> mit dieser <b>Matrix</b> multip
 Da diese Multiplikation im Shader ist, wird die Berechnung in der <b>GPU</b> ausgeführt, und somit wird die <b>CPU</b> entlastet.<br>
 Aus diesem Grund haben Gaming-Grafikkarten solch eine grosse Leistung.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;                        <i><font color="#FFFF00">// Matrix von Uniform</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Vektoren mit der Matrix multiplizieren.</font></i>
@@ -98,14 +98,14 @@ Aus diesem Grund haben Gaming-Grafikkarten solch eine grosse Leistung.<br>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

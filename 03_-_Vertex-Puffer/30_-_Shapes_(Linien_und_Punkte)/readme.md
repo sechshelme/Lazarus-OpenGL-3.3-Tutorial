@@ -17,7 +17,7 @@ Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet w
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
 <b><font color="0000BB">begin</font></b>
   glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-
+<br>
   <i><font color="#FFFF00">// Daten für GL_TRIANGLE</font></i>
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
@@ -40,28 +40,28 @@ Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben d
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VBTriangle.VAO);
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_LINES</font></i>
   glLineWidth(<font color="#0077BB">3</font>);                        <i><font color="#FFFF00">// Linie 3 Pixel breit.</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) ; <i><font color="#FFFF00">// Gelb</font></i>
   glUniform1f(X_ID, -ofs);               <i><font color="#FFFF00">// links-</font></i>
   glUniform1f(Y_ID, -ofs);               <i><font color="#FFFF00">// unten</font></i>
   glDrawArrays(GL_LINES, <font color="#0077BB">0</font>, Length(Linies));
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_LINE_STRIP</font></i>
   glLineWidth(<font color="#0077BB">1</font>);                        <i><font color="#FFFF00">// Linie 1 Pixel breit.</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
   glUniform1f(X_ID, ofs);                <i><font color="#FFFF00">// rechts-</font></i>
   glUniform1f(Y_ID, -ofs);               <i><font color="#FFFF00">// unten</font></i>
   glDrawArrays(GL_LINE_STRIP, <font color="#0077BB">0</font>, Length(Linies));
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_LINE_LOOP</font></i>
   glLineWidth(<font color="#0077BB">6</font>);                        <i><font color="#FFFF00">// Linie 6 Pixel breit.</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
   glUniform1f(X_ID, ofs);                <i><font color="#FFFF00">// rechts-</font></i>
   glUniform1f(Y_ID, ofs);                <i><font color="#FFFF00">// oben</font></i>
   glDrawArrays(GL_LINE_LOOP, <font color="#0077BB">0</font>, Length(Linies));
-
+<br>
   <i><font color="#FFFF00">// Zeichne GL_POINTS</font></i>
   glPointSize(<font color="#0077BB">5</font>);                        <i><font color="#FFFF00">// Punkte Durchmesser 5 Pixel.</font></i>
   glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Blau</font></i>
@@ -73,7 +73,7 @@ Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben d
 <br>
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten in 2D</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
@@ -89,14 +89,14 @@ Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

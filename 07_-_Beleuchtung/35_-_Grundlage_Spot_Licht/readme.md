@@ -8,7 +8,7 @@ Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas ge
 Deklarationen der benütigenten Variablen.<br>
 <pre><code><b><font color="0000BB">type</font></b>
   TVec2 = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> single;
-
+<br>
 <b><font color="0000BB">var</font></b>
   LichtOefffnung: single;
   LichtPos, LichtRichtung: TVec2;</code></pre>
@@ -71,16 +71,16 @@ Das Mausrad ändert den Austrahlwinkel.<br>
 <b><font color="0000BB">begin</font></b>
   <i><font color="#FFFF00">// Lichtrichtung Normalisieren.</font></i>
   lr := normalize(LichtRichtung);
-
+<br>
   <i><font color="#FFFF00">// Lichtposition inkremtal berechnen.</font></i>
   lp :=vec2(x - LichtPos[<font color="#0077BB">0</font>], y - LichtPos[<font color="#0077BB">1</font>]);
-
+<br>
   <i><font color="#FFFF00">// Lichtposition Normlisieren.</font></i>
   lp := normalize(lp);
-
+<br>
   <i><font color="#FFFF00">// Skalarprodukt berechen.</font></i>
   winkel := dot(lr, lp);
-
+<br>
   <i><font color="#FFFF00">// Prüfen, ob sicher der Pixel im Lichtstrahl befindet.</font></i>
   Result := (winkel &gt; cos(pi / LichtOefffnung));
 <b><font color="0000BB">end</font></b>;</code></pre>
@@ -99,5 +99,5 @@ Zeichen der ganzen Scene.<br>
     <b><font color="0000BB">end</font></b>;
   <b><font color="0000BB">end</font></b>;
 <b><font color="0000BB">end</font></b>;</code></pre>
-
+<br>
 </html>

@@ -18,9 +18,9 @@ Die Deklaration, der Paramter für die einzelnen Instancen.<br>
 Die Size könnte man mit der Matrix kombinieren, aber hier geht es um die Funktionsweise der Uniform-Übergaben.<br>
 <pre><code><b><font color="0000BB">var</font></b>
   Matrix_ID, Color_ID, Size_ID: GLint;
-
+<br>
   VBQuad: TVB;
-
+<br>
   Data: <b><font color="0000BB">record</font></b>
     Size: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> GLfloat;
     Matrix: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TMatrix;
@@ -37,11 +37,11 @@ Die Instancen-Parameter mit zufälligen Werten belegen.<br>
   Size_ID := Shader.UniformLocation(<font color="#FF0000">'Size'</font>);
   Matrix_ID := Shader.UniformLocation(<font color="#FF0000">'mat'</font>);
   Color_ID := Shader.UniformLocation(<font color="#FF0000">'Color'</font>);
-
+<br>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-
+<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
-
+<br>
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(Data.Matrix) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     Data.Size[i] := Random() * <font color="#0077BB">20</font> + <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
     Data.Matrix[i].Identity;
@@ -57,14 +57,14 @@ Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte n
 <b><font color="0000BB">begin</font></b>
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-
+<br>
   glBindVertexArray(VBQuad.VAO);
-
+<br>
   glUniform1fv(Size_ID, InstanceCount, @Data.Size);
   glUniformMatrix4fv(Matrix_ID, InstanceCount, <b><font color="0000BB">False</font></b>, @Data.Matrix);
   glUniform3fv(Color_ID, InstanceCount, @Data.Color);
   glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
-
+<br>
   ogc.SwapBuffers;
 <b><font color="0000BB">end</font></b>;</code></pre>
 Die Matrizen drehen.<br>
@@ -76,43 +76,43 @@ Dies muss man 200x machen, aber es sind nicht 200 Übergaben zur Grafikkarte nö
   <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(Data.Matrix) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
     Data.Matrix[i].RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">02</font>);
   <b><font color="0000BB">end</font></b>;
-
+<br>
   ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
 <b><font color="0000BB">end</font></b>;</code></pre>
 <hr><br>
 <b>Vertex-Shader:</b><br>
 Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zugegriffen wird.<br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="#008800">#define</font></b> Instance_Count <font color="#0077BB">200</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;
-
+<br>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> Size[Instance_Count];
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat[Instance_Count];
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color[Instance_Count];
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> col;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position = mat[gl_InstanceID] * <b><font color="0000BB">vec4</font></b>((inPos * Size[gl_InstanceID]), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   col = Color[gl_InstanceID];
 }
 </code></pre>
 <hr><br>
 <b>Fragment-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-
+<br>
 <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> col;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
 </code></pre>
-
+<br>
 </html>

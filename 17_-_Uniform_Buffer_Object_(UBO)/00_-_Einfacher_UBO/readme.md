@@ -52,15 +52,15 @@ Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlock
     UseProgram;
     Matrix_ID := UniformLocation(<font color="#FF0000">'Matrix'</font>);
     ModelMatrix_ID := UniformLocation(<font color="#FF0000">'ModelMatrix'</font>);
-
+<br>
     Material_ID := UniformBlockIndex(<font color="#FF0000">'Material'</font>); <i><font color="#FFFF00">// UBO-Block ID aus dem Shader holen.</font></i>
   <b><font color="0000BB">end</font></b>;
-
+<br>
   glGenVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
-
+<br>
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
   glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
-
+<br>
   glGenBuffers(<font color="#0077BB">1</font>, @UBO);                          <i><font color="#FFFF00">// UB0-Puffer generieren.</font></i></code></pre>
 Material-Daten in den UBO-Puffer laden und binden.<br>
 Pro UBO-Block, wird ein BindingPoint gebraucht.<br>
@@ -76,12 +76,12 @@ Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gl
     specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">73</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
     shininess := <font color="#0077BB">76</font>.<font color="#0077BB">8</font>;
   <b><font color="0000BB">end</font></b>;
-
+<br>
 
   <i><font color="#FFFF00">// UBO mit Daten laden</font></i>
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TMaterial), @mRubin, GL_DYNAMIC_DRAW);
-
+<br>
   <i><font color="#FFFF00">// UBO mit dem Shader verbinden</font></i>
   glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);</code></pre>
@@ -89,7 +89,7 @@ Ein UBO muss am Ende wie andere Puffer auch frei gegeben werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
 <b><font color="0000BB">begin</font></b>
   Shader.Free;
-
+<br>
   glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOvert);
   glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBONormal);
@@ -100,26 +100,26 @@ Im Shader wird kein Padding gebraucht.<br>
 <br>
 <b>Vertex-Shader:</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
 <b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-
+<br>
 <i><font color="#FFFF00">// Daten für Fragment-shader</font></i>
 <b><font color="0000BB">out</font></b> Data {
   <b><font color="0000BB">vec3</font></b> Pos;
   <b><font color="0000BB">vec3</font></b> Normal;
 } DataOut;
-
+<br>
 <i><font color="#FFFF00">// Matrix des Modeles, ohne Frustum-Beeinflussung.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-
+<br>
 <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
 <b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-
+<br>
   DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
 }
@@ -127,27 +127,27 @@ Im Shader wird kein Padding gebraucht.<br>
 <hr><br>
 <b>Fragment-Shader</b><br>
 <pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-
+<br>
 <i><font color="#FFFF00">// Licht</font></i>
 <b><font color="#008800">#define</font></b> Lposition  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">35</font>.<font color="#0077BB">0</font>, <font color="#0077BB">17</font>.<font color="#0077BB">5</font>, <font color="#0077BB">35</font>.<font color="#0077BB">0</font>)
 <b><font color="#008800">#define</font></b> Lambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>)
 <b><font color="#008800">#define</font></b> Ldiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>)
-
+<br>
 <i><font color="#FFFF00">// Daten vom Vertex-Shader</font></i>
 <b><font color="0000BB">in</font></b> Data {
   <b><font color="0000BB">vec3</font></b> Pos;
   <b><font color="0000BB">vec3</font></b> Normal;
 } DataIn;
-
+<br>
 <b><font color="0000BB">layout</font></b> (std140) <b><font color="0000BB">uniform</font></b> Material {
   <b><font color="0000BB">vec3</font></b>  Mambient;   <i><font color="#FFFF00">// Umgebungslicht</font></i>
   <b><font color="0000BB">vec3</font></b>  Mdiffuse;   <i><font color="#FFFF00">// Farbe</font></i>
   <b><font color="0000BB">vec3</font></b>  Mspecular;  <i><font color="#FFFF00">// Spiegelnd</font></i>
   <b><font color="0000BB">float</font></b> Mshininess; <i><font color="#FFFF00">// Glanz</font></i>
 };
-
+<br>
 <b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-
+<br>
 <b><font color="0000BB">vec3</font></b> Light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
   <b><font color="0000BB">vec3</font></b> nn = normalize(n);
   <b><font color="0000BB">vec3</font></b> np = normalize(p);
@@ -164,12 +164,12 @@ Im Shader wird kein Padding gebraucht.<br>
   }
   <b><font color="0000BB">return</font></b> (Mambient * Lambient) + diffuse + specular;
 }
-
+<br>
 <b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
 {
   outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
 }
-
+<br>
 </code></pre>
-
+<br>
 </html>
