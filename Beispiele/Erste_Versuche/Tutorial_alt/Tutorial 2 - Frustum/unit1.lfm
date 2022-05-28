@@ -1,0 +1,47 @@
+object Form1: TForm1
+  Left = 191
+  Height = 545
+  Top = 131
+  Width = 773
+  Caption = 'Form1'
+  ClientHeight = 545
+  ClientWidth = 773
+  Color = clYellow
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnPaint = FormPaint
+  OnResize = FormResize
+  LCLVersion = '1.7'
+  object OpenGLControl1: TOpenGLControl
+    Left = 0
+    Height = 519
+    Top = 26
+    Width = 773
+    Align = alClient
+    OpenGLMajorVersion = 3
+    OpenGLMinorVersion = 3
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 773
+    Caption = 'ToolBar1'
+    TabOrder = 1
+    object Button1: TButton
+      Left = 1
+      Height = 22
+      Top = 2
+      Width = 75
+      Caption = 'Button1'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+  end
+  object Timer1: TTimer
+    Interval = 10
+    OnTimer = Timer1Timer
+    left = 96
+    top = 47
+  end
+end

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="10"/>
+    <PathDelim Value="\"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="project1"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="4">
+      <Item1>
+        <PackageName Value="BGRABitmapPack"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="ogl_Package"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="LazOpenGLContext"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+    </RequiredPackages>
+    <Units Count="11">
+      <Unit0>
+        <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unit1.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="mesh.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Mesh"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="rad.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Rad"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="stange.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Stange"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="mymath.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MyMath"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="zylinder.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Zylinder"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="schwinge.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Schwinge"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="treibgestaenge.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TreibGestaenge"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="schieberstangen.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SchieberStangen"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="haengegestaenge.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HaengeGestaenge"/>
+      </Unit10>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="project1"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="\tmp"/>
+    </SearchPaths>
+    <CodeGeneration>
+      <Checks>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <GenerateDebugInfo Value="False"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="5">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="RunError(216)"/>
+      </Item4>
+      <Item5>
+        <Name Value="EAccessViolation"/>
+      </Item5>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

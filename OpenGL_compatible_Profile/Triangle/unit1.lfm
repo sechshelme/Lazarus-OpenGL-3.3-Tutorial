@@ -1,0 +1,15 @@
+object Form1: TForm1
+  Left = 78
+  Height = 825
+  Top = 323
+  Width = 883
+  Caption = 'Form1'
+  OnCreate = FormCreate
+  LCLVersion = '1.8.4.0'
+  object Timer1: TTimer
+    Interval = 40
+    OnTimer = Timer1Timer
+    left = 152
+    top = 124
+  end
+end

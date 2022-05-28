@@ -1,0 +1,24 @@
+object Form2: TForm2
+  Left = 1894
+  Height = 240
+  Top = 499
+  Width = 320
+  Caption = 'Form2'
+  ClientHeight = 240
+  ClientWidth = 320
+  LCLVersion = '1.8.4.0'
+  object OpenGLControl1: TOpenGLControl
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    Align = alClient
+    OnPaint = OpenGLControl1Paint
+  end
+  object Timer1: TTimer
+    Interval = 40
+    OnTimer = Timer1Timer
+    left = 124
+    top = 89
+  end
+end

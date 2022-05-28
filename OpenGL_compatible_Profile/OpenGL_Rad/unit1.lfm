@@ -1,0 +1,145 @@
+object Form1: TForm1
+  Left = 12
+  Height = 513
+  Top = 50
+  Width = 1469
+  Caption = 'Form1'
+  ClientHeight = 513
+  ClientWidth = 1469
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '1.9.0.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 40
+    Top = 34
+    Width = 1469
+    Align = alTop
+    ClientHeight = 40
+    ClientWidth = 1469
+    TabOrder = 0
+    object Button1: TButton
+      Left = 8
+      Height = 25
+      Top = 8
+      Width = 25
+      Caption = '+'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 40
+      Height = 25
+      Top = 8
+      Width = 25
+      Caption = '-'
+      OnClick = Button2Click
+      TabOrder = 1
+    end
+    object ToggleBoxTimer: TToggleBox
+      Left = 104
+      Height = 23
+      Top = 10
+      Width = 90
+      Caption = 'Timer on/off'
+      Checked = True
+      State = cbChecked
+      TabOrder = 2
+    end
+    object ScrollBar1: TScrollBar
+      Left = 320
+      Height = 14
+      Top = 10
+      Width = 353
+      PageSize = 0
+      TabOrder = 3
+      OnChange = ScrollBar1Change
+    end
+  end
+  object CoolBar1: TCoolBar
+    Left = 0
+    Height = 34
+    Top = 0
+    Width = 1469
+    AutoSize = True
+    Bands = <    
+      item
+        Control = ToolBar1
+        Width = 179
+      end>
+    object ToolBar1: TToolBar
+      AnchorSideLeft.Control = CoolBar1
+      AnchorSideTop.Control = CoolBar1
+      Left = 24
+      Height = 24
+      Top = 5
+      Width = 203
+      Align = alNone
+      AutoSize = True
+      BorderSpacing.Left = 22
+      BorderSpacing.Top = 3
+      Caption = 'ToolBar1'
+      ShowCaptions = True
+      TabOrder = 0
+      object ToolButton1: TToolButton
+        Left = 1
+        Top = 2
+        Caption = 'ToolButton1'
+        Style = tbsCheck
+      end
+      object ToolButton2: TToolButton
+        Left = 77
+        Height = 22
+        Top = 2
+        Caption = 'ToolButton2'
+        Style = tbsSeparator
+      end
+      object ToolButton3: TToolButton
+        Left = 85
+        Top = 2
+        Caption = '0°'
+        OnClick = ButtonWinkelClick
+      end
+      object ToolButton4: TToolButton
+        Tag = 90
+        Left = 108
+        Top = 2
+        Caption = '90°'
+        OnClick = ButtonWinkelClick
+      end
+      object ToolButton5: TToolButton
+        Tag = 180
+        Left = 135
+        Top = 2
+        Caption = '180°'
+        OnClick = ButtonWinkelClick
+      end
+      object ToolButton6: TToolButton
+        Tag = 270
+        Left = 169
+        Top = 2
+        Caption = '270°'
+        OnClick = ButtonWinkelClick
+      end
+    end
+  end
+  object OpenGLControl1: TOpenGLControl
+    Left = 0
+    Height = 439
+    Top = 74
+    Width = 1469
+    Align = alClient
+    OnMouseMove = OpenGLControl1MouseMove
+    OnMouseWheelDown = OpenGLControl1MouseWheelDown
+    OnMouseWheelUp = OpenGLControl1MouseWheelUp
+    OnPaint = OpenGLControl1Paint
+    OnResize = OpenGLControl1Resize
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 20
+    OnTimer = Timer1Timer
+    Left = 134
+    Top = 124
+  end
+end

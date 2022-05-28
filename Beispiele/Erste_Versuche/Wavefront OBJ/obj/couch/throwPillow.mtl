@@ -1,0 +1,7 @@
+#Produced by Art of Illusion 2.8.1, Mon Mar 07 12:16:08 EST 2011
+newmtl circulargreen
+Kd 1 1 1
+map_Kd throwPillow1.jpg
+Ks 0 0 0
+Ka 0 0 0
+illum 1
