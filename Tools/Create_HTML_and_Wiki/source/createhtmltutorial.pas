@@ -103,7 +103,7 @@ begin
   sl2.Add('</html>');
 
   ForceDirectories(TutPara.HTMLPfad + fFolder + DirectorySeparator);
-  if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin
+  if TutPara.TutPfad <> TutPara.HTMLPfad then begin
     CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.HTMLPfad + fFolder + '/image.png');
   end;
   sl2.SaveToFile(TutPara.HTMLPfad + fFolder + DirectorySeparator + 'index.html');
