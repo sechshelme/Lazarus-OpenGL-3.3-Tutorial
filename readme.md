@@ -28,8 +28,7 @@ Auf Github hat es zum Teil Projekte, welche im Wiki nicht vorhanden/beschrieben 
 | 28.04.2018 | Objekte mit Alpha-Blending sortieren, so das man die unschönen Überlappungen verhindern kann.
 | 08.04.2018 | Bump-Mapping
 | 25.03.2018 | UBO-Tutorial fertig gestellt.
-| 23.03.2018 | Die Vertex-Funktionen wurden aus der oglMatrix Unit entfernt und in eine seperate Unit oglVetex ausgelagert.<br>
-Die Classe TMatrix wurde entfernt und durch Type Helper ersetzt, somit hat man nun die Möglichkeit die Matrizen auch in einer UBO zu verwenden.
+| 23.03.2018 | Die Vertex-Funktionen wurden aus der oglMatrix Unit entfernt und in eine seperate Unit oglVetex ausgelagert.<br>Die Classe TMatrix wurde entfernt und durch Type Helper ersetzt, somit hat man nun die Möglichkeit die Matrizen auch in einer UBO zu verwenden.
 | 16.03.2018 | Im Ordner "HTML-Tutorial" befindet sich das Tutorial in einer HTML-Version.
 | 15.01.2018 | Tutorial auf GITHUB hochgeladen.
 | 10.04.2017 | Tutorial das erste mal veröffentlicht.
