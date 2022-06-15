@@ -77,13 +77,13 @@ Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIA
 Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !<br>
 <br>
 Shapes, welche funktionieren:<br>
-* GL_POINTS<br>
-* GL_LINES<br>
-* GL_LINE_STRIP<br>
-* GL_LINE_LOOP<br>
-* GL_TRIANGLES<br>
-* GL_TRIANGLE_STRIP<br>
-* GL_TRIANGLE_FAN<br>
+- GL_POINTS<br>
+- GL_LINES<br>
+- GL_LINE_STRIP<br>
+- GL_LINE_LOOP<br>
+- GL_TRIANGLES<br>
+- GL_TRIANGLE_STRIP<br>
+- GL_TRIANGLE_FAN<br>
 <br>
 Da gibt es noch spezial-Versionen, diese sind aber nur mit einem Geometrie-Shader sinnvoll.<br>
 Den Geometrie-Shader werde ich später erwähnen.<br>
