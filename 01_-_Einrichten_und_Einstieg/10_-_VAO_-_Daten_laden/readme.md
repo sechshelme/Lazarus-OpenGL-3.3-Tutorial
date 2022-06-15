@@ -77,6 +77,7 @@ Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIA
 Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !<br>
 <br>
 Shapes, welche funktionieren:<br>
+    
 - GL_POINTS<br>
 - GL_LINES<br>
 - GL_LINE_STRIP<br>
@@ -84,14 +85,17 @@ Shapes, welche funktionieren:<br>
 - GL_TRIANGLES<br>
 - GL_TRIANGLE_STRIP<br>
 - GL_TRIANGLE_FAN<br>
+    
 <br>
 Da gibt es noch spezial-Versionen, diese sind aber nur mit einem Geometrie-Shader sinnvoll.<br>
 Den Geometrie-Shader werde ich später erwähnen.<br>
 <br>
+    
 * GL_LINES_ADJACENCY<br>
 * GL_LINE_STRIP_ADJACENCY<br>
 * GL_TRIANGLES_ADJACENCY<br>
 * GL_TRIANGLE_STRIP_ADJACENCY<br>
+    
 <br>
 Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
 <pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
