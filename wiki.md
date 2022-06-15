@@ -67,8 +67,8 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | :---: | ---
 | [Einfaches Alpha Blending](06_-_Alpha_Blending/00_-_Einfaches_Alpha_Blending/readme.md) | <img src="06_-_Alpha_Blending/00_-_Einfaches_Alpha_Blending/image.png" height="100px">
 | [Die Reihenfolge ist wichtig](06_-_Alpha_Blending/05_-_Die_Reihenfolge_ist_wichtig/readme.md) | <img src="06_-_Alpha_Blending/05_-_Die_Reihenfolge_ist_wichtig/image.png" height="100px">
-| [Reihenfolge sortiert mit Wuerfeln](06_-_Alpha_Blending/10_-_Reihenfolge sortiert_mit_Wuerfeln/readme.md) | <img src="06_-_Alpha_Blending/10_-_Reihenfolge sortiert_mit_Wuerfeln/image.png" height="100px">
-| [Reihenfolge sortiert mit Texturen](06_-_Alpha_Blending/15_-_Reihenfolge sortiert_mit_Texturen/readme.md) | <img src="06_-_Alpha_Blending/15_-_Reihenfolge sortiert_mit_Texturen/image.png" height="100px">
+| [Reihenfolge sortiert mit Wuerfeln](06_-_Alpha_Blending/10_-_Reihenfolge_sortiert_mit_Wuerfeln/readme.md) | <img src="06_-_Alpha_Blending/10_-_Reihenfolge_sortiert_mit_Wuerfeln/image.png" height="100px">
+| [Reihenfolge sortiert mit Texturen](06_-_Alpha_Blending/15_-_Reihenfolge_sortiert_mit_Texturen/readme.md) | <img src="06_-_Alpha_Blending/15_-_Reihenfolge_sortiert_mit_Texturen/image.png" height="100px">
 | [Alpha-Kanal abfragen und ingnorieren](06_-_Alpha_Blending/20_-_Alpha-Kanal_abfragen_und_ingnorieren/readme.md) | <img src="06_-_Alpha_Blending/20_-_Alpha-Kanal_abfragen_und_ingnorieren/image.png" height="100px">
 ## - Beleuchtung
 ## Beleuchtung
