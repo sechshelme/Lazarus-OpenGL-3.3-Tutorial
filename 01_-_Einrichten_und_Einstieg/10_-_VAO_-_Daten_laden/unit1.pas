@@ -158,6 +158,7 @@ Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIA
 Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !
 
 Shapes, welche funktionieren:
+
 * GL_POINTS
 * GL_LINES
 * GL_LINE_STRIP
