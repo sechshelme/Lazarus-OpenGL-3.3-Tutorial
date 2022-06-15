@@ -164,12 +164,12 @@ begin
     s := HTMLTitelSplitt(slKapitel[k]);
     if Length(s) > 1 then begin      // Prüfen ob Ordner mit einer Ziffer beginnt.
       if (s[1] in ['0'..'9']) then begin
-        WikiSL.Add('## ' + Copy(s, 4));
+        WikiSL.Add('## ' + Copy(s, 6));
 //        WikiSL.Add('{|{{Prettytable_B1}} width="100%"');
         //        WikiSL.Add('!width="15%"|Link');
         //        WikiSL.Add('!width="85%"|Beschreibung');
 
-        WikiSL.Add('## ' + Copy(s, 6));
+//        WikiSL.Add('## ' + Copy(s, 6));
         WikiSL.Add('| Link | Beschreibung');
         WikiSL.Add('| :---: | ---');
 
