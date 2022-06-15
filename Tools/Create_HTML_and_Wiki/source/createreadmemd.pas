@@ -39,6 +39,7 @@ type
     destructor Destroy; override;
 
     function getTitle: string;
+    function getKapitelAndTitle: string;
 
     procedure AddSouceUnit1(const datei: string);
 
@@ -389,6 +390,11 @@ end;
 function TCreateReadmeMD.getTitle: string;
 begin
   Result := HTMLTitelSplitt(fFolder);
+end;
+
+function TCreateReadmeMD.getKapitelAndTitle: string;
+begin
+  Result := Copy(fKapitel, 6) + ' - ' + Copy(getTitle, 6);
 end;
 
 procedure TCreateReadmeMD.CutBlock(sl: TStrings; Block: string);

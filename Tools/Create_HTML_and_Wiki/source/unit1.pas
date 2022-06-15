@@ -136,23 +136,26 @@ end;
 
 procedure TForm1.ButtonCreateReadmeMDClick(Sender: TObject);
 var
-  s: string;
+  s, sd: string;
   i, k: integer;
   ct: TCreateReadmeMD;
   slKapitel, slDirectory: TStringList;
-  //  slSubPage: TStringList;
+  slDescription, WikiSL: TStringList;
 begin
-  //slSubPage := TStringList.Create;
-  //slSubPage.Add('<!DOCTYPE html>');
-  //
-  //slSubPage.Add('<html>');
-  //slSubPage.Add('  <head>');
-  //slSubPage.Add('    <meta charset="utf-8">');
-  //slSubPage.Add('    <title>Titel</title>');
-  //
-  //slSubPage.Add('  </head>');
-  //slSubPage.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
-  //slSubPage.Add('<b><h1>' + TutPara.Titel + '<br></h1></b>');
+  WikiSL := TStringList.Create;
+
+  WikiSL.Add('# ' + TutPara.Titel);
+
+  WikiSL.Add('## Einleitung');
+  WikiSL.Add('Hinweis: Die Sourcen auf GitHub sind aktueller als das Wiki.<br>');
+  WikiSL.Add('Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.<br>');
+
+//  WikiSL.Add('## Download');
+//  WikiSL.Add('* [https://github.com/sechshelme/Lazarus-OpenGL-3.3-Tutorial alle Sourcen (github)]<br>');
+  //  WikiSL.Add('* [http://mathias1000.bplaced.net/Tutorial_HTML/OpenGL_3.3/source.zip alle Sourcen (HTML)]');
+
+  WikiSL.Add('## Tutorial');
+
 
   slKapitel := FindAllDirectories(TutPara.TutPfad, False);
   slKapitel.Sort;
@@ -161,11 +164,19 @@ begin
     s := HTMLTitelSplitt(slKapitel[k]);
     if Length(s) > 1 then begin      // Prüfen ob Ordner mit einer Ziffer beginnt.
       if (s[1] in ['0'..'9']) then begin
-        //        slSubPage.Add('<b><h2>' + HTMLTitelSplitt(slKapitel[k]) + '<br></h2></b>');
+        WikiSL.Add('## ' + Copy(s, 4));
+//        WikiSL.Add('{|{{Prettytable_B1}} width="100%"');
+        //        WikiSL.Add('!width="15%"|Link');
+        //        WikiSL.Add('!width="85%"|Beschreibung');
+
+        WikiSL.Add('## ' + Copy(s, 6));
+        WikiSL.Add('| Link | Beschreibung');
+        WikiSL.Add('| :---: | ---');
 
         slDirectory := FindAllDirectories(slKapitel[k], False);
         slDirectory.Sort;
         for i := 0 to slDirectory.Count - 1 do begin
+          sd := slDirectory[i];
           slDirectory[i] := Copy(slDirectory[i], Length(TutPara.TutPfad) + 1);
 
           s := TutPara.TutPfad + slDirectory[i] + '/unit1.pas';
@@ -179,7 +190,28 @@ begin
           if FileExists(s) then begin
             ct := TCreateReadmeMD.Create(slDirectory[i], HTMLTitelSplitt(slKapitel[k]));
             ct.AddSouceUnit1(s);
-//            slSubPage.Add(HTMLAddLink(slDirectory[i] + '/index.html', ct.getTitle) + GetDateiZeit(s) + '<br>');
+
+//            WikiSL.Add('| [' + Copy(ct.getTitle, 6) + '](' + slDirectory[i]  + '/readme.md) | <img src="'+slDirectory[i]+'/image.png" width="160" height="100">');
+            WikiSL.Add('| [' + Copy(ct.getTitle, 6) + '](' + slDirectory[i]  + '/readme.md) | <img src="'+slDirectory[i]+'/image.png" height="100px">');
+
+
+            //WikiSL.Add('|-');
+            //WikiSL.Add('![[' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '|' + Copy(ct.getTitle, 6) + ']]');
+            //WikiSL.Add('{{Level_2}} ');
+            //WikiSL.Add('|[[Image:' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '.png|128px|right]] ');
+
+            s := sd + '/description.txt';
+            if FileExists(s) then begin
+              slDescription := TStringList.Create;
+              slDescription.LoadFromFile(s);
+//              WikiSL.Add(slDescription.Text);
+              slDescription.Free;
+            end else begin
+//              WikiSL.Add('Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar ');
+            end;
+            //            WikiSL.Add('* [https://github.com/sechshelme/Lazarus-OpenGL-3.3-Tutorial/tree/master/' + slDirectory[i] + ' source]');
+
+            //            slSubPage.Add(HTMLAddLink(slDirectory[i] + '/index.html', ct.getTitle) + GetDateiZeit(s) + '<br>');
             ct.Free;
           end;
 
@@ -190,16 +222,10 @@ begin
   end;
   slKapitel.Free;
 
-  //slSubPage.Add('<br><br>');
-  //slSubPage.Add('    <a href="./source.zip">Sourcen download (source.zip)</a><br>');
-  //slSubPage.Add('<br>');
-  //
-  //slSubPage.Add('  </body>');
-  //slSubPage.Add('</html>');
+  WikiSL.SaveToFile(TutPara.ReadmeMDPfad + '/wiki.md');
+  WikiSL.Free;
 
   ForceDirectories(TutPara.ReadmeMDPfad);
-  //slSubPage.SaveToFile(TutPara.HTMLPfad + '/index.html');
-  //slSubPage.Free;
 end;
 
 procedure TForm1.ButtonCreateWikiClick(Sender: TObject);
@@ -337,6 +363,8 @@ begin
           s := subSL[j];
           s[Length(mainSL[i]) + 2] := ns[1];
           s[Length(mainSL[i]) + 3] := ns[2];
+
+//          Insert('_-',s, Length(mainSL[i]) + 4);
 
           WriteLn(s, '     ');
           RenameFile(subSL[j], s);

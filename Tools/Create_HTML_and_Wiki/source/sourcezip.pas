@@ -20,9 +20,6 @@ type
 
 implementation
 
-//uses
-//  CreateHTMLTutorial;
-
 { TSourceZip }
 
 
