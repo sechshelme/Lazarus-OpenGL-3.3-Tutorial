@@ -136,8 +136,9 @@ end;
 
 procedure TForm1.ButtonCreateReadmeMDClick(Sender: TObject);
 var
-  s, sd: string;
-  i, k: integer;
+  sa: TStringArray;
+  ks1, ks2, s, sd: string;
+  ofs, i, k: integer;
   ct: TCreateReadmeMD;
   slKapitel, slDirectory: TStringList;
   slDescription, WikiSL: TStringList;
@@ -150,26 +151,32 @@ begin
   WikiSL.Add('Hinweis: Die Sourcen auf GitHub sind aktueller als das Wiki.<br>');
   WikiSL.Add('Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.<br>');
 
-//  WikiSL.Add('## Download');
-//  WikiSL.Add('* [https://github.com/sechshelme/Lazarus-OpenGL-3.3-Tutorial alle Sourcen (github)]<br>');
-  //  WikiSL.Add('* [http://mathias1000.bplaced.net/Tutorial_HTML/OpenGL_3.3/source.zip alle Sourcen (HTML)]');
-
   WikiSL.Add('## Tutorial');
-
+  ofs := WikiSL.Count;
+  //  WikiSL.Add(' [testlink](#eventhandle-auserhalb-komponenten)');
+  WikiSL.Add(' [testlink](#radiobutton)');
 
   slKapitel := FindAllDirectories(TutPara.TutPfad, False);
   slKapitel.Sort;
 
   for k := 0 to slKapitel.Count - 1 do begin
+
     s := HTMLTitelSplitt(slKapitel[k]);
     if Length(s) > 1 then begin      // Prüfen ob Ordner mit einer Ziffer beginnt.
       if (s[1] in ['0'..'9']) then begin
-        WikiSL.Add('## ' + Copy(s, 6));
-//        WikiSL.Add('{|{{Prettytable_B1}} width="100%"');
-        //        WikiSL.Add('!width="15%"|Link');
-        //        WikiSL.Add('!width="85%"|Beschreibung');
+        sa := slKapitel[k].Split('/');
+        if Length(sa) > 0 then begin
+          ks1 := Copy(sa[Length(sa) - 1], 6);
+          ks2 := LowerCase(ks1);
+          ks2 := StringReplace(ks2, ' ', '-', [rfIgnoreCase, rfReplaceAll]);
+          ks2 := StringReplace(ks2, '_', '-', [rfIgnoreCase, rfReplaceAll]);
+          ks1 := '[' + ks1 + '](#' + ks2 + ')';
+          WikiSL.Insert(ofs + k * 1, '* ' + ks1);
+//          WikiSL.Insert(ofs + k * 2, '* ' + ks1);
+//          WikiSL.Insert(ofs + k * 2+1, #9'* ' + ks1);
+        end;
 
-//        WikiSL.Add('## ' + Copy(s, 6));
+        WikiSL.Add('### ' + Copy(s, 6));
         WikiSL.Add('| Link | Beschreibung');
         WikiSL.Add('| :---: | ---');
 
@@ -191,27 +198,24 @@ begin
             ct := TCreateReadmeMD.Create(slDirectory[i], HTMLTitelSplitt(slKapitel[k]));
             ct.AddSouceUnit1(s);
 
-//            WikiSL.Add('| [' + Copy(ct.getTitle, 6) + '](' + slDirectory[i]  + '/readme.md) | <img src="'+slDirectory[i]+'/image.png" width="160" height="100">');
-            WikiSL.Add('| [' + Copy(ct.getTitle, 6) + '](' + slDirectory[i]  + '/readme.md) | <img src="'+slDirectory[i]+'/image.png" height="100px">');
 
+//            WikiSL.Add('| Link | Beschreibung');
+//            WikiSL.Add('| :---: | ---');
+            WikiSL.Add('| [' + Copy(ct.getTitle, 6) + '](' + slDirectory[i] + '/readme.md) | <img src="' +
+              slDirectory[i] + '/image.png" height="100px">');
+            //              WikiSL.Add('|'+Copy(ct.getTitle, 6) +'<br>[' + Copy(ct.getTitle, 6) + '](' + slDirectory[i] + '/readme.md) | <img src="' + slDirectory[i] + '/image.png" height="100px">');
+//            WikiSL.Add('');
 
-            //WikiSL.Add('|-');
-            //WikiSL.Add('![[' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '|' + Copy(ct.getTitle, 6) + ']]');
-            //WikiSL.Add('{{Level_2}} ');
-            //WikiSL.Add('|[[Image:' + TutPara.Titel + ' - ' + ct.getKapitelAndTitle + '.png|128px|right]] ');
 
             s := sd + '/description.txt';
             if FileExists(s) then begin
               slDescription := TStringList.Create;
               slDescription.LoadFromFile(s);
-//              WikiSL.Add(slDescription.Text);
+              //              WikiSL.Add(slDescription.Text);
               slDescription.Free;
             end else begin
-//              WikiSL.Add('Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar ');
+              //              WikiSL.Add('Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar Kommentar ');
             end;
-            //            WikiSL.Add('* [https://github.com/sechshelme/Lazarus-OpenGL-3.3-Tutorial/tree/master/' + slDirectory[i] + ' source]');
-
-            //            slSubPage.Add(HTMLAddLink(slDirectory[i] + '/index.html', ct.getTitle) + GetDateiZeit(s) + '<br>');
             ct.Free;
           end;
 
@@ -364,7 +368,7 @@ begin
           s[Length(mainSL[i]) + 2] := ns[1];
           s[Length(mainSL[i]) + 3] := ns[2];
 
-//          Insert('_-',s, Length(mainSL[i]) + 4);
+          //          Insert('_-',s, Length(mainSL[i]) + 4);
 
           WriteLn(s, '     ');
           RenameFile(subSL[j], s);
