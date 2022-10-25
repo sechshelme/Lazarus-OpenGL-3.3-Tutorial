@@ -1,126 +1,137 @@
-<html>
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>45 - Variablen Namen auslesen</h2></b>
+# 02 - Shader
+## 45 - Variablen Namen auslesen
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.<br>
-In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.<br>
-Für was man <b>Uniform-Blöcke</b> verwendet, wird in einem späteren Kapitel behandelt.<br>
-Auch die Beleuchtung, etc. wird später behandelt.<br>
+Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.
+In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.
+Für was man <b>Uniform-Blöcke</b> verwendet, wird in einem späteren Kapitel behandelt.
+Auch die Beleuchtung, etc. wird später behandelt.
 <hr><br>
-Mit <b>glGetProgramiv(...</b> wird ermittelt, wie viele Variablen dieses Typen hat.<br>
-Mit <b>glGetActiveAttrib(...</b> wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. <b>vec3</b>, <b>mat4</b>, etc.<br>
-Der komplexe Beleuchtungs-Shader wird später beschrieben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+Mit <b>glGetProgramiv(...</b> wird ermittelt, wie viele Variablen dieses Typen hat.
+Mit <b>glGetActiveAttrib(...</b> wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. <b>vec3</b>, <b>mat4</b>, etc.
+Der komplexe Beleuchtungs-Shader wird später beschrieben.
+
+```pascal
+procedure TForm1.MenuItem1Click(Sender: TObject);
+var
   s: ansistring;
   i, Count, len, size, Typ: integer;
   sl: TStringList;
-<br>
-<b><font color="0000BB">begin</font></b>
+
+begin
   sl := TStringList.Create;
-<br>
-  sl.Add(<font color="#FF0000">'Attribute:'</font>);
-  SetLength(s, <font color="#0077BB">255</font>);
+
+  sl.Add('Attribute:');
+  SetLength(s, 255);
   glGetProgramiv(Shader.ID, GL_ACTIVE_ATTRIBUTES, @Count);
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Count - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    glGetActiveAttrib(Shader.ID, i, <font color="#0077BB">255</font>, len, size, Typ, @s[<font color="#0077BB">1</font>]);
-    sl.Add(copy(s, <font color="#0077BB">0</font>, len) + <font color="#FF0000">'    '</font> + IntToStr(Typ));
-  <b><font color="0000BB">end</font></b>;
-  sl.Add(<font color="#FF0000">''</font>);
-<br>
-  sl.Add(<font color="#FF0000">'Uniform:'</font>);
+  for i := 0 to Count - 1 do begin
+    glGetActiveAttrib(Shader.ID, i, 255, len, size, Typ, @s[1]);
+    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+  end;
+  sl.Add('');
+
+  sl.Add('Uniform:');
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORMS, @Count);
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Count - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    glGetActiveUniform(Shader.ID, i, <font color="#0077BB">255</font>, len, size, Typ, @s[<font color="#0077BB">1</font>]);
-    sl.Add(copy(s, <font color="#0077BB">0</font>, len) + <font color="#FF0000">'    '</font> + IntToStr(Typ));
-  <b><font color="0000BB">end</font></b>;
-  sl.Add(<font color="#FF0000">''</font>);
-<br>
-  sl.Add(<font color="#FF0000">'Uniform-Blöcke:'</font>);
+  for i := 0 to Count - 1 do begin
+    glGetActiveUniform(Shader.ID, i, 255, len, size, Typ, @s[1]);
+    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+  end;
+  sl.Add('');
+
+  sl.Add('Uniform-Blöcke:');
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @Count);
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Count - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    glGetActiveUniformBlockName(Shader.ID, i, <font color="#0077BB">255</font>, @len, @s[<font color="#0077BB">1</font>]);
-    sl.Add(copy(s, <font color="#0077BB">0</font>, len) + <font color="#FF0000">'    '</font> + IntToStr(Typ));
-  <b><font color="0000BB">end</font></b>;
-<br>
+  for i := 0 to Count - 1 do begin
+    glGetActiveUniformBlockName(Shader.ID, i, 255, @len, @s[1]);
+    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+  end;
+
   ShowMessage(sl.Text);
   sl.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<i><font color="#FFFF00">// Attribute</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-<br>
-<i><font color="#FFFF00">// Uniform-Variablen</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec4</font></b> KeineVerwendung; <i><font color="#FFFF00">// Wird nicht angezeigt, da nicht verwendet.</font></i>
-<br>
-<i><font color="#FFFF00">// Daten für Fragment-shader</font></i>
-<b><font color="0000BB">out</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> Pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+// Attribute
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 1) in vec3 inNormal; // Normale
+
+// Uniform-Variablen
+uniform mat4 ModelMatrix;
+uniform mat4 Matrix;
+uniform vec4 KeineVerwendung; // Wird nicht angezeigt, da nicht verwendet.
+
+// Daten für Fragment-shader
+out Data {
+  vec3 Pos;
+  vec3 Normal;
 } DataOut;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+void main(void)
 {
-  gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
-  DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
+  gl_Position    = Matrix * vec4(inPos, 1.0);
+
+  DataOut.Normal = mat3(ModelMatrix) * inNormal;
+  DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<i><font color="#FFFF00">// Licht</font></i>
-<b><font color="#008800">#define</font></b> Lposition  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">35</font>.<font color="#0077BB">0</font>, <font color="#0077BB">17</font>.<font color="#0077BB">5</font>, <font color="#0077BB">35</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> Lambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>)
-<b><font color="#008800">#define</font></b> Ldiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>)
-<br>
-<b><font color="0000BB">in</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> Pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+// Licht
+#define Lposition  vec3(35.0, 17.5, 35.0)
+#define Lambient   vec3(1.8, 1.8, 1.8)
+#define Ldiffuse   vec3(1.5, 1.5, 1.5)
+
+in Data {
+  vec3 Pos;
+  vec3 Normal;
 } DataIn;
-<br>
-<i><font color="#FFFF00">// Der Uniform-Block</font></i>
-<b><font color="0000BB">layout</font></b>(std140) <b><font color="0000BB">uniform</font></b> Material {
-  <b><font color="0000BB">vec3</font></b>  Mambient;   <i><font color="#FFFF00">// Umgebungslicht</font></i>
-  <b><font color="0000BB">vec3</font></b>  Mdiffuse;   <i><font color="#FFFF00">// Farbe</font></i>
-  <b><font color="0000BB">vec3</font></b>  Mspecular;  <i><font color="#FFFF00">// Spiegelnd</font></i>
-  <b><font color="0000BB">float</font></b> Mshininess; <i><font color="#FFFF00">// Glanz</font></i>
+
+// Der Uniform-Block
+layout(std140) uniform Material {
+  vec3  Mambient;   // Umgebungslicht
+  vec3  Mdiffuse;   // Farbe
+  vec3  Mspecular;  // Spiegelnd
+  float Mshininess; // Glanz
 };
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-<br>
-<b><font color="0000BB">vec3</font></b> Light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
-  <b><font color="0000BB">vec3</font></b> nn = normalize(n);
-  <b><font color="0000BB">vec3</font></b> np = normalize(p);
-  <b><font color="0000BB">vec3</font></b> diffuse;   <i><font color="#FFFF00">// Licht</font></i>
-  <b><font color="0000BB">vec3</font></b> specular;  <i><font color="#FFFF00">// Reflektion</font></i>
-  <b><font color="0000BB">float</font></b> angele = max(dot(nn, np), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (angele &gt; <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
-    <b><font color="0000BB">vec3</font></b> eye = normalize(np + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
-    specular = pow(max(dot(eye, nn), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), Mshininess) * Mspecular;
+
+out vec4 outColor;
+
+vec3 Light(in vec3 p, in vec3 n) {
+  vec3 nn = normalize(n);
+  vec3 np = normalize(p);
+  vec3 diffuse;   // Licht
+  vec3 specular;  // Reflektion
+  float angele = max(dot(nn, np), 0.0);
+  if (angele &gt; 0.0) {
+    vec3 eye = normalize(np + vec3(0.0, 0.0, 1.0));
+    specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
-  } <b><font color="0000BB">else</font></b> {
-    specular = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    diffuse  = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  } else {
+    specular = vec3(0.0);
+    diffuse  = vec3(0.0);
   }
-  <b><font color="0000BB">return</font></b> (Mambient * Lambient) + diffuse + specular;
+  return (Mambient * Lambient) + diffuse + specular;
 }
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);
 }
-<br>
-</code></pre>
-<br>
-</html>
+
+
+```
+
+

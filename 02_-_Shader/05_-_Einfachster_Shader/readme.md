@@ -1,76 +1,103 @@
-<html>
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>05 - Einfachster Shader</h2></b>
+# 02 - Shader
+## 05 - Einfachster Shader
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.<br>
+Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.
 <hr><br>
-Hier wird noch ein Objekt der Klasse TShader deklariert.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-<br>
-  <font color="#FFFF00">{ TForm1 }</font>
-<br>
-  TForm1 = <b><font color="0000BB">class</font></b>(TForm)
-    <b><font color="0000BB">procedure</font></b> FormCreate(Sender: TObject);
-    <b><font color="0000BB">procedure</font></b> FormDestroy(Sender: TObject);
-  <b><font color="0000BB">private</font></b>
+Hier wird noch ein Objekt der Klasse TShader deklariert.
+
+```pascal
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
     ogc: TContext;
-    Shader: TShader; <i><font color="#FFFF00">// Shader-Object</font></i></code></pre>
-Dieser Code wurde um 2 Zeilen erweitert.<br>
-<br>
-In der ersten Zeile wird der Shader in die Grafikkarte geladen.<br>
-Da die Shader-Objecte als Text-Dateien vorliegen, wird hier <b>FileToStr(Datei)</b> verwendet.<br>
-Die zweite Zeile aktiviert den Shader.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
-  Shader.UseProgram;</code></pre>
-Beim Zeichnen muss man auch mit <b>Shader[x].UseProgram(...</b> den Shader wählen, wenn man mehr als einen Shader verwendet.<br>
-In der Shader-Klasse steht nichts anderes als<b>glUseProgram(ShaderID);</b> .<br>
-Bei diesem Mini-Code mit nur einem Shader könnte dies weggelassen werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+    Shader: TShader; // Shader-Object
+```
+
+Dieser Code wurde um 2 Zeilen erweitert.
+
+In der ersten Zeile wird der Shader in die Grafikkarte geladen.
+Da die Shader-Objecte als Text-Dateien vorliegen, wird hier <b>FileToStr(Datei)</b> verwendet.
+Die zweite Zeile aktiviert den Shader.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader.UseProgram;
+```
+
+Beim Zeichnen muss man auch mit <b>Shader[x].UseProgram(...</b> den Shader wählen, wenn man mehr als einen Shader verwendet.
+In der Shader-Klasse steht nichts anderes als<b>glUseProgram(ShaderID);</b> .
+Bei diesem Mini-Code mit nur einem Shader könnte dies weggelassen werden.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
-  Shader.UseProgram;</code></pre>
-Am Ende werden mit <b>Shader.Free</b> die Shader in der Grafikkarte wieder freigeben.<br>
-In diesem Destruktor steht <b>glDeleteShader(ShaderID);</b><br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Shader.Free;</code></pre>
+
+  Shader.UseProgram;
+```
+
+Am Ende werden mit <b>Shader.Free</b> die Shader in der Grafikkarte wieder freigeben.
+In diesem Destruktor steht <b>glDeleteShader(ShaderID);</b>
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Shader.Free;
+```
+
 <hr><br>
-Diese Kommentare, welche man hier im Shader sind, werden auch dem der Grafik-Teiber übergeben, aber dieser ingnoriert sie dann.<br>
-Wen man voll auf Perfornance beim laden ab ist, sollte man Kommentare im Shader-Code meiden.<br>
-Auch jede Leerzeile und jede Einrückung bremsen ein wenig ab.<br>
-Auf die später Zeichengeschwindigkeit hat dies aber keinen Einfluss.<br>
-Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übersichtlichen Shader-Code sehen wollen.<br>
+Diese Kommentare, welche man hier im Shader sind, werden auch dem der Grafik-Teiber übergeben, aber dieser ingnoriert sie dann.
+Wen man voll auf Perfornance beim laden ab ist, sollte man Kommentare im Shader-Code meiden.
+Auch jede Leerzeile und jede Einrückung bremsen ein wenig ab.
+Auf die später Zeichengeschwindigkeit hat dies aber keinen Einfluss.
+Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übersichtlichen Shader-Code sehen wollen.
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;                     <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+out vec4 outColor;                     // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Die Ausgabe ist immer Rot</font></i>
+  outColor = vec4(1.0, 0.0, 0.0, 1.0); // Die Ausgabe ist immer Rot
 }
-</code></pre>
+
+```
+
 <hr><br>
-So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlecht leserlich.<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<b><font color="0000BB">layout</font></b>(location=<font color="#0077BB">10</font>)<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>){gl_Position=<b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);}
-</code></pre>
-<br>
-</html>
+So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlecht leserlich.
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+layout(location=10)in vec3 inPos;
+void main(void){gl_Position=vec4(inPos, 1.0);}
+
+```
+
+

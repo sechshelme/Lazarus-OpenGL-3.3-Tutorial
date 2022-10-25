@@ -1,113 +1,144 @@
-<html>
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>05 - Mehrere Vertex-Puffer, Mehrarbige Mesh</h2></b>
+# 03 - Vertex-Puffer
+## 05 - Mehrere Vertex-Puffer, Mehrarbige Mesh
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.<br>
-Somit werden die Mesh mehrfarbig.<br>
+Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
+Somit werden die Mesh mehrfarbig.
 <hr><br>
-Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-  TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =   <i><font color="#FFFF00">// Rot / Grün / Blau</font></i>
-    (((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));
-  QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-  QuadColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =       <i><font color="#FFFF00">// Rot / Grün / Gelb / Rot / Gelb / Mint</font></i>
-    (((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</code></pre>
-Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TVB = <b><font color="0000BB">record</font></b>
+Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
+
+```pascal
+const
+  TriangleVector: array[0..0] of TFace =
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
+  TriangleColor: array[0..0] of TFace =   // Rot / Grün / Blau
+    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)));
+  QuadVector: array[0..1] of TFace =
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  QuadColor: array[0..1] of TFace =       // Rot / Grün / Gelb / Rot / Gelb / Mint
+    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
+    ((1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 1.0)));
+```
+
+Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.
+
+```pascal
+type
+  TVB = record
     VAO,
-    VBOvert,         <i><font color="#FFFF00">// VBO für Vektor.</font></i>
-    VBOcol: GLuint;  <i><font color="#FFFF00">// VBO für Farbe.</font></i>
-  <b><font color="0000BB">end</font></b>;</code></pre>
-CreateScene wurde um zwei Zeilen erweitert.<br>
-Die VB0 für den Farben-Puffer müssen noch generiert werden.<br>
-<pre><code>  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOcol);   <i><font color="#FFFF00">// neu hinzugekommen</font></i>
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOvert);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOcol);       <i><font color="#FFFF00">// neu hinzugekommen</font></i></code></pre>
-Hier fast der wichtigste Teil, pro <b>Vertex Array Object</b> (VAO) wird ein zweiter Puffer in das VRAM geladen.<br>
-Die 10 und 11, muss indentisch sein, mit dem <b>location</b> im Shader.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<br>
-  <i><font color="#FFFF00">// --- Daten für Dreieck</font></i>
+    VBOvert,         // VBO für Vektor.
+    VBOcol: GLuint;  // VBO für Farbe.
+  end;
+```
+
+CreateScene wurde um zwei Zeilen erweitert.
+Die VB0 für den Farben-Puffer müssen noch generiert werden.
+
+```pascal
+  glGenBuffers(1, @VBTriangle.VBOvert);
+  glGenBuffers(1, @VBTriangle.VBOcol);   // neu hinzugekommen
+  glGenBuffers(1, @VBQuad.VBOvert);
+  glGenBuffers(1, @VBQuad.VBOcol);       // neu hinzugekommen
+```
+
+Hier fast der wichtigste Teil, pro <b>Vertex Array Object</b> (VAO) wird ein zweiter Puffer in das VRAM geladen.
+Die 10 und 11, muss indentisch sein, mit dem <b>location</b> im Shader.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+
+  // --- Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
-<br>
-  <i><font color="#FFFF00">// Vektor</font></i>
+
+  // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);                         <i><font color="#FFFF00">// 10 ist die Location in inPos Shader.</font></i>
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// Farbe</font></i>
+  glEnableVertexAttribArray(10);                         // 10 ist die Location in inPos Shader.
+  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+
+  // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">11</font>);                         <i><font color="#FFFF00">// 11 ist die Location in inCol Shader.</font></i>
-  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// --- Daten für Quadrat</font></i>
+  glEnableVertexAttribArray(11);                         // 11 ist die Location in inCol Shader.
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+
+  // --- Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
-<br>
-  <i><font color="#FFFF00">// Vektor</font></i>
+
+  // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// Farbe</font></i>
+  glEnableVertexAttribArray(10);
+  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+
+  // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">11</font>);
-  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</code></pre>
-Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich einfach wie wen man nur ein VBO hat.<br>
-<pre><code>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+  glEnableVertexAttribArray(11);
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+end;
+```
+
+Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich einfach wie wen man nur ein VBO hat.
+
+```pascal
+  // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(TriangleVector) * <font color="#0077BB">3</font>);
-<br>
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
+  glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
+
+  // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVector) * <font color="#0077BB">3</font>);</code></pre>
-Am Ende müssen noch die zusätzlichen VBO-Puffer frei gegeben werden.<br>
-Freigaben müssen immer gleich viele sein wie Erzeugungen.<br>
-<pre><code>  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOvert);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBOcol);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOvert);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOcol);</code></pre>
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
+```
+
+Am Ende müssen noch die zusätzlichen VBO-Puffer frei gegeben werden.
+Freigaben müssen immer gleich viele sein wie Erzeugungen.
+
+```pascal
+  glDeleteBuffers(1, @VBTriangle.VBOvert);
+  glDeleteBuffers(1, @VBTriangle.VBOcol);
+  glDeleteBuffers(1, @VBQuad.VBOvert);
+  glDeleteBuffers(1, @VBQuad.VBOcol);
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<br>
-Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
+layout (location = 11) in vec3 inCol; // Farbe
+
+out vec4 Color;                       // Farbe, an Fragment-Shader übergeben
+
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
+  Color = vec4(inCol, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+in vec4 Color;      // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor = Color; // Die Ausgabe der Farbe
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

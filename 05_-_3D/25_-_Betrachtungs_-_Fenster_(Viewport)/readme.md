@@ -1,57 +1,72 @@
-<html>
-    <b><h1>05 - 3D</h1></b>
-    <b><h2>25 - Betrachtungs - Fenster (Viewport)</h2></b>
+# 05 - 3D
+## 25 - Betrachtungs - Fenster (Viewport)
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.<br>
-Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.<br>
-Der Grund dafür ist, das die Ausgabe immer im Bereich von <b>-1.0</b> bis <b>+1.0</b> in der X und Y-Achse ist.<br>
-<br>
-Um dies zu umgehen, wird bei jeder Grössenänderung des Fenster die Frustum-Matrix neu angepasst.<br>
-Entweder über <b>TMatrix.Frustum(...</b> oder noch einfacher wie im Beispiel mit <b>Matrix.Perspective(...</b> .<br>
-Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.<br>
-<br>
-Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.<br>
+Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.
+Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.
+Der Grund dafür ist, das die Ausgabe immer im Bereich von <b>-1.0</b> bis <b>+1.0</b> in der X und Y-Achse ist.
+
+Um dies zu umgehen, wird bei jeder Grössenänderung des Fenster die Frustum-Matrix neu angepasst.
+Entweder über <b>TMatrix.Frustum(...</b> oder noch einfacher wie im Beispiel mit <b>Matrix.Perspective(...</b> .
+Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.
+
+Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.
 <hr><br>
-Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);
+Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.
+
+```pascal
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
-  ogc.OnResize := @ogcResize;   <i><font color="#FFFF00">// neues Ereigniss</font></i></code></pre>
-Hier wird bei einer Grössenänderung des Fenster die Perspektive angepasst.<br>
-Dabei ist der zweite Parameter relevant.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcResize(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  FrustumMatrix.Perspective(<font color="#0077BB">45</font>, ClientWidth / ClientHeight, <font color="#0077BB">2</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1000</font>.<font color="#0077BB">0</font>);
-<b><font color="0000BB">end</font></b>;</code></pre>
+  ogc.OnResize := @ogcResize;   // neues Ereigniss
+```
+
+Hier wird bei einer Grössenänderung des Fenster die Perspektive angepasst.
+Dabei ist der zweite Parameter relevant.
+
+```pascal
+procedure TForm1.ogcResize(Sender: TObject);
+begin
+  FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
+layout (location = 11) in vec3 inCol; // Farbe
+
+out vec4 Color;                       // Farbe, an Fragment-Shader übergeben.
+
+uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
+  Color = vec4(inCol, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+in vec4 Color;      // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor = Color; // Die Ausgabe der Farbe
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

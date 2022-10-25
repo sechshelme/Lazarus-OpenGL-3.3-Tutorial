@@ -1,70 +1,89 @@
-<html>
-    <b><h1>05 - 3D</h1></b>
-    <b><h2>05 - Polygon - Seite (Backface Culling)</h2></b>
+# 05 - 3D
+## 05 - Polygon - Seite (Backface Culling)
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Die Meshes ist hier noch 2D, aber <b>Backface Culling</b> wird in folgenden 3D-Beispielen gebraucht.<br>
-<br>
-Defaultmässig zeichnet OpenGL immer die Vorder und Rückseite eines Polygones. Für die meisten Meshes ist dies aber nicht nötig.<br>
-Bei einem Würfel ist es nicht nötig, das die Innenseite der Polygone gezeichnet werden, da man diese sowieso nicht sieht.<br>
-Dies spart Rechneleistung, weil jede Pixelüberprüfung Zeit kostet.<br>
-Mit <b>glEnable(GL_CULL_FACE);</b> wird nur die Vorderseite der Polygone gezeichnet. Ausgenommen man schaltet es mit <b>glCullFace(...</b> um, so das nur die Rückseite gezeichnet wird.<br>
-<br>
-In diesem Beispiel, wird dies mit einem Timer demonstriert.<br>
-<br>
-Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerendert werden. Auch dies könnte man <b>glFrontFace(...</b> umstellen.<br>
-Dafür gibt es die Parameter <b>GL_CW</b> für Uhrzeigersinn, und den Default-Parameter <b>GL_CCW</b>.<br>
+Die Meshes ist hier noch 2D, aber <b>Backface Culling</b> wird in folgenden 3D-Beispielen gebraucht.
+
+Defaultmässig zeichnet OpenGL immer die Vorder und Rückseite eines Polygones. Für die meisten Meshes ist dies aber nicht nötig.
+Bei einem Würfel ist es nicht nötig, das die Innenseite der Polygone gezeichnet werden, da man diese sowieso nicht sieht.
+Dies spart Rechneleistung, weil jede Pixelüberprüfung Zeit kostet.
+Mit <b>glEnable(GL_CULL_FACE);</b> wird nur die Vorderseite der Polygone gezeichnet. Ausgenommen man schaltet es mit <b>glCullFace(...</b> um, so das nur die Rückseite gezeichnet wird.
+
+In diesem Beispiel, wird dies mit einem Timer demonstriert.
+
+Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerendert werden. Auch dies könnte man <b>glFrontFace(...</b> umstellen.
+Dafür gibt es die Parameter <b>GL_CW</b> für Uhrzeigersinn, und den Default-Parameter <b>GL_CCW</b>.
 <hr><br>
-Wen man die Konstanten genau anschaut, sieht man, das das Dreieck im Gegenuhrzegersinn und das Qaudrat im Uhrzeigersinn deklariert ist.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  <i><font color="#FFFF00">// Dreieck</font></i>
-  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-<br>
-  <i><font color="#FFFF00">// Quadrat</font></i>
-  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</code></pre>
-Hier wird die Backface Culling aktiviert:<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glEnable(GL_CULL_FACE);           <i><font color="#FFFF00">// Überprüfung einschalten</font></i></code></pre>
-Hier wird zwischen der Rück und Vorder-Seite umgesschalten.<br>
-Man sagt immer, welche Seite nicht gezeichnet wird.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  CullFace: boolean = <b><font color="0000BB">False</font></b>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">if</font></b> CullFace <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-    glCullFace(GL_BACK);      <i><font color="#FFFF00">// Rückseite nicht zeichnen.</font></i>
-  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
-    glCullFace(GL_FRONT);     <i><font color="#FFFF00">// Vorderseite nicht zeichnen.</font></i>
-  <b><font color="0000BB">end</font></b>;
-  CullFace := <b><font color="0000BB">not</font></b> CullFace;
+Wen man die Konstanten genau anschaut, sieht man, das das Dreieck im Gegenuhrzegersinn und das Qaudrat im Uhrzeigersinn deklariert ist.
+
+```pascal
+const
+  // Dreieck
+  Triangle: array[0..0] of TFace =
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
+
+  // Quadrat
+  Quad: array[0..1] of TFace =
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+```
+
+Hier wird die Backface Culling aktiviert:
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  glEnable(GL_CULL_FACE);           // Überprüfung einschalten
+```
+
+Hier wird zwischen der Rück und Vorder-Seite umgesschalten.
+Man sagt immer, welche Seite nicht gezeichnet wird.
+
+```pascal
+procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  CullFace: boolean = False;
+begin
+  if CullFace then begin
+    glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+  end else begin
+    glCullFace(GL_FRONT);     // Vorderseite nicht zeichnen.
+  end;
+  CullFace := not CullFace;
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
+
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+out vec4 outColor;   // ausgegebene Farbe
+
+void main(void)
 {
-  <b><font color="0000BB">vec3</font></b> col = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  vec3 col = vec3(1.0, 0.0, 0.0);
+  outColor = vec4(col, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

@@ -1,108 +1,115 @@
-<html>
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>45 - Spot Light, mit Normale</h2></b>
+# 07 - Beleuchtung
+## 45 - Spot Light, mit Normale
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Jetzt wird auch die normale berücksicht. Somit wird nur die Vorderseite der Dreiecke beleuchtet, so wie es beim Punktlicht auch der Fall ist.<br>
-Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine <b>Normale</b> gebraucht.<br>
+Jetzt wird auch die normale berücksicht. Somit wird nur die Vorderseite der Dreiecke beleuchtet, so wie es beim Punktlicht auch der Fall ist.
+Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine <b>Normale</b> gebraucht.
 <hr><br>
-Hier wird die Kegelberechnung ausgeführt.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-<br>
-<b><font color="0000BB">out</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+Hier wird die Kegelberechnung ausgeführt.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 1) in vec3 inNormal; // Normale
+
+out Data {
+  vec3 pos;
+  vec3 Normal;
 } DataOut;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
-  DataOut.pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
+
+uniform mat4 ModelMatrix;
+uniform mat4 Matrix;                    // Matrix für die Drehbewegung und Frustum.
+
+void main(void) {
+  gl_Position    = Matrix * vec4(inPos, 1.0);
+
+  DataOut.Normal = mat3(ModelMatrix) * inNormal;
+  DataOut.pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<br>
-Zuerst wird geprüft, ob das Fragment sich im Lichtkegel befindet.<br>
-Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
-<b><font color="#008800">#define</font></b> red     <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> green   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> blue    <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)
-<br>
-<b><font color="#008800">#define</font></b> PI      <font color="#0077BB">3</font>.<font color="#0077BB">1415</font>
-<b><font color="#008800">#define</font></b> Cutoff  cos(PI / <font color="#0077BB">2</font> / <font color="#0077BB">4</font>)
-<br>
-<b><font color="0000BB">in</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+<b>Fragment-Shader</b>
+
+Zuerst wird geprüft, ob das Fragment sich im Lichtkegel befindet.
+Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht.
+
+```glsl
+#version 330
+
+#define ambient vec3(0.2, 0.2, 0.2)
+#define red     vec3(1.0, 0.0, 0.0)
+#define green   vec3(0.0, 1.0, 0.0)
+#define blue    vec3(0.0, 0.0, 1.0)
+
+#define PI      3.1415
+#define Cutoff  cos(PI / 2 / 4)
+
+in Data {
+  vec3 pos;
+  vec3 Normal;
 } DataIn;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> RedOn;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> GreenOn;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> BlueOn;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> RedLightPos;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> GreenLightPos;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> BlueLightPos;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<i><font color="#FFFF00">// Prüfen ob Fragment in Lichtkegel.</font></i>
-<b><font color="0000BB">bool</font></b> isCone(<b><font color="0000BB">vec3</font></b> LightPos) {
-<br>
-  <b><font color="0000BB">vec3</font></b> lp = LightPos;
-<br>
-  <b><font color="0000BB">vec3</font></b> lightDirection = normalize(DataIn.pos - lp);
-  <b><font color="0000BB">vec3</font></b> spotDirection  = normalize(-LightPos);
-<br>
-  <b><font color="0000BB">float</font></b> angle = dot(spotDirection, lightDirection);
-  angle = max(angle, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-<br>
-  <b><font color="0000BB">if</font></b>(angle &gt; Cutoff) {
-    <b><font color="0000BB">return</font></b> <b><font color="0000BB">true</font></b>;
-  } <b><font color="0000BB">else</font></b> {
-    <b><font color="0000BB">return</font></b> <b><font color="0000BB">false</font></b>;
+
+uniform bool RedOn;
+uniform bool GreenOn;
+uniform bool BlueOn;
+
+uniform vec3 RedLightPos;
+uniform vec3 GreenLightPos;
+uniform vec3 BlueLightPos;
+
+out vec4 outColor;  // ausgegebene Farbe
+
+// Prüfen ob Fragment in Lichtkegel.
+bool isCone(vec3 LightPos) {
+
+  vec3 lp = LightPos;
+
+  vec3 lightDirection = normalize(DataIn.pos - lp);
+  vec3 spotDirection  = normalize(-LightPos);
+
+  float angle = dot(spotDirection, lightDirection);
+  angle = max(angle, 0.0);
+
+  if(angle &gt; Cutoff) {
+    return true;
+  } else {
+    return false;
   }
 }
-<br>
-<i><font color="#FFFF00">// Lichtstärke anhand der Normale.</font></i>
-<b><font color="0000BB">float</font></b> light(<b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">vec3</font></b> n) {
-  <b><font color="0000BB">vec3</font></b> v1 = normalize(p);     <i><font color="#FFFF00">// Vektoren normalisieren, so das die Länge des Vektors immer 1.0 ist.</font></i>
-  <b><font color="0000BB">vec3</font></b> v2 = normalize(n);
-  <b><font color="0000BB">float</font></b> d = dot(v1, v2);      <i><font color="#FFFF00">// Skalarprodukt aus beiden Vektoren berechnen.</font></i>
-  <b><font color="0000BB">return</font></b> clamp(d, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+
+// Lichtstärke anhand der Normale.
+float light(vec3 p, vec3 n) {
+  vec3 v1 = normalize(p);     // Vektoren normalisieren, so das die Länge des Vektors immer 1.0 ist.
+  vec3 v2 = normalize(n);
+  float d = dot(v1, v2);      // Skalarprodukt aus beiden Vektoren berechnen.
+  return clamp(d, 0.0, 1.0);
 }
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  outColor = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (RedOn) {
-    <b><font color="0000BB">if</font></b> (isCone(RedLightPos)) {
+
+void main(void) {
+  outColor = vec4(ambient, 1.0);
+  if (RedOn) {
+    if (isCone(RedLightPos)) {
       outColor.rgb += light(RedLightPos - DataIn.pos, DataIn.Normal) * red;
     }
   }
-  <b><font color="0000BB">if</font></b> (GreenOn) {
-    <b><font color="0000BB">if</font></b> (isCone(GreenLightPos)) {
+  if (GreenOn) {
+    if (isCone(GreenLightPos)) {
       outColor.rgb += light(GreenLightPos - DataIn.pos, DataIn.Normal) * green;
     }
   }
-  <b><font color="0000BB">if</font></b> (BlueOn) {
-    <b><font color="0000BB">if</font></b> (isCone(BlueLightPos)) {
+  if (BlueOn) {
+    if (isCone(BlueLightPos)) {
       outColor.rgb += light(BlueLightPos - DataIn.pos, DataIn.Normal) * blue;
     }
   }
 }
-<br>
-</code></pre>
-<br>
-</html>
+
+
+```
+
+

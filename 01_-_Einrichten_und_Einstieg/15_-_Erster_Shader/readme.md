@@ -1,136 +1,163 @@
-<html>
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>15 - Erster Shader</h2></b>
+# 01 - Einrichten und Einstieg
+## 15 - Erster Shader
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.<br>
-Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.<br>
-<br>
-In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.<br>
+Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.
+Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.
+
+In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.
 <hr><br>
-Die ID, welche auf den Shader zeigt.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  ProgramID: GLuint;</code></pre>
-Lädt den Vertex- und Fragment-Shader in die Grafikkarte.<br>
-In diesem Beispiel sind die beiden Shader in einer Textdatei.<br>
-Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarieren.<br>
-<pre><code><b><font color="0000BB">function</font></b> Initshader(VertexDatei, FragmentDatei: <b><font color="0000BB">string</font></b>): GLuint;
-<b><font color="0000BB">var</font></b>
+Die ID, welche auf den Shader zeigt.
+
+```pascal
+var
+  ProgramID: GLuint;
+```
+
+Lädt den Vertex- und Fragment-Shader in die Grafikkarte.
+In diesem Beispiel sind die beiden Shader in einer Textdatei.
+Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarieren.
+
+```pascal
+function Initshader(VertexDatei, FragmentDatei: string): GLuint;
+var
   sl: TStringList;
-  s: <b><font color="0000BB">string</font></b>;
-<br>
+  s: string;
+
   ProgramObject: GLhandle;
   VertexShaderObject: GLhandle;
   FragmentShaderObject: GLhandle;
-<br>
+
   ErrorStatus, InfoLogLength: integer;
-<br>
-<b><font color="0000BB">begin</font></b>
+
+begin
   sl := TStringList.Create;
   ProgramObject := glCreateProgram();
-<br>
-  <i><font color="#FFFF00">// Vertex - Shader</font></i>
-<br>
+
+  // Vertex - Shader
+
   VertexShaderObject := glCreateShader(GL_VERTEX_SHADER);
   sl.LoadFromFile(VertexDatei);
   s := sl.Text;
-  glShaderSource(VertexShaderObject, <font color="#0077BB">1</font>, @s, <b><font color="0000BB">nil</font></b>);
+  glShaderSource(VertexShaderObject, 1, @s, nil);
   glCompileShader(VertexShaderObject);
   glAttachShader(ProgramObject, VertexShaderObject);
-<br>
-  <i><font color="#FFFF00">// Check Shader</font></i>
-<br>
+
+  // Check Shader
+
   glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  <b><font color="0000BB">if</font></b> ErrorStatus = <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  if ErrorStatus = 0 then begin
     glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + <font color="#0077BB">1</font>);
-    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, <b><font color="0000BB">nil</font></b>, @s[<font color="#0077BB">1</font>]);
-    Application.MessageBox(PChar(s), <font color="#FF0000">'OpenGL Vertex Fehler'</font>, <font color="#0077BB">48</font>);
+    SetLength(s, InfoLogLength + 1);
+    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, @s[1]);
+    Application.MessageBox(PChar(s), 'OpenGL Vertex Fehler', 48);
     Halt;
-  <b><font color="0000BB">end</font></b>;
-<br>
+  end;
+
   glDeleteShader(VertexShaderObject);
-<br>
-  <i><font color="#FFFF00">// Fragment - Shader</font></i>
-<br>
+
+  // Fragment - Shader
+
   FragmentShaderObject := glCreateShader(GL_FRAGMENT_SHADER);
   sl.LoadFromFile(FragmentDatei);
   s := sl.Text;
-  glShaderSource(FragmentShaderObject, <font color="#0077BB">1</font>, @s, <b><font color="0000BB">nil</font></b>);
+  glShaderSource(FragmentShaderObject, 1, @s, nil);
   glCompileShader(FragmentShaderObject);
   glAttachShader(ProgramObject, FragmentShaderObject);
-<br>
-  <i><font color="#FFFF00">// Check Shader</font></i>
-<br>
+
+  // Check Shader
+
   glGetShaderiv(FragmentShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  <b><font color="0000BB">if</font></b> ErrorStatus = <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  if ErrorStatus = 0 then begin
     glGetShaderiv(FragmentShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + <font color="#0077BB">1</font>);
-    glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, <b><font color="0000BB">nil</font></b>, @s[<font color="#0077BB">1</font>]);
-    Application.MessageBox(PChar(s), <font color="#FF0000">'OpenGL Fragment Fehler'</font>, <font color="#0077BB">48</font>);
+    SetLength(s, InfoLogLength + 1);
+    glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, nil, @s[1]);
+    Application.MessageBox(PChar(s), 'OpenGL Fragment Fehler', 48);
     Halt;
-  <b><font color="0000BB">end</font></b>;
-<br>
+  end;
+
   glDeleteShader(FragmentShaderObject);
-  glLinkProgram(ProgramObject);    <i><font color="#FFFF00">// Die beiden Shader zusammen linken</font></i>
-<br>
-  <i><font color="#FFFF00">// Check Link</font></i>
+  glLinkProgram(ProgramObject);    // Die beiden Shader zusammen linken
+
+  // Check Link
   glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
-  <b><font color="0000BB">if</font></b> ErrorStatus = <font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+  if ErrorStatus = 0 then begin
     glGetProgramiv(ProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + <font color="#0077BB">1</font>);
-    glGetProgramInfoLog(ProgramObject, InfoLogLength, <b><font color="0000BB">nil</font></b>, @s[<font color="#0077BB">1</font>]);
-    Application.MessageBox(PChar(s), <font color="#FF0000">'OpenGL ShaderLink Fehler'</font>, <font color="#0077BB">48</font>);
+    SetLength(s, InfoLogLength + 1);
+    glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, @s[1]);
+    Application.MessageBox(PChar(s), 'OpenGL ShaderLink Fehler', 48);
     Halt;
-  <b><font color="0000BB">end</font></b>;
-<br>
+  end;
+
   Result := ProgramObject;
   sl.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Dieser Code wurde um 2 Zeilen erweitert.<br>
-<br>
-In der ersten Zeile wird der Shader in die Grafikkarte geladen.<br>
-Die zweite Zeile aktiviert den Shader.<br>
-Dies wird spätestens dann interessant, wenn man mehrere Shader verwendet.<br>
-Näheres im Kapitel Shader.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  ProgramID := InitShader(<font color="#FF0000">'Vertexshader.glsl'</font>, <font color="#FF0000">'Fragmentshader.glsl'</font>);
-  glUseProgram(programID);</code></pre>
-Beim Zeichnen muss man auch mit <b>glUseProgram(...</b> den Shader wählen, mit welchem das Mesh gezeichnet wird.<br>
-Bei diesem Mini-Code könnte dies weggelassen werden, da nur ein Shader verwendet wird und dieser bereits in TForm1.CreateScene aktiviert wurde.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+end;
+```
+
+Dieser Code wurde um 2 Zeilen erweitert.
+
+In der ersten Zeile wird der Shader in die Grafikkarte geladen.
+Die zweite Zeile aktiviert den Shader.
+Dies wird spätestens dann interessant, wenn man mehrere Shader verwendet.
+Näheres im Kapitel Shader.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  ProgramID := InitShader('Vertexshader.glsl', 'Fragmentshader.glsl');
+  glUseProgram(programID);
+```
+
+Beim Zeichnen muss man auch mit <b>glUseProgram(...</b> den Shader wählen, mit welchem das Mesh gezeichnet wird.
+Bei diesem Mini-Code könnte dies weggelassen werden, da nur ein Shader verwendet wird und dieser bereits in TForm1.CreateScene aktiviert wurde.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
-  glUseProgram(programID);</code></pre>
-Am Ende noch mit <b>glDeleteShader(...</b> die Shader in der Grafikkarte wieder freigeben.<br>
-In diesem Code ist dies nur einer.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  glDeleteProgram(ProgramID);</code></pre>
+
+  glUseProgram(programID);
+```
+
+Am Ende noch mit <b>glDeleteShader(...</b> die Shader in der Grafikkarte wieder freigeben.
+In diesem Code ist dies nur einer.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  glDeleteProgram(ProgramID);
+```
+
 <hr><br>
-Die beiden verwendeten Shader, Details dazu im Kapitel Shader.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+Die beiden verwendeten Shader, Details dazu im Kapitel Shader.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;
+
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

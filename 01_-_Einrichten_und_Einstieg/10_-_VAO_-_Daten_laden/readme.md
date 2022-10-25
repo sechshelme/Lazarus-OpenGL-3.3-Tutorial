@@ -1,123 +1,150 @@
-<html>
-    <b><h1>01 - Einrichten und Einstieg</h1></b>
-    <b><h2>10 - VAO - Daten laden</h2></b>
+# 01 - Einrichten und Einstieg
+## 10 - VAO - Daten laden
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.<br>
-<b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.<br>
-Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Windows sichtbar sein.<br>
-Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.<br>
+Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.
+<b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.
+Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Windows sichtbar sein.
+Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.
 <hr><br>
-Typen-Deklaration für die Face-Daten.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TVertex3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> GLfloat;
-  TFace = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVertex3f;</code></pre>
-Koordinaten für das Mesh, hier ein Dreieck und ein Quadrat, welches wir später in das VRAM (Video-Ram) rendern.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  Triangle: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-  Quad: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</code></pre>
-Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der grösste Teil, die Klasse <b>TContext</b>, der Unit <b>oglContext</b>.<br>
-Anstelle von <b>Self</b>, kann auch ein anderes <b>TWinControl</b> angegeben werden, zB. ein <b>TPanel</b>.<br>
-<br>
-Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffer für die Mesh erzeugen und die Vertexkoordinaten in den Puffer laden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  ogc := TContext.Create(<b><font color="0000BB">Self</font></b>);  <i><font color="#FFFF00">// Den Context erzeugen und OpenGL inizialisieren.</font></i>
-  ogc.OnPaint := @ogcDrawScene;  <i><font color="#FFFF00">// OnPaint-Ereigniss von dem Contextfenster.</font></i>
-<br>
-  CreateScene;                   <i><font color="#FFFF00">// Puffer anlegen.</font></i>
-  InitScene;                     <i><font color="#FFFF00">// Vertex-Daten in den Buffer schreiben.</font></i>
-<b><font color="0000BB">end</font></b>;</code></pre>
-Buffer für Vertex-Daten anlegen.<br>
-<br>
-Mit <b>glGenVertexArrays(...</b> wird ein <b>Vertex Array Object</b> für jedes Mesh erzeugt.<br>
-Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex-Daten des Meshes erzeugt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  glGenVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
-  glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-<br>
-  glGenBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
-<b><font color="0000BB">end</font></b>;</code></pre>
-Die folgenden Anweisungen laden die Vertex-Daten in das VRAM.<br>
-<br>
-Mit <b>glBindVertexArray(...</b> wird das gewünschte Mesh gebunden, so das man mit <b>glBufferData(...</b> die Vertex-Daten in das VRAM schreiben kann.<br>
-Mit <b>glEnableVertexAttribArray(...</b> gibt man an, welches Layout man im Shader will.<br>
-Mit <b>glVertexAttribPointer(...</b> gibt man an, in welchem Format man die Vertex-Daten übergeben hat.<br>
-Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.<br>
-<br>
-<b>InitScene</b> kann zur Laufzeit mit anderen Daten geladen werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<br>
-  <i><font color="#FFFF00">// Daten für das Dreieck</font></i>
+Typen-Deklaration für die Face-Daten.
+
+```pascal
+type
+  TVertex3f = array[0..2] of GLfloat;
+  TFace = array[0..2] of TVertex3f;
+```
+
+Koordinaten für das Mesh, hier ein Dreieck und ein Quadrat, welches wir später in das VRAM (Video-Ram) rendern.
+
+```pascal
+const
+  Triangle: array[0..0] of TFace =
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
+  Quad: array[0..1] of TFace =
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+```
+
+Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der grösste Teil, die Klasse <b>TContext</b>, der Unit <b>oglContext</b>.
+Anstelle von <b>Self</b>, kann auch ein anderes <b>TWinControl</b> angegeben werden, zB. ein <b>TPanel</b>.
+
+Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffer für die Mesh erzeugen und die Vertexkoordinaten in den Puffer laden.
+
+```pascal
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  ogc := TContext.Create(Self);  // Den Context erzeugen und OpenGL inizialisieren.
+  ogc.OnPaint := @ogcDrawScene;  // OnPaint-Ereigniss von dem Contextfenster.
+
+  CreateScene;                   // Puffer anlegen.
+  InitScene;                     // Vertex-Daten in den Buffer schreiben.
+end;
+```
+
+Buffer für Vertex-Daten anlegen.
+
+Mit <b>glGenVertexArrays(...</b> wird ein <b>Vertex Array Object</b> für jedes Mesh erzeugt.
+Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex-Daten des Meshes erzeugt.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  glGenVertexArrays(1, @VBTriangle.VAO);
+  glGenVertexArrays(1, @VBQuad.VAO);
+
+  glGenBuffers(1, @VBTriangle.VBO);
+  glGenBuffers(1, @VBQuad.VBO);
+end;
+```
+
+Die folgenden Anweisungen laden die Vertex-Daten in das VRAM.
+
+Mit <b>glBindVertexArray(...</b> wird das gewünschte Mesh gebunden, so das man mit <b>glBufferData(...</b> die Vertex-Daten in das VRAM schreiben kann.
+Mit <b>glEnableVertexAttribArray(...</b> gibt man an, welches Layout man im Shader will.
+Mit <b>glVertexAttribPointer(...</b> gibt man an, in welchem Format man die Vertex-Daten übergeben hat.
+Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.
+
+<b>InitScene</b> kann zur Laufzeit mit anderen Daten geladen werden.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+
+  // Daten für das Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// Daten für das Quadrat</font></i>
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  // Daten für das Quadrat
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</code></pre>
-Jetzt wird das gerenderte Objekt im VRAM auf dem Bildschirm ausgegeben.<br>
-<br>
-Da kommt ein grosser Vorteil von OpenGL 3.3 zu Geltung.<br>
-<br>
-Man muss nur noch mit <b>glBindVertexArray(...</b> das Mesh wählen, das man ausgeben will.<br>
-Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIANGLES</b> Dreiecke ausgegeben.<br>
-Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !<br>
-<br>
-Shapes, welche funktionieren:<br>
-<br>
-* GL_POINTS<br>
-* GL_LINES<br>
-* GL_LINE_STRIP<br>
-* GL_LINE_LOOP<br>
-* GL_TRIANGLES<br>
-* GL_TRIANGLE_STRIP<br>
-* GL_TRIANGLE_FAN<br>
-<br>
-Da gibt es noch spezial-Versionen, diese sind aber nur mit einem Geometrie-Shader sinnvoll.<br>
-Den Geometrie-Shader werde ich später erwähnen.<br>
-<br>
-* GL_LINES_ADJACENCY<br>
-* GL_LINE_STRIP_ADJACENCY<br>
-* GL_TRIANGLES_ADJACENCY<br>
-* GL_TRIANGLE_STRIP_ADJACENCY<br>
-<br>
-Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+end;
+```
+
+Jetzt wird das gerenderte Objekt im VRAM auf dem Bildschirm ausgegeben.
+
+Da kommt ein grosser Vorteil von OpenGL 3.3 zu Geltung.
+
+Man muss nur noch mit <b>glBindVertexArray(...</b> das Mesh wählen, das man ausgeben will.
+Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIANGLES</b> Dreiecke ausgegeben.
+Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !
+
+Shapes, welche funktionieren:
+
+* GL_POINTS
+* GL_LINES
+* GL_LINE_STRIP
+* GL_LINE_LOOP
+* GL_TRIANGLES
+* GL_TRIANGLE_STRIP
+* GL_TRIANGLE_FAN
+
+Da gibt es noch spezial-Versionen, diese sind aber nur mit einem Geometrie-Shader sinnvoll.
+Den Geometrie-Shader werde ich später erwähnen.
+
+* GL_LINES_ADJACENCY
+* GL_LINE_STRIP_ADJACENCY
+* GL_TRIANGLES_ADJACENCY
+* GL_TRIANGLE_STRIP_ADJACENCY
+
+Zum Schluss muss noch der Frame-Puffer auf den Bildschirm kopiert werden.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
-  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+
+  // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-<br>
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+
+  // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
-<br>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBTriangle.VAO);
-  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-<br>
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBTriangle.VBO);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBO);
-<b><font color="0000BB">end</font></b>;
-</code></pre>
-<br>
-</html>
+end;
+```
+
+Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  glDeleteVertexArrays(1, @VBTriangle.VAO);
+  glDeleteVertexArrays(1, @VBQuad.VAO);
+
+  glDeleteBuffers(1, @VBTriangle.VBO);
+  glDeleteBuffers(1, @VBQuad.VBO);
+end;
+
+```
+
+

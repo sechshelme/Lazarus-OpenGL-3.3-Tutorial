@@ -1,267 +1,294 @@
-<html>
-    <b><h1>17 - Uniform Buffer Object (UBO)</h1></b>
-    <b><h2>15 - Mehrer Shader und BindingPoint</h2></b>
+# 17 - Uniform Buffer Object (UBO)
+## 15 - Mehrer Shader und BindingPoint
+
 <img src="image.png" alt="Selfhtml"><br><br>
-In diesem Beispiel wird gezeigt, was der <b>BindingPoint</b> für einen Einfluss hat.<br>
-Es werden 3 Shader erzeugt, das es einfacher ist, habe ich 3mal die gleichen Shader-Sourcen genommen.<br>
-Bei 2 Shadern werden die UBO-Daten mit dem <b>BindingPoint 0</b> verbunden, der einzelne Shader mit <b>BindingPoint</b> 1.<br>
+In diesem Beispiel wird gezeigt, was der <b>BindingPoint</b> für einen Einfluss hat.
+Es werden 3 Shader erzeugt, das es einfacher ist, habe ich 3mal die gleichen Shader-Sourcen genommen.
+Bei 2 Shadern werden die UBO-Daten mit dem <b>BindingPoint 0</b> verbunden, der einzelne Shader mit <b>BindingPoint</b> 1.
 <hr><br>
-Es werden drei UNOs angelegt.<br>
-Die Uniform IDs werden füür jeden Shader einzeln ID gebraucht.<br>
-Daher habe ich es in einem Record zusammengefasst.<br>
-<br>
-Man sieht auch, das 2 BindingPoints verwendet werden.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  UBO: <b><font color="0000BB">record</font></b>
-    Rubin, Jade, Smaragdgruen: GLuint;        <i><font color="#FFFF00">// Puffer-Zeiger</font></i>
-  <b><font color="0000BB">end</font></b>;
-<br>
-  ShaderData: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> <b><font color="0000BB">record</font></b>
+Es werden drei UNOs angelegt.
+Die Uniform IDs werden füür jeden Shader einzeln ID gebraucht.
+Daher habe ich es in einem Record zusammengefasst.
+
+Man sieht auch, das 2 BindingPoints verwendet werden.
+
+```pascal
+var
+  UBO: record
+    Rubin, Jade, Smaragdgruen: GLuint;        // Puffer-Zeiger
+  end;
+
+  ShaderData: array[0..2] of record
     Shader: TShader;
     Material_ID,
     ModelMatrix_ID,
     Matrix_ID: GLint;
-  <b><font color="0000BB">end</font></b>;
-<br>
-  bindingPoint0: gluint = <font color="#0077BB">0</font>;
-  bindingPoint1: gluint = <font color="#0077BB">1</font>;</code></pre>
-Es werden 3 Shader geladen in die Uniform-IDs ausgelesen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">var</font></b>
+  end;
+
+  bindingPoint0: gluint = 0;
+  bindingPoint1: gluint = 1;
+```
+
+Es werden 3 Shader geladen in die Uniform-IDs ausgelesen.
+
+```pascal
+procedure TForm1.CreateScene;
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">2</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">with</font></b> ShaderData[i] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-      Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
-      <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+begin
+  for i := 0 to 2 do begin
+    with ShaderData[i] do begin
+      Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+      with Shader do begin
         UseProgram;
-        Matrix_ID := UniformLocation(<font color="#FF0000">'Matrix'</font>);
-        ModelMatrix_ID := UniformLocation(<font color="#FF0000">'ModelMatrix'</font>);
-<br>
-        Material_ID := UniformBlockIndex(<font color="#FF0000">'Material'</font>); <i><font color="#FFFF00">// ID aus dem Shader holen.</font></i>
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Material-Daten in den UBO-Puffer laden und binden.<br>
-<br>
-Man sieht, das beim Shader[2] ein anderer BindingPoint verwendet wird.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  <i><font color="#FFFF00">// Puffer für Rubin anlegen.</font></i>
-  <b><font color="0000BB">with</font></b> Material <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    ambient := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">17</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>, <font color="#0077BB">0</font>.<font color="#0077BB">01</font>);
-    diffuse := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">61</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>, <font color="#0077BB">0</font>.<font color="#0077BB">04</font>);
-    specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">73</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
-    shininess := <font color="#0077BB">76</font>.<font color="#0077BB">8</font>;
-  <b><font color="0000BB">end</font></b>;
+        Matrix_ID := UniformLocation('Matrix');
+        ModelMatrix_ID := UniformLocation('ModelMatrix');
+
+        Material_ID := UniformBlockIndex('Material'); // ID aus dem Shader holen.
+      end;
+    end;
+  end;
+```
+
+Material-Daten in den UBO-Puffer laden und binden.
+
+Man sieht, das beim Shader[2] ein anderer BindingPoint verwendet wird.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  // Puffer für Rubin anlegen.
+  with Material do begin
+    ambient := vec3(0.17, 0.01, 0.01);
+    diffuse := vec3(0.61, 0.04, 0.04);
+    specular := vec3(0.73, 0.63, 0.63);
+    shininess := 76.8;
+  end;
   glBindBuffer(GL_UNIFORM_BUFFER, UBO.Rubin);
   glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
-<br>
-  <i><font color="#FFFF00">// Puffer für Jade anlegen.</font></i>
-  <b><font color="0000BB">with</font></b> Material <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    ambient := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">14</font>, <font color="#0077BB">0</font>.<font color="#0077BB">22</font>, <font color="#0077BB">0</font>.<font color="#0077BB">16</font>);
-    diffuse := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">54</font>, <font color="#0077BB">0</font>.<font color="#0077BB">89</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
-    specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">32</font>, <font color="#0077BB">0</font>.<font color="#0077BB">32</font>, <font color="#0077BB">0</font>.<font color="#0077BB">32</font>);
-    shininess := <font color="#0077BB">12</font>.<font color="#0077BB">8</font>;
-  <b><font color="0000BB">end</font></b>;
+
+  // Puffer für Jade anlegen.
+  with Material do begin
+    ambient := vec3(0.14, 0.22, 0.16);
+    diffuse := vec3(0.54, 0.89, 0.63);
+    specular := vec3(0.32, 0.32, 0.32);
+    shininess := 12.8;
+  end;
   glBindBuffer(GL_UNIFORM_BUFFER, UBO.Jade);
   glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
-<br>
-  <i><font color="#FFFF00">// Puffer für Smaragdgruen anlegen.</font></i>
-  <b><font color="0000BB">with</font></b> Material <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    ambient := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">02</font>, <font color="#0077BB">0</font>.<font color="#0077BB">17</font>, <font color="#0077BB">0</font>.<font color="#0077BB">02</font>);
-    diffuse := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">08</font>, <font color="#0077BB">0</font>.<font color="#0077BB">81</font>, <font color="#0077BB">0</font>.<font color="#0077BB">08</font>);
-    specular := vec3(<font color="#0077BB">0</font>.<font color="#0077BB">63</font>, <font color="#0077BB">0</font>.<font color="#0077BB">73</font>, <font color="#0077BB">0</font>.<font color="#0077BB">63</font>);
-    shininess := <font color="#0077BB">76</font>.<font color="#0077BB">8</font>;
-  <b><font color="0000BB">end</font></b>;
+
+  // Puffer für Smaragdgruen anlegen.
+  with Material do begin
+    ambient := vec3(0.02, 0.17, 0.02);
+    diffuse := vec3(0.08, 0.81, 0.08);
+    specular := vec3(0.63, 0.73, 0.63);
+    shininess := 76.8;
+  end;
   glBindBuffer(GL_UNIFORM_BUFFER, UBO.Smaragdgruen);
   glBufferData(GL_UNIFORM_BUFFER, sizeof(TMaterial), @Material, GL_DYNAMIC_DRAW);
-<br>
-  <i><font color="#FFFF00">// Verbindung mit dem Shader aufbauen.</font></i>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">0</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+  // Verbindung mit dem Shader aufbauen.
+  with ShaderData[0] do begin
     glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint0);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">1</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+  end;
+
+  with ShaderData[1] do begin
     glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint0);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+  end;
+
+  with ShaderData[2] do begin
     glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint1);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// Die Puffer das erste mal binden.</font></i>
-  <i><font color="#FFFF00">// Das sieht man, das der Shader[2] mit Jade gebunden wird.</font></i>
+  end;
+
+  // Die Puffer das erste mal binden.
+  // Das sieht man, das der Shader[2] mit Jade gebunden wird.
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint0, UBO.Rubin);
   glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint1, UBO.Jade);
-</code></pre>
-Die Scene wird drei mal mit unterschiedlichen Shadern gezeichnet.<br>
-Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebunden sind.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+
+```
+
+Die Scene wird drei mal mit unterschiedlichen Shadern gezeichnet.
+Um die UBO muss man da sich nicht kümmern, das diese mit dem BindingPoint gebunden sind.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   scal, d: single;
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);  <i><font color="#FFFF00">// Frame und Tiefen-Buffer löschen.</font></i>
-<br>
+begin
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
+
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-<br>
+
   glBindVertexArray(VBCube.VAO);
-<br>
-  d := <font color="#0077BB">6</font>.<font color="#0077BB">0</font>;
-  scal := <font color="#0077BB">10</font>;
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Kugeln</font></i>
-<br>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">0</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+  d := 6.0;
+  scal := 10;
+
+  // --- Zeichne Kugeln
+
+  with ShaderData[0] do begin
     Shader.UseProgram;
-<br>
+
     Matrix.Identity;
     Matrix.Translate(d, d, d);
     Matrix.Scale(scal);
     Matrix := ModelMatrix * Matrix;
-<br>
-    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
-<br>
-    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-<br>
+
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
+
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
+
     Matrix.Uniform(Matrix_ID);
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Kugeln</font></i>
-<br>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">1</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
+  end;
+
+  // --- Zeichne Kugeln
+
+  with ShaderData[1] do begin
     Shader.UseProgram;
-<br>
+
     Matrix.Identity;
-    Matrix.Translate(d + <font color="#0077BB">30</font>, d, d);
+    Matrix.Translate(d + 30, d, d);
     Matrix.Scale(scal);
     Matrix := ModelMatrix * Matrix;
-<br>
-    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
-<br>
-    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-<br>
+
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
+
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
+
     Matrix.Uniform(Matrix_ID);
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Kugeln</font></i>
-<br>
-  <b><font color="0000BB">with</font></b> ShaderData[<font color="#0077BB">2</font>] <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
+  end;
+
+  // --- Zeichne Kugeln
+
+  with ShaderData[2] do begin
     Shader.UseProgram;
-<br>
+
     Matrix.Identity;
-    Matrix.Translate(d - <font color="#0077BB">30</font>, d, d);
+    Matrix.Translate(d - 30, d, d);
     Matrix.Scale(scal);
     Matrix := ModelMatrix * Matrix;
-<br>
-    Matrix.Uniform(ModelMatrix_ID);                        <i><font color="#FFFF00">// Erste Übergabe an den Shader.</font></i>
-<br>
-    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-<br>
+
+    Matrix.Uniform(ModelMatrix_ID);                        // Erste Übergabe an den Shader.
+
+    Matrix := FrustumMatrix * WorldMatrix *  Matrix;       // Matrizen multiplizieren.
+
     Matrix.Uniform(Matrix_ID);
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(SphereVertex) * <font color="#0077BB">3</font>);
-  <b><font color="0000BB">end</font></b>;
-<br>
+    glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
+  end;
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Es wird nur der BindingPoint 0 geändert.<br>
-Somit sit man beim <b>Shader[2]</b> der mit <b>BindingPoint 1</b> gebunden ist keine Änderung.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer2Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  m: integer = <font color="#0077BB">0</font>;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">case</font></b> m <b><font color="0000BB">of</font></b>
-    <font color="#0077BB">0</font>: <b><font color="0000BB">begin</font></b>
+end;
+```
+
+Es wird nur der BindingPoint 0 geändert.
+Somit sit man beim <b>Shader[2]</b> der mit <b>BindingPoint 1</b> gebunden ist keine Änderung.
+
+```pascal
+procedure TForm1.Timer2Timer(Sender: TObject);
+const
+  m: integer = 0;
+begin
+  case m of
+    0: begin
       glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint0, UBO.Rubin);
-    <b><font color="0000BB">end</font></b>;
-    <font color="#0077BB">1</font>: <b><font color="0000BB">begin</font></b>
+    end;
+    1: begin
       glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint0, UBO.Smaragdgruen);
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-<br>
+    end;
+  end;
+
   Inc(m);
-  <b><font color="0000BB">if</font></b> m &gt; <font color="#0077BB">1</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-    m := <font color="#0077BB">0</font>;
-  <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</code></pre>
+  if m &gt; 1 then begin
+    m := 0;
+  end;
+end;
+```
+
 <hr><br>
-Der Shader ist der selbe wie im ersten Beispiel.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inNormal; <i><font color="#FFFF00">// Normale</font></i>
-<br>
-<i><font color="#FFFF00">// Daten für Fragment-shader</font></i>
-<b><font color="0000BB">out</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> Pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+Der Shader ist der selbe wie im ersten Beispiel.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 1) in vec3 inNormal; // Normale
+
+// Daten für Fragment-shader
+out Data {
+  vec3 Pos;
+  vec3 Normal;
 } DataOut;
-<br>
-<i><font color="#FFFF00">// Matrix des Modeles, ohne Frustum-Beeinflussung.</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> ModelMatrix;
-<br>
-<i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+// Matrix des Modeles, ohne Frustum-Beeinflussung.
+uniform mat4 ModelMatrix;
+
+// Matrix für die Drehbewegung und Frustum.
+uniform mat4 Matrix;
+
+void main(void)
 {
-  gl_Position    = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  DataOut.Normal = <b><font color="0000BB">mat3</font></b>(ModelMatrix) * inNormal;
-  DataOut.Pos    = (ModelMatrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xyz;
+  gl_Position    = Matrix * vec4(inPos, 1.0);
+
+  DataOut.Normal = mat3(ModelMatrix) * inNormal;
+  DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<i><font color="#FFFF00">// Licht</font></i>
-<b><font color="#008800">#define</font></b> Lposition  <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">35</font>.<font color="#0077BB">0</font>, <font color="#0077BB">17</font>.<font color="#0077BB">5</font>, <font color="#0077BB">35</font>.<font color="#0077BB">0</font>)
-<b><font color="#008800">#define</font></b> Lambient   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">8</font>)
-<b><font color="#008800">#define</font></b> Ldiffuse   <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">5</font>)
-<br>
-<i><font color="#FFFF00">// Daten vom Vertex-Shader</font></i>
-<b><font color="0000BB">in</font></b> Data {
-  <b><font color="0000BB">vec3</font></b> Pos;
-  <b><font color="0000BB">vec3</font></b> Normal;
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+// Licht
+#define Lposition  vec3(35.0, 17.5, 35.0)
+#define Lambient   vec3(1.8, 1.8, 1.8)
+#define Ldiffuse   vec3(1.5, 1.5, 1.5)
+
+// Daten vom Vertex-Shader
+in Data {
+  vec3 Pos;
+  vec3 Normal;
 } DataIn;
-<br>
-<b><font color="0000BB">layout</font></b> (std140) <b><font color="0000BB">uniform</font></b> Material {
-  <b><font color="0000BB">vec3</font></b>  Mambient;   <i><font color="#FFFF00">// Umgebungslicht</font></i>
-  <b><font color="0000BB">vec3</font></b>  Mdiffuse;   <i><font color="#FFFF00">// Farbe</font></i>
-  <b><font color="0000BB">vec3</font></b>  Mspecular;  <i><font color="#FFFF00">// Spiegelnd</font></i>
-  <b><font color="0000BB">float</font></b> Mshininess; <i><font color="#FFFF00">// Glanz</font></i>
+
+layout (std140) uniform Material {
+  vec3  Mambient;   // Umgebungslicht
+  vec3  Mdiffuse;   // Farbe
+  vec3  Mspecular;  // Spiegelnd
+  float Mshininess; // Glanz
 };
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;
-<br>
-<b><font color="0000BB">vec3</font></b> Light(<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> p, <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> n) {
-  <b><font color="0000BB">vec3</font></b> nn = normalize(n);
-  <b><font color="0000BB">vec3</font></b> np = normalize(p);
-  <b><font color="0000BB">vec3</font></b> diffuse;   <i><font color="#FFFF00">// Licht</font></i>
-  <b><font color="0000BB">vec3</font></b> specular;  <i><font color="#FFFF00">// Reflektion</font></i>
-  <b><font color="0000BB">float</font></b> angele = max(dot(nn, np), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">if</font></b> (angele &gt; <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) {
-    <b><font color="0000BB">vec3</font></b> eye = normalize(np + <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
-    specular = pow(max(dot(eye, nn), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), Mshininess) * Mspecular;
+
+out vec4 outColor;
+
+vec3 Light(in vec3 p, in vec3 n) {
+  vec3 nn = normalize(n);
+  vec3 np = normalize(p);
+  vec3 diffuse;   // Licht
+  vec3 specular;  // Reflektion
+  float angele = max(dot(nn, np), 0.0);
+  if (angele &gt; 0.0) {
+    vec3 eye = normalize(np + vec3(0.0, 0.0, 1.0));
+    specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;
-  } <b><font color="0000BB">else</font></b> {
-    specular = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    diffuse  = <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  } else {
+    specular = vec3(0.0);
+    diffuse  = vec3(0.0);
   }
-  <b><font color="0000BB">return</font></b> (Mambient * Lambient) + diffuse + specular;
+  return (Mambient * Lambient) + diffuse + specular;
 }
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Light(Lposition - DataIn.Pos, DataIn.Normal), <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);
 }
-<br>
-</code></pre>
-<br>
-</html>
+
+
+```
+
+

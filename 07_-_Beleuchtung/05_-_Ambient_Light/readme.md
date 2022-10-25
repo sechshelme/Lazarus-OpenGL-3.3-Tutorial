@@ -1,42 +1,49 @@
-<html>
-    <b><h1>07 - Beleuchtung</h1></b>
-    <b><h2>05 - Ambient Light</h2></b>
+# 07 - Beleuchtung
+## 05 - Ambient Light
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.<br>
-Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.<br>
-<br>
-In der Praxis wir Ambient mit anderen Beleuchtungen kombiniert.<br>
-<br>
-Am Shader an sieht man, wie einfach Ambient ist.<br>
+Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.
+Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.
+
+In der Praxis wir Ambient mit anderen Beleuchtungen kombiniert.
+
+Am Shader an sieht man, wie einfach Ambient ist.
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<i><font color="#FFFF00">// Eine leichte Ausleuchtung in Grau.</font></i>
-<b><font color="#008800">#define</font></b> ambient <b><font color="0000BB">vec3</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>, <font color="#0077BB">0</font>.<font color="#0077BB">2</font>)
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                         <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                    <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  Color = <b><font color="0000BB">vec4</font></b>(ambient, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+// Eine leichte Ausleuchtung in Grau.
+#define ambient vec3(0.2, 0.2, 0.2)
+
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+
+out vec4 Color;                         // Farbe, an Fragment-Shader übergeben.
+
+uniform mat4 Matrix;                    // Matrix für die Drehbewegung und Frustum.
+
+void main(void) {
+  gl_Position = Matrix * vec4(inPos, 1.0);
+
+  Color = vec4(ambient, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>) {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+in  vec4 Color;     // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
+
+void main(void) {
+  outColor = Color; // Die Ausgabe der Farbe
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

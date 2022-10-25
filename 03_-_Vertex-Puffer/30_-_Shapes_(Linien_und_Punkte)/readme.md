@@ -1,102 +1,121 @@
-<html>
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>30 - Shapes (Linien und Punkte)</h2></b>
+# 03 - Vertex-Puffer
+## 30 - Shapes (Linien und Punkte)
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.<br>
-Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.<br>
-Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit <b>glDrawArrays(GL_TRIANGLES_STRIP, ...</b>.<br>
-Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit <b>glDrawArrays(GL_TRIANGLES_FAN, ...</b>.<br>
-<br>
-Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.<br>
+Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.
+Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
+Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit <b>glDrawArrays(GL_TRIANGLES_STRIP, ...</b>.
+Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit <b>glDrawArrays(GL_TRIANGLES_FAN, ...</b>.
+
+Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.
 <hr><br>
-Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  Linies: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> TVertex2f; <i><font color="#FFFF00">// XY-Koordinaten</font></i></code></pre>
-Hier werden die Daten in die Grafikkarte geschrieben.<br>
-Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<br>
-  <i><font color="#FFFF00">// Daten für GL_TRIANGLE</font></i>
+Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.
+
+```pascal
+var
+  Linies: array of TVertex2f; // XY-Koordinaten
+```
+
+Hier werden die Daten in die Grafikkarte geschrieben.
+Es hat nichts besonderes, da für jede Mesh die gleichen Koordinaten verwendet werden.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+
+  // Daten für GL_TRIANGLE
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Linies), Pointer(Linies), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<b><font color="0000BB">end</font></b>;</code></pre>
-Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.<br>
-Hier werden vier Möglichkeiten gezeigt, dazu werden immer die gleichen Vertex-Koordinaten verwendet. Daher sieht man den Unterschied gut.<br>
-<br>
-Mit <b>glLineWidth(...</b> kann die Linienbreite angegeben werden, default ist <b>1.0</b> .<br>
-Mit <b>glPointSize(...</b> kann der Durchmesser der Punkte angegeben werden, default ist <b>1.0</b> .<br>
-Für die Punkte gibt es noch eine andere Möglichkeit, man kann den Durchmesser auch im Shader angegeben, dazu später.<br>
-<br>
-Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben diese beiden Parameter auch einen Einfluss.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  ofs = <font color="#0077BB">0</font>.<font color="#0077BB">4</font>;
-<b><font color="0000BB">begin</font></b>
+  glEnableVertexAttribArray(10);
+  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+end;
+```
+
+Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
+Hier werden vier Möglichkeiten gezeigt, dazu werden immer die gleichen Vertex-Koordinaten verwendet. Daher sieht man den Unterschied gut.
+
+Mit <b>glLineWidth(...</b> kann die Linienbreite angegeben werden, default ist <b>1.0</b> .
+Mit <b>glPointSize(...</b> kann der Durchmesser der Punkte angegeben werden, default ist <b>1.0</b> .
+Für die Punkte gibt es noch eine andere Möglichkeit, man kann den Durchmesser auch im Shader angegeben, dazu später.
+
+Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben diese beiden Parameter auch einen Einfluss.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+const
+  ofs = 0.4;
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VBTriangle.VAO);
-<br>
-  <i><font color="#FFFF00">// Zeichne GL_LINES</font></i>
-  glLineWidth(<font color="#0077BB">3</font>);                        <i><font color="#FFFF00">// Linie 3 Pixel breit.</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>) ; <i><font color="#FFFF00">// Gelb</font></i>
-  glUniform1f(X_ID, -ofs);               <i><font color="#FFFF00">// links-</font></i>
-  glUniform1f(Y_ID, -ofs);               <i><font color="#FFFF00">// unten</font></i>
-  glDrawArrays(GL_LINES, <font color="#0077BB">0</font>, Length(Linies));
-<br>
-  <i><font color="#FFFF00">// Zeichne GL_LINE_STRIP</font></i>
-  glLineWidth(<font color="#0077BB">1</font>);                        <i><font color="#FFFF00">// Linie 1 Pixel breit.</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
-  glUniform1f(X_ID, ofs);                <i><font color="#FFFF00">// rechts-</font></i>
-  glUniform1f(Y_ID, -ofs);               <i><font color="#FFFF00">// unten</font></i>
-  glDrawArrays(GL_LINE_STRIP, <font color="#0077BB">0</font>, Length(Linies));
-<br>
-  <i><font color="#FFFF00">// Zeichne GL_LINE_LOOP</font></i>
-  glLineWidth(<font color="#0077BB">6</font>);                        <i><font color="#FFFF00">// Linie 6 Pixel breit.</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
-  glUniform1f(X_ID, ofs);                <i><font color="#FFFF00">// rechts-</font></i>
-  glUniform1f(Y_ID, ofs);                <i><font color="#FFFF00">// oben</font></i>
-  glDrawArrays(GL_LINE_LOOP, <font color="#0077BB">0</font>, Length(Linies));
-<br>
-  <i><font color="#FFFF00">// Zeichne GL_POINTS</font></i>
-  glPointSize(<font color="#0077BB">5</font>);                        <i><font color="#FFFF00">// Punkte Durchmesser 5 Pixel.</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Blau</font></i>
-  glUniform1f(X_ID, -ofs);               <i><font color="#FFFF00">// links-</font></i>
-  glUniform1f(Y_ID, ofs);                <i><font color="#FFFF00">// oben</font></i>
-  glDrawArrays(GL_POINTS, <font color="#0077BB">0</font>, Length(Linies));</code></pre>
+
+  // Zeichne GL_LINES
+  glLineWidth(3);                        // Linie 3 Pixel breit.
+  glUniform3f(Color_ID, 1.0, 1.0, 0.0) ; // Gelb
+  glUniform1f(X_ID, -ofs);               // links-
+  glUniform1f(Y_ID, -ofs);               // unten
+  glDrawArrays(GL_LINES, 0, Length(Linies));
+
+  // Zeichne GL_LINE_STRIP
+  glLineWidth(1);                        // Linie 1 Pixel breit.
+  glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Rot
+  glUniform1f(X_ID, ofs);                // rechts-
+  glUniform1f(Y_ID, -ofs);               // unten
+  glDrawArrays(GL_LINE_STRIP, 0, Length(Linies));
+
+  // Zeichne GL_LINE_LOOP
+  glLineWidth(6);                        // Linie 6 Pixel breit.
+  glUniform3f(Color_ID, 0.0, 1.0, 0.0);  // Grün
+  glUniform1f(X_ID, ofs);                // rechts-
+  glUniform1f(Y_ID, ofs);                // oben
+  glDrawArrays(GL_LINE_LOOP, 0, Length(Linies));
+
+  // Zeichne GL_POINTS
+  glPointSize(5);                        // Punkte Durchmesser 5 Pixel.
+  glUniform3f(Color_ID, 0.0, 0.0, 1.0);  // Blau
+  glUniform1f(X_ID, -ofs);               // links-
+  glUniform1f(Y_ID, ofs);                // oben
+  glDrawArrays(GL_POINTS, 0, Length(Linies));
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<br>
-Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten in 2D</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> x;                      <i><font color="#FFFF00">// Richtung von Uniform</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">float</font></b> y;
+<b>Vertex-Shader:</b>
+
+Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.
+
+```glsl
+#version 330
+
+layout (location = 10) in vec2 inPos; // Vertex-Koordinaten in 2D
+uniform float x;                      // Richtung von Uniform
+uniform float y;
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  <b><font color="0000BB">vec2</font></b> pos = inPos;
+  vec2 pos = inPos;
   pos.x = pos.x + x;
   pos.y = pos.y + y;
-  gl_Position = <b><font color="0000BB">vec4</font></b>(pos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Der zweiter Parameter (Z) auf 0.0</font></i>
+  gl_Position = vec4(pos, 0.0, 1.0);  // Der zweiter Parameter (Z) auf 0.0
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+uniform vec3 Color;  // Farbe von Uniform
+out vec4 outColor;   // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Color, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

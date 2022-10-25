@@ -1,86 +1,105 @@
-<html>
-    <b><h1>06 - Alpha Blending</h1></b>
-    <b><h2>00 - Einfaches Alpha Blending</h2></b>
+# 06 - Alpha Blending
+## 00 - Einfaches Alpha Blending
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.<br>
-Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.<br>
-Alphablending kann man auch auf Texturen anwenden, zB. um eine Baum zu zeichnen, oder auch nur eine Scheibe. Dazu mehr unter Texturen.<br>
+Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.
+Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.
+Alphablending kann man auch auf Texturen anwenden, zB. um eine Baum zu zeichnen, oder auch nur eine Scheibe. Dazu mehr unter Texturen.
 <hr><br>
-Neben einem Face mit 3 Werten, gibt es jetzt noch eines mit einem vierten, welcher dann den Aplhablending angibt.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TFace3f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVector3f;
-  TFace4f = <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">2</font>] <b><font color="0000BB">of</font></b> TVector4f;  <i><font color="#FFFF00">// Mit Alpha</font></i></code></pre>
-Beim Color sieht man auch den vierten Parameter. Wobei <b>0.0</b> voll Transparent ist. und <b>1.0</b> undurchsichtig.<br>
-Wen man nur den RGB-Wert betrachtet, wäre das Dreieck voll rot und das Rechteck grün.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace3f =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-  TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace4f =
-    (((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-<br>
-  QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace3f =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-  QuadColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace4f =
-    (((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));</code></pre>
-Hier kommen zwie wichtige Zeilen hinzu, mit der Ersten wird Alphablending aktiviert und mit der zweiten gibt man die Art des Blinding an.<br>
-Bei <b>glVertexAttribPointer(...</b> bei der Farbe sieht man, das ein Vector 4 Werte anstelle 3 hat.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<br>
-  glEnable(GL_BLEND);                                  <i><font color="#FFFF00">// Alphablending an</font></i>
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   <i><font color="#FFFF00">// Sortierung der Primitiven von hinten nach vorne.</font></i>
-<br>
+Neben einem Face mit 3 Werten, gibt es jetzt noch eines mit einem vierten, welcher dann den Aplhablending angibt.
+
+```pascal
+type
+  TFace3f = array[0..2] of TVector3f;
+  TFace4f = array[0..2] of TVector4f;  // Mit Alpha
+```
+
+Beim Color sieht man auch den vierten Parameter. Wobei <b>0.0</b> voll Transparent ist. und <b>1.0</b> undurchsichtig.
+Wen man nur den RGB-Wert betrachtet, wäre das Dreieck voll rot und das Rechteck grün.
+
+```pascal
+const
+  TriangleVector: array[0..0] of TFace3f =
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
+  TriangleColor: array[0..0] of TFace4f =
+    (((1.0, 0.0, 0.0, 1.0), (1.0, 0.0, 0.0, 0.5), (1.0, 0.0, 0.0, 0.0)));
+
+  QuadVector: array[0..1] of TFace3f =
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  QuadColor: array[0..1] of TFace4f =
+    (((0.0, 1.0, 0.0, 0.5), (0.0, 1.0, 0.0, 1.0), (0.0, 1.0, 0.0, 0.0)),
+    ((0.0, 1.0, 0.0, 0.5), (0.0, 1.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0)));
+```
+
+Hier kommen zwie wichtige Zeilen hinzu, mit der Ersten wird Alphablending aktiviert und mit der zweiten gibt man die Art des Blinding an.
+Bei <b>glVertexAttribPointer(...</b> bei der Farbe sieht man, das ein Vector 4 Werte anstelle 3 hat.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+
+  glEnable(GL_BLEND);                                  // Alphablending an
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
+
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
-<br>
-  <i><font color="#FFFF00">// --- Daten für Dreieck</font></i>
+
+  // --- Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
-<br>
-  <i><font color="#FFFF00">// Vektor</font></i>
+
+  // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);                         <i><font color="#FFFF00">// 10 ist die Location in inPos Shader.</font></i>
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// Farbe</font></i>
+  glEnableVertexAttribArray(10);                         // 10 ist die Location in inPos Shader.
+  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+
+  // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">11</font>);                         <i><font color="#FFFF00">// 11 ist die Location in inCol Shader.</font></i>
-  glVertexAttribPointer(<font color="#0077BB">11</font>, <font color="#0077BB">4</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);</code></pre>
-<hr><br>
-Die Shader sind sehr einfach gehalten. Man könnte mit <b>Color.a</b> direkt einen Alphawert zuordnen.<br>
-Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>vec3</b>.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> inCol;    <i><font color="#FFFF00">// Farbe inklusive Alpha</font></i>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;                        <i><font color="#FFFF00">// Matrix von Uniform</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                          <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben</font></i>
-<br>
+  glEnableVertexAttribArray(11);                         // 11 ist die Location in inCol Shader.
+  glVertexAttribPointer(11, 4, GL_FLOAT, False, 0, nil);
+```
 
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<hr><br>
+Die Shader sind sehr einfach gehalten. Man könnte mit <b>Color.a</b> direkt einen Alphawert zuordnen.
+Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>vec3</b>.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 11) in vec4 inCol;    // Farbe inklusive Alpha
+uniform mat4 mat;                        // Matrix von Uniform
+
+out vec4 Color;                          // Farbe, an Fragment-Shader übergeben
+
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Vektoren mit der Matrix multiplizieren.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);  // Vektoren mit der Matrix multiplizieren.
   Color = inCol;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;      <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+in  vec4 Color;      // interpolierte Farbe vom Vertexshader
+out vec4 outColor;   // ausgegebene Farbe
+
+void main(void)
 {
   outColor = Color;
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

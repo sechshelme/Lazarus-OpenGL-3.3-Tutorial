@@ -1,119 +1,142 @@
-<html>
-    <b><h1>25 - Framepuffer</h1></b>
-    <b><h2>05 - Framepuffer speichern</h2></b>
+# 25 - Framepuffer
+## 05 - Framepuffer speichern
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.<br>
+Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.
 <hr><br>
-Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.<br>
-Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.<br>
-Dieser Code wurde unter Linux 64Bit getestet.<br>
-Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ButtonTexturSaveClick(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.
+Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.
+Dieser Code wurde unter Linux 64Bit getestet.
+Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.
+
+```pascal
+procedure TForm1.ButtonTexturSaveClick(Sender: TObject);
+var
   Picture: TPicture;
-<b><font color="0000BB">begin</font></b>
+begin
   Picture := TPicture.Create;
-  <b><font color="0000BB">with</font></b> Picture.Bitmap <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    PixelFormat := pf32bit;  <i><font color="#FFFF00">// 32-Bit erzwingen</font></i>
+  with Picture.Bitmap do begin
+    PixelFormat := pf32bit;  // 32-Bit erzwingen
     Width := TexturSize;
     Height := TexturSize;
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    glReadPixels(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, RawImage.Data);
-  <b><font color="0000BB">end</font></b>;
-  Picture.SaveToFile(<font color="#FF0000">'textur.png'</font>);
+    glReadPixels(0, 0, TexturSize, TexturSize, GL_RGBA, GL_UNSIGNED_BYTE, RawImage.Data);
+  end;
+  Picture.SaveToFile('textur.png');
   Picture.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Es ist auch möglich, die komplett gerenderte Scene zu speichern.<br>
-Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.<br>
-Dies kann man aber umgehen, wen man Zeile für Zeile einliest.<br>
-<b>glBindFramebuffer(GL_FRAMEBUFFER, 0);</b> ist nur notwendig, wen man mehrere Framebuffer verwendet.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ButtonScreenSaveClick(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+end;
+```
+
+Es ist auch möglich, die komplett gerenderte Scene zu speichern.
+Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.
+Dies kann man aber umgehen, wen man Zeile für Zeile einliest.
+<b>glBindFramebuffer(GL_FRAMEBUFFER, 0);</b> ist nur notwendig, wen man mehrere Framebuffer verwendet.
+
+```pascal
+procedure TForm1.ButtonScreenSaveClick(Sender: TObject);
+var
   Picture: TPicture;
   i: integer;
-<b><font color="0000BB">begin</font></b>
+begin
   Picture := TPicture.Create;
-  <b><font color="0000BB">with</font></b> Picture.Bitmap <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    PixelFormat := pf32bit;               <i><font color="#FFFF00">// 32-Bit erzwingen</font></i>
+  with Picture.Bitmap do begin
+    PixelFormat := pf32bit;               // 32-Bit erzwingen
     Width := ogc.Width;
     Height := ogc.Height;
-    glBindFramebuffer(GL_FRAMEBUFFER, <font color="#0077BB">0</font>); <i><font color="#FFFF00">// Screen</font></i>
-<br>
-    <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Height - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-      glReadPixels(<font color="#0077BB">0</font>, Height - i - <font color="#0077BB">1</font>, Width, Height - i, GL_RGBA, GL_UNSIGNED_BYTE, ScanLine[i]);
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-  Picture.SaveToFile(<font color="#FF0000">'screen.png'</font>);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0); // Screen
+
+    for i := 0 to Height - 1 do begin
+      glReadPixels(0, Height - i - 1, Width, Height - i, GL_RGBA, GL_UNSIGNED_BYTE, ScanLine[i]);
+    end;
+  end;
+  Picture.SaveToFile('screen.png');
   Picture.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.<br>
-Der Shader des Würfels, gibt Texturen aus.<br>
-<br>
-<b>Vertex-Shader Quadrat:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> vertexUV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
+Der Shader des Würfels, gibt Texturen aus.
+
+<b>Vertex-Shader Quadrat:</b>
+
+
+```glsl
+#version 330
+
+layout (location =  0) in vec3 inPos;
+layout (location = 10) in vec2 vertexUV0;
+
+uniform mat4 Matrix;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
   UV0 = vertexUV0;
 }
-<br>
-</code></pre>
+
+
+```
+
 <hr><br>
-<b>Fragment-Shader Quadrat:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler0;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader Quadrat:</b>
+
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler0;
+
+out vec4 FragColor;
+
+void main()
 {
   FragColor = texture( Sampler0, UV0 );
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Vertex-Shader Würfel:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> Col;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader Würfel:</b>
+
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;
+layout (location = 1) in vec3 inCol;
+
+uniform mat4 Matrix;
+
+out vec3 Col;
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
   Col = inCol;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader Würfel:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Col;
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader Würfel:</b>
+
+
+```glsl
+#version 330
+
+in vec3 Col;
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Col, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

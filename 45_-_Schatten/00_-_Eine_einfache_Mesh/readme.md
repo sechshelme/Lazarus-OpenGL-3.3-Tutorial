@@ -1,170 +1,197 @@
-<html>
-    <b><h1>45 - Schatten</h1></b>
-    <b><h2>00 - Eine einfache Mesh</h2></b>
+# 45 - Schatten
+## 00 - Eine einfache Mesh
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.<br>
-Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.<br>
+Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.
+Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.
 <hr><br>
-Hier wird der Speicher für die Würfel angefordert.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">const</font></b>
-  w = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
-<b><font color="0000BB">var</font></b>
+Hier wird der Speicher für die Würfel angefordert.
+
+```pascal
+procedure TForm1.CreateScene;
+const
+  w = 1.0;
+var
   i: integer;
-<b><font color="0000BB">begin</font></b></code></pre>
-Startpositionen der einzelnen Würfel definieren.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
+begin
+```
+
+Startpositionen der einzelnen Würfel definieren.
+
+```pascal
+procedure TForm1.InitScene;
+begin
   CreateTree;
   CreateWand;
-</code></pre>
-Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.<br>
-Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.<br>
-Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+
+```
+
+Hier sieht man, das die Matrix der einzelnen Würfel berechnet werden, um sie anschliessend nach der Z-Tiefe zu sortieren.
+Nach dem Sortieren werden die Würfel in der richtigen Reihenfolge gezeichnet.
+Versuchsweise kann man die Sortierroutine ausklammern, dann sieht man sofort die fehlerhafte Darstellung.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   i: integer;
   Matrix: TMatrix;
-<b><font color="0000BB">begin</font></b>
-<br>
+begin
+
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Schatten</font></i>
+
+  // --- Zeichne Schatten
   glBindFramebuffer(GL_FRAMEBUFFER, Shadow.FramebufferName);
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">0</font>.<font color="#0077BB">8</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  <b><font color="0000BB">with</font></b> Shadow <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
-    glViewport(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TexturSize, TexturSize);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <b><font color="0000BB">with</font></b> Tree <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+  glClearColor(0.8, 0.8, 0.8, 1.0);
+  with Shadow do begin
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, TexturSize, TexturSize);
+  end;
+
+  with Tree do begin
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
-<br>
-<i><font color="#FFFF00">//    Matrix.Identity;</font></i>
-<i><font color="#FFFF00">//    Matrix.Multiply(ObjectMatrix, Matrix);</font></i>
-<i><font color="#FFFF00">//    Matrix.Multiply(WorldMatrix, Matrix);</font></i>
+
+//    Matrix.Identity;
+//    Matrix.Multiply(ObjectMatrix, Matrix);
+//    Matrix.Multiply(WorldMatrix, Matrix);
     Matrix := FrustumMatrix * WorldMatrix * ObjectMatrix;
     Matrix.Uniform(Matrix_ID);
-<br>
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));
-  <b><font color="0000BB">end</font></b>;
-<br>
-  glBindFramebuffer(GL_FRAMEBUFFER, <font color="#0077BB">0</font>);
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
-  glViewport(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, ClientWidth, ClientHeight);
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Baum</font></i>
-  <b><font color="0000BB">with</font></b> Tree <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+    glDrawArrays(GL_TRIANGLES, 0, Length(vec));
+  end;
+
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  glClearColor(0.3, 0.3, 1.0, 1.0);
+
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+  glViewport(0, 0, ClientWidth, ClientHeight);
+
+  // --- Zeichne Baum
+  with Tree do begin
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
-<br>
+
     Matrix :=ObjectMatrix;
-    Matrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+    Matrix.Translate(0.5, 0.0, 0.0);
     Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
-<br>
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Wall</font></i>
-  <b><font color="0000BB">with</font></b> Wall <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+    glDrawArrays(GL_TRIANGLES, 0, Length(vec));
+  end;
+
+  // --- Zeichne Wall
+  with Wall do begin
     Shader.UseProgram;
     glBindVertexArray(VB.VAO);
-    <i><font color="#FFFF00">//    Textur.ActiveAndBind;</font></i>
+    //    Textur.ActiveAndBind;
     Shadow.Textur.ActiveAndBind;
-<br>
+
     Matrix.Identity;
-<br>
-    Matrix.Translate(-<font color="#0077BB">1</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>);
-    Matrix.RotateB(-pi / <font color="#0077BB">2</font>);
+
+    Matrix.Translate(-1.5, 0.0, -0.3);
+    Matrix.RotateB(-pi / 2);
     Matrix := FrustumMatrix * WorldMatrix * Matrix;
     Matrix.Uniform(Matrix_ID);
-<br>
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(vec));
-  <b><font color="0000BB">end</font></b>;
-<br>
+
+    glDrawArrays(GL_TRIANGLES, 0, Length(vec));
+  end;
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Den Speicher von den CubePos wieder frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+end;
+```
+
+Den Speicher von den CubePos wieder frei geben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+var
   i: integer;
-<b><font color="0000BB">begin</font></b></code></pre>
-Gedreht wird nur der Baum.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  <i><font color="#FFFF00">//    WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse</font></i>
-  Tree.ObjectMatrix.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">0234</font>);  <i><font color="#FFFF00">// Drehe um Y-Achse</font></i>
-<br>
+begin
+```
+
+Gedreht wird nur der Baum.
+
+```pascal
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  //    WorldMatrix.RotateA(0.0123);  // Drehe um X-Achse
+  Tree.ObjectMatrix.RotateC(0.0234);  // Drehe um Y-Achse
+
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;
-</code></pre>
+end;
+
+```
+
 <hr><br>
-<b>Shader für Baum:</b><br>
-<pre><code>$vertex
-<b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol; <i><font color="#FFFF00">// Farbe</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                       <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Shader für Baum:</b>
+
+```glsl
+$vertex
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
+layout (location = 11) in vec3 inCol; // Farbe
+
+out vec4 Color;                       // Farbe, an Fragment-Shader übergeben.
+
+uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
+  Color = vec4(inCol, 1.0);
 }
-<br>
+
 
 $fragment
-<b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b>  <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+#version 330
+
+in  vec4 Color;     // interpolierte Farbe vom Vertexshader
+out vec4 outColor;  // ausgegebene Farbe
+
+void main(void)
 {
-  outColor   = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor   = Color; // Die Ausgabe der Farbe
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Shader für Wand</b><br>
-<pre><code>$vertex
-<b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Shader für Wand</b>
+
+```glsl
+$vertex
+#version 330
+
+layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+
+uniform mat4 mat;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);
+  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
 }
-<br>
+
 
 $fragment
-<b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+
+out vec4 FragColor;
+
+void main()
 {
-  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
+  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

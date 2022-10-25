@@ -1,56 +1,67 @@
-<html>
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>35 - DrawArrays</h2></b>
+# 03 - Vertex-Puffer
+## 35 - DrawArrays
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Mit <b> glDrawArrays(...</b> muss man nicht die ganze Meshes auf einmal zeichnen, man kann auch nur ein Teil davon zeichnen.<br>
-Hier im Beispiel, wir das Quadrat in zwei Teilen gezeichnet, so hat man die Möglichkeit zwischendurch zB. die Farbe zu ändern.<br>
+Mit <b> glDrawArrays(...</b> muss man nicht die ganze Meshes auf einmal zeichnen, man kann auch nur ein Teil davon zeichnen.
+Hier im Beispiel, wir das Quadrat in zwei Teilen gezeichnet, so hat man die Möglichkeit zwischendurch zB. die Farbe zu ändern.
 <hr><br>
-Hier wird das Qudarat in zwei Teilen gezeichnet und zwischendurch die Uniform-Variable Color geändert.<br>
-Dafür gibt es in <b>glDrawArrays(...</b> zwei Parameter.<br>
-Der Zweite gibt das Offset der Vertex-Array an, und der Dritte, wie viele Vertex-Daten.<br>
-Das erste Polygon, fängt bei 0 und ist 3 Vertex lang.<br>
-Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+Hier wird das Qudarat in zwei Teilen gezeichnet und zwischendurch die Uniform-Variable Color geändert.
+Dafür gibt es in <b>glDrawArrays(...</b> zwei Parameter.
+Der Zweite gibt das Offset der Vertex-Array an, und der Dritte, wie viele Vertex-Daten.
+Das erste Polygon, fängt bei 0 und ist 3 Vertex lang.
+Das zweite Polygon fängt bei 3 an und ist auch 3 Vertex lang.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-<br>
-  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
+
+  // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glUniform3f(Color_ID, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">3</font>);
-<br>
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
+  glUniform3f(Color_ID, 0.0, 0.0, 1.0);
+  glDrawArrays(GL_TRIANGLES, 0, 3);
+
+  // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Farbe ändern</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, <font color="#0077BB">3</font>);      <i><font color="#FFFF00">// zweites Polygon</font></i>
-  glUniform3f(Color_ID, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Farbe ändern</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">3</font>, <font color="#0077BB">3</font>);      <i><font color="#FFFF00">// zweites Polygon</font></i>
-<br>
+  glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Farbe ändern
+  glDrawArrays(GL_TRIANGLES, 0, 3);      // zweites Polygon
+  glUniform3f(Color_ID, 1.0, 0.0, 1.0);  // Farbe ändern
+  glDrawArrays(GL_TRIANGLES, 3, 3);      // zweites Polygon
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">vec3</font></b> Color;  <i><font color="#FFFF00">// Farbe von Uniform</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+uniform vec3 Color;  // Farbe von Uniform
+out vec4 outColor;   // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Color, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.</font></i>
+  outColor = vec4(Color, 1.0); // Das 1.0 ist der Alpha-Kanal, hat hier keine Bedeutung.
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

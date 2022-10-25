@@ -1,159 +1,182 @@
-<html>
-    <b><h1>06 - Alpha Blending</h1></b>
-    <b><h2>15 - Reihenfolge sortiert mit Texturen</h2></b>
+# 06 - Alpha Blending
+## 15 - Reihenfolge sortiert mit Texturen
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.<br>
-Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.<br>
-Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.<br>
-<br>
-Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.<br>
-<br>
-Wie Texturen funktionieren, in einem späteren Kapitel.<br>
+Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.
+Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.
+Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.
+
+Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.
+
+Wie Texturen funktionieren, in einem späteren Kapitel.
 <hr><br>
-Den Speicher für die Position der Bäume reservieren.<br>
-<pre><code>
-<b><font color="0000BB">procedure</font></b> TForm1.FormCreate(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+Den Speicher für die Position der Bäume reservieren.
+
+```pascal
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
   i: Integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TreeCount - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">New</font></b>(TreePosArray[i]);
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Die Position der Bäume  wird zufällig bestimmt.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">const</font></b>
-  d = <font color="#0077BB">10</font>;
-<b><font color="0000BB">var</font></b>
+begin
+  for i := 0 to TreeCount - 1 do begin
+    New(TreePosArray[i]);
+  end;
+```
+
+Die Position der Bäume  wird zufällig bestimmt.
+
+```pascal
+procedure TForm1.InitScene;
+const
+  d = 10;
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TreeCount - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    TreePosArray[i]^.x := -d / <font color="#0077BB">2</font> + Random * d;
-    TreePosArray[i]^.y := <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
-    TreePosArray[i]^.z := -d / <font color="#0077BB">2</font> + Random * d;
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Der Boden und die Bäume zeichen.<br>
-Dabei ist es wichtig, das man zuerst den Boden zeichnet, weil die Bäume Alpha-Blending haben.<br>
-Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<br>
-  <b><font color="0000BB">procedure</font></b> QuickSort(<b><font color="0000BB">var</font></b> ia: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> PTreePos; ALo, AHi: integer);
-  <b><font color="0000BB">var</font></b>
+begin
+  for i := 0 to TreeCount - 1 do begin
+    TreePosArray[i]^.x := -d / 2 + Random * d;
+    TreePosArray[i]^.y := 0.0;
+    TreePosArray[i]^.z := -d / 2 + Random * d;
+  end;
+```
+
+Der Boden und die Bäume zeichen.
+Dabei ist es wichtig, das man zuerst den Boden zeichnet, weil die Bäume Alpha-Blending haben.
+Objecte mit Alpha-Blending sollte man immer zum Schluss zeichnen.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+
+  procedure QuickSort(var ia: array of PTreePos; ALo, AHi: integer);
+  var
     Lo, Hi: integer;
     dummy : PTreePos;
     Pivot: TTreePos;
-  <b><font color="0000BB">begin</font></b>
+  begin
     Lo := ALo;
     Hi := AHi;
-    Pivot := ia[(Lo + Hi) <b><font color="0000BB">div</font></b> <font color="#0077BB">2</font>]^;
-    <b><font color="0000BB">repeat</font></b>
-      <b><font color="0000BB">while</font></b> ia[Lo]^.z &lt; Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    Pivot := ia[(Lo + Hi) div 2]^;
+    repeat
+      while ia[Lo]^.z &lt; Pivot.z do begin
         Inc(Lo);
-      <b><font color="0000BB">end</font></b>;
-      <b><font color="0000BB">while</font></b> ia[Hi]^.z &gt; Pivot.z <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+      end;
+      while ia[Hi]^.z &gt; Pivot.z do begin
         Dec(Hi);
-      <b><font color="0000BB">end</font></b>;
-      <b><font color="0000BB">if</font></b> Lo <= Hi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      end;
+      if Lo <= Hi then begin
         dummy := ia[Lo];
         ia[Lo] := ia[Hi];
         ia[Hi] := dummy;
         Inc(Lo);
         Dec(Hi);
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">until</font></b> Lo &gt; Hi;
-    <b><font color="0000BB">if</font></b> Hi &gt; ALo <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+      end;
+    until Lo &gt; Hi;
+    if Hi &gt; ALo then begin
       QuickSort(ia, ALo, Hi);
-    <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">if</font></b> Lo &lt; AHi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+    end;
+    if Lo &lt; AHi then begin
       QuickSort(ia, Lo, AHi);
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-<br>
-<b><font color="0000BB">var</font></b>
+    end;
+  end;
+
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);        <i><font color="#FFFF00">// Frame und Tiefen-Puffer löschen.</font></i>
-<br>
+begin
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);        // Frame und Tiefen-Puffer löschen.
+
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-<br>
+
   Shader.UseProgram;
-<br>
+
   glBindVertexArray(VBQuad.VAO);
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Boden</font></i>
-  SandTextur.ActiveAndBind;                                   <i><font color="#FFFF00">// Boden-Textur binden</font></i>
+
+  // --- Zeichne Boden
+  SandTextur.ActiveAndBind;                                   // Boden-Textur binden
   Matrix.Identity;
-  Matrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-  Matrix.Scale(<font color="#0077BB">10</font>.<font color="#0077BB">0</font>);
-  Matrix.RotateA(Pi / <font color="#0077BB">2</font>);
-<br>
-  Matrix := FrustumMatrix * WorldMatrix * GroundPos * Matrix; <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-<br>
-  Matrix.Uniform(Matrix_ID);                                  <i><font color="#FFFF00">// Matrix dem Shader übergeben.</font></i>
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));      <i><font color="#FFFF00">// Zeichnet einen kleinen Würfel.</font></i>
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Bäume</font></i>
-  QuickSort(TreePosArray, <font color="#0077BB">0</font>, TreeCount - <font color="#0077BB">1</font>);                  <i><font color="#FFFF00">// Die Bäume sortieren.</font></i>
-<br>
-  BaumTextur.ActiveAndBind;                                   <i><font color="#FFFF00">// Baum-Textur binden</font></i>
-<br>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TreeCount - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+  Matrix.Translate(0.0, 1.0, 0.0);
+  Matrix.Scale(10.0);
+  Matrix.RotateA(Pi / 2);
+
+  Matrix := FrustumMatrix * WorldMatrix * GroundPos * Matrix; // Matrizen multiplizieren.
+
+  Matrix.Uniform(Matrix_ID);                                  // Matrix dem Shader übergeben.
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));      // Zeichnet einen kleinen Würfel.
+
+  // --- Zeichne Bäume
+  QuickSort(TreePosArray, 0, TreeCount - 1);                  // Die Bäume sortieren.
+
+  BaumTextur.ActiveAndBind;                                   // Baum-Textur binden
+
+  for i := 0 to TreeCount - 1 do begin
     Matrix.Identity;
-    Matrix.Translate(TreePosArray[i]^);                       <i><font color="#FFFF00">// Die Bäume an die richtige Position bringen</font></i>
-<br>
-    Matrix := FrustumMatrix * WorldMatrix * Matrix;           <i><font color="#FFFF00">// Matrizen multiplizieren.</font></i>
-<br>
+    Matrix.Translate(TreePosArray[i]^);                       // Die Bäume an die richtige Position bringen
+
+    Matrix := FrustumMatrix * WorldMatrix * Matrix;           // Matrizen multiplizieren.
+
     Matrix.Uniform(Matrix_ID);
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
-  <b><font color="0000BB">end</font></b>;
-<br>
+    glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+  end;
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Da sieht man, das es reicht nur den Vector zu drehen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  rot = <font color="#0077BB">0</font>.<font color="#0077BB">0134</font>;
-<b><font color="0000BB">var</font></b>
+end;
+```
+
+Da sieht man, das es reicht nur den Vector zu drehen.
+
+```pascal
+procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  rot = 0.0134;
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> TreeCount - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+begin
+  for i := 0 to TreeCount - 1 do begin
     TreePosArray[i]^.RotateB(rot);
-  <b><font color="0000BB">end</font></b>;
+  end;
   GroundPos.RotateB(rot);
-<br>
+
   ogc.Invalidate;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;  <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;                  <i><font color="#FFFF00">// Matrix für die Drehbewegung und Frustum.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location =  0) in vec3 inPos; // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV;  // Textur-Koordinaten
+
+out vec2 UV0;
+
+uniform mat4 Matrix;                  // Matrix für die Drehbewegung und Frustum.
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0         = inUV;                 <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = Matrix * vec4(inPos, 1.0);
+  UV0         = inUV;                 // Textur-Koordinaten weiterleiten.
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+
+out vec4 FragColor;
+
+void main()
 {
-  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
+  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

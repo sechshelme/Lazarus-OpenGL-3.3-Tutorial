@@ -1,67 +1,94 @@
-<html>
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>20 - Texturen mit oglTextur</h2></b>
+# 20 - Texturen
+## 20 - Texturen mit oglTextur
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.<br>
-Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.<br>
-<br>
-Mit der Klasse <b>TTexturBuffer</b> welche dort enthalten ist, geht dies sehr einfach.<br>
-Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> erkannt werden.<br>
+Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.
+Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.
+
+Mit der Klasse <b>TTexturBuffer</b> welche dort enthalten ist, geht dies sehr einfach.
+Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> erkannt werden.
 <hr><br>
-Den Textur-Puffer deklarieren.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  Textur: TTexturBuffer;</code></pre>
-Textur-Puffer erzeugen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Textur := TTexturBuffer.Create;</code></pre>
-Mit diesr Klasse geht das laden einer Bitmap sehr einfach.<br>
-Man kann die Texturen auch von einem <b>TRawImages</b> laden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  Textur.LoadTextures(<font color="#FF0000">'mauer.bmp'</font>);</code></pre>
-Das Binden geht auch sehr einfach.<br>
-Man kann dieser Funktion noch eine Nummer mitgeben, aber diese wird nur bei Multitexturing gebraucht, dazu später.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+Den Textur-Puffer deklarieren.
+
+```pascal
+var
+  Textur: TTexturBuffer;
+```
+
+Textur-Puffer erzeugen.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  Textur := TTexturBuffer.Create;
+```
+
+Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
+Man kann die Texturen auch von einem <b>TRawImages</b> laden.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  Textur.LoadTextures('mauer.bmp');
+```
+
+Das Binden geht auch sehr einfach.
+Man kann dieser Funktion noch eine Nummer mitgeben, aber diese wird nur bei Multitexturing gebraucht, dazu später.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
-  Textur.ActiveAndBind; <i><font color="#FFFF00">// Textur binden</font></i></code></pre>
-Am Ende muss man die Klasse noch frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Textur.Free;</code></pre>
+
+  Textur.ActiveAndBind; // Textur binden
+```
+
+Am Ende muss man die Klasse noch frei geben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Textur.Free;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+
+uniform mat4 mat;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);
+  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+
+out vec4 FragColor;
+
+void main()
 {
-  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
+  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

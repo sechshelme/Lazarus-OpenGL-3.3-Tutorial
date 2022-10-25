@@ -1,120 +1,139 @@
-<html>
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>30 - Texturen und Matrixen</h2></b>
+# 20 - Texturen
+## 30 - Texturen und Matrixen
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Die Textur-Koordinaten kann man im Shader auch mit einer Matrix multipizieren.<br>
-Dies geschieht ähnlich, wie bei den Vertex-Koordinanten, der grösste Unterschied dabei ist, das es sich um 2D-Koordinaten handelt.<br>
-<br>
-Dabei ist zu beachten, das beim Drehen/Verschieben die Transformationen in umgekehrter Reihenfolge verläuft,<br>
-im Gegensatz zu Vertex-Koordinaten.<br>
+Die Textur-Koordinaten kann man im Shader auch mit einer Matrix multipizieren.
+Dies geschieht ähnlich, wie bei den Vertex-Koordinanten, der grösste Unterschied dabei ist, das es sich um 2D-Koordinaten handelt.
+
+Dabei ist zu beachten, das beim Drehen/Verschieben die Transformationen in umgekehrter Reihenfolge verläuft,
+im Gegensatz zu Vertex-Koordinaten.
 <hr><br>
-Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
+Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben werden.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
   ScaleMatrix.Identity;
-  ScaleMatrix.Scale(<font color="#0077BB">1</font>.<font color="#0077BB">1</font>);
-<br>
+  ScaleMatrix.Scale(1.1);
+
   TexturRotMatrix.Identity;
-<br>
-  <i><font color="#FFFF00">// Textur verschieben</font></i>
+
+  // Textur verschieben
   TexturTransMatrix.Identity;
-  TexturTransMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-<br>
-  <i><font color="#FFFF00">// Startwerte Texturtransformation</font></i>
-  <b><font color="0000BB">with</font></b> TexturTransform <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    scale := <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
-    direction := <b><font color="0000BB">True</font></b>;
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Matrizen multiplizieren und den Shader übergeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+  TexturTransMatrix.Translate(-0.5, -0.0);
+
+  // Startwerte Texturtransformation
+  with TexturTransform do begin
+    scale := 1.0;
+    direction := True;
+  end;
+```
+
+Matrizen multiplizieren und den Shader übergeben.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   Matrix: TMatrix2D;
-<b><font color="0000BB">begin</font></b>
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Textur.ActiveAndBind;
   Shader.UseProgram;
-<br>
-  ScaleMatrix.Uniform(Matrix_ID);  <i><font color="#FFFF00">// Matrix für die Vektoren.</font></i>
-<br>
-  <i><font color="#FFFF00">// --- Texturmatrizen multiplizieren und übergeben.</font></i>
+
+  ScaleMatrix.Uniform(Matrix_ID);  // Matrix für die Vektoren.
+
+  // --- Texturmatrizen multiplizieren und übergeben.
   Matrix := TexturRotMatrix * TexturTransMatrix;
   Matrix.Uniform(texMatrix_ID);
-<br>
-  <i><font color="#FFFF00">// --- Zeichne Quadrat</font></i>
+
+  // --- Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex));
-<br>
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Berechnen der Matrix-Bewegungen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">const</font></b>
-  sstep = <font color="#0077BB">1</font>.<font color="#0077BB">03</font>;  <i><font color="#FFFF00">// Schritt für Skalierung</font></i>
-  rstep = <font color="#0077BB">0</font>.<font color="#0077BB">01</font>;  <i><font color="#FFFF00">// Schritt für Rotation</font></i>
-  winkel: single = <font color="#0077BB">0</font>.<font color="#0077BB">0</font>;
-<br>
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">with</font></b> TexturTransform <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    <b><font color="0000BB">if</font></b> direction <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+end;
+```
+
+Berechnen der Matrix-Bewegungen.
+
+```pascal
+procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  sstep = 1.03;  // Schritt für Skalierung
+  rstep = 0.01;  // Schritt für Rotation
+  winkel: single = 0.0;
+
+begin
+  with TexturTransform do begin
+    if direction then begin
       scale *= sstep;
-      <b><font color="0000BB">if</font></b> scale &gt; <font color="#0077BB">15</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        direction := <b><font color="0000BB">False</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+      if scale &gt; 15.0 then begin
+        direction := False;
+      end;
+    end else begin
       scale /= sstep;
-      <b><font color="0000BB">if</font></b> scale &lt; <font color="#0077BB">1</font>.<font color="#0077BB">0</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-        direction := <b><font color="0000BB">True</font></b>;
-      <b><font color="0000BB">end</font></b>;
-    <b><font color="0000BB">end</font></b>;
-<br>
+      if scale &lt; 1.0 then begin
+        direction := True;
+      end;
+    end;
+
     winkel := winkel + rstep;
-    <b><font color="0000BB">if</font></b> winkel &gt; <font color="#0077BB">2</font> * pi <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
-      winkel := winkel - <font color="#0077BB">2</font> * pi;
-    <b><font color="0000BB">end</font></b>;
-<br>
-    <i><font color="#FFFF00">// Matrix Skalieren und Rotieren.</font></i>
+    if winkel &gt; 2 * pi then begin
+      winkel := winkel - 2 * pi;
+    end;
+
+    // Matrix Skalieren und Rotieren.
     TexturRotMatrix.Identity;
     TexturRotMatrix.Scale(scale);
     TexturRotMatrix.Rotate(winkel);
-  <b><font color="0000BB">end</font></b>;
+  end;
   ogcDrawScene(Sender);
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.<br>
-<br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location =  <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;   <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat3</font></b> texMat;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.
+
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location =  0) in vec3 inPos;   // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+
+uniform mat4 mat;
+uniform mat3 texMat;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  <i><font color="#FFFF00">// Texturkoordinaten transformieren</font></i>
-  UV0 = (texMat * <b><font color="0000BB">vec3</font></b>(inUV, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)).xy;
+  gl_Position = mat * vec4(inPos, 1.0);
+
+  // Texturkoordinaten transformieren
+  UV0 = (texMat * vec3(inUV, 1.0)).xy;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler;
+
+out vec4 FragColor;
+
+void main()
 {
   FragColor = texture( Sampler, UV0 );
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

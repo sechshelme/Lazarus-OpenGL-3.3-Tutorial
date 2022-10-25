@@ -1,71 +1,90 @@
-<html>
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>25 - Schleifen</h2></b>
+# 02 - Shader
+## 25 - Schleifen
+
 <img src="image.png" alt="Selfhtml"><br><br>
-In GLSL gibt es auch Schleifen, im Beispiel wird eine <b>if-else</b>-Schleife gezeigt, welche die Mesh Rot oder Schwarz darstellt.<br>
-Es gibt auch <b>for</b> und <b>while-do</b>-Schleifen.<br>
-<b>case</b>-Verzweigungen gibt es auch, eigentlich alle, welche es in C++ auch gibt.<br>
+In GLSL gibt es auch Schleifen, im Beispiel wird eine <b>if-else</b>-Schleife gezeigt, welche die Mesh Rot oder Schwarz darstellt.
+Es gibt auch <b>for</b> und <b>while-do</b>-Schleifen.
+<b>case</b>-Verzweigungen gibt es auch, eigentlich alle, welche es in C++ auch gibt.
 <hr><br>
-Für die <b>if</b>-Abfrage im Beispiel wird ein Boolean verwendet, man kann aber auch Integer, Float, etc. verwenden.<br>
-Der ID, ist es egal, um welchen Unifom-Variablentyp es sich handelt, aus diesem Grund ist sie immer ein GLint.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  rot_ID: GLint;      <i><font color="#FFFF00">// ID für uniform "rot"</font></i></code></pre>
-Der Location-Abfrage ist es gleich, was für ein Variablen-Typ die Uniform ist.<br>
-Das Ermitteln geht bei allen Typen gleich.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
+Für die <b>if</b>-Abfrage im Beispiel wird ein Boolean verwendet, man kann aber auch Integer, Float, etc. verwenden.
+Der ID, ist es egal, um welchen Unifom-Variablentyp es sich handelt, aus diesem Grund ist sie immer ein GLint.
+
+```pascal
+var
+  rot_ID: GLint;      // ID für uniform "rot"
+```
+
+Der Location-Abfrage ist es gleich, was für ein Variablen-Typ die Uniform ist.
+Das Ermitteln geht bei allen Typen gleich.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  rot_ID := Shader.UniformLocation(<font color="#FF0000">'rot'</font>); <i><font color="#FFFF00">// Ermittelt die ID von "rot".</font></i></code></pre>
-Mit <b>glUniform1i(...</b> wird der Boolean übergeben.<br>
-Ein Boolean, muss man als Integer übergeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+  rot_ID := Shader.UniformLocation('rot'); // Ermittelt die ID von "rot".
+```
+
+Mit <b>glUniform1i(...</b> wird der Boolean übergeben.
+Ein Boolean, muss man als Integer übergeben.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-<br>
-  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
-  glUniform1i(rot_ID, GLint(<b><font color="0000BB">True</font></b>));   <i><font color="#FFFF00">// True = rot</font></i>
+
+  // Zeichne Dreieck
+  glUniform1i(rot_ID, GLint(True));   // True = rot
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-<br>
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
-  glUniform1i(rot_ID, GLint(<b><font color="0000BB">False</font></b>));  <i><font color="#FFFF00">// False = schwarz</font></i>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+
+  // Zeichne Quadrat
+  glUniform1i(rot_ID, GLint(False));  // False = schwarz
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
-<br>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos; <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
  
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<br>
-Mit der Uniform-Variable "rot" wird ermittelt, ob die Mesh Rot oder schwarz ist.<br>
-Die Auswertung erfolgt über eine if-else-Schleife.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">bool</font></b> rot;   <i><font color="#FFFF00">// Ist es "rot" ?</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;  <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+Mit der Uniform-Variable "rot" wird ermittelt, ob die Mesh Rot oder schwarz ist.
+Die Auswertung erfolgt über eine if-else-Schleife.
+
+```glsl
+#version 330
+
+uniform bool rot;   // Ist es "rot" ?
+out vec4 outColor;  // ausgegebene Farbe
+
+void main(void)
 {
-  <i><font color="#FFFF00">// Die if-Abfrage</font></i>
-  <b><font color="0000BB">if</font></b> (rot) {
-    outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Rot</font></i>
-  } <b><font color="0000BB">else</font></b> {
-    outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Schwarz</font></i>
+  // Die if-Abfrage
+  if (rot) {
+    outColor = vec4(1.0, 0.0, 0.0, 1.0); // Rot
+  } else {
+    outColor = vec4(0.0, 0.0, 0.0, 1.0); // Schwarz
   }
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

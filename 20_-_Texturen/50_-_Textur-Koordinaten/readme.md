@@ -1,168 +1,190 @@
-<html>
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>50 - Textur-Koordinaten</h2></b>
+# 20 - Texturen
+## 50 - Textur-Koordinaten
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.<br>
-Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.<br>
-Rechts ist jede Koordinate von 0.0-1.0, somit wird die Textur um die Scheibe gezogen. Jedes Rechteck enthält die ganze Textur.<br>
+Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.
+Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.
+Rechts ist jede Koordinate von 0.0-1.0, somit wird die Textur um die Scheibe gezogen. Jedes Rechteck enthält die ganze Textur.
 <hr><br>
-Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CalcCircle;
-<b><font color="0000BB">const</font></b>
-  TextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">5</font>] <b><font color="0000BB">of</font></b> TVector2f =    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>),
-    (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>));
-<br>
-  Sektoren = <font color="#0077BB">16</font>;
-  r0 = <font color="#0077BB">0</font>.<font color="#0077BB">5</font>;
-  r1 = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
-<b><font color="0000BB">var</font></b>
+Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.
+
+```pascal
+procedure TForm1.CalcCircle;
+const
+  TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
+    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
+    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
+
+  Sektoren = 16;
+  r0 = 0.5;
+  r1 = 1.0;
+var
   i: integer;
   w0, w1: single;
-<br>
-<b><font color="0000BB">begin</font></b>
-  SetLength(Disc, Sektoren * <font color="#0077BB">3</font> * <font color="#0077BB">2</font>);
-<br>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Sektoren - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    w0 := pi * <font color="#0077BB">2</font> / Sektoren * (i + <font color="#0077BB">0</font>);
-    w1 := pi * <font color="#0077BB">2</font> / Sektoren * (i + <font color="#0077BB">1</font>);
-<br>
-    <i><font color="#FFFF00">// 1. Dreieck</font></i>
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>].Vertex := vec3(sin(w0) * r0, cos(w0) * r0, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>].Vertex := vec3(sin(w0) * r1, cos(w0) * r1, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>].Vertex := vec3(sin(w1) * r1, cos(w1) * r1, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">0</font>].TexkoorR := TextureVertex[<font color="#0077BB">3</font>];
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">1</font>].TexkoorR := TextureVertex[<font color="#0077BB">4</font>];
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">2</font>].TexkoorR := TextureVertex[<font color="#0077BB">5</font>];
-<br>
-    <i><font color="#FFFF00">// 2. Dreieck</font></i>
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">3</font>].Vertex := vec3(sin(w0) * r0, cos(w0) * r0, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].Vertex := vec3(sin(w1) * r1, cos(w1) * r1, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].Vertex := vec3(sin(w1) * r0, cos(w1) * r0, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">3</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">3</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">3</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].TexkoorL := Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].Vertex.xy;
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].TexkoorL.scale(<font color="#0077BB">5</font>.<font color="#0077BB">0</font>);
-<br>
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">3</font>].TexkoorR := TextureVertex[<font color="#0077BB">0</font>];
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">4</font>].TexkoorR := TextureVertex[<font color="#0077BB">1</font>];
-    Disc[i * <font color="#0077BB">2</font> * <font color="#0077BB">3</font> + <font color="#0077BB">5</font>].TexkoorR := TextureVertex[<font color="#0077BB">2</font>];
-  <b><font color="0000BB">end</font></b>;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinaten weichen ab.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
+
+begin
+  SetLength(Disc, Sektoren * 3 * 2);
+
+  for i := 0 to Sektoren - 1 do begin
+    w0 := pi * 2 / Sektoren * (i + 0);
+    w1 := pi * 2 / Sektoren * (i + 1);
+
+    // 1. Dreieck
+
+    Disc[i * 2 * 3 + 0].Vertex := vec3(sin(w0) * r0, cos(w0) * r0, 0.0);
+    Disc[i * 2 * 3 + 1].Vertex := vec3(sin(w0) * r1, cos(w0) * r1, 0.0);
+    Disc[i * 2 * 3 + 2].Vertex := vec3(sin(w1) * r1, cos(w1) * r1, 0.0);
+
+    Disc[i * 2 * 3 + 0].TexkoorL := Disc[i * 2 * 3 + 0].Vertex.xy;
+    Disc[i * 2 * 3 + 0].TexkoorL.scale(5.0);
+    Disc[i * 2 * 3 + 1].TexkoorL := Disc[i * 2 * 3 + 1].Vertex.xy;
+    Disc[i * 2 * 3 + 1].TexkoorL.scale(5.0);
+    Disc[i * 2 * 3 + 2].TexkoorL := Disc[i * 2 * 3 + 2].Vertex.xy;
+    Disc[i * 2 * 3 + 2].TexkoorL.scale(5.0);
+
+    Disc[i * 2 * 3 + 0].TexkoorR := TextureVertex[3];
+    Disc[i * 2 * 3 + 1].TexkoorR := TextureVertex[4];
+    Disc[i * 2 * 3 + 2].TexkoorR := TextureVertex[5];
+
+    // 2. Dreieck
+
+    Disc[i * 2 * 3 + 3].Vertex := vec3(sin(w0) * r0, cos(w0) * r0, 0.0);
+    Disc[i * 2 * 3 + 4].Vertex := vec3(sin(w1) * r1, cos(w1) * r1, 0.0);
+    Disc[i * 2 * 3 + 5].Vertex := vec3(sin(w1) * r0, cos(w1) * r0, 0.0);
+
+    Disc[i * 2 * 3 + 3].TexkoorL := Disc[i * 2 * 3 + 3].Vertex.xy;
+    Disc[i * 2 * 3 + 3].TexkoorL.scale(5.0);
+    Disc[i * 2 * 3 + 4].TexkoorL := Disc[i * 2 * 3 + 4].Vertex.xy;
+    Disc[i * 2 * 3 + 4].TexkoorL.scale(5.0);
+    Disc[i * 2 * 3 + 5].TexkoorL := Disc[i * 2 * 3 + 5].Vertex.xy;
+    Disc[i * 2 * 3 + 5].TexkoorL.scale(5.0);
+
+    Disc[i * 2 * 3 + 3].TexkoorR := TextureVertex[0];
+    Disc[i * 2 * 3 + 4].TexkoorR := TextureVertex[1];
+    Disc[i * 2 * 3 + 5].TexkoorR := TextureVertex[2];
+  end;
+end;
+```
+
+Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinaten weichen ab.
+
+```pascal
+procedure TForm1.InitScene;
+begin
   TextureBuffer.ActiveAndBind;
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
-  <i><font color="#FFFF00">// Ring Links</font></i>
+  glClearColor(0.6, 0.6, 0.4, 1.0);
+
+  // Ring Links
   glBindVertexArray(VBRingL.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">0</font>));
-<br>
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 28, Pointer(0));
+
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">12</font>));
-<br>
-  <i><font color="#FFFF00">// Ring Rechts</font></i>
+  glEnableVertexAttribArray(10);
+  glVertexAttribPointer(10, 2, GL_FLOAT, False, 28, Pointer(12));
+
+  // Ring Rechts
   glBindVertexArray(VBRingR.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBRingR.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">0</font>));
-<br>
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 28, Pointer(0));
+
   glBindBuffer(GL_ARRAY_BUFFER, VBRingR.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">10</font>);
-  glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">28</font>, Pointer(<font color="#0077BB">20</font>));
-<b><font color="0000BB">end</font></b>;</code></pre>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+  glEnableVertexAttribArray(10);
+  glVertexAttribPointer(10, 2, GL_FLOAT, False, 28, Pointer(20));
+end;
+```
+
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+var
   TempMatrix: TMatrix;
-<b><font color="0000BB">begin</font></b>
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
+
   TextureBuffer.ActiveAndBind;
-<br>
+
   Shader.UseProgram;
-<br>
+
   ProdMatrix := ScaleMatrix * RotMatrix;
-<br>
-  <i><font color="#FFFF00">// Zeichne linke Scheibe</font></i>
+
+  // Zeichne linke Scheibe
   TempMatrix := ProdMatrix;
-  ProdMatrix.Translate(-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  ProdMatrix.Translate(-0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
   ProdMatrix := TempMatrix;
-<br>
+
   glBindVertexArray(VBRingL.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Disc) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet die linke Scheibe</font></i>
-<br>
-  <i><font color="#FFFF00">// Zeichne rechte Scheibe</font></i>
-  ProdMatrix.Translate(<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>);
+  glDrawArrays(GL_TRIANGLES, 0, Length(Disc) * 3); // Zeichnet die linke Scheibe
+
+  // Zeichne rechte Scheibe
+  ProdMatrix.Translate(0.5, 0.0, 0.0);
   ProdMatrix.Uniform(Matrix_ID);
-<br>
+
   glBindVertexArray(VBRingR.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Disc) * <font color="#0077BB">3</font>); <i><font color="#FFFF00">// Zeichnet die rechte Scheibe</font></i>
-<br>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Disc) * 3); // Zeichnet die rechte Scheibe
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;    <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+
+uniform mat4 mat;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0 = inUV;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);
+  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler;              <i><font color="#FFFF00">// Der Sampler welchem 0 zugeordnet wird.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+
+out vec4 FragColor;
+
+void main()
 {
-  FragColor = texture( Sampler, UV0 );  <i><font color="#FFFF00">// Die Farbe aus der Textur anhand der Koordinten auslesen.</font></i>
-  FragColor.a = <font color="#0077BB">1</font>.<font color="#0077BB">0</font>;
+  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
+  FragColor.a = 1.0;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>muster.xpm:</b><br>
-<pre><code>/* XPM */
+<b>muster.xpm:</b>
+
+```glsl
+/* XPM */
 static char *XPM_mauer[] = {
-  "<font color="#0077BB">8</font> <font color="#0077BB">8</font> <font color="#0077BB">3</font> <font color="#0077BB">1</font>",
-  "  c #<font color="#0077BB">882222</font>",
-  "* c #<font color="#0077BB">442222</font>",
-  "+ c #<font color="#0077BB">4422</font>BB",
+  "8 8 3 1",
+  "  c #882222",
+  "* c #442222",
+  "+ c #4422BB",
   "        ",
   " ****** ",
   " *    * ",
@@ -172,6 +194,7 @@ static char *XPM_mauer[] = {
   " ****** ",
   "        "
 };
-</code></pre>
-<br>
-</html>
+
+```
+
+

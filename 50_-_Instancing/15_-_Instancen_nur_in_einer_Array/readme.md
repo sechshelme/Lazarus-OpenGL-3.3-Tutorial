@@ -1,124 +1,147 @@
-<html>
-    <b><h1>50 - Instancing</h1></b>
-    <b><h2>15 - Instancen nur in einer Array</h2></b>
+# 50 - Instancing
+## 15 - Instancen nur in einer Array
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.<br>
-Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.<br>
-Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizierter.<br>
-Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].<br>
+Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.
+Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.
+Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizierter.
+Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].
 <hr><br>
-Die Deklaration der Array. Es ist nur noch eine Array.<br>
-<pre><code><b><font color="0000BB">type</font></b>
-  TData = <b><font color="0000BB">record</font></b>
+Die Deklaration der Array. Es ist nur noch eine Array.
+
+```pascal
+type
+  TData = record
     Scale: GLfloat;
     Matrix: TMatrix;
     Color: TVector3f;
-  <b><font color="0000BB">end</font></b>;
-<br>
-<b><font color="0000BB">var</font></b>
-  Data: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..InstanceCount - <font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TData;</code></pre>
-Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">var</font></b>
+  end;
+
+var
+  Data: array[0..InstanceCount - 1] of TData;
+```
+
+Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.
+
+```pascal
+procedure TForm1.InitScene;
+var
   ofs, i: integer;
-<b><font color="0000BB">begin</font></b>
-  glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Hintergrundfarbe</font></i>
-<br>
+begin
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+
   glBindVertexArray(VBQuad.VAO);
-<br>
-  <i><font color="#FFFF00">// --- Normale Vektordaten</font></i>
-  <i><font color="#FFFF00">// Daten für Vektoren</font></i>
+
+  // --- Normale Vektordaten
+  // Daten für Vektoren
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-  glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-  <i><font color="#FFFF00">// --- Instancen</font></i>
-  ofs := <font color="#0077BB">0</font>;
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+
+  // --- Instancen
+  ofs := 0;
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
-<br>
-  <i><font color="#FFFF00">// Instance Size</font></i>
-  glEnableVertexAttribArray(<font color="#0077BB">1</font>);
-  glVertexAttribPointer(<font color="#0077BB">1</font>, <font color="#0077BB">1</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), <b><font color="0000BB">nil</font></b>);
-  glVertexAttribDivisor(<font color="#0077BB">1</font>, <font color="#0077BB">1</font>);
+
+  // Instance Size
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TData), nil);
+  glVertexAttribDivisor(1, 1);
   Inc(ofs, SizeOf(GLfloat));
-<br>
-  <i><font color="#FFFF00">// Instance Matrix</font></i>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> <font color="#0077BB">3</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    glEnableVertexAttribArray(i + <font color="#0077BB">2</font>);
-    glVertexAttribPointer(i + <font color="#0077BB">2</font>, <font color="#0077BB">4</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), Pointer(ofs));
-    glVertexAttribDivisor(i + <font color="#0077BB">2</font>, <font color="#0077BB">1</font>);
+
+  // Instance Matrix
+  for i := 0 to 3 do begin
+    glEnableVertexAttribArray(i + 2);
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
+    glVertexAttribDivisor(i + 2, 1);
     Inc(ofs, SizeOf(TVector4f));
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// Instance Color</font></i>
-  glEnableVertexAttribArray(<font color="#0077BB">6</font>);
-  glVertexAttribPointer(<font color="#0077BB">6</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, SizeOf(TData), Pointer(ofs));
-  glVertexAttribDivisor(<font color="#0077BB">6</font>, <font color="#0077BB">1</font>);
-<b><font color="0000BB">end</font></b>;</code></pre>
-An der Zeichenroutine ändert sich nichts.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+  end;
+
+  // Instance Color
+  glEnableVertexAttribArray(6);
+  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
+  glVertexAttribDivisor(6, 1);
+end;
+```
+
+An der Zeichenroutine ändert sich nichts.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-<br>
+
   glBindVertexArray(VBQuad.VAO);
-<br>
+
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
-  glBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, SizeOf(Data), @Data);
-<br>
-  glDrawArraysInstanced(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>, InstanceCount);
-<br>
+  glBufferSubData(GL_ARRAY_BUFFER, 0, SizeOf(Data), @Data);
+
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
+
   ogc.SwapBuffers;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Matrizen neu berechnen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.Timer1Timer(Sender: TObject);
-<b><font color="0000BB">var</font></b>
+end;
+```
+
+Matrizen neu berechnen.
+
+```pascal
+procedure TForm1.Timer1Timer(Sender: TObject);
+var
   i: integer;
-<b><font color="0000BB">begin</font></b>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> Length(Data) - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Data[i].Matrix.RotateC(<font color="#0077BB">0</font>.<font color="#0077BB">02</font>);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  ogcDrawScene(Sender);  <i><font color="#FFFF00">// Neu zeichnen</font></i>
-<b><font color="0000BB">end</font></b>;</code></pre>
+begin
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i].Matrix.RotateC(0.02);
+  end;
+
+  ogcDrawScene(Sender);  // Neu zeichnen
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-Am Shader hat sich nichts geändert.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="#008800">#define</font></b> Instance_Count <font color="#0077BB">200</font>
-<br>
-<i><font color="#FFFF00">// Vektor-Daten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;
-<br>
-<i><font color="#FFFF00">// Instancen</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> Size;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">2</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">6</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Color;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> col;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+Am Shader hat sich nichts geändert.
+
+```glsl
+#version 330
+
+#define Instance_Count 200
+
+// Vektor-Daten
+layout (location = 0) in vec2 inPos;
+
+// Instancen
+layout (location = 1) in float Size;
+layout (location = 2) in mat4 mat;
+layout (location = 6) in vec3 Color;
+
+out vec3 col;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>((inPos * Size), <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-<br>
+  gl_Position = mat * vec4((inPos * Size), 0.0, 1.0);
+
   col = Color;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor;   <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> col;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader:</b>
+
+```glsl
+#version 330
+
+out vec4 outColor;   // ausgegebene Farbe
+
+in vec3 col;
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(col, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

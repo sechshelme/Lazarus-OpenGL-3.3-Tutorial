@@ -1,103 +1,137 @@
-<html>
-    <b><h1>20 - Texturen</h1></b>
-    <b><h2>35 - Multitexturing</h2></b>
+# 20 - Texturen
+## 35 - Multitexturing
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.<br>
-Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.<br>
-Somit muss man auch mehrere Texturen beim Zeichenen mittels <b>glActiveTexture(...</b> aktivieren.<br>
-<br>
-Hier im Beispiel, ist es ein Stück Mauer, welches mit einer farbigen Lampe angeleuchtet wird.<br>
+Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.
+Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.
+Somit muss man auch mehrere Texturen beim Zeichenen mittels <b>glActiveTexture(...</b> aktivieren.
+
+Hier im Beispiel, ist es ein Stück Mauer, welches mit einer farbigen Lampe angeleuchtet wird.
 <hr><br>
-Die Textur-Puffer deklarieren, sehr einfach geht dies mit einer Array.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  Textur: <b><font color="0000BB">array</font></b> [<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TTexturBuffer;</code></pre>
-Textur-Puffer erzeugen und Shader vorbereiten.<br>
-Die Textur-Sampler muss man durchnummerieren.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Textur[<font color="#0077BB">0</font>] := TTexturBuffer.Create;
-  Textur[<font color="#0077BB">1</font>] := TTexturBuffer.Create;
-<br>
-  Shader := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader.glsl'</font>)]);
-  <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+Die Textur-Puffer deklarieren, sehr einfach geht dies mit einer Array.
+
+```pascal
+var
+  Textur: array [0..1] of TTexturBuffer;
+```
+
+Textur-Puffer erzeugen und Shader vorbereiten.
+Die Textur-Sampler muss man durchnummerieren.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  Textur[0] := TTexturBuffer.Create;
+  Textur[1] := TTexturBuffer.Create;
+
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  with Shader do begin
     UseProgram;
-    Matrix_ID := UniformLocation(<font color="#FF0000">'mat'</font>);
-    glUniform1i(UniformLocation(<font color="#FF0000">'Sampler[0]'</font>), <font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Dem Sampler[0] 0 zuweisen.</font></i>
-    glUniform1i(UniformLocation(<font color="#FF0000">'Sampler[1]'</font>), <font color="#0077BB">1</font>);  <i><font color="#FFFF00">// Dem Sampler[1] 1 zuweisen.</font></i>
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Mit diesr Klasse geht das laden einer Bitmap sehr einfach.<br>
-Man kann die Texturen auch von einem <b>TRawImages</b> laden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
-  Textur[<font color="#0077BB">0</font>].LoadTextures(<font color="#FF0000">'mauer.xpm'</font>);
-  Textur[<font color="#0077BB">1</font>].LoadTextures(<font color="#FF0000">'licht.xpm'</font>);</code></pre>
-Da man bei Multitexturing mehrere Sampler braucht, muss man mitteilen, welche Textur zu welchen Sampler gehört.<br>
-Dies macht man mit <b>glActiveTexture(...</b>, Dazu muss man als Parameter die <b>Sampler-Nr + GL_TEXTURE0</b> mitgeben.<br>
-<br>
-Das sieht man auch gut in der TTexturBuffer Class.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TTexturBuffer.ActiveAndBind(Nr: integer);
-<b><font color="0000BB">begin</font></b>
+    Matrix_ID := UniformLocation('mat');
+    glUniform1i(UniformLocation('Sampler[0]'), 0);  // Dem Sampler[0] 0 zuweisen.
+    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
+  end;
+```
+
+Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
+Man kann die Texturen auch von einem <b>TRawImages</b> laden.
+
+```pascal
+procedure TForm1.InitScene;
+begin
+  Textur[0].LoadTextures('mauer.xpm');
+  Textur[1].LoadTextures('licht.xpm');
+```
+
+Da man bei Multitexturing mehrere Sampler braucht, muss man mitteilen, welche Textur zu welchen Sampler gehört.
+Dies macht man mit <b>glActiveTexture(...</b>, Dazu muss man als Parameter die <b>Sampler-Nr + GL_TEXTURE0</b> mitgeben.
+
+Das sieht man auch gut in der TTexturBuffer Class.
+
+```pascal
+procedure TTexturBuffer.ActiveAndBind(Nr: integer);
+begin
   glActiveTexture(GL_TEXTURE0 + Nr);
-  glBindTexture(GL_TEXTURE_2D, FID);  <i><font color="#FFFF00">// FID ist Textur-ID.</font></i>
-<b><font color="0000BB">end</font></b>;</code></pre>
-<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
+  glBindTexture(GL_TEXTURE_2D, FID);  // FID ist Textur-ID.
+end;
+```
+
+
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
   glClear(GL_COLOR_BUFFER_BIT);
-<br>
-  Textur[<font color="#0077BB">0</font>].ActiveAndBind(<font color="#0077BB">0</font>); <i><font color="#FFFF00">// Textur 0 mit Sampler 0 binden.</font></i>
-  Textur[<font color="#0077BB">1</font>].ActiveAndBind(<font color="#0077BB">1</font>); <i><font color="#FFFF00">// Textur 1 mit Sampler 1 binden.</font></i></code></pre>
-Die beiden Texturen am Ende wieder frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Textur[<font color="#0077BB">0</font>].Free;  <i><font color="#FFFF00">// Texturen frei geben.</font></i>
-  Textur[<font color="#0077BB">1</font>].Free;</code></pre>
+
+  Textur[0].ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.
+  Textur[1].ActiveAndBind(1); // Textur 1 mit Sampler 1 binden.
+```
+
+Die beiden Texturen am Ende wieder frei geben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Textur[0].Free;  // Texturen frei geben.
+  Textur[1].Free;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;     <i><font color="#FFFF00">// Vertex-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV0;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inUV1;    <i><font color="#FFFF00">// Textur-Koordinaten</font></i>
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> mat;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV1;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;     // Vertex-Koordinaten
+layout (location = 10) in vec2 inUV0;    // Textur-Koordinaten
+layout (location = 11) in vec2 inUV1;    // Textur-Koordinaten
+
+uniform mat4 mat;
+
+out vec2 UV0;
+out vec2 UV1;
+
+void main(void)
 {
-  gl_Position = mat * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-  UV0 = inUV0;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
-  UV1 = inUV1;                           <i><font color="#FFFF00">// Textur-Koordinaten weiterleiten.</font></i>
+  gl_Position = mat * vec4(inPos, 1.0);
+  UV0 = inUV0;                           // Textur-Koordinaten weiterleiten.
+  UV1 = inUV1;                           // Textur-Koordinaten weiterleiten.
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader:</b><br>
-<br>
-Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und anschliessend duch 2 geteilt.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV1;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler[<font color="#0077BB">2</font>];                      <i><font color="#FFFF00">// 2 Sampler deklarieren.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader:</b>
+
+Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und anschliessend duch 2 geteilt.
+
+```glsl
+#version 330
+
+in vec2 UV0;
+in vec2 UV1;
+
+uniform sampler2D Sampler[2];                      // 2 Sampler deklarieren.
+
+out vec4 FragColor;
+
+void main()
 {
-  FragColor = (texture( Sampler[<font color="#0077BB">0</font>], UV0 ) +        <i><font color="#FFFF00">// Die beiden Farben zusammenzählen und anschliessend durch 2 teilen.</font></i>
-               texture( Sampler[<font color="#0077BB">1</font>], UV1 )) / <font color="#0077BB">2</font>.<font color="#0077BB">0</font>;
+  FragColor = (texture( Sampler[0], UV0 ) +        // Die beiden Farben zusammenzählen und anschliessend durch 2 teilen.
+               texture( Sampler[1], UV1 )) / 2.0;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>mauer.xpm:</b><br>
-<pre><code>/* XPM */
+<b>mauer.xpm:</b>
+
+```glsl
+/* XPM */
 static char *XPM_mauer[] = {
-  "<font color="#0077BB">8</font> <font color="#0077BB">8</font> <font color="#0077BB">2</font> <font color="#0077BB">1</font>",
+  "8 8 2 1",
   "  c #AA2222",
-  "* c #<font color="#0077BB">222222</font>",
+  "* c #222222",
   "********",
   "*   *   ",
   "*   *   ",
@@ -107,19 +141,24 @@ static char *XPM_mauer[] = {
   "  *   * ",
   "  *   * "
 };
-</code></pre>
+
+```
+
 <hr><br>
-<b>licht.xpm:</b><br>
-<pre><code>/* XPM */
+<b>licht.xpm:</b>
+
+```glsl
+/* XPM */
 static char *XPM_licht[] = {
-  "<font color="#0077BB">2</font> <font color="#0077BB">2</font> <font color="#0077BB">4</font> <font color="#0077BB">1</font>",
-  "<font color="#0077BB">1</font> c #FF0000",
-  "<font color="#0077BB">2</font> c #<font color="#0077BB">00</font>FF00",
-  "<font color="#0077BB">3</font> c #<font color="#0077BB">0000</font>FF",
-  "<font color="#0077BB">4</font> c #FF0000",
-  "<font color="#0077BB">12</font>",
-  "<font color="#0077BB">34</font>"
+  "2 2 4 1",
+  "1 c #FF0000",
+  "2 c #00FF00",
+  "3 c #0000FF",
+  "4 c #FF0000",
+  "12",
+  "34"
 };
-</code></pre>
-<br>
-</html>
+
+```
+
+

@@ -1,13 +1,13 @@
 object Form1: TForm1
-  Left = 2263
+  Left = 1880
   Height = 410
-  Top = 34
+  Top = 37
   Width = 750
   Caption = 'Tutorial Creator'
   ClientHeight = 410
   ClientWidth = 750
   OnCreate = FormCreate
-  LCLVersion = '2.2.0.4'
+  LCLVersion = '2.2.2.0'
   object ButtonCreateHTML: TButton
     Left = 24
     Height = 25
@@ -67,7 +67,7 @@ object Form1: TForm1
   end
   object ComboBox1: TComboBox
     Left = 16
-    Height = 29
+    Height = 30
     Top = 16
     Width = 721
     Anchors = [akTop, akLeft, akRight]
@@ -82,6 +82,7 @@ object Form1: TForm1
     Top = 112
     Width = 81
     Caption = 'Tutorial Pfad:'
+    ParentColor = False
   end
   object Label2: TLabel
     Left = 24
@@ -89,6 +90,7 @@ object Form1: TForm1
     Top = 144
     Width = 70
     Caption = 'HTML Pfad:'
+    ParentColor = False
   end
   object LabelTutorialPfad: TLabel
     Left = 152
@@ -97,6 +99,7 @@ object Form1: TForm1
     Width = 31
     Caption = 'none'
     Font.Color = clBlue
+    ParentColor = False
     ParentFont = False
   end
   object LabelHTMLPfad: TLabel
@@ -106,6 +109,7 @@ object Form1: TForm1
     Width = 31
     Caption = 'none'
     Font.Color = clBlue
+    ParentColor = False
     ParentFont = False
   end
   object Label4: TLabel
@@ -114,6 +118,7 @@ object Form1: TForm1
     Top = 80
     Width = 30
     Caption = 'Titel:'
+    ParentColor = False
   end
   object LabelTutorialName: TLabel
     Left = 152
@@ -122,6 +127,7 @@ object Form1: TForm1
     Width = 31
     Caption = 'none'
     Font.Color = clBlue
+    ParentColor = False
     ParentFont = False
   end
   object ButtonCreateWiki: TButton
@@ -139,6 +145,7 @@ object Form1: TForm1
     Top = 176
     Width = 59
     Caption = 'Wiki Pfad:'
+    ParentColor = False
   end
   object LabelWikiPfad: TLabel
     Left = 152
@@ -147,6 +154,7 @@ object Form1: TForm1
     Width = 31
     Caption = 'none'
     Font.Color = clBlue
+    ParentColor = False
     ParentFont = False
   end
   object ButtonWikiText: TButton
@@ -163,7 +171,7 @@ object Form1: TForm1
     Height = 25
     Top = 280
     Width = 88
-    Caption = 'Create Reame.MD'
+    Caption = 'Create Readme.MD'
     OnClick = ButtonCreateReadmeMDClick
     TabOrder = 9
   end
@@ -173,6 +181,7 @@ object Form1: TForm1
     Top = 208
     Width = 114
     Caption = 'README.MD Pfad:'
+    ParentColor = False
   end
   object LabelReadmeMDPfad: TLabel
     Left = 152
@@ -181,6 +190,7 @@ object Form1: TForm1
     Width = 31
     Caption = 'none'
     Font.Color = clBlue
+    ParentColor = False
     ParentFont = False
   end
 end

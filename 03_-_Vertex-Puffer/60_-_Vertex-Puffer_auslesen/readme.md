@@ -1,94 +1,109 @@
-<html>
-    <b><h1>03 - Vertex-Puffer</h1></b>
-    <b><h2>60 - Vertex-Puffer auslesen</h2></b>
+# 03 - Vertex-Puffer
+## 60 - Vertex-Puffer auslesen
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.<br>
+Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.
 <hr><br>
-Für diesen Zweck gibt es die Funktion <b>glGetBufferSubData(...</b>.<br>
+Für diesen Zweck gibt es die Funktion <b>glGetBufferSubData(...</b>.
 <hr><br>
-Diese Vertex-Daten sollen auch in der MessageBox erscheinen.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  TriangleVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TFace2D =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">7</font>)));
-  TriangleColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">0</font>] <b><font color="0000BB">of</font></b> TVertex3f = ((<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));
-  QuadVector: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TFace2D =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">1</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">2</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">6</font>)));
-  QuadColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> TVertex3f =
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>));</code></pre>
-Vertex-Daten auslesen.<br>
-Wie üblich müssen die Puffer VAO und VBO gebunden werden.<br>
-Mit <b>glGetBufferParameteriv(...</b> wird die Grösse des Puffer ermittelt.<br>
-Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelesen werden.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.MenuItem1Click(Sender: TObject);
-<b><font color="0000BB">var</font></b>
-  TempBuffer: <b><font color="0000BB">array</font></b> <b><font color="0000BB">of</font></b> <b><font color="0000BB">record</font></b>   <i><font color="#FFFF00">// Zum speichern der Daten</font></i>
+Diese Vertex-Daten sollen auch in der MessageBox erscheinen.
+
+```pascal
+const
+  TriangleVector: array[0..0] of TFace2D =
+    (((-0.4, 0.1), (0.4, 0.1), (0.0, 0.7)));
+  TriangleColor: array[0..0] of TVertex3f = ((1.0, 0.5, 0.0));
+  QuadVector: array[0..1] of TFace2D =
+    (((-0.2, -0.6), (-0.2, -0.1), (0.2, -0.1)),
+    ((-0.2, -0.6), (0.2, -0.1), (0.2, -0.6)));
+  QuadColor: array[0..1] of TVertex3f =
+    ((0.5, 0.0, 1.0), (0.5, 1.0, 0.0));
+```
+
+Vertex-Daten auslesen.
+Wie üblich müssen die Puffer VAO und VBO gebunden werden.
+Mit <b>glGetBufferParameteriv(...</b> wird die Grösse des Puffer ermittelt.
+Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelesen werden.
+
+```pascal
+procedure TForm1.MenuItem1Click(Sender: TObject);
+var
+  TempBuffer: array of record   // Zum speichern der Daten
     x, y: glFloat;
-  <b><font color="0000BB">end</font></b>;
-  sx, sy: <b><font color="0000BB">string</font></b>;               <i><font color="#FFFF00">// Für Formatierung</font></i>
+  end;
+  sx, sy: string;               // Für Formatierung
   i: integer;
-  BufSize: GLint;               <i><font color="#FFFF00">// Puffergrösse.</font></i>
-  sl: TStringList;              <i><font color="#FFFF00">// Für Ausgabe.</font></i>
-<b><font color="0000BB">begin</font></b>
+  BufSize: GLint;               // Puffergrösse.
+  sl: TStringList;              // Für Ausgabe.
+begin
   sl := TStringList.Create;
-<br>
-  <i><font color="#FFFF00">// Puffer binden.</font></i>
-  <b><font color="0000BB">if</font></b> TMenuItem(Sender).Caption = <font color="#FF0000">'Dreieck'</font> <b><font color="0000BB">then</font></b> <b><font color="0000BB">begin</font></b>
+
+  // Puffer binden.
+  if TMenuItem(Sender).Caption = 'Dreieck' then begin
     glBindVertexArray(VBTriangle.VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
-  <b><font color="0000BB">end</font></b> <b><font color="0000BB">else</font></b> <b><font color="0000BB">begin</font></b>
+  end else begin
     glBindVertexArray(VBQuad.VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// Die Grösse des Puffers ermitteln.</font></i>
+  end;
+
+  // Die Grösse des Puffers ermitteln.
   glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, @BufSize);
-<br>
-  <i><font color="#FFFF00">// Ram für den Puffer reservieren.</font></i>
-  SetLength(TempBuffer, BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font>);
-<br>
-  <i><font color="#FFFF00">// Puffer in den Ram kopieren.</font></i>
-  glGetBufferSubData(GL_ARRAY_BUFFER, <font color="#0077BB">0</font>, BufSize, Pointer(TempBuffer));
-<br>
-  <i><font color="#FFFF00">// Puffer formatieren und ausgeben.</font></i>
-  sl.Add(<font color="#FF0000">'Anzahl Vektoren: '</font> + IntToStr(BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font>));
-  sl.Add(<font color="#FF0000">''</font>);
-<br>
-  <b><font color="0000BB">for</font></b> i := <font color="#0077BB">0</font> <b><font color="0000BB">to</font></b> BufSize <b><font color="0000BB">div</font></b> <font color="#0077BB">8</font> - <font color="#0077BB">1</font> <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Str(TempBuffer[i].x: <font color="#0077BB">6</font>: <font color="#0077BB">3</font>, sx);
-    Str(TempBuffer[i].y: <font color="#0077BB">6</font>: <font color="#0077BB">3</font>, sy);
-    sl.Add(<font color="#FF0000">'X: '</font> + sx + <font color="#FF0000">' Y: '</font> + sy);
-  <b><font color="0000BB">end</font></b>;
-<br>
+
+  // Ram für den Puffer reservieren.
+  SetLength(TempBuffer, BufSize div 8);
+
+  // Puffer in den Ram kopieren.
+  glGetBufferSubData(GL_ARRAY_BUFFER, 0, BufSize, Pointer(TempBuffer));
+
+  // Puffer formatieren und ausgeben.
+  sl.Add('Anzahl Vektoren: ' + IntToStr(BufSize div 8));
+  sl.Add('');
+
+  for i := 0 to BufSize div 8 - 1 do begin
+    Str(TempBuffer[i].x: 6: 3, sx);
+    Str(TempBuffer[i].y: 6: 3, sy);
+    sl.Add('X: ' + sx + ' Y: ' + sy);
+  end;
+
   ShowMessage(sl.Text);
   sl.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> inPos;     <i><font color="#FFFF00">// Vertex-Koordinaten, nur XY.</font></i>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">11</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">float</font></b> inCol;    <i><font color="#FFFF00">// Farbe, es kommt nur Rot.</font></i>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> Color;                           <i><font color="#FFFF00">// Farbe, an Fragment-Shader übergeben.</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+
+```glsl
+#version 330
+
+layout (location = 10) in vec2 inPos;     // Vertex-Koordinaten, nur XY.
+layout (location = 11) in float inCol;    // Farbe, es kommt nur Rot.
+
+out vec4 Color;                           // Farbe, an Fragment-Shader übergeben.
+
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);    <i><font color="#FFFF00">// Z ist immer 0.0</font></i>
-  Color = <b><font color="0000BB">vec4</font></b>(inCol, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);     <i><font color="#FFFF00">// Der Rot- und Grün - Teil, ist 0.0</font></i>
+  gl_Position = vec4(inPos, 0.0, 1.0);    // Z ist immer 0.0
+  Color = vec4(inCol, 0.0, 0.0, 1.0);     // Der Rot- und Grün - Teil, ist 0.0
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec4</font></b> Color;     <i><font color="#FFFF00">// interpolierte Farbe vom Vertexshader</font></i>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader</b>
+
+```glsl
+#version 330
+
+in vec4 Color;     // interpolierte Farbe vom Vertexshader
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = Color; <i><font color="#FFFF00">// Die Ausgabe der Farbe</font></i>
+  outColor = Color; // Die Ausgabe der Farbe
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

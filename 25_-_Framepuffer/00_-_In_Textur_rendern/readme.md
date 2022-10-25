@@ -1,309 +1,364 @@
-<html>
-    <b><h1>25 - Framepuffer</h1></b>
-    <b><h2>00 - In Textur rendern</h2></b>
+# 25 - Framepuffer
+## 00 - In Textur rendern
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.<br>
-Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.<br>
+Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.
+Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.
 <hr><br>
-Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.<br>
-Es ist ein Quadrat mit 4 verschieden farbigen Ecken.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-<br>
-  <i><font color="#FFFF00">// --- Vectoren</font></i>
-  QuadVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> Tmat3x3 =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)));
-<br>
-  <i><font color="#FFFF00">// --- Farben</font></i>
-  QuadColor: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">1</font>] <b><font color="0000BB">of</font></b> Tmat3x3 =
-    (((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">2</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));</code></pre>
-Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.<br>
-Der Würfel braucht Texturkoordinaten.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-<br>
-  <i><font color="#FFFF00">// --- Vectoren</font></i>
-  CubeVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">11</font>] <b><font color="0000BB">of</font></b> Tmat3x3 =
-    (((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
-    <i><font color="#FFFF00">// oben</font></i>
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)),
-    <i><font color="#FFFF00">// unten</font></i>
-    ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>)), ((-<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, -<font color="#0077BB">0</font>.<font color="#0077BB">5</font>, <font color="#0077BB">0</font>.<font color="#0077BB">5</font>)));
-<br>
-  <i><font color="#FFFF00">// --- Texturkoordinaten</font></i>
-  CubeTextureVertex: <b><font color="0000BB">array</font></b>[<font color="#0077BB">0</font>..<font color="#0077BB">11</font>] <b><font color="0000BB">of</font></b> Tmat3x2 =
-    (((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)),
-    ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>)), ((<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>), (<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>)));</code></pre>
-Grösse der Textur, auf welcher das Quadrat gerendert wird.<br>
-<pre><code><b><font color="0000BB">const</font></b>
-  TexturSize = <font color="#0077BB">2048</font>;</code></pre>
-Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.<br>
-Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.<br>
-<pre><code><b><font color="0000BB">var</font></b>
-  <i><font color="#FFFF00">// ID der Textur.</font></i>
+Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
+Es ist ein Quadrat mit 4 verschieden farbigen Ecken.
+
+```pascal
+const
+
+  // --- Vectoren
+  QuadVertex: array[0..1] of Tmat3x3 =
+    (((-0.3, 0.3, 0.0), (-0.3, -0.3, 0.0), (0.3, -0.3, 0.0)), ((-0.3, 0.3, 0.0), (0.3, -0.3, 0.0), (0.3, 0.3, 0.0)));
+
+  // --- Farben
+  QuadColor: array[0..1] of Tmat3x3 =
+    (((0.0, 2.0, 0.5), (0.0, 0.0, 0.5), (2.0, 0.0, 0.5)), ((0.0, 2.0, 0.5), (2.0, 0.0, 0.5), (2.0, 2.0, 0.5)));
+```
+
+Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.
+Der Würfel braucht Texturkoordinaten.
+
+```pascal
+const
+
+  // --- Vectoren
+  CubeVertex: array[0..11] of Tmat3x3 =
+    (((-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5)), ((-0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5)),
+    ((0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5)), ((0.5, 0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5)),
+    ((0.5, 0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)), ((0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, 0.5, -0.5)),
+    ((-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5)), ((-0.5, 0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5)),
+    // oben
+    ((0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5)), ((0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, 0.5, 0.5)),
+    // unten
+    ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
+
+  // --- Texturkoordinaten
+  CubeTextureVertex: array[0..11] of Tmat3x2 =
+    (((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)));
+```
+
+Grösse der Textur, auf welcher das Quadrat gerendert wird.
+
+```pascal
+const
+  TexturSize = 2048;
+```
+
+Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.
+Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.
+
+```pascal
+var
+  // ID der Textur.
   textureID: GLuint;
-<br>
-  <i><font color="#FFFF00">// Renderpuffer</font></i>
-  FramebufferName, depthrenderbuffer: GLuint;</code></pre>
-Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-<br>
-  <i><font color="#FFFF00">// Vertex Puffer erzeugen.</font></i>
-  glGenVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex_Col);
-<br>
-  glGenVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOVertex);
-  glGenBuffers(<font color="#0077BB">1</font>, @VBCube.VBOTex_Col);
-<br>
-  <i><font color="#FFFF00">// Shader des Quadrates</font></i>
-  <b><font color="0000BB">with</font></b> Quad_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Shader := TShader.Create([FileToStr(<font color="#FF0000">'quad.vert'</font>), FileToStr(<font color="#FF0000">'quad.frag'</font>)]);
-    <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+  // Renderpuffer
+  FramebufferName, depthrenderbuffer: GLuint;
+```
+
+Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+
+  // Vertex Puffer erzeugen.
+  glGenVertexArrays(1, @VBQuad.VAO);
+  glGenBuffers(1, @VBQuad.VBOVertex);
+  glGenBuffers(1, @VBQuad.VBOTex_Col);
+
+  glGenVertexArrays(1, @VBCube.VAO);
+  glGenBuffers(1, @VBCube.VBOVertex);
+  glGenBuffers(1, @VBCube.VBOTex_Col);
+
+  // Shader des Quadrates
+  with Quad_Shader do begin
+    Shader := TShader.Create([FileToStr('quad.vert'), FileToStr('quad.frag')]);
+    with Shader do begin
       UseProgram;
-<br>
-      WorldMatrix_id := UniformLocation(<font color="#FF0000">'Matrix'</font>);
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// Shader des Würfels.</font></i>
-  <b><font color="0000BB">with</font></b> Cube_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
-    Shader := TShader.Create([FileToStr(<font color="#FF0000">'cube.vert'</font>), FileToStr(<font color="#FF0000">'cube.frag'</font>)]);
-    <b><font color="0000BB">with</font></b> Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+      WorldMatrix_id := UniformLocation('Matrix');
+    end;
+  end;
+
+  // Shader des Würfels.
+  with Cube_Shader do begin
+    Shader := TShader.Create([FileToStr('cube.vert'), FileToStr('cube.frag')]);
+    with Shader do begin
       UseProgram;
-      glUniform1i(UniformLocation(<font color="#FF0000">'Sampler0'</font>), <font color="#0077BB">0</font>);
-<br>
-      WorldMatrix_id := UniformLocation(<font color="#FF0000">'Matrix'</font>);
-    <b><font color="0000BB">end</font></b>;
-  <b><font color="0000BB">end</font></b>;
-<br>
+      glUniform1i(UniformLocation('Sampler0'), 0);
+
+      WorldMatrix_id := UniformLocation('Matrix');
+    end;
+  end;
+
   CubeWorldMatrix.Identity;
   QuadWorldMatrix.Identity;
-<b><font color="0000BB">end</font></b>;</code></pre>
-Die Vertexkoordinaten laden, auch nichts besonderes.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.InitScene;
-<b><font color="0000BB">begin</font></b>
+end;
+```
+
+Die Vertexkoordinaten laden, auch nichts besonderes.
+
+```pascal
+procedure TForm1.InitScene;
+begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
-<br>
+
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
-<br>
-  QuadWorldMatrix.Scale(<font color="#0077BB">2</font>.<font color="#0077BB">0</font>);
-<br>
-  <i><font color="#FFFF00">// --- Quadrat</font></i>
-  <b><font color="0000BB">with</font></b> Quad_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+
+  QuadWorldMatrix.Scale(2.0);
+
+  // --- Quadrat
+  with Quad_Shader do begin
     glBindVertexArray(VBQuad.VAO);
-<br>
-    <i><font color="#FFFF00">// Vertexkoordinaten</font></i>
+
+    // Vertexkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-    glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-    <i><font color="#FFFF00">// Farben</font></i>
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+    // Farben
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex_Col);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(<font color="#0077BB">1</font>);
-    glVertexAttribPointer(<font color="#0077BB">1</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-  <b><font color="0000BB">end</font></b>;
-<br>
-  <i><font color="#FFFF00">// --- Würfel</font></i>
-  <b><font color="0000BB">with</font></b> Cube_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  end;
+
+  // --- Würfel
+  with Cube_Shader do begin
     glBindVertexArray(VBCube.VAO);
-<br>
-    <i><font color="#FFFF00">// Vertexkoordinaten</font></i>
+
+    // Vertexkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertex), @CubeVertex, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(<font color="#0077BB">0</font>);
-    glVertexAttribPointer(<font color="#0077BB">0</font>, <font color="#0077BB">3</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-<br>
-    <i><font color="#FFFF00">// Texturkoordinaten</font></i>
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+    // Texturkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex_Col);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTextureVertex), @CubeTextureVertex, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(<font color="#0077BB">10</font>);
-    glVertexAttribPointer(<font color="#0077BB">10</font>, <font color="#0077BB">2</font>, GL_FLOAT, <b><font color="0000BB">False</font></b>, <font color="#0077BB">0</font>, <b><font color="0000BB">nil</font></b>);
-  <b><font color="0000BB">end</font></b>;</code></pre>
-Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,<br>
-gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.<br>
-<pre><code>
-  <i><font color="#FFFF00">// ------------ Texturen erzeugenn --------------</font></i>
-<br>
-  <i><font color="#FFFF00">// --- Textur</font></i>
-<br>
-  glGenTextures(<font color="#0077BB">1</font>, @textureID);
+    glEnableVertexAttribArray(10);
+    glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  end;
+```
+
+Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,
+gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.
+
+```pascal
+
+  // ------------ Texturen erzeugenn --------------
+
+  // --- Textur
+
+  glGenTextures(1, @textureID);
   glBindTexture(GL_TEXTURE_2D, textureID);
-<br>
-  glTexImage2D(GL_TEXTURE_2D, <font color="#0077BB">0</font>, GL_RGBA, TexturSize, TexturSize, <font color="#0077BB">0</font>, GL_RGBA, GL_UNSIGNED_BYTE, <b><font color="0000BB">nil</font></b>);
-<br>
+
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TexturSize, TexturSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-</code></pre>
-Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.<br>
-<pre><code>
-  <i><font color="#FFFF00">// Frame Puffer erzeugen.</font></i>
-  glGenFramebuffers(<font color="#0077BB">1</font>, @FramebufferName);
+
+```
+
+Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.
+
+```pascal
+
+  // Frame Puffer erzeugen.
+  glGenFramebuffers(1, @FramebufferName);
   glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-<br>
-  <i><font color="#FFFF00">// Render Puffer erzeugen.</font></i>
-  glGenRenderbuffers(<font color="#0077BB">1</font>, @depthrenderbuffer);
+
+  // Render Puffer erzeugen.
+  glGenRenderbuffers(1, @depthrenderbuffer);
   glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
-<br>
+
   glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, TexturSize, TexturSize);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
-<br>
-  <i><font color="#FFFF00">// Die Textur mit dem Framebuffer koppeln</font></i>
-  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureID, <font color="#0077BB">0</font>);
-<b><font color="0000BB">end</font></b>;</code></pre>
-Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den Bildschirmpuffer.<br>
-Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.<br>
-Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.<br>
-Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.<br>
-Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.<br>
-Beim Bildschirmpuffer hat dieser keinen Einfluss.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.ogcDrawScene(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-<br>
-  <i><font color="#FFFF00">// --- In den Texturpuffer render.</font></i>
-<br>
-  <b><font color="0000BB">with</font></b> Quad_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b> <i><font color="#FFFF00">// Quadrat</font></i>
-<br>
-    <i><font color="#FFFF00">// FramePuffer aktivieren.</font></i>
+
+  // Die Textur mit dem Framebuffer koppeln
+  glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureID, 0);
+end;
+```
+
+Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den Bildschirmpuffer.
+Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.
+Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.
+Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.
+Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.
+Beim Bildschirmpuffer hat dieser keinen Einfluss.
+
+```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
+
+  // --- In den Texturpuffer render.
+
+  with Quad_Shader do begin // Quadrat
+
+    // FramePuffer aktivieren.
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-<br>
-    glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">0</font>.<font color="#0077BB">3</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-    glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
-    glViewport(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, TexturSize, TexturSize);
-<br>
+
+    glClearColor(0.3, 0.3, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, TexturSize, TexturSize);
+
     Shader.UseProgram;
     glBindVertexArray(VBQuad.VAO);
-<br>
-    QuadWorldMatrix.Uniform(WorldMatrix_id);
-    glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(QuadVertex) * <font color="#0077BB">3</font>);
-  <b><font color="0000BB">end</font></b>;
-<br>
 
-  <i><font color="#FFFF00">//  --- Normal auf den Bildschirm rendern.</font></i>
-<br>
-  <b><font color="0000BB">with</font></b> Cube_Shader <b><font color="0000BB">do</font></b> <b><font color="0000BB">begin</font></b>  <i><font color="#FFFF00">// Würfel</font></i>
-<br>
-    <i><font color="#FFFF00">// BildschirmPuffer mit "0" aktivieren.</font></i>
-    glBindFramebuffer(GL_FRAMEBUFFER, <font color="#0077BB">0</font>);
-<br>
-    glClearColor(<font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">6</font>, <font color="#0077BB">0</font>.<font color="#0077BB">4</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
-    glClear(GL_COLOR_BUFFER_BIT <b><font color="0000BB">or</font></b> GL_DEPTH_BUFFER_BIT);
-    glViewport(<font color="#0077BB">0</font>, <font color="#0077BB">0</font>, ClientWidth, ClientHeight);
-<br>
+    QuadWorldMatrix.Uniform(WorldMatrix_id);
+    glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);
+  end;
+
+
+  //  --- Normal auf den Bildschirm rendern.
+
+  with Cube_Shader do begin  // Würfel
+
+    // BildschirmPuffer mit "0" aktivieren.
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    glClearColor(0.6, 0.6, 0.4, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, ClientWidth, ClientHeight);
+
     glBindTexture(GL_TEXTURE_2D, textureID);
-<br>
+
     Shader.UseProgram;
     glBindVertexArray(VBCube.VAO);
-<br>
+
     CubeWorldMatrix.Uniform(WorldMatrix_id);
-    glDrawArrays(GL_TriangleS, <font color="#0077BB">0</font>, Length(CubeVertex) * <font color="#0077BB">3</font>);
-<br>
+    glDrawArrays(GL_TriangleS, 0, Length(CubeVertex) * 3);
+
     ogc.SwapBuffers;
-  <b><font color="0000BB">end</font></b>;
-<br>
-<b><font color="0000BB">end</font></b>;</code></pre>
-Zum Schluss alle Puffer frei geben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Timer1.Enabled := <b><font color="0000BB">False</font></b>;
-<br>
-  <i><font color="#FFFF00">// Frame Puffer und Textur frei geben.</font></i>
-  glDeleteFramebuffers(<font color="#0077BB">1</font>, @FramebufferName);
-  glDeleteRenderbuffers(<font color="#0077BB">1</font>, @depthrenderbuffer);
-  glDeleteTextures(<font color="#0077BB">1</font>, @textureID);
-<br>
-  <i><font color="#FFFF00">// Vertex Puffer frei geben.</font></i>
-  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBQuad.VAO);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOVertex);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBQuad.VBOTex_Col);
-<br>
-  glDeleteVertexArrays(<font color="#0077BB">1</font>, @VBCube.VAO);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOVertex);
-  glDeleteBuffers(<font color="#0077BB">1</font>, @VBCube.VBOTex_Col);
-<br>
-  <i><font color="#FFFF00">// Shader frei geben.</font></i>
+  end;
+
+end;
+```
+
+Zum Schluss alle Puffer frei geben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Timer1.Enabled := False;
+
+  // Frame Puffer und Textur frei geben.
+  glDeleteFramebuffers(1, @FramebufferName);
+  glDeleteRenderbuffers(1, @depthrenderbuffer);
+  glDeleteTextures(1, @textureID);
+
+  // Vertex Puffer frei geben.
+  glDeleteVertexArrays(1, @VBQuad.VAO);
+  glDeleteBuffers(1, @VBQuad.VBOVertex);
+  glDeleteBuffers(1, @VBQuad.VBOTex_Col);
+
+  glDeleteVertexArrays(1, @VBCube.VAO);
+  glDeleteBuffers(1, @VBCube.VBOVertex);
+  glDeleteBuffers(1, @VBCube.VBOTex_Col);
+
+  // Shader frei geben.
   Quad_Shader.Shader.Free;
   Cube_Shader.Shader.Free;
-<b><font color="0000BB">end</font></b>;</code></pre>
+end;
+```
+
 <hr><br>
-Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.<br>
-Der Shader des Würfels, gibt Texturen aus.<br>
-<br>
-<b>Vertex-Shader Quadrat:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> vertexUV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
+Der Shader des Würfels, gibt Texturen aus.
+
+<b>Vertex-Shader Quadrat:</b>
+
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;
+layout (location = 10) in vec2 vertexUV0;
+
+uniform mat4 Matrix;
+
+out vec2 UV0;
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
   UV0 = vertexUV0;
 }
-<br>
-</code></pre>
+
+
+```
+
 <hr><br>
-<b>Fragment-Shader Quadrat:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec2</font></b> UV0;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">sampler2D</font></b> Sampler0;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> FragColor;
-<br>
-<b><font color="0000BB">void</font></b> main()
+<b>Fragment-Shader Quadrat:</b>
+
+
+```glsl
+#version 330
+
+in vec2 UV0;
+
+uniform sampler2D Sampler0;
+
+out vec4 FragColor;
+
+void main()
 {
   FragColor = texture( Sampler0, UV0 );
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Vertex-Shader Würfel:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">0</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">1</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inCol;
-<br>
-<b><font color="0000BB">uniform</font></b> <b><font color="0000BB">mat4</font></b> Matrix;
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec3</font></b> Col;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader Würfel:</b>
+
+
+```glsl
+#version 330
+
+layout (location = 0) in vec3 inPos;
+layout (location = 1) in vec3 inCol;
+
+uniform mat4 Matrix;
+
+out vec3 Col;
+
+void main(void)
 {
-  gl_Position = Matrix * <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = Matrix * vec4(inPos, 1.0);
   Col = inCol;
 }
-</code></pre>
+
+```
+
 <hr><br>
-<b>Fragment-Shader Würfel:</b><br>
-<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> Col;
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Fragment-Shader Würfel:</b>
+
+
+```glsl
+#version 330
+
+in vec3 Col;
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(Col, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  outColor = vec4(Col, 1.0);
 }
-</code></pre>
-<br>
-</html>
+
+```
+
+

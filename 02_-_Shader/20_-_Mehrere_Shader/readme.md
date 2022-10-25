@@ -1,67 +1,90 @@
-<html>
-    <b><h1>02 - Shader</h1></b>
-    <b><h2>20 - Mehrere Shader</h2></b>
+# 02 - Shader
+## 20 - Mehrere Shader
+
 <img src="image.png" alt="Selfhtml"><br><br>
-Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.<br>
-Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.<br>
-Normalerweise würde man dies mit nur einem Shader über eine Uniform-Variable realisieren, jedoch geht es hier darum zu zeigen, wie man mehrere Shader verwendet.<br>
+Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.
+Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.
+Normalerweise würde man dies mit nur einem Shader über eine Uniform-Variable realisieren, jedoch geht es hier darum zu zeigen, wie man mehrere Shader verwendet.
 <hr><br>
-In diesem Codeausschnitt sind die ersten beiden Zeilen interessant.<br>
-Hier werden die zwei Shader in die Grafikkarte geladen.<br>
-<br>
-Der Vertex-Shader ist in beiden Shader-Programs der Gleiche, daher wird zwei mal die gleiche glsl-Datei geladen.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.CreateScene;
-<b><font color="0000BB">begin</font></b>
-  Shader[<font color="#0077BB">0</font>] := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader0.glsl'</font>)]);
-  Shader[<font color="#0077BB">1</font>] := TShader.Create([FileToStr(<font color="#FF0000">'Vertexshader.glsl'</font>), FileToStr(<font color="#FF0000">'Fragmentshader1.glsl'</font>)]);</code></pre>
-Beim Zeichnen muss man jetzt tatsächlich mit <b>Shader[x].UseProgram(...</b> den Shader wählen, da mehr als ein Shader verwendet wird.<br>
-Die Meshes sollten nun zwei verschiedene Farben haben.<br>
-<pre><code>  <i><font color="#FFFF00">// Zeichne Dreieck</font></i>
-  Shader[<font color="#0077BB">0</font>].UseProgram;  <i><font color="#FFFF00">//  Shader 0 wählen  ( Rot )</font></i>
+In diesem Codeausschnitt sind die ersten beiden Zeilen interessant.
+Hier werden die zwei Shader in die Grafikkarte geladen.
+
+Der Vertex-Shader ist in beiden Shader-Programs der Gleiche, daher wird zwei mal die gleiche glsl-Datei geladen.
+
+```pascal
+procedure TForm1.CreateScene;
+begin
+  Shader[0] := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader0.glsl')]);
+  Shader[1] := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader1.glsl')]);
+```
+
+Beim Zeichnen muss man jetzt tatsächlich mit <b>Shader[x].UseProgram(...</b> den Shader wählen, da mehr als ein Shader verwendet wird.
+Die Meshes sollten nun zwei verschiedene Farben haben.
+
+```pascal
+  // Zeichne Dreieck
+  Shader[0].UseProgram;  //  Shader 0 wählen  ( Rot )
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Triangle) * <font color="#0077BB">3</font>);
-<br>
-  <i><font color="#FFFF00">// Zeichne Quadrat</font></i>
-  Shader[<font color="#0077BB">1</font>].UseProgram;  <i><font color="#FFFF00">//  Shader 1 wählen  ( Grün )</font></i>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+
+  // Zeichne Quadrat
+  Shader[1].UseProgram;  //  Shader 1 wählen  ( Grün )
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, <font color="#0077BB">0</font>, Length(Quad) * <font color="#0077BB">3</font>);
-</code></pre>
-Am Ende noch mit <b>Shader[x].Free</b> die Shader in der Grafikkarte wieder freigeben.<br>
-<pre><code><b><font color="0000BB">procedure</font></b> TForm1.FormDestroy(Sender: TObject);
-<b><font color="0000BB">begin</font></b>
-  Shader[<font color="#0077BB">0</font>].Free;
-  Shader[<font color="#0077BB">1</font>].Free;</code></pre>
+  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+
+```
+
+Am Ende noch mit <b>Shader[x].Free</b> die Shader in der Grafikkarte wieder freigeben.
+
+```pascal
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Shader[0].Free;
+  Shader[1].Free;
+```
+
 <hr><br>
-<b>Vertex-Shader:</b><br>
-Der Vertex-Shader ist bei beiden Shader gleich.<br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<b><font color="0000BB">layout</font></b> (location = <font color="#0077BB">10</font>) <b><font color="0000BB">in</font></b> <b><font color="0000BB">vec3</font></b> inPos;
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+<b>Vertex-Shader:</b>
+Der Vertex-Shader ist bei beiden Shader gleich.
+
+```glsl
+#version 330
+layout (location = 10) in vec3 inPos;
+
+void main(void)
 {
-  gl_Position = <b><font color="0000BB">vec4</font></b>(inPos, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);
+  gl_Position = vec4(inPos, 1.0);
 }
-</code></pre>
-<b>Fragment-Shader 0:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+```
+
+<b>Fragment-Shader 0:</b>
+
+```glsl
+#version 330
+
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Rot</font></i>
+  outColor = vec4(1.0, 0.0, 0.0, 1.0);  // Rot
 }
-</code></pre>
-<b>Fragment-Shader 1:</b><br>
-<pre><code><b><font color="#008800">#version</font></b> <font color="#0077BB">330</font>
-<br>
-<b><font color="0000BB">out</font></b> <b><font color="0000BB">vec4</font></b> outColor; <i><font color="#FFFF00">// ausgegebene Farbe</font></i>
-<br>
-<b><font color="0000BB">void</font></b> main(<b><font color="0000BB">void</font></b>)
+
+```
+
+<b>Fragment-Shader 1:</b>
+
+```glsl
+#version 330
+
+out vec4 outColor; // ausgegebene Farbe
+
+void main(void)
 {
-  outColor = <b><font color="0000BB">vec4</font></b>(<font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>, <font color="#0077BB">0</font>.<font color="#0077BB">0</font>, <font color="#0077BB">1</font>.<font color="#0077BB">0</font>);  <i><font color="#FFFF00">// Grün</font></i>
+  outColor = vec4(0.0, 1.0, 0.0, 1.0);  // Grün
 }
-</code></pre>
-In der zweit letzten Zeile sieht man, dass man eine andere Farbe an den Ausgang übergibt.<br>
-<br>
-</html>
+
+```
+
+In der zweit letzten Zeile sieht man, dass man eine andere Farbe an den Ausgang übergibt.
+

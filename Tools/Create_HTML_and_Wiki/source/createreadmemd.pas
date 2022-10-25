@@ -84,7 +84,7 @@ begin
   sl2 := TStringList.Create;
 
   //sl2.Add('<!DOCTYPE html>');
-  sl2.Add('<html>');
+//  sl2.Add('<html>');
   //sl2.Add('  <head>');
   //sl2.Add('    <meta charset="utf-8">');
   //sl2.Add('    <title>' + getTitle + '</title>');
@@ -93,15 +93,15 @@ begin
   //sl2.Add('    </style>');
   //sl2.Add('  </head>');
   //sl2.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
-  sl2.Add('    <b><h1>' + fKapitel + '</h1></b>');
-  sl2.Add('    <b><h2>' + getTitle + '</h2></b>');
+  sl2.Add('# ' + fKapitel);
+  sl2.Add('## ' + getTitle+LineEnding);
 
   sl2.Add(slHTML.Text);
 
   //  sl2.Add('    <br><br><br>');
   //  sl2.Add('<h2>' + HTMLAddLink('../../index.html', 'zurück') + '</h2>');
   //  sl2.Add('  </body>');
-  sl2.Add('</html>');
+//  sl2.Add('</html>');
 
   ForceDirectories(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator);
   if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin
@@ -110,7 +110,7 @@ begin
 
   sl2.Text := StringReplace(sl2.Text, ' < ', ' &lt; ', [rfReplaceAll, rfIgnoreCase]);
   sl2.Text := StringReplace(sl2.Text, ' > ', ' &gt; ', [rfReplaceAll, rfIgnoreCase]);
-  sl2.Text := StringReplace(sl2.Text, LineEnding + LineEnding, LineEnding + '<br>' + LineEnding, [rfReplaceAll, rfIgnoreCase]);
+//  sl2.Text := StringReplace(sl2.Text, LineEnding + LineEnding, LineEnding + '<br>' + LineEnding, [rfReplaceAll, rfIgnoreCase]);
 
   sl2.SaveToFile(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator + 'readme.md');
 
@@ -152,8 +152,10 @@ var
   PosNeu, PosAlt, PosKom: integer;
 begin
   Result := s;
-  TagLeft := '<b><font color="' + ResWortColor + '">';
-  TagRight := '</font></b>';
+//  TagLeft := '<b><font color="' + ResWortColor + '">';
+//  TagRight := '</font></b>';
+  TagLeft := '';
+  TagRight := '';
   TagSize := Length(TagLeft) + Length(TagRight);
   PosAlt := 0;
   repeat
@@ -196,10 +198,10 @@ begin
       if (Result[p] = #39) then begin
         isString := not isString;
         if isString then begin
-          Insert('<font color="#' + StringColor + '">', Result, p);
+//          Insert('<font color="#' + StringColor + '">', Result, p);
           Inc(p, 22);
         end else begin
-          Insert('</font>', Result, p + 1);
+//          Insert('</font>', Result, p + 1);
           Inc(p, 7);
         end;
       end;
@@ -221,13 +223,13 @@ begin
           if Result[p] in ['0'..'9'] then begin
             if not isNumber then begin
               isNumber := True;
-              Insert('<font color="#' + NumberColor + '">', Result, p);
+//              Insert('<font color="#' + NumberColor + '">', Result, p);
               Inc(p, 22);
             end;
           end else begin
             if isNumber then begin
               isNumber := False;
-              Insert('</font>', Result, p);
+//              Insert('</font>', Result, p);
               Inc(p, 7);
             end;
           end;
@@ -239,7 +241,7 @@ begin
     until (p > Length(Result)) or ((p >= ComentPos) and (ComentPos <> 0));
   end;
   if isString or isNumber then begin
-    Result := Result + '</font>';
+//    Result := Result + '</font>';
   end;
 end;
 
@@ -263,10 +265,10 @@ begin
       if Result[p] in ['{', '}'] then begin
         isComment := not isComment;
         if isComment then begin
-          Insert('<font color="#' + ComentColor + '">', Result, p);
+//          Insert('<font color="#' + ComentColor + '">', Result, p);
           Inc(p, 22);
         end else begin
-          Insert('</font>', Result, p + 1);
+//          Insert('</font>', Result, p + 1);
           Inc(p, 7);
         end;
       end;
@@ -277,10 +279,10 @@ begin
         if (Result[p] = #39) and (not isNumber) then begin
           isString := not isString;
           if isString then begin
-            Insert('<font color="#' + StringColor + '">', Result, p);
+//            Insert('<font color="#' + StringColor + '">', Result, p);
             Inc(p, 22);
           end else begin
-            Insert('</font>', Result, p + 1);
+//            Insert('</font>', Result, p + 1);
             Inc(p, 7);
           end;
         end;
@@ -305,16 +307,16 @@ begin
               if not isNumber then begin
                 isNumber := True;
                 if Result[p] = '#' then begin  // Zeichen-Konstante
-                  Insert('<font color="#' + StringColor + '">', Result, p);
+//                  Insert('<font color="#' + StringColor + '">', Result, p);
                 end else begin                 // Int und Float
-                  Insert('<font color="#' + NumberColor + '">', Result, p);
+//                  Insert('<font color="#' + NumberColor + '">', Result, p);
                 end;
                 Inc(p, 22);
               end;
             end else begin
               if isNumber then begin
                 isNumber := False;
-                Insert('</font>', Result, p + 0);
+//                Insert('</font>', Result, p + 0);
                 Inc(p, 6);
               end;
             end;
@@ -328,7 +330,7 @@ begin
     until (p > Length(Result)) or ((p >= ComentPos) and (ComentPos <> 0));
   end;
   if isString or isNumber then begin
-    Result := Result + '</font>';
+//    Result := Result + '</font>';
   end;
 end;
 
@@ -347,8 +349,8 @@ begin
     p := Pos('//', CodeSL[i]);
     if p > 0 then begin
       s := CodeSL[i];
-      Insert('<i><font color="#' + ComentColor + '">', s, p);
-      s := s + '</font></i>';
+//      Insert('<i><font color="#' + ComentColor + '">', s, p);
+//      s := s + '</font></i>';
       CodeSL[i] := s;
     end;
 
@@ -372,16 +374,16 @@ begin
     if p = 1 then begin
       s := glslCodeSL[i];
 
-      Insert('</font></b>', s, Pos(' ', s));
-      Insert('<b><font color="#' + DefineColor + '">', s, p);
+//      Insert('</font></b>', s, Pos(' ', s));
+//      Insert('<b><font color="#' + DefineColor + '">', s, p);
 
       glslCodeSL[i] := s;
     end;
     p := Pos('//', glslCodeSL[i]);
     if p > 0 then begin
       s := glslCodeSL[i];
-      Insert('<i><font color="#' + ComentColor + '">', s, p);
-      s := s + '</font></i>';
+//      Insert('<i><font color="#' + ComentColor + '">', s, p);
+//      s := s + '</font></i>';
       glslCodeSL[i] := s;
     end;
   end;
@@ -448,7 +450,7 @@ begin
 
   TagPascal(sl);
 
-  slHTML.Add('<pre><code>' + sl.Text + '</code></pre>');
+  slHTML.Add(LineEnding+'```pascal'+LineEnding + sl.Text + LineEnding+'```'+LineEnding);
 
   sl.Free;
 end;
@@ -461,7 +463,7 @@ begin
   sl.LoadFromFile(datei);
   sl.SkipLastLineBreak := False;
 
-  slHTML.Add('<pre><code>' + sl.Text + '</code></pre>');
+  slHTML.Add(LineEnding+'```' +LineEnding+ sl.Text + LineEnding+'```'+LineEnding);
 
   sl.Free;
 end;
@@ -476,7 +478,7 @@ begin
 
   TagGLSL(slGLSL);
 
-  slHTML.Add('<pre><code>' + slGLSL.Text + '</code></pre>');
+  slHTML.Add(LineEnding+'```glsl'+LineEnding + slGLSL.Text +LineEnding+ '```'+LineEnding);
 
   slGLSL.Free;
 end;
@@ -507,6 +509,7 @@ begin
       slHTML.Add('<img src="' + Copy(slUnit[i], 9) + '" alt="Selfhtml"><br><br>');
     end else if Pos('//lineal', slUnit[i]) > 0 then begin
       slHTML.Add('<hr><br>');
+      //      slHTML.Add('---');
     end else if Pos('//link ', slUnit[i]) > 0 then begin
       p := Pos(' ', Copy(slUnit[i], 8));
       slHTML.Add(HTMLAddLink(Copy(slUnit[i], 8, p), Copy(slUnit[i], 8 + p)));
@@ -521,14 +524,14 @@ begin
     end else if Pos('//code-', slUnit[i]) > 0 then begin
       isCode := False;
       TagPascal(slCode);
-      slHTML.Add('<pre><code>' + slCode.Text + '</code></pre>');
+      slHTML.Add(LineEnding+'```pascal'+LineEnding + slCode.Text +LineEnding+ '```'+LineEnding);
       // Text Code ( Keine Systaxhiglight )
     end else if Pos('//codetext+', slUnit[i]) > 0 then begin
       isCode := True;
       slCode.Clear;
     end else if Pos('//codetext-', slUnit[i]) > 0 then begin
       isCode := False;
-      slHTML.Add('<pre><code>' + slCode.Text + '</code></pre>');
+      slHTML.Add(LineEnding+'```' + slCode.Text + LineEnding+'```'+LineEnding);
     end else if Pos('(*', slUnit[i]) > 0 then begin
       isText := True;
     end else if Pos('*)', slUnit[i]) > 0 then begin
@@ -537,8 +540,9 @@ begin
       if not isRemove then begin
         slCode.Add(slUnit[i]);
       end;
-    end else if isText then begin
-      slHTML.Add(slUnit[i] + '<br>');
+    end else if isText then begin//      slHTML.Add(slUnit[i] + '<br>');
+      slHTML.Add(slUnit[i] );
+//      slHTML.Add('');
     end;
   end;
 
