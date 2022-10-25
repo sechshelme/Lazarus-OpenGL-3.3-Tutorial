@@ -540,9 +540,9 @@ begin
       if not isRemove then begin
         slCode.Add(slUnit[i]);
       end;
-    end else if isText then begin//      slHTML.Add(slUnit[i] + '<br>');
+    end else if isText then begin
+      //      slHTML.Add(slUnit[i] + '<br>');
       slHTML.Add(slUnit[i] );
-//      slHTML.Add('');
     end;
   end;
 
