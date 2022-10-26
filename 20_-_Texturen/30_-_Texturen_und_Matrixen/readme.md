@@ -68,18 +68,18 @@ begin
   with TexturTransform do begin
     if direction then begin
       scale *= sstep;
-      if scale &gt; 15.0 then begin
+      if scale > 15.0 then begin
         direction := False;
       end;
     end else begin
       scale /= sstep;
-      if scale &lt; 1.0 then begin
+      if scale < 1.0 then begin
         direction := True;
       end;
     end;
 
     winkel := winkel + rstep;
-    if winkel &gt; 2 * pi then begin
+    if winkel > 2 * pi then begin
       winkel := winkel - 2 * pi;
     end;
 

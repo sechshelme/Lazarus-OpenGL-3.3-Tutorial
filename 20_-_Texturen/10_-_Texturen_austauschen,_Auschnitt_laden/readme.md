@@ -65,7 +65,7 @@ const
   step = 0.01;
   z: integer = 1;
 begin
-  if z &gt; 10 then begin
+  if z > 10 then begin
     glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall0);
   end else begin
     glTexSubImage2D(GL_TEXTURE_2D, 0, 64, 64, TextursizeSmall, TextursizeSmall, GL_RGBA, GL_UNSIGNED_BYTE, @TexturSmall1);

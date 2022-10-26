@@ -109,7 +109,7 @@ begin
   winkel := dot(lr, lp);
 
   // Prüfen, ob sicher der Pixel im Lichtstrahl befindet.
-  Result := (winkel &gt; cos(pi / LichtOefffnung));
+  Result := (winkel > cos(pi / LichtOefffnung));
 end;
 ```
 
