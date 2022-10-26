@@ -120,7 +120,7 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | :---: | ---
 | [Erste Textur](20_-_Texturen/00_-_Erste_Textur/readme.md) | <img src="20_-_Texturen/00_-_Erste_Textur/image.png" height="100px">
 | [Mehrere Texturen](20_-_Texturen/05_-_Mehrere_Texturen/readme.md) | <img src="20_-_Texturen/05_-_Mehrere_Texturen/image.png" height="100px">
-| [Texturn austauschen, Auschnitt laden](20_-_Texturen/10_-_Texturn_austauschen,_Auschnitt_laden/readme.md) | <img src="20_-_Texturen/10_-_Texturn_austauschen,_Auschnitt_laden/image.png" height="100px">
+| [Texturen austauschen, Auschnitt laden](20_-_Texturen/10_-_Texturen_austauschen,_Auschnitt_laden/readme.md) | <img src="20_-_Texturen/10_-_Texturen_austauschen,_Auschnitt_laden/image.png" height="100px">
 | [Texturen von BMP](20_-_Texturen/15_-_Texturen_von_BMP/readme.md) | <img src="20_-_Texturen/15_-_Texturen_von_BMP/image.png" height="100px">
 | [Texturen mit oglTextur](20_-_Texturen/20_-_Texturen_mit_oglTextur/readme.md) | <img src="20_-_Texturen/20_-_Texturen_mit_oglTextur/image.png" height="100px">
 | [Texturen von XPM](20_-_Texturen/25_-_Texturen_von_XPM/readme.md) | <img src="20_-_Texturen/25_-_Texturen_von_XPM/image.png" height="100px">

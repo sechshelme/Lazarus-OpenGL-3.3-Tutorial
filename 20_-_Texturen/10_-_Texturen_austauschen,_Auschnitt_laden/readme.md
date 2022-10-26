@@ -1,5 +1,5 @@
 # 20 - Texturen
-## 10 - Texturn austauschen, Auschnitt laden
+## 10 - Texturen austauschen, Auschnitt laden
 
 ![image.png](image.png)
 
