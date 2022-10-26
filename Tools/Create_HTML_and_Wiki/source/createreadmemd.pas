@@ -488,6 +488,7 @@ var
   slUnit: TStringList;
   i, p: integer;
   isText, isCode, isRemove: boolean;
+  s: String;
 begin
   slUnit := TStringList.Create;
   slUnit.LoadFromFile(datei);
@@ -506,10 +507,12 @@ begin
     end else if Pos('//includetext ', slUnit[i]) > 0 then begin
       AddTextCode(TutPara.TutPfad + fFolder + '/' + Copy(slUnit[i], 15));
     end else if Pos('//image ', slUnit[i]) > 0 then begin
-      slHTML.Add('<img src="' + Copy(slUnit[i], 9) + '" alt="Selfhtml"><br><br>');
+      s:=Copy(slUnit[i], 9);
+//      slHTML.Add('<img src="' + Copy(slUnit[i], 9) + '" alt="Selfhtml"><br><br>');
+      slHTML.Add('!['+s+']('+s+')'+LineEnding);
     end else if Pos('//lineal', slUnit[i]) > 0 then begin
-      slHTML.Add('<hr><br>');
-      //      slHTML.Add('---');
+//      slHTML.Add('<hr><br>');
+            slHTML.Add('---');
     end else if Pos('//link ', slUnit[i]) > 0 then begin
       p := Pos(' ', Copy(slUnit[i], 8));
       slHTML.Add(HTMLAddLink(Copy(slUnit[i], 8, p), Copy(slUnit[i], 8 + p)));
