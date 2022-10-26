@@ -32,7 +32,7 @@ var
 Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 
 |  |  |  |  |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | 1 | 0 | 0 | 0 |
 | 0 | 1 | 0 | 0 |
 | 0 | 0 | 1 | 0 |
