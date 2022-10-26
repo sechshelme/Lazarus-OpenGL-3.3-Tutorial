@@ -497,6 +497,10 @@ begin
   isCode := False;
   isRemove := False;
 
+  slUnit.Text := StringReplace(slUnit.Text, '//matrix+', '', [rfReplaceAll, rfIgnoreCase]);
+  slUnit.Text := StringReplace(slUnit.Text, '//matrix-', '', [rfReplaceAll, rfIgnoreCase]);
+
+
   for i := 0 to slUnit.Count - 1 do begin
     if Pos('//includeglsl ', slUnit[i]) > 0 then begin
       AddGLSLCode(TutPara.TutPfad + fFolder + '/' + Copy(slUnit[i], 15));
