@@ -61,11 +61,11 @@ void main(void) {
     YPos   = XPos * YPos * 2 + cimag;
     XPos   = SqrX - SqrY + creal;
     Color += 1;
-  } while (!((SqrX + SqrY > 8) || (Color > depth)));
+  } while (!((SqrX + SqrY &gt; 8) || (Color &gt; depth)));
 
   Color += col;
 
-  if (Color > depth) {
+  if (Color &gt; depth) {
     Color -= depth;
   }
 

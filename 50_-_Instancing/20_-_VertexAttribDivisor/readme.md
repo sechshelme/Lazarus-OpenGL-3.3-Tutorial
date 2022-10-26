@@ -75,7 +75,7 @@ var
   i: integer;
 begin
   r += 0.01;
-  if r > 2 * pi then begin
+  if r &gt; 2 * pi then begin
     r -= 2 * pi;
   end;
 

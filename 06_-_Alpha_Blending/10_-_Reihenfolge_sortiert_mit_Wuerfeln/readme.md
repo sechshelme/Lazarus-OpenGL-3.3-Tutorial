@@ -77,10 +77,10 @@ begin
   Hi := AHi;
   Pivot := ia[(Lo + Hi) div 2]^;
   repeat
-    while ia[Lo]^.mat[3, 2] < Pivot.mat[3, 2] do begin
+    while ia[Lo]^.mat[3, 2] &lt; Pivot.mat[3, 2] do begin
       Inc(Lo);
     end;
-    while ia[Hi]^.mat[3, 2] > Pivot.mat[3, 2] do begin
+    while ia[Hi]^.mat[3, 2] &gt; Pivot.mat[3, 2] do begin
       Dec(Hi);
     end;
     if Lo <= Hi then begin
@@ -88,11 +88,11 @@ begin
       Inc(Lo);
       Dec(Hi);
     end;
-  until Lo > Hi;
-  if Hi > ALo then begin
+  until Lo &gt; Hi;
+  if Hi &gt; ALo then begin
     QuickSort(ia, ALo, Hi);
   end;
-  if Lo < AHi then begin
+  if Lo &lt; AHi then begin
     QuickSort(ia, Lo, AHi);
   end;
 end;

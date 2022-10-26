@@ -45,19 +45,19 @@ begin
   ModelMatrix.RotateA(0.25);
 
   ZPos += Step;
-  if (ZPos > max) or (ZPos < min) then begin
+  if (ZPos &gt; max) or (ZPos &lt; min) then begin
     Step *= -1;
   end;
   LightPos.Red.z := ZPos;
 
   ZPos += Step;
-  if (ZPos > max) or (ZPos < min) then begin
+  if (ZPos &gt; max) or (ZPos &lt; min) then begin
     Step *= -1;
   end;
   LightPos.Green.z := ZPos;
 
   ZPos += Step;
-  if (ZPos > max) or (ZPos < min) then begin
+  if (ZPos &gt; max) or (ZPos &lt; min) then begin
     Step *= -1;
   end;
   LightPos.Blue.z := ZPos;
@@ -147,7 +147,7 @@ float ConeAtt(vec3 LightPos) {
   float angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, 0.0, 1.0);
 
-  if(angle > Cutoff) {
+  if(angle &gt; Cutoff) {
     return attenuation;
   } else {
     return 0.0;
@@ -161,7 +161,7 @@ float ConeExp(vec3 LightPos) {
   float angle          = dot(spotDirection, lightDirection);
   angle                = clamp(angle, 0.0, 1.0);
 
-  if(angle > Cutoff) {
+  if(angle &gt; Cutoff) {
     return pow(angle, spotExponent);
   } else {
     return 0.0;

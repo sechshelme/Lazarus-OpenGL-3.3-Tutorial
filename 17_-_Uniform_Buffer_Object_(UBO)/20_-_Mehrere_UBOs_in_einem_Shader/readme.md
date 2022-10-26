@@ -137,7 +137,7 @@ begin
 
   d := (7 / (CubeSize * 2 + 1)) * 8;
 
-  if CubeSize > 0 then begin
+  if CubeSize &gt; 0 then begin
     scal := 40 / (CubeSize * 2 + 1);
   end else begin
     scal := 60;
@@ -243,7 +243,7 @@ vec3 CalcLight(Light light) {
   float angle = dot(spotDirection, lightDirection);
   angle = max(angle, 0.0);
 
-  if(angle > light.CutOff) {
+  if(angle &gt; light.CutOff) {
     return vec3(1.0);
   } else {
     return vec3(0.0);

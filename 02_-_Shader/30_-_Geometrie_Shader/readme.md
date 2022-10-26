@@ -57,7 +57,7 @@ void main(void)
 {
 
 // Linke Meshes
-   for(int i = 0; i < gl_in.length(); i++)
+   for(int i = 0; i &lt; gl_in.length(); i++)
    {
       gl_Position = gl_in[i].gl_Position + vec4(-distance, 0.0, 0.0, 0.0); // nach Links verschieben
       Color = vec3(1.0, 0.0, 0.0);                                         // Links Rot
@@ -67,7 +67,7 @@ void main(void)
 
 
 // Rechte Meshes
-   for(int i = 0; i < gl_in.length(); i++)
+   for(int i = 0; i &lt; gl_in.length(); i++)
    {
       gl_Position = gl_in[i].gl_Position + vec4(distance, 0.0, 0.0, 0.0);  // nach Rechts verschieben
       Color = vec3(0.0, 1.0, 0.0);                                         // Rechts Grün
