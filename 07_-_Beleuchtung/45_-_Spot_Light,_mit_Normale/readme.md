@@ -76,7 +76,7 @@ bool isCone(vec3 LightPos) {
   float angle = dot(spotDirection, lightDirection);
   angle = max(angle, 0.0);
 
-  if(angle &gt; Cutoff) {
+  if(angle > Cutoff) {
     return true;
   } else {
     return false;

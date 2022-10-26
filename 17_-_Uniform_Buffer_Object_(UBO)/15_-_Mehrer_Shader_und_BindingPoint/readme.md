@@ -202,7 +202,7 @@ begin
   end;
 
   Inc(m);
-  if m &gt; 1 then begin
+  if m > 1 then begin
     m := 0;
   end;
 end;
@@ -273,7 +273,7 @@ vec3 Light(in vec3 p, in vec3 n) {
   vec3 diffuse;   // Licht
   vec3 specular;  // Reflektion
   float angele = max(dot(nn, np), 0.0);
-  if (angele &gt; 0.0) {
+  if (angele > 0.0) {
     vec3 eye = normalize(np + vec3(0.0, 0.0, 1.0));
     specular = pow(max(dot(eye, nn), 0.0), Mshininess) * Mspecular;
     diffuse  = angele * Mdiffuse * Ldiffuse;

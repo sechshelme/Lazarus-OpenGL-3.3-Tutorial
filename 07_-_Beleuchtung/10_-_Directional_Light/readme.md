@@ -12,7 +12,7 @@ Dieser Umweg kann man sich sparen, es gibt zwar so ein kleiner Rechnungsfehler, 
 Dies hat sogar den Vorteil, wen der Einstrahlwinkel des Lichtes flacher als 90° ist, ist die Beleuchtungsstärke gleich null.
 Als was flacher als 90° ist, ist negativ.
 Für dies gibt es in GLSL eine fertige Funktion <b>clamp</b>, mit der kann man einen Bereich festlegen.
-So das es in diesem Beispiel keinen Wert &lt; <b>0.0</b> oder &gt; <b>1.0</b> gibt.
+So das es in diesem Beispiel keinen Wert < <b>0.0</b> oder > <b>1.0</b> gibt.
 
 Der einzige Unterschied zu vorherigem Beispiel ist im Shader-Code. Auch der Hintergrund wurde etwas dunkler gemacht, das man den Licht-Effekt besser sieht.
 
@@ -42,7 +42,7 @@ float light(vec3 p, vec3 n) {
   vec3  v1 = normalize(p);       // Vektoren normalisieren,
   vec3  v2 = normalize(n);       // so das die Länge des Vektors immer 1.0 ist.
   float d  = dot(v1, v2);        // Skalarprodukt aus beiden Vektoren berechnen.
-  float c  = clamp(d, 0.0, 1.0); // Alles &gt; 1.0 und &lt; 0.0, wird zwischen 0.0 und 1.0 gesetzt.
+  float c  = clamp(d, 0.0, 1.0); // Alles > 1.0 und < 0.0, wird zwischen 0.0 und 1.0 gesetzt.
   return c;                      // Lichtstärke als Rückgabewert.
 }
 

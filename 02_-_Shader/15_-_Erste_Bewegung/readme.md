@@ -98,23 +98,23 @@ begin
   with TrianglePos do begin
     if xr then begin
       x := x - stepx;
-      if x &lt; -0.5 then begin
+      if x < -0.5 then begin
         xr := False;
       end;
     end else begin
       x := x + stepx;
-      if x &gt; 0.5 then begin
+      if x > 0.5 then begin
         xr := True;
       end;
     end;
     if yr then begin
       y := y - stepy;
-      if y &lt; -1.0 then begin
+      if y < -1.0 then begin
         yr := False;
       end;
     end else begin
       y := y + stepy;
-      if y &gt; 0.3 then begin
+      if y > 0.3 then begin
         yr := True;
       end;
     end;

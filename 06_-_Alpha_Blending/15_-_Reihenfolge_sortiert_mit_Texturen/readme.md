@@ -57,10 +57,10 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
     Hi := AHi;
     Pivot := ia[(Lo + Hi) div 2]^;
     repeat
-      while ia[Lo]^.z &lt; Pivot.z do begin
+      while ia[Lo]^.z < Pivot.z do begin
         Inc(Lo);
       end;
-      while ia[Hi]^.z &gt; Pivot.z do begin
+      while ia[Hi]^.z > Pivot.z do begin
         Dec(Hi);
       end;
       if Lo <= Hi then begin
@@ -70,11 +70,11 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
         Inc(Lo);
         Dec(Hi);
       end;
-    until Lo &gt; Hi;
-    if Hi &gt; ALo then begin
+    until Lo > Hi;
+    if Hi > ALo then begin
       QuickSort(ia, ALo, Hi);
     end;
-    if Lo &lt; AHi then begin
+    if Lo < AHi then begin
       QuickSort(ia, Lo, AHi);
     end;
   end;
