@@ -511,6 +511,7 @@ begin
 //      slHTML.Add('<img src="' + Copy(slUnit[i], 9) + '" alt="Selfhtml"><br><br>');
 slHTML.Add('!['+s+']('+s+')');
 slHTML.Add('');
+slHTML.Add('');
     end else if Pos('//lineal', slUnit[i]) > 0 then begin
 //      slHTML.Add('<hr><br>');
             slHTML.Add('---');
