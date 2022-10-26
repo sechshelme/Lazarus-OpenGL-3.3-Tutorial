@@ -1,13 +1,14 @@
 # 07 - Beleuchtung
 ## 20 - Point Light Kugel
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 In diesem Beispiel sieht man die Punkt-Beleuchtung gut, man kann beobachten, wie sich das Licht innerhalb der Kugeln bewegt.
 Am besten man schaltet nur eine Lichtquelle ein.
 
 Der Unterschied zum Directional-Light, man muss noch die Position des Vertex der Lichtposition abziehen.
 Wen die Vertex-Position grösser als die Lichtposition ist, dann verschwindet der Vertex im Schatten und es wird dunkel.
-<hr><br>
+---
 Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.
 
 <b>Vertex-Shader:</b>
@@ -66,7 +67,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

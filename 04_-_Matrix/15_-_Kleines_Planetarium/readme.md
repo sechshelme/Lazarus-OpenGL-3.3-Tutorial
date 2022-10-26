@@ -1,7 +1,8 @@
 # 04 - Matrix
 ## 15 - Kleines Planetarium
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Kleines Planetarium, welches die Handhabung von Matrizen demonstriert.
 Das es übersichtlicher wird, habe ich die Sonne und die Planeten in eine Klasse gepackt.
 
@@ -10,7 +11,7 @@ Einzig der Vertex-Shader wird ein wenig komplizierter, da die Z-Achse nicht verw
 
 Am Shader wird nur eine Matrix übergeben, welche von der CPU berechnet wird.
 Diese Matrix wird aus verschiedene Transformen berechnet.
-<hr><br>
+---
 Es gibt nur eine ID, da die ganze Matrizen-Berechnung mit der CPU ausgeführt werden.
 
 ```pascal
@@ -147,7 +148,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Bei der Multiplikation, wird die Z-Achse ignoriert, aus diesem Grund wird <b>glPosition.xyw</b> verwendet.
@@ -173,7 +174,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

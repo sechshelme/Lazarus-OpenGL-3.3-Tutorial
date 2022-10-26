@@ -1,8 +1,9 @@
 # 03 - Vertex-Puffer
 ## 00 - Einfachster Vertex-Puffer
 
-<img src="image.png" alt="Selfhtml"><br><br>
-<hr><br>
+![image.png](image.png)
+
+---
 Die Deklaration der Vektor-Koordianten Konstanten.
 
 ```pascal
@@ -59,7 +60,7 @@ begin
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 
@@ -75,7 +76,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

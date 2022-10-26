@@ -1,10 +1,11 @@
 # 03 - Vertex-Puffer
 ## 35 - DrawArrays
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit <b> glDrawArrays(...</b> muss man nicht die ganze Meshes auf einmal zeichnen, man kann auch nur ein Teil davon zeichnen.
 Hier im Beispiel, wir das Quadrat in zwei Teilen gezeichnet, so hat man die Möglichkeit zwischendurch zB. die Farbe zu ändern.
-<hr><br>
+---
 Hier wird das Qudarat in zwei Teilen gezeichnet und zwischendurch die Uniform-Variable Color geändert.
 Dafür gibt es in <b>glDrawArrays(...</b> zwei Parameter.
 Der Zweite gibt das Offset der Vertex-Array an, und der Dritte, wie viele Vertex-Daten.
@@ -33,7 +34,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -48,7 +49,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

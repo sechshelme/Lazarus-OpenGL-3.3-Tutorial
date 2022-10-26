@@ -1,11 +1,12 @@
 # 02 - Shader
 ## 10 - Uniform Variablen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird die Farbe des Meshes über eine Unifom-Variable an den Shader übergeben, somit kann die Farbe zur Laufzeit geändert werden.
 Unifom-Variablen dienen dazu, um Parameter den Shader-Objecte zu übergeben. Meistens sind dies Matrixen, oder wie hier im Beispiel die Farben.
 Oder auch Beleuchtung-Parameter, zB. die Position des Lichtes.
-<hr><br>
+---
 Deklaration der ID, welche auf die Unifom-Variable im Shader zeigt, und die Variable, welche die Farbe für den Vektor enthält.
 Da man die Farbe als Vektor übergibt, habe ich dafür den Typ <b>TVertex3f</b> gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.
 
@@ -87,7 +88,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -102,7 +103,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 Hier ist die Uniform-Variable <b>Color</b> hinzugekommen.

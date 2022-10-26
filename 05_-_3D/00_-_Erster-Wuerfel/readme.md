@@ -1,13 +1,14 @@
 # 05 - 3D
 ## 00 - Erster-Wuerfel
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Jetzt wird das erste mal 3D gerendert.
 Dafür wird ein einfacher Würfel genommen, welcher sechs unterschiedlich farbige Flächen hat.
 
 In diesem Beispiel wird bewusst noch auf den Tiefenbuffer verzichtet.
 Somit sieht man gut, was passiert wen man diesen nicht berücksichtigt.
-<hr><br>
+---
 Hier sind die Koordinaten und die Farben des Würfels deklariert.
 
 ```pascal
@@ -80,7 +81,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -101,7 +102,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

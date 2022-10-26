@@ -1,13 +1,14 @@
 # 07 - Beleuchtung
 ## 25 - Point Light Vertex-Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 In diesem Beispiel werden Würfel anstelle der Kugeln verwendet.
 
 Das Licht wird immer noch im Vertex-Shader berechnet, die hat zwar den Vorteil, das es einges schneller geht als mit dem Fragmsnt-Shader.
 Dafür ist di Darstellung des Point-Lichtes unrealistisch. Das sieht man gut, wen man nur ein Würfel darstellt, da ist die Fläche eines Dreieckes sehr gross.
 Bei den Kugel war dieser Effekt kaum sichtbar, das sehr kleine Dreiecke verwendet werden.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -64,7 +65,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,14 +1,15 @@
 # 03 - Vertex-Puffer
 ## 30 - Shapes (Linien und Punkte)
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.
 Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
 Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit <b>glDrawArrays(GL_TRIANGLES_STRIP, ...</b>.
 Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit <b>glDrawArrays(GL_TRIANGLES_FAN, ...</b>.
 
 Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.
-<hr><br>
+---
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.
 
 ```pascal
@@ -80,7 +81,7 @@ begin
   glDrawArrays(GL_POINTS, 0, Length(Linies));
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.
@@ -102,7 +103,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

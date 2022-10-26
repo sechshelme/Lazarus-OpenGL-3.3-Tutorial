@@ -1,9 +1,10 @@
 # 17 - Uniform Buffer Object (UBO)
 ## 10 - Mehrer UBO
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell zwischen den Datenblöcken umschalten.
-<hr><br>
+---
 Es werden drei UBOs angelegt.
 ID im Shader wird nur eine gebraucht.
 
@@ -113,7 +114,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Der Shader ist der selbe wie im ersten Beispiel.
 
 <b>Vertex-Shader:</b>
@@ -146,7 +147,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

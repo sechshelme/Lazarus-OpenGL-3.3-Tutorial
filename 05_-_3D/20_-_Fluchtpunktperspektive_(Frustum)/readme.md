@@ -1,11 +1,12 @@
 # 05 - 3D
 ## 20 - Fluchtpunktperspektive (Frustum)
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Will man die Scene realistisch proportional darstellen, nimmt man eine Frustum-Matrix.
 Dies hat den Einfluss, das Objekte kleiner erscheinen, je weiter die Scene von einem weg ist.
 In der Realität ist dies auch so, das Objekte kleiner erscheinen, je weiter sie von einem weg sind.
-<hr><br>
+---
 Der Frustum funktioniert ähnlich wie beim Ortho.
 Nur die Parameter sind ein wenig anders.
 Die Z-Werte müssen immer <b>positiv</b> sein.
@@ -51,7 +52,7 @@ Das Zeichnen ist das Selbe wie bei Ortho.
   end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -72,7 +73,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,7 +1,8 @@
 # 01 - Einrichten und Einstieg
 ## 00 - Lazarus fuer OpenGL einrichten
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 <b>Vorwort:</b><br>
 <b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
 Man wird von Anfang an mit vielem Neuen konfrontiert.
@@ -27,7 +28,7 @@ Wenn man diesen Einstieg mal geschafft hat, wird man auch mit höheren Versionen
 
 Auf der Hauptseite werde ich noch ein Package veröffentlichen, welches einem den Einstieg sehr einfach macht.
 Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Puffer, etc. vorhanden.
-<hr><br>
+---
 <b>Voraussetzung:</b><br>
 * FPC 3.0.2 oder höher.
 * Lazarus 1.6.4 oder höher.

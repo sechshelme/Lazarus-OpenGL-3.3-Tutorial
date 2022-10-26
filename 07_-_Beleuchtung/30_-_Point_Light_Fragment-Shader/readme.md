@@ -1,12 +1,13 @@
 # 07 - Beleuchtung
 ## 30 - Point Light Fragment-Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Die Berechnung des Lichtes wurde in den Fertex-Shader ausgelagert, somit sieht das Punkt-Licht viel realistischer aus.
 Am besten sieht man dies, wen man nur ein Würfel darstellt.
 
 Der Nachteil dabei, es wird mehr <b>GPU</b>-Leistung verlangt, als wen man es im Vertex-Shader berechnet.
-<hr><br>
+---
 Hier sieht man, das die Berechnung des Lichtes im Fragment-Shader ist.
 
 <b>Vertex-Shader:</b>
@@ -35,7 +36,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

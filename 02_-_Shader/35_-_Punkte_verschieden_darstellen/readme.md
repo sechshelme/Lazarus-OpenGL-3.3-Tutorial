@@ -1,10 +1,11 @@
 # 02 - Shader
 ## 35 - Punkte verschieden darstellen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann auch Punkte mit dem Shader darstellen, dies kann man auf verschiedene Weise.
 Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
-<hr><br>
+---
 Die Deklaration der Koordianten und Punktgrösse.
 
 ```pascal
@@ -81,7 +82,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -103,7 +104,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

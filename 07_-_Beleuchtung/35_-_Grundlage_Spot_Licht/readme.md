@@ -1,10 +1,11 @@
 # 07 - Beleuchtung
 ## 35 - Grundlage Spot Licht
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.
-<hr><br>
+---
 Deklarationen der benütigenten Variablen.
 
 ```pascal

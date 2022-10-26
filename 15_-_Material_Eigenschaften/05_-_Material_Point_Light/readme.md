@@ -1,13 +1,14 @@
 # 15 - Material Eigenschaften
 ## 05 - Material Point Light
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Material-Eigenschaften sind auch mit <b>Point-Light</b> möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
 In diesem Beispiel sind die Kugeln aus Kupfer.
-<hr><br>
-<hr><br>
+---
+---
 Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.
 
 <b>Vertex-Shader:</b>
@@ -39,7 +40,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

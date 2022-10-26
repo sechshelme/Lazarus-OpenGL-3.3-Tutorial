@@ -1,7 +1,8 @@
 # 15 - Material Eigenschaften
 ## 00 - Material Directional Light
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Nur eine Beleuchtung reicht nicht, das eine Mesh realistisch aussieht.
 Aus diesem Grund, kann man der Mesh Materialeigenschaften mitgeben, dies sind Reflektionen des Lichtes.
 Wen man zB. eine Gummi-Fläche anleuchtet, sieht dies anders aus, als bei einer Stahlfläche.
@@ -10,8 +11,8 @@ Dieses Beispiel zeigt wie dies bei Gold aussieht. Wen man im INet nach <b>"OpenG
 findet man viele Daten, welche man bei <b>Ambient</b>, <b>Diffuse</b>, <b>Specular</b> und <b>Shininess</b> eintragen muss.
 
 Bei diesem Beispiel sind die Kugeln aus Gold.
-<hr><br>
-<hr><br>
+---
+---
 Die Berechnung, ist ähnlich wie beim einfachen Licht. Zusätlich wird <b>Specular</b> zum normalen Licht addiert.
 <b>Specular</b> ist die Reflektion de Materiales.
 <b>Diffuse</b> ist die Farbe des Lichtes/Material.
@@ -45,7 +46,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

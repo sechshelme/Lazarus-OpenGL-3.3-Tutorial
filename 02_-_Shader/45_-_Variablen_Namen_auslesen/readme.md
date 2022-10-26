@@ -1,12 +1,13 @@
 # 02 - Shader
 ## 45 - Variablen Namen auslesen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.
 In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.
 Für was man <b>Uniform-Blöcke</b> verwendet, wird in einem späteren Kapitel behandelt.
 Auch die Beleuchtung, etc. wird später behandelt.
-<hr><br>
+---
 Mit <b>glGetProgramiv(...</b> wird ermittelt, wie viele Variablen dieses Typen hat.
 Mit <b>glGetActiveAttrib(...</b> wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. <b>vec3</b>, <b>mat4</b>, etc.
 Der komplexe Beleuchtungs-Shader wird später beschrieben.
@@ -50,7 +51,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.
 
 <b>Vertex-Shader:</b>
@@ -83,7 +84,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

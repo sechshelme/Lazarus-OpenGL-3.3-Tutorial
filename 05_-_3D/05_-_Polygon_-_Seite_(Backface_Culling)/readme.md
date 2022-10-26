@@ -1,7 +1,8 @@
 # 05 - 3D
 ## 05 - Polygon - Seite (Backface Culling)
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Die Meshes ist hier noch 2D, aber <b>Backface Culling</b> wird in folgenden 3D-Beispielen gebraucht.
 
 Defaultmässig zeichnet OpenGL immer die Vorder und Rückseite eines Polygones. Für die meisten Meshes ist dies aber nicht nötig.
@@ -13,7 +14,7 @@ In diesem Beispiel, wird dies mit einem Timer demonstriert.
 
 Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerendert werden. Auch dies könnte man <b>glFrontFace(...</b> umstellen.
 Dafür gibt es die Parameter <b>GL_CW</b> für Uhrzeigersinn, und den Default-Parameter <b>GL_CCW</b>.
-<hr><br>
+---
 Wen man die Konstanten genau anschaut, sieht man, das das Dreieck im Gegenuhrzegersinn und das Qaudrat im Uhrzeigersinn deklariert ist.
 
 ```pascal
@@ -54,7 +55,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 
@@ -70,7 +71,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

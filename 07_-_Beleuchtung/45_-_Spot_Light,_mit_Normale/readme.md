@@ -1,10 +1,11 @@
 # 07 - Beleuchtung
 ## 45 - Spot Light, mit Normale
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Jetzt wird auch die normale berücksicht. Somit wird nur die Vorderseite der Dreiecke beleuchtet, so wie es beim Punktlicht auch der Fall ist.
 Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine <b>Normale</b> gebraucht.
-<hr><br>
+---
 Hier wird die Kegelberechnung ausgeführt.
 
 <b>Vertex-Shader:</b>
@@ -32,7 +33,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 Zuerst wird geprüft, ob das Fragment sich im Lichtkegel befindet.

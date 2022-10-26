@@ -1,9 +1,10 @@
 # 02 - Shader
 ## 05 - Einfachster Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.
-<hr><br>
+---
 Hier wird noch ein Objekt der Klasse TShader deklariert.
 
 ```pascal
@@ -53,13 +54,13 @@ begin
   Shader.Free;
 ```
 
-<hr><br>
+---
 Diese Kommentare, welche man hier im Shader sind, werden auch dem der Grafik-Teiber übergeben, aber dieser ingnoriert sie dann.
 Wen man voll auf Perfornance beim laden ab ist, sollte man Kommentare im Shader-Code meiden.
 Auch jede Leerzeile und jede Einrückung bremsen ein wenig ab.
 Auf die später Zeichengeschwindigkeit hat dies aber keinen Einfluss.
 Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übersichtlichen Shader-Code sehen wollen.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -74,7 +75,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl
@@ -89,7 +90,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlecht leserlich.
 <b>Vertex-Shader:</b>
 

@@ -1,11 +1,12 @@
 # 20 - Texturen
 ## 70 - Textur Array einzel Bitmap
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann auch in jedem Layer einzeln die Texturen laden.
 Der einzige Unterschied zum kompletten laden ist, man ladet die Texturen einzeln mit SubImage hoch.
 Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
-<hr><br>
+---
 Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
 Mit <b>glTexSubImage3D(...</b> werden dann die Texturen Layer für Layer hochgeladen.
 Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .
@@ -41,7 +42,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
 <b>Vertex-Shader:</b>
@@ -64,7 +65,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

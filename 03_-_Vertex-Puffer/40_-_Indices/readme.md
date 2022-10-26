@@ -1,7 +1,8 @@
 # 03 - Vertex-Puffer
 ## 40 - Indices
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Normalerweise, werden die Polygone der Reihenfolge der Vertex-Konstanten abgearbeitet.
 Man kann aber auch selbst bestimmen, welche Koordinate abgearbeitet werden.
 Dafür muss man eine Indices-Array kreieren, welche die Reihenfolge der Koordinaten bestimmt.
@@ -9,7 +10,7 @@ Dafür muss man eine Indices-Array kreieren, welche die Reihenfolge der Koordina
 Der Unterschied zum einfachen Zeichenn ist, das ich noch eine Indicen-Array brauche.
 Und das Zeichnen ist vor allem anders.
 Man verwendet anstelle von <b>glDrawArrays(...</b>, <b>glDrawElements(...</b>, welche als dritten Parameter noch einen Zeiger auf die Indicen-Array bekommt.
-<hr><br>
+---
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten.
 Beim Dreieck sieht man keinen Vorteil bei der Indicien-Version, da das Dreieck sowieso nur aus einem Polygon besteht.
 Beim Quadrat, konnten so schon zwei Koordinaten eingespart werden, da man die Eckpunkte nur einmal angeben muss.
@@ -62,7 +63,7 @@ begin
   glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 
@@ -78,7 +79,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

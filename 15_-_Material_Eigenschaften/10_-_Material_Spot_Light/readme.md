@@ -1,13 +1,14 @@
 # 15 - Material Eigenschaften
 ## 10 - Material Spot Light
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Material-Eigenschaften sind auch mit Spot-Light möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
 Bei diesem Beispiel, wird mit einer Taschenlampe in einen Jade-Würfel gezündet.
-<hr><br>
-<hr><br>
+---
+---
 Dieser Shader ist schon sehr komplex.
 Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksichtigt.
 
@@ -40,7 +41,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,11 +1,12 @@
 # 04 - Matrix
 ## 05 - Matrix Rotieren
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird eine <b>4x4 Matrix</b> verwendet, dies ist Standard bei allen Mesh Translationen.
 Im Timer wird eine Matrix-Rotation ausgeführt.
 Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.
-<hr><br>
+---
 Hier wird ein Matrix4x4-Typ deklariert.
 Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.
 
@@ -104,7 +105,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Hier ist die Uniform-Variable <b>mat</b> hinzugekommen, dies ist auch eine 4x4-Matrix, so wie im Haupt-Programm.
@@ -127,7 +128,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

@@ -1,11 +1,12 @@
 # 20 - Texturen
 ## 60 - 1D Textur
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Die meisten Texturen sind eine Bitmap(Foto) welche im 2D-Format vorliegen.
 Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 1D-Textur.
 Eine 1D-Textur kann man sich am besten als eine farbige Linie vorstellen.
-<hr><br>
+---
 Die Texturkoordinaten sind nun keine Vectorenarray mehr sondern nur eine einfache Float-Array.
 
 ```pascal
@@ -92,7 +93,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Man beachte, das die UV-Koordinaten nur ein <b>Float</b> ist.
@@ -115,7 +116,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

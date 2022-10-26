@@ -1,13 +1,14 @@
 # 03 - Vertex-Puffer
 ## 20 - Vertex-Daten zur Laufzeit modifizieren
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bis jetzt waren die Vertexdaten immer statisch. Man kann diese aber auch zur Laufzeit neu in den Vertex-Puffer schreiben.
 
 Da sich nicht nur die Koordinaten ändern, sondern auch die grösse des Mesh, muss die TFaceArray eine <b>dynamische</b> Array sein.
 Zur Demonstration, werden alle 1/2 Sekunden neue Vertex-Daten geladen.
 Dafür habe ich einen Kreis gewählt, der zufällig jedes mal eine andere Anzahl Sektoren bekommt. Die Farben der Vektoren werden auch zufällig erzeugt.
-<hr><br>
+---
 Zusätzlich ist noch eine <b>TFaceArray</b> hinzugekommen.
 Das sieht man, das die <b>TFaceArray</b> für das Mesh dynamisch ist.
 
@@ -205,7 +206,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Bei den Shadern gibt es nichts besonders.
 
 <b>Vertex-Shader:</b>
@@ -226,7 +227,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

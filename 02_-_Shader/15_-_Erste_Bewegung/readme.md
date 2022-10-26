@@ -1,11 +1,12 @@
 # 02 - Shader
 ## 15 - Erste Bewegung
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Ohne Bewegung ist OpenGL langweilig.
 Hier werden dem Shader ein X- und ein Y-Wert übergeben. Diese Werte werden mit einem Timer verändert.
 Damit die Änderung auch sichtbar wird, wird <b>DrawScene</b> danach manuell ausgelöst.
-<hr><br>
+---
 Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.
 <b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.
 
@@ -122,7 +123,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.
@@ -146,7 +147,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

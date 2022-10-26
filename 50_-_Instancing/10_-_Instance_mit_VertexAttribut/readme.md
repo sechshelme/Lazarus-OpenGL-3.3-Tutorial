@@ -1,11 +1,12 @@
 # 50 - Instancing
 ## 10 - Instance mit VertexAttribut
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier sind sogar 10'000'000 Instancen möglich, gegenüber der Uniform-Variante die bei gut 800 schon Schluss machte.
 Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikkarte vertägt, kann ich nicht sagen.
 Das es eine Diashow ist, das ist was anderes.
-<hr><br>
+---
 Die Anzahl Instance
 
 ```pascal
@@ -157,7 +158,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 Der Shader sieht sehr einfach aus.
 
@@ -185,7 +186,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

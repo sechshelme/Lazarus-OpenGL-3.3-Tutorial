@@ -1,10 +1,11 @@
 # 25 - Framepuffer
 ## 00 - In Textur rendern
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.
 Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.
-<hr><br>
+---
 Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
 Es ist ein Quadrat mit 4 verschieden farbigen Ecken.
 
@@ -276,7 +277,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
 Der Shader des Würfels, gibt Texturen aus.
 
@@ -302,7 +303,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader Quadrat:</b>
 
 
@@ -322,7 +323,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader Würfel:</b>
 
 
@@ -344,7 +345,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader Würfel:</b>
 
 

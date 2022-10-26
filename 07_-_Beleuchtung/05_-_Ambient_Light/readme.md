@@ -1,14 +1,15 @@
 # 07 - Beleuchtung
 ## 05 - Ambient Light
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.
 Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.
 
 In der Praxis wir Ambient mit anderen Beleuchtungen kombiniert.
 
 Am Shader an sieht man, wie einfach Ambient ist.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -31,7 +32,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

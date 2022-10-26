@@ -1,7 +1,8 @@
 # 20 - Texturen
 ## 65 - Textur Array
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen man mehrere Texturen im gleichen Format hat, kann man diese in einem einzigen Puffer ablegen.
 Dafür gibt es <b>GL_TEXTURE_2D_ARRAY</b>.
 Inerhalb des Puffers, sind die Texturen in mehreren Ebenen/Layer gespeichert.
@@ -9,7 +10,7 @@ Zur Laufzeit muss man nur mit teilen, welche Layer das verwendet werden soll. Di
 
 Eine Textur-Array kann man auch für Multitexturing verwenden. Man muss im Fragment-Shader nur bei <b>texture(...</b> nur den Layer angeben.
 Eine andere Anwendung wäre, bei einem 2D-Spiel, Sprites in eine Textur-Array abzulegen.
-<hr><br>
+---
 Die Koordinaten sind gleich, wie bei einer einzelnen Textur.
 
 ```pascal
@@ -104,7 +105,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 Im Fragment-Shader muss ein 2D-Array-Sampler verwendet werden.
 Dieser hat ein 3. Parameter, welcher den Layer enthält.
 Ansonsten ist der Shader sehr einfach.
@@ -129,7 +130,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

@@ -1,7 +1,8 @@
 # 05 - 3D
 ## 25 - Betrachtungs - Fenster (Viewport)
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.
 Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.
 Der Grund dafür ist, das die Ausgabe immer im Bereich von <b>-1.0</b> bis <b>+1.0</b> in der X und Y-Achse ist.
@@ -11,7 +12,7 @@ Entweder über <b>TMatrix.Frustum(...</b> oder noch einfacher wie im Beispiel mi
 Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.
 
 Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.
-<hr><br>
+---
 Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.
 
 ```pascal
@@ -32,7 +33,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -53,7 +54,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

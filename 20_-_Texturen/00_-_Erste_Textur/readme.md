@@ -1,7 +1,8 @@
 # 20 - Texturen
 ## 00 - Erste Textur
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit Texturen sieht eine Mesh um einiges besser aus, als wen es nur einfache Farbverläufe sind.
 Mit OpenGL kann man recht einfach Texturen in das VRAM laden.
 
@@ -10,7 +11,7 @@ Am einfachsten geht dies, wen man eine Textur als Statische Konstante hat, so wi
 In der Praxis wird man meistens Texturen von einer Bitmap-Datei laden.
 Da es sehr viele Bitmap-Formate gibt, habe ich dafür eine Unit oglTextur.pas geschrieben.
 Diese sollte die meisten üblichen Formate abdecken. Dazu später.
-<hr><br>
+---
 Das OpenGL weiss, welcher Bereich von einer Textur auf das Polygon gezeichnet wird, kommt noch eine 2D Vertex-Array dazu.
 Hier im Beispiel, ist dies von einem Bereich von 0.0 bis 1.0, somit ist die ganze Textur sichtbar.
 Als Versuch kann man die 1.0 durch 2.0 ersetzen, dann wird man sehen, das die Textur doppelt vorhanden ist.
@@ -134,7 +135,7 @@ begin
   glDeleteBuffers(1, @VBQuad.VBOTex);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Hier sieht man, das die Textur-Koordinaten gleich behandelt werden wie Vertex-Attribute.
@@ -158,7 +159,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 Hier ist der Sampler für die Zuordnung dazu gekommen.

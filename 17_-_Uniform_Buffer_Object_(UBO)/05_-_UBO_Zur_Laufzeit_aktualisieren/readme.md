@@ -1,13 +1,14 @@
 # 17 - Uniform Buffer Object (UBO)
 ## 05 - UBO Zur Laufzeit aktualisieren
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 UBO-Daten können auch zur Laufzeit geändert/neu geladen werden, so wie es beim Vertex-Puffer auch geht.
 Auf diese Art, werden die Uniform-Daten aktualisiert. Dies ersetzt die Aktualisierung mit <b>glUniformxxx</b>.
 
 In diesem Beispiel wird das Material der Kugeln gewechselt, abwechslungsweise Rubin oder Jade.
 Dazu wird alle 1s die UBO-Daten aktualisiert.
-<hr><br>
+---
 Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werden.
 
 ```pascal
@@ -85,7 +86,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Der Shader ist der selbe wie im ersten Beispiel.
 
 <b>Vertex-Shader:</b>
@@ -118,7 +119,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,10 +1,11 @@
 # 03 - Vertex-Puffer
 ## 55 - VertexID
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit <b>gl_VertexID</b> kann man im Vertex-Shader ermitteln, welcher Vertex aus der Vertex-Array gezeichnet wird.
 Das Rendering ist nicht besonderes, es spielt sich alles im Vertex-Shader ab.
-<hr><br>
+---
 Die Koordinaten der Mesh, maximal 6 Stück
 
 ```pascal
@@ -16,9 +17,9 @@ const
     (( -0.2, -0.6), (0.2, -0.1), (0.2, -0.6)));
 ```
 
-<hr><br>
+---
 Da es in diesem Beispiel nur maximal 6 Vertex-Punkte gibt, habe ich die VertexID mit einer einfachen Case-Schleife ausgewertet.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -49,7 +50,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,11 +1,12 @@
 # 17 - Uniform Buffer Object (UBO)
 ## 15 - Mehrer Shader und BindingPoint
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 In diesem Beispiel wird gezeigt, was der <b>BindingPoint</b> für einen Einfluss hat.
 Es werden 3 Shader erzeugt, das es einfacher ist, habe ich 3mal die gleichen Shader-Sourcen genommen.
 Bei 2 Shadern werden die UBO-Daten mit dem <b>BindingPoint 0</b> verbunden, der einzelne Shader mit <b>BindingPoint</b> 1.
-<hr><br>
+---
 Es werden drei UNOs angelegt.
 Die Uniform IDs werden füür jeden Shader einzeln ID gebraucht.
 Daher habe ich es in einem Record zusammengefasst.
@@ -207,7 +208,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Der Shader ist der selbe wie im ersten Beispiel.
 
 <b>Vertex-Shader:</b>
@@ -240,7 +241,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

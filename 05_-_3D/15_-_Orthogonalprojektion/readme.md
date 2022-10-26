@@ -1,13 +1,14 @@
 # 05 - 3D
 ## 15 - Orthogonalprojektion
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Eine OpenGL-Scene wird immer in einem Bereich von <b>-1</b> bis <b>+1</b> in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.
 Um dies zu umgehen multipliziert man die Scene mit einer Ortho-Matrix.
 Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs Parametern in der Funktion, kann man den gewünschten Bereich einstellen.
 
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,
-<hr><br>
+---
 Deklaration der drei Matrixen.
 
 ```pascal
@@ -87,7 +88,7 @@ begin
   WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -108,7 +109,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

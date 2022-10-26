@@ -72,7 +72,7 @@ Für die Rotation C-Achse (<b>RotateC</b>):
 |    0   |    0   |    1   |    0   |
 |    0   |    0   |    0   |    1   |
 //matrix-
-<hr><br>
+---
 Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.
 
 ```pascal

@@ -1,10 +1,11 @@
 # 45 - Schatten
 ## 00 - Eine einfache Mesh
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.
-<hr><br>
+---
 Hier wird der Speicher für die Würfel angefordert.
 
 ```pascal
@@ -123,7 +124,7 @@ end;
 
 ```
 
-<hr><br>
+---
 <b>Shader für Baum:</b>
 
 ```glsl
@@ -157,7 +158,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Shader für Wand</b>
 
 ```glsl

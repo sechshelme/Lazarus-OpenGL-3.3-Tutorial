@@ -1,10 +1,11 @@
 # 06 - Alpha Blending
 ## 10 - Reihenfolge sortiert mit Wuerfeln
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.
-<hr><br>
+---
 Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.
 Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.
 
@@ -160,7 +161,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -181,7 +182,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

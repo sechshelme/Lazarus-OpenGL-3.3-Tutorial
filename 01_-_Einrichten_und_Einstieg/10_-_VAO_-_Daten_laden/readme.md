@@ -1,12 +1,13 @@
 # 01 - Einrichten und Einstieg
 ## 10 - VAO - Daten laden
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.
 <b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.
 Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Windows sichtbar sein.
 Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.
-<hr><br>
+---
 Typen-Deklaration für die Face-Daten.
 
 ```pascal

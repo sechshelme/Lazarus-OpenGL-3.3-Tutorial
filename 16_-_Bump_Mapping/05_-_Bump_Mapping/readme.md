@@ -1,12 +1,13 @@
 # 16 - Bump Mapping
 ## 05 - Bump Mapping
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bump-Mapping verwendet man meisten in Kombination mit einer Textur.
 
 So sieht man, das die Fugen grau und die Ziegel braun sind.
-<hr><br>
-<hr><br>
+---
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -37,7 +38,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 Zum einfachen Bump-Mapping wir noch mit einer Textur multipliziert, welche die Farben der Mauer enthält.

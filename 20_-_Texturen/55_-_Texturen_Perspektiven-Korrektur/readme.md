@@ -1,10 +1,11 @@
 # 20 - Texturen
 ## 55 - Texturen Perspektiven-Korrektur
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Stellt man eine Textur auf einem Trapez dar, gibt es unschöne Verzerrungen, das sieht man beim Trapez Links gut.
 Die beiden Trapeze Rechts sind korrigiert, auf 2 verschiedene Varianten. Der Unterschied sieht man im Shader.
-<hr><br>
+---
 Es hat eine 2. Variante für die Textur-Koordinaten gegeben, welche einen Wert für eine Perspektivenkorrektur hat.
 Diese enthält einen Korrekturwert für die Perspektive.
 
@@ -96,7 +97,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -122,7 +123,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl
@@ -157,7 +158,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>mauer.xpm:</b>
 
 ```glsl

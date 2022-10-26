@@ -1,11 +1,12 @@
 # 35 - Geometrie-Shader
 ## 00 - Breite Linien
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.
 Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.
 Rechts ist jede Koordinate von 0.0-1.0, somit wird die Textur um die Scheibe gezogen. Jedes Rechteck enthält die ganze Textur.
-<hr><br>
+---
 Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.
 
 ```pascal
@@ -93,7 +94,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -121,7 +122,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl
@@ -141,7 +142,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>muster.xpm:</b>
 
 ```glsl

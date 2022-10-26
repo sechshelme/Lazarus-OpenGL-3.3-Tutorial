@@ -1,12 +1,13 @@
 # 50 - Instancing
 ## 00 - Einfachste Instance
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit <b>Instancing</b> hat man die Möglichkeit die Mesh mit <b>einem<b> glDraw... Aufruf mehrmals zu zeichnen.
 Bei dieser regelmässigen Anordnung ist dies sehr einfach.
 Man hat aber auch bei <b>Instancing</b> die Möglichkeit die Meshes X-beliebig anzuordnen.
 Dies wird in den nächsten Themen behandelt.
-<hr><br>
+---
 Das Zeichnen ist sehr einfach und übersichtlich geworden.
 Es braucht <b>keine</b> for-to-Schleifen für die Cube-Array, dieser Teile erledigt alles der Vertex-Shader.
 Die Matrix muss nur <b>einmal</b> berechnet werden, da es nur <b>einen</b> Aufruf von <b>glDraw...</b> gibt.
@@ -76,7 +77,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

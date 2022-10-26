@@ -1,7 +1,8 @@
 # 04 - Matrix
 ## 10 - Matrix Verschieben und Multiplizieren
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird die Mesh verschoben, und anschliessend gedreht.
 
 Dazu werden zwei 4x4 Matrixen verwendet, eine für das Verschieben und die andere für die Drehung.
@@ -11,7 +12,7 @@ Im Timer wird Matrix-Rotation ausgeführt.
 Für Matrixen, wird ab jetzt ein Type Helper aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.
 Dafür muss einfach die Unit <b>oglMatrix</b> bei uses eingebunden werden.
 In der Regel muss dann die Matrix mit <b>TMatrix.Indenty</b> auf die Einheits-Matrix gesetzt werden.
-<hr><br>
+---
 Die Deklaration der drei Matrixen.
 Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt dem Shader übergeben wird.
 
@@ -73,7 +74,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Hier ist die Uniform-Variable <b>mat</b> hinzugekommen.
@@ -92,7 +93,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

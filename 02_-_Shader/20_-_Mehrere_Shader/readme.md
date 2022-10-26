@@ -1,11 +1,12 @@
 # 02 - Shader
 ## 20 - Mehrere Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.
 Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.
 Normalerweise würde man dies mit nur einem Shader über eine Uniform-Variable realisieren, jedoch geht es hier darum zu zeigen, wie man mehrere Shader verwendet.
-<hr><br>
+---
 In diesem Codeausschnitt sind die ersten beiden Zeilen interessant.
 Hier werden die zwei Shader in die Grafikkarte geladen.
 
@@ -43,7 +44,7 @@ begin
   Shader[1].Free;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 Der Vertex-Shader ist bei beiden Shader gleich.
 

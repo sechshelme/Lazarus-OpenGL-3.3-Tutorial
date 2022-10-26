@@ -1,7 +1,8 @@
 # 07 - Beleuchtung
 ## 00 - Einfache Beleuchtung
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Ohne Beleuchtung sehen die Object statisch aus, wen man noch Beleuchtung ins Spiel bringt, wirkt eine OpenGL-Scene viel realistischer.
 Dabei gibt es verschiedene Arten von Beleuchtung. Die meist verwendete ist das <b>Directional Light</b>, dies entspricht dem Sonnenlicht.
 Dieses Beispiel zeigt eine ganz einfache Variante von diesem Licht. Je steiler das Licht auf ein Polygon einstrahlt, je heller wird das Polygon.
@@ -33,7 +34,7 @@ Es ist auch möglich mehrere Lichtquellen zu berechnen, dazu werden alle Lichtqu
 Das sieht man gut bei den mehrfarbigen Beleuchtungbeispielen. Da sieht man auch, das das Licht farbig sein kann.
 
 Dazu später.
-<hr><br>
+---
 Die Konstanten der Würfel-Vektoren.
 
 ```pascal
@@ -133,11 +134,11 @@ In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwend
   end;
 ```
 
-<hr><br>
+---
 Einfachere Beleuchtungen macht man im Vertex-Shader.
 Will man aber komplexer Beleuchtungen, nimmt man dazu den Fragment-Shader, das dieser Pixelgenau ist.
 Dafür wird aber mehr Berechnugszeit benötigt.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Die Berechnug für das Licht des einfachen Beispieles ist hier im Vetex-Shader.
@@ -180,7 +181,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

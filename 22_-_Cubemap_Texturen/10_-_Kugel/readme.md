@@ -1,7 +1,8 @@
 # 22 - Cubemap Texturen
 ## 10 - Kugel
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit <b>Textur Cube Map</b> hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.
 Ausser für den einfachen Würfel kann man dies auch für folgendes gebrauchen.
 * Hintergrund in einer 360° Optik.
@@ -12,7 +13,7 @@ Die Textur-Koordinaten sind 3D-Vektoren, welche auf die Position des Würfels ze
 dabei ist nur die Richtung des Vektores wichtig, die Länge ist egal.
 
 Meistens sind Vertex und Texturkoordinaten gleich. Hier im Beispiel ein Würfel.
-<hr><br>
+---
 Die 6 Flächen des Würfels werden einzeln in VRAM geladen.
 Dies geschieht ähnlich, wie bei einer Textur-Array.
 
@@ -51,7 +52,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
 <b>Vertex-Shader:</b>
@@ -74,7 +75,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 

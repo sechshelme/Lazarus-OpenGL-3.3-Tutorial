@@ -1,7 +1,8 @@
 # 02 - Shader
 ## 30 - Geometrie Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird ganz kurz der Geometrie-Shader erwähnt.
 In diesem Beispiel wird nicht ins Detail eingegangen, es sollte nur zeigen für was ein Geometrie-Shader gut ist.
 Die Funktion hier im Beispiel ist, die beiden Meshes werden kopiert und anschliessend nach Links und Rechts verschoben.
@@ -12,7 +13,7 @@ Was eine Normale ist, wird später im Kapitel Beleuchtung erklärt.
 
 Der Lazarus-Code ist nichts besonderes, er rendert die üblichen zwei Meshes Dreieck und Quadrat.
 Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geometrie-Shader geladen wird.
-<hr><br>
+---
 Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter Shader-Code mitgegeben.
 
 Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.
@@ -24,7 +25,7 @@ begin
   Shader.UseProgram;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -39,7 +40,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Geometrie-Shader:</b>
 
 ```glsl
@@ -77,7 +78,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

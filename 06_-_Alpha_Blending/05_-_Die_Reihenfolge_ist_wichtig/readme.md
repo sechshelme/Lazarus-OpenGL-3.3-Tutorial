@@ -1,7 +1,8 @@
 # 06 - Alpha Blending
 ## 05 - Die Reihenfolge ist wichtig
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bei Polygonen, welche Alphablending enthalten, ist es wichtig, in welcher Reihenfolge sie gezeichnet werden.
 Das blaue Quadrat ist in beiden Fällen über das Rote Qudrat gezeichnet.
 Links wurde zuerst das rote Qudrat gezeichnet, Rechts ist es genau umgekehrt. Die Z-Position ist in beiden Fällen die gleiche.
@@ -13,7 +14,7 @@ Auch sollte man berücksichtigen, das man zuerst die Elemente zeichnet, die von 
 
 Ich weis, dies tönt einfacher, als es in der Praxis ist.
 Bei komplexen Szenen kommt man nicht um das sortieren der Meshes.
-<hr><br>
+---
 Für den Vertex-Puffer wird nur ein einfaches Quadrat gebraucht.
 Die Farbe und Alpha-Kanal werden per Uniform dem Shader übergeben.
 
@@ -108,7 +109,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix und dem Color mit Alpha.
 
 <b>Vertex-Shader:</b>
@@ -126,7 +127,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

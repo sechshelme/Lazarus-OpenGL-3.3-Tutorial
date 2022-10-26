@@ -1,7 +1,8 @@
 # 17 - Uniform Buffer Object (UBO)
 ## 00 - Einfacher UBO
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bis jetzt wurden alle Uniforms einzeln dem Shader übegeben.
 Wen man aber mehrer Werte übeergeben will, kann man die <b>Uniforms</b> zu einem <b>Block</b> zusammenfassen.
 Aus diesem Grund heisst dieser Puffer <b>Uniform</b> Buffer Object ( UBO ).
@@ -11,7 +12,7 @@ Dies macht man mit einem Record. Dabei muss man auf eine <b>16Byte</b>-Ausrichtu
 Die Material-Eigenschaften sind ein ideales Beispiel dafür.
 
 In diesem Beispiel sind die Kugeln aus Rubin.
-<hr><br>
+---
 Hier wird der Record für die Material-Eigenschaften deklariert.
 
 Da ein <b>TVector3f</b> nur <b>12Byte</b> hat, muss man zum Aufrunden auf <b>16Byte</b> noch ein Padding von 4Byte einfügen.
@@ -118,7 +119,7 @@ begin
   glDeleteBuffers(1, @UBO);  // UBO löschen.
 ```
 
-<hr><br>
+---
 Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.
 Im Shader wird kein Padding gebraucht.
 
@@ -152,7 +153,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

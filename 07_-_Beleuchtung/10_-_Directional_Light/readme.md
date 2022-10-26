@@ -1,7 +1,8 @@
 # 07 - Beleuchtung
 ## 10 - Directional Light
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Das Directional-Light entspricht in etwa dem Sonnen-Licht, die Lichtstrahlen kommen alle von der gleichen Richtung.
 Im Grunde ist die Sonne auch ein Punktlicht, aber auf der Erde nimmt man es als Directional-Light war.
 Im Beispiel von Rechts.
@@ -18,8 +19,8 @@ Der einzige Unterschied zu vorherigem Beispiel ist im Shader-Code. Auch der Hint
 Bei dem Lichtpositions-Vector ist es egal, wie weit die Lichtquelle weg ist, da der Vektor nur die Lichtrichtung angeben muss.
 Meistens nimmt man aber einen <b>Einheitsvektor</b>, das ist ein Vektor mit der Länge <b>1.0</b>.
 Die Lichtposition wird im Vertex-Shader als Konstante definiert.
-<hr><br>
-<hr><br>
+---
+---
 Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.
 <b>Vertex-Shader:</b>
 
@@ -56,7 +57,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

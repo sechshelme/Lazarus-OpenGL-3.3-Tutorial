@@ -1,11 +1,12 @@
 # 06 - Alpha Blending
 ## 00 - Einfaches Alpha Blending
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.
 Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.
 Alphablending kann man auch auf Texturen anwenden, zB. um eine Baum zu zeichnen, oder auch nur eine Scheibe. Dazu mehr unter Texturen.
-<hr><br>
+---
 Neben einem Face mit 3 Werten, gibt es jetzt noch eines mit einem vierten, welcher dann den Aplhablending angibt.
 
 ```pascal
@@ -62,7 +63,7 @@ begin
   glVertexAttribPointer(11, 4, GL_FLOAT, False, 0, nil);
 ```
 
-<hr><br>
+---
 Die Shader sind sehr einfach gehalten. Man könnte mit <b>Color.a</b> direkt einen Alphawert zuordnen.
 Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>vec3</b>.
 
@@ -86,7 +87,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

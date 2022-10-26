@@ -1,12 +1,13 @@
 # 20 - Texturen
 ## 40 - Filter
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird gezeigt, wie man Filter für Texturen verwenden kann.
 In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter verwendet.
 
 Die Filter verstellt man mit <b>glTexParameter(...</b>.
-<hr><br>
+---
 Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welcher für alle Ausgaben gültig ist.
 
 ```pascal
@@ -96,7 +97,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 
@@ -118,7 +119,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 
@@ -138,7 +139,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>bild.xpm</b>
 
 

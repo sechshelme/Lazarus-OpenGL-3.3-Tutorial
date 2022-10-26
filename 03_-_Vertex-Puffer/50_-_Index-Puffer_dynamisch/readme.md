@@ -1,10 +1,11 @@
 # 03 - Vertex-Puffer
 ## 50 - Index-Puffer dynamisch
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Indicien kann man auch zur Laufzeit im VRAM verändern, dies geht fast gleich, wie bei den Vertex-Daten.
 Man macht dies auch mit <b>glBufferSubData(...</b>.
-<hr><br>
+---
 Dafür nimmt man für die Indicen auch eine dynamische Array.
 Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden ins VRAM aus dem RAM entfernen kann.
 
@@ -196,7 +197,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Bei den Shadern gibt es nichts besonders.
 
 <b>Vertex-Shader:</b>
@@ -217,7 +218,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

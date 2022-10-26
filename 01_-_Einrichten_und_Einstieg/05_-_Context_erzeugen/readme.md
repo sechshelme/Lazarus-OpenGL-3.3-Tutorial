@@ -1,13 +1,14 @@
 # 01 - Einrichten und Einstieg
 ## 05 - Context erzeugen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 OpenGL Context 3.3 erzeugen und OpenGL initialisieren.
 <b>Parent</b> kann z.B. auch ein TPanel sein. (Parent := Panel1;)
 
 Man kann die <b>TOpenGLControl</b>-Komponente auch über die Komponenten-Leiste auf dem Form erzeugen.
 Aber meine Erfahrung hat gezeigt, wenn man eine neuere Lazarus-Version installiert, dass es dann zu Problemen kommen kann.
-<hr><br>
+---
 Den Zeichen-Context mit <b>TOpenGLControl</b> deklarieren.
 
 ```pascal
@@ -44,7 +45,7 @@ end;
 
 Für die Contexterzeugung, habe ich eine Klasse geschrieben, diese beinhaltet den Teil im <b>with</b>-Block, ausgenommen <b>OnPaint</b>.
 In späteren Tutorial wird nur noch diese verwendet.
-<hr><br>
+---
 Rendern der Szene, momentan wird nur die Hintergrundfarbe festgelegt.
 Die Werte werden bei <b>glClearColor(...</b> als R, G, B, A eingegeben, wobei A keinen Einfluss hat.
 0.0 ist dunkel und 1.0 ist volle Intensität, somit wäre 0.0, 0.0, 0.0 Schwarz und 1.0, 1.0, 1.0 Weiss.

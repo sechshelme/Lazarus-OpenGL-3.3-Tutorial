@@ -1,13 +1,14 @@
 # 07 - Beleuchtung
 ## 40 - Spot Light, einfacher Kegel
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Da es für ein Spotlicht mehrere Schritte braucht, wird dies in mehreren Beispielen gezeigt.
 
 In diesem Beispiel wird zuerst mal gezeigt, wie der Lichtkegen berechnet wird.
 Die Beleuchtung berechnung mit den Normalen wird zuerst mal ingnoriert.
 So sieht man gut, wie der Lichtkegel entsteht.
-<hr><br>
+---
 Bei einem Spotlicht, ist die Lichtposition kein Einheitsvektor mehr.
 Die Licht-Position ist ist die effektive Position der Lichtquelle, so wie es bei einer Taschenlampe auch der Fall ist.
 
@@ -35,7 +36,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 Hier wird die Kegelberechnung ausgeführt.
 
 <b>Vertex-Shader:</b>
@@ -59,7 +60,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 Der wichtigste Parameter ist der Ausstrahlwinkel der Lichtes.

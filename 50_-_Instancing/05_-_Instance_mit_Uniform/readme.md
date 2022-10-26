@@ -1,7 +1,8 @@
 # 50 - Instancing
 ## 05 - Instance mit Uniform
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann für jede Instance einen eigenen Uniform-Wert zu ordnen. Dafür packt man die Uniform-Werte in ein Array,
 welches >= anzahl Instancen ist.
 
@@ -10,7 +11,7 @@ Dieses Verfahren hat zwei Nachteile.
 2. Die Anzahl Uniform-Werte ist begrenzt, bei diesem Beispiel und einem Intel4000 ist bei gut 800 Instancen Schluss.
 
 Diese Nachteile kann man umgehen, wen man anstelle von Uniformen VertexAttrib verwendet, dazu im nächasten Thema.
-<hr><br>
+---
 Die Anzahl Instance
 
 ```pascal
@@ -99,7 +100,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zugegriffen wird.
 
@@ -125,7 +126,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

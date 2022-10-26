@@ -1,13 +1,14 @@
 # 06 - Alpha Blending
 ## 20 - Alpha-Kanal abfragen und ingnorieren
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bei Texturen mit Alphablending gibt es noch eine einfacher Variante als sortieren.
 Voraus gesetzt der Alphakanal ist voll transparent.
 
 Wen es transparent ist, wird einfach kein Pixel gezeichnet und dadurch wird auch der Z-Buffer nicht aktualisiert.
 Dies spielt sich im FragmentShader ab.
-<hr><br>
+---
 Es empfieht sich trotzdem immer die Objecte mit Alpha-Blending zum Schluss zu zeichnen.
 Aber es muss nicht mehr sortiert werden.
 
@@ -55,7 +56,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -76,7 +77,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 Hier wird abgefragt, ob der Pixel transparent ist, wen ja wird er nicht ausgegeben und
 dadurch wird der Z-Buffer nicht aktualisiert. Dadurch werden Objecte hinter der transparent Textur trozdem gezeichnet.

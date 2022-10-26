@@ -1,7 +1,8 @@
 # 02 - Shader
 ## 00 - Einleitung und laden der Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 In <b>OpenGL 3.3</b> gibt es drei verschiedene <b>Shadertypen</b>, den <b>Vertex-</b>, <b>Geometry-</b> und <b>Fragment-Shader</b>.
 Wobei der <b>Vertex-Shader immer</b> vorhanden sein muss. Der <b>Fragment-Shader</b> wird benötigt, wenn die Ausgabe des Rendervorgangs ein Bild sein soll, also fast immer.
 Der <b>Geometry-Shader</b> ist optional.
@@ -18,7 +19,7 @@ Somit sind auch Kommentare wie in C/C++ möglich.
 
 
 Der kompilierte Code von GLSL läufen direkt in der Grafikkarte (GPU).
-<hr><br>
+---
 Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit <b>Shader.pas</b> erstellt, welche eine Klasse für den Shader enthält.
 Somit ist der Ablauf sehr einfach.
 Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object als Dateien vorliegen, habe ich eine Hilfs-Funktion in de Shader Unit.

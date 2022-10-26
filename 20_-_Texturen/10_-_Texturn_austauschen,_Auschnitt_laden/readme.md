@@ -1,11 +1,12 @@
 # 20 - Texturen
 ## 10 - Texturn austauschen, Auschnitt laden
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.
 Dies ist auch mit einem <b>Texturauschnitt</b> möglich.
 Dies geschieht mit <b>glTexSubImage2D(...</b>.
-<hr><br>
+---
 Big ist die Totalgrösse der Texturdaten.
 Small ist ein Auschnitt.
 
@@ -71,7 +72,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -91,7 +92,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

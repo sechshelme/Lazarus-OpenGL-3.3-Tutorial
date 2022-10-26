@@ -1,11 +1,12 @@
 # 20 - Texturen
 ## 45 - Alpha-Textur
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Texturen werden erst richtig interessant, wen noch der Alpha-Kanal verwendet wird.
 Wie hier im Beispiel ein Baum.
 <b>Hinweis:</b> Das Z-Bufferproblem, wie bei einfachen Alphablending muss bei Alphatexturen auch beachtet werden. Siehe [[Lazarus_-_OpenGL_3.3_Tutorial#Alpha_Blending|Alphablending]].
-<hr><br>
+---
 Wichtig ist, das man OpenGL mitteilt, das man Alpha-Blending will.
 
 ```pascal
@@ -16,7 +17,7 @@ begin
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
 ```
 
-<hr><br>
+---
 Die Shader sehen gleich aus, wie bei einer einfachen Textur.
 
 <b>Vertex-Shader:</b>
@@ -39,7 +40,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

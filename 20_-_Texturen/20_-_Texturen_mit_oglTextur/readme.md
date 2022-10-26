@@ -1,13 +1,14 @@
 # 20 - Texturen
 ## 20 - Texturen mit oglTextur
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.
 Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.
 
 Mit der Klasse <b>TTexturBuffer</b> welche dort enthalten ist, geht dies sehr einfach.
 Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> erkannt werden.
-<hr><br>
+---
 Den Textur-Puffer deklarieren.
 
 ```pascal
@@ -51,7 +52,7 @@ begin
   Textur.Free;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -72,7 +73,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

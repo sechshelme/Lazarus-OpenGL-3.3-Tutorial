@@ -1,12 +1,13 @@
 # 20 - Texturen
 ## 05 - Mehrere Texturen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird gezeigt, wie man mehrere Texturen laden kann, im Prinzip geht dies fast gleich wie bei einer Textur.
 In diesem Beispiel werden zwei Texturen geladen.
 
 Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textur bindet.
-<hr><br>
+---
 Da es zwei Texturn hat, ist noch eine zweite Textur-Konstnate dazu gekommen.
 
 ```pascal
@@ -95,7 +96,7 @@ begin
   glDeleteTextures(Length(textureID), @textureID); // Textur-Puffer frei geben.
 ```
 
-<hr><br>
+---
 Die Shader sind genau gleich, wie bei einer Textur.
 
 <b>Vertex-Shader:</b>
@@ -119,7 +120,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 

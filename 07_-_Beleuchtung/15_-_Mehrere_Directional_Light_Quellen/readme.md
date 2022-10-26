@@ -1,7 +1,8 @@
 # 07 - Beleuchtung
 ## 15 - Mehrere Directional Light Quellen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wie schon beschrieben, sind auch mehrere Lichtquellen möglich.
 
 In diesem Beispiel habe ich 3 Directionale Lichtquellen eingefügt, welche sich bewegen.
@@ -16,7 +17,7 @@ Wen man nur eine Kugel hat, sieht man die Bewegung des Lichtes sehr gut.
 Wen man alle 3 Lichter ausschaltet, dann sieht man die Ambiente Hintergrund-Beleuchtung sehr gut.
 
 Die Lichtposition ist nicht mehr im Shader als Konstante deklariert, sie wurde mit einer <b>Uniform-Variable</b> nach aussen verlagert.
-<hr><br>
+---
 Die Lichtpositionen als 3D-Vektorn definiert.
 
 ```pascal
@@ -84,7 +85,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 Wen man mehrere Lichtquellen hat, werden diese alle <b>addiert</b>.
 Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.
 
@@ -157,7 +158,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,14 +1,15 @@
 # 17 - Uniform Buffer Object (UBO)
 ## 20 - Mehrere UBOs in einem Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Es ist auch möglich, mehrere Unifom-Blöcke im Shader anzulegen.
 Ein Uniform-Block wurde verwendet für die Matrizen.
 Der andere für die Lichtparameter.
 
 Hier sieht man auch gut wie einfach es ist, alle Parameter für die 3 Lampen in einem Rutsch dem Shader zu übergeben.
 glUniform müsste man dazu zig mal aufrufen und wen man mehrere Shader verwendet, müsste man dies sogar bei jeden Shader einzeln machen.
-<hr><br>
+---
 Die Deklaration der Lichtparameter und der Matrizen für den UBO.
 
 ```pascal
@@ -173,7 +174,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Im Shader sieht man die beiden Uniform-Blöcke.
 Für die Matrizen im Vertex-Shader, und für die Lichtparameter im Fragment-Shader.
 Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.
@@ -202,7 +203,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

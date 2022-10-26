@@ -1,11 +1,12 @@
 # 03 - Vertex-Puffer
 ## 45 - Index-Puffer
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Die Indicien, kann man auch von Anfang an ins VRAM laden, so müssen die Daten nich jedes mal mit <b>glDrawElements(...</b> neu übegeben werden.
 Dafür gibt es den <b> Index Buffer Objects</b> (IBO).
 Das Laden geschieht ähnlich wie mit den Vertex-Daten.
-<hr><br>
+---
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten, dies ist gleich wie ohne Buffer.
 
 ```pascal
@@ -94,7 +95,7 @@ begin
   glDeleteBuffers(1, @VBQuad.IBO);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 
@@ -110,7 +111,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

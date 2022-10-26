@@ -1,13 +1,14 @@
 # 20 - Texturen
 ## 30 - Texturen und Matrixen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Die Textur-Koordinaten kann man im Shader auch mit einer Matrix multipizieren.
 Dies geschieht ähnlich, wie bei den Vertex-Koordinanten, der grösste Unterschied dabei ist, das es sich um 2D-Koordinaten handelt.
 
 Dabei ist zu beachten, das beim Drehen/Verschieben die Transformationen in umgekehrter Reihenfolge verläuft,
 im Gegensatz zu Vertex-Koordinaten.
-<hr><br>
+---
 Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben werden.
 
 ```pascal
@@ -91,7 +92,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.
 
 <b>Vertex-Shader:</b>
@@ -117,7 +118,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

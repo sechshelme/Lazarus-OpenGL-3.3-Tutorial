@@ -1,13 +1,14 @@
 # 03 - Vertex-Puffer
 ## 10 - Vertex-Puffer in 2D
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen man nur eine 2D-Mesh hat, kann man die Vektor-Koordinaten auch als <b>2D</b> in das VRAM laden.
 Man kann sich dabei den <b>Z-Wert</b> sparen. Matrix-Operation mit eine 4x4 Matrix funktionieren wie wen es 3D wäre.
 Für die Farbe wird hier nur eine <b>1D-Array</b> verwendet, da die Mesh nur Rot-Töne enthält. <b>Grün</b> und <b>Blau</b> wird im Shader auf <b>0.0</b> gesetzt.
 
 Man könnte zusätzlich noch einen <b>VBO</b> für <b>Rot</b> und <b>Grün</b> erzeugen. Somit könnte man jede Farbe einzeln in eine Array schreiben.
-<hr><br>
+---
 Ein 2D-Vertex ist noch dazu gekommen.
 
 ```pascal
@@ -55,7 +56,7 @@ begin
   glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Der Z-Wert des Vektors wird konstant auf <b>0.0</b> gesetzt.
@@ -80,7 +81,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

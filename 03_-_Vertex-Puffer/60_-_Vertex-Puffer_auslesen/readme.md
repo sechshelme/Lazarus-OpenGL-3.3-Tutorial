@@ -1,11 +1,12 @@
 # 03 - Vertex-Puffer
 ## 60 - Vertex-Puffer auslesen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.
-<hr><br>
+---
 Für diesen Zweck gibt es die Funktion <b>glGetBufferSubData(...</b>.
-<hr><br>
+---
 Diese Vertex-Daten sollen auch in der MessageBox erscheinen.
 
 ```pascal
@@ -71,7 +72,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -90,7 +91,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

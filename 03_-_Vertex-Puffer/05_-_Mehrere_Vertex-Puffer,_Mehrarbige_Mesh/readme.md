@@ -1,10 +1,11 @@
 # 03 - Vertex-Puffer
 ## 05 - Mehrere Vertex-Puffer, Mehrarbige Mesh
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
 Somit werden die Mesh mehrfarbig.
-<hr><br>
+---
 Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
 
 ```pascal
@@ -104,7 +105,7 @@ Freigaben müssen immer gleich viele sein wie Erzeugungen.
   glDeleteBuffers(1, @VBQuad.VBOcol);
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.
@@ -125,7 +126,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

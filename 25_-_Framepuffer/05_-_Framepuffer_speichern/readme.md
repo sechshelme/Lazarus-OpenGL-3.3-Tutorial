@@ -1,9 +1,10 @@
 # 25 - Framepuffer
 ## 05 - Framepuffer speichern
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.
-<hr><br>
+---
 Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.
 Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.
 Dieser Code wurde unter Linux 64Bit getestet.
@@ -54,7 +55,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
 Der Shader des Würfels, gibt Texturen aus.
 
@@ -80,7 +81,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader Quadrat:</b>
 
 
@@ -100,7 +101,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader Würfel:</b>
 
 
@@ -122,7 +123,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader Würfel:</b>
 
 

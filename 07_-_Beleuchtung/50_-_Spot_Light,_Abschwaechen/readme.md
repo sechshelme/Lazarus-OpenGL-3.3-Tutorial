@@ -1,14 +1,15 @@
 # 07 - Beleuchtung
 ## 50 - Spot Light, Abschwaechen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Wen das Licht schwächer wird, je weiter es von der Mesh entfernt wird, sieht es viel realistischer aus.
 Auch wird ein Lichtstrahl schwächer je weit er vom Zentrum weg ist.
 
 Die beiden linken Lichter wird nur eine Abschwächung angewendet. Das rechte Licht ist eine Kombination aus beiden Abschwächungen und somit die realistischte.
 
 Dies Distanzabhängige Abschwächung, kann man auch bei einer Punkt-Beleuchtung anwenden.
-<hr><br>
+---
 Hier werden die Lichtpositionen der drei Lampen festgelegt.
 
 ```pascal
@@ -92,7 +93,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,7 +1,8 @@
 # 02 - Shader
 ## 40 - Shader Mandelbrot
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Zum Schluss eine kleine Spielerei: Hier wird ein Mandelbrot im Shader (also auf der GPU) berechnet.
 Mit der CPU hatte ich noch keine so schnelle Berechnung hingekriegt, trotz Assembler.
 
@@ -10,7 +11,7 @@ Anmerkung: Bei diesem Beispiel geht es nicht um mathematische Hintegründe, sond
 Der Lazarus-Code ist nichts besonderes, es wird nur ein Rechteck gerendert und anschliessend mit einer Matrix gedreht. Was eine Matrix ist, wird im Kapitel Matrix beschrieben.
 <b>Achtung:</b> Eine lahme Grafikkarte kann bei Vollbild ins Stockern kommen.
 Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader verkleinert werden.
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -29,7 +30,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 Hier steckt die ganze Berechnung für das Mandelbrot.

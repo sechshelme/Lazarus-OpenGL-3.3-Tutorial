@@ -1,14 +1,15 @@
 # 03 - Vertex-Puffer
 ## 15 - Nur eine Array
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Man kann die Vertex-Daten, auch alles in einen Daten-Block schreiben. Hier werden die Vector- und Color - Daten alle in einen Block geschrieben.
 In den vorherigen Beispielen hat es für die Vector- und  Color - Daten eine separate TFace-Array gehabt.
 Hier werden zwei Möglichkeiten vorgestellt, wie die Daten in der Array sind.
 Variante1: <b>Vec0, Col0, ..., Vecn, Coln</b>
 Variante2: <b>Vec0, ..., Vecn, Col0, ..., Coln</b>
 Die hat noch den Vorteil, das nur ein <b>VBO</b> angelegt werden muss, obwohl mehrere Attribute in der Array sind.
-<hr><br>
+---
 Die zwei Daten-Varianten:
 Variante 0: <b>XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB</b>
 Variante 1: <b>XYZ XYZ XYZ XYZ XYZ XYZ RGB RGB RGB RGB RGB RGB</b>
@@ -92,7 +93,7 @@ Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.
   glDrawArrays(GL_TRIANGLES, 0, 6);  // 6 Vertex pro Quadrat
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribPointer(...</b> die Daten übergibt.
@@ -113,7 +114,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,7 +1,8 @@
 # 01 - Einrichten und Einstieg
 ## 20 - Polygonmodus
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Standartmässig stellt OpenGL Polygone flächenfüllend dar.
 Man kann aber die Polygone auch als Drahtgitter, oder nur die Eckpunkte als Punkte darstellen.
 
@@ -9,7 +10,7 @@ Dies kann man mit <b>glPolygonMode(...</b> einstellen.
 Der Modus <b>GL_LINE</b> ist recht praktisch, wen man eine Mesh in der Entwicklungphase rendert, so kann man recht gut Renderfehler erkennen.
 
 Hinweis: Hier wird die TShader-Klasse verwendet, näheres dazu im Kapitel Shader.
-<hr><br>
+---
 Hier werden die verschiedenen Polygone-Modis eingestellt.
 Mit <b>glPolygonMode(...</b> und dem zweiten Parameter werden die verschiedenen Modis eingestellt.
 Dabei muss der erste Paramter immer <b>GL_FRONT_AND_BACK</b> sein, die beiden Parameter <b>GL_FRONT</b> und <b>GL_BACK</b> gehen mit OpenGL >= 3.3 nicht mehr.
@@ -33,7 +34,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 Die Shader haben keinen Einfluss auf die Polygonmodis.
 <b>Vertex-Shader:</b>
 
@@ -48,7 +49,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

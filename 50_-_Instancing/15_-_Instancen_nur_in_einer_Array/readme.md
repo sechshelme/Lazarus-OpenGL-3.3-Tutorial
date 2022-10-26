@@ -1,12 +1,13 @@
 # 50 - Instancing
 ## 15 - Instancen nur in einer Array
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.
 Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.
 Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizierter.
 Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].
-<hr><br>
+---
 Die Deklaration der Array. Es ist nur noch eine Array.
 
 ```pascal
@@ -99,7 +100,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 Am Shader hat sich nichts geändert.
 
@@ -127,7 +128,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

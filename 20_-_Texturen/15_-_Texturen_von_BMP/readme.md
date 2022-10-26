@@ -1,10 +1,11 @@
 # 20 - Texturen
 ## 15 - Texturen von BMP
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.
 Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.
-<hr><br>
+---
 Der Unterschied zur Konstante, das man die Bitmap noch laden muss, und anschliessend einen Zeiger darauf <b>glTexImage2D(...</b> mit gibt.
 Man kann auch eine Bitmap selbst über Canvas zeichnen.
 
@@ -37,7 +38,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -58,7 +59,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

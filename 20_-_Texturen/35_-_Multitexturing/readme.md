@@ -1,13 +1,14 @@
 # 20 - Texturen
 ## 35 - Multitexturing
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.
 Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.
 Somit muss man auch mehrere Texturen beim Zeichenen mittels <b>glActiveTexture(...</b> aktivieren.
 
 Hier im Beispiel, ist es ein Stück Mauer, welches mit einer farbigen Lampe angeleuchtet wird.
-<hr><br>
+---
 Die Textur-Puffer deklarieren, sehr einfach geht dies mit einer Array.
 
 ```pascal
@@ -76,7 +77,7 @@ begin
   Textur[1].Free;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -100,7 +101,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und anschliessend duch 2 geteilt.
@@ -123,7 +124,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>mauer.xpm:</b>
 
 ```glsl
@@ -144,7 +145,7 @@ static char *XPM_mauer[] = {
 
 ```
 
-<hr><br>
+---
 <b>licht.xpm:</b>
 
 ```glsl

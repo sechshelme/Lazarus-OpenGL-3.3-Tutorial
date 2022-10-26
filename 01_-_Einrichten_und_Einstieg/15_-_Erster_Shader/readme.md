@@ -1,12 +1,13 @@
 # 01 - Einrichten und Einstieg
 ## 15 - Erster Shader
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.
 Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.
 
 In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.
-<hr><br>
+---
 Die ID, welche auf den Shader zeigt.
 
 ```pascal
@@ -128,7 +129,7 @@ begin
   glDeleteProgram(ProgramID);
 ```
 
-<hr><br>
+---
 Die beiden verwendeten Shader, Details dazu im Kapitel Shader.
 
 <b>Vertex-Shader:</b>
@@ -145,7 +146,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl

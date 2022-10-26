@@ -1,9 +1,10 @@
 # 20 - Texturen
 ## 25 - Texturen von XPM
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man sehr schnell eine einfache Textur mit einem Text-Editor erstellen.
-<hr><br>
+---
 Da etwas anderes als <b>BMP</b> geladen wird, muss anstelle von <b>TBitmap TPicture</b> verwendet werden.
 
 Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG, P?M, PDS, TGA, TIF, XPM, ICO, CUR, ICNS</b>.
@@ -21,7 +22,7 @@ begin
   end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -42,7 +43,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader:</b>
 
 ```glsl
@@ -61,7 +62,7 @@ void main()
 
 ```
 
-<hr><br>
+---
 <b>mauer.xpm:</b>
 
 ```glsl

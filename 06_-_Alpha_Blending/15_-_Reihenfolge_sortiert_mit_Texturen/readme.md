@@ -1,7 +1,8 @@
 # 06 - Alpha Blending
 ## 15 - Reihenfolge sortiert mit Texturen
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Da mit Texturen welche Alpha-Blending haben das gleiche Problem besteht, wie mit den Würfeln, muss man auch dort sortieren.
 Da die Position der Bäume keine Drehbewegung haben, reicht ein Vector für dessen Position, eine Matrix ist nicht nötig.
 Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.
@@ -9,7 +10,7 @@ Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.
 Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.
 
 Wie Texturen funktionieren, in einem späteren Kapitel.
-<hr><br>
+---
 Den Speicher für die Position der Bäume reservieren.
 
 ```pascal
@@ -139,7 +140,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -160,7 +161,7 @@ void main(void)
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl

@@ -1,11 +1,12 @@
 # 50 - Instancing
 ## 20 - VertexAttribDivisor
 
-<img src="image.png" alt="Selfhtml"><br><br>
+![image.png](image.png)
+
 Mit <b>VertexAttribDivisor</b> kann man nicht nur bestimmen, das es sich im ein Instance-Attribut handelt.
 Man kann auch festlegen, das ein Attribut-Wert mehrmals verwendet wird, bevor er um eins weiter springt.
 Im Beispiel sieht man, das der Farb-Wert vier mal verwendet wird, bevor der nächste wert kommt.
-<hr><br>
+---
 Für die Farben werden nur 4 Werte benötigt. Diese werden als Konstante deklariert,
 da diese sich zur Laufzeit nicht mehr ändern.
 
@@ -94,7 +95,7 @@ begin
 end;
 ```
 
-<hr><br>
+---
 <b>Vertex-Shader:</b>
 
 ```glsl
@@ -114,7 +115,7 @@ void main(void) {
 
 ```
 
-<hr><br>
+---
 <b>Fragment-Shader</b>
 
 ```glsl
