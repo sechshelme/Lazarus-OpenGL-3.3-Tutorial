@@ -93,10 +93,12 @@ var
 Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 
 //matrix+
-| 1 | 0 | 0 | 0 |
-| 0 | 1 | 0 | 0 |
-| 0 | 0 | 1 | 0 |
-| 0 | 0 | 0 | 1 |
+
+ 1 | 0 | 0 | 0 
+ 0 | 1 | 0 | 0 
+ 0 | 0 | 1 | 0 
+ 0 | 0 | 0 | 1 
+
 //matrix-
 *)
 //code+
