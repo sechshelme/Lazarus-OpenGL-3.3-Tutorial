@@ -11,7 +11,8 @@ Einfach gesagt, die vorderen Spalten beinhalten die Richtung und Skalierung, die
 
 Ich habe eine fertige Bibliotheke für Matrizen, bei der ich die gängigen Funktionen beschreiben will.
 Es wird hier fast nur eine <b>4x4</b>-Matrix verwendet, die Standard mässig so auf gebaut ist:
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 | 1 | 0 | 0 | 0 |
 | 0 | 1 | 0 | 0 |
 | 0 | 0 | 1 | 0 |
@@ -22,7 +23,8 @@ Hier eine kleine Einführung, die zeigt, welche Werte in der Matrix für die ver
 
 Die Matrix bildet die drei Achsen und eine Verschiebung ab. Die grossen Buchstaben zeigen die Achse, die kleinen die Position der Achsen.
 Die hinterste Spalte gibt die Verschiebung an. Die unterste Zeile wird nur verändert bei Perspektiven und bei Multiplikationen,
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 | Xx | Yx | Zx | x0 |
 | Xy | Yy | Zy | y0 |
 | Xz | Yz | Zz | z0 |
@@ -30,7 +32,8 @@ Die hinterste Spalte gibt die Verschiebung an. Die unterste Zeile wird nur verä
 
 
 Für die Verschiebungen (<b>Translate</b>):
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 |  1 |  0 |  0 | tx |
 |  0 |  1 |  0 | ty |
 |  0 |  0 |  1 | tz |
@@ -39,7 +42,8 @@ Für die Verschiebungen (<b>Translate</b>):
 
 
 Für die Skalierung (<b>Scale</b>):
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 | sx |  0 |  0 | tx |
 |  0 | sy |  0 | ty |
 |  0 |  0 | sz | tz |
@@ -48,7 +52,8 @@ Für die Skalierung (<b>Scale</b>):
 
 
 Für die Rotation A-Achse (<b>RotateA</b>):
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 |    1   |    0   |    0   |    0   |
 |    0   | cos(d) |-sin(d) |    0   |
 |    0   | sin(d) | cos(d) |    0   |
@@ -57,7 +62,8 @@ Für die Rotation A-Achse (<b>RotateA</b>):
 
 
 Für die Rotation B-Achse (<b>RotateB</b>):
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 |  cos(d) |    0   | sin(d) |    0   |
 |     0   |    1   |    0   |    0   |
 | -sin(d) |    0   | cos(d) |    0   |
@@ -66,7 +72,8 @@ Für die Rotation B-Achse (<b>RotateB</b>):
 
 
 Für die Rotation C-Achse (<b>RotateC</b>):
-
+|  |  |  |  |
+| --- | --- | --- | --- |
 | cos(d) |-sin(d) |    0   |    0   |
 | sin(d) | cos(d) |    0   |    0   |
 |    0   |    0   |    1   |    0   |

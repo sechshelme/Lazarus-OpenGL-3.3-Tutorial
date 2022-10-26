@@ -497,7 +497,7 @@ begin
   isCode := False;
   isRemove := False;
 
-  slUnit.Text := StringReplace(slUnit.Text, '//matrix+', '', [rfReplaceAll, rfIgnoreCase]);
+  slUnit.Text := StringReplace(slUnit.Text, '//matrix+', '|  |  |  |  |'+LineEnding+'| --- | --- | --- | --- |', [rfReplaceAll, rfIgnoreCase]);
   slUnit.Text := StringReplace(slUnit.Text, '//matrix-', '', [rfReplaceAll, rfIgnoreCase]);
 
 
