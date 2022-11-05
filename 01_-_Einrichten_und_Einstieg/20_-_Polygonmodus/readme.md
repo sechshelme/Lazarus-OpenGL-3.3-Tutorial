@@ -6,15 +6,16 @@
 Standartmässig stellt OpenGL Polygone flächenfüllend dar.
 Man kann aber die Polygone auch als Drahtgitter, oder nur die Eckpunkte als Punkte darstellen.
 
-Dies kann man mit <b>glPolygonMode(...</b> einstellen.
-Der Modus <b>GL_LINE</b> ist recht praktisch, wen man eine Mesh in der Entwicklungphase rendert, so kann man recht gut Renderfehler erkennen.
+Dies kann man mit **glPolygonMode(...** einstellen.
+Der Modus **GL_LINE** ist recht praktisch, wen man eine Mesh in der Entwicklungphase rendert, so kann man recht gut Renderfehler erkennen.
 
 Hinweis: Hier wird die TShader-Klasse verwendet, näheres dazu im Kapitel Shader.
+
 ---
 Hier werden die verschiedenen Polygone-Modis eingestellt.
-Mit <b>glPolygonMode(...</b> und dem zweiten Parameter werden die verschiedenen Modis eingestellt.
-Dabei muss der erste Paramter immer <b>GL_FRONT_AND_BACK</b> sein, die beiden Parameter <b>GL_FRONT</b> und <b>GL_BACK</b> gehen mit OpenGL >= 3.3 nicht mehr.
-<b>glPolygonMode(...</b> kann auch bei DrawScene aufgerufen werden. ZB. wen man zwei Meshes hat, kann man die einte Fächenfüllend und die andere als Drahtgitter darstellen.
+Mit **glPolygonMode(...** und dem zweiten Parameter werden die verschiedenen Modis eingestellt.
+Dabei muss der erste Paramter immer **GL_FRONT_AND_BACK** sein, die beiden Parameter **GL_FRONT** und **GL_BACK** gehen mit OpenGL >= 3.3 nicht mehr.
+**glPolygonMode(...** kann auch bei DrawScene aufgerufen werden. ZB. wen man zwei Meshes hat, kann man die einte Fächenfüllend und die andere als Drahtgitter darstellen.
 
 ```pascal
 procedure TForm1.MenuItemClick(Sender: TObject);
@@ -34,9 +35,10 @@ begin
 end;
 ```
 
+
 ---
 Die Shader haben keinen Einfluss auf die Polygonmodis.
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -49,8 +51,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

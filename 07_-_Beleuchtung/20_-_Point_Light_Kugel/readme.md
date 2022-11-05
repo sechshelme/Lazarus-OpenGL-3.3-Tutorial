@@ -8,10 +8,11 @@ Am besten man schaltet nur eine Lichtquelle ein.
 
 Der Unterschied zum Directional-Light, man muss noch die Position des Vertex der Lichtposition abziehen.
 Wen die Vertex-Position grösser als die Lichtposition ist, dann verschwindet der Vertex im Schatten und es wird dunkel.
+
 ---
 Hier sieht man, das die Vertex-Position der Lichtposition abgezogen wird.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -67,8 +68,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

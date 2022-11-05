@@ -3,9 +3,10 @@
 
 ![image.png](image.png)
 
-In diesem Beispiel wird gezeigt, was der <b>BindingPoint</b> für einen Einfluss hat.
+In diesem Beispiel wird gezeigt, was der **BindingPoint** für einen Einfluss hat.
 Es werden 3 Shader erzeugt, das es einfacher ist, habe ich 3mal die gleichen Shader-Sourcen genommen.
-Bei 2 Shadern werden die UBO-Daten mit dem <b>BindingPoint 0</b> verbunden, der einzelne Shader mit <b>BindingPoint</b> 1.
+Bei 2 Shadern werden die UBO-Daten mit dem **BindingPoint 0** verbunden, der einzelne Shader mit **BindingPoint** 1.
+
 ---
 Es werden drei UNOs angelegt.
 Die Uniform IDs werden füür jeden Shader einzeln ID gebraucht.
@@ -185,7 +186,7 @@ end;
 ```
 
 Es wird nur der BindingPoint 0 geändert.
-Somit sit man beim <b>Shader[2]</b> der mit <b>BindingPoint 1</b> gebunden ist keine Änderung.
+Somit sit man beim **Shader[2]** der mit **BindingPoint 1** gebunden ist keine Änderung.
 
 ```pascal
 procedure TForm1.Timer2Timer(Sender: TObject);
@@ -208,10 +209,11 @@ begin
 end;
 ```
 
+
 ---
 Der Shader ist der selbe wie im ersten Beispiel.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -241,8 +243,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

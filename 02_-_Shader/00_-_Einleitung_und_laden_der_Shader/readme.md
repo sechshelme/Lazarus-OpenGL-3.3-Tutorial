@@ -3,13 +3,13 @@
 
 ![image.png](image.png)
 
-In <b>OpenGL 3.3</b> gibt es drei verschiedene <b>Shadertypen</b>, den <b>Vertex-</b>, <b>Geometry-</b> und <b>Fragment-Shader</b>.
-Wobei der <b>Vertex-Shader immer</b> vorhanden sein muss. Der <b>Fragment-Shader</b> wird benötigt, wenn die Ausgabe des Rendervorgangs ein Bild sein soll, also fast immer.
-Der <b>Geometry-Shader</b> ist optional.
-In OpenGL 4.0 wurden noch zwei <b>Tessellations-Shader</b> eingeführt, aber dies gehört eigentlich nicht hier hin.
+In **OpenGL 3.3** gibt es drei verschiedene **Shadertypen**, den **Vertex-**, **Geometry-** und **Fragment-Shader**.
+Wobei der **Vertex-Shader immer** vorhanden sein muss. Der **Fragment-Shader** wird benötigt, wenn die Ausgabe des Rendervorgangs ein Bild sein soll, also fast immer.
+Der **Geometry-Shader** ist optional.
+In OpenGL 4.0 wurden noch zwei **Tessellations-Shader** eingeführt, aber dies gehört eigentlich nicht hier hin.
 
-Die Shader werden mit der Programmiersprache <b>OpenGL Shading Language (GLSL)</b> programmiert. Die ist eine C/C++ ähnliche Sprache.
-Daher muss auf <b>Gross- und Kleinschreibung</b> geachtet werden.
+Die Shader werden mit der Programmiersprache **OpenGL Shading Language (GLSL)** programmiert. Die ist eine C/C++ ähnliche Sprache.
+Daher muss auf **Gross- und Kleinschreibung** geachtet werden.
 
 Somit sind auch Kommentare wie in C/C++ möglich.
 
@@ -19,11 +19,12 @@ Somit sind auch Kommentare wie in C/C++ möglich.
 
 
 Der kompilierte Code von GLSL läufen direkt in der Grafikkarte (GPU).
+
 ---
-Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit <b>Shader.pas</b> erstellt, welche eine Klasse für den Shader enthält.
+Damit das Laden der Shader einfacher ist, habe ich im Unit-Verzeichnis eine Unit **Shader.pas** erstellt, welche eine Klasse für den Shader enthält.
 Somit ist der Ablauf sehr einfach.
 Der Konstructor verlangt die Shader-Objecte als String. Wen die Shader-Object als Dateien vorliegen, habe ich eine Hilfs-Funktion in de Shader Unit.
-Dies ist <b>FileToStr(...</b> . Im Tutorial wird immer diese verwendet.
+Dies ist **FileToStr(...** . Im Tutorial wird immer diese verwendet.
 
 ```pascal
 var
@@ -38,5 +39,5 @@ begin
 ```
 
 In folgenden Beispielen werden die Shader nur noch mit dieser Klasse geladen, damit es übersichtlicher wird.
-Wie man es nativ machen kann, wird im <b>Einstiegs-Tutorial</b> unter <b>erster Shader</b> gezeigt.
+Wie man es nativ machen kann, wird im **Einstiegs-Tutorial** unter **erster Shader** gezeigt.
 

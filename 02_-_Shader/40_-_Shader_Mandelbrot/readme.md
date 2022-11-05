@@ -9,10 +9,11 @@ Mit der CPU hatte ich noch keine so schnelle Berechnung hingekriegt, trotz Assem
 Anmerkung: Bei diesem Beispiel geht es nicht um mathematische Hintegründe, sondern es soll legentlich demonstrieren, das man mit Shader-Programs sehr komplexe Berechnungen machen kann.
 
 Der Lazarus-Code ist nichts besonderes, es wird nur ein Rechteck gerendert und anschliessend mit einer Matrix gedreht. Was eine Matrix ist, wird im Kapitel Matrix beschrieben.
-<b>Achtung:</b> Eine lahme Grafikkarte kann bei Vollbild ins Stockern kommen.
-Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader verkleinert werden.
+**Achtung:** Eine lahme Grafikkarte kann bei Vollbild ins Stockern kommen.
+Zur Beschleunigung kann der Wert **#define depth 1000.0** im Fragment-Shader verkleinert werden.
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -30,8 +31,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 Hier steckt die ganze Berechnung für das Mandelbrot.
 

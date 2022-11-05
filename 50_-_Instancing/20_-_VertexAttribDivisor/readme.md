@@ -3,9 +3,10 @@
 
 ![image.png](image.png)
 
-Mit <b>VertexAttribDivisor</b> kann man nicht nur bestimmen, das es sich im ein Instance-Attribut handelt.
+Mit **VertexAttribDivisor** kann man nicht nur bestimmen, das es sich im ein Instance-Attribut handelt.
 Man kann auch festlegen, das ein Attribut-Wert mehrmals verwendet wird, bevor er um eins weiter springt.
 Im Beispiel sieht man, das der Farb-Wert vier mal verwendet wird, bevor der nächste wert kommt.
+
 ---
 Für die Farben werden nur 4 Werte benötigt. Diese werden als Konstante deklariert,
 da diese sich zur Laufzeit nicht mehr ändern.
@@ -27,7 +28,7 @@ var
   Instance_Matrix: array[0..15] of TMatrix;
 ```
 
-Mit <b>glVertexAttribDivisor(...</b> kann man nicht nur bestimmen, das es sich um ein Instance-Attribut handelt.
+Mit **glVertexAttribDivisor(...** kann man nicht nur bestimmen, das es sich um ein Instance-Attribut handelt.
 Sondern man kann auch sagen wie viel mal ein Attribut-Wert verwendet wird.
 Dies geschieht mit dem zweiten Parameter.
 
@@ -95,8 +96,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -115,8 +117,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

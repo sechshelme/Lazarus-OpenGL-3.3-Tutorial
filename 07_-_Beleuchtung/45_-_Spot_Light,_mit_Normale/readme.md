@@ -4,11 +4,12 @@
 ![image.png](image.png)
 
 Jetzt wird auch die normale berücksicht. Somit wird nur die Vorderseite der Dreiecke beleuchtet, so wie es beim Punktlicht auch der Fall ist.
-Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine <b>Normale</b> gebraucht.
+Diese Berechnung funktioniert genau gleich, wie beim Punktlicht. Somit wird auch wieder eine **Normale** gebraucht.
+
 ---
 Hier wird die Kegelberechnung ausgeführt.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -33,8 +34,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 Zuerst wird geprüft, ob das Fragment sich im Lichtkegel befindet.
 Anschliessend wird die Flächenanleuchtung gleich berechnet, wie beim Punktlicht.

@@ -9,6 +9,7 @@ Auch wird ein Lichtstrahl schwächer je weit er vom Zentrum weg ist.
 Die beiden linken Lichter wird nur eine Abschwächung angewendet. Das rechte Licht ist eine Kombination aus beiden Abschwächungen und somit die realistischte.
 
 Dies Distanzabhängige Abschwächung, kann man auch bei einer Punkt-Beleuchtung anwenden.
+
 ---
 Hier werden die Lichtpositionen der drei Lampen festgelegt.
 
@@ -68,7 +69,7 @@ end;
 
 Berechnen der 3 Lichtkegel.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -93,8 +94,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

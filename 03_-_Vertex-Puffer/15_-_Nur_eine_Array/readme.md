@@ -6,13 +6,14 @@
 Man kann die Vertex-Daten, auch alles in einen Daten-Block schreiben. Hier werden die Vector- und Color - Daten alle in einen Block geschrieben.
 In den vorherigen Beispielen hat es für die Vector- und  Color - Daten eine separate TFace-Array gehabt.
 Hier werden zwei Möglichkeiten vorgestellt, wie die Daten in der Array sind.
-Variante1: <b>Vec0, Col0, ..., Vecn, Coln</b>
-Variante2: <b>Vec0, ..., Vecn, Col0, ..., Coln</b>
-Die hat noch den Vorteil, das nur ein <b>VBO</b> angelegt werden muss, obwohl mehrere Attribute in der Array sind.
+Variante1: **Vec0, Col0, ..., Vecn, Coln**
+Variante2: **Vec0, ..., Vecn, Col0, ..., Coln**
+Die hat noch den Vorteil, das nur ein **VBO** angelegt werden muss, obwohl mehrere Attribute in der Array sind.
+
 ---
 Die zwei Daten-Varianten:
-Variante 0: <b>XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB</b>
-Variante 1: <b>XYZ XYZ XYZ XYZ XYZ XYZ RGB RGB RGB RGB RGB RGB</b>
+Variante 0: **XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB XYZ RGB**
+Variante 1: **XYZ XYZ XYZ XYZ XYZ XYZ RGB RGB RGB RGB RGB RGB**
 
 Bei dem zweiten Quadrat, sind die Y-Werte gespiegelt, es sollten zwei Quadrate sichtbar sein.
 
@@ -32,14 +33,14 @@ const
 ```
 
 Hier die wichtigste Änderung:
-Relevant sind die zwei letzten Parameter von <b>glVertexAttribPointer(...</b>
+Relevant sind die zwei letzten Parameter von **glVertexAttribPointer(...**
 Was irritiert der einte Parameter ist direkt ein Integer, der andere braucht eine Typenumwandlung auf einen Pointer.
-Der zweitletzte Parameter (stride), gibt das <b>Byte</b> Offset, zum nächsten Attribut-Wert an, repektive die Schritt/Block-grösse.
+Der zweitletzte Parameter (stride), gibt das **Byte** Offset, zum nächsten Attribut-Wert an, repektive die Schritt/Block-grösse.
 Der letzte Parameter (pointer), gibt die Position zum ersten Attribut-Wert an.
-Die Werte sind immer als <b>Byte</b>, somit muss man bei einem <b>glFloat</b> immer <b>4x</b> rechnen.
+Die Werte sind immer als **Byte**, somit muss man bei einem **glFloat** immer **4x** rechnen.
 
 Varinate 0:
-Die Vektoren beginnen bei 0, Die Grösse ist 24Byte = 6 glFloat x 4 entspricht <b>XYZRGB</b>.
+Die Vektoren beginnen bei 0, Die Grösse ist 24Byte = 6 glFloat x 4 entspricht **XYZRGB**.
 Die Farben beginnen beim 12Byte. Die Grösse ist mit 24Byte gleich wie bei den Vektoren.
 
 Varinate 1:
@@ -80,7 +81,7 @@ end;
 ```
 
 Das Zeichnen ist gleich, wie wen man separate Datenblöcke hätte. 
-Es wurde das <b>Length(...</b> entfernt, da die einte Array zwei und die andere vier Elemente hat.
+Es wurde das **Length(...** entfernt, da die einte Array zwei und die andere vier Elemente hat.
 Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.
 
 ```pascal
@@ -93,10 +94,11 @@ Was aber sicher ist, das beide Quadrate aus sechs Vektoren bestehen.
   glDrawArrays(GL_TRIANGLES, 0, 6);  // 6 Vertex pro Quadrat
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Im Shader gibt es keine Änderung, da es diesem egal ist, wie <b>glVertexAttribPointer(...</b> die Daten übergibt.
+---
+**Vertex-Shader:**
+
+Im Shader gibt es keine Änderung, da es diesem egal ist, wie **glVertexAttribPointer(...** die Daten übergibt.
 
 ```glsl
 #version 330
@@ -114,8 +116,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

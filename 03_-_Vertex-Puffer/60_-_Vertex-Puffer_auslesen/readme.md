@@ -4,8 +4,10 @@
 ![image.png](image.png)
 
 Man kann nicht nur die Vertex-Daten in das VRAM schreiben, man kann dies auch wieder auslesen.
+
 ---
-Für diesen Zweck gibt es die Funktion <b>glGetBufferSubData(...</b>.
+Für diesen Zweck gibt es die Funktion **glGetBufferSubData(...**.
+
 ---
 Diese Vertex-Daten sollen auch in der MessageBox erscheinen.
 
@@ -23,8 +25,8 @@ const
 
 Vertex-Daten auslesen.
 Wie üblich müssen die Puffer VAO und VBO gebunden werden.
-Mit <b>glGetBufferParameteriv(...</b> wird die Grösse des Puffer ermittelt.
-Anschliessend können dann die Daten mit <b>glGetBufferSubData(...</b> ausgelesen werden.
+Mit **glGetBufferParameteriv(...** wird die Grösse des Puffer ermittelt.
+Anschliessend können dann die Daten mit **glGetBufferSubData(...** ausgelesen werden.
 
 ```pascal
 procedure TForm1.MenuItem1Click(Sender: TObject);
@@ -72,8 +74,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -91,8 +94,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

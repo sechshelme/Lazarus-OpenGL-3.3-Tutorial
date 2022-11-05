@@ -6,6 +6,7 @@
 Dieses Beispiel zeigt, wie sich Textur-Koordinaten auf die Textur auswirken.
 Bei der linken Textur, entsprechen die Textur-Koordinaten, denen der Vektoren, dies gibt ein Matrix ähnliches Muster, ausser das sie skaliert wird.
 Rechts ist jede Koordinate von 0.0-1.0, somit wird die Textur um die Scheibe gezogen. Jedes Rechteck enthält die ganze Textur.
+
 ---
 Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.
 
@@ -94,8 +95,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -122,8 +124,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330
@@ -142,8 +145,9 @@ void main()
 
 ```
 
+
 ---
-<b>muster.xpm:</b>
+**muster.xpm:**
 
 ```glsl
 /* XPM */

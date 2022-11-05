@@ -3,11 +3,12 @@
 
 ![image.png](image.png)
 
-Hier wird gezeigt, wie einfach es ist, mit der Unit <b>oglTextur</b> Texturen zu laden.
-Dafür muss die Unit <b>oglTextur</b> bei uses eingebunden werden.
+Hier wird gezeigt, wie einfach es ist, mit der Unit **oglTextur** Texturen zu laden.
+Dafür muss die Unit **oglTextur** bei uses eingebunden werden.
 
-Mit der Klasse <b>TTexturBuffer</b> welche dort enthalten ist, geht dies sehr einfach.
-Der grösste Voteil ist, das die meisten gängigen Formate von <b>TBitmap</b> erkannt werden.
+Mit der Klasse **TTexturBuffer** welche dort enthalten ist, geht dies sehr einfach.
+Der grösste Voteil ist, das die meisten gängigen Formate von **TBitmap** erkannt werden.
+
 ---
 Den Textur-Puffer deklarieren.
 
@@ -25,7 +26,7 @@ begin
 ```
 
 Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
-Man kann die Texturen auch von einem <b>TRawImages</b> laden.
+Man kann die Texturen auch von einem **TRawImages** laden.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -52,8 +53,9 @@ begin
   Textur.Free;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -73,8 +75,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

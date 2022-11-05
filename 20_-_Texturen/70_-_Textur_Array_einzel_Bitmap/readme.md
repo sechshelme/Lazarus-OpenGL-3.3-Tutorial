@@ -6,9 +6,10 @@
 Man kann auch in jedem Layer einzeln die Texturen laden.
 Der einzige Unterschied zum kompletten laden ist, man ladet die Texturen einzeln mit SubImage hoch.
 Der Rest ist gleich, wie wen man alles miteinander hoch ladet.
+
 ---
-Mit <b>glTexImage3D(...</b> wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
-Mit <b>glTexSubImage3D(...</b> werden dann die Texturen Layer für Layer hochgeladen.
+Mit **glTexImage3D(...** wird nur der Speicher für die Texturen reserviert. Dabei muss man von Anfang an wissen, wie gross die Texturen sind.
+Mit **glTexSubImage3D(...** werden dann die Texturen Layer für Layer hochgeladen.
 Die sechs einzelnen Bitmap heisen 1.xpm - 6.xpm .
 
 ```pascal
@@ -42,10 +43,11 @@ begin
   end;
 ```
 
+
 ---
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -65,8 +67,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

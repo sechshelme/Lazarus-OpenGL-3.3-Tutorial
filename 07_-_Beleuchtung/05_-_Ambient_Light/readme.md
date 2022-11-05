@@ -4,13 +4,14 @@
 ![image.png](image.png)
 
 Das Ambient-Light ist nut eine einfache Raumausleuchtung, die ganze Meshes erscheint im gleichen Farbton.
-Bei reiner Ambienten Ausleuchtung wird <b>keine</b> Normale gebraucht.
+Bei reiner Ambienten Ausleuchtung wird **keine** Normale gebraucht.
 
 In der Praxis wir Ambient mit anderen Beleuchtungen kombiniert.
 
 Am Shader an sieht man, wie einfach Ambient ist.
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -32,8 +33,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

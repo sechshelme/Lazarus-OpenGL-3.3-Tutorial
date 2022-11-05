@@ -8,10 +8,11 @@ Mit dem Tiefenpuffer wird berechnet, das ein Polygon das sich hinter einem ander
 Diese Berechnung läuft auf Pixelebene.
 
 Bei dem Würfelbeispiel, wird der kleine Würfel nicht mehr gezeichnet, da sich dieser hinter den Flächen des grossen Würfels befindet.
+
 ---
-Hier wird den Tiefenpufferprüfung eingeschaltet, dies geschieht mit <b>glEnable(GL_DEPTH_TEST);</b>.
-Die Art der Prüfung kann man mit <b>glDepthFunc(...</b> einstellen, wobei Default auf <b>GL_LESS</b> ist.
-Mit <b>GL_LESS</b> wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf der Pixel gezeichnet werden.
+Hier wird den Tiefenpufferprüfung eingeschaltet, dies geschieht mit **glEnable(GL_DEPTH_TEST);**.
+Die Art der Prüfung kann man mit **glDepthFunc(...** einstellen, wobei Default auf **GL_LESS** ist.
+Mit **GL_LESS** wird geprüft, ob der Z-Wert geringer ist, und wen ja, darf der Pixel gezeichnet werden.
 
 
 ```pascal
@@ -21,8 +22,8 @@ begin
   glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 ```
 
-Bei <b>glClear(...</b> ist noch etwas neues dazugekommen, <b>GL_DEPTH_BUFFER_BIT</b>.
-Dies bewirkt, das bei <b>glClear(...</b> nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.
+Bei **glClear(...** ist noch etwas neues dazugekommen, **GL_DEPTH_BUFFER_BIT**.
+Dies bewirkt, das bei **glClear(...** nicht nur der Frame-Puffer gelöscht wird, sondern auch der Tiefen-Puffer.
 Jetzt darf der kleine Würfel nicht mehr sichtbar sein, da sich dieser hinter dem grossen versteckt.
 
 ```pascal
@@ -53,8 +54,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -74,8 +76,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -6,6 +6,7 @@
 Hier sind sogar 10'000'000 Instancen möglich, gegenüber der Uniform-Variante die bei gut 800 schon Schluss machte.
 Bei noch höheren Werten macht der FPC-Compiler Schluss, wieviel das die Grafikkarte vertägt, kann ich nicht sagen.
 Das es eine Diashow ist, das ist was anderes.
+
 ---
 Die Anzahl Instance
 
@@ -66,18 +67,18 @@ end;
 Für die Instancen werden die Puffer gefüllt.
 Da für die Puffer nur Vektoren mit 1-4 Elemeten erlaubt sind, muss man die Matrix in 4 Vektoren unterteilen.
 Dabei werden auch 4 Attribut-Indexe gebraucht.
-Eine <b>glVertexAttribPointer(2, 16,...</b> geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.
+Eine **glVertexAttribPointer(2, 16,...** geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.
 So was geht leider nicht:
 
 ```pascal
   glVertexAttribPointer(2, 16, GL_FLOAT, False, 0, nil);
 ```
 
-Mit <b>glVertexAttribDivisor(...</b> teilt man mit das es sich um ein Instance-Attribut handelt.
+Mit **glVertexAttribDivisor(...** teilt man mit das es sich um ein Instance-Attribut handelt.
 Der erste Parameter bestimmt, um welches Vertex-Attribut es sich handelt.
-Der Zweite sagt, das der Zeiger im Vertex-Attribut bei jedem Durchgang um <b>1</b> erhöt wird.
-Setzt man dort <b>0</b> ein, handelt es sich um ein gewöhnliches Attribut.
-Was Werte >1 bedeuten ist bei <b>VertexAttribDivisor</b> beschrieben.
+Der Zweite sagt, das der Zeiger im Vertex-Attribut bei jedem Durchgang um **1** erhöt wird.
+Setzt man dort **0** ein, handelt es sich um ein gewöhnliches Attribut.
+Was Werte >1 bedeuten ist bei **VertexAttribDivisor** beschrieben.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -121,9 +122,9 @@ begin
 end;
 ```
 
-Die Instance Parameter werden einfache mit <b>glBufferSubData(....</b> übergeben.
+Die Instance Parameter werden einfache mit **glBufferSubData(....** übergeben.
 Es werden nur die Matrizen aktualisiert, die anderen Werte bleiben gleich.
-Will man eine andere Anzahl von Instance, dann muss man mit <b>glBufferData(...</b> mehr oder weniger Speicher reservieren.
+Will man eine andere Anzahl von Instance, dann muss man mit **glBufferData(...** mehr oder weniger Speicher reservieren.
 Dafür braucht man keine Uniformen.
 
 ```pascal
@@ -158,8 +159,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 Der Shader sieht sehr einfach aus.
 
 ```glsl
@@ -186,8 +188,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

@@ -5,6 +5,7 @@
 
 Man kann auch Punkte mit dem Shader darstellen, dies kann man auf verschiedene Weise.
 Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
+
 ---
 Die Deklaration der Koordianten und Punktgrösse.
 
@@ -82,8 +83,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -104,8 +106,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

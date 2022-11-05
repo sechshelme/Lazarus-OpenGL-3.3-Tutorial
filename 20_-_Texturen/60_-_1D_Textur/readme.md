@@ -6,6 +6,7 @@
 Die meisten Texturen sind eine Bitmap(Foto) welche im 2D-Format vorliegen.
 Es gibt aber noch 1D und 3D-Texturen. Dieses Beispiel zeigt die Anwendung einer 1D-Textur.
 Eine 1D-Textur kann man sich am besten als eine farbige Linie vorstellen.
+
 ---
 Die Texturkoordinaten sind nun keine Vectorenarray mehr sondern nur eine einfache Float-Array.
 
@@ -35,7 +36,7 @@ begin
   glGenTextures(1, @textureID);  // Erzeugen des Textur-Puffer.
 ```
 
-Beim laden muss man bei den Textur-Befehlen beachten, das man <b>GL_TEXTURE_1D</b> nimmt.
+Beim laden muss man bei den Textur-Befehlen beachten, das man **GL_TEXTURE_1D** nimmt.
 Beim VertexAttribut wird für die Textur-Koordinaten nur eine Float-Array übergeben.
 
 ```pascal
@@ -93,10 +94,11 @@ begin
 end;
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Man beachte, das die UV-Koordinaten nur ein <b>Float</b> ist.
+---
+**Vertex-Shader:**
+
+Man beachte, das die UV-Koordinaten nur ein **Float** ist.
 
 ```glsl
 #version 330
@@ -116,8 +118,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

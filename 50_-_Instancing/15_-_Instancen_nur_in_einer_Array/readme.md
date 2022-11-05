@@ -5,8 +5,9 @@
 
 Vorher hatte es für jedes Instance-Attribut eine eigene Array gehabt.
 Jetzt sind alle Attribute in einer Array, dies macht den Code einiges übersichtlicher.
-Dafür ist die Übergabe mit <b>glVertexAttribPointer(...</b> ein wenig komplizierter.
+Dafür ist die Übergabe mit **glVertexAttribPointer(...** ein wenig komplizierter.
 Siehe [[Lazarus - OpenGL 3.3 Tutorial - Vertex-Puffer - Nur eine Array]].
+
 ---
 Die Deklaration der Array. Es ist nur noch eine Array.
 
@@ -22,7 +23,7 @@ var
   Data: array[0..InstanceCount - 1] of TData;
 ```
 
-Das es ein wenig einfacher wird, habe ich <b>ofs</b> verwendet.
+Das es ein wenig einfacher wird, habe ich **ofs** verwendet.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -100,8 +101,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 Am Shader hat sich nichts geändert.
 
 ```glsl
@@ -128,8 +130,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

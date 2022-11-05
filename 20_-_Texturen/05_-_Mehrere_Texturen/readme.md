@@ -6,7 +6,8 @@
 Hier wird gezeigt, wie man mehrere Texturen laden kann, im Prinzip geht dies fast gleich wie bei einer Textur.
 In diesem Beispiel werden zwei Texturen geladen.
 
-Wichtig dabei ist, das man mit <b>glBindTexture(...</b> immer die richtige Textur bindet.
+Wichtig dabei ist, das man mit **glBindTexture(...** immer die richtige Textur bindet.
+
 ---
 Da es zwei Texturn hat, ist noch eine zweite Textur-Konstnate dazu gekommen.
 
@@ -23,7 +24,7 @@ var
   textureID: array[0..1] of GLuint;
 ```
 
-Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
+Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem **glGenTextures(...** erzeugen.
 Dazu gebe ich als ersten Parameter die Länge der Array an.
 Natürlich könnte man die Puffer auch einzeln erzeugen.
 
@@ -96,10 +97,11 @@ begin
   glDeleteTextures(Length(textureID), @textureID); // Textur-Puffer frei geben.
 ```
 
+
 ---
 Die Shader sind genau gleich, wie bei einer Textur.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -120,8 +122,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 
 ```glsl

@@ -8,6 +8,7 @@ Dafür wird ein einfacher Würfel genommen, welcher sechs unterschiedlich farbig
 
 In diesem Beispiel wird bewusst noch auf den Tiefenbuffer verzichtet.
 Somit sieht man gut, was passiert wen man diesen nicht berücksichtigt.
+
 ---
 Hier sind die Koordinaten und die Farben des Würfels deklariert.
 
@@ -81,8 +82,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -102,8 +104,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

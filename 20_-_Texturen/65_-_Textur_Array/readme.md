@@ -4,12 +4,13 @@
 ![image.png](image.png)
 
 Wen man mehrere Texturen im gleichen Format hat, kann man diese in einem einzigen Puffer ablegen.
-Dafür gibt es <b>GL_TEXTURE_2D_ARRAY</b>.
+Dafür gibt es **GL_TEXTURE_2D_ARRAY**.
 Inerhalb des Puffers, sind die Texturen in mehreren Ebenen/Layer gespeichert.
 Zur Laufzeit muss man nur mit teilen, welche Layer das verwendet werden soll. Dies geschieht über eine Uniform-Variable.
 
-Eine Textur-Array kann man auch für Multitexturing verwenden. Man muss im Fragment-Shader nur bei <b>texture(...</b> nur den Layer angeben.
+Eine Textur-Array kann man auch für Multitexturing verwenden. Man muss im Fragment-Shader nur bei **texture(...** nur den Layer angeben.
 Eine andere Anwendung wäre, bei einem 2D-Spiel, Sprites in eine Textur-Array abzulegen.
+
 ---
 Die Koordinaten sind gleich, wie bei einer einzelnen Textur.
 
@@ -46,8 +47,8 @@ begin
 ```
 
 Die Ziffern befinde sich alle in einer Bitmap, welche alle Ziffern übereinander beinhaltet.
-Man sieht hier gut, das man anstelle von <b>GL_TEXTURE_2D</b>, <b>GL_TEXTURE_2D_ARRAY</b> verwenden muss.
-Die Textur-Daten werden mit <b>glTexImage3D(GL_TEXTURE_2D_ARRAY,...</b> übegeben. Neben der Breite und Höhe, muss man noch die Anzahl Layer mitgeben.
+Man sieht hier gut, das man anstelle von **GL_TEXTURE_2D**, **GL_TEXTURE_2D_ARRAY** verwenden muss.
+Die Textur-Daten werden mit **glTexImage3D(GL_TEXTURE_2D_ARRAY,...** übegeben. Neben der Breite und Höhe, muss man noch die Anzahl Layer mitgeben.
 Die Höhe muss man noch durch die Anzahl Layer teilen.
 
 ```pascal
@@ -105,12 +106,13 @@ begin
   end;
 ```
 
+
 ---
 Im Fragment-Shader muss ein 2D-Array-Sampler verwendet werden.
 Dieser hat ein 3. Parameter, welcher den Layer enthält.
 Ansonsten ist der Shader sehr einfach.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -130,8 +132,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330
@@ -150,7 +153,7 @@ void main()
 
 ```
 
-<b>ziffer.xpm:</b>
+**ziffer.xpm:**
 
 ```glsl
 /* XPM */

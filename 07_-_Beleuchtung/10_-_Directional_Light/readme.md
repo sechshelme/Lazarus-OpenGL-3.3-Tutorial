@@ -11,18 +11,20 @@ Im ersten Beispiel wurde die Beleuchung mit Acos und Pi berechnet.
 Dieser Umweg kann man sich sparen, es gibt zwar so ein kleiner Rechnungsfehler, aber diesen kann man getrost ingnorieren.
 Dies hat sogar den Vorteil, wen der Einstrahlwinkel des Lichtes flacher als 90° ist, ist die Beleuchtungsstärke gleich null.
 Als was flacher als 90° ist, ist negativ.
-Für dies gibt es in GLSL eine fertige Funktion <b>clamp</b>, mit der kann man einen Bereich festlegen.
-So das es in diesem Beispiel keinen Wert < <b>0.0</b> oder > <b>1.0</b> gibt.
+Für dies gibt es in GLSL eine fertige Funktion **clamp**, mit der kann man einen Bereich festlegen.
+So das es in diesem Beispiel keinen Wert < **0.0** oder > **1.0** gibt.
 
 Der einzige Unterschied zu vorherigem Beispiel ist im Shader-Code. Auch der Hintergrund wurde etwas dunkler gemacht, das man den Licht-Effekt besser sieht.
 
 Bei dem Lichtpositions-Vector ist es egal, wie weit die Lichtquelle weg ist, da der Vektor nur die Lichtrichtung angeben muss.
-Meistens nimmt man aber einen <b>Einheitsvektor</b>, das ist ein Vektor mit der Länge <b>1.0</b>.
+Meistens nimmt man aber einen **Einheitsvektor**, das ist ein Vektor mit der Länge **1.0**.
 Die Lichtposition wird im Vertex-Shader als Konstante definiert.
+
 ---
+
 ---
-Hier sieht man, das anstelle von arcos und Pi, <b>clamp</b> verwendet wurde.
-<b>Vertex-Shader:</b>
+Hier sieht man, das anstelle von arcos und Pi, **clamp** verwendet wurde.
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -57,8 +59,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -7,13 +7,14 @@ Bei Polygonen, welche Alphablending enthalten, ist es wichtig, in welcher Reihen
 Das blaue Quadrat ist in beiden Fällen über das Rote Qudrat gezeichnet.
 Links wurde zuerst das rote Qudrat gezeichnet, Rechts ist es genau umgekehrt. Die Z-Position ist in beiden Fällen die gleiche.
 Im rechten Beispiel ist die darstellung falsch, weil das rote Rechteck später gezeichnet wurde. Der Z-Puffer erkennt nicht ob es um transparente Polygone handelt.
-Das man den Effekt noch stärker sieht, kann man den Alpha-Kanal auf <b>0.0</b> stellen.
+Das man den Effekt noch stärker sieht, kann man den Alpha-Kanal auf **0.0** stellen.
 
 Man sollte sich angewöhnen, zuerst immer die untransparenten Polygone zu zeichnen und die durchsichtigen erst später.
 Auch sollte man berücksichtigen, das man zuerst die Elemente zeichnet, die von einem weiter weg sind.
 
 Ich weis, dies tönt einfacher, als es in der Praxis ist.
 Bei komplexen Szenen kommt man nicht um das sortieren der Meshes.
+
 ---
 Für den Vertex-Puffer wird nur ein einfaches Quadrat gebraucht.
 Die Farbe und Alpha-Kanal werden per Uniform dem Shader übergeben.
@@ -109,10 +110,11 @@ begin
 end;
 ```
 
+
 ---
 Die Shader sind sehr einfach gehalten. Es hat nur zwei Uniform für die Matrix und dem Color mit Alpha.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -127,8 +129,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

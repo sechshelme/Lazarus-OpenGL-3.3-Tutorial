@@ -13,6 +13,7 @@ Was eine Normale ist, wird später im Kapitel Beleuchtung erklärt.
 
 Der Lazarus-Code ist nichts besonderes, er rendert die üblichen zwei Meshes Dreieck und Quadrat.
 Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geometrie-Shader geladen wird.
+
 ---
 Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter Shader-Code mitgegeben.
 
@@ -25,8 +26,9 @@ begin
   Shader.UseProgram;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -40,8 +42,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Geometrie-Shader:</b>
+**Geometrie-Shader:**
 
 ```glsl
 #version 330
@@ -78,8 +81,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -4,29 +4,29 @@
 ![image.png](image.png)
 
 Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.
-Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
-Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit <b>glDrawArrays(GL_TRIANGLES_STRIP, ...</b>.
-Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit <b>glDrawArrays(GL_TRIANGLES_FAN, ...</b>.
+Dies wurde beim Zeichnen mit **glDrawArrays(GL_TRIANGLES, ...** veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
+Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit **glDrawArrays(GL_TRIANGLES_STRIP, ...**.
+Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit **glDrawArrays(GL_TRIANGLES_FAN, ...**.
 
-Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.
+Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit **glDrawArrays(...**.
 
 Die Darstellung sieht folgendermassen aus:
 
-<b>GL_TRIANGLES</b>
+**GL_TRIANGLES**
 
 ```4 - 3     2
 | /     / |
 5     0 - 1
 ```
 
-<b>GL_TRIANGLES_STRIP</b>
+**GL_TRIANGLES_STRIP**
 
 ```  5 - 3 - 1
  / \ / \ / \
 6 - 4 - 2 - 0
 ```
 
-<b>GL_TRIANGLES_FAN</b>
+**GL_TRIANGLES_FAN**
 
 ```  5 - 4
  / \ / \
@@ -34,6 +34,7 @@ Die Darstellung sieht folgendermassen aus:
  \ / \ /
   1 - 2
 ```
+
 
 
 ---
@@ -83,7 +84,7 @@ begin
 end;
 ```
 
-Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
+Bei **glDrawArrays(...** ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -113,8 +114,9 @@ begin
   glDrawArrays(GL_TRIANGLE_FAN, 0, Length(Triangle_Fan));
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.
 
@@ -135,8 +137,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

@@ -9,6 +9,7 @@ Der andere für die Lichtparameter.
 
 Hier sieht man auch gut wie einfach es ist, alle Parameter für die 3 Lampen in einem Rutsch dem Shader zu übergeben.
 glUniform müsste man dazu zig mal aufrufen und wen man mehrere Shader verwendet, müsste man dies sogar bei jeden Shader einzeln machen.
+
 ---
 Die Deklaration der Lichtparameter und der Matrizen für den UBO.
 
@@ -174,11 +175,12 @@ begin
 end;
 ```
 
+
 ---
 Im Shader sieht man die beiden Uniform-Blöcke.
 Für die Matrizen im Vertex-Shader, und für die Lichtparameter im Fragment-Shader.
 Es dürfen auch mehrere Blöcke in einem Shader vorhanden sein.
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -203,8 +205,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

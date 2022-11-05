@@ -4,7 +4,8 @@
 ![image.png](image.png)
 
 Indicien kann man auch zur Laufzeit im VRAM verändern, dies geht fast gleich, wie bei den Vertex-Daten.
-Man macht dies auch mit <b>glBufferSubData(...</b>.
+Man macht dies auch mit **glBufferSubData(...**.
+
 ---
 Dafür nimmt man für die Indicen auch eine dynamische Array.
 Auch für diese Array wird die Länge gespeichert, da man diese nach dem Laden ins VRAM aus dem RAM entfernen kann.
@@ -24,7 +25,7 @@ type
 
 Mit dieser Funktion werden die Vertex-Daten und die Indicen berechnet.
 Es wird ein Kreis mit zufälliger Anzahl Sektoren erzeugt, somit hat man unterschiedlich lange Vertex-Daten.
-Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.
+Mit **ofsx** wird das Mesh in der X-Achse verschoben.
 
 ```pascal
 procedure TForm1.CreateVertex_and_Indicien(var Mesh: TMesh; ofsx: GLfloat);
@@ -92,7 +93,7 @@ begin
 end;
 ```
 
-Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBufferData(...</b> nur der Speicher dafür reserviert.
+Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit **glBufferData(...** nur der Speicher dafür reserviert.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -131,12 +132,12 @@ begin
 end;
 ```
 
-Da der Speicher im VRAM schon reserviert ist, kann man mit <b>glBufferSubData(...</b> nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.
+Da der Speicher im VRAM schon reserviert ist, kann man mit **glBufferSubData(...** nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.
 
-Nach dem schreiben ins VRAM , kann mit <b>SetLength(...</b> die Daten im RAM entfernt werden.
+Nach dem schreiben ins VRAM , kann mit **SetLength(...** die Daten im RAM entfernt werden.
 Wen die Daten einmal im VRAM sind, werden sie im RAM nicht mehr gebraucht.
 
-Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden soll.
+Mit **MeshNr** wird die Mesh angegben, welche neu in das VRAM kopiert werden soll.
 
 ```pascal
 procedure TForm1.UpdateScene(MeshNr: integer);
@@ -164,7 +165,7 @@ begin
 end;
 ```
 
-Gezeichnet wird dann mit <b>glDrawElements(...</b>, wobei der letzte Paramter nur noch <b>Nil</b> ist, da sich die Daten bereits im VRAM befinden.
+Gezeichnet wird dann mit **glDrawElements(...**, wobei der letzte Paramter nur noch **Nil** ist, da sich die Daten bereits im VRAM befinden.
 
 ```pascal
   // Zeichne Kreise
@@ -197,10 +198,11 @@ begin
 end;
 ```
 
+
 ---
 Bei den Shadern gibt es nichts besonders.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -218,8 +220,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

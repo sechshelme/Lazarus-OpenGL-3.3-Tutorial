@@ -8,6 +8,7 @@ Voraus gesetzt der Alphakanal ist voll transparent.
 
 Wen es transparent ist, wird einfach kein Pixel gezeichnet und dadurch wird auch der Z-Buffer nicht aktualisiert.
 Dies spielt sich im FragmentShader ab.
+
 ---
 Es empfieht sich trotzdem immer die Objecte mit Alpha-Blending zum Schluss zu zeichnen.
 Aber es muss nicht mehr sortiert werden.
@@ -56,8 +57,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -77,8 +79,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 Hier wird abgefragt, ob der Pixel transparent ist, wen ja wird er nicht ausgegeben und
 dadurch wird der Z-Buffer nicht aktualisiert. Dadurch werden Objecte hinter der transparent Textur trozdem gezeichnet.
 

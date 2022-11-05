@@ -7,19 +7,21 @@ Nur eine Beleuchtung reicht nicht, das eine Mesh realistisch aussieht.
 Aus diesem Grund, kann man der Mesh Materialeigenschaften mitgeben, dies sind Reflektionen des Lichtes.
 Wen man zB. eine Gummi-Fläche anleuchtet, sieht dies anders aus, als bei einer Stahlfläche.
 Stahl reflektiert das Licht viel besser.
-Dieses Beispiel zeigt wie dies bei Gold aussieht. Wen man im INet nach <b>"OpenGL Material"</b> sucht,
-findet man viele Daten, welche man bei <b>Ambient</b>, <b>Diffuse</b>, <b>Specular</b> und <b>Shininess</b> eintragen muss.
+Dieses Beispiel zeigt wie dies bei Gold aussieht. Wen man im INet nach **"OpenGL Material"** sucht,
+findet man viele Daten, welche man bei **Ambient**, **Diffuse**, **Specular** und **Shininess** eintragen muss.
 
 Bei diesem Beispiel sind die Kugeln aus Gold.
----
----
-Die Berechnung, ist ähnlich wie beim einfachen Licht. Zusätlich wird <b>Specular</b> zum normalen Licht addiert.
-<b>Specular</b> ist die Reflektion de Materiales.
-<b>Diffuse</b> ist die Farbe des Lichtes/Material.
 
-Im Shader sind alle Material-Eigenschaft als <b>#define</b> deklariert. Dies könnte man auch als <b>Uniform</b> übergeben.
+---
 
-<b>Vertex-Shader:</b>
+---
+Die Berechnung, ist ähnlich wie beim einfachen Licht. Zusätlich wird **Specular** zum normalen Licht addiert.
+**Specular** ist die Reflektion de Materiales.
+**Diffuse** ist die Farbe des Lichtes/Material.
+
+Im Shader sind alle Material-Eigenschaft als **#define** deklariert. Dies könnte man auch als **Uniform** übergeben.
+
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -46,8 +48,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

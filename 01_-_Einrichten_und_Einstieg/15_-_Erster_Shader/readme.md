@@ -7,6 +7,7 @@ Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 ke
 Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.
 
 In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.
+
 ---
 Die ID, welche auf den Shader zeigt.
 
@@ -109,7 +110,7 @@ begin
   glUseProgram(programID);
 ```
 
-Beim Zeichnen muss man auch mit <b>glUseProgram(...</b> den Shader wählen, mit welchem das Mesh gezeichnet wird.
+Beim Zeichnen muss man auch mit **glUseProgram(...** den Shader wählen, mit welchem das Mesh gezeichnet wird.
 Bei diesem Mini-Code könnte dies weggelassen werden, da nur ein Shader verwendet wird und dieser bereits in TForm1.CreateScene aktiviert wurde.
 
 ```pascal
@@ -120,7 +121,7 @@ begin
   glUseProgram(programID);
 ```
 
-Am Ende noch mit <b>glDeleteShader(...</b> die Shader in der Grafikkarte wieder freigeben.
+Am Ende noch mit **glDeleteShader(...** die Shader in der Grafikkarte wieder freigeben.
 In diesem Code ist dies nur einer.
 
 ```pascal
@@ -129,10 +130,11 @@ begin
   glDeleteProgram(ProgramID);
 ```
 
+
 ---
 Die beiden verwendeten Shader, Details dazu im Kapitel Shader.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -146,8 +148,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

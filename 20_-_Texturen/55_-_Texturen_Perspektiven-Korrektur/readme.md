@@ -5,6 +5,7 @@
 
 Stellt man eine Textur auf einem Trapez dar, gibt es unschöne Verzerrungen, das sieht man beim Trapez Links gut.
 Die beiden Trapeze Rechts sind korrigiert, auf 2 verschiedene Varianten. Der Unterschied sieht man im Shader.
+
 ---
 Es hat eine 2. Variante für die Textur-Koordinaten gegeben, welche einen Wert für eine Perspektivenkorrektur hat.
 Diese enthält einen Korrekturwert für die Perspektive.
@@ -97,8 +98,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -123,8 +125,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330
@@ -158,8 +161,9 @@ void main()
 
 ```
 
+
 ---
-<b>mauer.xpm:</b>
+**mauer.xpm:**
 
 ```glsl
 /* XPM */

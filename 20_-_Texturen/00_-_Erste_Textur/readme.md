@@ -11,6 +11,7 @@ Am einfachsten geht dies, wen man eine Textur als Statische Konstante hat, so wi
 In der Praxis wird man meistens Texturen von einer Bitmap-Datei laden.
 Da es sehr viele Bitmap-Formate gibt, habe ich dafür eine Unit oglTextur.pas geschrieben.
 Diese sollte die meisten üblichen Formate abdecken. Dazu später.
+
 ---
 Das OpenGL weiss, welcher Bereich von einer Textur auf das Polygon gezeichnet wird, kommt noch eine 2D Vertex-Array dazu.
 Hier im Beispiel, ist dies von einem Bereich von 0.0 bis 1.0, somit ist die ganze Textur sichtbar.
@@ -33,7 +34,7 @@ Die Textur selbst als Konstante. Es ist eine sehr kleine Textur mit 2x2 Pixel.
 Das Format ist RGBA ( Rot/Grün/Blau/Alpha ).
 Der Alpha-Kanal ist hier Bedeutungslos, er wird nur gebraucht, das ein Pixel auf 32Bit kommt.
 
-Bei der Seitenlänge einer Textur sollt darauf geachtet werden, das diese <b>2<sup>x</sup></b> ist.
+Bei der Seitenlänge einer Textur sollt darauf geachtet werden, das diese **2<sup>x</sup>** ist.
 Andere Werte gehen zwar auch bei modernen OpenGL, aber dann muss mit Performanceeinbrüchen rechnen.
 
 ```pascal
@@ -63,12 +64,12 @@ var
   textureID: GLuint;
 ```
 
-Hier wird der Textur-Puffer mit <b>glGenTextures(...</b> erzeugt, ähnlich wie andere Puffer auch.
+Hier wird der Textur-Puffer mit **glGenTextures(...** erzeugt, ähnlich wie andere Puffer auch.
 Für den Shader muss noch eine Sampler-Nr. zugeordnet werden, diese numeriert man fortlaufend durch.
 Da man dies nur einmal machen muss, kann man den Umweg über eine Uniform_ID sparen und dies direkt verschachtelt zuweisen.
-Ich hatte schon versucht, diese Nummer als Konstante in den Shader zu schreiben, dies geht aber leider <b>nicht</b> !
+Ich hatte schon versucht, diese Nummer als Konstante in den Shader zu schreiben, dies geht aber leider **nicht** !
 
-Da hier nur eine Textur verwendet wird, könnte man dies auch weglassen, weil dies default auf <b>0</b> ist.
+Da hier nur eine Textur verwendet wird, könnte man dies auch weglassen, weil dies default auf **0** ist.
 Bei Multitexturing ist dies natürlich nicht mehr der Fall.
 
 ```pascal
@@ -89,10 +90,10 @@ begin
 ```
 
 Um Texturen zu laden, muss man die Textur zuerst binden, und anschliessend mit Daten füllen.
-Das wichtigste dabei ist <b>glTexImage2D(...</b>. Hier gibt man eine Zeiger auf die Textur-Daten mit.
+Das wichtigste dabei ist **glTexImage2D(...**. Hier gibt man eine Zeiger auf die Textur-Daten mit.
 Die Textur-Daten im RAM könnte man anschliessend löschen, aber hier geht dies natürlich nicht, da es sich um eine Konstae handelt.
 Dies wird erst interessant, wen man die Daten von der Festplatte lädt.
-Da es sich um eine 2D-Texur handelt muss man über alll noch <b>GL_TEXTURE_2D</b> angeben.
+Da es sich um eine 2D-Texur handelt muss man über alll noch **GL_TEXTURE_2D** angeben.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -111,7 +112,7 @@ begin
   glBindTexture(GL_TEXTURE_2D, 0);
 ```
 
-Bevor man ein Polygon zeichnet, muss man die Texur binden. Dies geschieht mit <b>glBindTexture(...</b>.
+Bevor man ein Polygon zeichnet, muss man die Texur binden. Dies geschieht mit **glBindTexture(...**.
 Anschliessend kann ganz normal gezeichnet werden.
 
 ```pascal
@@ -135,8 +136,9 @@ begin
   glDeleteBuffers(1, @VBQuad.VBOTex);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 Hier sieht man, das die Textur-Koordinaten gleich behandelt werden wie Vertex-Attribute.
 Dies muss man dann aber dem Fragment-Shader weiterleiten. So wurde es auch schon mit den Color-Vectoren gemacht.
@@ -159,8 +161,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 Hier ist der Sampler für die Zuordnung dazu gekommen.
 Und man sieht auch, das die Farb-Ausgabe von der Textur kommen.

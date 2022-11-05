@@ -4,16 +4,16 @@
 ![image.png](image.png)
 
 Ohne Beleuchtung sehen die Object statisch aus, wen man noch Beleuchtung ins Spiel bringt, wirkt eine OpenGL-Scene viel realistischer.
-Dabei gibt es verschiedene Arten von Beleuchtung. Die meist verwendete ist das <b>Directional Light</b>, dies entspricht dem Sonnenlicht.
+Dabei gibt es verschiedene Arten von Beleuchtung. Die meist verwendete ist das **Directional Light**, dies entspricht dem Sonnenlicht.
 Dieses Beispiel zeigt eine ganz einfache Variante von diesem Licht. Je steiler das Licht auf ein Polygon einstrahlt, je heller wird das Polygon.
 
 Das man dies berechnen kann, braucht es für jede Ecke des Polygons einen Normale-Vektor.
 Eine Normale zeigt meistens senkrecht auf ein Polygon.
 Es gibt Ausnahmen, zB. bei runden Flächen. Dazu in einem späteren Beispiel.
 
-Die <b>Normalen</b> werden mit der <b>ModelMatrix</b> multipliziert, da diese unbeinflusst von Perspektive/Frustum ist.
-Die Position der <b>Polygone</b> wird mit <b>Matrix</b> modifiziert, da ist eine perspektifische Darstellung erwünscht.
-Wen man dies nicht macht, hat man eine falsche Abdunklung auf den schrägen Dreiecken. Die macht sich besonders start bemerkbar bei <b>Punkt</b> und <b>Spot</b>-Licht.
+Die **Normalen** werden mit der **ModelMatrix** multipliziert, da diese unbeinflusst von Perspektive/Frustum ist.
+Die Position der **Polygone** wird mit **Matrix** modifiziert, da ist eine perspektifische Darstellung erwünscht.
+Wen man dies nicht macht, hat man eine falsche Abdunklung auf den schrägen Dreiecken. Die macht sich besonders start bemerkbar bei **Punkt** und **Spot**-Licht.
 
 Hier wird die einfachste Variante einer Beleuchtung gezeigt.
 Dazu wird das Skalarprodukt zwischen der Normalen und der Lichtposition berechnet.
@@ -22,18 +22,19 @@ Diese Beleuchtung ist eigentlich nicht üblich, aber immerhin sieht man die Mehs
 Aber es zeigt wenigsten, wie das Grundgerüst einer Beleuchtung aussieht.
 
 Die gebräuchlichsten Lichvarianten von OpenGL:
-* <b>Ambient-Light</b> - Einfache Raumausleuchtung, alles ist gleich Hell.
-* <b>Directional-Light</b> - Das Licht kommt alles aus gleicher Richtung, so wie das Sonnenlicht auf Erde.
-* <b>Point-Light</b> - Das Licht wird von einem Punkt ausgestrahlt, so wie bei einer Glühbirne.
-* <b>Spot-Light</b> - Das Lich hat einen Kegel, so wie wen es aus einer Taschenlampe kommt.
+* **Ambient-Light** - Einfache Raumausleuchtung, alles ist gleich Hell.
+* **Directional-Light** - Das Licht kommt alles aus gleicher Richtung, so wie das Sonnenlicht auf Erde.
+* **Point-Light** - Das Licht wird von einem Punkt ausgestrahlt, so wie bei einer Glühbirne.
+* **Spot-Light** - Das Lich hat einen Kegel, so wie wen es aus einer Taschenlampe kommt.
 
-Was zu beachten das die Beleuchtungs-Effekte <b>keine Schatten</b> berücksichtigen.
+Was zu beachten das die Beleuchtungs-Effekte **keine Schatten** berücksichtigen.
 Schatten muss man auf eine ganz andere weise berechnen.
 
 Es ist auch möglich mehrere Lichtquellen zu berechnen, dazu werden alle Lichtquellen addiert.
 Das sieht man gut bei den mehrfarbigen Beleuchtungbeispielen. Da sieht man auch, das das Licht farbig sein kann.
 
 Dazu später.
+
 ---
 Die Konstanten der Würfel-Vektoren.
 
@@ -70,7 +71,7 @@ type
 ```
 
 In der Unit Matrix hat es eine fertige Funktion, welche die Normale aus den Vertex-Koordinaten berechnet.
-Diese Funktion sollte  man <b>nur</b> verwenden, wen die <b>Normale</b> senkrecht auf dem Dreieck steht.
+Diese Funktion sollte  man **nur** verwenden, wen die **Normale** senkrecht auf dem Dreieck steht.
 Bei runden Objekten ist dies nicht der Fall.
 
 ```pascal
@@ -108,10 +109,10 @@ Hier sieht man gut, das 2 Matrizen dem Shader übergeben werden.
 Bevor die Matrix mit Frustum und Worldposition beinflusst wird, wird sie das erste mal dem Shader übergeben.
 Diese Matrix beinhaltet nur die lokalen Transformationen der Meshes.
 Für die Position der Vektoren, wird eine komplett berechnete Matrix dem Shader übergeben.
-Die Multiplikationen hätte man auch im Shader ausführen können, aber dies verbraucht nur unnötige <b>GPU</b>-Leistung.
-Wen man es mit der <b>CPU</b> macht, wird die Berechnung nur einmal pro Meshes gemacht und nicht bei jedem Vektor.
-Das wird in <b>allen</b> Beleuchtungsbeispielen so gemacht, egal ob Punkt, Directinal, etc. Beleuchtung.
-Ausser bei Ambient, da es dort <b>keine</b> Normalen gibt.
+Die Multiplikationen hätte man auch im Shader ausführen können, aber dies verbraucht nur unnötige **GPU**-Leistung.
+Wen man es mit der **CPU** macht, wird die Berechnung nur einmal pro Meshes gemacht und nicht bei jedem Vektor.
+Das wird in **allen** Beleuchtungsbeispielen so gemacht, egal ob Punkt, Directinal, etc. Beleuchtung.
+Ausser bei Ambient, da es dort **keine** Normalen gibt.
 
 In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwendet wird, gibt es pro Würfel eine Berechnung.
 
@@ -134,15 +135,17 @@ In diesem Beispiel wird die pro Würfel gemacht. Da der Würfel mehrmals verwend
   end;
 ```
 
+
 ---
 Einfachere Beleuchtungen macht man im Vertex-Shader.
 Will man aber komplexer Beleuchtungen, nimmt man dazu den Fragment-Shader, das dieser Pixelgenau ist.
 Dafür wird aber mehr Berechnugszeit benötigt.
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 Die Berechnug für das Licht des einfachen Beispieles ist hier im Vetex-Shader.
-Hier sieht man, das verschiedene Matrizen für <b>Normale</b> und <b>Vertex</b> verwendet werden.
+Hier sieht man, das verschiedene Matrizen für **Normale** und **Vertex** verwendet werden.
 
 ```glsl
 #version 330
@@ -181,8 +184,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

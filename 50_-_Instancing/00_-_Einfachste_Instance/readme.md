@@ -3,14 +3,15 @@
 
 ![image.png](image.png)
 
-Mit <b>Instancing</b> hat man die Möglichkeit die Mesh mit <b>einem<b> glDraw... Aufruf mehrmals zu zeichnen.
+Mit **Instancing** hat man die Möglichkeit die Mesh mit **einem** glDraw... Aufruf mehrmals zu zeichnen.
 Bei dieser regelmässigen Anordnung ist dies sehr einfach.
-Man hat aber auch bei <b>Instancing</b> die Möglichkeit die Meshes X-beliebig anzuordnen.
+Man hat aber auch bei **Instancing** die Möglichkeit die Meshes X-beliebig anzuordnen.
 Dies wird in den nächsten Themen behandelt.
+
 ---
 Das Zeichnen ist sehr einfach und übersichtlich geworden.
-Es braucht <b>keine</b> for-to-Schleifen für die Cube-Array, dieser Teile erledigt alles der Vertex-Shader.
-Die Matrix muss nur <b>einmal</b> berechnet werden, da es nur <b>einen</b> Aufruf von <b>glDraw...</b> gibt.
+Es braucht **keine** for-to-Schleifen für die Cube-Array, dieser Teile erledigt alles der Vertex-Shader.
+Die Matrix muss nur **einmal** berechnet werden, da es nur **einen** Aufruf von **glDraw...** gibt.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -44,7 +45,7 @@ end;
 
 Das grosse Arbeit bei Instancing leistet der Vertex-Shader.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -77,8 +78,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -3,11 +3,12 @@
 
 ![image.png](image.png)
 
-Eine OpenGL-Scene wird immer in einem Bereich von <b>-1</b> bis <b>+1</b> in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.
+Eine OpenGL-Scene wird immer in einem Bereich von **-1** bis **+1** in allen drei Achsen gezeichnet. Ist etwas ausserhalb dieses Bereiches, wird dies ignoriert.
 Um dies zu umgehen multipliziert man die Scene mit einer Ortho-Matrix.
-Für diesen Zweck habe ich eine Funtkion <b>TMatrix.Ortho(...</b>. Mit den sechs Parametern in der Funktion, kann man den gewünschten Bereich einstellen.
+Für diesen Zweck habe ich eine Funtkion **TMatrix.Ortho(...**. Mit den sechs Parametern in der Funktion, kann man den gewünschten Bereich einstellen.
 
 Zusätzlich ist noch eine Welt-Matrix hinzugekommen. Damit wird die ganze Scene in den sichtbaren Bereich bewegt,
+
 ---
 Deklaration der drei Matrixen.
 
@@ -19,7 +20,7 @@ var
   Matrix_ID: GLint;    // ID der Matrix für den Shader.
 ```
 
-So sieht die Funktion aus: <b>Ortho(left, right, bottom, top, znear, zfar);</b>.
+So sieht die Funktion aus: **Ortho(left, right, bottom, top, znear, zfar);**.
 Hier wird die OrthoMatrix erzeugt, und mit neuen Werten eingestellt.
 Im Beispiel ist dies eine Seitenlänge in allen Achsen um 24.0 (2 * 12.0).
 
@@ -88,8 +89,9 @@ begin
   WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -109,8 +111,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

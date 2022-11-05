@@ -5,6 +5,7 @@
 
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.
+
 ---
 Für CubePos, verwende ich Pointer, somit müssen beim Sortieren nur die Pointer vertauscht werden.
 Ansonsten musste der ganze Record umkopiert werden. Auf einem 32Bit OS müssen so nur 4Byte kopiert werden, ansonsten sind es mehr als 64 Byte.
@@ -53,7 +54,7 @@ begin
 ```
 
 Hier sieht man, das ich die Matrizen vor dem Zeichnen mit einem Quick-Sort sortiere.
-Die Tiefe ist in der Matrix bei <b>[3, 2]</b> gespeichert, somit nehme ich den Wert als Vergleich für die Sortierung.
+Die Tiefe ist in der Matrix bei **[3, 2]** gespeichert, somit nehme ich den Wert als Vergleich für die Sortierung.
 
 ```pascal
 
@@ -161,8 +162,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -182,8 +184,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -6,14 +6,15 @@
 Will man die Scene realistisch proportional darstellen, nimmt man eine Frustum-Matrix.
 Dies hat den Einfluss, das Objekte kleiner erscheinen, je weiter die Scene von einem weg ist.
 In der Realität ist dies auch so, das Objekte kleiner erscheinen, je weiter sie von einem weg sind.
+
 ---
 Der Frustum funktioniert ähnlich wie beim Ortho.
 Nur die Parameter sind ein wenig anders.
-Die Z-Werte müssen immer <b>positiv</b> sein.
+Die Z-Werte müssen immer **positiv** sein.
 
 Mit den zwei letzten Parametern von Frustum und der World-Matrix muss man ein bisschen probieren, zum Teil wird sonst das Bild verzehrt.
 
-Alternativ kann man den Frustum auch mit <b>Perspective(...</b> einstellen.
+Alternativ kann man den Frustum auch mit **Perspective(...** einstellen.
 Dabei ist der erste Parameter der Betrachtungs-Winkel.
 Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.
 
@@ -52,8 +53,9 @@ Das Zeichnen ist das Selbe wie bei Ortho.
   end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -73,8 +75,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

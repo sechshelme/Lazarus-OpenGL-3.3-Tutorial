@@ -3,12 +3,13 @@
 
 ![image.png](image.png)
 
-Hier wird eine <b>4x4 Matrix</b> verwendet, dies ist Standard bei allen Mesh Translationen.
+Hier wird eine **4x4 Matrix** verwendet, dies ist Standard bei allen Mesh Translationen.
 Im Timer wird eine Matrix-Rotation ausgeführt.
-Für diese einfache Roatation, könnte man auch eine <b>2x2-Matrix</b> nehmen, aber sobald man die Mesh auch verschieben will, braucht man <b>4x4-Matrix</b>, auch wird es sonst komplizierter im Shader.
+Für diese einfache Roatation, könnte man auch eine **2x2-Matrix** nehmen, aber sobald man die Mesh auch verschieben will, braucht man **4x4-Matrix**, auch wird es sonst komplizierter im Shader.
+
 ---
 Hier wird ein Matrix4x4-Typ deklariert.
-Für die Manipulationen einer Matrix eignet sich hervorragend ein <b>Type Helper</b>.
+Für die Manipulationen einer Matrix eignet sich hervorragend ein **Type Helper**.
 
 ```pascal
 type
@@ -49,8 +50,8 @@ end;
 ```
 
 Mit dieser Procedure, wird die Matrix um die Z-Achse rotiert.
-Der Winkel wird im <b>Bogenmass</b> angegeben.
-Für nicht Mathematiker, <b>360°</b> sind <b>2⋅π</b> ( 2⋅Pi ).
+Der Winkel wird im **Bogenmass** angegeben.
+Für nicht Mathematiker, **360°** sind **2⋅π** ( 2⋅Pi ).
 
 ```pascal
 procedure TMatrixfHelper.Rotate(angele: single);
@@ -68,7 +69,7 @@ end;
 
 ```
 
-In diesem Code sind zwei Zeilen relevant, eine mit <b>UniformLocation</b> für die Matrix-ID.
+In diesem Code sind zwei Zeilen relevant, eine mit **UniformLocation** für die Matrix-ID.
 In der anderen wird die Matrix, die gedreht wird, erst mal als Einheits-Matrix gesetzt.
 Dies ist wichtig, ansonsten sieht man keine Mesh mehr, da diese unendlich klein skaliert wird.
 
@@ -82,9 +83,9 @@ begin
   MatrixRot.Indenty;                             // MatrixRot auf Einheits-Matrix setzen.
 ```
 
-Hier wird die Uniform-Variable <b>MatrixRot</b> dem Shader übergeben.
-Mit <b>glUniform4fv(...</b> kann man eine <b>4x4 Matrix</b> dem Shader übergeben.
-Für eine 2x2 Matrix wäre dies <b>glUniform2fv(...</b> und für die 3x3 <b>glUniform3fv(...</b>.
+Hier wird die Uniform-Variable **MatrixRot** dem Shader übergeben.
+Mit **glUniform4fv(...** kann man eine **4x4 Matrix** dem Shader übergeben.
+Für eine 2x2 Matrix wäre dies **glUniform2fv(...** und für die 3x3 **glUniform3fv(...**.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -94,7 +95,7 @@ begin
   glUniformMatrix4fv(MatrixRot_ID, 1, False, @MatrixRot); // MatrixRot in den Shader.
 ```
 
-Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.
+Die Drehung der Matrix wird fortlaufend um den Wert **step** gedreht.
 
 ```pascal
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -106,14 +107,15 @@ begin
 end;
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Hier ist die Uniform-Variable <b>mat</b> hinzugekommen, dies ist auch eine 4x4-Matrix, so wie im Haupt-Programm.
+---
+**Vertex-Shader:**
+
+Hier ist die Uniform-Variable **mat** hinzugekommen, dies ist auch eine 4x4-Matrix, so wie im Haupt-Programm.
 Diese wird im Vertex-Shader deklariert, Bewegungen kommen immer in diesen Shader.
 
-Man sieht dort auch gut, das die <b>Vektoren</b> mit dieser <b>Matrix</b> multipliziert werden.
-Da diese Multiplikation im Shader ist, wird die Berechnung in der <b>GPU</b> ausgeführt, und somit wird die <b>CPU</b> entlastet.
+Man sieht dort auch gut, das die **Vektoren** mit dieser **Matrix** multipliziert werden.
+Da diese Multiplikation im Shader ist, wird die Berechnung in der **GPU** ausgeführt, und somit wird die **CPU** entlastet.
 Aus diesem Grund haben Gaming-Grafikkarten solch eine grosse Leistung.
 
 ```glsl
@@ -129,8 +131,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

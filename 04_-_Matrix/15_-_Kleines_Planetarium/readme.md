@@ -6,11 +6,12 @@
 Kleines Planetarium, welches die Handhabung von Matrizen demonstriert.
 Das es übersichtlicher wird, habe ich die Sonne und die Planeten in eine Klasse gepackt.
 
-Da dieses Beispiel auf einer 2D-Ebene läuft, wird nur eine <b>3x3</b>-Matrix verwendet, auch die Vektor-Koordinaten sind 2D.
+Da dieses Beispiel auf einer 2D-Ebene läuft, wird nur eine **3x3**-Matrix verwendet, auch die Vektor-Koordinaten sind 2D.
 Einzig der Vertex-Shader wird ein wenig komplizierter, da die Z-Achse nicht verwendet wird.
 
 Am Shader wird nur eine Matrix übergeben, welche von der CPU berechnet wird.
 Diese Matrix wird aus verschiedene Transformen berechnet.
+
 ---
 Es gibt nur eine ID, da die ganze Matrizen-Berechnung mit der CPU ausgeführt werden.
 
@@ -148,11 +149,12 @@ begin
 end;
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Bei der Multiplikation, wird die Z-Achse ignoriert, aus diesem Grund wird <b>glPosition.xyw</b> verwendet.
-Anschliessend wird Z auf <b>0.0</b> gesetzt.
+---
+**Vertex-Shader:**
+
+Bei der Multiplikation, wird die Z-Achse ignoriert, aus diesem Grund wird **glPosition.xyw** verwendet.
+Anschliessend wird Z auf **0.0** gesetzt.
 
 ```glsl
 #version 330
@@ -174,8 +176,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

@@ -4,22 +4,23 @@
 ![image.png](image.png)
 
 Bis jetzt wurden alle Uniforms einzeln dem Shader übegeben.
-Wen man aber mehrer Werte übeergeben will, kann man die <b>Uniforms</b> zu einem <b>Block</b> zusammenfassen.
-Aus diesem Grund heisst dieser Puffer <b>Uniform</b> Buffer Object ( UBO ).
+Wen man aber mehrer Werte übeergeben will, kann man die **Uniforms** zu einem **Block** zusammenfassen.
+Aus diesem Grund heisst dieser Puffer **Uniform** Buffer Object ( UBO ).
 
-Dies macht man mit einem Record. Dabei muss man auf eine <b>16Byte</b>-Ausrichtung achten.
+Dies macht man mit einem Record. Dabei muss man auf eine **16Byte**-Ausrichtung achten.
 
 Die Material-Eigenschaften sind ein ideales Beispiel dafür.
 
 In diesem Beispiel sind die Kugeln aus Rubin.
+
 ---
 Hier wird der Record für die Material-Eigenschaften deklariert.
 
-Da ein <b>TVector3f</b> nur <b>12Byte</b> hat, muss man zum Aufrunden auf <b>16Byte</b> noch ein Padding von 4Byte einfügen.
-Ein Float mit <b>4Byte</b> ist gut dafür gut geeignet.
+Da ein **TVector3f** nur **12Byte** hat, muss man zum Aufrunden auf **16Byte** noch ein Padding von 4Byte einfügen.
+Ein Float mit **4Byte** ist gut dafür gut geeignet.
 Im Shader-Code, muss dies bei den Uniform-Blöcken nicht beachtet werden.
 
-Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16Byte gross ist.
+Bei Verwendung von einem **TVector4f**, braucht es kein Padding, da dieser 16Byte gross ist.
 
 ```pascal
 type
@@ -33,7 +34,7 @@ type
   end;
 ```
 
-So was geht leider <b>nicht</b>.
+So was geht leider **nicht**.
 Diffuse muss in den nächsten 16Byte-Block !
 
 ```pascal
@@ -48,8 +49,8 @@ type    // Unbrauchbare Deklaration !
 
 
 Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer auch anders anlegen, zB. in eine Float-Array, dies macht aber wenig Sinn.
-Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.
-Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.
+Für einen **UBO** wird auch ein **Zeiger** auf den **Puffer** gebraucht, ähnlich eines Vertex-Puffers.
+Auch wird eine **ID** gebraucht, so wie es bei einfachen Uniforms der Fall ist.
 
 ```pascal
 var
@@ -58,7 +59,7 @@ var
 ```
 
 ID und Puffer generieren.
-Anstelle von <b>glUniformLocation(...</b>, muss man die ID mit <b>glUniformBlockIndex(...</b> auslesen.
+Anstelle von **glUniformLocation(...**, muss man die ID mit **glUniformBlockIndex(...** auslesen.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -119,11 +120,12 @@ begin
   glDeleteBuffers(1, @UBO);  // UBO löschen.
 ```
 
+
 ---
-Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem <b>struct</b> un <b>C++</b>.
+Im Shader sind die Material-Daten zu einem Block zusammengefasst, ähnlich einem **struct** un **C++**.
 Im Shader wird kein Padding gebraucht.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -153,8 +155,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

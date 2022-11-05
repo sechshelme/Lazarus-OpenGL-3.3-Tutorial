@@ -3,6 +3,7 @@
 
 ![image.png](image.png)
 
+
 ---
 Die Deklaration der Vektor-Koordianten Konstanten.
 
@@ -42,7 +43,7 @@ begin
 end;
 ```
 
-Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
+Bei **glDrawArrays(...** ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
 Hier im Beispiel, sind dies einfache Dreiecke.
 
 ```pascal
@@ -60,8 +61,9 @@ begin
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -76,8 +78,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

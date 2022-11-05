@@ -5,6 +5,7 @@
 
 Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.
 Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.
+
 ---
 Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
 Es ist ein Quadrat mit 4 verschieden farbigen Ecken.
@@ -157,7 +158,7 @@ begin
 ```
 
 Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,
-gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.
+gibt man nur **nil** mit, da man nur einee leere Textur braucht.
 
 ```pascal
 
@@ -197,8 +198,8 @@ end;
 
 Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den Bildschirmpuffer.
 Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.
-Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.
-Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.
+Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende **SwapBuffers** ausführen.
+Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von **glClearColor(...** relevant.
 Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.
 Beim Bildschirmpuffer hat dieser keinen Einfluss.
 
@@ -277,11 +278,12 @@ begin
 end;
 ```
 
+
 ---
 Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
 Der Shader des Würfels, gibt Texturen aus.
 
-<b>Vertex-Shader Quadrat:</b>
+**Vertex-Shader Quadrat:**
 
 
 ```glsl
@@ -303,8 +305,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader Quadrat:</b>
+**Fragment-Shader Quadrat:**
 
 
 ```glsl
@@ -323,8 +326,9 @@ void main()
 
 ```
 
+
 ---
-<b>Vertex-Shader Würfel:</b>
+**Vertex-Shader Würfel:**
 
 
 ```glsl
@@ -345,8 +349,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader Würfel:</b>
+**Fragment-Shader Würfel:**
 
 
 ```glsl

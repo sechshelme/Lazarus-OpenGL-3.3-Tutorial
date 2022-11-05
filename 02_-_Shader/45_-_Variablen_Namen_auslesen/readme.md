@@ -3,13 +3,14 @@
 
 ![image.png](image.png)
 
-Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.
-In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.
-Für was man <b>Uniform-Blöcke</b> verwendet, wird in einem späteren Kapitel behandelt.
+Es ist auch möglich aus dem **Shader auszulesen**, welche Variablen dort verwendet werden.
+In diesem Beispiel werden **Attribut**, **Uniform** und **Uniform-Blöcke** ausgelesen.
+Für was man **Uniform-Blöcke** verwendet, wird in einem späteren Kapitel behandelt.
 Auch die Beleuchtung, etc. wird später behandelt.
+
 ---
-Mit <b>glGetProgramiv(...</b> wird ermittelt, wie viele Variablen dieses Typen hat.
-Mit <b>glGetActiveAttrib(...</b> wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. <b>vec3</b>, <b>mat4</b>, etc.
+Mit **glGetProgramiv(...** wird ermittelt, wie viele Variablen dieses Typen hat.
+Mit **glGetActiveAttrib(...** wird der Bezeichner der Variable ausgelesen. Typ gibt die Art der Variable an, zB. **vec3**, **mat4**, etc.
 Der komplexe Beleuchtungs-Shader wird später beschrieben.
 
 ```pascal
@@ -51,10 +52,11 @@ begin
 end;
 ```
 
----
-Hier wurde noch eine Variable <b>KeineVerwendung</b> deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.
 
-<b>Vertex-Shader:</b>
+---
+Hier wurde noch eine Variable **KeineVerwendung** deklariert, da diese von Compiler wegoptimiert wurde, wird so auch nicht aufgelistet.
+
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -84,8 +86,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

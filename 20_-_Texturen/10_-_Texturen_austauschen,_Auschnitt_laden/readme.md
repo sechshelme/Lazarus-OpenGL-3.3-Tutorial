@@ -4,8 +4,9 @@
 ![image.png](image.png)
 
 Es ist möglich sehr schnell die Daten des Texturpuffers auszutauschen.
-Dies ist auch mit einem <b>Texturauschnitt</b> möglich.
-Dies geschieht mit <b>glTexSubImage2D(...</b>.
+Dies ist auch mit einem **Texturauschnitt** möglich.
+Dies geschieht mit **glTexSubImage2D(...**.
+
 ---
 Big ist die Totalgrösse der Texturdaten.
 Small ist ein Auschnitt.
@@ -72,8 +73,9 @@ begin
   end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -92,8 +94,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

@@ -9,7 +9,8 @@ Dafür muss man eine Indices-Array kreieren, welche die Reihenfolge der Koordina
 
 Der Unterschied zum einfachen Zeichenn ist, das ich noch eine Indicen-Array brauche.
 Und das Zeichnen ist vor allem anders.
-Man verwendet anstelle von <b>glDrawArrays(...</b>, <b>glDrawElements(...</b>, welche als dritten Parameter noch einen Zeiger auf die Indicen-Array bekommt.
+Man verwendet anstelle von **glDrawArrays(...**, **glDrawElements(...**, welche als dritten Parameter noch einen Zeiger auf die Indicen-Array bekommt.
+
 ---
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten.
 Beim Dreieck sieht man keinen Vorteil bei der Indicien-Version, da das Dreieck sowieso nur aus einem Polygon besteht.
@@ -43,7 +44,7 @@ const
   Quad_Indices: array[0..5] of GLint = (0, 1, 2, 0, 2, 3);
 ```
 
-Bei <b>glDrawElements(...</b>, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.
+Bei **glDrawElements(...**, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.
 Ansonsten geht das Zeichen gleich, wie bei der einfachen Methode.
 Der Polygonmodus wurde auf Linien umgestellt, so das man die Polygone besser sieht.
 
@@ -63,8 +64,9 @@ begin
   glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -79,8 +81,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

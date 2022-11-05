@@ -10,6 +10,7 @@ Für den Boden wird eine Matrix gebraucht, da ich diesen drehe.
 Zusätzlich habe ich für den Boden noch eine Textur genommen, somit sieht die Scene recht realistisch aus.
 
 Wie Texturen funktionieren, in einem späteren Kapitel.
+
 ---
 Den Speicher für die Position der Bäume reservieren.
 
@@ -140,8 +141,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -161,8 +163,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

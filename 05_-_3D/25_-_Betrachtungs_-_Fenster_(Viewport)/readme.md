@@ -5,13 +5,14 @@
 
 Bis jetzt hat sich die Scene im proportional des Ausgabe-fensters angepasst.
 Das hat zu Folge, das ein Kreis ovalig wird, wen das Fenster nicht quadratisch ist.
-Der Grund dafür ist, das die Ausgabe immer im Bereich von <b>-1.0</b> bis <b>+1.0</b> in der X und Y-Achse ist.
+Der Grund dafür ist, das die Ausgabe immer im Bereich von **-1.0** bis **+1.0** in der X und Y-Achse ist.
 
 Um dies zu umgehen, wird bei jeder Grössenänderung des Fenster die Frustum-Matrix neu angepasst.
-Entweder über <b>TMatrix.Frustum(...</b> oder noch einfacher wie im Beispiel mit <b>Matrix.Perspective(...</b> .
-Dies geschieht im <b>OnResize</b>-Ereigniss von <b>TContext</b>.
+Entweder über **TMatrix.Frustum(...** oder noch einfacher wie im Beispiel mit **Matrix.Perspective(...** .
+Dies geschieht im **OnResize**-Ereigniss von **TContext**.
 
-Bei einer Orthogonalprojektion kann man dies mit <b>TMatrix.Ortho(...</b> anpassen.
+Bei einer Orthogonalprojektion kann man dies mit **TMatrix.Ortho(...** anpassen.
+
 ---
 Hier wird das OnResize-Ereigniss einer neuen Funktion zugeordnet.
 
@@ -33,8 +34,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -54,8 +56,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

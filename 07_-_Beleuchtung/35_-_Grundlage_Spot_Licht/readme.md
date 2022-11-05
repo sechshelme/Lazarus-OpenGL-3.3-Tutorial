@@ -5,6 +5,7 @@
 
 Dieses Beispiel zeigt, wie ein Spotlicht berechnet wird.
 Zum besseren Verständnis, wird das ganze ohne OpenGL als 2D auf einem Canvas gezeigt.
+
 ---
 Deklarationen der benütigenten Variablen.
 
@@ -17,7 +18,7 @@ var
   LichtPos, LichtRichtung: TVec2;
 ```
 
-Entspricht dem <b>vec2</b> von <b>GLSL</b>.
+Entspricht dem **vec2** von **GLSL**.
 
 ```pascal
 function vec2(x, y: single): TVec2; inline;
@@ -27,7 +28,7 @@ begin
 end;
 ```
 
-Entspricht dem <b>normalize(vec2)</b> von <b>GLSL</b>.
+Entspricht dem **normalize(vec2)** von **GLSL**.
 Dies normalisiert den 2D-Vektor.
 
 ```pascal
@@ -46,9 +47,9 @@ begin
 end;
 ```
 
-Entspricht dem <b>dot(vec2)</b> von <b>GLSL</b>.
+Entspricht dem **dot(vec2)** von **GLSL**.
 Hier wird das Skalarprodukt aus 2 Vektoren berechnent.
-<b>arccos(Result)</b>, gibt den Winkel der beiden Vektoren im Bogenmass aus.
+**arccos(Result)**, gibt den Winkel der beiden Vektoren im Bogenmass aus.
 
 ```pascal
 function dot(v1, v2: TVec2): single;

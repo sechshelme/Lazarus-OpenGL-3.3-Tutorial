@@ -6,9 +6,11 @@
 Bump-Mapping verwendet man meisten in Kombination mit einer Textur.
 
 So sieht man, das die Fugen grau und die Ziegel braun sind.
+
 ---
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -38,8 +40,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 Zum einfachen Bump-Mapping wir noch mit einer Textur multipliziert, welche die Farben der Mauer enthält.
 

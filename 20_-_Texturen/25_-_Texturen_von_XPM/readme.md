@@ -4,10 +4,11 @@
 ![image.png](image.png)
 
 Für sehr einfache Texturen, ist das xpm-Format geeignet. Mit diesem kann man sehr schnell eine einfache Textur mit einem Text-Editor erstellen.
----
-Da etwas anderes als <b>BMP</b> geladen wird, muss anstelle von <b>TBitmap TPicture</b> verwendet werden.
 
-Momentan kann TPicture folgende Datei-Formate laden: <b>BMP, GIF, JPG, PCX, PNG, P?M, PDS, TGA, TIF, XPM, ICO, CUR, ICNS</b>.
+---
+Da etwas anderes als **BMP** geladen wird, muss anstelle von **TBitmap TPicture** verwendet werden.
+
+Momentan kann TPicture folgende Datei-Formate laden: **BMP, GIF, JPG, PCX, PNG, P?M, PDS, TGA, TIF, XPM, ICO, CUR, ICNS**.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -22,8 +23,9 @@ begin
   end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -43,8 +45,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330
@@ -62,8 +65,9 @@ void main()
 
 ```
 
+
 ---
-<b>mauer.xpm:</b>
+**mauer.xpm:**
 
 ```glsl
 /* XPM */

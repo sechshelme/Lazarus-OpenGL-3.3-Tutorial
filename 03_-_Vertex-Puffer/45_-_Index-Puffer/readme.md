@@ -3,9 +3,10 @@
 
 ![image.png](image.png)
 
-Die Indicien, kann man auch von Anfang an ins VRAM laden, so müssen die Daten nich jedes mal mit <b>glDrawElements(...</b> neu übegeben werden.
-Dafür gibt es den <b> Index Buffer Objects</b> (IBO).
+Die Indicien, kann man auch von Anfang an ins VRAM laden, so müssen die Daten nich jedes mal mit **glDrawElements(...** neu übegeben werden.
+Dafür gibt es den ** Index Buffer Objects** (IBO).
 Das Laden geschieht ähnlich wie mit den Vertex-Daten.
+
 ---
 Die Deklaration der Vektor-Koordianten und Indicien Konstanten, dies ist gleich wie ohne Buffer.
 
@@ -29,7 +30,7 @@ const
 Der IBO muss noch deklariert werden.
 Das Erzeugen des IBI-Puffer geht gleich wie beim VBO-Puffer.
 Hier werden die IBO-Daten in den Buffer geladen, dies geschieht ähnlich, wie bei den Vertex-Daten.
-Der Unterschied ist der zweite Parameter, dieser muss <b>GL_ELEMENT_ARRAY_BUFFER</b> sein.
+Der Unterschied ist der zweite Parameter, dieser muss **GL_ELEMENT_ARRAY_BUFFER** sein.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -66,7 +67,7 @@ begin
 end;
 ```
 
-Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei <b>glDrawElements(...</b>, nil sein.
+Da die Indicien im IBO gespeichert sind muss der dritte Paramter bei **glDrawElements(...**, nil sein.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -95,8 +96,9 @@ begin
   glDeleteBuffers(1, @VBQuad.IBO);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -111,8 +113,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

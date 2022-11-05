@@ -5,10 +5,11 @@
 
 Ohne Bewegung ist OpenGL langweilig.
 Hier werden dem Shader ein X- und ein Y-Wert übergeben. Diese Werte werden mit einem Timer verändert.
-Damit die Änderung auch sichtbar wird, wird <b>DrawScene</b> danach manuell ausgelöst.
+Damit die Änderung auch sichtbar wird, wird **DrawScene** danach manuell ausgelöst.
+
 ---
 Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.
-<b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.
+**TrianglePos** bestimmt die Bewegung und Richtung des Dreiecks.
 
 ```pascal
 var
@@ -22,7 +23,7 @@ var
 ```
 
 Den Timer immer erst nach dem Initialisieren starten!
-Im Objektinspektor <b>muss</b> dessen Eigenschaft <b>Enable=(False)</b> sein!
+Im Objektinspektor **muss** dessen Eigenschaft **Enable=(False)** sein!
 Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch gar nicht gibt.
 
 ```pascal
@@ -37,8 +38,8 @@ begin
 end;
 ```
 
-Dieser Code wurde um zwei <b>UniformLocation</b>-Zeilen erweitert.
-Diese ermitteln die IDs, wo sich <b>x</b> und <b>y</b> im Shader befinden.
+Dieser Code wurde um zwei **UniformLocation**-Zeilen erweitert.
+Diese ermitteln die IDs, wo sich **x** und **y** im Shader befinden.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -53,7 +54,7 @@ begin
 Hier werden die Uniform-Variablen x und y dem Shader übergeben.
 Beim Dreieck sind das die Positions-Koordinaten.
 Beim Quad ist es 0, 0 und somit bleibt das Quadrat stehen.
-Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.
+Mit **glUniform1f(...** kann man einen Float-Wert dem Shader übergeben.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -123,10 +124,11 @@ begin
 end;
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.
+---
+**Vertex-Shader:**
+
+Hier sind die Uniform-Variablen **x** und **y** hinzugekommen.
 Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shader.
 
 ```glsl
@@ -147,8 +149,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

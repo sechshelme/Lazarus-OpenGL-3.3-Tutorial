@@ -9,9 +9,10 @@ Dazu werden zwei 4x4 Matrixen verwendet, eine für das Verschieben und die ander
 Eine dritte Matrix ist noch für das Produkt von den zweit Matrixen, welche dann am Shader übergeben wird.
 Im Timer wird Matrix-Rotation ausgeführt.
 
-Für Matrixen, wird ab jetzt ein Type Helper aus der Unit <b>OpenGLMatrix</b> verwendent, dies macht das Ganze übersichtlicher.
-Dafür muss einfach die Unit <b>oglMatrix</b> bei uses eingebunden werden.
-In der Regel muss dann die Matrix mit <b>TMatrix.Indenty</b> auf die Einheits-Matrix gesetzt werden.
+Für Matrixen, wird ab jetzt ein Type Helper aus der Unit **OpenGLMatrix** verwendent, dies macht das Ganze übersichtlicher.
+Dafür muss einfach die Unit **oglMatrix** bei uses eingebunden werden.
+In der Regel muss dann die Matrix mit **TMatrix.Indenty** auf die Einheits-Matrix gesetzt werden.
+
 ---
 Die Deklaration der drei Matrixen.
 Und die ID für den Shader. Die ID wird nur eine gebraucht, da nur das Produkt dem Shader übergeben wird.
@@ -38,7 +39,7 @@ begin
 ```
 
 Hier wird das Produkt von TransMatrix und RotMatrix den Shader übergeben.
-Mit der Klasse geht dies einfacht mit <b>Matrix.Uniform(ID)</b>
+Mit der Klasse geht dies einfacht mit **Matrix.Uniform(ID)**
 
 Matrizen multiplizieren geht am einfachsten mit der überladenen Multiplikation-Funktion.
 
@@ -48,7 +49,7 @@ Matrix := Matrix * Matrix * Matrix;
 ```
 
 Dabei wird die Mesh zuerst gedreht und dann verschoben.
-<b>Die Reihenfolge der Multiplikatoren ist sehr wichtig !</b>
+**Die Reihenfolge der Multiplikatoren ist sehr wichtig !**
 
 Einfach mal TransMatrix und RotMatrix vertauschen, dann sieht man ganz ein anderes Ergebniss.
 Dann wird zuerst die Mesh verschoben und dann das Ganze um den Mittelpunkt gedreht.
@@ -62,7 +63,7 @@ begin
   prodMatrix.Uniform(Matrix_ID);               // prodMatrix in den Shader schreiben.
 ```
 
-Die Drehung der Matrix wird fortlaufend um den Wert <b>step</b> gedreht.
+Die Drehung der Matrix wird fortlaufend um den Wert **step** gedreht.
 
 ```pascal
 procedure TForm1.Timer1Timer(Sender: TObject);
@@ -74,10 +75,11 @@ begin
 end;
 ```
 
----
-<b>Vertex-Shader:</b>
 
-Hier ist die Uniform-Variable <b>mat</b> hinzugekommen.
+---
+**Vertex-Shader:**
+
+Hier ist die Uniform-Variable **mat** hinzugekommen.
 Diese wird im Vertex-Shader deklariert, Bewegungen kommen immer in diesen Shader.
 
 ```glsl
@@ -93,8 +95,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

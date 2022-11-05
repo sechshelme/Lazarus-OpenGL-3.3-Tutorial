@@ -4,6 +4,7 @@
 ![image.png](image.png)
 
 Man kann auch von Anfang an, mehrere UBOs anlegen und somit kann man sehr schnell zwischen den Datenblöcken umschalten.
+
 ---
 Es werden drei UBOs angelegt.
 ID im Shader wird nur eine gebraucht.
@@ -114,10 +115,11 @@ begin
 end;
 ```
 
+
 ---
 Der Shader ist der selbe wie im ersten Beispiel.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -147,8 +149,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -11,6 +11,7 @@ Dieses Verfahren hat zwei Nachteile.
 2. Die Anzahl Uniform-Werte ist begrenzt, bei diesem Beispiel und einem Intel4000 ist bei gut 800 Instancen Schluss.
 
 Diese Nachteile kann man umgehen, wen man anstelle von Uniformen VertexAttrib verwendet, dazu im nächasten Thema.
+
 ---
 Die Anzahl Instance
 
@@ -63,7 +64,7 @@ end;
 ```
 
 Die Übergabe der Uniform-Werte. Da es sich um Arrays handelt, muss man noch die Länge der Array übergeben.
-Auch sieht man gut, das mal <b>glDrawArraysInstanced(...</b> nur einmal aufrufen muss.
+Auch sieht man gut, das mal **glDrawArraysInstanced(...** nur einmal aufrufen muss.
 Würde man dies ohne Instancen lössen, müsste man die Uniformübergabe und glDraw... 200x aufrufen.
 Da sieht man den Vorteil, es ist viel weniger Kominikation mit der Grafikkarte nötig.
 
@@ -100,9 +101,10 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
-Hier sieht man, das mit <b>gl_InstanceID</b> auf die eizelnen Array-Elemente zugegriffen wird.
+**Vertex-Shader:**
+Hier sieht man, das mit **gl_InstanceID** auf die eizelnen Array-Elemente zugegriffen wird.
 
 ```glsl
 #version 330
@@ -126,8 +128,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

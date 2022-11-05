@@ -4,12 +4,13 @@
 ![image.png](image.png)
 
 OpenGL Context 3.3 erzeugen und OpenGL initialisieren.
-<b>Parent</b> kann z.B. auch ein TPanel sein. (Parent := Panel1;)
+**Parent** kann z.B. auch ein TPanel sein. (Parent := Panel1;)
 
-Man kann die <b>TOpenGLControl</b>-Komponente auch über die Komponenten-Leiste auf dem Form erzeugen.
+Man kann die **TOpenGLControl**-Komponente auch über die Komponenten-Leiste auf dem Form erzeugen.
 Aber meine Erfahrung hat gezeigt, wenn man eine neuere Lazarus-Version installiert, dass es dann zu Problemen kommen kann.
+
 ---
-Den Zeichen-Context mit <b>TOpenGLControl</b> deklarieren.
+Den Zeichen-Context mit **TOpenGLControl** deklarieren.
 
 ```pascal
 type
@@ -43,11 +44,12 @@ begin
 end;
 ```
 
-Für die Contexterzeugung, habe ich eine Klasse geschrieben, diese beinhaltet den Teil im <b>with</b>-Block, ausgenommen <b>OnPaint</b>.
+Für die Contexterzeugung, habe ich eine Klasse geschrieben, diese beinhaltet den Teil im **with**-Block, ausgenommen **OnPaint**.
 In späteren Tutorial wird nur noch diese verwendet.
+
 ---
 Rendern der Szene, momentan wird nur die Hintergrundfarbe festgelegt.
-Die Werte werden bei <b>glClearColor(...</b> als R, G, B, A eingegeben, wobei A keinen Einfluss hat.
+Die Werte werden bei **glClearColor(...** als R, G, B, A eingegeben, wobei A keinen Einfluss hat.
 0.0 ist dunkel und 1.0 ist volle Intensität, somit wäre 0.0, 0.0, 0.0 Schwarz und 1.0, 1.0, 1.0 Weiss.
 Hier im Beispiel ist es ein Olivgrün.
 
@@ -58,8 +60,8 @@ begin
 end;
 ```
 
-Darstellen der Szene, momentan wird mit <b>glClear(...</b> nur der Frame-Puffer geleert und und mit der mit <b>glClearColor(...</b> festgelegten Farbe gefüllt.
-Der noch leere Frame-Puffer wird mit <b>ogc.SwapBuffers;</b> auf dem Bildschirm dargestellt.
+Darstellen der Szene, momentan wird mit **glClear(...** nur der Frame-Puffer geleert und und mit der mit **glClearColor(...** festgelegten Farbe gefüllt.
+Der noch leere Frame-Puffer wird mit **ogc.SwapBuffers;** auf dem Bildschirm dargestellt.
 Somit ist nur der Hintergrund sichtbar und man sieht keine Änderung.
 
 ```pascal

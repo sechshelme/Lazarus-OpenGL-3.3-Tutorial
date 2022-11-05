@@ -3,7 +3,7 @@
 
 ![image.png](image.png)
 
-Mit <b>Textur Cube Map</b> hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.
+Mit **Textur Cube Map** hat man die Möglichkeit die Texturen auf einer Würfel-Fläche abzubilden.
 Ausser für den einfachen Würfel kann man dies auch für folgendes gebrauchen.
 * Hintergrund in einer 360° Optik.
 * Reflektionen auf einer Mesh.
@@ -13,6 +13,7 @@ Die Textur-Koordinaten sind 3D-Vektoren, welche auf die Position des Würfels ze
 dabei ist nur die Richtung des Vektores wichtig, die Länge ist egal.
 
 Meistens sind Vertex und Texturkoordinaten gleich. Hier im Beispiel ein Würfel.
+
 ---
 Die 6 Flächen des Würfels werden einzeln in VRAM geladen.
 Dies geschieht ähnlich, wie bei einer Textur-Array.
@@ -52,10 +53,11 @@ begin
   end;
 ```
 
+
 ---
 Die Shader sind gleich, wie wen man alles auf einmal hoch ladet.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 Hier sieht man, das für die Textur und Vertex-Koordinaten die gleichen Werte genommen werden.
 
 ```glsl
@@ -78,8 +80,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 Einzig Unterschied zu einer normalen Textur, das die Textur-Koordinaten 3D sind.
 
 ```glsl

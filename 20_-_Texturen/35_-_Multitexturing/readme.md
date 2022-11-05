@@ -5,9 +5,10 @@
 
 Multitexturing, tönt Anfangs sehr kompliziert, aber im Grunde ist es sehr einfach.
 Der Unterschied zu einer einzelnen Textur ist, das man mehrere Texturen über die Mesh zieht.
-Somit muss man auch mehrere Texturen beim Zeichenen mittels <b>glActiveTexture(...</b> aktivieren.
+Somit muss man auch mehrere Texturen beim Zeichenen mittels **glActiveTexture(...** aktivieren.
 
 Hier im Beispiel, ist es ein Stück Mauer, welches mit einer farbigen Lampe angeleuchtet wird.
+
 ---
 Die Textur-Puffer deklarieren, sehr einfach geht dies mit einer Array.
 
@@ -35,7 +36,7 @@ begin
 ```
 
 Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
-Man kann die Texturen auch von einem <b>TRawImages</b> laden.
+Man kann die Texturen auch von einem **TRawImages** laden.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -45,7 +46,7 @@ begin
 ```
 
 Da man bei Multitexturing mehrere Sampler braucht, muss man mitteilen, welche Textur zu welchen Sampler gehört.
-Dies macht man mit <b>glActiveTexture(...</b>, Dazu muss man als Parameter die <b>Sampler-Nr + GL_TEXTURE0</b> mitgeben.
+Dies macht man mit **glActiveTexture(...**, Dazu muss man als Parameter die **Sampler-Nr + GL_TEXTURE0** mitgeben.
 
 Das sieht man auch gut in der TTexturBuffer Class.
 
@@ -77,8 +78,9 @@ begin
   Textur[1].Free;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -101,8 +103,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 Bei diesem einfachen Beispiel werden einfach die Pixel der Textur addiert und anschliessend duch 2 geteilt.
 
@@ -124,8 +127,9 @@ void main()
 
 ```
 
+
 ---
-<b>mauer.xpm:</b>
+**mauer.xpm:**
 
 ```glsl
 /* XPM */
@@ -145,8 +149,9 @@ static char *XPM_mauer[] = {
 
 ```
 
+
 ---
-<b>licht.xpm:</b>
+**licht.xpm:**
 
 ```glsl
 /* XPM */

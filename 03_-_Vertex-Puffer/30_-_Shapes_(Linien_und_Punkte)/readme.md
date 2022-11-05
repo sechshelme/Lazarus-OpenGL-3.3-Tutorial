@@ -4,11 +4,12 @@
 ![image.png](image.png)
 
 Bis jetzt wurde alles mit kompletten Dreiecken gerendert und gezeichnet. Es gibt aber noch zwei andere Varianten um Dreiecke zu rendern.
-Dies wurde beim Zeichnen mit <b>glDrawArrays(GL_TRIANGLES, ...</b> veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
-Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit <b>glDrawArrays(GL_TRIANGLES_STRIP, ...</b>.
-Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit <b>glDrawArrays(GL_TRIANGLES_FAN, ...</b>.
+Dies wurde beim Zeichnen mit **glDrawArrays(GL_TRIANGLES, ...** veranlasst. Diese Version wird in der Paraxis am meisten angewendet.
+Man kann die Dreiecke auch als Streifen hintereinander rendern, dies gerschieht mit **glDrawArrays(GL_TRIANGLES_STRIP, ...**.
+Oder wie ein Wedel, dabei ist der erste Vektor die Mitte, und der Rest die Eckpunkte. Dies geschieht dann mit **glDrawArrays(GL_TRIANGLES_FAN, ...**.
 
-Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit <b>glDrawArrays(...</b>.
+Das schreiben in die Grafikkarte, ist bei allen Varianten gleich, der Unterschied ist legendlich beim Zeichenen mit **glDrawArrays(...**.
+
 ---
 Die Deklaration der Vektor-Koordianten Konstanten, zur Vereinfachung habe ich nur 2D-Vektoren genommen. Natürlich können diese auch 3D sein.
 
@@ -34,14 +35,14 @@ begin
 end;
 ```
 
-Bei <b>glDrawArrays(...</b> ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
+Bei **glDrawArrays(...** ist der erste Parameter das wichtigste, hier wird angegeben, wie die Vektor-Koordinaten gezeichnet werden.
 Hier werden vier Möglichkeiten gezeigt, dazu werden immer die gleichen Vertex-Koordinaten verwendet. Daher sieht man den Unterschied gut.
 
-Mit <b>glLineWidth(...</b> kann die Linienbreite angegeben werden, default ist <b>1.0</b> .
-Mit <b>glPointSize(...</b> kann der Durchmesser der Punkte angegeben werden, default ist <b>1.0</b> .
+Mit **glLineWidth(...** kann die Linienbreite angegeben werden, default ist **1.0** .
+Mit **glPointSize(...** kann der Durchmesser der Punkte angegeben werden, default ist **1.0** .
 Für die Punkte gibt es noch eine andere Möglichkeit, man kann den Durchmesser auch im Shader angegeben, dazu später.
 
-Wen mit <b>glPolygonMode(...</b> auf Punkte oder Linien umgestellt wird, haben diese beiden Parameter auch einen Einfluss.
+Wen mit **glPolygonMode(...** auf Punkte oder Linien umgestellt wird, haben diese beiden Parameter auch einen Einfluss.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -81,8 +82,9 @@ begin
   glDrawArrays(GL_POINTS, 0, Length(Linies));
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 Da die Koordinaten nur als 2D gespeichert sind, wird im Vertex-Shader der Z-Wert auf 0.0 gesetzt.
 
@@ -103,8 +105,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

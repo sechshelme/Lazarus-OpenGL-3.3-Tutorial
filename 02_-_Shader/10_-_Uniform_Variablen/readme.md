@@ -6,9 +6,10 @@
 Hier wird die Farbe des Meshes über eine Unifom-Variable an den Shader übergeben, somit kann die Farbe zur Laufzeit geändert werden.
 Unifom-Variablen dienen dazu, um Parameter den Shader-Objecte zu übergeben. Meistens sind dies Matrixen, oder wie hier im Beispiel die Farben.
 Oder auch Beleuchtung-Parameter, zB. die Position des Lichtes.
+
 ---
 Deklaration der ID, welche auf die Unifom-Variable im Shader zeigt, und die Variable, welche die Farbe für den Vektor enthält.
-Da man die Farbe als Vektor übergibt, habe ich dafür den Typ <b>TVertex3f</b> gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.
+Da man die Farbe als Vektor übergibt, habe ich dafür den Typ **TVertex3f** gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.
 
 ```pascal
 var
@@ -16,14 +17,14 @@ var
   MyColor: TVertex3f;   // Farbe
 ```
 
-Dieser Code wurde um eine Zeile <b>UniformLocation</b> erweitert.
-Diese ermittelt die ID, wo sich <b>Color</b> im Shader befindet.
+Dieser Code wurde um eine Zeile **UniformLocation** erweitert.
+Diese ermittelt die ID, wo sich **Color** im Shader befindet.
 
-Vor dem Ermitteln muss mit <b>UseProgram</b> der Shader aktviert werden, von dem man lesen will.
-Im Hintergrund wird dabei <b>glGetUniformLocation(ProgrammID,...</b> aufgerufen.
+Vor dem Ermitteln muss mit **UseProgram** der Shader aktviert werden, von dem man lesen will.
+Im Hintergrund wird dabei **glGetUniformLocation(ProgrammID,...** aufgerufen.
 Der Vektor von MyColor ist in RGB (Rot, Grün, Blau).
 
-Der String in <b>UniformLocation</b> muss indentisch mit dem Namen der Uniform-Variable im Shader sein. <b>Wichtig:</b> Es muss auf Gross- und Kleinschreibung geachtet werden.
+Der String in **UniformLocation** muss indentisch mit dem Namen der Uniform-Variable im Shader sein. **Wichtig:** Es muss auf Gross- und Kleinschreibung geachtet werden.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -38,8 +39,8 @@ begin
 ```
 
 Hier wird die Uniform-Variable übergeben. Für diese vec3-Variable gibt es zwei Möglichkeiten.
-Mit <b>glUniform3fv...</b> kann man sie als ganzen Vektor übergeben.
-Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übergeben.
+Mit **glUniform3fv...** kann man sie als ganzen Vektor übergeben.
+Mit **glUniform3f(...** kann man die Komponenten der Farben auch einzeln übergeben.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -61,7 +62,7 @@ begin
 end;
 ```
 
-Folgende Prozedur weist dem Vektor <b<MyColor</b> eine andere Farbe zu.
+Folgende Prozedur weist dem Vektor <b<MyColor** eine andere Farbe zu.
 Dafür wird ein einfaches Menü verwendet.
 
 ```pascal
@@ -88,8 +89,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -103,10 +105,11 @@ void main(void)
 
 ```
 
----
-<b>Fragment-Shader:</b>
 
-Hier ist die Uniform-Variable <b>Color</b> hinzugekommen.
+---
+**Fragment-Shader:**
+
+Hier ist die Uniform-Variable **Color** hinzugekommen.
 Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wird.
 
 ```glsl

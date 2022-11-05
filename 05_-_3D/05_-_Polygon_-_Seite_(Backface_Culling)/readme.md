@@ -3,17 +3,18 @@
 
 ![image.png](image.png)
 
-Die Meshes ist hier noch 2D, aber <b>Backface Culling</b> wird in folgenden 3D-Beispielen gebraucht.
+Die Meshes ist hier noch 2D, aber **Backface Culling** wird in folgenden 3D-Beispielen gebraucht.
 
 Defaultmässig zeichnet OpenGL immer die Vorder und Rückseite eines Polygones. Für die meisten Meshes ist dies aber nicht nötig.
 Bei einem Würfel ist es nicht nötig, das die Innenseite der Polygone gezeichnet werden, da man diese sowieso nicht sieht.
 Dies spart Rechneleistung, weil jede Pixelüberprüfung Zeit kostet.
-Mit <b>glEnable(GL_CULL_FACE);</b> wird nur die Vorderseite der Polygone gezeichnet. Ausgenommen man schaltet es mit <b>glCullFace(...</b> um, so das nur die Rückseite gezeichnet wird.
+Mit **glEnable(GL_CULL_FACE);** wird nur die Vorderseite der Polygone gezeichnet. Ausgenommen man schaltet es mit **glCullFace(...** um, so das nur die Rückseite gezeichnet wird.
 
 In diesem Beispiel, wird dies mit einem Timer demonstriert.
 
-Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerendert werden. Auch dies könnte man <b>glFrontFace(...</b> umstellen.
-Dafür gibt es die Parameter <b>GL_CW</b> für Uhrzeigersinn, und den Default-Parameter <b>GL_CCW</b>.
+Was dabei wichtig ist, die Polygone müssen immer im Gegenuhrzeigersinn gerendert werden. Auch dies könnte man **glFrontFace(...** umstellen.
+Dafür gibt es die Parameter **GL_CW** für Uhrzeigersinn, und den Default-Parameter **GL_CCW**.
+
 ---
 Wen man die Konstanten genau anschaut, sieht man, das das Dreieck im Gegenuhrzegersinn und das Qaudrat im Uhrzeigersinn deklariert ist.
 
@@ -55,8 +56,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -71,8 +73,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

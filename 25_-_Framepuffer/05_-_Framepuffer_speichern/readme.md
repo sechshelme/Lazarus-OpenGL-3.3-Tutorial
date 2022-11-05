@@ -4,11 +4,12 @@
 ![image.png](image.png)
 
 Wen man in eine Textur rendert, hat man die Möglichkeit, den Inhalt der Textur in eine Datei zu speichern.
+
 ---
 Die Textur, in dem die Scene gerendert wurde, kann man auch abspeichern.
 Hinweis: Das Bild kann evtl. fehlerhaft abgespeichert werden, da dies OS abhängig ist.
 Dieser Code wurde unter Linux 64Bit getestet.
-Die <b>TBitmap</b> muss 32Bit sein, 24Bit wird nicht unterstützt.
+Die **TBitmap** muss 32Bit sein, 24Bit wird nicht unterstützt.
 
 ```pascal
 procedure TForm1.ButtonTexturSaveClick(Sender: TObject);
@@ -31,7 +32,7 @@ end;
 Es ist auch möglich, die komplett gerenderte Scene zu speichern.
 Leider steht das Bild auf dem Kopf. Die Ursache ist, bei einer Bitmap ist der Nullpunkt links-oben, bei OpenGL links/unten.
 Dies kann man aber umgehen, wen man Zeile für Zeile einliest.
-<b>glBindFramebuffer(GL_FRAMEBUFFER, 0);</b> ist nur notwendig, wen man mehrere Framebuffer verwendet.
+**glBindFramebuffer(GL_FRAMEBUFFER, 0);** ist nur notwendig, wen man mehrere Framebuffer verwendet.
 
 ```pascal
 procedure TForm1.ButtonScreenSaveClick(Sender: TObject);
@@ -55,11 +56,12 @@ begin
 end;
 ```
 
+
 ---
 Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
 Der Shader des Würfels, gibt Texturen aus.
 
-<b>Vertex-Shader Quadrat:</b>
+**Vertex-Shader Quadrat:**
 
 
 ```glsl
@@ -81,8 +83,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader Quadrat:</b>
+**Fragment-Shader Quadrat:**
 
 
 ```glsl
@@ -101,8 +104,9 @@ void main()
 
 ```
 
+
 ---
-<b>Vertex-Shader Würfel:</b>
+**Vertex-Shader Würfel:**
 
 
 ```glsl
@@ -123,8 +127,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader Würfel:</b>
+**Fragment-Shader Würfel:**
 
 
 ```glsl

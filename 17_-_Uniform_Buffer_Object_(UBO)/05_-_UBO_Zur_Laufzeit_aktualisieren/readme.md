@@ -4,10 +4,11 @@
 ![image.png](image.png)
 
 UBO-Daten können auch zur Laufzeit geändert/neu geladen werden, so wie es beim Vertex-Puffer auch geht.
-Auf diese Art, werden die Uniform-Daten aktualisiert. Dies ersetzt die Aktualisierung mit <b>glUniformxxx</b>.
+Auf diese Art, werden die Uniform-Daten aktualisiert. Dies ersetzt die Aktualisierung mit **glUniformxxx**.
 
 In diesem Beispiel wird das Material der Kugeln gewechselt, abwechslungsweise Rubin oder Jade.
 Dazu wird alle 1s die UBO-Daten aktualisiert.
+
 ---
 Es werden zwei Materialien gebraucht, welche abwechslungsweise neu geladen werden.
 
@@ -86,10 +87,11 @@ begin
 end;
 ```
 
+
 ---
 Der Shader ist der selbe wie im ersten Beispiel.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -119,8 +121,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

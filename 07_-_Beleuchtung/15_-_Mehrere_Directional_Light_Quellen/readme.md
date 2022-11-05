@@ -16,7 +16,8 @@ Auch kann man die Rotierung anhalten und die Anzahl der Kugeln verändern.
 Wen man nur eine Kugel hat, sieht man die Bewegung des Lichtes sehr gut.
 Wen man alle 3 Lichter ausschaltet, dann sieht man die Ambiente Hintergrund-Beleuchtung sehr gut.
 
-Die Lichtposition ist nicht mehr im Shader als Konstante deklariert, sie wurde mit einer <b>Uniform-Variable</b> nach aussen verlagert.
+Die Lichtposition ist nicht mehr im Shader als Konstante deklariert, sie wurde mit einer **Uniform-Variable** nach aussen verlagert.
+
 ---
 Die Lichtpositionen als 3D-Vektorn definiert.
 
@@ -85,11 +86,12 @@ begin
   end;
 ```
 
----
-Wen man mehrere Lichtquellen hat, werden diese alle <b>addiert</b>.
-Dies sieht man gut am Ende des Vertex-Shader, dort wo es die<b> += </b>hat.
 
-<b>Vertex-Shader:</b>
+---
+Wen man mehrere Lichtquellen hat, werden diese alle **addiert**.
+Dies sieht man gut am Ende des Vertex-Shader, dort wo es die** += **hat.
+
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -158,8 +160,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

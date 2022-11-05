@@ -3,8 +3,8 @@
 
 ![image.png](image.png)
 
-<b>Vorwort:</b><br>
-<b>OpenGL 3.3</b> scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
+**Vorwort:**<br>
+**OpenGL 3.3** scheint auf den ersten Blick viel komplizierter als das alte OpenGL.
 Man wird von Anfang an mit vielem Neuen konfrontiert.
 Früher konnte man einfach
 
@@ -28,8 +28,9 @@ Wenn man diesen Einstieg mal geschafft hat, wird man auch mit höheren Versionen
 
 Auf der Hauptseite werde ich noch ein Package veröffentlichen, welches einem den Einstieg sehr einfach macht.
 Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Puffer, etc. vorhanden.
+
 ---
-<b>Voraussetzung:</b><br>
+**Voraussetzung:**<br>
 * FPC 3.0.2 oder höher.
 * Lazarus 1.6.4 oder höher.
 * Mindestens OpenGL 3.3 fähige Grafikkarte.
@@ -39,10 +40,10 @@ Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Puffer, etc. 
 Wen die Grafikkarte zu alt ist, gibt es trotzdem eine Lösung. Mit Mesa ab 17.1 ist es möglich im Software-Renderer OpenGL zu emulieren.
 Dies ist gähnend langsam, aber für die ersten Gehversuche im Tutorial reicht dies. ( Getestet mit Linux Mint 64Bit 18.x )
 
-<b>Installation:</b><br>
+**Installation:**<br>
 FPC und Lazarus installieren.
 
-Bei Lazarus muss unter <i><b>"Package --> Installierte Packages einrichten... --> Verfügbar für Installation"</b></i>, zuerst das Package <i><b>LazOpenGLContext x.x.x</b></i> installiert werden.
+Bei Lazarus muss unter <i>**"Package --> Installierte Packages einrichten... --> Verfügbar für Installation"**</i>, zuerst das Package <i>**LazOpenGLContext x.x.x**</i> installiert werden.
 
 Das Tutorial sollte unter Linux und Windows laufen, auf dem Mac habe ich es nicht probiert.
 
@@ -57,23 +58,23 @@ Somit sollten alle Beispiele kompilierbar sein.
 
 Die Sourcen zum Tutorial, kann man alle auf der Hauptseite herunterladen.
 Es ist eine Zip, welche auch alle Bibliotheken (Units) enthält.
-Ich habe eine Package Namens <b>ogl_package.lpk</b> mit den benötigten Dateien erstellt, sie befindet sich im gleiche Ordner wie die <b>Units</b>.  Ich empfehle es, die Package zu installieren,
+Ich habe eine Package Namens **ogl_package.lpk** mit den benötigten Dateien erstellt, sie befindet sich im gleiche Ordner wie die **Units**.  Ich empfehle es, die Package zu installieren,
 obwohl man auch in den Projekte den Unit-Pfad anpassen kann, nur muss man dann in allen Projekten die Pfade anpassen, wen man mal die Package verschiebt/umbenennt.
-Für die ogl-Package ist noch Package BRGABitmap erforderlich, diese lässt sich bequem über <i><b>"Package --> Online-Package-Manger --> BGRABitmap"</b></i> installieren.
+Für die ogl-Package ist noch Package BRGABitmap erforderlich, diese lässt sich bequem über <i>**"Package --> Online-Package-Manger --> BGRABitmap"**</i> installieren.
 
 Die wichtigsten Funktionen der ogl-Package:
-* <b>dglOpenGL</b>: Der Header für die OpenGL-Funktionen.
-* <b>oglContex</b>: Erzeugt einen Zeichencontext, ohne diesem ist keine OpenGL-Ausgabe möglich.
-* <b>oglShader</b>: Enthält Funktionen um den Shader-Code in die Grafikkarte zu laden.
-* <b>oglVertex</b>: Verschiedene Vertex-Deklarationen und Funktionen/Berechnungen.
-* <b>oglMatrix</b>: Verschiedene Matrix-Deklarationen und Funktionen/Berechnungen.
-* <b>oglTextur</b>: Funktionen für das Hochladen von Texturen.
+* **dglOpenGL**: Der Header für die OpenGL-Funktionen.
+* **oglContex**: Erzeugt einen Zeichencontext, ohne diesem ist keine OpenGL-Ausgabe möglich.
+* **oglShader**: Enthält Funktionen um den Shader-Code in die Grafikkarte zu laden.
+* **oglVertex**: Verschiedene Vertex-Deklarationen und Funktionen/Berechnungen.
+* **oglMatrix**: Verschiedene Matrix-Deklarationen und Funktionen/Berechnungen.
+* **oglTextur**: Funktionen für das Hochladen von Texturen.
 
 
 Es sind viele OpenGL spezifische Sachen ausserhalb von Form deklariert, bei einer sauberen objektorientierten Programmierung ist dies nicht üblich.
 Hier wurde es einfachheitshalber der Übersichtlichkeit gemacht.
 
-Wen man weis, wie man mit <b>Delphi</b> einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
+Wen man weis, wie man mit **Delphi** einen OpenGL-Context erzeugt, sollte dieses Tutorial auch mit Delphi funktionieren.
 
 Wenn Fehler gefunden werden, dann bitte hier melden:
 <a href="https://delphigl.com/forum/viewtopic.php?f=14&t=11566 ">DGL-Forum</a>

@@ -4,6 +4,7 @@
 ![image.png](image.png)
 
 Hier wird ein sehr einfacher Shader geladen, welcher nichts anderes macht, als die Dreiecke rot darzustellen.
+
 ---
 Hier wird noch ein Objekt der Klasse TShader deklariert.
 
@@ -23,7 +24,7 @@ type
 Dieser Code wurde um 2 Zeilen erweitert.
 
 In der ersten Zeile wird der Shader in die Grafikkarte geladen.
-Da die Shader-Objecte als Text-Dateien vorliegen, wird hier <b>FileToStr(Datei)</b> verwendet.
+Da die Shader-Objecte als Text-Dateien vorliegen, wird hier **FileToStr(Datei)** verwendet.
 Die zweite Zeile aktiviert den Shader.
 
 ```pascal
@@ -33,8 +34,8 @@ begin
   Shader.UseProgram;
 ```
 
-Beim Zeichnen muss man auch mit <b>Shader[x].UseProgram(...</b> den Shader wählen, wenn man mehr als einen Shader verwendet.
-In der Shader-Klasse steht nichts anderes als<b>glUseProgram(ShaderID);</b> .
+Beim Zeichnen muss man auch mit **Shader[x].UseProgram(...** den Shader wählen, wenn man mehr als einen Shader verwendet.
+In der Shader-Klasse steht nichts anderes als**glUseProgram(ShaderID);** .
 Bei diesem Mini-Code mit nur einem Shader könnte dies weggelassen werden.
 
 ```pascal
@@ -45,8 +46,8 @@ begin
   Shader.UseProgram;
 ```
 
-Am Ende werden mit <b>Shader.Free</b> die Shader in der Grafikkarte wieder freigeben.
-In diesem Destruktor steht <b>glDeleteShader(ShaderID);</b>
+Am Ende werden mit **Shader.Free** die Shader in der Grafikkarte wieder freigeben.
+In diesem Destruktor steht **glDeleteShader(ShaderID);**
 
 ```pascal
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -54,14 +55,16 @@ begin
   Shader.Free;
 ```
 
+
 ---
 Diese Kommentare, welche man hier im Shader sind, werden auch dem der Grafik-Teiber übergeben, aber dieser ingnoriert sie dann.
 Wen man voll auf Perfornance beim laden ab ist, sollte man Kommentare im Shader-Code meiden.
 Auch jede Leerzeile und jede Einrückung bremsen ein wenig ab.
 Auf die später Zeichengeschwindigkeit hat dies aber keinen Einfluss.
 Aber hier im Tutorial wird voll auf solche Optimierungen verzichtet, da wir übersichtlichen Shader-Code sehen wollen.
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -75,8 +78,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330
@@ -90,9 +94,10 @@ void main(void)
 
 ```
 
+
 ---
 So könnte ein optimierter Shader-Code aussehen, dafür ist er aber sehr schlecht leserlich.
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330

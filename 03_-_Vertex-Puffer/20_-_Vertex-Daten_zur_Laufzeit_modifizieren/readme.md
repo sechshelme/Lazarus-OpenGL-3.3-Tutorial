@@ -5,16 +5,17 @@
 
 Bis jetzt waren die Vertexdaten immer statisch. Man kann diese aber auch zur Laufzeit neu in den Vertex-Puffer schreiben.
 
-Da sich nicht nur die Koordinaten ändern, sondern auch die grösse des Mesh, muss die TFaceArray eine <b>dynamische</b> Array sein.
+Da sich nicht nur die Koordinaten ändern, sondern auch die grösse des Mesh, muss die TFaceArray eine **dynamische** Array sein.
 Zur Demonstration, werden alle 1/2 Sekunden neue Vertex-Daten geladen.
 Dafür habe ich einen Kreis gewählt, der zufällig jedes mal eine andere Anzahl Sektoren bekommt. Die Farben der Vektoren werden auch zufällig erzeugt.
----
-Zusätzlich ist noch eine <b>TFaceArray</b> hinzugekommen.
-Das sieht man, das die <b>TFaceArray</b> für das Mesh dynamisch ist.
 
-Für die einzelnen Meshes gibt es nun einen Record, welcher mit <b>size</b> die Grösse der TFace-Array speichert.
-Auch habe ich die Objekt-Namen von <b>VBO</b> und <b>VAO</b> in den Record genommen.
-<b>size</b> ist erforderlich, weil ich die Arraygrösse im RAM auf Null setzte. Sobald die Vertex-Daten sich im VRAM befinden, werden die Daten im RAM nicht mehr gebraucht.
+---
+Zusätzlich ist noch eine **TFaceArray** hinzugekommen.
+Das sieht man, das die **TFaceArray** für das Mesh dynamisch ist.
+
+Für die einzelnen Meshes gibt es nun einen Record, welcher mit **size** die Grösse der TFace-Array speichert.
+Auch habe ich die Objekt-Namen von **VBO** und **VAO** in den Record genommen.
+**size** ist erforderlich, weil ich die Arraygrösse im RAM auf Null setzte. Sobald die Vertex-Daten sich im VRAM befinden, werden die Daten im RAM nicht mehr gebraucht.
 Bei einem sehr grossen Mesh kann man damit kostbares RAM sparen.
 
 ```pascal
@@ -40,7 +41,7 @@ var
 
 Mit dieser Funktion werden neue Vertex-Daten berechnet.
 Es wird ein Kreis mit zufälliger Anzahl Sektoren erzeugt, somit hat man unterschiedlich lange Vertex-Daten.
-Mit <b>ofsx</b> wird das Mesh in der X-Achse verschoben.
+Mit **ofsx** wird das Mesh in der X-Achse verschoben.
 
 ```pascal
 procedure TForm1.CreateVertex(var Mesh: TMesh; ofsx: GLfloat);
@@ -102,7 +103,7 @@ end;
 Das Anlegen der Puffer geht mit einer Schleife viel einfacher.
 Bei den zwei Meshes wie bei diesem Beispiel hier, sind die Ersparnisse nicht so gross, aber will man zB. 20 Kreise darstellen, sieht dies schon viel anders aus.
 
-Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit <b>glBufferData(...</b> nur der Speicher dafür reserviert.
+Da die Vertex-Daten erst zur Laufzeit geladen/geändert werden, wird mit **glBufferData(...** nur der Speicher dafür reserviert.
 
 Auch ist der zweite Parameter (size) etwas anders angegeben, wen man nur SizeOf(Array) macht, würden nur 4Byte zurückgeliefert (Die grösse des Zeigers der Array).
 
@@ -138,17 +139,17 @@ begin
 end;
 ```
 
-Da der Speicher im VRAM schon reserviert ist, kann man mit <b>glBufferSubData(...</b> nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.
+Da der Speicher im VRAM schon reserviert ist, kann man mit **glBufferSubData(...** nur noch die Vertex-Daten in das VRAM schreiben/ersetzen.
 
-Nach dem schreiben ins VRAM , kann mit <b>SetLength(...</b> die Daten im RAM entfernt werden.
+Nach dem schreiben ins VRAM , kann mit **SetLength(...** die Daten im RAM entfernt werden.
 Wen die Daten einmal im VRAM sind, werden sie im RAM nicht mehr gebraucht.
 
-Der Zeiger auf die Vertex-Daten, bei <b>glBufferSubData(...</b> hat sich ein wenig verändert.
-Anstelle von <b>@</b> muss man bei einer dynamischen Array mit <b>Pointer</b> arbeiten.
-Auch wen man mit <b>glBufferData(...</b> schreiben würden muss man es bei der dynamischen Array so machen.
+Der Zeiger auf die Vertex-Daten, bei **glBufferSubData(...** hat sich ein wenig verändert.
+Anstelle von **@** muss man bei einer dynamischen Array mit **Pointer** arbeiten.
+Auch wen man mit **glBufferData(...** schreiben würden muss man es bei der dynamischen Array so machen.
 Ansonsten wird der Zeiger der Array übergeben, anstelle der Daten selbst, da die Array selbst nur ein Zeiger auf die Daten ist.
 
-Mit <b>MeshNr</b> wird die Mesh angegben, welche neu in das VRAM kopiert werden soll.
+Mit **MeshNr** wird die Mesh angegben, welche neu in das VRAM kopiert werden soll.
 
 ```pascal
 procedure TForm1.UpdateScene(MeshNr: integer);
@@ -206,10 +207,11 @@ begin
 end;
 ```
 
+
 ---
 Bei den Shadern gibt es nichts besonders.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -227,8 +229,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

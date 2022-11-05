@@ -5,15 +5,17 @@
 
 Mit Bump-Maping kann man eine Oberfläche noch realistischer gestalten.
 Da viele Oberflächen nicht absolut flach sind, so wie die Fugen im Beispiel, drift das Licht nicht immer gleichen Winkel auf die gesamte Oberfläche.
-Um dies zu simulieren, nimmt man eine Textur, welche Winkelkorreturen enthält, dies ist eine <b>Normal-Map</b>
+Um dies zu simulieren, nimmt man eine Textur, welche Winkelkorreturen enthält, dies ist eine **Normal-Map**
 
 Lazarus-Seitig läuft die genau gleich ab, wie wen man eine enfache Textur lädt.
 Die ganze Berechnung läuft im Fragment-Shader ab.
 
 Der Rest der Beleuchtung läuft gleich ab, so wie bei den anderen Beleuchtungen auch.
+
 ---
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -43,10 +45,11 @@ void main(void)
 
 ```
 
----
-<b>Fragment-Shader</b>
 
-Hier sieht man, das die <b>Normal-Map</b> zur Normalen addiert wird.
+---
+**Fragment-Shader**
+
+Hier sieht man, das die **Normal-Map** zur Normalen addiert wird.
 
 ```glsl
 #version 330

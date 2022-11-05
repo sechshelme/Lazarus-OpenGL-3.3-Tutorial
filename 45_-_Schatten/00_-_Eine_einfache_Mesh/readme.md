@@ -5,6 +5,7 @@
 
 Wen man mehrere Objekte mit Alpha-Blending hat, ist es wichtig, das man zuerst die Objekte zeichnet, die am weitesten weg sind.
 Aus diesem Grund habe ich jeden Objekt eine eigene Matrix gegeben. Somit kann ich die Object anhand dieser Matrix sortieren, das sie später in richtiger Reihenfolge gezeichnet werden können.
+
 ---
 Hier wird der Speicher für die Würfel angefordert.
 
@@ -124,8 +125,9 @@ end;
 
 ```
 
+
 ---
-<b>Shader für Baum:</b>
+**Shader für Baum:**
 
 ```glsl
 $vertex
@@ -158,8 +160,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Shader für Wand</b>
+**Shader für Wand**
 
 ```glsl
 $vertex

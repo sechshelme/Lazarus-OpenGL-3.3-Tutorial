@@ -3,15 +3,17 @@
 
 ![image.png](image.png)
 
-Material-Eigenschaften sind auch mit <b>Point-Light</b> möglich.
+Material-Eigenschaften sind auch mit **Point-Light** möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
 In diesem Beispiel sind die Kugeln aus Kupfer.
+
 ---
+
 ---
 Der einzige Unterschied gegenüber des Directional-Light befindet sich im Shader.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -40,8 +42,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

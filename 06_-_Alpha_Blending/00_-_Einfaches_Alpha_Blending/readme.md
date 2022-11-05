@@ -6,6 +6,7 @@
 Mit OpenGL kann man auch (halb)tranparente Elemente zeichen.
 Dafür gibt es Alphablending. Der Transparent-Faktor wird mit dem vierten Wert im Vector angegeben. Dies ist auch im Shader der Fall.
 Alphablending kann man auch auf Texturen anwenden, zB. um eine Baum zu zeichnen, oder auch nur eine Scheibe. Dazu mehr unter Texturen.
+
 ---
 Neben einem Face mit 3 Werten, gibt es jetzt noch eines mit einem vierten, welcher dann den Aplhablending angibt.
 
@@ -15,7 +16,7 @@ type
   TFace4f = array[0..2] of TVector4f;  // Mit Alpha
 ```
 
-Beim Color sieht man auch den vierten Parameter. Wobei <b>0.0</b> voll Transparent ist. und <b>1.0</b> undurchsichtig.
+Beim Color sieht man auch den vierten Parameter. Wobei **0.0** voll Transparent ist. und **1.0** undurchsichtig.
 Wen man nur den RGB-Wert betrachtet, wäre das Dreieck voll rot und das Rechteck grün.
 
 ```pascal
@@ -34,7 +35,7 @@ const
 ```
 
 Hier kommen zwie wichtige Zeilen hinzu, mit der Ersten wird Alphablending aktiviert und mit der zweiten gibt man die Art des Blinding an.
-Bei <b>glVertexAttribPointer(...</b> bei der Farbe sieht man, das ein Vector 4 Werte anstelle 3 hat.
+Bei **glVertexAttribPointer(...** bei der Farbe sieht man, das ein Vector 4 Werte anstelle 3 hat.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -63,11 +64,12 @@ begin
   glVertexAttribPointer(11, 4, GL_FLOAT, False, 0, nil);
 ```
 
----
-Die Shader sind sehr einfach gehalten. Man könnte mit <b>Color.a</b> direkt einen Alphawert zuordnen.
-Da der Alpha-Kanal gebraucht wird, sieht man mehrfach <b>vec4</b> anstelle <b>vec3</b>.
 
-<b>Vertex-Shader:</b>
+---
+Die Shader sind sehr einfach gehalten. Man könnte mit **Color.a** direkt einen Alphawert zuordnen.
+Da der Alpha-Kanal gebraucht wird, sieht man mehrfach **vec4** anstelle **vec3**.
+
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -87,8 +89,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

@@ -96,7 +96,6 @@ begin
 
   sl2.Add(slWiki.Text);
 
-
   sl2.Text := StringReplace(sl2.Text, '<b>', #39#39#39, [rfReplaceAll]);
   sl2.Text := StringReplace(sl2.Text, '</b>', #39#39#39, [rfReplaceAll]);
 

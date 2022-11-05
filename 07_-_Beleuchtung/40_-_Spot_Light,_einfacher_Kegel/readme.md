@@ -8,16 +8,17 @@ Da es für ein Spotlicht mehrere Schritte braucht, wird dies in mehreren Beispie
 In diesem Beispiel wird zuerst mal gezeigt, wie der Lichtkegen berechnet wird.
 Die Beleuchtung berechnung mit den Normalen wird zuerst mal ingnoriert.
 So sieht man gut, wie der Lichtkegel entsteht.
+
 ---
 Bei einem Spotlicht, ist die Lichtposition kein Einheitsvektor mehr.
 Die Licht-Position ist ist die effektive Position der Lichtquelle, so wie es bei einer Taschenlampe auch der Fall ist.
 
-Da die <b>halbe</b> Seitenlänge der kompletten Meshes etwa 30.0 lang ist, wird das Licht in einem Radius von 25.0 positioniert.
+Da die **halbe** Seitenlänge der kompletten Meshes etwa 30.0 lang ist, wird das Licht in einem Radius von 25.0 positioniert.
 Die Lichtquelle befindet sich somit in dem kompletten Würfel-Körper.
 
 Als Versuch kann man den Radius mal auf 50.0 setzen, dann wird man sehen, das die Lichtquelle ausserhalb der Meshes ist.
 
-Es werden Einheitsvektoren um den Faktor <b>LichtPositionRadius</b> skaliert.
+Es werden Einheitsvektoren um den Faktor **LichtPositionRadius** skaliert.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -36,10 +37,11 @@ begin
   end;
 ```
 
+
 ---
 Hier wird die Kegelberechnung ausgeführt.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -60,8 +62,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 Der wichtigste Parameter ist der Ausstrahlwinkel der Lichtes.
 

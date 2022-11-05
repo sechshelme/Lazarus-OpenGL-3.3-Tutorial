@@ -5,6 +5,7 @@
 
 Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
 Somit werden die Mesh mehrfarbig.
+
 ---
 Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
 
@@ -22,7 +23,7 @@ const
     ((1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 1.0)));
 ```
 
-Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.
+Für die Farbe ist ein zusätzliches **Vertex Buffer Object** (VBO) hinzugekommen.
 
 ```pascal
 type
@@ -43,8 +44,8 @@ Die VB0 für den Farben-Puffer müssen noch generiert werden.
   glGenBuffers(1, @VBQuad.VBOcol);       // neu hinzugekommen
 ```
 
-Hier fast der wichtigste Teil, pro <b>Vertex Array Object</b> (VAO) wird ein zweiter Puffer in das VRAM geladen.
-Die 10 und 11, muss indentisch sein, mit dem <b>location</b> im Shader.
+Hier fast der wichtigste Teil, pro **Vertex Array Object** (VAO) wird ein zweiter Puffer in das VRAM geladen.
+Die 10 und 11, muss indentisch sein, mit dem **location** im Shader.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -105,8 +106,9 @@ Freigaben müssen immer gleich viele sein wie Erzeugungen.
   glDeleteBuffers(1, @VBQuad.VBOcol);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.
 
@@ -126,8 +128,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

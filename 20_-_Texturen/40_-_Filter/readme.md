@@ -6,9 +6,10 @@
 Hier wird gezeigt, wie man Filter für Texturen verwenden kann.
 In diesem Beispiel wird nur eine Texturen geladen, aber es werden mehrere Filter verwendet.
 
-Die Filter verstellt man mit <b>glTexParameter(...</b>.
+Die Filter verstellt man mit **glTexParameter(...**.
+
 ---
-Hier wird die Textur geladen und der Filter <b>MIN_FILTER</b> festgelegt, welcher für alle Ausgaben gültig ist.
+Hier wird die Textur geladen und der Filter **MIN_FILTER** festgelegt, welcher für alle Ausgaben gültig ist.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -32,7 +33,7 @@ begin
   end;
 ```
 
-Bei dem Filter <b>GL_CLAMP_TO_BORDER</b> kann man noch eine Hintergrundfarbe festlegen.
+Bei dem Filter **GL_CLAMP_TO_BORDER** kann man noch eine Hintergrundfarbe festlegen.
 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -97,8 +98,9 @@ begin
 end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 
 ```glsl
@@ -119,8 +121,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 
 ```glsl
@@ -139,8 +142,9 @@ void main()
 
 ```
 
+
 ---
-<b>bild.xpm</b>
+**bild.xpm**
 
 
 ```glsl

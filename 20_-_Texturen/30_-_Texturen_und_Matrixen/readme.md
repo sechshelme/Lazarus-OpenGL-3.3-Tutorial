@@ -8,6 +8,7 @@ Dies geschieht ähnlich, wie bei den Vertex-Koordinanten, der grösste Unterschi
 
 Dabei ist zu beachten, das beim Drehen/Verschieben die Transformationen in umgekehrter Reihenfolge verläuft,
 im Gegensatz zu Vertex-Koordinaten.
+
 ---
 Das die Textur in der Mitte des Rechteckes dreht, muss sie um 0.5 verschoben werden.
 
@@ -92,10 +93,11 @@ begin
 end;
 ```
 
+
 ---
 Hier sieht man, wie die Texturkoordinaten anhand der Matrix manipuliert werden.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -118,8 +120,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

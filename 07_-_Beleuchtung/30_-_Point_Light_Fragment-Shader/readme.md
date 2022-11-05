@@ -6,11 +6,12 @@
 Die Berechnung des Lichtes wurde in den Fertex-Shader ausgelagert, somit sieht das Punkt-Licht viel realistischer aus.
 Am besten sieht man dies, wen man nur ein Würfel darstellt.
 
-Der Nachteil dabei, es wird mehr <b>GPU</b>-Leistung verlangt, als wen man es im Vertex-Shader berechnet.
+Der Nachteil dabei, es wird mehr **GPU**-Leistung verlangt, als wen man es im Vertex-Shader berechnet.
+
 ---
 Hier sieht man, das die Berechnung des Lichtes im Fragment-Shader ist.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -36,8 +37,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

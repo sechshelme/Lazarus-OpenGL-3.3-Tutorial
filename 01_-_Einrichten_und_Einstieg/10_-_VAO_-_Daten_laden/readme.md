@@ -4,9 +4,10 @@
 ![image.png](image.png)
 
 Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.
-<b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.
+**Hinweis:** Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.
 Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Windows sichtbar sein.
 Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.
+
 ---
 Typen-Deklaration für die Face-Daten.
 
@@ -27,8 +28,8 @@ const
     ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
 ```
 
-Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der grösste Teil, die Klasse <b>TContext</b>, der Unit <b>oglContext</b>.
-Anstelle von <b>Self</b>, kann auch ein anderes <b>TWinControl</b> angegeben werden, zB. ein <b>TPanel</b>.
+Für den Contexterzeugung und sonstige OpenGL-Inizialisationen, übernimmt der grösste Teil, die Klasse **TContext**, der Unit **oglContext**.
+Anstelle von **Self**, kann auch ein anderes **TWinControl** angegeben werden, zB. ein **TPanel**.
 
 Am Ende müssen noch diese beiden Prozeduren aufgerufen werden, welche die Puffer für die Mesh erzeugen und die Vertexkoordinaten in den Puffer laden.
 
@@ -45,8 +46,8 @@ end;
 
 Buffer für Vertex-Daten anlegen.
 
-Mit <b>glGenVertexArrays(...</b> wird ein <b>Vertex Array Object</b> für jedes Mesh erzeugt.
-Mit <b>glGenBuffers(...</b> wird ein <b>Vertex Buffer Object</b> für die Vertex-Daten des Meshes erzeugt.
+Mit **glGenVertexArrays(...** wird ein **Vertex Array Object** für jedes Mesh erzeugt.
+Mit **glGenBuffers(...** wird ein **Vertex Buffer Object** für die Vertex-Daten des Meshes erzeugt.
 
 ```pascal
 procedure TForm1.CreateScene;
@@ -61,12 +62,12 @@ end;
 
 Die folgenden Anweisungen laden die Vertex-Daten in das VRAM.
 
-Mit <b>glBindVertexArray(...</b> wird das gewünschte Mesh gebunden, so das man mit <b>glBufferData(...</b> die Vertex-Daten in das VRAM schreiben kann.
-Mit <b>glEnableVertexAttribArray(...</b> gibt man an, welches Layout man im Shader will.
-Mit <b>glVertexAttribPointer(...</b> gibt man an, in welchem Format man die Vertex-Daten übergeben hat.
-Der erste Parameter (<b>Index</b>) muss mit den Wert bei <b>location</b> im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.
+Mit **glBindVertexArray(...** wird das gewünschte Mesh gebunden, so das man mit **glBufferData(...** die Vertex-Daten in das VRAM schreiben kann.
+Mit **glEnableVertexAttribArray(...** gibt man an, welches Layout man im Shader will.
+Mit **glVertexAttribPointer(...** gibt man an, in welchem Format man die Vertex-Daten übergeben hat.
+Der erste Parameter (**Index**) muss mit den Wert bei **location** im Shader übereinstimmen, dies ist momentan aber nicht relevant, da (noch) gar kein Shader geladen ist.
 
-<b>InitScene</b> kann zur Laufzeit mit anderen Daten geladen werden.
+**InitScene** kann zur Laufzeit mit anderen Daten geladen werden.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -93,9 +94,9 @@ Jetzt wird das gerenderte Objekt im VRAM auf dem Bildschirm ausgegeben.
 
 Da kommt ein grosser Vorteil von OpenGL 3.3 zu Geltung.
 
-Man muss nur noch mit <b>glBindVertexArray(...</b> das Mesh wählen, das man ausgeben will.
-Gezeichnet wird dann mit <b>glDrawArrays(...</b>, meistens werden mit <b>GL_TRIANGLES</b> Dreiecke ausgegeben.
-Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit <b>glBegin(...</b> konnte !
+Man muss nur noch mit **glBindVertexArray(...** das Mesh wählen, das man ausgeben will.
+Gezeichnet wird dann mit **glDrawArrays(...**, meistens werden mit **GL_TRIANGLES** Dreiecke ausgegeben.
+Quadrate und Polygone gehen NICHT mehr, so wie man es noch mit **glBegin(...** konnte !
 
 Shapes, welche funktionieren:
 
@@ -134,7 +135,7 @@ begin
 end;
 ```
 
-Am Ende muss man die angelegten <b>Vertex Array Objects</b> und <b>Vertex Buffer Objects</b> wieder freigeben.
+Am Ende muss man die angelegten **Vertex Array Objects** und **Vertex Buffer Objects** wieder freigeben.
 
 ```pascal
 procedure TForm1.FormDestroy(Sender: TObject);

@@ -6,6 +6,7 @@
 Hier wird gezeigt, wie man mit mehreren Shader arbeitet. In diesem Beispiel sind es zwei.
 Der Unterschied der beiden Shader ist, dass der eine das Mesh grün färbt, der andere rot.
 Normalerweise würde man dies mit nur einem Shader über eine Uniform-Variable realisieren, jedoch geht es hier darum zu zeigen, wie man mehrere Shader verwendet.
+
 ---
 In diesem Codeausschnitt sind die ersten beiden Zeilen interessant.
 Hier werden die zwei Shader in die Grafikkarte geladen.
@@ -19,7 +20,7 @@ begin
   Shader[1] := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader1.glsl')]);
 ```
 
-Beim Zeichnen muss man jetzt tatsächlich mit <b>Shader[x].UseProgram(...</b> den Shader wählen, da mehr als ein Shader verwendet wird.
+Beim Zeichnen muss man jetzt tatsächlich mit **Shader[x].UseProgram(...** den Shader wählen, da mehr als ein Shader verwendet wird.
 Die Meshes sollten nun zwei verschiedene Farben haben.
 
 ```pascal
@@ -35,7 +36,7 @@ Die Meshes sollten nun zwei verschiedene Farben haben.
 
 ```
 
-Am Ende noch mit <b>Shader[x].Free</b> die Shader in der Grafikkarte wieder freigeben.
+Am Ende noch mit **Shader[x].Free** die Shader in der Grafikkarte wieder freigeben.
 
 ```pascal
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -44,8 +45,9 @@ begin
   Shader[1].Free;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 Der Vertex-Shader ist bei beiden Shader gleich.
 
 ```glsl
@@ -59,7 +61,7 @@ void main(void)
 
 ```
 
-<b>Fragment-Shader 0:</b>
+**Fragment-Shader 0:**
 
 ```glsl
 #version 330
@@ -73,7 +75,7 @@ void main(void)
 
 ```
 
-<b>Fragment-Shader 1:</b>
+**Fragment-Shader 1:**
 
 ```glsl
 #version 330

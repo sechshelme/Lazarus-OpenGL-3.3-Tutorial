@@ -7,12 +7,14 @@ Material-Eigenschaften sind auch mit Spot-Light möglich.
 Dies funktioniert etwa gleich, wie das Point-Light ohne Material-Eigenschaften.
 
 Bei diesem Beispiel, wird mit einer Taschenlampe in einen Jade-Würfel gezündet.
+
 ---
+
 ---
 Dieser Shader ist schon sehr komplex.
 Neben der Spotlichtberechnung, wird noch die Abschwächung des Lichtes berücksichtigt.
 
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -41,8 +43,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

@@ -83,34 +83,18 @@ var
 begin
   sl2 := TStringList.Create;
 
-  //sl2.Add('<!DOCTYPE html>');
-  //  sl2.Add('<html>');
-  //sl2.Add('  <head>');
-  //sl2.Add('    <meta charset="utf-8">');
-  //sl2.Add('    <title>' + getTitle + '</title>');
-  //sl2.Add('    <style>');
-  //sl2.Add('      pre {background-color:#' + BKColor + '; color:#' + FontColor + '; font-family: Fixedsys,Courier,monospace; padding:10px;}');
-  //sl2.Add('    </style>');
-  //sl2.Add('  </head>');
-  //sl2.Add('  <body bgcolor="#' + IntToHex(bgColor, 6) + '">');
   sl2.Add('# ' + fKapitel);
   sl2.Add('## ' + getTitle + LineEnding);
 
   sl2.Add(slHTML.Text);
-
-  //  sl2.Add('    <br><br><br>');
-  //  sl2.Add('<h2>' + HTMLAddLink('../../index.html', 'zurück') + '</h2>');
-  //  sl2.Add('  </body>');
-  //  sl2.Add('</html>');
 
   ForceDirectories(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator);
   if TutPara.TutPfad <> TutPara.ReadmeMDPfad then begin
     CopyFile(TutPara.TutPfad + fFolder + '/image.png', TutPara.ReadmeMDPfad + fFolder + '/image.png');
   end;
 
-  //  sl2.Text := StringReplace(sl2.Text, ' < ', ' &lt; ', [rfReplaceAll, rfIgnoreCase]);
-  //  sl2.Text := StringReplace(sl2.Text, ' > ', ' &gt; ', [rfReplaceAll, rfIgnoreCase]);
-  //  sl2.Text := StringReplace(sl2.Text, LineEnding + LineEnding, LineEnding + '<br>' + LineEnding, [rfReplaceAll, rfIgnoreCase]);
+  sl2.Text := StringReplace(sl2.Text, '<b>', '**', [rfReplaceAll]);
+  sl2.Text := StringReplace(sl2.Text, '</b>','**', [rfReplaceAll]);
 
   sl2.SaveToFile(TutPara.ReadmeMDPfad + fFolder + DirectorySeparator + 'readme.md');
 
@@ -512,11 +496,9 @@ begin
       AddTextCode(TutPara.TutPfad + fFolder + '/' + Copy(slUnit[i], 15));
     end else if Pos('//image ', slUnit[i]) > 0 then begin
       s := Copy(slUnit[i], 9);
-      //      slHTML.Add('<img src="' + Copy(slUnit[i], 9) + '" alt="Selfhtml"><br><br>');
       slHTML.Add('![' + s + '](' + s + ')' + LineEnding);
     end else if Pos('//lineal', slUnit[i]) > 0 then begin
-      //      slHTML.Add('<hr><br>');
-      slHTML.Add('---');
+      slHTML.Add(LineEnding+'---');
     end else if Pos('//link ', slUnit[i]) > 0 then begin
       p := Pos(' ', Copy(slUnit[i], 8));
       slHTML.Add(HTMLAddLink(Copy(slUnit[i], 8, p), Copy(slUnit[i], 8 + p)));
@@ -548,7 +530,6 @@ begin
         slCode.Add(slUnit[i]);
       end;
     end else if isText then begin
-      //      slHTML.Add(slUnit[i] + '<br>');
       slHTML.Add(slUnit[i]);
     end;
   end;

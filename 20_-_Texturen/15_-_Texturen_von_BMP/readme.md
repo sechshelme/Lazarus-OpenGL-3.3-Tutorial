@@ -5,17 +5,18 @@
 
 In der Praxis liegen die Texturen meisten als Bitmap, auf der Festplatte.
 Hier wird gezeigt, wie man eine 24Bit BMP als Textur lädt.
+
 ---
-Der Unterschied zur Konstante, das man die Bitmap noch laden muss, und anschliessend einen Zeiger darauf <b>glTexImage2D(...</b> mit gibt.
+Der Unterschied zur Konstante, das man die Bitmap noch laden muss, und anschliessend einen Zeiger darauf **glTexImage2D(...** mit gibt.
 Man kann auch eine Bitmap selbst über Canvas zeichnen.
 
-Das es sich hier um eine BMP-Datei handelt, kann man diese direkt mit <b>TBitmap</b> laden.
+Das es sich hier um eine BMP-Datei handelt, kann man diese direkt mit **TBitmap** laden.
 
 Anstelle von TBitmap kann man auch TPicture verwenden. Was sehr wichtig ist, man muss wissen in welchen Format die Bitmap gespeichert ist.
-Je nach dem in welchen Format die Bitmap vorliegt, müssen die Parameter in <b>glTexImage2D(...</b> angepasst werden.
-In diesen Beispiel sind es die Konstanten <b>GL_RGB</b> und <b>GL_BGR</b>.
+Je nach dem in welchen Format die Bitmap vorliegt, müssen die Parameter in **glTexImage2D(...** angepasst werden.
+In diesen Beispiel sind es die Konstanten **GL_RGB** und **GL_BGR**.
 
-Wen man eine Bitmap mit der Unit <b>oglTextur</b> lädt, werden diese Parameter automatisch angepasst.
+Wen man eine Bitmap mit der Unit **oglTextur** lädt, werden diese Parameter automatisch angepasst.
 
 Unterumständen könnte es noch exotische Formate geben, welche (noch) nicht unterstützt werden.
 Bei einem Fehler bitte im DGL-Forum melden, evt. kann man es dann noch anpassen. ;-)
@@ -38,8 +39,9 @@ begin
   end;
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -59,8 +61,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader:</b>
+**Fragment-Shader:**
 
 ```glsl
 #version 330

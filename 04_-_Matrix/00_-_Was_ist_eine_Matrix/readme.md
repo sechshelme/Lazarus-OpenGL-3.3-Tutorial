@@ -6,11 +6,11 @@ Der mathematische Teil von Matrix wird hier nicht behandelt, in diesem Tutorial 
 Wen jemand den mathematischen Teil interessiert, gibt es schon fertige Tutorials dazu.
 Der zweite Grund, ich versteht das auch nicht Ganz, und somit will ich verhindern, das ich etwas falsches weiter gebe. :ops:
 
-Was ein wenig irritiert, auf der <b>2D</b>-Ebene wird eine <b>3x3</b>-Matrix verwendet und in der <b>3D</b>-Ebene eine 4<b>x4</b>-Matrix.
+Was ein wenig irritiert, auf der **2D**-Ebene wird eine **3x3**-Matrix verwendet und in der **3D**-Ebene eine 4**x4**-Matrix.
 Einfach gesagt, die vorderen Spalten beinhalten die Richtung und Skalierung, die hinterste Spalte die Position.
 
 Ich habe eine fertige Bibliotheke für Matrizen, bei der ich die gängigen Funktionen beschreiben will.
-Es wird hier fast nur eine <b>4x4</b>-Matrix verwendet, die Standard mässig so auf gebaut ist:
+Es wird hier fast nur eine **4x4**-Matrix verwendet, die Standard mässig so auf gebaut ist:
 |   |   |   |   |
 |---|---|---|---|
 | 1 | 0 | 0 | 0 |
@@ -31,7 +31,7 @@ Die hinterste Spalte gibt die Verschiebung an. Die unterste Zeile wird nur verä
 |  0 |  0 |  0 |  1 |
 
 
-Für die Verschiebungen (<b>Translate</b>):
+Für die Verschiebungen (**Translate**):
 |   |   |   |   |
 |---|---|---|---|
 |  1 |  0 |  0 | tx |
@@ -41,7 +41,7 @@ Für die Verschiebungen (<b>Translate</b>):
 
 
 
-Für die Skalierung (<b>Scale</b>):
+Für die Skalierung (**Scale**):
 |   |   |   |   |
 |---|---|---|---|
 | sx |  0 |  0 | tx |
@@ -51,7 +51,7 @@ Für die Skalierung (<b>Scale</b>):
 
 
 
-Für die Rotation A-Achse (<b>RotateA</b>):
+Für die Rotation A-Achse (**RotateA**):
 |   |   |   |   |
 |---|---|---|---|
 |    1   |    0   |    0   |    0   |
@@ -61,7 +61,7 @@ Für die Rotation A-Achse (<b>RotateA</b>):
 
 
 
-Für die Rotation B-Achse (<b>RotateB</b>):
+Für die Rotation B-Achse (**RotateB**):
 |   |   |   |   |
 |---|---|---|---|
 |  cos(d) |    0   | sin(d) |    0   |
@@ -71,7 +71,7 @@ Für die Rotation B-Achse (<b>RotateB</b>):
 
 
 
-Für die Rotation C-Achse (<b>RotateC</b>):
+Für die Rotation C-Achse (**RotateC**):
 |   |   |   |   |
 |---|---|---|---|
 | cos(d) |-sin(d) |    0   |    0   |
@@ -79,8 +79,9 @@ Für die Rotation C-Achse (<b>RotateC</b>):
 |    0   |    0   |    1   |    0   |
 |    0   |    0   |    0   |    1   |
 
+
 ---
-Die Anwendung der <b>Matrix-Bibliothek</b> ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.
+Die Anwendung der **Matrix-Bibliothek** ist sehr einfach, so das man nicht mal wissen muss, wie eine Matrix aufgebaut ist.
 
 ```pascal
 var
@@ -93,5 +94,5 @@ begin
   Matrix.Uniform(ID_im_Shader);  // Die Matrix dem Shader übergeben.
 ```
 
-Ausser im ersten Beispiel werde ich nur noch diese <b>Bibliothek</b> verwenden. Somit werden die Beispiele sehr übersichtlich.
+Ausser im ersten Beispiel werde ich nur noch diese **Bibliothek** verwenden. Somit werden die Beispiele sehr übersichtlich.
 

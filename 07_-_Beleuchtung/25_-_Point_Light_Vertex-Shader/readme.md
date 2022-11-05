@@ -8,8 +8,9 @@ In diesem Beispiel werden Würfel anstelle der Kugeln verwendet.
 Das Licht wird immer noch im Vertex-Shader berechnet, die hat zwar den Vorteil, das es einges schneller geht als mit dem Fragmsnt-Shader.
 Dafür ist di Darstellung des Point-Lichtes unrealistisch. Das sieht man gut, wen man nur ein Würfel darstellt, da ist die Fläche eines Dreieckes sehr gross.
 Bei den Kugel war dieser Effekt kaum sichtbar, das sehr kleine Dreiecke verwendet werden.
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
 ```glsl
 #version 330
@@ -65,8 +66,9 @@ void main(void) {
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330

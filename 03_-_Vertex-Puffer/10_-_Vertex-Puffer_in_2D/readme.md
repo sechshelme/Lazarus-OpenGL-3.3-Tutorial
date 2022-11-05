@@ -3,11 +3,12 @@
 
 ![image.png](image.png)
 
-Wen man nur eine 2D-Mesh hat, kann man die Vektor-Koordinaten auch als <b>2D</b> in das VRAM laden.
-Man kann sich dabei den <b>Z-Wert</b> sparen. Matrix-Operation mit eine 4x4 Matrix funktionieren wie wen es 3D wäre.
-Für die Farbe wird hier nur eine <b>1D-Array</b> verwendet, da die Mesh nur Rot-Töne enthält. <b>Grün</b> und <b>Blau</b> wird im Shader auf <b>0.0</b> gesetzt.
+Wen man nur eine 2D-Mesh hat, kann man die Vektor-Koordinaten auch als **2D** in das VRAM laden.
+Man kann sich dabei den **Z-Wert** sparen. Matrix-Operation mit eine 4x4 Matrix funktionieren wie wen es 3D wäre.
+Für die Farbe wird hier nur eine **1D-Array** verwendet, da die Mesh nur Rot-Töne enthält. **Grün** und **Blau** wird im Shader auf **0.0** gesetzt.
 
-Man könnte zusätzlich noch einen <b>VBO</b> für <b>Rot</b> und <b>Grün</b> erzeugen. Somit könnte man jede Farbe einzeln in eine Array schreiben.
+Man könnte zusätzlich noch einen **VBO** für **Rot** und **Grün** erzeugen. Somit könnte man jede Farbe einzeln in eine Array schreiben.
+
 ---
 Ein 2D-Vertex ist noch dazu gekommen.
 
@@ -17,7 +18,7 @@ type
 ```
 
 Die Vector-Konstanten sind nur noch 2D, der Z-Wert fehlt.
-Die Farbe ist nur noch ein einfacher <b>float</b>, da nur Rot ausgegeben wird.
+Die Farbe ist nur noch ein einfacher **float**, da nur Rot ausgegeben wird.
 
 ```pascal
 const
@@ -31,9 +32,9 @@ const
     ((0.5, 0.0, 1.0), (0.5, 1.0, 0.0));
 ```
 
-Bei <b>glVertexAttribPointer(...</b> wurde der zweite Parameter, von <b>3</b> auf <b>2</b> ersetzt.
-Bei einer Farb-Übergabe mit Alpha-Blending (RGBA), kann es auch eine <b>4</b> sein.
-Hier wird sogar nur eine <b>1</b> verwendet, da die Rot-Töne nur eine einfache Array ist.
+Bei **glVertexAttribPointer(...** wurde der zweite Parameter, von **3** auf **2** ersetzt.
+Bei einer Farb-Übergabe mit Alpha-Blending (RGBA), kann es auch eine **4** sein.
+Hier wird sogar nur eine **1** verwendet, da die Rot-Töne nur eine einfache Array ist.
 
 ```pascal
 procedure TForm1.InitScene;
@@ -56,14 +57,15 @@ begin
   glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
 ```
 
+
 ---
-<b>Vertex-Shader:</b>
+**Vertex-Shader:**
 
-Der Z-Wert des Vektors wird konstant auf <b>0.0</b> gesetzt.
+Der Z-Wert des Vektors wird konstant auf **0.0** gesetzt.
 Eine Z-Bewegung der ganzen Mesh ist mit einer Matrix trozdem noch möglich. ZB. für Sprite-Darstellung.
-Die <b>in</b>-Variable könnte man auch auf <b>vec3</b> belassen, wie bei einem normalen 3D-Shader. Es wird dann automatisch ein <b>0.0</b> für den Z-Wert gesetzt.
+Die **in**-Variable könnte man auch auf **vec3** belassen, wie bei einem normalen 3D-Shader. Es wird dann automatisch ein **0.0** für den Z-Wert gesetzt.
 
-Die Farbe kommt nur noch in einem <b>float</b> an, aus diesem Grund hat <b>Grün</b> und <b>Blau</b> eine feste Konstante <b>0.0</b>.
+Die Farbe kommt nur noch in einem **float** an, aus diesem Grund hat **Grün** und **Blau** eine feste Konstante **0.0**.
 
 ```glsl
 #version 330
@@ -81,8 +83,9 @@ void main(void)
 
 ```
 
+
 ---
-<b>Fragment-Shader</b>
+**Fragment-Shader**
 
 ```glsl
 #version 330
