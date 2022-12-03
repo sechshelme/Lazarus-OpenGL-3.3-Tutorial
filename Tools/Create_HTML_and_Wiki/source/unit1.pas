@@ -17,6 +17,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    CloseBtn: TButton;
     ButtonCreateReadmeMD: TButton;
     ButtonWikiText: TButton;
     ButtonCreateWiki: TButton;
@@ -44,6 +45,7 @@ type
     procedure ButtonCopySourceClick(Sender: TObject);
     procedure ButtonSort1Click(Sender: TObject);
     procedure ButtonWikiTextClick(Sender: TObject);
+    procedure CloseBtnClick(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -386,6 +388,11 @@ end;
 procedure TForm1.ButtonWikiTextClick(Sender: TObject);
 begin
   WikiTextForm.ShowModal;
+end;
+
+procedure TForm1.CloseBtnClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TForm1.ReadSection(aktSektions: string; ini: TIniFile);

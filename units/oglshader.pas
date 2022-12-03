@@ -352,7 +352,7 @@ begin
   Result := glGetUniformLocation(FProgramObject, ch);
   if Result = -1 then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
-    LogForm.Show;
+//    LogForm.Show;
   end;
 end;
 

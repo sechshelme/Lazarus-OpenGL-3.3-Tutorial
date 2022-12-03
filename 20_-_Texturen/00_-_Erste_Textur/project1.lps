@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="12">
+    <Units Count="13">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,8 +22,8 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="195"/>
-        <CursorPos X="4" Y="218"/>
+        <TopLine Value="148"/>
+        <CursorPos X="7" Y="169"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,18 +53,18 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="48" Y="13"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <CursorPos X="29" Y="12"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -102,132 +102,140 @@
         <CursorPos X="38" Y="12"/>
         <UsageCount Value="11"/>
       </Unit11>
+      <Unit12>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="242"/>
+        <CursorPos X="3" Y="230"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit12>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="unit1.pas"/>
-        <Caret Line="271" Column="19" TopLine="206"/>
+        <Caret Line="23" Column="12" TopLine="16"/>
       </Position1>
       <Position2>
         <Filename Value="unit1.pas"/>
-        <Caret Line="185" Column="24" TopLine="153"/>
+        <Caret Line="58" Column="18" TopLine="43"/>
       </Position2>
       <Position3>
         <Filename Value="unit1.pas"/>
-        <Caret Line="167" Column="3" TopLine="165"/>
+        <Caret Line="59" Column="22" TopLine="31"/>
       </Position3>
       <Position4>
         <Filename Value="unit1.pas"/>
-        <Caret Line="23" Column="12" TopLine="16"/>
+        <Caret Line="70" Column="22" TopLine="56"/>
       </Position4>
       <Position5>
         <Filename Value="unit1.pas"/>
-        <Caret Line="58" Column="18" TopLine="43"/>
+        <Caret Line="84" Column="14" TopLine="56"/>
       </Position5>
       <Position6>
         <Filename Value="unit1.pas"/>
-        <Caret Line="59" Column="22" TopLine="31"/>
+        <Caret Line="122" Column="37" TopLine="93"/>
       </Position6>
       <Position7>
         <Filename Value="unit1.pas"/>
-        <Caret Line="70" Column="22" TopLine="56"/>
+        <Caret Line="134" TopLine="103"/>
       </Position7>
       <Position8>
         <Filename Value="unit1.pas"/>
-        <Caret Line="84" Column="14" TopLine="56"/>
+        <Caret Line="86" Column="13" TopLine="40"/>
       </Position8>
       <Position9>
         <Filename Value="unit1.pas"/>
-        <Caret Line="122" Column="37" TopLine="93"/>
+        <Caret Line="54" TopLine="28"/>
       </Position9>
       <Position10>
         <Filename Value="unit1.pas"/>
-        <Caret Line="134" TopLine="103"/>
+        <Caret Line="80" TopLine="50"/>
       </Position10>
       <Position11>
         <Filename Value="unit1.pas"/>
-        <Caret Line="86" Column="13" TopLine="40"/>
+        <Caret Line="113" TopLine="85"/>
       </Position11>
       <Position12>
         <Filename Value="unit1.pas"/>
-        <Caret Line="54" TopLine="28"/>
+        <Caret Line="142" Column="47" TopLine="113"/>
       </Position12>
       <Position13>
         <Filename Value="unit1.pas"/>
-        <Caret Line="80" TopLine="50"/>
+        <Caret Line="209" Column="84" TopLine="164"/>
       </Position13>
       <Position14>
         <Filename Value="unit1.pas"/>
-        <Caret Line="113" TopLine="85"/>
+        <Caret Line="134" Column="72" TopLine="106"/>
       </Position14>
       <Position15>
         <Filename Value="unit1.pas"/>
-        <Caret Line="142" Column="47" TopLine="113"/>
+        <Caret Line="216" Column="21" TopLine="180"/>
       </Position15>
       <Position16>
         <Filename Value="unit1.pas"/>
-        <Caret Line="209" Column="84" TopLine="164"/>
+        <Caret Line="208" Column="14" TopLine="180"/>
       </Position16>
       <Position17>
         <Filename Value="unit1.pas"/>
-        <Caret Line="134" Column="72" TopLine="106"/>
+        <Caret Line="134" Column="149" TopLine="110"/>
       </Position17>
       <Position18>
         <Filename Value="unit1.pas"/>
-        <Caret Line="216" Column="21" TopLine="180"/>
+        <Caret Line="215" Column="87" TopLine="182"/>
       </Position18>
       <Position19>
         <Filename Value="unit1.pas"/>
-        <Caret Line="208" Column="14" TopLine="180"/>
+        <Caret Line="65" TopLine="44"/>
       </Position19>
       <Position20>
         <Filename Value="unit1.pas"/>
-        <Caret Line="134" Column="149" TopLine="110"/>
+        <Caret Line="207" Column="5" TopLine="181"/>
       </Position20>
       <Position21>
         <Filename Value="unit1.pas"/>
-        <Caret Line="215" Column="87" TopLine="182"/>
+        <Caret Line="209" Column="29" TopLine="181"/>
       </Position21>
       <Position22>
         <Filename Value="unit1.pas"/>
-        <Caret Line="65" TopLine="44"/>
+        <Caret Line="76" Column="12" TopLine="55"/>
       </Position22>
       <Position23>
         <Filename Value="unit1.pas"/>
-        <Caret Line="207" Column="5" TopLine="181"/>
+        <Caret Line="115" TopLine="87"/>
       </Position23>
       <Position24>
         <Filename Value="unit1.pas"/>
-        <Caret Line="209" Column="29" TopLine="181"/>
+        <Caret Line="168" Column="12" TopLine="134"/>
       </Position24>
       <Position25>
         <Filename Value="unit1.pas"/>
-        <Caret Line="76" Column="12" TopLine="55"/>
+        <Caret Line="11" Column="36"/>
       </Position25>
       <Position26>
         <Filename Value="unit1.pas"/>
-        <Caret Line="115" TopLine="87"/>
+        <Caret Line="152" Column="23" TopLine="118"/>
       </Position26>
       <Position27>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="168" Column="12" TopLine="134"/>
+        <Filename Value="Fragmentshader.glsl"/>
+        <Caret Line="12" Column="56"/>
       </Position27>
       <Position28>
         <Filename Value="unit1.pas"/>
-        <Caret Line="11" Column="36"/>
+        <Caret Line="169" Column="7" TopLine="148"/>
       </Position28>
       <Position29>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="152" Column="23" TopLine="118"/>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="11384" Column="22" TopLine="11354"/>
       </Position29>
       <Position30>
-        <Filename Value="Fragmentshader.glsl"/>
-        <Caret Line="12" Column="56"/>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="7867" Column="178" TopLine="7867"/>
       </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0" ActiveMode="default"/>
+      <Modes ActiveMode="default"/>
     </RunParams>
   </ProjectSession>
 </CONFIG>
