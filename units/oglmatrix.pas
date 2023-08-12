@@ -33,15 +33,15 @@ type
 
   { Tmat3x3Helper }
 
-  Tmat3x3Helper = type Helper for Tmat3x3  // Arbeitet nicht richtig mit Shadern zusammen !
+  Tmat3x3Helper = type Helper for Tmat3x3
+    // Arbeitet nicht richtig mit Shadern zusammen !
   public
     procedure Identity;
     procedure Zero;
 
+    // Matrix manipulieren
     procedure Scale(x, y: GLfloat); overload;
     procedure Scale(s: GLfloat); overload;
-    procedure ScaleV(x, y, z: GLfloat); overload;
-    procedure ScaleV(s: GLfloat); overload;
     procedure Translate(x, y: GLfloat);
     procedure TranslateLocalspace(x, y: GLfloat);
     procedure Rotate(w: GLfloat);
@@ -49,6 +49,15 @@ type
     procedure Shear(x, y: GLfloat);
 
     procedure Frustum(left, right, zNear, zFar: GLfloat);
+
+    // Mesh / Vektor manipulieren
+    procedure ScaleV(x, y, z: GLfloat); overload;
+    procedure ScaleV(s: GLfloat); overload;
+    procedure TranslateV(x, y, z: GLfloat);
+    procedure CrossV(const m: Tmat3x3); overload;
+    procedure CrossV(const v0, v1: TVector3f); overload;
+    procedure CrossV(const v0, v1, v2: TVector3f); overload;
+
 
     procedure Uniform(ShaderID: GLint);
   end;
@@ -68,6 +77,9 @@ type
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
     procedure Translate(x, y, z: GLfloat); overload;     // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
+    procedure TranslateX(x: GLfloat);
+    procedure TranslateY(y: GLfloat);
+    procedure TranslateZ(z: GLfloat);
     procedure TranslateLocalspace(x, y, z: GLfloat);     // Localspace Translation
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
@@ -84,7 +96,7 @@ type
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
-// === Hilfsfunktionen, ähnlich GLSL ===
+  // === Hilfsfunktionen, ähnlich GLSL ===
 
 function mat3(const v0, v1, v2: TVector3f): Tmat3x3;
 function mat4(const v0, v1, v2, v3: TVector4f): Tmat4x4;
@@ -96,13 +108,13 @@ operator * (const m: Tmat2x2; const v: TVector2f) Res: TVector2f;
 operator * (const m: Tmat3x3; const v: TVector3f) Res: TVector3f;
 operator * (const m: Tmat4x4; const v: TVector4f) Res: TVector4f;
 
-operator + (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
-operator + (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
-operator + (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
+operator +(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator +(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator +(const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
-operator - (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
-operator - (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
-operator - (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
+operator -(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator -(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator -(const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
 operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
@@ -161,7 +173,7 @@ end;
 
 procedure Tmat3x3Helper.Scale(s: GLfloat);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to 1 do begin
     Self[i, 0] *= s;
@@ -171,7 +183,7 @@ end;
 
 procedure Tmat3x3Helper.ScaleV(x, y, z: GLfloat);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to 2 do begin
     Self[i, 0] *= x;
@@ -182,13 +194,49 @@ end;
 
 procedure Tmat3x3Helper.ScaleV(s: GLfloat);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to 2 do begin
     Self[i, 0] *= s;
     Self[i, 1] *= s;
     Self[i, 2] *= s;
   end;
+end;
+
+procedure Tmat3x3Helper.TranslateV(x, y, z: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    Self[i, 0] += x;
+    Self[i, 1] += y;
+    Self[i, 2] += z;
+  end;
+end;
+
+procedure Tmat3x3Helper.CrossV(const m: Tmat3x3);
+begin
+  CrossV(m[0], m[1], m[2]);
+end;
+
+procedure Tmat3x3Helper.CrossV(const v0, v1: TVector3f);
+var
+  v: TVector3f;
+begin
+  v.Cross(v0, v1);
+  Self[0] := v;
+  Self[1] := v;
+  Self[2] := v;
+end;
+
+procedure Tmat3x3Helper.CrossV(const v0, v1, v2: TVector3f);
+var
+  v: TVector3f;
+begin
+  v.Cross(v0, v1, v2);
+  Self[0] := v;
+  Self[1] := v;
+  Self[2] := v;
 end;
 
 procedure Tmat3x3Helper.Translate(x, y: GLfloat); inline;
@@ -258,14 +306,16 @@ end;
 
 procedure Tmat4x4Helper.Identity; inline;
 const
-  m: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  m: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0),
+    (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
 begin
   Self := m;
 end;
 
 procedure Tmat4x4Helper.Zero; inline;
 const
-  m: Tmat4x4 = ((0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0));
+  m: Tmat4x4 = ((0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0),
+    (0.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 0.0));
 begin
   Self := m;
 end;
@@ -311,12 +361,12 @@ end;
 //    float s = sin(angle);
 //    float c = cos(angle);
 //    float oc = 1.0 - c;
-//
+
 //    return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
 //                oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
 //                oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
 //                0.0,                                0.0,                                0.0,                                1.0);
-//
+
 
 procedure Tmat4x4Helper.Rotate(Winkel, x, y, z: GLfloat);
 var
@@ -359,6 +409,21 @@ begin
   Self[3, 0] += v[0];
   Self[3, 1] += v[1];
   Self[3, 2] += v[2];
+end;
+
+procedure Tmat4x4Helper.TranslateX(x: GLfloat);
+begin
+  Self[3, 0] += x;
+end;
+
+procedure Tmat4x4Helper.TranslateY(y: GLfloat);
+begin
+  Self[3, 1] += y;
+end;
+
+procedure Tmat4x4Helper.TranslateZ(z: GLfloat);
+begin
+  Self[3, 2] += z;
 end;
 
 procedure Tmat4x4Helper.TranslateLocalspace(x, y, z: GLfloat);
@@ -513,7 +578,7 @@ end;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator*(const m: Tmat2x2; const v: TVector2f)Res: TVector2f;
+operator * (const m: Tmat2x2; const v: TVector2f)Res: TVector2f;
 var
   i: integer;
 begin
@@ -522,7 +587,7 @@ begin
   end;
 end;
 
-operator*(const m: Tmat3x3; const v: TVector3f)Res: TVector3f;
+operator * (const m: Tmat3x3; const v: TVector3f)Res: TVector3f;
 var
   i: integer;
 begin
@@ -531,46 +596,70 @@ begin
   end;
 end;
 
-operator + (const mat0, mat1: Tmat2x2)Res: Tmat2x2;
+operator +(const mat0, mat1: Tmat2x2)Res: Tmat2x2;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 1 do for j:=0 to 1 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+  for i := 0 to 1 do begin
+    for j := 0 to 1 do begin
+      Res[i, j] := mat0[i, j] + mat1[i, j];
+    end;
+  end;
 end;
 
-operator + (const mat0, mat1: Tmat3x3)Res: Tmat3x3;
+operator +(const mat0, mat1: Tmat3x3)Res: Tmat3x3;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 2 do for j:=0 to 2 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+  for i := 0 to 2 do begin
+    for j := 0 to 2 do begin
+      Res[i, j] := mat0[i, j] + mat1[i, j];
+    end;
+  end;
 end;
 
-operator + (const mat0, mat1: Tmat4x4)Res: Tmat4x4;
+operator +(const mat0, mat1: Tmat4x4)Res: Tmat4x4;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 3 do for j:=0 to 3 do Res[i, j]:=mat0[i,j]+mat1[i,j];
+  for i := 0 to 3 do begin
+    for j := 0 to 3 do begin
+      Res[i, j] := mat0[i, j] + mat1[i, j];
+    end;
+  end;
 end;
 
-operator - (const mat0, mat1: Tmat2x2)Res: Tmat2x2;
+operator -(const mat0, mat1: Tmat2x2)Res: Tmat2x2;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 1 do for j:=0 to 1 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+  for i := 0 to 1 do begin
+    for j := 0 to 1 do begin
+      Res[i, j] := mat0[i, j] - mat1[i, j];
+    end;
+  end;
 end;
 
-operator - (const mat0, mat1: Tmat3x3)Res: Tmat3x3;
+operator -(const mat0, mat1: Tmat3x3)Res: Tmat3x3;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 2 do for j:=0 to 2 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+  for i := 0 to 2 do begin
+    for j := 0 to 2 do begin
+      Res[i, j] := mat0[i, j] - mat1[i, j];
+    end;
+  end;
 end;
 
-operator - (const mat0, mat1: Tmat4x4)Res: Tmat4x4;
+operator -(const mat0, mat1: Tmat4x4)Res: Tmat4x4;
 var
-  i, j:Integer;
+  i, j: integer;
 begin
-  for i:=0 to 3 do for j:=0 to 3 do Res[i, j]:=mat0[i,j]-mat1[i,j];
+  for i := 0 to 3 do begin
+    for j := 0 to 3 do begin
+      Res[i, j] := mat0[i, j] - mat1[i, j];
+    end;
+  end;
 end;
 
 operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
@@ -603,7 +692,8 @@ end;
 
 {$if defined(cpux86_64) or defined(cpux86)}
 {$asmmode intel}
-operator*(const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler; nostackframe; register;
+operator * (const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler;
+  nostackframe; register;
 asm
          Movups  Xmm4, [m + $00]
          Movups  Xmm5, [m + $10]
@@ -633,92 +723,92 @@ asm
          Movups  [Res], Xmm0
 end;
 
-operator*(const mat0, mat1: Tmat4x4)Res: Tmat4x4; assembler; nostackframe; register;
+operator * (const mat0, mat1: Tmat4x4)Res: Tmat4x4; assembler; nostackframe; register;
 asm
-         Movups Xmm4, [mat0 + $00]
-         Movups Xmm5, [mat0 + $10]
-         Movups Xmm6, [mat0 + $20]
-         Movups Xmm7, [mat0 + $30]
+         Movups  Xmm4, [mat0 + $00]
+         Movups  Xmm5, [mat0 + $10]
+         Movups  Xmm6, [mat0 + $20]
+         Movups  Xmm7, [mat0 + $30]
 
          // Spalte 0
-         Movups Xmm2, [mat1 + $00]
+         Movups  Xmm2, [mat1 + $00]
 
-         Pshufd Xmm0, Xmm2, 00000000b
-         Mulps  Xmm0, Xmm4
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
 
-         Pshufd Xmm1, Xmm2, 01010101b
-         Mulps  Xmm1, Xmm5
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 10101010b
-         Mulps  Xmm1, Xmm6
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 11111111b
-         Mulps  Xmm1, Xmm7
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
 
-         Movups [Result + $00], Xmm0
+         Movups  [Result + $00], Xmm0
 
          // Spalte 1
-         Movups Xmm2, [mat1 + $10]
+         Movups  Xmm2, [mat1 + $10]
 
-         Pshufd Xmm0, Xmm2, 00000000b
-         Mulps  Xmm0, Xmm4
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
 
-         Pshufd Xmm1, Xmm2, 01010101b
-         Mulps  Xmm1, Xmm5
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 10101010b
-         Mulps  Xmm1, Xmm6
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 11111111b
-         Mulps  Xmm1, Xmm7
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
 
          Movups   [Result + $10], Xmm0
 
          // Spalte 2
          Movups  Xmm2, [mat1 + $20]
 
-         Pshufd Xmm0, Xmm2, 00000000b
-         Mulps  Xmm0, Xmm4
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
 
-         Pshufd Xmm1, Xmm2, 01010101b
-         Mulps  Xmm1, Xmm5
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 10101010b
-         Mulps  Xmm1, Xmm6
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 11111111b
-         Mulps  Xmm1, Xmm7
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
 
-         Movups [Result + $20], Xmm0
+         Movups  [Result + $20], Xmm0
 
          // Spalte 3
-         Movups Xmm2, [mat1 + $30]
+         Movups  Xmm2, [mat1 + $30]
 
-         Pshufd Xmm0, Xmm2, 00000000b
-         Mulps  Xmm0, Xmm4
+         Pshufd  Xmm0, Xmm2, 00000000b
+         Mulps   Xmm0, Xmm4
 
-         Pshufd Xmm1, Xmm2, 01010101b
-         Mulps  Xmm1, Xmm5
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 01010101b
+         Mulps   Xmm1, Xmm5
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 10101010b
-         Mulps  Xmm1, Xmm6
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 10101010b
+         Mulps   Xmm1, Xmm6
+         Addps   Xmm0, Xmm1
 
-         Pshufd Xmm1, Xmm2, 11111111b
-         Mulps  Xmm1, Xmm7
-         Addps  Xmm0, Xmm1
+         Pshufd  Xmm1, Xmm2, 11111111b
+         Mulps   Xmm1, Xmm7
+         Addps   Xmm0, Xmm1
 
-         Movups [Result + $30], Xmm0
+         Movups  [Result + $30], Xmm0
 end;
 {$else}
 operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f;
@@ -726,7 +816,7 @@ var
   i: integer;
 begin
   for i := 0 to 3 do begin
-    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2]+ m[3, i] * v[3];
+    Res[i] := m[0, i] * v[0] + m[1, i] * v[1] + m[2, i] * v[2] + m[3, i] * v[3];
   end;
 end;
 
@@ -743,6 +833,7 @@ begin
     end;
   end;
 end;
+
 {$endif}
 
 end.

@@ -105,22 +105,14 @@ const
     // unten
     ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5)), ((-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5)));
 
-
 var
-  i, j: integer;
-  v: TVector3f;
-
+  i: integer;
 begin
   SetLength(SphereVertex, Length(CubeVertex));
   SetLength(SphereNormal, Length(CubeVertex));
   for i := 0 to Length(CubeVertex) - 1 do begin
     SphereVertex[i] := CubeVertex[i];
-    //    SphereVertex[i].ScaleV(10.0, 10.0, 1.0);
-    v.Cross(SphereVertex[i, 0], SphereVertex[i, 1], SphereVertex[i, 2]);
-
-    SphereNormal[i, 0] := v;
-    SphereNormal[i, 1] := v;
-    SphereNormal[i, 2] := v;
+    SphereNormal[i].CrossV(SphereVertex[i]);
   end;
 end;
 
@@ -212,13 +204,12 @@ begin
 
         Matrix.Translate(0, 0, -z * 100);
 
-
         m := ModelMatrix;
         m.RotateC(pi / 3 * r);
 
         Matrix := m * Matrix;
 
-        Matrix.Uniform(ModelMatrix_ID);                         // Erste Übergabe an den Shader.
+        Matrix.Uniform(ModelMatrix_ID);                          // Erste Übergabe an den Shader.
         Matrix := FrustumMatrix * WorldMatrix * Matrix;          // Matrixen multiplizieren.
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
 
