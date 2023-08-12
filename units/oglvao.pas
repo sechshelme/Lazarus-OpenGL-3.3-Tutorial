@@ -72,9 +72,8 @@ type
     Vertex_Count: cardinal;
   public
     Caption: string;
-    procedure SetVertexCount(Count: integer);
-  const
     class var Camera: TCamera;     // Für World und Object-Matrix
+    procedure SetVertexCount(Count: integer);
     constructor Create(ADraw_mode: GLenum = GL_TRIANGLES);
     destructor Destroy; override;
     procedure BindVertexArray;

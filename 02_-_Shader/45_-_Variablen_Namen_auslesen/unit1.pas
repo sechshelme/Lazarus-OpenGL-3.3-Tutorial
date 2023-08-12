@@ -10,14 +10,14 @@ uses
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix;
 
-//image image.png
+  //image image.png
 (*
 Es ist auch möglich aus dem <b>Shader auszulesen</b>, welche Variablen dort verwendet werden.
 In diesem Beispiel werden <b>Attribut</b>, <b>Uniform</b> und <b>Uniform-Blöcke</b> ausgelesen.
 Für was man <b>Uniform-Blöcke</b> verwendet, wird in einem späteren Kapitel behandelt.
 Auch die Beleuchtung, etc. wird später behandelt.
 *)
-//lineal
+  //lineal
 
 type
 
@@ -87,7 +87,7 @@ var
   ModelMatrix_ID,
   Matrix_ID: GLint;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -117,9 +117,9 @@ procedure TForm1.CalcSphere;
     SphereVertex[l, 1] := Vector1;
     SphereVertex[l, 2] := Vector2;
 
-    Vector0.NormalCut;
-    Vector1.NormalCut;
-    Vector2.NormalCut;
+    Vector0.Normalize;
+    Vector1.Normalize;
+    Vector2.Normalize;
 
     SphereNormal[l, 0] := Vector0;
     SphereNormal[l, 1] := Vector1;
@@ -140,7 +140,7 @@ var
 
   Tab: array of array of record
     a, b, c: single;
-  end;
+    end;
 
 begin
   t := 2 * pi / Sektoren;
@@ -275,12 +275,12 @@ begin
         Matrix.Identity;
         Matrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
         Matrix.Scale(scal);
-        Matrix.Multiply(ModelMatrix, Matrix);
+        Matrix := ModelMatrix * Matrix;
 
         Matrix.Uniform(ModelMatrix_ID);
 
-        Matrix.Multiply(WorldMatrix, Matrix);                    // Matrixen multiplizieren.
-        Matrix.Multiply(FrustumMatrix, Matrix);
+        Matrix := WorldMatrix * Matrix;                          // Matrixen multiplizieren.
+        Matrix := FrustumMatrix * Matrix;
 
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
         glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet einen kleinen Würfel.
@@ -348,6 +348,7 @@ begin
   ShowMessage(sl.Text);
   sl.Free;
 end;
+
 //code-
 
 procedure TForm1.Timer1Timer(Sender: TObject);
