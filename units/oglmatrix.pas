@@ -38,8 +38,10 @@ type
     procedure Identity;
     procedure Zero;
 
-    procedure Scale(x, y, z: GLfloat); overload;
+    procedure Scale(x, y: GLfloat); overload;
     procedure Scale(s: GLfloat); overload;
+    procedure ScaleV(x, y, z: GLfloat); overload;
+    procedure ScaleV(s: GLfloat); overload;
     procedure Translate(x, y: GLfloat);
     procedure TranslateLocalspace(x, y: GLfloat);
     procedure Rotate(w: GLfloat);
@@ -147,14 +149,13 @@ begin
   Self := m;
 end;
 
-procedure Tmat3x3Helper.Scale(x, y, z: GLfloat);
+procedure Tmat3x3Helper.Scale(x, y: GLfloat);
 var
   i: integer;
 begin
   for i := 0 to 1 do begin
     Self[i, 0] *= x;
     Self[i, 1] *= y;
-    Self[i, 2] *= z;
   end;
 end;
 
@@ -163,6 +164,27 @@ var
   i: Integer;
 begin
   for i := 0 to 1 do begin
+    Self[i, 0] *= s;
+    Self[i, 1] *= s;
+  end;
+end;
+
+procedure Tmat3x3Helper.ScaleV(x, y, z: GLfloat);
+var
+  i: Integer;
+begin
+  for i := 0 to 2 do begin
+    Self[i, 0] *= x;
+    Self[i, 1] *= y;
+    Self[i, 2] *= z;
+  end;
+end;
+
+procedure Tmat3x3Helper.ScaleV(s: GLfloat);
+var
+  i: Integer;
+begin
+  for i := 0 to 2 do begin
     Self[i, 0] *= s;
     Self[i, 1] *= s;
     Self[i, 2] *= s;

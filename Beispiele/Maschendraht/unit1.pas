@@ -113,14 +113,14 @@ var
 begin
   SetLength(SphereVertex, Length(CubeVertex));
   SetLength(SphereNormal, Length(CubeVertex));
-  for i := 0 to Length(CubeVertex) do begin
+  for i := 0 to Length(CubeVertex) - 1 do begin
     SphereVertex[i] := CubeVertex[i];
-//    SphereVertex[i].Scale(1.0, 10.0, 1.0);
-    for j := 0 to 2 do begin
-      v := SphereVertex[i, j];
-      v.Normalize;
-      SphereNormal[i, j] := v;
-    end;
+    //    SphereVertex[i].ScaleV(10.0, 10.0, 1.0);
+    v.Cross(SphereVertex[i, 0], SphereVertex[i, 1], SphereVertex[i, 2]);
+
+    SphereNormal[i, 0] := v;
+    SphereNormal[i, 1] := v;
+    SphereNormal[i, 2] := v;
   end;
 end;
 
@@ -198,27 +198,32 @@ begin
 
   scal := 15 / (CubeSize * 2 + 1);
 
-  for x := -CubeSize * 4 to CubeSize * 4 do begin
-    for r := 0 to 2 do begin
 
-      Matrix.Identity;
-      //   Matrix.RotateB(Pi/4);
-      Matrix.Translate(x * d, 0, 0);                   // Matrix verschieben.
-      //    Matrix.Scale(5.0, 1150.0, 1.0);
-      Matrix.Scale(scal);
+  for z := 0 to 2 do begin
+    for x := -CubeSize * 4 to CubeSize * 4 do begin
+      for r := 0 to 2 do begin
+
+        Matrix.Identity;
+        //   Matrix.RotateB(Pi/4);
+        Matrix.Translate(x * d, 0, 0);                   // Matrix verschieben.
+        Matrix.Scale(1.0, 1150.0, 1.0);
+        Matrix.RotateB(pi / 4);
+        Matrix.Scale(scal);
+
+        Matrix.Translate(0, 0, -z * 100);
 
 
-      m := ModelMatrix;
-      //    m.RotateC(pi/3*r);
+        m := ModelMatrix;
+        m.RotateC(pi / 3 * r);
 
-      Matrix := m * Matrix;
+        Matrix := m * Matrix;
 
+        Matrix.Uniform(ModelMatrix_ID);                         // Erste Übergabe an den Shader.
+        Matrix := FrustumMatrix * WorldMatrix * Matrix;          // Matrixen multiplizieren.
+        Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
 
-      Matrix.Uniform(ModelMatrix_ID);                         // Erste Übergabe an den Shader.
-      Matrix := FrustumMatrix * WorldMatrix * Matrix;          // Matrixen multiplizieren.
-      Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
-
-      glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.
+        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.
+      end;
     end;
   end;
 
