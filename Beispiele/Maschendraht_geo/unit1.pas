@@ -133,7 +133,8 @@ begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+//  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('Matrix');
@@ -150,6 +151,9 @@ end;
 
 procedure TForm1.InitScene;
 begin
+  WriteLn('GL_MAX_GEOMETRY_OUTPUT_VERTICES  ',  GL_MAX_GEOMETRY_OUTPUT_VERTICES);
+  WriteLn('GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS  ',  GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS);
+
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
 
   // --- Daten für Kugel
@@ -190,15 +194,18 @@ begin
 
   scal := 15 / (CubeSize * 2 + 1);
 
+  z:=0;
+  x:=0;
+  r:=0;
 
-  for z := 0 to 2 do begin
-    for x := -CubeSize * 4 to CubeSize * 4 do begin
-      for r := 0 to 2 do begin
+//  for z := 0 to 2 do begin
+//    for x := -CubeSize * 4 to CubeSize * 4 do begin
+//      for r := 0 to 2 do begin
 
         Matrix.Identity;
         //   Matrix.RotateB(Pi/4);
         Matrix.Translate(x * d, 0, 0);                   // Matrix verschieben.
-        Matrix.Scale(1.0, 1150.0, 1.0);
+//        Matrix.Scale(1.0, 1150.0, 1.0);
         Matrix.RotateB(pi / 4);
         Matrix.Scale(scal);
 
@@ -214,9 +221,9 @@ begin
         Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
 
         glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.
-      end;
-    end;
-  end;
+//      end;
+//    end;
+//  end;
 
   ogc.SwapBuffers;
 end;
@@ -254,7 +261,7 @@ const
 begin
   if MenuItemRotateCube.Checked then begin
     ModelMatrix.Identity;
-    shift := shift + 0.1;
+    shift := shift + 1.1;
     if shift >= 20 - 0 then begin
       shift := 0.0;
     end;

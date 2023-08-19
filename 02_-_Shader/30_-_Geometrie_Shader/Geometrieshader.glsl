@@ -20,6 +20,18 @@ void main(void)
    EndPrimitive();
 
 
+// Mittlere Meshes
+   for(int i = 0; i < gl_in.length(); i++)
+   {
+      gl_Position = gl_in[i].gl_Position + vec4(0.0, 0.0, 0.0, 0.0); // nicht verschieben
+      gl_Position.y *= -0.5;
+      gl_Position.x *= 0.5;
+      Color = vec3(0.0, 0.0, 1.0);                                   // Mitte blau
+      EmitVertex();
+   }
+   EndPrimitive();
+
+
 // Rechte Meshes
    for(int i = 0; i < gl_in.length(); i++)
    {

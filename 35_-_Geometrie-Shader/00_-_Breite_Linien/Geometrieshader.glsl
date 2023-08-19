@@ -39,29 +39,6 @@ void main(void)
 
   EndPrimitive();
 
-
-  //vec2 pre = normalize(Prev[0]) * distance;
-  //vec2 nex = normalize(Next[1]) * distance;
-  //
-  //gl_Position = vec4(pre, 0.0, 1.0);
-  //Color = vec3(1.0, 0.0, 0.0);
-  //EmitVertex();
-  //
-  //gl_Position = vec4(nex, 0.0, 1.0);
-  //Color = vec3(0.0, 1.0, 1.0);
-  //EmitVertex();
-
-
-
-
-  //gl_Position = vec4(Prev[0], 0.0, 1.0);
-  //Color = vec3(1.0, 0.0, 0.0);
-  //EmitVertex();
-  //
-  //gl_Position = vec4(Next[1], 0.0, 1.0);
-  //Color = vec3(0.0, 1.0, 1.0);
-  //EmitVertex();
-
   gl_Position = gl_in[0].gl_Position - v0;
   Color = vec3(1.0, 0.0, 0.0);
   EmitVertex();
@@ -71,5 +48,4 @@ void main(void)
   EmitVertex();
 
   EndPrimitive();
-
 }

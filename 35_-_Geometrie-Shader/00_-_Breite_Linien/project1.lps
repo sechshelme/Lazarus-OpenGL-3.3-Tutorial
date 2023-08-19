@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="14">
       <Unit0>
@@ -20,10 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="143"/>
-        <CursorPos X="80" Y="146"/>
+        <TopLine Value="42"/>
+        <CursorPos X="10" Y="90"/>
         <UsageCount Value="43"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -57,14 +56,14 @@
         <CursorPos Y="19"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <CursorPos X="31" Y="12"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -112,11 +111,13 @@
       </Unit12>
       <Unit13>
         <Filename Value="Geometrieshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="18" Y="30"/>
+        <TopLine Value="2"/>
+        <CursorPos X="18" Y="50"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit13>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
@@ -241,5 +242,9 @@
         <Caret Line="11" Column="68"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="23">
       <Unit0>
@@ -20,8 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="40"/>
-        <CursorPos X="109" Y="40"/>
+        <TopLine Value="103"/>
+        <CursorPos Y="98"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -39,10 +39,10 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos Y="31"/>
+        <CursorPos X="21" Y="3"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit3>
       <Unit4>
         <Filename Value="/usr/share/lazarus/1.7.0.54502/components/opengl/openglcontext.pas"/>
@@ -70,10 +70,10 @@
       <Unit7>
         <Filename Value="Vertexshader.glsl"/>
         <EditorIndex Value="3"/>
-        <CursorPos X="20"/>
+        <CursorPos X="67" Y="3"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit7>
       <Unit8>
         <Filename Value="Fragmentshader.glsl"/>
@@ -81,7 +81,7 @@
         <CursorPos X="60" Y="9"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="None"/>
       </Unit8>
       <Unit9>
         <Filename Value="../../units/shader.pas"/>
@@ -196,5 +196,9 @@
         <Caret Line="95" Column="93" TopLine="62"/>
       </Position1>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>
