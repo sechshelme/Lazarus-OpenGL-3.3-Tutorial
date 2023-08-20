@@ -22,6 +22,7 @@ Tutorial direkt auf GitHub:
 
 | Datum | Änderungen 
 | :---: | ---
+| 20.08.2023 | Neue Beispiele bei Geometrie-Shader
 | 05.06.2022 | Diese readme.me optisch gestaltet.
 | 11.04.2022 | Tutorial direkt bei den Sourcen intergriert, anhand einzelner "readme.md" Dateien in den einzelnen Ordner.
 | 04.12.2021 | Tippfehler korrigiert.
@@ -40,7 +41,15 @@ Tutorial direkt auf GitHub:
 | 15.01.2018 | Tutorial auf GITHUB hochgeladen.
 | 10.04.2017 | Tutorial das erste mal veröffentlicht.
 
+## Fremde Tutorial
 
-Schlagwörter: Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
+https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
+https://open.gl/geometry
+
+
+
+
+## Schlagwörter: 
+Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
 
 

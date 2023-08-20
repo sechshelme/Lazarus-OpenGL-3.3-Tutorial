@@ -14,6 +14,7 @@ uses
 
 (*
 Es ist möglich, nur Punkte zu übegeben, an welche dann im Geometrie-Shader Mehses gerendert werden.
+Auch wird eine Grundfarbe für die Mesh übergeben.
 Nur leider ist die Anzahl der Vertex auf 256 begrenzt.
 *)
 
@@ -47,15 +48,22 @@ type
   TFace = array[0..2] of TVertex3f;
 
 const
-  Triangle: array[0..2] of TVertex3f =
-    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
-  Quad: array[0..3] of TVertex3f =
-    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
+  TriangleVertex: array[0..2] of TVertex3f =
+    ((-0.25, 0.3, 0.0), (0.25, 0.3, 0.0), (0.0, 0.7, 0.0));
+  TriangleColor: array[0..2] of TVertex3f =
+    ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0));
+
+  QuadVertex: array[0..3] of TVertex3f =
+    ((-0.15, -0.6, 0.0), (-0.15, -0.1, 0.0), (0.15, -0.1, 0.0), (0.15, -0.6, 0.0));
+  QuadColor: array[0..3] of TVertex3f =
+    ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0));
 
 type
   TVB = record
-    VAO,
-    VBO: GLuint;
+    VAO: GLuint;
+    VBO: record
+      Vertex, Color: GLuint;
+      end;
   end;
 
 var
@@ -84,27 +92,39 @@ begin
   glGenVertexArrays(1, @VBTriangle.VAO);
   glGenVertexArrays(1, @VBQuad.VAO);
 
-  glGenBuffers(1, @VBTriangle.VBO);
-  glGenBuffers(1, @VBQuad.VBO);
+  glGenBuffers(2, @VBTriangle.VBO);
+  glGenBuffers(2, @VBQuad.VBO);
 end;
 
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
-  // Daten für Dreieck
+  // --- Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.Vertex);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex), @TriangleVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
-  // Daten für Quadrat
+  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.Color);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(11);
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+
+  // --- Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Color);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(11);
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -115,11 +135,11 @@ begin
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_POINTS, 0, Length(Triangle));
+  glDrawArrays(GL_POINTS, 0, Length(TriangleVertex));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_POINTS, 0, Length(Quad));
+  glDrawArrays(GL_POINTS, 0, Length(QuadVertex));
 
   ogc.SwapBuffers;
 end;
