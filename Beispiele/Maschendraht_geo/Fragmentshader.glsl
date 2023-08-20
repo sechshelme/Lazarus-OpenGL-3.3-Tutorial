@@ -1,10 +1,12 @@
 #version 330
 
 // Licht
-#define Lposition1  vec3(170.0, 117.5, 35.0)
+//#define Lposition1  vec3(170.0, 117.5, 35.0)
+#define Lposition1  vec3(70.0, 117.5, 35.0)
 #define Lcolor1     vec3(1.0, 0.0, 1.0)
 
-#define Lposition2  vec3(-170.0, -117.5, 35.0)
+//#define Lposition2  vec3(-170.0, -117.5, 35.0)
+#define Lposition2  vec3(-70.0, 117.5, 35.0)
 #define Lcolor2     vec3(0.0, 1.0, 1.0)
 
 #define Lambient   vec3(1.8, 1.8, 1.8)
