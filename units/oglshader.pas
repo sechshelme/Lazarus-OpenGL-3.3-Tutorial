@@ -10,7 +10,7 @@ uses
   SysUtils, FileUtil, LazFileUtils,
   //  MyLogForms, MyMessages,
   dglOpenGL,
-  Types, Graphics, LResources,
+  Graphics, LResources,
   oglLogForm;
 
 type
@@ -25,7 +25,7 @@ type
   public
     property ID: GLHandle read FProgramObject;
 
-    constructor Create(const AShader: array of ansistring);
+    constructor Create(const AShader: array of ansistring; IsTesselation: boolean = False);
     destructor Destroy; override;
 
     function UniformLocation(ch: PGLChar): GLint;
@@ -36,7 +36,7 @@ type
   end;
 
 
-// ---- Hilfsfunktionen ----
+  // ---- Hilfsfunktionen ----
 
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
 function FileToStr(Datei: string): ansistring;
@@ -62,25 +62,25 @@ end;
 function FileToStr(Datei: string): ansistring;
 var
   SrcHandle: THandle;
-{$IFDEF Darwin}
+  {$IFDEF Darwin}
 var
   s: string;
-{$ENDIF}
+  {$ENDIF}
 begin
   if FileExists(Datei) then begin
     {$IFDEF Darwin}
     if not FileExists(Datei) then begin
-      s := LeftStr(paramstr(0), Pos('.app/', paramstr(0))-1);
+      s := LeftStr(ParamStr(0), Pos('.app/', ParamStr(0)) - 1);
       s := ExtractFilePath(s) + Datei;
-      if FileExists(s) then Datei := s;
+      if FileExists(s) then begin
+        Datei := s;
+      end;
     end;
     {$ENDIF}
     SetLength(Result, FileSize(Datei));
     SrcHandle := FileOpenUTF8(Datei, fmOpenRead or fmShareDenyWrite);
     FileRead(SrcHandle, Result[1], Length(Result));
     FileClose(SrcHandle);
-
-    //    Result := ReadFileToString(Datei);
   end else begin
     LogForm.Add('FEHLER: Kann Datei ' + Datei + ' nicht finden');
     Result := '';
@@ -124,11 +124,11 @@ end;
 
 // --- Debugger ---
 
-  {$IFDEF MSWINDOWS}
+{$IFDEF MSWINDOWS}
 procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); stdcall;
-  {$ELSE}
+{$ELSE}
 procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); cdecl;
-  {$ENDIF}
+{$ENDIF}
 
 var
   MsgSource: string;
@@ -219,7 +219,7 @@ begin
   err := glGetError();
   if err <> 0 then begin
     // GL_INVALID_ENUM
-    LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4)+' ('+ IntToStr(err) + ') bei: ' + command);
+    LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4) + ' (' + IntToStr(err) + ') bei: ' + command);
     LogForm.Show;
   end;
 end;
@@ -233,7 +233,7 @@ var
   spos: array[0..3] of integer;
   i: integer;
 begin
-  for i := 0 to 2 do begin
+  for i := 0 to Length(Key) - 1 do begin
     spos[i] := Pos(Key[i], AShader);
   end;
   spos[3] := Length(AShader) + 1;
@@ -281,7 +281,7 @@ begin
   glDeleteShader(ShaderObject);
 end;
 
-constructor TShader.Create(const AShader: array of ansistring);
+constructor TShader.Create(const AShader: array of ansistring; IsTesselation: boolean);
 var
   sa: TStringArray;
   i: integer;
@@ -319,9 +319,15 @@ begin
       LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
     end;
     3: begin
-      LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-      LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
-      LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
+      if IsTesselation then begin
+        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+        LoadShaderObject(sa[1], GL_TESS_EVALUATION_SHADER);
+        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
+      end else begin
+        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+        LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
+        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
+      end;
     end;
   end;
 
@@ -352,7 +358,7 @@ begin
   Result := glGetUniformLocation(FProgramObject, ch);
   if Result = -1 then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
-//    LogForm.Show;
+    //    LogForm.Show;
   end;
 end;
 
