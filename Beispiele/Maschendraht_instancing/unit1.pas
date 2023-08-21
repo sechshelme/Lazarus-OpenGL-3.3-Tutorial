@@ -110,6 +110,7 @@ var
   m: Tmat4x4;
 begin
   m.Identity;
+  m.Scale(1.0,10.0,1.0);
   m.RotateB(pi / 4);
   SetLength(SphereVertex, Length(CubeVertex));
   SetLength(SphereNormal, Length(CubeVertex));
@@ -119,6 +120,7 @@ begin
     for j := 0 to 2 do begin
       SphereVertex[i, j] := (m * vec4(SphereVertex[i, j], 1.0)).xyz;
     end;
+
     SphereNormal[i].CrossV(SphereVertex[i]);
   end;
 end;
@@ -140,8 +142,7 @@ begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  //  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('Matrix');
@@ -158,9 +159,6 @@ end;
 
 procedure TForm1.InitScene;
 begin
-  WriteLn('GL_MAX_GEOMETRY_OUTPUT_VERTICES  ', GL_MAX_GEOMETRY_OUTPUT_VERTICES);
-  WriteLn('GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS  ', GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS);
-
   glClearColor(0.15, 0.15, 0.1, 1.0); // Hintergrundfarbe
 
   // --- Daten für Kugel
@@ -185,6 +183,9 @@ var
   x, y, z, r: integer;
   scal, d: single;
   m: TMatrix;
+const
+  s=10;
+  size: GLsizei= s*s*s;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
 
@@ -199,38 +200,35 @@ begin
 
   d := (7 / (CubeSize * 2 + 1)) * 16;
 
-  scal := 15 / (CubeSize * 2 + 1);
+  scal := 15 / (CubeSize * 2 + 1) * 3;
 
-  z := 0;
-  x := 0;
-  r := 0;
 
-  //  for z := 0 to 2 do begin
-  //    for x := -CubeSize * 4 to CubeSize * 4 do begin
-  //      for r := 0 to 2 do begin
+  for z := 0 to 2 do begin
+//    for x := -CubeSize * 4 to CubeSize * 4 do begin
+      for r := 0 to 2 do begin
 
-  Matrix.Identity;
-  //   Matrix.RotateB(Pi/4);
-  Matrix.Translate(x * d, 0, 0);                   // Matrix verschieben.
-  //        Matrix.Scale(1.0, 1150.0, 1.0);
-  //  Matrix.RotateB(pi / 4);
-  Matrix.Scale(scal * 5);
+        Matrix.Identity;
+        //   Matrix.RotateB(Pi/4);
+        Matrix.Translate(x * d, 0, 0);                   // Matrix verschieben.
+//        Matrix.Scale(1.0, 10.0, 1.0);
+   //     Matrix.RotateB(pi / 4);
+        Matrix.Scale(scal);
 
-  Matrix.Translate(0, 0, -z * 100);
+        Matrix.Translate(0, 0, -z * 100);
 
-  m := ModelMatrix;
-  m.RotateC(pi / 3 * r);
+        m := ModelMatrix;
+        m.RotateC(pi / 3 * r);
 
-  Matrix := m * Matrix;
+        Matrix := m * Matrix;
 
-  Matrix.Uniform(ModelMatrix_ID);                          // Erste Übergabe an den Shader.
-  Matrix := FrustumMatrix * WorldMatrix * Matrix;          // Matrixen multiplizieren.
-  Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
+        Matrix.Uniform(ModelMatrix_ID);                          // Erste Übergabe an den Shader.
+        Matrix := FrustumMatrix * WorldMatrix * Matrix;          // Matrixen multiplizieren.
+        Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
 
-  glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet eine kleinen Kugel.
-  //      end;
-  //    end;
-  //  end;
+        glDrawArraysInstanced(GL_TRIANGLES, 0, Length(SphereVertex) * 3, size); // Zeichnet eine kleinen Kugel.
+//      end;
+    end;
+  end;
 
   ogc.SwapBuffers;
 end;
@@ -268,11 +266,13 @@ const
 begin
   if MenuItemRotateCube.Checked then begin
     ModelMatrix.Identity;
-    shift := shift + 1.1;
-    if shift >= 80 - 0 then begin
-      shift := -80;
+    shift := shift + 0.1;
+    if shift >= 20 - 0 then begin
+      shift := 0.0;
     end;
     ModelMatrix.Translate(shift, 0, 0);
+    //    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
+    //    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
   end;
 
   ogc.Invalidate;

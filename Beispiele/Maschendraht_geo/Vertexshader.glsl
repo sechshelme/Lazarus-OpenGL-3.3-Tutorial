@@ -5,19 +5,11 @@ layout (location = 1) in vec3 inNormal; // Normale
 
 // Daten für Geometrie-shader
 out VS_OUT {
-    vec3 Pos;
     vec3 Normal;
 } vs_out;
 
-// Matrix des Modeles, ohne Frustum-Beeinflussung.
-uniform mat4 ModelMatrix;
-
-// Matrix für die Drehbewegung und Frustum.
-uniform mat4 Matrix;
-
 void main(void) {
-  gl_Position    = Matrix * vec4(inPos, 1.0);
+  gl_Position    = vec4(inPos, 1.0);
 
-  vs_out.Pos = (ModelMatrix * vec4(inPos, 1.0)).xyz;
-  vs_out.Normal = mat3(ModelMatrix) * inNormal;
+  vs_out.Normal = inNormal;
 }

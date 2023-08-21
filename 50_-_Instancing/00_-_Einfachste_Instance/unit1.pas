@@ -10,14 +10,14 @@ uses
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix;
 
-//image image.png
+  //image image.png
 (*
 Mit <b>Instancing</b> hat man die Möglichkeit die Mesh mit <b>einem<b> glDraw... Aufruf mehrmals zu zeichnen.
 Bei dieser regelmässigen Anordnung ist dies sehr einfach.
 Man hat aber auch bei <b>Instancing</b> die Möglichkeit die Meshes X-beliebig anzuordnen.
 Dies wird in den nächsten Themen behandelt.
 *)
-//lineal
+  //lineal
 
 type
 
@@ -67,7 +67,7 @@ type
     VBO: record
       Vertex,
       Normal: GLuint;
-    end;
+      end;
   end;
 
 var
@@ -77,9 +77,9 @@ var
   ModelMatrix,
   Matrix: TMatrix;
 
-  ModelMatrix_ID, Matrix_ID: GLint;
+  ModelMatrix_ID, Matrix_ID, size_ID: GLint;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -115,6 +115,7 @@ begin
     UseProgram;
     Matrix_ID := UniformLocation('Matrix');
     ModelMatrix_ID := UniformLocation('ModelMatrix');
+    size_ID := UniformLocation('size');
   end;
 
   glGenVertexArrays(1, @VBCube.VAO);
@@ -152,8 +153,7 @@ Die Matrix muss nur <b>einmal</b> berechnet werden, da es nur <b>einen</b> Aufru
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
-  s = 10;            // Eine Seite hat 10 Würfel.
-  size = s * s * s;
+  s = 9;            // Eine Seite hat 9 Würfel.
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -172,11 +172,14 @@ begin
   Matrix := FrustumMatrix * WorldMatrix * Matrix;
   Matrix.Uniform(Matrix_ID);
 
+  glUniform1i(size_ID, s);
+
   // glDraw... muss nur einmal aufgerufen werden.
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(CubeVertex) * 3, size);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(CubeVertex) * 3, s * s * s);
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.ogcResize(Sender: TObject);

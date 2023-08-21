@@ -91,7 +91,7 @@ type
     procedure ShearB(x, z: GLfloat);
     procedure ShearC(x, y: GLfloat);
 
-    procedure Uniform(ShaderID: GLint);
+    procedure Uniform(ID: GLint);
 
     procedure WriteMatrix;   // Für Testzwecke
   end;
@@ -534,9 +534,9 @@ begin
   Self := m;
 end;
 
-procedure Tmat4x4Helper.Uniform(ShaderID: GLint); inline;
+procedure Tmat4x4Helper.Uniform(ID: GLint); inline;
 begin
-  glUniformMatrix4fv(ShaderID, 1, False, @Self);
+  glUniformMatrix4fv(ID, 1, False, @Self);
 end;
 
 

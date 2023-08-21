@@ -11,13 +11,23 @@ layout(triangle_strip, max_vertices = 256) out;
 //out vec3 Color; // Farb-Ausgabe für den Fragment-Shader
 // Daten für Fragment-shader
 
-out  vec3 Data_Pos;
-out  vec3 Data_Normal;
+// Matrix des Modeles, ohne Frustum-Beeinflussung.
+uniform mat4 ModelMatrix;
+
+// Matrix für die Drehbewegung und Frustum.
+uniform mat4 Matrix;
+
 
 in VS_OUT {
-    vec3 Pos;
     vec3 Normal;
 } gs_in[];
+
+out GS_OUT {
+    vec3 Pos;
+    vec3 Normal;
+} gs_out;
+
+vec4 gp;
 
 
 void main(void)
@@ -27,11 +37,14 @@ for (int x = -count; x < count; x++) {
    for (int y = -count; y < count; y++) {
 
      for(int i = 0; i < gl_in.length(); i++) {
-        gl_Position = gl_in[i].gl_Position + vec4(30.0 * x, 60.0 * y, 0.0, 0.0);
+        //  gl_Position    = Matrix * vec4(inPos, 1.0);
+        gp = gl_in[i].gl_Position;
+        gp = gp + vec4(1.3 * x, 1.3 * y, 0.0, 0.0);
+        gp = Matrix * gp;
+        gl_Position = gp;
 
-        Data_Normal = gs_in[i].Normal;
-        Data_Pos = gs_in[i].Pos  + vec3(30.0 * x, 60.0 * y, 0.0);
-//        Data_Pos = gs_in[i].Pos;
+        gs_out.Pos = (ModelMatrix * gl_Position).xyz;
+        gs_out.Normal =  mat3(ModelMatrix) * gs_in[i].Normal;
 
         EmitVertex();
      }
