@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix;
+  oglContext, oglShader, oglVector, oglMatrix,oglTextur;
 
   //image image.png
 
@@ -73,7 +73,7 @@ var
 
   procedure AddVert(v: Tvertice);
   const
-    scale = 500;
+    scale = 50000;
   begin
     v.x := v.x / scale;
     v.y := v.y / scale;
@@ -126,17 +126,23 @@ begin
     end;
   end;
   for i := 0 to Length(vertices) - 1 do begin
-    WriteLn('index: ', index, '  X:', vertices[i].x: 10: 5, '  -  Y:', vertices[i].z: 10: 5);
+    //    WriteLn('index: ', index, '  X:', vertices[i].x: 10: 5, '  -  Y:', vertices[i].z: 10: 5);
   end;
 
 end;
 
+//const
+//  Triangle: array of TVector5f =
+//    ((0.4, 0.1, 0.0, 1.0, 0.0),(-0.4, 0.1, 0.0, 0.0, 0.0),  (0.0, 0.7, 0.0, 0.5, 1.0));
+//  Quad: array[0..5] of TVector5f =
+//    ((-0.2, -0.6, 0.0, 0.0, 0.0), (-0.2, -0.1, 0.0, 0.0, 1.0), (0.2, -0.1, 0.0, 1.0, 1.0),
+//    (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (0.2, -0.6, 0.0, 1.0, 0.0));
 const
   Triangle: array of TVector5f =
-    ((-0.4, 0.1, 0.0, 0.0, 0.0), (0.4, 0.1, 0.0, 1.0, 0.0), (0.0, 0.7, 0.0, 0.5, 1.0));
+    ((0.4, 0.0, 0.1, 1.0, 0.0),(-0.4, 0.0, 0.1,  0.0, 0.0),  (0.0, 0.0, 0.7, 0.5, 1.0));
   Quad: array[0..5] of TVector5f =
-    ((-0.2, -0.6, 0.0, 0.0, 0.0), (-0.2, -0.1, 0.0, 0.0, 1.0), (0.2, -0.1, 0.0, 1.0, 1.0),
-    (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (0.2, -0.6, 0.0, 1.0, 0.0));
+    ((-0.2, 0.0, -0.6,  0.0, 0.0), (-0.2, 0.0, -0.1, 0.0, 1.0), (0.2, 0.0, -0.1, 1.0, 1.0),
+    (-0.2, 0.0, -0.6,  0.0, 0.0), (0.2, 0.0, -0.1, 1.0, 1.0), (0.2, 0.0, -0.6,  1.0, 0.0));
 
 type
   TVB = record
@@ -149,6 +155,16 @@ var
   WorldMatrix: TMatrix;
   WorldMatrix_ID: GLint;
 
+  Mat: record
+    model,
+    view,
+    projection: Tmat4x4;
+    model_ID, view_ID, projection_ID: glint;
+      end;
+
+    Textur: TTexturBuffer;
+
+
   { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -157,7 +173,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self,True,4,6);
+  ogc := TContext.Create(Self, True, 4, 6);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
@@ -175,7 +191,13 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
+
+  Textur := TTexturBuffer.Create;
   WorldMatrix.Identity;
+  Mat.model.Identity;
+  Mat.view.Identity;
+  Mat.projection.Identity;
+
   Shader := TShader.Create([
     FileToStr('Vertexshader.glsl'),
     FileToStr('tesselationcontrolshader.glsl'),
@@ -185,7 +207,15 @@ begin
   with Shader do begin
     UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
+
+    Mat.model_ID := UniformLocation('model');
+    Mat.view_ID := UniformLocation('view');
+    Mat.projection_ID := UniformLocation('projection');
+
+    glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
+//    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
+
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -204,12 +234,16 @@ const
   outer_levels: array of GLfloat = (4, 4, 4);
   inner_levels: array of GLfloat = (4);
 begin
+//  Textur.LoadTextures('mauer.xpm');
+  Textur.LoadTextures('Iceland.png');
+//  Textur.LoadTextures('licht.xpm');
+
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
   CreateVertices;
@@ -220,7 +254,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector5f), PVector5f(Triangle), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -228,7 +262,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector5f), PVector5f(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Vert
   glBindVertexArray(VBVert.VAO);
@@ -236,16 +270,21 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(TVector5f), PVector5f(vertices), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
+  Textur.ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.
+
   Shader.UseProgram;
 
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
+  mat.model.Uniform(Mat.model_ID);
+  mat.projection.Uniform(Mat.projection_ID);
+  mat.view.Uniform(Mat.view_ID);
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
@@ -257,7 +296,7 @@ begin
 
   // Zeichne Vert
   glBindVertexArray(VBVert.VAO);
-    glDrawArrays(GL_PATCHES, 0, Length(vertices));
+  glDrawArrays(GL_PATCHES, 0, Length(vertices));
 
   ogc.SwapBuffers;
 end;
@@ -273,6 +312,8 @@ begin
   glDeleteBuffers(1, @VBTriangle.VBO);
   glDeleteBuffers(1, @VBQuad.VBO);
   glDeleteBuffers(1, @VBVert.VBO);
+
+    Textur.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
