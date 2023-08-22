@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglShader;
+  oglContext, oglShader, oglVector;
 
   //image image.png
 
@@ -50,16 +50,12 @@ implementation
 
 {$R *.lfm}
 
-type
-  TVertex3f = array[0..2] of GLfloat;
-  TFace = array[0..2] of TVertex3f;
-
 const
-  Triangle: array[0..0] of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  Quad: array[0..1] of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  Triangle: array of TVector3f =
+    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
+  Quad: array[0..5] of TVector3f =
+    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
+    (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
 
 type
   TVB = record
@@ -107,14 +103,13 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt=20.0;
-  outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
-  inner_levels: array of GLfloat = (cnt, cnt);
+  outer_levels: array of GLfloat = (1, 3, 2);
+//  inner_levels: array of GLfloat = (3);
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
-  glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
+//  glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
@@ -122,14 +117,14 @@ begin
   // Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector3f), PVector3f(Triangle), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 end;
@@ -142,13 +137,11 @@ begin
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_PATCHES, 0,  Length(Triangle) * 3);
-  //  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+  glDrawArrays(GL_PATCHES, 0, Length(Triangle));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad) * 3);
-  //  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+//  glDrawArrays(GL_PATCHES, 0, Length(Quad));
 
   ogc.SwapBuffers;
 end;

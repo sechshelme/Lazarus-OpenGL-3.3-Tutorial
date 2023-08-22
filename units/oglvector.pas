@@ -11,8 +11,13 @@ type
   TglFloatArray = array of glFloat;
 
   TVector2f = array[0..1] of GLfloat;
+  PVector2f = ^TVector2f;
+
   TVector3f = array[0..2] of GLfloat;
+  PVector3f = ^TVector3f;
+
   TVector4f = array[0..3] of GLfloat;
+  PVector4f = ^TVector4f;
 
   TLine2D = array[0..1] of TVector2f;
   TLine3D = array[0..1] of TVector3f;
@@ -21,9 +26,6 @@ type
   TFace3D = array[0..2] of TVector3f;
   TFace3DArray = array of TFace3D;
 
-  PVector2f = ^TVector2f;
-  PVector3f = ^TVector3f;
-  PVector4f = ^TVector4f;
 
   { TVector2fHelper }
 
