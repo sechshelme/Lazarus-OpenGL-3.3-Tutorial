@@ -300,7 +300,7 @@ begin
     1: begin
       sa := Split(AShader[0]);
     end;
-    2..3: begin
+    2..4: begin
       SetLength(sa, Length(AShader));
       for i := 0 to Length(AShader) - 1 do begin
         sa[i] := AShader[i];
@@ -327,6 +327,14 @@ begin
         LoadShaderObject(sa[0], GL_VERTEX_SHADER);
         LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
         LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
+      end;
+    end;
+    4: begin
+      if IsTesselation then begin
+        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+        LoadShaderObject(sa[1], GL_TESS_CONTROL_SHADER);
+        LoadShaderObject(sa[2], GL_TESS_EVALUATION_SHADER);
+        LoadShaderObject(sa[3], GL_FRAGMENT_SHADER);
       end;
     end;
   end;

@@ -2,7 +2,9 @@
 
 out vec4 outColor;  // Ausgegebene Farbe.
 
+in vec3 color;
+
 void main(void)
 {
-  outColor = vec4(0.1, 0.0, 0.0, 0.1);
+  outColor = vec4(color, 1.0);
 }

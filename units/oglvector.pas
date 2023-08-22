@@ -19,6 +19,9 @@ type
   TVector4f = array[0..3] of GLfloat;
   PVector4f = ^TVector4f;
 
+  TVector5f = array[0..4] of GLfloat;
+  PVector5f = ^TVector5f;
+
   TLine2D = array[0..1] of TVector2f;
   TLine3D = array[0..1] of TVector3f;
 
