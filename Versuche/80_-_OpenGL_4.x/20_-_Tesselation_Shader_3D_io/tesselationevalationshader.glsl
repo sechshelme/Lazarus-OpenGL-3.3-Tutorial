@@ -54,8 +54,7 @@ void main()
 
     // displace point along normal
 
-    Height/=100;
-    p += normal * Height;
+    p += normal * Height / 400;
 //    p += normal ;
 
     // ----------------------------------------------------------------------

@@ -10,6 +10,8 @@ in vec2 TexCoord[];
 // varying output to evaluation shader
 out vec2 TextureCoord[];
 
+#define size 64
+
 void main()
 {
     // ----------------------------------------------------------------------
@@ -21,12 +23,12 @@ void main()
     // invocation zero controls tessellation levels for the entire patch
     if (gl_InvocationID == 0)
     {
-        gl_TessLevelOuter[0] = 16;
-        gl_TessLevelOuter[1] = 16;
-        gl_TessLevelOuter[2] = 16;
-        gl_TessLevelOuter[3] = 16;
+        gl_TessLevelOuter[0] = size;
+        gl_TessLevelOuter[1] = size;
+        gl_TessLevelOuter[2] = size;
+        gl_TessLevelOuter[3] = size;
 
-        gl_TessLevelInner[0] = 16;
-        gl_TessLevelInner[1] = 16;
+        gl_TessLevelInner[0] = size;
+        gl_TessLevelInner[1] = size;
     }
 }

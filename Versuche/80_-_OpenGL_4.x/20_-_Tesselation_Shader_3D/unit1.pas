@@ -223,7 +223,8 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector5f), PVector5f(Triangle), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -231,15 +232,17 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector5f), PVector5f(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Vert
   glBindVertexArray(VBVert.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBVert.VBO);
   glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(TVector5f), PVector5f(vertices), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
+  glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
