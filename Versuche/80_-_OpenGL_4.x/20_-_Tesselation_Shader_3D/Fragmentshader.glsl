@@ -1,4 +1,4 @@
-#version 330
+#version 400
 
 out vec4 outColor;  // Ausgegebene Farbe.
 

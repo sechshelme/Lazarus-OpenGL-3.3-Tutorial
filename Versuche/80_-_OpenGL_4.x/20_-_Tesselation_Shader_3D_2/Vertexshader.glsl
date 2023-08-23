@@ -13,8 +13,8 @@ uniform mat4 Matrix;                  // Matrix für die Drehbewegung
 void main()
 {
     // convert XYZ vertex to XYZW homogeneous coordinate
-//    gl_Position = vec4(aPos, 1.0);
-  gl_Position = Matrix * vec4(aPos, 1.0);
+    gl_Position = vec4(aPos, 1.0);
+//  gl_Position = Matrix * vec4(aPos, 1.0);
 
     // pass texture coordinate though
     TexCoord = aTex;

@@ -73,7 +73,7 @@ var
 
   procedure AddVert(v: Tvertice);
   const
-    scale = 50000;
+    scale = 500;
   begin
     v.x := v.x / scale;
     v.y := v.y / scale;
@@ -126,23 +126,17 @@ begin
     end;
   end;
   for i := 0 to Length(vertices) - 1 do begin
-    //    WriteLn('index: ', index, '  X:', vertices[i].x: 10: 5, '  -  Y:', vertices[i].z: 10: 5);
+//    WriteLn('index: ', index, '  X:', vertices[i].x: 10: 5, '  -  Y:', vertices[i].z: 10: 5);
   end;
 
 end;
 
-//const
-//  Triangle: array of TVector5f =
-//    ((0.4, 0.1, 0.0, 1.0, 0.0),(-0.4, 0.1, 0.0, 0.0, 0.0),  (0.0, 0.7, 0.0, 0.5, 1.0));
-//  Quad: array[0..5] of TVector5f =
-//    ((-0.2, -0.6, 0.0, 0.0, 0.0), (-0.2, -0.1, 0.0, 0.0, 1.0), (0.2, -0.1, 0.0, 1.0, 1.0),
-//    (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (0.2, -0.6, 0.0, 1.0, 0.0));
 const
   Triangle: array of TVector5f =
-    ((0.4, 0.0, 0.1, 1.0, 0.0),(-0.4, 0.0, 0.1,  0.0, 0.0),  (0.0, 0.0, 0.7, 0.5, 1.0));
+    ((-0.4, 0.1, 0.0, 0.0, 0.0), (0.4, 0.1, 0.0, 1.0, 0.0), (0.0, 0.7, 0.0, 0.5, 1.0));
   Quad: array[0..5] of TVector5f =
-    ((-0.2, 0.0, -0.6,  0.0, 0.0), (-0.2, 0.0, -0.1, 0.0, 1.0), (0.2, 0.0, -0.1, 1.0, 1.0),
-    (-0.2, 0.0, -0.6,  0.0, 0.0), (0.2, 0.0, -0.1, 1.0, 1.0), (0.2, 0.0, -0.6,  1.0, 0.0));
+    ((-0.2, -0.6, 0.0, 0.0, 0.0), (-0.2, -0.1, 0.0, 0.0, 1.0), (0.2, -0.1, 0.0, 1.0, 1.0),
+    (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (0.2, -0.6, 0.0, 1.0, 0.0));
 
 type
   TVB = record
@@ -151,19 +145,11 @@ type
   end;
 
 var
+  Textur: TTexturBuffer;
+var
   VBTriangle, VBQuad, VBVert: TVB;
   WorldMatrix: TMatrix;
   WorldMatrix_ID: GLint;
-
-  Mat: record
-    model,
-    view,
-    projection: Tmat4x4;
-    model_ID, view_ID, projection_ID: glint;
-      end;
-
-    Textur: TTexturBuffer;
-
 
   { TForm1 }
 
@@ -173,7 +159,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self, True, 4, 6);
+  ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
@@ -186,36 +172,18 @@ Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter 
 Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.
 *)
 
-// https://learnopengl.com/Guest-Articles/2021/Tessellation/Tessellation
-
 //code+
 procedure TForm1.CreateScene;
 begin
-
   Textur := TTexturBuffer.Create;
+
   WorldMatrix.Identity;
-  Mat.model.Identity;
-  Mat.view.Identity;
-  Mat.projection.Identity;
-
-  Shader := TShader.Create([
-    FileToStr('Vertexshader.glsl'),
-    FileToStr('tesselationcontrolshader.glsl'),
-    FileToStr('tesselationevalationshader.glsl'),
-    FileToStr('Fragmentshader.glsl')], True);
-
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Tesselationshader.glsl'), FileToStr('Fragmentshader.glsl')], True);
   with Shader do begin
     UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
-
-    Mat.model_ID := UniformLocation('model');
-    Mat.view_ID := UniformLocation('view');
-    Mat.projection_ID := UniformLocation('projection');
-
     glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
-//    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
-
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -231,19 +199,20 @@ end;
 
 procedure TForm1.InitScene;
 const
-  outer_levels: array of GLfloat = (4, 4, 4);
-  inner_levels: array of GLfloat = (4);
+  cnt=16;
+  outer_levels: array of GLfloat = (cnt, cnt, cnt,cnt);
+  inner_levels: array of GLfloat = (cnt,cnt);
 begin
 //  Textur.LoadTextures('mauer.xpm');
-  Textur.LoadTextures('Iceland.png');
-//  Textur.LoadTextures('licht.xpm');
+// Textur.LoadTextures('iceland_heightmap.png');
+  Textur.LoadTextures('licht.xpm');
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
   CreateVertices;
@@ -254,7 +223,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector5f), PVector5f(Triangle), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -262,7 +231,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector5f), PVector5f(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
 
   // Daten für Vert
   glBindVertexArray(VBVert.VAO);
@@ -270,7 +239,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(TVector5f), PVector5f(vertices), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 20, Pointer(12));
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -282,9 +251,6 @@ begin
   Shader.UseProgram;
 
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
-  mat.model.Uniform(Mat.model_ID);
-  mat.projection.Uniform(Mat.projection_ID);
-  mat.view.Uniform(Mat.view_ID);
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
@@ -296,7 +262,7 @@ begin
 
   // Zeichne Vert
   glBindVertexArray(VBVert.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(vertices));
+  //  glDrawArrays(GL_PATCHES, 0, Length(vertices));
 
   ogc.SwapBuffers;
 end;
@@ -313,13 +279,13 @@ begin
   glDeleteBuffers(1, @VBQuad.VBO);
   glDeleteBuffers(1, @VBVert.VBO);
 
-    Textur.Free;
+  Textur.Free;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  WorldMatrix.RotateB(0.0123);  // Drehe um Z-Achse
-  WorldMatrix.RotateA(0.0223);  // Drehe um Z-Achse
+  WorldMatrix.RotateB(0.0223);  // Drehe um Z-Achse
+  WorldMatrix.RotateA(0.0423);  // Drehe um Z-Achse
   ogcDrawScene(Sender);
 end;
 
