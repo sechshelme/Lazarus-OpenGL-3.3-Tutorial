@@ -279,7 +279,7 @@ begin
   glBindVertexArray(VBVert.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBVert.VBO);
   glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(TVector5f), PVector5f(vertices), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
+  glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));

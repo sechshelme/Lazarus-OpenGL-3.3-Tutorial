@@ -203,9 +203,9 @@ const
   outer_levels: array of GLfloat = (cnt, cnt, cnt,cnt);
   inner_levels: array of GLfloat = (cnt,cnt);
 begin
-//  Textur.LoadTextures('mauer.xpm');
+  Textur.LoadTextures('mauer.xpm');
 // Textur.LoadTextures('iceland_heightmap.png');
-  Textur.LoadTextures('licht.xpm');
+  //Textur.LoadTextures('licht.xpm');
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 

@@ -23,7 +23,7 @@ void main() {
               (gl_TessCoord.z * TexCoord[2]);
 
 //  float Height = texture(heightMap, tex).r;
-  float Height = texture(heightMap, TexCoord[0]).g;
+  float Height = texture(heightMap, TexCoord[1]).g;
 
 //  Height=0.5;
   Height*=1;
@@ -32,5 +32,6 @@ void main() {
 
  gl_Position = Matrix * gl_Position;
 
-  color = gl_TessCoord;
+  color = gl_TessCoord; 
+  color.rg = TexCoord[1];
 }

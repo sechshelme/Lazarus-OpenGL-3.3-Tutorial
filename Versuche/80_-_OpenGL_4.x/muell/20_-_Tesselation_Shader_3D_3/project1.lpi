@@ -19,18 +19,28 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
+      <local>
+        <LaunchingApplication Use="True"/>
+      </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
-        <Mode0 Name="default"/>
+        <Mode0 Name="default">
+          <local>
+            <LaunchingApplication Use="True"/>
+          </local>
+        </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="LazOpenGLContext"/>
+        <PackageName Value="ogl_Package"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LazOpenGLContext"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>
@@ -51,7 +61,7 @@
         <UnitName Value="oglContext"/>
       </Unit2>
       <Unit3>
-        <Filename Value="Tesselationshader.glsl"/>
+        <Filename Value="tesselationcontrolshader.glsl"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
     </Units>

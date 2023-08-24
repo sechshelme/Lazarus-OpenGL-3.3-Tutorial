@@ -5,9 +5,9 @@ object Form1: TForm1
   Width = 439
   Caption = 'Form1'
   Menu = MainMenu1
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.2.6.0'
   object Timer1: TTimer
     Enabled = False
     Interval = 40
@@ -16,12 +16,12 @@ object Form1: TForm1
     Top = 96
   end
   object MainMenu1: TMainMenu
-    Left = 302
-    Top = 74
+    Left = 330
+    Top = 71
     object MenuItem1: TMenuItem
       Caption = 'MenuItem1'
       object MenuItem2: TMenuItem
-        Caption = 'Switch Textures'
+        Caption = 'Switch Textur'
         ShortCut = 113
         OnClick = MenuItem2Click
       end
