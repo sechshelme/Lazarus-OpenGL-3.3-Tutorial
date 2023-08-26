@@ -90,7 +90,7 @@ var
 function CreateTextures: TTextures;
 const
   len = 10;
-  texSize = 1024;
+  texSize = 4;
 var
   i, j: integer;
   texData: array of TGLenum = nil;
@@ -180,7 +180,7 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt = 64;
+  cnt = 2048;
   outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
   inner_levels: array of GLfloat = (cnt, cnt);
 begin
@@ -191,7 +191,7 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 4);
 
 
