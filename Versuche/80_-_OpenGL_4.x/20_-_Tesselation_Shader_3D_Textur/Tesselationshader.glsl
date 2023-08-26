@@ -9,9 +9,9 @@ uniform sampler2D heightMap;  // the texture corresponding to our height map
 out vec3 color;
 
 // varying input from vertex shader
-in vec2 TexCoord[];
+in vec2 TexCoord[32];
 // varying output to evaluation shader
-out vec2 TextureCoord[];
+out vec2 TextureCoord[4];
 
 void main() {
   gl_Position = (gl_TessCoord.x * gl_in[0].gl_Position) +
@@ -34,7 +34,7 @@ void main() {
 
   color = gl_TessCoord;
 
-    TextureCoord[0] = TexCoord[0];
+    TextureCoord[0] = TexCoord[10];
     TextureCoord[1] = TexCoord[1];
     TextureCoord[2] = TexCoord[2];
     TextureCoord[3] = TexCoord[3];

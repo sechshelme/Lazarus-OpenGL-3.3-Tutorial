@@ -56,85 +56,6 @@ implementation
 
 {$R *.lfm}
 
-type
-  Tvertice = record
-    x, y, z, u, v: GLfloat;
-  end;
-  Tvertices = array of Tvertice;
-
-var
-  vertices: Tvertices = nil;
-
-procedure CreateVertices;
-const
-  rez = 5;
-  w = 320;
-  h = 240;
-var
-  i, j: integer;
-  index: integer = 0;
-  ver: Tvertice;
-
-  procedure AddVert(v: Tvertice);
-  const
-    scale = 500;
-  begin
-    v.x := v.x / scale;
-    v.y := v.y / scale;
-    v.z := v.z / scale;
-    vertices[index] := v;
-    Inc(index);
-  end;
-
-begin
-  SetLength(vertices, rez * rez * 4);
-  for i := 0 to rez - 1 do begin
-    for j := 0 to rez - 1 do begin
-
-      with ver do begin
-        x := -w / 2 + w * i / rez;
-        y := 0;
-        z := h / 2 + h * j / rez;
-        u := i / rez;
-        v := j / rez;
-      end;
-      AddVert(ver);
-
-      with ver do begin
-        x := -w / 2 + w * (i + 1) / rez;
-        y := 0;
-        z := h / 2 + h * j / rez;
-        u := (i + 1) / rez;
-        v := j / rez;
-      end;
-      AddVert(ver);
-
-      with ver do begin
-        x := -w / 2 + w * i / rez;
-        y := 0;
-        z := h / 2 + h * (j + i) / rez;
-        u := i / rez;
-        v := (j + 1) / rez;
-      end;
-      AddVert(ver);
-
-      with ver do begin
-        x := -w / 2 + w * (i + 1) / rez;
-        y := 0;
-        z := h / 2 + h * (j + i) / rez;
-        u := (i + 1) / rez;
-        v := (j + 1) / rez;
-      end;
-      AddVert(ver);
-
-    end;
-  end;
-  for i := 0 to Length(vertices) - 1 do begin
-//    WriteLn('index: ', index, '  X:', vertices[i].x: 10: 5, '  -  Y:', vertices[i].z: 10: 5);
-  end;
-
-end;
-
 const
   Triangle: array of TVector5f =
     ((-0.4, 0.1, 0.0, 0.0, 0.0), (0.4, 0.1, 0.0, 1.0, 0.0), (0.0, 0.7, 0.0, 0.5, 1.0));
@@ -164,7 +85,7 @@ var
   function CreateTextures: TTextures;
   const
     texCount = 10;
-    texSize = 2;
+    texSize = 128;
   var
     i, j: integer;
     texData: array of TGLenum = nil;
@@ -253,8 +174,6 @@ begin
 //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
-  CreateVertices;
-
   // Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
@@ -273,14 +192,6 @@ begin
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
-  // Daten für Vert
-  glBindVertexArray(VBVert.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBVert.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(TVector5f), PVector5f(vertices), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -297,14 +208,12 @@ begin
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Triangle));
+  //glDrawArrays(GL_TRIANGLES, 0, Length(Triangle));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
-
-  // Zeichne Vert
-  glBindVertexArray(VBVert.VAO);
-  //  glDrawArrays(GL_PATCHES, 0, Length(vertices));
+//  glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 
   ogc.SwapBuffers;
 end;
