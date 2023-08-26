@@ -2,9 +2,9 @@
 
 layout(triangles) in;
 
-uniform mat4 Matrix;                  // Matrix für die Drehbewegung
+uniform mat4 Matrix;
 
-uniform sampler2D heightMap;  // the texture corresponding to our height map
+uniform sampler2D heightMap;
 
 out vec3 color;
 
@@ -18,12 +18,10 @@ void main() {
                 (gl_TessCoord.y * gl_in[1].gl_Position) +
                 (gl_TessCoord.z * gl_in[2].gl_Position);
 
-  vec2 tex  = (gl_TessCoord.x * TexCoord[0]) +
-              (gl_TessCoord.y * TexCoord[1]) +
-              (gl_TessCoord.z * TexCoord[2]);
-
 //  float Height = texture(heightMap, tex).r;
-  float Height = texture(heightMap, TexCoord[0]).g;
+//  float Height = texture(heightMap, TexCoord[0]).g;
+
+  float Height = 0.5;
 
 //  Height=0.5;
   Height*=1;
@@ -34,7 +32,7 @@ void main() {
 
   color = gl_TessCoord;
 
-    TextureCoord[0] = TexCoord[10];
+    TextureCoord[0] = TexCoord[0];
     TextureCoord[1] = TexCoord[1];
     TextureCoord[2] = TexCoord[2];
     TextureCoord[3] = TexCoord[3];

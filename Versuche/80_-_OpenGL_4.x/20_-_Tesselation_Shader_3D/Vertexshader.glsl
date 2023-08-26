@@ -9,7 +9,7 @@ layout (location = 1) in vec2 aTex;
 //out vec2 TexCoord;
 out vec2 TextureCoord;
 
-uniform mat4 Matrix;                  // Matrix für die Drehbewegung
+// uniform mat4 Matrix;                  // Matrix für die Drehbewegung
 
 void main()
 {

@@ -84,7 +84,7 @@ var
 
   function CreateTextures: TTextures;
   const
-    texCount = 10;
+    texCount = 100;
     texSize = 128;
   var
     i, j: integer;
@@ -198,8 +198,8 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
-  Textures[TexturIndex].ActiveAndBind(0);
   Textures[TexturIndex].ActiveAndBind(1);
+  Textures[TexturIndex].ActiveAndBind(0);
 
   Shader.UseProgram;
 
@@ -208,12 +208,10 @@ begin
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Triangle));
-  //glDrawArrays(GL_TRIANGLES, 0, Length(Triangle));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
-//  glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 
   ogc.SwapBuffers;
 end;

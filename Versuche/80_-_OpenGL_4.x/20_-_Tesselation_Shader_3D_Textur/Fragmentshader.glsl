@@ -13,8 +13,11 @@ in vec3 color;
 
 void main(void)
 {
-  outColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
-//  outColor = texture( Sampler, TexCoord );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
-//  outColor = texture( Sampler, TextureCoord[0] );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
+  vec2 tmp = UV0;
+
+tmp.x += 0.5;
+tmp.y += 0.5;
+
+  outColor = texture( Sampler, tmp );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
 //  outColor = vec4(color, 1.0);
 }
