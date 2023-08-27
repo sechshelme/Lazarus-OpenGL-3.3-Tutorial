@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix,oglTextur;
+  oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
   //image image.png
 
@@ -74,42 +74,41 @@ var
   WorldMatrix: TMatrix;
   WorldMatrix_ID: GLint;
 
-  type
+type
   TTextures = array of TTexturBuffer;
 
 var
   TexturIndex: integer = 0;
   Textures: TTextures = nil;
 
+function CreateTextures: TTextures;
+const
+  texCount = 100;
+  texSize = 128;
+var
+  i, j: integer;
+  texData: array of TGLenum = nil;
+  b: byte;
+begin
+  SetLength(Result, texCount);
+  SetLength(texData, texSize * texSize);
+  for i := 0 to texCount - 1 do begin
+    Result[i] := TTexturBuffer.Create;
+    for j := 0 to Length(texData) - 1 do begin
+      texData[j] := Random($FFFFFF) + $FF000000;
 
-  function CreateTextures: TTextures;
-  const
-    texCount = 100;
-    texSize = 128;
-  var
-    i, j: integer;
-    texData: array of TGLenum = nil;
-    b: byte;
-  begin
-    SetLength(Result, texCount);
-    SetLength(texData, texSize * texSize);
-    for i := 0 to texCount - 1 do begin
-      Result[i] := TTexturBuffer.Create;
-      for j := 0 to Length(texData) - 1 do begin
-        texData[j] := Random($FFFFFF) + $FF000000;
-
-        // b := 255 div texCount * i;
-        //if j mod 2 = 1 then  begin
-        //  texData[j] := b + b shl 8 + b shl 16 + $FF000000;
-        //end else begin
-        //  texData[j] := $FF000000;
-        //end;
-      end;
-      Result[i].LoadTextures(texSize, texSize, texData);
+      // b := 255 div texCount * i;
+      //if j mod 2 = 1 then  begin
+      //  texData[j] := b + b shl 8 + b shl 16 + $FF000000;
+      //end else begin
+      //  texData[j] := $FF000000;
+      //end;
     end;
+    Result[i].LoadTextures(texSize, texSize, texData);
   end;
+end;
 
-  { TForm1 }
+{ TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -135,15 +134,11 @@ procedure TForm1.CreateScene;
 begin
   WorldMatrix.Identity;
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Tesselationshader.glsl'), FileToStr('Fragmentshader.glsl')], True);
-//  Shader := TShader.Create([FileToStr('Vertexshader.glsl'),  FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
     glUniform1i(UniformLocation('heightMap'), 0);
     glUniform1i(UniformLocation('Sampler'), 1);
-
-    WriteLn(UniformLocation('heightMap'));
-    WriteLn(UniformLocation('Sampler'));
   end;
   //code-
 
@@ -160,9 +155,9 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt=2;
-  outer_levels: array of GLfloat = (cnt, cnt, cnt,cnt);
-  inner_levels: array of GLfloat = (cnt,cnt);
+  cnt = 20;
+  outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
+  inner_levels: array of GLfloat = (cnt, cnt);
 begin
   Textures := CreateTextures;
 
@@ -171,7 +166,7 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
   // Daten für Dreieck
@@ -218,7 +213,7 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 var
-  i: Integer;
+  i: integer;
 begin
   Shader.Free;
 
