@@ -189,6 +189,8 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
 //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPolygonMode(GL_FRONT, GL_POINT);
+  glPolygonMode(GL_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 4);
 
   glBindVertexArray(VBCube.VAO);

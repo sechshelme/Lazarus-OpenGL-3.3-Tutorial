@@ -33,7 +33,7 @@ void main()
 
 //    Height = texture(heightMap, texCoord).y;
     if ((u <= 0.0) || (v <= 0.0) || (u >= 1.0) || (v >= 1.0)) {
-      Height = 0.25;
+      Height = -0.25;
     } else {
       Height = texture(heightMap, texCoord).y;
     }
