@@ -57,11 +57,10 @@ implementation
 {$R *.lfm}
 
 const
-  Triangle: array of TVector5f =
-    ((-0.4, 0.1, 0.0, 0.0, 0.0), (0.4, 0.1, 0.0, 1.0, 0.0), (0.0, 0.7, 0.0, 0.5, 1.0));
-  Quad: array[0..5] of TVector5f =
-    ((-0.2, -0.6, 0.0, 0.0, 0.0), (-0.2, -0.1, 0.0, 0.0, 1.0), (0.2, -0.1, 0.0, 1.0, 1.0),
-    (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (0.2, -0.6, 0.0, 1.0, 0.0));
+  Quad0: array of TVector5f =
+    ((-0.5, 0.6, 0.0, 0.0, 1.1), (-0.3, 0.1, 0.0, 0.0, 0.0), (0.5, 0.6, 0.0, 1.1, 1.1), (0.3, 0.1, 0.0, 1.0, 1.0));
+  Quad1: array of TVector5f =
+    ((-0.2, -0.1, 0.0, 0.0, 1.1), (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.1, 1.1), (0.2, -0.6, 0.0, 1.0, 1.0));
 
 type
   TVB = record
@@ -70,7 +69,7 @@ type
   end;
 
 var
-  VBTriangle, VBQuad, VBVert: TVB;
+  VBQuad0, VBQuad1, VBVert: TVB;
   WorldMatrix: TMatrix;
   WorldMatrix_ID: GLint;
 
@@ -83,21 +82,21 @@ var
 
 function CreateTextures: TTextures;
 const
-  texCount = 100;
-  texSize = 128;
+  len = 100;
+  texSize = 16;
 var
   i, j: integer;
   texData: array of TGLenum = nil;
   b: byte;
 begin
-  SetLength(Result, texCount);
+  SetLength(Result, len);
   SetLength(texData, texSize * texSize);
-  for i := 0 to texCount - 1 do begin
+  for i := 0 to len - 1 do begin
     Result[i] := TTexturBuffer.Create;
     for j := 0 to Length(texData) - 1 do begin
+      b := 255 div len * i;
       texData[j] := Random($FFFFFF) + $FF000000;
 
-      // b := 255 div texCount * i;
       //if j mod 2 = 1 then  begin
       //  texData[j] := b + b shl 8 + b shl 16 + $FF000000;
       //end else begin
@@ -105,6 +104,7 @@ begin
       //end;
     end;
     Result[i].LoadTextures(texSize, texSize, texData);
+//       Result[i].LoadTextures('project1.ico');
   end;
 end;
 
@@ -116,7 +116,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self);
+  ogc := TContext.Create(Self, True, 4, 0);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
@@ -129,25 +129,36 @@ Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter 
 Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.
 *)
 
+// https://learnopengl.com/Guest-Articles/2021/Tessellation/Tessellation
+
 //code+
 procedure TForm1.CreateScene;
 begin
+
   WorldMatrix.Identity;
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Tesselationshader.glsl'), FileToStr('Fragmentshader.glsl')], True);
+
+  Shader := TShader.Create([
+    FileToStr('Vertexshader.glsl'),
+    //    FileToStr('tesselationcontrolshader.glsl'),
+    FileToStr('tesselationevalationshader.glsl'),
+    FileToStr('Fragmentshader.glsl')], True);
+
   with Shader do begin
     UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
-    glUniform1i(UniformLocation('heightMap'), 0);
-    glUniform1i(UniformLocation('Sampler'), 1);
+
+    glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
+    //    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
+
   //code-
 
-  glGenVertexArrays(1, @VBTriangle.VAO);
-  glGenVertexArrays(1, @VBQuad.VAO);
+  glGenVertexArrays(1, @VBQuad0.VAO);
+  glGenVertexArrays(1, @VBQuad1.VAO);
   glGenVertexArrays(1, @VBVert.VAO);
 
-  glGenBuffers(1, @VBTriangle.VBO);
-  glGenBuffers(1, @VBQuad.VBO);
+  glGenBuffers(1, @VBQuad0.VBO);
+  glGenBuffers(1, @VBQuad1.VBO);
   glGenBuffers(1, @VBVert.VBO);
 
   Timer1.Enabled := True;
@@ -155,33 +166,43 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt = 20;
+  cnt = 16;
   outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
   inner_levels: array of GLfloat = (cnt, cnt);
 begin
   Textures := CreateTextures;
+
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  glPatchParameteri(GL_PATCH_VERTICES, 3);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPatchParameteri(GL_PATCH_VERTICES, 4);
 
-  // Daten für Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector5f), PVector5f(Triangle), GL_STATIC_DRAW);
+
+  // Daten für Quad0;
+  glBindVertexArray(VBQuad0.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO);
+  glBufferData(GL_ARRAY_BUFFER, Length(Quad0) * sizeof(TVector5f), PVector5f(Quad0), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
 
-  // Daten für Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector5f), PVector5f(Quad), GL_STATIC_DRAW);
+  glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
+  glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
+
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPatchParameteri(GL_PATCH_VERTICES, 4);
+
+  // Daten für Quad1;
+  glBindVertexArray(VBQuad1.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO);
+  glBufferData(GL_ARRAY_BUFFER, Length(Quad1) * sizeof(TVector5f), PVector5f(Quad1), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
   glEnableVertexAttribArray(1);
@@ -191,22 +212,22 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
-  Textures[TexturIndex].ActiveAndBind(1);
   Textures[TexturIndex].ActiveAndBind(0);
+  //  Textur.ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.
 
   Shader.UseProgram;
 
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
 
-  // Zeichne Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Triangle));
+  // Zeichne Quad0;
+  glBindVertexArray(VBQuad0.VAO);
+  glDrawArrays(GL_PATCHES, 0, Length(Quad0));
 
-  // Zeichne Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad));
+  // Zeichne Quad1;
+  glBindVertexArray(VBQuad1.VAO);
+  glDrawArrays(GL_PATCHES, 0, Length(Quad1));
 
   ogc.SwapBuffers;
 end;
@@ -217,12 +238,12 @@ var
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VBTriangle.VAO);
-  glDeleteVertexArrays(1, @VBQuad.VAO);
+  glDeleteVertexArrays(1, @VBQuad0.VAO);
+  glDeleteVertexArrays(1, @VBQuad1.VAO);
   glDeleteVertexArrays(1, @VBVert.VAO);
 
-  glDeleteBuffers(1, @VBTriangle.VBO);
-  glDeleteBuffers(1, @VBQuad.VBO);
+  glDeleteBuffers(1, @VBQuad0.VBO);
+  glDeleteBuffers(1, @VBQuad1.VBO);
   glDeleteBuffers(1, @VBVert.VBO);
 
   for i := 0 to Length(Textures) - 1 do begin

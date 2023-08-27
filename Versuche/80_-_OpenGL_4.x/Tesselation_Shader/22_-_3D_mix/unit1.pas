@@ -134,12 +134,13 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   WorldMatrix.Identity;
 
   Shader := TShader.Create([
     FileToStr('Vertexshader.glsl'),
-    //    FileToStr('tesselationcontrolshader.glsl'),
     FileToStr('tesselationevalationshader.glsl'),
     FileToStr('Fragmentshader.glsl')], True);
 
@@ -209,7 +210,7 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
   Textures[TexturIndex].ActiveAndBind(0);
   //  Textur.ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.

@@ -11,16 +11,27 @@ uses
 
 type
   Tmat2x2 = array[0..1] of TVector2f;
+  Pmat2x2 = ^Tmat2x2;
   Tmat3x3 = array[0..2] of TVector3f;
+  Pmat3x3 = ^Tmat3x3;
   Tmat4x4 = array[0..3] of TVector4f;
+  Pmat4x4 = ^Tmat4x4;
 
   Tmat3x2 = array[0..2] of TVector2f;
+  Pmat3x2 = ^Tmat3x2;
+  Tmat4x2 = array[0..3] of TVector2f;
+  Pmat4x2 = ^Tmat4x2;
+
   Tmat3x4 = array[0..2] of TVector4f;
+  Pmat3x4 = ^Tmat3x4;
+  Tmat4x3 = array[0..3] of TVector3f;
+  Pmat4x3 = ^Tmat4x3;
 
   TMatrix = Tmat4x4;
-  TMatrix2D = Tmat3x3;
-
   PMatrix = ^TMatrix;
+
+  TMatrix2D = Tmat3x3;
+  PMatrix2D = ^TMatrix2D;
 
   { Tmat2x2Helper }
 
@@ -57,7 +68,6 @@ type
     procedure CrossV(const m: Tmat3x3); overload;
     procedure CrossV(const v0, v1: TVector3f); overload;
     procedure CrossV(const v0, v1, v2: TVector3f); overload;
-
 
     procedure Uniform(ShaderID: GLint);
   end;

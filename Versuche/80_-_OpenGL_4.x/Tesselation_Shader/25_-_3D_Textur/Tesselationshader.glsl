@@ -19,10 +19,14 @@ void main() {
                  (gl_TessCoord.y * TexCoord[1]) +
                  (gl_TessCoord.z * TexCoord[2]);
 
-  float Height = texture(heightMap, TextureCoord).g;
+  float r = texture(heightMap, TextureCoord).r;
+  float g = texture(heightMap, TextureCoord).g;
+  float b = texture(heightMap, TextureCoord).b;
+
+  float Height = (r + g + b) / 3;
 
   color = vec3(Height);
 
-  gl_Position.z += (Height * 0.2);
+  gl_Position.z += (Height * 0.1);
   gl_Position = Matrix * gl_Position;
 }

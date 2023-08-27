@@ -58,7 +58,7 @@ implementation
 
 const
   Quad0: array of TVector5f =
-    ((-0.5, 0.6, 0.0, 0.0, 1.1), (-0.3, 0.1, 0.0, 0.0, 0.0), (0.5, 0.6, 0.0, 1.1, 1.1), (0.3, 0.1, 0.0, 1.0, 1.0));
+    ((-0.3, 0.6, 0.0, 0.0, 1.1), (-0.2, 0.1, 0.0, 0.0, 0.0), (0.3, 0.6, 0.0, 1.1, 1.1), (0.2, 0.1, 0.0, 1.0, 1.0));
   Quad1: array of TVector5f =
     ((-0.2, -0.1, 0.0, 0.0, 1.1), (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.1, 1.1), (0.2, -0.6, 0.0, 1.0, 1.0));
 
@@ -139,7 +139,6 @@ begin
 
   Shader := TShader.Create([
     FileToStr('Vertexshader.glsl'),
-    //    FileToStr('tesselationcontrolshader.glsl'),
     FileToStr('tesselationevalationshader.glsl'),
     FileToStr('Fragmentshader.glsl')], True);
 
@@ -148,7 +147,6 @@ begin
     WorldMatrix_ID := UniformLocation('Matrix');
 
     glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
-    //    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
 
   //code-
@@ -166,18 +164,21 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt = 16;
+  cnt = 128;
   outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
   inner_levels: array of GLfloat = (cnt, cnt);
 begin
   Textures := CreateTextures;
+
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 4);
 
 
@@ -209,7 +210,7 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
   Textures[TexturIndex].ActiveAndBind(0);
   //  Textur.ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.

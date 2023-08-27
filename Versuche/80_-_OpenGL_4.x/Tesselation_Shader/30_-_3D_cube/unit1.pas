@@ -57,19 +57,34 @@ implementation
 {$R *.lfm}
 
 const
-  Quad0: array of TVector5f =
-    ((-0.3, 0.6, 0.0, 0.0, 1.1), (-0.2, 0.1, 0.0, 0.0, 0.0), (0.3, 0.6, 0.0, 1.1, 1.1), (0.2, 0.1, 0.0, 1.0, 1.0));
-  Quad1: array of TVector5f =
-    ((-0.2, -0.1, 0.0, 0.0, 1.1), (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.1, 1.1), (0.2, -0.6, 0.0, 1.0, 1.0));
+  CubeVertex: array of Tmat4x3 =
+    (((-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (0.5, 0.5, 0.5),  (0.5, -0.5, 0.5)),
+    ((0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, -0.5),  (0.5, -0.5, -0.5)),
+    ((0.5, 0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5)),
+    ((-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5)),
+    // oben
+    ((0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5)),
+    // unten
+    ((-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5)));
+
+  // --- Texturkoordinaten
+  CubeTextureVertex: array of Tmat4x2 =
+    (((0.0, 1.0), (0.0, 0.0), (1.0, 1.0), (1.0, 0.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0),  (1.0, 0.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0),  (1.0, 0.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0),  (1.0, 0.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0),  (1.0, 0.0)),
+    ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0),  (1.0, 0.0)));
 
 type
   TVB = record
     VAO,
-    VBO: GLuint;
+    VBOVertex,            // Vertex-Koordinaten
+    VBOTex_Col: GLuint;   // Textur/Color-Koordinaten
   end;
 
 var
-  VBQuad0, VBQuad1, VBVert: TVB;
+  VBCube: TVB;
   WorldMatrix: TMatrix;
   WorldMatrix_ID: GLint;
 
@@ -134,12 +149,13 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   WorldMatrix.Identity;
 
   Shader := TShader.Create([
     FileToStr('Vertexshader.glsl'),
-    //    FileToStr('tesselationcontrolshader.glsl'),
     FileToStr('tesselationevalationshader.glsl'),
     FileToStr('Fragmentshader.glsl')], True);
 
@@ -148,25 +164,20 @@ begin
     WorldMatrix_ID := UniformLocation('Matrix');
 
     glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
-    //    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
 
   //code-
 
-  glGenVertexArrays(1, @VBQuad0.VAO);
-  glGenVertexArrays(1, @VBQuad1.VAO);
-  glGenVertexArrays(1, @VBVert.VAO);
-
-  glGenBuffers(1, @VBQuad0.VBO);
-  glGenBuffers(1, @VBQuad1.VBO);
-  glGenBuffers(1, @VBVert.VBO);
+  glGenVertexArrays(1, @VBCube.VAO);
+  glGenBuffers(1, @VBCube.VBOVertex);
+  glGenBuffers(1, @VBCube.VBOTex_Col);
 
   Timer1.Enabled := True;
 end;
 
 procedure TForm1.InitScene;
 const
-  cnt = 2048;
+  cnt = 16;
   outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
   inner_levels: array of GLfloat = (cnt, cnt);
 begin
@@ -177,54 +188,36 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 4);
 
+  glBindVertexArray(VBCube.VAO);
 
-  // Daten für Quad0;
-  glBindVertexArray(VBQuad0.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Quad0) * sizeof(TVector5f), PVector5f(Quad0), GL_STATIC_DRAW);
+  // Vertexkoordinaten
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat4x3) * Length(CubeVertex), Pmat4x3(CubeVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  // Texturkoordinaten
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex_Col);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat4x2) * Length(CubeTextureVertex), Pmat4x2(CubeTextureVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
-
-  glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
-  glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
-
-  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-  glPatchParameteri(GL_PATCH_VERTICES, 4);
-
-  // Daten für Quad1;
-  glBindVertexArray(VBQuad1.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Quad1) * sizeof(TVector5f), PVector5f(Quad1), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
-
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
-
-  Textures[TexturIndex].ActiveAndBind(0);
-  //  Textur.ActiveAndBind(0); // Textur 0 mit Sampler 0 binden.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
   Shader.UseProgram;
+  Textures[TexturIndex].ActiveAndBind(0);
 
   WorldMatrix.Uniform(WorldMatrix_ID);                     // Matrix dem Shader übergeben
 
   // Zeichne Quad0;
-  glBindVertexArray(VBQuad0.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad0));
-
-  // Zeichne Quad1;
-  glBindVertexArray(VBQuad1.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad1));
+  glBindVertexArray(VBCube.VAO);
+  glDrawArrays(GL_PATCHES, 0, Length(CubeTextureVertex) * 4);
 
   ogc.SwapBuffers;
 end;
@@ -235,13 +228,9 @@ var
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VBQuad0.VAO);
-  glDeleteVertexArrays(1, @VBQuad1.VAO);
-  glDeleteVertexArrays(1, @VBVert.VAO);
-
-  glDeleteBuffers(1, @VBQuad0.VBO);
-  glDeleteBuffers(1, @VBQuad1.VBO);
-  glDeleteBuffers(1, @VBVert.VBO);
+  glDeleteVertexArrays(1, @VBCube.VAO);
+  glDeleteBuffers(1, @VBCube.VBOVertex);
+  glDeleteBuffers(1, @VBCube.VBOTex_Col);
 
   for i := 0 to Length(Textures) - 1 do begin
     Textures[i].Free;
