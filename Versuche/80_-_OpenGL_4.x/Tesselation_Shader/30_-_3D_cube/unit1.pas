@@ -118,8 +118,9 @@ begin
       //  texData[j] := $FF000000;
       //end;
     end;
-    Result[i].LoadTextures(texSize, texSize, texData);
-    //    Result[i].LoadTextures('mauer.xpm');
+   // Result[i].LoadTextures(texSize, texSize, texData);
+//   Result[i].LoadTextures('mauer.xpm');
+   Result[i].LoadTextures('project1.ico');
   end;
 end;
 

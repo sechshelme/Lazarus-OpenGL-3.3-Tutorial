@@ -20,25 +20,25 @@ void main()
     vec2 texCoord = mix(t1, t0, v);
 
 
-    vec4 p00 = gl_in[0].gl_Position;
-    vec4 p01 = gl_in[1].gl_Position;
-    vec4 p10 = gl_in[2].gl_Position;
-    vec4 p11 = gl_in[3].gl_Position;
+    vec3 p00 = gl_in[0].gl_Position.xyz;
+    vec3 p01 = gl_in[1].gl_Position.xyz;
+    vec3 p10 = gl_in[2].gl_Position.xyz;
+    vec3 p11 = gl_in[3].gl_Position.xyz;
 
-    vec4 normal = normalize(vec4(cross(p10.xyz - p00.xyz, p01.xyz - p00.xyz), 0));
+    vec3 normal = normalize(cross(p10 - p00, p01 - p00));
 
-    vec4 p0 = mix(p00, p01,  u);
-    vec4 p1 = mix(p10, p11,  u);
-    vec4 p = mix(p1,p0, v);
+    vec3 p0 = mix(p00, p01,  u);
+    vec3 p1 = mix(p10, p11,  u);
+    vec3 p = mix(p1,p0, v);
 
-//    Height = texture(heightMap, texCoord).y;
     if ((u <= 0.0) || (v <= 0.0) || (u >= 1.0) || (v >= 1.0)) {
-      Height = -0.25;
+      Height = 0.5;
     } else {
-      Height = texture(heightMap, texCoord).y;
+      Height = texture(heightMap, texCoord).z;
     }
 
-    p += normal * (-Height * 64.0 - 16.0) / 400;
+    p += normal * ( -Height + 0.5)  / 10;
+//    p +=  ( -Height + 0.5)  / 10;
 
-    gl_Position = Matrix * p;
+    gl_Position = Matrix * vec4(p, 1.0);
 }

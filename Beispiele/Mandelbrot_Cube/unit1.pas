@@ -19,13 +19,13 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-  private   { private declarations }
+  private
     ogc: TContext;
 
     procedure CreateScene;
     procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
-  public        { public declarations }
+  public
   end;
 
 var
@@ -35,33 +35,10 @@ implementation
 
 {$R *.lfm}
 
-//image image.png
-
-(*
-Eine Scene kann man auch in eine Textur rendern, anstelle des Bildschirmes.
-Man kann dies auch gebrauchen, wen man eine Scene bei einem Autorennen in einen Rückspiegel rendern will.
-*)
-//lineal
-(*
-Deklaration der Vertexkonstanten des Quadrates, welches in die Textur gerendert wird.
-Es ist ein Quadrat mit 4 verschieden farbigen Ecken.
-*)
-//code+
 const
+  Quad: array[0..1] of Tmat3x3 =
+    (((-1.0, 1.0, 0.0), (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0)), ((-1.0, 1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
 
-  // --- Vectoren
-  QuadVertex: array[0..1] of Tmat3x3 =
-    (((-0.3, 0.3, 0.0), (-0.3, -0.3, 0.0), (0.3, -0.3, 0.0)), ((-0.3, 0.3, 0.0), (0.3, -0.3, 0.0), (0.3, 0.3, 0.0)));
-
-  // --- Farben
-  QuadColor: array[0..1] of Tmat3x3 =
-    (((0.0, 2.0, 0.5), (0.0, 0.0, 0.5), (2.0, 0.0, 0.5)), ((0.0, 2.0, 0.5), (2.0, 0.0, 0.5), (2.0, 2.0, 0.5)));
-//code-
-(*
-Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.
-Der Würfel braucht Texturkoordinaten.
-*)
-//code+
 const
 
   // --- Vectoren
@@ -83,61 +60,49 @@ const
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)));
-//code-
-(*
-Grösse der Textur, auf welcher das Quadrat gerendert wird.
-*)
-//code+
+
 const
   TexturSize = 2048;
-//code-
 
-(*
-Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.
-Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.
-*)
-//code+
 type
-  TVB = record
+  TCube_VB = record
     VAO,
     VBOVertex,            // Vertex-Koordinaten
     VBOTex_Col: GLuint;   // Textur/Color-Koordinaten
   end;
 
+  TQuad_VB = record
+    VAO,
+    VBOVertex: GLuint;   // Textur/Color-Koordinaten
+  end;
+
 var
-  VBQuad, VBCube: TVB;
+  VBQuad: TQuad_VB;
+  VBCube: TCube_VB;
 
   // Puffer für Quadrat.
   Quad_Shader: record
+    WorldMatrix: TMatrix;
+    col: GLfloat;
+
     Shader: TShader;
-    WorldMatrix_id: GLint;
-  end;
+    Color_ID,
+    WorldMatrix_ID: GLint;
+      end;
 
   // Puffer für Würfel.
   Cube_Shader: record
+    WorldMatrix: TMatrix;
     Shader: TShader;
-    WorldMatrix_id: GLint;
-  end;
+    WorldMatrix_ID: GLint;
+      end;
 
-  // Je eine Matrix für das Rechteck und den Würfel.
-  QuadWorldMatrix, CubeWorldMatrix: TMatrix;
-// code-
-
-(*
-Das wichtigste, die ID der Textur, in welche das Quadrat gerendert wird.
-Und den Renderbuffer, welche mit der Textur gekoppelt ist.
-Alles was in diesen Puffer gerendert wird, ist dann auch in der Textur vorhanden.
-*)
-//code+
 var
   // ID der Textur.
   textureID: GLuint;
 
   // Renderpuffer
   FramebufferName, depthrenderbuffer: GLuint;
-//code-
-
-{ TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -153,17 +118,12 @@ begin
   Timer1.Enabled := True;
 end;
 
-(*
-Erzeugen der Puffer, Shader und Matrizen, eigentlich nichts besonderes.
-*)
-//code+
 procedure TForm1.CreateScene;
 begin
 
   // Vertex Puffer erzeugen.
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOVertex);
-  glGenBuffers(1, @VBQuad.VBOTex_Col);
 
   glGenVertexArrays(1, @VBCube.VAO);
   glGenBuffers(1, @VBCube.VBOVertex);
@@ -175,7 +135,8 @@ begin
     with Shader do begin
       UseProgram;
 
-      WorldMatrix_id := UniformLocation('Matrix');
+      Color_ID := UniformLocation('col');
+      WorldMatrix_ID := UniformLocation('Matrix');
     end;
   end;
 
@@ -186,18 +147,14 @@ begin
       UseProgram;
       glUniform1i(UniformLocation('Sampler0'), 0);
 
-      WorldMatrix_id := UniformLocation('Matrix');
+      WorldMatrix_ID := UniformLocation('Matrix');
     end;
   end;
 
-  CubeWorldMatrix.Identity;
-  QuadWorldMatrix.Identity;
+  Cube_Shader.WorldMatrix.Identity;
+  Quad_Shader.WorldMatrix.Identity;
 end;
-//code-
-(*
-Die Vertexkoordinaten laden, auch nichts besonderes.
-*)
-//code+
+
 procedure TForm1.InitScene;
 begin
   glEnable(GL_DEPTH_TEST);
@@ -206,7 +163,7 @@ begin
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
 
-  QuadWorldMatrix.Scale(2.0);
+  Quad_Shader.WorldMatrix.Scale(1.5);
 
   // --- Quadrat
   with Quad_Shader do begin
@@ -214,15 +171,9 @@ begin
 
     // Vertexkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
-
-    // Farben
-    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex_Col);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
   end;
 
   // --- Würfel
@@ -238,16 +189,9 @@ begin
     // Texturkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex_Col);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTextureVertex), @CubeTextureVertex, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(10);
-    glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
   end;
-  //code-
-(*
-Das erzeugen der Textur ist sehr ähnlich einer normalen Textur, der grosse Unterschied, anstelle eines Pointer auf die Texturdaten,
-gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.
-*)
-  //code+
-
   // ------------ Texturen erzeugen --------------
 
   // --- Textur
@@ -259,12 +203,6 @@ gibt man nur <b>nil</b> mit, da man nur einee leere Textur braucht.
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-  //code-
-(*
-Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.
-*)
-  //code+
 
   // Frame Puffer erzeugen.
   glGenFramebuffers(1, @FramebufferName);
@@ -280,17 +218,7 @@ Hier wird die Textur mit dem Render/FrameBuffer gekoppelt.
   // Die Textur mit dem Framebuffer koppeln
   glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, textureID, 0);
 end;
-//code-
 
-(*
-Hier sieht man wie zuerst in den Framebuffer gerendert wird, und anschiessend normal in den Bildschirmpuffer.
-Das Rendern läuft fast gleich ab, egal in welchen Puffer gerendert wird.
-Der einzige markante Unterschied, beim Bildschirmpuffer muss man am Ende <b>SwapBuffers</b> ausführen.
-Noch ein Hinweis, bei FramePuffer, ist der 4. Parameter von <b>glClearColor(...</b> relevant.
-Wen Alphablending aktiviert ist, kann der Hintergrund des Framepuffer auch transparent sein.
-Beim Bildschirmpuffer hat dieser keinen Einfluss.
-*)
-//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
 
@@ -308,8 +236,10 @@ begin
     Shader.UseProgram;
     glBindVertexArray(VBQuad.VAO);
 
-    QuadWorldMatrix.Uniform(WorldMatrix_id);
-    glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex) * 3);
+    WorldMatrix.Uniform(WorldMatrix_ID);
+    glUniform1f(Color_ID, col);
+
+    glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
   end;
 
 
@@ -329,19 +259,14 @@ begin
     Shader.UseProgram;
     glBindVertexArray(VBCube.VAO);
 
-    CubeWorldMatrix.Uniform(WorldMatrix_id);
+    WorldMatrix.Uniform(WorldMatrix_ID);
     glDrawArrays(GL_TriangleS, 0, Length(CubeVertex) * 3);
 
     ogc.SwapBuffers;
   end;
 
 end;
-//code-
 
-(*
-Zum Schluss alle Puffer frei geben.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
@@ -354,7 +279,6 @@ begin
   // Vertex Puffer frei geben.
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
-  glDeleteBuffers(1, @VBQuad.VBOTex_Col);
 
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOVertex);
@@ -364,46 +288,23 @@ begin
   Quad_Shader.Shader.Free;
   Cube_Shader.Shader.Free;
 end;
-//code-
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  CubeWorldMatrix.RotateC(Pi / 200);
-  CubeWorldMatrix.RotateA(Pi / 200);
-  QuadWorldMatrix.RotateC(-Pi / 124);
+  with Quad_Shader do begin
+    col := col + 0.1;
+    if col >= 10.0 then begin
+      col := col - 10.0;
+    end;
+
+    WorldMatrix.RotateC(-Pi / 124);
+  end;
+
+  with Cube_Shader do begin
+    WorldMatrix.RotateC(Pi / 200);
+    WorldMatrix.RotateA(Pi / 200);
+  end;
   ogcDrawScene(Sender);
 end;
-
-//lineal
-
-(*
-Die Shader sind sehr einfach, der Shader des Quadrates muss nur ein farbige Polygone ausgeben.
-Der Shader des Würfels, gibt Texturen aus.
-
-<b>Vertex-Shader Quadrat:</b>
-
-*)
-//includeglsl cube.vert
-//lineal
-
-(*
-<b>Fragment-Shader Quadrat:</b>
-
-*)
-//includeglsl cube.frag
-//lineal
-
-(*
-<b>Vertex-Shader Würfel:</b>
-
-*)
-//includeglsl quad.vert
-//lineal
-
-(*
-<b>Fragment-Shader Würfel:</b>
-
-*)
-//includeglsl quad.frag
 
 end.
