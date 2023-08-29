@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  oglContext, oglShader,oglVector, oglMatrix;
 
 type
 
@@ -90,12 +90,12 @@ begin
     Matrix_ID := UniformLocation('mat');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
-  Matrix := TMatrix.Create;
+  Matrix.Identity;
 
-  FrustumMatrix := TMatrix.Create;
+  FrustumMatrix.Identity;
   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0);
 
-  WorldMatrix := TMatrix.Create;
+  WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -200.0); // Die Scene in den sichtbaren Bereich verschieben.
   WorldMatrix.Scale(5.0);              // Und der Grösse anpassen.
 
@@ -160,7 +160,7 @@ const
   d = 2.0;
   s = 8;
 begin
-  Matrix := TMatrix.Create;
+  Matrix.Identity;
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VBTriangle.VAO);
@@ -179,8 +179,8 @@ begin
       Matrix.Identity;
       Matrix.Translate(x * d, y * d, -4 * d);
 
-      Matrix.Multiply(WorldMatrix, Matrix);
-      Matrix.Multiply(FrustumMatrix, Matrix);
+      Matrix:=WorldMatrix* Matrix;
+      Matrix:=FrustumMatrix* Matrix;
 
       Matrix.Uniform(Matrix_ID);
       glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
@@ -194,9 +194,6 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
 
-  Matrix.Free;
-  FrustumMatrix.Free;
-  WorldMatrix.Free;
   Shader.Free;
 
   glDeleteTextures(2, @textureID);       // Textur-Puffer frei geben.

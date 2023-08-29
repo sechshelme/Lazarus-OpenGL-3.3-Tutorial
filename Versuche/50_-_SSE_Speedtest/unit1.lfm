@@ -6,14 +6,14 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 234
   ClientWidth = 239
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '3.99.0.0'
   object Button4x4: TButton
     Left = 56
     Height = 25
     Top = 48
     Width = 75
     Caption = 'Button4x4'
-    OnClick = Button4x4Click
     TabOrder = 0
+    OnClick = Button4x4Click
   end
 end

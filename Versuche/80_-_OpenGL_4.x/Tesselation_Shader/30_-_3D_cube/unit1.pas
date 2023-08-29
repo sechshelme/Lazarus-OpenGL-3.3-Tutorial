@@ -98,7 +98,7 @@ var
 function CreateTextures: TTextures;
 const
   len = 100;
-  texSize = 16;
+  texSize = 1024;
 var
   i, j: integer;
   texData: array of TGLenum = nil;
@@ -177,7 +177,7 @@ end;
 
 procedure TForm1.InitScene;
 const
-  cnt = 16;
+  cnt = 1024;
   outer_levels: array of GLfloat = (cnt, cnt, cnt, cnt);
   inner_levels: array of GLfloat = (cnt, cnt);
 begin

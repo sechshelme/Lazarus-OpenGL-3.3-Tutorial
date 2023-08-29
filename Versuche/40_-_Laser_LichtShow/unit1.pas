@@ -72,13 +72,13 @@ var
   LichtPosition_ID,
   LichtRichtung_ID: GLint;
 
-  LichtPosition:TVector2f = (-0.4, -0.2);
+  LichtPosition: TVector2f = (-0.4, -0.2);
   LichtRichtung: array[0..3] of GLfloat;
   timeRot: GLfloat;
 
   VBQuad: TVB;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -158,10 +158,10 @@ end;
 
 procedure TForm1.FormResize(Sender: TObject);
 var
-  Resolution:TVector2f;
+  Resolution: TVector2f;
 begin
-  Resolution.x:= ClientWidth;
-  Resolution.y:= ClientHeight;
+  Resolution.x := ClientWidth;
+  Resolution.y := ClientHeight;
   glUniform2fv(Resolution_ID, 1, @Resolution);
 end;
 
@@ -186,8 +186,6 @@ begin
   LichtPosition.Rotate(0.01);
 
   ogcDrawScene(Sender);    // Neu zeichnen
-
-
 end;
 
 (*

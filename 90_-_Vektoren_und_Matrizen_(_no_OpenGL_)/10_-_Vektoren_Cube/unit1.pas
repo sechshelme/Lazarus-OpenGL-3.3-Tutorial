@@ -25,7 +25,6 @@ type
     WorldMatrix,
     FrustumMatrix: TMatrix;
     procedure DrawLine(p0, p1: TVector3f);
-
   public
 
   end;
