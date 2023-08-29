@@ -115,7 +115,6 @@ begin
 
   CreateScene;
   InitScene;
-  Timer1.Enabled := True;
 end;
 
 procedure TForm1.CreateScene;
@@ -153,6 +152,7 @@ begin
 
   Cube_Shader.WorldMatrix.Identity;
   Quad_Shader.WorldMatrix.Identity;
+  Timer1.Enabled := True;
 end;
 
 procedure TForm1.InitScene;
@@ -163,10 +163,11 @@ begin
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
 
-  Quad_Shader.WorldMatrix.Scale(1.5);
 
   // --- Quadrat
   with Quad_Shader do begin
+    WorldMatrix.Scale(1.5);
+
     glBindVertexArray(VBQuad.VAO);
 
     // Vertexkoordinaten
