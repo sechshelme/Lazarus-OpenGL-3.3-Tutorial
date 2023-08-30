@@ -5,7 +5,7 @@ unit oglVector;
 interface
 
 uses
-  Classes, SysUtils, Dialogs, Clipbrd, dglOpenGL;
+  Classes, SysUtils, dglOpenGL;
 
 type
   TglFloatArray = array of glFloat;
@@ -718,7 +718,7 @@ var
   v: TVector3f;
 begin
   if Length(Normal) <> Length(Face) then begin
-    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+//    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
     Exit;
   end;
   for i := 0 to Length(Face) - 1 do begin
