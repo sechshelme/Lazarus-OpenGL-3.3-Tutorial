@@ -46,6 +46,7 @@ Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
   //code+
 var
   Point: array of TVector3f;
+  Col: array of TVector3f;
   PointSize: array of GLfloat;
   //code-
 
@@ -64,7 +65,7 @@ var
 type
   TVB = record
     VAO,
-    VBO, VBO_Size: GLuint;
+    VBO, VBO_Size, VBOCol: GLuint;
   end;
 
 var
@@ -123,6 +124,7 @@ begin
 
   glGenVertexArrays(1, @VBPoint.VAO);
   glGenBuffers(1, @VBPoint.VBO);
+  glGenBuffers(1, @VBPoint.VBOCol);
   glGenBuffers(1, @VBPoint.VBO_Size);
 
   glGetFloatv(GL_VIEWPORT, PGLfloat(viewport));
@@ -137,20 +139,61 @@ begin
 
 end;
 
+const
+        RAND_MAX = 32767;
+
+function rand_minus_one_one: TGLfloat;
+var
+  i: integer;
+begin
+  i := Random(2) * 2 - 1;
+  Result := Random / RAND_MAX * i;
+/////G/G(/7    WriteLn(Result: 10: 5);
+end;
+
+function rand_zero_one: TGLfloat;
+begin
+  Result := Random / RAND_MAX;
+end;
+
+
+
 procedure TForm1.CreateVertex;
 const
-  r = 0.3;
-  sek = 140;
+  r = 1.3;
+  sek = 1600;
 var
   i: integer;
 begin
   SetLength(Point, sek);
+  SetLength(Col, sek);
   SetLength(PointSize, sek);
   for i := 0 to sek - 1 do begin
-    Point[i, 0] := sin(Pi * 2 / sek * i) * r;
-    Point[i, 1] := cos(Pi * 2 / sek * i) * r;
-    Point[i, 2] := 0.0;
-    PointSize[i] := i * 3;
+//    Point[i, 0] := rand_minus_one_one / 2;
+//    Point[i, 1] := rand_minus_one_one / 2;
+    Point[i, 0] := Random / 2;
+    Point[i, 1] := Random / 2;
+    Point[i, 2] := 0;
+    PointSize[i] := Random * 1;
+    col[i, 0] := Random;
+    col[i, 1] := Random;
+    col[i, 2] := Random;
+    col[i, 0] := 0;
+    col[i, 1] := 1;
+    col[i, 2] := 0;
+
+    Point[i, 0] := sin(Pi * 2 / sek * i*10) * r/2;
+    Point[i, 1] := cos(Pi * 2 / sek * i*10) * r/2;
+ // WriteLn(Point[i, 0]:10:5 ,      '       ', Point[i, 1] :10:5);
+
+    //Point[i, 2] := 0.0;
+    //PointSize[i] := Random * 1;
+    //col[i, 0] := Random;
+    //col[i, 1] := Random;
+    //col[i, 2] := Random;
+    //col[i, 0] := 0;
+    //col[i, 1] := 1;
+    //col[i, 2] := 0;
   end;
 end;
 
@@ -165,17 +208,23 @@ begin
 
   // Daten für Punkt Position
   glBindVertexArray(VBPoint.VAO);
+
   glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TVector3f) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+    // Daten für Color
+  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBOCol);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TVector3f) * Length(col), Pointer(col), GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // Daten für Punkt Grösse
-  glBindVertexArray(VBPoint.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO_Size);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(PointSize), Pointer(PointSize), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 1, GL_FLOAT, False, 0, nil);
 end;
 
 //code-
@@ -200,32 +249,7 @@ begin
 
 
   glBindVertexArray(VBPoint.VAO);
-  // gelb
-  glUniform1i(PointTyp_ID, 0);
-  glUniform3f(Color_ID, 1.0, 1.0, 0.0);
-  glUniform1f(X_ID, -ofs);
-  glUniform1f(Y_ID, -ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
 
-  // rot
-  glUniform1i(PointTyp_ID, 1);
-  glUniform3f(Color_ID, 1.0, 0.0, 0.0);
-  glUniform1f(X_ID, ofs);
-  glUniform1f(Y_ID, -ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
-
-  // grün
-  glUniform1i(PointTyp_ID, 2);
-  glUniform3f(Color_ID, 0.0, 1.0, 0.0);
-  glUniform1f(X_ID, ofs);
-  glUniform1f(Y_ID, ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
-
-  // blau
-  glUniform1i(PointTyp_ID, 3);
-  glUniform3f(Color_ID, 0.0, 0.0, 1.0);
-  glUniform1f(X_ID, -ofs);
-  glUniform1f(Y_ID, ofs);
   glDrawArrays(GL_POINTS, 0, Length(Point));
 
   ogc.SwapBuffers;

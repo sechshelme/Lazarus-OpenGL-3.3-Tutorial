@@ -34,7 +34,7 @@ void main(void) {
 //        vec3 lightDir = normalize(vec3(gl_LightSource[0].position));
         vec3 lightDir = light0_position.xyz;
         float intensity = .2 + max(dot(lightDir,normalize(pointnormclip-centernormclip)), 0.0);
-        gl_FragColor = vec4( intensity* outColor, 0);
+        gl_FragColor = vec4( intensity* outColor, 1);
     }
 }
 

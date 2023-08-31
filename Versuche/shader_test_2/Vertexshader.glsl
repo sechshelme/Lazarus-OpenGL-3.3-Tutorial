@@ -1,8 +1,8 @@
 #version 330
 
 layout (location = 0) in vec3  inPos;
-layout (location = 1) in float R;
-layout (location = 2) in vec3  inColor;
+layout (location = 1) in vec3  inColor;
+layout (location = 2) in float R;
 
 uniform vec4 viewport;
 uniform mat4 glModelViewProjectionMatrix;
@@ -43,6 +43,7 @@ void main() {
 
     gl_Position = vec4(-r1Dr4T, -r2Dr4T, gl_Position.z/gl_Position.w*(-r4Dr4T), -r4Dr4T);
 
+    gl_Position   =  vec4(inPos, 1.0); ////////////////////7
 
     float discriminant_x = r1Dr4T*r1Dr4T-r4Dr4T*r1Dr1T;
     float discriminant_y = r2Dr4T*r2Dr4T-r4Dr4T*r2Dr2T;
