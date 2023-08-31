@@ -40,9 +40,7 @@ implementation
 //image image.png
 
 (*
-Hier wird die Farbe des Meshes über eine Unifom-Variable an den Shader übergeben, somit kann die Farbe zur Laufzeit geändert werden.
-Unifom-Variablen dienen dazu, um Parameter den Shader-Objecte zu übergeben. Meistens sind dies Matrixen, oder wie hier im Beispiel die Farben.
-Oder auch Beleuchtung-Parameter, zB. die Position des Lichtes.
+Man kann nachträglich den den Tiefenbuffer im Fragment-Shader korrigieren.
 *)
 
 //lineal
@@ -64,22 +62,12 @@ type
     VBO: GLuint;
   end;
 
-(*
-Deklaration der ID, welche auf die Unifom-Variable im Shader zeigt, und die Variable, welche die Farbe für den Vektor enthält.
-Da man die Farbe als Vektor übergibt, habe ich dafür den Typ <b>TVertex3f</b> gewählt. Seine Komponenten beschreiben den Rot-, Grün- und Blauanteil der Farbe.
-*)
-//code+
 var
-  Color_ID: GLint;      // ID
-  MyColor: TVertex3f;   // Farbe
-
+  Color_ID: GLint;
   ZTest_ID: GLint;
   ZTest: GLfloat;
 
-  //code-
   VBTriangle, VBQuad: TVB;
-
-{ TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -94,18 +82,6 @@ begin
   InitScene;
 end;
 
-(*
-Dieser Code wurde um eine Zeile <b>UniformLocation</b> erweitert.
-Diese ermittelt die ID, wo sich <b>Color</b> im Shader befindet.
-
-Vor dem Ermitteln muss mit <b>UseProgram</b> der Shader aktviert werden, von dem man lesen will.
-Im Hintergrund wird dabei <b>glGetUniformLocation(ProgrammID,...</b> aufgerufen.
-Der Vektor von MyColor ist in RGB (Rot, Grün, Blau).
-
-Der String in <b>UniformLocation</b> muss indentisch mit dem Namen der Uniform-Variable im Shader sein. <b>Wichtig:</b> Es muss auf Gross- und Kleinschreibung geachtet werden.
-*)
-
-
 //code+
 procedure TForm1.CreateScene;
 begin
@@ -113,12 +89,8 @@ begin
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  Color_ID := Shader.UniformLocation('Color'); // Ermittelt die ID von "Color".
-  ZTest_ID := Shader.UniformLocation('ZTest'); // Ermittelt die ID von "ZTest".
-  // MyColor Blau zuweisen.
-  MyColor[0] := 0.0;
-  MyColor[1] := 0.0;
-  MyColor[2] := 1.0;
+  Color_ID := Shader.UniformLocation('Color');
+  ZTest_ID := Shader.UniformLocation('ZTest');
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -148,32 +120,31 @@ begin
 end;
 
 (*
-Hier wird die Uniform-Variable übergeben. Für diese vec3-Variable gibt es zwei Möglichkeiten.
-Mit <b>glUniform3fv...</b> kann man sie als ganzen Vektor übergeben.
-Mit <b>glUniform3f(...</b> kann man die Komponenten der Farben auch einzeln übergeben.
+Hier sieht man, wie man den Tiefenwert des roten Rechtecks korrigiert.
 *)
 
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen.
 
-   Shader.UseProgram;
+  Shader.UseProgram;
 
   // Zeichne Dreieck
-  glUniform1f(ZTest_ID, 0.5);
+  glUniform1f(ZTest_ID, 0.0);
   glUniform3f(Color_ID, 0.0, 1.0, 1.0);
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
 
   // Zeichne Quadrat
-  glUniform1f(ZTest_ID, ZTest);
+  glUniform1f(ZTest_ID, ZTest); // Tiefenwert korrigieren
   glUniform3f(Color_ID, 1.0, 0.0, 0.0);
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -188,22 +159,22 @@ begin
 end;
 
 (*
-Folgende Prozedur weist dem Vektor <b<MyColor</b> eine andere Farbe zu.
-Dafür wird ein einfaches Menü verwendet.
+Der zu korrigierenden Teifenwert angeben.
 *)
 //code+
 procedure TForm1.MenuItemClick(Sender: TObject);
 begin
   case TMainMenu(Sender).Tag of
     0: begin
-      ZTest:=0.7;
+      ZTest := 0.1;
     end;
     1: begin
-      ZTest:=0.3;
+      ZTest := -0.1;
     end;
   end;
   ogc.Invalidate;   // Manuelle Aufruf von DrawScene.
 end;
+
 //code-
 //lineal
 
@@ -216,8 +187,7 @@ end;
 (*
 <b>Fragment-Shader:</b>
 
-Hier ist die Uniform-Variable <b>Color</b> hinzugekommen.
-Diese habe ich nur im Fragment-Shader deklariert, da diese nur hier gebraucht wird.
+Hier wird der Tiefenwert korrigiert.
 *)
 //includeglsl Fragmentshader.glsl
 

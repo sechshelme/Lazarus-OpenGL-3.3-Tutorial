@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader;
+  oglVector, oglMatrix, oglContext, oglShader;
 
 type
 
@@ -43,17 +43,21 @@ Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
 
 //lineal
 
-type
-  TVertex2f = array[0..1] of GLfloat;
-
 (*
 Die Deklaration der Koordianten und Punktgrösse.
 *)
 //code+
+
+type
+  TPoint = record
+    vec: TVector2f;
+    col: TVector3f;
+    PointSize: GLfloat;
+  end;
+
 var
-  Point: array of TVertex2f;
-  PointSize: array of GLfloat;
-//code-
+  Points: array of TPoint;
+  //code-
 
 type
   TVB = record
@@ -68,11 +72,12 @@ var
 
   VBPoint: TVB;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
+  Randomize;
   Width := 340;
   Height := 240;
   //remove-
@@ -102,16 +107,18 @@ end;
 procedure TForm1.CreateVertex;
 const
   r = 0.3;
-  sek = 14;
+  sek = 22;
 var
   i: integer;
 begin
-  SetLength(Point, sek);
-  SetLength(PointSize, sek);
+  SetLength(Points, sek);
   for i := 0 to sek - 1 do begin
-    Point[i, 0] := sin(Pi * 2 / sek * i) * r;
-    Point[i, 1] := cos(Pi * 2 / sek * i) * r;
-    PointSize[i] := i * 3;
+    Points[i].vec.x := sin(Pi * 2 / sek * i) * r;
+    Points[i].vec.y := cos(Pi * 2 / sek * i) * r;
+    Points[i].col[0]:=Random;
+    Points[i].col[1]:=Random;
+    Points[i].col[2]:=Random;
+    Points[i].PointSize := (i + 1) * 3;
   end;
 end;
 
@@ -128,16 +135,21 @@ begin
 
   // Daten für Punkt Position
   glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TPoint) * 4 * Length(Points), Pointer(Points), GL_STATIC_DRAW);
 
-  // Daten für Punkt Grösse
-  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO_Size);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(PointSize), Pointer(PointSize), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  Caption := IntToStr(SizeOf(TPoint));
+
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, False, SizeOf(TPoint), nil);
+
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(8));
+
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(20));
+
 end;
+
 //code-
 
 (*
@@ -155,35 +167,13 @@ begin
 
   glBindVertexArray(VBPoint.VAO);
   // gelb
-  glUniform1i(PointTyp_ID, 0);
   glUniform3f(Color_ID, 1.0, 1.0, 0.0);
-  glUniform1f(X_ID, -ofs);
-  glUniform1f(Y_ID, -ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
+  glDrawArrays(GL_POINTS, 0, Length(Points));
 
-  // rot
-  glUniform1i(PointTyp_ID, 1);
-  glUniform3f(Color_ID, 1.0, 0.0, 0.0);
-  glUniform1f(X_ID, ofs);
-  glUniform1f(Y_ID, -ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
-
-  // grün
-  glUniform1i(PointTyp_ID, 2);
-  glUniform3f(Color_ID, 0.0, 1.0, 0.0);
-  glUniform1f(X_ID, ofs);
-  glUniform1f(Y_ID, ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
-
-  // blau
-  glUniform1i(PointTyp_ID, 3);
-  glUniform3f(Color_ID, 0.0, 0.0, 1.0);
-  glUniform1f(X_ID, -ofs);
-  glUniform1f(Y_ID, ofs);
-  glDrawArrays(GL_POINTS, 0, Length(Point));
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);

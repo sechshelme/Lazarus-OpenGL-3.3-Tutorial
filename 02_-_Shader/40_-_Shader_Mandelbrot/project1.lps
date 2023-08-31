@@ -51,7 +51,6 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="3" Y="12"/>
         <UsageCount Value="10"/>
@@ -60,8 +59,9 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="61" Y="30"/>
+        <CursorPos X="23" Y="10"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
