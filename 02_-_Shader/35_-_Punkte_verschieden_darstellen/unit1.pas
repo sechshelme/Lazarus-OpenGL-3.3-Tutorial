@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader;
+oglVector,oglMatrix,  oglContext, oglShader;
 
 type
 
@@ -43,22 +43,24 @@ Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
 
 //lineal
 
-type
-  TVertex2f = array[0..1] of GLfloat;
-
 (*
 Die Deklaration der Koordianten und Punktgrösse.
 *)
-//code+
+  //code+
+type
+  TPoint=record
+    vec: TVector2f;
+    PointSize: GLfloat;
+    end;
+
 var
-  Point: array of TVertex2f;
-  PointSize: array of GLfloat;
-//code-
+  Point: array of TPoint;
+  //code-
 
 type
   TVB = record
     VAO,
-    VBO, VBO_Size: GLuint;
+    VBO: GLuint;
   end;
 
 var
@@ -68,7 +70,7 @@ var
 
   VBPoint: TVB;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -96,7 +98,6 @@ begin
 
   glGenVertexArrays(1, @VBPoint.VAO);
   glGenBuffers(1, @VBPoint.VBO);
-  glGenBuffers(1, @VBPoint.VBO_Size);
 end;
 
 procedure TForm1.CreateVertex;
@@ -107,11 +108,10 @@ var
   i: integer;
 begin
   SetLength(Point, sek);
-  SetLength(PointSize, sek);
   for i := 0 to sek - 1 do begin
-    Point[i, 0] := sin(Pi * 2 / sek * i) * r;
-    Point[i, 1] := cos(Pi * 2 / sek * i) * r;
-    PointSize[i] := i * 3;
+    Point[i].vec[0] := sin(Pi * 2 / sek * i) * r;
+    Point[i].vec[1]:= cos(Pi * 2 / sek * i) * r;
+    Point[i].PointSize := i * 3;
   end;
 end;
 
@@ -125,19 +125,18 @@ begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   glBindVertexArray(VBPoint.VAO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TPoint) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
 
   // Daten für Punkt Position
-  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, False, SizeOf(TPoint), nil);
 
   // Daten für Punkt Grösse
-  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO_Size);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(PointSize), Pointer(PointSize), GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(8));
 end;
+
 //code-
 
 (*
@@ -184,6 +183,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -193,7 +193,6 @@ begin
   glDeleteVertexArrays(1, @VBPoint.VAO);
 
   glDeleteBuffers(1, @VBPoint.VBO);
-  glDeleteBuffers(1, @VBPoint.VBO_Size);
 end;
 
 //lineal

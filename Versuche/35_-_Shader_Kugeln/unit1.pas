@@ -50,7 +50,7 @@ Die Deklaration der Koordianten und Punktgrösse.
 
 type
   TPoint = record
-    vec: TVector2f;
+    vec: TVector3f;
     col: TVector3f;
     PointSize: GLfloat;
   end;
@@ -107,18 +107,22 @@ end;
 procedure TForm1.CreateVertex;
 const
   r = 0.3;
-  sek = 22;
+  sek = 200;
 var
   i: integer;
+  l: GLfloat;
 begin
   SetLength(Points, sek);
   for i := 0 to sek - 1 do begin
-    Points[i].vec.x := sin(Pi * 2 / sek * i) * r;
-    Points[i].vec.y := cos(Pi * 2 / sek * i) * r;
-    Points[i].col[0]:=Random;
-    Points[i].col[1]:=Random;
-    Points[i].col[2]:=Random;
-    Points[i].PointSize := (i + 1) * 3;
+    repeat
+      Points[i].vec := vec3(Random-0.5, Random-0.5, Random-0.5);
+      l := Points[i].vec.Length;
+    until l <= 0.5;
+
+    Points[i].col[0] := Random;
+    Points[i].col[1] := Random;
+    Points[i].col[2] := Random;
+    Points[i].PointSize := Random * 50;
   end;
 end;
 
@@ -133,20 +137,20 @@ begin
 
   glBindVertexArray(VBPoint.VAO);
 
-  // Daten für Punkt Position
   glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TPoint) * 4 * Length(Points), Pointer(Points), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TPoint) * Length(Points), Pointer(Points), GL_STATIC_DRAW);
 
-  Caption := IntToStr(SizeOf(TPoint));
-
+  // Daten für Punkt Position
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, SizeOf(TPoint), nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), nil);
 
+  // Daten für Punkt Farbe
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(8));
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
 
+  // Daten für Punkt Grösse
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(20));
+  glVertexAttribPointer(2, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(24));
 
 end;
 
