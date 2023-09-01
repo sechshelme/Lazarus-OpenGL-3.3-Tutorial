@@ -20,8 +20,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="102"/>
+        <TopLine Value="129"/>
         <CursorPos X="11" Y="106"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
@@ -52,8 +51,9 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <CursorPos X="41" Y="14"/>
+        <CursorPos X="61" Y="4"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>

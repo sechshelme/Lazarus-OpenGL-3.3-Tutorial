@@ -1,7 +1,7 @@
 #version 330
 
 layout (location = 10) in vec2  inPos;  // Vertex-Koordinaten in 2D
-layout (location = 11) in float inSize; // Vertex-Koordinaten in 2D
+layout (location = 11) in float inSize; // Grösse der Punkte
 uniform float x;                        // Richtung von Uniform
 uniform float y;
  

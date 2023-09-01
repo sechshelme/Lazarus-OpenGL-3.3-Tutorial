@@ -158,6 +158,10 @@ function vec4(x, y, z, w: GLfloat): TVector4f; overload;
 function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
+function dot(v0, v1: TVector2f): single; overload;
+function dot(v0, v1: TVector3f): single; overload;
+function cross(v0, v1: TVector3f): TVector3f; overload;
+
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
 procedure SwapglFloat(var f0, f1: GLfloat);
 procedure SwapVertex2f(var f0, f1: TVector2f);
@@ -710,6 +714,21 @@ begin
     Self[i * 3 + 1] *= y;
     Self[i * 3 + 2] *= z;
   end;
+end;
+
+function dot(v0, v1: TVector2f): single;
+begin
+  Result := v0.x * v1.x + v0.y * v1.y;
+end;
+
+function dot(v0, v1: TVector3f): single;
+begin
+  Result := v0.x * v1.x + v0.y * v1.y + v0.z * v1.z;
+end;
+
+function cross(v0, v1: TVector3f): TVector3f; inline;
+begin
+   Result.Cross(v0, v1);
 end;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);

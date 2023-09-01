@@ -14,8 +14,13 @@ void main(void)
 //  float r = sqrt(dot(p, p));
 //  outColor = vec4(Color, 1.0);
 
-if (dot(gl_PointCoord - 0.5, gl_PointCoord - 0.5) > 0.25)
+
+//if (dot(gl_PointCoord - 0.5, gl_PointCoord - 0.5) > 0.25)
+if (length(gl_PointCoord - 0.5) > 0.5)
               discard;
             else
               outColor = vec4(outCol, 1.0);
+
+              outColor.rg = gl_PointCoord;
+              outColor.b = 0.0;
 }

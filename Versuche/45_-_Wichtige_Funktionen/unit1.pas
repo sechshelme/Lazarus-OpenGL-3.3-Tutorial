@@ -4,7 +4,7 @@ Die Funktionen werden in Pascal-Code umgesetzt, so das man sieht, was die Funkti
 Die meisten Funktionen funktionieren in <b>GLSL</b> auch mit <b>vec2</b>, <b>vec3</b>, <b>vev4</b>.
 
 *)
-
+// https://www.mathsisfun.com/algebra/vector-calculator.html
 
 (*
 <b>min</b>
@@ -50,4 +50,18 @@ begin
 end;
 //code-
 
+  function dot(a, b: single): single;
+  begin
+    Result := a * b;
+  end;
+
+  function dot(a, b: TVector2f): single;
+  begin
+    Result := a.x * b.x + a.y * b.y;
+  end;
+
+  function dot(a, b: TVector3f): single;
+  begin
+    Result := a.x * b.x + a.y * b.y + a.z * b.z;
+  end;    
 

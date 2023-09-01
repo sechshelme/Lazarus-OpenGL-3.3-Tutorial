@@ -122,7 +122,7 @@ begin
     Points[i].col[0] := Random;
     Points[i].col[1] := Random;
     Points[i].col[2] := Random;
-    Points[i].PointSize := Random * 50;
+    Points[i].PointSize := Random * 250;
   end;
 end;
 
