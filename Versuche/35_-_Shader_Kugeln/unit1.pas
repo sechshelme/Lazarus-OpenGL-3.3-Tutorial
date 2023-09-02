@@ -134,6 +134,10 @@ Daten für die Punkte in die Grafikkarte übertragen
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+//  glEnable( GL_PROGRAM_POINT_SIZE );
+//   glEnable(GL_PROGRAM_POINT_SIZE_EXT);
+  // glPointSize(100000);
+
 
   glBindVertexArray(VBPoint.VAO);
 
