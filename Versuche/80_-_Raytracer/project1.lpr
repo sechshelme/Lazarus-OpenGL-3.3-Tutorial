@@ -28,7 +28,7 @@ type
 const
   ivory: TMaterial = (refractive_index: 1.0; albedo: (0.9, 0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
   glass: TMaterial = (refractive_index: 1.5; albedo: (0.0, 0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
-  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4, 0.3, 0.3, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
+  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4, 0.3, 0.0, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
   mirror: TMaterial = (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
 
   spheres: array of TSphere = (
@@ -48,6 +48,14 @@ const
     spheres[3].material := mirror;
     spheres[4].material := mirror;
   end;
+
+var
+  lights: array of TVector3f = (
+    (-20, 20, 20),
+    (30, 50, -25),
+    (30, 20, 30));
+
+  z: integer = 0;
 
 var
   defaultMaterial: TMaterial = (refractive_index: 1; albedo: (2, 0, 0, 0); diffuse_color: (0, 0, 0); specular_exponent: 0);
@@ -128,7 +136,6 @@ type
     i: integer;
   begin
     material := defaultMaterial;
-
     nearest_dist := 1e10;
 
     if abs(dir.y) > 0.001 then begin
@@ -172,29 +179,60 @@ type
   var
     auto: Tscene_tuple;
     hit: boolean;
-    point, N, reflect_dir, refract_dir, reflect_color, refract_color: TVector3f;
-    material: TMaterial;
+    point, N, reflect_dir, refract_dir, reflect_color, refract_color, light, light_dir, shadow_pt, trashnmr, r: TVector3f;
+    material, trasmat: TMaterial;
+    diffuse_light_intensity, specular_light_intensity: single;
+    i: integer;
   begin
     auto := scene_intersect(orig, dir);
     hit := auto.b;
     point := auto.v0;
     N := auto.v0;
     material := auto.Matrial;
+
+//    Write(depth, ' --- ', z);
+    Inc(z);
+
+
     if (depth > 4) or (not hit) then begin
-      Result := vec3(0.2, 0.7, 0.8);
+      Exit(vec3(0.2, 0.7, 0.8));
     end;
+
 
     reflect_dir := reflect(dir, N);
     reflect_dir.Normalize;
+
     refract_dir := refract(dir, N, material.refractive_index);
     refract_dir.Normalize;
+
     reflect_color := cast_ray(point, reflect_dir, depth + 1);
     refract_color := cast_ray(point, refract_dir, depth + 1);
 
+    diffuse_light_intensity := 0.0;
+    specular_light_intensity := 0.0;
 
+    for i := 0 to Length(lights) - 1 do begin
+      light := lights[i];
 
-    ///////// reflect_dir:=
+      light_dir := light - point;
+      light.Normalize;
 
+      auto := scene_intersect(point, light_dir);
+      hit := auto.b;
+      shadow_pt := auto.v0;
+      trashnmr := auto.v1;
+      trasmat := auto.Matrial;
+
+      if (hit) and ((shadow_pt - point).Length < (light - point).Length) then begin
+        Continue;
+      end;
+      diffuse_light_intensity += max(0, light_dir * N);
+
+      r := vec3(0, 0, 0) - reflect(vec3(0, 0, 0) - light_dir, N);
+      specular_light_intensity += power(max(0, r * dir), material.specular_exponent);
+    end;
+
+    Result := material.diffuse_color * diffuse_light_intensity * material.albedo[0] + vec3(1, 1, 1) * specular_light_intensity * material.albedo[1] + reflect_color * material.albedo[2] + refract_color * material.albedo[3];
   end;
 
   function main: cint;
@@ -292,6 +330,8 @@ type
         XPutImage(dis, win, gc, image, 0, 0, 0, 0, Width, Height);
       end;
     end;
+
+    WriteLn('Ende: ', z);
 
     Result := 0;
   end;
