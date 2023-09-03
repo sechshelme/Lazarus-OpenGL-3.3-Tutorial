@@ -72,8 +72,8 @@ type
     property z: GLfloat read GetZ write SetZ;
     property xy: TVector2f read GetXY write SetXY;
 
-    function ToInt: Uint32;
-    procedure FromInt(i: UInt32);
+    function ToInt: uint32;
+    procedure FromInt(i: uint32);
 
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
@@ -119,8 +119,8 @@ type
     property xyz: TVector3f read GetXYZ write SetXYZ;
     property xyw: TVector3f read GetXYW write SetXYW;
 
-    function ToInt: Uint32;
-    procedure FromInt(i: UInt32);
+    function ToInt: uint32;
+    procedure FromInt(i: uint32);
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(Ax, Ay, Az, Aw: GLfloat);
 
@@ -168,12 +168,12 @@ procedure SwapVertex2f(var f0, f1: TVector2f);
 procedure SwapVertex3f(var f0, f1: TVector3f);
 procedure SwapVertex4f(var f0, f1: TVector4f);
 
-operator + (const v0, v1: TVector2f) Res: TVector2f;
-operator - (const v0, v1: TVector2f) Res: TVector2f;
-operator + (const v0, v1: TVector3f) Res: TVector3f;
-operator - (const v0, v1: TVector3f) Res: TVector3f;
-operator + (const v0, v1: TVector4f) Res: TVector4f;
-operator - (const v0, v1: TVector4f) Res: TVector4f;
+operator +(const v0, v1: TVector2f) Res: TVector2f;
+operator -(const v0, v1: TVector2f) Res: TVector2f;
+operator +(const v0, v1: TVector3f) Res: TVector3f;
+operator -(const v0, v1: TVector3f) Res: TVector3f;
+operator +(const v0, v1: TVector4f) Res: TVector4f;
+operator -(const v0, v1: TVector4f) Res: TVector4f;
 
 operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f;
 operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f;
@@ -182,6 +182,9 @@ operator / (const v: TVector3f; const f: GLfloat) Res: TVector3f;
 operator * (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 
+operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
+operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
+operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
 
 implementation
 
@@ -318,7 +321,7 @@ begin
   Self[1] := AValue[1];
 end;
 
-function TVector3fHelper.ToInt: Uint32;
+function TVector3fHelper.ToInt: uint32;
 
   function v(s: GLfloat): byte; inline;
   begin
@@ -339,7 +342,7 @@ begin
   Result := v(Self[0]) + v(Self[1]) * $100 + v(Self[2]) * $10000;
 end;
 
-procedure TVector3fHelper.FromInt(i: UInt32);
+procedure TVector3fHelper.FromInt(i: uint32);
 begin
   Self[0] := i div $10000 mod $100 / $FF;
   Self[1] := i div $100 mod $100 / $FF;
@@ -535,7 +538,7 @@ begin
   Self[3] := AValue[2];
 end;
 
-function TVector4fHelper.ToInt: Uint32;
+function TVector4fHelper.ToInt: uint32;
 
   function v(s: GLfloat): byte; inline;
   begin
@@ -556,7 +559,7 @@ begin
   Result := v(Self[0]) + v(Self[1]) * $100 + v(Self[2]) * $10000 + v(Self[3]) * $1000000;
 end;
 
-procedure TVector4fHelper.FromInt(i: UInt32);
+procedure TVector4fHelper.FromInt(i: uint32);
 begin
   Self[0] := i div $10000 mod $100 / $FF;
   Self[1] := i div $100 mod $100 / $FF;
@@ -728,7 +731,7 @@ end;
 
 function cross(v0, v1: TVector3f): TVector3f; inline;
 begin
-   Result.Cross(v0, v1);
+  Result.Cross(v0, v1);
 end;
 
 procedure FaceToNormale(var Face, Normal: array of TFace3D);
@@ -737,7 +740,7 @@ var
   v: TVector3f;
 begin
   if Length(Normal) <> Length(Face) then begin
-//    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+    //    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
     Exit;
   end;
   for i := 0 to Length(Face) - 1 do begin
@@ -915,6 +918,21 @@ begin
   Res[1] := v[1] / f;
   Res[2] := v[2] / f;
   Res[3] := v[3] / f;
+end;
+
+operator*(const v0: TVector2f; const v1: TVector2f)Res: TGLfloat;
+begin
+  Res := v0[0] * v1[0] + v0[1] * v1[1];
+end;
+
+operator * (const v0: TVector3f; const v1: TVector3f)Res: TGLfloat;
+begin
+  Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
+end;
+
+operator*(const v0: TVector4f; const v1: TVector4f)Res: TGLfloat;
+begin
+  Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2] + v0[3] * v1[3];
 end;
 
 end.

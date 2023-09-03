@@ -19,6 +19,36 @@ type
     specular_exponent: single;
   end;
 
+  TSphere = record
+    center: TVector3f;
+    radius: single;
+    material: TMaterial;
+  end;
+
+const
+  ivory: TMaterial = (refractive_index: 1.0; albedo: (0.9, 0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
+  glass: TMaterial = (refractive_index: 1.5; albedo: (0.0, 0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
+  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4, 0.3, 0.3, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
+  mirror: TMaterial = (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
+
+  spheres: array of TSphere = (
+    (center: (-3, 0, -16); radius: 2),
+    (center: (-1, -1.5, -12); radius: 2),
+    (center: (1.5, -0.5, -18); radius: 3),
+    (center: (-7, 5, -18); radius: 4),
+    (center: (7, 5, -18); radius: 4));
+
+  //  spheres: array of TSphere = ((center: (-3, 0, -16); radius: 2; material:ivory));
+
+  procedure SetSpheresMaterial;
+  begin
+    spheres[0].material := ivory;
+    spheres[1].material := glass;
+    spheres[2].material := red_rubber;
+    spheres[3].material := mirror;
+    spheres[4].material := mirror;
+  end;
+
 var
   defaultMaterial: TMaterial = (refractive_index: 1; albedo: (2, 0, 0, 0); diffuse_color: (0, 0, 0); specular_exponent: 0);
 
@@ -29,30 +59,141 @@ type
     Matrial: TMaterial;
   end;
 
-  function reflect(const I,N:TVector3f):TVector3f;
-  begin Result:=I-N*2*(I*N);
+  Tspere_tuple = record
+    intersection: boolean;
+    d: single;
+  end;
+
+  function reflect(const I, N: TVector3f): TVector3f;
+  begin
+    Result := I - N * 2 * (I * N);
+  end;
+
+  function refract(const I, N: TVector3f; const eta_t: single; const eta_i: single = 1): TVector3f;
+  var
+    cosi, eta, k: single;
+  begin
+    cosi := max(-1, min(1, I * N));
+    if cosi < 0 then begin
+      Exit(refract(I, vec3(0, 0, 0) - N, eta_i, eta_t));
     end;
+    eta := eta_i / eta_t;
+    k := 1 - eta * eta * (1 - cosi * cosi);
+    if k < 0 then begin
+      Result := vec3(1, 0, 0);
+    end else begin
+      Result := I * eta + N * (eta * cosi - Sqrt(k));
+    end;
+  end;
+
+  function ray_sphere_intersect(const orig, dir: TVector3f; s: TSphere): Tspere_tuple;
+  var
+    L: TVector3f;
+    thc, tca, d2, t0, t1: single;
+  begin
+    L := s.center - orig;
+    tca := L * dir;
+    d2 := L * L - tca * tca;
+    if d2 > s.radius * s.radius then begin
+      Result.intersection := False;
+      Result.d := 0;
+      exit;
+    end;
+    thc := Sqrt(s.radius * s.radius - d2);
+    t0 := tca - thc;
+    t1 := tca + thc;
+    if t0 > 0.001 then begin
+      Result.intersection := True;
+      Result.d := t0;
+      exit;
+    end;
+    if t1 > 0.001 then begin
+      Result.intersection := True;
+      Result.d := t1;
+      exit;
+    end;
+    Result.intersection := False;
+    Result.d := 0;
+  end;
 
   function scene_intersect(const orig, dir: TVector3f): Tscene_tuple;
+  var
+    pt, N, p: TVector3f;
+    material: TMaterial;
+    d, nearest_dist: single;
+    dc: cint;
+    auto: Tspere_tuple;
+    s: TSphere;
+    intersection: boolean;
+    i: integer;
   begin
-    ////////////
+    material := defaultMaterial;
+
+    nearest_dist := 1e10;
+
+    if abs(dir.y) > 0.001 then begin
+      d := -(orig.y + 4) / dir.y;
+      p := orig + dir * d;
+      if (d > 0.001) and (d < nearest_dist) and (abs(p.x) < 10) and (p.z < -10) and (p.z > -30) then begin
+        nearest_dist := d;
+        pt := p;
+        N := vec3(0, 1, 0);
+        dc := Round(0.5 * pt.x + 1000) + Round(0.5 * pt.z);
+        if (dc and 1) <> 0 then  begin
+          material.diffuse_color := vec3(0.3, 0.3, 0.3);
+        end else begin
+          material.diffuse_color := vec3(0.3, 0.2, 0.1);
+        end;
+      end;
+    end;
+
+    for i := 0 to Length(spheres) - 1 do begin
+      s := spheres[0];
+      auto := ray_sphere_intersect(orig, dir, s);
+      intersection := auto.intersection;
+      d := auto.d;
+
+      if (not intersection) or (d > nearest_dist) then begin
+        Continue;
+      end;
+      nearest_dist := d;
+      pt := orig + dir * nearest_dist;
+      N := (pt - s.center);
+      N.Normalize;
+      material := s.material;
+    end;
+    Result.b := nearest_dist < 1000;
+    Result.v0 := pt;
+    Result.v1 := N;
+    Result.Matrial := material;
   end;
 
   function cast_ray(const orig, dir: TVector3f; depth: int = 0): TVector3f;
   var
     auto: Tscene_tuple;
     hit: boolean;
-    point, N: TVector3f;
+    point, N, reflect_dir, refract_dir, reflect_color, refract_color: TVector3f;
+    material: TMaterial;
   begin
     auto := scene_intersect(orig, dir);
     hit := auto.b;
     point := auto.v0;
     N := auto.v0;
+    material := auto.Matrial;
     if (depth > 4) or (not hit) then begin
       Result := vec3(0.2, 0.7, 0.8);
     end;
 
-   ///////// reflect_dir:=
+    reflect_dir := reflect(dir, N);
+    reflect_dir.Normalize;
+    refract_dir := refract(dir, N, material.refractive_index);
+    refract_dir.Normalize;
+    reflect_color := cast_ray(point, reflect_dir, depth + 1);
+    refract_color := cast_ray(point, refract_dir, depth + 1);
+
+
+
+    ///////// reflect_dir:=
 
   end;
 
@@ -81,6 +222,7 @@ type
     v: TVector3f;
 
   begin
+    SetSpheresMaterial; // Geht nicht anders.
     // Buffer erzeugen
 
     SetLength(frambuffer, Width * Height);
@@ -100,7 +242,7 @@ type
     scr := DefaultScreen(dis);
     gc := DefaultGC(dis, scr);
     rootWin := RootWindow(dis, scr);
-    win := XCreateSimpleWindow(dis, rootWin, 10, 10, 640, 480, 1, BlackPixel(dis, scr), WhitePixel(dis, scr));
+    win := XCreateSimpleWindow(dis, rootWin, 10, 10, Width, Height, 1, BlackPixel(dis, scr), WhitePixel(dis, scr));
     XStoreName(dis, win, 'Webcam-Fenster');
     XSelectInput(dis, win, EventMask);
     XMapWindow(dis, win);
