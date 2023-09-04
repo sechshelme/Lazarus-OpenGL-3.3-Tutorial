@@ -413,6 +413,7 @@ begin
     l := 1.0;
   end;
   Self /= l;
+  //  Self *= 1 / l;
 end;
 
 procedure TVector3fHelper.Negate; inline;
@@ -920,17 +921,17 @@ begin
   Res[3] := v[3] / f;
 end;
 
-operator*(const v0: TVector2f; const v1: TVector2f)Res: TGLfloat;
+operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1];
 end;
 
-operator * (const v0: TVector3f; const v1: TVector3f)Res: TGLfloat;
+operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
 end;
 
-operator*(const v0: TVector4f; const v1: TVector4f)Res: TGLfloat;
+operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2] + v0[3] * v1[3];
 end;

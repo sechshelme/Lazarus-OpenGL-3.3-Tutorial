@@ -26,10 +26,10 @@ type
   end;
 
 const
-  ivory: TMaterial = (refractive_index: 1.0; albedo: (0.9, 0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
-  glass: TMaterial = (refractive_index: 1.5; albedo: (0.0, 0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
-  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4, 0.3, 0.0, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
-  mirror: TMaterial = (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
+  ivory: TMaterial =      (refractive_index: 1.0; albedo: (0.9,  0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
+  glass: TMaterial =      (refractive_index: 1.5; albedo: (0.0,  0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
+  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4,  0.3, 0.0, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
+  mirror: TMaterial =     (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
 
   spheres: array of TSphere = (
     (center: (-3, 0, -16); radius: 2),
@@ -74,16 +74,17 @@ type
 
   function reflect(const I, N: TVector3f): TVector3f;
   begin
-    Result := I - N * 2 * (I * N);
+    Result := I - N * 2.0 * (I * N);
   end;
 
   function refract(const I, N: TVector3f; const eta_t: single; const eta_i: single = 1): TVector3f;
   var
     cosi, eta, k: single;
   begin
-    cosi := max(-1, min(1, I * N));
+    cosi := - max(-1.0, min(1.0, I * N));
     if cosi < 0 then begin
-      Exit(refract(I, vec3(0, 0, 0) - N, eta_i, eta_t));
+      Result:=refract(I, vec3(0, 0, 0) - N, eta_i, eta_t);
+      Exit();
     end;
     eta := eta_i / eta_t;
     k := 1 - eta * eta * (1 - cosi * cosi);
@@ -94,7 +95,7 @@ type
     end;
   end;
 
-  function ray_sphere_intersect(const orig, dir: TVector3f; s: TSphere): Tspere_tuple;
+  function ray_sphere_intersect(const orig, dir: TVector3f;const s: TSphere): Tspere_tuple;
   var
     L: TVector3f;
     thc, tca, d2, t0, t1: single;
@@ -128,15 +129,15 @@ type
   var
     pt, N, p: TVector3f;
     material: TMaterial;
-    d, nearest_dist: single;
+    d: single;
     dc: cint;
     auto: Tspere_tuple;
     s: TSphere;
     intersection: boolean;
     i: integer;
+    nearest_dist: single=1e10;
   begin
     material := defaultMaterial;
-    nearest_dist := 1e10;
 
     if abs(dir.y) > 0.001 then begin
       d := -(orig.y + 4) / dir.y;
@@ -145,6 +146,7 @@ type
         nearest_dist := d;
         pt := p;
         N := vec3(0, 1, 0);
+
         dc := Round(0.5 * pt.x + 1000) + Round(0.5 * pt.z);
         if (dc and 1) <> 0 then  begin
           material.diffuse_color := vec3(0.3, 0.3, 0.3);
@@ -155,7 +157,7 @@ type
     end;
 
     for i := 0 to Length(spheres) - 1 do begin
-      s := spheres[0];
+      s := spheres[i];
       auto := ray_sphere_intersect(orig, dir, s);
       intersection := auto.intersection;
       d := auto.d;
@@ -165,7 +167,7 @@ type
       end;
       nearest_dist := d;
       pt := orig + dir * nearest_dist;
-      N := (pt - s.center);
+      N := pt - s.center;
       N.Normalize;
       material := s.material;
     end;
@@ -190,7 +192,7 @@ type
     N := auto.v0;
     material := auto.Matrial;
 
-//    Write(depth, ' --- ', z);
+   //Write(depth, ' ');
     Inc(z);
 
 
@@ -215,7 +217,7 @@ type
       light := lights[i];
 
       light_dir := light - point;
-      light.Normalize;
+      light_dir.Normalize;
 
       auto := scene_intersect(point, light_dir);
       hit := auto.b;
@@ -232,7 +234,10 @@ type
       specular_light_intensity += power(max(0, r * dir), material.specular_exponent);
     end;
 
-    Result := material.diffuse_color * diffuse_light_intensity * material.albedo[0] + vec3(1, 1, 1) * specular_light_intensity * material.albedo[1] + reflect_color * material.albedo[2] + refract_color * material.albedo[3];
+    Result := material.diffuse_color * diffuse_light_intensity * material.albedo[0] +
+       vec3(1, 1, 1) * specular_light_intensity * material.albedo[1] +
+       reflect_color * material.albedo[2] +
+       refract_color * material.albedo[3];
   end;
 
   function main: cint;
@@ -256,8 +261,8 @@ type
     imageBuffer: array of array[0..3] of byte = nil;
     i, j: integer;
 
-    dir_x, dir_y, dir_z: single;
-    v: TVector3f;
+    dir_x, dir_y, dir_z, mx: single;
+    v, color: TVector3f;
 
   begin
     SetSpheresMaterial; // Geht nicht anders.
@@ -304,8 +309,12 @@ type
     // Framebuffer to ImageBuffer
 
     for i := 0 to Length(frambuffer) - 1 do begin
+      color:=frambuffer[i];
+
+      mx:=max(1,max(color[0],max(color[1],color[2])));
       for j := 0 to 2 do begin
-        imageBuffer[i, j] := Round(frambuffer[i, j] * 255);
+//        imageBuffer[i, j] := Round(frambuffer[i, 2-j] * 255);
+        imageBuffer[i, 2-j] := Round(255 * color[j]/mx);
       end;
     end;
 
