@@ -1,5 +1,7 @@
 program project1;
 
+{$J+}
+
 uses
   Math,
   BaseUnix,
@@ -12,6 +14,8 @@ uses
   oglVector;
 
 type
+  PMaterial = ^TMaterial;
+
   TMaterial = record
     refractive_index: single;
     albedo: TVector4f;
@@ -22,43 +26,29 @@ type
   TSphere = record
     center: TVector3f;
     radius: single;
-    material: TMaterial;
+    material: PMaterial;
   end;
 
 const
-  ivory: TMaterial =      (refractive_index: 1.0; albedo: (0.9,  0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
-  glass: TMaterial =      (refractive_index: 1.5; albedo: (0.0,  0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
-  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4,  0.3, 0.0, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
-  mirror: TMaterial =     (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
+  defaultMaterial: TMaterial = (refractive_index: 1; albedo: (2, 0, 0, 0); diffuse_color: (0, 0, 0); specular_exponent: 0);
+
+  ivory: TMaterial = (refractive_index: 1.0; albedo: (0.9, 0.5, 0.1, 0.0); diffuse_color: (0.4, 0.4, 0.3); specular_exponent: 50);
+  glass: TMaterial = (refractive_index: 1.5; albedo: (0.0, 0.9, 0.1, 0.8); diffuse_color: (0.6, 0.7, 0.8); specular_exponent: 125);
+  red_rubber: TMaterial = (refractive_index: 1.0; albedo: (1.4, 0.3, 0.0, 0.0); diffuse_color: (0.3, 0.1, 0.1); specular_exponent: 10);
+  mirror: TMaterial = (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
 
   spheres: array of TSphere = (
-    (center: (-3, 0, -16); radius: 2),
-    (center: (-1, -1.5, -12); radius: 2),
-    (center: (1.5, -0.5, -18); radius: 3),
-    (center: (-7, 5, -18); radius: 4),
-    (center: (7, 5, -18); radius: 4));
-
-  //  spheres: array of TSphere = ((center: (-3, 0, -16); radius: 2; material:ivory));
-
-  procedure SetSpheresMaterial;
-  begin
-    spheres[0].material := ivory;
-    spheres[1].material := glass;
-    spheres[2].material := red_rubber;
-    spheres[3].material := mirror;
-    spheres[4].material := mirror;
-  end;
+    (center: (-3, 0, -16); radius: 2; material: @ivory; ),
+    (center: (-1, -1.5, -12); radius: 2; material: @glass; ),
+    (center: (1.5, -0.5, -18); radius: 3; material: @red_rubber; ),
+    (center: (-7, 5, -18); radius: 4; material: @mirror; ),
+    (center: (7, 5, -18); radius: 4; material: @mirror; ));
 
 var
   lights: array of TVector3f = (
     (-20, 20, 20),
     (30, 50, -25),
     (30, 20, 30));
-
-  z: integer = 0;
-
-var
-  defaultMaterial: TMaterial = (refractive_index: 1; albedo: (2, 0, 0, 0); diffuse_color: (0, 0, 0); specular_exponent: 0);
 
 type
   Tscene_tuple = record
@@ -81,10 +71,9 @@ type
   var
     cosi, eta, k: single;
   begin
-    cosi := - max(-1.0, min(1.0, I * N));
+    cosi := -max(-1.0, min(1.0, I * N));
     if cosi < 0 then begin
-      Result:=refract(I, vec3(0, 0, 0) - N, eta_i, eta_t);
-      Exit();
+      Exit(refract(I, vec3(0, 0, 0) - N, eta_i, eta_t));
     end;
     eta := eta_i / eta_t;
     k := 1 - eta * eta * (1 - cosi * cosi);
@@ -95,7 +84,7 @@ type
     end;
   end;
 
-  function ray_sphere_intersect(const orig, dir: TVector3f;const s: TSphere): Tspere_tuple;
+  function ray_sphere_intersect(const orig, dir: TVector3f; const s: TSphere): Tspere_tuple;
   var
     L: TVector3f;
     thc, tca, d2, t0, t1: single;
@@ -135,7 +124,7 @@ type
     s: TSphere;
     intersection: boolean;
     i: integer;
-    nearest_dist: single=1e10;
+    nearest_dist: single = 1e10;
   begin
     material := defaultMaterial;
 
@@ -149,9 +138,9 @@ type
 
         dc := Round(0.5 * pt.x + 1000) + Round(0.5 * pt.z);
         if (dc and 1) <> 0 then  begin
-          material.diffuse_color := vec3(0.3, 0.3, 0.3);
+          material.diffuse_color := vec3(0.3, 0.1, 0.1);
         end else begin
-          material.diffuse_color := vec3(0.3, 0.2, 0.1);
+          material.diffuse_color := vec3(0.1, 0.3, 0.1);
         end;
       end;
     end;
@@ -169,7 +158,7 @@ type
       pt := orig + dir * nearest_dist;
       N := pt - s.center;
       N.Normalize;
-      material := s.material;
+      material := s.material^;
     end;
     Result.b := nearest_dist < 1000;
     Result.v0 := pt;
@@ -181,25 +170,21 @@ type
   var
     auto: Tscene_tuple;
     hit: boolean;
-    point, N, reflect_dir, refract_dir, reflect_color, refract_color, light, light_dir, shadow_pt, trashnmr, r: TVector3f;
-    material, trasmat: TMaterial;
-    diffuse_light_intensity, specular_light_intensity: single;
+    point, N, reflect_dir, refract_dir, reflect_color, refract_color, light_dir, shadow_pt, r: TVector3f;
+    material: TMaterial;
+    diffuse_light_intensity: single = 0;
+    specular_light_intensity: single = 0;
     i: integer;
   begin
     auto := scene_intersect(orig, dir);
     hit := auto.b;
     point := auto.v0;
-    N := auto.v0;
+    N := auto.v1;
     material := auto.Matrial;
-
-   //Write(depth, ' ');
-    Inc(z);
-
 
     if (depth > 4) or (not hit) then begin
       Exit(vec3(0.2, 0.7, 0.8));
     end;
-
 
     reflect_dir := reflect(dir, N);
     reflect_dir.Normalize;
@@ -210,22 +195,15 @@ type
     reflect_color := cast_ray(point, reflect_dir, depth + 1);
     refract_color := cast_ray(point, refract_dir, depth + 1);
 
-    diffuse_light_intensity := 0.0;
-    specular_light_intensity := 0.0;
-
     for i := 0 to Length(lights) - 1 do begin
-      light := lights[i];
-
-      light_dir := light - point;
+      light_dir := lights[i] - point;
       light_dir.Normalize;
 
       auto := scene_intersect(point, light_dir);
       hit := auto.b;
       shadow_pt := auto.v0;
-      trashnmr := auto.v1;
-      trasmat := auto.Matrial;
 
-      if (hit) and ((shadow_pt - point).Length < (light - point).Length) then begin
+      if (hit) and ((shadow_pt - point).Length < (lights[i] - point).Length) then begin
         Continue;
       end;
       diffuse_light_intensity += max(0, light_dir * N);
@@ -235,9 +213,9 @@ type
     end;
 
     Result := material.diffuse_color * diffuse_light_intensity * material.albedo[0] +
-       vec3(1, 1, 1) * specular_light_intensity * material.albedo[1] +
-       reflect_color * material.albedo[2] +
-       refract_color * material.albedo[3];
+      vec3(1, 1, 1) * specular_light_intensity * material.albedo[1] +
+      reflect_color * material.albedo[2] +
+      refract_color * material.albedo[3];
   end;
 
   function main: cint;
@@ -265,15 +243,10 @@ type
     v, color: TVector3f;
 
   begin
-    SetSpheresMaterial; // Geht nicht anders.
     // Buffer erzeugen
 
     SetLength(frambuffer, Width * Height);
     SetLength(imageBuffer, Length(frambuffer));
-
-    for i := 0 to Length(frambuffer) - 1 do begin
-      frambuffer[i] := vec3(Random, Random, Random);
-    end;
 
     // X11
 
@@ -309,12 +282,12 @@ type
     // Framebuffer to ImageBuffer
 
     for i := 0 to Length(frambuffer) - 1 do begin
-      color:=frambuffer[i];
+      color := frambuffer[i];
 
-      mx:=max(1,max(color[0],max(color[1],color[2])));
+      mx := max(1, max(color[0], max(color[1], color[2])));
       for j := 0 to 2 do begin
-//        imageBuffer[i, j] := Round(frambuffer[i, 2-j] * 255);
-        imageBuffer[i, 2-j] := Round(255 * color[j]/mx);
+        //                imageBuffer[i, j] := Round(frambuffer[i, 2-j] * 255);
+        imageBuffer[i, 2 - j] := Round(255 * color[j] / mx);
       end;
     end;
 
@@ -334,13 +307,10 @@ type
           end;
         end;
       end else begin
-
         image^.Data := pansichar(imageBuffer);
         XPutImage(dis, win, gc, image, 0, 0, 0, 0, Width, Height);
       end;
     end;
-
-    WriteLn('Ende: ', z);
 
     Result := 0;
   end;
