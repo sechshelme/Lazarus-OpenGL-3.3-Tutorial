@@ -10,3 +10,7 @@ https://computergraphics.stackexchange.com/questions/9554/problem-with-quad-base
 https://graphics.pixar.com/opensubdiv/docs/osd_shader_interface.html
 
 https://www.dca.fee.unicamp.br/cursos/IA725/2s2021/references/OpenGLSuperBible6thChap8.pdf
+
+ https://learnopengl.com/Guest-Articles/2021/Tessellation/Tessellation
+
+

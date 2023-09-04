@@ -37,6 +37,7 @@ void main()
       Height = texture(heightMap, texCoord).z;
     }
 
+    Height *= 2;
     p += normal * ( -Height + 0.5)  / 10;
 //    p +=  ( -Height + 0.5)  / 10;
 
