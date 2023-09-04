@@ -1,6 +1,6 @@
 program project1;
 
-{$J+}
+// OriginalQuelle: https://github.com/ssloy/tinyraytracer
 
 uses
   Math,
@@ -38,11 +38,11 @@ const
   mirror: TMaterial = (refractive_index: 1.0; albedo: (0.0, 16.0, 0.8, 0.0); diffuse_color: (1.0, 1.0, 1.0); specular_exponent: 1425);
 
   spheres: array of TSphere = (
-    (center: (-3, 0, -16); radius: 2; material: @ivory; ),
-    (center: (-1, -1.5, -12); radius: 2; material: @glass; ),
-    (center: (1.5, -0.5, -18); radius: 3; material: @red_rubber; ),
-    (center: (-7, 5, -18); radius: 4; material: @mirror; ),
-    (center: (7, 5, -18); radius: 4; material: @mirror; ));
+    (center: (-3, 0, -16); radius: 2; material: @ivory),
+    (center: (-1, -1.5, -12); radius: 2; material: @glass),
+    (center: (1.5, -0.5, -18); radius: 3; material: @red_rubber),
+    (center: (-7, 5, -18); radius: 4; material: @mirror),
+    (center: (7, 5, -18); radius: 4; material: @mirror));
 
 var
   lights: array of TVector3f = (
