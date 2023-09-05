@@ -1,6 +1,6 @@
 #version 330
 
-#define Instance_Count 200
+//#define Instance_Count 200
 
 // Vektor-Daten
 layout (location = 0) in vec2 inPos;

@@ -303,7 +303,7 @@ begin
 
       with Camera do begin
         m := ObjectMatrix;
-        ;
+        
         ObjectMatrix := WorldMatrix * ObjectMatrix;
 
         ObjectMatrix.Uniform(UniformID.ObjectMatrix);

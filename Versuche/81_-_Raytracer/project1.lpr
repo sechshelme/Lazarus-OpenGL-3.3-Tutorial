@@ -50,18 +50,6 @@ var
     (30, 50, -25),
     (30, 20, 30));
 
-type
-  Tscene_tuple = record
-    b: boolean;
-    v0, v1: TVector3f;
-    Matrial: TMaterial;
-  end;
-
-  Tspere_tuple = record
-    intersection: boolean;
-    d: single;
-  end;
-
   function reflect(const I, N: TVector3f): TVector3f;
   begin
     Result := I - N * 2.0 * (I * N);
@@ -84,7 +72,7 @@ type
     end;
   end;
 
-  function ray_sphere_intersect(const orig, dir: TVector3f; const s: TSphere): Tspere_tuple;
+  procedure ray_sphere_intersect(const orig, dir: TVector3f; const s: TSphere; out intersection: boolean; out d: single);
   var
     L: TVector3f;
     thc, tca, d2, t0, t1: single;
@@ -93,40 +81,39 @@ type
     tca := L * dir;
     d2 := L * L - tca * tca;
     if d2 > s.radius * s.radius then begin
-      Result.intersection := False;
-      Result.d := 0;
+      intersection := False;
+      d := 0;
       exit;
     end;
     thc := Sqrt(s.radius * s.radius - d2);
     t0 := tca - thc;
     t1 := tca + thc;
     if t0 > 0.001 then begin
-      Result.intersection := True;
-      Result.d := t0;
+      intersection := True;
+      d := t0;
       exit;
     end;
     if t1 > 0.001 then begin
-      Result.intersection := True;
-      Result.d := t1;
+      intersection := True;
+      d := t1;
       exit;
     end;
-    Result.intersection := False;
-    Result.d := 0;
+    intersection := False;
+    d := 0;
   end;
 
-  function scene_intersect(const orig, dir: TVector3f): Tscene_tuple;
+  procedure scene_intersect(const orig, dir: TVector3f; out b: boolean; out v0, v1: TVector3f; out material: TMaterial);
   var
     pt, N, p: TVector3f;
-    material: TMaterial;
+    mat: TMaterial;
     d: single;
     dc: cint;
-    auto: Tspere_tuple;
     s: TSphere;
     intersection: boolean;
     i: integer;
     nearest_dist: single = 1e10;
   begin
-    material := defaultMaterial;
+    mat := defaultMaterial;
 
     if abs(dir.y) > 0.001 then begin
       d := -(orig.y + 4) / dir.y;
@@ -138,18 +125,16 @@ type
 
         dc := Round(0.5 * pt.x + 1000) + Round(0.5 * pt.z);
         if (dc and 1) <> 0 then  begin
-          material.diffuse_color := vec3(0.3, 0.1, 0.1);
+          mat.diffuse_color := vec3(0.3, 0.1, 0.1);
         end else begin
-          material.diffuse_color := vec3(0.1, 0.3, 0.1);
+          mat.diffuse_color := vec3(0.1, 0.3, 0.1);
         end;
       end;
     end;
 
     for i := 0 to Length(spheres) - 1 do begin
       s := spheres[i];
-      auto := ray_sphere_intersect(orig, dir, s);
-      intersection := auto.intersection;
-      d := auto.d;
+      ray_sphere_intersect(orig, dir, s, intersection, d);
 
       if (not intersection) or (d > nearest_dist) then begin
         Continue;
@@ -158,29 +143,24 @@ type
       pt := orig + dir * nearest_dist;
       N := pt - s.center;
       N.Normalize;
-      material := s.material^;
+      mat := s.material^;
     end;
-    Result.b := nearest_dist < 1000;
-    Result.v0 := pt;
-    Result.v1 := N;
-    Result.Matrial := material;
+    b := nearest_dist < 1000;
+    v0 := pt;
+    v1 := N;
+    material := mat;
   end;
 
   function cast_ray(const orig, dir: TVector3f; depth: int = 0): TVector3f;
   var
-    auto: Tscene_tuple;
     hit: boolean;
-    point, N, reflect_dir, refract_dir, reflect_color, refract_color, light_dir, shadow_pt, r: TVector3f;
-    material: TMaterial;
+    point, N, reflect_dir, refract_dir, reflect_color, refract_color, light_dir, shadow_pt, r, dummy0: TVector3f;
+    material, dummy1: TMaterial;
     diffuse_light_intensity: single = 0;
     specular_light_intensity: single = 0;
     i: integer;
   begin
-    auto := scene_intersect(orig, dir);
-    hit := auto.b;
-    point := auto.v0;
-    N := auto.v1;
-    material := auto.Matrial;
+    scene_intersect(orig, dir, hit, point, N, material);
 
     if (depth > 4) or (not hit) then begin
       Exit(vec3(0.2, 0.7, 0.8));
@@ -199,9 +179,7 @@ type
       light_dir := lights[i] - point;
       light_dir.Normalize;
 
-      auto := scene_intersect(point, light_dir);
-      hit := auto.b;
-      shadow_pt := auto.v0;
+      scene_intersect(point, light_dir, hit, shadow_pt, dummy0, dummy1);
 
       if (hit) and ((shadow_pt - point).Length < (lights[i] - point).Length) then begin
         Continue;
@@ -221,7 +199,6 @@ type
   function main: cint;
   const
     EventMask = KeyPressMask or ExposureMask or PointerMotionMask or ButtonPressMask;
-
   var
     dis: PDisplay;
     win, rootWin: TWindow;
@@ -244,12 +221,10 @@ type
 
   begin
     // Buffer erzeugen
-
     SetLength(frambuffer, Width * Height);
     SetLength(imageBuffer, Length(frambuffer));
 
     // X11
-
     dis := XOpenDisplay(nil);
     if dis = nil then begin
       WriteLn('Kann nicht das Display öffnen');
@@ -269,7 +244,6 @@ type
     image := XCreateImage(dis, visual, 24, ZPixmap, 0, nil, Width, Height, 32, 0);
 
     // Rendern
-
     for i := 0 to Length(frambuffer) - 1 do begin
       dir_x := (i mod Width + 0.5) - Width / 2;
       dir_y := -(i div Width + 0.5) + Height / 2;
@@ -280,7 +254,6 @@ type
     end;
 
     // Framebuffer to ImageBuffer
-
     for i := 0 to Length(frambuffer) - 1 do begin
       color := frambuffer[i];
 
