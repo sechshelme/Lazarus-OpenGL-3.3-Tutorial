@@ -1,0 +1,18 @@
+object Form1: TForm1
+  Left = 91
+  Height = 226
+  Top = 191
+  Width = 339
+  Caption = 'Form1'
+  ClientHeight = 226
+  ClientWidth = 339
+  LCLVersion = '3.99.0.0'
+  OnCreate = FormCreate
+  object Image1: TImage
+    Left = 0
+    Height = 226
+    Top = 0
+    Width = 339
+    Align = alClient
+  end
+end

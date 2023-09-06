@@ -13,7 +13,6 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormPaint(Sender: TObject);
   private
@@ -56,12 +55,6 @@ begin
       vec3(Random, Random, Random));
   end;
 end;
-
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-  Invalidate;
-end;
-
 
 procedure TForm1.LineX(x0, x1, y: single; col0, col1: TVector3f);
 var

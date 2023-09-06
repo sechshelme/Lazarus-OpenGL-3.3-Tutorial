@@ -412,8 +412,8 @@ begin
   if l = 0.0 then begin
     l := 1.0;
   end;
-  Self /= l;
-  //  Self *= 1 / l;
+  //Self /= l;
+    Self *= 1 / l;
 end;
 
 procedure TVector3fHelper.Negate; inline;
