@@ -20,7 +20,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="84"/>
         <CursorPos X="22" Y="109"/>
         <UsageCount Value="38"/>
@@ -60,6 +59,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <CursorPos X="83" Y="31"/>
         <UsageCount Value="16"/>
@@ -118,7 +118,7 @@
         <Loaded Value="True"/>
       </Unit13>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="345" Column="14" TopLine="310"/>
@@ -235,10 +235,6 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="95" Column="54" TopLine="84"/>
       </Position29>
-      <Position30>
-        <Filename Value="../../units/oglvector.pas"/>
-        <Caret Line="14" Column="3" TopLine="49"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

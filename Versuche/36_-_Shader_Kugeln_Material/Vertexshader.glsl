@@ -7,7 +7,7 @@ layout (location = 2) in float inSize;
 out Data {
   vec3 color;
   float radius;
-  vec2 center;
+  vec3 center;
 } DataOut;
 
 uniform vec4 viewport;
@@ -15,10 +15,9 @@ uniform vec4 viewport;
 void main(void)
 {
   gl_PointSize = inSize * min(viewport.z, viewport.w) * 2;
-
   gl_Position  = vec4(inPos, 1.0);
 
-  DataOut.center = gl_Position.xy;
+  DataOut.center = gl_Position.xyz;
   DataOut.color = inCol;
   DataOut.radius = inSize;
 }

@@ -28,17 +28,17 @@ const
   sphere_radius = 1.5;
   noise_amplitude = 1.0;
 
-function lerp(const v0, v1: single; t: single): single;
+function lerp(const v0, v1: single; t: single): single; inline;
 begin
   Result := v0 + (v1 - v0) * max(0.0, min(1.0, t));
 end;
 
-function lerp(const v0, v1: TVector3f; t: single): TVector3f;
+function lerp(const v0, v1: TVector3f; t: single): TVector3f; inline;
 begin
   Result := v0 + (v1 - v0) * max(0.0, min(1.0, t));
 end;
 
-function hash(const n: single): single;
+function hash(const n: single): single; inline;
 var
   x: single;
 begin
@@ -63,7 +63,7 @@ begin
     lerp(hash(n + 170), hash(n + 171), f.x), f.y), f.z);
 end;
 
-function rotate(const v: TVector3f): TVector3f;
+function rotate(const v: TVector3f): TVector3f; inline;
 begin
   Result := vec3(vec3(0, 0.8, 0.6) * v, vec3(-0.8, 0.36, -0.48) * v, vec3(-0.6, -0.48, 0.64) * v);
 end;
@@ -136,7 +136,7 @@ end;
 
 function distance_field_normal(const pos: TVector3f): TVector3f;
 const
-  eps :Single= 0.1;
+  eps: single = 0.1;
 var
   d, nx, ny, nz: single;
 begin
@@ -160,7 +160,7 @@ begin
   bit.Width := Width;
   bit.Height := Height;
   bit.pixelformat := pf32bit;
-  hit:=vec3(0,0,0);
+  hit := vec3(0, 0, 0);
 
   for i := 0 to Width * Height - 1 do begin
     dir_x := (i mod Width + 0.5) - Width / 2;
@@ -169,7 +169,7 @@ begin
 
     v := vec3(dir_x, dir_y, dir_z);
     v.Normalize;
-//    WriteLn(i);
+    //    WriteLn(i);
     if sphere_trace(vec3(0, 0, 3), v, hit) then begin
       noise_level := (sphere_radius - hit.Length) / noise_amplitude;
       light_dir := vec3(10, 10, 10) - hit;
@@ -181,11 +181,11 @@ begin
     end;
 
     for j := 0 to 2 do begin
-      bit.RawImage.Data[i * 4 + j] := Round(255 * fb[j]);
+      bit.RawImage.Data[i * 4 + j] := max(0, min(255, Round(255 * fb[j])));
     end;
     bit.RawImage.Data[i * 4 + 3] := $FF;
   end;
-  Result:=0;
+  Result := 0;
 end;
 
 
