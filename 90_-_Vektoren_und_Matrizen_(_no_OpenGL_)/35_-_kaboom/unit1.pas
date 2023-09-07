@@ -6,13 +6,19 @@ interface
 
 uses
   Math, ctypes, GraphType,
+  MTProcs,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, dglOpenGL, oglVector, oglMatrix;
+  ExtCtrls, Menus, dglOpenGL, oglVector, oglMatrix;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     Image1: TImage;
-    procedure FormCreate(Sender: TObject);
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    procedure MenuItem1Click(Sender: TObject);
   private
   public
   end;
@@ -148,56 +154,54 @@ begin
   Result.Normalize;
 end;
 
-function render(bit: TBitmap; Width, Height: DWord): cint;
+procedure doParallel(Index: PtrInt; Data: Pointer; Item: TMultiThreadProcItem);
 var
-  i, j: integer;
+  bit: TBitmap;
+var
+  j: integer;
   fov: single = 1.05;
   light_intensity, dir_x, dir_y, dir_z: single;
   fb, hit, v, light_dir: TVector3f;
   noise_level: single;
 
 begin
-  bit.Width := Width;
-  bit.Height := Height;
-  bit.pixelformat := pf32bit;
-  hit := vec3(0, 0, 0);
+  bit := TBitmap(Data);
 
-  for i := 0 to Width * Height - 1 do begin
-    dir_x := (i mod Width + 0.5) - Width / 2;
-    dir_y := -(i div Width + 0.5) + Height / 2;
-    dir_z := -Height / (2 * tan(fov / 2));
+  dir_x := (Index mod bit.Width + 0.5) - bit.Width / 2;
+  dir_y := -(Index div bit.Width + 0.5) + bit.Height / 2;
+  dir_z := -bit.Height / (2 * tan(fov / 2));
 
-    v := vec3(dir_x, dir_y, dir_z);
-    v.Normalize;
-    //    WriteLn(i);
-    if sphere_trace(vec3(0, 0, 3), v, hit) then begin
-      noise_level := (sphere_radius - hit.Length) / noise_amplitude;
-      light_dir := vec3(10, 10, 10) - hit;
-      light_dir.Normalize;
-      light_intensity := max(0.4, light_dir * distance_field_normal(hit));
-      fb := palette_fire((-0.2 + noise_level) * 2) * light_intensity;
-    end else begin
-      fb := vec3(0.2, 0.7, 0.8);
-    end;
-
-    for j := 0 to 2 do begin
-      bit.RawImage.Data[i * 4 + j] := max(0, min(255, Round(255 * fb[j])));
-    end;
-    bit.RawImage.Data[i * 4 + 3] := $FF;
+  v := vec3(dir_x, dir_y, dir_z);
+  v.Normalize;
+  if sphere_trace(vec3(0, 0, 3), v, hit) then begin
+    noise_level := (sphere_radius - hit.Length) / noise_amplitude;
+    light_dir := vec3(10, 10, 10) - hit;
+    light_dir.Normalize;
+    light_intensity := max(0.4, light_dir * distance_field_normal(hit));
+    fb := palette_fire((-0.2 + noise_level) * 2) * light_intensity;
+  end else begin
+    fb := vec3(0.2, 0.7, 0.8);
   end;
-  Result := 0;
+
+  for j := 0 to 2 do begin
+    bit.RawImage.Data[Index * 4 + j] := max(0, min(255, Round(255 * fb[j])));
+  end;
+  bit.RawImage.Data[Index * 4 + 3] := $FF;
+//  Application.ProcessMessages;
 end;
 
-
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
   //remove+
-  //  Width := 1024;
-  //  Height := 768;
-  Width := 640;
-  Height := 400;
+    Width := 1024;
+    Height := 768;
   //remove-
-  render(Image1.Picture.Bitmap, Width, Height);
+  Image1.Picture.Bitmap.Width := Width;
+  Image1.Picture.Bitmap.Height := Height;
+  Image1.Picture.Bitmap.pixelformat := pf32bit;
+
+  ProcThreadPool.DoParallel(@doParallel, 0, Width * Height - 1, pointer(Image1.Picture.Bitmap));
+  WriteLn('fertig');
 end;
 
 end.

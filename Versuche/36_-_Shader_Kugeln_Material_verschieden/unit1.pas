@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglVector, oglMatrix, oglContext, oglShader;
+  oglVector, oglMatrix, oglContext, oglShader, oglLightingShader;
 
 type
 
@@ -53,8 +53,10 @@ Die Deklaration der Koordianten und Punktgrösse.
 type
   TPoint = record
     vec: TVector3f;
-    col: TVector3f;
     PointSize: GLfloat;
+
+    Mambient, Mdiffuse, Mspecular: TVector3f;
+    Mshininess: GLfloat;
   end;
 
 var
@@ -106,23 +108,28 @@ end;
 
 procedure TForm1.CreateVertex;
 const
-  r = 0.3;
+  s = 1.8;
   sek = 200;
 var
   i: integer;
   l: GLfloat;
+  m: integer;
 begin
   SetLength(Points, sek);
+
   for i := 0 to sek - 1 do begin
     repeat
       Points[i].vec := vec3(Random - 0.5, Random - 0.5, Random - 0.5);
       l := Points[i].vec.Length;
     until l <= 0.5;
-
-    Points[i].col[0] := Random;
-    Points[i].col[1] := Random;
-    Points[i].col[2] := Random;
+    Points[i].vec.Scale(s);
     Points[i].PointSize := Random / 8;
+
+    m := Random(Length(MaterialPara));
+    Points[i].Mambient := MaterialPara[m].ambient.xyz;
+    Points[i].Mdiffuse := MaterialPara[m].diffuse.xyz;
+    Points[i].Mspecular := MaterialPara[m].specular.xyz;
+    Points[i].Mshininess := MaterialPara[m].shininess;
   end;
 end;
 
@@ -134,8 +141,8 @@ Daten für die Punkte in die Grafikkarte übertragen
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-//  glEnable( GL_PROGRAM_POINT_SIZE );
-//   glEnable(GL_PROGRAM_POINT_SIZE_EXT);
+  //  glEnable( GL_PROGRAM_POINT_SIZE );
+  //   glEnable(GL_PROGRAM_POINT_SIZE_EXT);
   // glPointSize(100000);
 
 
@@ -148,14 +155,26 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), nil);
 
-  // Daten für Punkt Farbe
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
 
   // Daten für Punkt Grösse
-  glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(24));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
 
+  // Daten für ambient
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(16));
+
+  // Daten für diffuse
+  glEnableVertexAttribArray(3);
+  glVertexAttribPointer(3, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(28));
+
+  // Daten für specular
+  glEnableVertexAttribArray(4);
+  glVertexAttribPointer(4, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(40));
+
+  // Daten für shininess
+  glEnableVertexAttribArray(5);
+  glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(52));
 end;
 
 //code-
@@ -198,9 +217,8 @@ begin
 
   //vp.z := 1000;
 
-//  glUniform4f(ViewPort_ID, 1, PGLfloat(vp));
-//  glUniform1f(ViewPort_ID, vp.z);
-
+  //  glUniform4f(ViewPort_ID, 1, PGLfloat(vp));
+  //  glUniform1f(ViewPort_ID, vp.z);
 
 end;
 
