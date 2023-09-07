@@ -10,7 +10,7 @@ layout (location = 5) in float inMshininess;
 out Data {
   vec3 color;
   float radius;
-  vec3 center;
+  vec3 pos;
 
   vec3 Mambient;
   vec3 Mdiffuse;
@@ -18,14 +18,16 @@ out Data {
   float Mshininess;
 } DataOut;
 
+uniform mat4 ModelMatrix;
 uniform vec4 viewport;
 
 void main(void)
 {
   gl_PointSize = inSize * min(viewport.z, viewport.w) * 2;
-  gl_Position  = vec4(inPos, 1.0);
+  gl_Position  = ModelMatrix * vec4(inPos, 1.0);
 
-  DataOut.center = gl_Position.xyz;
+//  DataOut.pos =  (ModelMatrix * vec4(inPos, 1.0)).xyz;
+  DataOut.pos =  gl_Position.xyz;
   DataOut.radius = inSize;
 
   DataOut.Mambient = inMambient;

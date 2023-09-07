@@ -15,9 +15,11 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
@@ -71,9 +73,11 @@ type
 
 var
   ViewPort_ID,
-  Color_ID: GLint;
+    ProjectionMatrix_ID,  ModelMatrix_ID: GLint;
 
   VBPoint: TVB;
+
+  ProjectionMatrix,  ModelMatrix:Tmat4x4;
 
   { TForm1 }
 
@@ -98,7 +102,13 @@ procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  Color_ID := Shader.UniformLocation('Color');
+
+  ModelMatrix.Identity;
+  ProjectionMatrix.Ortho(-1,1,-1,1,-2,2);
+  ProjectionMatrix.Identity;
+
+  ModelMatrix_ID := Shader.UniformLocation('ModelMatrix');
+  ProjectionMatrix_ID := Shader.UniformLocation('ProjectionMatrix');
   ViewPort_ID := Shader.UniformLocation('viewport');
 
   glGenVertexArrays(1, @VBPoint.VAO);
@@ -141,10 +151,6 @@ Daten für die Punkte in die Grafikkarte übertragen
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-  //  glEnable( GL_PROGRAM_POINT_SIZE );
-  //   glEnable(GL_PROGRAM_POINT_SIZE_EXT);
-  // glPointSize(100000);
-
 
   glBindVertexArray(VBPoint.VAO);
 
@@ -175,6 +181,8 @@ begin
   // Daten für shininess
   glEnableVertexAttribArray(5);
   glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(52));
+
+  Timer1.Enabled:=True;
 end;
 
 //code-
@@ -188,6 +196,7 @@ const
   ofs = 0.4;
 var
   vp: TVector4f;
+  m:Tmat4x4;
 begin
   glEnable(GL_PROGRAM_POINT_SIZE);
 
@@ -200,11 +209,25 @@ begin
   glGetFloatv(GL_VIEWPORT, @vp);
   WriteLn(vp[0]: 10: 5, '  ', vp[1]: 10: 5, '  ', vp[2]: 10: 5, '  ', vp[3]: 10: 5, '  ');
   glUniform4fv(ViewPort_ID, 1, vp);
-  WriteLn(ViewPort_ID);
+
+//  m:=ProjectionMatrix * ModelMatrix;
+  m:=ModelMatrix;
+  m.Uniform(ModelMatrix_ID);
+
+
+//  ModelMatrix.Uniform(ModelMatrix_ID);
+WriteLn(ProjectionMatrix_ID);
+WriteLn(ModelMatrix_ID);
+   WriteLn(ViewPort_ID);
 
 
 
-  glUniform3f(Color_ID, 1.0, 1.0, 0.0);
+//  glUniform3f(ModelMatrix_ID, 1.0, 1.0, 0.0);
+
+  ProjectionMatrix.Uniform(ProjectionMatrix_ID);
+
+
+
   glDrawArrays(GL_POINTS, 0, Length(Points));
 
   ogc.SwapBuffers;
@@ -236,6 +259,12 @@ end;
 
 procedure TForm1.FormResize(Sender: TObject);
 begin
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  ModelMatrix.RotateB(0.1);
+  ogc.Invalidate;
 end;
 
 //lineal

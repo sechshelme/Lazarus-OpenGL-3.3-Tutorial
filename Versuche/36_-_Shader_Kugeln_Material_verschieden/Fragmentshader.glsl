@@ -21,7 +21,7 @@
 in Data {
   vec3 color;
   float radius;
-  vec3 center;
+  vec3 pos;
 
   vec3 Mambient;
   vec3 Mdiffuse;
@@ -32,6 +32,8 @@ in Data {
 out vec4 outColor; // ausgegebene Farbe
 
 uniform vec4 viewport;
+uniform mat4 ProjectionMatrix;
+
 
 vec3 Light(in vec3 p, in vec3 n) {
   vec3 nn = normalize(n);
@@ -54,7 +56,7 @@ vec3 Light(in vec3 p, in vec3 n) {
 void main(void) {
     vec2 ndc_current_pixel = ((2.0 * gl_FragCoord.xy) - (2.0 * viewport.xy)) / (viewport.zw) - 1;
 
-    vec2 diff = ndc_current_pixel - DataIn.center.xy;
+    vec2 diff = ndc_current_pixel - DataIn.pos.xy;
     float d2 = dot(diff, diff);
     float r2 = pow(DataIn.radius, 2);
 
@@ -62,11 +64,11 @@ void main(void) {
         discard;
     } else {
         float dr =  sqrt(r2 - d2);
-        vec3 n = vec3(ndc_current_pixel- DataIn.center.xy, dr);
+        vec3 n = vec3(ndc_current_pixel- DataIn.pos.xy, dr);
 
-        outColor = vec4(Light(Lposition -  DataIn.center, n), 1.0);
+        outColor = vec4(Light(Lposition -  DataIn.pos, n), 1.0);
 
-        gl_FragDepth = gl_FragCoord.z + dr * gl_DepthRange.diff / 2.0;
+        gl_FragDepth = gl_FragCoord.z + dr * gl_DepthRange.diff / 2.0 * ProjectionMatrix[2].z;
     }
 }
 
