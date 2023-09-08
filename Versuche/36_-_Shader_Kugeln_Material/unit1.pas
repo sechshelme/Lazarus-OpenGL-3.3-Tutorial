@@ -53,7 +53,6 @@ Die Deklaration der Koordianten und Punktgrösse.
 type
   TPoint = record
     vec: TVector3f;
-    col: TVector3f;
     PointSize: GLfloat;
   end;
 
@@ -68,9 +67,7 @@ type
   end;
 
 var
-  ViewPort_ID,
-  Color_ID: GLint;
-
+  ViewPort_ID: GLint;
   VBPoint: TVB;
 
   { TForm1 }
@@ -96,7 +93,6 @@ procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  Color_ID := Shader.UniformLocation('Color');
   ViewPort_ID := Shader.UniformLocation('viewport');
 
   glGenVertexArrays(1, @VBPoint.VAO);
@@ -107,23 +103,30 @@ end;
 procedure TForm1.CreateVertex;
 const
   s = 1.8;
-  sek = 200;
+  step = 8;
+  sek = step * step;
 var
-  i: integer;
+  x, y, z, i: integer;
   l: GLfloat;
 begin
   SetLength(Points, sek);
-  for i := 0 to sek - 1 do begin
-    repeat
-      Points[i].vec := vec3(Random - 0.5, Random - 0.5, Random - 0.5);
-      l := Points[i].vec.Length;
-    until l <= 0.5;
-    Points[i].vec.Scale(s);
+  //for i := 0 to sek - 1 do begin
+  //  repeat
+  //    Points[i].vec := vec3(Random - 0.5, Random - 0.5, Random - 0.5);
+  //    l := Points[i].vec.Length;
+  //  until l <= 0.5;
+  //  Points[i].vec.Scale(s);
+  //
+  //  Points[i].PointSize := Random / 8;
+  //end;
+  for x := 0 to step - 1 do begin
+    for y := 0 to step - 1 do begin
+        i := y * step + x;
+        Points[i].vec := vec3((x - (step / 2)) / 10, (y - (step / 2)) / 10, 0);
+        Points[i].vec.Scale(s);
 
-    Points[i].col[0] := Random;
-    Points[i].col[1] := Random;
-    Points[i].col[2] := Random;
-    Points[i].PointSize := Random / 8;
+        Points[i].PointSize := 0.07;
+      end;
   end;
 end;
 
@@ -135,10 +138,6 @@ Daten für die Punkte in die Grafikkarte übertragen
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-//  glEnable( GL_PROGRAM_POINT_SIZE );
-//   glEnable(GL_PROGRAM_POINT_SIZE_EXT);
-  // glPointSize(100000);
-
 
   glBindVertexArray(VBPoint.VAO);
 
@@ -149,13 +148,9 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), nil);
 
-  // Daten für Punkt Farbe
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
-
   // Daten für Punkt Grösse
-  glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(24));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
 
 end;
 
@@ -178,15 +173,11 @@ begin
 
   glBindVertexArray(VBPoint.VAO);
 
-
   glGetFloatv(GL_VIEWPORT, @vp);
   WriteLn(vp[0]: 10: 5, '  ', vp[1]: 10: 5, '  ', vp[2]: 10: 5, '  ', vp[3]: 10: 5, '  ');
   glUniform4fv(ViewPort_ID, 1, vp);
   WriteLn(ViewPort_ID);
 
-
-
-  glUniform3f(Color_ID, 1.0, 1.0, 0.0);
   glDrawArrays(GL_POINTS, 0, Length(Points));
 
   ogc.SwapBuffers;
@@ -195,14 +186,6 @@ end;
 procedure TForm1.ogcResize(Sender: TObject);
 begin
   glViewport(0, 0, ogc.Width, ogc.Height);
-
-
-  //vp.z := 1000;
-
-//  glUniform4f(ViewPort_ID, 1, PGLfloat(vp));
-//  glUniform1f(ViewPort_ID, vp.z);
-
-
 end;
 
 //code-

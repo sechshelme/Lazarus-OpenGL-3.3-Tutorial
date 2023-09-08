@@ -90,6 +90,7 @@ begin
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
   ogc.OnResize := @ogcResize;
+  ogc.AutoResizeViewport := False;
 
   CreateVertex;
 
@@ -102,10 +103,11 @@ begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -20);
+  FrustumMatrix.Ortho(-1, 1, -1, 1, 2.5, 2000);
+//  FrustumMatrix.Frustum(-1, 1, -1, 1, 0.1, 150);
 
-  // FrustumMatrix.Identity;
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(0, 0, -10);
 
   ModelMatrix_ID := Shader.UniformLocation('ModelMatrix');
   ProjectionMatrix_ID := Shader.UniformLocation('ProjectionMatrix');
@@ -149,10 +151,12 @@ Daten für die Punkte in die Grafikkarte übertragen
 
 //code+
 procedure TForm1.InitScene;
+var
+  ofs:Pointer=nil;
 begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
-  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
+  glClearColor(0.1, 0.1, 0.4, 1.0);
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
 
   glBindVertexArray(VBPoint.VAO);
 
@@ -161,28 +165,32 @@ begin
 
   // Daten für Punkt Position
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), nil);
-
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  Inc(ofs, SizeOf(TPoint.vec));
 
   // Daten für Punkt Grösse
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(12));
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  Inc(ofs, SizeOf(TPoint.PointSize));
 
   // Daten für ambient
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(16));
+  glVertexAttribPointer(2, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  Inc(ofs, SizeOf(TPoint.Mambient));
 
   // Daten für diffuse
   glEnableVertexAttribArray(3);
-  glVertexAttribPointer(3, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(28));
+  glVertexAttribPointer(3, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  Inc(ofs, SizeOf(TPoint.Mdiffuse));
 
   // Daten für specular
   glEnableVertexAttribArray(4);
-  glVertexAttribPointer(4, 3, GL_FLOAT, False, SizeOf(TPoint), Pointer(40));
+  glVertexAttribPointer(4, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  Inc(ofs, SizeOf(TPoint.Mspecular));
 
   // Daten für shininess
   glEnableVertexAttribArray(5);
-  glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(52));
+  glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), ofs);
 
   Timer1.Enabled := True;
 end;
@@ -228,13 +236,12 @@ begin
 end;
 
 procedure TForm1.ogcResize(Sender: TObject);
-var
-  p: single;
 begin
-  p := ogc.Width / ogc.Height;
-  p:=1;
-  FrustumMatrix.Ortho(-p, p, -1, 1, 2.5, 200);
-//  glViewport(200,200,1320,1200);
+  if ogc.Width < ogc.Height then begin
+    glViewport(0, -(ogc.Width - ogc.Height) div 2, ogc.Width, ogc.Width);
+  end else begin
+    glViewport(-(ogc.Height - ogc.Width) div 2, 0, ogc.Height, ogc.Height);
+  end;
 end;
 
 //code-

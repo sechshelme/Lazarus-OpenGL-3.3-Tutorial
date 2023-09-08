@@ -1,15 +1,10 @@
 #version 330
 
 // Licht
-#define Lposition  vec3(35.0, 17.5, 35.0)
+//#define Lposition  vec3(35.0, 17.5, 35.0)
+#define Lposition  vec3(0.1, 0.1, 0.1)
 #define Lambient   vec3(1.8, 1.8, 1.8)
 #define Ldiffuse   vec3(1.5, 1.5, 1.5)
-
-//// Material ( Poliertes Kupfer  )
-//#define Mambient   vec3(0.23, 0.09, 0.03)
-//#define Mdiffuse   vec3(0.55, 0.21, 0.07)
-//#define Mspecular  vec3(0.58, 0.22, 0.07)
-//#define Mshininess 51.2
 
 // Material ( Rubin )
 #define Mambient   vec3(0.17, 0.01, 0.01)
@@ -19,7 +14,6 @@
 
 
 in Data {
-  vec3 color;
   float radius;
   vec3 center;
 } DataIn;

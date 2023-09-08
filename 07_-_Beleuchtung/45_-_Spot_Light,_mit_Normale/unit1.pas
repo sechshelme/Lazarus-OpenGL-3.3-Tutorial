@@ -58,7 +58,7 @@ implementation
 {$R *.lfm}
 
 type
-  TCube = array[0..11] of Tmat3x3;
+  TCube = array of Tmat3x3;
 
 const
   CubeVertex: TCube =
@@ -137,6 +137,7 @@ begin
     Blue.Scale(LichtPositionRadius);
   end;
 
+  SetLength(CubeNormal, Length(CubeVertex));
   FaceToNormale(CubeVertex, CubeNormal);
   CubeSize := 4;
 
@@ -186,13 +187,13 @@ begin
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, Length(CubeVertex) * SizeOf(Tmat3x3), @CubeVertex, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(CubeVertex) * SizeOf(Tmat3x3),PGLvoid(CubeVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBONormal);
-  glBufferData(GL_ARRAY_BUFFER, Length(CubeNormal) * SizeOf(Tmat3x3), @CubeNormal, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(CubeNormal) * SizeOf(Tmat3x3), PGLvoid(CubeNormal), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 

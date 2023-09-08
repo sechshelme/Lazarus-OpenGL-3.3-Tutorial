@@ -1,11 +1,9 @@
 #version 330
 
 layout (location = 0) in vec3  inPos;
-layout (location = 1) in vec3  inCol;
-layout (location = 2) in float inSize;
+layout (location = 1) in float inSize;
 
 out Data {
-  vec3 color;
   float radius;
   vec3 center;
 } DataOut;
@@ -18,6 +16,5 @@ void main(void)
   gl_Position  = vec4(inPos, 1.0);
 
   DataOut.center = gl_Position.xyz;
-  DataOut.color = inCol;
   DataOut.radius = inSize;
 }

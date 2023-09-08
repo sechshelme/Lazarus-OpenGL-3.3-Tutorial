@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="13">
+    <Units Count="14">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="281"/>
-        <CursorPos X="2" Y="310"/>
+        <TopLine Value="165"/>
+        <CursorPos Y="196"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -52,7 +52,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <CursorPos Y="14"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -60,7 +60,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="51" Y="15"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
@@ -89,10 +89,11 @@
       </Unit9>
       <Unit10>
         <Filename Value="../../units/dglOpenGL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="14785"/>
-        <CursorPos X="22" Y="14830"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="8353"/>
+        <CursorPos X="75" Y="8353"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="../../units/oglmatrix.pas"/>
@@ -108,8 +109,17 @@
         <EditorIndex Value="-1"/>
         <UsageCount Value="11"/>
       </Unit12>
+      <Unit13>
+        <Filename Value="../../units/oglvector.pas"/>
+        <UnitName Value="oglVector"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="722"/>
+        <CursorPos X="10" Y="744"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit13>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="344" Column="14" TopLine="309"/>
@@ -198,10 +208,50 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="30" Column="62"/>
       </Position22>
+      <Position23>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="140" Column="9" TopLine="118"/>
+      </Position23>
+      <Position24>
+        <Filename Value="../../units/oglvector.pas"/>
+        <Caret Line="165" Column="14" TopLine="140"/>
+      </Position24>
+      <Position25>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="140" Column="35" TopLine="97"/>
+      </Position25>
+      <Position26>
+        <Filename Value="../../units/oglvector.pas"/>
+        <Caret Line="744" Column="5" TopLine="732"/>
+      </Position26>
+      <Position27>
+        <Filename Value="../../units/oglvector.pas"/>
+        <Caret Line="747" Column="33" TopLine="713"/>
+      </Position27>
+      <Position28>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="190" Column="12" TopLine="162"/>
+      </Position28>
+      <Position29>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="11867" Column="24" TopLine="11842"/>
+      </Position29>
+      <Position30>
+        <Filename Value="../../units/dglOpenGL.pas"/>
+        <Caret Line="8353" Column="75" TopLine="8353"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="0" ActiveMode="default"/>
+      <Modes ActiveMode="default"/>
     </RunParams>
+    <HistoryLists Count="3">
+      <List0 Name="WorkingDirectory" Type="File" Count="1"/>
+      <List1 Name="LaunchingApplication" Type="File" Count="2">
+        <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item2 Value="/usr/bin/gnome-terminal -t &apos;Lazarus Run Output&apos; -e &apos;$(LazarusDir)/tools/runwait.sh $(TargetCmdLine)&apos;"/>
+      </List1>
+      <List2 Name="CommandLineParameters" Count="1"/>
+    </HistoryLists>
   </ProjectSession>
 </CONFIG>

@@ -1,7 +1,8 @@
 #version 330
 
 // Licht
-#define Lposition  vec3(35.0, 17.5, 35.0)
+//#define Lposition  vec3(35.0, 17.5, 35.0)
+#define Lposition  vec3(0.1, 0.1, 0.1)
 #define Lambient   vec3(1.8, 1.8, 1.8)
 #define Ldiffuse   vec3(1.5, 1.5, 1.5)
 

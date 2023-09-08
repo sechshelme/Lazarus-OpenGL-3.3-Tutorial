@@ -5,9 +5,9 @@ object Form1: TForm1
   Width = 647
   Caption = 'Form1'
   Menu = MainMenu1
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.1.0.0'
   object Timer1: TTimer
     Enabled = False
     Interval = 40

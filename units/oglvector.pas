@@ -413,7 +413,7 @@ begin
     l := 1.0;
   end;
   //Self /= l;
-    Self *= 1 / l;
+  Self *= 1 / l;
 end;
 
 procedure TVector3fHelper.Negate; inline;
@@ -742,6 +742,7 @@ var
 begin
   if Length(Normal) <> Length(Face) then begin
     //    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+    //    WriteLn(  'Fehler: Lenght(Normal) <> Length(Face)');
     Exit;
   end;
   for i := 0 to Length(Face) - 1 do begin
