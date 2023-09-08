@@ -23,6 +23,7 @@ uniform vec4 viewport;
 
 void main(void)
 {
+//  gl_PointSize = inSize * min(viewport.z, viewport.w) * (viewport[2]/viewport[3]);
   gl_PointSize = inSize * min(viewport.z, viewport.w) * 2;
   gl_Position  = ModelMatrix * vec4(inPos, 1.0);
 

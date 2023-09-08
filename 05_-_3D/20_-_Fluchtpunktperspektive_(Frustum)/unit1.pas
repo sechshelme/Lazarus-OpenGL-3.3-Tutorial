@@ -76,8 +76,7 @@ type
 var
   VBCube: TVB;
   FrustumMatrix,
-  WorldMatrix,
-  Matrix: TMatrix;
+  WorldMatrix:TMatrix;
   Matrix_ID: GLint;
 
 { TForm1 }
@@ -111,9 +110,7 @@ procedure TForm1.CreateScene;
 const
   w = 1.0;
 begin
-  Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
-
 //   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ
 
   WorldMatrix.Identity;
@@ -165,6 +162,7 @@ Das Zeichnen ist das Selbe wie bei Ortho.
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   x, y, z: integer;
+  Matrix: TMatrix;
 const
   d = 1.8;
   s = 4;

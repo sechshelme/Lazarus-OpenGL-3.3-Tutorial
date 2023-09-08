@@ -18,7 +18,6 @@ type
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
@@ -73,11 +72,11 @@ type
 
 var
   ViewPort_ID,
-    ProjectionMatrix_ID,  ModelMatrix_ID: GLint;
+  ProjectionMatrix_ID, ModelMatrix_ID: GLint;
 
   VBPoint: TVB;
 
-  ProjectionMatrix,  ModelMatrix:Tmat4x4;
+  WorldMatrix, FrustumMatrix: Tmat4x4;
 
   { TForm1 }
 
@@ -103,9 +102,10 @@ begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  ModelMatrix.Identity;
-  ProjectionMatrix.Ortho(-1,1,-1,1,-2,2);
-  ProjectionMatrix.Identity;
+  WorldMatrix.Identity;
+  WorldMatrix.Translate(0, 0, -20);
+
+  // FrustumMatrix.Identity;
 
   ModelMatrix_ID := Shader.UniformLocation('ModelMatrix');
   ProjectionMatrix_ID := Shader.UniformLocation('ProjectionMatrix');
@@ -151,6 +151,8 @@ Daten für die Punkte in die Grafikkarte übertragen
 procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  glEnable(GL_DEPTH_TEST);  // Tiefenprüfung einschalten.
+  glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   glBindVertexArray(VBPoint.VAO);
 
@@ -182,7 +184,7 @@ begin
   glEnableVertexAttribArray(5);
   glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(52));
 
-  Timer1.Enabled:=True;
+  Timer1.Enabled := True;
 end;
 
 //code-
@@ -196,37 +198,29 @@ const
   ofs = 0.4;
 var
   vp: TVector4f;
-  m:Tmat4x4;
+  Matrix: Tmat4x4;
 begin
   glEnable(GL_PROGRAM_POINT_SIZE);
 
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Puffer löschen. glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
   glBindVertexArray(VBPoint.VAO);
-
 
   glGetFloatv(GL_VIEWPORT, @vp);
   WriteLn(vp[0]: 10: 5, '  ', vp[1]: 10: 5, '  ', vp[2]: 10: 5, '  ', vp[3]: 10: 5, '  ');
   glUniform4fv(ViewPort_ID, 1, vp);
 
-//  m:=ProjectionMatrix * ModelMatrix;
-  m:=ModelMatrix;
-  m.Uniform(ModelMatrix_ID);
+  Matrix := FrustumMatrix * WorldMatrix;
+  //  Matrix:=ModelMatrix;
+  Matrix.Uniform(ModelMatrix_ID);
 
 
-//  ModelMatrix.Uniform(ModelMatrix_ID);
-WriteLn(ProjectionMatrix_ID);
-WriteLn(ModelMatrix_ID);
-   WriteLn(ViewPort_ID);
+  WriteLn(ProjectionMatrix_ID);
+  WriteLn(ModelMatrix_ID);
+  WriteLn(ViewPort_ID);
 
-
-
-//  glUniform3f(ModelMatrix_ID, 1.0, 1.0, 0.0);
-
-  ProjectionMatrix.Uniform(ProjectionMatrix_ID);
-
-
+  FrustumMatrix.Uniform(ProjectionMatrix_ID);
 
   glDrawArrays(GL_POINTS, 0, Length(Points));
 
@@ -234,15 +228,13 @@ WriteLn(ModelMatrix_ID);
 end;
 
 procedure TForm1.ogcResize(Sender: TObject);
+var
+  p: single;
 begin
-  glViewport(0, 0, ogc.Width, ogc.Height);
-
-
-  //vp.z := 1000;
-
-  //  glUniform4f(ViewPort_ID, 1, PGLfloat(vp));
-  //  glUniform1f(ViewPort_ID, vp.z);
-
+  p := ogc.Width / ogc.Height;
+  p:=1;
+  FrustumMatrix.Ortho(-p, p, -1, 1, 2.5, 200);
+//  glViewport(200,200,1320,1200);
 end;
 
 //code-
@@ -257,13 +249,9 @@ begin
   glDeleteBuffers(1, @VBPoint.VBO_Size);
 end;
 
-procedure TForm1.FormResize(Sender: TObject);
-begin
-end;
-
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  ModelMatrix.RotateB(0.1);
+  WorldMatrix.RotateB(0.01);
   ogc.Invalidate;
 end;
 
