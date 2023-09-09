@@ -25,10 +25,16 @@ void main(void)
 {
 //  gl_PointSize = inSize * min(viewport.z, viewport.w) * (viewport[2]/viewport[3]);
   gl_PointSize = inSize * min(viewport.z, viewport.w) * 2;
+
   gl_Position  = ModelMatrix * vec4(inPos, 1.0);
 
 //  DataOut.pos =  (ModelMatrix * vec4(inPos, 1.0)).xyz;
   DataOut.pos =  gl_Position.xyz;
+
+//       DataOut.pos = inPos;
+
+vec3 a = min(vec3(1,1,1), vec3(1,1,1));
+
   DataOut.radius = inSize;
 
   DataOut.Mambient = inMambient;

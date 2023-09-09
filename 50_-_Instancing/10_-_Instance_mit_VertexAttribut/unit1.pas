@@ -53,30 +53,30 @@ const
 (*
 Die Anzahl Instance
 *)
-//code+
+  //code+
 const
   InstanceCount = 10000;
-//code-
+  //code-
 
 (*
 Für die Instancen werden VBOs gebraucht.
 *)
-//code+
+  //code+
 type
   TVB = record
     VAO: GLuint;
     VBO: record
       Vertex,
       I_Size, I_Matrix, I_Color: GLuint;
-    end;
+      end;
   end;
-//code-
+  //code-
 
 
 (*
 Die Deklaration, der Arrays ist gleich wie bei der Uniform-Übergaben.
 *)
-//code+
+  //code+
 var
   VBQuad: TVB;
 
@@ -84,10 +84,11 @@ var
     Scale: array[0..InstanceCount - 1] of GLfloat;
     Matrix: array[0..InstanceCount - 1] of TMatrix;
     Color: array[0..InstanceCount - 1] of TVector3f;
-  end;
-//code-
+      end;
 
-{ TForm1 }
+  //code-
+
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -126,6 +127,7 @@ begin
     Data.Color[i] := vec3(Random, Random, Random);
   end;
 end;
+
 //code-
 
 (*
@@ -183,6 +185,7 @@ begin
   glVertexAttribPointer(6, 3, GL_FLOAT, False, 0, nil);
   glVertexAttribDivisor(6, 1);
 end;
+
 //code-
 
 (*
@@ -205,6 +208,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -224,12 +228,13 @@ var
   i: integer;
 begin
   for i := 0 to Length(Data.Matrix) - 1 do begin
-    Data.Matrix[i].RotateC(0.02);
+    Data.Matrix[i].RotateC(0.02 + (0.01 / Length(Data.Matrix) * i));
   end;
 
   glBindVertexArray(VBQuad.VAO);
   ogcDrawScene(Sender);  // Neu zeichnen
 end;
+
 //code-
 
 //lineal

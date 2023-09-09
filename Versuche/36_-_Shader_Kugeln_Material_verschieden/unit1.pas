@@ -99,15 +99,16 @@ begin
 end;
 
 procedure TForm1.CreateScene;
+const v=1.0;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  FrustumMatrix.Ortho(-1, 1, -1, 1, 2.5, 2000);
-//  FrustumMatrix.Frustum(-1, 1, -1, 1, 0.1, 150);
+  FrustumMatrix.Ortho(-v, v, -v, v, 2.5, 2000);
+// FrustumMatrix.Frustum(-v, v, -v, v, 0.1, 1500);
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -10);
+  WorldMatrix.Translate(0, 0, -1000);
 
   ModelMatrix_ID := Shader.UniformLocation('ModelMatrix');
   ProjectionMatrix_ID := Shader.UniformLocation('ProjectionMatrix');
@@ -120,7 +121,7 @@ end;
 
 procedure TForm1.CreateVertex;
 const
-  s = 1.8;
+  s = 2.2;
   sek = 200;
 var
   i: integer;
@@ -237,7 +238,7 @@ end;
 
 procedure TForm1.ogcResize(Sender: TObject);
 begin
-  if ogc.Width < ogc.Height then begin
+  if ogc.Width > ogc.Height then begin
     glViewport(0, -(ogc.Width - ogc.Height) div 2, ogc.Width, ogc.Width);
   end else begin
     glViewport(-(ogc.Height - ogc.Width) div 2, 0, ogc.Height, ogc.Height);

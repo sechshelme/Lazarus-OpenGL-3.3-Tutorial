@@ -158,6 +158,10 @@ function vec4(x, y, z, w: GLfloat): TVector4f; overload;
 function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
+function min(a, b: GLfloat): GLfloat;
+function max(a, b: GLfloat): GLfloat;
+function clamp(x, minVal, maxVal: GLfloat): GLfloat;
+
 function dot(v0, v1: TVector2f): single; overload;
 function dot(v0, v1: TVector3f): single; overload;
 function cross(v0, v1: TVector3f): TVector3f; overload;
@@ -718,6 +722,29 @@ begin
     Self[i * 3 + 1] *= y;
     Self[i * 3 + 2] *= z;
   end;
+end;
+
+function min(a, b: GLfloat): GLfloat; inline;
+begin
+  if a < b then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
+function max(a, b: GLfloat): GLfloat; inline;
+begin
+  if a > b then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
+function clamp(x, minVal, maxVal: GLfloat): GLfloat; inline;
+begin
+  Result := min(max(x, minVal), maxVal);
 end;
 
 function dot(v0, v1: TVector2f): single;

@@ -70,16 +70,16 @@ function refract(const I, N: TVector3f; const eta_t: single; const eta_i: single
 var
   cosi, eta, k: single;
 begin
-  cosi := -max(-1.0, min(1.0, I * N));
+  cosi := -clamp(-1.0, 1.0, I * N);
   if cosi < 0 then begin
     Exit(refract(I, vec3(0, 0, 0) - N, eta_i, eta_t));
   end;
   eta := eta_i / eta_t;
   k := 1 - eta * eta * (1 - cosi * cosi);
   if k < 0 then begin
-    Result := vec3(1, 0, 0);
+    Exit(vec3(1, 0, 0));
   end else begin
-    Result := I * eta + N * (eta * cosi - Sqrt(k));
+    Exit(I * eta + N * (eta * cosi - Sqrt(k)));
   end;
 end;
 

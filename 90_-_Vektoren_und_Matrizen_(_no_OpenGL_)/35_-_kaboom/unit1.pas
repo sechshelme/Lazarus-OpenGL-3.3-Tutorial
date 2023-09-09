@@ -36,12 +36,12 @@ const
 
 function lerp(const v0, v1: single; t: single): single; inline;
 begin
-  Result := v0 + (v1 - v0) * max(0.0, min(1.0, t));
+  Result := v0 + (v1 - v0) * clamp(0.0, 1.0, t);
 end;
 
 function lerp(const v0, v1: TVector3f; t: single): TVector3f; inline;
 begin
-  Result := v0 + (v1 - v0) * max(0.0, min(1.0, t));
+  Result := v0 + (v1 - v0) * clamp(0.0, 1.0, t);
 end;
 
 function hash(const n: single): single; inline;
@@ -100,7 +100,7 @@ const
 var
   x: single;
 begin
-  x := max(0, min(1, d));
+  x := clamp(0, 1, d);
   if x < 0.25 then begin
     Exit(lerp(gray, darkgray, x * 4));
   end;
@@ -184,17 +184,17 @@ begin
   end;
 
   for j := 0 to 2 do begin
-    bit.RawImage.Data[Index * 4 + j] := max(0, min(255, Round(255 * fb[j])));
+    bit.RawImage.Data[Index * 4 + j] := round(clamp(0, 255, 255 * fb[j]));
   end;
   bit.RawImage.Data[Index * 4 + 3] := $FF;
-//  Application.ProcessMessages;
+  //  Application.ProcessMessages;
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
   //remove+
-    Width := 1024;
-    Height := 768;
+  Width := 1024;
+  Height := 768;
   //remove-
   Image1.Picture.Bitmap.Width := Width;
   Image1.Picture.Bitmap.Height := Height;
