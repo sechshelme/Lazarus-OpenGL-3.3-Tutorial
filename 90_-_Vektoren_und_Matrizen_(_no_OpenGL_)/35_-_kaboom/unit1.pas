@@ -34,11 +34,6 @@ const
   sphere_radius = 1.5;
   noise_amplitude = 1.0;
 
-  function mix( x,y,a:Single):Single;
-  begin
-    Result:=x*(1-a)+y*a;
-  end;
-
 function lerp(const v0, v1: single; t: single): single; inline;
 begin
   Result := v0 + (v1 - v0) * clamp(t, 0.0, 1.0);
@@ -155,8 +150,7 @@ begin
   nx := signed_distance(pos + vec3(eps, 0, 0)) - d;
   ny := signed_distance(pos + vec3(0, eps, 0)) - d;
   nz := signed_distance(pos + vec3(0, 0, eps)) - d;
-  Result := vec3(nx, ny, nz);
-  Result.Normalize;
+  Result := normalize(vec3(nx, ny, nz));
 end;
 
 procedure doParallel(Index: PtrInt; Data: Pointer; Item: TMultiThreadProcItem);
@@ -166,7 +160,7 @@ var
   j: integer;
   fov: single = 1.05;
   light_intensity, dir_x, dir_y, dir_z: single;
-  fb, hit, v, light_dir: TVector3f;
+  fb, hit, light_dir: TVector3f;
   noise_level: single;
 
 begin
@@ -176,12 +170,9 @@ begin
   dir_y := -(Index div bit.Width + 0.5) + bit.Height / 2;
   dir_z := -bit.Height / (2 * tan(fov / 2));
 
-  v := vec3(dir_x, dir_y, dir_z);
-  v.Normalize;
-  if sphere_trace(vec3(0, 0, 3), v, hit) then begin
+  if sphere_trace(vec3(0, 0, 3), normalize(vec3(dir_x, dir_y, dir_z)), hit) then begin
     noise_level := (sphere_radius - hit.Length) / noise_amplitude;
-    light_dir := vec3(10, 10, 10) - hit;
-    light_dir.Normalize;
+    light_dir := normalize(vec3(10, 10, 10) - hit);
     light_intensity := max(0.4, light_dir * distance_field_normal(hit));
     fb := palette_fire((-0.2 + noise_level) * 2) * light_intensity;
   end else begin
@@ -206,7 +197,6 @@ begin
   Image1.Picture.Bitmap.pixelformat := pf32bit;
 
   ProcThreadPool.DoParallel(@doParallel, 0, Width * Height - 1, pointer(Image1.Picture.Bitmap));
-  WriteLn('fertig');
 end;
 
 end.

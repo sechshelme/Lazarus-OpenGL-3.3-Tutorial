@@ -91,6 +91,18 @@ type
     Result[1] := min(max(x[1], minVal[1]), maxVal[1]);
   end;
 
+  function mix1(x, y, a: GLfloat): GLfloat;
+  begin
+    Result := x + (y - x) * a;
+    WriteLn(Result: 10: 5);
+  end;
+
+  function mix2(x, y, a: GLfloat): GLfloat;
+  begin
+    Result := x * (1 - a) + y * a;
+    WriteLn(Result: 10: 5);
+  end;
+
 var
   v, vmin, vmax, vc: TVector2f;
   i: integer;
@@ -102,5 +114,7 @@ begin
     vc := clamp2(v, vmin, vmax);
     WriteLn('x: ', vc[0]: 10: 5, '  y: ', vc[1]: 10: 5);
   end;
+  mix1(-4, -6, -0.5);
+  mix2(-4, -6, -0.5);
 
 end.

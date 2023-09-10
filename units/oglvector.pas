@@ -150,6 +150,7 @@ type
     procedure Scale(x, y, z: GLfloat); overload;
   end;
 
+// --- GLSL Ähnlich
 
 function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
@@ -173,12 +174,7 @@ function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
 function dot(v0, v1: TVector2f): single; overload;
 function dot(v0, v1: TVector3f): single; overload;
 function cross(v0, v1: TVector3f): TVector3f; overload;
-
-procedure FaceToNormale(var Face, Normal: array of TFace3D);
-procedure SwapglFloat(var f0, f1: GLfloat);
-procedure SwapVertex2f(var f0, f1: TVector2f);
-procedure SwapVertex3f(var f0, f1: TVector3f);
-procedure SwapVertex4f(var f0, f1: TVector4f);
+function normalize(const v:TVector3f):TVector3f;
 
 operator +(const v0, v1: TVector2f) Res: TVector2f;
 operator -(const v0, v1: TVector2f) Res: TVector2f;
@@ -200,6 +196,14 @@ operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
 operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
 operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
+
+// --- Sonstige
+
+procedure FaceToNormale(var Face, Normal: array of TFace3D);
+procedure SwapglFloat(var f0, f1: GLfloat);
+procedure SwapVertex2f(var f0, f1: TVector2f);
+procedure SwapVertex3f(var f0, f1: TVector3f);
+procedure SwapVertex4f(var f0, f1: TVector4f);
 
 implementation
 
@@ -617,122 +621,51 @@ begin
   glUniform4fv(ShaderID, 1, @Self);
 end;
 
-{ TglFloatArrayHelper }
+// === GLSL Ähnliche Funktionen
 
-procedure TglFloatArrayHelper.AddglFloatf(f: GLfloat);
-var
-  p: integer;
+
+function vec2(x, y: GLfloat): TVector2f; inline;
 begin
-  p := Length(Self);
-  SetLength(Self, p + 1);
-  Move(f, Self[p], SizeOf(GLfloat));
+  Result[0] := x;
+  Result[1] := y;
 end;
 
-procedure TglFloatArrayHelper.AddVector2f(const Vertex: TVector2f);
-var
-  p: integer;
+function vec3(x, y, z: GLfloat): TVector3f; inline;
 begin
-  p := Length(Self);
-  SetLength(Self, p + 2);
-  Move(Vertex, Self[p], SizeOf(TVector2f));
+  Result[0] := x;
+  Result[1] := y;
+  Result[2] := z;
 end;
 
-procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
-var
-  p: integer;
+function vec3(const xy: TVector2f; z: GLfloat): TVector3f; inline;
 begin
-  p := Length(Self);
-  SetLength(Self, p + 3);
-  Move(Vertex, Self[p], SizeOf(TVector3f));
+  Result[0] := xy[0];
+  Result[1] := xy[1];
+  Result[2] := z;
 end;
 
-procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
-var
-  p: integer;
+function vec4(x, y, z, w: GLfloat): TVector4f; inline;
 begin
-  p := Length(Self);
-  SetLength(Self, p + 4);
-  Move(Vertex, Self[p], SizeOf(TVector4f));
+  Result[0] := x;
+  Result[1] := y;
+  Result[2] := z;
+  Result[3] := w;
 end;
 
-procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);
-var
-  p: integer;
+function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; inline;
 begin
-  p := Length(Self);
-  SetLength(Self, p + 6);
-  Move(Face, Self[p], SizeOf(TFace2D));
+  Result[0] := xy[0];
+  Result[1] := xy[1];
+  Result[2] := z;
+  Result[3] := w;
 end;
 
-procedure TglFloatArrayHelper.AddFace2D(const v0, v1, v2: TVector2f);
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; inline;
 begin
-  AddVector2f(v0);
-  AddVector2f(v1);
-  AddVector2f(v2);
-end;
-
-procedure TglFloatArrayHelper.AddFace2DArray(const Face: array of TFace2D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 6 * Length(Face));
-  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
-end;
-
-procedure TglFloatArrayHelper.AddFace3D(const Face: TFace3D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 9);
-  Move(Face, Self[p], SizeOf(TFace3D));
-end;
-
-procedure TglFloatArrayHelper.AddFace3D(const v0, v1, v2: TVector3f);
-begin
-  AddVector3f(v0);
-  AddVector3f(v1);
-  AddVector3f(v2);
-end;
-
-procedure TglFloatArrayHelper.AddFace3DArray(const Face: array of TFace3D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 9 * Length(Face));
-  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
-end;
-
-procedure TglFloatArrayHelper.Scale(factor: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to Length(Self) - 1 do begin
-    Self[i] *= factor;
-  end;
-end;
-
-procedure TglFloatArrayHelper.Scale(x, y: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to (Length(Self) - 1) div 2 do begin
-    Self[i * 2 + 0] *= x;
-    Self[i * 2 + 1] *= y;
-  end;
-end;
-
-procedure TglFloatArrayHelper.Scale(x, y, z: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to (Length(Self) - 1) div 3 do begin
-    Self[i * 3 + 0] *= x;
-    Self[i * 3 + 1] *= y;
-    Self[i * 3 + 2] *= z;
-  end;
+  Result[0] := xyz[0];
+  Result[1] := xyz[1];
+  Result[2] := xyz[2];
+  Result[3] := w;
 end;
 
 function min(a, b: GLfloat): GLfloat; inline;
@@ -805,19 +738,24 @@ function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
 var
   xl: GLfloat;
 begin
-  xl := x.Length;
-  if xl < minVal.Length then begin
-    Result := minVal;
-  end else if xl > maxVal.Length then begin
-    Result := maxVal;
-  end else begin
-    Result := x;
-  end;
+  Result[0] := clamp(x[0], minVal[0], maxVal[0]);
+  Result[1] := clamp(x[1], minVal[1], maxVal[1]);
+
+  //xl := x.Length;
+  //if xl < minVal.Length then begin
+  //  Result := minVal;
+  //end else if xl > maxVal.Length then begin
+  //  Result := maxVal;
+  //end else begin
+  //  Result := x;
+  //end;
 end;
 
 function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
 begin
-
+  Result[0] := clamp(x[0], minVal[0], maxVal[0]);
+  Result[1] := clamp(x[1], minVal[1], maxVal[1]);
+  Result[2] := clamp(x[2], minVal[0], maxVal[2]);
 end;
 
 function dot(v0, v1: TVector2f): single;
@@ -835,108 +773,13 @@ begin
   Result.Cross(v0, v1);
 end;
 
-procedure FaceToNormale(var Face, Normal: array of TFace3D);
-var
-  i: integer;
-  v: TVector3f;
+function normalize(const v: TVector3f): TVector3f;
 begin
-  if Length(Normal) <> Length(Face) then begin
-    //    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
-    //    WriteLn(  'Fehler: Lenght(Normal) <> Length(Face)');
-    Exit;
-  end;
-  for i := 0 to Length(Face) - 1 do begin
-    v.Cross(Face[i, 0], Face[i, 1], Face[i, 2]);
-    Normal[i, 0] := v;
-    Normal[i, 1] := v;
-    Normal[i, 2] := v;
-  end;
+   Result:=v;
+   Result.Normalize;
 end;
 
-// === Hilfsfunktionen
-
-procedure SwapglFloat(var f0, f1: GLfloat); inline;
-var
-  dummy: GLfloat;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex2f(var f0, f1: TVector2f); inline;
-var
-  dummy: TVector2f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex3f(var f0, f1: TVector3f); inline;
-var
-  dummy: TVector3f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-procedure SwapVertex4f(var f0, f1: TVector4f); inline;
-var
-  dummy: TVector4f;
-begin
-  dummy := f0;
-  f0 := f1;
-  f1 := dummy;
-end;
-
-
-function vec2(x, y: GLfloat): TVector2f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-end;
-
-function vec3(x, y, z: GLfloat): TVector3f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-  Result[2] := z;
-end;
-
-function vec3(const xy: TVector2f; z: GLfloat): TVector3f; inline;
-begin
-  Result[0] := xy[0];
-  Result[1] := xy[1];
-  Result[2] := z;
-end;
-
-function vec4(x, y, z, w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := x;
-  Result[1] := y;
-  Result[2] := z;
-  Result[3] := w;
-end;
-
-function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := xy[0];
-  Result[1] := xy[1];
-  Result[2] := z;
-  Result[3] := w;
-end;
-
-function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; inline;
-begin
-  Result[0] := xyz[0];
-  Result[1] := xyz[1];
-  Result[2] := xyz[2];
-  Result[3] := w;
-end;
-
-// === Überladene Operatoren
+// === Überladene Operatoren für Vektoren
 
 operator +(const v0, v1: TVector2f) Res: TVector2f; inline;
 begin
@@ -1056,6 +899,180 @@ end;
 operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2] + v0[3] * v1[3];
+end;
+
+// === Hilfsfunktionen
+
+procedure FaceToNormale(var Face, Normal: array of TFace3D);
+var
+  i: integer;
+  v: TVector3f;
+begin
+  if Length(Normal) <> Length(Face) then begin
+    //    ShowMessage('Fehler: Lenght(Normal) <> Length(Face)');
+    //    WriteLn(  'Fehler: Lenght(Normal) <> Length(Face)');
+    Exit;
+  end;
+  for i := 0 to Length(Face) - 1 do begin
+    v.Cross(Face[i, 0], Face[i, 1], Face[i, 2]);
+    Normal[i, 0] := v;
+    Normal[i, 1] := v;
+    Normal[i, 2] := v;
+  end;
+end;
+
+procedure SwapglFloat(var f0, f1: GLfloat); inline;
+var
+  dummy: GLfloat;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex2f(var f0, f1: TVector2f); inline;
+var
+  dummy: TVector2f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex3f(var f0, f1: TVector3f); inline;
+var
+  dummy: TVector3f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+procedure SwapVertex4f(var f0, f1: TVector4f); inline;
+var
+  dummy: TVector4f;
+begin
+  dummy := f0;
+  f0 := f1;
+  f1 := dummy;
+end;
+
+// ====  FloatArray Helper
+
+procedure TglFloatArrayHelper.AddglFloatf(f: GLfloat);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 1);
+  Move(f, Self[p], SizeOf(GLfloat));
+end;
+
+procedure TglFloatArrayHelper.AddVector2f(const Vertex: TVector2f);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 2);
+  Move(Vertex, Self[p], SizeOf(TVector2f));
+end;
+
+procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 3);
+  Move(Vertex, Self[p], SizeOf(TVector3f));
+end;
+
+procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 4);
+  Move(Vertex, Self[p], SizeOf(TVector4f));
+end;
+
+procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6);
+  Move(Face, Self[p], SizeOf(TFace2D));
+end;
+
+procedure TglFloatArrayHelper.AddFace2D(const v0, v1, v2: TVector2f);
+begin
+  AddVector2f(v0);
+  AddVector2f(v1);
+  AddVector2f(v2);
+end;
+
+procedure TglFloatArrayHelper.AddFace2DArray(const Face: array of TFace2D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
+end;
+
+procedure TglFloatArrayHelper.AddFace3D(const Face: TFace3D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9);
+  Move(Face, Self[p], SizeOf(TFace3D));
+end;
+
+procedure TglFloatArrayHelper.AddFace3D(const v0, v1, v2: TVector3f);
+begin
+  AddVector3f(v0);
+  AddVector3f(v1);
+  AddVector3f(v2);
+end;
+
+procedure TglFloatArrayHelper.AddFace3DArray(const Face: array of TFace3D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
+end;
+
+procedure TglFloatArrayHelper.Scale(factor: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) - 1 do begin
+    Self[i] *= factor;
+  end;
+end;
+
+procedure TglFloatArrayHelper.Scale(x, y: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to (Length(Self) - 1) div 2 do begin
+    Self[i * 2 + 0] *= x;
+    Self[i * 2 + 1] *= y;
+  end;
+end;
+
+procedure TglFloatArrayHelper.Scale(x, y, z: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to (Length(Self) - 1) div 3 do begin
+    Self[i * 3 + 0] *= x;
+    Self[i * 3 + 1] *= y;
+    Self[i * 3 + 2] *= z;
+  end;
 end;
 
 end.

@@ -178,18 +178,14 @@ begin
     Exit(vec3(0.2, 0.7, 0.8));
   end;
 
-  reflect_dir := reflect(dir, N);
-  reflect_dir.Normalize;
-
-  refract_dir := refract(dir, N, material.refractive_index);
-  refract_dir.Normalize;
+  reflect_dir := normalize(reflect(dir, N));
+  refract_dir := normalize(refract(dir, N, material.refractive_index));
 
   reflect_color := cast_ray(point, reflect_dir, depth + 1);
   refract_color := cast_ray(point, refract_dir, depth + 1);
 
   for i := 0 to Length(lights) - 1 do begin
-    light_dir := lights[i] - point;
-    light_dir.Normalize;
+    light_dir := normalize(lights[i] - point);
 
     scene_intersect(point, light_dir, hit, shadow_pt, dummy0, dummy1);
 
@@ -213,7 +209,7 @@ var
   i, j: integer;
   fov: single = 1.05;
   dir_x, dir_y, dir_z, mx: single;
-  v, color: TVector3f;
+  color: TVector3f;
 
 begin
   bit.Width := Width;
@@ -224,9 +220,7 @@ begin
     dir_x := (i mod Width + 0.5) - Width / 2;
     dir_y := -(i div Width + 0.5) + Height / 2;
     dir_z := -Height / (2 * tan(fov / 2));
-    v := vec3(dir_x, dir_y, dir_z);
-    v.Normalize;
-    color := cast_ray(vec3(0, 0, 0), v);
+    color := cast_ray(vec3(0, 0, 0), normalize(vec3(dir_x, dir_y, dir_z)));
 
     mx := max(1, max(color[0], max(color[1], color[2])));
     for j := 0 to 2 do begin
