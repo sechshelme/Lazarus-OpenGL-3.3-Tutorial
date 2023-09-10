@@ -34,14 +34,19 @@ const
   sphere_radius = 1.5;
   noise_amplitude = 1.0;
 
+  function mix( x,y,a:Single):Single;
+  begin
+    Result:=x*(1-a)+y*a;
+  end;
+
 function lerp(const v0, v1: single; t: single): single; inline;
 begin
-  Result := v0 + (v1 - v0) * clamp(0.0, 1.0, t);
+  Result := v0 + (v1 - v0) * clamp(t, 0.0, 1.0);
 end;
 
 function lerp(const v0, v1: TVector3f; t: single): TVector3f; inline;
 begin
-  Result := v0 + (v1 - v0) * clamp(0.0, 1.0, t);
+  Result := v0 + (v1 - v0) * clamp(t, 0.0, 1.0);
 end;
 
 function hash(const n: single): single; inline;
@@ -100,7 +105,7 @@ const
 var
   x: single;
 begin
-  x := clamp(0, 1, d);
+  x := clamp(d, 0, 1);
   if x < 0.25 then begin
     Exit(lerp(gray, darkgray, x * 4));
   end;
@@ -184,7 +189,7 @@ begin
   end;
 
   for j := 0 to 2 do begin
-    bit.RawImage.Data[Index * 4 + j] := round(clamp(0, 255, 255 * fb[j]));
+    bit.RawImage.Data[Index * 4 + j] := round(clamp(255 * fb[j], 0, 255));
   end;
   bit.RawImage.Data[Index * 4 + 3] := $FF;
   //  Application.ProcessMessages;

@@ -159,8 +159,16 @@ function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
 function min(a, b: GLfloat): GLfloat;
+function min(const a, b: TVector2f): TVector2f;
+function min(const a, b: TVector3f): TVector3f;
+
 function max(a, b: GLfloat): GLfloat;
+function max(const a, b: TVector2f): TVector2f;
+function max(const a, b: TVector3f): TVector3f;
+
 function clamp(x, minVal, maxVal: GLfloat): GLfloat;
+function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
+function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
 
 function dot(v0, v1: TVector2f): single; overload;
 function dot(v0, v1: TVector3f): single; overload;
@@ -174,10 +182,13 @@ procedure SwapVertex4f(var f0, f1: TVector4f);
 
 operator +(const v0, v1: TVector2f) Res: TVector2f;
 operator -(const v0, v1: TVector2f) Res: TVector2f;
+operator -(const v: TVector2f) Res: TVector2f;
 operator +(const v0, v1: TVector3f) Res: TVector3f;
 operator -(const v0, v1: TVector3f) Res: TVector3f;
+operator -(const v: TVector3f) Res: TVector3f;
 operator +(const v0, v1: TVector4f) Res: TVector4f;
 operator -(const v0, v1: TVector4f) Res: TVector4f;
+operator -(const v: TVector4f) Res: TVector4f;
 
 operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f;
 operator / (const v: TVector2f; const f: GLfloat) Res: TVector2f;
@@ -733,6 +744,24 @@ begin
   end;
 end;
 
+function min(const a, b: TVector2f): TVector2f; inline;
+begin
+  if a.Length < b.Length then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
+function min(const a, b: TVector3f): TVector3f; inline;
+begin
+  if a.Length < b.Length then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
 function max(a, b: GLfloat): GLfloat; inline;
 begin
   if a > b then begin
@@ -742,9 +771,53 @@ begin
   end;
 end;
 
+function max(const a, b: TVector2f): TVector2f; inline;
+begin
+  if a.Length > b.Length then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
+function max(const a, b: TVector3f): TVector3f; inline;
+begin
+  if a.Length > b.Length then begin
+    Result := a;
+  end else begin
+    Result := b;
+  end;
+end;
+
 function clamp(x, minVal, maxVal: GLfloat): GLfloat; inline;
 begin
-  Result := min(max(x, minVal), maxVal);
+  //  Result:=min(minVal, max(maxVal, x));
+  if x < minVal then begin
+    Result := minVal;
+  end else if x > maxVal then begin
+    Result := maxVal;
+  end else begin
+    Result := x;
+  end;
+end;
+
+function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
+var
+  xl: GLfloat;
+begin
+  xl := x.Length;
+  if xl < minVal.Length then begin
+    Result := minVal;
+  end else if xl > maxVal.Length then begin
+    Result := maxVal;
+  end else begin
+    Result := x;
+  end;
+end;
+
+function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
+begin
+
 end;
 
 function dot(v0, v1: TVector2f): single;
@@ -877,6 +950,12 @@ begin
   Res[1] := v0[1] - v1[1];
 end;
 
+operator -(const v: TVector2f)Res: TVector2f;
+begin
+  Res[0] := -v[0];
+  Res[1] := -v[1];
+end;
+
 operator +(const v0, v1: TVector3f) Res: TVector3f; inline;
 begin
   Res[0] := v0[0] + v1[0];
@@ -889,6 +968,13 @@ begin
   Res[0] := v0[0] - v1[0];
   Res[1] := v0[1] - v1[1];
   Res[2] := v0[2] - v1[2];
+end;
+
+operator -(const v: TVector3f)Res: TVector3f;
+begin
+  Res[0] := -v[0];
+  Res[1] := -v[1];
+  Res[2] := -v[2];
 end;
 
 operator +(const v0, v1: TVector4f) Res: TVector4f; inline;
@@ -905,6 +991,14 @@ begin
   Res[1] := v0[1] - v1[1];
   Res[2] := v0[2] - v1[2];
   Res[3] := v0[3] - v1[3];
+end;
+
+operator -(const v: TVector4f)Res: TVector4f;
+begin
+  Res[0] := -v[0];
+  Res[1] := -v[1];
+  Res[2] := -v[2];
+  Res[3] := -v[3];
 end;
 
 operator * (const v: TVector2f; const f: GLfloat) Res: TVector2f; inline;

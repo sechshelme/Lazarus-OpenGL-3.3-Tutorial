@@ -70,9 +70,10 @@ function refract(const I, N: TVector3f; const eta_t: single; const eta_i: single
 var
   cosi, eta, k: single;
 begin
-  cosi := -clamp(-1.0, 1.0, I * N);
+  cosi := -clamp(I * N, -1.0, 1.0);
+
   if cosi < 0 then begin
-    Exit(refract(I, vec3(0, 0, 0) - N, eta_i, eta_t));
+    Exit(refract(I, -N, eta_i, eta_t));
   end;
   eta := eta_i / eta_t;
   k := 1 - eta * eta * (1 - cosi * cosi);
@@ -197,7 +198,7 @@ begin
     end;
     diffuse_light_intensity += max(0, light_dir * N);
 
-    r := vec3(0, 0, 0) - reflect(vec3(0, 0, 0) - light_dir, N);
+    r := -reflect(-light_dir, N);
     specular_light_intensity += power(max(0, r * dir), material.specular_exponent);
   end;
 
@@ -207,7 +208,7 @@ begin
     refract_color * material.albedo[3];
 end;
 
-function render(bit: TBitmap; Width, Height: DWord): cint;
+procedure render(bit: TBitmap; Width, Height: DWord);
 var
   i, j: integer;
   fov: single = 1.05;
