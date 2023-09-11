@@ -1,120 +1,202 @@
 program project1;
 
+  {$ModeSwitch advancedrecords}
+  {$modeswitch typehelpers}
+  {$ModeSwitch implicitfunctionspecialization}
+
 type
   GLfloat = single;
-  TVector2f = array[0..1] of single;
 
-  function vec2(x, y: GLfloat): TVector2f; inline;
-  begin
-    Result[0] := x;
-    Result[1] := y;
+type
+
+  { TVector }
+
+  generic TVector<const dim: SizeInt; T> = record
+  public
+    type
+      TSelfType = specialize TVector<Dim, T>;
+      TFieldArray = array[0..dim - 1] of T;
+      TSelfVec2Type = array[0..1] of T;
+
+
+  private
+    function GetData(AIndex: integer): T;
+    function GetX: T;
+    function GetXY: TSelfVec2Type;
+    function GetY: T;
+    function GetZ: T;
+    procedure SetData(AIndex: integer; AValue: T);
+    procedure SetX(AValue: T);
+    procedure SetXY(AValue: TSelfVec2Type);
+    //    procedure SetXY(AValue: TVector2f);
+    procedure SetY(AValue: T);
+    procedure SetZ(AValue: T);
+  public
+    Fields: TFieldArray;
+
+    class operator +(const rhs, lhs: TSelfType): TSelfType; inline;
+    class operator / (const rhs, lhs: TSelfType): TSelfType; inline;
+    class operator := (const AFields: TFieldArray): TSelfType; inline;
+
+    property Data[AIndex: integer]: T read GetData write SetData; default;
+
+    property x: T read GetX write SetX;
+    property y: T read GetY write SetY;
+    property z: T read GetZ write SetZ;
+    property xy: TSelfVec2Type read GetXY write SetXY;
   end;
 
-  function Vec2Len(v: TVector2f): GLfloat;
+type
+  Tvector3f = specialize TVector<3, GLfloat>;
+  Tvector2f = specialize TVector<2, GLfloat>;
+  Tvector2i = specialize TVector<2, integer>;
+
+  { TVector }
+
+  function TVector.GetData(AIndex: integer): T;
   begin
-    Result := sqrt(sqr(v[0]) + sqr(v[1]));
+    Result := Fields[AIndex];
   end;
 
-
-
-  function min(a, b: GLfloat): GLfloat; inline;
+  function TVector.GetX: GLfloat;
   begin
-    if a < b then begin
-      Result := a;
-    end else begin
-      Result := b;
-    end;
+    Result := Fields[0];
   end;
 
-  function min(const a, b: TVector2f): TVector2f; inline;
+  function TVector.GetY: GLfloat;
   begin
-    if Vec2Len(a) < Vec2Len(b) then begin
-      Result := a;
-    end else begin
-      Result := b;
-    end;
+    Result := Fields[1];
   end;
 
-  function min2(const a, b: TVector2f): TVector2f; inline;
+  function TVector.GetZ: GLfloat;
   begin
-    Result[0] := min(a[0], b[0]);
-    Result[1] := min(a[1], b[1]);
+    Result := Fields[2];
   end;
 
-  function max(a, b: GLfloat): GLfloat; inline;
+  function TVector.GetXY: TSelfVec2Type;
   begin
-    if a > b then begin
-      Result := a;
-    end else begin
-      Result := b;
-    end;
+    Result[0] := Fields[0];
+    Result[1] := Fields[1];
   end;
 
-  function max(const a, b: TVector2f): TVector2f; inline;
+  procedure TVector.SetData(AIndex: integer; AValue: T);
   begin
-    if Vec2Len(a) < Vec2Len(b) then begin
-      Result := a;
-    end else begin
-      Result := b;
-    end;
+    Fields[AIndex] := AValue;
   end;
 
-  function clamp(x, minVal, maxVal: GLfloat): GLfloat; inline;
+  procedure TVector.SetX(AValue: T);
   begin
-    //  Result:=min(minVal, max(maxVal, x));
-    if x < minVal then begin
-      Result := minVal;
-    end else if x > maxVal then begin
-      Result := maxVal;
-    end else begin
-      Result := x;
-    end;
+
   end;
 
-  function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
+  procedure TVector.SetXY(AValue: TSelfVec2Type);
+  begin
+
+  end;
+
+  procedure TVector.SetY(AValue: T);
+  begin
+
+  end;
+
+  procedure TVector.SetZ(AValue: T);
+  begin
+
+  end;
+
+  class operator TVector. / (const rhs, lhs: TSelfType): TSelfType;
   var
-    xl: GLfloat;
+    i: integer;
   begin
-    xl := Vec2Len(x);
-    if xl < Vec2Len(minVal) then begin
-      Result := minVal;
-    end else if xl > Vec2Len(maxVal) then begin
-      Result := maxVal;
-    end else begin
-      Result := x;
+    for i := 0 to Dim - 1 do begin
+      //      Result.Fields[i] := rhs.Fields[i] / lhs.Fields[i];
     end;
   end;
 
-  function clamp2(const x, minVal, maxVal: TVector2f): TVector2f;
+  class operator TVector. +(const rhs, lhs: TSelfType): TSelfType;
+  var
+    i: integer;
   begin
-    Result[0] := min(max(x[0], minVal[0]), maxVal[0]);
-    Result[1] := min(max(x[1], minVal[1]), maxVal[1]);
+    for i := 0 to Dim - 1 do begin
+      Result.Fields[i] := rhs.Fields[i] + lhs.Fields[i];
+    end;
   end;
 
-  function mix1(x, y, a: GLfloat): GLfloat;
+  class operator TVector.:=(const AFields: TFieldArray): TSelfType;
+  var
+    i: integer;
   begin
-    Result := x + (y - x) * a;
-    WriteLn(Result: 10: 5);
-  end;
-
-  function mix2(x, y, a: GLfloat): GLfloat;
-  begin
-    Result := x * (1 - a) + y * a;
-    WriteLn(Result: 10: 5);
+    for i := 0 to Dim - 1 do begin
+      Result.Fields[i] := AFields[i];
+    end;
   end;
 
 var
   v, vmin, vmax, vc: TVector2f;
+  vi0, vi1: Tvector2i;
   i: integer;
-begin
-  for i := 0 to 50 do begin
-    v := vec2(i / 10, i / 10);
-    vmin := vec2(0.5, 0.5);
-    vmax := vec2(1, 1);
-    vc := clamp2(v, vmin, vmax);
-    WriteLn('x: ', vc[0]: 10: 5, '  y: ', vc[1]: 10: 5);
+
+  //  function min(a,b:TVector):TVector;
+  //  begin
+  //  end;
+
+  generic procedure SwapVar<T>(var a, b: T);
+  var
+    c: T;
+  begin
+    c := a;
+    a := b;
+    b := c;
   end;
-  mix1(-4, -6, -0.5);
-  mix2(-4, -6, -0.5);
+
+
+type
+  generic TArray<T> = class
+    Items: array of T;
+    procedure Add(Value: T);
+  end;
+
+  procedure TArray.Add(Value: T);
+  begin
+    SetLength(Items, Length(Items) + 1);
+    Items[Length(Items) - 1] := Value;
+  end;
+
+var
+  a: single = 2;
+  b: single = 4;
+
+var
+  ba: specialize TArray<byte> = nil;
+
+
+
+begin
+//  ba.add(1);
+//  ba.add(2);
+ // ba.add(3);
+  writeln('sdfdsfd');
+  writeln('...',length(ba.items));
+  for i := 0 to length(ba.items) - 1 do begin
+    Write(ba.items[i], '  ');
+  end;
+  writeln;
+
+
+  swapvar(a, b);
+  writeln(a, '  ', b);
+
+
+  //for i := 0 to 50 do begin
+  vmin := [10 div 2, 10];
+  vmax := [20, 30];
+  v := vmin + vmax;
+  WriteLn('x: ', v[0]: 10, '  y: ', v[1]: 10);
+
+
+  vi0 := [1, 2];
+  vi1 := vi0 / vi0;
+  WriteLn('x: ', vi1[0]: 10, '  y: ', vi1[1]: 10);
+  WriteLn('x: ', vi1.x: 10, '  y: ', vi1.y: 10);
 
 end.

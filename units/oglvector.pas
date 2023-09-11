@@ -679,20 +679,12 @@ end;
 
 function min(const a, b: TVector2f): TVector2f; inline;
 begin
-  if a.Length < b.Length then begin
-    Result := a;
-  end else begin
-    Result := b;
-  end;
+;
 end;
 
 function min(const a, b: TVector3f): TVector3f; inline;
 begin
-  if a.Length < b.Length then begin
-    Result := a;
-  end else begin
-    Result := b;
-  end;
+
 end;
 
 function max(a, b: GLfloat): GLfloat; inline;
@@ -706,20 +698,12 @@ end;
 
 function max(const a, b: TVector2f): TVector2f; inline;
 begin
-  if a.Length > b.Length then begin
-    Result := a;
-  end else begin
-    Result := b;
-  end;
+
 end;
 
 function max(const a, b: TVector3f): TVector3f; inline;
 begin
-  if a.Length > b.Length then begin
-    Result := a;
-  end else begin
-    Result := b;
-  end;
+
 end;
 
 function clamp(x, minVal, maxVal: GLfloat): GLfloat; inline;
