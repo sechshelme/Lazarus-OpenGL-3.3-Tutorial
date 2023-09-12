@@ -150,7 +150,7 @@ type
     procedure Scale(x, y, z: GLfloat); overload;
   end;
 
-// --- GLSL Ähnlich
+  // --- GLSL Ähnlich
 
 function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
@@ -159,22 +159,22 @@ function vec4(x, y, z, w: GLfloat): TVector4f; overload;
 function vec4(const xy: TVector2f; z, w: GLfloat): TVector4f; overload;
 function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
 
-function min(a, b: GLfloat): GLfloat;
-function min(const a, b: TVector2f): TVector2f;
-function min(const a, b: TVector3f): TVector3f;
+function min(a, b: GLfloat): GLfloat; overload;
+function min(const a, b: TVector2f): TVector2f; overload;
+function min(const a, b: TVector3f): TVector3f; overload;
 
-function max(a, b: GLfloat): GLfloat;
-function max(const a, b: TVector2f): TVector2f;
-function max(const a, b: TVector3f): TVector3f;
+function max(a, b: GLfloat): GLfloat; overload;
+function max(const a, b: TVector2f): TVector2f; overload;
+function max(const a, b: TVector3f): TVector3f; overload;
 
-function clamp(x, minVal, maxVal: GLfloat): GLfloat;
-function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
-function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
+function clamp(x, minVal, maxVal: GLfloat): GLfloat; overload;
+function clamp(const x, minVal, maxVal: TVector2f): TVector2f; overload;
+function clamp(const x, minVal, maxVal: TVector3f): TVector3f; overload;
 
-function dot(v0, v1: TVector2f): single; overload;
-function dot(v0, v1: TVector3f): single; overload;
-function cross(v0, v1: TVector3f): TVector3f; overload;
-function normalize(const v:TVector3f):TVector3f;
+function dot(const v0, v1: TVector2f): single; overload;
+function dot(const v0, v1: TVector3f): single; overload;
+function cross(const v0, v1: TVector3f): TVector3f; overload;
+function normalize(const v: TVector3f): TVector3f;
 
 operator +(const v0, v1: TVector2f) Res: TVector2f;
 operator -(const v0, v1: TVector2f) Res: TVector2f;
@@ -196,6 +196,8 @@ operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
 operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
 operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
+
+//operator := (const AFields: TVector3f) Res: TVector3f;
 
 // --- Sonstige
 
@@ -679,12 +681,15 @@ end;
 
 function min(const a, b: TVector2f): TVector2f; inline;
 begin
-;
+  Result[0] := min(a[0], b[0]);
+  Result[1] := min(a[1], b[1]);
 end;
 
 function min(const a, b: TVector3f): TVector3f; inline;
 begin
-
+  Result[0] := min(a[0], b[0]);
+  Result[1] := min(a[1], b[1]);
+  Result[2] := min(a[2], b[2]);
 end;
 
 function max(a, b: GLfloat): GLfloat; inline;
@@ -698,17 +703,19 @@ end;
 
 function max(const a, b: TVector2f): TVector2f; inline;
 begin
-
+  Result[0] := max(a[0], b[0]);
+  Result[1] := max(a[1], b[1]);
 end;
 
 function max(const a, b: TVector3f): TVector3f; inline;
 begin
-
+  Result[0] := max(a[0], b[0]);
+  Result[1] := max(a[1], b[1]);
+  Result[2] := max(a[2], b[2]);
 end;
 
 function clamp(x, minVal, maxVal: GLfloat): GLfloat; inline;
 begin
-  //  Result:=min(minVal, max(maxVal, x));
   if x < minVal then begin
     Result := minVal;
   end else if x > maxVal then begin
@@ -719,20 +726,9 @@ begin
 end;
 
 function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
-var
-  xl: GLfloat;
 begin
   Result[0] := clamp(x[0], minVal[0], maxVal[0]);
   Result[1] := clamp(x[1], minVal[1], maxVal[1]);
-
-  //xl := x.Length;
-  //if xl < minVal.Length then begin
-  //  Result := minVal;
-  //end else if xl > maxVal.Length then begin
-  //  Result := maxVal;
-  //end else begin
-  //  Result := x;
-  //end;
 end;
 
 function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
@@ -742,25 +738,25 @@ begin
   Result[2] := clamp(x[2], minVal[0], maxVal[2]);
 end;
 
-function dot(v0, v1: TVector2f): single;
+function dot(const v0, v1: TVector2f): single;
 begin
   Result := v0.x * v1.x + v0.y * v1.y;
 end;
 
-function dot(v0, v1: TVector3f): single;
+function dot(const v0, v1: TVector3f): single;
 begin
   Result := v0.x * v1.x + v0.y * v1.y + v0.z * v1.z;
 end;
 
-function cross(v0, v1: TVector3f): TVector3f; inline;
+function cross(const v0, v1: TVector3f): TVector3f;
 begin
   Result.Cross(v0, v1);
 end;
 
 function normalize(const v: TVector3f): TVector3f;
 begin
-   Result:=v;
-   Result.Normalize;
+  Result := v;
+  Result.Normalize;
 end;
 
 // === Überladene Operatoren für Vektoren
@@ -884,6 +880,15 @@ operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2] + v0[3] * v1[3];
 end;
+
+//operator := (const a: TVector3f)Res: TVector3f;   inline;
+//var
+//  i: integer;
+//begin
+//  for i := 0 to 2 do begin
+//    Res[i] := a[i];
+//  end;
+//end;
 
 // === Hilfsfunktionen
 

@@ -1,3 +1,0 @@
-"Ein Pixel ist langweilig"
-
-Man kann einen Punkt auf verschiedene Arten darstellen, mit dem Shader eine einfache Sache.

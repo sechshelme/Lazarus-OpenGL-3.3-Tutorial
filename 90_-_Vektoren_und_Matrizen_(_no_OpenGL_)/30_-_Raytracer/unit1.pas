@@ -232,7 +232,12 @@ end;
 
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  v: Tmat3x3;
+  b:Byte=0;
 begin
+  v := [[1, b, 1], [1, 1, 1], [1, 1, 1]];
+
   //remove+
   Width := 1024;
   Height := 768;

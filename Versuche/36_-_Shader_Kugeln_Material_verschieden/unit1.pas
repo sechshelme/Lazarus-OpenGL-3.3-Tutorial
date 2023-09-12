@@ -82,6 +82,7 @@ var
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+
   //remove+
   Randomize;
   Width := 340;

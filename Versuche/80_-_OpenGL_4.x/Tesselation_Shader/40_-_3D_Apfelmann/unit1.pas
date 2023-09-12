@@ -79,7 +79,7 @@ var
     WorldMatrix_ID: GLint;
       end;
 
-  Cube_Sahder: record
+  Cube_Shader: record
     VBCube: record
       VAO,
       VBOVertex,
@@ -128,7 +128,7 @@ begin
     glGenBuffers(1, @VBQuad.VBOVertex);
   end;
 
-  with Cube_Sahder do begin
+  with Cube_Shader do begin
     Shader := TShader.Create([
       FileToStr('Vertexshader.glsl'),
       FileToStr('tesselationevalationshader.glsl'),
@@ -181,7 +181,7 @@ begin
   end;
 
   // ---- Cube
-  with Cube_Sahder do begin
+  with Cube_Shader do begin
     glBindVertexArray(VBCube.VAO);
 
     // Vertexkoordinaten
@@ -227,12 +227,11 @@ begin
   // --- In den Texturpuffer render.
 
   with Quad_Shader do begin // Quadrat
+    glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+    glClearColor(0.3, 0.3, 1.0, 1.0);
     Shader.UseProgram;
 
-    glClearColor(0.3, 0.3, 1.0, 1.0);
-
     glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-    glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
     glViewport(0, 0, TexturSize, TexturSize);
 
     WorldMatrix.Uniform(WorldMatrix_ID);
@@ -243,10 +242,10 @@ begin
   end;
 
   //  --- Normal auf den Bildschirm rendern.
-  with Cube_Sahder do begin
+  with Cube_Shader do begin
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     Shader.UseProgram;
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, ClientWidth, ClientHeight);
 
@@ -256,9 +255,9 @@ begin
 
     glBindVertexArray(VBCube.VAO);
     glDrawArrays(GL_PATCHES, 0, Length(CubeTextureVertex) * 4);
-  end;
 
-  ogc.SwapBuffers;
+    ogc.SwapBuffers;
+  end;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -269,7 +268,7 @@ begin
     Shader.Free;
   end;
 
-  with Cube_Sahder do begin
+  with Cube_Shader do begin
     glDeleteVertexArrays(1, @VBCube.VAO);
     glDeleteBuffers(1, @VBCube.VBOVertex);
     glDeleteBuffers(1, @VBCube.VBOTex_Col);
@@ -288,7 +287,7 @@ begin
     WorldMatrix.RotateC(-Pi / 124);
   end;
 
-  with Cube_Sahder do begin
+  with Cube_Shader do begin
     WorldMatrix.RotateB(0.0223);
     WorldMatrix.RotateA(0.0423);
   end;

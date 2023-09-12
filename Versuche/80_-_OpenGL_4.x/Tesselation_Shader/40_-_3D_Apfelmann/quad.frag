@@ -34,5 +34,4 @@ void main(void) {
   }
 
   outColor = vec4(Color / 3, Color / 10 , Color / 100, 1.0);
-
 }

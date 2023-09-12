@@ -1,4 +1,4 @@
-#version 410 core
+#version 400
 
 layout (quads, fractional_odd_spacing, ccw) in;
 
@@ -38,7 +38,6 @@ void main()
     }
 
     p += normal * ( -Height + 0.5)  / 10;
-//    p +=  ( -Height + 0.5)  / 10;
 
     gl_Position = Matrix * vec4(p, 1.0);
 }
