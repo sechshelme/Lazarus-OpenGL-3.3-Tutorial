@@ -1,0 +1,3 @@
+"Die Mesh sollte nicht statisch sein"
+
+Wie bewege ich eine Mesh im Shader.
