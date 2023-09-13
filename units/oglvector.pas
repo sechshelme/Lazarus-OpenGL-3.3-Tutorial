@@ -9,6 +9,7 @@ uses
 
 type
   TglFloatArray = array of glFloat;
+  PglFloatArray = ^TglFloatArray;
 
   TVector2f = array[0..1] of GLfloat;
   PVector2f = ^TVector2f;
@@ -23,11 +24,19 @@ type
   PVector5f = ^TVector5f;
 
   TLine2D = array[0..1] of TVector2f;
+  PLine2D = ^TLine2D;
+
   TLine3D = array[0..1] of TVector3f;
+  PLine3D = ^TLine3D;
 
   TFace2D = array[0..2] of TVector2f;
+  PFace2D = ^TFace2D;
+
   TFace3D = array[0..2] of TVector3f;
+  PFace3D = ^TFace3D;
+
   TFace3DArray = array of TFace3D;
+  PFace3DArray = ^TFace3DArray;
 
 
   { TVector2fHelper }
@@ -170,6 +179,12 @@ function max(const a, b: TVector3f): TVector3f; overload;
 function clamp(x, minVal, maxVal: GLfloat): GLfloat; overload;
 function clamp(const x, minVal, maxVal: TVector2f): TVector2f; overload;
 function clamp(const x, minVal, maxVal: TVector3f): TVector3f; overload;
+
+function mix(val0, val1, a: GLfloat): GLfloat; overload;
+function mix(val0, val1: TVector2f; a: GLfloat): TVector2f; overload;
+function mix(val0, val1: TVector3f; a: GLfloat): TVector3f; overload;
+function mix(val0, val1, a: TVector2f): TVector2f; overload;
+function mix(val0, val1, a: TVector3f): TVector3f; overload;
 
 function dot(const v0, v1: TVector2f): single; overload;
 function dot(const v0, v1: TVector3f): single; overload;
@@ -725,35 +740,66 @@ begin
   end;
 end;
 
-function clamp(const x, minVal, maxVal: TVector2f): TVector2f;
+function clamp(const x, minVal, maxVal: TVector2f): TVector2f; inline;
 begin
   Result[0] := clamp(x[0], minVal[0], maxVal[0]);
   Result[1] := clamp(x[1], minVal[1], maxVal[1]);
 end;
 
-function clamp(const x, minVal, maxVal: TVector3f): TVector3f;
+function clamp(const x, minVal, maxVal: TVector3f): TVector3f; inline;
 begin
   Result[0] := clamp(x[0], minVal[0], maxVal[0]);
   Result[1] := clamp(x[1], minVal[1], maxVal[1]);
   Result[2] := clamp(x[2], minVal[0], maxVal[2]);
 end;
 
-function dot(const v0, v1: TVector2f): single;
+function mix(val0, val1, a: GLfloat): GLfloat; inline;
+begin
+  Result := val0 * (1 - a) + val1 * a;
+end;
+
+function mix(val0, val1: TVector2f; a: GLfloat): TVector2f; inline;
+begin
+  Result[0] := mix(val0[0], val1[0], a);
+  Result[1] := mix(val0[1], val1[1], a);
+end;
+
+function mix(val0, val1: TVector3f; a: GLfloat): TVector3f; inline;
+begin
+  Result[0] := mix(val0[0], val1[0], a);
+  Result[1] := mix(val0[1], val1[1], a);
+  Result[2] := mix(val0[2], val1[2], a);
+end;
+
+function mix(val0, val1, a: TVector2f): TVector2f; inline;
+begin
+  Result[0] := mix(val0[0], val1[0], a[0]);
+  Result[1] := mix(val0[1], val1[1], a[1]);
+end;
+
+function mix(val0, val1, a: TVector3f): TVector3f; inline;
+begin
+  Result[0] := mix(val0[0], val1[0], a[0]);
+  Result[1] := mix(val0[1], val1[1], a[1]);
+  Result[2] := mix(val0[2], val1[2], a[2]);
+end;
+
+function dot(const v0, v1: TVector2f): single; inline;
 begin
   Result := v0.x * v1.x + v0.y * v1.y;
 end;
 
-function dot(const v0, v1: TVector3f): single;
+function dot(const v0, v1: TVector3f): single; inline;
 begin
   Result := v0.x * v1.x + v0.y * v1.y + v0.z * v1.z;
 end;
 
-function cross(const v0, v1: TVector3f): TVector3f;
+function cross(const v0, v1: TVector3f): TVector3f; inline;
 begin
   Result.Cross(v0, v1);
 end;
 
-function normalize(const v: TVector3f): TVector3f;
+function normalize(const v: TVector3f): TVector3f; inline;
 begin
   Result := v;
   Result.Normalize;
@@ -773,7 +819,7 @@ begin
   Res[1] := v0[1] - v1[1];
 end;
 
-operator -(const v: TVector2f)Res: TVector2f;
+operator -(const v: TVector2f)Res: TVector2f; inline;
 begin
   Res[0] := -v[0];
   Res[1] := -v[1];
@@ -793,7 +839,7 @@ begin
   Res[2] := v0[2] - v1[2];
 end;
 
-operator -(const v: TVector3f)Res: TVector3f;
+operator -(const v: TVector3f)Res: TVector3f; inline;
 begin
   Res[0] := -v[0];
   Res[1] := -v[1];
@@ -816,7 +862,7 @@ begin
   Res[3] := v0[3] - v1[3];
 end;
 
-operator -(const v: TVector4f)Res: TVector4f;
+operator -(const v: TVector4f)Res: TVector4f; inline;
 begin
   Res[0] := -v[0];
   Res[1] := -v[1];
@@ -866,29 +912,20 @@ begin
   Res[3] := v[3] / f;
 end;
 
-operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
+operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat; inline;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1];
 end;
 
-operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
+operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat; inline;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2];
 end;
 
-operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
+operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat; inline;
 begin
   Res := v0[0] * v1[0] + v0[1] * v1[1] + v0[2] * v1[2] + v0[3] * v1[3];
 end;
-
-//operator := (const a: TVector3f)Res: TVector3f;   inline;
-//var
-//  i: integer;
-//begin
-//  for i := 0 to 2 do begin
-//    Res[i] := a[i];
-//  end;
-//end;
 
 // === Hilfsfunktionen
 

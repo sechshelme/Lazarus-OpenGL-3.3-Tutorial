@@ -1,16 +1,16 @@
 object Form1: TForm1
   Left = 132
-  Height = 226
+  Height = 202
   Top = 742
   Width = 339
   Caption = 'Form1'
-  ClientHeight = 226
+  ClientHeight = 202
   ClientWidth = 339
   Menu = MainMenu1
   LCLVersion = '3.99.0.0'
   object Image1: TImage
     Left = 0
-    Height = 226
+    Height = 202
     Top = 0
     Width = 339
     Align = alClient

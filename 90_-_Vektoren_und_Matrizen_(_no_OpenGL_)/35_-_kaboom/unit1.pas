@@ -36,12 +36,12 @@ const
 
 function lerp(const v0, v1: single; t: single): single; inline;
 begin
-  Result := v0 + (v1 - v0) * clamp(t, 0.0, 1.0);
+  Result := mix(v0,v1, clamp(t, 0.0, 1.0));
 end;
 
 function lerp(const v0, v1: TVector3f; t: single): TVector3f; inline;
 begin
-  Result := v0 + (v1 - v0) * clamp(t, 0.0, 1.0);
+  Result := mix(v0,v1, clamp(t, 0.0, 1.0));
 end;
 
 function hash(const n: single): single; inline;
