@@ -91,7 +91,9 @@ end;
 //code+
 procedure TForm1.CreateScene;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+
+  Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+//  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('mat');

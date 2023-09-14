@@ -25,7 +25,8 @@ type
   public
     property ID: GLHandle read FProgramObject;
 
-    constructor Create(const AShader: array of ansistring; IsTesselation: boolean = False);
+    constructor Create(const AShader: array of const); // Neu
+    constructor Create(const AShader: array of ansistring; IsTesselation: boolean = False); // ALt
     destructor Destroy; override;
 
     function UniformLocation(ch: PGLChar): GLint;
@@ -248,8 +249,144 @@ begin
     Result[0] := Copy(AShader, spos[0] + Length(Key[0]), spos[2] - spos[0] - Length(Key[0]));
     Result[1] := Copy(AShader, spos[2] + Length(Key[2]), spos[3] - spos[2] - Length(Key[2]));
   end;
-
 end;
+
+
+
+//Shader := TShader.Create([
+//  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+//  GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
+//  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
+//   Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
+
+// Neu ===============================================
+
+
+constructor TShader.Create(const AShader: array of const);
+var
+  sa: TStringArray = nil;
+  i: integer;
+  ErrorStatus: boolean;
+  InfoLogLength: GLsizei;
+  Str: ansistring;
+
+begin
+  inherited Create;
+
+  FProgramObject := glCreateProgram();
+
+  if AShader[0].VType <> vtInteger then begin
+    // ---- Alte Version
+    case Length(AShader) of
+      1: begin
+        sa := Split(ansistring(AShader[0].VAnsiString));
+      end;
+      2: begin
+        SetLength(sa, Length(AShader));
+        for i := 0 to 1 do begin
+          sa[i] := ansistring(AShader[i].VAnsiString);
+        end;
+      end;
+      else begin
+        LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
+      end;
+    end;
+
+    case Length(sa) of
+      2: begin
+        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+        LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
+      end;
+    end;
+
+  end else begin
+    // --- Neue Version
+    i := 0;
+    while i < Length(AShader) do begin
+      LoadShaderObject(ansistring(AShader[i + 1].VAnsiString), AShader[i].VInteger);
+      Inc(i, 2);
+    end;
+  end;
+  // --- Ende Version
+
+  // Shader Linken
+
+  glLinkProgram(FProgramObject);
+
+  // Check  Link
+  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
+
+  if ErrorStatus = GL_FALSE then begin
+    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+    SetLength(Str, InfoLogLength + 1);
+    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
+    LogForm.AddAndTitle('SHADER LINK:', str);
+  end;
+
+  UseProgram;
+end;
+
+// alt ===============================================
+
+constructor TShader.Create(const AShader: array of ansistring; IsTesselation: boolean);
+var
+  sa: TStringArray;
+  i: integer;
+
+  ErrorStatus: boolean;
+  InfoLogLength: GLsizei;
+
+  Str: ansistring;
+
+begin
+  inherited Create;
+
+  SetLength(sa, 0);
+
+  case Length(AShader) of
+    1: begin
+      sa := Split(AShader[0]);
+    end;
+    2: begin
+      SetLength(sa, Length(AShader));
+      for i := 0 to Length(AShader) - 1 do begin
+        sa[i] := AShader[i];
+      end;
+    end;
+    else begin
+      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
+    end;
+  end;
+
+  FProgramObject := glCreateProgram();
+
+  case Length(sa) of
+    2: begin
+      LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+      LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
+    end;
+  end;
+
+  // Shader Linken
+
+  glLinkProgram(FProgramObject);
+
+  // Check  Link
+  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
+
+  if ErrorStatus = GL_FALSE then begin
+    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+    SetLength(Str, InfoLogLength + 1);
+    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
+    LogForm.AddAndTitle('SHADER LINK:', str);
+  end;
+
+  UseProgram;
+end;
+
+// ===============================================
 
 procedure TShader.LoadShaderObject(const AShader: ansistring; shaderType: GLenum);
 var
@@ -279,81 +416,6 @@ begin
   end;
 
   glDeleteShader(ShaderObject);
-end;
-
-constructor TShader.Create(const AShader: array of ansistring; IsTesselation: boolean);
-var
-  sa: TStringArray;
-  i: integer;
-
-  ErrorStatus: boolean;
-  InfoLogLength: GLsizei;
-
-  Str: ansistring;
-
-begin
-  inherited Create;
-
-  SetLength(sa, 0);
-
-  case Length(AShader) of
-    1: begin
-      sa := Split(AShader[0]);
-    end;
-    2..4: begin
-      SetLength(sa, Length(AShader));
-      for i := 0 to Length(AShader) - 1 do begin
-        sa[i] := AShader[i];
-      end;
-    end;
-    else begin
-      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-    end;
-  end;
-
-  FProgramObject := glCreateProgram();
-
-  case Length(sa) of
-    2: begin
-      LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-      LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
-    end;
-    3: begin
-      if IsTesselation then begin
-        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-        LoadShaderObject(sa[1], GL_TESS_EVALUATION_SHADER);
-        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
-      end else begin
-        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-        LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
-        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
-      end;
-    end;
-    4: begin
-      if IsTesselation then begin
-        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-        LoadShaderObject(sa[1], GL_TESS_CONTROL_SHADER);
-        LoadShaderObject(sa[2], GL_TESS_EVALUATION_SHADER);
-        LoadShaderObject(sa[3], GL_FRAGMENT_SHADER);
-      end;
-    end;
-  end;
-
-  // Shader Linken
-
-  glLinkProgram(FProgramObject);
-
-  // Check  Link
-  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
-
-  if ErrorStatus = GL_FALSE then begin
-    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(Str, InfoLogLength + 1);
-    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    LogForm.AddAndTitle('SHADER LINK:', str);
-  end;
-
-  UseProgram;
 end;
 
 destructor TShader.Destroy;

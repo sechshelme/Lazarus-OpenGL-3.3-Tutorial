@@ -10,7 +10,7 @@ uses
   dglOpenGL,
   oglContext, oglShader;
 
-//image image.png
+  //image image.png
 
 (*
 Hier wird ganz kurz der Geometrie-Shader erwähnt.
@@ -25,7 +25,7 @@ Der Lazarus-Code ist nichts besonderes, er rendert die üblichen zwei Meshes Dre
 Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geometrie-Shader geladen wird.
 *)
 
-//lineal
+  //lineal
 
 type
 
@@ -70,7 +70,7 @@ type
 var
   VBTriangle, VBQuad: TVB;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -94,7 +94,11 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   Shader.UseProgram;
   //code-
 
@@ -172,5 +176,3 @@ end;
 //includeglsl Fragmentshader.glsl
 
 end.
-
-

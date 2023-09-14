@@ -20,9 +20,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="42"/>
-        <CursorPos X="10" Y="90"/>
+        <TopLine Value="102"/>
+        <CursorPos Y="130"/>
         <UsageCount Value="43"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -111,9 +112,7 @@
       </Unit12>
       <Unit13>
         <Filename Value="Geometrieshader.glsl"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="2"/>
         <CursorPos X="18" Y="50"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>

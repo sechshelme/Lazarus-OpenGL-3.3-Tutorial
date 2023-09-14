@@ -755,7 +755,7 @@ end;
 
 function mix(val0, val1, a: GLfloat): GLfloat; inline;
 begin
-  Result := val0 * (1 - a) + val1 * a;
+  Result := (1 - a) * val0 + val1 * a;
 end;
 
 function mix(val0, val1: TVector2f; a: GLfloat): TVector2f; inline;

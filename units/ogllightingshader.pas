@@ -291,7 +291,12 @@ begin
     end;
   end;
 
+  //   Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   inherited Create(AShader);
+//WriteLn(Length(AShader));halt;
+//  inherited Create([GL_VERTEX_SHADER, AShader[0], GL_FRAGMENT_SHADER, AShader[1]]);
+//    inherited Create([AShader[0]]);
 
   if Lighting.Enabled then begin
 
