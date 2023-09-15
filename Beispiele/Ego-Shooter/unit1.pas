@@ -21,7 +21,7 @@ uses
 type
   TLabyrint = record
     Width, Height: integer;
-    Data: array of array of char;
+    Data: array of String;
   end;
 
   { TForm1 }
@@ -259,9 +259,9 @@ begin
 //        ObjectMatrix.Multiply(IchMatrix.Dreh, ObjectMatrix);
         ObjectMatrix := IchMatrix.Dreh * ObjectMatrix;
 
-        if Data[y, x] <> '0' then begin
+        if Data[y, x+1] <> '0' then begin
 
-          case Data[y, x] of
+          case Data[y, x+1] of
             '1': begin
               TexturBox2.Draw([texWand1, texLicht]);
             end;
@@ -289,12 +289,12 @@ begin
     end;
     for x := 0 to Width do begin      // Aplha
       for y := 0 to Height do begin
-        if Data[y, x] <> '0' then begin
+        if Data[y, x+1] <> '0' then begin
           ObjectMatrix.Identity;
           ObjectMatrix.Translate(-Width + (Width - x), 0.5, y);
           ObjectMatrix := IchMatrix.Dreh * ObjectMatrix;
 
-          case Data[y, x] of
+          case Data[y, x+1] of
             'b': begin
               Baum.Draw(texBaum);
             end;
@@ -327,7 +327,8 @@ begin
   with Labyrint do begin
     Width := 8;
     Height := 15;
-    SetLength(Data, Height + 1, Width + 1);
+//    SetLength(Data, Height + 1, Width + 1);
+    SetLength(Data, Height + 1);
     Data[15] := '111111111';
     Data[14] := '100030001';
     Data[13] := '100000001';

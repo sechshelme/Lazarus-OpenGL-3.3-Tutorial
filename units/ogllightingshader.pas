@@ -291,9 +291,8 @@ begin
     end;
   end;
 
-  WriteLn('light');
   if Length(AShader) = 1 then  begin
-    inherited Create(AShader[0]);
+    inherited Create([AShader[0]]);
   end else begin
     inherited Create([AShader[0], AShader[1]]);
   end;

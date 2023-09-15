@@ -95,6 +95,7 @@
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
+        <DebugInfoType Value="dsDwarf3"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <Options>
@@ -104,6 +105,9 @@
       </Options>
     </Linking>
     <Other>
+      <ConfigFile>
+        <WriteConfigFilePath Value="$(ProjOutDir)\fpclaz.cfg"/>
+      </ConfigFile>
       <ExecuteBefore>
         <Command Value="..\..\Units\OpenGL\Shader\Shader.bat"/>
         <CompileReasons Compile="False" Build="False" Run="False"/>

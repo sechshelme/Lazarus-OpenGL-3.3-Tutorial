@@ -82,7 +82,11 @@ procedure TForm1.CreateScene;
 var
   i: integer;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrie.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_GEOMETRY_SHADER, FileToStr('Geometrie.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   Shader.UseProgram;
 
   glGenVertexArrays(1, @VBQuad.VAO);

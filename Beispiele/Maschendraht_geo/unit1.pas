@@ -140,8 +140,11 @@ begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  //  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   with Shader do begin
     UseProgram;
     Matrix_ID := UniformLocation('Matrix');

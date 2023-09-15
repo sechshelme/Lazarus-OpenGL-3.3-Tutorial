@@ -10,13 +10,13 @@ uses
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix;
 
-//image image.png
+  //image image.png
 (*
 Will man die Scene realistisch proportional darstellen, nimmt man eine Frustum-Matrix.
 Dies hat den Einfluss, das Objekte kleiner erscheinen, je weiter die Scene von einem weg ist.
 In der Realität ist dies auch so, das Objekte kleiner erscheinen, je weiter sie von einem weg sind.
 *)
-//lineal
+  //lineal
 
 type
 
@@ -44,18 +44,19 @@ implementation
 {$R *.lfm}
 
 const
-  PixelCount=1000;
+  PixelCount = 1000;
 
 type
-  TPixel=record
+  TPixel = record
     Pos,
-    Col:TVector3f;
+    Col: TVector3f;
   end;
 
-  TPixels=array of TPixel;
+  TPixels = array of TPixel;
 
 
-var Pixels:TPixels;
+var
+  Pixels: TPixels;
 
 type
   TVB = record
@@ -70,7 +71,7 @@ var
   Matrix: TMatrix;
   Matrix_ID: GLint;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -86,35 +87,26 @@ begin
 end;
 
 (*
-Der Frustum funktioniert ähnlich wie beim Ortho.
-Nur die Parameter sind ein wenig anders.
-Die Z-Werte müssen immer <b>positiv</b> sein.
-
-Mit den zwei letzten Parametern von Frustum und der World-Matrix muss man ein bisschen probieren, zum Teil wird sonst das Bild verzehrt.
-
-Alternativ kann man den Frustum auch mit <b>Perspective(...</b> einstellen.
-Dabei ist der erste Parameter der Betrachtungs-Winkel.
-Der zweite Parameter ist das Fensterverhältniss, mehr dazu und glViewPort.
 *)
 //code+
 procedure TForm1.CreateScene;
 const
   w = 1.0;
 var
-  i: Integer;
+  i: integer;
 begin
   SetLength(Pixels, PixelCount);
-  for i:=0 to Length(Pixels)-1 do begin
-    Pixels[i].Pos:=vec3(Random*20,Random*20,Random*20);
-    Pixels[i].Col:=vec3(Random,Random,Random);
+  for i := 0 to Length(Pixels) - 1 do begin
+    Pixels[i].Pos := vec3(Random * 20, Random * 20, Random * 20);
+    Pixels[i].Col := vec3(Random, Random, Random);
   end;
 
   Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0.0, 0.0, -200.0); // Die Scene in den sichtbaren Bereich verschieben.
-  WorldMatrix.Scale(5.0);                  // Und der Grösse anpassen.
+  WorldMatrix.Translate(0.0, 0.0, -200.0);
+  WorldMatrix.Scale(5.0);
   //code-
 
   glEnable(GL_DEPTH_TEST);
@@ -141,7 +133,7 @@ begin
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TPixel)* Length(Pixels), Pointer(Pixels), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TPixel) * Length(Pixels), Pointer(Pixels), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);                         // 10 ist die Location in inPos Shader.
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 24, nil);
 
@@ -170,14 +162,14 @@ begin
   //code+
   // --- Zeichne Würfel
 
-        Matrix.Identity;
-//        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
+  Matrix.Identity;
+  //        Matrix.Translate(x * d, y * d, z * d);                 // Matrix verschieben.
 
-        Matrix := FrustumMatrix * WorldMatrix * Matrix;        // Matrizen multiplizieren.
+  Matrix := FrustumMatrix * WorldMatrix * Matrix;        // Matrizen multiplizieren.
 
-        Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
-        glPointSize(5.0);
-        glDrawArrays(GL_POINTS, 0, Length(Pixels)); // Zeichnet einen kleinen Würfel.
+  Matrix.Uniform(Matrix_ID);                             // Matrix dem Shader übergeben.
+  glPointSize(5.0);
+  glDrawArrays(GL_POINTS, 0, Length(Pixels)); // Zeichnet einen kleinen Würfel.
   //code-
 
   ogc.SwapBuffers;
@@ -197,7 +189,7 @@ begin
   WorldMatrix.RotateB(0.0234);  // Drehe um Y-Achse
 
   ogcDrawScene(Sender);
-//  ogc.Invalidate;
+  //  ogc.Invalidate;
 end;
 
 //lineal

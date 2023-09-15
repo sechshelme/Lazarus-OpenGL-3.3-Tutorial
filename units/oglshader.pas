@@ -25,9 +25,7 @@ type
   public
     property ID: GLHandle read FProgramObject;
 
-    constructor Create(const AShader: array of const); // Neu
-    constructor Create(const AShader: AnsiString); // Neu
-//    constructor Create(const AShader: array of ansistring); // ALt
+    constructor Create(const AShader: array of const);
     destructor Destroy; override;
 
     function UniformLocation(ch: PGLChar): GLint;
@@ -253,7 +251,7 @@ begin
 end;
 
 (*
-=== Bespiele für Shadererzeugung ===
+=== Beispiele für Shadererzeugung ===
 
 Shader := TShader.Create([
   GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
@@ -289,41 +287,43 @@ begin
 
   FProgramObject := glCreateProgram();
 
-  if AShader[0].VType <> vtInteger then begin
-//    WriteLn('Shader-Create ungültig');
-//    WriteLn('Länge: ', Length(AShader));
-    // ---- Alte Version
-    case Length(AShader) of
-      1: begin
-        sa := Split(ansistring(AShader[0].VAnsiString));
-      end;
-      2: begin
-        SetLength(sa, Length(AShader));
-        for i := 0 to 1 do begin
-          sa[i] := ansistring(AShader[i].VAnsiString);
+  case AShader[0].VType of
+    vtAnsiString: begin
+      // ---- Alte Version
+      case Length(AShader) of
+        1: begin
+          sa := Split(ansistring(AShader[0].VAnsiString));
+        end;
+        2: begin
+          SetLength(sa, Length(AShader));
+          for i := 0 to 1 do begin
+            sa[i] := ansistring(AShader[i].VAnsiString);
+          end;
+        end;
+        else begin
+          LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
         end;
       end;
-      else begin
-        LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-      end;
-    end;
-
-    case Length(sa) of
-      2: begin
+      WriteLn('-------------', Length(sa));
+      if Length(sa)= 2 then begin;
         LoadShaderObject(sa[0], GL_VERTEX_SHADER);
         LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
+      end else if Length(sa)= 3 then begin
+        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
+        LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
+        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
       end;
     end;
-
-  end else begin
-    // --- Neue Version
-    i := 0;
-    while i < Length(AShader) do begin
-      LoadShaderObject(ansistring(AShader[i + 1].VAnsiString), AShader[i].VInteger);
-      Inc(i, 2);
+    vtInteger: begin
+      // --- Neue Version
+      i := 0;
+      while i < Length(AShader) do begin
+        LoadShaderObject(ansistring(AShader[i + 1].VAnsiString), AShader[i].VInteger);
+        Inc(i, 2);
+      end;
     end;
+    else WriteLn('Ungültiges Argument in Shader-Create !');
   end;
-  // --- Ende Version
 
   // Shader Linken
 
@@ -342,10 +342,10 @@ begin
   UseProgram;
 end;
 
-constructor TShader.Create(const AShader: AnsiString);
-begin
-  Create([AShader]);
-end;
+//constructor TShader.Create(const AShader: AnsiString);
+//begin
+//  Create([AShader]);
+//end;
 
 // alt ===============================================
 

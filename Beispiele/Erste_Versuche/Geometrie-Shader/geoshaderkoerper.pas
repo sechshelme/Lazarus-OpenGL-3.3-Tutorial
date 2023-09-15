@@ -42,7 +42,7 @@ begin
     Scaling := vec2(1.0, 1.0);
   end;
 
-  Shader := TShader.Create(FileToStr('shader.glsl'));
+  Shader := TShader.Create([FileToStr('shader.glsl')]);
 
   with Shader, ShaderID_textur do begin
     WorldMatrix_id := UniformLocation('WorldMatrix');
