@@ -26,7 +26,8 @@ type
     property ID: GLHandle read FProgramObject;
 
     constructor Create(const AShader: array of const); // Neu
-    constructor Create(const AShader: array of ansistring; IsTesselation: boolean = False); // ALt
+    constructor Create(const AShader: AnsiString); // Neu
+//    constructor Create(const AShader: array of ansistring); // ALt
     destructor Destroy; override;
 
     function UniformLocation(ch: PGLChar): GLint;
@@ -251,18 +252,29 @@ begin
   end;
 end;
 
+(*
+=== Bespiele für Shadererzeugung ===
 
+Shader := TShader.Create([
+  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
 
-//Shader := TShader.Create([
-//  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-//  GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
-//  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+Shader := TShader.Create([
+  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+  GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
+  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
 
-//   Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+Shader := TShader.Create([
+  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+  GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
+  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
 
-
-// Neu ===============================================
-
+Shader := TShader.Create([
+  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+  GL_TESS_CONTROL_SHADER, FileToStr('tesselationcontrolshader.glsl'),
+  GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
+  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+ *)
 
 constructor TShader.Create(const AShader: array of const);
 var
@@ -278,6 +290,8 @@ begin
   FProgramObject := glCreateProgram();
 
   if AShader[0].VType <> vtInteger then begin
+//    WriteLn('Shader-Create ungültig');
+//    WriteLn('Länge: ', Length(AShader));
     // ---- Alte Version
     case Length(AShader) of
       1: begin
@@ -328,64 +342,41 @@ begin
   UseProgram;
 end;
 
-// alt ===============================================
-
-constructor TShader.Create(const AShader: array of ansistring; IsTesselation: boolean);
-var
-  sa: TStringArray;
-  i: integer;
-
-  ErrorStatus: boolean;
-  InfoLogLength: GLsizei;
-
-  Str: ansistring;
-
+constructor TShader.Create(const AShader: AnsiString);
 begin
-  inherited Create;
-
-  SetLength(sa, 0);
-
-  case Length(AShader) of
-    1: begin
-      sa := Split(AShader[0]);
-    end;
-    2: begin
-      SetLength(sa, Length(AShader));
-      for i := 0 to Length(AShader) - 1 do begin
-        sa[i] := AShader[i];
-      end;
-    end;
-    else begin
-      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-    end;
-  end;
-
-  FProgramObject := glCreateProgram();
-
-  case Length(sa) of
-    2: begin
-      LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-      LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
-    end;
-  end;
-
-  // Shader Linken
-
-  glLinkProgram(FProgramObject);
-
-  // Check  Link
-  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
-
-  if ErrorStatus = GL_FALSE then begin
-    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(Str, InfoLogLength + 1);
-    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    LogForm.AddAndTitle('SHADER LINK:', str);
-  end;
-
-  UseProgram;
+  Create([AShader]);
 end;
 
+// alt ===============================================
+
+//constructor TShader.Create(const AShader: array of ansistring);
+//var
+//  sa: TStringArray = nil;
+//begin
+//  WriteLn('Altes Create');
+//  inherited Create;
+//  halt;
+//
+//
+//  case Length(AShader) of
+//    1: begin
+//      sa := Split(AShader[0]);
+//    end;
+//    2: begin
+//      SetLength(sa, Length(AShader));
+//      sa[0] := AShader[0];
+//      sa[1] := AShader[1];
+//    end;
+//    else begin
+//      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
+//    end;
+//  end;
+//
+//  Create([
+//    GL_VERTEX_SHADER, sa[0],
+//    GL_FRAGMENT_SHADER, sa[1]]);
+//end;
+//
 // ===============================================
 
 procedure TShader.LoadShaderObject(const AShader: ansistring; shaderType: GLenum);

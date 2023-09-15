@@ -130,9 +130,10 @@ begin
 
   with Cube_Shader do begin
     Shader := TShader.Create([
-      FileToStr('Vertexshader.glsl'),
-      FileToStr('tesselationevalationshader.glsl'),
-      FileToStr('Fragmentshader.glsl')], True);
+      GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+      GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
+      GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
     with Shader do begin
       UseProgram;
       WorldMatrix_ID := UniformLocation('Matrix');

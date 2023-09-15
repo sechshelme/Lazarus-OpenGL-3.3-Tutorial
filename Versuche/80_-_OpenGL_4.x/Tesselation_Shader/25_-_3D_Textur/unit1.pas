@@ -59,7 +59,7 @@ implementation
 const
   Triangle: array of TVector5f =
     ((-0.4, 0.1, 0.0, 0.0, 0.0), (0.4, 0.1, 0.0, 1.0, 0.0), (0.4, 0.7, 0.0, 1.0, 1.0),
-  (-0.5, 0.1, 0.0, 0.0, 0.0), (0.3, 0.7, 0.0, 1.0, 1.0), (-0.5, 0.7, 0.0, 0.0, 1.0));
+    (-0.5, 0.1, 0.0, 0.0, 0.0), (0.3, 0.7, 0.0, 1.0, 1.0), (-0.5, 0.7, 0.0, 0.0, 1.0));
   Quad: array[0..5] of TVector5f =
     ((-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0), (-0.2, -0.1, 0.0, 0.0, 1.0),
     (-0.2, -0.6, 0.0, 0.0, 0.0), (0.2, -0.6, 0.0, 1.0, 0.0), (0.2, -0.1, 0.0, 1.0, 1.0));
@@ -105,8 +105,8 @@ begin
       //  texData[j] := $FF000000;
       //end;
     end;
-  //  Result[i].LoadTextures(texSize, texSize, texData);
-         Result[i].LoadTextures('project1.ico');
+    //  Result[i].LoadTextures(texSize, texSize, texData);
+    Result[i].LoadTextures('project1.ico');
   end;
 end;
 
@@ -138,7 +138,12 @@ begin
   glDepthFunc(GL_LESS);     // Kann man weglassen, da Default.
 
   WorldMatrix.Identity;
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Tesselationshader.glsl'), FileToStr('Fragmentshader.glsl')], True);
+
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   with Shader do begin
     UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
@@ -170,7 +175,7 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
   //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//  glPolygonMode(GL_BACK, GL_FILL);
+  //  glPolygonMode(GL_BACK, GL_FILL);
 
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
@@ -244,7 +249,7 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   WorldMatrix.RotateB(0.0223);  // Drehe um Z-Achse
-//  WorldMatrix.RotateA(0.0423);  // Drehe um Z-Achse
+  //  WorldMatrix.RotateA(0.0423);  // Drehe um Z-Achse
   ogcDrawScene(Sender);
 end;
 

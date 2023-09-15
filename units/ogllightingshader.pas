@@ -165,26 +165,26 @@ type
       {$ifdef ubo}
       LightUBO, MaterialUBO: TUBO;
       {$else}
-            UniformID: record
-              Light: record
-                position, ambient, diffuse, specular: glInt;
-              end;
-              Material: record
-                ambient, diffuse, specular, shininess: GLInt;
-              end;
-            end;
+      UniformID: record
+        Light: record
+          position, ambient, diffuse, specular: glInt;
+          end;
+        Material: record
+          ambient, diffuse, specular, shininess: GLInt;
+          end;
+        end;
       {$endif}
-    end;
+      end;
 
   public
     LightParams: record
       position, ambient, diffuse, specular: TVector4f;
-    end;
+      end;
 
     MaterialParams: record
       ambient, diffuse, specular: TVector4f;
       shininess: GLfloat;     // Glanz
-    end;
+      end;
 
     constructor Create(AShader: array of ansistring; lightON: boolean);
     destructor Destroy; override;
@@ -275,7 +275,7 @@ const
     '  }' + LineEnding +
     '  return ambient + diffuse + specular;' + LineEnding +
     '}';
-    {$endif}
+  {$endif}
 
 var
   i: integer;
@@ -291,12 +291,12 @@ begin
     end;
   end;
 
-  //   Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
-  inherited Create(AShader);
-//WriteLn(Length(AShader));halt;
-//  inherited Create([GL_VERTEX_SHADER, AShader[0], GL_FRAGMENT_SHADER, AShader[1]]);
-//    inherited Create([AShader[0]]);
+  WriteLn('light');
+  if Length(AShader) = 1 then  begin
+    inherited Create(AShader[0]);
+  end else begin
+    inherited Create([AShader[0], AShader[1]]);
+  end;
 
   if Lighting.Enabled then begin
 
@@ -304,20 +304,20 @@ begin
     Lighting.MaterialUBO := TUBO.Create(self, 'Material', SizeOf(MaterialParams), 0);
     Lighting.LightUBO := TUBO.Create(self, 'Lighting', SizeOf(LightParams), 1);
     {$else}
-      with Lighting.UniformID do begin
-        with Light do begin
-          position := UniformLocation('Lposition');
-          ambient := UniformLocation('Lambient');
-          diffuse := UniformLocation('Ldiffuse');
-          specular := UniformLocation('Lspecular');
-        end;
-        with Material do begin
-          ambient := UniformLocation('Mambient');
-          diffuse := UniformLocation('Mdiffuse');
-          specular := UniformLocation('Mspecular');
-          shininess := UniformLocation('Mshininess');
-        end;
+    with Lighting.UniformID do begin
+      with Light do begin
+        position := UniformLocation('Lposition');
+        ambient := UniformLocation('Lambient');
+        diffuse := UniformLocation('Ldiffuse');
+        specular := UniformLocation('Lspecular');
       end;
+      with Material do begin
+        ambient := UniformLocation('Mambient');
+        diffuse := UniformLocation('Mdiffuse');
+        specular := UniformLocation('Mspecular');
+        shininess := UniformLocation('Mshininess');
+      end;
+    end;
     {$endif}
 
     SetMaterial('PlasticWhite');
@@ -345,12 +345,12 @@ end;
 procedure TLightingShader.UseProgram;
 begin
   inherited UseProgram;
-   {$ifdef ubo}
+  {$ifdef ubo}
   if Lighting.Enabled then begin
     Lighting.LightUBO.Bind;
     Lighting.MaterialUBO.Bind;
   end;
-   {$endif}
+  {$endif}
 end;
 
 procedure TLightingShader.SetMaterial(Name: string);

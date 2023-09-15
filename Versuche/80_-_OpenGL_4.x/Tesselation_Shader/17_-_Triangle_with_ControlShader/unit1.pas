@@ -126,10 +126,11 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([
-    FileToStr('Vertexshader.glsl'),
-    FileToStr('tesselationcontrolshader.glsl'),
-    FileToStr('Tesselationshader.glsl'),
-    FileToStr('Fragmentshader.glsl')], True);
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_TESS_CONTROL_SHADER, FileToStr('tesselationcontrolshader.glsl'),
+    GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   with Shader do begin
     UseProgram;
     Uniform_ID.ol := UniformLocation('TLO');

@@ -83,7 +83,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\Units"/>
       <UnitOutputDirectory Value="\tmp"/>
     </SearchPaths>
     <CodeGeneration>

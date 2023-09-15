@@ -14,7 +14,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title := 'Niveau-Anzeiger';
+  Application.Title:='Niveau-Anzeiger';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(THauptForm, HauptForm);
