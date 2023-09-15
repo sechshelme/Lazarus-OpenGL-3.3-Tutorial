@@ -288,8 +288,7 @@ begin
   FProgramObject := glCreateProgram();
 
   case AShader[0].VType of
-    vtAnsiString: begin
-      // ---- Alte Version
+    vtAnsiString: begin  // ---- Alte Version
       case Length(AShader) of
         1: begin
           sa := Split(ansistring(AShader[0].VAnsiString));
@@ -314,8 +313,7 @@ begin
         LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
       end;
     end;
-    vtInteger: begin
-      // --- Neue Version
+    vtInteger: begin   // --- Neue Version
       i := 0;
       while i < Length(AShader) do begin
         LoadShaderObject(ansistring(AShader[i + 1].VAnsiString), AShader[i].VInteger);
@@ -341,43 +339,6 @@ begin
 
   UseProgram;
 end;
-
-//constructor TShader.Create(const AShader: AnsiString);
-//begin
-//  Create([AShader]);
-//end;
-
-// alt ===============================================
-
-//constructor TShader.Create(const AShader: array of ansistring);
-//var
-//  sa: TStringArray = nil;
-//begin
-//  WriteLn('Altes Create');
-//  inherited Create;
-//  halt;
-//
-//
-//  case Length(AShader) of
-//    1: begin
-//      sa := Split(AShader[0]);
-//    end;
-//    2: begin
-//      SetLength(sa, Length(AShader));
-//      sa[0] := AShader[0];
-//      sa[1] := AShader[1];
-//    end;
-//    else begin
-//      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-//    end;
-//  end;
-//
-//  Create([
-//    GL_VERTEX_SHADER, sa[0],
-//    GL_FRAGMENT_SHADER, sa[1]]);
-//end;
-//
-// ===============================================
 
 procedure TShader.LoadShaderObject(const AShader: ansistring; shaderType: GLenum);
 var
