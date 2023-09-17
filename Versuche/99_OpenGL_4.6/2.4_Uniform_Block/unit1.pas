@@ -24,6 +24,11 @@ type
 var
   Form1: TForm1;
 
+//  extern void *memcpy (void *__restrict __dest, const void *__restrict __src,  		     size_t __n) __THROW __nonnull ((1, 2));
+
+procedure memcpy( dest,src  :Pointer;size:SizeInt ); cdecl;external 'c';
+
+
 implementation
 
 {$R *.lfm}
@@ -65,17 +70,33 @@ begin
 end;
 
 procedure TForm1.CreateScene;
+type
+  TUBORec = record
+    scale: TGLfloat;
+    translation: TVector3f;
+    rotation: TVector4f;
+    Enabled: TGLboolean;
+  end;
 const
-  tranlation:TVector3f=(0.1,0.1,0.0);
-  names:array of PChar=('tramslation','scale','rotation','enabled');
-  NumUniforms=1;
+  UBORec: TUBORec = (
+  scale: 0.5;
+  translation: (0.1, 0.1, 0.0);
+  rotation: (90, 0,0, 1);
+  Enabled: True);
+
+  tranlation: TVector3f = (0.1, 0.1, 0.0);
+  names: array of PChar = ('translation', 'scale', 'rotation', 'enabled');
+  NumUniforms = 4;
 var
   uboIndex: TGLuint;
   uboSize: TGLint;
+  ubo: TGLuint;
   buffer: TGLvoid;
 
-  indices :array[0..NumUniforms-1] of GLuint;
-  offset :array[0..NumUniforms-1] of GLuint;
+  indices: array[0..NumUniforms - 1] of GLuint;
+  offset: array[0..NumUniforms - 1] of GLuint;
+  size: array[0..NumUniforms - 1] of GLuint;
+  type_: array[0..NumUniforms - 1] of GLuint;
 begin
   glClearColor(1, 0, 0, 1);
 
@@ -88,14 +109,30 @@ begin
   // --- uniform
   uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
   glGetActiveUniformBlockiv(Shader.ID, uboIndex, GL_UNIFORM_BLOCK_DATA_SIZE, @uboSize);
-
-  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices,GL_UNIFORM_OFFSET, offset);
-
   Getmem(buffer, uboSize);
   if buffer = nil then begin
     WriteLn('Unable to allocate buffer');
     halt(1);
   end;
+
+  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_OFFSET, @offset);
+  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_SIZE, @size);
+  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_TYPE, @type_);
+
+  WriteLn(offset[0]);
+  WriteLn(offset[1]);
+  WriteLn(offset[2]);
+  WriteLn(offset[3]);
+
+  memcpy(buffer,  @UBORec.translation,  48);
+  memcpy(buffer+12,  @UBORec.scale,  4);
+
+  glGenBuffers(1, @ubo);
+  glBindBuffer(GL_UNIFORM_BUFFER, ubo);
+  glBufferData(GL_UNIFORM_BUFFER, uboSize, buffer, GL_STATIC_DRAW);
+  glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, ubo);
+
+
 
 
   WriteLn(uboSize);
