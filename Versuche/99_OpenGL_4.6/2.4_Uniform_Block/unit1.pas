@@ -24,9 +24,9 @@ type
 var
   Form1: TForm1;
 
-//  extern void *memcpy (void *__restrict __dest, const void *__restrict __src,  		     size_t __n) __THROW __nonnull ((1, 2));
+  //  extern void *memcpy (void *__restrict __dest, const void *__restrict __src,           size_t __n) __THROW __nonnull ((1, 2));
 
-procedure memcpy( dest,src  :Pointer;size:SizeInt ); cdecl;external 'c';
+procedure memcpy(dest, src: Pointer; size: SizeInt); cdecl; external 'c';
 
 
 implementation
@@ -79,10 +79,10 @@ type
   end;
 const
   UBORec: TUBORec = (
-  scale: 0.5;
-  translation: (0.1, 0.1, 0.0);
-  rotation: (90, 0,0, 1);
-  Enabled: True);
+    scale: 0.5;
+    translation: (0.1, 0.1, 0.0);
+    rotation: (90, 0, 0, 1);
+    Enabled: True);
 
   tranlation: TVector3f = (0.1, 0.1, 0.0);
   names: array of PChar = ('translation', 'scale', 'rotation', 'enabled');
@@ -91,12 +91,13 @@ var
   uboIndex: TGLuint;
   uboSize: TGLint;
   ubo: TGLuint;
-  buffer: TGLvoid;
+  buffer: PChar;
 
   indices: array[0..NumUniforms - 1] of GLuint;
   offset: array[0..NumUniforms - 1] of GLuint;
   size: array[0..NumUniforms - 1] of GLuint;
   type_: array[0..NumUniforms - 1] of GLuint;
+  i: integer;
 begin
   glClearColor(1, 0, 0, 1);
 
@@ -115,17 +116,24 @@ begin
     halt(1);
   end;
 
+  glGetUniformIndices(Shader.ID, NumUniforms, PPChar(names), indices);
+
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_OFFSET, @offset);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_SIZE, @size);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_TYPE, @type_);
 
-  WriteLn(offset[0]);
-  WriteLn(offset[1]);
-  WriteLn(offset[2]);
-  WriteLn(offset[3]);
+  WriteLn('uboSize: ', uboSize);
+  for i := 0 to NumUniforms - 1 do begin
+    WriteLn('ofs: ', offset[i]: 8, '  size: ', size[i]: 8, '  type:', type_[i]: 8);
+  end;
 
-  memcpy(buffer,  @UBORec.translation,  48);
-  memcpy(buffer+12,  @UBORec.scale,  4);
+  //  memcpy(buffer, @UBORec.translation, 48);
+  //  memcpy(buffer + 12, @UBORec.scale, 4);
+
+  move(UBORec.translation, buffer[offset[0]], SizeOf(TUBORec.translation));
+  move(UBORec.scale, buffer[offset[1]], SizeOf(TUBORec.scale));
+  //  move(UBORec.rotation, buffer[12], 4);
+  //  move(UBORec.Enabled, buffer[12], 4);
 
   glGenBuffers(1, @ubo);
   glBindBuffer(GL_UNIFORM_BUFFER, ubo);
