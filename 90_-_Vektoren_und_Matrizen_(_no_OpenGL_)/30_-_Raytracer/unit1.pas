@@ -66,14 +66,14 @@ begin
   Result := I - N * 2.0 * (I * N);
 end;
 
-function refract(const I, N: TVector3f; const eta_t: single; const eta_i: single = 1): TVector3f;
+function refract(const I, N: TVector3f; const eta_t, eta_i: single): TVector3f;
 var
   cosi, eta, k: single;
 begin
   cosi := -clamp(I * N, -1.0, 1.0);
 
   if cosi < 0 then begin
-    Exit(refract(I, -N, eta_i, eta_t));
+    Exit(refract(I, -N, eta_i, eta_t ));
   end;
   eta := eta_i / eta_t;
   k := 1 - eta * eta * (1 - cosi * cosi);
@@ -163,6 +163,9 @@ begin
   material := mat;
 end;
 
+var
+  maxDepth: integer = 0;
+
 function cast_ray(const orig, dir: TVector3f; depth: integer = 0): TVector3f;
 var
   hit: boolean;
@@ -172,6 +175,11 @@ var
   specular_light_intensity: single = 0;
   i: integer;
 begin
+  //if depth > maxDepth then begin
+  //  maxDepth := depth;
+  //  WriteLn(maxDepth);
+  //end;
+
   scene_intersect(orig, dir, hit, point, N, material);
 
   if (depth > 4) or (not hit) then begin
@@ -179,10 +187,12 @@ begin
   end;
 
   reflect_dir := normalize(reflect(dir, N));
-  refract_dir := normalize(refract(dir, N, material.refractive_index));
+  refract_dir := normalize(refract(dir, N, material.refractive_index, 1));
 
   reflect_color := cast_ray(point, reflect_dir, depth + 1);
   refract_color := cast_ray(point, refract_dir, depth + 1);
+//  reflect_color := vec3(0.2, 0.7, 0.8);
+//  refract_color := vec3(0.2, 0.7, 0.8);
 
   for i := 0 to Length(lights) - 1 do begin
     light_dir := normalize(lights[i] - point);
@@ -219,6 +229,9 @@ begin
   for i := 0 to Width * Height - 1 do begin
     dir_x := (i mod Width + 0.5) - Width / 2;
     dir_y := -(i div Width + 0.5) + Height / 2;
+
+//    WriteLn('  x: ',dir_x:10:5,'  y: ',dir_y:10:5);
+
     dir_z := -Height / (2 * tan(fov / 2));
     color := cast_ray(vec3(0, 0, 0), normalize(vec3(dir_x, dir_y, dir_z)));
 
@@ -234,7 +247,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   v: Tmat3x3;
-  b:Byte=0;
+  b: byte = 0;
 begin
   v := [[1, b, 1], [1, 1, 1], [1, 1, 1]];
 
