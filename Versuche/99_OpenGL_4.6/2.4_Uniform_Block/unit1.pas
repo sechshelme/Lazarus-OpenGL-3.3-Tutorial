@@ -69,6 +69,45 @@ begin
   CreateScene;
 end;
 
+function TypeSize(typ:TGLenum):SizeInt;
+
+begin
+  case typ of
+  GL_FLOAT:  Result:=1*SizeOf(TGLfloat);
+  GL_FLOAT_VEC2:  Result:=2*SizeOf(TGLfloat);
+  GL_FLOAT_VEC3:  Result:=3*SizeOf(TGLfloat);
+  GL_FLOAT_VEC4:  Result:=4*SizeOf(TGLfloat);
+
+  GL_INT:  Result:=1*SizeOf(TGLint);
+  GL_INT_VEC2:  Result:=2*SizeOf(TGLint);
+  GL_INT_VEC3:  Result:=3*SizeOf(TGLint);
+  GL_INT_VEC4:  Result:=4*SizeOf(TGLint);
+
+  GL_UNSIGNED_INT:  Result:=1*SizeOf(TGLuint);
+  GL_UNSIGNED_INT_VEC2:  Result:=2*SizeOf(TGLuint);
+  GL_UNSIGNED_INT_VEC3:  Result:=3*SizeOf(TGLuint);
+  GL_UNSIGNED_INT_VEC4:  Result:=4*SizeOf(TGLuint);
+
+  GL_BOOL:  Result:=1*SizeOf(TGLboolean);
+  GL_BOOL_VEC2:  Result:=2*SizeOf(TGLboolean);
+  GL_BOOL_VEC3:  Result:=3*SizeOf(TGLboolean);
+  GL_BOOL_VEC4:  Result:=4*SizeOf(TGLboolean);
+
+  GL_FLOAT_MAT2:  Result:=4*SizeOf(TGLfloat);
+  GL_FLOAT_MAT2x3:  Result:=6*SizeOf(TGLfloat);
+  GL_FLOAT_MAT2x4:  Result:=8*SizeOf(TGLfloat);
+
+  GL_FLOAT_MAT3:  Result:=9*SizeOf(TGLfloat);
+  GL_FLOAT_MAT3x2:  Result:=6*SizeOf(TGLfloat);
+  GL_FLOAT_MAT3x4:  Result:=12*SizeOf(TGLfloat);
+
+  GL_FLOAT_MAT4:  Result:=16*SizeOf(TGLfloat);
+  GL_FLOAT_MAT4x2:  Result:=8*SizeOf(TGLfloat);
+  GL_FLOAT_MAT4x3:  Result:=12*SizeOf(TGLfloat);
+  else WriteLn('Ungültiger Typ !');
+  end;
+end;
+
 procedure TForm1.CreateScene;
 type
   TUBORec = record
@@ -85,8 +124,8 @@ const
     Enabled: True);
 
   tranlation: TVector3f = (0.1, 0.1, 0.0);
-  names: array of PChar = ('translation', 'scale', 'rotation', 'enabled');
-  NumUniforms = 4;
+  names: array of PChar = ('translation', 'scale', 'rotation', 'enabled', 'mat3_', 'mat4_');
+  NumUniforms = 6;
 var
   uboIndex: TGLuint;
   uboSize: TGLint;
@@ -97,6 +136,8 @@ var
   offset: array[0..NumUniforms - 1] of GLuint;
   size: array[0..NumUniforms - 1] of GLuint;
   type_: array[0..NumUniforms - 1] of GLuint;
+  matrix_strides: array[0..NumUniforms - 1] of GLuint;
+  array_strides: array[0..NumUniforms - 1] of GLuint;
   i: integer;
 begin
   glClearColor(1, 0, 0, 1);
@@ -121,10 +162,14 @@ begin
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_OFFSET, @offset);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_SIZE, @size);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_TYPE, @type_);
+  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
+  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
 
   WriteLn('uboSize: ', uboSize);
   for i := 0 to NumUniforms - 1 do begin
-    WriteLn('ofs: ', offset[i]: 8, '  size: ', size[i]: 8, '  type:', type_[i]: 8);
+    WriteLn('indicies: ', indices[i]: 4,' ofs: ', offset[i]: 4, ' Array_Size: ', size[i]: 4, ' Size: ', size[i]*TypeSize(type_[i]): 4,' type:', type_[i]: 6);
+    WriteLn('array_strides: ', array_strides[i]: 4, ' mat_strides: ', matrix_strides[i]: 4);
+    WriteLn();
   end;
 
   //  memcpy(buffer, @UBORec.translation, 48);
@@ -132,13 +177,15 @@ begin
 
   move(UBORec.translation, buffer[offset[0]], SizeOf(TUBORec.translation));
   move(UBORec.scale, buffer[offset[1]], SizeOf(TUBORec.scale));
-  //  move(UBORec.rotation, buffer[12], 4);
-  //  move(UBORec.Enabled, buffer[12], 4);
+  move(UBORec.rotation, buffer[offset[2]], SizeOf(TUBORec.rotation));
+  move(UBORec.Enabled, buffer[offset[2]], SizeOf(TUBORec.Enabled));
 
   glGenBuffers(1, @ubo);
   glBindBuffer(GL_UNIFORM_BUFFER, ubo);
   glBufferData(GL_UNIFORM_BUFFER, uboSize, buffer, GL_STATIC_DRAW);
   glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, ubo);
+
+  Freemem(buffer);
 
 
 

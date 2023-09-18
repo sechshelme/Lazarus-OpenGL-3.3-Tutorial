@@ -2,13 +2,22 @@
 
 layout (location = 0) in vec2 vPos;
 
+uniform Block3 {
+   vec3 vec;
+   float flo;
+};
+
 uniform Uniforms {
    vec3 translation;
    float scale;
    vec4 rotation;
    bool enabled;
-   mat3 mat3_[4];
-   mat4 mat4_;
+};
+
+uniform Block2 {
+   mat3 mat3_2_[4];
+   mat4 mat4_2_;
+   int  i;
 };
 
 void main()
