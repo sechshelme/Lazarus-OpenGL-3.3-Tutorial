@@ -6,10 +6,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  dglOpenGL,
-  oglContext, oglVector, oglMatrix, oglShader;
+  Menus, StdCtrls, dglOpenGL, oglContext, oglVector, oglMatrix, oglShader;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -62,7 +64,6 @@ begin
 end;
 
 function TypeSize(typ: TGLenum): SizeInt;
-
 begin
   case typ of
     GL_FLOAT: begin
@@ -147,7 +148,7 @@ begin
       Result := 12 * SizeOf(TGLfloat);
     end;
     else begin
-      WriteLn('Ungültiger Typ !');
+      Result := -1;
     end;
   end;
 end;
@@ -172,10 +173,11 @@ var
   uboSize: TGLint;
   ubo: TGLuint;
 
-  maxUniLength, activeUnif, dataSize, actualLen, Count: TGLint;
+  maxUniLength, activeUnif, dataSize, actualLen, BlockCount: TGLint;
   BlockName: array of char = nil;
   UniformName: array of char = nil;
-  indices2: array of TGLint = nil;
+  indices: array of TGLint = nil;
+  indice: GLint;
 
   UniformInfo: record
     offset: TGLuint;
@@ -184,10 +186,20 @@ var
     matrix_strides: TGLuint;
     array_strides: TGLuint;
       end;
+
   i, k: integer;
-  indice: GLint;
+  s: string;
+
+  LogForm: TForm;
+  Memo: TMemo;
 begin
-//  glClearColor(1, 0, 0, 1);
+  LogForm := TForm.Create(Self);
+  LogForm.Show;
+  Memo := TMemo.Create(LogForm);
+  Memo.Parent := LogForm;
+  Memo.Align := alClient;
+  Memo.ReadOnly := True;
+  Memo.ScrollBars := ssAutoBoth;
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
@@ -195,31 +207,32 @@ begin
   // --- Uniform-Blöcke auslesen
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, @maxUniLength);
   SetLength(UniformName, maxUniLength);
-  Writeln('  maxlength: ', maxUniLength);
+  Memo.Lines.Add('Uniform Blöcke:');
+  Memo.Lines.Add('');
 
-  glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @Count);
+  glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @BlockCount);
 
-  WriteLn('Block Uniform Count: ', Count);
-  for i := 0 to Count - 1 do begin
+  Memo.Lines.Add('Block Uniform Count: ' + BlockCount.ToString);
+  for i := 0 to BlockCount - 1 do begin
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_NAME_LENGTH, @actualLen);
-    Write('len: ', actualLen);
+    //    Write('len: ', actualLen);
     SetLength(BlockName, actualLen);
     glGetActiveUniformBlockName(Shader.ID, i, actualLen, nil, PChar(BlockName));
-    WriteLn('  Block-Name: ', PChar(BlockName));
+    Memo.Lines.Add('  Block-Name: ' + PChar(BlockName));
 
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_DATA_SIZE, @dataSize);
-    Write('Data-Size: ', dataSize);
+    Memo.Lines.Add('    Data-Size: ' + dataSize.ToString);
 
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, @activeUnif);
-    Writeln('  Uniforms/Block: ', activeUnif);
+    Memo.Lines.Add('    Uniforms/Block: ' + activeUnif.ToString);
 
-    SetLength(indices2, activeUnif);
-    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, PGLint(indices2));
+    SetLength(indices, activeUnif);
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, PGLint(indices));
 
     for k := 0 to activeUnif - 1 do begin
-      indice := indices2[k];
+      indice := indices[k];
       glGetActiveUniformName(Shader.ID, indice, maxUniLength, @actualLen, PChar(UniformName));
-      Write('  Uniform-Name: ', PChar(UniformName));
+      Memo.Lines.Add('      Uniform-Name: ' + PChar(UniformName));
 
       with UniformInfo do begin
         glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_OFFSET, @offset);
@@ -228,11 +241,12 @@ begin
         glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
         glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
 
-        Write('  indicie: ', indice: 4, ' ofs: ', offset: 4, ' Array_Size: ', size: 4, ' Size: ', size * TypeSize(type_): 4, ' type:', type_: 6);
-        Write('  array_strides: ', array_strides: 4, ' mat_strides: ', matrix_strides: 4);
-        WriteLn();
+        WriteStr(s, '          indicie: ', indice: 4, ' ofs: ', offset: 4, ' Array_Size: ', size: 4, ' Size: ', size * TypeSize(type_): 4, ' type:', type_: 6, '  array_strides: ', array_strides: 4, ' mat_strides: ', matrix_strides: 4);
+        Memo.Lines.Add(s);
+        Memo.Lines.Add('');
       end;
     end;
+    Memo.Lines.Add('');
   end;
 
   // --- UBO
