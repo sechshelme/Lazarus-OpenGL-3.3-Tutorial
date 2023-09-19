@@ -24,11 +24,6 @@ type
 var
   Form1: TForm1;
 
-  //  extern void *memcpy (void *__restrict __dest, const void *__restrict __src,           size_t __n) __THROW __nonnull ((1, 2));
-
-procedure memcpy(dest, src: Pointer; size: SizeInt); cdecl; external 'c';
-
-
 implementation
 
 {$R *.lfm}
@@ -47,10 +42,7 @@ var
   Buffers: array[0..Buffer_IDs_NumBuffers - 1] of GLuint;
 
 const
-  NumVertices = 6;
-
-const
-  vertices: array [0..NumVertices - 1] of TVector2f = (
+  vertices: array of TVector2f = (
     (-0.90, -0.90), // Triangle 1
     (0.85, -0.90),
     (-0.90, 0.85),
@@ -163,55 +155,46 @@ end;
 procedure TForm1.CreateScene;
 type
   TUBORec = record
-    scale: TGLfloat;
     translation: TVector3f;
+    scale: TGLfloat;
     rotation: TVector4f;
     Enabled: TGLboolean;
   end;
 const
   UBORec: TUBORec = (
-    scale: 0.5;
     translation: (0.1, 0.1, 0.0);
+    scale: 0.5;
     rotation: (90, 0, 0, 1);
     Enabled: True);
 
-  tranlation: TVector3f = (0.1, 0.1, 0.0);
-  names: array of PChar = ('translation', 'scale', 'rotation', 'enabled');
-  NumUniforms = 4;
 var
   uboIndex: TGLuint;
   uboSize: TGLint;
   ubo: TGLuint;
-  buffer: PChar;
 
   maxUniLength, activeUnif, dataSize, actualLen, Count: TGLint;
-  name2, Uname: PChar;
-  indices2: PGLint;
+  BlockName: array of char = nil;
+  UniformName: array of char = nil;
+  indices2: array of TGLint = nil;
 
-  indices: array[0..NumUniforms - 1] of GLuint;
-  offset: array[0..NumUniforms - 1] of GLuint;
-  size: array[0..NumUniforms - 1] of GLuint;
-  type_: array[0..NumUniforms - 1] of GLuint;
-  matrix_strides: array[0..NumUniforms - 1] of GLuint;
-  array_strides: array[0..NumUniforms - 1] of GLuint;
-  i, k,  j: integer;
+  UniformInfo: record
+    offset: TGLuint;
+    size: TGLuint;
+    type_: TGLuint;
+    matrix_strides: TGLuint;
+    array_strides: TGLuint;
+      end;
+  i, k: integer;
+  indice: GLint;
 begin
-  glClearColor(1, 0, 0, 1);
-
-  glCreateBuffers(Buffer_IDs_NumBuffers, Buffers);
-  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], SizeOf(vertices), @vertices, 0);
+//  glClearColor(1, 0, 0, 1);
 
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  // --- uniform
-  uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
-  glGetActiveUniformBlockiv(Shader.ID, uboIndex, GL_UNIFORM_BLOCK_DATA_SIZE, @uboSize);
-  WriteLn('uboSize: ', uboSize);
-  Getmem(buffer, uboSize);
-
+  // --- Uniform-Blöcke auslesen
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, @maxUniLength);
-  GetMem(name2, maxUniLength);
+  SetLength(UniformName, maxUniLength);
   Writeln('  maxlength: ', maxUniLength);
 
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @Count);
@@ -220,9 +203,9 @@ begin
   for i := 0 to Count - 1 do begin
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_NAME_LENGTH, @actualLen);
     Write('len: ', actualLen);
-    GetMem(Uname, actualLen);
-    glGetActiveUniformBlockName(Shader.ID, i, actualLen, nil, Uname);
-    WriteLn('  Block-Name: ',Uname );
+    SetLength(BlockName, actualLen);
+    glGetActiveUniformBlockName(Shader.ID, i, actualLen, nil, PChar(BlockName));
+    WriteLn('  Block-Name: ', PChar(BlockName));
 
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_DATA_SIZE, @dataSize);
     Write('Data-Size: ', dataSize);
@@ -230,73 +213,42 @@ begin
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, @activeUnif);
     Writeln('  Uniforms/Block: ', activeUnif);
 
-    GetMem(indices2, SizeOf(TGLint) * activeUnif);
-    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices2);
-    Writeln('  indices2: ', indices2[0]);
-    Writeln('  indices2: ', indices2[1]);
-    Writeln('  indices2: ', indices2[2]);
+    SetLength(indices2, activeUnif);
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, PGLint(indices2));
 
     for k := 0 to activeUnif - 1 do begin
-      glGetActiveUniformName(Shader.ID, indices2[k], maxUniLength, @actualLen, name2);
-      WriteLn('Uniform-Name: ', name2);
+      indice := indices2[k];
+      glGetActiveUniformName(Shader.ID, indice, maxUniLength, @actualLen, PChar(UniformName));
+      Write('  Uniform-Name: ', PChar(UniformName));
 
-      glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_OFFSET, @offset);
-      glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_SIZE, @size);
-      glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_TYPE, @type_);
-      glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_ARRAY_STRIDE, @array_strides);
-      glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
+      with UniformInfo do begin
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_OFFSET, @offset);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_SIZE, @size);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_TYPE, @type_);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
 
-      //for i2 := 0 to NumUniforms - 1 do begin
-      //  WriteLn('indicies: ', indices[i2]: 4, ' ofs: ', offset[i2]: 4, ' Array_Size: ', size[i2]: 4, ' Size: ', size[i2] * TypeSize(type_[i2]): 4, ' type:', type_[i2]: 6);
-      //  WriteLn('array_strides: ', array_strides[i2]: 4, ' mat_strides: ', matrix_strides[i2]: 4);
-      //  WriteLn();
-      //end;
-
+        Write('  indicie: ', indice: 4, ' ofs: ', offset: 4, ' Array_Size: ', size: 4, ' Size: ', size * TypeSize(type_): 4, ' type:', type_: 6);
+        Write('  array_strides: ', array_strides: 4, ' mat_strides: ', matrix_strides: 4);
+        WriteLn();
+      end;
     end;
-    Freemem(name2);
-    Freemem(indices2);
-    Freemem(Uname);
-
   end;
 
-  glGetUniformIndices(Shader.ID, NumUniforms, PPChar(names), indices);
-
-  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_OFFSET, @offset);
-  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_SIZE, @size);
-  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_TYPE, @type_);
-  //  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
-  //  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
-
-  //WriteLn('uboSize: ', uboSize);
-  //for i := 0 to NumUniforms - 1 do begin
-  //  WriteLn('indicies: ', indices[i]: 4, ' ofs: ', offset[i]: 4, ' Array_Size: ', size[i]: 4, ' Size: ', size[i] * TypeSize(type_[i]): 4, ' type:', type_[i]: 6);
-  //  WriteLn('array_strides: ', array_strides[i]: 4, ' mat_strides: ', matrix_strides[i]: 4);
-  //  WriteLn();
-  //end;
-  //
-  //  memcpy(buffer, @UBORec.translation, 48);
-  //  memcpy(buffer + 12, @UBORec.scale, 4);
-
-  move(UBORec.translation, buffer[offset[0]], SizeOf(TUBORec.translation));
-  move(UBORec.scale, buffer[offset[1]], SizeOf(TUBORec.scale));
-  move(UBORec.rotation, buffer[offset[2]], SizeOf(TUBORec.rotation));
-  move(UBORec.Enabled, buffer[offset[2]], SizeOf(TUBORec.Enabled));
+  // --- UBO
+  uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
+  glGetActiveUniformBlockiv(Shader.ID, uboIndex, GL_UNIFORM_BLOCK_DATA_SIZE, @uboSize);
+  WriteLn('uboSize: ', uboSize);
 
   glGenBuffers(1, @ubo);
   glBindBuffer(GL_UNIFORM_BUFFER, ubo);
-  glBufferData(GL_UNIFORM_BUFFER, uboSize, buffer, GL_STATIC_DRAW);
+  glBufferData(GL_UNIFORM_BUFFER, uboSize, @UBORec, GL_STATIC_DRAW);
   glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, ubo);
 
-  Freemem(buffer);
-
-
-
-
-  WriteLn(uboSize);
-
-
-
   // --- Vertex
+  glCreateBuffers(Buffer_IDs_NumBuffers, Buffers);
+  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], Length(vertices) * SizeOf(vertices), PGLvoid(vertices), 0);
+
   glGenVertexArrays(VAO_IDs_NUMVAOs, VAOs);
   glBindVertexArray(VAOs[VAO_IDs_Trinagles]);
   glBindBuffer(GL_ARRAY_BUFFER, Buffers[Buffer_IDs_ArrayBuffer]);
@@ -306,12 +258,12 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
-  black: TVector4f = (0, 0, 0, 0);
+  black: TVector4f = (0.3, 0, 0.3, 0);
 begin
   glClearBufferfv(GL_COLOR, 0, black);
 
   glBindVertexArray(VAOs[VAO_IDs_Trinagles]);
-  glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+  glDrawArrays(GL_TRIANGLES, 0, Length(vertices));
 
   ogc.SwapBuffers;
 end;

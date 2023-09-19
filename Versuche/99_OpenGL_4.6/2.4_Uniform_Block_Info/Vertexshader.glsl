@@ -15,7 +15,7 @@ uniform Uniforms {
 };
 
 uniform Block2 {
-   int Test1234567890;
+   int Test1;
    mat3 mat3_2_[4];
    mat4 mat4_2_;
    int  i;
