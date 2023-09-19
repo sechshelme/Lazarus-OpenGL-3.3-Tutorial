@@ -184,9 +184,9 @@ var
   ubo: TGLuint;
   buffer: PChar;
 
-  maxUniLength,  activeUnif, dataSize, actualLen, Count: TGLint;
- name2, Uname: PChar;
-  indices2:PGLint;
+  maxUniLength, activeUnif, dataSize, actualLen, Count: TGLint;
+  name2, Uname: PChar;
+  indices2: PGLint;
 
   indices: array[0..NumUniforms - 1] of GLuint;
   offset: array[0..NumUniforms - 1] of GLuint;
@@ -194,7 +194,7 @@ var
   type_: array[0..NumUniforms - 1] of GLuint;
   matrix_strides: array[0..NumUniforms - 1] of GLuint;
   array_strides: array[0..NumUniforms - 1] of GLuint;
-  i, k, i2: integer;
+  i, k,  j: integer;
 begin
   glClearColor(1, 0, 0, 1);
 
@@ -207,35 +207,38 @@ begin
   // --- uniform
   uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
   glGetActiveUniformBlockiv(Shader.ID, uboIndex, GL_UNIFORM_BLOCK_DATA_SIZE, @uboSize);
+  WriteLn('uboSize: ', uboSize);
   Getmem(buffer, uboSize);
-  if buffer = nil then begin
-    WriteLn('Unable to allocate buffer');
-    halt(1);
-  end;
+
+  glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, @maxUniLength);
+  GetMem(name2, maxUniLength);
+  Writeln('  maxlength: ', maxUniLength);
 
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @Count);
 
+  WriteLn('Block Uniform Count: ', Count);
   for i := 0 to Count - 1 do begin
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_NAME_LENGTH, @actualLen);
     Write('len: ', actualLen);
     GetMem(Uname, actualLen);
-    glGetActiveUniformName(Shader.ID, i, actualLen, nil, Uname);
-    Write('  str: ', Uname);
+    glGetActiveUniformBlockName(Shader.ID, i, actualLen, nil, Uname);
+    WriteLn('  Block-Name: ',Uname );
 
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_DATA_SIZE, @dataSize);
-    Write('  size: ', dataSize);
+    Write('Data-Size: ', dataSize);
 
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, @activeUnif);
-    Writeln('  act_uni: ', activeUnif);
+    Writeln('  Uniforms/Block: ', activeUnif);
 
-    GetMem(indices2, SizeOf(TGLint)*activeUnif);
-    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, PGLint(indices2));
+    GetMem(indices2, SizeOf(TGLint) * activeUnif);
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, indices2);
+    Writeln('  indices2: ', indices2[0]);
+    Writeln('  indices2: ', indices2[1]);
+    Writeln('  indices2: ', indices2[2]);
 
-    glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, @maxUniLength);
-    GetMem(name2, maxUniLength);
-
-    for k:=0 to activeUnif-1 do begin
+    for k := 0 to activeUnif - 1 do begin
       glGetActiveUniformName(Shader.ID, indices2[k], maxUniLength, @actualLen, name2);
+      WriteLn('Uniform-Name: ', name2);
 
       glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_OFFSET, @offset);
       glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_SIZE, @size);
@@ -243,12 +246,11 @@ begin
       glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_ARRAY_STRIDE, @array_strides);
       glGetActiveUniformsiv(Shader.ID, 1, @indices2[k], GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
 
-      WriteLn('uboSize: ', uboSize);
-      for i2 := 0 to NumUniforms - 1 do begin
-        WriteLn('indicies: ', indices[i2]: 4, ' ofs: ', offset[i2]: 4, ' Array_Size: ', size[i2]: 4, ' Size: ', size[i2] * TypeSize(type_[i2]): 4, ' type:', type_[i2]: 6);
-        WriteLn('array_strides: ', array_strides[i2]: 4, ' mat_strides: ', matrix_strides[i2]: 4);
-        WriteLn();
-      end;
+      //for i2 := 0 to NumUniforms - 1 do begin
+      //  WriteLn('indicies: ', indices[i2]: 4, ' ofs: ', offset[i2]: 4, ' Array_Size: ', size[i2]: 4, ' Size: ', size[i2] * TypeSize(type_[i2]): 4, ' type:', type_[i2]: 6);
+      //  WriteLn('array_strides: ', array_strides[i2]: 4, ' mat_strides: ', matrix_strides[i2]: 4);
+      //  WriteLn();
+      //end;
 
     end;
     Freemem(name2);
@@ -256,15 +258,14 @@ begin
     Freemem(Uname);
 
   end;
-  WriteLn('Block Uniform Count: ', Count);
 
   glGetUniformIndices(Shader.ID, NumUniforms, PPChar(names), indices);
 
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_OFFSET, @offset);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_SIZE, @size);
   glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_TYPE, @type_);
-//  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
-//  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
+  //  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
+  //  glGetActiveUniformsiv(Shader.ID, NumUniforms, indices, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
 
   //WriteLn('uboSize: ', uboSize);
   //for i := 0 to NumUniforms - 1 do begin
