@@ -211,8 +211,8 @@ begin
   Memo.Lines.Add('');
 
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @BlockCount);
-
   Memo.Lines.Add('Block Uniform Count: ' + BlockCount.ToString);
+
   for i := 0 to BlockCount - 1 do begin
     glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_NAME_LENGTH, @actualLen);
     //    Write('len: ', actualLen);
@@ -261,7 +261,7 @@ begin
 
   // --- Vertex
   glCreateBuffers(Buffer_IDs_NumBuffers, Buffers);
-  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], Length(vertices) * SizeOf(vertices), PGLvoid(vertices), 0);
+  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], Length(vertices) * SizeOf(vertices), PVector2f(vertices), 0);
 
   glGenVertexArrays(VAO_IDs_NUMVAOs, VAOs);
   glBindVertexArray(VAOs[VAO_IDs_Trinagles]);

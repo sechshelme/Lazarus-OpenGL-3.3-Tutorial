@@ -16,6 +16,7 @@ layout(std140) uniform Material {
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd
   float Mshininess; // Glanz
+  float test[8];
 };
 
 out vec4 outColor;
