@@ -138,6 +138,10 @@ var
   matrix_strides: array[0..NumUniforms - 1] of GLuint;
   array_strides: array[0..NumUniforms - 1] of GLuint;
   i: integer;
+
+
+  matrialShaderLoc:TGLint;
+  ambientIndex: TGLuint;
 begin
   glClearColor(1, 0, 0, 1);
 
@@ -187,9 +191,12 @@ begin
   Freemem(buffer);
 
 
+  matrialShaderLoc:=glGetSubroutineUniformLocation(Shader.ID,GL_VERTEX_SHADER,'materialShader');
+  if matrialShaderLoc<0 then WriteLn('Fehler: materialShader');
 
+  ambientIndex:=glGetSubroutineIndex(Shader.ID, GL_VERTEX_SHADER,'ambient');
 
-  WriteLn(uboSize);
+  if ambientIndex=GL_INVALID_INDEX then WriteLn('Fehler: ambient');
 
 
 

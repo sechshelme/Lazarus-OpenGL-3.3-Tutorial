@@ -9,6 +9,29 @@ uniform Uniforms {
    bool enabled;
 };
 
+struct  {
+  vec4 ambient2;
+  vec4 diffuse2;
+} Materials;
+
+vec4 LightVec = vec4(1,1,1,1);
+
+
+subroutine vec4 LightFunc(vec3); // Step 1
+
+subroutine (LightFunc) vec4 ambient(vec3 n) // Step 2
+{
+  return Materials.ambient2;
+}
+
+subroutine (LightFunc) vec4 diffuse(vec3 n) // Step 2
+//(again)
+{
+  return Materials.diffuse2 *  max(dot(normalize(n), LightVec.xyz), 0.0);
+}
+subroutine uniform LightFunc materialShader; // Step 3
+
+
 void main()
 {
   vec3 pos = vec3(vPos, 0.0);
