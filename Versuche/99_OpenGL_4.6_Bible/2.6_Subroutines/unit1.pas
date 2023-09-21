@@ -47,10 +47,7 @@ var
   Buffers: array[0..Buffer_IDs_NumBuffers - 1] of GLuint;
 
 const
-  NumVertices = 6;
-
-const
-  vertices: array [0..NumVertices - 1] of TVector2f = (
+  vertices: array of TVector2f = (
     (-0.90, -0.90), // Triangle 1
     (0.85, -0.90),
     (-0.90, 0.85),
@@ -229,9 +226,11 @@ begin
   glClearColor(1, 0, 0, 1);
 
   glCreateBuffers(Buffer_IDs_NumBuffers, Buffers);
-  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], SizeOf(vertices), @vertices, 0);
+  glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], Length(vertices) * SizeOf(TVector2f), PVector2f(vertices), 0);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
   // --- uniform
@@ -332,7 +331,7 @@ begin
   glClearBufferfv(GL_COLOR, 0, black);
 
   glBindVertexArray(VAOs[VAO_IDs_Trinagles]);
-  glDrawArrays(GL_TRIANGLES, 0, NumVertices);
+  glDrawArrays(GL_TRIANGLES, 0, Length(vertices));
 
   ogc.SwapBuffers;
 end;

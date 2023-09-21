@@ -69,7 +69,9 @@ begin
   glCreateBuffers(Buffer_IDs_NumBuffers, Buffers);
   glNamedBufferStorage(Buffers[Buffer_IDs_ArrayBuffer], SizeOf(vertices), @vertices, 0);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
   glGenVertexArrays(VAO_IDs_NUMVAOs, VAOs);

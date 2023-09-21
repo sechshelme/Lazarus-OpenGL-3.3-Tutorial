@@ -54,7 +54,7 @@ var
   VBTriangle, VBQuad: TVB;
 
 var
-  SubRoutine: record
+  FragmentSubRoutine: record
     ColorIndex: record
       SelectorLoc: TGLint;
       Red, Green, Blue: TGLuint;
@@ -63,6 +63,12 @@ var
       SelectorLoc: TGLint;
       AlphaTrue, AlphaFalse: TGLuint;
       end;
+    indices: array of TGLuint;
+      end;
+
+  VertexSubRoutine: record
+    SelectorLoc: TGLint;
+    MoveLeft, MoveRight: TGLuint;
     indices: array of TGLuint;
       end;
 
@@ -122,10 +128,9 @@ begin
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
   // Subroutines
-  with SubRoutine do begin
+  with FragmentSubRoutine do begin
     with ColorIndex do begin
       SelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_FRAGMENT_SHADER, 'ColorSelector');
-
       Red := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorRed');
       Green := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorGreen');
       Blue := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorBlue');
@@ -133,14 +138,23 @@ begin
 
     with AlphaIndex do begin
       SelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_FRAGMENT_SHADER, 'AlphaSelector');
-
       AlphaFalse := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'AlphaFalse');
       AlphaTrue := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'AlphaTrue');
     end;
 
     glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @n);
-    SetLength(SubRoutine.indices, n);
+    SetLength(indices, n);
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, n, PGLuint(indices));
+  end;
+
+  with VertexSubRoutine do begin
+    SelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_VERTEX_SHADER, 'MoveSelector');
+    MoveLeft := glGetSubroutineIndex(Shader.ID, GL_VERTEX_SHADER, 'MoveLeft');
+    MoveRight := glGetSubroutineIndex(Shader.ID, GL_VERTEX_SHADER, 'MoveRight');
+
+    glGetProgramStageiv(Shader.ID, GL_VERTEX_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @n);
+    SetLength(indices, n);
+    glUniformSubroutinesuiv(GL_VERTEX_SHADER, n, PGLuint(indices));
   end;
 end;
 
@@ -153,7 +167,11 @@ begin
   Shader.UseProgram;
 
   // Zeichne Dreieck
-  with SubRoutine do begin
+  with VertexSubRoutine do begin
+    indices[SelectorLoc] := MoveLeft;
+    glUniformSubroutinesuiv(GL_VERTEX_SHADER, Length(indices), PGLuint(indices));
+  end;
+  with FragmentSubRoutine do begin
     indices[ColorIndex.SelectorLoc] := ColorIndex.Blue;
     indices[AlphaIndex.SelectorLoc] := AlphaIndex.AlphaTrue;
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, Length(indices), PGLuint(indices));
@@ -163,7 +181,11 @@ begin
   glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
 
   // Zeichne Quadrat
-  with SubRoutine do begin
+  with VertexSubRoutine do begin
+    indices[SelectorLoc] := MoveRight;
+    glUniformSubroutinesuiv(GL_VERTEX_SHADER, Length(indices), PGLuint(indices));
+  end;
+  with FragmentSubRoutine do begin
     indices[ColorIndex.SelectorLoc] := ColorIndex.Green;
     indices[AlphaIndex.SelectorLoc] := AlphaIndex.AlphaFalse;
     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, Length(indices), PGLuint(indices));
