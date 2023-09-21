@@ -31,7 +31,6 @@ subroutine (LightFunc) vec4 diffuse(vec3 n) // Step 2
 }
 subroutine uniform LightFunc materialShader; // Step 3
 
-
 void main()
 {
   vec3 pos = vec3(vPos, 0.0);
