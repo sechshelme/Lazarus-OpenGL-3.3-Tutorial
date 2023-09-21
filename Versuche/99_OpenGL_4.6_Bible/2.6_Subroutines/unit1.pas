@@ -29,11 +29,6 @@ type
 var
   Form1: TForm1;
 
-  //  extern void *memcpy (void *__restrict __dest, const void *__restrict __src,           size_t __n) __THROW __nonnull ((1, 2));
-
-procedure memcpy(dest, src: Pointer; size: SizeInt); cdecl; external 'c';
-
-
 implementation
 
 {$R *.lfm}
@@ -168,32 +163,28 @@ end;
 
 procedure TForm1.InitColorSubroutine;
 var
-  ColorSelectorLoc: TGLint;
-  colorRedIndex, colorGreenIndex, colorBlueIndex: TGLuint;
+  colorIndex: record
+    SelectorLoc: TGLint;
+    Red, Green, Blue: TGLuint;
+    indices: array of TGLuint;
+      end;
   n: TGLsizei;
 
-  indices: PGLuint;
 begin
-  ColorSelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_FRAGMENT_SHADER, 'ColorSelector');
-  if ColorSelectorLoc < 0 then begin
+  colorIndex.SelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_FRAGMENT_SHADER, 'ColorSelector');
+  if colorIndex.SelectorLoc < 0 then begin
     WriteLn('ColorSelectorLoc Fehler');
   end;
 
-  colorRedIndex := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorRed');
-  colorGreenIndex := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorGreen');
-  colorBlueIndex := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorBlue');
+  colorIndex.Red := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorRed');
+  colorIndex.Green := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorGreen');
+  colorIndex.Blue := glGetSubroutineIndex(Shader.ID, GL_FRAGMENT_SHADER, 'colorBlue');
 
   glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @n);
-  Getmem(indices, n * SizeOf(TGLuint));
+  SetLength(colorIndex.indices, n);
 
-  WriteLn('ColorSelectorLoc: ', ColorSelectorLoc);
-  WriteLn('colorRedIndex: ', colorRedIndex);
-  WriteLn('colorGreenIndex: ', colorGreenIndex);
-  WriteLn('colorBlueIndex: ', colorBlueIndex);
-
-  indices[ColorSelectorLoc] := colorBlueIndex;
-  glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, n, indices);
-  Freemem(indices);
+  colorIndex.indices[colorIndex.SelectorLoc] := colorIndex.Green;
+  glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, n, PGLuint(colorIndex.indices));
 end;
 
 
