@@ -273,7 +273,6 @@ begin
   Freemem(buffer);
 
   // https://www.lighthouse3d.com/tutorials/glsl-tutorial/subroutines/
-  // https://www.reddit.com/r/opengl/comments/u1e1tb/gluniformsubroutinesuiv_return_gl_invalid_value/
   // https://github.com/McNopper/OpenGL/blob/master/Example39/src/main.c
   // https://stackoverflow.com/questions/23391311/glsl-subroutine-is-not-changed
 

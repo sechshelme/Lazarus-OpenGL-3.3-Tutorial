@@ -14,8 +14,12 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
@@ -144,7 +148,6 @@ begin
 
     glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @n);
     SetLength(indices, n);
-    glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, n, PGLuint(indices));
   end;
 
   with VertexSubRoutine do begin
@@ -154,7 +157,6 @@ begin
 
     glGetProgramStageiv(Shader.ID, GL_VERTEX_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @n);
     SetLength(indices, n);
-    glUniformSubroutinesuiv(GL_VERTEX_SHADER, n, PGLuint(indices));
   end;
 end;
 
@@ -208,6 +210,54 @@ begin
   glDeleteBuffers(1, @VBTriangle.VBO);
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
+
+procedure TForm1.MenuItem2Click(Sender: TObject);
+var
+  countActiveSU: TGLsizei;
+  sl: TStringList;
+  sname: array of char=nil;
+  len, numComps: TGLint;
+  i, j: integer;
+  su: array of TGLint=nil;
+begin
+  sl := TStringList.Create;
+
+  glGetIntegerv(GL_MAX_SUBROUTINES, @i);
+  sl.Add('Max Subroutines: '+ i.ToString);
+  glGetIntegerv(GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS, @i);
+  sl.Add('Max Subroutine Uniforms: '+ i.ToString);
+
+  sl.Add('');
+  glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @countActiveSU);
+  sl.Add('Subroutines Lacations: ' + countActiveSU.ToString);
+  glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORMS, @countActiveSU);
+  sl.Add('Subroutines Count: ' + countActiveSU.ToString);
+
+  SetLength(sname, 255);
+  for i := 0 to countActiveSU - 1 do begin
+    glGetActiveSubroutineUniformName(Shader.ID, GL_FRAGMENT_SHADER, i, 255, @len, PChar(sname));
+    sl.Add('');
+    sl.Add('Subname: ' + PChar(sname));
+
+    glGetActiveSubroutineUniformiv(Shader.ID, GL_FRAGMENT_SHADER, i, GL_NUM_COMPATIBLE_SUBROUTINES, @numComps);
+    sl.Add('  Subs Count: ' + numComps.ToString);
+
+    SetLength(su, numComps);
+    glGetActiveSubroutineUniformiv(Shader.ID, GL_FRAGMENT_SHADER, i, GL_COMPATIBLE_SUBROUTINES, PGLint( su));
+
+    for j := 0 to numComps - 1 do begin
+      glGetActiveSubroutineName(Shader.ID, GL_FRAGMENT_SHADER, su[j], 255, @len, PChar(sname));
+      sl.Add('    ' + PChar(sname) + ' (' + su[j].ToString + ')');
+    end;
+  end;
+
+  ShowMessage(sl.Text);
+  sl.Free;
+end;
+
+// https://www.lighthouse3d.com/tutorials/glsl-tutorial/subroutines/
+
+
 
 //lineal
 

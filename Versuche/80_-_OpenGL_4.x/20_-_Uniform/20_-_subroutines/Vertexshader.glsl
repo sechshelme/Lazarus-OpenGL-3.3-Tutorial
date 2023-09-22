@@ -1,4 +1,6 @@
-#version 460
+#version 420
+
+#extension GL_ARB_explicit_uniform_location : enable
 
 layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
 
@@ -13,7 +15,7 @@ layout(index = 31) subroutine (MoveFunc) vec2 MoveRight() {
   return vec2(-0.3, 0);
 }
 
-subroutine uniform MoveFunc MoveSelector;
+layout (location = 0) subroutine uniform MoveFunc MoveSelector;
 
 
 void main(void)

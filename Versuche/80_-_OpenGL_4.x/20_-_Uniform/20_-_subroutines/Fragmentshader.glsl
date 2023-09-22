@@ -1,4 +1,6 @@
-#version 460
+#version 420
+
+#extension GL_ARB_explicit_uniform_location : enable
 
 out vec4 color;
 
@@ -17,7 +19,7 @@ layout(index = 12) subroutine (ColorFunc) vec3 colorBlue() {
   return vec3(0, 0, 1);
 }
 
-subroutine uniform ColorFunc ColorSelector;
+layout (location = 0) subroutine uniform ColorFunc ColorSelector;
 
 // --- subroutine Alpha-Kanal;
 subroutine float AlphaFunc();
@@ -30,7 +32,7 @@ layout(index = 21) subroutine (AlphaFunc) float AlphaFalse() {
   return 1.0;
 }
 
-subroutine uniform AlphaFunc AlphaSelector;
+layout (location = 21) subroutine uniform AlphaFunc AlphaSelector;
 
 // --- Main
 void main()
