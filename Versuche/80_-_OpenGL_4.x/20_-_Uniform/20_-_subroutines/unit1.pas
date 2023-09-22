@@ -23,10 +23,9 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    procedure CreateScene;
-    procedure InitScene;
+    procedure Init_OpenGL;
     procedure ogcDrawScene(Sender: TObject);
-  public
+    procedure Destroy_OpenGL;
   end;
 
 var
@@ -77,45 +76,45 @@ var
       end;
 
 
-  { TForm1 }
+  // https://www.lighthouse3d.com/tutorials/glsl-tutorial/subroutines/
 
+  //code+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
   Width := 340;
   Height := 240;
   //remove-
+  Init_OpenGL;
+end;
+
+procedure TForm1.Init_OpenGL;
+var
+  n: TGLsizei;
+begin
+  // --- Context erzeugen
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
 
-  CreateScene;
-  InitScene;
-end;
+  glClearColor(0.6, 0.6, 0.4, 1.0);                  // Hintergrundfarbe
+  glEnable(GL_BLEND);                                // Alphablending an
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Sortierung der Primitiven von hinten nach vorne.
 
-procedure TForm1.CreateScene;
-begin
+  // --- Shader laden
   Shader := TShader.Create([
     GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
     GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
 
   Shader.UseProgram;
 
+  // --- Buffer erzeugen
   glGenVertexArrays(1, @VBTriangle.VAO);
   glGenVertexArrays(1, @VBQuad.VAO);
 
   glGenBuffers(1, @VBTriangle.VBO);
   glGenBuffers(1, @VBQuad.VBO);
-end;
 
-//code+
-procedure TForm1.InitScene;
-var
-  n: TGLsizei;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0);                  // Hintergrundfarbe
-  glEnable(GL_BLEND);                                // Alphablending an
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Sortierung der Primitiven von hinten nach vorne.
-
+  // --- Buffer beladen
 
   // Daten für das Dreieck
   glBindVertexArray(VBTriangle.VAO);
@@ -131,7 +130,7 @@ begin
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
-  // Subroutines
+  // --- Subroutines
   with FragmentSubRoutine do begin
     with ColorIndex do begin
       SelectorLoc := glGetSubroutineUniformLocation(Shader.ID, GL_FRAGMENT_SHADER, 'ColorSelector');
@@ -195,12 +194,11 @@ begin
 
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
-  //code-
 
   ogc.SwapBuffers;
 end;
 
-procedure TForm1.FormDestroy(Sender: TObject);
+procedure TForm1.Destroy_OpenGL;
 begin
   Shader.Free;
 
@@ -211,21 +209,28 @@ begin
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
+//code-
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Destroy_OpenGL;
+end;
+
 procedure TForm1.MenuItem2Click(Sender: TObject);
 var
   countActiveSU: TGLsizei;
   sl: TStringList;
-  sname: array of char=nil;
+  sname: array of char = nil;
   len, numComps: TGLint;
   i, j: integer;
-  su: array of TGLint=nil;
+  su: array of TGLint = nil;
 begin
   sl := TStringList.Create;
 
   glGetIntegerv(GL_MAX_SUBROUTINES, @i);
-  sl.Add('Max Subroutines: '+ i.ToString);
+  sl.Add('Max Subroutines: ' + i.ToString);
   glGetIntegerv(GL_MAX_SUBROUTINE_UNIFORM_LOCATIONS, @i);
-  sl.Add('Max Subroutine Uniforms: '+ i.ToString);
+  sl.Add('Max Subroutine Uniforms: ' + i.ToString);
 
   sl.Add('');
   glGetProgramStageiv(Shader.ID, GL_FRAGMENT_SHADER, GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS, @countActiveSU);
@@ -243,7 +248,7 @@ begin
     sl.Add('  Subs Count: ' + numComps.ToString);
 
     SetLength(su, numComps);
-    glGetActiveSubroutineUniformiv(Shader.ID, GL_FRAGMENT_SHADER, i, GL_COMPATIBLE_SUBROUTINES, PGLint( su));
+    glGetActiveSubroutineUniformiv(Shader.ID, GL_FRAGMENT_SHADER, i, GL_COMPATIBLE_SUBROUTINES, PGLint(su));
 
     for j := 0 to numComps - 1 do begin
       glGetActiveSubroutineName(Shader.ID, GL_FRAGMENT_SHADER, su[j], 255, @len, PChar(sname));
@@ -254,10 +259,6 @@ begin
   ShowMessage(sl.Text);
   sl.Free;
 end;
-
-// https://www.lighthouse3d.com/tutorials/glsl-tutorial/subroutines/
-
-
 
 //lineal
 

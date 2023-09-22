@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,    oglVector,oglMatrix,
+  dglOpenGL, oglVector, oglMatrix,
   oglContext, oglShader;
 
 type
@@ -22,10 +22,9 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    procedure CreateScene;
-    procedure InitScene;
-    procedure ogcDrawScene(Sender: TObject);
-  public
+    procedure Init_OpenGL;
+    procedure DrawScene(Sender: TObject);
+    procedure Destroy_OpenGL;
   end;
 
 var
@@ -58,35 +57,24 @@ type
     VBO: GLuint;
   end;
 
-(*
-Hinzugekommen sind die Deklarationen der IDs für die X- und Y-Koordinaten.
-<b>TrianglePos</b> bestimmt die Bewegung und Richtung des Dreiecks.
-*)
-//code+
+  //code+
 const
+  Matrix_ID = 0;
+  X_ID = 1;
+  Y_ID = 2;
   Color_ID = 20;
-  Matrix_ID=8;
-  X_ID = 10;
-  Y_ID = 11;
 
-  var
+var
   TrianglePos: record
     x, y: GLfloat;        // Position
     xr, yr: boolean;      // Richtung
-  end;
+      end;
 
- TriangleMatrix, QuadMatrix:TMatrix;
+  TriangleMatrix, QuadMatrix: TMatrix;
   //code-
   VBTriangle, VBQuad: TVB;
 
-{ TForm1 }
-
-(*
-Den Timer immer erst nach dem Initialisieren starten!
-Im Objektinspektor <b>muss</b> dessen Eigenschaft <b>Enable=(False)</b> sein!
-Ansonsten ist ein SIGSEV vorprogrammiert, da Shader aktviert werden, die es noch gar nicht gibt.
-*)
-//code+
+  //code+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
@@ -94,22 +82,19 @@ begin
   Height := 240;
   //remove-
   ogc := TContext.Create(Self);
-  ogc.OnPaint := @ogcDrawScene;
+  ogc.OnPaint := @DrawScene;
 
-  CreateScene;
-  InitScene;
+  Init_OpenGL;
   Timer1.Enabled := True;   // Timer starten
 end;
-//code-
 
-(*
-Dieser Code wurde um zwei <b>UniformLocation</b>-Zeilen erweitert.
-Diese ermitteln die IDs, wo sich <b>x</b> und <b>y</b> im Shader befinden.
-*)
-//code+
-procedure TForm1.CreateScene;
+procedure TForm1.Init_OpenGL;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  // --- Shader laden
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+
   Shader.UseProgram;
 
   TriangleMatrix.Identity;
@@ -121,35 +106,26 @@ begin
 
   glGenBuffers(1, @VBTriangle.VBO);
   glGenBuffers(1, @VBQuad.VBO);
-end;
 
-procedure TForm1.InitScene;
-begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
   // Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat3x3)*Length(Triangle),Pmat3x3( Triangle), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat3x3) * Length(Triangle), Pmat3x3(Triangle), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat3x3)*Length(Quad),Pmat3x3(Quad), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat3x3) * Length(Quad), Pmat3x3(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 end;
 
-(*
-Hier werden die Uniform-Variablen x und y dem Shader übergeben.
-Beim Dreieck sind das die Positions-Koordinaten.
-Beim Quad ist es 0, 0 und somit bleibt das Quadrat stehen.
-Mit <b>glUniform1f(...</b> kann man einen Float-Wert dem Shader übergeben.
-*)
 //code+
-procedure TForm1.ogcDrawScene(Sender: TObject);
+procedure TForm1.DrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -157,7 +133,7 @@ begin
 
   // Zeichne Dreieck
   glUniform3f(Color_ID, 1.0, 1.0, 0.0); // Gelb
-  with TrianglePos do begin  // Beim Dreieck, die xy-Werte.
+  with TrianglePos do begin
     glUniform1f(X_ID, x);
     glUniform1f(Y_ID, y);
     TriangleMatrix.Uniform(Matrix_ID);
@@ -167,7 +143,7 @@ begin
 
   // Zeichne Quadrat
   glUniform3f(Color_ID, 1.0, 0.0, 0.0);  // Rot
-  glUniform1f(X_ID, 0.0);  // Beim Quadrat keine Verschiebung, daher 0.0, 0.0 .
+  glUniform1f(X_ID, 0.0);
   glUniform1f(Y_ID, 0.0);
   QuadMatrix.Uniform(Matrix_ID);
 
@@ -178,15 +154,8 @@ begin
   ogc.SwapBuffers;
 end;
 
-(*
-Den Timer vor dem Freigeben anhalten.
-*)
-//code+
-procedure TForm1.FormDestroy(Sender: TObject);
+procedure TForm1.Destroy_OpenGL;
 begin
-  Timer1.Enabled := False;
-  //code-
-
   Shader.Free;
 
   glDeleteVertexArrays(1, @VBTriangle.VAO);
@@ -196,10 +165,15 @@ begin
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
-(*
-Im Timer wird die Position berechnet, so dass sich das Dreieck bewegt.
-Anschliessend wird neu gezeichnet.
-*)
+//code+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  Timer1.Enabled := False;
+  //code-
+
+  Destroy_OpenGL;
+end;
+
 //code+
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
@@ -231,17 +205,15 @@ begin
     end;
   end;
   QuadMatrix.RotateC(0.02);
-  ogcDrawScene(Sender);  // Neu zeichnen
+  DrawScene(Sender);  // Neu zeichnen
 end;
+
 //code-
 
 //lineal
 
 (*
 <b>Vertex-Shader:</b>
-
-Hier sind die Uniform-Variablen <b>x</b> und <b>y</b> hinzugekommen.
-Diese werden im Vertex-Shader deklariert. Bewegungen kommen immer in diesen Shader.
 *)
 //includeglsl Vertexshader.glsl
 //lineal
