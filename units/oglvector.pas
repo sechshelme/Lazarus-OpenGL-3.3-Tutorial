@@ -35,6 +35,9 @@ type
   TFace3D = array[0..2] of TVector3f;
   PFace3D = ^TFace3D;
 
+  TFace = TFace3D;
+  PFace= ^TFace;
+
   TFace3DArray = array of TFace3D;
   PFace3DArray = ^TFace3DArray;
 
@@ -157,9 +160,13 @@ type
     procedure Scale(factor: GLfloat); overload;
     procedure Scale(x, y: GLfloat); overload;
     procedure Scale(x, y, z: GLfloat); overload;
+
+    function Size:SizeInt;
+    function Vector2DCount:SizeInt;
+    function Vector3DCount:SizeInt;
   end;
 
-  // --- GLSL Ähnlich
+  // --- GLSL Ähnliches
 
 function vec2(x, y: GLfloat): TVector2f;
 function vec3(x, y, z: GLfloat): TVector3f; overload;
@@ -1099,6 +1106,21 @@ begin
     Self[i * 3 + 1] *= y;
     Self[i * 3 + 2] *= z;
   end;
+end;
+
+function TglFloatArrayHelper.Size: SizeInt;
+begin
+  Result:=Length(Self)*SizeOf(GLfloat);
+end;
+
+function TglFloatArrayHelper.Vector2DCount: SizeInt;
+begin
+  Result:=Length(Self) div 2;
+end;
+
+function TglFloatArrayHelper.Vector3DCount: SizeInt;
+begin
+  Result:=Length(Self) div 3;
 end;
 
 end.

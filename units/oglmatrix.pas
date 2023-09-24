@@ -33,9 +33,6 @@ type
   TMatrix2D = Tmat3x3;
   PMatrix2D = ^TMatrix2D;
 
-  TFace = Tmat3x3;
-  PFace= ^TFace;
-
   { Tmat2x2Helper }
 
   Tmat2x2Helper = type Helper for Tmat2x2
