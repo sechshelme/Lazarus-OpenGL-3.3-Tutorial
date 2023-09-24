@@ -145,9 +145,13 @@ type
 
   TglFloatArrayHelper = type Helper for TglFloatArray
     procedure AddglFloatf(f: GLfloat);
-    procedure AddVector2f(const Vertex: TVector2f);
-    procedure AddVector3f(const Vertex: TVector3f);
-    procedure AddVector4f(const Vertex: TVector4f);
+
+    procedure AddVector2f(const Vertex: TVector2f);overload;
+    procedure AddVector2f(x,y:GLfloat);overload;
+    procedure AddVector3f(const Vertex: TVector3f);overload;
+    procedure AddVector3f(x,y,z:GLfloat);overload;
+    procedure AddVector4f(const Vertex: TVector4f);         overload;
+    procedure AddVector4f(x,y,z,w:GLfloat);overload;
 
     procedure AddFace2D(const Face: TFace2D); overload;
     procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
@@ -1010,6 +1014,11 @@ begin
   Move(Vertex, Self[p], SizeOf(TVector2f));
 end;
 
+procedure TglFloatArrayHelper.AddVector2f(x, y: GLfloat);
+begin
+  AddVector2f(vec2(x,y));
+end;
+
 procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
 var
   p: integer;
@@ -1019,6 +1028,11 @@ begin
   Move(Vertex, Self[p], SizeOf(TVector3f));
 end;
 
+procedure TglFloatArrayHelper.AddVector3f(x, y, z: GLfloat);
+begin
+  AddVector3f(vec3(x,y,z));
+end;
+
 procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
 var
   p: integer;
@@ -1026,6 +1040,11 @@ begin
   p := Length(Self);
   SetLength(Self, p + 4);
   Move(Vertex, Self[p], SizeOf(TVector4f));
+end;
+
+procedure TglFloatArrayHelper.AddVector4f(x, y, z, w: GLfloat);
+begin
+  AddVector4f(vec4(x,y,z,w));
 end;
 
 procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);

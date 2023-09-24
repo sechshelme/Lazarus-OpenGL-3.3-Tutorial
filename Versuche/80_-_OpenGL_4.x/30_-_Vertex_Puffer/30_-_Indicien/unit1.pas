@@ -1,6 +1,8 @@
 unit Unit1;
 
 {$mode objfpc}{$H+}
+{$modeswitch arrayoperators}
+
 
 interface
 
@@ -19,6 +21,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
+    procedure CreateVertex;
     procedure Init_OpenGL;
     procedure ogcDrawScene(Sender: TObject);
     procedure Destroy_OpenGL;
@@ -35,18 +38,6 @@ implementation
 
 //lineal
 
-const
-  TriangleVector: array of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  TriangleColor: array of TFace =
-    (((1.0, 1.0, 0.0), (0.0, 1.0, 1.0), (1.0, 0.0, 1.0)));
-
-  QuadVector: array of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
-  QuadColor: array of TFace =
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
-    ((1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0)));
 
 type
   TVB = record
@@ -55,15 +46,67 @@ type
   end;
 
 var
+  TriangleVectors: TglFloatArray = nil;
+  TriangleColors: TglFloatArray = nil;
+  TriangleIndices: array of TGLint = nil;
+
+  QuadVectors: TglFloatArray = nil;
+  QuadColors: TglFloatArray = nil;
+  QuadIndices: array of TGLint = nil;
+
   VBTriangle, VBQuad: TVB;
 
   //code+
+
+procedure TForm1.CreateVertex;
+const
+  s = 0.5;
+  Count = 1;
+var
+  x, y, i: integer;
+begin
+  for x := -Count to Count do begin
+    for y := -Count to Count do begin
+      TriangleVectors.AddVector3f(x * s, y * s, 0);
+      TriangleVectors.AddVector3f(x * s, y * s + 0.1, 0);
+      TriangleVectors.AddVector3f(x * s + 0.1, y * s + 0.1, 0);
+      TriangleVectors.AddVector3f(x * s + 0.1, y * s, 0);
+
+      TriangleColors.AddVector3f(1, 0, 0);
+      TriangleColors.AddVector3f(0, 1, 0);
+      TriangleColors.AddVector3f(0, 0, 1);
+      TriangleColors.AddVector3f(1, 0, 1);
+    end;
+  end;
+
+  x := 0;
+  for i := 0 to (Count * 2 + 1) * (Count * 2 + 1) - 1 do begin
+    TriangleIndices += [x, x + 1, x + 2, x, x + 2, x + 3];
+    Inc(x, 4);
+  end;
+end;
+
+
+
 procedure TForm1.FormCreate(Sender: TObject);
+const
+  QuadVector: array of TFace =
+    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
+    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  QuadColor: array of TFace =
+    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
+    ((1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0)));
 begin
   //remove+
   Width := 340;
   Height := 240;
   //remove-
+
+  CreateVertex;
+
+  QuadVectors.AddFace3DArray(QuadVector);
+  QuadColors.AddFace3DArray(QuadColor);
+
   Init_OpenGL;
 end;
 
@@ -88,30 +131,30 @@ begin
 
   // Daten für das Dreieck
   glCreateBuffers(1, @VBTriangle.VBO);
-  glNamedBufferStorage(VBTriangle.VBO, Length(TriangleVector) * (sizeof(TFace) + sizeof(TFace)), nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBTriangle.VBO, 0, Length(TriangleVector) * sizeof(TFace), PFace(TriangleVector));
-  glNamedBufferSubData(VBTriangle.VBO, Length(TriangleVector) * sizeof(TFace), Length(TriangleVector) * sizeof(TFace), PFace(TriangleColor));
+  glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
+  glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
+  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
 
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(Length(TriangleVector) * sizeof(TFace)));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(TriangleVectors.Size));
   glEnableVertexAttribArray(1);
 
   // Daten für das Quad
   glCreateBuffers(1, @VBQuad.VBO);
-  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * (sizeof(TFace) + sizeof(TFace)), nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBQuad.VBO, 0, Length(QuadVector) * sizeof(TFace), PFace(QuadVector));
-  glNamedBufferSubData(VBQuad.VBO, Length(QuadVector) * sizeof(TFace), Length(QuadVector) * sizeof(TFace), PFace(QuadColor));
+  glNamedBufferStorage(VBQuad.VBO, QuadVectors.Size + QuadColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
+  glNamedBufferSubData(VBQuad.VBO, 0, QuadVectors.Size, PFace(QuadVectors));
+  glNamedBufferSubData(VBQuad.VBO, QuadVectors.Size, QuadColors.Size, PFace(QuadColors));
 
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(Length(QuadVector) * sizeof(TFace)));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(QuadVectors.Size));
   glEnableVertexAttribArray(1);
 end;
 
@@ -125,11 +168,12 @@ begin
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
+  //  glDrawArrays(GL_TRIANGLES, 0, TriangleVectors.Vector3DCount);
+  glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_INT, PGLfloat(TriangleIndices));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVectors.Vector3DCount);
 
   ogc.SwapBuffers;
 end;
