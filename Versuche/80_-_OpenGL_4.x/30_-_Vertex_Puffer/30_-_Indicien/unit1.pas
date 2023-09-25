@@ -42,17 +42,18 @@ implementation
 type
   TVB = record
     VAO,
+    EBO,
     VBO: GLuint;
   end;
 
 var
   TriangleVectors: TglFloatArray = nil;
   TriangleColors: TglFloatArray = nil;
-  TriangleIndices: array of TGLint = nil;
+  TriangleIndices: array of TGLshort = nil;
 
   QuadVectors: TglFloatArray = nil;
   QuadColors: TglFloatArray = nil;
-  QuadIndices: array of TGLint = nil;
+  QuadIndices: array of TGLshort = nil;
 
   VBTriangle, VBQuad: TVB;
 
@@ -60,17 +61,18 @@ var
 
 procedure TForm1.CreateVertex;
 const
-  s = 0.5;
+  s = 0.6;
   Count = 1;
+  si = 0.25;
 var
   x, y, i: integer;
 begin
   for x := -Count to Count do begin
     for y := -Count to Count do begin
-      TriangleVectors.AddVector3f(x * s, y * s, 0);
-      TriangleVectors.AddVector3f(x * s, y * s + 0.1, 0);
-      TriangleVectors.AddVector3f(x * s + 0.1, y * s + 0.1, 0);
-      TriangleVectors.AddVector3f(x * s + 0.1, y * s, 0);
+      TriangleVectors.AddVector3f(x * s - si, y * s - si, 0);
+      TriangleVectors.AddVector3f(x * s - si, y * s + si, 0);
+      TriangleVectors.AddVector3f(x * s + si, y * s + si, 0);
+      TriangleVectors.AddVector3f(x * s + si, y * s - si, 0);
 
       TriangleColors.AddVector3f(1, 0, 0);
       TriangleColors.AddVector3f(0, 1, 0);
@@ -130,27 +132,33 @@ begin
   //   https://github.com/drew-diamantoukos/OpenGLBookExamples/blob/master/Projects/OpenGLBookExamples/Main.cpp
 
   // Daten für das Dreieck
+  glGenVertexArrays(1, @VBTriangle.VAO);
+  glBindVertexArray(VBTriangle.VAO);
+
   glCreateBuffers(1, @VBTriangle.VBO);
   glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
   glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
   glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
 
-  glGenVertexArrays(1, @VBTriangle.VAO);
-  glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(TriangleVectors.Size));
   glEnableVertexAttribArray(1);
 
+  glGenBuffers(1, @VBTriangle.EBO);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.EBO);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, Length(TriangleIndices) * sizeof(TGLfloat), PGLshort(TriangleIndices), GL_STATIC_DRAW);
+
   // Daten für das Quad
+  glGenVertexArrays(1, @VBQuad.VAO);
+  glBindVertexArray(VBQuad.VAO);
+
   glCreateBuffers(1, @VBQuad.VBO);
   glNamedBufferStorage(VBQuad.VBO, QuadVectors.Size + QuadColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
   glNamedBufferSubData(VBQuad.VBO, 0, QuadVectors.Size, PFace(QuadVectors));
   glNamedBufferSubData(VBQuad.VBO, QuadVectors.Size, QuadColors.Size, PFace(QuadColors));
 
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
@@ -168,8 +176,9 @@ begin
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  //  glDrawArrays(GL_TRIANGLES, 0, TriangleVectors.Vector3DCount);
-  glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_INT, PGLfloat(TriangleIndices));
+
+//  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.EBO);
+  glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_SHORT, nil);
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -182,11 +191,13 @@ procedure TForm1.Destroy_OpenGL;
 begin
   Shader.Free;
 
+  glDeleteBuffers(1, @VBTriangle.VBO);
+  glDeleteBuffers(1, @VBTriangle.EBO);
+
+  glDeleteBuffers(1, @VBQuad.VBO);
+
   glDeleteVertexArrays(1, @VBTriangle.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
-
-  glDeleteBuffers(1, @VBTriangle.VBO);
-  glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
 //code-
