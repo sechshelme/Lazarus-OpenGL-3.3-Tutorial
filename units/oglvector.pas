@@ -23,6 +23,9 @@ type
   TVector5f = array[0..4] of GLfloat;
   PVector5f = ^TVector5f;
 
+  TVector6f = array[0..5] of GLfloat;
+  PVector6f = ^TVector6f;
+
   TLine2D = array[0..1] of TVector2f;
   PLine2D = ^TLine2D;
 

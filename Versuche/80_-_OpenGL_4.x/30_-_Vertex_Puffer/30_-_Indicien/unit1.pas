@@ -18,9 +18,11 @@ type
   TForm1 = class(TForm)
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
@@ -54,9 +56,9 @@ var
   TriangleColors: TglFloatArray = nil;
   TriangleIndices: array of TGLshort = nil;
 
-  QuadVectors: TglFloatArray = nil;
-  QuadColors: TglFloatArray = nil;
-  QuadIndices: array of TGLshort = nil;
+  //QuadVectors: TglFloatArray = nil;
+  //QuadColors: TglFloatArray = nil;
+  //QuadIndices: array of TGLshort = nil;
 
   VBTriangle, VBQuad: TVB;
 
@@ -91,16 +93,13 @@ begin
   end;
 end;
 
+const
+  QuadVector: array of TVector6f =
+    ((-0.8, -0.8, 0.1, 0.5, 0.0, 0.0), (-0.8, 0.8, 0.1, 0.0, 0.5, 0.0), (0.8, 0.8, 0.1, 0.0, 0.0, 0.5),
+    (-0.8, -0.8, 0.1, 0.5, 0.0, 0.0), (0.8, 0.8, 0.1, 0.0, 0.0, 0.5), (0.8, -0.8, 0.1, 0.5, 0.5, 0.0));
 
 
 procedure TForm1.FormCreate(Sender: TObject);
-const
-  QuadVector: array of TFace =
-    (((-0.8, -0.8, 0.1), (-0.8, 0.8, 0.1), (0.8, 0.8, 0.1)),
-    ((-0.8, -0.8, 0.1), (0.8, 0.8, 0.1), (0.8, -0.8, 0.1)));
-  QuadColor: array of TFace =
-    (((0.5, 0.0, 0.0), (0.0, 0.5, 0.0), (0.0, 0.0, 0.5)),
-    ((0.5, 0.0, 0.0), (0.0, 0.0, 0.5), (0.5, 0.5, 0.0)));
 begin
   //remove+
   Width := 340;
@@ -109,13 +108,15 @@ begin
 
   CreateVertex;
 
-  QuadVectors.AddFace3DArray(QuadVector);
-  QuadColors.AddFace3DArray(QuadColor);
+  //  QuadVectors.AddFace3DArray(QuadVector);
+  //  QuadColors.AddFace3DArray(QuadColor);
 
   Init_OpenGL;
 end;
 
 procedure TForm1.Init_OpenGL;
+var
+  vsize: SizeInt;
 begin
   // --- Context erzeugen
   ogc := TContext.Create(Self);
@@ -159,14 +160,20 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   glCreateBuffers(1, @VBQuad.VBO);
-  glNamedBufferStorage(VBQuad.VBO, QuadVectors.Size + QuadColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBQuad.VBO, 0, QuadVectors.Size, PFace(QuadVectors));
-  glNamedBufferSubData(VBQuad.VBO, QuadVectors.Size, QuadColors.Size, PFace(QuadColors));
+
+  QuadVector[0,3]:=1;
+  QuadVector[0,4]:=1;
+  QuadVector[0,5]:=1;
+
+  vsize := Length(QuadVector) * SizeOf(TVector6f);
+  glNamedBufferStorage(VBQuad.VBO, vsize, nil, GL_DYNAMIC_STORAGE_BIT);
+  glNamedBufferSubData(VBQuad.VBO, 0, vsize, PVector6f(QuadVector));
+  glNamedBufferSubData(VBQuad.VBO, SizeOf(TVector3f), vsize, PVector6f(QuadVector));
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, nil);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(QuadVectors.Size));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, TGLvoid(12));
   glEnableVertexAttribArray(1);
 end;
 
@@ -180,12 +187,11 @@ begin
 
   // Zeichne 9 Quadrats
   glBindVertexArray(VBTriangle.VAO);
-
   glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_SHORT, nil);
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, QuadVectors.Vector3DCount);
+  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector));
 
   ogc.SwapBuffers;
 end;
@@ -218,6 +224,22 @@ begin
     TriangleColors[i] := Random;
   end;
   glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
+  ogcDrawScene(Sender);
+end;
+
+procedure TForm1.MenuItem2Click(Sender: TObject);
+var
+  i, j: integer;
+  vsize: SizeInt;
+begin
+  for i := 0 to Length(QuadVector) - 1 do begin
+    for j := 3 to 5 do begin
+      QuadVector[i, j] := Random;
+    end;
+  end;
+  vsize := Length(QuadVector) * SizeOf(TVector6f);
+  glNamedBufferSubData(VBQuad.VBO, 0, vsize, PVector6f(QuadVector));
+  glNamedBufferSubData(VBQuad.VBO, SizeOf(TVector3f), vsize, PVector6f(QuadVector));
   ogcDrawScene(Sender);
 end;
 
