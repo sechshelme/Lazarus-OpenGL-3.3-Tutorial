@@ -36,7 +36,7 @@ type
   PFace3D = ^TFace3D;
 
   TFace = TFace3D;
-  PFace= ^TFace;
+  PFace = ^TFace;
 
   TFace3DArray = array of TFace3D;
   PFace3DArray = ^TFace3DArray;
@@ -146,12 +146,12 @@ type
   TglFloatArrayHelper = type Helper for TglFloatArray
     procedure AddglFloatf(f: GLfloat);
 
-    procedure AddVector2f(const Vertex: TVector2f);overload;
-    procedure AddVector2f(x,y:GLfloat);overload;
-    procedure AddVector3f(const Vertex: TVector3f);overload;
-    procedure AddVector3f(x,y,z:GLfloat);overload;
-    procedure AddVector4f(const Vertex: TVector4f);         overload;
-    procedure AddVector4f(x,y,z,w:GLfloat);overload;
+    procedure AddVector2f(const Vertex: TVector2f); overload;
+    procedure AddVector2f(x, y: GLfloat); overload;
+    procedure AddVector3f(const Vertex: TVector3f); overload;
+    procedure AddVector3f(x, y, z: GLfloat); overload;
+    procedure AddVector4f(const Vertex: TVector4f); overload;
+    procedure AddVector4f(x, y, z, w: GLfloat); overload;
 
     procedure AddFace2D(const Face: TFace2D); overload;
     procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
@@ -165,9 +165,9 @@ type
     procedure Scale(x, y: GLfloat); overload;
     procedure Scale(x, y, z: GLfloat); overload;
 
-    function Size:SizeInt;
-    function Vector2DCount:SizeInt;
-    function Vector3DCount:SizeInt;
+    function Size: SizeInt;
+    function Vector2DCount: SizeInt;
+    function Vector3DCount: SizeInt;
   end;
 
   // --- GLSL Ähnliches
@@ -1016,7 +1016,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector2f(x, y: GLfloat);
 begin
-  AddVector2f(vec2(x,y));
+  AddVector2f(vec2(x, y));
 end;
 
 procedure TglFloatArrayHelper.AddVector3f(const Vertex: TVector3f);
@@ -1030,7 +1030,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector3f(x, y, z: GLfloat);
 begin
-  AddVector3f(vec3(x,y,z));
+  AddVector3f(vec3(x, y, z));
 end;
 
 procedure TglFloatArrayHelper.AddVector4f(const Vertex: TVector4f);
@@ -1044,7 +1044,7 @@ end;
 
 procedure TglFloatArrayHelper.AddVector4f(x, y, z, w: GLfloat);
 begin
-  AddVector4f(vec4(x,y,z,w));
+  AddVector4f(vec4(x, y, z, w));
 end;
 
 procedure TglFloatArrayHelper.AddFace2D(const Face: TFace2D);
@@ -1129,17 +1129,17 @@ end;
 
 function TglFloatArrayHelper.Size: SizeInt;
 begin
-  Result:=Length(Self)*SizeOf(GLfloat);
+  Result := Length(Self) * SizeOf(GLfloat);
 end;
 
 function TglFloatArrayHelper.Vector2DCount: SizeInt;
 begin
-  Result:=Length(Self) div 2;
+  Result := Length(Self) div 2;
 end;
 
 function TglFloatArrayHelper.Vector3DCount: SizeInt;
 begin
-  Result:=Length(Self) div 3;
+  Result := Length(Self) div 3;
 end;
 
 end.

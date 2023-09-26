@@ -16,8 +16,11 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
@@ -93,11 +96,11 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 const
   QuadVector: array of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+    (((-0.8, -0.8, 0.1), (-0.8, 0.8, 0.1), (0.8, 0.8, 0.1)),
+    ((-0.8, -0.8, 0.1), (0.8, 0.8, 0.1), (0.8, -0.8, 0.1)));
   QuadColor: array of TFace =
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
-    ((1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0)));
+    (((0.5, 0.0, 0.0), (0.0, 0.5, 0.0), (0.0, 0.0, 0.5)),
+    ((0.5, 0.0, 0.0), (0.0, 0.0, 0.5), (0.5, 0.5, 0.0)));
 begin
   //remove+
   Width := 340;
@@ -120,6 +123,7 @@ begin
 
   glClearColor(0.6, 0.6, 0.4, 1.0);                  // Hintergrundfarbe
   glEnable(GL_BLEND);                                // Alphablending an
+  glEnable(GL_DEPTH_TEST);                           // Tiefenprüfung einschalten.
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Sortierung der Primitiven von hinten nach vorne.
 
   // --- Shader laden
@@ -131,7 +135,7 @@ begin
 
   //   https://github.com/drew-diamantoukos/OpenGLBookExamples/blob/master/Projects/OpenGLBookExamples/Main.cpp
 
-  // Daten für das Dreieck
+  // Daten für 9 Quadrats
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
 
@@ -171,13 +175,12 @@ end;
 //code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   Shader.UseProgram;
 
-  // Zeichne Dreieck
+  // Zeichne 9 Quadrats
   glBindVertexArray(VBTriangle.VAO);
 
-//  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.EBO);
   glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_SHORT, nil);
 
   // Zeichne Quadrat
@@ -205,6 +208,17 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Destroy_OpenGL;
+end;
+
+procedure TForm1.MenuItem1Click(Sender: TObject);
+var
+  i: integer;
+begin
+  for i := 0 to Length(TriangleColors) - 1 do begin
+    TriangleColors[i] := Random;
+  end;
+  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
+  ogcDrawScene(Sender);
 end;
 
 //lineal
