@@ -8,7 +8,15 @@ uniform mat4 Matrix;
 
 in vec2 TextureCoord[];
 
-out float Height;
+//out float Height;
+float Height;
+out vec3 col;
+
+float log10(float x){
+    //log10(x) = log(x) / log(10) = (1 / log(10)) * log(x)
+    const float d = 1. / log(10);
+    return d * log(x);
+}
 
 void main()
 {
@@ -36,8 +44,16 @@ void main()
       Height = texture(heightMap, texCoord).z;
     }
 
-    Height *= 2;
-    p += normal * ( -Height + 0.5)  / 10;
+    col = texture(heightMap, texCoord).rgb;
 
-    gl_Position = Matrix * vec4(p, 1.0);
+    Height *= 2.0;
+//    Height = log(Height)/log(100);
+//    Height = log(Height) / 3;
+    Height = log10(Height);
+
+
+//    p +=  normal * ( -Height + 0.5)  / 10;
+    p.z +=  (normal * ( -Height + 0.5)  / 10).z;
+
+   gl_Position = Matrix * vec4(p, 1.0);
 }

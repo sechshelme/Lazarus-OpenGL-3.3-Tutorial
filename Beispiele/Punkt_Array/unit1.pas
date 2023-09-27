@@ -1,6 +1,7 @@
 unit Unit1;
 
 {$mode objfpc}{$H+}
+{$modeswitch arrayoperators}
 
 interface
 
@@ -97,8 +98,8 @@ var
 begin
   SetLength(Pixels, PixelCount);
   for i := 0 to Length(Pixels) - 1 do begin
-    Pixels[i].Pos := vec3(Random * 20, Random * 20, Random * 20);
-    Pixels[i].Col := vec3(Random, Random, Random);
+    Pixels[i].Pos := [Random * 20, Random * 20, Random * 20];
+    Pixels[i].Col := [Random, Random, Random];
   end;
 
   Matrix.Identity;

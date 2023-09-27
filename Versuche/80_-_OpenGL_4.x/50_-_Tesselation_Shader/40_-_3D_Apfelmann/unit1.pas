@@ -36,6 +36,8 @@ var
 
 implementation
 
+// https://www.shadertoy.com/view/tsKXzW
+
 {$R *.lfm}
 
 const
@@ -63,7 +65,7 @@ const
     ((0.0, 1.0), (0.0, 0.0), (1.0, 1.0), (1.0, 0.0)));
 
 const
-  TexturSize = 2048;
+  TexturSize = 4096;
 
 var
   Quad_Shader: record
@@ -284,6 +286,8 @@ begin
     if col >= 10.0 then begin
       col := col - 10.0;
     end;
+
+    col:=5;
 
     WorldMatrix.RotateC(-Pi / 124);
   end;
