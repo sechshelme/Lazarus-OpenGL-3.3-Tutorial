@@ -133,20 +133,21 @@ begin
   Shader.UseProgram;
 
   //   https://github.com/drew-diamantoukos/OpenGLBookExamples/blob/master/Projects/OpenGLBookExamples/Main.cpp
+  // https://blog.csdn.net/yuxiaohen/article/details/50551232
 
-  // glMapBuffer
 
   // Daten für 9 Quadrats
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
 
   glCreateBuffers(1, @VBTriangle.VBO);
-//  glNamedBufferData(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
+
+  //  glNamedBufferData(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_STATIC_DRAW);
   glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
   glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
   glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, PGLvoid(TriangleVectors.Size));
@@ -154,7 +155,7 @@ begin
 
   glCreateBuffers(1, @VBTriangle.EBO);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.EBO);
-//  glNamedBufferData(VBTriangle.EBO, Length(TriangleIndices) * sizeof(TGLfloat), nil, GL_STATIC_DRAW);
+  //  glNamedBufferData(VBTriangle.EBO, Length(TriangleIndices) * sizeof(TGLfloat), nil, GL_STATIC_DRAW);
   glNamedBufferStorage(VBTriangle.EBO, Length(TriangleIndices) * sizeof(TGLfloat), nil, GL_DYNAMIC_STORAGE_BIT);
   glNamedBufferSubData(VBTriangle.EBO, 0, Length(TriangleIndices) * sizeof(TGLfloat), PGLshort(TriangleIndices));
 
@@ -163,10 +164,12 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   glCreateBuffers(1, @VBQuad.VBO);
-
-  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_DYNAMIC_STORAGE_BIT);
-
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
+
+    glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
+//  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), nil, GL_CLIENT_STORAGE_BIT);
+//  glNamedBufferSubData(VBQuad.VBO, 0, Length(QuadVector) * sizeof(TVector6f), PGLshort(QuadVector));
+
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, nil);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, PGLvoid(12));
@@ -228,7 +231,8 @@ var
   i, j: integer;
   vsize: SizeInt;
 
-  v:Pointer;
+  v: PVector6f;
+  e: GLenum;
 
   // https://learnopengl.com/Advanced-OpenGL/Advanced-Data
   // https://www.reddit.com/r/opengl/comments/aifvjl/glnamedbufferstorage_vs_glbufferdata/
@@ -252,15 +256,35 @@ begin
   glNamedBufferSubData(VBQuad.VBO, 0, vsize, PVector6f(QuadVector));
   glNamedBufferSubData(VBQuad.VBO, SizeOf(TVector3f), vsize, PVector6f(QuadVector));
 
+  glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  v:=glMapNamedBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
-//
+  //  v:=glMapNamedBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
+  v := glMapNamedBuffer(VBQuad.VBO, GL_WRITE_ONLY);
+
+  e := glGetError();
+  case e of
+    GL_INVALID_ENUM: begin
+      WriteLn('error: ', 1, '   ', e);
+    end;
+    GL_INVALID_OPERATION: begin
+      WriteLn('error: ', 2, '   ', e);
+    end;
+    GL_OUT_OF_MEMORY: begin
+      WriteLn('error: ', 3, '   ', e);
+    end;
+  end;
   WriteLn(PtrUInt(v));
-////  v[0, 3]:=1;
-////  v[0, 4]:=1;
-////  v[0, 5]:=1;
-//
-  glUnmapBuffer(GL_ARRAY_BUFFER);
+
+  if v <> nil then begin
+    //
+    v[0, 3] := 1;
+    v[0, 4] := 1;
+    v[0, 5] := 1;
+    glUnmapBuffer(GL_ARRAY_BUFFER);
+  end;
+  //
+
+  //  glTransformFeedbackVaryings:=;
 
 
   ogcDrawScene(Sender);
