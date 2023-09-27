@@ -114,7 +114,7 @@ begin
   glEnableVertexAttribArray(10);
   glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
-  RotMatrix.RotateC(0.03); // RotMatrix rotieren
+  RotMatrix.RotateB(0.03); // RotMatrix rotieren
 
 end;
 
@@ -157,7 +157,11 @@ begin
     c := c - 10.0;
   end;
 
-  lights[0] := (RotMatrix * vec4(lights[0], 1)).xyz;
+//  lights[0] := (RotMatrix * vec4(lights[0], 1)).xyz;
+
+lights[0].RotateB(0.01);
+lights[1].RotateB(0.012);
+lights[2].RotateB(0.013);
   //  lights[1] := (RotMatrix * vec4(lights[1], 1)).xyz;
   //  lights[2] := (RotMatrix * vec4(lights[2], 1)).xyz;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="11">
       <Unit0>
@@ -21,7 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="63" Y="227"/>
+        <TopLine Value="161"/>
+        <CursorPos X="72" Y="188"/>
         <UsageCount Value="34"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -216,5 +217,9 @@
         <Caret Line="227" Column="72" TopLine="196"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>
