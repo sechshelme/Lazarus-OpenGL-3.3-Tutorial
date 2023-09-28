@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglVector, oglMatrix, oglShader,oglLogForm;
+  oglContext, oglVector, oglMatrix, oglShader, oglLogForm;
 
 type
   TForm1 = class(TForm)
@@ -31,7 +31,7 @@ implementation
 // https://gist.github.com/cagelight/3eb282c683fb9c9be666
 
 var
-  VAO, VBO: gluint;
+  VAO0, VAO1, VBO0, VBO1: gluint;
 
 
 
@@ -48,47 +48,69 @@ end;
 // https://github.com/NeilMonday/ogl-samples/blob/master/tests/gl-430-draw-vertex-attrib-binding.cpp
 
 const
-  vertices: array of TVector3f = (
-    (-0.90, -0.90, 0), (1, 0, 0),
-    (0.85, -0.90, 0), (0, 1, 0),
-    (-0.90, 0.85, 0), (0, 0, 1),
-    (0.90, -0.85, 0), (1, 0, 0),
-    (0.90, 0.90, 0), (0, 1, 0),
-    (-0.85, 0.90, 0), (0, 0, 1));
+  vertices0: array of TVector3f = (
+    (-0.90, -0.90, 0), (1, 0, 0), (-0.10, -0.90, 0), (0, 1, 0), (-0.90, 0.85, 0), (0, 0, 1),
+    (-0.05, -0.85, 0), (1, 0, 0), (-0.05, 0.90, 0), (0, 1, 0), (-0.85, 0.90, 0), (0, 0, 1));
+
+  vertices1: array of TVector3f = (
+    (0.10, -0.90, 0), (0.90, -0.90, 0), (0.10, 0.85, 0), (0.95, -0.85, 0), (0.95, 0.90, 0), (0.15, 0.90, 0),
+    (1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 0), (0, 1, 0), (0, 0, 1));
+
 
 procedure TForm1.CreateScene;
 begin
   InitOpenGLDebug;
   LogForm.Show;
 
-  Shader := TShader.Create([GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'), GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  glCreateBuffers(1, @VBO);
-  glNamedBufferData(VBO, Length(vertices) * SizeOf(TVector3f), PVector3f(vertices), GL_STATIC_DRAW);
+  // Mesh 0
+  glCreateBuffers(1, @VBO0);
+  glNamedBufferData(VBO0, Length(vertices0) * SizeOf(TVector3f), PVector3f(vertices0), GL_STATIC_DRAW);
 
-  glGenVertexArrays(1, @VAO);
-  glBindVertexArray(VAO);
+  glGenVertexArrays(1, @VAO0);
+  glBindVertexArray(VAO0);
 
   glVertexAttribBinding(0, 0);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
 
-  glVertexAttribBinding(1, 1);
-  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f));
+  glVertexAttribBinding(1, 0);
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 12);
   glEnableVertexAttribArray(1);
 
-  glBindVertexBuffer(0, VBO, 0, 24);
-  glBindVertexBuffer(1, VBO, 0, 24);
+  glBindVertexBuffer(0, VBO0, 0, 24);
+
+  // Mesh 1
+  glCreateBuffers(1, @VBO1);
+  glNamedBufferData(VBO1, Length(vertices1) * SizeOf(TVector3f), PVector3f(vertices1), GL_STATIC_DRAW);
+
+  glGenVertexArrays(1, @VAO1);
+  glBindVertexArray(VAO1);
+
+  glVertexAttribBinding(0, 10);
+  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+  glEnableVertexAttribArray(0);
+
+  glVertexAttribBinding(1, 10);
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 72);
+  glEnableVertexAttribArray(1);
+
+  glBindVertexBuffer(10, VBO1, 0, 12);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
-  glClearColor(12,12,12,12);
-  glClearBufferfv(GL_COLOR, 0, vec4(10.5, 0.0, 0.5, 1.0));
+  glClearBufferfv(GL_COLOR, 0, vec4(0.5, 0.0, 0.5, 1.0));
 
-  glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(vertices));
+  glBindVertexArray(VAO0);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+
+  glBindVertexArray(VAO1);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
   ogc.SwapBuffers;
 end;

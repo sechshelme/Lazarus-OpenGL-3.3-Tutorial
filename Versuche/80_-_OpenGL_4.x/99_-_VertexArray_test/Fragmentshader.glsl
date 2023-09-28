@@ -6,5 +6,5 @@ in vec3 col;
 
 void main()
 {
-  fColor = vec4(col.xy, 1, 1.0);
+  fColor = vec4(col, 1.0);
 }
