@@ -161,6 +161,7 @@ type
     rotation: TVector4f;
     Enabled: TGLboolean;
   end;
+
 const
   UBORec: TUBORec = (
     translation: (0.1, 0.1, 0.0);

@@ -52,15 +52,37 @@ type
   end;
 
 var
-  TriangleVectors: TglFloatArray = nil;
-  TriangleColors: TglFloatArray = nil;
-  TriangleIndices: array of TGLshort = nil;
+  Quad9Vectors: TglFloatArray = nil;
+  Quad9Colors: TglFloatArray = nil;
+  Quad9Indices: array of TGLshort = nil;
 
-  //QuadVectors: TglFloatArray = nil;
-  //QuadColors: TglFloatArray = nil;
-  //QuadIndices: array of TGLshort = nil;
+  UBO: TGLuint;
+  VB9Quad, VBQuad: TVB;
 
-  VBTriangle, VBQuad: TVB;
+var
+  uboIndex: TGLuint;
+  uboSize: TGLint;
+
+type
+  TUBORec = record
+    translation: TVector3f;
+    scale: TGLfloat;
+    rotation: TVector4f;
+    Enabled: TGLboolean;
+  end;
+
+const
+  UBORec9Quad: TUBORec = (
+    translation: (0.2, 0.0, 0.0);
+    scale: 1.0;
+    rotation: (0, 0, 0, 1);
+    Enabled: True);
+
+  UBORecQuad: TUBORec = (
+    translation: (-0.3, 0.1, 0.0);
+    scale: 0.5;
+    rotation: (90, 0, 0, 1);
+    Enabled: True);
 
   //code+
 
@@ -74,21 +96,21 @@ var
 begin
   for x := -Count to Count do begin
     for y := -Count to Count do begin
-      TriangleVectors.AddVector3f(x * s - si, y * s - si, 0);
-      TriangleVectors.AddVector3f(x * s - si, y * s + si, 0);
-      TriangleVectors.AddVector3f(x * s + si, y * s + si, 0);
-      TriangleVectors.AddVector3f(x * s + si, y * s - si, 0);
+      Quad9Vectors.AddVector3f(x * s - si, y * s - si, 0);
+      Quad9Vectors.AddVector3f(x * s - si, y * s + si, 0);
+      Quad9Vectors.AddVector3f(x * s + si, y * s + si, 0);
+      Quad9Vectors.AddVector3f(x * s + si, y * s - si, 0);
 
-      TriangleColors.AddVector3f(1, 0, 0);
-      TriangleColors.AddVector3f(0, 1, 0);
-      TriangleColors.AddVector3f(0, 0, 1);
-      TriangleColors.AddVector3f(1, 0, 1);
+      Quad9Colors.AddVector3f(1, 0, 0);
+      Quad9Colors.AddVector3f(0, 1, 0);
+      Quad9Colors.AddVector3f(0, 0, 1);
+      Quad9Colors.AddVector3f(1, 0, 1);
     end;
   end;
 
   x := 0;
   for i := 0 to (Count * 2 + 1) * (Count * 2 + 1) - 1 do begin
-    TriangleIndices += [x, x + 1, x + 2, x, x + 2, x + 3];
+    Quad9Indices += [x, x + 1, x + 2, x, x + 2, x + 3];
     Inc(x, 4);
   end;
 end;
@@ -97,6 +119,9 @@ const
   QuadVector: array of TVector6f =
     ((-0.8, -0.8, 0.1, 0.5, 0.0, 0.0), (-0.8, 0.8, 0.1, 0.0, 0.5, 0.0), (0.8, 0.8, 0.1, 0.0, 0.0, 0.5),
     (-0.8, -0.8, 0.1, 0.5, 0.0, 0.0), (0.8, 0.8, 0.1, 0.0, 0.0, 0.5), (0.8, -0.8, 0.1, 0.5, 0.5, 0.0));
+
+  // https://github.com/drew-diamantoukos/OpenGLBookExamples/blob/master/Projects/OpenGLBookExamples/Main.cpp
+  // https://blog.csdn.net/yuxiaohen/article/details/50551232
 
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -107,9 +132,6 @@ begin
   //remove-
 
   CreateVertex;
-
-  //  QuadVectors.AddFace3DArray(QuadVector);
-  //  QuadColors.AddFace3DArray(QuadColor);
 
   Init_OpenGL;
 end;
@@ -132,34 +154,43 @@ begin
 
   Shader.UseProgram;
 
-  //   https://github.com/drew-diamantoukos/OpenGLBookExamples/blob/master/Projects/OpenGLBookExamples/Main.cpp
-  // https://blog.csdn.net/yuxiaohen/article/details/50551232
+  uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
+
+  // --- UBO
+
+  glCreateBuffers(1, @UBO);
+  glNamedBufferData(UBO, SizeOf(UBORec9Quad), nil, GL_STATIC_DRAW);
+  glNamedBufferSubData(UBO, 0, SizeOf(UBORec9Quad), @UBORec9Quad);
+  glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, UBO);
 
 
   // --- Daten für 9 Quadrats
-  glCreateBuffers(1, @VBTriangle.VBO);
-  //  glNamedBufferData(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_STATIC_DRAW);
-  glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
-  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
+  glCreateBuffers(1, @VB9Quad.VBO);
+  //  glNamedBufferData(VB9Quad.VBO, Quad9Vectors.Size + Quad9Colors.Size, nil, GL_STATIC_DRAW);
+  glNamedBufferStorage(VB9Quad.VBO, Quad9Vectors.Size + Quad9Colors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
+  glNamedBufferSubData(VB9Quad.VBO, 0, Quad9Vectors.Size, PFace(Quad9Vectors));
+  glNamedBufferSubData(VB9Quad.VBO, Quad9Vectors.Size, Quad9Colors.Size, PFace(Quad9Colors));
 
-  glGenVertexArrays(1, @VBTriangle.VAO);
-  glBindVertexArray(VBTriangle.VAO);
+  glGenVertexArrays(1, @VB9Quad.VAO);
+  glBindVertexArray(VB9Quad.VAO);
 
+  // Vektoren
   glVertexAttribBinding(0, 0);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
 
   glVertexAttribBinding(1, 0);
-  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, TriangleVectors.Size);
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, Quad9Vectors.Size);
   glEnableVertexAttribArray(1);
 
-  glBindVertexBuffer(0, VBTriangle.VBO, 0, SizeOf(TVector3f));
+  glBindVertexBuffer(0, VB9Quad.VBO, 0, SizeOf(TVector3f));
 
-  glCreateBuffers(1, @VBTriangle.EBO);
-  glNamedBufferData(VBTriangle.EBO, Length(TriangleIndices) * SizeOf(TGLshort), nil, GL_STATIC_DRAW);
-  glNamedBufferSubData(VBTriangle.EBO, 0, Length(TriangleIndices) * sizeof(TGLshort), PGLshort(TriangleIndices));
-  glVertexArrayElementBuffer(VBTriangle.VAO, VBTriangle.EBO);
+  // ArrayElement
+  glCreateBuffers(1, @VB9Quad.EBO);
+  glNamedBufferData(VB9Quad.EBO, Length(Quad9Indices) * SizeOf(TGLshort), nil, GL_STATIC_DRAW);
+  glNamedBufferSubData(VB9Quad.EBO, 0, Length(Quad9Indices) * sizeof(TGLshort), PGLshort(Quad9Indices));
+  glVertexArrayElementBuffer(VB9Quad.VAO, VB9Quad.EBO);
+
 
   // --- Daten für das Quad
   glCreateBuffers(1, @VBQuad.VBO);
@@ -188,11 +219,13 @@ begin
   Shader.UseProgram;
 
   // Zeichne 9 Quadrats
-  glBindVertexArray(VBTriangle.VAO);
-  glDrawElements(GL_TRIANGLES, Length(TriangleIndices), GL_UNSIGNED_SHORT, nil);
+  glBindVertexArray(VB9Quad.VAO);
+  glNamedBufferSubData(UBO, 0, SizeOf(UBORec9Quad), @UBORec9Quad);
+  glDrawElements(GL_TRIANGLES, Length(Quad9Indices), GL_UNSIGNED_SHORT, nil);
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
+  glNamedBufferSubData(UBO, 0, SizeOf(UBORecQuad), @UBORecQuad);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector));
 
   ogc.SwapBuffers;
@@ -202,12 +235,14 @@ procedure TForm1.Destroy_OpenGL;
 begin
   Shader.Free;
 
-  glDeleteBuffers(1, @VBTriangle.VBO);
-  glDeleteBuffers(1, @VBTriangle.EBO);
+  glDeleteBuffers(1, @VB9Quad.VBO);
+  glDeleteBuffers(1, @VB9Quad.EBO);
 
   glDeleteBuffers(1, @VBQuad.VBO);
 
-  glDeleteVertexArrays(1, @VBTriangle.VAO);
+  glDeleteBuffers(1, @UBO);
+
+  glDeleteVertexArrays(1, @VB9Quad.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
 end;
 
@@ -222,10 +257,10 @@ procedure TForm1.MenuItem1Click(Sender: TObject);
 var
   i: integer;
 begin
-  for i := 0 to Length(TriangleColors) - 1 do begin
-    TriangleColors[i] := Random;
+  for i := 0 to Length(Quad9Colors) - 1 do begin
+    Quad9Colors[i] := Random;
   end;
-  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
+  glNamedBufferSubData(VB9Quad.VBO, Quad9Vectors.Size, Quad9Colors.Size, PFace(Quad9Colors));
   ogcDrawScene(Sender);
 end;
 
