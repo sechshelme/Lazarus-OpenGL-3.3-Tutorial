@@ -136,44 +136,47 @@ begin
   // https://blog.csdn.net/yuxiaohen/article/details/50551232
 
 
-  // Daten für 9 Quadrats
-  glGenVertexArrays(1, @VBTriangle.VAO);
-  glBindVertexArray(VBTriangle.VAO);
-
+  // --- Daten für 9 Quadrats
   glCreateBuffers(1, @VBTriangle.VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-
   //  glNamedBufferData(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_STATIC_DRAW);
   glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
   glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
   glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
+  glGenVertexArrays(1, @VBTriangle.VAO);
+  glBindVertexArray(VBTriangle.VAO);
+
+  glVertexAttribBinding(0, 0);
+  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, PGLvoid(TriangleVectors.Size));
+
+  glVertexAttribBinding(1, 0);
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, TriangleVectors.Size);
   glEnableVertexAttribArray(1);
 
-  glCreateBuffers(1, @VBTriangle.EBO);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VBTriangle.EBO);
-  //  glNamedBufferData(VBTriangle.EBO, Length(TriangleIndices) * sizeof(TGLfloat), nil, GL_STATIC_DRAW);
-  glNamedBufferStorage(VBTriangle.EBO, Length(TriangleIndices) * sizeof(TGLfloat), nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBTriangle.EBO, 0, Length(TriangleIndices) * sizeof(TGLfloat), PGLshort(TriangleIndices));
+  glBindVertexBuffer(0, VBTriangle.VBO, 0, SizeOf(TVector3f));
 
-  // Daten für das Quad
+  glCreateBuffers(1, @VBTriangle.EBO);
+  glNamedBufferData(VBTriangle.EBO, Length(TriangleIndices) * SizeOf(TGLshort), nil, GL_STATIC_DRAW);
+  glNamedBufferSubData(VBTriangle.EBO, 0, Length(TriangleIndices) * sizeof(TGLshort), PGLshort(TriangleIndices));
+  glVertexArrayElementBuffer(VBTriangle.VAO, VBTriangle.EBO);
+
+  // --- Daten für das Quad
+  glCreateBuffers(1, @VBQuad.VBO);
+  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
+
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-  glCreateBuffers(1, @VBQuad.VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-
-    glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
-//  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), nil, GL_CLIENT_STORAGE_BIT);
-//  glNamedBufferSubData(VBQuad.VBO, 0, Length(QuadVector) * sizeof(TVector6f), PGLshort(QuadVector));
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, nil);
+  glVertexAttribBinding(0, 0);
+  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, PGLvoid(12));
+
+  glVertexAttribBinding(1, 0);
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 12);
   glEnableVertexAttribArray(1);
+
+  glBindVertexBuffer(0, VBQuad.VBO, 0, 24);
 end;
 
 //code-
