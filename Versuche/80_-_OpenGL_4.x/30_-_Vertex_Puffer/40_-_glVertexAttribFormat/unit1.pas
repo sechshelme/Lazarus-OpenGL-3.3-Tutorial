@@ -10,6 +10,9 @@ uses
   oglContext, oglVector, oglMatrix, oglShader, oglLogForm;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -18,6 +21,7 @@ type
     Shader: TShader;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
+    procedure ogcKeyPress(Sender: TObject; var Key: char);
   public
   end;
 
@@ -33,14 +37,14 @@ implementation
 var
   VAO0, VAO1, VBO0, VBO1: gluint;
 
-
-
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   Width := 340;
   Height := 240;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
+
+  ogc.OnKeyPress := @ogcKeyPress;
 
   CreateScene;
 end;
@@ -59,8 +63,6 @@ const
 
 procedure TForm1.CreateScene;
 begin
-  InitOpenGLDebug;
-  LogForm.Show;
 
   Shader := TShader.Create([
     GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
@@ -113,6 +115,38 @@ begin
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
   ogc.SwapBuffers;
+end;
+
+procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
+var
+  v: TVector3f;
+begin
+  case key of
+    #27: begin
+      Close;
+    end;
+    'r': begin
+      v := [1, 0, 0];
+    end;
+    'g': begin
+      v := [0, 1, 0];
+    end;
+    'b': begin
+      v := [0, 0, 1];
+    end;
+    else begin
+      v := [1, 1, 1];
+    end;
+  end;
+  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 1, SizeOf(v), @v);
+  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 3, SizeOf(v), @v);
+  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 5, SizeOf(v), @v);
+
+  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+0), SizeOf(v), @v);
+  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+1), SizeOf(v), @v);
+  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+2), SizeOf(v), @v);
+
+  ogcDrawScene(Sender);
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);

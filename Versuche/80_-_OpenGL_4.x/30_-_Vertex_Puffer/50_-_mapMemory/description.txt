@@ -1,3 +1,0 @@
-"Mesh Daten"
-
-Wie gelangen die Daten der Mesh in die Grafikkarte.

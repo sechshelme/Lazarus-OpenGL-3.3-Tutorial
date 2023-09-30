@@ -16,13 +16,8 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure MenuItem1Click(Sender: TObject);
-    procedure MenuItem2Click(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
@@ -30,6 +25,7 @@ type
     procedure Init_OpenGL;
     procedure ogcDrawScene(Sender: TObject);
     procedure Destroy_OpenGL;
+    procedure ogcKeyPress(Sender: TObject; var Key: char);
   end;
 
 var
@@ -134,6 +130,8 @@ begin
   CreateVertex;
 
   Init_OpenGL;
+
+  ogc.OnKeyPress := @ogcKeyPress;
 end;
 
 procedure TForm1.Init_OpenGL;
@@ -157,7 +155,6 @@ begin
   uboIndex := glGetUniformBlockIndex(Shader.ID, 'Uniforms');
 
   // --- UBO
-
   glCreateBuffers(1, @UBO);
   glNamedBufferData(UBO, SizeOf(UBORec9Quad), nil, GL_STATIC_DRAW);
   glNamedBufferSubData(UBO, 0, SizeOf(UBORec9Quad), @UBORec9Quad);
@@ -246,86 +243,45 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
 end;
 
+// https://learnopengl.com/Advanced-OpenGL/Advanced-Data
+// https://www.reddit.com/r/opengl/comments/aifvjl/glnamedbufferstorage_vs_glbufferdata/
+
+procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
+var
+  i: integer;
+  v: PVector6f;
+begin
+  case key of
+    #27: begin
+      Close;
+    end;
+    '1': begin
+      for i := 0 to Length(Quad9Colors) - 1 do begin
+        Quad9Colors[i] := Random;
+      end;
+      glNamedBufferSubData(VB9Quad.VBO, Quad9Vectors.Size, Quad9Colors.Size, PFace(Quad9Colors));
+      ogcDrawScene(Sender);
+    end;
+    '2': begin
+      v := glMapNamedBuffer(VBQuad.VBO, GL_WRITE_ONLY);
+      if v <> nil then begin
+        //
+        v[0, 3] := 1;
+        v[0, 4] := 1;
+        v[0, 5] := 1;
+        glUnmapBuffer(GL_ARRAY_BUFFER);
+      end;
+      //  glTransformFeedbackVaryings:=;
+    end;
+  end;
+  ogcDrawScene(Sender);
+end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Destroy_OpenGL;
-end;
-
-procedure TForm1.MenuItem1Click(Sender: TObject);
-var
-  i: integer;
-begin
-  for i := 0 to Length(Quad9Colors) - 1 do begin
-    Quad9Colors[i] := Random;
-  end;
-  glNamedBufferSubData(VB9Quad.VBO, Quad9Vectors.Size, Quad9Colors.Size, PFace(Quad9Colors));
-  ogcDrawScene(Sender);
-end;
-
-procedure TForm1.MenuItem2Click(Sender: TObject);
-var
-  i, j: integer;
-  vsize: SizeInt;
-
-  v: PVector6f;
-  e: GLenum;
-
-  // https://learnopengl.com/Advanced-OpenGL/Advanced-Data
-  // https://www.reddit.com/r/opengl/comments/aifvjl/glnamedbufferstorage_vs_glbufferdata/
-begin
-  for i := 0 to Length(QuadVector) - 1 do begin
-    for j := 3 to 5 do begin
-      QuadVector[i, j] := Random;
-    end;
-  end;
-  QuadVector[0, 3] := 1;
-  QuadVector[0, 4] := 1;
-  QuadVector[0, 5] := 1;
-  QuadVector[1, 3] := 1;
-  QuadVector[1, 4] := 1;
-  QuadVector[1, 5] := 1;
-  QuadVector[2, 3] := 1;
-  QuadVector[2, 4] := 1;
-  QuadVector[2, 5] := 1;
-
-  vsize := Length(QuadVector) * SizeOf(TVector6f);
-  glNamedBufferSubData(VBQuad.VBO, 0, vsize, PVector6f(QuadVector));
-  glNamedBufferSubData(VBQuad.VBO, SizeOf(TVector3f), vsize, PVector6f(QuadVector));
-
-  glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  //  v:=glMapNamedBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
-  v := glMapNamedBuffer(VBQuad.VBO, GL_WRITE_ONLY);
-
-  e := glGetError();
-  case e of
-    GL_INVALID_ENUM: begin
-      WriteLn('error: ', 1, '   ', e);
-    end;
-    GL_INVALID_OPERATION: begin
-      WriteLn('error: ', 2, '   ', e);
-    end;
-    GL_OUT_OF_MEMORY: begin
-      WriteLn('error: ', 3, '   ', e);
-    end;
-  end;
-  WriteLn(PtrUInt(v));
-
-  if v <> nil then begin
-    //
-    v[0, 3] := 1;
-    v[0, 4] := 1;
-    v[0, 5] := 1;
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-  end;
-  //
-
-  //  glTransformFeedbackVaryings:=;
-
-
-  ogcDrawScene(Sender);
 end;
 
 //lineal
