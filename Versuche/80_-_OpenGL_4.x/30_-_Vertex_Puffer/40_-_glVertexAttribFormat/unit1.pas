@@ -60,7 +60,6 @@ const
     (0.10, -0.90, 0), (0.90, -0.90, 0), (0.10, 0.85, 0), (0.95, -0.85, 0), (0.95, 0.90, 0), (0.15, 0.90, 0),
     (1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 0), (0, 1, 0), (0, 0, 1));
 
-
 procedure TForm1.CreateScene;
 begin
 
@@ -118,8 +117,23 @@ begin
 end;
 
 procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
+const
+  YellowBuffer: array of TVector3f = ((1, 1, 0), (1, 1, 0), (1, 1, 0));
 var
   v: TVector3f;
+  YellowVBO: gluint;
+
+  procedure NewVector;
+  begin
+    glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 1, SizeOf(v), @v);
+    glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 3, SizeOf(v), @v);
+    glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 5, SizeOf(v), @v);
+
+    glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6 + 0), SizeOf(v), @v);
+    glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6 + 1), SizeOf(v), @v);
+    glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6 + 2), SizeOf(v), @v);
+  end;
+
 begin
   case key of
     #27: begin
@@ -127,24 +141,35 @@ begin
     end;
     'r': begin
       v := [1, 0, 0];
+      NewVector;
     end;
     'g': begin
       v := [0, 1, 0];
+      NewVector;
     end;
     'b': begin
       v := [0, 0, 1];
+      NewVector;
     end;
-    else begin
-      v := [1, 1, 1];
+    'z': begin
+      v.Random;
+      NewVector;
+    end;
+    'c': begin
+      glCopyNamedBufferSubData(VBO1, VBO1, 72, 72 + 36, 36);
+    end;
+    'd': begin
+      glCopyNamedBufferSubData(VBO1, VBO0, 72 + 12, 72 + 12 + 24, 12);
+    end;
+    'y': begin
+      // YellowBuffer
+      glCreateBuffers(1, @YellowVBO);
+      glNamedBufferData(YellowVBO, Length(YellowBuffer) * SizeOf(TVector3f), PVector3f(YellowBuffer), GL_STATIC_DRAW);
+
+      glCopyNamedBufferSubData(YellowVBO, VBO1, 0, 72, 36);
+      glDeleteBuffers(1, @YellowVBO);
     end;
   end;
-  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 1, SizeOf(v), @v);
-  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 3, SizeOf(v), @v);
-  glNamedBufferSubData(VBO0, SizeOf(TVector3f) * 5, SizeOf(v), @v);
-
-  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+0), SizeOf(v), @v);
-  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+1), SizeOf(v), @v);
-  glNamedBufferSubData(VBO1, SizeOf(TVector3f) * (6+2), SizeOf(v), @v);
 
   ogcDrawScene(Sender);
 end;
@@ -152,6 +177,12 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
+
+  glDeleteVertexArrays(1, @VAO0);
+  glDeleteVertexArrays(1, @VAO1);
+
+  glDeleteBuffers(1, @VBO0);
+  glDeleteBuffers(1, @VBO1);
 end;
 
 (*

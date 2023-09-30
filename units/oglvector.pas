@@ -100,6 +100,7 @@ type
     procedure Negate;
     procedure Cross(const v0, v1: TVector3f); overload;
     procedure Cross(const v0, v1, v2: TVector3f); overload;
+    procedure Random;
 
     function Length: GLfloat;
     function ToString: string;
@@ -483,6 +484,13 @@ end;
 procedure TVector3fHelper.Cross(const v0, v1, v2: TVector3f); inline;
 begin
   Cross(v1 - v0, v2 - v0);
+end;
+
+procedure TVector3fHelper.Random;
+begin
+  Self[0]:=system.Random;
+  Self[1]:=system.Random;
+  Self[2]:=system.Random;
 end;
 
 function TVector3fHelper.Length: GLfloat;

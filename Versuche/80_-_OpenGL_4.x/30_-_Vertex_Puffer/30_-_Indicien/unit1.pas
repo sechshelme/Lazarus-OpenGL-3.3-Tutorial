@@ -274,6 +274,8 @@ begin
         glUnmapBuffer(GL_ARRAY_BUFFER);
       end;
       //  glTransformFeedbackVaryings:=;
+
+// https://registry.khronos.org/OpenGL-Refpages/gl4/html/glCopyBufferSubData.xhtml
     end;
   end;
   ogcDrawScene(Sender);
