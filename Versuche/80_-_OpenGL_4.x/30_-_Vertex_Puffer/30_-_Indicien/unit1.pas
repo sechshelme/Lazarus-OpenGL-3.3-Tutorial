@@ -168,6 +168,8 @@ begin
   glNamedBufferSubData(VB9Quad.VBO, 0, Quad9Vectors.Size, PFace(Quad9Vectors));
   glNamedBufferSubData(VB9Quad.VBO, Quad9Vectors.Size, Quad9Colors.Size, PFace(Quad9Colors));
 
+//  glBindBufferRange;
+
   glGenVertexArrays(1, @VB9Quad.VAO);
   glBindVertexArray(VB9Quad.VAO);
 

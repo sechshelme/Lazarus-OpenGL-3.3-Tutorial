@@ -45,7 +45,11 @@ Tutorial direkt auf GitHub:
 
 https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
 https://open.gl/geometry
+https://paroj.github.io/gltut/index.html
 
+## Info-Seiten zu OpenGL
+
+https://docs.gl
 
 
 
