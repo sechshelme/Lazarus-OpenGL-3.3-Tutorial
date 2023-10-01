@@ -6,11 +6,13 @@ interface
 
 uses
   Classes,
-  Dialogs,
-  SysUtils, FileUtil, LazFileUtils,
-  //  MyLogForms, MyMessages,
+//  Dialogs,
+  SysUtils,
+  FileUtil,
+  //LazFileUtils,
   dglOpenGL,
-  Graphics, LResources,
+//  Graphics,
+  LResources,
   oglLogForm;
 
 type
@@ -78,7 +80,7 @@ begin
     end;
     {$ENDIF}
     SetLength(Result, FileSize(Datei));
-    SrcHandle := FileOpenUTF8(Datei, fmOpenRead or fmShareDenyWrite);
+    SrcHandle := FileOpen(Datei, fmOpenRead or fmShareDenyWrite);
     FileRead(SrcHandle, Result[1], Length(Result));
     FileClose(SrcHandle);
   end else begin
@@ -131,10 +133,10 @@ procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: G
 {$ENDIF}
 
 var
-  MsgSource: string;
-  MsgType: string;
-  MsgSeverity: string;
-  col: TColor;
+  MsgSource: string='';
+  MsgType: string='';
+  MsgSeverity: string='';
+  col: Byte;
 begin
 
   // Source of this message
@@ -185,22 +187,22 @@ begin
   case severity of
     GL_DEBUG_SEVERITY_HIGH: begin
       MsgSeverity := 'HIGH';
-      col := TColor($0000FF);
+      col := clBrightRed;
     end;
     GL_DEBUG_SEVERITY_MEDIUM: begin
       MsgSeverity := 'MEDIUM';
-      col := TColor($0077FF);
+      col := clBrightYellow;
     end;
     GL_DEBUG_SEVERITY_LOW: begin
       MsgSeverity := 'LOW';
-      col := TColor($00FFFF);
+      col := clBrightWhite;
     end;
     else begin
-      col := clMedGray;
+      col := clWhite;
     end;
   end;
 
-  LogForm.Add('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]));
+  LogForm.Add('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]),col);
 end;
 
 procedure InitOpenGLDebug;
@@ -220,7 +222,7 @@ begin
   if err <> 0 then begin
     // GL_INVALID_ENUM
     LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4) + ' (' + IntToStr(err) + ') bei: ' + command);
-    LogForm.Show;
+//    LogForm.Show;
   end;
 end;
 
@@ -303,7 +305,6 @@ begin
           LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
         end;
       end;
-      WriteLn('-------------', Length(sa));
       if Length(sa)= 2 then begin;
         LoadShaderObject(sa[0], GL_VERTEX_SHADER);
         LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
@@ -380,7 +381,6 @@ begin
   Result := glGetUniformLocation(FProgramObject, ch);
   if Result = -1 then begin
     LogForm.Add('Uniform Fehler: ' + ch + ' code: ' + IntToStr(Result));
-    //    LogForm.Show;
   end;
 end;
 
@@ -389,7 +389,6 @@ begin
   Result := glGetUniformBlockIndex(FProgramObject, ch);
   if Result = GL_INVALID_INDEX then begin
     LogForm.Add('UniformBlock Fehler: ' + ch + ' code: ' + IntToStr(Result));
-    LogForm.Show;
   end;
 end;
 
@@ -398,7 +397,6 @@ begin
   Result := glGetAttribLocation(FProgramObject, ch);
   if Result = -1 then begin
     LogForm.Add('Attrib Fehler: ' + ch + ' code: ' + IntToStr(Result));
-    LogForm.Show;
   end;
 end;
 

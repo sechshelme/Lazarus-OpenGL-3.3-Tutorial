@@ -130,6 +130,7 @@ begin
   CreateVertex;
 
   Init_OpenGL;
+  InitOpenGLDebug;
 
   ogc.OnKeyPress := @ogcKeyPress;
 end;

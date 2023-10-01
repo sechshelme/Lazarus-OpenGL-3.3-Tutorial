@@ -62,7 +62,6 @@ const
 procedure TForm1.CreateScene;
 begin
   InitOpenGLDebug;
-  LogForm.Show;
 
   Shader := TShader.Create([
     GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),

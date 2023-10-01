@@ -7,6 +7,8 @@ uniform float col; // Start-Wert, für Farben-Spielerei
 
 out vec4 outColor;
 
+float i;
+
 void main(void) {
 //  float creal = pos.x * 1.5 - 0.3;
 //  float cimag = pos.y * 1.5;

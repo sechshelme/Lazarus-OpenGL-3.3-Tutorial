@@ -41,10 +41,6 @@ implementation
 {$R *.lfm}
 
 const
-  Quad: array[0..1] of Tmat3x3 =
-    (((-1.0, 1.0, 0.0), (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0)), ((-1.0, 1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
-
-const
   CubeVertex: array of Tmat4x3 =
     (((-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5)),
     ((0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5)),
@@ -69,11 +65,6 @@ const
 
 var
   Quad_Shader: record
-    VBQuad: record
-      VAO,
-      VBOVertex: GLuint;
-      end;
-
     Shader: TShader;
     WorldMatrix: TMatrix;
     col: GLfloat;
@@ -118,16 +109,16 @@ begin
 
   // Shader des Quadrates
   with Quad_Shader do begin
-    Shader := TShader.Create([FileToStr('quad.vert'), FileToStr('quad.frag')]);
+    Shader := TShader.Create([
+      GL_VERTEX_SHADER, FileToStr('quad.vert'),
+      GL_FRAGMENT_SHADER, FileToStr('quad.frag')]);
+
     with Shader do begin
       UseProgram;
       Color_ID := UniformLocation('col');
       WorldMatrix_ID := UniformLocation('Matrix');
       WorldMatrix.Identity;
     end;
-
-    glGenVertexArrays(1, @VBQuad.VAO);
-    glGenBuffers(1, @VBQuad.VBOVertex);
   end;
 
   with Cube_Shader do begin
@@ -174,13 +165,7 @@ begin
     glPolygonMode(GL_BACK, GL_LINE);
     Quad_Shader.WorldMatrix.Scale(1.5);
     WorldMatrix.Scale(1.5);
-    glBindVertexArray(VBQuad.VAO);
-
-    // Vertexkoordinaten
-    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+    // Es werden keine Vertexkoordinaten gebraucht, da dies im Vertex-Shader
   end;
 
   // ---- Cube
@@ -240,8 +225,7 @@ begin
     WorldMatrix.Uniform(WorldMatrix_ID);
     glUniform1f(Color_ID, col);
 
-    glBindVertexArray(VBQuad.VAO);
-    glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
   end;
 
   //  --- Normal auf den Bildschirm rendern.
@@ -266,8 +250,6 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   with Quad_Shader do begin
-    glDeleteVertexArrays(1, @VBQuad.VAO);
-    glDeleteBuffers(1, @VBQuad.VBOVertex);
     Shader.Free;
   end;
 
@@ -287,7 +269,7 @@ begin
       col := col - 10.0;
     end;
 
-    col:=5;
+    col := 5;
 
     WorldMatrix.RotateC(-Pi / 124);
   end;

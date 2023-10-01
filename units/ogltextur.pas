@@ -5,7 +5,13 @@ unit oglTextur;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, Graphics, IntfGraphics, GraphType, Dialogs,
+  Classes,
+  SysUtils,
+  TypInfo,
+  Graphics,
+  IntfGraphics,
+  GraphType,
+  Dialogs,
   dglOpenGL;
 //  MyLogForms;
 
