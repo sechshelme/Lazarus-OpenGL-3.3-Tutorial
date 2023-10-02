@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="2">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -54,15 +54,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit1>
-      <Unit2>
-        <Filename Value="../../units/oglcontext.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="oglContext"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="tesselationcontrolshader.glsl"/>
-        <IsPartOfProject Value="True"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -72,7 +63,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../units"/>
       <UnitOutputDirectory Value="/tmp"/>
     </SearchPaths>
     <Linking>
