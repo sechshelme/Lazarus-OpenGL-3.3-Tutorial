@@ -5,6 +5,8 @@
 layout (location = 0) in vec3 inPos;
 layout (location = 1) in vec3 inCol;
 
+layout (location = 10) in vec2 inMove;
+
 out vec3 col;
 
 uniform Uniforms {
@@ -21,6 +23,7 @@ void main(void)
   pos *= scale;
 //  pos *= rot;
   pos += translation;
+  pos.xy += inMove;
 
   gl_Position = vec4(pos, 1.0);
   col = inCol;

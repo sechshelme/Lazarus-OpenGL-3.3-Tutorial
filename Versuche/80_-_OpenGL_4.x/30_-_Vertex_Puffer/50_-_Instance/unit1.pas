@@ -21,7 +21,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    procedure CreateVertex;
+    procedure CreateInstance;
     procedure Init_OpenGL;
     procedure ogcDrawScene(Sender: TObject);
     procedure Destroy_OpenGL;
@@ -44,13 +44,13 @@ type
   TVB = record
     VAO,
     EBO,
+    IVBO,
     VBO: GLuint;
   end;
 
 var
   QuadInstance: TglFloatArray = nil;
-//  Quad9Colors: TglFloatArray = nil;
-  QuadIndices: array of TGLshort = nil;
+  //  Quad9Colors: TglFloatArray = nil;
 
   UBO: TGLuint;
   VBQuad: TVB;
@@ -82,30 +82,29 @@ const
 
   //code+
 
-procedure TForm1.CreateVertex;
+procedure TForm1.CreateInstance;
 const
-  s = 0.06;
+  s = 0.26;
   Count = 1;
-  si = 0.025;
+//  si = 0.25;
 var
-  x, y, i: integer;
+  x, y: integer;
 begin
   for x := -Count to Count do begin
     for y := -Count to Count do begin
-      QuadInstance.AddVector2f(x * s - si, y * s - si);
-      QuadInstance.AddVector2f(x * s - si, y * s + si);
-      QuadInstance.AddVector2f(x * s + si, y * s + si);
-      QuadInstance.AddVector2f(x * s + si, y * s - si);
+//      QuadInstance.AddVector2f(10, 10);
+      QuadInstance.AddVector2f(x * s, y * s);
     end;
   end;
-
-    QuadIndices += [0, 1,  2, 0,  2, 3];
 end;
 
 const
   QuadVector: array of TVector6f =
-    ((-0.2, -0.2, 0.1, 0.5, 0.0, 0.0), (0.2, -0.2, 0.1, 0.0, 0.5, 0.0), (0.2, 0.2, 0.1, 0.0, 0.0, 0.5),
-    (-0.2, 0.2, 0.1, 0.5, 0.0, 0.0));
+    ((-0.2, -0.2, 0.1, 0.5, 0.0, 0.0), (0.2, -0.2, 0.1, 0.0, 0.5, 0.0),
+    (0.2, 0.2, 0.1, 0.0, 0.0, 0.5), (-0.2, 0.2, 0.1, 0.5, 0.0, 0.0));
+
+    QuadIndices: array of TGLshort = (0, 1, 2, 0, 2, 3);
+
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -114,7 +113,7 @@ begin
   Height := 240;
   //remove-
 
-  CreateVertex;
+  CreateInstance;
 
   Init_OpenGL;
   InitOpenGLDebug;
@@ -149,29 +148,29 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, UBO);
 
 
-//  // --- Daten für 9 Quadrats
-//  glCreateBuffers(1, @VB9Quad.VBO);
-//  //  glNamedBufferData(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_STATIC_DRAW);
-//  glNamedBufferStorage(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-//  glNamedBufferSubData(VB9Quad.VBO, 0, QuadInstance.Size, PFace(QuadInstance));
-//  glNamedBufferSubData(VB9Quad.VBO, QuadInstance.Size, Quad9Colors.Size, PFace(Quad9Colors));
-//
-////  glBindBufferRange;
-//
-//  glGenVertexArrays(1, @VB9Quad.VAO);
-//  glBindVertexArray(VB9Quad.VAO);
-//
-//  // Vektoren
-//  glVertexAttribBinding(0, 0);
-//  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-//  glEnableVertexAttribArray(0);
-//
-//  glVertexAttribBinding(1, 0);
-//  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, QuadInstance.Size);
-//  glEnableVertexAttribArray(1);
-//
-//  glBindVertexBuffer(0, VB9Quad.VBO, 0, SizeOf(TVector3f));
-//
+  //  // --- Daten für 9 Quadrats
+  //  glCreateBuffers(1, @VB9Quad.VBO);
+  //  //  glNamedBufferData(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_STATIC_DRAW);
+  //  glNamedBufferStorage(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
+  //  glNamedBufferSubData(VB9Quad.VBO, 0, QuadInstance.Size, PFace(QuadInstance));
+  //  glNamedBufferSubData(VB9Quad.VBO, QuadInstance.Size, Quad9Colors.Size, PFace(Quad9Colors));
+  //
+  ////  glBindBufferRange;
+  //
+  //  glGenVertexArrays(1, @VB9Quad.VAO);
+  //  glBindVertexArray(VB9Quad.VAO);
+  //
+  //  // Vektoren
+  //  glVertexAttribBinding(0, 0);
+  //  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+  //  glEnableVertexAttribArray(0);
+  //
+  //  glVertexAttribBinding(1, 0);
+  //  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, QuadInstance.Size);
+  //  glEnableVertexAttribArray(1);
+  //
+  //  glBindVertexBuffer(0, VB9Quad.VBO, 0, SizeOf(TVector3f));
+  //
 
   // --- Daten für das Quad
   glCreateBuffers(1, @VBQuad.VBO);
@@ -192,6 +191,14 @@ begin
   glCreateBuffers(1, @VBQuad.EBO);
   glNamedBufferData(VBQuad.EBO, Length(QuadIndices) * SizeOf(TGLshort), PGLshort(QuadIndices), GL_STATIC_DRAW);
   glVertexArrayElementBuffer(VBQuad.VAO, VBQuad.EBO);
+
+  // Instance
+  glCreateBuffers(1,@VBQuad.IVBO);
+  glBindBuffer(GL_ARRAY_BUFFER,VBQuad.IVBO);
+  glBufferData(GL_ARRAY_BUFFER, QuadInstance.Size, PGLint(QuadInstance),GL_STATIC_DRAW);
+  glEnableVertexAttribArray(10);
+  glVertexAttribPointer(10,2,GL_FLOAT,GL_FALSE, 0,nil);
+  glVertexAttribDivisor(10,1);
 
 
 
@@ -214,8 +221,11 @@ begin
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glNamedBufferSubData(UBO, 0, SizeOf(UBORecQuad), @UBORecQuad);
-//  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector));
-  glDrawElements(GL_TRIANGLES, Length(QuadIndices), GL_UNSIGNED_SHORT, nil);
+  //  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector));
+//  glDrawElements(GL_TRIANGLES, Length(QuadIndices), GL_UNSIGNED_SHORT, nil);
+//glDrawArraysInstanced(GL_TRIANGLES,0, Length( QuadVector)* 3, 9);
+glDrawElementsInstanced( GL_TRIANGLES,Length(QuadIndices),GL_UNSIGNED_SHORT, nil, 9);
+
 
   ogc.SwapBuffers;
 end;
@@ -224,14 +234,12 @@ procedure TForm1.Destroy_OpenGL;
 begin
   Shader.Free;
 
-//  glDeleteBuffers(1, @VB9Quad.VBO);
-//  glDeleteBuffers(1, @VB9Quad.EBO);
-
   glDeleteBuffers(1, @VBQuad.VBO);
+  glDeleteBuffers(1, @VBQuad.IVBO);
+  glDeleteBuffers(1, @VBQuad.EBO);
 
   glDeleteBuffers(1, @UBO);
 
-//  glDeleteVertexArrays(1, @VB9Quad.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
 end;
 
@@ -239,9 +247,6 @@ end;
 // https://www.reddit.com/r/opengl/comments/aifvjl/glnamedbufferstorage_vs_glbufferdata/
 
 procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
-var
-  i: integer;
-  v: PVector6f;
 begin
   case key of
     #27: begin
