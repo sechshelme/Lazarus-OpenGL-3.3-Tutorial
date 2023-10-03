@@ -140,7 +140,7 @@ begin
 
   // --- UBO
   glCreateBuffers(1, @UBO);
-  glNamedBufferData(UBO, SizeOf(UBORec9Quad), nil, GL_STATIC_DRAW);
+  glNamedBufferData(UBO, SizeOf(UBORec9Quad), nil, GL_DYNAMIC_DRAW);
   glNamedBufferSubData(UBO, 0, SizeOf(UBORec9Quad), @UBORec9Quad);
   glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, UBO);
 
@@ -151,17 +151,17 @@ begin
 
   // Attribute Vektor und Color
   glCreateBuffers(1, @VBQuad.VBO);
-  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
+  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_DYNAMIC_STORAGE_BIT);
 
   glVertexAttribBinding(0, 0);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
+  glBindVertexBuffer(0, VBQuad.VBO, 0, 24);
 
-  glVertexAttribBinding(1, 0);
+  glVertexAttribBinding(1, 1);
   glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 12);
   glEnableVertexAttribArray(1);
-
-  glBindVertexBuffer(0, VBQuad.VBO, 0, 24);
+  glBindVertexBuffer(1, VBQuad.VBO, 0, 24);
 
   // ArrayElement
   glCreateBuffers(1, @VBQuad.EBO);
@@ -176,12 +176,11 @@ begin
   // https://stackoverflow.com/questions/62005944/trouble-with-glvertexarrayvertexbuffer-glvertexarrayattribformat-in-differ
   // https://registry.khronos.org/OpenGL/extensions/ARB/ARB_vertex_attrib_binding.txt
 
-  glVertexAttribBinding(10, 1);
   glVertexAttribFormat(10, 2, GL_FLOAT, GL_FALSE, 0);
-  glVertexBindingDivisor(1, 1);
+  glVertexAttribDivisor(10, 1);
   glEnableVertexAttribArray(10);
 
-  glBindVertexBuffer(1, VBQuad.IVBO, 0, 8);
+  glBindVertexBuffer(10, VBQuad.IVBO, 0, 8);
 
   glBindVertexArray(0);
 end;
