@@ -57,7 +57,6 @@ var
 
 var
   uboIndex: TGLuint;
-  uboSize: TGLint;
 
 type
   TUBORec = record
@@ -86,13 +85,11 @@ procedure TForm1.CreateInstance;
 const
   s = 0.26;
   Count = 1;
-//  si = 0.25;
 var
   x, y: integer;
 begin
   for x := -Count to Count do begin
     for y := -Count to Count do begin
-//      QuadInstance.AddVector2f(10, 10);
       QuadInstance.AddVector2f(x * s, y * s);
     end;
   end;
@@ -103,7 +100,7 @@ const
     ((-0.2, -0.2, 0.1, 0.5, 0.0, 0.0), (0.2, -0.2, 0.1, 0.0, 0.5, 0.0),
     (0.2, 0.2, 0.1, 0.0, 0.0, 0.5), (-0.2, 0.2, 0.1, 0.5, 0.0, 0.0));
 
-    QuadIndices: array of TGLshort = (0, 1, 2, 0, 2, 3);
+  QuadIndices: array of TGLuint = (0, 1, 2, 0, 2, 3);
 
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -172,12 +169,13 @@ begin
   //  glBindVertexBuffer(0, VB9Quad.VBO, 0, SizeOf(TVector3f));
   //
 
-  // --- Daten für das Quad
-  glCreateBuffers(1, @VBQuad.VBO);
-  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
-
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
+
+  // --- Daten für das Quad
+  // Attribute Vektor und Color
+  glCreateBuffers(1, @VBQuad.VBO);
+  glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
 
   glVertexAttribBinding(0, 0);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
@@ -187,22 +185,33 @@ begin
   glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 12);
   glEnableVertexAttribArray(1);
 
+  glBindVertexBuffer(0, VBQuad.VBO, 0, 24);
+
   // ArrayElement
   glCreateBuffers(1, @VBQuad.EBO);
-  glNamedBufferData(VBQuad.EBO, Length(QuadIndices) * SizeOf(TGLshort), PGLshort(QuadIndices), GL_STATIC_DRAW);
+  glNamedBufferData(VBQuad.EBO, Length(QuadIndices) * SizeOf(TGLuint), PGLshort(QuadIndices), GL_STATIC_DRAW);
   glVertexArrayElementBuffer(VBQuad.VAO, VBQuad.EBO);
 
   // Instance
-  glCreateBuffers(1,@VBQuad.IVBO);
-  glBindBuffer(GL_ARRAY_BUFFER,VBQuad.IVBO);
-  glBufferData(GL_ARRAY_BUFFER, QuadInstance.Size, PGLint(QuadInstance),GL_STATIC_DRAW);
+  glCreateBuffers(1, @VBQuad.IVBO);
+  glNamedBufferData(VBQuad.IVBO, QuadInstance.Size, PGLint(QuadInstance), GL_STATIC_DRAW);
+
+  // https://stackoverflow.com/questions/52993262/vao-drawing-the-wrong-index-buffer
+  // https://stackoverflow.com/questions/62005944/trouble-with-glvertexarrayvertexbuffer-glvertexarrayattribformat-in-differ
+
+  // geht
+  glVertexArrayBindingDivisor(VBQuad.VAO, 10, 1);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.IVBO);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10,2,GL_FLOAT,GL_FALSE, 0,nil);
-  glVertexAttribDivisor(10,1);
 
+  // geht nicht
+  glVertexArrayVertexBuffer(VBQuad.VAO, 0, VBQuad.IVBO, 0, SizeOf(TVector2f));
+  glEnableVertexArrayAttrib(VBQuad.VAO, 0);
+  glVertexArrayAttribFormat(VBQuad.VAO, 10, 2, GL_FLOAT, GL_FALSE, 0);
+  glVertexArrayAttribBinding(VBQuad.VAO, 10, 0);
+  glVertexArrayBindingDivisor(VBQuad.VAO, 0, 1);
 
-
-  glBindVertexBuffer(0, VBQuad.VBO, 0, 24);
 end;
 
 //code-
@@ -221,11 +230,7 @@ begin
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glNamedBufferSubData(UBO, 0, SizeOf(UBORecQuad), @UBORecQuad);
-  //  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector));
-//  glDrawElements(GL_TRIANGLES, Length(QuadIndices), GL_UNSIGNED_SHORT, nil);
-//glDrawArraysInstanced(GL_TRIANGLES,0, Length( QuadVector)* 3, 9);
-glDrawElementsInstanced( GL_TRIANGLES,Length(QuadIndices),GL_UNSIGNED_SHORT, nil, 9);
-
+  glDrawElementsInstanced(GL_TRIANGLES, Length(QuadIndices), GL_UNSIGNED_INT, nil, QuadInstance.Vector2DCount);
 
   ogc.SwapBuffers;
 end;
