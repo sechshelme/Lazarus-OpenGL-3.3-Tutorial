@@ -84,7 +84,7 @@ const
 procedure TForm1.CreateInstance;
 const
   s = 0.26;
-  Count = 1;
+  Count = 2;
 var
   x, y: integer;
 begin
@@ -145,34 +145,10 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, UBO);
 
 
-  //  // --- Daten für 9 Quadrats
-  //  glCreateBuffers(1, @VB9Quad.VBO);
-  //  //  glNamedBufferData(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_STATIC_DRAW);
-  //  glNamedBufferStorage(VB9Quad.VBO, QuadInstance.Size + Quad9Colors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-  //  glNamedBufferSubData(VB9Quad.VBO, 0, QuadInstance.Size, PFace(QuadInstance));
-  //  glNamedBufferSubData(VB9Quad.VBO, QuadInstance.Size, Quad9Colors.Size, PFace(Quad9Colors));
-  //
-  ////  glBindBufferRange;
-  //
-  //  glGenVertexArrays(1, @VB9Quad.VAO);
-  //  glBindVertexArray(VB9Quad.VAO);
-  //
-  //  // Vektoren
-  //  glVertexAttribBinding(0, 0);
-  //  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-  //  glEnableVertexAttribArray(0);
-  //
-  //  glVertexAttribBinding(1, 0);
-  //  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, QuadInstance.Size);
-  //  glEnableVertexAttribArray(1);
-  //
-  //  glBindVertexBuffer(0, VB9Quad.VBO, 0, SizeOf(TVector3f));
-  //
-
+  // --- Daten für das Quad
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-  // --- Daten für das Quad
   // Attribute Vektor und Color
   glCreateBuffers(1, @VBQuad.VBO);
   glNamedBufferStorage(VBQuad.VBO, Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_MAP_WRITE_BIT);
@@ -198,20 +174,16 @@ begin
 
   // https://stackoverflow.com/questions/52993262/vao-drawing-the-wrong-index-buffer
   // https://stackoverflow.com/questions/62005944/trouble-with-glvertexarrayvertexbuffer-glvertexarrayattribformat-in-differ
+  // https://registry.khronos.org/OpenGL/extensions/ARB/ARB_vertex_attrib_binding.txt
 
-  // geht
-  glVertexArrayBindingDivisor(VBQuad.VAO, 10, 1);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.IVBO);
-  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
+  glVertexAttribBinding(10, 1);
+  glVertexAttribFormat(10, 2, GL_FLOAT, GL_FALSE, 0);
+  glVertexBindingDivisor(1, 1);
   glEnableVertexAttribArray(10);
 
-  // geht nicht
-  glVertexArrayVertexBuffer(VBQuad.VAO, 0, VBQuad.IVBO, 0, SizeOf(TVector2f));
-  glEnableVertexArrayAttrib(VBQuad.VAO, 0);
-  glVertexArrayAttribFormat(VBQuad.VAO, 10, 2, GL_FLOAT, GL_FALSE, 0);
-  glVertexArrayAttribBinding(VBQuad.VAO, 10, 0);
-  glVertexArrayBindingDivisor(VBQuad.VAO, 0, 1);
+  glBindVertexBuffer(1, VBQuad.IVBO, 0, 8);
 
+  glBindVertexArray(0);
 end;
 
 //code-
