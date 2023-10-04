@@ -3,12 +3,14 @@
 
 in vec2 pos;       // Interpolierte Koordinaten vom Vertex-Shader
 
-uniform float col; // Start-Wert, für Farben-Spielerei
-
-uniform float left;
-uniform float right;
-uniform float top;
-uniform float bottom;
+layout (std140) uniform ubo {
+  mat4x4 matrix;
+  float left;
+  float right;
+  float top;
+  float bottom;
+  float col; // Start-Wert, für Farben-Spielerei
+};
 
 out vec4 outColor;
 

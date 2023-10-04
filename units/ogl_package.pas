@@ -11,7 +11,7 @@ uses
   oglLighting, dglOpenGL, oglShader, oglTexturVAO, oglWaveFrontOBJ, 
   oglBackground, oglTexturKoerper, oglUnit, oglTextur, oglVAO, 
   oglColorKoerper, oglLinesVAO, oglVBO, oglDarstellung, oglKoerper, oglCamera, 
-  oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext, oglLogForm, 
+  oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext, oglDebug, 
   oglVector, LazarusPackageIntf;
 
 implementation

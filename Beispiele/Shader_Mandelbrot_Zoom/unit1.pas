@@ -7,13 +7,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
-  oglContext, oglShader, oglMatrix;
+  dglOpenGL, oglContext, oglShader, oglMatrix;
 
 type
-
-  { TForm1 }
-
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -21,11 +17,9 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
-    Shader: TShader; // Shader-Object
+    Shader: TShader;
     procedure CreateScene;
-    procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
-  public
   end;
 
 var
@@ -37,52 +31,30 @@ implementation
 
 //image image.png
 
-(*
-Zum Schluss eine kleine Spielerei: Hier wird ein Mandelbrot im Shader (also auf der GPU) berechnet.
-Mit der CPU hatte ich noch keine so schnelle Berechnung hingekriegt, trotz Assembler.
-
-Anmerkung: Bei diesem Beispiel geht es nicht um mathematische Hintegründe, sondern es soll legentlich demonstrieren, das man mit Shader-Programs sehr komplexe Berechnungen machen kann.
-
-Der Lazarus-Code ist nichts besonderes, es wird nur ein Rechteck gerendert und anschliessend mit einer Matrix gedreht. Was eine Matrix ist, wird im Kapitel Matrix beschrieben.
-<b>Achtung:</b> Eine lahme Grafikkarte kann bei Vollbild ins Stockern kommen.
-Zur Beschleunigung kann der Wert <b>#define depth 1000.0</b> im Fragment-Shader verkleinert werden.
-*)
-
 //lineal
 
 type
-  TVertex3f = array[0..2] of GLfloat;
-  TFace = array[0..2] of TVertex3f;
-
-const
-  Quad: array[0..1] of TFace =
-    (((-1.0, -1.0, 0.0), (-1.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
-    ((-1.0, -1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
-
-type
   TVB = record
-    VAO,
-    VBO: GLuint;
+    UBO,
+    VAO: GLuint;
   end;
 
   TRectR = record
-    Left, Right, Top, Bottom: single;
+    Left, Right, Top, Bottom: GLfloat;
   end;
 
 var
-  RotMatrix: TMatrix;
-  Matrix_ID: GLint;
-
-  Left_ID, Right_ID, Top_ID, Bottom_ID, Color_ID: GLint;
-
-  StartKoor, EndKoor, CalcKoor: TRectR;
-
-  zoomStep: single;
-  col: single;
-
+  UNOBuffer_ID: GLint;
   VBQuad: TVB;
 
-{ TForm1 }
+  zoomStep: single;
+  StartKoor, EndKoor: TRectR;
+
+  UBO_Buffer: record
+    mat: Tmat4x4;
+    coord: TRectR;
+    col: GLfloat;
+      end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
@@ -98,7 +70,6 @@ begin
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
-  InitScene;
   Timer1.Enabled := True;
 
   zoomStep := 0;
@@ -124,72 +95,60 @@ begin
       s := sl[c + 4];
       s := Copy(s, pos(':', s) + 1);
       EndKoor.Bottom := s.ToSingle;
-
-
-
-      //      ShowMessage(s+#13+EndKoor.Left.ToString);
     end;
 
     Inc(c);
   until c >= sl.Count;
 
-//
-//  EndKoor.Left := -0.604488646155;
-//  EndKoor.Right := -0.604454446072;
-//  EndKoor.Top := -0.615292225271;
-//  EndKoor.Bottom := -0.615268845830;
+  //  EndKoor.Left := -0.604488646155;
+  //  EndKoor.Right := -0.604454446072;
+  //  EndKoor.Top := -0.615292225271;
+  //  EndKoor.Bottom := -0.615268845830;
 
   sl.Free;
 end;
 
 procedure TForm1.CreateScene;
+var
+  bindingPoint: gluint = 0;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create([
+    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
+    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
 
-  Color_ID := Shader.UniformLocation('col');
-  Left_ID := Shader.UniformLocation('left');
-  Right_ID := Shader.UniformLocation('right');
-  Top_ID := Shader.UniformLocation('top');
-  Bottom_ID := Shader.UniformLocation('bottom');
-
-  Matrix_ID := Shader.UniformLocation('mat');
-  RotMatrix.Identity;
-
-  glGenVertexArrays(1, @VBQuad.VAO);
-
-  glGenBuffers(1, @VBQuad.VBO);
-end;
-
-procedure TForm1.InitScene;
-begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  UNOBuffer_ID := Shader.UniformBlockIndex('ubo');
+  UBO_Buffer.mat.Identity;
 
   // Daten für Quadrat
+  glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+
+  // UBO mit Daten laden
+  glGenBuffers(1, @VBQuad.UBO);
+  glBindBuffer(GL_UNIFORM_BUFFER, VBQuad.UBO);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(UBO_Buffer), nil, GL_DYNAMIC_DRAW);
+
+  // UBO mit dem Shader verbinden
+  glUniformBlockBinding(Shader.ID, UNOBuffer_ID, bindingPoint);
+  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, VBQuad.UBO);
+
+  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
-  RotMatrix.Uniform(Matrix_ID);
 
-  // Zeichne Quadrat
-  glUniform1f(Left_ID, CalcKoor.Left);
-  glUniform1f(Right_ID, CalcKoor.Right);
-  glUniform1f(Top_ID, CalcKoor.Top);
-  glUniform1f(Bottom_ID, CalcKoor.Bottom);
-
-  col := 0.0;
-  glUniform1f(Color_ID, col);
+  UBO_Buffer.col := 0.0;
 
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+
+  glBindBuffer(GL_UNIFORM_BUFFER, VBQuad.UBO);
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(UBO_Buffer), @UBO_Buffer);
+
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
   ogc.SwapBuffers;
 end;
@@ -197,19 +156,14 @@ end;
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
-
   Shader.Free;
-
+  glDeleteBuffers(1, @VBQuad.UBO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
-z,  s: single;
-const
-  step: GLfloat = 0.01;
-
+  s: single;
 begin
   StartKoor.Left := -2.0;
   StartKoor.Right := 2.0;
@@ -217,32 +171,24 @@ begin
   StartKoor.Bottom := 2.0;
 
   s := (StartKoor.Left - EndKoor.Left) / 1000;
-  CalcKoor.Left := -(EndKoor.Left + s * zoomStep);
+  UBO_Buffer.coord.Left := -(EndKoor.Left + s * zoomStep);
 
   s := (StartKoor.Right - EndKoor.Right) / 1000;
-  CalcKoor.Right := -(EndKoor.Right + s * zoomStep);
+  UBO_Buffer.coord.Right := -(EndKoor.Right + s * zoomStep);
 
   s := (StartKoor.Top - EndKoor.Top) / 1000;
-  CalcKoor.Top := -(EndKoor.Top + s * zoomStep);
+  UBO_Buffer.coord.Top := -(EndKoor.Top + s * zoomStep);
 
   s := (StartKoor.Bottom - EndKoor.Bottom) / 1000;
-  CalcKoor.Bottom := -(EndKoor.Bottom + s * zoomStep);
+  UBO_Buffer.coord.Bottom := -(EndKoor.Bottom + s * zoomStep);
 
-  z:=zoomStep;
   zoomStep /= 1.01;
   if zoomStep < 0.01 then begin
     zoomStep := 1000;
-//    zoomStep:=z;
   end;
   Caption := zoomStep.ToString;
 
-  //col := col + 0.1;
-  //if col >= 10.0 then begin
-  //  col := col - 10.0;
-  //end;
-
-  //  RotMatrix.RotateC(step); // RotMatrix rotieren
-  ogc.Invalidate;          // Neu zeichnen
+  ogc.Invalidate;
 end;
 
 (*

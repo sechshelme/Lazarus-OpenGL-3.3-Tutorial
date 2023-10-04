@@ -117,8 +117,8 @@
         <UnitName Value="oglContext"/>
       </Item22>
       <Item23>
-        <Filename Value="ogllogform.pas"/>
-        <UnitName Value="oglLogForm"/>
+        <Filename Value="ogldebug.pas"/>
+        <UnitName Value="ogldebug"/>
       </Item23>
       <Item24>
         <Filename Value="oglvector.pas"/>

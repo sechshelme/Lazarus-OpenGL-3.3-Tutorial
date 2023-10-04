@@ -13,7 +13,7 @@ uses
   dglOpenGL,
 //  Graphics,
   LResources,
-  oglLogForm;
+  oglDebug;
 
 type
 
@@ -43,10 +43,6 @@ type
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
 function FileToStr(Datei: string): ansistring;
 function ResourceToStr(Resource: string): ansistring;
-
-procedure InitOpenGLDebug;
-
-procedure checkError(command: string);
 
 
 implementation
@@ -121,108 +117,6 @@ begin
     else begin
       Result := 'Shader-Code: ' + IntToStr(code);
     end;
-  end;
-end;
-
-// --- Debugger ---
-
-{$IFDEF MSWINDOWS}
-procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); stdcall;
-{$ELSE}
-procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); cdecl;
-{$ENDIF}
-
-var
-  MsgSource: string='';
-  MsgType: string='';
-  MsgSeverity: string='';
-  col: Byte;
-begin
-
-  // Source of this message
-  case Source of
-    GL_DEBUG_SOURCE_API: begin
-      MsgSource := 'API';
-    end;
-    GL_DEBUG_SOURCE_WINDOW_SYSTEM: begin
-      MsgSource := 'WINDOW_SYSTEM';
-    end;
-    GL_DEBUG_SOURCE_SHADER_COMPILER: begin
-      MsgSource := 'SHADER_COMPILER';
-    end;
-    GL_DEBUG_SOURCE_THIRD_PARTY: begin
-      MsgSource := 'THIRD_PARTY';
-    end;
-    GL_DEBUG_SOURCE_APPLICATION: begin
-      MsgSource := 'APPLICATION';
-    end;
-    GL_DEBUG_SOURCE_OTHER: begin
-      MsgSource := 'OTHER';
-    end;
-  end;
-
-  // Type of this message
-  case type_ of
-    GL_DEBUG_TYPE_ERROR: begin
-      MsgType := 'ERROR';
-    end;
-    GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: begin
-      MsgType := 'DEPRECATED_BEHAVIOR';
-    end;
-    GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR: begin
-      MsgType := 'UNDEFINED_BEHAVIOR';
-    end;
-    GL_DEBUG_TYPE_PORTABILITY: begin
-      MsgType := 'PORTABILITY';
-    end;
-    GL_DEBUG_TYPE_PERFORMANCE: begin
-      MsgType := 'PERFORMANCE';
-    end;
-    GL_DEBUG_TYPE_OTHER: begin
-      MsgType := 'OTHER';
-    end;
-  end;
-
-  // Severity of this message
-  case severity of
-    GL_DEBUG_SEVERITY_HIGH: begin
-      MsgSeverity := 'HIGH';
-      col := clBrightRed;
-    end;
-    GL_DEBUG_SEVERITY_MEDIUM: begin
-      MsgSeverity := 'MEDIUM';
-      col := clBrightYellow;
-    end;
-    GL_DEBUG_SEVERITY_LOW: begin
-      MsgSeverity := 'LOW';
-      col := clBrightWhite;
-    end;
-    else begin
-      col := clWhite;
-    end;
-  end;
-
-  LogForm.Add('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]),col);
-end;
-
-procedure InitOpenGLDebug;
-begin
-  glEnable(GL_DEBUG_OUTPUT);
-  glDebugMessageCallback(@GLDebugCallBack, nil);
-  glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nil, True);
-end;
-
-// --- Debuger Ende ---
-
-procedure checkError(command: string);
-var
-  err: integer;
-begin
-  err := glGetError();
-  if err <> 0 then begin
-    // GL_INVALID_ENUM
-    LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4) + ' (' + IntToStr(err) + ') bei: ' + command);
-//    LogForm.Show;
   end;
 end;
 
