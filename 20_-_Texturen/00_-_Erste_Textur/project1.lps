@@ -22,8 +22,8 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="108"/>
-        <CursorPos Y="146"/>
+        <TopLine Value="84"/>
+        <CursorPos X="37" Y="96"/>
         <UsageCount Value="32"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -53,18 +53,18 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="48" Y="13"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <CursorPos X="29" Y="12"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -104,14 +104,13 @@
       </Unit11>
       <Unit12>
         <Filename Value="../../units/dglOpenGL.pas"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="242"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="230"/>
         <CursorPos X="3" Y="230"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit12>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="23" Column="12" TopLine="16"/>
@@ -225,13 +224,9 @@
         <Caret Line="169" Column="7" TopLine="148"/>
       </Position28>
       <Position29>
-        <Filename Value="../../units/dglOpenGL.pas"/>
-        <Caret Line="11384" Column="22" TopLine="11354"/>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="96" Column="25" TopLine="59"/>
       </Position29>
-      <Position30>
-        <Filename Value="../../units/dglOpenGL.pas"/>
-        <Caret Line="7867" Column="178" TopLine="7867"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
