@@ -1,0 +1,3 @@
+"Es gebe Bilder"
+
+Die Polygone können mit Bilder ( Texturen ) überzogen werden.
