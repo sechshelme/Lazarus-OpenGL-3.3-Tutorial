@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,    oglDebug,
+  dglOpenGL, oglDebug,
   oglContext, oglShader, oglVector, oglMatrix;
 
 type
@@ -50,12 +50,12 @@ type
   TTexture32 = packed array[0..1, 0..1, 0..3] of byte;
   PTexture32 = ^TTexture32;
 
-const
+var
   Textur32_0: TTexture32 = ((($FF, $00, $00, $FF), ($00, $FF, $00, $FF)), (($00, $00, $FF, $FF), ($FF, $00, $00, $FF)));
 
 type
   TVB = record
-    PBO,
+    PBO: array[0..1] of GLuint;
     VAO,
     VBOVertex,        // Vertex-Koordinaten
     VBOTex: GLuint;   // Textur-Koordianten
@@ -86,8 +86,6 @@ end;
 
 //code+
 procedure TForm1.CreateScene;
-var
-  mapBuffer: PTexture32;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
@@ -106,65 +104,21 @@ begin
   // https://www.songho.ca/opengl/gl_pbo.html
 
   glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
-  glGenBuffers(1, @VBQuad.PBO);
-  checkError('glGenBuffers');
-
-  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO);
-  checkError('glBindBuffer');
-  glBufferData(GL_PIXEL_UNPACK_BUFFER, SizeOf(Textur32_0), nil, GL_STREAM_COPY);
-  checkError('glBufferData');
-
-  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO);
-  checkError('glBindBuffer');
-  mapBuffer := glMapBufferRange(GL_PIXEL_UNPACK_BUFFER,0,SizeOf(Textur32_0), GL_MAP_WRITE_BIT or GL_MAP_WRITE_BIT);
-  checkError('glMapBufferRange');
-
-  WriteLn(PtrUInt(mapBuffer));
-  mapBuffer^ := Textur32_0;
- if  glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER)<>True then WriteLn('Fehler');
-  checkError('glUnmapBuffer');
-
   glBindTexture(GL_TEXTURE_2D, textureID);
-  checkError('glBindTexture');
-//  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
-//  checkError('glTexImage2D');
-  glTexSubImage2D(GL_TEXTURE_2D, 0,0,0,2, 2, GL_RGBA, GL_UNSIGNED_BYTE, nil);
-  checkError('glTexSubImage2D');
-
-  glBindBuffer(GL_PIXEL_UNPACK_BUFFER,0);
-  checkError('glBindBuffer');
-
-
-
-
-
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
-
-//  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO1);
-
-
-
-
-
-  //glBufferData(GL_PIXEL_UNPACK_BUFFER,SizeOf(Textur32_0),nil,GL_STREAM_DRAW);
-  //mapBuffer:=glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
-  ////  move(Textur32_0, mapBuffer, SizeOf(Textur32_0));
-  //  FillChar(mapBuffer, SizeOf(Textur32_0),$FF);
-  //glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO0);
-  //glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
-
-
-
-
-  //glGenTextures(1, @textureID);                 // Erzeugen des Textur-Puffer.
-  //glBindTexture(GL_TEXTURE_2D, textureID);
-  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
-  //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  //glGenerateMipmap(GL_TEXTURE_2D);
-
   glBindTexture(GL_TEXTURE_2D, 0);
-  //code-
+
+
+  glGenBuffers(2, VBQuad.PBO);
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO[0]);
+  glBufferData(GL_PIXEL_UNPACK_BUFFER, SizeOf(Textur32_0), nil, GL_STREAM_DRAW);
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO[1]);
+  glBufferData(GL_PIXEL_UNPACK_BUFFER, SizeOf(Textur32_0), nil, GL_STREAM_DRAW);
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
@@ -183,19 +137,41 @@ begin
   glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
 end;
 
-(*
-Bevor man ein Polygon zeichnet, muss man die Texur binden. Dies geschieht mit <b>glBindTexture(...</b>.
-Anschliessend kann ganz normal gezeichnet werden.
-*)
-//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
+const
+  index: integer = 0;
+var
+  nextIndex: integer;
+var
+  mapBuffer: PTexture32;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glBindTexture(GL_TEXTURE_2D, textureID);  // Textur binden.
-  //code-
-
   Shader.UseProgram;
+
+  index := (index + 1) mod 2;
+  nextIndex := (index + 1) mod 2;
+
+  glBindTexture(GL_TEXTURE_2D, textureID);
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO[index]);
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 2, 2, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, VBQuad.PBO[nextIndex]);
+  glBufferData(GL_PIXEL_UNPACK_BUFFER, SizeOf(Textur32_0), nil, GL_STREAM_DRAW);
+
+  mapBuffer := glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
+
+  if mapBuffer <> nil then begin
+ //   mapBuffer^ := Textur32_0;
+    mapBuffer^[0,0,0]:=Random($FF);
+    mapBuffer^[0,1,0]:=Random($FF);
+    mapBuffer^[1,0,0]:=Random($FF);
+    mapBuffer^[1,1,0]:=Random($FF);
+    glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
+  end;
+  glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
+
+
+
 
   ProdMatrix := ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(Matrix_ID);
@@ -207,10 +183,6 @@ begin
   ogc.SwapBuffers;
 end;
 
-(*
-Zum Schluss muss man wie gewohnt, auch den Textur-Puffer wieder frei geben.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
@@ -219,7 +191,7 @@ begin
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
-  //code-
+  glDeleteBuffers(2, VBQuad.PBO);
 
   Shader.Free;
 end;
@@ -236,19 +208,12 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-
-Hier sieht man, das die Textur-Koordinaten gleich behandelt werden wie Vertex-Attribute.
-Dies muss man dann aber dem Fragment-Shader weiterleiten. So wurde es auch schon mit den Color-Vectoren gemacht.
 *)
 //includeglsl Vertexshader.glsl
 //lineal
 
 (*
 <b>Fragment-Shader:</b>
-
-Hier ist der Sampler für die Zuordnung dazu gekommen.
-Und man sieht auch, das die Farb-Ausgabe von der Textur kommen.
-Die UV-Koordinate gibt an, von welchem Bereich der Pixel aus der Textur gelesen wird.
 *)
 //includeglsl Fragmentshader.glsl
 
