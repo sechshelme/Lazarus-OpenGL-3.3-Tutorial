@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
   oglContext;
@@ -20,7 +20,7 @@ type
   private
     ogc: TContext;
     procedure CreateScene;
-    procedure ogcDrawScene(Sender: TObject);
+    procedure OutputScene;
   public
   end;
 
@@ -34,21 +34,17 @@ implementation
 //image image.png
 
 (*
-Hier wird zum ersten Mal ein Shader geladen, ohne solchen macht OpenGL >= 3.3 keinen Sinn.
-Nähere Details dazu im Kapitel Shader. Hier geht es in erster Linie mal darum, dass man etwas rendern kann.
-
-In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts anderes, als das Mesh rot darzustellen.
 *)
 
 //lineal
-type
-  TData = array[0..7] of TGLfloat;
-
 const
-  Data: TData = (1, 2, 3, 4, 5, 6, 7, 8);
+  DataLength = 8;
+
+type
+  TData = array of TGLfloat;
 
 var
-  feedback: TData;
+  Data: TData;
 
 type
   TVB = record
@@ -59,26 +55,22 @@ type
 var
   VBData: TVB;
 
-(*
-Die ID, welche auf den Shader zeigt.
-*)
-  //code+
-
-// https://vis.uni-jena.de/Lecture/ComputerGraphics/Lec11_TransformFeedback.pdf
+  // https://open.gl/feedback
+  // https://vis.uni-jena.de/Lecture/ComputerGraphics/Lec11_TransformFeedback.pdf
+  // https://mathweb.ucsd.edu/~sbuss/MathCG2/OpenGLsoft/Chap1TransformFeedback/C1TFexplain.html
 
 var
   ProgramID: GLuint;
 
 function Initshader(VertexDatei: string): GLuint;
 const
-  feedbackVarings: array of PGLchar = ('outValue');
+  feedbackVarings: array of PGLchar = ('outValue0', 'outValue1', 'multi', 'divi');
 var
   sl: TStringList;
   s: string;
 
   ProgramObject: GLhandle;
   VertexShaderObject: GLhandle;
-
   ErrorStatus, InfoLogLength: integer;
 
 begin
@@ -95,7 +87,6 @@ begin
   glAttachShader(ProgramObject, VertexShaderObject);
 
   // Check Shader
-
   glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   if ErrorStatus = 0 then begin
     glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
@@ -103,15 +94,14 @@ begin
     glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, @s[1]);
     WriteLn('OpenGL Vertex Fehler', s);
   end;
-
   glDeleteShader(VertexShaderObject);
+
   // Feedback
-  glTransformFeedbackVaryings(ProgramObject, 1, PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
+  glTransformFeedbackVaryings(ProgramObject, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
 
 
 
-
-  glLinkProgram(ProgramObject);    // Die beiden Shader zusammen linken
+  glLinkProgram(ProgramObject);
 
   // Check Link
   glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
@@ -137,24 +127,20 @@ begin
   Height := 240;
   //remove-
   ogc := TContext.Create(Self);
-//  ogc.OnPaint := @ogcDrawScene;
-
-
-//InitOpenGL;
-//MakeCurrent;
-
-//  ReadExtensions;
-//ReadOpenGLCore;
-//ReadImplementationProperties;
-
 
   CreateScene;
+  OutputScene;
 end;
 
 procedure TForm1.CreateScene;
 var
-  i: Integer;
+  i: integer;
 begin
+  SetLength(Data, DataLength);
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i] := i;
+  end;
+
   ProgramID := InitShader('Vertexshader.glsl');
   glUseProgram(programID);
 
@@ -163,52 +149,48 @@ begin
 
   glGenBuffers(1, @VBData.VBO);
   glBindBuffer(GL_ARRAY_BUFFER, VBData.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), @Data, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), PGLvoid(Data), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
+end;
 
+procedure TForm1.OutputScene;
+type
+  TFeedBack = record
+    sqrt, pow, multi, dive: GLfloat;
+  end;
+var
+  i: integer;
 
+var
+  feedbacks: array of TFeedBack=nil;
+begin
+  SetLength(feedbacks, DataLength);
   glGenBuffers(1, @VBData.TBO);
   glBindBuffer(GL_ARRAY_BUFFER, VBData.TBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), nil, GL_STATIC_READ);
+  glBufferData(GL_ARRAY_BUFFER, Length(feedbacks) * SizeOf(TFeedBack), nil, GL_DYNAMIC_READ);
 
   glEnable(GL_RASTERIZER_DISCARD);
   glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBO);
   glBeginTransformFeedback(GL_POINTS);
-
 
   glDrawArrays(GL_POINTS, 0, Length(Data));
 
   glEndTransformFeedback;
   glFlush;
 
-  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(feedback) * SizeOf(TGLfloat), @feedback);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(feedbacks) * SizeOf(TFeedBack), PGLvoid(feedbacks));
 
-  for i := 0 to Length(feedback) - 1 do begin
-    Write(feedback[i]: 10: 5);
+  for i := 0 to Length(feedbacks) - 1 do begin
+    WriteLn(feedbacks[i].sqrt: 10: 5, '   ', feedbacks[i].pow: 10: 5, '   ', feedbacks[i].multi: 10: 5, '   ', feedbacks[i].dive: 10: 5);
   end;
   WriteLn;
 end;
 
-procedure TForm1.ogcDrawScene(Sender: TObject);
-var
-  i: integer;
-begin
-  //  glUseProgram(programID);
-  //code-
-
-  // Zeichne Dreieck
-  //  glBindVertexArray(VBData.VAO);
-
-  ogc.SwapBuffers;
-end;
-
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   glDeleteProgram(ProgramID);
-  //code-
 
   glDeleteVertexArrays(1, @VBData.VAO);
 

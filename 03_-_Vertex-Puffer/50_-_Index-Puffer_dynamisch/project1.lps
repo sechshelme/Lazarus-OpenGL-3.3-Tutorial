@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="11">
       <Unit0>
@@ -22,7 +22,7 @@
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="82"/>
-        <CursorPos X="26" Y="119"/>
+        <CursorPos X="156" Y="94"/>
         <UsageCount Value="36"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -52,7 +52,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="52" Y="12"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -60,7 +60,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos Y="9"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
@@ -89,11 +89,10 @@
       </Unit9>
       <Unit10>
         <Filename Value="/usr/share/fpcsrc/3.1.1/rtl/inc/objpash.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="181"/>
         <CursorPos X="21" Y="214"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit10>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
@@ -218,5 +217,9 @@
         <Caret Line="93" TopLine="79"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>
