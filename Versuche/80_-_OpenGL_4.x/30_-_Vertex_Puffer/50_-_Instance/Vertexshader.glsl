@@ -1,6 +1,4 @@
-#version 420
-
-#extension GL_ARB_explicit_uniform_location : enable
+#version 450
 
 layout (location = 0) in vec3 inPos;
 layout (location = 1) in vec3 inCol;
