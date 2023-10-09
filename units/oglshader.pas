@@ -26,7 +26,8 @@ type
   public
     property ID: GLHandle read FProgramObject;
 
-    constructor Create(const AShader: array of const);
+    constructor Create(const AShader: array of ansistring);
+    //    constructor Create(const AShader: array of const);
     constructor Create;
     destructor Destroy; override;
     procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
@@ -146,75 +147,41 @@ end;
 (*
 === Beispiele für Shadererzeugung ===
 
-Shader := TShader.Create([
-  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
-Shader := TShader.Create([
-  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-  GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
-  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
-Shader := TShader.Create([
-  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-  GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
-  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
-Shader := TShader.Create([
-  GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-  GL_TESS_CONTROL_SHADER, FileToStr('tesselationcontrolshader.glsl'),
-  GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
-  GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+Shader := TShader.Create;
+Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
+Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+Shader.LinkProgramm;
+Shader.UseProgram;
  *)
 
-constructor TShader.Create(const AShader: array of const);
+constructor TShader.Create(const AShader: array of ansistring);
 var
   sa: TStringArray = nil;
-  i: integer;
 begin
   Create;
-
-  case AShader[0].VType of
-    vtAnsiString: begin  // ---- Alte Version
-      case Length(AShader) of
-        1: begin
-          sa := Split(ansistring(AShader[0].VAnsiString));
-        end;
-        2: begin
-          SetLength(sa, Length(AShader));
-          for i := 0 to 1 do begin
-            sa[i] := ansistring(AShader[i].VAnsiString);
-          end;
-        end;
-        else begin
-          LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
-        end;
-      end;
-      if Length(sa) = 2 then begin
-        LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
-        LoadShaderObject(GL_FRAGMENT_SHADER, sa[1]);
-      end else if Length(sa) = 3 then begin
-        LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
-        LoadShaderObject(GL_GEOMETRY_SHADER, sa[1]);
-        LoadShaderObject(GL_FRAGMENT_SHADER, sa[2]);
-      end;
+  case Length(AShader) of
+    1: begin
+      sa := Split(AShader[0]);
     end;
-    vtInteger: begin   // --- Neue Version
-      i := 0;
-      while i < Length(AShader) do begin
-        LoadShaderObject(AShader[i].VInteger, ansistring(AShader[i + 1].VAnsiString));
-        Inc(i, 2);
-      end;
+    2: begin
+      SetLength(sa, Length(AShader));
+        sa[0] := AShader[0];
+        sa[1] := AShader[1];
     end;
     else begin
-      WriteLn('Ungültiges Argument in Shader-Create !');
+      LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
     end;
   end;
-
-  // Shader Linken
-
+  if Length(sa) = 2 then begin
+    LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
+    LoadShaderObject(GL_FRAGMENT_SHADER, sa[1]);
+  end else if Length(sa) = 3 then begin
+    LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
+    LoadShaderObject(GL_GEOMETRY_SHADER, sa[1]);
+    LoadShaderObject(GL_FRAGMENT_SHADER, sa[2]);
+  end;
   LinkProgramm;
-//  UseProgram;
 end;
 
 procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);

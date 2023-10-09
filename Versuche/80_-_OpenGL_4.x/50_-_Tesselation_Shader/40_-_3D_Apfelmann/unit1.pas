@@ -109,12 +109,12 @@ begin
 
   // Shader des Quadrates
   with Quad_Shader do begin
-    Shader := TShader.Create([
-      GL_VERTEX_SHADER, FileToStr('quad.vert'),
-      GL_FRAGMENT_SHADER, FileToStr('quad.frag')]);
-
+    Shader := TShader.Create;
+    Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'quad.vert');
+    Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'quad.frag');
+    Shader.LinkProgramm;
+    Shader.UseProgram;
     with Shader do begin
-      UseProgram;
       Color_ID := UniformLocation('col');
       WorldMatrix_ID := UniformLocation('Matrix');
       WorldMatrix.Identity;
@@ -122,13 +122,13 @@ begin
   end;
 
   with Cube_Shader do begin
-    Shader := TShader.Create([
-      GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-      GL_TESS_EVALUATION_SHADER, FileToStr('Tesselationshader.glsl'),
-      GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
+    Shader := TShader.Create;
+    Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+    Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
+    Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+    Shader.LinkProgramm;
+    Shader.UseProgram;
     with Shader do begin
-      UseProgram;
       WorldMatrix_ID := UniformLocation('Matrix');
       glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
       WorldMatrix.Identity;

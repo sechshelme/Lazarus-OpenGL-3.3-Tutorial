@@ -51,7 +51,7 @@ type
     VAO: GLuint;
     VBO: record
       Vertex, Prev, Next: GLuint;
-    end;
+      end;
   end;
 
 var
@@ -68,7 +68,7 @@ var
 (*
 Hier sieht man gut, das die Textur-Koordinaten verschieden Werte bekommen.
 *)
-//code+
+  //code+
 procedure TForm1.CalcCircle;
 const
   Sektoren = 7;
@@ -96,6 +96,7 @@ begin
   end;
 
 end;
+
 //code-
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -122,10 +123,12 @@ begin
   TextureBuffer := TTexturBuffer.Create;
   TextureBuffer.LoadTextures('muster.xpm');
 
-  Shader := TShader.Create([
-    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-    GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
-    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
 
   with Shader do begin
     UseProgram;
@@ -165,6 +168,7 @@ begin
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 2, GL_FLOAT, False, 0, nil);
 end;
+
 //code-
 
 //code+
@@ -191,6 +195,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);

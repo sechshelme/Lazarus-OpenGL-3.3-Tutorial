@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   dglOpenGL,
-  oglContext, oglVector, oglMatrix, oglShader, oglLogForm;
+  oglContext, oglVector, oglMatrix, oglShader, oglDebug;
 
 type
 
@@ -62,10 +62,10 @@ const
 
 procedure TForm1.CreateScene;
 begin
-
-  Shader := TShader.Create([
-    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
   Shader.UseProgram;
 
   // Mesh 0

@@ -120,15 +120,14 @@ begin
   TextureBuffer := TTexturBuffer.Create;
   TextureBuffer.LoadTextures('muster.xpm');
 
-  Shader := TShader.Create([
-    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-    GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
-    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
 
-  with Shader do begin
-    UseProgram;
-    Matrix_ID := UniformLocation('mat');
-  end;
+  Matrix_ID := Shader.UniformLocation('mat');
 
   RotMatrix.Identity;
   ScaleMatrix.Identity;

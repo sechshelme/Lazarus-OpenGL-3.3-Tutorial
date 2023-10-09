@@ -42,7 +42,7 @@ type
     VAO: GLuint;
     VBO: record
       Vertex: GLuint;
-    end;
+      end;
   end;
 
 var
@@ -59,7 +59,7 @@ const
   Sektoren = 30;
   maxSek = Sektoren * 8;
   r = 0.7 / maxSek;
-  va=2;
+  va = 2;
 var
   i: integer;
 begin
@@ -119,15 +119,13 @@ begin
   TextureBuffer := TTexturBuffer.Create;
   TextureBuffer.LoadTextures('muster.xpm');
 
-  Shader := TShader.Create([
-    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-    GL_GEOMETRY_SHADER, FileToStr('Geometrieshader.glsl'),
-    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
-
-  with Shader do begin
-    UseProgram;
-    Matrix_ID := UniformLocation('mat');
-  end;
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
+  Matrix_ID := Shader.UniformLocation('mat');
 
   RotMatrix.Identity;
   ScaleMatrix.Identity;
@@ -167,6 +165,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 //code-
 
 procedure TForm1.FormDestroy(Sender: TObject);

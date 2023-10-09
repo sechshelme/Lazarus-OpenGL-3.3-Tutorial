@@ -23,7 +23,7 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="97"/>
-        <CursorPos Y="128"/>
+        <CursorPos X="3" Y="129"/>
         <UsageCount Value="57"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -57,14 +57,14 @@
         <CursorPos X="2" Y="9"/>
         <UsageCount Value="19"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
         <CursorPos X="61" Y="10"/>
         <UsageCount Value="19"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -116,7 +116,7 @@
         <CursorPos X="78" Y="17"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit13>
       <Unit14>
         <Filename Value="../../units/ogltextur.pas"/>

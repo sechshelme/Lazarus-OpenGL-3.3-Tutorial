@@ -134,23 +134,19 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
-
   WorldMatrix.Identity;
 
-  Shader := TShader.Create([
-    FileToStr('Vertexshader.glsl'),
-    //    FileToStr('tesselationcontrolshader.glsl'),
-    FileToStr('tesselationevalationshader.glsl'),
-    FileToStr('Fragmentshader.glsl')], True);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'tesselationevalationshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
 
   with Shader do begin
-    UseProgram;
     WorldMatrix_ID := UniformLocation('Matrix');
-
     glUniform1i(UniformLocation('heightMap'), 0);  // Dem Sampler[0] 0 zuweisen.
-    //    glUniform1i(UniformLocation('Sampler[1]'), 1);  // Dem Sampler[1] 1 zuweisen.
   end;
-
   //code-
 
   glGenVertexArrays(1, @VBQuad0.VAO);
