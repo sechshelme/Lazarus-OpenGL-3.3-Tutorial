@@ -6,12 +6,12 @@ interface
 
 uses
   Classes,
-//  Dialogs,
+  //  Dialogs,
   SysUtils,
   FileUtil,
   //LazFileUtils,
   dglOpenGL,
-//  Graphics,
+  //  Graphics,
   LResources,
   oglDebug;
 
@@ -22,13 +22,17 @@ type
   TShader = class(TObject)
   private
     FProgramObject: GLHandle;
-    procedure LoadShaderObject(const AShader: ansistring; shaderType: GLenum);
     function Split(AShader: ansistring): TStringArray;
   public
     property ID: GLHandle read FProgramObject;
 
     constructor Create(const AShader: array of const);
+    constructor Create;
     destructor Destroy; override;
+    procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
+    procedure LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+    procedure LinkProgramm;
+
 
     function UniformLocation(ch: PGLChar): GLint;
     function UniformBlockIndex(ch: PGLChar): GLuint;
@@ -60,21 +64,8 @@ end;
 function FileToStr(Datei: string): ansistring;
 var
   SrcHandle: THandle;
-  {$IFDEF Darwin}
-var
-  s: string;
-  {$ENDIF}
 begin
   if FileExists(Datei) then begin
-    {$IFDEF Darwin}
-    if not FileExists(Datei) then begin
-      s := LeftStr(ParamStr(0), Pos('.app/', ParamStr(0)) - 1);
-      s := ExtractFilePath(s) + Datei;
-      if FileExists(s) then begin
-        Datei := s;
-      end;
-    end;
-    {$ENDIF}
     SetLength(Result, FileSize(Datei));
     SrcHandle := FileOpen(Datei, fmOpenRead or fmShareDenyWrite);
     FileRead(SrcHandle, Result[1], Length(Result));
@@ -146,6 +137,12 @@ begin
   end;
 end;
 
+constructor TShader.Create;
+begin
+  inherited Create;
+  FProgramObject := glCreateProgram();
+end;
+
 (*
 === Beispiele für Shadererzeugung ===
 
@@ -174,14 +171,8 @@ constructor TShader.Create(const AShader: array of const);
 var
   sa: TStringArray = nil;
   i: integer;
-  ErrorStatus: boolean;
-  InfoLogLength: GLsizei;
-  Str: ansistring;
-
 begin
-  inherited Create;
-
-  FProgramObject := glCreateProgram();
+  Create;
 
   case AShader[0].VType of
     vtAnsiString: begin  // ---- Alte Version
@@ -199,43 +190,34 @@ begin
           LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
         end;
       end;
-      if Length(sa)= 2 then begin;
-        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-        LoadShaderObject(sa[1], GL_FRAGMENT_SHADER);
-      end else if Length(sa)= 3 then begin
-        LoadShaderObject(sa[0], GL_VERTEX_SHADER);
-        LoadShaderObject(sa[1], GL_GEOMETRY_SHADER);
-        LoadShaderObject(sa[2], GL_FRAGMENT_SHADER);
+      if Length(sa) = 2 then begin
+        LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
+        LoadShaderObject(GL_FRAGMENT_SHADER, sa[1]);
+      end else if Length(sa) = 3 then begin
+        LoadShaderObject(GL_VERTEX_SHADER, sa[0]);
+        LoadShaderObject(GL_GEOMETRY_SHADER, sa[1]);
+        LoadShaderObject(GL_FRAGMENT_SHADER, sa[2]);
       end;
     end;
     vtInteger: begin   // --- Neue Version
       i := 0;
       while i < Length(AShader) do begin
-        LoadShaderObject(ansistring(AShader[i + 1].VAnsiString), AShader[i].VInteger);
+        LoadShaderObject(AShader[i].VInteger, ansistring(AShader[i + 1].VAnsiString));
         Inc(i, 2);
       end;
     end;
-    else WriteLn('Ungültiges Argument in Shader-Create !');
+    else begin
+      WriteLn('Ungültiges Argument in Shader-Create !');
+    end;
   end;
 
   // Shader Linken
 
-  glLinkProgram(FProgramObject);
-
-  // Check  Link
-  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
-
-  if ErrorStatus = GL_FALSE then begin
-    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(Str, InfoLogLength + 1);
-    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    LogForm.AddAndTitle('SHADER LINK:', str);
-  end;
-
-  UseProgram;
+  LinkProgramm;
+//  UseProgram;
 end;
 
-procedure TShader.LoadShaderObject(const AShader: ansistring; shaderType: GLenum);
+procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
   ShaderObject: GLhandle;
   Str: ansistring;
@@ -252,7 +234,6 @@ begin
   glAttachShader(FProgramObject, ShaderObject);
 
   // Check  Shader
-
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
   SetLength(Str, InfoLogLength + 1);
@@ -263,6 +244,30 @@ begin
   end;
 
   glDeleteShader(ShaderObject);
+end;
+
+procedure TShader.LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+begin
+  LoadShaderObject(shaderType, FileToStr(ShaderFile));
+end;
+
+procedure TShader.LinkProgramm;
+var
+  Str: ansistring;
+  ErrorStatus: boolean;
+  InfoLogLength: GLsizei;
+begin
+  glLinkProgram(FProgramObject);
+
+  // Check  Link
+  glGetProgramiv(FProgramObject, GL_LINK_STATUS, @ErrorStatus);
+
+  if ErrorStatus = GL_FALSE then begin
+    glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+    SetLength(Str, InfoLogLength + 1);
+    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
+    LogForm.AddAndTitle('SHADER LINK:', str);
+  end;
 end;
 
 destructor TShader.Destroy;

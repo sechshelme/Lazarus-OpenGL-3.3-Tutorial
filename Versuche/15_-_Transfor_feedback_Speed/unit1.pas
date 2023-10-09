@@ -5,10 +5,9 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
-  oglContext;
+  dglOpenGL, oglShader,  oglContext;
 
 type
 
@@ -19,6 +18,8 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     ogc: TContext;
+    shader: TShader;
+    procedure Initshader(VertexDatei: string);
     procedure CreateScene;
     procedure OutputScene;
   public
@@ -39,7 +40,7 @@ implementation
 //lineal
 const
 //  DataLength = 100000;
-  DataLength = 10;
+  DataLength = 10000;
 
 type
   TData = array of TGLfloat;
@@ -60,61 +61,18 @@ var
   // https://vis.uni-jena.de/Lecture/ComputerGraphics/Lec11_TransformFeedback.pdf
   // https://mathweb.ucsd.edu/~sbuss/MathCG2/OpenGLsoft/Chap1TransformFeedback/C1TFexplain.html
 
-var
-  ProgramID: GLuint;
-
-function Initshader(VertexDatei: string): GLuint;
+procedure TForm1.Initshader(VertexDatei: string);
 const
   feedbackVarings: array of PGLchar = ('outValue');
-var
-  sl: TStringList;
-  s: string;
-
-  ProgramObject: GLhandle;
-  VertexShaderObject: GLhandle;
-  ErrorStatus, InfoLogLength: integer;
-
 begin
-  sl := TStringList.Create;
-  ProgramObject := glCreateProgram();
-
-  // Vertex - Shader
-
-  VertexShaderObject := glCreateShader(GL_VERTEX_SHADER);
-  sl.LoadFromFile(VertexDatei);
-  s := sl.Text;
-  glShaderSource(VertexShaderObject, 1, @s, nil);
-  glCompileShader(VertexShaderObject);
-  glAttachShader(ProgramObject, VertexShaderObject);
-
-  // Check Shader
-  glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  if ErrorStatus = 0 then begin
-    glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + 1);
-    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, @s[1]);
-    WriteLn('OpenGL Vertex Fehler', s);
-  end;
-  glDeleteShader(VertexShaderObject);
+  shader := TShader.Create;
+  shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, VertexDatei);
 
   // Feedback
-  glTransformFeedbackVaryings(ProgramObject, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
+  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
 
-
-
-  glLinkProgram(ProgramObject);
-
-  // Check Link
-  glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
-  if ErrorStatus = 0 then begin
-    glGetProgramiv(ProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + 1);
-    glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, @s[1]);
-    WriteLn('OpenGL Link Fehler', s);
-  end;
-
-  Result := ProgramObject;
-  sl.Free;
+  shader.LinkProgramm;
+  shader.UseProgram;
 end;
 
 //code-
@@ -142,8 +100,7 @@ begin
     Data[i] := i;
   end;
 
-  ProgramID := InitShader('Vertexshader.glsl');
-  glUseProgram(programID);
+   InitShader('Vertexshader.glsl');
 
   glGenVertexArrays(1, @VBData.VAO);
   glBindVertexArray(VBData.VAO);
@@ -213,7 +170,7 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  glDeleteProgram(ProgramID);
+  shader.Free;
 
   glDeleteVertexArrays(1, @VBData.VAO);
 
