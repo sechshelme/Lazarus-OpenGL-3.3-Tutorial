@@ -1,8 +1,8 @@
 #version 420
 
 layout (location =  0) in  float inValue;
-layout (location = 10) out float outValue0;
-layout (location = 11) out float outValue1;
+layout (location = 0) out float outValue0;
+layout (location = 1) out float outValue1;
 
 void main(void)
 {

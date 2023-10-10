@@ -1,0 +1,3 @@
+"Zusätliche geometrische Berechnung"
+
+Ein Zusatz-Shader, der zB. Vektoren verdoppeln kann.

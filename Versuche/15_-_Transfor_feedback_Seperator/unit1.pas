@@ -50,7 +50,7 @@ var
 type
   TVB = record
     VAO,
-    VBO, TBO: GLuint;
+    VBO, TBO0, TBO1: GLuint;
   end;
 
 var
@@ -70,8 +70,8 @@ begin
   shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, VertexDatei);
 
   // Feedback
-  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
-//  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
+//  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
+  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
 
   shader.LinkProgramm;
   shader.UseProgram;
@@ -87,7 +87,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self);
+  ogc := TContext.Create(Self,True,4,6);
 
   CreateScene;
   OutputScene;
@@ -129,21 +129,24 @@ var
   PrimitivesCount: GLuint;
 begin
   SetLength(feedbacks, DataLength);
-  glGenBuffers(1, @VBData.TBO);
-  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBO);
-  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(feedbacks) * SizeOf(TFeedBack), nil, GL_DYNAMIC_READ);
-
-  glEnable(GL_RASTERIZER_DISCARD);
-  WriteLn(shader.AttribLocation('outValue0'));
-  WriteLn(shader.AttribLocation('outValue1'));
-  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBO);
 
   glGenQueries(1, @query);
-  glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
+
+  glGenBuffers(1, @VBData.TBO0);
+  glBindBuffer(GL_ARRAY_BUFFER, VBData.TBO0);
+  glGenBuffers(1, @VBData.TBO1);
+  glBindBuffer(GL_ARRAY_BUFFER, VBData.TBO1);
+
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBO0);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, VBData.TBO1);
+
+  glEnable(GL_RASTERIZER_DISCARD);
+
   glBeginTransformFeedback(GL_POINTS);
+  glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
   glDrawArrays(GL_POINTS, 0, Length(Data));
-  glEndTransformFeedback;
   glEndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN);
+  glEndTransformFeedback;
 
   glFlush;
 
@@ -166,7 +169,7 @@ begin
   glDeleteVertexArrays(1, @VBData.VAO);
 
   glDeleteBuffers(1, @VBData.VBO);
-  glDeleteBuffers(1, @VBData.TBO);
+  glDeleteBuffers(1, @VBData.TBO0);
 end;
 
 //lineal
