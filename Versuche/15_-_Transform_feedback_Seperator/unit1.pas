@@ -5,9 +5,9 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL, oglContext,oglDebug, oglShader;
+  dglOpenGL, oglContext, oglDebug, oglShader;
 
 type
 
@@ -50,7 +50,7 @@ var
 type
   TVB = record
     VAO,
-    VBO, TBO: GLuint;
+    VBO, TBOSqrt, TBOPow: GLuint;
   end;
 
 var
@@ -64,14 +64,13 @@ var
 
 procedure TForm1.InitShader(VertexDatei: string);
 const
-  feedbackVarings: array of PGLchar = ('outValue0', 'outValue1');
+  feedbackVarings: array of PGLchar = ('outSqrt', 'outPow');
 begin
   shader := TShader.Create;
   shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, VertexDatei);
 
   // Feedback
-  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
-//  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
+  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
 
   shader.LinkProgramm;
   shader.UseProgram;
@@ -117,33 +116,37 @@ begin
 end;
 
 procedure TForm1.OutputScene;
-type
-  TFeedBack = record
-    sqrt, pow: GLfloat;
-  end;
 var
   i: integer;
-  feedbacks: array of TFeedBack = nil;
-var
+  SqrtFeedbacks: array of GLfloat = nil;
+  PowFeedbacks: array of GLfloat = nil;
+
   query: GLuint;
   PrimitivesCount: GLuint;
-begin
-  SetLength(feedbacks, DataLength);
-  glGenBuffers(1, @VBData.TBO);
-  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBO);
-  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(feedbacks) * SizeOf(TFeedBack), nil, GL_DYNAMIC_READ);
 
-  glEnable(GL_RASTERIZER_DISCARD);
-  WriteLn(shader.AttribLocation('outValue0'));
-  WriteLn(shader.AttribLocation('outValue1'));
-  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBO);
+begin
+  SetLength(SqrtFeedbacks, DataLength);
+  SetLength(PowFeedbacks, DataLength);
+
+  glGenBuffers(1, @VBData.TBOSqrt);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
+  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBOSqrt);
+
+  glGenBuffers(1, @VBData.TBOPow);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
+  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, VBData.TBOPow);
+
 
   glGenQueries(1, @query);
+  glEnable(GL_RASTERIZER_DISCARD);
   glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
   glBeginTransformFeedback(GL_POINTS);
   glDrawArrays(GL_POINTS, 0, Length(Data));
   glEndTransformFeedback;
   glEndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN);
+  glDisable(GL_RASTERIZER_DISCARD);
 
   glFlush;
 
@@ -151,12 +154,15 @@ begin
   WriteLn('query: ', PrimitivesCount, #10);
   glDeleteQueries(1, @query);
 
-  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(feedbacks) * SizeOf(TFeedBack), PGLvoid(feedbacks));
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(SqrtFeedbacks) * SizeOf(GLfloat), PGLvoid(SqrtFeedbacks));
 
-  for i := 0 to Length(feedbacks) - 1 do begin
-    WriteLn(Data[i]: 10: 5, '   ', feedbacks[i].sqrt: 10: 5, '   ', feedbacks[i].pow: 10: 5);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(PowFeedbacks) * SizeOf(GLfloat), PGLvoid(PowFeedbacks));
+
+  for i := 0 to Length(SqrtFeedbacks) - 1 do begin
+    WriteLn(Data[i]: 10: 5, '   ', SqrtFeedbacks[i]: 10: 5, '   ', PowFeedbacks[i]: 10: 5);
   end;
-  WriteLn;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -166,7 +172,8 @@ begin
   glDeleteVertexArrays(1, @VBData.VAO);
 
   glDeleteBuffers(1, @VBData.VBO);
-  glDeleteBuffers(1, @VBData.TBO);
+  glDeleteBuffers(1, @VBData.TBOSqrt);
+  glDeleteBuffers(1, @VBData.TBOPow);
 end;
 
 //lineal
@@ -182,6 +189,5 @@ Die beiden verwendeten Shader, Details dazu im Kapitel Shader.
 <b>Fragment-Shader:</b>
 *)
 //includeglsl Fragmentshader.glsl
-
 
 end.
