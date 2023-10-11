@@ -6,22 +6,22 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls,
-  dglOpenGL, oglContext,oglDebug, oglShader;
+  Dialogs, ExtCtrls, StdCtrls,
+  dglOpenGL, oglContext, oglDebug, oglShader;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    procedure SeperateClick(Sender: TObject);
+    procedure InterleavedClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
   private
     ogc: TContext;
     shader: TShader;
-    procedure InitShader(VertexDatei: string);
-    procedure CreateScene;
-    procedure OutputScene;
   public
   end;
 
@@ -38,6 +38,13 @@ implementation
 *)
 
 //lineal
+
+// https://open.gl/feedback
+// https://vis.uni-jena.de/Lecture/ComputerGraphics/Lec11_TransformFeedback.pdf
+// https://mathweb.ucsd.edu/~sbuss/MathCG2/OpenGLsoft/Chap1TransformFeedback/C1TFexplain.html
+// file:///home/tux/Downloads/CGDC_OpenGL_ES_3.0.pdf
+// https://prideout.net/modern-opengl-prezo/
+
 const
   DataLength = 16;
 
@@ -47,38 +54,9 @@ type
 var
   Data: TData;
 
-type
-  TVB = record
-    VAO,
-    VBO, TBO: GLuint;
-  end;
-
-var
-  VBData: TVB;
-
-  // https://open.gl/feedback
-  // https://vis.uni-jena.de/Lecture/ComputerGraphics/Lec11_TransformFeedback.pdf
-  // https://mathweb.ucsd.edu/~sbuss/MathCG2/OpenGLsoft/Chap1TransformFeedback/C1TFexplain.html
-  // file:///home/tux/Downloads/CGDC_OpenGL_ES_3.0.pdf
-  // https://prideout.net/modern-opengl-prezo/
-
-procedure TForm1.InitShader(VertexDatei: string);
 const
   feedbackVarings: array of PGLchar = ('outSqrt', 'outPow');
-begin
-  shader := TShader.Create;
-  shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, VertexDatei);
-
-  // Feedback
-  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
-
-  shader.LinkProgramm;
-  shader.UseProgram;
-end;
-
-//code-
-
-{ TForm1 }
+  //code-
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -87,23 +65,45 @@ begin
   Height := 240;
   //remove-
   ogc := TContext.Create(Self);
-
-  CreateScene;
-  OutputScene;
-  InitOpenGLDebug;
+  ogc.Visible := False;
 end;
 
-procedure TForm1.CreateScene;
+procedure TForm1.InterleavedClick(Sender: TObject);
+type
+  TVB = record
+    VAO,
+    VBO, TBO: GLuint;
+  end;
+
+  TFeedBack = record
+    sqrt, pow: GLfloat;
+  end;
 var
+  VBData: TVB;
+
   i: integer;
+  feedbacks: array of TFeedBack = nil;
+
+  query: GLuint;
+  PrimitivesCount: GLuint;
+
 begin
   SetLength(Data, DataLength);
   for i := 0 to Length(Data) - 1 do begin
     Data[i] := i;
   end;
 
-  InitShader('Vertexshader.glsl');
+  // --- Shader inizialisieren
+  shader := TShader.Create;
+  shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
 
+  // Sagen, das man einen Interleaved Feedback will
+  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
+
+  shader.LinkProgramm;
+  shader.UseProgram;
+
+  // --- VAO und VBO für den Input
   glGenVertexArrays(1, @VBData.VAO);
   glBindVertexArray(VBData.VAO);
 
@@ -113,64 +113,141 @@ begin
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
-end;
 
-procedure TForm1.OutputScene;
-type
-  TFeedBack = record
-    sqrt, pow: GLfloat;
-  end;
-var
-  i: integer;
-  feedbacks: array of TFeedBack = nil;
-var
-  query: GLuint;
-  PrimitivesCount: GLuint;
-begin
+  // --- TBO für den Output
   SetLength(feedbacks, DataLength);
   glGenBuffers(1, @VBData.TBO);
   glBindBuffer(GL_ARRAY_BUFFER, VBData.TBO);
   glBufferData(GL_ARRAY_BUFFER, Length(feedbacks) * SizeOf(TFeedBack), nil, GL_DYNAMIC_READ);
-
-  glEnable(GL_RASTERIZER_DISCARD);
   glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBO);
 
+  // --- Rendervorgang starten
+  glEnable(GL_RASTERIZER_DISCARD);
   glGenQueries(1, @query);
   glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
   glBeginTransformFeedback(GL_POINTS);
   glDrawArrays(GL_POINTS, 0, Length(Data));
   glEndTransformFeedback;
   glEndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN);
-
   glFlush;
 
+  // --- Anzahl Primitiven ausgeben
   glGetQueryObjectiv(query, GL_QUERY_RESULT, @PrimitivesCount);
   WriteLn('query: ', PrimitivesCount, #10);
   glDeleteQueries(1, @query);
 
+  // --- TBO Binden und auslesen
   glBindBuffer(GL_ARRAY_BUFFER, VBData.TBO);
   glGetBufferSubData(GL_ARRAY_BUFFER, 0, Length(feedbacks) * SizeOf(TFeedBack), PGLvoid(feedbacks));
 
+  // --- Die gelesenen Daten ausgeben
   for i := 0 to Length(feedbacks) - 1 do begin
     WriteLn(Data[i]: 10: 5, '   ', feedbacks[i].sqrt: 10: 5, '   ', feedbacks[i].pow: 10: 5);
   end;
   WriteLn;
-end;
 
-procedure TForm1.FormDestroy(Sender: TObject);
-begin
+  // --- Alles freigeben
   shader.Free;
-
   glDeleteVertexArrays(1, @VBData.VAO);
-
   glDeleteBuffers(1, @VBData.VBO);
   glDeleteBuffers(1, @VBData.TBO);
 end;
 
+procedure TForm1.SeperateClick(Sender: TObject);
+type
+  TVB = record
+    VAO,
+    VBO, TBOSqrt, TBOPow: GLuint;
+  end;
+var
+  VBData: TVB;
+  i: integer;
+  SqrtFeedbacks: array of GLfloat = nil;
+  PowFeedbacks: array of GLfloat = nil;
+
+  query: GLuint;
+  PrimitivesCount: GLuint;
+begin
+  SetLength(Data, DataLength);
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i] := i;
+  end;
+
+  // --- Shader inizialisieren
+  shader := TShader.Create;
+  shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+
+  // Sagen, das man einen Seperator Feedback will
+  glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
+
+  shader.LinkProgramm;
+  shader.UseProgram;
+
+  // --- VAO und VBO für den Input
+  glGenVertexArrays(1, @VBData.VAO);
+  glBindVertexArray(VBData.VAO);
+
+  glGenBuffers(1, @VBData.VBO);
+  glBindBuffer(GL_ARRAY_BUFFER, VBData.VBO);
+  glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), PGLvoid(Data), GL_STATIC_DRAW);
+
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
+
+  // --- TBO für den Output
+  SetLength(SqrtFeedbacks, DataLength);
+  SetLength(PowFeedbacks, DataLength);
+
+  glGenBuffers(1, @VBData.TBOSqrt);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
+  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBOSqrt);
+
+  glGenBuffers(1, @VBData.TBOPow);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
+  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, VBData.TBOPow);
+
+
+  // --- Rendervorgang starten
+  glEnable(GL_RASTERIZER_DISCARD);
+  glGenQueries(1, @query);
+  glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
+  glBeginTransformFeedback(GL_POINTS);
+  glDrawArrays(GL_POINTS, 0, Length(Data));
+  glEndTransformFeedback;
+  glEndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN);
+  glDisable(GL_RASTERIZER_DISCARD);
+  glFlush;
+
+  // --- Anzahl Primitiven ausgeben
+  glGetQueryObjectiv(query, GL_QUERY_RESULT, @PrimitivesCount);
+  WriteLn('query: ', PrimitivesCount, #10);
+  glDeleteQueries(1, @query);
+
+  // --- TBO Binden und auslesen
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(SqrtFeedbacks) * SizeOf(GLfloat), PGLvoid(SqrtFeedbacks));
+
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(PowFeedbacks) * SizeOf(GLfloat), PGLvoid(PowFeedbacks));
+
+  // --- Die gelesenen Daten ausgeben
+  for i := 0 to Length(SqrtFeedbacks) - 1 do begin
+    WriteLn(Data[i]: 10: 5, '   ', SqrtFeedbacks[i]: 10: 5, '   ', PowFeedbacks[i]: 10: 5);
+  end;
+
+  // --- Alles freigeben
+  shader.Free;
+  glDeleteVertexArrays(1, @VBData.VAO);
+  glDeleteBuffers(1, @VBData.VBO);
+  glDeleteBuffers(1, @VBData.TBOSqrt);
+  glDeleteBuffers(1, @VBData.TBOPow);
+end;
+
+
 //lineal
 (*
-Die beiden verwendeten Shader, Details dazu im Kapitel Shader.
-
 <b>Vertex-Shader:</b>
 *)
 //includeglsl Vertexshader.glsl
