@@ -8,6 +8,10 @@ uses
   Classes, SysUtils, dglOpenGL;
 
 type
+  TVector2i =array[0..1] of GLint;
+  TVector3i =array[0..2] of GLint;
+  TVector4i =array[0..3] of GLint;
+
   TglFloatArray = array of glFloat;
   PglFloatArray = ^TglFloatArray;
 
