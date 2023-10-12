@@ -10,7 +10,7 @@ uses
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix;
 
-//image image.png
+  //image image.png
 (*
 Bis jetzt wurden alle Uniforms einzeln dem Shader übegeben.
 Wen man aber mehrer Werte übeergeben will, kann man die <b>Uniforms</b> zu einem <b>Block</b> zusammenfassen.
@@ -22,7 +22,7 @@ Die Material-Eigenschaften sind ein ideales Beispiel dafür.
 
 In diesem Beispiel sind die Kugeln aus Rubin.
 *)
-//lineal
+  //lineal
 
 type
 
@@ -70,15 +70,21 @@ Bei Verwendung von einem <b>TVector4f</b>, braucht es kein Padding, da dieser 16
 *)
 //code+
 type
-  TMaterial = record
-    ambient: TVector3f;      // Umgebungslicht
-    pad0: GLfloat;           // padding 4Byte
-    diffuse: TVector3f;      // Farbe
-    pad1: GLfloat;           // padding 4Byte
-    specular: TVector3f;     // Spiegelnd
-    shininess: GLfloat;      // Glanz
+  TUBOBuffer = record
+    Material: record
+      ambient: TVector3f;      // Umgebungslicht
+      pad0: GLfloat;           // padding 4Byte
+      diffuse: TVector3f;      // Farbe
+      pad1: GLfloat;           // padding 4Byte
+      specular: TVector3f;     // Spiegelnd
+      shininess: GLfloat;      // Glanz
+      end;
+    Matrix: record
+      ModelMatrix: Tmat4x4;
+      Matrix: Tmat4x4;
+      end;
   end;
-//code-
+  //code-
 
 (*
 So was geht leider <b>nicht</b>.
@@ -97,7 +103,7 @@ Generell wird für ein UBO ein Record empfohlen, mann könnte einen UBO-Buffer a
 *)
 
 var
-  mRubin: TMaterial;
+  UBOBuffer: TUBOBuffer;
 
   SphereVertex, SphereNormal: array of Tmat3x3;
   CubeSize: integer;
@@ -113,22 +119,20 @@ type
 Für einen <b>UBO</b> wird auch ein <b>Zeiger</b> auf den <b>Puffer</b> gebraucht, ähnlich eines Vertex-Puffers.
 Auch wird eine <b>ID</b> gebraucht, so wie es bei einfachen Uniforms der Fall ist.
 *)
-//code+
+  //code+
 var
   UBO: GLuint;        // Puffer-Zeiger
-  Material_ID: GLint; // ID im Shader
+  UBOBuffer_ID: GLint; // ID im Shader
   //code-
 
   VBCube: TVB;
   FrustumMatrix,
   WorldMatrix,
-  ModelMatrix,
-  Matrix: TMatrix;
+  ModelMatrix: TMatrix;
 
-  ModelMatrix_ID,
-  Matrix_ID: GLint;
+  //  Matrix: TMatrix;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -181,7 +185,7 @@ var
 
   Tab: array of array of record
     a, b, c: single;
-  end;
+    end;
 
 begin
   t := 2 * pi / Sektoren;
@@ -234,10 +238,7 @@ begin
   //remove-
   with Shader do begin
     UseProgram;
-    Matrix_ID := UniformLocation('Matrix');
-    ModelMatrix_ID := UniformLocation('ModelMatrix');
-
-    Material_ID := UniformBlockIndex('Material'); // UBO-Block ID aus dem Shader holen.
+    UBOBuffer_ID := UniformBlockIndex('UBOData'); // UBO-Block ID aus dem Shader holen.
   end;
 
   glGenVertexArrays(1, @VBCube.VAO);
@@ -262,22 +263,23 @@ var
   bindingPoint: gluint = 0; // Pro Verbindung wird ein BindingPoint gebraucht.
 begin
   // Material-Werte inizialisieren
-  with mRubin do begin
+  with UBOBuffer.Material do begin
     ambient := vec3(0.17, 0.01, 0.01);
     diffuse := vec3(0.61, 0.04, 0.04);
     specular := vec3(0.73, 0.63, 0.63);
     shininess := 76.8;
   end;
 
-
-  // UBO mit Daten laden
-  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TMaterial), @mRubin, GL_DYNAMIC_DRAW);
+  // UBO mit Buffer reservieren
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, UBO);
+  glBufferData(GL_SHADER_STORAGE_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
-  glUniformBlockBinding(Shader.ID, Material_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
-//code-
+//  glUniformBlockBinding(Shader.ID, UBOBuffer_ID, bindingPoint);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
+
+  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+  //code-
 
   glClearColor(0.15, 0.15, 0.1, 1.0);
 
@@ -325,17 +327,16 @@ begin
   for x := -CubeSize to CubeSize do begin
     for y := -CubeSize to CubeSize do begin
       for z := -CubeSize to CubeSize do begin
-        Matrix.Identity;
-        Matrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
-        Matrix.Scale(scal);
-        Matrix := ModelMatrix * Matrix;
+        UBOBuffer.Matrix.ModelMatrix.Identity;
+        UBOBuffer.Matrix.ModelMatrix.Translate(x * d, y * d, z * d);                   // Matrix verschieben.
+        UBOBuffer.Matrix.ModelMatrix.Scale(scal);
+        UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix;
 
-        Matrix.Uniform(ModelMatrix_ID);                          // Erste Übergabe an den Shader.
+        UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;         // Matrizen multiplizieren.
 
-        Matrix := FrustumMatrix * WorldMatrix *  Matrix;         // Matrizen multiplizieren.
-
-        Matrix.Uniform(Matrix_ID);                               // Matrix dem Shader übergeben.
-        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3); // Zeichnet einen Würfel.
+        glBindBuffer(GL_SHADER_STORAGE_BUFFER, UBO);
+        glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
+        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
       end;
     end;
   end;
@@ -360,7 +361,7 @@ begin
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBONormal);
   glDeleteBuffers(1, @UBO);  // UBO löschen.
-//code-
+  //code-
 end;
 
 procedure TForm1.MenuItemClick(Sender: TObject);
