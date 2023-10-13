@@ -1,0 +1,649 @@
+# File produced by 
+
+newmtl VAZ_210900
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210901
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210902
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210903
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210904
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210905
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1765 0.1765 0.1765
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210906
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1804 0.1451 0.1059
+  Ka 0.1804 0.1451 0.1059
+  Ks 0 0 0
+
+newmtl VAZ_210907
+  Ns 1.0
+  d 0.11
+  illum 2
+  Kd 0 0 0
+  Ka 0.8 0.8 0.8
+  Ks 0 0 0
+
+newmtl VAZ_210908
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.8588 0.8588 0.8588
+  Ka 1.0 1.0 1.0
+  Ks 0.2588 0.2588 0.2588
+
+newmtl VAZ_210909
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210910
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1608 0.1608 0.1686
+  Ka 0.1608 0.1608 0.1686
+  Ks 0 0 0
+
+newmtl VAZ_210911
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1922 0.1922 0.1922
+  Ka 0.3294 0.3294 0.3216
+  Ks 0 0 0
+
+newmtl VAZ_210912
+  Ns 1.0
+  d 0.11
+  illum 2
+  Kd 0 0 0
+  Ka 0.8 0.8 0.8
+  Ks 0 0 0
+
+newmtl VAZ_210913
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.8588 0.8588 0.8588
+  Ka 1.0 1.0 1.0
+  Ks 0.2588 0.2588 0.2588
+
+newmtl VAZ_210914
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210915
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1608 0.1608 0.1686
+  Ka 0.1608 0.1608 0.1686
+  Ks 0 0 0
+
+newmtl VAZ_210916
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1922 0.1922 0.1922
+  Ka 0.3294 0.3294 0.3216
+  Ks 0 0 0
+
+newmtl VAZ_210917
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1765 0.1765 0.1765
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210918
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1804 0.1451 0.1059
+  Ka 0.1804 0.1451 0.1059
+  Ks 0 0 0
+
+newmtl VAZ_210919
+  Ns 1.0
+  d 0.7
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210920
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210921
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210922
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210923
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210924
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210925
+  Ns 1.0
+  d 0.91
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210926
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210927
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210928
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210929
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210930
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.7843 0.7843 0.7843
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210931
+  Ns 1.0
+  d 0.7
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210932
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210933
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210934
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210935
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.7843 0.7843 0.7843
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210936
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210937
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210938
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.6 0.6 0.5922
+  Ka 0.6 0.6 0.5922
+  Ks 0 0 0
+
+newmtl VAZ_210939
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210940
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.6 0.6 0.5922
+  Ka 0.6 0.6 0.5922
+  Ks 0 0 0
+
+newmtl VAZ_210941
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.4039 0.3961 0.3961
+  Ka 0.4039 0.3961 0.3961
+  Ks 0 0 0
+
+newmtl VAZ_210942
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.2196 0.2196 0.2196
+  Ka 0.2196 0.2196 0.2196
+  Ks 0 0 0
+
+newmtl VAZ_210943
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.9098 0.902 0.902
+  Ka 0.9098 0.902 0.902
+  Ks 0 0 0
+
+newmtl VAZ_210944
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210945
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.6745 0.6745 0.6745
+  Ka 0.6745 0.6745 0.6745
+  Ks 0 0 0
+
+newmtl VAZ_210946
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210947
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.9608 0.9608 0.9608
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210948
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 0 0 0
+  Ks 0 0 0
+
+newmtl VAZ_210949
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.3608 0.3608 0.3608
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210950
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.5098 0.5098 0.5098
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210951
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210952
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210953
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210954
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210955
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210956
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210957
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210958
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210959
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210960
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210961
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210962
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210963
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210964
+  Ns 32.75
+  d 1.0
+  illum 2
+  Kd 0.7255 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0.251 0.251 0.251
+
+newmtl VAZ_210965
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210966
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210967
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210968
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210969
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210970
+  Ns 32.75
+  d 0.31
+  illum 2
+  Kd 0.4 0.4 0.4
+  Ka 1.0 1.0 1.0
+  Ks 0.898 0.898 0.898
+
+newmtl VAZ_210971
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210972
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210973
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 1.0 1.0 1.0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210974
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.8588 0.8588 0.8588
+  Ka 1.0 1.0 1.0
+  Ks 0.2588 0.2588 0.2588
+
+newmtl VAZ_210975
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1765 0.1765 0.1765
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210976
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1922 0.1922 0.1922
+  Ka 0.3294 0.3294 0.3216
+  Ks 0 0 0
+
+newmtl VAZ_210977
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1608 0.1608 0.1686
+  Ka 0.1608 0.1608 0.1686
+  Ks 0 0 0
+
+newmtl VAZ_210978
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0 0 0
+  Ka 1.0 1.0 1.0
+  Ks 0 0 0
+
+newmtl VAZ_210979
+  Ns 1.0
+  d 0.11
+  illum 2
+  Kd 0 0 0
+  Ka 0.8 0.8 0.8
+  Ks 0 0 0
+
+newmtl VAZ_210980
+  Ns 1.0
+  d 1.0
+  illum 2
+  Kd 0.1804 0.1451 0.1059
+  Ka 0.1804 0.1451 0.1059
+  Ks 0 0 0

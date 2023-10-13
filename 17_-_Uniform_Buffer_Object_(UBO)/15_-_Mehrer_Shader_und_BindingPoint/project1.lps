@@ -21,7 +21,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="160"/>
+        <TopLine Value="399"/>
         <CursorPos X="88" Y="179"/>
         <UsageCount Value="47"/>
         <Loaded Value="True"/>
@@ -52,7 +52,7 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="12" Y="24"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
@@ -60,7 +60,7 @@
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="21" Y="15"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
@@ -97,7 +97,7 @@
       <Unit11>
         <Filename Value="../../units/oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="3" Y="15"/>
         <UsageCount Value="17"/>
         <Loaded Value="True"/>
@@ -111,7 +111,7 @@
       <Unit13>
         <Filename Value="../../units/oglshader.pas"/>
         <UnitName Value="oglShader"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="178"/>
         <CursorPos X="16" Y="212"/>
         <UsageCount Value="12"/>
@@ -120,10 +120,9 @@
       <Unit14>
         <Filename Value="../../units/ogllogform.pas"/>
         <UnitName Value="oglLogForm"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="47" Y="47"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit14>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">

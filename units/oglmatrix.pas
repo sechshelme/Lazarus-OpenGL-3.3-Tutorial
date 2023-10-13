@@ -702,8 +702,7 @@ end;
 
 {$if defined(cpux86_64) or defined(cpux86)}
 {$asmmode intel}
-operator * (const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler;
-  nostackframe; register;
+operator * (const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler; nostackframe; register;
 asm
          Movups  Xmm4, [m + $00]
          Movups  Xmm5, [m + $10]
@@ -843,7 +842,6 @@ begin
     end;
   end;
 end;
-
 {$endif}
 
 end.

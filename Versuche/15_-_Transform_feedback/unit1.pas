@@ -45,6 +45,7 @@ implementation
 // file:///home/tux/Downloads/CGDC_OpenGL_ES_3.0.pdf
 // https://prideout.net/modern-opengl-prezo/
 
+//code+
 const
   DataLength = 16;
 
@@ -59,6 +60,8 @@ const
   //code-
 
 procedure TForm1.FormCreate(Sender: TObject);
+var
+  i: integer;
 begin
   //remove+
   Width := 340;
@@ -66,6 +69,12 @@ begin
   //remove-
   ogc := TContext.Create(Self);
   ogc.Visible := False;
+
+  // --- Eingabebuffer beladen
+  SetLength(Data, DataLength);
+  for i := 0 to Length(Data) - 1 do begin
+    Data[i] := i;
+  end;
 end;
 
 procedure TForm1.InterleavedClick(Sender: TObject);
@@ -88,11 +97,6 @@ var
   PrimitivesCount: GLuint;
 
 begin
-  SetLength(Data, DataLength);
-  for i := 0 to Length(Data) - 1 do begin
-    Data[i] := i;
-  end;
-
   // --- Shader inizialisieren
   shader := TShader.Create;
   shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
@@ -168,11 +172,6 @@ var
   query: GLuint;
   PrimitivesCount: GLuint;
 begin
-  SetLength(Data, DataLength);
-  for i := 0 to Length(Data) - 1 do begin
-    Data[i] := i;
-  end;
-
   // --- Shader inizialisieren
   shader := TShader.Create;
   shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');

@@ -238,7 +238,7 @@ begin
   //remove-
   with Shader do begin
     UseProgram;
-    UBOBuffer_ID := UniformBlockIndex('UBOData'); // UBO-Block ID aus dem Shader holen.
+    //    UBOBuffer_ID := UniformBlockIndex('UBOData'); // UBO-Block ID aus dem Shader holen.
   end;
 
   glGenVertexArrays(1, @VBCube.VAO);
@@ -276,7 +276,10 @@ begin
 
   // UBO mit dem Shader verbinden
 //  glUniformBlockBinding(Shader.ID, UBOBuffer_ID, bindingPoint);
-  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
+glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
+
+// https://www.lighthouse3d.com/tutorials/opengl-atomic-counters/
+// glBindBufferBase(GL_ATOMIC_COUNTER_BUFFER, 3, UBO);
 
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   //code-
