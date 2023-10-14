@@ -1,6 +1,7 @@
 unit Unit1;
 
 {$mode objfpc}{$H+}
+{$ModeSwitch arrayoperators}
 
 interface
 
@@ -150,31 +151,16 @@ end;
 
 procedure TForm1.CalcSphere;
 
-  procedure Triangles(Vector0, Vector1, Vector2: TVector3f);
-  var
-    l: integer;
+  procedure Quads(Vector0, Vector1, Vector2, Vector3: TVector3f);
   begin
-    l := Length(SphereVertex);
-    SetLength(SphereVertex, l + 1);
-    SetLength(SphereNormal, l + 1);
-
-    SphereVertex[l, 0] := Vector0;
-    SphereVertex[l, 1] := Vector1;
-    SphereVertex[l, 2] := Vector2;
+    SphereVertex += [Tmat3x3([Vector0, Vector1, Vector2]), Tmat3x3([Vector0, Vector2, Vector3])];
 
     Vector0.Normalize;
     Vector1.Normalize;
     Vector2.Normalize;
+    Vector3.Normalize;
 
-    SphereNormal[l, 0] := Vector0;
-    SphereNormal[l, 1] := Vector1;
-    SphereNormal[l, 2] := Vector2;
-  end;
-
-  procedure Quads(Vector0, Vector1, Vector2, Vector3: TVector3f); inline;
-  begin
-    Triangles(Vector0, Vector1, Vector2);
-    Triangles(Vector0, Vector2, Vector3);
+    SphereNormal += [Tmat3x3([Vector0, Vector1, Vector2]), Tmat3x3([Vector0, Vector2, Vector3])];
   end;
 
 const
@@ -185,7 +171,8 @@ var
 
   Tab: array of array of record
     a, b, c: single;
-    end;
+    end
+  = nil;
 
 begin
   t := 2 * pi / Sektoren;
@@ -234,12 +221,12 @@ begin
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  //remove-
-  with Shader do begin
-    UseProgram;
-    //    UBOBuffer_ID := UniformBlockIndex('UBOData'); // UBO-Block ID aus dem Shader holen.
-  end;
+  // --- Shader laden
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
 
   glGenVertexArrays(1, @VBCube.VAO);
 
@@ -259,8 +246,6 @@ Wobei, wen man in mehreren Shader die gleichen Daten laden will, kann man den gl
 *)
 //code+
 procedure TForm1.InitScene;
-var
-  bindingPoint: gluint = 0; // Pro Verbindung wird ein BindingPoint gebraucht.
 begin
   // Material-Werte inizialisieren
   with UBOBuffer.Material do begin
@@ -275,11 +260,7 @@ begin
   glBufferData(GL_SHADER_STORAGE_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
-//  glUniformBlockBinding(Shader.ID, UBOBuffer_ID, bindingPoint);
-glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
-
-// https://www.lighthouse3d.com/tutorials/opengl-atomic-counters/
-// glBindBufferBase(GL_ATOMIC_COUNTER_BUFFER, 3, UBO);
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
 
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   //code-
@@ -291,13 +272,13 @@ glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, Length(SphereVertex) * SizeOf(Tmat3x3), Pointer(SphereVertex), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(SphereVertex) * SizeOf(Tmat3x3), PGLvoid(SphereVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBONormal);
-  glBufferData(GL_ARRAY_BUFFER, Length(SphereNormal) * SizeOf(Tmat3x3), Pointer(SphereNormal), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, Length(SphereNormal) * SizeOf(Tmat3x3), PGLvoid(SphereNormal), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
