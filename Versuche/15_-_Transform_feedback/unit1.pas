@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls,
-  dglOpenGL, oglContext, oglDebug, oglShader;
+  dglOpenGL, oglContext, oglDebug, oglShader, oglVector, oglMatrix;
 
 type
 
@@ -56,7 +56,8 @@ var
   Data: TData;
 
 const
-  feedbackVarings: array of PGLchar = ('outSqrt', 'outPow');
+  feedbackVarings: array of PGLchar = ('outSqrt', 'outMat');
+
   //code-
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -85,12 +86,13 @@ type
   end;
 
   TFeedBack = record
-    sqrt, pow: GLfloat;
+    outSqrt: GLfloat;
+    outMat: Tmat4x4;
   end;
 var
   VBData: TVB;
 
-  i: integer;
+  i, x, y: integer;
   feedbacks: array of TFeedBack = nil;
 
   query: GLuint;
@@ -137,7 +139,6 @@ begin
 
   // --- Anzahl Primitiven ausgeben
   glGetQueryObjectiv(query, GL_QUERY_RESULT, @PrimitivesCount);
-  WriteLn('query: ', PrimitivesCount, #10);
   glDeleteQueries(1, @query);
 
   // --- TBO Binden und auslesen
@@ -145,8 +146,15 @@ begin
   glGetBufferSubData(GL_ARRAY_BUFFER, 0, Length(feedbacks) * SizeOf(TFeedBack), PGLvoid(feedbacks));
 
   // --- Die gelesenen Daten ausgeben
-  for i := 0 to Length(feedbacks) - 1 do begin
-    WriteLn(Data[i]: 10: 5, '   ', feedbacks[i].sqrt: 10: 5, '   ', feedbacks[i].pow: 10: 5);
+  WriteLn('GL_INTERLEAVED_ATTRIBS:');
+  for i := 0 to PrimitivesCount  - 1 do begin
+    Write(Data[i]: 10: 5, '   ', feedbacks[i].outSqrt: 10: 5, '   ');
+    for y := 0 to 3 do begin
+      for x := 0 to 3 do begin
+        Write(feedbacks[i].outMat[y, x]: 5: 1, '  ');
+      end;
+    end;
+    WriteLn();
   end;
   WriteLn;
 
@@ -161,13 +169,13 @@ procedure TForm1.SeperateClick(Sender: TObject);
 type
   TVB = record
     VAO,
-    VBO, TBOSqrt, TBOPow: GLuint;
+    VBO, TBOSqrt, TBOMat: GLuint;
   end;
 var
   VBData: TVB;
-  i: integer;
+  i, x,y: integer;
   SqrtFeedbacks: array of GLfloat = nil;
-  PowFeedbacks: array of GLfloat = nil;
+  MatFeedbacks: array of Tmat4x4 = nil;
 
   query: GLuint;
   PrimitivesCount: GLuint;
@@ -195,17 +203,17 @@ begin
 
   // --- TBO für den Output
   SetLength(SqrtFeedbacks, DataLength);
-  SetLength(PowFeedbacks, DataLength);
+  SetLength(MatFeedbacks, DataLength);
 
   glGenBuffers(1, @VBData.TBOSqrt);
   glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
   glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
   glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, VBData.TBOSqrt);
 
-  glGenBuffers(1, @VBData.TBOPow);
-  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
-  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(SqrtFeedbacks) * SizeOf(GLfloat), nil, GL_DYNAMIC_READ);
-  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, VBData.TBOPow);
+  glGenBuffers(1, @VBData.TBOMat);
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOMat);
+  glBufferData(GL_TRANSFORM_FEEDBACK_BUFFER, Length(MatFeedbacks) * SizeOf(Tmat4x4), nil, GL_DYNAMIC_READ);
+  glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, VBData.TBOMat);
 
 
   // --- Rendervorgang starten
@@ -221,27 +229,34 @@ begin
 
   // --- Anzahl Primitiven ausgeben
   glGetQueryObjectiv(query, GL_QUERY_RESULT, @PrimitivesCount);
-  WriteLn('query: ', PrimitivesCount, #10);
   glDeleteQueries(1, @query);
 
   // --- TBO Binden und auslesen
   glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOSqrt);
   glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(SqrtFeedbacks) * SizeOf(GLfloat), PGLvoid(SqrtFeedbacks));
 
-  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOPow);
-  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(PowFeedbacks) * SizeOf(GLfloat), PGLvoid(PowFeedbacks));
+  glBindBuffer(GL_TRANSFORM_FEEDBACK_BUFFER, VBData.TBOMat);
+  glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, 0, Length(MatFeedbacks) * SizeOf(Tmat4x4), PGLvoid(MatFeedbacks));
 
   // --- Die gelesenen Daten ausgeben
-  for i := 0 to Length(SqrtFeedbacks) - 1 do begin
-    WriteLn(Data[i]: 10: 5, '   ', SqrtFeedbacks[i]: 10: 5, '   ', PowFeedbacks[i]: 10: 5);
+  WriteLn('GL_SEPARATE_ATTRIBS:');
+  for i := 0 to PrimitivesCount - 1 do begin
+    Write(Data[i]: 10: 5, '   ', SqrtFeedbacks[i]: 10: 5, '   ');
+    for y := 0 to 3 do begin
+      for x := 0 to 3 do begin
+        Write(MatFeedbacks[i][y, x]: 5: 1, '  ');
+      end;
+    end;
+    WriteLn();
   end;
+  WriteLn();
 
   // --- Alles freigeben
   shader.Free;
   glDeleteVertexArrays(1, @VBData.VAO);
   glDeleteBuffers(1, @VBData.VBO);
   glDeleteBuffers(1, @VBData.TBOSqrt);
-  glDeleteBuffers(1, @VBData.TBOPow);
+  glDeleteBuffers(1, @VBData.TBOMat);
 end;
 
 
