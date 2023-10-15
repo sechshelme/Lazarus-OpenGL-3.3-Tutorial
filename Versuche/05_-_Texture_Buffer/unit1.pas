@@ -7,16 +7,16 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,    oglDebug,
+  dglOpenGL, oglDebug,
   oglContext, oglShader;
 
-//image image.png
+  //image image.png
 (*
 Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
 Somit werden die Mesh mehrfarbig.
 *)
 
-//lineal
+  //lineal
 
 type
   TForm1 = class(TForm)
@@ -44,7 +44,7 @@ type
 (*
 Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
 *)
-//code+
+  //code+
 const
   TriangleVector: array[0..0] of TFace =
     (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
@@ -57,28 +57,30 @@ const
     (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
     ((1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 1.0)));
 
-  TBOData:array of TVertex3f=((1,0,0),(0,1,0),(0,0,1));
-//code-
+  TBOData: array of TVertex3f = ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (1, 1, 0), (0, 1, 1));
+  //code-
+
+  // https://wiki.delphigl.com/index.php/TextureBufferObjects
 
 (*
 Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.
 *)
-//code+
+  //code+
 type
   TVB = record
     VAO,
     VBOvert,         // VBO für Vektor.
     VBOcol: GLuint;  // VBO für Farbe.
   end;
-//code-
+  //code-
 
 var
   VBTriangle, VBQuad: TVB;
 
-  TBO_tex_ID:GLint;
-  TBO,TBO_tex:GLuint;
+  TBO_tex_ID: GLint;
+  TBO, TBO_tex: GLuint;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -102,7 +104,8 @@ procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-    TBO_tex_ID:=  Shader.UniformLocation('u_tbo_tex');
+  TBO_tex_ID := Shader.UniformLocation('u_tbo_tex');
+  glUniform1i(TBO_tex_ID, 0);
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
@@ -145,10 +148,12 @@ begin
   // --- TBO
   glGenBuffers(1, @TBO);
   glBindBuffer(GL_TEXTURE_BUFFER, TBO);
-  glBufferData(GL_TEXTURE_BUFFER, Length(TBOData)*SizeOf(TVertex3f),PGLvoid(TBOData),GL_STATIC_DRAW);
-  glGenTextures(1,@TBO_tex);
-  glBindBuffer(GL_TEXTURE_BUFFER,0);
+  glBufferData(GL_TEXTURE_BUFFER, Length(TBOData) * SizeOf(TVertex3f), PGLvoid(TBOData), GL_STATIC_DRAW);
+  glGenTextures(1, @TBO_tex);
+  glBindTexture(GL_TEXTURE_BUFFER, 0);
+  glBindBuffer(GL_TEXTURE_BUFFER, 0);
 end;
+
 //code-
 
 (*
@@ -161,25 +166,17 @@ begin
   Shader.UseProgram;
 
   // --- TBO
-
-
-  //code+
-  // Zeichne Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-
-
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_BUFFER,TBO_tex);
-  glTexBuffer(GL_TEXTURE_BUFFER,GL_R32F,TBO);
+  glBindTexture(GL_TEXTURE_BUFFER, TBO_tex);
+  glTexBuffer(GL_TEXTURE_BUFFER, GL_RGB32F, TBO);
 
-  glUniform1i(TBO_tex_ID,0);
-
+  // --- Zeichne Dreieck
+  glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
 
-  // Zeichne Quadrat
+  // --- Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-  //code-
 
   ogc.SwapBuffers;
 end;
@@ -209,8 +206,6 @@ end;
 
 (*
 <b>Vertex-Shader:</b>
-
-Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.
 *)
 //includeglsl Vertexshader.glsl
 //lineal
@@ -221,5 +216,3 @@ Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Numme
 //includeglsl Fragmentshader.glsl
 
 end.
-
-
