@@ -132,7 +132,7 @@ procedure TForm1.InitScene;
 const
   maxLevel = 5;
 var
-  tex: array of UInt32;
+  tex: array of UInt32=nil;
   w, i, j: integer;
 begin
   // ------------ Texture laden --------------
