@@ -27,7 +27,6 @@ type
     property ID: GLHandle read FProgramObject;
 
     constructor Create(const AShader: array of ansistring);
-    //    constructor Create(const AShader: array of const);
     constructor Create;
     destructor Destroy; override;
     procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);

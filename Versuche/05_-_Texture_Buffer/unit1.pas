@@ -172,10 +172,12 @@ begin
 
   // --- Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
+//  glColorMaski(0,true,false,false,true);
   glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
 
   // --- Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
+//  glColorMaski(0,true,true,false,true);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
 
   ogc.SwapBuffers;

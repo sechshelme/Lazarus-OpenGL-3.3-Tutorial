@@ -28,7 +28,7 @@ begin
   InitOpenGL;
   MakeCurrent;
 
-//  ReadExtensions;
+  ReadExtensions;
   ReadOpenGLCore;
   ReadImplementationProperties;
 end;

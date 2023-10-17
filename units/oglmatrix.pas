@@ -80,7 +80,9 @@ type
     procedure Zero;
 
     procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+//    FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
     procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
+//    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
     procedure Scale(Faktor: GLfloat); overload;
