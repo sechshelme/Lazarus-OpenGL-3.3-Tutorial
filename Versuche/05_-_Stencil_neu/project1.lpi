@@ -18,9 +18,16 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
+      <local>
+        <LaunchingApplication Use="True"/>
+      </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
-        <Mode0 Name="default"/>
+        <Mode0 Name="default">
+          <local>
+            <LaunchingApplication Use="True"/>
+          </local>
+        </Mode0>
       </Modes>
     </RunParams>
     <RequiredPackages Count="2">
@@ -31,7 +38,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="2">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -44,16 +51,6 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit1>
-      <Unit2>
-        <Filename Value="ameise.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Ameise"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="zylinder.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Zylinder"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -79,7 +76,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="3">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -89,9 +86,6 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
-      <Item4>
-        <Name Value="RunError(201)"/>
-      </Item4>
     </Exceptions>
   </Debugging>
 </CONFIG>

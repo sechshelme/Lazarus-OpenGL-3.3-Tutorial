@@ -24,7 +24,6 @@ type
     ogc: TContext;
     Shader, ShaderSingelColor: TShader; // Shader Klasse
     procedure CreateScene;
-    procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
   public
   end;
@@ -41,6 +40,9 @@ implementation
 
 // https://learnopengl.com/code_viewer_gh.php?code=src/4.advanced_opengl/2.stencil_testing/stencil_testing.cpp
 // https://learnopengl.com/Advanced-OpenGL/Stencil-testing
+
+// https://open.gl/depthstencils
+// https://open.gl/content/code/c5_reflection.txt
 
 const
   Quad: array[0..1] of Tmat3x3 =
@@ -68,14 +70,14 @@ const
     (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
     (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0));
 
-//const
-//  QuadVertex: array[0..5] of TVector3f =
-//    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
-//    (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
-//
-//  TextureVertex: array[0..5] of TVector2f =
-//    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
-//    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
+  //const
+  //  QuadVertex: array[0..5] of TVector3f =
+  //    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
+  //    (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
+  //
+  //  TextureVertex: array[0..5] of TVector2f =
+  //    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
+  //    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
 const
   stencil_testing_Vertex =
@@ -155,11 +157,10 @@ begin
   ogc.OnPaint := @ogcDrawScene;
   WriteLn(ogc.StencilBits);
   WriteLn(ogc.DepthBits);
-//  ogc.StencilBits:=8;
-//  ogc.DepthBits:=24;
+  //  ogc.StencilBits:=8;
+  //  ogc.DepthBits:=24;
 
   CreateScene;
-  InitScene;
   Timer1.Enabled := True;
 end;
 
@@ -176,15 +177,6 @@ begin
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOVertex);
   glGenBuffers(1, @VBQuad.VBOTex);
-
-  //   configure global opengl state
-  //   -----------------------------
-  glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LESS);
-  glEnable(GL_STENCIL_TEST);
-  glStencilFunc(GL_NOTEQUAL, 1, $FF);
-  glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-
 
   Shader := TShader.Create;
   Shader.LoadShaderObject(GL_VERTEX_SHADER, stencil_testing_Vertex);
@@ -220,10 +212,9 @@ begin
   WorldMatrix.Translate(0, 0, -30.0);
   WorldMatrix.Scale(5);
 
-end;
-
-procedure TForm1.InitScene;
-begin
+  //   configure global opengl state
+  //   -----------------------------
+  glEnable(GL_DEPTH_TEST);
   glBindVertexArray(VBQuad.VAO);
 
   // Vertex
@@ -237,6 +228,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -245,34 +237,19 @@ const
 
 begin
   glClearColor(0.1, 0.1, 0.1, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT or GL_STENCIL_BUFFER_BIT); // Stencil ein
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   ScaleMatrix.Identity;
   RotMatrix.Identity;
 
   ModelMatrix.Identity;
   ShaderSingelColor.UseProgram;
-  ProdMatrix := PerspectiveMatrix*WorldMatrix* ScaleMatrix * RotMatrix;
+  ProdMatrix := PerspectiveMatrix * WorldMatrix * ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(ProMatrix_ID);
 
   Shader.UseProgram;
-  ProdMatrix := PerspectiveMatrix*WorldMatrix*ScaleMatrix * RotMatrix;
+  ProdMatrix := PerspectiveMatrix * WorldMatrix * ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(ProMatrix_ID);
-
-  //// draw floor as normal, but don't write the floor to the stencil buffer, we only care about the containers. We set its mask to 0x00 to not write to the stencil buffer.
-  //glStencilMask($00);
-  //// floor
-  //glBindVertexArray(VBQuad.VAO);
-  //Textur.ActiveAndBind; // Textur binden
-  //ModelMatrix.Uniform(ModelMatrix_ID);
-  //glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-  //glBindVertexArray(0);
-  //
-
-  // 1st. render pass, draw objects as normal, writing to the stencil buffer
-  // --------------------------------------------------------------------
-  glStencilFunc(GL_ALWAYS, 1, $FF);
-  glStencilMask($FF);
 
   // cubes
   glBindVertexArray(VBQuad.VAO);
@@ -289,17 +266,24 @@ begin
   // 2nd. render pass: now draw slightly scaled versions of the objects, this time disabling stencil writing.
   // Because the stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are not drawn, thus only drawing
   // the objects' size differences, making it look like borders.
-  // -----------------------------------------------------------------------------------------------------------------------------
-  glStencilFunc(GL_NOTEQUAL, 1, $FF);
-  glStencilMask($00);
-  glDisable(GL_DEPTH_TEST);
+
   ShaderSingelColor.UseProgram;
+  glEnable(GL_STENCIL_TEST);
+
+  // Draw floor
+  glStencilFunc(GL_ALWAYS, 1, $FF);
+  glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+  glStencilMask($FF);
+  glDepthMask(GL_FALSE);
+  glClear(GL_STENCIL_BUFFER_BIT);
+
+
   // cubes
   glBindVertexArray(VBQuad.VAO);
   Textur.ActiveAndBind;
 
   ModelMatrix.Identity;
-  ModelMatrix.Translate(-1.0, 0.0, -1.0);
+  ModelMatrix.Translate(-1.2, 0.0, -1.0);
   ModelMatrix.Scale(scale);
   ModelMatrix.Uniform(ModelMatrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
@@ -310,10 +294,12 @@ begin
   ModelMatrix.Uniform(ModelMatrix_ID);
 
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-  glBindVertexArray(0);
-  glStencilMask($FF);
-  glStencilFunc(GL_ALWAYS, 0, $FF);
-  glEnable(GL_DEPTH_TEST);
+
+  glStencilFunc(GL_EQUAL, 1, $FF);
+  glStencilMask($00);
+  glDepthMask(GL_TRUE);
+
+  glDisable(GL_STENCIL_TEST);
 
   ogc.SwapBuffers;
 end;
