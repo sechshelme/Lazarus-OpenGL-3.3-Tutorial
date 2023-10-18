@@ -22,7 +22,7 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
-    Shader, ShaderSingelColor: TShader; // Shader Klasse
+    Shader: TShader; // Shader Klasse
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
@@ -45,107 +45,99 @@ implementation
 // https://open.gl/content/code/c5_reflection.txt
 
 const
-  Quad: array[0..1] of Tmat3x3 =
-    (((-1.0, 1.0, 0.0), (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0)), ((-1.0, 1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
+  vertices: array of GLfloat = (
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+
+    -0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    -0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    -0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+
+    -0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    -0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    -0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    -0.5, -0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+
+    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+    0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
+    -0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
+    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
+
+    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0,
+    1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 0.0,
+    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
+    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
+    -1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0,
+    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0);
 
 const
-
-  // --- Vectoren
-  QuadVertex: array[0..35] of TVector3f =
-    ((-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-    (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5),
-    (0.5, 0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, 0.5, -0.5),
-    (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
-    // oben
-    (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, 0.5, 0.5),
-    // unten
-    (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5));
-
-  // --- Texturkoordinaten
-  TextureVertex: array[0..35] of TVector2f =
-    ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
-    (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
-    (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
-    (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
-    (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
-    (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0));
-
-  //const
-  //  QuadVertex: array[0..5] of TVector3f =
-  //    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
-  //    (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
-  //
-  //  TextureVertex: array[0..5] of TVector2f =
-  //    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
-  //    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
-
-const
-  stencil_testing_Vertex =
+  Vertex_Shader =
     '#version 330 core' + #10 +
-    'layout (location = 0) in vec3 aPos;' + #10 +
-    'layout (location = 1) in vec2 aTexCoords;' + #10 +
-    '' + #10 +
-    'out vec2 TexCoords;' + #10 +
-    '' + #10 +
+    'layout (location = 0) in vec3 position;' + #10 +
+    'layout (location = 1) in vec3 color;' + #10 +
+    'layout (location = 2) in vec2 texcoord;' + #10 +
+    'out vec3 Color;' + #10 +
+    'out vec2 Texcoord;' + #10 +
     'uniform mat4 model;' + #10 +
-    //    'uniform mat4 view;' + #10 +
-    'uniform mat4 projection;' + #10 +
-    '' + #10 +
+    'uniform mat4 view;' + #10 +
+    'uniform mat4 proj;' + #10 +
+    'uniform vec3 overrideColor;' + #10 +
     'void main()' + #10 +
     '{' + #10 +
-    '    TexCoords = aTexCoords;' + #10 +
-    //    '    gl_Position = projection * view * model * vec4(aPos, 1.0f);' + #10 +
-    '    gl_Position = projection * model * vec4(aPos, 1.0f);' + #10 +
+    '    Color = overrideColor * color;' + #10 +
+    '    Texcoord = texcoord;' + #10 +
+    '    gl_Position = proj * view * model * vec4(position, 1.0);' + #10 +
     '}';
-  stencil_testing_Fragment =
+
+  Fragment_Shader =
     '#version 330 core' + #10 +
-    'out vec4 FragColor;' + #10 +
-    '' + #10 +
-    'in vec2 TexCoords;' + #10 +
-    '' + #10 +
-    'uniform sampler2D Sampler;' + #10 +
-    '' + #10 +
+    'in vec3 Color;' + #10 +
+    'in vec2 Texcoord;' + #10 +
+    'out vec4 outColor;' + #10 +
+    'uniform sampler2D texKitten;' + #10 +
+    'uniform sampler2D texPuppy;' + #10 +
     'void main()' + #10 +
     '{' + #10 +
-    '    FragColor = texture(Sampler, TexCoords);' + #10 +
-    '}';
-  stencil_single_color_Fragment =
-    '#version 330 core' + #10 +
-    'out vec4 FragColor;' + #10 +
-    '' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '    FragColor = vec4(0.04, 0.28, 0.26, 1.0);' + #10 +
+    //    '    outColor = vec4(Color, 1.0) * mix(texture(texKitten, Texcoord), texture(texPuppy, Texcoord), 0.5);' + #10 +
+    '    outColor = vec4(Color, 1.0) * texture(texKitten, Texcoord);' + #10 +
     '}';
 
 
-
-type
-  TVB = record
-    VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
-  end;
-
-(*
-Den Textur-Puffer deklarieren.
-*)
-  //code+
 var
   Textur: TTexturBuffer;
-  //code-
 
-  VBQuad: TVB;
-  PerspectiveMatrix,
-  WorldMatrix,
+  VAO, VBO: GLuint;
+  ViewMatrix, ProdMatrix, RotateMatrix: TMatrix;
 
-  RotMatrix, ScaleMatrix, ProdMatrix,
-  ModelMatrix: TMatrix;
-
+  Color_ID,
   ModelMatrix_ID,
+  ViewMatrix_ID,
   ProMatrix_ID: GLint;
-
-  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -164,170 +156,114 @@ begin
   Timer1.Enabled := True;
 end;
 
-(*
-Textur-Puffer erzeugen.
-*)
-//code+
 procedure TForm1.CreateScene;
 begin
-  Textur := TTexturBuffer.Create;
-  Textur.LoadTextures('mauer.bmp');
-  //code-
-
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glGenBuffers(1, @VBQuad.VBOVertex);
-  glGenBuffers(1, @VBQuad.VBOTex);
-
   Shader := TShader.Create;
-  Shader.LoadShaderObject(GL_VERTEX_SHADER, stencil_testing_Vertex);
-  Shader.LoadShaderObject(GL_FRAGMENT_SHADER, stencil_testing_Fragment);
+  Shader.LoadShaderObject(GL_VERTEX_SHADER, Vertex_Shader);
+  Shader.LoadShaderObject(GL_FRAGMENT_SHADER, Fragment_Shader);
   Shader.LinkProgramm;
   Shader.UseProgram;
   with Shader do begin
-    ProMatrix_ID := UniformLocation('projection');
     ModelMatrix_ID := UniformLocation('model');
-    glUniform1i(UniformLocation('Sampler'), 0);
+    ViewMatrix_ID := UniformLocation('view');
+    ProMatrix_ID := UniformLocation('proj');
+    Color_ID := UniformLocation('overrideColor');
+    glUniform1i(UniformLocation('texKitten'), 0);
   end;
+  glUniform3f(Color_ID, 2.0, 2.0, 2.0);
 
-  ShaderSingelColor := TShader.Create;
-  ShaderSingelColor.LoadShaderObject(GL_VERTEX_SHADER, stencil_testing_Vertex);
-  ShaderSingelColor.LoadShaderObject(GL_FRAGMENT_SHADER, stencil_single_color_Fragment);
-  ShaderSingelColor.LinkProgramm;
-  ShaderSingelColor.UseProgram;
-  with ShaderSingelColor do begin
-    ProMatrix_ID := UniformLocation('projection');
-    ModelMatrix_ID := UniformLocation('model');
-    glUniform1i(UniformLocation('Sampler'), 0);
-  end;
-
-
-  RotMatrix.Identity;
-  ScaleMatrix.Identity;
-  ScaleMatrix.Scale(0.2);
+  RotateMatrix.Identity;
+  ViewMatrix.Identity;
+  ViewMatrix.TranslateZ(-4);
+  ViewMatrix.RotateA(2.0 + pi);
   ProdMatrix.Identity;
-  PerspectiveMatrix.Identity;
-  PerspectiveMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
+  ProdMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
 
-  WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -30.0);
-  WorldMatrix.Scale(5);
-
-  //   configure global opengl state
-  //   -----------------------------
   glEnable(GL_DEPTH_TEST);
-  glBindVertexArray(VBQuad.VAO);
+
+  glGenVertexArrays(1, @VAO);
+  glBindVertexArray(VAO);
+  glGenBuffers(1, @VBO);
 
   // Vertex
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(GLfloat), PGLvoid(vertices), GL_STATIC_DRAW);
+
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 8 * SizeOf(GLfloat), nil);
 
-  // Textur-Koordinaten
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 8 * SizeOf(GLfloat), PGLvoid(3 * SizeOf(GLfloat)));
 
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, False, 8 * SizeOf(GLfloat), PGLvoid(6 * SizeOf(GLfloat)));
+
+  ViewMatrix.Uniform(ViewMatrix_ID);
+  ProdMatrix.Uniform(ProMatrix_ID);
+
+  Textur := TTexturBuffer.Create;
+  Textur.LoadTextures('mauer.bmp');
+  Textur.ActiveAndBind;
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
-const
-  scale: GLfloat = 1.1;
-
+var
+  mat: TMatrix;
 begin
-  glClearColor(0.1, 0.1, 0.1, 1.0);
+  glBindVertexArray(VAO);
+  Shader.UseProgram;
+
+  glClearColor(1.0, 1.0, 1.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
-  ScaleMatrix.Identity;
-  RotMatrix.Identity;
-
-  ModelMatrix.Identity;
-  ShaderSingelColor.UseProgram;
-  ProdMatrix := PerspectiveMatrix * WorldMatrix * ScaleMatrix * RotMatrix;
-  ProdMatrix.Uniform(ProMatrix_ID);
-
-  Shader.UseProgram;
-  ProdMatrix := PerspectiveMatrix * WorldMatrix * ScaleMatrix * RotMatrix;
-  ProdMatrix.Uniform(ProMatrix_ID);
-
-  // cubes
-  glBindVertexArray(VBQuad.VAO);
-  Textur.ActiveAndBind;
-  ModelMatrix.Translate(-1.0, 0.0, -1.0);
-  ModelMatrix.Uniform(ModelMatrix_ID);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-
-  ModelMatrix.Identity;
-  ModelMatrix.Translate(2.0, 0.0, 0.0);
-  ModelMatrix.Uniform(ModelMatrix_ID);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-
-  // 2nd. render pass: now draw slightly scaled versions of the objects, this time disabling stencil writing.
-  // Because the stencil buffer is now filled with several 1s. The parts of the buffer that are 1 are not drawn, thus only drawing
-  // the objects' size differences, making it look like borders.
-
-  ShaderSingelColor.UseProgram;
-  glEnable(GL_STENCIL_TEST);
+  // Draw cube
+  mat.Identity;
+  mat:=mat * RotateMatrix;
+  mat.Uniform(ModelMatrix_ID);
+  glDrawArrays(GL_TRIANGLES, 0, 36);
 
   // Draw floor
+  glEnable(GL_STENCIL_TEST);
   glStencilFunc(GL_ALWAYS, 1, $FF);
   glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
   glStencilMask($FF);
   glDepthMask(GL_FALSE);
   glClear(GL_STENCIL_BUFFER_BIT);
+  glDrawArrays(GL_TRIANGLES, 36, 6);
 
-
-  // cubes
-  glBindVertexArray(VBQuad.VAO);
-  Textur.ActiveAndBind;
-
-  ModelMatrix.Identity;
-  ModelMatrix.Translate(-1.2, 0.0, -1.0);
-  ModelMatrix.Scale(scale);
-  ModelMatrix.Uniform(ModelMatrix_ID);
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-
-  ModelMatrix.Identity;
-  ModelMatrix.Translate(2.0, 0.0, 0.0);
-  ModelMatrix.Scale(scale);
-  ModelMatrix.Uniform(ModelMatrix_ID);
-
-  glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-
+  // Draw cube reflect
   glStencilFunc(GL_EQUAL, 1, $FF);
   glStencilMask($00);
   glDepthMask(GL_TRUE);
+
+  mat.TranslateZ(-1.0);
+  mat.Scale(1, 1, -1);
+  mat.Uniform(ModelMatrix_ID);
+  glUniform3f(Color_ID, 0.3, 0.3, 0.3);
+  glDrawArrays(GL_TRIANGLES, 0, 36);
+  glUniform3f(Color_ID, 1.0, 1.0, 1.0);
 
   glDisable(GL_STENCIL_TEST);
 
   ogc.SwapBuffers;
 end;
 
-(*
-Am Ende muss man die Klasse noch frei geben.
-*)
-//code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Textur.Free;
-  //code-
+  Shader.Free;
 
   Timer1.Enabled := False;
 
-  glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBOVertex);
-  glDeleteBuffers(1, @VBQuad.VBOTex);
-
-  Shader.Free;
-  ShaderSingelColor.Free;
+  glDeleteVertexArrays(1, @VAO);
+  glDeleteBuffers(1, @VBO);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step: GLfloat = 0.01;
+  step: GLfloat = 0.02;
 begin
-  RotMatrix.RotateC(step);
+  RotateMatrix.RotateC(step);
   ogcDrawScene(Sender);
 end;
 
