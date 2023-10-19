@@ -48,14 +48,10 @@ Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der
 const
   TriangleVector: array[0..0] of TFace =
     (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  TriangleColor: array[0..0] of TFace =   // Rot / Grün / Blau
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)));
+
   QuadVector: array[0..1] of TFace =
     (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
     ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
-  QuadColor: array[0..1] of TFace =       // Rot / Grün / Gelb / Rot / Gelb / Mint
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
-    ((1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 1.0)));
 
   TBOData: array of TVertex3f = ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (1, 1, 0), (0, 1, 1));
   //code-
@@ -69,8 +65,7 @@ Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugeko
 type
   TVB = record
     VAO,
-    VBOvert,         // VBO für Vektor.
-    VBOcol: GLuint;  // VBO für Farbe.
+    VBOvert: GLuint;  // VBO für Farbe.
   end;
   //code-
 
@@ -78,7 +73,7 @@ var
   VBTriangle, VBQuad: TVB;
 
   TBO_tex_ID: GLint;
-  TBO, TBO_tex: GLuint;
+  TBO, Textur_ID: GLuint;
 
   { TForm1 }
 
@@ -104,10 +99,10 @@ procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   Shader.UseProgram;
-  TBO_tex_ID := Shader.UniformLocation('u_tbo_tex');
+  TBO_tex_ID := Shader.UniformLocation('sb');
   glUniform1i(TBO_tex_ID, 0);
 
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  glClearColor(0.6, 0.6, 0.4, 1.0);
 
   // --- Daten für Dreieck
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -117,15 +112,8 @@ begin
   glGenBuffers(1, @VBTriangle.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);                         // 10 ist die Location in inPos Shader.
+  glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
-
-  // Farbe
-  glGenBuffers(1, @VBTriangle.VBOcol);   // neu hinzugekommen
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(1);                         // 11 ist die Location in inCol Shader.
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // --- Daten für Quadrat
   glGenVertexArrays(1, @VBQuad.VAO);
@@ -138,18 +126,11 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
-  // Farbe
-  glGenBuffers(1, @VBQuad.VBOcol);       // neu hinzugekommen
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
-
   // --- TBO
   glGenBuffers(1, @TBO);
   glBindBuffer(GL_TEXTURE_BUFFER, TBO);
   glBufferData(GL_TEXTURE_BUFFER, Length(TBOData) * SizeOf(TVertex3f), PGLvoid(TBOData), GL_STATIC_DRAW);
-  glGenTextures(1, @TBO_tex);
+  glGenTextures(1, @Textur_ID);
   glBindTexture(GL_TEXTURE_BUFFER, 0);
   glBindBuffer(GL_TEXTURE_BUFFER, 0);
 end;
@@ -167,7 +148,7 @@ begin
 
   // --- TBO
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_BUFFER, TBO_tex);
+  glBindTexture(GL_TEXTURE_BUFFER, Textur_ID);
   glTexBuffer(GL_TEXTURE_BUFFER, GL_RGB32F, TBO);
 
   // --- Zeichne Dreieck
@@ -197,9 +178,7 @@ begin
 
   //code+
   glDeleteBuffers(1, @VBTriangle.VBOvert);
-  glDeleteBuffers(1, @VBTriangle.VBOcol);
   glDeleteBuffers(1, @VBQuad.VBOvert);
-  glDeleteBuffers(1, @VBQuad.VBOcol);
   glDeleteBuffers(1, @TBO);
   //code-
 end;

@@ -143,7 +143,7 @@ begin
     ViewMatrix_ID := UniformLocation('view');
     ProMatrix_ID := UniformLocation('proj');
     Color_ID := UniformLocation('overrideColor');
-    glUniform1i(UniformLocation('texKitten'), 0);
+    glUniform1i(UniformLocation('Sampler'), 0);
   end;
   glUniform3f(Color_ID, 2.0, 2.0, 2.0);
 
