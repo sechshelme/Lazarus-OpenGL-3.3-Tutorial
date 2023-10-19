@@ -184,6 +184,11 @@ begin
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+    glEnable(GL_STENCIL_TEST);
+    glEnable(GL_DEPTH_TEST);
+//    glClearStencil(0);
+
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -195,10 +200,9 @@ begin
   glUniform3f(glGetUniformLocation(ProgramID, 'color'), 1, 0, 0);
   glBindVertexArray(VBTriangle.VAO);
 
-  glEnable(GL_STENCIL_TEST);
   glStencilFunc(GL_ALWAYS, 1, $FF);
   glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-  glStencilMask($FF);
+  //glStencilMask($FF);
   glDepthMask(GL_FALSE);
 
   glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
@@ -208,7 +212,7 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   glStencilFunc(GL_EQUAL, 1, $FF);
-  glStencilMask($00);
+//  glStencilMask($00);
   glDepthMask(GL_TRUE);
 
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);

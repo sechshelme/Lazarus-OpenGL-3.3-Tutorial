@@ -50,7 +50,15 @@ implementation
 // https://lazyfoo.net/tutorials/OpenGL/26_the_stencil_buffer/index.php
 
 const
-  vertices: array of GLfloat = (
+  verticesReflect: array of GLfloat = (
+    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0,
+    1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 0.0,
+    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
+    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
+    -1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0,
+    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0);
+
+  verticesCube: array of GLfloat = (
     -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
     0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
     0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0, 1.0,
@@ -91,19 +99,15 @@ const
     0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
     0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 1.0, 0.0,
     -0.5, 0.5, 0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
-    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0,
-
-    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0,
-    1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 0.0,
-    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
-    1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 1.0, 1.0,
-    -1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0,
-    -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0);
+    -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 1.0);
 
 var
   Textur: TTexturBuffer;
 
-  VAO, VBO: GLuint;
+  VAOReflect,
+  VBOReflect,
+  VAOCube,
+  VBOCube: GLuint;
   ViewMatrix, ProdMatrix, RotateMatrix: TMatrix;
 
   Color_ID,
@@ -134,13 +138,6 @@ begin
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
-
-
-  //Shader := TShader.Create;
-  //Shader.LoadShaderObject(GL_VERTEX_SHADER, Vertex_Shader);
-  //Shader.LoadShaderObject(GL_FRAGMENT_SHADER, Fragment_Shader);
-  //Shader.LinkProgramm;
-  //Shader.UseProgram;
   with Shader do begin
     ModelMatrix_ID := UniformLocation('model');
     ViewMatrix_ID := UniformLocation('view');
@@ -159,13 +156,13 @@ begin
 
   glEnable(GL_DEPTH_TEST);
 
-  glGenVertexArrays(1, @VAO);
-  glBindVertexArray(VAO);
-  glGenBuffers(1, @VBO);
+  // Reflect
+  glGenVertexArrays(1, @VAOReflect);
+  glBindVertexArray(VAOReflect);
+  glGenBuffers(1, @VBOReflect);
 
-  // Vertex
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(vertices) * sizeof(GLfloat), PGLvoid(vertices), GL_STATIC_DRAW);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOReflect);
+  glBufferData(GL_ARRAY_BUFFER, Length(verticesReflect) * sizeof(GLfloat), PGLvoid(verticesReflect), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 8 * SizeOf(GLfloat), nil);
@@ -176,6 +173,24 @@ begin
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 2, GL_FLOAT, False, 8 * SizeOf(GLfloat), PGLvoid(6 * SizeOf(GLfloat)));
 
+  // Cube
+  glGenVertexArrays(1, @VAOCube);
+  glBindVertexArray(VAOCube);
+  glGenBuffers(1, @VBOCube);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBOCube);
+  glBufferData(GL_ARRAY_BUFFER, Length(verticesCube) * sizeof(GLfloat), PGLvoid(verticesCube), GL_STATIC_DRAW);
+
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 8 * SizeOf(GLfloat), nil);
+
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 8 * SizeOf(GLfloat), PGLvoid(3 * SizeOf(GLfloat)));
+
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, False, 8 * SizeOf(GLfloat), PGLvoid(6 * SizeOf(GLfloat)));
+
+  // Uniform
   ViewMatrix.Uniform(ViewMatrix_ID);
   ProdMatrix.Uniform(ProMatrix_ID);
 
@@ -188,28 +203,30 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   mat: TMatrix;
 begin
-  glBindVertexArray(VAO);
   Shader.UseProgram;
 
   glClearColor(0.3, 0.1, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   // Draw cube
+  glBindVertexArray(VAOCube);
   mat.Identity;
   mat := mat * RotateMatrix;
   mat.Uniform(ModelMatrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, 36);
 
-  // Draw floor
+  // Draw Reflect
+  glBindVertexArray(VAOReflect);
   glEnable(GL_STENCIL_TEST);
   glStencilFunc(GL_ALWAYS, 1, $FF);
   glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
   glStencilMask($FF);
   glDepthMask(GL_FALSE);
   glClear(GL_STENCIL_BUFFER_BIT);
-  glDrawArrays(GL_TRIANGLES, 36, 6);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
   // Draw cube reflect
+  glBindVertexArray(VAOCube);
   // glStencilFunc(GL_NOTEQUAL, 1, $FF);
   glStencilFunc(GL_EQUAL, 1, $FF);
   glStencilMask($00);
@@ -234,8 +251,8 @@ begin
 
   Timer1.Enabled := False;
 
-  glDeleteVertexArrays(1, @VAO);
-  glDeleteBuffers(1, @VBO);
+  glDeleteVertexArrays(1, @VAOCube);
+  glDeleteBuffers(1, @VBOCube);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
