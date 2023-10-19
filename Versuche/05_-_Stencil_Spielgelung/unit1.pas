@@ -100,39 +100,6 @@ const
     -1.0, 1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 1.0,
     -1.0, -1.0, -0.5, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-const
-  Vertex_Shader =
-    '#version 330 core' + #10 +
-    'layout (location = 0) in vec3 position;' + #10 +
-    'layout (location = 1) in vec3 color;' + #10 +
-    'layout (location = 2) in vec2 texcoord;' + #10 +
-    'out vec3 Color;' + #10 +
-    'out vec2 Texcoord;' + #10 +
-    'uniform mat4 model;' + #10 +
-    'uniform mat4 view;' + #10 +
-    'uniform mat4 proj;' + #10 +
-    'uniform vec3 overrideColor;' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '    Color = overrideColor * color;' + #10 +
-    '    Texcoord = texcoord;' + #10 +
-    '    gl_Position = proj * view * model * vec4(position, 1.0);' + #10 +
-    '}';
-
-  Fragment_Shader =
-    '#version 330 core' + #10 +
-    'in vec3 Color;' + #10 +
-    'in vec2 Texcoord;' + #10 +
-    'out vec4 outColor;' + #10 +
-    'uniform sampler2D texKitten;' + #10 +
-    'uniform sampler2D texPuppy;' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    //    '    outColor = vec4(Color, 1.0) * mix(texture(texKitten, Texcoord), texture(texPuppy, Texcoord), 0.5);' + #10 +
-    '    outColor = vec4(Color, 1.0) * texture(texKitten, Texcoord);' + #10 +
-    '}';
-
-
 var
   Textur: TTexturBuffer;
 
@@ -151,11 +118,9 @@ begin
   Height := 240;
   //remove-
   ogc := TContext.Create(Self);
-//  ogc.StencilBits:=0;
   ogc.OnPaint := @ogcDrawScene;
   WriteLn(ogc.StencilBits);
   WriteLn(ogc.DepthBits);
-  //  ogc.DepthBits:=24;
 
   CreateScene;
   Timer1.Enabled := True;
@@ -163,11 +128,19 @@ end;
 
 procedure TForm1.CreateScene;
 begin
+  // --- Shader laden
   Shader := TShader.Create;
-  Shader.LoadShaderObject(GL_VERTEX_SHADER, Vertex_Shader);
-  Shader.LoadShaderObject(GL_FRAGMENT_SHADER, Fragment_Shader);
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
+
+
+  //Shader := TShader.Create;
+  //Shader.LoadShaderObject(GL_VERTEX_SHADER, Vertex_Shader);
+  //Shader.LoadShaderObject(GL_FRAGMENT_SHADER, Fragment_Shader);
+  //Shader.LinkProgramm;
+  //Shader.UseProgram;
   with Shader do begin
     ModelMatrix_ID := UniformLocation('model');
     ViewMatrix_ID := UniformLocation('view');
@@ -179,7 +152,7 @@ begin
 
   RotateMatrix.Identity;
   ViewMatrix.Identity;
-  ViewMatrix.TranslateZ(-4);
+  ViewMatrix.Translate(0, 0.3, -4);
   ViewMatrix.RotateA(2.0 + pi);
   ProdMatrix.Identity;
   ProdMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
@@ -207,7 +180,7 @@ begin
   ProdMatrix.Uniform(ProMatrix_ID);
 
   Textur := TTexturBuffer.Create;
-  Textur.LoadTextures('mauer.bmp');
+  Textur.LoadTextures('woodenbox.png');
   Textur.ActiveAndBind;
 end;
 
@@ -218,12 +191,12 @@ begin
   glBindVertexArray(VAO);
   Shader.UseProgram;
 
-  glClearColor(1.0, 1.0, 1.0, 1.0);
+  glClearColor(0.3, 0.1, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   // Draw cube
   mat.Identity;
-  mat:=mat * RotateMatrix;
+  mat := mat * RotateMatrix;
   mat.Uniform(ModelMatrix_ID);
   glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -237,17 +210,17 @@ begin
   glDrawArrays(GL_TRIANGLES, 36, 6);
 
   // Draw cube reflect
- // glStencilFunc(GL_NOTEQUAL, 1, $FF);
+  // glStencilFunc(GL_NOTEQUAL, 1, $FF);
   glStencilFunc(GL_EQUAL, 1, $FF);
   glStencilMask($00);
- glDepthMask(GL_TRUE);
+  glDepthMask(GL_TRUE);
 
   mat.TranslateZ(-1.0);
   mat.Scale(1, 1, -1);
   mat.Uniform(ModelMatrix_ID);
   glUniform3f(Color_ID, 0.3, 0.3, 0.3);
   glDrawArrays(GL_TRIANGLES, 0, 36);
-  glUniform3f(Color_ID, 1.0, 1.0, 1.0);
+  glUniform3f(Color_ID, 0.8, 0.8, 0.8);
 
   glDisable(GL_STENCIL_TEST);
 
