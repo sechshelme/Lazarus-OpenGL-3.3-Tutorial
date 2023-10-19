@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="6">
       <Unit0>
@@ -21,7 +21,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="119"/>
+        <TopLine Value="29"/>
         <CursorPos X="30" Y="175"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -46,10 +46,9 @@
       <Unit4>
         <Filename Value="../../../../Units/MyPackages/OpenGL/ogltexturvao.pas"/>
         <UnitName Value="oglTexturVAO"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="52"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="../../units/oglcontext.pas"/>
@@ -182,5 +181,9 @@
         <Caret Line="12" Column="141"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

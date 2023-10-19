@@ -259,15 +259,7 @@ begin
   ProdMatrix := PerspectiveMatrix*WorldMatrix*ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(ProMatrix_ID);
 
-  //// draw floor as normal, but don't write the floor to the stencil buffer, we only care about the containers. We set its mask to 0x00 to not write to the stencil buffer.
-  //glStencilMask($00);
-  //// floor
-  //glBindVertexArray(VBQuad.VAO);
-  //Textur.ActiveAndBind; // Textur binden
-  //ModelMatrix.Uniform(ModelMatrix_ID);
-  //glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
-  //glBindVertexArray(0);
-  //
+
 
   // 1st. render pass, draw objects as normal, writing to the stencil buffer
   // --------------------------------------------------------------------

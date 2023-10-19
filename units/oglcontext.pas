@@ -21,6 +21,7 @@ begin
   AutoResizeViewport := AAutoResize;
   OpenGLMajorVersion := AMajorVersion;
   OpenGLMinorVersion := AMinorVersion;
+  StencilBits:=1;
   Align := alClient;
   //  MultiSampling:=4;
   Parent := TheOwner;

@@ -20,7 +20,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="93"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="58" Y="146"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -50,18 +50,18 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="105" Y="8"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
+        <DefaultSyntaxHighlighter Value="C++"/>
       </Unit6>
       <Unit7>
         <Filename Value="/usr/share/lazarus/1.9.0.56687/components/opengl/openglcontext.pas"/>
@@ -73,12 +73,10 @@
       </Unit7>
       <Unit8>
         <Filename Value="../../units/dglOpenGL.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="11305"/>
         <CursorPos X="97" Y="11308"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit8>
     </Units>
     <JumpHistory Count="29" HistoryIndex="28">

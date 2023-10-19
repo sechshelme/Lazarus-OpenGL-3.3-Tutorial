@@ -44,6 +44,11 @@ implementation
 // https://open.gl/depthstencils
 // https://open.gl/content/code/c5_reflection.txt
 
+// https://learnopengl.com/Advanced-OpenGL/Stencil-testing
+// https://en.wikibooks.org/wiki/OpenGL_Programming/Stencil_buffer
+// https://gist.github.com/sealfin/d22f4ba4d1022e1b89dd
+// https://lazyfoo.net/tutorials/OpenGL/26_the_stencil_buffer/index.php
+
 const
   vertices: array of GLfloat = (
     -0.5, -0.5, -0.5, 1.0, 1.0, 1.0, 0.0, 0.0,
@@ -146,10 +151,10 @@ begin
   Height := 240;
   //remove-
   ogc := TContext.Create(Self);
+//  ogc.StencilBits:=0;
   ogc.OnPaint := @ogcDrawScene;
   WriteLn(ogc.StencilBits);
   WriteLn(ogc.DepthBits);
-  //  ogc.StencilBits:=8;
   //  ogc.DepthBits:=24;
 
   CreateScene;
@@ -232,9 +237,10 @@ begin
   glDrawArrays(GL_TRIANGLES, 36, 6);
 
   // Draw cube reflect
+ // glStencilFunc(GL_NOTEQUAL, 1, $FF);
   glStencilFunc(GL_EQUAL, 1, $FF);
   glStencilMask($00);
-  glDepthMask(GL_TRUE);
+ glDepthMask(GL_TRUE);
 
   mat.TranslateZ(-1.0);
   mat.Scale(1, 1, -1);
