@@ -7,13 +7,13 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL, oglDebug,
+  dglOpenGL, oglDebug, oglVector,
   oglContext, oglShader;
 
   //image image.png
 (*
-Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
-Somit werden die Mesh mehrfarbig.
+Dies könnte man auch mit einer Array in Uniform lösen,
+nur dort ist die Array-Grenze recht limitiert.
 *)
 
   //lineal
@@ -24,7 +24,7 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     ogc: TContext;
-    Shader: TShader; // Shader Klasse
+    Shader: TShader;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
@@ -37,14 +37,7 @@ implementation
 
 {$R *.lfm}
 
-type
-  TVertex3f = array[0..2] of GLfloat;
-  TFace = array[0..2] of TVertex3f;
-
-(*
-Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
-*)
-  //code+
+//code+
 const
   TriangleVector: array[0..0] of TFace =
     (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
@@ -53,21 +46,16 @@ const
     (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
     ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
 
-  TBOData: array of TVertex3f = ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (1, 1, 0), (0, 1, 1));
+  TBOData: array of TVector3f = ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 0, 1), (1, 1, 0), (0, 1, 1));
   //code-
 
   // https://wiki.delphigl.com/index.php/TextureBufferObjects
 
-(*
-Für die Farbe ist ein zusätzliches <b>Vertex Buffer Object</b> (VBO) hinzugekommen.
-*)
-  //code+
 type
   TVB = record
     VAO,
-    VBOvert: GLuint;  // VBO für Farbe.
+    VBOvert: GLuint;
   end;
-  //code-
 
 var
   VBTriangle, VBQuad: TVB;
@@ -90,11 +78,7 @@ begin
   CreateScene;
 end;
 
-(*
-CreateScene wurde um zwei Zeilen erweitert.
-Die VB0 für den Farben-Puffer müssen noch generiert werden.
-*)
-
+//code+
 procedure TForm1.CreateScene;
 begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
@@ -104,22 +88,20 @@ begin
 
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
-  // --- Daten für Dreieck
+  // --- VAO für Dreieck
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
 
-  // Vektor
   glGenBuffers(1, @VBTriangle.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
-  // --- Daten für Quadrat
+  // --- VAO für Quadrat
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-  // Vektor
   glGenBuffers(1, @VBQuad.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
@@ -129,17 +111,12 @@ begin
   // --- TBO
   glGenBuffers(1, @TBO);
   glBindBuffer(GL_TEXTURE_BUFFER, TBO);
-  glBufferData(GL_TEXTURE_BUFFER, Length(TBOData) * SizeOf(TVertex3f), PGLvoid(TBOData), GL_STATIC_DRAW);
+  glBufferData(GL_TEXTURE_BUFFER, Length(TBOData) * SizeOf(TVector3f), PGLvoid(TBOData), GL_STATIC_DRAW);
   glGenTextures(1, @Textur_ID);
-  glBindTexture(GL_TEXTURE_BUFFER, 0);
-  glBindBuffer(GL_TEXTURE_BUFFER, 0);
 end;
-
 //code-
 
-(*
-Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich einfach wie wen man nur ein VBO hat.
-*)
+//code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -153,34 +130,27 @@ begin
 
   // --- Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-//  glColorMaski(0,true,false,false,true);
   glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
 
   // --- Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-//  glColorMaski(0,true,true,false,true);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
 
   ogc.SwapBuffers;
 end;
 
-(*
-Am Ende müssen noch die zusätzlichen VBO-Puffer frei gegeben werden.
-Freigaben müssen immer gleich viele sein wie Erzeugungen.
-*)
+//code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
+  glDeleteBuffers(1, @TBO);
 
   glDeleteVertexArrays(1, @VBTriangle.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
 
-  //code+
   glDeleteBuffers(1, @VBTriangle.VBOvert);
   glDeleteBuffers(1, @VBQuad.VBOvert);
-  glDeleteBuffers(1, @TBO);
-  //code-
 end;
 
 //lineal

@@ -100,13 +100,15 @@ begin
   end;
 end;
 
+// code+
 procedure TForm1.CreateScene;
 begin
-  Shader := TShader.Create([
-    GL_VERTEX_SHADER, FileToStr('Vertexshader.glsl'),
-    GL_FRAGMENT_SHADER, FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
   with Shader do begin
-    UseProgram;
     glUniform1i(UniformLocation('Sampler0'), 0);
     glUniform1i(UniformLocation('Sampler1'), 1);
   end;
@@ -154,7 +156,9 @@ begin
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, TexturSize, TexturSize, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
   glBindTexture(GL_TEXTURE_2D, 0);
 end;
+// code-
 
+// code+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   buf: TTexture32;
@@ -186,6 +190,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+// code-
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
