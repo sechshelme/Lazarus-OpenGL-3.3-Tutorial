@@ -2,8 +2,8 @@
 
 #define Instance_Count 255
 
-layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+layout (location = 0) in vec3 inPos;
+layout (location = 1) in vec2 inUV;
 
 uniform int chars[Instance_Count];
 

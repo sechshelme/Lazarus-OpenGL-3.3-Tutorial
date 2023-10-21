@@ -103,7 +103,6 @@ begin
   RotMatrix.Identity;
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.1);
-//  ScaleMatrix.TranslateX(-0.8);
   ProdMatrix.Identity;
 end;
 
@@ -148,26 +147,29 @@ begin
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
-    s:PChar= 'Hello World!';
-//  s: PChar = '1212345678';
+    s:String= 'Hello!';
+    counter:Integer=0;
 var
   ci: array of TGLint = nil;
   len: SizeInt;
-  i: integer;
+  i: integer;     s2:string;
 begin
-  len := Length(s);
+  WriteStr(s2, s,' ',counter);
+  WriteLn(s2);
+  len := Length(s2);
   SetLength(ci, len);
   for i := 0 to len - 1 do begin
-    ci[i] := uint32(s[i]);
+    ci[i] := uint32(s2[i+1]);
   end;
+  Inc(counter);
 
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   Textur.ActiveAndBind; // Textur binden
 
@@ -177,11 +179,11 @@ begin
   ProdMatrix := ScaleMatrix * RotMatrix;
   ProdMatrix.Uniform(Matrix_ID);
 
-  glUniform1iv(Chars_ID, Length(s), PGLint(ci));
+  glUniform1iv(Chars_ID, Length(s2), PGLint(ci));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(s));
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(s2));
 
   ogc.SwapBuffers;
 end;
