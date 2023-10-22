@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
   oglContext, oglShader, oglVector, oglMatrix,
-  oglTextur;
+  oglTextur; // Unit für Texturen
 
 type
 
@@ -22,7 +22,7 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
-    Shader: TShader;
+    Shader: TShader; // Shader Klasse
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
@@ -51,27 +51,41 @@ implementation
 
 const
   verticesReflect: array of TVector3f = (
-    (-1.0, -1.0, -0.5), (1.0, -1.0, -0.5), (1.0, 1.0, -0.5),
-    (1.0, 1.0, -0.5), (-1.0, 1.0, -0.5), (-1.0, -1.0, -0.5));
+    (1.0, 1.0, -0.5),
+    (1.0, -1.0, -0.5),
+    (-1.0, 1.0, -0.5),
+    (-1.0, -1.0, -0.5));
+
+  cubeIndices: array of GLuint = (
+    1, 0, 3, 1, 3, 2,
+    4, 5, 6, 4, 6, 7,
+
+    0, 1, 5, 0, 5, 4,
+    1, 2, 6, 1, 6, 5,
+    2, 3, 7, 2, 7, 6,
+    3, 0, 4, 3, 4, 7);
 
   verticesCube: array of TVector3f = (
-    (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5),
-    (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
+    (-0.5, -0.5, -0.5),
+    (0.5, -0.5, -0.5),
+    (0.5, 0.5, -0.5),
+    (-0.5, 0.5, -0.5),
 
-    (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-    (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
-
-    (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
-    (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
-
-    (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
-    (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-
-    (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5),
-    (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5),
-
-    (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5),
-    (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5));
+    (-0.5, -0.5, 0.5),
+    (0.5, -0.5, 0.5),
+    (0.5, 0.5, 0.5),
+    (-0.5, 0.5, 0.5));
+//
+//  texCube: array of TVector2f = (
+//    (0, -0),
+//    (1, 0),
+//    (1, 1),
+//    (0, 1),
+//
+//    (0, 0),
+//    (1, 0),
+//    (1, 1),
+//    (0, 1));
 
 var
   Textur: TTexturBuffer;
@@ -79,7 +93,7 @@ var
   VAOReflect,
   VBOReflect,
   VAOCube,
-  VBOCube: GLuint;
+  VBOCubeVec: GLuint;
   ViewMatrix, ProdMatrix, RotateMatrix: TMatrix;
 
   Color_ID,
@@ -114,7 +128,7 @@ begin
     ModelMatrix_ID := UniformLocation('model');
     ViewMatrix_ID := UniformLocation('view');
     ProMatrix_ID := UniformLocation('proj');
-    Color_ID := UniformLocation('color');
+    Color_ID := UniformLocation('uColor');
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
   glUniform3f(Color_ID, 2.0, 2.0, 2.0);
@@ -128,10 +142,6 @@ begin
 
   glEnable(GL_DEPTH_TEST);
 
-  // Uniform
-  ViewMatrix.Uniform(ViewMatrix_ID);
-  ProdMatrix.Uniform(ProMatrix_ID);
-
   // Reflect
   glGenVertexArrays(1, @VAOReflect);
   glBindVertexArray(VAOReflect);
@@ -141,20 +151,23 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(verticesReflect) * sizeof(TVector3f), PGLvoid(verticesReflect), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 3 * SizeOf(GLfloat), nil);
 
   // Cube
   glGenVertexArrays(1, @VAOCube);
   glBindVertexArray(VAOCube);
-  glGenBuffers(1, @VBOCube);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBOCube);
+  glGenBuffers(1, @VBOCubeVec);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOCubeVec);
   glBufferData(GL_ARRAY_BUFFER, Length(verticesCube) * sizeof(TVector3f), PGLvoid(verticesCube), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
 
-  // Texturen
+  // Uniform
+  ViewMatrix.Uniform(ViewMatrix_ID);
+  ProdMatrix.Uniform(ProMatrix_ID);
+
   Textur := TTexturBuffer.Create;
   Textur.LoadTextures('woodenbox.png');
   Textur.ActiveAndBind;
@@ -163,6 +176,7 @@ end;
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   mat: TMatrix;
+  i: integer;
 begin
   Shader.UseProgram;
 
@@ -175,7 +189,9 @@ begin
   mat := mat * RotateMatrix;
   mat.Uniform(ModelMatrix_ID);
   glUniform3f(Color_ID, 0.8, 0.8, 0.8);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
+
+  glDrawElements(GL_TRIANGLES, Length(cubeIndices), GL_UNSIGNED_INT, PGLvoid(cubeIndices));
+//  glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, PGLvoid(cubeIndices));
 
   // Draw Reflect
   glBindVertexArray(VAOReflect);
@@ -186,7 +202,7 @@ begin
   glDepthMask(GL_FALSE);
   glClear(GL_STENCIL_BUFFER_BIT);
   glUniform3f(Color_ID, 0.0, 0.0, 0.0);
-  glDrawArrays(GL_TRIANGLES, 0, 6);
+//  glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
   // Draw cube reflect
   glBindVertexArray(VAOCube);
@@ -198,7 +214,7 @@ begin
   mat.Scale(1, 1, -1);
   mat.Uniform(ModelMatrix_ID);
   glUniform3f(Color_ID, 0.3, 0.3, 0.3);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
+//  glDrawArrays(GL_TRIANGLE_STRIP, 0, 24);
 
   glDisable(GL_STENCIL_TEST);
 
@@ -213,7 +229,7 @@ begin
   Timer1.Enabled := False;
 
   glDeleteVertexArrays(1, @VAOCube);
-  glDeleteBuffers(1, @VBOCube);
+  glDeleteBuffers(1, @VBOCubeVec);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
