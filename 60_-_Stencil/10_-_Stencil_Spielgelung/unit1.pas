@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector,oglVectors, oglMatrix,
+  oglContext, oglShader, oglVector, oglVectors, oglMatrix,
   oglTextur;
 
 type
@@ -49,40 +49,23 @@ implementation
 // https://gist.github.com/sealfin/d22f4ba4d1022e1b89dd
 // https://lazyfoo.net/tutorials/OpenGL/26_the_stencil_buffer/index.php
 
-var
-  verticesReflect: TVectors3f=nil;
-  verticesCube: TVectors3f=nil;
-//const
-  //verticesReflect: array of TVector3f = (
-  //  (-1.0, -1.0, -0.5), (1.0, -1.0, -0.5), (1.0, 1.0, -0.5),
-  //  (1.0, 1.0, -0.5), (-1.0, 1.0, -0.5), (-1.0, -1.0, -0.5));
+type
+  TVB = record
+    VAO,
+    VBOvert, VBOtex: GLuint;
+  end;
 
-  //verticesCube: array of TVector3f = (
-  //  (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5),
-  //  (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
-  //
-  //  (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-  //  (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
-  //
-  //  (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
-  //  (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
-  //
-  //  (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
-  //  (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-  //
-  //  (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5),
-  //  (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5),
-  //
-  //  (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5),
-  //  (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5));
+var
+  ReflectVerts: TVectors3f = nil;
+  ReflectTexCoords: TVectors2f = nil;
+
+  CubeVerts: TVectors3f = nil;
+  CubeTexCoords: TVectors2f = nil;
 
 var
   Textur: TTexturBuffer;
 
-  VAOReflect,
-  VBOReflect,
-  VAOCube,
-  VBOCube: GLuint;
+  VBReflect, VBCube: TVB;
   ViewMatrix, ProdMatrix, RotateMatrix: TMatrix;
 
   Color_ID,
@@ -105,7 +88,7 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  i: Integer;
+  i: integer;
 begin
   // --- Shader laden
   Shader := TShader.Create;
@@ -136,30 +119,48 @@ begin
   ProdMatrix.Uniform(ProMatrix_ID);
 
   // Reflect
-  verticesReflect.AddRectangle(2,2,-1,-1,-0.5);
-  verticesCube.AddCube(1,1,1,-0.5,-0.5,-0.5);
+  ReflectVerts.AddRectangle(2, 2, -1, -1, -0.5);
+  ReflectTexCoords.AddQuadTexCoords;
 
+  glGenVertexArrays(1, @VBReflect.VAO);
+  glBindVertexArray(VBReflect.VAO);
 
-  glGenVertexArrays(1, @VAOReflect);
-  glBindVertexArray(VAOReflect);
-  glGenBuffers(1, @VBOReflect);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBOReflect);
-  glBufferData(GL_ARRAY_BUFFER, Length(verticesReflect) * sizeof(TVector3f), PGLvoid(verticesReflect), GL_STATIC_DRAW);
+  glGenBuffers(1, @VBReflect.VBOvert);
+  glBindBuffer(GL_ARRAY_BUFFER, VBReflect.VBOvert);
+  glBufferData(GL_ARRAY_BUFFER, ReflectVerts.Size, ReflectVerts.Ptr, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+
+  glGenBuffers(1, @VBReflect.VBOtex);
+  glBindBuffer(GL_ARRAY_BUFFER, VBReflect.VBOtex);
+  glBufferData(GL_ARRAY_BUFFER, ReflectTexCoords.Size, ReflectTexCoords.Ptr, GL_STATIC_DRAW);
+
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
   // Cube
-  glGenVertexArrays(1, @VAOCube);
-  glBindVertexArray(VAOCube);
-  glGenBuffers(1, @VBOCube);
+  CubeVerts.AddCube(0.5, 0.5, 1, -0.5, -0.5, -0.5);
+  CubeTexCoords.AddCubeTexCoords;
+  CubeVerts.AddCube(0.3, 0.3, 0.7, 0.5, 0.5, -0.5);
+  CubeTexCoords.AddCubeTexCoords;
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBOCube);
-  glBufferData(GL_ARRAY_BUFFER, Length(verticesCube) * sizeof(TVector3f), PGLvoid(verticesCube), GL_STATIC_DRAW);
+  glGenVertexArrays(1, @VBCube.VAO);
+  glBindVertexArray(VBCube.VAO);
+
+  glGenBuffers(1, @VBCube.VBOvert);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
+  glBufferData(GL_ARRAY_BUFFER, CubeVerts.Size, CubeVerts.Ptr, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+
+  glGenBuffers(1, @VBCube.VBOtex);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
+  glBufferData(GL_ARRAY_BUFFER, CubeTexCoords.Size, CubeTexCoords.Ptr, GL_STATIC_DRAW);
+
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
   // Texturen
   Textur := TTexturBuffer.Create;
@@ -177,15 +178,15 @@ begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   // Draw cube
-  glBindVertexArray(VAOCube);
+  glBindVertexArray(VBCube.VAO);
   mat.Identity;
   mat := mat * RotateMatrix;
   mat.Uniform(ModelMatrix_ID);
   glUniform3f(Color_ID, 0.8, 0.8, 0.8);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
+  glDrawArrays(GL_TRIANGLES, 0, CubeVerts.Count);
 
   // Draw Reflect
-  glBindVertexArray(VAOReflect);
+  glBindVertexArray(VBReflect.VAO);
   glEnable(GL_STENCIL_TEST);
   glStencilFunc(GL_ALWAYS, 1, $FF);
   glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
@@ -196,7 +197,7 @@ begin
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
   // Draw cube reflect
-  glBindVertexArray(VAOCube);
+  glBindVertexArray(VBCube.VAO);
   glStencilFunc(GL_EQUAL, 1, $FF);
   glStencilMask($00);
   glDepthMask(GL_TRUE);
@@ -205,7 +206,7 @@ begin
   mat.Scale(1, 1, -1);
   mat.Uniform(ModelMatrix_ID);
   glUniform3f(Color_ID, 0.3, 0.3, 0.3);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
+  glDrawArrays(GL_TRIANGLES, 0, CubeVerts.Count);
 
   glDisable(GL_STENCIL_TEST);
 
@@ -219,8 +220,13 @@ begin
 
   Timer1.Enabled := False;
 
-  glDeleteVertexArrays(1, @VAOCube);
-  glDeleteBuffers(1, @VBOCube);
+  glDeleteVertexArrays(1, @VBReflect.VAO);
+  glDeleteBuffers(1, @VBReflect.VBOvert);
+  glDeleteBuffers(1, @VBReflect.VBOtex);
+
+  glDeleteVertexArrays(1, @VBCube.VAO);
+  glDeleteBuffers(1, @VBCube.VBOvert);
+  glDeleteBuffers(1, @VBCube.VBOtex);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
