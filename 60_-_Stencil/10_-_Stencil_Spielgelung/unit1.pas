@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix,
+  oglContext, oglShader, oglVector,oglVectors, oglMatrix,
   oglTextur;
 
 type
@@ -49,29 +49,32 @@ implementation
 // https://gist.github.com/sealfin/d22f4ba4d1022e1b89dd
 // https://lazyfoo.net/tutorials/OpenGL/26_the_stencil_buffer/index.php
 
-const
-  verticesReflect: array of TVector3f = (
-    (-1.0, -1.0, -0.5), (1.0, -1.0, -0.5), (1.0, 1.0, -0.5),
-    (1.0, 1.0, -0.5), (-1.0, 1.0, -0.5), (-1.0, -1.0, -0.5));
+var
+  verticesReflect: TVectors3f=nil;
+  verticesCube: TVectors3f=nil;
+//const
+  //verticesReflect: array of TVector3f = (
+  //  (-1.0, -1.0, -0.5), (1.0, -1.0, -0.5), (1.0, 1.0, -0.5),
+  //  (1.0, 1.0, -0.5), (-1.0, 1.0, -0.5), (-1.0, -1.0, -0.5));
 
-  verticesCube: array of TVector3f = (
-    (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5),
-    (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
-
-    (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-    (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
-
-    (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
-    (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
-
-    (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
-    (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
-
-    (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5),
-    (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5),
-
-    (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5),
-    (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5));
+  //verticesCube: array of TVector3f = (
+  //  (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5),
+  //  (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
+  //
+  //  (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
+  //  (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
+  //
+  //  (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
+  //  (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5),
+  //
+  //  (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
+  //  (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, 0.5, 0.5),
+  //
+  //  (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5),
+  //  (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5),
+  //
+  //  (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5),
+  //  (0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5));
 
 var
   Textur: TTexturBuffer;
@@ -95,14 +98,14 @@ begin
   //remove-
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
-  WriteLn(ogc.StencilBits);
-  WriteLn(ogc.DepthBits);
 
   CreateScene;
   Timer1.Enabled := True;
 end;
 
 procedure TForm1.CreateScene;
+var
+  i: Integer;
 begin
   // --- Shader laden
   Shader := TShader.Create;
@@ -133,6 +136,10 @@ begin
   ProdMatrix.Uniform(ProMatrix_ID);
 
   // Reflect
+  verticesReflect.AddRectangle(2,2,-1,-1,-0.5);
+  verticesCube.AddCube(1,1,1,-0.5,-0.5,-0.5);
+
+
   glGenVertexArrays(1, @VAOReflect);
   glBindVertexArray(VAOReflect);
   glGenBuffers(1, @VBOReflect);

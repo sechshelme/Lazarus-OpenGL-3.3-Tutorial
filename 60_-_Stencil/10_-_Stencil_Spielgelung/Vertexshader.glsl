@@ -12,11 +12,11 @@ uniform vec3 color;
 
 const vec4 texcoord[] = vec2[](
   vec2(0, 0), vec2(1, 0), vec2(1, 1),
-  vec2(1, 1), vec2(0, 1), vec2(0, 0));
+  vec2(0, 0), vec2(1, 1), vec2(0, 1));
 
 void main()
 {
-    vColor = color;
-    vTexcoord = texcoord[gl_VertexID % 6];
-    gl_Position = proj * view * model * vec4(inPos, 1.0);
+  vColor = color;
+  vTexcoord = texcoord[gl_VertexID % 6];
+  gl_Position = proj * view * model * vec4(inPos, 1.0);
 };

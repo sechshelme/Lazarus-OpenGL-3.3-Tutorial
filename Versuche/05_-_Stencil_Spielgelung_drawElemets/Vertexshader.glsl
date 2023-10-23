@@ -16,6 +16,8 @@ const vec4 texcoord[] = vec2[](
   vec2(0, 0),
   vec2(1, 0),
   vec2(1, 1),
+  vec2(0, 0),
+  vec2(1, 1),
   vec2(0, 1));
 
 void main()
@@ -24,7 +26,7 @@ void main()
 
     Color = uColor;
 //    Texcoord = texcoord[gl_VertexID % 4];
-    Texcoord = texcoord[ct % 4];
+    Texcoord = texcoord[ct % 6];
     gl_Position = proj * view * model * vec4(position, 1.0);
 };
 
