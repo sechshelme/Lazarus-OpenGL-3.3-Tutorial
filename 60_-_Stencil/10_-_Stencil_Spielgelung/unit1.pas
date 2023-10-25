@@ -16,13 +16,18 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    MainMenu1: TMainMenu;
+    MenuItem1: TMenuItem;
+    RevertCubeItem: TMenuItem;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure RevertCubeItemClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader;
+    procedure UpdateCube;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
@@ -73,11 +78,79 @@ var
   ViewMatrix_ID,
   ProMatrix_ID: GLint;
 
+const
+  si = 7;
+
+
+procedure TForm1.UpdateCube;
+const
+  scale = 1 / si;
+  cubeCount = si * si div 1;
+var
+  CubeArr: array of array of array of boolean;
+  cubePos: array of TVector3i;
+  p: TVector3i;
+  i, x, y, z: integer;
+
+  function BottomTest(p: TVector3i): boolean;
+  begin
+    Result := True;
+    if CubeArr[p[0], p[1], p[2]] = True then begin
+      Exit(False);
+    end;
+    if p[0] > 0 then begin
+      if CubeArr[p[0] - 1, p[1], p[2]] <> True then begin
+        Exit(False);
+      end;
+    end;
+    CubeArr[p[0], p[1], p[2]] := True;
+  end;
+
+begin
+  SetLength(CubeVerts, 0);
+  SetLength(CubeTexCoords, 0);
+
+  SetLength(CubeArr, si, si, si);
+  for z := 0 to Length(CubeArr) - 1 do begin
+    for i := 0 to si * 2 - z * 2 do begin
+      repeat
+        p[0] := z;
+        p[1] := Random(si);
+        p[2] := Random(si);
+      until BottomTest(p);
+    end;
+  end;
+
+  for z := 0 to Length(CubeArr) - 1 do begin
+    for y := 0 to Length(CubeArr[z]) - 1 do begin
+      for x := 0 to Length(CubeArr[z, y]) - 1 do begin
+        if CubeArr[z, y, x] then begin
+          CubeVerts.AddCube(1, 1, 1, x - si div 2, y - si div 2, z - si / 2 + 0.5);
+          CubeTexCoords.AddCubeTexCoords;
+        end;
+      end;
+    end;
+  end;
+
+  CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
+
+    glBindVertexArray(VBCube.VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
+    glBufferSubData(GL_ARRAY_BUFFER,0, CubeVerts.Size, CubeVerts.Ptr);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
+    glBufferSubData(GL_ARRAY_BUFFER,0, CubeTexCoords.Size, CubeTexCoords.Ptr);
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  Randomize;
   //remove+
-  Width := 340;
-  Height := 240;
+  //  Width := 340;
+  //  Height := 240;
+  Width := 640;
+  Height := 480;
   //remove-
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
@@ -119,7 +192,7 @@ begin
   ProdMatrix.Uniform(ProMatrix_ID);
 
   // Reflect
-  ReflectVerts.AddRectangle(2, 2, -1, -1, -0.5);
+  ReflectVerts.AddRectangle(2, 2, 0, 0, -0.5);
   ReflectTexCoords.AddQuadTexCoords;
 
   glGenVertexArrays(1, @VBReflect.VAO);
@@ -140,27 +213,22 @@ begin
   glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
   // Cube
-  CubeVerts.AddCube(0.5, 0.5, 1, -0.5, -0.5, -0.5);
-  CubeTexCoords.AddCubeTexCoords;
-  CubeVerts.AddCube(0.3, 0.3, 0.7, 0.5, 0.5, -0.5);
-  CubeTexCoords.AddCubeTexCoords;
-
   glGenVertexArrays(1, @VBCube.VAO);
   glBindVertexArray(VBCube.VAO);
 
   glGenBuffers(1, @VBCube.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, CubeVerts.Size, CubeVerts.Ptr, GL_STATIC_DRAW);
-
+  glBufferData(GL_ARRAY_BUFFER, si*si*si*SizeOf( TVector3f)*12, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
 
   glGenBuffers(1, @VBCube.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
-  glBufferData(GL_ARRAY_BUFFER, CubeTexCoords.Size, CubeTexCoords.Ptr, GL_STATIC_DRAW);
-
+  glBufferData(GL_ARRAY_BUFFER, si*si*si*SizeOf( TVector2f)*12, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
+
+  UpdateCube;
 
   // Texturen
   Textur := TTexturBuffer.Create;
@@ -227,6 +295,11 @@ begin
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
   glDeleteBuffers(1, @VBCube.VBOtex);
+end;
+
+procedure TForm1.RevertCubeItemClick(Sender: TObject);
+begin
+  UpdateCube;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

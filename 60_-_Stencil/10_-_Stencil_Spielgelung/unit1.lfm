@@ -1,9 +1,10 @@
 object Form1: TForm1
-  Left = 794
-  Height = 272
-  Top = 0
+  Left = 62
+  Height = 248
+  Top = 343
   Width = 439
   Caption = 'Form1'
+  Menu = MainMenu1
   LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -13,5 +14,17 @@ object Form1: TForm1
     OnTimer = Timer1Timer
     Left = 176
     Top = 107
+  end
+  object MainMenu1: TMainMenu
+    Left = 124
+    Top = 48
+    object MenuItem1: TMenuItem
+      Caption = 'Optionen'
+      object RevertCubeItem: TMenuItem
+        Caption = 'RevertCube'
+        ShortCut = 82
+        OnClick = RevertCubeItemClick
+      end
+    end
   end
 end
