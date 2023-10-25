@@ -60,6 +60,11 @@ type
     VBOvert, VBOtex: GLuint;
   end;
 
+  TUBOBuffer = record
+    Color: TVector4f;
+    ProjMatrix, ViewMatrix, ModelMatrix: Tmat4x4;
+  end;
+
 var
   ReflectVerts: TVectors3f = nil;
   ReflectTexCoords: TVectors2f = nil;
@@ -71,25 +76,21 @@ var
   Textur: TTexturBuffer;
 
   VBReflect, VBCube: TVB;
-  ViewMatrix, ProdMatrix, RotateMatrix: TMatrix;
+  UBOBuffer: TUBOBuffer;
 
-  Color_ID,
-  ModelMatrix_ID,
-  ViewMatrix_ID,
-  ProMatrix_ID: GLint;
+  UBO,
+  UBO_ID: GLint;
 
 const
-  si = 7;
+  si = 17;
 
 
 procedure TForm1.UpdateCube;
 const
   scale = 1 / si;
-  cubeCount = si * si div 1;
 var
   CubeArr: array of array of array of boolean;
-  cubePos: array of TVector3i;
-  p: TVector3i;
+  cp: TVector3i;
   i, x, y, z: integer;
 
   function BottomTest(p: TVector3i): boolean;
@@ -112,12 +113,12 @@ begin
 
   SetLength(CubeArr, si, si, si);
   for z := 0 to Length(CubeArr) - 1 do begin
-    for i := 0 to si * 2 - z * 2 do begin
+    for i := 0 to si * 3 - z * 2 do begin
       repeat
-        p[0] := z;
-        p[1] := Random(si);
-        p[2] := Random(si);
-      until BottomTest(p);
+        cp[0] := z;
+        cp[1] := Random(si);
+        cp[2] := Random(si);
+      until BottomTest(cp);
     end;
   end;
 
@@ -134,13 +135,13 @@ begin
 
   CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
 
-    glBindVertexArray(VBCube.VAO);
+  glBindVertexArray(VBCube.VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-    glBufferSubData(GL_ARRAY_BUFFER,0, CubeVerts.Size, CubeVerts.Ptr);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, CubeVerts.Size, CubeVerts.Ptr);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
-    glBufferSubData(GL_ARRAY_BUFFER,0, CubeTexCoords.Size, CubeTexCoords.Ptr);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, CubeTexCoords.Size, CubeTexCoords.Ptr);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -161,8 +162,10 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  i: integer;
+  bindingPoint: gluint = 0;
 begin
+  glEnable(GL_DEPTH_TEST);
+
   // --- Shader laden
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
@@ -170,26 +173,27 @@ begin
   Shader.LinkProgramm;
   Shader.UseProgram;
   with Shader do begin
-    ModelMatrix_ID := UniformLocation('model');
-    ViewMatrix_ID := UniformLocation('view');
-    ProMatrix_ID := UniformLocation('proj');
-    Color_ID := UniformLocation('color');
+    UBO_ID := UniformBlockIndex('UBO');
+
     glUniform1i(UniformLocation('Sampler'), 0);
   end;
-  glUniform3f(Color_ID, 2.0, 2.0, 2.0);
 
-  RotateMatrix.Identity;
-  ViewMatrix.Identity;
-  ViewMatrix.Translate(0, 0.3, -4);
-  ViewMatrix.RotateA(2.0 + pi);
-  ProdMatrix.Identity;
-  ProdMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
+  // --- UBO
+  UBOBuffer.ModelMatrix.Identity;
+  UBOBuffer.ViewMatrix.Identity;
+  UBOBuffer.ViewMatrix.Translate(0, 0.3, -4);
+  UBOBuffer.ViewMatrix.RotateA(2.0 + pi);
+  UBOBuffer.ProjMatrix.Identity;
+  UBOBuffer.ProjMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
 
-  glEnable(GL_DEPTH_TEST);
+  glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
+  // UBO mit Daten laden
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
-  // Uniform
-  ViewMatrix.Uniform(ViewMatrix_ID);
-  ProdMatrix.Uniform(ProMatrix_ID);
+  // UBO mit dem Shader verbinden
+  glUniformBlockBinding(Shader.ID, UBO_ID, bindingPoint);
+  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
 
   // Reflect
   ReflectVerts.AddRectangle(2, 2, 0, 0, -0.5);
@@ -218,13 +222,13 @@ begin
 
   glGenBuffers(1, @VBCube.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, si*si*si*SizeOf( TVector3f)*12, nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
 
   glGenBuffers(1, @VBCube.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
-  glBufferData(GL_ARRAY_BUFFER, si*si*si*SizeOf( TVector2f)*12, nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector2f) * 12, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
@@ -241,16 +245,16 @@ var
   mat: TMatrix;
 begin
   Shader.UseProgram;
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
 
   glClearColor(0.3, 0.1, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   // Draw cube
   glBindVertexArray(VBCube.VAO);
-  mat.Identity;
-  mat := mat * RotateMatrix;
-  mat.Uniform(ModelMatrix_ID);
-  glUniform3f(Color_ID, 0.8, 0.8, 0.8);
+
+  UBOBuffer.Color := [0.8, 0.8, 0.8, 1.0];
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_TRIANGLES, 0, CubeVerts.Count);
 
   // Draw Reflect
@@ -261,7 +265,9 @@ begin
   glStencilMask($FF);
   glDepthMask(GL_FALSE);
   glClear(GL_STENCIL_BUFFER_BIT);
-  glUniform3f(Color_ID, 0.0, 0.0, 0.0);
+
+  UBOBuffer.Color := [0, 0, 0, 1];
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
   // Draw cube reflect
@@ -270,14 +276,16 @@ begin
   glStencilMask($00);
   glDepthMask(GL_TRUE);
 
-  mat.TranslateZ(-1.0);
-  mat.Scale(1, 1, -1);
-  mat.Uniform(ModelMatrix_ID);
-  glUniform3f(Color_ID, 0.3, 0.3, 0.3);
+  mat := UBOBuffer.ModelMatrix;
+  UBOBuffer.ModelMatrix.TranslateZ(-1.0);
+  UBOBuffer.ModelMatrix.Scale(1, 1, -1);
+
+  UBOBuffer.Color := [0.3, 0.3, 0.3, 1.0];
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_TRIANGLES, 0, CubeVerts.Count);
+  UBOBuffer.ModelMatrix := mat;
 
   glDisable(GL_STENCIL_TEST);
-
   ogc.SwapBuffers;
 end;
 
@@ -287,6 +295,8 @@ begin
   Shader.Free;
 
   Timer1.Enabled := False;
+
+  glDeleteBuffers(1, @UBO);
 
   glDeleteVertexArrays(1, @VBReflect.VAO);
   glDeleteBuffers(1, @VBReflect.VBOvert);
@@ -306,7 +316,7 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step: GLfloat = 0.02;
 begin
-  RotateMatrix.RotateC(step);
+  UBOBuffer.ModelMatrix.RotateC(step);
   ogcDrawScene(Sender);
 end;
 

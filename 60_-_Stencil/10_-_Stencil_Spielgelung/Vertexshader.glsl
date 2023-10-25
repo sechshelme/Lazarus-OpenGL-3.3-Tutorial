@@ -3,13 +3,15 @@
 layout (location = 0) in vec3 inPos;
 layout (location = 1) in vec2 inTexCoord;
 
-out vec3 vColor;
+out vec4 vColor;
 out vec2 vTexcoord;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
-uniform vec3 color;
+layout (std140) uniform UBO {
+  vec4 color;
+  mat4 proj;
+  mat4 view;
+  mat4 model;
+};
 
 void main()
 {
