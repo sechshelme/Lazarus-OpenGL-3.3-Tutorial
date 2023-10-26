@@ -82,7 +82,7 @@ var
   UBO_ID: GLint;
 
 const
-  si = 17;
+  si = 7;
 
 
 procedure TForm1.UpdateCube;

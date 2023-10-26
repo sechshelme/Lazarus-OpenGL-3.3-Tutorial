@@ -12,18 +12,6 @@ uses
 
   //image image.png
 
-(*
-Hier wird ganz kurz der Geometrie-Shader erwähnt.
-In diesem Beispiel wird nicht ins Detail eingegangen, es sollte nur zeigen für was ein Geometrie-Shader gut ist.
-Die Funktion hier im Beispiel ist, die beiden Meshes werden kopiert und anschliessend nach Links und Rechts verschoben.
-Auch bekommt die Linke Version eine andere Farbe als die Rechte.
-
-Man kann einen Geometrie-Shader auch brauchen um automatisch die Normale auszurechnen, welche für Beleuchtungs-Effekte gebraucht wird.
-Was eine Normale ist, wird später im Kapitel Beleuchtung erklärt.
-
-Der Lazarus-Code ist nichts besonderes, er rendert die üblichen zwei Meshes Dreieck und Quadrat.
-Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geometrie-Shader geladen wird.
-*)
 
   //lineal
 
@@ -56,15 +44,15 @@ implementation
 {$R *.lfm}
 
 const
-  Triangle: array of TVector3f =
-    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
   Quad: array of TVector3f =
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (-0.2, -0.1, 0.0),
-    (0.2, -0.6, 0.0), (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0));
+    ((-0.2, -0.6, 0.0), (0.2, 0.6, 0.0), (-0.2, 0.6, 0.0),
+    (0.2, -0.6, 0.0), (-0.2, -0.6, 0.0), (0.2, 0.6, 0.0));
 
 const
-  outer_levels: array of GLfloat = (2, 2, 2, 2);
-  inner_levels: array of GLfloat = (2, 2);
+  //outer_levels: array of GLfloat = (2, 2, 2, 2);
+  //inner_levels: array of GLfloat = (2, 2);
+  outer_levels: array of GLfloat = (62, 62, 62, 62);
+  inner_levels: array of GLfloat = (62, 62);
 
 type
   TVB = record
@@ -73,15 +61,19 @@ type
   end;
 
 var
-  VBTriangle, VBQuad: TVB;
+  VBQuad: TVB;
 
   { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
+const level=32;
 var
   i: integer;
   s: string;
 begin
+  for i:=0 to Length(outer_levels)-1 do outer_levels[i]:=level;
+  for i:=0 to Length(inner_levels)-1 do inner_levels[i]:=level;
+
   SetLength(Buttons, 8);
   for i := 0 to Length(Buttons) - 1 do begin
     Buttons[i] := TButton.Create(ToolBar1);
@@ -127,10 +119,8 @@ begin
   Shader.UseProgram;
   //code-
 
-  glGenVertexArrays(1, @VBTriangle.VAO);
   glGenVertexArrays(1, @VBQuad.VAO);
 
-  glGenBuffers(1, @VBTriangle.VBO);
   glGenBuffers(1, @VBQuad.VBO);
 
   Timer1.Enabled := True;
@@ -138,24 +128,17 @@ end;
 
 procedure TForm1.InitScene;
 begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  glClearColor(0.6, 0.6, 0.4, 1.0);
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
-
-  // Daten für Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * sizeof(TVector3f), PVector3f(Triangle), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -166,10 +149,6 @@ begin
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
 
   Shader.UseProgram;
-
-  // Zeichne Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Triangle));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -226,10 +205,7 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VBTriangle.VAO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
-
-  glDeleteBuffers(1, @VBTriangle.VBO);
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
