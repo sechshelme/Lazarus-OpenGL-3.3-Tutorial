@@ -28,13 +28,10 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-    Buttons: array of TButton;
     ogc: TContext;
     Shader: TShader; // Shader-Object
     procedure CreateScene;
-    procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
-    procedure OnButtomsClick(Sender: TObject);
   public
   end;
 
@@ -45,10 +42,16 @@ implementation
 
 {$R *.lfm}
 
+type
+  TUBOBuffer = record
+    ModelMatrix: Tmat4x4;
+    isSinus: TGLboolean;
+  end;
+
 const
   Quad: array of TVector3f =
-    ((-0.2, -0.6, 0.0), (0.2, 0.6, 0.0), (-0.2, 0.6, 0.0),
-    (0.2, -0.6, 0.0), (-0.2, -0.6, 0.0), (0.2, 0.6, 0.0));
+    ((-0.2, -0.6, 0.2), (0.2, 0.6, 0.2), (-0.2, 0.6, 0.2),
+    (0.2, -0.6, 0.2), (-0.2, -0.6, 0.2), (0.2, 0.6, 0.2));
 
 const
   outer_levels: array of GLfloat = (2, 2, 2, 2);
@@ -62,34 +65,26 @@ type
 
 var
   VBQuad: TVB;
+  UBOBuffer: TUBOBuffer;
+  UBO,
+  UBO_ID: GLint;
+
 
   { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
-const level=32;
+const
+  level = 32;
 var
   i: integer;
   s: string;
 begin
-  for i:=0 to Length(outer_levels)-1 do outer_levels[i]:=level;
-  for i:=0 to Length(inner_levels)-1 do inner_levels[i]:=level;
-
-  SetLength(Buttons, 8);
-  for i := 0 to Length(Buttons) - 1 do begin
-    Buttons[i] := TButton.Create(ToolBar1);
-    Buttons[i].Parent := ToolBar1;
-    Buttons[i].Width := 30;
-    Buttons[i].Tag := i;
-    Buttons[i].OnClick := @OnButtomsClick;
+  for i := 0 to Length(outer_levels) - 1 do begin
+    outer_levels[i] := level;
   end;
-  Buttons[0].Caption := 'O0+';
-  Buttons[1].Caption := 'O0-';
-  Buttons[2].Caption := 'O1+';
-  Buttons[3].Caption := 'O1-';
-  Buttons[4].Caption := 'O2+';
-  Buttons[5].Caption := 'O2-';
-  Buttons[6].Caption := 'I0+';
-  Buttons[7].Caption := 'I0-';
+  for i := 0 to Length(inner_levels) - 1 do begin
+    inner_levels[i] := level;
+  end;
 
   //remove+
   Width := 340;
@@ -99,7 +94,6 @@ begin
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
-  InitScene;
 end;
 
 (*
@@ -114,20 +108,32 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
   //code-
+
+  // --- UBO
+  UBOBuffer.ModelMatrix.Identity;
+  UBOBuffer.isSinus := CheckBox1.Checked;
+
+  glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
+  // UBO mit Daten laden
+  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
+
+  // UBO mit dem Shader verbinden
+  UBO_ID:=Shader.UniformBlockIndex('UBO');
+  glUniformBlockBinding(Shader.ID, UBO_ID, 0);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
+
 
   glGenVertexArrays(1, @VBQuad.VAO);
 
   glGenBuffers(1, @VBQuad.VBO);
 
   Timer1.Enabled := True;
-end;
-
-procedure TForm1.InitScene;
-begin
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -142,6 +148,8 @@ begin
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  i: Integer;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -150,75 +158,35 @@ begin
 
   Shader.UseProgram;
 
-  // Zeichne Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad));
+  // Zeichne cube
+  for i := 0 to 3 do begin
+    UBOBuffer.ModelMatrix.RotateB(pi / 2);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+
+    glBindVertexArray(VBQuad.VAO);
+    glDrawArrays(GL_PATCHES, 0, Length(Quad));
+  end;
 
   ogc.SwapBuffers;
-end;
-
-procedure TForm1.OnButtomsClick(Sender: TObject);
-const
-  step = 1.0;
-begin
-  case TButton(Sender).Tag of
-    0: begin
-      outer_levels[0] += step;
-    end;
-    1: begin
-      outer_levels[0] -= step;
-      if outer_levels[0] <= 0 then begin
-        outer_levels[0] := step;
-      end;
-    end;
-    2: begin
-      outer_levels[1] += step;
-    end;
-    3: begin
-      outer_levels[1] -= step;
-      if outer_levels[1] <= 0 then begin
-        outer_levels[1] := step;
-      end;
-    end;
-    4: begin
-      outer_levels[2] += step;
-    end;
-    5: begin
-      outer_levels[2] -= step;
-      if outer_levels[2] <= 0 then begin
-        outer_levels[2] := step;
-      end;
-    end;
-    6: begin
-      inner_levels[0] += step;
-    end;
-    7: begin
-      inner_levels[0] -= step;
-      if inner_levels[0] <= 0 then begin
-        inner_levels[0] := step;
-      end;
-    end;
-  end;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
 
+  glDeleteBuffers(1, @UBO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
-var
-  id: GLint;
 begin
-  id:=Shader.UniformLocation('isSinus');
-  glUniform1i(id, GLint(CheckBox1.Checked));
+  UBOBuffer.isSinus := CheckBox1.Checked;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+  UBOBuffer.ModelMatrix.RotateB(0.02);
   ogcDrawScene(Sender);
 end;
 

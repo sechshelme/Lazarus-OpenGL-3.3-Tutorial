@@ -161,8 +161,6 @@ begin
 end;
 
 procedure TForm1.CreateScene;
-var
-  bindingPoint: gluint = 0;
 begin
   glEnable(GL_DEPTH_TEST);
 
@@ -192,8 +190,8 @@ begin
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
-  glUniformBlockBinding(Shader.ID, UBO_ID, bindingPoint);
-  glBindBufferBase(GL_UNIFORM_BUFFER, bindingPoint, UBO);
+  glUniformBlockBinding(Shader.ID, UBO_ID, 0);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
   // Reflect
   ReflectVerts.AddRectangle(2, 2, 0, 0, -0.5);

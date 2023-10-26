@@ -12,20 +12,8 @@ void main() {
                 (gl_TessCoord.z * gl_in[2].gl_Position);
 
   if (isSinus) {
-
-    float si = sin(gl_Position.y * 20) / 14 - 0.25;
-
-    if (gl_Position.x > 0) {
-     gl_Position.x +=  si;
-//   gl_Position.z +=  si;
-    } else {
-     gl_Position.x -=  si;
-//   gl_Position.z -=  si;
-    }
-
-//    si /= abs(gl_TessCoord.x -0.5) * 2;
-//    gl_Position.x *= si / 10;
-
+    float si = sin(gl_Position.y * 10) / 8 - 1;
+    gl_Position.x *=  si;
   }
 
   color = gl_Position.xyz + 0.5;

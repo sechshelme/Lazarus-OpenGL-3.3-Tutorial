@@ -7,7 +7,6 @@ layout (location = 10) in vec2 vertexUV0;
 uniform mat4 WorldMatrix;
 
 out vec2 UV0;
-out vec4 Position;
 
 void main(void)
 {
@@ -24,8 +23,6 @@ layout(triangles) in;
 layout(triangle_strip, max_vertices = 12) out;
 
 in vec2 UV0[];
-
-in vec4 Position[];
 
 out vec2 vUV0;
 

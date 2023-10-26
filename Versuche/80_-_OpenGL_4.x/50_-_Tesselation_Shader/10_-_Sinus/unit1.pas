@@ -51,10 +51,8 @@ const
     (0.2, -0.6, 0.0), (-0.2, -0.6, 0.0), (0.2, 0.6, 0.0));
 
 const
-  //outer_levels: array of GLfloat = (2, 2, 2, 2);
-  //inner_levels: array of GLfloat = (2, 2);
-  outer_levels: array of GLfloat = (62, 62, 62, 62);
-  inner_levels: array of GLfloat = (62, 62);
+  outer_levels: array of GLfloat = (2, 2, 2, 2);
+  inner_levels: array of GLfloat = (2, 2);
 
 type
   TVB = record
