@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls,
-  dglOpenGL,
+  dglOpenGL,         oglDebug,
   oglContext, oglShader, oglVector, oglMatrix;
 
   //image image.png
@@ -50,8 +50,8 @@ type
 
 const
   Quad: array of TVector3f =
-    ((-0.2, -0.6, 0.2), (0.2, 0.6, 0.2), (-0.2, 0.6, 0.2),
-    (0.2, -0.6, 0.2), (-0.2, -0.6, 0.2), (0.2, 0.6, 0.2));
+  ((-0.2, 0.6, 0.2), (-0.2, -0.6, 0.2), (0.2, -0.6, 0.2),
+  (-0.2, 0.6, 0.2), (0.2, -0.6, 0.2), (0.2, 0.6, 0.2));
 
 const
   outer_levels: array of GLfloat = (2, 2, 2, 2);
@@ -74,10 +74,9 @@ var
 
 procedure TForm1.FormCreate(Sender: TObject);
 const
-  level = 32;
+  level = 64;
 var
   i: integer;
-  s: string;
 begin
   for i := 0 to Length(outer_levels) - 1 do begin
     outer_levels[i] := level;
@@ -105,6 +104,8 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 //code+
 procedure TForm1.CreateScene;
 begin
+  InitOpenGLDebug;
+
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
@@ -116,6 +117,7 @@ begin
 
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
+  UBOBuffer.ModelMatrix.Scale(1.5);
   UBOBuffer.isSinus := CheckBox1.Checked;
 
   glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
@@ -134,9 +136,10 @@ begin
   glGenBuffers(1, @VBQuad.VBO);
 
   Timer1.Enabled := True;
+  glEnable(GL_DEPTH_TEST);
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   glPatchParameteri(GL_PATCH_VERTICES, 3);
 
   // Daten für Quadrat
@@ -151,7 +154,7 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: Integer;
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);  // Frame und Tiefen-Buffer löschen.
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));

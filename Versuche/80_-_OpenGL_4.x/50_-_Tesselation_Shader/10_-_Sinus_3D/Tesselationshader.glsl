@@ -1,5 +1,8 @@
 #version 330
 
+#define ambient vec3(0.2, 0.2, 0.2)
+
+
 layout(triangles) in;
 
 //uniform bool isSinus;
@@ -9,7 +12,7 @@ layout (std140) uniform UBO {
   bool isSinus;
 };
 
-out vec3 col;
+out vec3 tcol;
 
 void main() {
   gl_Position = (gl_TessCoord.x * gl_in[0].gl_Position) +
@@ -22,7 +25,7 @@ void main() {
     gl_Position.z *=  si;
   }
 
-  col = gl_Position.xyz + 0.5;
+  tcol = gl_Position.xyz + 0.5;
 
   gl_Position = ModelMatrix * gl_Position;
 }
