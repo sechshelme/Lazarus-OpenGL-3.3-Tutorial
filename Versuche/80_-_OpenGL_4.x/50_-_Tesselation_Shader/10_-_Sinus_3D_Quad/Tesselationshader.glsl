@@ -3,7 +3,9 @@
 layout(quads) in;
 
 layout (std140) uniform UBO {
+  mat4x4 WorldMatrix;
   mat4x4 ModelMatrix;
+  float sinOfs;
   bool isSinus;
 };
 
@@ -15,12 +17,12 @@ void main() {
   gl_Position = mix(p1, p2, gl_TessCoord.y);
 
   if (isSinus) {
-    float si = sin(gl_Position.y * 20) / 8 - 1;
+    float si = sin((gl_Position.y + sinOfs) * 20) / 8 - 1;
     gl_Position.x *=  si;
     gl_Position.z *=  si;
   }
 
   tcol = gl_Position.xyz + 0.5;
 
-  gl_Position = ModelMatrix * gl_Position;
+  gl_Position = WorldMatrix * ModelMatrix * gl_Position;
 }

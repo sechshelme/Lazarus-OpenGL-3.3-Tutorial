@@ -11,8 +11,6 @@ uses
   oglContext, oglShader, oglVector, oglMatrix;
 
   //image image.png
-
-
   //lineal
 
 type
@@ -26,6 +24,7 @@ type
     procedure CheckBox1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
@@ -44,20 +43,22 @@ implementation
 
 type
   TUBOBuffer = record
+    WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
+    sinOfs: TGLfloat;
     isSinus: TGLboolean;
   end;
 
 const
   Quad: array of TVector3f = (
-    (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
-    (0.5, 0.5, -0.5), (0.5, -0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5),
-    (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
-    (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
+    (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5),
+    (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, 0.5, -0.5), (0.5, -0.5, -0.5),
+    (0.5, 0.5, -0.5), (0.5, -0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5),
+    (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, 0.5, 0.5), (-0.5, -0.5, 0.5),
     // oben
-    (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, 0.5, 0.5),
+    (0.5, 0.5, 0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5),
     // unten
-    (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5));
+    (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5));
 
 const
   outer_levels: array of GLfloat = (2, 2, 2, 2);
@@ -177,11 +178,11 @@ begin
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
 
-  //mat:=UBOBuffer.ModelMatrix;
-  //UBOBuffer.ModelMatrix.Scale(0.5);
-  //glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  //glDrawArrays(GL_PATCHES, 0, Length(Quad));
-  //UBOBuffer.ModelMatrix:=mat;
+  mat:=UBOBuffer.ModelMatrix;
+  UBOBuffer.ModelMatrix.Scale(0.5);
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  glDrawArrays(GL_PATCHES, 0, Length(Quad));
+  UBOBuffer.ModelMatrix:=mat;
 
   ogc.SwapBuffers;
 end;
@@ -195,6 +196,16 @@ begin
   glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
+procedure TForm1.FormResize(Sender: TObject);
+var perm,wm:Tmat4x4;
+begin
+  wm.Identity;
+  wm.Translate(0,0.3,-4);
+  wm.RotateA(0.6);
+  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);;
+    UBOBuffer.WorldMatrix := perm * wm;
+end;
+
 procedure TForm1.CheckBox1Change(Sender: TObject);
 begin
   UBOBuffer.isSinus := CheckBox1.Checked;
@@ -203,6 +214,8 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   UBOBuffer.ModelMatrix.RotateB(0.02);
+  UBOBuffer.sinOfs+=0.01;
+  if UBOBuffer.sinOfs>pi then UBOBuffer.sinOfs-=pi;
   ogcDrawScene(Sender);
 end;
 
