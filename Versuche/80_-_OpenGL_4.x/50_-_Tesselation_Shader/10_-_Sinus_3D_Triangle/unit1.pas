@@ -74,7 +74,7 @@ var
 
 procedure TForm1.FormCreate(Sender: TObject);
 const
-  level = 64;
+  level = 4;
 var
   i: integer;
 begin
