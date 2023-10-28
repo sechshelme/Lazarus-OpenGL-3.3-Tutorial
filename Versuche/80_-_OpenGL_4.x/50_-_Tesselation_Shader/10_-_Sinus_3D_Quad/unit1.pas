@@ -124,7 +124,7 @@ begin
 
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.Scale(2.2);
+  UBOBuffer.ModelMatrix.Scale(1.5);
   UBOBuffer.isSinus := CheckBox1.Checked;
 
   glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.

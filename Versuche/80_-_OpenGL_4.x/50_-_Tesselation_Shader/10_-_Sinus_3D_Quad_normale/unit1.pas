@@ -47,6 +47,7 @@ type
     ModelMatrix: Tmat4x4;
     sinOfs: TGLfloat;
     isSinus: TGLboolean;
+    tesLevel:TGLint;
   end;
 
 const
@@ -92,6 +93,8 @@ begin
     inner_levels[i] := level;
   end;
 
+  UBOBuffer.tesLevel:=level;
+
   //remove+
   Width := 340;
   Height := 240;
@@ -116,7 +119,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
-  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
+//  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;

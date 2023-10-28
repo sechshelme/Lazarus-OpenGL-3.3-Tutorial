@@ -7,8 +7,8 @@
 
 out vec4 outColor;
 
-in vec3 gcol;
-in vec3 gnorm;
+in vec3 tcol;
+in vec3 tnorm;
 
 float light(vec3 p, vec3 n) {
   vec3  v1 = normalize(p);
@@ -20,9 +20,9 @@ float light(vec3 p, vec3 n) {
 
 void main(void)
 {
-  float l0 = light(LightPos0, gnorm) * ambient0;
-  float l1 = light(LightPos1, gnorm) * ambient1;
+  float l0 = light(LightPos0, tnorm) * ambient0;
+  float l1 = light(LightPos1, tnorm) * ambient1;
 
-  vec3 col = gcol * (l0 + l1) ;
+  vec3 col = tcol * (l0 + l1) ;
   outColor = vec4(col, 1.0);
 }
