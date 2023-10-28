@@ -124,7 +124,7 @@ begin
 
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.Scale(2.2);
+  UBOBuffer.ModelMatrix.Scale(1.5);
   UBOBuffer.isSinus := CheckBox1.Checked;
 
   glGenBuffers(1, @UBO);                          // UB0-Puffer generieren.
@@ -178,11 +178,11 @@ begin
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
 
-  mat := UBOBuffer.ModelMatrix;
+  mat:=UBOBuffer.ModelMatrix;
   UBOBuffer.ModelMatrix.Scale(0.5);
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
-  UBOBuffer.ModelMatrix := mat;
+  UBOBuffer.ModelMatrix:=mat;
 
   ogc.SwapBuffers;
 end;
@@ -197,15 +197,13 @@ begin
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
-var
-  perm, wm: Tmat4x4;
+var perm,wm:Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -4);
+  wm.Translate(0,0.3,-4);
   wm.RotateA(0.6);
-  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
-
-  UBOBuffer.WorldMatrix := perm * wm;
+  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);;
+    UBOBuffer.WorldMatrix := perm * wm;
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
@@ -216,10 +214,8 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   UBOBuffer.ModelMatrix.RotateB(0.02);
-  UBOBuffer.sinOfs += 0.01;
-  if UBOBuffer.sinOfs > pi then begin
-//    UBOBuffer.sinOfs -= pi;
-  end;
+  UBOBuffer.sinOfs+=0.01;
+  if UBOBuffer.sinOfs>pi then UBOBuffer.sinOfs-=pi;
   ogcDrawScene(Sender);
 end;
 
