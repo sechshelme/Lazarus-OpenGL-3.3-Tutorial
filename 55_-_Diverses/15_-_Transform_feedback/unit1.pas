@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls,
   dglOpenGL, oglContext, oglDebug, oglShader, oglVector, oglMatrix;
 

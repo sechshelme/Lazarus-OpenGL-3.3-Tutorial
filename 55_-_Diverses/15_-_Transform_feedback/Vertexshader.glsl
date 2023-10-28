@@ -1,6 +1,6 @@
 #version 330
 
-layout (location =  0) in  float inValue;
+layout (location =  0) in float inValue;
 
 out float outSqrt;
 out mat4x4 outMat;

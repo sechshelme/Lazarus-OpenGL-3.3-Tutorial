@@ -47,7 +47,7 @@ type
     ModelMatrix: Tmat4x4;
     sinOfs: TGLfloat;
     isSinus: TGLboolean;
-    tesLevel:TGLint;
+    tesLevel: TGLint;
   end;
 
 const
@@ -61,6 +61,14 @@ const
     // unten
     (-0.5, -0.5, 0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5));
 
+  Area: array of TGLfloat = (
+    0, 0, 0, 0,
+    1, 1, 1, 1,
+    2, 2, 2, 2,
+    3, 3, 3, 3,
+    4, 4, 4, 4,
+    5, 5, 5, 5);
+
 const
   outer_levels: array of GLfloat = (2, 2, 2, 2);
   inner_levels: array of GLfloat = (2, 2);
@@ -68,7 +76,7 @@ const
 type
   TVB = record
     VAO,
-    VBO: GLuint;
+    VBOvert, VBOarea: GLuint;
   end;
 
 var
@@ -93,7 +101,7 @@ begin
     inner_levels[i] := level;
   end;
 
-  UBOBuffer.tesLevel:=level;
+  UBOBuffer.tesLevel := level;
 
   //remove+
   Width := 340;
@@ -119,7 +127,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
-//  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
+  //  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
@@ -155,13 +163,19 @@ begin
 
   // Daten für Quadrat
   glGenVertexArrays(1, @VBQuad.VAO);
-  glGenBuffers(1, @VBQuad.VBO);
-
   glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
+
+  glGenBuffers(1, @VBQuad.VBOvert);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector3f), PGLvoid(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  glGenBuffers(1, @VBQuad.VBOarea);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOarea);
+  glBufferData(GL_ARRAY_BUFFER, Length(Area) * sizeof(TGLint), PGLvoid(Area), GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -181,11 +195,11 @@ begin
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_PATCHES, 0, Length(Quad));
 
-  mat:=UBOBuffer.ModelMatrix;
+  mat := UBOBuffer.ModelMatrix;
   UBOBuffer.ModelMatrix.Scale(0.5);
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_PATCHES, 0, Length(Quad));
-  UBOBuffer.ModelMatrix:=mat;
+  //  glDrawArrays(GL_PATCHES, 0, Length(Quad));
+  UBOBuffer.ModelMatrix := mat;
 
   ogc.SwapBuffers;
 end;
@@ -196,17 +210,19 @@ begin
 
   glDeleteBuffers(1, @UBO);
   glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBO);
+  glDeleteBuffers(1, @VBQuad.VBOvert);
+  glDeleteBuffers(1, @VBQuad.VBOarea);
 end;
 
 procedure TForm1.FormResize(Sender: TObject);
-var perm,wm:Tmat4x4;
+var
+  perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0,0.3,-4);
-  wm.RotateA(0.6);
-  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);;
-    UBOBuffer.WorldMatrix := perm * wm;
+  wm.Translate(0, 0.3, -4);
+  wm.RotateA(0.3);
+  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
+  UBOBuffer.WorldMatrix := perm * wm;
 end;
 
 procedure TForm1.CheckBox1Change(Sender: TObject);
@@ -217,8 +233,10 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   UBOBuffer.ModelMatrix.RotateB(0.02);
-  UBOBuffer.sinOfs+=0.01;
-  if UBOBuffer.sinOfs>pi then UBOBuffer.sinOfs-=pi;
+  UBOBuffer.sinOfs += 0.01;
+  if UBOBuffer.sinOfs > pi then begin
+    UBOBuffer.sinOfs -= pi;
+  end;
   ogcDrawScene(Sender);
 end;
 
