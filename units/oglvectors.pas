@@ -35,6 +35,7 @@ type
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure Scale(AScale: TGLfloat);
     procedure Scale(AScale: TVector3f);
+    procedure Translate(ATranslate: TVector3f);
     function Count: TGLint;
     function Size: TGLsizei;
     function Ptr: TGLvoid;
@@ -153,6 +154,17 @@ begin
     Self[i].x := Self[i].x * AScale.x;
     Self[i].y := Self[i].y * AScale.y;
     Self[i].z := Self[i].z * AScale.z;
+  end;
+end;
+
+procedure TVectors3fHelper.Translate(ATranslate: TVector3f);
+var
+  i: Integer;
+begin
+  for i := 0 to Length(Self) - 1 do begin
+    Self[i].x := Self[i].x + ATranslate.x;
+    Self[i].y := Self[i].y + ATranslate.y;
+    Self[i].z := Self[i].z + ATranslate.z;
   end;
 end;
 

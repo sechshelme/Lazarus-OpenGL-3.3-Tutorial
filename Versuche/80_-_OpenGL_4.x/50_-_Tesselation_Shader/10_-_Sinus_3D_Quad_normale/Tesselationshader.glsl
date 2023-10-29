@@ -31,7 +31,7 @@ void main() {
       float si1 = abs(sin((gl_Position.y + yStep + sinOfs) * 20) / 4 - 1);
       gl_Position.x *= si;
 
-    if (vArea[0] == vArea[3])  {
+    if (vArea[0] == 1.0)  {
       tcol = vec3(0.9, 0.9,0.9);
       no.xy = vec2(si + si0, yStep * 20);
       no = normalize(no);

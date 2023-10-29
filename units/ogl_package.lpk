@@ -27,7 +27,7 @@
     </CompilerOptions>
     <Description Value="Mathias"/>
     <Version Major="1"/>
-    <Files Count="24">
+    <Files Count="25">
       <Item1>
         <Filename Value="ogllighting.pas"/>
         <UnitName Value="oglLighting"/>
@@ -124,6 +124,10 @@
         <Filename Value="oglvector.pas"/>
         <UnitName Value="oglVector"/>
       </Item24>
+      <Item25>
+        <Filename Value="oglvectors.pas"/>
+        <UnitName Value="oglVectors"/>
+      </Item25>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">
