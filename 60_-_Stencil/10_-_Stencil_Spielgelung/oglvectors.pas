@@ -97,50 +97,52 @@ begin
 end;
 
 procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
-var w2,h2:TGLfloat;
+var
+  w2, h2: TGLfloat;
 begin
-  w2:=w / 2;
-  h2:=h / 2;
+  w2 := w / 2;
+  h2 := h / 2;
   Self += [
-    [-w2+x, -h2+y, z], [w2+ x, -h2+y, z], [w2+ x, h2+ y, z],
-    [-w2+x, -h2+y, z], [w2+ x, h2+ y, z], [-w2+x, h2+ y, z]];
+    [-w2 + x, -h2 + y, z], [w2 + x, -h2 + y, z], [w2 + x, h2 + y, z],
+    [-w2 + x, -h2 + y, z], [w2 + x, h2 + y, z], [-w2 + x, h2 + y, z]];
 end;
 
 procedure TVectors3fHelper.AddCube(w, h, d: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
-var w2,h2,d2:TGLfloat;
+var
+  w2, h2, d2: TGLfloat;
 begin
-  w2:=w / 2;
-  h2:=h / 2;
-  d2:=d / 2;
+  w2 := w / 2;
+  h2 := h / 2;
+  d2 := d / 2;
   Self += [
     // open
-    TVector3f([-w2+x, -h2+y, d2+ z]), TVector3f([w2+ x, -h2+y, d2+ z]), TVector3f([w2+ x, h2+ y, d2+ z]),
-    TVector3f([-w2+x, -h2+y, d2+ z]), TVector3f([w2+ x, h2+ y, d2+ z]), TVector3f([-w2+x, h2+ y, d2+ z]),
+    [-w2 + x, -h2 + y, d2 + z], [w2 + x, -h2 + y, d2 + z], [w2 + x, h2 + y, d2 + z],
+    [-w2 + x, -h2 + y, d2 + z], [w2 + x, h2 + y, d2 + z], [-w2 + x, h2 + y, d2 + z],
 
     // unten
-    TVector3f([w2+ x, h2+ y, -d2+z]), TVector3f([-w2+x, h2+ y, -d2+z]), TVector3f([-w2+x, -h2+y, -d2+z]),
-    TVector3f([w2+ x, h2+ y, -d2+z]), TVector3f([-w2+x, -h2+y, -d2+z]), TVector3f([w2+ x, -h2+y, -d2+z]),
+    [w2 + x, h2 + y, -d2 + z], [-w2 + x, h2 + y, -d2 + z], [-w2 + x, -h2 + y, -d2 + z],
+    [w2 + x, h2 + y, -d2 + z], [-w2 + x, -h2 + y, -d2 + z], [w2 + x, -h2 + y, -d2 + z],
 
     // vorn
-    TVector3f([-w2+x, -h2+y, -d2+z]), TVector3f([w2+ x, -h2+y, -d2+z]), TVector3f([w2+ x, -h2+y, d2+ z]),
-    TVector3f([-w2+x, -h2+y, -d2+z]), TVector3f([w2+ x, -h2+y, d2+ z]), TVector3f([-w2+x, -h2+y, d2+ z]),
+    [-w2 + x, -h2 + y, -d2 + z], [w2 + x, -h2 + y, -d2 + z], [w2 + x, -h2 + y, d2 + z],
+    [-w2 + x, -h2 + y, -d2 + z], [w2 + x, -h2 + y, d2 + z], [-w2 + x, -h2 + y, d2 + z],
 
     // rechts
-    TVector3f([w2+ x, -h2+y, -d2+z]), TVector3f([w2+ x, h2+ y, -d2+z]), TVector3f([w2+ x, h2+ y, d2+ z]),
-    TVector3f([w2+ x, -h2+y, -d2+z]), TVector3f([w2+ x, h2+ y, d2+ z]), TVector3f([w2+ x, -h2+y, d2+ z]),
+    [w2 + x, -h2 + y, -d2 + z], [w2 + x, h2 + y, -d2 + z], [w2 + x, h2 + y, d2 + z],
+    [w2 + x, -h2 + y, -d2 + z], [w2 + x, h2 + y, d2 + z], [w2 + x, -h2 + y, d2 + z],
 
     // hinten
-    TVector3f([w2+ x, h2+ y, -d2+z]), TVector3f([-w2+x, h2+ y, -d2+z]), TVector3f([-w2+x, h2+ y, d2+ z]),
-    TVector3f([w2+ x, h2+ y, -d2+z]), TVector3f([-w2+x, h2+ y, d2+ z]), TVector3f([w2+ x, h2+ y, d2+ z]),
+    [w2 + x, h2 + y, -d2 + z], [-w2 + x, h2 + y, -d2 + z], [-w2 + x, h2 + y, d2 + z],
+    [w2 + x, h2 + y, -d2 + z], [-w2 + x, h2 + y, d2 + z], [w2 + x, h2 + y, d2 + z],
 
     // links
-    TVector3f([-w2+x, h2+ y, -d2+z]), TVector3f([-w2+x, -h2+y, -d2+z]), TVector3f([-w2+x, -h2+y, d2+ z]),
-    TVector3f([-w2+x, h2+ y, -d2+z]), TVector3f([-w2+x, -h2+y, d2+ z]), TVector3f([-w2+x, h2+ y, d2+ z])];
+    [-w2 + x, h2 + y, -d2 + z], [-w2 + x, -h2 + y, -d2 + z], [-w2 + x, -h2 + y, d2 + z],
+    [-w2 + x, h2 + y, -d2 + z], [-w2 + x, -h2 + y, d2 + z], [-w2 + x, h2 + y, d2 + z]];
 end;
 
 procedure TVectors3fHelper.Scale(AScale: TGLfloat);
 begin
-  Self.Scale([AScale,AScale,AScale]);
+  Self.Scale([AScale, AScale, AScale]);
 end;
 
 procedure TVectors3fHelper.Scale(AScale: TVector3f);
