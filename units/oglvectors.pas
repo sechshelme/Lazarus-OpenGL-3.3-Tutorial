@@ -33,6 +33,7 @@ type
     procedure Add(x, y, z: TGLfloat);
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
+    procedure AddCubeNormale;
     procedure Scale(AScale: TGLfloat);
     procedure Scale(AScale: TVector3f);
     procedure Translate(ATranslate: TVector3f);
@@ -116,7 +117,7 @@ begin
   h2 := h / 2;
   d2 := d / 2;
   Self += [
-    // open
+    // oben
     [-w2 + x, -h2 + y, d2 + z], [w2 + x, -h2 + y, d2 + z], [w2 + x, h2 + y, d2 + z],
     [-w2 + x, -h2 + y, d2 + z], [w2 + x, h2 + y, d2 + z], [-w2 + x, h2 + y, d2 + z],
 
@@ -141,6 +142,23 @@ begin
     [-w2 + x, h2 + y, -d2 + z], [-w2 + x, -h2 + y, d2 + z], [-w2 + x, h2 + y, d2 + z]];
 end;
 
+procedure TVectors3fHelper.AddCubeNormale;
+begin
+  Self += [
+    // oben
+    [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0], [0.0, 0.0, 1.0],
+    // unten
+    [0.0, 0.0, -1.0], [0.0, 0.0, -1.0], [0.0, 0.0, -1.0], [0.0, 0.0, -1.0], [0.0, 0.0, -1.0], [0.0, 0.0, -1.0],
+    // vorn
+    [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0],
+    // rechts
+    [1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [1.0, 0.0, 0.0],
+    // hinten
+    [0.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 1.0, 0.0], [0.0, 1.0, 0.0],
+    // links
+    [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0], [0.0, -1.0, 0.0]];
+end;
+
 procedure TVectors3fHelper.Scale(AScale: TGLfloat);
 begin
   Self.Scale([AScale, AScale, AScale]);
@@ -159,7 +177,7 @@ end;
 
 procedure TVectors3fHelper.Translate(ATranslate: TVector3f);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to Length(Self) - 1 do begin
     Self[i].x := Self[i].x + ATranslate.x;

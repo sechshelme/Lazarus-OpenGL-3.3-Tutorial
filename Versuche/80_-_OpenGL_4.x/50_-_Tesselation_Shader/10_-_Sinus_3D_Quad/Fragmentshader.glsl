@@ -5,10 +5,10 @@
 #define ambient0 1.4
 #define ambient1 0.2
 
-out vec4 outColor;
-
 in vec3 gcol;
 in vec3 gnorm;
+
+out vec4 outColor;
 
 float light(vec3 p, vec3 n) {
   vec3  v1 = normalize(p);

@@ -57,7 +57,7 @@ implementation
 type
   TVB = record
     VAO,
-    VBOvert, VBOtex: GLuint;
+    VBOvert,VBOnorm, VBOtex: GLuint;
   end;
 
   TUBOBuffer = record
@@ -70,6 +70,7 @@ var
   ReflectTexCoords: TVectors2f = nil;
 
   CubeVerts: TVectors3f = nil;
+  CubeNormals: TVectors3f = nil;
   CubeTexCoords: TVectors2f = nil;
 
 var
@@ -109,6 +110,7 @@ var
 
 begin
   SetLength(CubeVerts, 0);
+  SetLength(CubeNormals, 0);
   SetLength(CubeTexCoords, 0);
 
   SetLength(CubeArr, si, si, si);
@@ -127,11 +129,15 @@ begin
       for x := 0 to Length(CubeArr[z, y]) - 1 do begin
         if CubeArr[z, y, x] then begin
           CubeVerts.AddCube(1, 1, 1, x - si div 2, y - si div 2, z - si / 2 + 0.5);
+          CubeNormals.AddCubeNormale;
           CubeTexCoords.AddCubeTexCoords;
         end;
       end;
     end;
   end;
+
+  WriteLn(Length( CubeVerts));
+  WriteLn(Length( CubeNormals));
 
   CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
 
@@ -139,6 +145,9 @@ begin
 
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
   glBufferSubData(GL_ARRAY_BUFFER, 0, CubeVerts.Size, CubeVerts.Ptr);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOnorm);
+  glBufferSubData(GL_ARRAY_BUFFER, 0, CubeNormals.Size, CubeVerts.Ptr);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
   glBufferSubData(GL_ARRAY_BUFFER, 0, CubeTexCoords.Size, CubeTexCoords.Ptr);
@@ -193,13 +202,14 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-  // Reflect
+  // --- Reflect
   ReflectVerts.AddRectangle(2, 2, 0, 0, -0.5);
   ReflectTexCoords.AddQuadTexCoords;
 
   glGenVertexArrays(1, @VBReflect.VAO);
   glBindVertexArray(VBReflect.VAO);
 
+  // Vertex
   glGenBuffers(1, @VBReflect.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBReflect.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, ReflectVerts.Size, ReflectVerts.Ptr, GL_STATIC_DRAW);
@@ -207,28 +217,46 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
 
+  // Normale
+  //glGenBuffers(1, @VBReflect.VBOnorm);
+  //glBindBuffer(GL_ARRAY_BUFFER, VBReflect.VBOnorm);
+  //glBufferData(GL_ARRAY_BUFFER, ReflectVerts.Size, ReflectVerts.Ptr, GL_STATIC_DRAW);
+  //
+  //glEnableVertexAttribArray(1);
+  //glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+
+  // TexturCoord
   glGenBuffers(1, @VBReflect.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBReflect.VBOtex);
   glBufferData(GL_ARRAY_BUFFER, ReflectTexCoords.Size, ReflectTexCoords.Ptr, GL_STATIC_DRAW);
 
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
-  // Cube
+  // --- Cube
   glGenVertexArrays(1, @VBCube.VAO);
   glBindVertexArray(VBCube.VAO);
 
+  // Vertex
   glGenBuffers(1, @VBCube.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
 
+  // Normale
+  glGenBuffers(1, @VBCube.VBOnorm);
+  glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOnorm);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12, nil, GL_DYNAMIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+
+  // TexturCoord
   glGenBuffers(1, @VBCube.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
   glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector2f) * 12, nil, GL_DYNAMIC_DRAW);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
 
   UpdateCube;
 
@@ -298,10 +326,12 @@ begin
 
   glDeleteVertexArrays(1, @VBReflect.VAO);
   glDeleteBuffers(1, @VBReflect.VBOvert);
+  glDeleteBuffers(1, @VBReflect.VBOnorm);
   glDeleteBuffers(1, @VBReflect.VBOtex);
 
   glDeleteVertexArrays(1, @VBCube.VAO);
   glDeleteBuffers(1, @VBCube.VBOvert);
+  glDeleteBuffers(1, @VBCube.VBOnorm);
   glDeleteBuffers(1, @VBCube.VBOtex);
 end;
 
