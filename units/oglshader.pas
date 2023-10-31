@@ -144,7 +144,7 @@ begin
 end;
 
 (*
-=== Beispiele für Shadererzeugung ===
+=== Beispiel für Shadererzeugung ===
 
 Shader := TShader.Create;
 Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');

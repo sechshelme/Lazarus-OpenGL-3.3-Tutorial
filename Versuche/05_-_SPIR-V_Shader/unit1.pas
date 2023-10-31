@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  dglOpenGL, oglDebug,  oglShader,
   oglContext;
 
 type
@@ -66,31 +66,9 @@ var
 var
   ProgramID: GLuint;
 
-type
-  chars=array of Char;
-
-function LoadShader(path: string): chars;
-var
-  f: file of Char;
-  size: int64;
-  b: char;
-  i: Integer;
-begin
-  AssignFile(f, path);
-  Reset(f);
-  size := FileSize(f);
-  SetLength(Result, size);
-  for i := 0 to size - 1 do begin
-    Read(f, b);
-    Result[i]:=b;
-  end;
-
-  CloseFile(f);
-end;
-
 function Initshader: GLuint;
 var
-  s: chars;
+  chs: String;
 
   ProgramObject: GLhandle;
   VertexShaderObject: GLhandle;
@@ -104,10 +82,15 @@ begin
   // Vertex - Shader
 
   VertexShaderObject := glCreateShader(GL_VERTEX_SHADER);
-  s := LoadShader('shader.vert');
+  //  chs := LoadShader('shader.vert');
+//  chs := LoadShader('vert.spv');
+  chs := FileToStr('vert.spv');
 
-  glShaderSource(VertexShaderObject, 1, @s, nil);
-  glCompileShader(VertexShaderObject);
+  glShaderBinary(1, @VertexShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(chs), Length(chs));
+  glSpecializeShader(VertexShaderObject, 'main', 0, nil, nil);
+
+  //  glShaderSource(VertexShaderObject, 1, @chs, nil);
+  //  glCompileShader(VertexShaderObject);
   glAttachShader(ProgramObject, VertexShaderObject);
 
   // Check Shader
@@ -115,9 +98,9 @@ begin
   glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   if ErrorStatus = 0 then begin
     glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + 1);
-    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, PChar(s));
-    WriteLn('OpenGL Vertex Fehler', #10,PChar(s));
+    SetLength(chs, InfoLogLength + 1);
+    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, PChar(chs));
+    WriteLn('OpenGL Vertex Fehler', #10, PChar(chs));
   end;
 
   glDeleteShader(VertexShaderObject);
@@ -125,9 +108,15 @@ begin
   // Fragment - Shader
 
   FragmentShaderObject := glCreateShader(GL_FRAGMENT_SHADER);
-  s := LoadShader('shader.frag');
-  glShaderSource(FragmentShaderObject, 1, @s, nil);
-  glCompileShader(FragmentShaderObject);
+  //  chs := LoadShader('shader.frag');
+//  chs := LoadShader('frag.spv');
+  chs := FileToStr('frag.spv');
+
+  glShaderBinary(1, @FragmentShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(chs), Length(chs));
+  glSpecializeShader(FragmentShaderObject, 'main', 0, nil, nil);
+
+  //  glShaderSource(FragmentShaderObject, 1, @chs, nil);
+  //  glCompileShader(FragmentShaderObject);
   glAttachShader(ProgramObject, FragmentShaderObject);
 
   // Check Shader
@@ -135,21 +124,23 @@ begin
   glGetShaderiv(FragmentShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   if ErrorStatus = 0 then begin
     glGetShaderiv(FragmentShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + 1);
-    glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, nil, PChar(s));
-    WriteLn('OpenGL Fragment Fehler', #10,PChar( s));
+    SetLength(chs, InfoLogLength + 1);
+    glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, nil, PChar(chs));
+    WriteLn('OpenGL Fragment Fehler', #10, PChar(chs));
   end;
 
   glDeleteShader(FragmentShaderObject);
+
+
   glLinkProgram(ProgramObject);    // Die beiden Shader zusammen linken
 
   // Check Link
   glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
   if ErrorStatus = 0 then begin
     glGetProgramiv(ProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(s, InfoLogLength + 1);
-    glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, PChar(s));
-    WriteLn('OpenGL Link Fehler', #10,PChar( s));
+    SetLength(chs, InfoLogLength + 1);
+    glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, PChar(chs));
+    WriteLn('OpenGL Link Fehler', #10, PChar(chs));
   end;
 
   Result := ProgramObject;
@@ -168,6 +159,7 @@ begin
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
 
+  InitOpenGLDebug;
   CreateScene;
   InitScene;
 end;
