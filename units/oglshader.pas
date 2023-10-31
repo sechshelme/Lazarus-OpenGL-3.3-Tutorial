@@ -186,7 +186,7 @@ end;
 procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
   ShaderObject: GLhandle;
-  Str: ansistring;
+  pc: array of char=nil;
   l: GLint;
 
   ErrorStatus: boolean;
@@ -202,11 +202,11 @@ begin
   // Check  Shader
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-  SetLength(Str, InfoLogLength + 1);
-  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, @Str[1]);
+  SetLength(pc, InfoLogLength + 1);
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
 
   if ErrorStatus = GL_FALSE then begin
-    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', AShader + LineEnding + Str + LineEnding);
+    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', AShader + LineEnding + PChar(pc) + LineEnding);
   end;
 
   glDeleteShader(ShaderObject);
@@ -219,7 +219,7 @@ end;
 
 procedure TShader.LinkProgramm;
 var
-  Str: ansistring;
+  pc: array of Char=nil;
   ErrorStatus: boolean;
   InfoLogLength: GLsizei;
 begin
@@ -230,9 +230,9 @@ begin
 
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(Str, InfoLogLength + 1);
-    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, @Str[1]);
-    LogForm.AddAndTitle('SHADER LINK:', str);
+    SetLength(pc, InfoLogLength + 1);
+    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, PChar(pc));
+    LogForm.AddAndTitle('SHADER LINK:', PChar( pc));
   end;
 end;
 

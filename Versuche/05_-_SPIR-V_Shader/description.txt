@@ -1,0 +1,3 @@
+"Einfachste Abbarbeitung"
+
+Die minimalste Version eines Shaders.
