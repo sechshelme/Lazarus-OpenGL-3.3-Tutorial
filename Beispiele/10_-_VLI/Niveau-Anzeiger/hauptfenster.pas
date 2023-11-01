@@ -16,7 +16,7 @@ uses
   oglUnit,
   dglOpenGL,
   oglTextur, oglTexturVAO, oglTexturKoerper,
-  oglVector, oglMatrix, oglShader,
+  oglVector, oglMatrix,
   oglLighting,
   oglSteuerung,
   oglBackground, oglDarstellung, oglVAO,

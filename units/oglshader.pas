@@ -6,13 +6,10 @@ interface
 
 uses
   Classes,
-  //  Dialogs,
   SysUtils,
   FileUtil,
-  //LazFileUtils,
-  dglOpenGL,
-  //  Graphics,
   LResources,
+  dglOpenGL,
   oglDebug;
 
 type
@@ -31,6 +28,8 @@ type
     destructor Destroy; override;
     procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
     procedure LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+    procedure LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
+    procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LinkProgramm;
 
 
@@ -165,8 +164,8 @@ begin
     end;
     2: begin
       SetLength(sa, Length(AShader));
-        sa[0] := AShader[0];
-        sa[1] := AShader[1];
+      sa[0] := AShader[0];
+      sa[1] := AShader[1];
     end;
     else begin
       LogForm.Add('Ungültige Anzahl Shader-Objecte: ' + IntToStr(Length(AShader)));
@@ -186,7 +185,7 @@ end;
 procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
   ShaderObject: GLhandle;
-  pc: array of char=nil;
+  pc: array of char = nil;
   l: GLint;
 
   ErrorStatus: boolean;
@@ -217,9 +216,41 @@ begin
   LoadShaderObject(shaderType, FileToStr(ShaderFile));
 end;
 
+procedure TShader.LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
+var
+  ShaderObject: GLhandle;
+  pc: array of char = nil;
+
+  ErrorStatus: boolean;
+  InfoLogLength: GLsizei;
+begin
+  ShaderObject := glCreateShader(shaderType);
+
+  glShaderBinary(1, @ShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(AShader), Length(AShader));
+  glSpecializeShader(ShaderObject, 'main', 0, nil, nil);
+  glAttachShader(FProgramObject, ShaderObject);
+
+  // Check  Shader
+  glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
+  glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+  SetLength(pc, InfoLogLength + 1);
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
+
+  if ErrorStatus = GL_FALSE then begin
+    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', PChar(pc) + LineEnding);
+  end;
+
+  glDeleteShader(ShaderObject);
+end;
+
+procedure TShader.LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+begin
+  LoadSPRIVShaderObject(shaderType, FileToStr(ShaderFile));
+end;
+
 procedure TShader.LinkProgramm;
 var
-  pc: array of Char=nil;
+  pc: array of char = nil;
   ErrorStatus: boolean;
   InfoLogLength: GLsizei;
 begin
@@ -232,7 +263,7 @@ begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(pc, InfoLogLength + 1);
     glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, PChar(pc));
-    LogForm.AddAndTitle('SHADER LINK:', PChar( pc));
+    LogForm.AddAndTitle('SHADER LINK:', PChar(pc));
   end;
 end;
 
