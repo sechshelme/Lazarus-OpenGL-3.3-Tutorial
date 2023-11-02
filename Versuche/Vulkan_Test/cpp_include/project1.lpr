@@ -1,7 +1,12 @@
 program project1;
 
+{$LinkLib c}
+{$linklib stdc++}
+{$linklib gcc_s}
 {$L test.o}
-function myfunc(): Integer; cdecl; external;
+
+procedure print(); cdecl; external;
+
 begin
-  WriteLn(myfunc());
+  print();
 end.

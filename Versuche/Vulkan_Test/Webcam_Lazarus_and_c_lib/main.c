@@ -891,11 +891,12 @@ private:
     }
 };
 
-#define EXPORTCALL __attribute__((stdcall))
+//#define EXPORTCALL __attribute__((stdcall))
 
 extern "C"{
 
- extern int EXPORTCALL main1() {
+// extern int EXPORTCALL main1() {
+ extern int main1() {
     printf("Hello World");
     return 0;
   }
@@ -903,7 +904,8 @@ extern "C"{
 
 extern "C"{
 
-extern  int EXPORTCALL main2() {
+//extern  int EXPORTCALL main2() {
+extern  int main2() {
     HelloTriangleApplication app;
 
     try {
