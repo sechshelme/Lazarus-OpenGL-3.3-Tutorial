@@ -140,6 +140,7 @@ begin
   WriteLn(Length( CubeNormals));
 
   CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
+//  CubeVerts.Scale(scale * 1.5);
 
   glBindVertexArray(VBCube.VAO);
 

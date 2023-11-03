@@ -113,23 +113,38 @@ private:
     }
 
     void initVulkan() {
+printf("--- 1 ---\n");
         createInstance();
+printf("--- 2 ---\n");
         setupDebugMessenger();
+printf("--- 3 ---\n");
         createSurface();
+printf("--- 4 ---\n");
         pickPhysicalDevice();
+printf("--- 5 ---\n");
         createLogicalDevice();
+printf("--- 6 ---\n");
         createSwapChain();
+printf("--- 7 ---\n");
         createImageViews();
+printf("--- 8 ---\n");
         createRenderPass();
+printf("--- 9 ---\n");
         createGraphicsPipeline();
+printf("--- 10 ---\n");
         createFramebuffers();
+printf("--- 11 ---\n");
         createCommandPool();
+printf("--- 12 ---\n");
         createCommandBuffer();
+printf("--- 13 ---\n");
         createSyncObjects();
+printf("--- 14 ---\n");
     }
 
     void mainLoop() {
         while (!glfwWindowShouldClose(window)) {
+printf("--- loop 1 ---\n");
             glfwPollEvents();
             drawFrame();
         }
@@ -302,6 +317,7 @@ private:
         vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
     }
 
+
     void createSwapChain() {
         SwapChainSupportDetails swapChainSupport = querySwapChainSupport(physicalDevice);
 
@@ -310,6 +326,7 @@ private:
         VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
 
         uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
+printf("imageCount %i\n", imageCount);
         if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount) {
             imageCount = swapChainSupport.capabilities.maxImageCount;
         }
@@ -341,16 +358,17 @@ private:
         createInfo.presentMode = presentMode;
         createInfo.clipped = VK_TRUE;
 
-        createInfo.oldSwapchain = VK_NULL_HANDLE;
+       createInfo.oldSwapchain = VK_NULL_HANDLE;
 
+printf("--- swap chain ---\n");
         if (vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
             throw std::runtime_error("failed to create swap chain!");
         }
+printf("--- swap chain ---\n");
 
         vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
         swapChainImages.resize(imageCount);
         vkGetSwapchainImagesKHR(device, swapChain, &imageCount, swapChainImages.data());
-
         swapChainImageFormat = surfaceFormat.format;
         swapChainExtent = extent;
     }
@@ -641,14 +659,18 @@ private:
     }
 
     void drawFrame() {
+
         vkWaitForFences(device, 1, &inFlightFence, VK_TRUE, UINT64_MAX);
         vkResetFences(device, 1, &inFlightFence);
 
+printf("--- draw 1 ---\n");
         uint32_t imageIndex;
         vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphore, VK_NULL_HANDLE, &imageIndex);
 
         vkResetCommandBuffer(commandBuffer, /*VkCommandBufferResetFlagBits*/ 0);
+printf("--- draw 1 ---\n");
         recordCommandBuffer(commandBuffer, imageIndex);
+printf("--- draw 1 ---\n");
 
         VkSubmitInfo submitInfo{};
         submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -890,6 +912,21 @@ private:
         return VK_FALSE;
     }
 };
+
+
+extern  int mainx() {
+    HelloTriangleApplication app;
+
+    try {
+        app.run();
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+  }
+
 
 //#define EXPORTCALL __attribute__((stdcall))
 
