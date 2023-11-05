@@ -9,8 +9,19 @@ uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
 type
-  TVectors2f = array of TGLfloat;
-  TVectors3f = array of TGLfloat;
+  TGlfloats = array of TGlfloat;
+
+  //  TVectors2f = array of TGLfloat;
+  //  TVectors3f = array of TGLfloat;
+
+  TVectors2f = type TGlfloats;
+  TVectors3f = type TGlfloats;
+
+  TGlfloatsHelper = type Helper for TGlfloats
+
+  end;
+
+
 
   { TVectors2fHelper }
 
@@ -20,6 +31,9 @@ type
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0);
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
+
+    procedure Scale(AScale: TVector2f);
+
     function Count: TGLint;
     function Size: TGLsizei;
     function Ptr: TGLvoid;
@@ -34,9 +48,11 @@ type
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCubeNormale;
+
     procedure Scale(AScale: TGLfloat);
     procedure Scale(AScale: TVector3f);
     procedure Translate(ATranslate: TVector3f);
+
     function Count: TGLint;
     function Size: TGLsizei;
     function Ptr: TGLvoid;
@@ -72,6 +88,19 @@ const
     0, 0, 1, 1, 0, 1);
 begin
   Self += quad + quad + quad + quad + quad + quad;
+end;
+
+procedure TVectors2fHelper.Scale(AScale: TVector2f);
+var
+  i: integer;
+  p: SizeInt = 0;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    Self[p] *= AScale.x;
+    Inc(p);
+    Self[p] *= AScale.y;
+    Inc(p);
+  end;
 end;
 
 function TVectors2fHelper.Count: TGLint; inline;
@@ -159,9 +188,9 @@ end;
 
 procedure TVectors3fHelper.Scale(AScale: TGLfloat); inline;
 var
-  i: Integer;
+  i: integer;
 begin
-  for i := 0 to Length(Self)- 1 do begin
+  for i := 0 to Length(Self) - 1 do begin
     Self[i] *= AScale;
   end;
 end;

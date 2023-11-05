@@ -47,6 +47,7 @@ https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
 https://open.gl/geometry
 https://paroj.github.io/gltut/index.html
 https://www.songho.ca/opengl/index.html
+https://ogldev.org/index.html
 
 ## Info-Seiten zu OpenGL
 
