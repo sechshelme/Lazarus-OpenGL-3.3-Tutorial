@@ -14,7 +14,7 @@ void main(void)
 {
   vec3 ip = inPos;
 
-  if (inAni>0) {
+  if (inAni==1) {
     ip.x += 0.5;
   }
 

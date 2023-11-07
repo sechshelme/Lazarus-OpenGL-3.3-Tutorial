@@ -132,10 +132,13 @@ begin
 
   glGenBuffers(1, @VBQuad.VBOAni);
 
+  // https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
+
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
   glBufferData(GL_ARRAY_BUFFER, cubeAni.Size, cubeAni.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_INT, False, 0, nil);
+//  glVertexAttribIPointer(1,1,GL_INT,0,nil);
+  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
