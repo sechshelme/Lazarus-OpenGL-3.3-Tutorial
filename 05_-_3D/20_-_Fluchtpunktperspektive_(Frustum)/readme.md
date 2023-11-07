@@ -23,9 +23,7 @@ procedure TForm1.CreateScene;
 const
   w = 1.0;
 begin
-  Matrix.Identity;
   FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
-
 //   FrustumMatrix.Perspective(45, 1.0, 2.5, 1000.0); // Alternativ
 
   WorldMatrix.Identity;

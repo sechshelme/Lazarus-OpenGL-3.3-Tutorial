@@ -16,7 +16,7 @@ type
   TMatrix = array[0..3, 0..3] of GLfloat;
 
   TMatrixfHelper = Type Helper for TMatrix
-    procedure Indenty;                  // Generiere eine Einheitsmatrix
+    procedure Identity;                  // Generiere eine Einheitsmatrix
     procedure Rotate(angele: single);   // Drehe Matrix
   end;
 ```
@@ -41,11 +41,11 @@ Hier wird eine Einheits-Matrix erzeugt, bei einer 4x4-Matrix, sieht dies so aus:
 
 
 ```pascal
-procedure TMatrixfHelper.Indenty;
+procedure TMatrixfHelper.Identity;
 const
-  MatrixIndenty: TMatrix = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  MatrixIdentity: TMatrix = ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
 begin
-  Self := MatrixIndenty;
+  Self := MatrixIdentity;
 end;
 ```
 
@@ -80,7 +80,7 @@ begin
   Shader.UseProgram;
   Color_ID := Shader.UniformLocation('Color');
   MatrixRot_ID := Shader.UniformLocation('mat'); // Ermittelt die ID von MatrixRot.
-  MatrixRot.Indenty;                             // MatrixRot auf Einheits-Matrix setzen.
+  MatrixRot.Identity;                             // MatrixRot auf Einheits-Matrix setzen.
 ```
 
 Hier wird die Uniform-Variable **MatrixRot** dem Shader übergeben.

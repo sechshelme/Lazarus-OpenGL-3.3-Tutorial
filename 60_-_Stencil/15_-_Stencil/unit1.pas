@@ -342,12 +342,12 @@ end;
 (*
 <b>Vertex-Shader:</b>
 *)
-//includeglsl Vertexshader.glsl
+//-------includeglsl Vertexshader.glsl
 //lineal
 
 (*
 <b>Fragment-Shader:</b>
 *)
-//includeglsl Fragmentshader.glsl
+//-----------includeglsl Fragmentshader.glsl
 
 end.

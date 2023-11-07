@@ -44,16 +44,17 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
+    moveX: TGLfloat;
   end;
 
 var
-  cube: TVectors3f=nil;
-  cubeAni:TCubeAnimate=nil;
+  cube: TVectors3f = nil;
+  cubeAni: TCubeAnimate = nil;
 
 type
   TVB = record
     VAO,
-    VBO,VBOAni: GLuint;
+    VBO, VBOAni: GLuint;
   end;
 
 var
@@ -76,7 +77,7 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  i: Integer;
+  i: integer;
 begin
   InitOpenGLDebug;
 
@@ -90,7 +91,9 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-  UBOBuffer.ModelMatrix.RotateC(pi/2);
+  UBOBuffer.ModelMatrix.RotateC(pi / 2);
+  UBOBuffer.ModelMatrix.RotateB(pi / 2);
+  UBOBuffer.moveX := 0.0;
 
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
@@ -115,8 +118,13 @@ begin
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
+  cube.AddCube(1.0, 0.2, 0.2);
+  cubeAni.AddCube(caLeft, 0, 0);
+
+  cube.AddCube(1.0, 0.2, 0.2, -1, 0, 0);
+  cubeAni.AddCube(caLeft, 0, 1);
+
   // Vektor
-  cube.AddCube(1, 1, 1);
   glGenBuffers(1, @VBQuad.VBO);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
@@ -125,10 +133,6 @@ begin
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Animate
-  cubeAni.AddCube(caLeft,0,1);
-  for i:=0 to Length(cubeAni)-1 do WriteLn(cubeAni[i]);
-  WriteLn(Length(cubeAni));
-  WriteLn(Length(cube) div 3);
 
   glGenBuffers(1, @VBQuad.VBOAni);
 
@@ -137,8 +141,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
   glBufferData(GL_ARRAY_BUFFER, cubeAni.Size, cubeAni.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-//  glVertexAttribIPointer(1,1,GL_INT,0,nil);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribIPointer(1, 1, GL_INT, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -175,12 +178,22 @@ begin
   perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
 
   UBOBuffer.WorldMatrix := perm * wm;
-  UBOBuffer.ModelMatrix.RotateB(pi / 2);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  step=0.02;
+  stepX: TGLfloat = step;
+
 begin
-  UBOBuffer.ModelMatrix.RotateB(0.12);
+  //  UBOBuffer.ModelMatrix.RotateB(0.12);
+  UBOBuffer.moveX += stepX;
+  if UBOBuffer.moveX > 1 then begin
+    stepX := -step;
+  end;
+  if UBOBuffer.moveX < -1 then begin
+    stepX := step;
+  end;
   ogcDrawScene(Sender);
 end;
 

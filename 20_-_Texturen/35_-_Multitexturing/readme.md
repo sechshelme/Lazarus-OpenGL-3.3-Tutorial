@@ -35,7 +35,7 @@ begin
   end;
 ```
 
-Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
+Mit dieser Klasse geht das laden einer Bitmap sehr einfach.
 Man kann die Texturen auch von einem **TRawImages** laden.
 
 ```pascal

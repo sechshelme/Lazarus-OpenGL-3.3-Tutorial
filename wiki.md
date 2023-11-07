@@ -17,8 +17,9 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 * [Cubemap_Texturen](#cubemap-texturen)
 * [Framepuffer](#framepuffer)
 * [Geometrie-Shader](#geometrie-shader)
-* [Schatten](#schatten)
 * [Instancing](#instancing)
+* [Diverses](#diverses)
+* [Stencil](#stencil)
 * [Vektoren_und_Matrizen_(_no_OpenGL_)](#vektoren-und-matrizen-(-no-opengl-))
  [testlink](#radiobutton)
 ### Einrichten und Einstieg
@@ -40,7 +41,10 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Schleifen](02_-_Shader/25_-_Schleifen/readme.md) | <img src="02_-_Shader/25_-_Schleifen/image.png" height="100px">
 | [Geometrie Shader](02_-_Shader/30_-_Geometrie_Shader/readme.md) | <img src="02_-_Shader/30_-_Geometrie_Shader/image.png" height="100px">
 | [Punkte verschieden darstellen](02_-_Shader/35_-_Punkte_verschieden_darstellen/readme.md) | <img src="02_-_Shader/35_-_Punkte_verschieden_darstellen/image.png" height="100px">
+| [Teifenwert korrigieren](02_-_Shader/37_-_Teifenwert_korrigieren/readme.md) | <img src="02_-_Shader/37_-_Teifenwert_korrigieren/image.png" height="100px">
+| [Koordinaten im ViewPort](02_-_Shader/40_-_Koordinaten_im_ViewPort/readme.md) | <img src="02_-_Shader/40_-_Koordinaten_im_ViewPort/image.png" height="100px">
 | [Shader Mandelbrot](02_-_Shader/40_-_Shader_Mandelbrot/readme.md) | <img src="02_-_Shader/40_-_Shader_Mandelbrot/image.png" height="100px">
+| [Vertex in Shader](02_-_Shader/42_-_Vertex_in_Shader/readme.md) | <img src="02_-_Shader/42_-_Vertex_in_Shader/image.png" height="100px">
 | [Variablen Namen auslesen](02_-_Shader/45_-_Variablen_Namen_auslesen/readme.md) | <img src="02_-_Shader/45_-_Variablen_Namen_auslesen/image.png" height="100px">
 ### Vertex-Puffer
 | Link | Beschreibung
@@ -50,6 +54,7 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Vertex-Puffer in 2D](03_-_Vertex-Puffer/10_-_Vertex-Puffer_in_2D/readme.md) | <img src="03_-_Vertex-Puffer/10_-_Vertex-Puffer_in_2D/image.png" height="100px">
 | [Nur eine Array](03_-_Vertex-Puffer/15_-_Nur_eine_Array/readme.md) | <img src="03_-_Vertex-Puffer/15_-_Nur_eine_Array/image.png" height="100px">
 | [Vertex-Daten zur Laufzeit modifizieren](03_-_Vertex-Puffer/20_-_Vertex-Daten_zur_Laufzeit_modifizieren/readme.md) | <img src="03_-_Vertex-Puffer/20_-_Vertex-Daten_zur_Laufzeit_modifizieren/image.png" height="100px">
+| [2 Vertex Puffer 1 VBO](03_-_Vertex-Puffer/22_-_2_Vertex_Puffer_1_VBO/readme.md) | <img src="03_-_Vertex-Puffer/22_-_2_Vertex_Puffer_1_VBO/image.png" height="100px">
 | [Shapes (Dreiecke)](03_-_Vertex-Puffer/25_-_Shapes_(Dreiecke)/readme.md) | <img src="03_-_Vertex-Puffer/25_-_Shapes_(Dreiecke)/image.png" height="100px">
 | [Shapes (Linien und Punkte)](03_-_Vertex-Puffer/30_-_Shapes_(Linien_und_Punkte)/readme.md) | <img src="03_-_Vertex-Puffer/30_-_Shapes_(Linien_und_Punkte)/image.png" height="100px">
 | [DrawArrays](03_-_Vertex-Puffer/35_-_DrawArrays/readme.md) | <img src="03_-_Vertex-Puffer/35_-_DrawArrays/image.png" height="100px">
@@ -58,6 +63,7 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Index-Puffer dynamisch](03_-_Vertex-Puffer/50_-_Index-Puffer_dynamisch/readme.md) | <img src="03_-_Vertex-Puffer/50_-_Index-Puffer_dynamisch/image.png" height="100px">
 | [VertexID](03_-_Vertex-Puffer/55_-_VertexID/readme.md) | <img src="03_-_Vertex-Puffer/55_-_VertexID/image.png" height="100px">
 | [Vertex-Puffer auslesen](03_-_Vertex-Puffer/60_-_Vertex-Puffer_auslesen/readme.md) | <img src="03_-_Vertex-Puffer/60_-_Vertex-Puffer_auslesen/image.png" height="100px">
+| [Integer Uebergabe](03_-_Vertex-Puffer/65_-_Integer_Uebergabe/readme.md) | <img src="03_-_Vertex-Puffer/65_-_Integer_Uebergabe/image.png" height="100px">
 ### Matrix
 | Link | Beschreibung
 | :---: | ---
@@ -133,6 +139,8 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [1D Textur](20_-_Texturen/60_-_1D_Textur/readme.md) | <img src="20_-_Texturen/60_-_1D_Textur/image.png" height="100px">
 | [Textur Array](20_-_Texturen/65_-_Textur_Array/readme.md) | <img src="20_-_Texturen/65_-_Textur_Array/image.png" height="100px">
 | [Textur Array einzel Bitmap](20_-_Texturen/70_-_Textur_Array_einzel_Bitmap/readme.md) | <img src="20_-_Texturen/70_-_Textur_Array_einzel_Bitmap/image.png" height="100px">
+| [Pixel Buffer Object PBO](20_-_Texturen/75_-_Pixel_Buffer_Object_PBO/readme.md) | <img src="20_-_Texturen/75_-_Pixel_Buffer_Object_PBO/image.png" height="100px">
+| [Texture Buffer (TBO)](20_-_Texturen/80_-_Texture_Buffer_(TBO)/readme.md) | <img src="20_-_Texturen/80_-_Texture_Buffer_(TBO)/image.png" height="100px">
 ### Cubemap Texturen
 | Link | Beschreibung
 | :---: | ---
@@ -148,12 +156,11 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | Link | Beschreibung
 | :---: | ---
 | [Breite Linien](35_-_Geometrie-Shader/00_-_Breite_Linien/readme.md) | <img src="35_-_Geometrie-Shader/00_-_Breite_Linien/image.png" height="100px">
+| [Points](35_-_Geometrie-Shader/02_-_Points/readme.md) | <img src="35_-_Geometrie-Shader/02_-_Points/image.png" height="100px">
+| [Points with Color](35_-_Geometrie-Shader/03_-_Points_with_Color/readme.md) | <img src="35_-_Geometrie-Shader/03_-_Points_with_Color/image.png" height="100px">
 | [GL TRIANGLE STRIP ADJACENCY](35_-_Geometrie-Shader/05_-_GL_TRIANGLE_STRIP_ADJACENCY/readme.md) | <img src="35_-_Geometrie-Shader/05_-_GL_TRIANGLE_STRIP_ADJACENCY/image.png" height="100px">
 | [GL TRIANGLE STRIP ADJACENCY Soft linie](35_-_Geometrie-Shader/05_-_GL_TRIANGLE_STRIP_ADJACENCY_Soft_linie/readme.md) | <img src="35_-_Geometrie-Shader/05_-_GL_TRIANGLE_STRIP_ADJACENCY_Soft_linie/image.png" height="100px">
-### Schatten
-| Link | Beschreibung
-| :---: | ---
-| [Eine einfache Mesh](45_-_Schatten/00_-_Eine_einfache_Mesh/readme.md) | <img src="45_-_Schatten/00_-_Eine_einfache_Mesh/image.png" height="100px">
+| [Normale berechnen](35_-_Geometrie-Shader/10_-_Normale_berechnen/readme.md) | <img src="35_-_Geometrie-Shader/10_-_Normale_berechnen/image.png" height="100px">
 ### Instancing
 | Link | Beschreibung
 | :---: | ---
@@ -162,6 +169,17 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Instance mit VertexAttribut](50_-_Instancing/10_-_Instance_mit_VertexAttribut/readme.md) | <img src="50_-_Instancing/10_-_Instance_mit_VertexAttribut/image.png" height="100px">
 | [Instancen nur in einer Array](50_-_Instancing/15_-_Instancen_nur_in_einer_Array/readme.md) | <img src="50_-_Instancing/15_-_Instancen_nur_in_einer_Array/image.png" height="100px">
 | [VertexAttribDivisor](50_-_Instancing/20_-_VertexAttribDivisor/readme.md) | <img src="50_-_Instancing/20_-_VertexAttribDivisor/image.png" height="100px">
+### Diverses
+| Link | Beschreibung
+| :---: | ---
+| [ColorMask](55_-_Diverses/05_-_ColorMask/readme.md) | <img src="55_-_Diverses/05_-_ColorMask/image.png" height="100px">
+| [Transform feedback](55_-_Diverses/15_-_Transform_feedback/readme.md) | <img src="55_-_Diverses/15_-_Transform_feedback/image.png" height="100px">
+### Stencil
+| Link | Beschreibung
+| :---: | ---
+| [Stencil einfach](60_-_Stencil/05_-_Stencil_einfach/readme.md) | <img src="60_-_Stencil/05_-_Stencil_einfach/image.png" height="100px">
+| [Stencil Spielgelung](60_-_Stencil/10_-_Stencil_Spielgelung/readme.md) | <img src="60_-_Stencil/10_-_Stencil_Spielgelung/image.png" height="100px">
+| [Stencil](60_-_Stencil/15_-_Stencil/readme.md) | <img src="60_-_Stencil/15_-_Stencil/image.png" height="100px">
 ### Vektoren und Matrizen ( no OpenGL )
 | Link | Beschreibung
 | :---: | ---
@@ -171,3 +189,5 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Gradient Triangle](90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/15_-_Gradient_Triangle/readme.md) | <img src="90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/15_-_Gradient_Triangle/image.png" height="100px">
 | [Vektoren Cube Z-Buffer](90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/20_-_Vektoren_Cube_Z-Buffer/readme.md) | <img src="90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/20_-_Vektoren_Cube_Z-Buffer/image.png" height="100px">
 | [Vektoren Cube Texture](90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/25_-_Vektoren_Cube_Texture/readme.md) | <img src="90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/25_-_Vektoren_Cube_Texture/image.png" height="100px">
+| [Raytracer](90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/30_-_Raytracer/readme.md) | <img src="90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/30_-_Raytracer/image.png" height="100px">
+| [kaboom](90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/35_-_kaboom/readme.md) | <img src="90_-_Vektoren_und_Matrizen_(_no_OpenGL_)/35_-_kaboom/image.png" height="100px">

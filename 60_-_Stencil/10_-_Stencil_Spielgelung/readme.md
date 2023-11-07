@@ -1,77 +1,39 @@
-# 20 - Texturen
-## 20 - Texturen mit oglTextur
+# 60 - Stencil
+## 10 - Stencil Spielgelung
 
 ![image.png](image.png)
 
-Hier wird gezeigt, wie einfach es ist, mit der Unit **oglTextur** Texturen zu laden.
-Dafür muss die Unit **oglTextur** bei uses eingebunden werden.
-
-Mit der Klasse **TTexturBuffer** welche dort enthalten ist, geht dies sehr einfach.
-Der grösste Voteil ist, das die meisten gängigen Formate von **TBitmap** erkannt werden.
 
 ---
-Den Textur-Puffer deklarieren.
-
-```pascal
-var
-  Textur: TTexturBuffer;
-```
-
-Textur-Puffer erzeugen.
-
-```pascal
-procedure TForm1.CreateScene;
-begin
-  Textur := TTexturBuffer.Create;
-```
-
-Mit diesr Klasse geht das laden einer Bitmap sehr einfach.
-Man kann die Texturen auch von einem **TRawImages** laden.
-
-```pascal
-procedure TForm1.InitScene;
-begin
-  Textur.LoadTextures('mauer.bmp');
-```
-
-Das Binden geht auch sehr einfach.
-Man kann dieser Funktion noch eine Nummer mitgeben, aber diese wird nur bei Multitexturing gebraucht, dazu später.
-
-```pascal
-procedure TForm1.ogcDrawScene(Sender: TObject);
-begin
-  glClear(GL_COLOR_BUFFER_BIT);
-
-  Textur.ActiveAndBind; // Textur binden
-```
-
-Am Ende muss man die Klasse noch frei geben.
-
-```pascal
-procedure TForm1.FormDestroy(Sender: TObject);
-begin
-  Textur.Free;
-```
-
 
 ---
 **Vertex-Shader:**
 
 ```glsl
-#version 330
+#version 330 core
 
-layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
-layout (location = 10) in vec2 inUV;    // Textur-Koordinaten
+layout (location = 0) in vec3 inPos;
+layout (location = 1) in vec3 inNorm;
+layout (location = 2) in vec2 inTexCoord;
 
-uniform mat4 mat;
+out vec4 vColor;
+out vec2 vTexcoord;
+out vec3 vNorm;
 
-out vec2 UV0;
+layout (std140) uniform UBO {
+  vec4 color;
+  mat4 proj;
+  mat4 view;
+  mat4 model;
+};
 
-void main(void)
+void main()
 {
-  gl_Position = mat * vec4(inPos, 1.0);
-  UV0 = inUV;                           // Textur-Koordinaten weiterleiten.
-}
+  vColor = color;
+  vNorm = (model * vec4(inNorm, 1)).xyz;
+  vTexcoord = inTexCoord;
+  gl_Position = proj * view * model * vec4(inPos, 1.0);
+};
 
 ```
 
@@ -80,18 +42,38 @@ void main(void)
 **Fragment-Shader:**
 
 ```glsl
-#version 330
+#version 330 core
 
-in vec2 UV0;
+#define LightPos0 vec3(1.0, 1.0, -1.0)
+#define LightPos1 vec3(-1.0, 1.0, 0.0)
+#define ambient0 1.4
+#define ambient1 0.2
 
-uniform sampler2D Sampler;              // Der Sampler welchem 0 zugeordnet wird.
+in vec4 vColor;
+in vec3 vNorm;
+in vec2 vTexcoord;
 
-out vec4 FragColor;
+out vec4 outColor;
+
+uniform sampler2D Sampler;
+
+float light(vec3 p, vec3 n) {
+  vec3  v1 = normalize(p);
+  vec3  v2 = normalize(n);
+  float d  = dot(v1, v2);
+  float c  = clamp(d, 0.0, 1.0);
+  return c;
+}
 
 void main()
 {
-  FragColor = texture( Sampler, UV0 );  // Die Farbe aus der Textur anhand der Koordinten auslesen.
-}
+  float l0 = light(LightPos0, vNorm) * ambient0;
+  float l1 = light(LightPos1, vNorm) * ambient1;
+
+  vec4 col = vColor *  texture(Sampler, vTexcoord) * (l0 + l1) ;
+  outColor = vec4(col);
+};
+
 
 ```
 

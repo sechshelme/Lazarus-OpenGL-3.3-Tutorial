@@ -6,6 +6,7 @@ layout (location = 1) in int inAni;
 layout (std140) uniform UBO {
   mat4x4 WorldMatrix;
   mat4x4 ModelMatrix;
+  float moveX;
 };
 
 out vec3 vcol;
@@ -15,14 +16,14 @@ void main(void)
   vec3 ip = inPos;
 
   if (inAni==1) {
-    ip.x += 0.5;
+    ip.z += moveX;
   }
 
   gl_Position = WorldMatrix * ModelMatrix * vec4(ip, 1.0);
 
 
 
-  switch (gl_VertexID / 6)
+  switch ((gl_VertexID / 6) % 6)
   {
     case 0:  vcol = vec3(1.0, 0.0, 0.0);
              break;
@@ -35,4 +36,5 @@ void main(void)
     case 4:  vcol = vec3(0.0, 1.0, 1.0);
              break;
     default: vcol = vec3(1.0, 0.0, 1.0);
-  }}
+  }
+}

@@ -1,92 +1,42 @@
-# 03 - Vertex-Puffer
-## 05 - Mehrere Vertex-Puffer, Mehrarbige Mesh
+# 55 - Diverses
+## 05 - ColorMask
 
-![image.png](image.png)
+![e image.png](e image.png)
 
-Bis jetzt wurde immer nur ein Vertex-Puffer pro Mesh geladen, hier wird ein zweiter geladen, welcher die Farben der Vektoren enthält.
-Somit werden die Mesh mehrfarbig.
+Man kann das Zeichen von gewissen Farben aktivieren / deaktivieren
 
 ---
-Es sind zwei zusätzliche Vertex-Konstanten dazu gekommen, welche die Farben der Ecken enthält.
-
-```pascal
-const
-  TriangleVector: array[0..0] of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  TriangleColor: array[0..0] of TFace =   // Rot / Grün / Blau
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)));
-  QuadVector: array[0..1] of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
-  QuadColor: array[0..1] of TFace =       // Rot / Grün / Gelb / Rot / Gelb / Mint
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (1.0, 1.0, 0.0)),
-    ((1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 1.0)));
-```
-
-Für die Farbe ist ein zusätzliches **Vertex Buffer Object** (VBO) hinzugekommen.
-
-```pascal
-type
-  TVB = record
-    VAO,
-    VBOvert,         // VBO für Vektor.
-    VBOcol: GLuint;  // VBO für Farbe.
-  end;
-```
-
-CreateScene wurde um zwei Zeilen erweitert.
-Die VB0 für den Farben-Puffer müssen noch generiert werden.
 
 ```pascal
   glGenBuffers(1, @VBTriangle.VBOvert);
-  glGenBuffers(1, @VBTriangle.VBOcol);   // neu hinzugekommen
+  glGenBuffers(1, @VBTriangle.VBOcol);
   glGenBuffers(1, @VBQuad.VBOvert);
-  glGenBuffers(1, @VBQuad.VBOcol);       // neu hinzugekommen
+  glGenBuffers(1, @VBQuad.VBOcol);
 ```
 
-Hier fast der wichtigste Teil, pro **Vertex Array Object** (VAO) wird ein zweiter Puffer in das VRAM geladen.
-Die 10 und 11, muss indentisch sein, mit dem **location** im Shader.
+Hintergrund schwar, das man den Effekt bessser sieht.
 
 ```pascal
 procedure TForm1.InitScene;
 begin
-  glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-
-  // --- Daten für Dreieck
-  glBindVertexArray(VBTriangle.VAO);
-
-  // Vektor
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);                         // 10 ist die Location in inPos Shader.
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
-
-  // Farbe
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(11);                         // 11 ist die Location in inCol Shader.
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
-
-  // --- Daten für Quadrat
-  glBindVertexArray(VBQuad.VAO);
-
-  // Vektor
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
-
-  // Farbe
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOcol);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
-end;
+  glClearColor(0.0, 0.0, 0.0, 1.0); // schwarz
 ```
 
-Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich einfach wie wen man nur ein VBO hat.
+Für den Hintergrund alle Farben.
+Für die Mesh je nach Menü-Stellung.
 
 ```pascal
+procedure TForm1.ogcDrawScene(Sender: TObject);
+begin
+  glColorMask(True, True, True, True);  // Alle Farben
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  Shader.UseProgram;
+  glColorMask(   // Je nach Menü
+    RedMenuItem.Checked,
+    GreenMenuItem.Checked,
+    BlueMenuItem.Checked, True);
+
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(TriangleVector) * 3);
@@ -94,23 +44,14 @@ Jetzt kommt wieder ein grosser Vorteil von OpenGL 3.3, das Zeichnen geht gleich 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVector) * 3);
-```
 
-Am Ende müssen noch die zusätzlichen VBO-Puffer frei gegeben werden.
-Freigaben müssen immer gleich viele sein wie Erzeugungen.
-
-```pascal
-  glDeleteBuffers(1, @VBTriangle.VBOvert);
-  glDeleteBuffers(1, @VBTriangle.VBOcol);
-  glDeleteBuffers(1, @VBQuad.VBOvert);
-  glDeleteBuffers(1, @VBQuad.VBOcol);
+  ogc.SwapBuffers;
+end;
 ```
 
 
 ---
 **Vertex-Shader:**
-
-Hier ist eine zweite Location hinzugekommen, wichtig ist, das die Location-Nummer übereinstimmt, mit denen beim Vertex-Laden.
 
 ```glsl
 #version 330

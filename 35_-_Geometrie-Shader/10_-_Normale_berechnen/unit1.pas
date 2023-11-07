@@ -159,7 +159,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  UBOBuffer.ModelMatrix.RotateB(0.12);
+  UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);
 end;
 
@@ -174,7 +174,7 @@ end;
 (*
 <b>Geometrie-Shader:</b>
 *)
-//includeglsl Geometrieshader.glsl
+//includeglsl GeometrieShader.glsl
 //lineal
 
 (*

@@ -38,6 +38,7 @@ begin
   end;
 
 end;
+
 ```
 
 Vertex-Koordianten bekommen beide Meshes die gleichen, aber die Textur-Koordinaten weichen ab.
@@ -66,6 +67,7 @@ begin
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 2, GL_FLOAT, False, 0, nil);
 end;
+
 ```
 
 
@@ -93,6 +95,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 ```
 
 

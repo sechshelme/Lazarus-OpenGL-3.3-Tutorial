@@ -162,7 +162,7 @@ gibt man nur **nil** mit, da man nur einee leere Textur braucht.
 
 ```pascal
 
-  // ------------ Texturen erzeugenn --------------
+  // ------------ Texturen erzeugen --------------
 
   // --- Textur
 
@@ -213,6 +213,7 @@ begin
 
     // FramePuffer aktivieren.
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+    glColorMaski(FramebufferName,true,false,false,true);
 
     glClearColor(0.3, 0.3, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);

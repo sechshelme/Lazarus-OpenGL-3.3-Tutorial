@@ -1,7 +1,7 @@
 # 02 - Shader
 ## 45 - Variablen Namen auslesen
 
-![image.png](image.png)
+![e image.png](e image.png)
 
 Es ist auch möglich aus dem **Shader auszulesen**, welche Variablen dort verwendet werden.
 In diesem Beispiel werden **Attribut**, **Uniform** und **Uniform-Blöcke** ausgelesen.
@@ -16,8 +16,11 @@ Der komplexe Beleuchtungs-Shader wird später beschrieben.
 ```pascal
 procedure TForm1.MenuItem1Click(Sender: TObject);
 var
-  s: ansistring;
-  i, Count, len, size, Typ: integer;
+  s: array of PChar = nil;
+  i, Count: GLint;
+  Typ: GLint = 0;
+  len: GLint = 0;
+  size: GLint = 0;
   sl: TStringList;
 
 begin
@@ -27,29 +30,108 @@ begin
   SetLength(s, 255);
   glGetProgramiv(Shader.ID, GL_ACTIVE_ATTRIBUTES, @Count);
   for i := 0 to Count - 1 do begin
-    glGetActiveAttrib(Shader.ID, i, 255, len, size, Typ, @s[1]);
-    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+    glGetActiveAttrib(Shader.ID, i, Length(s), len, size, Typ, PChar(s));
+    sl.Add('  ' + PChar(s) + '    ' + IntToStr(size));
   end;
   sl.Add('');
 
   sl.Add('Uniform:');
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORMS, @Count);
   for i := 0 to Count - 1 do begin
-    glGetActiveUniform(Shader.ID, i, 255, len, size, Typ, @s[1]);
-    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+    glGetActiveUniform(Shader.ID, i, Length(s), len, size, Typ, PChar(s));
+    sl.Add('  ' + PChar(s) + '    ' + IntToStr(size));
   end;
   sl.Add('');
 
   sl.Add('Uniform-Blöcke:');
   glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @Count);
   for i := 0 to Count - 1 do begin
-    glGetActiveUniformBlockName(Shader.ID, i, 255, @len, @s[1]);
-    sl.Add(copy(s, 0, len) + '    ' + IntToStr(Typ));
+    glGetActiveUniformBlockName(Shader.ID, i, Length(s), nil, PChar(s));
+    sl.Add('  ' + PChar(s));
   end;
 
   ShowMessage(sl.Text);
   sl.Free;
 end;
+```
+
+Details zum Uniform-Block
+
+```pascal
+procedure TForm1.MenuItem2Click(Sender: TObject);
+var
+  maxUniLength, activeUnif, dataSize, actualLen, BlockCount: TGLint;
+  BlockName: array of char = nil;
+  UniformName: array of char = nil;
+  indices: array of TGLint = nil;
+  indice: GLint;
+
+  UniformInfo: record
+    offset: TGLuint;
+    size: TGLuint;
+    type_: TGLuint;
+    matrix_strides: TGLuint;
+    array_strides: TGLuint;
+      end;
+
+  i, k: integer;
+  s: string;
+
+  SL: TStringList;
+
+begin
+  SL := TStringList.Create;
+
+  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader.UseProgram;
+
+  // --- Uniform-Blöcke auslesen
+  glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_MAX_LENGTH, @maxUniLength);
+  SetLength(UniformName, maxUniLength);
+  SL.Add('Uniform Blöcke:');
+  SL.Add('');
+
+  glGetProgramiv(Shader.ID, GL_ACTIVE_UNIFORM_BLOCKS, @BlockCount);
+  SL.Add('Block Uniform Count: ' + BlockCount.ToString);
+
+  for i := 0 to BlockCount - 1 do begin
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_NAME_LENGTH, @actualLen);
+    //    Write('len: ', actualLen);
+    SetLength(BlockName, actualLen);
+    glGetActiveUniformBlockName(Shader.ID, i, actualLen, nil, PChar(BlockName));
+    SL.Add('  Block-Name: ' + PChar(BlockName));
+
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_DATA_SIZE, @dataSize);
+    SL.Add('    Data-Size: ' + dataSize.ToString);
+
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, @activeUnif);
+    SL.Add('    Uniforms/Block: ' + activeUnif.ToString);
+
+    SetLength(indices, activeUnif);
+    glGetActiveUniformBlockiv(Shader.ID, i, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, PGLint(indices));
+
+    for k := 0 to activeUnif - 1 do begin
+      indice := indices[k];
+      glGetActiveUniformName(Shader.ID, indice, maxUniLength, @actualLen, PChar(UniformName));
+      SL.Add('      Uniform-Name: ' + PChar(UniformName));
+
+      with UniformInfo do begin
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_OFFSET, @offset);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_SIZE, @size);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_TYPE, @type_);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_ARRAY_STRIDE, @array_strides);
+        glGetActiveUniformsiv(Shader.ID, 1, @indice, GL_UNIFORM_MATRIX_STRIDE, @matrix_strides);
+
+        WriteStr(s, '          indicie: ', indice: 4, ' ofs: ', offset: 4, ' Array_Size: ', size: 4, ' Size: ', size * TypeSize(type_): 4, ' type:', type_: 6, '  array_strides: ', array_strides: 4, ' mat_strides: ', matrix_strides: 4);
+        SL.Add(s);
+        SL.Add('');
+      end;
+    end;
+  end;
+  ShowMessage(SL.Text);
+  SL.Free;
+end;
+
 ```
 
 
@@ -109,6 +191,7 @@ layout(std140) uniform Material {
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd
   float Mshininess; // Glanz
+  float test[8];
 };
 
 out vec4 outColor;

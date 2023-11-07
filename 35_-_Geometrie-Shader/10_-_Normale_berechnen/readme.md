@@ -1,31 +1,11 @@
-# 02 - Shader
-## 30 - Geometrie Shader
+# 35 - Geometrie-Shader
+## 10 - Normale berechnen
 
-![image.png](image.png)
+![e image.png](e image.png)
 
-Hier wird ganz kurz der Geometrie-Shader erwähnt.
-In diesem Beispiel wird nicht ins Detail eingegangen, es sollte nur zeigen für was ein Geometrie-Shader gut ist.
-Die Funktion hier im Beispiel ist, die beiden Meshes werden kopiert und anschliessend nach Links und Rechts verschoben.
-Auch bekommt die Linke Version eine andere Farbe als die Rechte.
-
-Man kann einen Geometrie-Shader auch brauchen um automatisch die Normale auszurechnen, welche für Beleuchtungs-Effekte gebraucht wird.
-Was eine Normale ist, wird später im Kapitel Beleuchtung erklärt.
-
-Der Lazarus-Code ist nichts besonderes, er rendert die üblichen zwei Meshes Dreieck und Quadrat.
-Die einzige Besondeheit ist, es wird zu den üblichen zwei Shader noch ein Geometrie-Shader geladen wird.
 
 ---
-Hier ist die einzige Besonderheit, dem Constructor von TShader wird ein dritter Shader-Code mitgegeben.
-
-Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch erkannt, das noch ein Geometrie-Shader dazu kommt.
-
-```pascal
-procedure TForm1.CreateScene;
-begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  Shader.UseProgram;
-```
-
+Den Geometrie-Shader kann man auch gut verwenden um Normale für Beleuchtungen zu berechnen.
 
 ---
 **Vertex-Shader:**
@@ -33,12 +13,33 @@ begin
 ```glsl
 #version 330
 
-layout (location = 10) in vec3 inPos; // Vertex-Koordinaten
- 
+layout (location = 0) in vec3 inPos;
+
+layout (std140) uniform UBO {
+  mat4x4 WorldMatrix;
+  mat4x4 ModelMatrix;
+};
+
+out vec3 vcol;
+
 void main(void)
 {
-  gl_Position = vec4(inPos, 1.0);
-}
+  gl_Position = WorldMatrix * ModelMatrix * vec4(inPos, 1.0);
+
+  switch (gl_VertexID / 6) // Den aktuellen Vertex abfragen.
+  {
+    case 0:  vcol = vec3(1.0, 0.0, 0.0);
+             break;
+    case 1:  vcol = vec3(0.0, 1.0, 0.0);
+             break;
+    case 2:  vcol = vec3(0.0, 0.0, 1.0);
+             break;
+    case 3:  vcol = vec3(1.0, 1.0, 0.0);
+             break;
+    case 4:  vcol = vec3(0.0, 1.0, 1.0);
+             break;
+    default: vcol = vec3(1.0, 0.0, 1.0);
+  }}
 
 ```
 
@@ -49,35 +50,30 @@ void main(void)
 ```glsl
 #version 330
 
-#define distance 0.5
-
 layout(triangles) in;
-layout(triangle_strip, max_vertices = 9) out;
+layout(triangle_strip, max_vertices = 12) out;
 
-out vec3 Color; // Farb-Ausgabe für den Fragment-Shader 
+in vec3 vcol[];
+
+out vec3 gnorm;
+out vec3 gcol;
 
 void main(void)
+
 {
+   vec3 n = cross(gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz,
+                  gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz);
 
-// Linke Meshes
    for(int i = 0; i < gl_in.length(); i++)
    {
-      gl_Position = gl_in[i].gl_Position + vec4(-distance, 0.0, 0.0, 0.0); // nach Links verschieben
-      Color = vec3(1.0, 0.0, 0.0);                                         // Links Rot
-      EmitVertex();
-   }
-   EndPrimitive();
-
-
-// Rechte Meshes
-   for(int i = 0; i < gl_in.length(); i++)
-   {
-      gl_Position = gl_in[i].gl_Position + vec4(distance, 0.0, 0.0, 0.0);  // nach Rechts verschieben
-      Color = vec3(0.0, 1.0, 0.0);                                         // Rechts Grün
+      gl_Position = gl_in[i].gl_Position;
+      gnorm = n;
+      gcol = vcol[i];
       EmitVertex();
    }
    EndPrimitive();
 }
+
 
 ```
 
@@ -88,12 +84,31 @@ void main(void)
 ```glsl
 #version 330
 
-in vec3 Color;      // Farbe vom Geometrie-Shader.
-out vec4 outColor;  // Ausgegebene Farbe.
+#define LightPos0 vec3(1.0, 1.0, -1.0)
+#define LightPos1 vec3(-1.0, 1.0, 0.0)
+#define ambient0 1.4
+#define ambient1 0.2
+
+in vec3 gnorm;
+in vec3 gcol;
+
+out vec4 outColor;
+
+float light(vec3 p, vec3 n) {
+  vec3  v1 = normalize(p);
+  vec3  v2 = normalize(n);
+  float d  = dot(v1, v2);
+  float c  = clamp(d, 0.0, 1.0);
+  return c;
+}
 
 void main(void)
 {
-  outColor = vec4(Color, 0.1);
+  float l0 = light(LightPos0, gnorm) * ambient0;
+  float l1 = light(LightPos1, gnorm) * ambient1;
+
+  vec3 col = gcol * (l0 + l1) ;
+  outColor = vec4(col, 1.0);
 }
 
 ```

@@ -41,7 +41,7 @@ const
   Quad: array[0..3] of TVertex3f =
     ((-0.2, -0.6, 0.0), (0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (-0.2, -0.1, 0.0));
   // Indicien ( Reihenfolge )
-  Quad_Indices: array[0..5] of GLint = (0, 1, 2, 0, 2, 3);
+  Quad_Indices: array[0..5] of GLshort = (0, 1, 2, 0, 2, 3);
 ```
 
 Bei **glDrawElements(...**, muss als dritten Parameter der Zeiger auf die Indicien-Array übergeben werden.
@@ -61,7 +61,7 @@ begin
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_INT, @Quad_Indices);
+  glDrawElements(GL_TRIANGLES, Length(Quad_Indices), GL_UNSIGNED_SHORT, @Quad_Indices);
 ```
 
 

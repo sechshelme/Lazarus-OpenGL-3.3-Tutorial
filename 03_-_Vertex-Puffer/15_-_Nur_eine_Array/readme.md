@@ -72,11 +72,11 @@ begin
 
   // Vektor
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, False, 12, nil);
 
   // Farbe
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, Pointer(72));
+  glVertexAttribPointer(11, 3, GL_FLOAT, False, 12, Pointer(72));
 end;
 ```
 

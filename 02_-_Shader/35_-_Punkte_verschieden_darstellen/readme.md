@@ -10,9 +10,14 @@ Im Fragment-Shader kann man das Zeichen der Punkte manipulieren.
 Die Deklaration der Koordianten und Punktgrösse.
 
 ```pascal
+type
+  TPoint=record
+    vec: TVector2f;
+    PointSize: GLfloat;
+    end;
+
 var
-  Point: array of TVertex2f;
-  PointSize: array of GLfloat;
+  Point: array of TPoint;
 ```
 
 Daten für die Punkte in die Grafikkarte übertragen
@@ -22,20 +27,19 @@ procedure TForm1.InitScene;
 begin
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
 
-  // Daten für Punkt Position
   glBindVertexArray(VBPoint.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(TVertex2f) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(TPoint) * Length(Point), Pointer(Point), GL_STATIC_DRAW);
+
+  // Daten für Punkt Position
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, False, SizeOf(TPoint), nil);
 
   // Daten für Punkt Grösse
-  glBindVertexArray(VBPoint.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBPoint.VBO_Size);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * Length(PointSize), Pointer(PointSize), GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(8));
 end;
+
 ```
 
 Zeichnen der Punkte
@@ -81,6 +85,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 ```
 
 
@@ -91,7 +96,7 @@ end;
 #version 330
 
 layout (location = 10) in vec2  inPos;  // Vertex-Koordinaten in 2D
-layout (location = 11) in float inSize; // Vertex-Koordinaten in 2D
+layout (location = 11) in float inSize; // Grösse der Punkte
 uniform float x;                        // Richtung von Uniform
 uniform float y;
  
@@ -126,22 +131,22 @@ void main(void)
   float theta = atan(p.y, p.x);
 
   switch (PointTyp){
-    case 0: if(dot(gl_PointCoord - 0.5, gl_PointCoord - 0.5) > 0.25)
+    case 0: if (dot(gl_PointCoord - 0.5, gl_PointCoord - 0.5) > 0.25)
               discard;
             else
               outColor = vec4(Color, 1.0);
             break;
-    case 1: if(dot(p, p) > cos(theta * 5))
+    case 1: if (dot(p, p) > cos(theta * 5))
               discard;
             else
               outColor = vec4(Color, 1.0);
             break;
-    case 2: if(dot(p, p) > r || dot(p, p) < r * 0.75)
+    case 2: if (dot(p, p) > r || dot(p, p) < r * 0.75)
               discard;
             else
               outColor = vec4(Color, 1.0);
             break;
-    case 3: if(dot(p, p) > 5.0 / cos(theta - 20 * r))
+    case 3: if (dot(p, p) > 5.0 / cos(theta - 20 * r))
               discard;
             else
               outColor = vec4(Color, 1.0);

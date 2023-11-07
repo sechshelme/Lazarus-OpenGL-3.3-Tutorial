@@ -13,6 +13,7 @@ Die Deklaration der Array. Es ist nur noch eine Array.
 
 ```pascal
 type
+  PData = ^TData;
   TData = record
     Scale: GLfloat;
     Matrix: TMatrix;
@@ -44,7 +45,7 @@ begin
   // --- Instancen
   ofs := 0;
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Instance);
-  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), @Data, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, SizeOf(Data), PData(Data), GL_STATIC_DRAW);
 
   // Instance Size
   glEnableVertexAttribArray(1);
@@ -55,14 +56,14 @@ begin
   // Instance Matrix
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData),PGLvoid(ofs));
     glVertexAttribDivisor(i + 2, 1);
     Inc(ofs, SizeOf(TVector4f));
   end;
 
   // Instance Color
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), Pointer(ofs));
+  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), PGLvoid(ofs));
   glVertexAttribDivisor(6, 1);
 end;
 ```
@@ -108,8 +109,6 @@ Am Shader hat sich nichts geändert.
 
 ```glsl
 #version 330
-
-#define Instance_Count 200
 
 // Vektor-Daten
 layout (location = 0) in vec2 inPos;

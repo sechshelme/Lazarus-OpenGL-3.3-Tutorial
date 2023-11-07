@@ -24,7 +24,7 @@ type
     VBO: record
       Vertex,
       I_Size, I_Matrix, I_Color: GLuint;
-    end;
+      end;
   end;
 ```
 
@@ -38,7 +38,8 @@ var
     Scale: array[0..InstanceCount - 1] of GLfloat;
     Matrix: array[0..InstanceCount - 1] of TMatrix;
     Color: array[0..InstanceCount - 1] of TVector3f;
-  end;
+      end;
+
 ```
 
 VBO-Puffer für Instancen anlegen. Uniformen werden keine gebraucht.
@@ -62,6 +63,7 @@ begin
     Data.Color[i] := vec3(Random, Random, Random);
   end;
 end;
+
 ```
 
 Für die Instancen werden die Puffer gefüllt.
@@ -120,6 +122,7 @@ begin
   glVertexAttribPointer(6, 3, GL_FLOAT, False, 0, nil);
   glVertexAttribDivisor(6, 1);
 end;
+
 ```
 
 Die Instance Parameter werden einfache mit **glBufferSubData(....** übergeben.
@@ -141,6 +144,7 @@ begin
 
   ogc.SwapBuffers;
 end;
+
 ```
 
 Matrizen neu berechnen.
@@ -151,12 +155,13 @@ var
   i: integer;
 begin
   for i := 0 to Length(Data.Matrix) - 1 do begin
-    Data.Matrix[i].RotateC(0.02);
+    Data.Matrix[i].RotateC(0.02 + (0.01 / Length(Data.Matrix) * i));
   end;
 
   glBindVertexArray(VBQuad.VAO);
   ogcDrawScene(Sender);  // Neu zeichnen
 end;
+
 ```
 
 

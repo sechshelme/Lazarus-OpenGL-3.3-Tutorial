@@ -1,7 +1,7 @@
 # 50 - Instancing
 ## 00 - Einfachste Instance
 
-![image.png](image.png)
+![e image.png](e image.png)
 
 Mit **Instancing** hat man die Möglichkeit die Mesh mit **einem** glDraw... Aufruf mehrmals zu zeichnen.
 Bei dieser regelmässigen Anordnung ist dies sehr einfach.
@@ -16,8 +16,7 @@ Die Matrix muss nur **einmal** berechnet werden, da es nur **einen** Aufruf von 
 ```pascal
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
-  s = 10;            // Eine Seite hat 10 Würfel.
-  size = s * s * s;
+  s = 9;            // Eine Seite hat 9 Würfel.
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -36,11 +35,14 @@ begin
   Matrix := FrustumMatrix * WorldMatrix * Matrix;
   Matrix.Uniform(Matrix_ID);
 
+  glUniform1i(size_ID, s);
+
   // glDraw... muss nur einmal aufgerufen werden.
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(CubeVertex) * 3, size);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(CubeVertex) * 3, s * s * s);
 
   ogc.SwapBuffers;
 end;
+
 ```
 
 Das grosse Arbeit bei Instancing leistet der Vertex-Shader.
@@ -50,7 +52,7 @@ Das grosse Arbeit bei Instancing leistet der Vertex-Shader.
 ```glsl
 #version 330
 
-#define size 10
+//#define size 10
 
 layout (location = 0) in vec3 inPos;    // Vertex-Koordinaten
 layout (location = 1) in vec3 inNormal; // Normale
@@ -63,6 +65,7 @@ out Data {
 
 uniform mat4 ModelMatrix;
 uniform mat4 Matrix;
+uniform int size;
 
 void main(void) {
   vec3 p = inPos / 2 - size / 2;

@@ -1,7 +1,7 @@
 # 02 - Shader
 ## 30 - Geometrie Shader
 
-![image.png](image.png)
+![e image.png](e image.png)
 
 Hier wird ganz kurz der Geometrie-Shader erwähnt.
 In diesem Beispiel wird nicht ins Detail eingegangen, es sollte nur zeigen für was ein Geometrie-Shader gut ist.
@@ -22,7 +22,11 @@ Wen man bei der Shader-Klasse einen dritten Shader mit gibt, wird automatisch er
 ```pascal
 procedure TForm1.CreateScene;
 begin
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Geometrieshader.glsl'), FileToStr('Fragmentshader.glsl')]);
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
   Shader.UseProgram;
 ```
 
@@ -64,6 +68,18 @@ void main(void)
    {
       gl_Position = gl_in[i].gl_Position + vec4(-distance, 0.0, 0.0, 0.0); // nach Links verschieben
       Color = vec3(1.0, 0.0, 0.0);                                         // Links Rot
+      EmitVertex();
+   }
+   EndPrimitive();
+
+
+// Mittlere Meshes
+   for(int i = 0; i < gl_in.length(); i++)
+   {
+      gl_Position = gl_in[i].gl_Position + vec4(0.0, 0.0, 0.0, 0.0); // nicht verschieben
+      gl_Position.y *= -0.5;
+      gl_Position.x *= 0.5;
+      Color = vec3(0.0, 0.0, 1.0);                                   // Mitte blau
       EmitVertex();
    }
    EndPrimitive();
