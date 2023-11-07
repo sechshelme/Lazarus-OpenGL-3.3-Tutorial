@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls,
   dglOpenGL, oglDebug,
-  oglContext, oglShader, oglVector, oglVectors, oglMatrix;
+  oglContext, oglShader, oglVector, oglVectors, oglMatrix,
+  CubeHelp;
 
   //image image.png
   //lineal
@@ -46,12 +47,13 @@ type
   end;
 
 var
-  cube: TVectors3f;
+  cube: TVectors3f=nil;
+  cubeAni:TCubeAnimate=nil;
 
 type
   TVB = record
     VAO,
-    VBO: GLuint;
+    VBO,VBOAni: GLuint;
   end;
 
 var
@@ -73,6 +75,8 @@ begin
 end;
 
 procedure TForm1.CreateScene;
+var
+  i: Integer;
 begin
   InitOpenGLDebug;
 
@@ -107,17 +111,31 @@ begin
 
   glClearColor(0.6, 0.6, 0.4, 1.0);
 
-  // Daten für den Würfel
-  cube.AddCube(1, 1, 1);
-
+  // --- Daten für den Würfel
   glGenVertexArrays(1, @VBQuad.VAO);
+  glBindVertexArray(VBQuad.VAO);
+
+  // Vektor
+  cube.AddCube(1, 1, 1);
   glGenBuffers(1, @VBQuad.VBO);
 
-  glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, cube.Size, cube.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  // Animate
+  cubeAni.AddCube(caLeft,0,1);
+  for i:=0 to Length(cubeAni)-1 do WriteLn(cubeAni[i]);
+  WriteLn(Length(cubeAni));
+  WriteLn(Length(cube) div 3);
+
+  glGenBuffers(1, @VBQuad.VBOAni);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
+  glBufferData(GL_ARRAY_BUFFER, cubeAni.Size, cubeAni.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 1, GL_INT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

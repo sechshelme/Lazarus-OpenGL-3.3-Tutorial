@@ -9,6 +9,7 @@ uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
 type
+  TGlInts = array of TGLint;
   TGlfloats = array of TGlfloat;
 
   TVectors2f = type TGlfloats;
