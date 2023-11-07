@@ -11,60 +11,83 @@ uses
 type
   TGlfloats = array of TGlfloat;
 
-  //  TVectors2f = array of TGLfloat;
-  //  TVectors3f = array of TGLfloat;
-
   TVectors2f = type TGlfloats;
   TVectors3f = type TGlfloats;
 
+  { TGlfloatsHelper }
+
   TGlfloatsHelper = type Helper for TGlfloats
-
+    function Size: TGLsizei;
+    function Ptr: TGLvoid;
   end;
-
 
 
   { TVectors2fHelper }
 
-  TVectors2fHelper = type Helper for TVectors2f
+  TVectors2fHelper = type Helper (TGlfloatsHelper) for TVectors2f
   public
-    procedure Add(x, y: TGLfloat);
+    procedure Add(x, y: TGLfloat); overload;
+    procedure Add(const v: TVector2f); overload;
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0);
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
 
-    procedure Scale(AScale: TVector2f);
+    procedure Scale(AScale: TGLfloat); overload;
+    procedure Scale(const AScale: TVector2f); overload;
 
     function Count: TGLint;
-    function Size: TGLsizei;
-    function Ptr: TGLvoid;
+
+    procedure AddFace2D(const Face: TFace2D); overload;
+    procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
+    procedure AddFace2DArray(const Face: array of TFace2D);
   end;
 
 
   { TVectors3fHelper }
 
-  TVectors3fHelper = type Helper for TVectors3f
+  TVectors3fHelper = type Helper(TGlfloatsHelper) for TVectors3f
   public
-    procedure Add(x, y, z: TGLfloat);
+    procedure Add(x, y, z: TGLfloat); overload;
+    procedure Add(const v: TVector3f); overload;
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCubeNormale;
 
-    procedure Scale(AScale: TGLfloat);
-    procedure Scale(AScale: TVector3f);
-    procedure Translate(ATranslate: TVector3f);
+    procedure Scale(AScale: TGLfloat); overload;
+    procedure Scale(const AScale: TVector3f); overload;
+    procedure Translate(const ATranslate: TVector3f);
 
     function Count: TGLint;
-    function Size: TGLsizei;
-    function Ptr: TGLvoid;
+
+    procedure AddFace3D(const Face: TFace3D); overload;
+    procedure AddFace3D(const v0, v1, v2: TVector3f); overload;
+    procedure AddFace3DArray(const Face: array of TFace3D);
   end;
 
 implementation
+
+{ TGlfloatsHelper }
+
+function TGlfloatsHelper.Size: TGLsizei;
+begin
+  Result := Length(Self) * SizeOf(TGLfloat);
+end;
+
+function TGlfloatsHelper.Ptr: TGLvoid;
+begin
+  Result := TGLvoid(Self);
+end;
 
 { TVectors2fHelper }
 
 procedure TVectors2fHelper.Add(x, y: TGLfloat); inline;
 begin
   Self += [x, y];
+end;
+
+procedure TVectors2fHelper.Add(const v: TVector2f);
+begin
+  Self += [v];
 end;
 
 procedure TVectors2fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat);
@@ -90,7 +113,17 @@ begin
   Self += quad + quad + quad + quad + quad + quad;
 end;
 
-procedure TVectors2fHelper.Scale(AScale: TVector2f);
+
+procedure TVectors2fHelper.Scale(AScale: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) - 1 do begin
+    Self[i] *= AScale;
+  end;
+end;
+
+procedure TVectors2fHelper.Scale(const AScale: TVector2f);
 var
   i: integer;
   p: SizeInt = 0;
@@ -108,21 +141,41 @@ begin
   Result := Length(Self) div 2;
 end;
 
-function TVectors2fHelper.Size: TGLsizei; inline;
+procedure TVectors2fHelper.AddFace2D(const Face: TFace2D);
+var
+  p: integer;
 begin
-  Result := Length(Self) * SizeOf(TGLfloat);
+  p := Length(Self);
+  SetLength(Self, p + 6);
+  Move(Face, Self[p], SizeOf(TFace2D));
 end;
 
-function TVectors2fHelper.Ptr: TGLvoid; inline;
+procedure TVectors2fHelper.AddFace2D(const v0, v1, v2: TVector2f);
 begin
-  Result := TGLvoid(Self);
+  Add(v0);
+  Add(v1);
+  Add(v2);
+end;
+
+procedure TVectors2fHelper.AddFace2DArray(const Face: array of TFace2D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
 end;
 
 { TVectors3fHelper }
 
 procedure TVectors3fHelper.Add(x, y, z: TGLfloat); inline;
 begin
-  Self += [TVector3f([x, y, z])];
+  Self += [x, y, z];
+end;
+
+procedure TVectors3fHelper.Add(const v: TVector3f);
+begin
+  Self += [v];
 end;
 
 procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
@@ -149,8 +202,8 @@ begin
     -w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
 
     // unten
-    w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
-    w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z,
+    w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
+    w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
 
     // vorn
     -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
@@ -195,7 +248,7 @@ begin
   end;
 end;
 
-procedure TVectors3fHelper.Scale(AScale: TVector3f);
+procedure TVectors3fHelper.Scale(const AScale: TVector3f);
 var
   i: integer;
   p: SizeInt = 0;
@@ -210,7 +263,7 @@ begin
   end;
 end;
 
-procedure TVectors3fHelper.Translate(ATranslate: TVector3f);
+procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
 var
   i: integer;
   p: SizeInt = 0;
@@ -230,14 +283,29 @@ begin
   Result := Length(Self) div 3;
 end;
 
-function TVectors3fHelper.Size: TGLsizei; inline;
+procedure TVectors3fHelper.AddFace3D(const Face: TFace3D);
+var
+  p: integer;
 begin
-  Result := Length(Self) * SizeOf(TGLfloat);
+  p := Length(Self);
+  SetLength(Self, p + 9);
+  Move(Face, Self[p], SizeOf(TFace3D));
 end;
 
-function TVectors3fHelper.Ptr: TGLvoid; inline;
+procedure TVectors3fHelper.AddFace3D(const v0, v1, v2: TVector3f);
 begin
-  Result := TGLvoid(Self);
+  Self += [v0];
+  Self += [v1];
+  Self += [v2];
+end;
+
+procedure TVectors3fHelper.AddFace3DArray(const Face: array of TFace3D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
 end;
 
 end.

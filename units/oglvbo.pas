@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  dglOpenGL, oglVector, oglMatrix,oglFloatArray;
+  dglOpenGL, oglVector, oglVectors, oglMatrix;
 
 type
   TModif = set of (CW, neg, normalize);
@@ -15,7 +15,7 @@ type
 
   TVBO = class(TObject)
   private
-    GLfloatArray: TglFloatArray;
+    GLfloatArray: TGlfloats;
     Primitive_Size: integer;
   protected
     VBO: GLint;
@@ -63,7 +63,7 @@ type
     procedure Add(const Face: TFace3D); overload;
     procedure Add(const v0, v1, v2: TVector3f); overload;
     procedure Add(const Face: array of TFace3D); overload;
-    procedure Add(const f: TglFloatArray); overload;
+    procedure Add(const f: TGlfloats); overload;
     procedure Copy(von, bis, anz: integer);
     procedure RotateB(winkel: single); overload;
     procedure RotateB(winkel: single; von, bis: integer); overload;
@@ -161,17 +161,17 @@ end;
 
 procedure TVBO_Triangles2D.Add(const Face: TFace2D);
 begin
-  GLfloatArray.AddFace2D(Face);
+  TVectors2f(GLfloatArray).AddFace2D(Face);
 end;
 
 procedure TVBO_Triangles2D.Add(const v0, v1, v2: TVector2f);
 begin
-  GLfloatArray.AddFace2D(v0, v1, v2);
+  TVectors2f(GLfloatArray).AddFace2D(v0, v1, v2);
 end;
 
 procedure TVBO_Triangles2D.Add(const Face: array of TFace2D); inline;
 begin
-  GLfloatArray.AddFace2DArray(Face);
+  TVectors2f(GLfloatArray).AddFace2DArray(Face);
 end;
 
 procedure TVBO_Triangles2D.Copy(von, bis, anz: integer);
@@ -219,12 +219,12 @@ end;
 
 procedure TVBO_Triangles2D.Scale(Factor: single); inline;
 begin
-  GLfloatArray.Scale(Factor);
+  TVectors2f(GLfloatArray).Scale(Factor);
 end;
 
 procedure TVBO_Triangles2D.Scale(Factorx, Factory: single); inline;
 begin
-  GLfloatArray.Scale(Factorx, Factory);
+  TVectors2f(GLfloatArray).Scale([Factorx, Factory]);
 end;
 
 procedure TVBO_Triangles2D.Scale(const Factor: TVector2f);
@@ -277,7 +277,7 @@ end;
 
 procedure TVBO_Triangles.Add(const Face: TFace3D);
 begin
-  GLfloatArray.AddFace3D(Face);
+  TVectors3f(GLfloatArray).AddFace3D(Face);
 end;
 
 procedure TVBO_Triangles.Add(const v0, v1, v2: TVector3f);
@@ -287,10 +287,10 @@ end;
 
 procedure TVBO_Triangles.Add(const Face: array of TFace3D); inline;
 begin
-  GLfloatArray.AddFace3DArray(Face);
+  TVectors3f(GLfloatArray).AddFace3DArray(Face);
 end;
 
-procedure TVBO_Triangles.Add(const f: TglFloatArray);
+procedure TVBO_Triangles.Add(const f: TGlfloats);
 var
   i, l, p: integer;
 begin
@@ -410,7 +410,7 @@ end;
 
 procedure TVBO_LineStrip.Add(const Vertex: TVector3f);
 begin
-  GLfloatArray.AddVector3f(Vertex);
+  TVectors3f(GLfloatArray).Add(Vertex);
 end;
 
 end.

@@ -174,6 +174,9 @@ procedure TForm1.CreateScene;
 begin
   glEnable(GL_DEPTH_TEST);
 
+//   glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+//  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+
   // --- Shader laden
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');

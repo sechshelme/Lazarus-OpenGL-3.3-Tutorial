@@ -8,9 +8,9 @@ uses
   dglOpenGL;
 
 type
-  TVector2i =array[0..1] of GLint;
-  TVector3i =array[0..2] of GLint;
-  TVector4i =array[0..3] of GLint;
+  TVector2i = array[0..1] of GLint;
+  TVector3i = array[0..2] of GLint;
+  TVector4i = array[0..3] of GLint;
 
   TVector2f = array[0..1] of GLfloat;
   PVector2f = ^TVector2f;
@@ -198,8 +198,6 @@ operator / (const v: TVector4f; const f: GLfloat) Res: TVector4f;
 operator * (const v0: TVector2f; const v1: TVector2f) Res: TGLfloat;
 operator * (const v0: TVector3f; const v1: TVector3f) Res: TGLfloat;
 operator * (const v0: TVector4f; const v1: TVector4f) Res: TGLfloat;
-
-//operator := (const AFields: TVector3f) Res: TVector3f;
 
 // --- Sonstige
 
@@ -460,9 +458,9 @@ end;
 
 procedure TVector3fHelper.Random;
 begin
-  Self[0]:=system.Random;
-  Self[1]:=system.Random;
-  Self[2]:=system.Random;
+  Self[0] := system.Random;
+  Self[1] := system.Random;
+  Self[2] := system.Random;
 end;
 
 function TVector3fHelper.Length: GLfloat;

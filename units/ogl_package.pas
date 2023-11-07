@@ -12,7 +12,7 @@ uses
   oglBackground, oglTexturKoerper, oglUnit, oglTextur, oglVAO, 
   oglColorKoerper, oglLinesVAO, oglVBO, oglDarstellung, oglKoerper, oglCamera, 
   oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext, oglDebug, 
-  oglVector, oglVectors, oglFloatArray, LazarusPackageIntf;
+  oglVector, oglVectors, LazarusPackageIntf;
 
 implementation
 
