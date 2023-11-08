@@ -53,52 +53,69 @@ begin
     end;
   caTop:begin
     Self +=[
+    p,p,m,     p,m,m,
+    m,p,m,     m,p,p,
     p,p,p,     p,p,p,
+    p,m,m,     p,m,p,
     m,m,m,     m,m,m,
-    m,m,p,     m,p,p,
-    m,m,p,     m,p,p,
-    m,m,p,     m,p,p,
-    p,p,p,     m,p,p];
+    m,p,p,     m,p,m];
     end;
   caBottom:begin
+    Self +=[
+    m,m,p,     m,p,p,
+    p,m,p,     p,m,m,
+    m,m,m,     m,m,m,
+    m,p,p,     m,p,m,
+    p,p,p,     p,p,p,
+    p,m,m,     p,m,p];
+    end;
+  caFar:begin
     Self +=[
     m,m,m,     m,m,m,
     p,p,p,     p,p,p,
     p,p,m,     p,m,m,
     p,p,m,     p,m,m,
     p,p,m,     p,m,m,
-    m,m,m,     p,m,m];
+    p,p,m,     p,m,m];
+    end;
+  caNear:begin
+    Self +=[
+    p,p,p,     p,p,p,
+    m,m,m,     m,m,m,
+    m,m,p,     m,p,p,
+    m,m,p,     m,p,p,
+    m,m,p,     m,p,p,
+    m,m,p,     m,p,p];
     end;
   end;
 
 end;
 
-//Self += [
-//  // oben
-//  -w2 + x, -h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
-//  -w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
-//
-//  // unten
-//  w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
-//  w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
-//
-//  // vorn
-//  -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
-//  -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z, -w2 + x, -h2 + y, d2 + z,
-//
-//  // rechts
-//  w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z,
-//  w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z,
-//
-//  // hinten
-//  w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z,
-//  w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
-//
-//  // links
-//  -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z,
-//  -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z];
 
 
+//// vorn
+//-w2 + x, -h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
+//-w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
+//
+//// hinten
+//w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
+//w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
+//
+//// unten
+//-w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
+//-w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z, -w2 + x, -h2 + y, d2 + z,
+//
+//// rechts
+//w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z,
+//w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z,
+//
+//// oben
+//w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z,
+//w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
+//
+//// links
+//-w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z,
+//-w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z];
 
 function TGlfloatsHelper.Size: TGLsizei;
 begin

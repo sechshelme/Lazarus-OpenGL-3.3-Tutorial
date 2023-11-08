@@ -44,12 +44,16 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveT: Tmat2x2;
+    moveF: Tmat2x2;
     p0: TVector4f;
-    moveB: Tmat2x2;
+    moveN: Tmat2x2;
     p1: TVector4f;
-    moveR: Tmat2x2;
+    moveB: Tmat2x2;
     p2: TVector4f;
+    moveR: Tmat2x2;
+    p3: TVector4f;
+    moveT: Tmat2x2;
+    p4: TVector4f;
     moveL: Tmat2x2;
   end;
 
@@ -99,9 +103,11 @@ begin
   UBOBuffer.ModelMatrix.Scale(1.5);
   //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
   //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
-  UBOBuffer.moveT.Identity;
+  UBOBuffer.moveF.Identity;
+  UBOBuffer.moveN.Identity;
   UBOBuffer.moveB.Identity;
   UBOBuffer.moveR.Identity;
+  UBOBuffer.moveT.Identity;
   UBOBuffer.moveL.Identity;
 
   glGenBuffers(1, @UBO);
@@ -131,13 +137,29 @@ begin
   cube.AddCube(1.0, 1.0, 1.0);
   cubeAni.AddCube(caLeft, 0, 0);
 
-  // left
-  cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
-  cubeAni.AddCube(caLeft, 0, 51);
+  // far
+  cube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
+  cubeAni.AddCube(caFar, 0, 01);
 
-  // left left
-  cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
-  cubeAni.AddCube(caLeft, 51, 51);
+  // far far
+  cube.AddCube(0.5, 0.5, 1.0, 0, 0, 2);
+  cubeAni.AddCube(caFar, 1, 1);
+
+  // near
+  cube.AddCube(0.5, 0.5, 1.0, 0, 0, -1);
+  cubeAni.AddCube(caNear, 0, 11);
+
+  // near near
+  cube.AddCube(0.5, 0.5, 1.0, 0, 0, -2);
+  cubeAni.AddCube(caNear, 11, 11);
+
+  // bottom
+  cube.AddCube(0.5, 1.0, 0.5, 0, -1, 0);
+  cubeAni.AddCube(caBottom, 0, 21);
+
+  // bottom bottom
+  cube.AddCube(0.5, 1.0, 0.5, 0, -2, 0);
+  cubeAni.AddCube(caBottom, 21, 21);
 
   // right
   cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
@@ -149,13 +171,19 @@ begin
 
   // top
   cube.AddCube(0.5, 1.0, 0.5, 0, 1, 0);
-  cubeAni.AddCube(caTop, 0, 01);
+  cubeAni.AddCube(caTop, 0, 41);
 
   // top top
   cube.AddCube(0.5, 1.0, 0.5, 0, 2, 0);
-  cubeAni.AddCube(caTop, 01, 01);
+  cubeAni.AddCube(caTop, 41, 41);
 
+  // left
+  cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
+  cubeAni.AddCube(caLeft, 0, 51);
 
+  // left left
+  cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
+  cubeAni.AddCube(caLeft, 51, 51);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -215,16 +243,16 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step = 0.05;
-  stepRZ: TGLfloat = step;
-  stepLZ: TGLfloat = step * 1.1;
+  step = 0.02;
 
 begin
   //  UBOBuffer.ModelMatrix.RotateB(0.12);
-  UBOBuffer.moveT.Rotate(0.11);
-  UBOBuffer.moveB.Rotate(0.13);
-  UBOBuffer.moveR.Rotate(0.10);
-  UBOBuffer.moveL.Rotate(0.12);
+  UBOBuffer.moveF.Rotate(step*1.1);
+  UBOBuffer.moveN.Rotate(step*1.2);
+  UBOBuffer.moveT.Rotate(step*1.3);
+  UBOBuffer.moveB.Rotate(step*1.4);
+  UBOBuffer.moveR.Rotate(step*1.5);
+  UBOBuffer.moveL.Rotate(step*1.6);
 
   ogcDrawScene(Sender);
 end;
