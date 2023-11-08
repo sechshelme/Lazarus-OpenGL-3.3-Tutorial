@@ -44,7 +44,7 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveX: TGLfloat;
+    moveRZ, moveLZ: TGLfloat;
   end;
 
 var
@@ -91,9 +91,10 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-  UBOBuffer.ModelMatrix.RotateC(pi / 2);
-  UBOBuffer.ModelMatrix.RotateB(pi / 2);
-  UBOBuffer.moveX := 0.0;
+//  UBOBuffer.ModelMatrix.RotateC(pi / 2);
+//  UBOBuffer.ModelMatrix.RotateB(pi / 2);
+UBOBuffer.moveRZ := 0.0;
+UBOBuffer.moveLZ := 0.0;
 
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
@@ -118,11 +119,25 @@ begin
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-  cube.AddCube(1.0, 0.2, 0.2);
+// center
+  cube.AddCube(1.0, 1.0, 1.0);
   cubeAni.AddCube(caLeft, 0, 0);
 
-  cube.AddCube(1.0, 0.2, 0.2, -1, 0, 0);
-  cubeAni.AddCube(caLeft, 0, 1);
+  // left
+  cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
+  cubeAni.AddCube(caLeft, 0, 51);
+
+// left left
+cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
+  cubeAni.AddCube(caLeft, 51, 51);
+
+  // right
+  cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
+  cubeAni.AddCube(caRight, 0, 31);
+
+// right right
+cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
+  cubeAni.AddCube(caRight, 31, 31);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -173,26 +188,35 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -4);
-  wm.RotateA(0.6);
-  perm.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
+  wm.Translate(0, 0, -15);
+ wm.RotateA(0.3);
+  perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 100.0);
 
   UBOBuffer.WorldMatrix := perm * wm;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step=0.02;
-  stepX: TGLfloat = step;
+  step=0.05;
+  stepRZ: TGLfloat = step;
+  stepLZ: TGLfloat = step * 1.1;
 
 begin
   //  UBOBuffer.ModelMatrix.RotateB(0.12);
-  UBOBuffer.moveX += stepX;
-  if UBOBuffer.moveX > 1 then begin
-    stepX := -step;
+  UBOBuffer.moveRZ += stepRZ;
+  if UBOBuffer.moveRZ > 1 then begin
+    stepRZ := -step;
   end;
-  if UBOBuffer.moveX < -1 then begin
-    stepX := step;
+  if UBOBuffer.moveRZ < -1 then begin
+    stepRZ := step;
+  end;
+
+  UBOBuffer.moveLZ += stepLZ;
+  if UBOBuffer.moveLZ > 1 then begin
+    stepLZ := -step * 1.1;
+  end;
+  if UBOBuffer.moveLZ < -1 then begin
+    stepLZ := step * 1.1;
   end;
   ogcDrawScene(Sender);
 end;

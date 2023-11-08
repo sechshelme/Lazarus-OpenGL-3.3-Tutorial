@@ -35,29 +35,21 @@ begin
   case dir of
   caLeft:begin
     Self +=[
-    m,p,p,
-    m,p,m,
-
-    p,m,m,
-    p,p,m,
-
-    m,p,p,
-    m,p,m,
-
-    p,p,p,
-    p,p,p,
-
-    p,m,m,
-    p,m,p,
-
-    m,m,m,
-    m,m,m];
-
-
-    WriteLn('left');
+    m,p,p,     m,p,m,
+    p,m,m,     p,p,m,
+    m,p,p,     m,p,m,
+    p,p,p,     p,p,p,
+    p,m,m,     p,m,p,
+    m,m,m,     m,m,m];
     end;
   caRight:begin
-    WriteLn('right');
+    Self +=[
+    p,m,m,     p,m,p,
+    m,p,p,     m,m,p,
+    p,m,m,     p,m,p,
+    m,m,m,     m,m,m,
+    m,p,p,     m,p,m,
+    p,p,p,     p,p,p];
     end;
   end;
 
