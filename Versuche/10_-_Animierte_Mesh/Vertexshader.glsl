@@ -6,8 +6,10 @@ layout (location = 1) in int inAni;
 layout (std140) uniform UBO {
   mat4x4 WorldMatrix;
   mat4x4 ModelMatrix;
-  float moveRZ;
-  float moveLZ;
+  mat2x2 moveT;
+  mat2x2 moveB;
+  mat2x2 moveR;
+  mat2x2 moveL;
 };
 
   // 0x = oben
@@ -23,11 +25,17 @@ void main(void)
 {
   vec3 ip = inPos;
 
+  if (inAni==01) {
+    ip.xz += moveT * vec2(1,0);
+  }
+  if (inAni==11) {
+    ip.xz += moveB * vec2(1,0);
+  }
   if (inAni==31) {
-    ip.z += moveRZ;
+    ip.yz += moveR * vec2(1,0);
   }
   if (inAni==51) {
-    ip.z += moveLZ;
+    ip.yz += moveL * vec2(1,0);
   }
 
   gl_Position = WorldMatrix * ModelMatrix * vec4(ip, 1.0);

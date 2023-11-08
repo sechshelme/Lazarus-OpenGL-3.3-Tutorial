@@ -51,6 +51,24 @@ begin
     m,p,p,     m,p,m,
     p,p,p,     p,p,p];
     end;
+  caTop:begin
+    Self +=[
+    p,p,p,     p,p,p,
+    m,m,m,     m,m,m,
+    m,m,p,     m,p,p,
+    m,m,p,     m,p,p,
+    m,m,p,     m,p,p,
+    p,p,p,     m,p,p];
+    end;
+  caBottom:begin
+    Self +=[
+    m,m,m,     m,m,m,
+    p,p,p,     p,p,p,
+    p,p,m,     p,m,m,
+    p,p,m,     p,m,m,
+    p,p,m,     p,m,m,
+    m,m,m,     p,m,m];
+    end;
   end;
 
 end;

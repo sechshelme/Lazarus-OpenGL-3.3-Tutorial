@@ -39,6 +39,8 @@ type
   public
     procedure Identity;
     procedure Zero;
+    procedure Rotate(w: GLfloat);
+
     procedure Uniform(ShaderID: GLint);
   end;
 
@@ -150,6 +152,19 @@ const
   m: TMat2x2 = ((0.0, 0.0), (0.0, 0.0));
 begin
   Self := m;
+end;
+
+procedure Tmat2x2Helper.Rotate(w: GLfloat);
+var
+  i: Integer;
+  x, y: GLfloat;
+begin
+  for i := 0 to 1 do begin
+    x := Self[i, 0];
+    y := Self[i, 1];
+    Self[i, 0] := x * cos(w) - y * sin(w);
+    Self[i, 1] := x * sin(w) + y * cos(w);
+  end;
 end;
 
 procedure Tmat2x2Helper.Uniform(ShaderID: GLint); inline;

@@ -44,7 +44,13 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveRZ, moveLZ: TGLfloat;
+    moveT: Tmat2x2;
+    p0: TVector4f;
+    moveB: Tmat2x2;
+    p1: TVector4f;
+    moveR: Tmat2x2;
+    p2: TVector4f;
+    moveL: Tmat2x2;
   end;
 
 var
@@ -91,10 +97,12 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-//  UBOBuffer.ModelMatrix.RotateC(pi / 2);
-//  UBOBuffer.ModelMatrix.RotateB(pi / 2);
-UBOBuffer.moveRZ := 0.0;
-UBOBuffer.moveLZ := 0.0;
+  //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
+  //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
+  UBOBuffer.moveT.Identity;
+  UBOBuffer.moveB.Identity;
+  UBOBuffer.moveR.Identity;
+  UBOBuffer.moveL.Identity;
 
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
@@ -119,7 +127,7 @@ UBOBuffer.moveLZ := 0.0;
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-// center
+  // center
   cube.AddCube(1.0, 1.0, 1.0);
   cubeAni.AddCube(caLeft, 0, 0);
 
@@ -127,17 +135,27 @@ UBOBuffer.moveLZ := 0.0;
   cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
   cubeAni.AddCube(caLeft, 0, 51);
 
-// left left
-cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
+  // left left
+  cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
   cubeAni.AddCube(caLeft, 51, 51);
 
   // right
   cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
   cubeAni.AddCube(caRight, 0, 31);
 
-// right right
-cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
+  // right right
+  cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
   cubeAni.AddCube(caRight, 31, 31);
+
+  // top
+  cube.AddCube(0.5, 1.0, 0.5, 0, 1, 0);
+  cubeAni.AddCube(caTop, 0, 01);
+
+  // top top
+  cube.AddCube(0.5, 1.0, 0.5, 0, 2, 0);
+  cubeAni.AddCube(caTop, 01, 01);
+
+
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -189,7 +207,7 @@ var
 begin
   wm.Identity;
   wm.Translate(0, 0, -15);
- wm.RotateA(0.3);
+  wm.RotateA(0.3);
   perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 100.0);
 
   UBOBuffer.WorldMatrix := perm * wm;
@@ -197,27 +215,17 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step=0.05;
+  step = 0.05;
   stepRZ: TGLfloat = step;
   stepLZ: TGLfloat = step * 1.1;
 
 begin
   //  UBOBuffer.ModelMatrix.RotateB(0.12);
-  UBOBuffer.moveRZ += stepRZ;
-  if UBOBuffer.moveRZ > 1 then begin
-    stepRZ := -step;
-  end;
-  if UBOBuffer.moveRZ < -1 then begin
-    stepRZ := step;
-  end;
+  UBOBuffer.moveT.Rotate(0.11);
+  UBOBuffer.moveB.Rotate(0.13);
+  UBOBuffer.moveR.Rotate(0.10);
+  UBOBuffer.moveL.Rotate(0.12);
 
-  UBOBuffer.moveLZ += stepLZ;
-  if UBOBuffer.moveLZ > 1 then begin
-    stepLZ := -step * 1.1;
-  end;
-  if UBOBuffer.moveLZ < -1 then begin
-    stepLZ := step * 1.1;
-  end;
   ogcDrawScene(Sender);
 end;
 
