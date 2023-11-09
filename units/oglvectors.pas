@@ -1,7 +1,7 @@
 unit oglVectors;
 
-{$modeswitch typehelpers}
-{$modeswitch arrayoperators}
+{$modeswitch typehelpers on}
+{$modeswitch arrayoperators on}
 //{$modeswitch multihelpers}
 
 interface
@@ -61,6 +61,7 @@ type
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCubeNormale;
+    procedure AddCubeColor(col: TVector3f);
 
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
@@ -218,29 +219,29 @@ begin
   h2 := h / 2;
   d2 := d / 2;
   Self += [
-  // vorn
-  -w2 + x, -h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
-  -w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
+    // vorn
+    -w2 + x, -h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
+    -w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
 
-  // hinten
-  w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
-  w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
+    // hinten
+    w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
+    w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
 
-  // unten
-  -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
-  -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z, -w2 + x, -h2 + y, d2 + z,
+    // unten
+    -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
+    -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z, -w2 + x, -h2 + y, d2 + z,
 
-  // rechts
-  w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z,
-  w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z,
+    // rechts
+    w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z,
+    w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z,
 
-  // oben
-  w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z,
-  w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
+    // oben
+    w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z,
+    w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
 
-  // links
-  -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z,
-  -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z];
+    // links
+    -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z,
+    -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z];
 end;
 
 procedure TVectors3fHelper.AddCubeNormale;
@@ -258,6 +259,20 @@ begin
     0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
     // links
     0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0];
+end;
+
+procedure TVectors3fHelper.AddCubeColor(col: TVector3f);
+var
+  i: integer;
+    v: TVector3f = (0.5, 0.5, 0.5);
+
+begin
+//  self += [v,v,v,v];
+
+
+  for i := 0 to 35 do begin
+    Self += [col];
+  end;
 end;
 
 procedure TVectors3fHelper.Scale(AScale: TGLfloat); inline;
