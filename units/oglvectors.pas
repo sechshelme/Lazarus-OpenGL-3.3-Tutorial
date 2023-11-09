@@ -264,12 +264,7 @@ end;
 procedure TVectors3fHelper.AddCubeColor(col: TVector3f);
 var
   i: integer;
-    v: TVector3f = (0.5, 0.5, 0.5);
-
 begin
-//  self += [v,v,v,v];
-
-
   for i := 0 to 35 do begin
     Self += [col];
   end;

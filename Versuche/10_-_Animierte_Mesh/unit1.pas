@@ -103,6 +103,7 @@ begin
   //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
     UBOBuffer.moveJoints[i].mat0.Identity;
+    UBOBuffer.moveJoints[i].mat1.Identity;
   end;
 
   glGenBuffers(1, @UBO);
@@ -122,7 +123,7 @@ begin
   glEnable(GL_CULL_FACE);   // Überprüfung einschalten
   glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
 
-  glClearColor(0.6, 0.6, 0.4, 1.0);
+  glClearColor(0.15, 0.15, 0.05, 1.0);
 
   // --- Daten für den Würfel
   glGenVertexArrays(1, @VBQuad.VAO);
@@ -141,7 +142,7 @@ begin
   // far far
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, 2);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdFar, 1, 1);
+  cubeAni.AddCube(jdFar, 01, 02);
 
   // near
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, -1);
@@ -151,7 +152,7 @@ begin
   // near near
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, -2);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdNear, 11, 11);
+  cubeAni.AddCube(jdNear, 11, 12);
 
   // bottom
   cube.AddCube(0.5, 1.0, 0.5, 0, -1, 0);
@@ -161,7 +162,7 @@ begin
   // bottom bottom
   cube.AddCube(0.5, 1.0, 0.5, 0, -2, 0);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdBottom, 21, 21);
+  cubeAni.AddCube(jdBottom, 21, 22);
 
   // right
   cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
@@ -171,7 +172,7 @@ begin
   // right right
   cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdRight, 31, 31);
+  cubeAni.AddCube(jdRight, 31, 32);
 
   // top
   cube.AddCube(0.5, 1.0, 0.5, 0, 1, 0);
@@ -181,7 +182,7 @@ begin
   // top top
   cube.AddCube(0.5, 1.0, 0.5, 0, 2, 0);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdTop, 41, 41);
+  cubeAni.AddCube(jdTop, 41, 42);
 
   // left
   cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
@@ -191,7 +192,7 @@ begin
   // left left
   cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
   cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeAni.AddCube(jdLeft, 51, 51);
+  cubeAni.AddCube(jdLeft, 51, 52);
 
   WriteLn('len vert: ', cube.Size);
   WriteLn('len col: ', cubeColor.Size);
@@ -255,7 +256,7 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -15);
+  wm.Translate(0, 0, -20);
   wm.RotateA(0.3);
   perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 100.0);
 
@@ -271,15 +272,9 @@ var
 begin
   UBOBuffer.ModelMatrix.RotateB(0.0012);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    UBOBuffer.moveJoints[i].mat0.Rotate(step * (1 + (i * 0.2)));
+   UBOBuffer.moveJoints[i].mat0.Rotate(step * (1 + (i+1 * 2.2)));
+   UBOBuffer.moveJoints[i].mat1.Rotate(step * (1 + (i+1 * 1.3)));
   end;
-
-  //UBOBuffer.moveF.Rotate(step*1.1);
-  //UBOBuffer.moveN.Rotate(step*1.2);
-  //UBOBuffer.moveT.Rotate(step*1.3);
-  //UBOBuffer.moveB.Rotate(step*1.4);
-  //UBOBuffer.moveR.Rotate(step*1.5);
-  //UBOBuffer.moveL.Rotate(step*1.6);
 
   ogcDrawScene(Sender);
 end;
