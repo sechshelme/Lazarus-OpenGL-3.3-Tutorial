@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls, ComCtrls, StdCtrls,
   dglOpenGL, oglDebug,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix,
-  CubeHelp;
+  CubeJoints;
 
   //image image.png
   //lineal
@@ -59,7 +59,7 @@ type
 
 var
   cube: TVectors3f = nil;
-  cubeAni: TCubeAnimate = nil;
+  cubeAni: TJointIDs = nil;
 
 type
   TVB = record
@@ -135,55 +135,55 @@ begin
 
   // center
   cube.AddCube(1.0, 1.0, 1.0);
-  cubeAni.AddCube(caLeft, 0, 0);
+  cubeAni.AddCube(jdLeft, 0, 0);
 
   // far
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-  cubeAni.AddCube(caFar, 0, 01);
+  cubeAni.AddCube(jdFar, 0, 01);
 
   // far far
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, 2);
-  cubeAni.AddCube(caFar, 1, 1);
+  cubeAni.AddCube(jdFar, 1, 1);
 
   // near
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, -1);
-  cubeAni.AddCube(caNear, 0, 11);
+  cubeAni.AddCube(jdNear, 0, 11);
 
   // near near
   cube.AddCube(0.5, 0.5, 1.0, 0, 0, -2);
-  cubeAni.AddCube(caNear, 11, 11);
+  cubeAni.AddCube(jdNear, 11, 11);
 
   // bottom
   cube.AddCube(0.5, 1.0, 0.5, 0, -1, 0);
-  cubeAni.AddCube(caBottom, 0, 21);
+  cubeAni.AddCube(jdBottom, 0, 21);
 
   // bottom bottom
   cube.AddCube(0.5, 1.0, 0.5, 0, -2, 0);
-  cubeAni.AddCube(caBottom, 21, 21);
+  cubeAni.AddCube(jdBottom, 21, 21);
 
   // right
   cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
-  cubeAni.AddCube(caRight, 0, 31);
+  cubeAni.AddCube(jdRight, 0, 31);
 
   // right right
   cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
-  cubeAni.AddCube(caRight, 31, 31);
+  cubeAni.AddCube(jdRight, 31, 31);
 
   // top
   cube.AddCube(0.5, 1.0, 0.5, 0, 1, 0);
-  cubeAni.AddCube(caTop, 0, 41);
+  cubeAni.AddCube(jdTop, 0, 41);
 
   // top top
   cube.AddCube(0.5, 1.0, 0.5, 0, 2, 0);
-  cubeAni.AddCube(caTop, 41, 41);
+  cubeAni.AddCube(jdTop, 41, 41);
 
   // left
   cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
-  cubeAni.AddCube(caLeft, 0, 51);
+  cubeAni.AddCube(jdLeft, 0, 51);
 
   // left left
   cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
-  cubeAni.AddCube(caLeft, 51, 51);
+  cubeAni.AddCube(jdLeft, 51, 51);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -246,7 +246,7 @@ const
   step = 0.02;
 
 begin
-  //  UBOBuffer.ModelMatrix.RotateB(0.12);
+    UBOBuffer.ModelMatrix.RotateB(0.0012);
   UBOBuffer.moveF.Rotate(step*1.1);
   UBOBuffer.moveN.Rotate(step*1.2);
   UBOBuffer.moveT.Rotate(step*1.3);

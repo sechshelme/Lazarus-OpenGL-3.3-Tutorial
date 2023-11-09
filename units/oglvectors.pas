@@ -2,6 +2,7 @@ unit oglVectors;
 
 {$modeswitch typehelpers}
 {$modeswitch arrayoperators}
+//{$modeswitch multihelpers}
 
 interface
 
@@ -14,6 +15,13 @@ type
 
   TVectors2f = type TGlfloats;
   TVectors3f = type TGlfloats;
+
+  { Tglints }
+
+  TglintsHelper = type Helper for Tglints
+    function Size: TGLsizei;
+    function Ptr: TGLvoid;
+  end;
 
   { TGlfloatsHelper }
 
@@ -66,6 +74,18 @@ type
   end;
 
 implementation
+
+{ Tglints }
+
+function TglintsHelper.Size: TGLsizei;
+begin
+  Result := Length(Self) * SizeOf(TGLint);
+end;
+
+function TglintsHelper.Ptr: TGLvoid;
+begin
+  Result := TGLvoid(Self);
+end;
 
 { TGlfloatsHelper }
 

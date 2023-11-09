@@ -59,9 +59,9 @@
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
-        <Filename Value="cubehelp.pas"/>
+        <Filename Value="cubejoints.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="CubeHelp"/>
+        <UnitName Value="CubeJoints"/>
       </Unit3>
     </Units>
   </ProjectOptions>
