@@ -96,7 +96,8 @@ type
     procedure RotateC(Winkel: GLfloat);
     procedure Scale(Ax, Ay, Az: GLfloat);
     procedure Scale(s: GLfloat);
-    procedure Translate(Ax, Ay, Az: GLfloat);
+    procedure Translate(Ax, Ay, Az: GLfloat); overload;
+    procedure Translate(Atranslate: TVector3f); overload;
     procedure Normalize;
     procedure Negate;
     procedure Cross(const v0, v1: TVector3f); overload;
@@ -423,6 +424,11 @@ begin
   Self[0] += Ax;
   Self[1] += Ay;
   Self[2] += Az;
+end;
+
+procedure TVector3fHelper.Translate(Atranslate: TVector3f); inline;
+begin
+  Self += Atranslate;
 end;
 
 procedure TVector3fHelper.Normalize;

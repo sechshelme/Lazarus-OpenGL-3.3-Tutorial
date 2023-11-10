@@ -58,6 +58,7 @@ type
   public
     procedure Add(x, y, z: TGLfloat); overload;
     procedure Add(const v: TVector3f); overload;
+    procedure Add(const v: TVectors3f); overload;
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCubeNormale;
@@ -66,6 +67,9 @@ type
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
     procedure Translate(const ATranslate: TVector3f);
+    procedure RotateA(angele: TGLfloat);
+    procedure RotateB(angele: TGLfloat);
+    procedure RotateC(angele: TGLfloat);
 
     function Count: TGLint;
 
@@ -200,6 +204,11 @@ begin
   Self += [v];
 end;
 
+procedure TVectors3fHelper.Add(const v: TVectors3f);
+begin
+  Self += v;
+end;
+
 procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
 var
   w2, h2: TGLfloat;
@@ -297,15 +306,43 @@ end;
 procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
 var
   i: integer;
-  p: SizeInt = 0;
+  p:Integer=0;
 begin
   for i := 0 to Length(Self) div 3 - 1 do begin
+//    PVector3f(@Self[i * 3])^.Translate(ATranslate);
     Self[p] += ATranslate.x;
     Inc(p);
     Self[p] += ATranslate.y;
     Inc(p);
     Self[p] += ATranslate.z;
     Inc(p);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateA(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateA(angele);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateB(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateB(angele);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateC(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateC(angele);
   end;
 end;
 

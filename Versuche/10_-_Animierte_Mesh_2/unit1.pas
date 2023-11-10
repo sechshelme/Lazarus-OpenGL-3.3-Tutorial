@@ -46,23 +46,23 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveJoints: array [0..5] of record
-      mat0: Tmat2x2;
-        p0:TVector4f;
-        mat1: Tmat2x2;
-        p1:TVector4f;
+    moveJoints: array [0..5,0..1] of record
+      mat: Tmat2x2;
+      p0: TVector4f;
+//      mat1: Tmat2x2;
+//      p1: TVector4f;
       end;
   end;
 
 var
   cube: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
-  cubeJoint: TJointIDs = nil;
+  cubeAni: TJointIDs = nil;
 
 type
   TVB = record
     VAO,
-    VBO,VBOColor, VBOAni: GLuint;
+    VBO, VBOColor, VBOAni: GLuint;
   end;
 
 var
@@ -85,7 +85,8 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  i: integer;
+  i, j: integer;
+  tmpCube: TVectors3f;
 begin
   InitOpenGLDebug;
 
@@ -102,8 +103,8 @@ begin
   //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
   //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    UBOBuffer.moveJoints[i].mat0.Identity;
-    UBOBuffer.moveJoints[i].mat1.Identity;
+    for j:=0 to Length(UBOBuffer.moveJoints[0])- 1 do
+    UBOBuffer.moveJoints[i,j].mat.Identity;
   end;
 
   glGenBuffers(1, @UBO);
@@ -131,72 +132,36 @@ begin
 
   // center
   cube.AddCube(1.0, 1.0, 1.0);
-  cubeColor.AddCubeColor([0.5,0.5,0.1]);
-  cubeJoint.AddCube(jdLeft, 0, 0);
+  cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
+  cubeAni.AddCube(0, 0);
 
-  // far
-  cube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdFar, 0, 01);
+  // Arme
+  for i := 0 to 1 do begin
+    for j := 0 to 5 do begin
+      tmpCube := nil;
+      tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
+      tmpCube.Translate([0, 0, i]);
+      case j of
+        0..3: begin
+          tmpCube.RotateB(pi / 2 * j);
+        end;
+        4: begin
+          tmpCube.RotateA(pi / 2);
+        end;
+        5: begin
+          tmpCube.RotateA(-pi / 2);
+        end;
+      end;
 
-  // far far
-  cube.AddCube(0.5, 0.5, 1.0, 0, 0, 2);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdFar, 01, 02);
-
-  // near
-  cube.AddCube(0.5, 0.5, 1.0, 0, 0, -1);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdNear, 0, 11);
-
-  // near near
-  cube.AddCube(0.5, 0.5, 1.0, 0, 0, -2);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdNear, 11, 12);
-
-  // bottom
-  cube.AddCube(0.5, 1.0, 0.5, 0, -1, 0);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdBottom, 0, 21);
-
-  // bottom bottom
-  cube.AddCube(0.5, 1.0, 0.5, 0, -2, 0);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdBottom, 21, 22);
-
-  // right
-  cube.AddCube(1.0, 0.5, 0.5, 1, 0, 0);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdRight, 0, 31);
-
-  // right right
-  cube.AddCube(1.0, 0.5, 0.5, 2, 0, 0);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdRight, 31, 32);
-
-  // top
-  cube.AddCube(0.5, 1.0, 0.5, 0, 1, 0);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdTop, 0, 41);
-
-  // top top
-  cube.AddCube(0.5, 1.0, 0.5, 0, 2, 0);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdTop, 41, 42);
-
-  // left
-  cube.AddCube(1.0, 0.5, 0.5, -1, 0, 0);
-  cubeColor.AddCubeColor([0.5,0.1,0.1]);
-  cubeJoint.AddCube(jdLeft, 0, 51);
-
-  // left left
-  cube.AddCube(1.0, 0.5, 0.5, -2, 0, 0);
-  cubeColor.AddCubeColor([0.1,0.1,0.5]);
-  cubeJoint.AddCube(jdLeft, 51, 52);
+      cube.Add(tmpCube);
+      cubeColor.AddCubeColor([i, 1 - i, 0.1]);
+      cubeAni.AddCube( (j * 10) + i, (j * 10) + (i + 1));
+    end;
+  end;
 
   WriteLn('len vert: ', cube.Size);
   WriteLn('len col: ', cubeColor.Size);
-  WriteLn('len joints: ', cubeJoint.Size);
+  WriteLn('len joints: ', cubeAni.Size);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -220,7 +185,7 @@ begin
   // https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
-  glBufferData(GL_ARRAY_BUFFER, cubeJoint.Size, cubeJoint.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, cubeAni.Size, cubeAni.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
 end;
@@ -267,13 +232,13 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step = 0.02;
 var
-  i: integer;
+  i,j: integer;
 
 begin
   UBOBuffer.ModelMatrix.RotateB(0.0012);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-   UBOBuffer.moveJoints[i].mat0.Rotate(step * (1 + (i+1 * 2.2)));
-   UBOBuffer.moveJoints[i].mat1.Rotate(step * (1 + (i+1 * 1.3)));
+    for j:=0 to Length(UBOBuffer.moveJoints[0])-1 do
+    UBOBuffer.moveJoints[i,j].mat.Rotate(step * (1 + (i+j + 1 * 2.2)));
   end;
 
   ogcDrawScene(Sender);
