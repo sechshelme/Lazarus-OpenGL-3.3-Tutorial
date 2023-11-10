@@ -42,15 +42,16 @@ implementation
 
 {$PACKRECORDS 32}
 
+const
+  jointCount = 6;
+
 type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveJoints: array [0..5,0..1] of record
+    moveJoints: array [0..5, 0..jointCount - 1] of record
       mat: Tmat2x2;
-      p0: TVector4f;
-//      mat1: Tmat2x2;
-//      p1: TVector4f;
+      p: TVector4f;
       end;
   end;
 
@@ -103,8 +104,9 @@ begin
   //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
   //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j:=0 to Length(UBOBuffer.moveJoints[0])- 1 do
-    UBOBuffer.moveJoints[i,j].mat.Identity;
+    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
+      UBOBuffer.moveJoints[i, j].mat.Identity;
+    end;
   end;
 
   glGenBuffers(1, @UBO);
@@ -136,7 +138,7 @@ begin
   cubeAni.AddCube(0, 0);
 
   // Arme
-  for i := 0 to 1 do begin
+  for i := 0 to jointCount - 1 do begin
     for j := 0 to 5 do begin
       tmpCube := nil;
       tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
@@ -154,8 +156,27 @@ begin
       end;
 
       cube.Add(tmpCube);
-      cubeColor.AddCubeColor([i, 1 - i, 0.1]);
-      cubeAni.AddCube( (j * 10) + i, (j * 10) + (i + 1));
+      case i of
+        0: begin
+          cubeColor.AddCubeColor([1, 0, 0]);
+        end;
+        1: begin
+          cubeColor.AddCubeColor([0, 1, 0]);
+        end;
+        2: begin
+          cubeColor.AddCubeColor([0, 0, 1]);
+        end;
+        3: begin
+          cubeColor.AddCubeColor([1, 1, 0]);
+        end;
+        4: begin
+          cubeColor.AddCubeColor([1, 0, 1]);
+        end;
+        else begin
+          cubeColor.AddCubeColor([0, 1, 1]);
+        end;
+      end;
+      cubeAni.AddCube((j * 10) + i, (j * 10) + (i + 1));
     end;
   end;
 
@@ -221,7 +242,7 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -20);
+  wm.Translate(0, 0, -40);
   wm.RotateA(0.3);
   perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 100.0);
 
@@ -230,15 +251,16 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step = 0.02;
+  step = 0.005;
 var
-  i,j: integer;
+  i, j: integer;
 
 begin
   UBOBuffer.ModelMatrix.RotateB(0.0012);
   for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j:=0 to Length(UBOBuffer.moveJoints[0])-1 do
-    UBOBuffer.moveJoints[i,j].mat.Rotate(step * (1 + (i+j + 1 * 2.2)));
+    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
+      UBOBuffer.moveJoints[i, j].mat.Rotate(step * (1 + (i + 1 * 2.2 *  Random * 4)));
+    end;
   end;
 
   ogcDrawScene(Sender);
