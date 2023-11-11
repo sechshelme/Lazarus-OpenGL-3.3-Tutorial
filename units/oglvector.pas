@@ -17,6 +17,7 @@ type
 
   TVector3f = array[0..2] of GLfloat;
   PVector3f = ^TVector3f;
+  PPVector3f = ^PVector3f;
 
   TVector4f = array[0..3] of GLfloat;
   PVector4f = ^TVector4f;
@@ -44,7 +45,6 @@ type
 
   TFace3DArray = array of TFace3D;
   PFace3DArray = ^TFace3DArray;
-
 
   { TVector2fHelper }
 
@@ -146,6 +146,18 @@ type
 
     procedure Uniform(ShaderID: GLint);
   end;
+
+const
+  {$push,}{$J-}
+  vec3black: TVector3f = (0.0, 0.0, 0.0);
+  vec3blue: TVector3f = (0.0, 0.0, 1.0);
+  vec3green: TVector3f = (0.0, 1.0, 0.0);
+  vec3cyan: TVector3f = (0.0, 1.0, 1.0);
+  vec3red: TVector3f = (1.0, 0.0, 0.0);
+  vec3magenta: TVector3f = (1.0, 0.0, 1.0);
+  vec3yellow: TVector3f = (1.0, 1.0, 0.0);
+  vec3white: TVector3f = (1.0, 1.0, 1.0);
+{$J+}{$pop}
 
   // --- GLSL Ähnliches
 

@@ -23,15 +23,10 @@ type
     function Ptr: TGLvoid;
   end;
 
-  { TGlfloatsHelper }
-
   TGlfloatsHelper = type Helper for TGlfloats
     function Size: TGLsizei;
     function Ptr: TGLvoid;
   end;
-
-
-  { TVectors2fHelper }
 
   TVectors2fHelper = type Helper (TGlfloatsHelper) for TVectors2f
   public
@@ -50,9 +45,6 @@ type
     procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
     procedure AddFace2DArray(const Face: array of TFace2D);
   end;
-
-
-  { TVectors3fHelper }
 
   TVectors3fHelper = type Helper(TGlfloatsHelper) for TVectors3f
   public

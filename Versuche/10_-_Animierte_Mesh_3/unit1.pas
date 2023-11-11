@@ -49,7 +49,7 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    JointMatrix: array [0..63] of Tmat4x4;
+    JointMatrix: array [0..jointCount * 6 + 1] of Tmat4x4;
   end;
 
 var
@@ -58,7 +58,7 @@ var
 var
   cube: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
-  cubeAni: TJointIDs = nil;
+  cubeJointIDs: TJointIDs = nil;
 
 type
   TVB = record
@@ -88,6 +88,8 @@ procedure TForm1.CreateScene;
 var
   i, j: integer;
   tmpCube: TVectors3f;
+const
+  colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 begin
   InitOpenGLDebug;
 
@@ -135,7 +137,7 @@ begin
   // center
   cube.AddCube(1.0, 1.0, 1.0);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
-  cubeAni.AddCube(0, 0);
+  cubeJointIDs.AddCube(0, 0);
 
   // Arme
   for j := 0 to 5 do begin
@@ -156,38 +158,14 @@ begin
       end;
 
       cube.Add(tmpCube);
-      case i of
-        0: begin
-          cubeColor.AddCubeColor([1, 0, 0]);
-        end;
-        1: begin
-          cubeColor.AddCubeColor([0, 1, 0]);
-        end;
-        2: begin
-          cubeColor.AddCubeColor([0, 0, 1]);
-        end;
-        3: begin
-          cubeColor.AddCubeColor([1, 1, 0]);
-        end;
-        4: begin
-          cubeColor.AddCubeColor([1, 0, 1]);
-        end;
-        else begin
-          cubeColor.AddCubeColor([0, 1, 1]);
-        end;
-      end;
+      cubeColor.AddCubeColor(colors[i mod Length(colors)]^);
       if i = 0 then  begin
-        cubeAni.AddCube(0, j * 6 + i + 1);
+        cubeJointIDs.AddCube(0, j * 6 + i + 1);
       end else begin
-        cubeAni.AddCube(j * 6 + i, j * 6 + i + 1);
+        cubeJointIDs.AddCube(j * 6 + i, j * 6 + i + 1);
       end;
-      //      cubeAni.AddCube((j * 10) + i, (j * 10) + (i + 1));
     end;
   end;
-
-  WriteLn('len vert: ', cube.Size);
-  WriteLn('len col: ', cubeColor.Size);
-  WriteLn('len joints: ', cubeAni.Size);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -211,7 +189,7 @@ begin
   // https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
-  glBufferData(GL_ARRAY_BUFFER, cubeAni.Size, cubeAni.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
 end;
@@ -271,7 +249,7 @@ begin
 
   for j := 0 to 5 do begin
     for i := 0 to jointCount - 1 do begin
-      moveJoints[j, i].Rotate(step * (1 + (i + 1 * 2.2)));
+      moveJoints[j, i].Rotate(step * (1 + (i + j + 1 * 2.2)));
       v := [1, 0];
       v := moveJoints[j, i] * v;
 
