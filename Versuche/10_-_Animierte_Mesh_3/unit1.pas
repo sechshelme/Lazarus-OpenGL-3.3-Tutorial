@@ -50,11 +50,10 @@ type
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
     JointMatrix: array [0..63] of Tmat4x4;
-    moveJoints: array [0..5, 0..jointCount - 1] of record
-      mat: Tmat2x2;
-      p: TVector4f;
-      end;
   end;
+
+var
+  moveJoints: array [0..5, 0..jointCount - 1] of Tmat2x2;
 
 var
   cube: TVectors3f = nil;
@@ -104,9 +103,9 @@ begin
   UBOBuffer.ModelMatrix.Scale(1.5);
   //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
   //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
-  for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
-      UBOBuffer.moveJoints[i, j].mat.Identity;
+  for j := 0 to 5 do begin
+    for i := 0 to jointCount - 1 do begin
+      moveJoints[j, i].Identity;
     end;
   end;
 
@@ -260,7 +259,8 @@ const
   step = 0.005;
 var
   i, j: integer;
-  v:TVector2f;
+  v: TVector2f;
+  pm: Pmat4x4;
 
 begin
   for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
@@ -268,22 +268,36 @@ begin
   end;
 
   UBOBuffer.ModelMatrix.RotateB(0.0012);
+
   for j := 0 to 5 do begin
-    for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-      UBOBuffer.moveJoints[i, j].mat.Rotate(step * (1 + (i + 1 * 2.2 * Random * 4)));
-      v:=[1,0];
-      v:=UBOBuffer.moveJoints[i, j].mat * v;
+    for i := 0 to jointCount - 1 do begin
+      moveJoints[j, i].Rotate(step * (1 + (i + 1 * 2.2)));
+      v := [1, 0];
+      v := moveJoints[j, i] * v;
+
+      pm := @UBOBuffer.JointMatrix[j * 6 + i + 1];
+      pm^.Translate(0.1, 0, 0);
 
       case j of
-        0:  UBOBuffer.JointMatrix[j*6+i+1].Translate(v.x,v.y,0);
-        1:  UBOBuffer.JointMatrix[j*6+i+1].Translate(0, v.x,v.y);
-        2:  UBOBuffer.JointMatrix[j*6+i+1].Translate(v.x,v.y,0);
-        3:  UBOBuffer.JointMatrix[j*6+i+1].Translate(0, v.x,v.y);
-        4:  UBOBuffer.JointMatrix[j*6+i+1].Translate( v.x,0,v.y);
-        5:  UBOBuffer.JointMatrix[j*6+i+1].Translate( v.x,0,v.y);
+        0: begin
+          pm^.Translate(v.x, v.y, 0);
+        end;
+        1: begin
+          pm^.Translate(0, v.x, v.y);
+        end;
+        2: begin
+          pm^.Translate(v.x, v.y, 0);
+        end;
+        3: begin
+          pm^.Translate(0, v.x, v.y);
+        end;
+        4: begin
+          pm^.Translate(v.x, 0, v.y);
+        end;
+        5: begin
+          pm^.Translate(v.x, 0, v.y);
+        end;
       end;
-
-
     end;
   end;
 

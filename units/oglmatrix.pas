@@ -422,9 +422,7 @@ begin
   Rotate(Winkel, a[0], a[1], a[2]);
 end;
 
-procedure Tmat4x4Helper.Translate(x, y, z: GLfloat); inline;
-var
-  i: integer;
+procedure Tmat4x4Helper.Translate(x, y, z: GLfloat); //inline;
 begin
   Self[3, 0] += x;
   Self[3, 1] += y;
