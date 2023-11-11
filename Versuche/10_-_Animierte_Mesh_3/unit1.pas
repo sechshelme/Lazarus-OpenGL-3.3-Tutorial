@@ -49,6 +49,7 @@ type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
+    JointMatrix: array [0..63] of Tmat4x4;
     moveJoints: array [0..5, 0..jointCount - 1] of record
       mat: Tmat2x2;
       p: TVector4f;
@@ -139,7 +140,7 @@ begin
 
   // Arme
   for j := 0 to 5 do begin
-  for i := 0 to jointCount - 1 do begin
+    for i := 0 to jointCount - 1 do begin
       tmpCube := nil;
       tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
       tmpCube.Translate([0, 0, i]);
@@ -176,7 +177,12 @@ begin
           cubeColor.AddCubeColor([0, 1, 1]);
         end;
       end;
-      cubeAni.AddCube((j * 10) + i, (j * 10) + (i + 1));
+      if i = 0 then  begin
+        cubeAni.AddCube(0, j * 6 + i + 1);
+      end else begin
+        cubeAni.AddCube(j * 6 + i, j * 6 + i + 1);
+      end;
+      //      cubeAni.AddCube((j * 10) + i, (j * 10) + (i + 1));
     end;
   end;
 
@@ -254,12 +260,30 @@ const
   step = 0.005;
 var
   i, j: integer;
+  v:TVector2f;
 
 begin
+  for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
+    UBOBuffer.JointMatrix[i].Identity;
+  end;
+
   UBOBuffer.ModelMatrix.RotateB(0.0012);
-  for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
-      UBOBuffer.moveJoints[i, j].mat.Rotate(step * (1 + (i + 1 * 2.2 *  Random * 4)));
+  for j := 0 to 5 do begin
+    for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
+      UBOBuffer.moveJoints[i, j].mat.Rotate(step * (1 + (i + 1 * 2.2 * Random * 4)));
+      v:=[1,0];
+      v:=UBOBuffer.moveJoints[i, j].mat * v;
+
+      case j of
+        0:  UBOBuffer.JointMatrix[j*6+i+1].Translate(v.x,v.y,0);
+        1:  UBOBuffer.JointMatrix[j*6+i+1].Translate(0, v.x,v.y);
+        2:  UBOBuffer.JointMatrix[j*6+i+1].Translate(v.x,v.y,0);
+        3:  UBOBuffer.JointMatrix[j*6+i+1].Translate(0, v.x,v.y);
+        4:  UBOBuffer.JointMatrix[j*6+i+1].Translate( v.x,0,v.y);
+        5:  UBOBuffer.JointMatrix[j*6+i+1].Translate( v.x,0,v.y);
+      end;
+
+
     end;
   end;
 
