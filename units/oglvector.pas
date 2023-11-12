@@ -498,7 +498,7 @@ begin
   Result += s;
 end;
 
-procedure TVector3fHelper.Uniform(ShaderID: GLint); inline;
+procedure TVector3fHelper.Uniform(ShaderID: GLint); //inline;
 begin
   glUniform3fv(ShaderID, 1, @Self);
 end;
