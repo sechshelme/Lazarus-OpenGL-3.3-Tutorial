@@ -82,9 +82,9 @@ type
     procedure Zero;
 
     procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
-//    FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
+    //    FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
     procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
-//    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
+    //    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
     procedure Scale(Faktor: GLfloat); overload;
@@ -95,6 +95,9 @@ type
     procedure TranslateY(y: GLfloat);
     procedure TranslateZ(z: GLfloat);
     procedure TranslateLocalspace(x, y, z: GLfloat);     // Localspace Translation
+    procedure TranslateLocalspaceX(x: GLfloat);
+    procedure TranslateLocalspaceY(y: GLfloat);
+    procedure TranslateLocalspaceZ(z: GLfloat);
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);
@@ -156,7 +159,7 @@ end;
 
 procedure Tmat2x2Helper.Rotate(w: GLfloat);
 var
-  i: Integer;
+  i: integer;
   x, y: GLfloat;
 begin
   for i := 0 to 1 do begin
@@ -457,6 +460,33 @@ var
 begin
   for i := 0 to 3 do begin
     Self[3, i] += Self[0, i] * x + Self[1, i] * y + Self[2, i] * z;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceX(x: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[0, i] * x;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceY(y: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[1, i] * y;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceZ(z: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[2, i] * z;
   end;
 end;
 
