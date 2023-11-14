@@ -28,16 +28,22 @@ type
     function Ptr: TGLvoid;
   end;
 
+  { TVectors2fHelper }
+
   TVectors2fHelper = type Helper (TGlfloatsHelper) for TVectors2f
   public
     procedure Add(x, y: TGLfloat); overload;
     procedure Add(const v: TVector2f); overload;
+    procedure Add(const v: TVectors2f); overload;
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0);
+
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
 
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector2f); overload;
+    procedure Translate(const ATranslate: TVector2f);
+    procedure Rotate(angele: TGLfloat);
 
     function Count: TGLint;
 
@@ -52,6 +58,7 @@ type
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
     procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
+    procedure AddRectangleColor(col: TVector3f);
     procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
     procedure AddCubeNormale;
     procedure AddCubeColor(col: TVector3f);
@@ -108,6 +115,11 @@ begin
   Self += [v];
 end;
 
+procedure TVectors2fHelper.Add(const v: TVectors2f);
+begin
+  Self += v;
+end;
+
 procedure TVectors2fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat);
 begin
   Self += [
@@ -151,6 +163,29 @@ begin
     Inc(p);
     Self[p] *= AScale.y;
     Inc(p);
+  end;
+end;
+
+procedure TVectors2fHelper.Translate(const ATranslate: TVector2f);
+var
+  i: Integer;
+  p: SizeInt = 0;
+begin
+  for i := 0 to Length(Self) div 2 - 1 do begin
+//    PVector3f(@Self[i * 3])^.Translate(ATranslate);
+    Self[p] += ATranslate.x;
+    Inc(p);
+    Self[p] += ATranslate.y;
+    Inc(p);
+  end;
+end;
+
+procedure TVectors2fHelper.Rotate(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 2 - 1 do begin
+    PVector3f(@Self[i * 2])^.RotateC(angele);
   end;
 end;
 
@@ -210,6 +245,15 @@ begin
   Self += [
     -w2 + x, -h2 + y, z, w2 + x, -h2 + y, z, w2 + x, h2 + y, z,
     -w2 + x, -h2 + y, z, w2 + x, h2 + y, z, -w2 + x, h2 + y, z];
+end;
+
+procedure TVectors3fHelper.AddRectangleColor(col: TVector3f);
+var
+  i: integer;
+begin
+  for i := 0 to 5 do begin
+    Self += [col];
+  end;
 end;
 
 procedure TVectors3fHelper.AddCube(w, h, d: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);

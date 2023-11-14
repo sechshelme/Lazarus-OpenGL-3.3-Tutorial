@@ -101,12 +101,6 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-  for j := 0 to 5 do begin
-    for i := 0 to jointCount - 1 do begin
-      moveJoints[j, i].Identity;
-    end;
-  end;
-
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
@@ -117,7 +111,11 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-
+  for j := 0 to 5 do begin
+    for i := 0 to jointCount - 1 do begin
+      moveJoints[j, i].Identity;
+    end;
+  end;
   Timer1.Enabled := True;
   glEnable(GL_DEPTH_TEST);
 

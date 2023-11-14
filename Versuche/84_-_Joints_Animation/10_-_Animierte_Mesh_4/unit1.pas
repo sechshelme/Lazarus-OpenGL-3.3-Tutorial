@@ -101,10 +101,6 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-  for i := 0 to Length(moveJoints) - 1 do begin
-    moveJoints[i].Identity;
-  end;
-
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
@@ -115,6 +111,9 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
+  for i := 0 to Length(moveJoints) - 1 do begin
+    moveJoints[i].Identity;
+  end;
 
   Timer1.Enabled := True;
   glEnable(GL_DEPTH_TEST);
@@ -226,21 +225,27 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
-  i: integer;
+  i, j: integer;
   v: TVector2f;
   pm: Pmat4x4;
 
 begin
-  for i := 0 to Length(moveJoints) - 1 do begin
-    UBOBuffer.JointMatrix[i].Identity;
-  end;
-
   UBOBuffer.ModelMatrix.RotateB(0.012);
 
   for i := 0 to Length(moveJoints) - 1 do begin
+    UBOBuffer.JointMatrix[i].Identity;
     moveJoints[i].Rotate((i mod 7) / 100);
+  end;
+
+
+  for i := 0 to Length(moveJoints) - 1 do begin
     v := [0.3, 0];
-    v := moveJoints[i] * v;
+
+    for j := i div 6 downto 1 do begin
+      v := moveJoints[i ] * v;
+      UBOBuffer.JointMatrix[i]*=UBOBuffer.JointMatrix[i-6];
+      UBOBuffer.JointMatrix[i].Scale(0.99);
+    end;
 
     pm := @UBOBuffer.JointMatrix[i];
     case (i mod 6) of

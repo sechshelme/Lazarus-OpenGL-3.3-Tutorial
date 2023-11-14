@@ -9,9 +9,7 @@ uses
   dglOpenGL, oglVectors;
 
 type
-
   TJointIDs = type TGlInts;
-  TJointDirection = (jdLeft, jdRight, jdTop, jdBottom, jdNear, jdFar);
 
   TJointIDsHelper = type Helper(TglintsHelper) for TJointIDs
     procedure AddCube(pri, sek: integer);
