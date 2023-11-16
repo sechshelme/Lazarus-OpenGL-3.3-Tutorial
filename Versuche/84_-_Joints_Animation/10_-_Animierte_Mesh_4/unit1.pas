@@ -19,6 +19,9 @@ Den Geometrie-Shader kann man auch gut verwenden um Normale für Beleuchtungen z
 *)
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -28,6 +31,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
+    procedure CreatJoints;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
@@ -41,7 +45,7 @@ implementation
 {$R *.lfm}
 
 const
-  jointCount = 12;
+  jointCount = 62;
 
 type
   TUBOBuffer = record
@@ -50,8 +54,8 @@ type
     JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
   end;
 
-var
-  moveJoints: array [0..jointCount * 6 - 1] of Tmat2x2;
+//var
+//  moveJoints: array [0..jointCount * 6 - 1] of Tmat2x2;
 
 var
   cube: TVectors3f = nil;
@@ -80,6 +84,26 @@ begin
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
+end;
+
+procedure TForm1.CreatJoints;
+var
+  i: integer;
+begin
+  for i := 0 to JointCount - 1 do begin
+    UBOBuffer.JointMatrix[i].Identity;
+  end;
+
+  for i := 0 to JointCount do begin
+    if i > 5 then begin
+      UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
+    end;
+
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
+    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 2);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
+    UBOBuffer.JointMatrix[i].Scale(0.95);
+  end;
 end;
 
 procedure TForm1.CreateScene;
@@ -111,15 +135,17 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-  for i := 0 to Length(moveJoints) - 1 do begin
-    moveJoints[i].Identity;
-  end;
+//  for i := 0 to Length(moveJoints) - 1 do begin
+//    moveJoints[i].Identity;
+//  end;
 
   Timer1.Enabled := True;
   glEnable(GL_DEPTH_TEST);
 
-  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
-  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+//  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+//  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+
+  CreatJoints;
 
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
@@ -133,10 +159,12 @@ begin
   cubeJointIDs.AddCube(-1, -1);
 
   // Arme
-  for i := 0 to Length(moveJoints) - 1 do begin
+  for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
     tmpCube := nil;
-    tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-    tmpCube.Translate([0, 0, (i div 6)]);
+//    tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
+//    tmpCube.Translate([0, 0, (i div 6)]);
+    tmpCube.AddCube(0.5, 0.5, 0, 0, 0, 1);
+    tmpCube.Translate([0, 0, -0.0]);
     case i mod 6 of
       0..3: begin
         tmpCube.RotateB(pi / 2 * (i mod 6));
@@ -188,7 +216,6 @@ end;
 procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-
   Shader.UseProgram;
 
   // Zeichne den Würfel
@@ -224,54 +251,50 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
-var
-  i, j: integer;
-  v: TVector2f;
-  pm: Pmat4x4;
-
 begin
   UBOBuffer.ModelMatrix.RotateB(0.012);
 
-  for i := 0 to Length(moveJoints) - 1 do begin
-    UBOBuffer.JointMatrix[i].Identity;
-    moveJoints[i].Rotate((i mod 7) / 100);
-  end;
-
-
-  for i := 0 to Length(moveJoints) - 1 do begin
-    v := [0.3, 0];
-
-    for j := i div 6 downto 1 do begin
-      v := moveJoints[i ] * v;
-      UBOBuffer.JointMatrix[i]*=UBOBuffer.JointMatrix[i-6];
-      UBOBuffer.JointMatrix[i].Scale(0.99);
-    end;
-
-    pm := @UBOBuffer.JointMatrix[i];
-    case (i mod 6) of
-      0: begin
-        pm^.Translate(v.x, v.y, 0);
-      end;
-      1: begin
-        pm^.Translate(0, v.x, v.y);
-      end;
-      2: begin
-        pm^.Translate(v.x, v.y, 0);
-      end;
-      3: begin
-        pm^.Translate(0, v.x, v.y);
-      end;
-      4: begin
-        pm^.Translate(v.x, 0, v.y);
-      end;
-      5: begin
-        pm^.Translate(v.x, 0, v.y);
-      end;
-    end;
-  end;
+  //for i := 0 to Length(moveJoints) - 1 do begin
+  //  UBOBuffer.JointMatrix[i].Identity;
+  //  moveJoints[i].Rotate((i mod 7) / 100);
+  //end;
+  //
+  //
+  //for i := 0 to Length(moveJoints) - 1 do begin
+  //  v := [0.3, 0];
+  //
+  //  for j := i div 6 downto 1 do begin
+  //    v := moveJoints[i ] * v;
+  //    UBOBuffer.JointMatrix[i]*=UBOBuffer.JointMatrix[i-6];
+  //    UBOBuffer.JointMatrix[i].Scale(0.99);
+  //  end;
+  //
+  //  pm := @UBOBuffer.JointMatrix[i];
+  //  case (i mod 6) of
+  //    0: begin
+  //      pm^.Translate(v.x, v.y, 0);
+  //    end;
+  //    1: begin
+  //      pm^.Translate(0, v.x, v.y);
+  //    end;
+  //    2: begin
+  //      pm^.Translate(v.x, v.y, 0);
+  //    end;
+  //    3: begin
+  //      pm^.Translate(0, v.x, v.y);
+  //    end;
+  //    4: begin
+  //      pm^.Translate(v.x, 0, v.y);
+  //    end;
+  //    5: begin
+  //      pm^.Translate(v.x, 0, v.y);
+  //    end;
+  //  end;
+  //end;
 
   ogcDrawScene(Sender);
 end;
+
 
 //lineal
 

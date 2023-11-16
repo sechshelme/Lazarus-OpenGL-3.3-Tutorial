@@ -34,9 +34,8 @@ type
   private
     ogc: TContext;
     Shader: TShader;
-    procedure CreateScene;
     procedure CreatJoints;
-    procedure Draw;
+    procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
   public
   end;
@@ -53,7 +52,7 @@ implementation
 //lineal
 
 const
-  JointCount = 40;
+  JointCount = 54;
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 
 
@@ -103,80 +102,30 @@ end;
 procedure TForm1.CreatJoints;
 var
   i: integer;
-  center: TVector2f;
-  v: TVector4f;
-  m: Tmat4x4;
 begin
-  center := [-0.0, 0];
   for i := 0 to JointCount - 1 do begin
     UBOBuffer.JointMatrix[i].Identity;
+  end;
 
-//    m.Identity;
-//    m.TranslateLocalspace(-center);
-////    m.RotateC((0.5 - Random) / 3);
-//    m.RotateC(1.02);
-//    m.TranslateLocalspace(center);
-
-    //if i = 0 then  begin
-    //  UBOBuffer.JointMatrix[i] := m;
-    //end else begin
-    //  UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1] * m;
-    //end;
-    if i = 0 then  begin
-//      UBOBuffer.JointMatrix[i] := m;
-    end else begin
+  for i := 0 to JointCount do begin
+    if i > 0 then begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
     end;
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(vec3(-center, 0));
-        UBOBuffer.JointMatrix[i].RotateC(0.04);
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(vec3(center, 0));
 
-    m:=UBOBuffer.JointMatrix[i];
-
-    center.x := center.x + 0.1;
-    center := (m * vec4(center, 0,  1)).xy;
-       WriteLn(center.x:10:5,' - ',center.y:10:5);
-       center.x := center.x + 0.1;
-
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, -0.0, 0);
+    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 2);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, -0.0, 0);
+    UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
-  WriteLn();
-end;
-
-function pirad(a:Single): single;
-begin
-  Result := a / 180 * pi;
-end;
-
-// https://www.youtube.com/watch?app=desktop&v=lDaQ3a43x8A
-
-function rotateVector(v,ofs:TVector2f;a:TGLfloat):TVector2f;
-begin
-  Result.x := v.x * cos(a) - v.y * sin(a) + ofs.x;
-  Result.y := v.x * sin(a) + v.y * cos(a) + ofs.y;
-end;
-
-procedure Test;
-var
-  p, p1: TVector2f;
-begin
-  p := [4, 2];
-
-//  p1.x := p.x * cos(pirad) - p.y * sin(pirad) + 5;
-//  p1.y := p.x * sin(pirad) + p.y * cos(pirad) + 1;
-
-  p1:=rotateVector(p,[5,1],pirad(50));
-
-  WriteLn('x: ', p1.x: 4: 2, 'x: ', p1.y: 6: 2);
-
 end;
 
 procedure TForm1.CreateScene;
+const
+  scale=0.1;
 var
   tmpQuad: TVectors2f = nil;
   i: integer;
 begin
-  Test;
-
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
@@ -194,15 +143,20 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
   UBOBuffer.ModelMatrix.Identity;
+  UBOBuffer.ModelMatrix.Scale(scale);
+  UBOBuffer.ModelMatrix.TranslateLocalspaceX(1.0 / scale);
+
   CreatJoints;
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
-    tmpQuad.addrectangle(1, 3);
-//    tmpQuad.Translate([-i, 0]);
-    tmpQuad.Translate([-i-0.5, -1.5]);
+    //    tmpQuad.addrectangle(1, 3);
+    //    tmpQuad.Translate([-i - 0.5, -1.5]);
+    tmpQuad.addrectangle(0, 3);
+    tmpQuad.Translate([0 - 0.0, -1.5]);
     tmpQuad.Scale(0.1);
 
     QuadVertex.Add(tmpQuad);
@@ -243,25 +197,18 @@ begin
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
 end;
 
-procedure TForm1.Draw;
-begin
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-
-  // Zeichne Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
-end;
-
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  i: integer;
+  m: Tmat4x4;
 begin
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   Shader.UseProgram;
 
-  UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.TranslateX(0.8);
-  UBOBuffer.ModelMatrix.Scale(0.3);
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
 
-  Draw;
+  glBindVertexArray(VBQuad.VAO);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
   ogc.SwapBuffers;
 end;
@@ -279,7 +226,7 @@ end;
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
   CreatJoints;
-  Draw;
+  ogcDrawScene(Sender);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
