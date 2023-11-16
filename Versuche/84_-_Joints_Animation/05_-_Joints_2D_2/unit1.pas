@@ -53,7 +53,7 @@ implementation
 //lineal
 
 const
-  JointCount = 40;
+  JointCount = 1;
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 
 
@@ -103,53 +103,41 @@ end;
 procedure TForm1.CreatJoints;
 var
   i: integer;
-  center: TVector2f;
+  center: TVector3f;
   v: TVector4f;
   m: Tmat4x4;
 begin
-  center := [-0.0, 0];
+  center := [-0.1, 0, 0];
   for i := 0 to JointCount - 1 do begin
     UBOBuffer.JointMatrix[i].Identity;
 
-//    m.Identity;
-//    m.TranslateLocalspace(-center);
-////    m.RotateC((0.5 - Random) / 3);
-//    m.RotateC(1.02);
-//    m.TranslateLocalspace(center);
-
+    //m.Identity;
+    //m.TranslateLocalspace(-center);
+    //m.RotateC((0.5 - Random) / 3);
+    //m.TranslateLocalspace(center);
+    //
     //if i = 0 then  begin
     //  UBOBuffer.JointMatrix[i] := m;
     //end else begin
     //  UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1] * m;
     //end;
-    if i = 0 then  begin
-//      UBOBuffer.JointMatrix[i] := m;
-    end else begin
-      UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
-    end;
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(vec3(-center, 0));
-        UBOBuffer.JointMatrix[i].RotateC(0.04);
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(vec3(center, 0));
-
-    m:=UBOBuffer.JointMatrix[i];
-
-    center.x := center.x + 0.1;
-    center := (m * vec4(center, 0,  1)).xy;
-       WriteLn(center.x:10:5,' - ',center.y:10:5);
-       center.x := center.x + 0.1;
+    //center.x := center.x + 0.1;
+    //
+    //center := (m * vec4(center, 1)).xyz;
+    ////   WriteLn(center.x:10:5,' - ',center.y:10:5);
 
   end;
   WriteLn();
 end;
 
-function pirad(a:Single): single;
+function pirad(a: single): single;
 begin
   Result := a / 180 * pi;
 end;
 
 // https://www.youtube.com/watch?app=desktop&v=lDaQ3a43x8A
 
-function rotateVector(v,ofs:TVector2f;a:TGLfloat):TVector2f;
+function rotateVector(v, ofs: TVector2f; a: TGLfloat): TVector2f;
 begin
   Result.x := v.x * cos(a) - v.y * sin(a) + ofs.x;
   Result.y := v.x * sin(a) + v.y * cos(a) + ofs.y;
@@ -161,10 +149,10 @@ var
 begin
   p := [4, 2];
 
-//  p1.x := p.x * cos(pirad) - p.y * sin(pirad) + 5;
-//  p1.y := p.x * sin(pirad) + p.y * cos(pirad) + 1;
+  //  p1.x := p.x * cos(pirad) - p.y * sin(pirad) + 5;
+  //  p1.y := p.x * sin(pirad) + p.y * cos(pirad) + 1;
 
-  p1:=rotateVector(p,[5,1],pirad(50));
+  p1 := rotateVector(p, [5, 1], pirad(50));
 
   WriteLn('x: ', p1.x: 4: 2, 'x: ', p1.y: 6: 2);
 
@@ -201,7 +189,6 @@ begin
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
     tmpQuad.addrectangle(1, 3);
-//    tmpQuad.Translate([-i, 0]);
     tmpQuad.Translate([-i-0.5, -1.5]);
     tmpQuad.Scale(0.1);
 
@@ -253,15 +240,25 @@ begin
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  i: Integer;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
   UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.TranslateX(0.8);
-  UBOBuffer.ModelMatrix.Scale(0.3);
+  //  UBOBuffer.ModelMatrix.TranslateX(0.8);
+  //UBOBuffer.ModelMatrix.Scale(0.5);
 
-  Draw;
+  for i := 0 to 150 do begin
+    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
+    UBOBuffer.ModelMatrix.RotateC(pi/8);
+    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
+
+    UBOBuffer.ModelMatrix.Scale(0.95);
+
+    Draw;
+  end;
 
   ogc.SwapBuffers;
 end;

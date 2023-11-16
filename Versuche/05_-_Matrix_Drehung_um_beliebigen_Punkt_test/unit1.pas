@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix;
+  oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
 type
 
@@ -64,11 +64,11 @@ Für die Translation muss LacalSpace verwendet werden.
 //lineal
 
 const
-  Triangle: array[0..0] of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  Quad: array[0..1] of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  Triangle: TVectors2f = (
+    -0.4, 0.1, 0.4, 0.1, 0.0, 0.7,
+
+    -0.2, -0.6, -0.2, -0.1, 0.2, -0.1,
+    -0.2, -0.6, 0.2, -0.1, 0.2, -0.6);
 
 type
   TVB = record
@@ -77,11 +77,11 @@ type
   end;
 
 var
-  MatrixRot: TMatrix;     // Matrix
-  MatrixRot_ID: GLint;    // ID für Matrix.
+  MatrixRot: Tmat2x2;
+  MatrixRot_ID: GLint;
   Color_ID: GLint;
 
-  VBTriangle, VBQuad: TVB;
+  VBTriangle: TVB;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -106,10 +106,7 @@ begin
   MatrixRot.Identity;
 
   glGenVertexArrays(1, @VBTriangle.VAO);
-  glGenVertexArrays(1, @VBQuad.VAO);
-
   glGenBuffers(1, @VBTriangle.VBO);
-  glGenBuffers(1, @VBQuad.VBO);
 end;
 
 procedure TForm1.InitScene;
@@ -119,21 +116,54 @@ begin
   // Daten für Dreieck
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
-
-  // Daten für Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glBufferData(GL_ARRAY_BUFFER, Triangle.Size, Triangle.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 end;
+
+
+procedure mat4_RotateCxxx(var m: Tmat4x4; ofs: TVector2f; a: GLfloat);
+var
+  i: integer;
+  x, y, c, s: GLfloat;
+begin
+  c := cos(a);
+  s := sin(a);
+  for i := 0 to 2 do begin
+    x := m[i, 0];
+    y := m[i, 1];
+    m[i, 0] := x * c - y * s + ofs.x;
+    m[i, 1] := x * s + y * c + ofs.y;
+  end;
+end;
+
+procedure mat4_RotateC(var m: Tmat2x2; ofs: TVector2f; a: GLfloat);
+var
+  i: integer;
+  c, s, x, y: GLfloat;
+begin
+  c := cos(a);
+  s := sin(a);
+  for i := 0 to 1 do begin
+    x := m[i, 0] - ofs.x;
+    y := m[i, 1] - ofs.y;
+    m[i, 0] := x * c - y * s + ofs.x;
+    m[i, 1] := x * s + y * c + ofs.y;
+  end;
+end;
+
+
+function rotateVector(v, ofs: TVector2f; a: TGLfloat): TVector2f;
+begin
+  Result.x := v.x * cos(a) - v.y * sin(a) + ofs.x;
+  Result.y := v.x * sin(a) + v.y * cos(a) + ofs.y;
+end;
+
+
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  m: Tmat4x4;
+  m: Tmat2x2;
 const
   r: single = 0;
 begin
@@ -141,24 +171,23 @@ begin
   Shader.UseProgram;
 
   m.Identity;
+  //  mat4_RotateC(m, [0, -0.8], r);
+  r += 0.05;
 
-  m.TranslateLocalspace(0, -0.4, 0);
-  r += 0.1;
-  m.RotateC(r);
-  m.TranslateLocalspaceY(0.4);
+  //m.TranslateLocalspace(0, -0.4, 0);
+  //r += 0.1;
+  //m.RotateC(r);
+  //m.TranslateLocalspaceY(0.4);
 
-  m := MatrixRot * m;
+
+
+  //  m := MatrixRot * m;
   m.Uniform(MatrixRot_ID);
 
   // Zeichne Dreieck
   glUniform3f(Color_ID, 0.0, 1.0, 1.0);
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
-
-  // Zeichne Quadrat
-  glUniform3f(Color_ID, 1.0, 0.0, 1.0);
-  glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+  glDrawArrays(GL_TRIANGLES, 0, Triangle.Count);
 
   ogc.SwapBuffers;
 end;
@@ -170,17 +199,18 @@ begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VBTriangle.VAO);
-  glDeleteVertexArrays(1, @VBQuad.VAO);
-
   glDeleteBuffers(1, @VBTriangle.VBO);
-  glDeleteBuffers(1, @VBQuad.VBO);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  step: GLfloat = 0.01;
+  step: GLfloat = 0.0;
 begin
-  MatrixRot.RotateC(step);
+  MatrixRot.Rotate(step);
+  step += 0.11;
+
+  glUniform1f(Shader.UniformLocation('angele'), step);
+
   ogcDrawScene(Sender);
 end;
 //includeglsl Vertexshader.glsl

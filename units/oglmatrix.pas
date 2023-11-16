@@ -89,12 +89,13 @@ type
 
     procedure Scale(Faktor: GLfloat); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
-    procedure Translate(x, y, z: GLfloat); overload;     // Worldspace Translation
+    procedure Translate(x, y, z: GLfloat); overload;           // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
     procedure TranslateX(x: GLfloat);
     procedure TranslateY(y: GLfloat);
     procedure TranslateZ(z: GLfloat);
-    procedure TranslateLocalspace(x, y, z: GLfloat);     // Localspace Translation
+    procedure TranslateLocalspace(x, y, z: GLfloat); overload; // Localspace Translation
+    procedure TranslateLocalspace(const v: TVector3f); overload;
     procedure TranslateLocalspaceX(x: GLfloat);
     procedure TranslateLocalspaceY(y: GLfloat);
     procedure TranslateLocalspaceZ(z: GLfloat);
@@ -425,71 +426,6 @@ begin
   Rotate(Winkel, a[0], a[1], a[2]);
 end;
 
-procedure Tmat4x4Helper.Translate(x, y, z: GLfloat); //inline;
-begin
-  Self[3, 0] += x;
-  Self[3, 1] += y;
-  Self[3, 2] += z;
-end;
-
-procedure Tmat4x4Helper.Translate(const v: TVector3f); inline;
-begin
-  Self[3, 0] += v[0];
-  Self[3, 1] += v[1];
-  Self[3, 2] += v[2];
-end;
-
-procedure Tmat4x4Helper.TranslateX(x: GLfloat);
-begin
-  Self[3, 0] += x;
-end;
-
-procedure Tmat4x4Helper.TranslateY(y: GLfloat);
-begin
-  Self[3, 1] += y;
-end;
-
-procedure Tmat4x4Helper.TranslateZ(z: GLfloat);
-begin
-  Self[3, 2] += z;
-end;
-
-procedure Tmat4x4Helper.TranslateLocalspace(x, y, z: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Self[3, i] += Self[0, i] * x + Self[1, i] * y + Self[2, i] * z;
-  end;
-end;
-
-procedure Tmat4x4Helper.TranslateLocalspaceX(x: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Self[3, i] += Self[0, i] * x;
-  end;
-end;
-
-procedure Tmat4x4Helper.TranslateLocalspaceY(y: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Self[3, i] += Self[1, i] * y;
-  end;
-end;
-
-procedure Tmat4x4Helper.TranslateLocalspaceZ(z: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 3 do begin
-    Self[3, i] += Self[2, i] * z;
-  end;
-end;
-
 procedure Tmat4x4Helper.RotateA(Winkel: GLfloat);
 var
   i: integer;
@@ -532,6 +468,76 @@ begin
     y := Self[i, 1];
     Self[i, 0] := x * c - y * s;
     Self[i, 1] := x * s + y * c;
+  end;
+end;
+
+procedure Tmat4x4Helper.Translate(x, y, z: GLfloat); //inline;
+begin
+  Self[3, 0] += x;
+  Self[3, 1] += y;
+  Self[3, 2] += z;
+end;
+
+procedure Tmat4x4Helper.Translate(const v: TVector3f); inline;
+begin
+  Self[3, 0] += v[0];
+  Self[3, 1] += v[1];
+  Self[3, 2] += v[2];
+end;
+
+procedure Tmat4x4Helper.TranslateX(x: GLfloat);
+begin
+  Self[3, 0] += x;
+end;
+
+procedure Tmat4x4Helper.TranslateY(y: GLfloat);
+begin
+  Self[3, 1] += y;
+end;
+
+procedure Tmat4x4Helper.TranslateZ(z: GLfloat);
+begin
+  Self[3, 2] += z;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspace(x, y, z: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[0, i] * x + Self[1, i] * y + Self[2, i] * z;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspace(const v: TVector3f); inline;
+begin
+  TranslateLocalspace(v.x, v.y, v.z);
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceX(x: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[0, i] * x;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceY(y: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[1, i] * y;
+  end;
+end;
+
+procedure Tmat4x4Helper.TranslateLocalspaceZ(z: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 3 do begin
+    Self[3, i] += Self[2, i] * z;
   end;
 end;
 
