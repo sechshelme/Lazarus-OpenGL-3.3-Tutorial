@@ -53,7 +53,7 @@ implementation
 //lineal
 
 const
-  JointCount = 54;
+  JointCount = 1;
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 
 
@@ -110,20 +110,23 @@ begin
   center := [-0.1, 0, 0];
   for i := 0 to JointCount - 1 do begin
     UBOBuffer.JointMatrix[i].Identity;
+
+    //m.Identity;
+    //m.TranslateLocalspace(-center);
+    //m.RotateC((0.5 - Random) / 3);
+    //m.TranslateLocalspace(center);
+    //
+    //if i = 0 then  begin
+    //  UBOBuffer.JointMatrix[i] := m;
+    //end else begin
+    //  UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1] * m;
+    //end;
+    //center.x := center.x + 0.1;
+    //
+    //center := (m * vec4(center, 1)).xyz;
+    ////   WriteLn(center.x:10:5,' - ',center.y:10:5);
+
   end;
-
-  m.Identity;
-  for i := 0 to JointCount do begin
-    m.TranslateLocalspace(-0.1, -0.0, 0);
-//    m.RotateC(pi / 18);
-    m.RotateC((0.5 - random)   / 2);
-    m.TranslateLocalspace(-0.1, -0.0, 0);
-
-    m.Scale(0.95);
-
-    UBOBuffer.JointMatrix[i] := m;
-  end;
-
   WriteLn();
 end;
 
@@ -179,20 +182,14 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
   UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.TranslateLocalspaceX(1.0);
-
-
   CreatJoints;
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
-    //    tmpQuad.addrectangle(1, 3);
-//    tmpQuad.Translate([-i - 0.5, -1.5]);
-    tmpQuad.addrectangle(0, 3);
-    tmpQuad.Translate([0 - 0.0, -1.5]);
+    tmpQuad.addrectangle(1, 3);
+    tmpQuad.Translate([-i-0.5, -1.5]);
     tmpQuad.Scale(0.1);
 
     QuadVertex.Add(tmpQuad);
@@ -244,34 +241,25 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  i: integer;
-  m: Tmat4x4;
+  i: Integer;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
 
+  UBOBuffer.ModelMatrix.Identity;
   //  UBOBuffer.ModelMatrix.TranslateX(0.8);
   //UBOBuffer.ModelMatrix.Scale(0.5);
 
-  //m.Identity;
-  //for i := 0 to JointCount do begin
-  //  m.TranslateLocalspace(-0.1, -0.0, 0);
-  //  m.RotateC(pi / 18);
-  //  m.TranslateLocalspace(-0.1, -0.0, 0);
-  //
-  //  m.Scale(0.95);
-  //
-  //  UBOBuffer.JointMatrix[i] := m;
-  //
-  //  //
-  //  //    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
-  //  //    UBOBuffer.ModelMatrix.RotateC(pi/8);
-  //  //    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
-  //  //
-  //  //    UBOBuffer.ModelMatrix.Scale(0.95);
-  //
-  //end;
-  Draw;
+  for i := 0 to 150 do begin
+    Draw;
+
+    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
+    UBOBuffer.ModelMatrix.RotateC(pi/8);
+    UBOBuffer.ModelMatrix.TranslateLocalspaceX(-0.1);
+
+    UBOBuffer.ModelMatrix.Scale(0.95);
+
+  end;
 
   ogc.SwapBuffers;
 end;
