@@ -45,7 +45,7 @@ implementation
 {$R *.lfm}
 
 const
-  jointCount = 62;
+  jointCount = 3;
 
 type
   TUBOBuffer = record
@@ -53,9 +53,6 @@ type
     ModelMatrix: Tmat4x4;
     JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
   end;
-
-//var
-//  moveJoints: array [0..jointCount * 6 - 1] of Tmat2x2;
 
 var
   cube: TVectors3f = nil;
@@ -90,11 +87,7 @@ procedure TForm1.CreatJoints;
 var
   i: integer;
 begin
-  for i := 0 to JointCount - 1 do begin
-//    UBOBuffer.JointMatrix[i].Identity;
-  end;
-
-  for i := 0 to JointCount do begin
+  for i := 0 to Length(UBOBuffer.JointMatrix)-1 do begin
     if i > 5 then begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
     end;
@@ -135,21 +128,21 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-//  for i := 0 to Length(moveJoints) - 1 do begin
-//    moveJoints[i].Identity;
-//  end;
-
   Timer1.Enabled := True;
   glEnable(GL_DEPTH_TEST);
 
-//  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
-//  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+  //  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+  //  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
 
-for i := 0 to JointCount - 1 do begin
-  UBOBuffer.JointMatrix[i].Identity;
-//  UBOBuffer.JointMatrix[i].RotateB(-pi/2);
-end;
+  for i := 0 to Length(UBOBuffer.JointMatrix)-1 do begin
+    UBOBuffer.JointMatrix[i].Identity;
+  end;
 
+  for i := 0 to 3 do begin
+    UBOBuffer.JointMatrix[i].RotateB(pi / 2 * i);
+  end;
+  UBOBuffer.JointMatrix[4].RotateC(pi / 2);
+  UBOBuffer.JointMatrix[5].RotateC(-pi / 2);
 
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
@@ -163,39 +156,22 @@ end;
   cubeJointIDs.AddCube(-1, -1);
 
   // Arme
-  for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
+  for i := 0 to Length(UBOBuffer.JointMatrix)-6 - 1 do begin
     tmpCube := nil;
-//    tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-//    tmpCube.Translate([0, 0, (i div 6)]);
     tmpCube.AddCube(0.5, 0.5, 0, 0, 0, 1);
-    tmpCube.Translate([0, 0, -0.0]);
-         tmpCube.RotateB(pi / 2 * 1);
-
-    case i mod 6 of
-      0..3: begin
-        UBOBuffer.JointMatrix[i].RotateB(pi / 2 * (i mod 6));
-  //      tmpCube.RotateB(pi / 2 * (i mod 6));
-      end;
-      4: begin
-        UBOBuffer.JointMatrix[i].RotateC(pi / 2);
-//        tmpCube.RotateA(pi / 2);
-      end;
-      5: begin
-        UBOBuffer.JointMatrix[i].RotateC(-pi / 2);
-//        tmpCube.RotateA(-pi / 2);
-      end;
-    end;
+    tmpCube.RotateB(pi / 2);
 
     cube.Add(tmpCube);
     cubeColor.AddCubeColor(colors[(i div 6) mod 6]^);
-    if i < 6 then  begin
-      cubeJointIDs.AddCube(-1, i);
-    end else begin
-      cubeJointIDs.AddCube(i - 6, i);
-    end;
+//    if i < 6 then  begin
+//      cubeJointIDs.AddCube(-1, i);
+//    end else begin
+//      cubeJointIDs.AddCube(i - 6, i);
+//    end;
+    cubeJointIDs.AddCube(i, i+6);
   end;
 
-    CreatJoints;
+  CreatJoints;
 
 
   // Vektor
