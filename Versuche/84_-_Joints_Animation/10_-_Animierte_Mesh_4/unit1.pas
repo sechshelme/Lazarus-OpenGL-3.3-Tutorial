@@ -14,10 +14,6 @@ uses
   //image image.png
   //lineal
 
-(*
-Den Geometrie-Shader kann man auch gut verwenden um Normale für Beleuchtungen zu berechnen.
-*)
-
 type
 
   { TForm1 }
@@ -34,6 +30,7 @@ type
     procedure CreatJoints;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
+    procedure ogcKeyPress(Sender: TObject; var Key: char);
   public
   end;
 
@@ -45,17 +42,14 @@ implementation
 {$R *.lfm}
 
 const
-  jointCount = 62;
+  jointCount = 6;
 
 type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
+    JointMatrix: array [0..(jointCount + 1) * 6 - 1] of Tmat4x4;
   end;
-
-//var
-//  moveJoints: array [0..jointCount * 6 - 1] of Tmat2x2;
 
 var
   cube: TVectors3f = nil;
@@ -65,7 +59,7 @@ var
 type
   TVB = record
     VAO,
-    VBO, VBOColor, VBOAni: GLuint;
+    VBO, VBOColor, VBOJoint: GLuint;
   end;
 
 var
@@ -82,6 +76,7 @@ begin
   //remove-
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
+  ogc.OnKeyPress := @ogcKeyPress;
 
   CreateScene;
 end;
@@ -90,17 +85,23 @@ procedure TForm1.CreatJoints;
 var
   i: integer;
 begin
-  for i := 0 to JointCount - 1 do begin
+  for i := 0 to 5 do begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
 
-  for i := 0 to JointCount do begin
+  UBOBuffer.JointMatrix[1].RotateB(pi / 2);
+  UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 2);
+  UBOBuffer.JointMatrix[3].RotateB(pi / 2 * 3);
+  UBOBuffer.JointMatrix[4].RotateC(pi / 2);
+  UBOBuffer.JointMatrix[5].RotateC(-pi / 2);
+
+  for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
     if i > 5 then begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
-    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 2);
+    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 0.5);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
@@ -135,18 +136,11 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-//  for i := 0 to Length(moveJoints) - 1 do begin
-//    moveJoints[i].Identity;
-//  end;
-
   Timer1.Enabled := True;
+
   glEnable(GL_DEPTH_TEST);
-
-//  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
-//  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
-
-  CreatJoints;
-
+    glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+    glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
   // --- Daten für den Würfel
@@ -155,36 +149,22 @@ begin
 
   // center
   cube.AddCube(1.0, 1.0, 1.0);
+  cube.scale(2);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
   cubeJointIDs.AddCube(-1, -1);
 
   // Arme
-  for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
+  for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
     tmpCube := nil;
-//    tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-//    tmpCube.Translate([0, 0, (i div 6)]);
-    tmpCube.AddCube(0.5, 0.5, 0, 0, 0, 1);
-    tmpCube.Translate([0, 0, -0.0]);
-    case i mod 6 of
-      0..3: begin
-        tmpCube.RotateB(pi / 2 * (i mod 6));
-      end;
-      4: begin
-        tmpCube.RotateA(pi / 2);
-      end;
-      5: begin
-        tmpCube.RotateA(-pi / 2);
-      end;
-    end;
+    tmpCube.AddCube(1.0, 1.0, 0, 0, 0, 1);
+    tmpCube.RotateB(pi / 2);
 
     cube.Add(tmpCube);
     cubeColor.AddCubeColor(colors[(i div 6) mod 6]^);
-    if i < 6 then  begin
-      cubeJointIDs.AddCube(-1, i);
-    end else begin
-      cubeJointIDs.AddCube(i - 6, i);
-    end;
+    cubeJointIDs.AddCube(i, i + 6);
   end;
+
+  CreatJoints;
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -203,11 +183,9 @@ begin
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // Joints
-  glGenBuffers(1, @VBQuad.VBOAni);
+  glGenBuffers(1, @VBQuad.VBOJoint);
 
-  // https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOJoint);
   glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
@@ -227,6 +205,11 @@ begin
   ogc.SwapBuffers;
 end;
 
+procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
+begin
+  CreatJoints;
+end;
+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
@@ -234,7 +217,7 @@ begin
   glDeleteBuffers(1, @UBO);
   glDeleteBuffers(1, @VBQuad.VBO);
   glDeleteBuffers(1, @VBQuad.VBOColor);
-  glDeleteBuffers(1, @VBQuad.VBOAni);
+  glDeleteBuffers(1, @VBQuad.VBOJoint);
   glDeleteVertexArrays(1, @VBQuad.VAO);
 end;
 
@@ -243,7 +226,7 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -100);
+  wm.Translate(0, 0, -30);
   wm.RotateA(0.3);
   perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 1000.0);
 
@@ -253,45 +236,6 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   UBOBuffer.ModelMatrix.RotateB(0.012);
-
-  //for i := 0 to Length(moveJoints) - 1 do begin
-  //  UBOBuffer.JointMatrix[i].Identity;
-  //  moveJoints[i].Rotate((i mod 7) / 100);
-  //end;
-  //
-  //
-  //for i := 0 to Length(moveJoints) - 1 do begin
-  //  v := [0.3, 0];
-  //
-  //  for j := i div 6 downto 1 do begin
-  //    v := moveJoints[i ] * v;
-  //    UBOBuffer.JointMatrix[i]*=UBOBuffer.JointMatrix[i-6];
-  //    UBOBuffer.JointMatrix[i].Scale(0.99);
-  //  end;
-  //
-  //  pm := @UBOBuffer.JointMatrix[i];
-  //  case (i mod 6) of
-  //    0: begin
-  //      pm^.Translate(v.x, v.y, 0);
-  //    end;
-  //    1: begin
-  //      pm^.Translate(0, v.x, v.y);
-  //    end;
-  //    2: begin
-  //      pm^.Translate(v.x, v.y, 0);
-  //    end;
-  //    3: begin
-  //      pm^.Translate(0, v.x, v.y);
-  //    end;
-  //    4: begin
-  //      pm^.Translate(v.x, 0, v.y);
-  //    end;
-  //    5: begin
-  //      pm^.Translate(v.x, 0, v.y);
-  //    end;
-  //  end;
-  //end;
-
   ogcDrawScene(Sender);
 end;
 
