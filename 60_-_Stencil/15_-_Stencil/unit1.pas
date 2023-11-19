@@ -43,10 +43,6 @@ implementation
 // https://learnopengl.com/Advanced-OpenGL/Stencil-testing
 
 const
-  Quad: array[0..1] of Tmat3x3 =
-    (((-1.0, 1.0, 0.0), (-1.0, -1.0, 0.0), (1.0, -1.0, 0.0)), ((-1.0, 1.0, 0.0), (1.0, -1.0, 0.0), (1.0, 1.0, 0.0)));
-
-const
 
   // --- Vectoren
   QuadVertex: array[0..35] of TVector3f =
@@ -67,15 +63,6 @@ const
     (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
     (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0),
     (0.0, 1.0), (0.0, 0.0), (1.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0));
-
-//const
-//  QuadVertex: array[0..5] of TVector3f =
-//    ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
-//    (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
-//
-//  TextureVertex: array[0..5] of TVector2f =
-//    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
-//    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
 const
   stencil_testing_Vertex =
@@ -155,8 +142,6 @@ begin
   ogc.OnPaint := @ogcDrawScene;
   WriteLn(ogc.StencilBits);
   WriteLn(ogc.DepthBits);
-//  ogc.StencilBits:=8;
-//  ogc.DepthBits:=24;
 
   CreateScene;
   InitScene;

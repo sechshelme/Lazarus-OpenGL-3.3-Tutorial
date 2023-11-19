@@ -93,6 +93,7 @@ var
   CubeArr: array of array of array of boolean;
   cp: TVector3i;
   i, x, y, z: integer;
+  tmpCube:TVectors3f;
 
   function BottomTest(p: TVector3i): boolean;
   begin
@@ -128,7 +129,11 @@ begin
     for y := 0 to Length(CubeArr[z]) - 1 do begin
       for x := 0 to Length(CubeArr[z, y]) - 1 do begin
         if CubeArr[z, y, x] then begin
-          CubeVerts.AddCube(1, 1, 1, x - si div 2, y - si div 2, z - si / 2 + 0.5);
+          tmpCube:=nil;
+          tmpCube.AddCube(1, 1, 1);
+          tmpCube.Translate([x - si div 2, y - si div 2, z - si / 2 + 0.5]);
+          CubeVerts.Add(tmpCube);
+
           CubeNormals.AddCubeNormale;
           CubeTexCoords.AddCubeTexCoords;
         end;
@@ -207,7 +212,9 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
   // --- Reflect
-  ReflectVerts.AddRectangle(2, 2, 0, 0, -0.5);
+  ReflectVerts.AddRectangle(2, 2);
+//  ReflectVerts.AddRectangle(2, 2);
+  ReflectVerts.Translate([0, 0, -0.5]);
   ReflectTexCoords.AddQuadTexCoords;
 
   glGenVertexArrays(1, @VBReflect.VAO);

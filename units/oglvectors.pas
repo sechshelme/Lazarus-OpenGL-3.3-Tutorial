@@ -57,9 +57,9 @@ type
     procedure Add(x, y, z: TGLfloat); overload;
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
-    procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
+    procedure AddRectangle(w, h: TGLfloat);
     procedure AddRectangleColor(col: TVector3f);
-    procedure AddCube(w, h, d: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0; z: TGLfloat = 0);
+    procedure AddCube(w, h, d: TGLfloat);
     procedure AddCubeNormale;
     procedure AddCubeColor(col: TVector3f);
 
@@ -168,11 +168,11 @@ end;
 
 procedure TVectors2fHelper.Translate(const ATranslate: TVector2f);
 var
-  i: Integer;
+  i: integer;
   p: SizeInt = 0;
 begin
   for i := 0 to Length(Self) div 2 - 1 do begin
-//    PVector3f(@Self[i * 3])^.Translate(ATranslate);
+    //    PVector3f(@Self[i * 3])^.Translate(ATranslate);
     Self[p] += ATranslate.x;
     Inc(p);
     Self[p] += ATranslate.y;
@@ -236,15 +236,15 @@ begin
   Self += v;
 end;
 
-procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
+procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat);
 var
   w2, h2: TGLfloat;
 begin
   w2 := w / 2;
   h2 := h / 2;
   Self += [
-    -w2 + x, -h2 + y, z, w2 + x, -h2 + y, z, w2 + x, h2 + y, z,
-    -w2 + x, -h2 + y, z, w2 + x, h2 + y, z, -w2 + x, h2 + y, z];
+    -w2, -h2, 0, w2, -h2, 0, w2, h2, 0,
+    -w2, -h2, 0, w2, h2, 0, -w2, h2, 0];
 end;
 
 procedure TVectors3fHelper.AddRectangleColor(col: TVector3f);
@@ -256,7 +256,7 @@ begin
   end;
 end;
 
-procedure TVectors3fHelper.AddCube(w, h, d: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat);
+procedure TVectors3fHelper.AddCube(w, h, d: TGLfloat);
 var
   w2, h2, d2: TGLfloat;
 begin
@@ -265,28 +265,28 @@ begin
   d2 := d / 2;
   Self += [
     // vorn
-    -w2 + x, -h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
-    -w2 + x, -h2 + y, d2 + z, w2 + x, h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z,
+    -w2, -h2, d2, w2, -h2, d2, w2, h2, d2,
+    -w2, -h2, d2, w2, h2, d2, -w2, h2, d2,
 
     // hinten
-    w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z,
-    w2 + x, h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z,
+    w2, h2, -d2, -w2, -h2, -d2, -w2, h2, -d2,
+    w2, h2, -d2, w2, -h2, -d2, -w2, -h2, -d2,
 
     // unten
-    -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z,
-    -w2 + x, -h2 + y, -d2 + z, w2 + x, -h2 + y, d2 + z, -w2 + x, -h2 + y, d2 + z,
+    -w2, -h2, -d2, w2, -h2, -d2, w2, -h2, d2,
+    -w2, -h2, -d2, w2, -h2, d2, -w2, -h2, d2,
 
     // rechts
-    w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z,
-    w2 + x, -h2 + y, -d2 + z, w2 + x, h2 + y, d2 + z, w2 + x, -h2 + y, d2 + z,
+    w2, -h2, -d2, w2, h2, -d2, w2, h2, d2,
+    w2, -h2, -d2, w2, h2, d2, w2, -h2, d2,
 
     // oben
-    w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z,
-    w2 + x, h2 + y, -d2 + z, -w2 + x, h2 + y, d2 + z, w2 + x, h2 + y, d2 + z,
+    w2, h2, -d2, -w2, h2, -d2, -w2, h2, d2,
+    w2, h2, -d2, -w2, h2, d2, w2, h2, d2,
 
     // links
-    -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z,
-    -w2 + x, h2 + y, -d2 + z, -w2 + x, -h2 + y, d2 + z, -w2 + x, h2 + y, d2 + z];
+    -w2, h2, -d2, -w2, -h2, -d2, -w2, -h2, d2,
+    -w2, h2, -d2, -w2, -h2, d2, -w2, h2, d2];
 end;
 
 procedure TVectors3fHelper.AddCubeNormale;
@@ -342,10 +342,10 @@ end;
 procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
 var
   i: integer;
-  p:Integer=0;
+  p: integer = 0;
 begin
   for i := 0 to Length(Self) div 3 - 1 do begin
-//    PVector3f(@Self[i * 3])^.Translate(ATranslate);
+    //    PVector3f(@Self[i * 3])^.Translate(ATranslate);
     Self[p] += ATranslate.x;
     Inc(p);
     Self[p] += ATranslate.y;

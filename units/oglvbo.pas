@@ -1,6 +1,7 @@
 unit oglVBO;
 
 {$mode objfpc}{$H+}
+{$modeswitch arrayoperators on}
 
 interface
 
@@ -410,7 +411,7 @@ end;
 
 procedure TVBO_LineStrip.Add(const Vertex: TVector3f);
 begin
-  TVectors3f(GLfloatArray).Add(Vertex);
+  TVectors3f(GLfloatArray).Add(vertex);
 end;
 
 end.

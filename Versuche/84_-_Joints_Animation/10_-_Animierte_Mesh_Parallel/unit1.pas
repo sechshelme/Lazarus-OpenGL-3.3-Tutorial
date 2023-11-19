@@ -40,25 +40,23 @@ implementation
 
 {$R *.lfm}
 
-{$PACKRECORDS 32}
-
 const
-  jointCount = 6;
+  jointCount = 2;
 
 type
   TUBOBuffer = record
     WorldMatrix: Tmat4x4;
     ModelMatrix: Tmat4x4;
-    moveJoints: array [0..5, 0..jointCount - 1] of record
-      mat: Tmat2x2;
-      p: TVector4f;
-      end;
+    JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
   end;
+
+var
+  moveJoints: array [0..jointCount * 6 - 1] of Tmat2x2;
 
 var
   cube: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
-  cubeJointID: TJointIDs = nil;
+  cubeJointIDs: TJointIDs = nil;
 
 type
   TVB = record
@@ -88,6 +86,8 @@ procedure TForm1.CreateScene;
 var
   i, j: integer;
   tmpCube: TVectors3f;
+const
+  colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 begin
   InitOpenGLDebug;
 
@@ -101,14 +101,6 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
-  //  UBOBuffer.ModelMatrix.RotateC(pi / 2);
-  //  UBOBuffer.ModelMatrix.RotateB(pi / 2);
-  for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
-      UBOBuffer.moveJoints[i, j].mat.Identity;
-    end;
-  end;
-
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
@@ -119,7 +111,11 @@ begin
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
-
+  for j := 0 to 5 do begin
+    for i := 0 to jointCount - 1 do begin
+      moveJoints[i * 6 + j].Identity;
+    end;
+  end;
   Timer1.Enabled := True;
   glEnable(GL_DEPTH_TEST);
 
@@ -135,14 +131,14 @@ begin
   // center
   cube.AddCube(1.0, 1.0, 1.0);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
-  cubeJointID.AddCube(0, 0);
+  cubeJointIDs.AddCube(-1, -1);
 
   // Arme
   for j := 0 to 5 do begin
     for i := 0 to jointCount - 1 do begin
       tmpCube := nil;
-      tmpCube.AddCube(0.5, 0.5, 1.0, 0, 0, 1);
-      tmpCube.Translate([0, 0, i]);
+      tmpCube.AddCube(0.5, 0.5, 1.0);
+      tmpCube.Translate([0, 0, 1 + i]);
       case j of
         0..3: begin
           tmpCube.RotateB(pi / 2 * j);
@@ -156,33 +152,14 @@ begin
       end;
 
       cube.Add(tmpCube);
-      case i of
-        0: begin
-          cubeColor.AddCubeColor([1, 0, 0]);
-        end;
-        1: begin
-          cubeColor.AddCubeColor([0, 1, 0]);
-        end;
-        2: begin
-          cubeColor.AddCubeColor([0, 0, 1]);
-        end;
-        3: begin
-          cubeColor.AddCubeColor([1, 1, 0]);
-        end;
-        4: begin
-          cubeColor.AddCubeColor([1, 0, 1]);
-        end;
-        else begin
-          cubeColor.AddCubeColor([0, 1, 1]);
-        end;
+      cubeColor.AddCubeColor(colors[i mod Length(colors)]^);
+      if i = 0 then  begin
+        cubeJointIDs.AddCube(-1, j);
+      end else begin
+        cubeJointIDs.AddCube((i - 1) * 6 + j, i * 6 + j);
       end;
-      cubeJointID.AddCube((j * 10) + i, (j * 10) + (i + 1));
     end;
   end;
-
-  WriteLn('len vert: ', cube.Size);
-  WriteLn('len col: ', cubeColor.Size);
-  WriteLn('len joints: ', cubeJointID.Size);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -206,7 +183,7 @@ begin
   // https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOAni);
-  glBufferData(GL_ARRAY_BUFFER, cubeJointID.Size, cubeJointID.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
 end;
@@ -254,12 +231,44 @@ const
   step = 0.005;
 var
   i, j: integer;
+  v: TVector2f;
+  pm: Pmat4x4;
 
 begin
+  for i := 0 to Length(UBOBuffer.JointMatrix) - 1 do begin
+    UBOBuffer.JointMatrix[i].Identity;
+  end;
+
   UBOBuffer.ModelMatrix.RotateB(0.0012);
-  for i := 0 to Length(UBOBuffer.moveJoints) - 1 do begin
-    for j := 0 to Length(UBOBuffer.moveJoints[0]) - 1 do begin
-      UBOBuffer.moveJoints[i, j].mat.Rotate(step * (1 + (i + 1 * 2.2 * Random * 4)));
+
+  for j := 0 to 5 do begin
+    for i := 0 to jointCount - 1 do begin
+      moveJoints[j, i].Rotate(step * (1 + (i + j + 1 * 2.2)));
+      v := [0.3, 0];
+      v := moveJoints[i*6+j] * v;
+
+      pm := @UBOBuffer.JointMatrix[i * 6 + j];
+
+      case j of
+        0: begin
+          pm^.Translate(v.x, v.y, 0);
+        end;
+        1: begin
+          pm^.Translate(0, v.x, v.y);
+        end;
+        2: begin
+          pm^.Translate(v.x, v.y, 0);
+        end;
+        3: begin
+          pm^.Translate(0, v.x, v.y);
+        end;
+        4: begin
+          pm^.Translate(v.x, 0, v.y);
+        end;
+        5: begin
+          pm^.Translate(v.x, 0, v.y);
+        end;
+      end;
     end;
   end;
 

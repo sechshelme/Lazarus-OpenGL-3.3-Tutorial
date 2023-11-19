@@ -112,9 +112,9 @@ begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
     end;
 
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, -0.0, 0);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, 0.0, 0.0);
     UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 2);
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, -0.0, 0);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, 0.0, 0.0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
 end;
@@ -153,8 +153,6 @@ begin
 
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
-    //    tmpQuad.addrectangle(1, 3);
-    //    tmpQuad.Translate([-i - 0.5, -1.5]);
     tmpQuad.addrectangle(0, 3);
     tmpQuad.Translate([0 - 0.0, -1.5]);
     tmpQuad.Scale(0.1);
@@ -198,9 +196,6 @@ begin
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
-var
-  i: integer;
-  m: Tmat4x4;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   Shader.UseProgram;
