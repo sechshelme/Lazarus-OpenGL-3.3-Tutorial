@@ -79,6 +79,7 @@ begin
   ogc.OnKeyPress := @ogcKeyPress;
 
   CreateScene;
+
 end;
 
 procedure TForm1.CreatJoints;
@@ -92,17 +93,18 @@ begin
   UBOBuffer.JointMatrix[1].RotateB(pi / 2);
   UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 2);
   UBOBuffer.JointMatrix[3].RotateB(pi / 2 * 3);
-  UBOBuffer.JointMatrix[4].RotateC(pi / 2);
-  UBOBuffer.JointMatrix[5].RotateC(-pi / 2);
+  UBOBuffer.JointMatrix[4].RotateA(pi / 2);
+  UBOBuffer.JointMatrix[5].RotateA(-pi / 2);
 
   for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
     if i > 5 then begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
     end;
 
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
-    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / 0.5);
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(-1.1, -0.0, 0);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
+    UBOBuffer.JointMatrix[i].RotateB((0.5 - random) / 0.5);
+    UBOBuffer.JointMatrix[i].RotateA((0.5 - random) / 0.5);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
 end;
@@ -139,8 +141,8 @@ begin
   Timer1.Enabled := True;
 
   glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);   // Überprüfung einschalten
-    glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+  glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
   // --- Daten für den Würfel
@@ -156,8 +158,8 @@ begin
   // Arme
   for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
     tmpCube := nil;
-    tmpCube.AddCube(1.0, 1.0, 0, 0, 0, 1);
-    tmpCube.RotateB(pi / 2);
+    tmpCube.AddCube(1.0, 1.0, 0);
+    tmpCube.Translate([0,0,1.0]);
 
     cube.Add(tmpCube);
     cubeColor.AddCubeColor(colors[(i div 6) mod 6]^);
@@ -226,7 +228,7 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -30);
+  wm.Translate(0, 0, -50);
   wm.RotateA(0.3);
   perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 1000.0);
 
