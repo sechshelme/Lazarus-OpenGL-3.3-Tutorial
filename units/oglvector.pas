@@ -94,8 +94,9 @@ type
     procedure RotateA(Winkel: GLfloat);
     procedure RotateB(Winkel: GLfloat);
     procedure RotateC(Winkel: GLfloat);
-    procedure Scale(Ax, Ay, Az: GLfloat);
-    procedure Scale(s: GLfloat);
+    procedure Scale(Ax, Ay, Az: GLfloat);overload;
+    procedure Scale(s: GLfloat);overload;
+    procedure Scale(sv: TVector3f);                  overload;
     procedure Translate(Ax, Ay, Az: GLfloat); overload;
     procedure Translate(Atranslate: TVector3f); overload;
     procedure Normalize;
@@ -426,9 +427,16 @@ begin
   Self[2] *= Az;
 end;
 
-procedure TVector3fHelper.Scale(s: GLfloat); inline;
+procedure TVector3fHelper.Scale(s: GLfloat);
 begin
   Self *= s;
+end;
+
+procedure TVector3fHelper.Scale(sv: TVector3f);
+begin
+  Self[0] *= sv.x;
+  Self[1] *= sv.y;
+  Self[2] *= sv.z;
 end;
 
 procedure TVector3fHelper.Translate(Ax, Ay, Az: GLfloat); inline;
@@ -438,7 +446,7 @@ begin
   Self[2] += Az;
 end;
 
-procedure TVector3fHelper.Translate(Atranslate: TVector3f); inline;
+procedure TVector3fHelper.Translate(Atranslate: TVector3f);// inline;
 begin
   Self += Atranslate;
 end;

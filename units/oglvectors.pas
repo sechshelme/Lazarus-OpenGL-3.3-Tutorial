@@ -32,10 +32,9 @@ type
 
   TVectors2fHelper = type Helper (TGlfloatsHelper) for TVectors2f
   public
-    procedure Add(x, y: TGLfloat); overload;
     procedure Add(const v: TVector2f); overload;
     procedure Add(const v: TVectors2f); overload;
-    procedure AddRectangle(w, h: TGLfloat; x: TGLfloat = 0; y: TGLfloat = 0);
+    procedure AddRectangle(w, h: TGLfloat);
 
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
@@ -54,7 +53,6 @@ type
 
   TVectors3fHelper = type Helper(TGlfloatsHelper) for TVectors3f
   public
-    procedure Add(x, y, z: TGLfloat); overload;
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
     procedure AddRectangle(w, h: TGLfloat);
@@ -105,11 +103,6 @@ end;
 
 { TVectors2fHelper }
 
-procedure TVectors2fHelper.Add(x, y: TGLfloat); inline;
-begin
-  Self += [x, y];
-end;
-
 procedure TVectors2fHelper.Add(const v: TVector2f);
 begin
   Self += [v];
@@ -120,11 +113,11 @@ begin
   Self += v;
 end;
 
-procedure TVectors2fHelper.AddRectangle(w, h: TGLfloat; x: TGLfloat; y: TGLfloat);
+procedure TVectors2fHelper.AddRectangle(w, h: TGLfloat);
 begin
   Self += [
-    0 + x, 0 + y, w + x, 0 + y, w + x, h + y,
-    0 + x, 0 + y, w + x, h + y, 0 + x, h + y];
+    0, 0, w, 0, w, h,
+    0, 0, w, h, 0, h];
 end;
 
 procedure TVectors2fHelper.AddQuadTexCoords; inline;
@@ -220,11 +213,6 @@ begin
 end;
 
 { TVectors3fHelper }
-
-procedure TVectors3fHelper.Add(x, y, z: TGLfloat); inline;
-begin
-  Self += [x, y, z];
-end;
 
 procedure TVectors3fHelper.Add(const v: TVector3f);
 begin
@@ -327,31 +315,24 @@ end;
 procedure TVectors3fHelper.Scale(const AScale: TVector3f);
 var
   i: integer;
-  p: SizeInt = 0;
+  pv: PVector3f;
 begin
+  pv := PVector3f(Self);
   for i := 0 to Length(Self) div 3 - 1 do begin
-    Self[p] *= AScale.x;
-    Inc(p);
-    Self[p] *= AScale.y;
-    Inc(p);
-    Self[p] *= AScale.z;
-    Inc(p);
+    pv^.Scale(AScale);
+    Inc(pv);
   end;
 end;
 
 procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
 var
   i: integer;
-  p: integer = 0;
+  pv: PVector3f;
 begin
+  pv := PVector3f(Self);
   for i := 0 to Length(Self) div 3 - 1 do begin
-    //    PVector3f(@Self[i * 3])^.Translate(ATranslate);
-    Self[p] += ATranslate.x;
-    Inc(p);
-    Self[p] += ATranslate.y;
-    Inc(p);
-    Self[p] += ATranslate.z;
-    Inc(p);
+    pv^.Translate(ATranslate);
+    Inc(pv);
   end;
 end;
 

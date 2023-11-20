@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 1161
-  Height = 1
-  Top = 334
+  Left = 450
+  Height = 306
+  Top = 140
   Width = 439
   Caption = 'Form1'
   Menu = MainMenu1
@@ -10,7 +10,7 @@ object Form1: TForm1
   OnDestroy = FormDestroy
   object Timer1: TTimer
     Enabled = False
-    Interval = 20
+    Interval = 200
     OnTimer = Timer1Timer
     Left = 176
     Top = 107
