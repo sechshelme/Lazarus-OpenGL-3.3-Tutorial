@@ -1,0 +1,3 @@
+"Bewegung im Raum"
+
+Mit eine 4x4 Matrix, kann man sämtliche Bewegungen im Raum darstellen. Verschiebung, Drehung, Skalierung und sogar Perspektive ist mit dieser Matrix möglich.

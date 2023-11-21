@@ -1,0 +1,3 @@
+"Nicht immer"
+
+Man kann bestimmen, das der Zeiger in der Instance nicht jedes mal erhöht wird.

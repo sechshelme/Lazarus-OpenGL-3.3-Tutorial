@@ -1,0 +1,3 @@
+"Nicht nur schreiben"
+
+Ein Vertex-Puffer kann man auch von der Grafikkarte wieder auslesen.

@@ -1,0 +1,3 @@
+"Nicht limitiert"
+
+In einem Text-Buffer kann man mehr Daten ablegen als in einer Uniform-Array.

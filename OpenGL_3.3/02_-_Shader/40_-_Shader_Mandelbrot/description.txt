@@ -1,0 +1,3 @@
+"Jetzt wird es komplex"
+
+Mit dem Shader kann man auch ganze Fraktale berechnen.

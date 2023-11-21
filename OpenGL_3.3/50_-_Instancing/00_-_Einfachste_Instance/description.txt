@@ -1,0 +1,3 @@
+"Nur einmal"
+
+Mit Instancen kann man eine Mesh mehrmals mit einem Aufruf zeichen.

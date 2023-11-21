@@ -1,0 +1,3 @@
+"Koordinaten"
+
+Die Auswirkung unterschiedlicher Textur-Koordinaten.

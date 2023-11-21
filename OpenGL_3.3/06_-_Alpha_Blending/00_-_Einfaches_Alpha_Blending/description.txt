@@ -1,0 +1,3 @@
+"Es werde transparent"
+
+Mit Alpha-Blending ist es erst möglich Fensterscheiben oder Bäume mit OpenGL darzustellen.

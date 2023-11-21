@@ -1,0 +1,3 @@
+"Bilder einzeln, aber nur ein Puffer"
+
+Bitmaps einzeln in einen Textur-Puffer laden.

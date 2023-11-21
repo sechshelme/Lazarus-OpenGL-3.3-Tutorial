@@ -1,0 +1,24 @@
+object WikiTextForm: TWikiTextForm
+  Left = 194
+  Height = 930
+  Top = 215
+  Width = 487
+  Caption = 'WikiTextForm'
+  ClientHeight = 930
+  ClientWidth = 487
+  Color = clWindow
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
+  LCLVersion = '2.2.0.4'
+  object Button1: TButton
+    Left = 405
+    Height = 25
+    Top = 901
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = 'Close'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+end

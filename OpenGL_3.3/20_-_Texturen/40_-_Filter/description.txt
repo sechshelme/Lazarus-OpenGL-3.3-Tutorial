@@ -1,0 +1,3 @@
+"Filter"
+
+Man kann Texturen auf verschiedene Art darstellen und filtern.

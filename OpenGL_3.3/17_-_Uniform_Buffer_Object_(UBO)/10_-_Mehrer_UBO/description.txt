@@ -1,0 +1,3 @@
+"Schneller Wechsel"
+
+Wen man mehrere UBOs hat, kann man sehr schnell die UniformParameter austauschen.

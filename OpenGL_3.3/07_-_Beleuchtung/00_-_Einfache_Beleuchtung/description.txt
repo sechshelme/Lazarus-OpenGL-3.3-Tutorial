@@ -1,0 +1,3 @@
+"Es wird Erkennbar"
+
+Einfachste Variante einer Beleuchtung.

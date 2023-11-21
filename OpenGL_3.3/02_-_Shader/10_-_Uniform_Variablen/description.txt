@@ -1,0 +1,3 @@
+"Äusere Beinflussung"
+
+Wie kann ich den Ablauf des Shaders von aussen beeinflussen.

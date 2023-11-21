@@ -1,0 +1,3 @@
+"Nicht nur einzeln Dreiecke"
+
+Man kann die Dreiecke auch zur einer Strip oder Fan zusamenfügen, dies spart Platz im VRAM.

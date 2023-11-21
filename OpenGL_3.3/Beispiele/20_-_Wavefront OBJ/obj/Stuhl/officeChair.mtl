@@ -1,0 +1,26 @@
+# 
+# Copyrights (C) 2010  Peter Smolik
+# Released under Free Art  Licence Art Libre http://www.artlibre.org
+# 
+
+newmtl OfficeChair_1
+illum 2
+Ka 0.45098 0 0.164706
+Kd 1 1 1
+Ks 0.1 0.1 0.1
+Ns 2.2974
+map_Kd Hide2.jpg
+
+newmtl OfficeChair_2
+illum 2
+Ka 0.121569 0.133333 0.172549
+Kd 0.043137 0.043137 0.043137
+Ks 0.905882 0.858824 0.862745
+Ns 128
+
+newmtl OfficeChair_3
+illum 2
+Ka 0 0 0
+Kd 0 0 0
+Ks 1 1 1
+Ns 128

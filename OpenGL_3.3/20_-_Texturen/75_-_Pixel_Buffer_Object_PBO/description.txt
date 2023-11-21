@@ -1,0 +1,3 @@
+"Textur in einfachen Buffer"
+
+Man kann eine Textur auch mit einem gewöhnlichen Buffer binden.

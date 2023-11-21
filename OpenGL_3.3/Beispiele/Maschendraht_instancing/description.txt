@@ -1,0 +1,3 @@
+"Eine Taschenlampe"
+
+Eine komplexe Taschenlampe mit Abschwächung.

@@ -1,0 +1,3 @@
+"Einer ist langweilig"
+
+Wie kann ich verschiedene Shader benutzen, da man nicht auf allen Meshes die gleichen Efffekte will.

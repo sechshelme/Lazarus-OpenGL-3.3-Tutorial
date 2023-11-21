@@ -1,0 +1,3 @@
+"Auch eine Glühbirne reflektiert"
+
+Material mit Punkt-Lichtquelle.

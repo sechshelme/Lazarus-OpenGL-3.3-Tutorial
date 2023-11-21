@@ -1,0 +1,26 @@
+object Form1: TForm1
+  Left = 430
+  Height = 384
+  Top = 134
+  Width = 783
+  Caption = 'Form1'
+  ClientHeight = 384
+  ClientWidth = 783
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.8.0.6'
+  object Image1: TImage
+    Left = 8
+    Height = 335
+    Top = 8
+    Width = 344
+    Stretch = True
+  end
+  object Image2: TImage
+    Left = 368
+    Height = 335
+    Top = 8
+    Width = 344
+    Stretch = True
+  end
+end
