@@ -1,3 +1,0 @@
-"Nicht nur Koordinaten"
-
-Die Vector-Daten können mehr enthalten als nur die Koordinaten, hier sind es die Farben der Face.

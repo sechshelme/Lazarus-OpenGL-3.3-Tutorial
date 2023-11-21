@@ -1,3 +1,0 @@
-"Erste Vectoren"
-
-Das OpenGL weis, was ausgegeben werden muss, speichert man die Eckpunkte einer Mesh in eine Vektor-Array.

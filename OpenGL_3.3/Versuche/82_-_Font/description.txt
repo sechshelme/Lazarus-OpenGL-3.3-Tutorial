@@ -1,3 +1,0 @@
-"Es werde Transparent"
-
-Es ist auch möglich Texturen transparent darzustellen.

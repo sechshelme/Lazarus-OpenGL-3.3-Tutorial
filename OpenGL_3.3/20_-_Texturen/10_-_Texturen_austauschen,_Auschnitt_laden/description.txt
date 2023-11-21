@@ -1,5 +1,0 @@
-"Nur ein Teil, austauschen"
-
-Es kann auch nur ein Teil eines Texturpuffers beschrieben werden.
-Auch ist es möglich die Textur zur Laufzeit auszutauschen.
-

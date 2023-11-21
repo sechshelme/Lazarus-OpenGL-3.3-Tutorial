@@ -1,4 +1,0 @@
-"Nicht nur Dreiecke"
-
-Ein Vektor-Puffer kann auch aus Linien oder Punkte bestehen.
-'''GL_QUAD''', '''GL_POLYGON''', so wie im alten OpenGL, gibt es '''nicht''' mehr.

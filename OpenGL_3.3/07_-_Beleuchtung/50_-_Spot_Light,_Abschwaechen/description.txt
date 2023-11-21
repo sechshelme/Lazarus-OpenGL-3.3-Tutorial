@@ -1,3 +1,0 @@
-"Taschenlampe wird schwach"
-
-Je weiter das Licht weg, je dünkler die Mesh.

@@ -1,4 +1,0 @@
-"Uniform als Buffer"
-
-Mehrere Shader-Parameter in einem Puffer zusammenfassen.
-

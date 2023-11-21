@@ -1,3 +1,0 @@
-"ohne OpenGL"
-
-Was nimmt OpenGL einem für Arbeit ab.

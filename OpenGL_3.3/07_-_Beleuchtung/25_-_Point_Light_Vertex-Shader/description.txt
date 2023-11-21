@@ -1,3 +1,0 @@
-"Schnelle Lichtberechnung"
-
-Die Berechnung des Lichtes erfolgt im Vertex-Shader. Damit ist die Berechnung sehr schnell, dafür nimmt man Detail-Verlust in Kauf.

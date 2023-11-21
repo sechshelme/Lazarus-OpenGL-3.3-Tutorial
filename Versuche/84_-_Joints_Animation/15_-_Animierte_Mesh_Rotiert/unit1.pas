@@ -150,7 +150,7 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   // center
-  cube.AddCube(1.0, 1.0, 1.0);
+  cube.AddCube;
   cube.scale(2);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
   cubeJointIDs.AddCube(-1, -1);
@@ -158,8 +158,9 @@ begin
   // Arme
   for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
     tmpCube := nil;
-    tmpCube.AddCube(1.0, 1.0, 0);
-    tmpCube.Translate([0,0,1.0]);
+    tmpCube.AddCube;
+    tmpCube.Scale([1, 1, 0]);
+    tmpCube.Translate([0.0, 0.0, 1.0]);
 
     cube.Add(tmpCube);
     cubeColor.AddCubeColor(colors[(i div 6) mod 6]^);

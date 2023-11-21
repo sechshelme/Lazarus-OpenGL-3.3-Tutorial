@@ -1,3 +1,0 @@
-"Es muss nicht immer 3D sein"
-
-Andere Vertex-Daten anstelle von 3D.

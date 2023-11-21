@@ -1,3 +1,0 @@
-"Nicht immer gleich"
-
-Im Shader kann man auch verschiedene Abläufe steuern, die if-Schleife.

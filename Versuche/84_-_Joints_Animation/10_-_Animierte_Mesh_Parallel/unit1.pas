@@ -129,7 +129,7 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   // center
-  cube.AddCube(1.0, 1.0, 1.0);
+  cube.AddCube;
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
   cubeJointIDs.AddCube(-1, -1);
 
@@ -137,7 +137,9 @@ begin
   for j := 0 to 5 do begin
     for i := 0 to jointCount - 1 do begin
       tmpCube := nil;
-      tmpCube.AddCube(0.5, 0.5, 1.0);
+//      tmpCube.AddCube(0.5, 0.5, 1.0);
+      tmpCube.AddCube;
+      tmpCube.Scale([0.5, 0.5, 1.0]);
       tmpCube.Translate([0, 0, 1 + i]);
       case j of
         0..3: begin

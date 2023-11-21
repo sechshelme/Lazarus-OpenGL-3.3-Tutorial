@@ -1,3 +1,0 @@
-"Äusere Beinflussung"
-
-Tiefenbuffer korrigieren

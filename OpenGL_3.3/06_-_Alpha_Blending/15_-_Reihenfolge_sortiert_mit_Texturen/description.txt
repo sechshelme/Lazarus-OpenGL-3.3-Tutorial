@@ -1,3 +1,0 @@
-"Auch Texturen müssen sortiert werden"
-
-Auch bei Texturen mit Alphablending ist die Reiehnfolge wichtig.

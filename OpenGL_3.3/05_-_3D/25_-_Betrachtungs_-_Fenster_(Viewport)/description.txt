@@ -1,4 +1,0 @@
-"Nicht mehr verzerrt"
-
-Ein Quadrat sollte ein Quadrat bleiben, auch wen das Ausgabefenster nicht Quadratisch ist.
-Dies passt man in der Perspektive an.

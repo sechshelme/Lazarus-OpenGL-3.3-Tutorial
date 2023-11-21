@@ -1,3 +1,0 @@
-"Indizien im Puffer"
-
-Auch die Liste der Punkte (Indizien), kann man in einem Puffer ablegen.

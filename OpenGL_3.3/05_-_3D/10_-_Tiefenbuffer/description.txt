@@ -1,3 +1,0 @@
-"Nur Vorne"
-
-Es sollte nur das gerendert werden, was man auch sieht, verdecktes sollte nicht gerendert werden.

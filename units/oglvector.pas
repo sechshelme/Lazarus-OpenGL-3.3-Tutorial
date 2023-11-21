@@ -257,7 +257,7 @@ begin
   Self[1] := x0 * s + y0 * c;
 end;
 
-procedure TVector2fHelper.Scale(Ax, Ay: GLfloat); inline;
+procedure TVector2fHelper.Scale(Ax, Ay: GLfloat); //inline;
 begin
   Self[0] *= Ax;
   Self[1] *= Ay;
@@ -269,7 +269,7 @@ begin
   Self[1] *= s;
 end;
 
-procedure TVector2fHelper.Translate(Ax, Ay: GLfloat); inline;
+procedure TVector2fHelper.Translate(Ax, Ay: GLfloat);// inline;
 begin
   Self[0] += Ax;
   Self[1] += Ay;

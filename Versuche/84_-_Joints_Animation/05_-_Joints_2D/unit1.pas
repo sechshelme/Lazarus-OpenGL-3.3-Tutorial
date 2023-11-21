@@ -153,8 +153,10 @@ begin
 
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
-    tmpQuad.addrectangle(0, 8);
-    tmpQuad.Translate([0 - 0.0, -1.5]);
+    tmpQuad.addrectangle;
+    tmpQuad.Translate([0.5, 0.5]);
+    tmpQuad.Scale([0, 8]);
+
     tmpQuad.Scale(0.1);
 
     QuadVertex.Add(tmpQuad);

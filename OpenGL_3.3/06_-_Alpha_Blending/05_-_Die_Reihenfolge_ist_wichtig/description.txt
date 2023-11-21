@@ -1,3 +1,0 @@
-"Die Reihenfolge ist wichtig"
-
-Bei Alpha-Blendig ist es sehr wichtig, in welcher Reihenfolge die Polygone/Meshes gezeichnet werden. Mit dem Z-Pufer ist s leider '''nicht''' getan.

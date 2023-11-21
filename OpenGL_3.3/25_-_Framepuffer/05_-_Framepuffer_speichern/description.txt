@@ -1,3 +1,0 @@
-"Verewigen"
-
-Man kann die gerenderte Scene auch in ein Bitmap speichern.

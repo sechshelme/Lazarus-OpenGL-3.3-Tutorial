@@ -1,4 +1,0 @@
-"Zeichen Routine"
-
-Bevor OpenGL etwas ausgeben kann, werden die Daten in einem '''Shader'''-Programm abgearbeitet.
-Somit stehen einem fast unendliche Effekte zu Verfügung.

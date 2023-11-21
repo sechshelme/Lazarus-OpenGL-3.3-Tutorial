@@ -57,7 +57,7 @@ implementation
 type
   TVB = record
     VAO,
-    VBOvert,VBOnorm, VBOtex: GLuint;
+    VBOvert, VBOnorm, VBOtex: GLuint;
   end;
 
   TUBOBuffer = record
@@ -93,7 +93,7 @@ var
   CubeArr: array of array of array of boolean;
   cp: TVector3i;
   i, x, y, z: integer;
-  tmpCube:TVectors3f;
+  tmpCube: TVectors3f;
 
   function BottomTest(p: TVector3i): boolean;
   begin
@@ -129,8 +129,8 @@ begin
     for y := 0 to Length(CubeArr[z]) - 1 do begin
       for x := 0 to Length(CubeArr[z, y]) - 1 do begin
         if CubeArr[z, y, x] then begin
-          tmpCube:=nil;
-          tmpCube.AddCube(1, 1, 1);
+          tmpCube := nil;
+          tmpCube.AddCube;
           tmpCube.Translate([x - si div 2, y - si div 2, z - si / 2 + 0.5]);
           CubeVerts.Add(tmpCube);
 
@@ -141,11 +141,11 @@ begin
     end;
   end;
 
-  WriteLn(Length( CubeVerts));
-  WriteLn(Length( CubeNormals));
+  WriteLn(Length(CubeVerts));
+  WriteLn(Length(CubeNormals));
 
   CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
-//  CubeVerts.Scale(scale * 1.5);
+  //  CubeVerts.Scale(scale * 1.5);
 
   glBindVertexArray(VBCube.VAO);
 
@@ -179,8 +179,8 @@ procedure TForm1.CreateScene;
 begin
   glEnable(GL_DEPTH_TEST);
 
-//   glEnable(GL_CULL_FACE);   // Überprüfung einschalten
-//  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
+  //   glEnable(GL_CULL_FACE);   // Überprüfung einschalten
+  //  glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
 
   // --- Shader laden
   Shader := TShader.Create;
@@ -212,8 +212,8 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
 
   // --- Reflect
-  ReflectVerts.AddRectangle(2, 2);
-//  ReflectVerts.AddRectangle(2, 2);
+  ReflectVerts.AddRectangle;
+  ReflectVerts.Scale([2, 2, 1]);
   ReflectVerts.Translate([0, 0, -0.5]);
   ReflectTexCoords.AddQuadTexCoords;
 

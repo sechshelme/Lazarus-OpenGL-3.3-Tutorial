@@ -1,3 +1,0 @@
-"Detailgetreues Licht"
-
-Die Berechnung wird in den Fragemnt-Shader ausgelagert. Dies ist nicht mehr so schnell, dafür aber umso Detailreicher.

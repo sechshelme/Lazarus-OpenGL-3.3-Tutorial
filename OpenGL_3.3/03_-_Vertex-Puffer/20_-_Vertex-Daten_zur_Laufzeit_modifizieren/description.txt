@@ -1,3 +1,0 @@
-"Es werde dynamisch"
-
-Man kann die Vertex-Daten zu Laufzeit modifizieren und neu in die Grafikkarte laden.

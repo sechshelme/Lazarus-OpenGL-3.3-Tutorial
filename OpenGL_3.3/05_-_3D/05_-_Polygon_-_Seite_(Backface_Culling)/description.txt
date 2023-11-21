@@ -1,3 +1,0 @@
-"Alles ist zu viel"
-
-Wie unterbinde ich es, das die Rückseite eines Polygones gerendert wird.

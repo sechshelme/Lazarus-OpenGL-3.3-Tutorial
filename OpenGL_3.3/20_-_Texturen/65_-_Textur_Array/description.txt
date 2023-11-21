@@ -1,3 +1,0 @@
-"Alles auf einmal"
-
-Mehrere Texturen in einem Textur-Puffer. ( Textur-Array )

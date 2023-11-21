@@ -113,7 +113,7 @@ begin
   Shader.UseProgram;
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, VBDataIn.VBO);
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, VBDataOut.VBO);
-  glDispatchCompute(10, 10, 10);
+  glDispatchCompute(Length(dataIn) , 1, 1);
 
  // glMemoryBarrier(GL_ALL_BARRIER_BITS);
   glBindBuffer(GL_COPY_READ_BUFFER, VBDataOut.VBO);

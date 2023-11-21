@@ -1,3 +1,0 @@
-"Mesh im Shader"
-
-Es geht auch ohne Vertex-Buffer

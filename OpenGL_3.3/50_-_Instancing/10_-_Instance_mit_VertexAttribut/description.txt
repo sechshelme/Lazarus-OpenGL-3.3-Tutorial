@@ -1,5 +1,0 @@
-"Flexibel sollte es sein"
-
-Nimmt man ein Vertex-Attribut ist man viel flexibler mit Instancen.
-Die Anzahl der Instancen ist fast unbegrenzt.
-

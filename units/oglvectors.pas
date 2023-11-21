@@ -34,7 +34,7 @@ type
   public
     procedure Add(const v: TVector2f); overload;
     procedure Add(const v: TVectors2f); overload;
-    procedure AddRectangle(w, h: TGLfloat);
+    procedure AddRectangle;
 
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
@@ -51,13 +51,15 @@ type
     procedure AddFace2DArray(const Face: array of TFace2D);
   end;
 
+  { TVectors3fHelper }
+
   TVectors3fHelper = type Helper(TGlfloatsHelper) for TVectors3f
   public
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
-    procedure AddRectangle(w, h: TGLfloat);
+    procedure AddRectangle;
     procedure AddRectangleColor(col: TVector3f);
-    procedure AddCube(w, h, d: TGLfloat);
+    procedure AddCube;
     procedure AddCubeNormale;
     procedure AddCubeColor(col: TVector3f);
 
@@ -113,11 +115,11 @@ begin
   Self += v;
 end;
 
-procedure TVectors2fHelper.AddRectangle(w, h: TGLfloat);
+procedure TVectors2fHelper.AddRectangle;
 begin
   Self += [
-    0, 0, w, 0, w, h,
-    0, 0, w, h, 0, h];
+    -0.5, -0.5, 0.5, -0.5, 0.5, 0.5,
+    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5];
 end;
 
 procedure TVectors2fHelper.AddQuadTexCoords; inline;
@@ -149,36 +151,36 @@ end;
 procedure TVectors2fHelper.Scale(const AScale: TVector2f);
 var
   i: integer;
-  p: SizeInt = 0;
+  pv: PVector2f;
 begin
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    Self[p] *= AScale.x;
-    Inc(p);
-    Self[p] *= AScale.y;
-    Inc(p);
+  pv := PVector2f(Self);
+  for i := 0 to Length(Self) div 2 - 1 do begin
+    pv^.Scale(AScale.x, AScale.y);
+    Inc(pv);
   end;
 end;
 
 procedure TVectors2fHelper.Translate(const ATranslate: TVector2f);
 var
   i: integer;
-  p: SizeInt = 0;
+  pv: PVector2f;
 begin
+  pv := PVector2f(Self);
   for i := 0 to Length(Self) div 2 - 1 do begin
-    //    PVector3f(@Self[i * 3])^.Translate(ATranslate);
-    Self[p] += ATranslate.x;
-    Inc(p);
-    Self[p] += ATranslate.y;
-    Inc(p);
+    pv^.Translate(ATranslate.x, ATranslate.y);
+    Inc(pv);
   end;
 end;
 
 procedure TVectors2fHelper.Rotate(angele: TGLfloat);
 var
   i: integer;
+  pv: PVector2f;
 begin
+  pv := PVector2f(Self);
   for i := 0 to Length(Self) div 2 - 1 do begin
-    PVector3f(@Self[i * 2])^.RotateC(angele);
+    pv^.Rotate(angele);
+    Inc(pv);
   end;
 end;
 
@@ -224,15 +226,11 @@ begin
   Self += v;
 end;
 
-procedure TVectors3fHelper.AddRectangle(w, h: TGLfloat);
-var
-  w2, h2: TGLfloat;
+procedure TVectors3fHelper.AddRectangle;
 begin
-  w2 := w / 2;
-  h2 := h / 2;
   Self += [
-    -w2, -h2, 0, w2, -h2, 0, w2, h2, 0,
-    -w2, -h2, 0, w2, h2, 0, -w2, h2, 0];
+    -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0,
+    -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0];
 end;
 
 procedure TVectors3fHelper.AddRectangleColor(col: TVector3f);
@@ -244,37 +242,33 @@ begin
   end;
 end;
 
-procedure TVectors3fHelper.AddCube(w, h, d: TGLfloat);
-var
-  w2, h2, d2: TGLfloat;
+procedure TVectors3fHelper.AddCube;
 begin
-  w2 := w / 2;
-  h2 := h / 2;
-  d2 := d / 2;
   Self += [
     // vorn
-    -w2, -h2, d2, w2, -h2, d2, w2, h2, d2,
-    -w2, -h2, d2, w2, h2, d2, -w2, h2, d2,
+    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5,
+    -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5,
 
     // hinten
-    w2, h2, -d2, -w2, -h2, -d2, -w2, h2, -d2,
-    w2, h2, -d2, w2, -h2, -d2, -w2, -h2, -d2,
+    0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5,
+    0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5,
 
     // unten
-    -w2, -h2, -d2, w2, -h2, -d2, w2, -h2, d2,
-    -w2, -h2, -d2, w2, -h2, d2, -w2, -h2, d2,
+    -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5,
+    -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5,
 
     // rechts
-    w2, -h2, -d2, w2, h2, -d2, w2, h2, d2,
-    w2, -h2, -d2, w2, h2, d2, w2, -h2, d2,
+    0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5,
+    0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5,
 
     // oben
-    w2, h2, -d2, -w2, h2, -d2, -w2, h2, d2,
-    w2, h2, -d2, -w2, h2, d2, w2, h2, d2,
+    0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5,
+    0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
 
     // links
-    -w2, h2, -d2, -w2, -h2, -d2, -w2, -h2, d2,
-    -w2, h2, -d2, -w2, -h2, d2, -w2, h2, d2];
+    -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
+    -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
+
 end;
 
 procedure TVectors3fHelper.AddCubeNormale;

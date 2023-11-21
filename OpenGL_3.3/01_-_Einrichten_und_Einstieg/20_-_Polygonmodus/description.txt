@@ -1,3 +1,0 @@
-"Wie sollen die Polygone verarbeitet werden ?"
-
-Die Dreiecke/Linien können als Eckpunkte, Drahtgitter oder Vollflächig ausgegeben werden.

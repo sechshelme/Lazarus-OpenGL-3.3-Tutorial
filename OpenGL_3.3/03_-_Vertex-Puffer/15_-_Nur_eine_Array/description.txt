@@ -1,3 +1,0 @@
-"Alles zusammen"
-
-Man kann Koordianten, Farben, etc., alles in einen Puffer ablegen.

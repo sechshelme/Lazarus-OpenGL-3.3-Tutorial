@@ -1,3 +1,0 @@
-"Taschenlampe realistisch"
-
-Jetzt werden auch schräge Flächen (Normale) berücksichtigt.

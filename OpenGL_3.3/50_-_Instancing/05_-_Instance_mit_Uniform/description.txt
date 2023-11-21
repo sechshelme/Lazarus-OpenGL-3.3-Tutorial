@@ -1,4 +1,0 @@
-"Chaotisch"
-
-Will man eigene Parameter der Meshes, kann man die per Uniform-Array übergeben.
-Die Anzahl der Instancen ist sehr begrenzt.

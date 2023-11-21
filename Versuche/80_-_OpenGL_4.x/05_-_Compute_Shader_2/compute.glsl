@@ -15,7 +15,7 @@ layout(std430, binding = 0) buffer In
 void main()
 {
   uint n = gl_NumWorkGroups.x;
-  for (int i; i < 15; i ++)
+  for (int i; i < n; i ++)
   {
 	DataOut[i] = DataIn[i] * 3;
   }

@@ -1,3 +1,0 @@
-"Indizien dynamisch"
-
-Auch der Indizien-Puffer kann man zur Laufzeit modifizieren.

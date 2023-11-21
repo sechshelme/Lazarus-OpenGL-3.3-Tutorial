@@ -1,4 +1,0 @@
-"Das Herz von OpenGL 3.3"
-
-Sämtliche Effekt werden hier verarbeitet.
-Was ist ein Shader und wie lädt man ihn in die Grafikkarte.
