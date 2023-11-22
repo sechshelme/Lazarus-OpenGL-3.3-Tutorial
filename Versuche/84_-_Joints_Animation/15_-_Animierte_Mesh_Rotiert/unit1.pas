@@ -27,7 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    procedure CreatJoints;
+    procedure CreatJointsMatrix;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
     procedure ogcKeyPress(Sender: TObject; var Key: char);
@@ -79,10 +79,9 @@ begin
   ogc.OnKeyPress := @ogcKeyPress;
 
   CreateScene;
-
 end;
 
-procedure TForm1.CreatJoints;
+procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
 begin
@@ -113,6 +112,7 @@ procedure TForm1.CreateScene;
 var
   i: integer;
   tmpCube: TVectors3f;
+  ofs: SizeInt;
 const
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 begin
@@ -129,7 +129,7 @@ begin
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
   glGenBuffers(1, @UBO);
-  // UBO mit Daten laden
+  // UBO anlegen
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
@@ -145,9 +145,7 @@ begin
   glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
-  // --- Daten für den Würfel
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glBindVertexArray(VBQuad.VAO);
+  CreatJointsMatrix;
 
   // center
   cube.AddCube;
@@ -158,16 +156,29 @@ begin
   // Arme
   for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
     tmpCube := nil;
-    tmpCube.AddCube;
+    tmpCube.AddCubeLateral;
     tmpCube.Scale([1, 1, 0]);
     tmpCube.Translate([0.0, 0.0, 1.0]);
-
     cube.Add(tmpCube);
-    cubeColor.AddCubeColor(colors[(i div 6) mod 6]^);
-    cubeJointIDs.AddCube(i, i + 6);
+    cubeColor.AddCubeLateralColor(colors[(i div 6) mod 6]^);
+    cubeJointIDs.AddCubeLateral(i, i + 6);
   end;
 
-  CreatJoints;
+  // Abschluss
+  for i := 0 to 5 do begin
+    tmpCube := nil;
+    tmpCube.AddRectangle;
+    tmpCube.Translate([0.0, 0.0, 1.0]);
+    cube.Add(tmpCube);
+
+    ofs := i + Length(UBOBuffer.JointMatrix) - 6;
+    cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
+    cubeJointIDs.AddRectangle(ofs);
+  end;
+
+  // --- Create VAO Buffer
+  glGenVertexArrays(1, @VBQuad.VAO);
+  glBindVertexArray(VBQuad.VAO);
 
   // Vektor
   glGenBuffers(1, @VBQuad.VBO);
@@ -199,7 +210,6 @@ begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   Shader.UseProgram;
 
-  // Zeichne den Würfel
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
 
   glBindVertexArray(VBQuad.VAO);
@@ -210,7 +220,7 @@ end;
 
 procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
 begin
-  CreatJoints;
+  CreatJointsMatrix;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);

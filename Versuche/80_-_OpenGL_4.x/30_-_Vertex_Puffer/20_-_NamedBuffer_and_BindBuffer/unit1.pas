@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglVector, oglMatrix, oglContext, oglShader;
+  dglOpenGL, oglVector,oglVectors, oglMatrix, oglContext, oglShader;
 
 type
 
@@ -43,10 +43,10 @@ type
   end;
 
 var
-  TriangleVectors: TglFloatArray = nil;
-  TriangleColors: TglFloatArray = nil;
-  QuadVectors: TglFloatArray = nil;
-  QuadColors: TglFloatArray = nil;
+  TriangleVectors: TVectors3f = nil;
+  TriangleColors: TVectors3f = nil;
+  QuadVectors: TVectors3f = nil;
+  QuadColors: TVectors3f = nil;
 
   VBTriangle, VBQuad: TVB;
 
@@ -100,29 +100,29 @@ begin
   // Daten für das Dreieck
   glCreateBuffers(1, @VBTriangle.VBO);
   glNamedBufferStorage(VBTriangle.VBO, TriangleVectors.Size + TriangleColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, PFace(TriangleVectors));
-  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, PFace(TriangleColors));
+  glNamedBufferSubData(VBTriangle.VBO, 0, TriangleVectors.Size, TriangleVectors.Ptr);
+  glNamedBufferSubData(VBTriangle.VBO, TriangleVectors.Size, TriangleColors.Size, TriangleColors.Ptr);
 
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(TriangleVectors.Size));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,TriangleVectors.SizePtr);
   glEnableVertexAttribArray(1);
 
   // Daten für das Quad
   glCreateBuffers(1, @VBQuad.VBO);
   glNamedBufferStorage(VBQuad.VBO, QuadVectors.Size + QuadColors.Size, nil, GL_DYNAMIC_STORAGE_BIT);
-  glNamedBufferSubData(VBQuad.VBO, 0, QuadVectors.Size, PFace(QuadVectors));
-  glNamedBufferSubData(VBQuad.VBO, QuadVectors.Size, QuadColors.Size, PFace(QuadColors));
+  glNamedBufferSubData(VBQuad.VBO, 0, QuadVectors.Size, QuadVectors.Ptr);
+  glNamedBufferSubData(VBQuad.VBO, QuadVectors.Size, QuadColors.Size, QuadColors.Ptr);
 
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, TGLvoid(QuadVectors.Size));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, QuadVectors.SizePtr);
   glEnableVertexAttribArray(1);
 end;
 
@@ -136,11 +136,11 @@ begin
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, TriangleVectors.Vector3DCount);
+  glDrawArrays(GL_TRIANGLES, 0, TriangleVectors.Count);
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, QuadVectors.Vector3DCount);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVectors.Count);
 
   ogc.SwapBuffers;
 end;
