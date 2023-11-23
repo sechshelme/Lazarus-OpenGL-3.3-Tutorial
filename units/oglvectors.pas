@@ -64,12 +64,12 @@ type
     procedure Add(const v: array of TVector3f); overload;
 
     procedure AddRectangle;
-    procedure AddRectangleColor(col: TVector3f);
+    procedure AddRectangleColor(const col: TVector3f);
     procedure AddCubeLateral;
     procedure AddCube;
     procedure AddCubeNormale;
-    procedure AddCubeColor(col: TVector3f);
-    procedure AddCubeLateralColor(col: TVector3f);
+    procedure AddCubeColor(const col: TVector3f);
+    procedure AddCubeLateralColor(const col: TVector3f);
 
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
@@ -81,7 +81,6 @@ type
     function Count: TGLint;
 
     procedure AddFace3D(const Face: TFace3D); overload;
-    //    procedure AddFace3D(const v0, v1, v2: TVector3f); overload;
     procedure AddFace3DArray(const Face: array of TFace3D);
   end;
 
@@ -256,7 +255,7 @@ begin
     -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0];
 end;
 
-procedure TVectors3fHelper.AddRectangleColor(col: TVector3f);
+procedure TVectors3fHelper.AddRectangleColor(const col: TVector3f);
 var
   i: integer;
 begin
@@ -330,7 +329,7 @@ begin
     0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0];
 end;
 
-procedure TVectors3fHelper.AddCubeColor(col: TVector3f);
+procedure TVectors3fHelper.AddCubeColor(const col: TVector3f);
 var
   i: integer;
 begin
@@ -339,7 +338,7 @@ begin
   end;
 end;
 
-procedure TVectors3fHelper.AddCubeLateralColor(col: TVector3f);
+procedure TVectors3fHelper.AddCubeLateralColor(const col: TVector3f);
 var
   i: integer;
 begin
@@ -421,13 +420,6 @@ begin
   SetLength(Self, p + 9);
   Move(Face, Self[p], SizeOf(TFace3D));
 end;
-//
-//procedure TVectors3fHelper.AddFace3D(const v0, v1, v2: TVector3f);
-//begin
-//  Self += [v0];
-//  Self += [v1];
-//  Self += [v2];
-//end;
 //
 procedure TVectors3fHelper.AddFace3DArray(const Face: array of TFace3D);
 var
