@@ -26,7 +26,7 @@ type
   { TGlfloatsHelper }
 
   TGlfloatsHelper = type Helper for TGlfloats
-  function Size: TGLsizei;
+    function Size: TGLsizei;
     function SizePtr: TGLvoid;
     function Ptr: TGLvoid;
   end;
@@ -37,6 +37,7 @@ type
   public
     procedure Add(const v: TVector2f); overload;
     procedure Add(const v: TVectors2f); overload;
+
     procedure AddRectangle;
 
     procedure AddQuadTexCoords;
@@ -60,6 +61,8 @@ type
   public
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
+    procedure Add(const v: array of TVector3f); overload;
+
     procedure AddRectangle;
     procedure AddRectangleColor(col: TVector3f);
     procedure AddCubeLateral;
@@ -78,7 +81,7 @@ type
     function Count: TGLint;
 
     procedure AddFace3D(const Face: TFace3D); overload;
-//    procedure AddFace3D(const v0, v1, v2: TVector3f); overload;
+    //    procedure AddFace3D(const v0, v1, v2: TVector3f); overload;
     procedure AddFace3DArray(const Face: array of TFace3D);
   end;
 
@@ -105,7 +108,7 @@ end;
 
 function TGlfloatsHelper.SizePtr: TGLvoid;
 begin
-Result:= TGLvoid(   Size);
+  Result := TGLvoid(Size);
 end;
 
 function TGlfloatsHelper.Ptr: TGLvoid;
@@ -234,6 +237,16 @@ end;
 procedure TVectors3fHelper.Add(const v: TVectors3f);
 begin
   Self += v;
+end;
+
+procedure TVectors3fHelper.Add(const v: array of TVector3f);
+var
+  len_v, len_self: SizeInt;
+begin
+  len_v := Length(v) * 3;
+  len_self := Length(Self);
+  SetLength(Self, len_self + len_v);
+  move(v[0], Self[len_self], len_v * 4);
 end;
 
 procedure TVectors3fHelper.AddRectangle;

@@ -53,27 +53,32 @@ var
   //code+
 procedure TForm1.FormCreate(Sender: TObject);
 const
-  TriangleVector: array of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  TriangleColor: array of TFace =
-    (((1.0, 1.0, 0.0), (0.0, 1.0, 1.0), (1.0, 0.0, 1.0)));
+  TriangleVector: array of TVector3f =
+    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
+  TriangleColor: array of TVector3f =
+    ((1.0, 1.0, 0.0), (0.0, 1.0, 1.0), (1.0, 0.0, 1.0));
 
-  QuadVector: array of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
-  QuadColor: array of TFace =
-    (((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)),
-    ((1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0)));
+  QuadVector: array of TVector3f =
+    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
+    (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
+  QuadColor: array of TVector3f =
+    ((1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0),
+    (1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0));
 begin
   //remove+
   Width := 340;
   Height := 240;
   //remove-
 
-  TriangleVectors.AddFace3DArray(TriangleVector);
-  TriangleColors.AddFace3DArray(TriangleColor);
-  QuadVectors.AddFace3DArray(QuadVector);
-  QuadColors.AddFace3DArray(QuadColor);
+  TriangleVectors.Add(TriangleVector);
+  TriangleColors.Add(TriangleColor);
+
+  QuadVectors.Add(QuadVector);
+  QuadVectors.Translate([0.4,0.3,0]);
+  QuadColors.Add(QuadColor);
+
+  QuadVectors.Add(QuadVector);
+  QuadColors.Add(QuadColor);
 
   Init_OpenGL;
 end;
