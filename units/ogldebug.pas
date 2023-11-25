@@ -4,31 +4,13 @@ interface
 
 uses SysUtils, dglOpenGL;
 
-const
-  clBlack = 30;
-  clRed = 31;
-  clGreen = 32;
-  clYellow = 33;
-  clBlurw = 34;
-  clMagenta = 35;
-  clCyan = 36;
-  clWhite = 37;
-  clBrightBlack = 90;
-  clBrightRed = 91;
-  clBrightGree = 92;
-  clBrightYellow = 93;
-  clBrightBlue = 94;
-  clBrightMagenta = 95;
-  clBrightCyan = 96;
-  clBrightWhite = 97;
-
 type
 
   { TLogForm }
 
   TLogForm = class(TObject)
   public
-    procedure Add(s: string; fg: byte = 0; bg: byte = 0);
+    procedure Add(s: string);
     procedure AddAndTitle(Title, Comment: string);
   end;
 
@@ -40,23 +22,31 @@ procedure checkError(command: string);
 
 implementation
 
-procedure SetFGColor(c: byte);
-begin
-  Write(#27'[', Ord(c), 'm');
-end;
+const
+  clNormal = '0';
+  clBlack = '30';
+  clRed = '31';
+  clGreen = '32';
+  clYellow = '33';
+  clBlurw = '34';
+  clMagenta = '35';
+  clCyan = '36';
+  clWhite = '37';
+  clBrightBlack = '90';
+  clBrightRed = '91';
+  clBrightGree = '92';
+  clBrightYellow = '93';
+  clBrightBlue = '94';
+  clBrightMagenta = '95';
+  clBrightCyan = '96';
+  clBrightWhite = '97';
 
-procedure SetBGColor(c: byte);
-begin
-  Write(#27'[', Ord(c + 10), 'm');
-end;
+const
+  StrNormal = #27'[' + clNormal + 'm';
+  StrBrightRed = #27'[' + clBrightRed + 'm';
+  StrGreen = #27'[' + clGreen + 'm';
 
-procedure SetFGNormalColor;
-begin
-  Write(#27'[0m');
-  //  SetFGColor(clBrightWhite);
-end;
-
-// --- Debugger ---
+  // --- Debugger ---
 
 {$IFDEF MSWINDOWS}
 procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); stdcall;
@@ -68,7 +58,6 @@ var
   MsgSource: string = '';
   MsgType: string = '';
   MsgSeverity: string = '';
-  col: byte;
 begin
 
   // Source of this message
@@ -118,23 +107,17 @@ begin
   // Severity of this message
   case severity of
     GL_DEBUG_SEVERITY_HIGH: begin
-      MsgSeverity := 'HIGH';
-      col := clBrightRed;
+      MsgSeverity := StrBrightRed + '[HIGH]' + StrNormal;
     end;
     GL_DEBUG_SEVERITY_MEDIUM: begin
-      MsgSeverity := 'MEDIUM';
-      col := clBrightYellow;
+      MsgSeverity := '[MEDIUM]';
     end;
     GL_DEBUG_SEVERITY_LOW: begin
-      MsgSeverity := 'LOW';
-      col := clBrightWhite;
-    end;
-    else begin
-      col := clWhite;
+      MsgSeverity := '[LOW]';
     end;
   end;
 
-  LogForm.Add('DEBUG: ' + Format('%s %s [%s] : %s', [MsgSource, MsgType, MsgSeverity, message_]), col);
+  LogForm.Add('DEBUG: ' + MsgSource + '  ' + MsgType + '  ' + MsgSeverity + '  ' + message_);
 end;
 
 procedure InitOpenGLDebug;
@@ -152,29 +135,25 @@ var
 begin
   err := glGetError();
   if err <> 0 then begin
-    // GL_INVALID_ENUM
     LogForm.Add('Fehler-Nr: $' + IntToHex(err, 4) + ' (' + IntToStr(err) + ') bei: ' + command);
-    //    LogForm.Show;
   end;
 end;
 
 
 
-procedure TLogForm.Add(s: string; fg: byte; bg: byte);
+procedure TLogForm.Add(s: string);
 begin
   {$I-}// Wegen Windows
-  SetFGColor(fg);
-  SetBGColor(bg);
   WriteLn(s);
   {$I+}
 end;
 
 procedure TLogForm.AddAndTitle(Title, Comment: string);
 begin
-  Add(Title, clBrightRed);
+  Add(StrBrightRed + Title + StrNormal);
   Add(StringOfChar('=', Length(Title)));
   Add('');
-  Add(Comment, clGreen);
+  Add(StrGreen + Comment + StrNormal);
   Add('');
 end;
 
