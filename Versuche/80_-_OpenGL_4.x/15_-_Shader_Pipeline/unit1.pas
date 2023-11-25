@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL, oglDebug,
-  oglContext;
+  oglContext,oglVector;
 
 type
 
@@ -43,16 +43,29 @@ In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts
 
 //lineal
 
-type
-  TVertex3f = array[0..2] of GLfloat;
-  TFace = array[0..2] of TVertex3f;
-
 const
-  Triangle: array[0..0] of TFace =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-  Quad: array[0..1] of TFace =
-    (((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0)),
-    ((-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0)));
+  Triangle: array[0..2] of TVector3f =
+    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
+  Quad: array[0..5] of TVector3f =
+    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
+    (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
+
+  VertexShader: string =
+    '#version 330'#10 +
+    'layout (location = 0) in vec3 inPos;'#10 +
+    'void main(void)'#10 +
+    '{'#10 +
+    ' gl_Position = vec4(inPos, 1.0);'#10 +
+    '}';
+
+  FragmentShader: string =
+    '#version 330'#10 +
+    '#define col vec3(1.0, 0.0, 0.0)'#10 +
+    'out vec4 outColor;'#10 +
+    'void main(void)'#10 +
+    '{'#10 +
+    '  outColor = vec4(col, 1.0); '#10 +
+    '}';
 
 type
   TVB = record
@@ -66,10 +79,10 @@ var
 (*
 Die ID, welche auf den Shader zeigt.
 *)
-//code+
+  //code+
 var
-  ProgramID: GLuint;
-//code-
+  ProgramID: TGLuint;
+  //code-
 
 (*
 Lädt den Vertex- und Fragment-Shader in die Grafikkarte.
@@ -77,97 +90,48 @@ In diesem Beispiel sind die beiden Shader in einer Textdatei.
 Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarieren.
 *)
 
-// https://stackoverflow.com/questions/27777226/how-to-use-glcreateshaderprogram
+  // https://stackoverflow.com/questions/27777226/how-to-use-glcreateshaderprogram
 
 //code+
-function Initshader(VertexDatei, FragmentDatei: string): GLuint;
+function Initshader(VertexS, FragmentS: string): TGLuint;
 var
-  sl: TStringList;
-  s: string;
-
-  ProgramObject: GLhandle;
-  VertexShaderObject: GLhandle;
-  FragmentShaderObject: GLhandle;
-
-  pipelineID:TGLuint;
-
-  ErrorStatus, InfoLogLength: integer;
-
+  linked,log_length,
+  vertexID, fragmentID, pipelineID: TGLuint;
+  log:array of Char=nil;
 begin
-  sl := TStringList.Create;
-  ProgramObject := glCreateProgram();
+  //  glGenProgramPipelines(1, @pipelineID);
+  glCreateProgramPipelines(1, @pipelineID);
 
-  // Vertex - Shader
+  // --- Vertex
+  vertexID := glCreateShaderProgramv(GL_VERTEX_SHADER, 1, @VertexS);
+  glUseProgramStages(pipelineID, GL_VERTEX_SHADER_BIT, vertexID);
 
-//  VertexShaderObject := glCreateShader(GL_VERTEX_SHADER);
-  sl.LoadFromFile(VertexDatei);
-  s := sl.Text;
-//  glShaderSource(VertexShaderObject, 1, @s, nil);
-VertexShaderObject:=glCreateShaderProgramv(GL_VERTEX_SHADER,1,@s) ;
+  // Fehler
+  glGetProgramiv(vertexID, GL_LINK_STATUS, @linked);
+  if linked = 0 then begin
+    WriteLn('Vertex-Fehler');
+    glGetProgramiv(vertexID, GL_INFO_LOG_LENGTH, @log_length);
+     SetLength(log,log_length);
+     glGetProgramInfoLog(vertexID, log_length,@log_length, PChar(log));
+     WriteLn(PChar( log));
+  end;
 
-sl.LoadFromFile(FragmentDatei);
-s := sl.Text;
-FragmentShaderObject:=glCreateShaderProgramv(GL_FRAGMENT_SHADER,1,@s) ;
+  // --- Fragment
+  fragmentID := glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, @FragmentS);
+  glUseProgramStages(pipelineID, GL_FRAGMENT_SHADER_BIT, fragmentID);
 
-glGenProgramPipelines(1,@pipelineID);
+  // Fehler
+  glGetProgramiv(fragmentID, GL_LINK_STATUS, @linked);
+  if linked = 0 then begin
+    WriteLn('Fragment-Fehler');
+    glGetProgramiv(fragmentID, GL_INFO_LOG_LENGTH, @log_length);
+     SetLength(log,log_length);
+     glGetProgramInfoLog(vertexID, log_length,@log_length, PChar(log));
+     WriteLn(PChar( log));
+  end;
 
-glUseProgramStages(pipelineID,GL_VERTEX_SHADER_BIT,VertexShaderObject);
-glUseProgramStages(pipelineID,GL_FRAGMENT_SHADER_BIT,FragmentShaderObject);
-
-glBindProgramPipeline(pipelineID);
-
-//
-//  glCompileShader(VertexShaderObject);
-//  glAttachShader(ProgramObject, VertexShaderObject);
-//
-//  // Check Shader
-//
-//  glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-//  if ErrorStatus = 0 then begin
-//    glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-//    SetLength(s, InfoLogLength + 1);
-//    glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, @s[1]);
-//    Application.MessageBox(PChar(s), 'OpenGL Vertex Fehler', 48);
-//    Halt;
-//  end;
-//
-//  glDeleteShader(VertexShaderObject);
-//
-//  // Fragment - Shader
-//
-//  FragmentShaderObject := glCreateShader(GL_FRAGMENT_SHADER);
-//  sl.LoadFromFile(FragmentDatei);
-//  s := sl.Text;
-//  glShaderSource(FragmentShaderObject, 1, @s, nil);
-//  glCompileShader(FragmentShaderObject);
-//  glAttachShader(ProgramObject, FragmentShaderObject);
-//
-//  // Check Shader
-//
-//  glGetShaderiv(FragmentShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-//  if ErrorStatus = 0 then begin
-//    glGetShaderiv(FragmentShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-//    SetLength(s, InfoLogLength + 1);
-//    glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, nil, @s[1]);
-//    Application.MessageBox(PChar(s), 'OpenGL Fragment Fehler', 48);
-//    Halt;
-//  end;
-//
-//  glDeleteShader(FragmentShaderObject);
-//  glLinkProgram(ProgramObject);    // Die beiden Shader zusammen linken
-//
-//  // Check Link
-//  glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
-//  if ErrorStatus = 0 then begin
-//    glGetProgramiv(ProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-//    SetLength(s, InfoLogLength + 1);
-//    glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, @s[1]);
-//    Application.MessageBox(PChar(s), 'OpenGL ShaderLink Fehler', 48);
-//    Halt;
-//  end;
-//
-//  Result := ProgramObject;
-  sl.Free;
+  glBindProgramPipeline(pipelineID);
+  Result := pipelineID;
 end;
 //code-
 
@@ -199,8 +163,8 @@ Näheres im Kapitel Shader.
 //code+
 procedure TForm1.CreateScene;
 begin
-  ProgramID := InitShader('Vertexshader.glsl', 'Fragmentshader.glsl');
-  glUseProgram(programID);
+  ProgramID := InitShader(VertexShader, FragmentShader);
+  //  glUseProgram(programID);
   //code-
 
   glGenVertexArrays(1, @VBTriangle.VAO);
@@ -239,18 +203,18 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 begin
   glClear(GL_COLOR_BUFFER_BIT);
 
-  glUseProgram(0);
-    glUseProgram(programID);
+  glBindProgramPipeline(0);
+  glBindProgramPipeline(ProgramID);
 
   //code-
 
   // Zeichne Dreieck
   glBindVertexArray(VBTriangle.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
+  glDrawArrays(GL_TRIANGLES, 0, Length(Triangle));
 
   // Zeichne Quadrat
   glBindVertexArray(VBQuad.VAO);
-  glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
+  glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 
   ogc.SwapBuffers;
 end;
@@ -263,7 +227,9 @@ In diesem Code ist dies nur einer.
 //code+
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  glDeleteProgram(ProgramID);
+  glDeleteProgramPipelines(1, @ProgramID);
+
+  //  glDeleteProgram(ProgramID);
   //code-
 
   glDeleteVertexArrays(1, @VBTriangle.VAO);

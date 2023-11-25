@@ -18,10 +18,10 @@ type
 
   TShader = class(TObject)
   private
-    FProgramObject: GLHandle;
+    FProgramObject: TGLint;
     function Split(AShader: ansistring): TStringArray;
   public
-    property ID: GLHandle read FProgramObject;
+    property ID: TGLint read FProgramObject;
 
     constructor Create(const AShader: array of ansistring);
     constructor Create;
@@ -184,7 +184,7 @@ end;
 
 procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
-  ShaderObject: GLhandle;
+  ShaderObject: TGLint;
   pc: array of char = nil;
   l: GLint;
 
@@ -218,7 +218,7 @@ end;
 
 procedure TShader.LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
-  ShaderObject: GLhandle;
+  ShaderObject: TGLint;
   pc: array of char = nil;
 
   ErrorStatus: boolean;
