@@ -81,6 +81,9 @@ begin
   CreateScene;
 end;
 
+const
+  rot = 1.0;
+
 procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
@@ -89,9 +92,9 @@ begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
 
-  UBOBuffer.JointMatrix[1].RotateB(pi / 2);
-  UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 2);
-  UBOBuffer.JointMatrix[3].RotateB(pi / 2 * 3);
+  UBOBuffer.JointMatrix[1].RotateB(pi);
+  UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 3);
+  UBOBuffer.JointMatrix[3].RotateB(pi / 2);
   UBOBuffer.JointMatrix[4].RotateA(pi / 2);
   UBOBuffer.JointMatrix[5].RotateA(-pi / 2);
 
@@ -101,8 +104,17 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
-    UBOBuffer.JointMatrix[i].RotateB((0.5 - random) / 0.5);
-    UBOBuffer.JointMatrix[i].RotateA((0.5 - random) / 0.5);
+    case i mod 6 of
+      0, 1: begin
+        UBOBuffer.JointMatrix[i].RotateA((0.5 - random) / rot);
+      end;
+      2, 3: begin
+        UBOBuffer.JointMatrix[i].RotateB((0.5 - random) / rot);
+      end;
+      4, 5: begin
+        UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / rot);
+      end;
+    end;
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
