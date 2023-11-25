@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL, oglDebug,
-  oglContext,oglVector;
+  oglContext, oglVector;
 
 type
 
@@ -95,40 +95,42 @@ Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarie
 //code+
 function Initshader(VertexS, FragmentS: string): TGLuint;
 var
-  linked,log_length,
+  linked, log_length,
   vertexID, fragmentID, pipelineID: TGLuint;
-  log:array of Char=nil;
+  log: array of char = nil;
 begin
   //  glGenProgramPipelines(1, @pipelineID);
   glCreateProgramPipelines(1, @pipelineID);
 
   // --- Vertex
   vertexID := glCreateShaderProgramv(GL_VERTEX_SHADER, 1, @VertexS);
-  glUseProgramStages(pipelineID, GL_VERTEX_SHADER_BIT, vertexID);
 
   // Fehler
   glGetProgramiv(vertexID, GL_LINK_STATUS, @linked);
   if linked = 0 then begin
     WriteLn('Vertex-Fehler');
     glGetProgramiv(vertexID, GL_INFO_LOG_LENGTH, @log_length);
-     SetLength(log,log_length);
-     glGetProgramInfoLog(vertexID, log_length,@log_length, PChar(log));
-     WriteLn(PChar( log));
+    SetLength(log, log_length);
+    glGetProgramInfoLog(vertexID, log_length, @log_length, PChar(log));
+    WriteLn(PChar(log));
   end;
+  glUseProgramStages(pipelineID, GL_VERTEX_SHADER_BIT, vertexID);
+  glDeleteProgram(vertexID);
 
   // --- Fragment
   fragmentID := glCreateShaderProgramv(GL_FRAGMENT_SHADER, 1, @FragmentS);
-  glUseProgramStages(pipelineID, GL_FRAGMENT_SHADER_BIT, fragmentID);
 
   // Fehler
   glGetProgramiv(fragmentID, GL_LINK_STATUS, @linked);
   if linked = 0 then begin
     WriteLn('Fragment-Fehler');
     glGetProgramiv(fragmentID, GL_INFO_LOG_LENGTH, @log_length);
-     SetLength(log,log_length);
-     glGetProgramInfoLog(vertexID, log_length,@log_length, PChar(log));
-     WriteLn(PChar( log));
+    SetLength(log, log_length);
+    glGetProgramInfoLog(vertexID, log_length, @log_length, PChar(log));
+    WriteLn(PChar(log));
   end;
+  glUseProgramStages(pipelineID, GL_FRAGMENT_SHADER_BIT, fragmentID);
+  glDeleteProgram(fragmentID);
 
   glBindProgramPipeline(pipelineID);
   Result := pipelineID;
