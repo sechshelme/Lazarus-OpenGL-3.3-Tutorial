@@ -65,11 +65,15 @@ type
 
     procedure AddRectangle;
     procedure AddRectangleColor(const col: TVector3f);
+    procedure AddRectangleNormale;
+
     procedure AddCubeLateral;
-    procedure AddCube;
-    procedure AddCubeNormale;
-    procedure AddCubeColor(const col: TVector3f);
     procedure AddCubeLateralColor(const col: TVector3f);
+    procedure AddCubeLateralNormale;
+
+    procedure AddCube;
+    procedure AddCubeColor(const col: TVector3f);
+    procedure AddCubeNormale;
 
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
@@ -264,6 +268,14 @@ begin
   end;
 end;
 
+procedure TVectors3fHelper.AddRectangleNormale;
+begin
+  Self += [
+//     vorn
+    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
+
+end;
+
 procedure TVectors3fHelper.AddCubeLateral;
 begin
   Self += [
@@ -282,6 +294,23 @@ begin
     // links
     -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
     -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
+end;
+
+procedure TVectors3fHelper.AddCubeLateralNormale;
+begin
+  Self += [
+//    // vorn
+//    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
+    // hinten
+//    0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0,
+    // unten
+    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
+    // rechts
+    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+    // oben
+    0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+    // links
+    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0];
 end;
 
 procedure TVectors3fHelper.AddCube;

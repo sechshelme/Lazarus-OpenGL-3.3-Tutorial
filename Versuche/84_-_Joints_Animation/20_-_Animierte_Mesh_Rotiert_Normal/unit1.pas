@@ -55,12 +55,13 @@ type
 var
   cube: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
+  cubeNormale: TVectors3f = nil;
   cubeJointIDs: TJointIDs = nil;
 
 type
   TVB = record
     VAO,
-    VBO, VBOColor, VBOJoint: GLuint;
+    VBO, VBOColor,VBONormal, VBOJoint: GLuint;
   end;
 
 var
@@ -106,6 +107,7 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
+//    r := (0.5 - random) / rot;
     r := sin(time/100)/1.2;
 
     case i mod 6 of
@@ -136,7 +138,7 @@ begin
 
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
-  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'GeometrieShader.glsl');
+//  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'GeometrieShader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
@@ -167,6 +169,7 @@ begin
   cube.AddCube;
   cube.scale(2);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
+  cubeNormale.AddCubeNormale;
   cubeJointIDs.AddCube(-1, -1);
 
   // Arme
@@ -177,6 +180,7 @@ begin
     tmpCube.Translate([0.0, 0.0, 1.0]);
     cube.Add(tmpCube);
     cubeColor.AddCubeLateralColor(colors[(i div 6) mod 6]^);
+    cubeNormale.AddCubeLateralNormale;
     cubeJointIDs.AddCubeLateral(i, i + 6);
   end;
 
@@ -189,6 +193,7 @@ begin
 
     ofs := i + Length(UBOBuffer.JointMatrix) - 6;
     cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
+    cubeNormale.AddRectangleNormale;
     cubeJointIDs.AddRectangle(ofs);
   end;
 
@@ -212,13 +217,21 @@ begin
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
+  // Normale
+  glGenBuffers(1, @VBQuad.VBONormal);
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBONormal);
+  glBufferData(GL_ARRAY_BUFFER, cubeNormale.Size, cubeNormale.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
+
   // Joints
   glGenBuffers(1, @VBQuad.VBOJoint);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOJoint);
   glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(2);
-  glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
+  glEnableVertexAttribArray(3);
+  glVertexAttribIPointer(3, 1, GL_INT, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -246,6 +259,7 @@ begin
   glDeleteBuffers(1, @UBO);
   glDeleteBuffers(1, @VBQuad.VBO);
   glDeleteBuffers(1, @VBQuad.VBOColor);
+  glDeleteBuffers(1, @VBQuad.VBONormal);
   glDeleteBuffers(1, @VBQuad.VBOJoint);
   glDeleteVertexArrays(1, @VBQuad.VAO);
 end;
