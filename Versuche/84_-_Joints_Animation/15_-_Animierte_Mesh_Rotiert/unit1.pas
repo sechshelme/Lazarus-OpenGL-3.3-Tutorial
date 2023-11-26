@@ -27,6 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
+    time:Integer;
     procedure CreatJointsMatrix;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
@@ -87,7 +88,15 @@ const
 procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
+  r: Single;
 begin
+  //for i := 0 to 100 do begin
+  //  r := Double( now * 1000000000000);
+  //  Sleep(1);
+  //  WriteLn(r);
+  //end;
+  //
+
   for i := 0 to 5 do begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
@@ -104,15 +113,21 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
+    r := (0.5 - random) / rot;
+    r := sin(time/100)/1.2;
+
+//    r:=Single(word(QWord( now)))/100000;
+//    r:=Single(word(QWord( now/1000)))/1000000;
+
     case i mod 6 of
       0, 1: begin
-        UBOBuffer.JointMatrix[i].RotateA((0.5 - random) / rot);
+        UBOBuffer.JointMatrix[i].RotateA(r);
       end;
       2, 3: begin
-        UBOBuffer.JointMatrix[i].RotateB((0.5 - random) / rot);
+        UBOBuffer.JointMatrix[i].RotateB(r);
       end;
       4, 5: begin
-        UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / rot);
+        UBOBuffer.JointMatrix[i].RotateC(r);
       end;
     end;
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
@@ -260,6 +275,8 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+  inc(time);
+  CreatJointsMatrix;
   UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);
 end;
