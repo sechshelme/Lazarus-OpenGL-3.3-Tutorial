@@ -2,8 +2,8 @@
 
 #define LightPos0 vec3(1.0, 0.0,  0.0)
 #define LightPos1 vec3(-1.0, 1.0, 1.0)
-#define ambient0 1.4
-#define ambient1 0.2
+#define ambient0 1.4 * 2
+#define ambient1 0.2 * 2
 
 in vec3 vnorm;
 in vec3 vcol;

@@ -106,7 +106,7 @@ begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
     end;
 
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
+   UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
 //    r := (0.5 - random) / rot;
     r := sin(time/100)/1.2;
 
