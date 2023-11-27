@@ -271,7 +271,7 @@ begin
   wm.Identity;
   wm.Translate(0, 0, -50);
   wm.RotateA(0.3);
-  perm.Perspective(30, ClientWidth / ClientHeight, 0.1, 1000.0);
+  perm.Perspective(30, ClientWidth / ClientHeight, 2.5, 1000.0);
 
   UBOBuffer.WorldMatrix := perm * wm;
 end;

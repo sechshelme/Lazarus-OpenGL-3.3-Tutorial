@@ -18,7 +18,10 @@ layout (std140) uniform UBO {
 void main()
 {
   vColor = color;
-  vNorm = (model * vec4(inNorm, 1)).xyz;
+//  vNorm = (model * vec4(inNorm, 1)).xyz;
+   vNorm = mat3(view) * mat3( model) * inNorm;
+
   vTexcoord = inTexCoord;
   gl_Position = proj * view * model * vec4(inPos, 1.0);
 };
+

@@ -19,10 +19,12 @@ void main(void)
 {
   if (inJoint == -1) {
     gl_Position = WorldMatrix * ModelMatrix * vec4(inPos, 1.0);
-    vnorm = (ModelMatrix * vec4(inNormal, 1.0)).xyz;
+//    vnorm = (ModelMatrix * vec4(inNormal, 1.0)).xyz;
+    vnorm = mat3(ModelMatrix) * inNormal;
   } else {
     gl_Position = WorldMatrix * ModelMatrix * JointMatrix[inJoint] * vec4(inPos, 1.0);
-    vnorm = (ModelMatrix * JointMatrix[inJoint] * vec4(inNormal, 1.0)).xyz;
+//    vnorm = (ModelMatrix * JointMatrix[inJoint] * vec4(inNormal, 1.0)).xyz;
+    vnorm = mat3(ModelMatrix * JointMatrix[inJoint]) * inNormal;
   }
   vcol = inCol;
 }
