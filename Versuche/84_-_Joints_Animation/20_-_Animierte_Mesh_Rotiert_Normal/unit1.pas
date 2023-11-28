@@ -27,7 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    time:Integer;
+    time: integer;
     procedure CreatJointsMatrix;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
@@ -61,7 +61,7 @@ var
 type
   TVB = record
     VAO,
-    VBO, VBOColor,VBONormal, VBOJoint: GLuint;
+    VBO, VBOColor, VBONormal, VBOJoint: GLuint;
   end;
 
 var
@@ -83,13 +83,10 @@ begin
   CreateScene;
 end;
 
-const
-  rot = 1.0;
-
 procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
-  r: Single;
+  r: single;
 begin
   for i := 0 to 5 do begin
     UBOBuffer.JointMatrix[i].Identity;
@@ -106,22 +103,23 @@ begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
     end;
 
-   UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
-//    r := (0.5 - random) / rot;
-    r := sin(time/100)/1.2;
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(0.0, 0.0, 2.0);
+    r := sin(time / 100) / 1.2;
 
     case i mod 6 of
       0, 1: begin
         UBOBuffer.JointMatrix[i].RotateA(r);
+        UBOBuffer.JointMatrix[i].RotateB(r * 1.2);
       end;
       2, 3: begin
         UBOBuffer.JointMatrix[i].RotateB(r);
+        UBOBuffer.JointMatrix[i].RotateC(r * 1.2);
       end;
       4, 5: begin
         UBOBuffer.JointMatrix[i].RotateC(r);
+        UBOBuffer.JointMatrix[i].RotateA(r * 1.2);
       end;
     end;
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
 end;
@@ -138,7 +136,7 @@ begin
 
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
-//  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'GeometrieShader.glsl');
+  //  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'GeometrieShader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
@@ -278,7 +276,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  inc(time);
+  Inc(time);
   CreatJointsMatrix;
   UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);
