@@ -75,6 +75,9 @@ type
     procedure AddCubeColor(const col: TVector3f);
     procedure AddCubeNormale;
 
+    procedure AddSphere;
+    procedure AddSphereNormale;
+
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
     procedure Translate(const ATranslate: TVector3f);
@@ -232,145 +235,7 @@ end;
 
 { TVectors3fHelper }
 
-procedure TVectors3fHelper.Add(const v: TVector3f);
-begin
-  Self += [v];
-end;
-
-procedure TVectors3fHelper.Add(const v: TVectors3f);
-begin
-  Self += v;
-end;
-
-procedure TVectors3fHelper.Add(const v: array of TVector3f);
-var
-  len_v, len_self: SizeInt;
-begin
-  len_v := Length(v) * 3;
-  len_self := Length(Self);
-  SetLength(Self, len_self + len_v);
-  move(v[0], Self[len_self], len_v * 4);
-end;
-
-procedure TVectors3fHelper.AddRectangle;
-begin
-  Self += [
-    -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0,
-    -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0];
-end;
-
-procedure TVectors3fHelper.AddRectangleColor(const col: TVector3f);
-var
-  i: integer;
-begin
-  for i := 0 to 5 do begin
-    Self += [col];
-  end;
-end;
-
-procedure TVectors3fHelper.AddRectangleNormale;
-begin
-  Self += [
-//     vorn
-    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
-
-end;
-
-procedure TVectors3fHelper.AddCubeLateral;
-begin
-  Self += [
-    // Y-
-    -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5,
-    -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5,
-
-    // X+
-    0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5,
-    0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5,
-
-    // Y+
-    0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5,
-    0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
-
-    // X-
-    -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
-    -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
-end;
-
-procedure TVectors3fHelper.AddCubeLateralNormale;
-begin
-  Self += [
-    // Y-
-    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
-    // X+
-    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-    // Y+
-    0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-    // X-
-    -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
-end;
-
-procedure TVectors3fHelper.AddCube;
-begin
-  Self += [
-    // Z+
-    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5,
-    -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5,
-
-    // Z-
-    0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5,
-    0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5,
-
-    // Y-
-    -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5,
-    -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5,
-
-    // X+
-    0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5,
-    0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5,
-
-    // Y+
-    0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5,
-    0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
-
-    // X-
-    -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
-    -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
-end;
-
-procedure TVectors3fHelper.AddCubeNormale;
-begin
-  Self += [
-    // Z+
-    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
-    // Z-
-    0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0,
-    // Y-
-    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
-    // X+
-    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-    // Y+
-    0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
-    // X-
-    -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
-end;
-
-procedure TVectors3fHelper.AddCubeColor(const col: TVector3f);
-var
-  i: integer;
-begin
-  for i := 0 to 35 do begin
-    Self += [col];
-  end;
-end;
-
-procedure TVectors3fHelper.AddCubeLateralColor(const col: TVector3f);
-var
-  i: integer;
-begin
-  for i := 0 to 23 do begin
-    Self += [col];
-  end;
-end;
+// === Standard Funktionen
 
 procedure TVectors3fHelper.Scale(AScale: TGLfloat); inline;
 var
@@ -453,6 +318,204 @@ begin
   p := Length(Self);
   SetLength(Self, p + 9 * Length(Face));
   Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
+end;
+
+procedure TVectors3fHelper.Add(const v: TVector3f);
+begin
+  Self += [v];
+end;
+
+procedure TVectors3fHelper.Add(const v: TVectors3f);
+begin
+  Self += v;
+end;
+
+procedure TVectors3fHelper.Add(const v: array of TVector3f);
+var
+  len_v, len_self: SizeInt;
+begin
+  len_v := Length(v) * 3;
+  len_self := Length(Self);
+  SetLength(Self, len_self + len_v);
+  move(v[0], Self[len_self], len_v * 4);
+end;
+
+// === Rechteck
+
+procedure TVectors3fHelper.AddRectangle;
+begin
+  Self += [
+    -0.5, -0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0,
+    -0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0];
+end;
+
+procedure TVectors3fHelper.AddRectangleColor(const col: TVector3f);
+var
+  i: integer;
+begin
+  for i := 0 to 5 do begin
+    Self += [col];
+  end;
+end;
+
+procedure TVectors3fHelper.AddRectangleNormale;
+begin
+  Self += [
+    //     vorn
+    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
+
+end;
+
+// === Würfel ohne Boden und Deckel
+
+procedure TVectors3fHelper.AddCubeLateral;
+begin
+  Self += [
+    // Y-
+    -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5,
+    -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5,
+
+    // X+
+    0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5,
+    0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5,
+
+    // Y+
+    0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5,
+    0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+
+    // X-
+    -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
+    -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
+end;
+
+procedure TVectors3fHelper.AddCubeLateralNormale;
+begin
+  Self += [
+    // Y-
+    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
+    // X+
+    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+    // Y+
+    0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+    // X-
+    -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
+end;
+
+// === Würfel
+
+procedure TVectors3fHelper.AddCube;
+begin
+  Self += [
+    // Z+
+    -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5,
+    -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5,
+
+    // Z-
+    0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5,
+    0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5,
+
+    // Y-
+    -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5,
+    -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5,
+
+    // X+
+    0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5,
+    0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5,
+
+    // Y+
+    0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5,
+    0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+
+    // X-
+    -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5,
+    -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5];
+end;
+
+procedure TVectors3fHelper.AddCubeNormale;
+begin
+  Self += [
+    // Z+
+    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
+    // Z-
+    0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0,
+    // Y-
+    0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
+    // X+
+    1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+    // Y+
+    0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+    // X-
+    -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
+end;
+
+procedure TVectors3fHelper.AddCubeColor(const col: TVector3f);
+var
+  i: integer;
+begin
+  for i := 0 to 35 do begin
+    Self += [col];
+  end;
+end;
+
+procedure TVectors3fHelper.AddCubeLateralColor(const col: TVector3f);
+var
+  i: integer;
+begin
+  for i := 0 to 23 do begin
+    Self += [col];
+  end;
+end;
+
+// === Kugel
+
+procedure TVectors3fHelper.AddSphere;
+type
+  quadVector = array[0..3] of TVector3f;
+
+  procedure Quads(Vector: quadVector); inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+const
+  Sektoren = 36;
+var
+  i, j: integer;
+  t, rk: TGLfloat;
+
+  Tab: array of array of record
+    a, b, c: TGLfloat;
+    end
+  = nil;
+
+begin
+  t := 2 * pi / Sektoren;
+  SetLength(Tab, Sektoren + 1, Sektoren div 2 + 1);
+  for j := 0 to Sektoren div 2 do begin
+    rk := sin(t * j);
+    for i := 0 to Sektoren do begin
+      with Tab[i, j] do begin
+        a := sin(t * i) * rk;
+        b := cos(t * i) * rk;
+        c := cos(t * j);
+      end;
+    end;
+  end;
+
+  for j := 0 to Sektoren div 2 - 1 do begin
+    for i := 0 to Sektoren - 1 do begin
+      Quads([
+        [Tab[i + 0, j + 1].a, Tab[i + 0, j + 1].c, Tab[i + 0, j + 1].b],
+        [Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b],
+        [Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b],
+        [Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b]]);
+    end;
+  end;
+end;
+
+procedure TVectors3fHelper.AddSphereNormale;
+begin
+  Self.AddSphere;
 end;
 
 end.

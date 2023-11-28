@@ -31,9 +31,6 @@ type
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
     procedure ogcResize(Sender: TObject);
-
-    procedure CalcSphere;
-  public
   end;
 
 var
@@ -94,64 +91,8 @@ begin
   InitOpenGLDebug;
 end;
 
-procedure TForm1.CalcSphere;
-
-  procedure Quads(Vector: array of TVector3f);
-  var
-    i: integer;
-  begin
-    if Length(Vector) <> 4 then begin
-      Exit;
-    end;
-    SphereVertex.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
-
-    for i := 0 to Length(Vector) - 1 do begin
-      Vector[i].Normalize;
-    end;
-    SphereNormal.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
-  end;
-
-const
-  Sektoren = 36;
-var
-  i, j: integer;
-  t, rk: single;
-
-  Tab: array of array of record
-    a, b, c: single;
-    end
-  = nil;
-
-begin
-  t := 2 * pi / Sektoren;
-  SetLength(Tab, Sektoren + 1, Sektoren div 2 + 1);
-  for j := 0 to Sektoren div 2 do begin
-    rk := sin(t * j);
-    for i := 0 to Sektoren do begin
-      with Tab[i, j] do begin
-        a := sin(t * i) * rk;
-        b := cos(t * i) * rk;
-        c := cos(t * j);
-      end;
-    end;
-  end;
-
-  for j := 0 to Sektoren div 2 - 1 do begin
-    for i := 0 to Sektoren - 1 do begin
-      Quads([
-        [Tab[i + 0, j + 1].a, Tab[i + 0, j + 1].c, Tab[i + 0, j + 1].b],
-        [Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b],
-        [Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b],
-        [Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b]]);
-    end;
-  end;
-  SetLength(Tab, 0, 0);
-end;
-
 procedure TForm1.CreateScene;
 begin
-  CalcSphere;
-
   CubeSize := 4;
 
   WorldMatrix.Identity;
@@ -189,7 +130,8 @@ begin
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   //code-
 
-
+  SphereVertex.AddSphere;
+  SphereNormal.AddSphereNormale;
 
   // --- Vertex-Daten für Kugel
   glCreateBuffers(1, @VBCube.VBO);
