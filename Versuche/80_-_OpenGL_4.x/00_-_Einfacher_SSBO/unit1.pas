@@ -9,7 +9,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix, oglDebug;
+  oglContext, oglShader, oglVector, oglVectors, oglMatrix, oglDebug;
 
   //image image.png
 type
@@ -62,7 +62,8 @@ type
 var
   SSBOBuffer: TSSBOBuffer;
 
-  SphereVertex, SphereNormal: array of Tmat3x3;
+  SphereVertex: TVectors3f = nil;
+  SphereNormal: TVectors3f = nil;
   CubeSize: integer;
 
 type
@@ -95,16 +96,19 @@ end;
 
 procedure TForm1.CalcSphere;
 
-  procedure Quads(Vector0, Vector1, Vector2, Vector3: TVector3f);
+  procedure Quads(Vector: array of TVector3f);
+  var
+    i: integer;
   begin
-    SphereVertex += [Tmat3x3([Vector0, Vector1, Vector2]), Tmat3x3([Vector0, Vector2, Vector3])];
+    if Length(Vector) <> 4 then begin
+      Exit;
+    end;
+    SphereVertex.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
 
-    Vector0.Normalize;
-    Vector1.Normalize;
-    Vector2.Normalize;
-    Vector3.Normalize;
-
-    SphereNormal += [Tmat3x3([Vector0, Vector1, Vector2]), Tmat3x3([Vector0, Vector2, Vector3])];
+    for i := 0 to Length(Vector) - 1 do begin
+      Vector[i].Normalize;
+    end;
+    SphereNormal.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
 
 const
@@ -134,11 +138,11 @@ begin
 
   for j := 0 to Sektoren div 2 - 1 do begin
     for i := 0 to Sektoren - 1 do begin
-      Quads(
-        vec3(Tab[i + 0, j + 1].a, Tab[i + 0, j + 1].c, Tab[i + 0, j + 1].b),
-        vec3(Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b),
-        vec3(Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b),
-        vec3(Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b));
+      Quads([
+        [Tab[i + 0, j + 1].a, Tab[i + 0, j + 1].c, Tab[i + 0, j + 1].b],
+        [Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b],
+        [Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b],
+        [Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b]]);
     end;
   end;
   SetLength(Tab, 0, 0);
@@ -168,9 +172,9 @@ begin
 
   // Material-Werte inizialisieren
   with SSBOBuffer.Material do begin
-    ambient := vec3(0.17, 0.01, 0.01);
-    diffuse := vec3(0.61, 0.04, 0.04);
-    specular := vec3(0.73, 0.63, 0.63);
+    ambient := [0.17, 0.01, 0.01];
+    diffuse := [0.61, 0.04, 0.04];
+    specular := [0.73, 0.63, 0.63];
     shininess := 76.8;
   end;
 
@@ -185,14 +189,13 @@ begin
   glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
   //code-
 
-  glClearColor(0.15, 0.15, 0.1, 1.0);
+
 
   // --- Vertex-Daten für Kugel
-
   glCreateBuffers(1, @VBCube.VBO);
-  glNamedBufferData(VBCube.VBO, Length(SphereVertex) * SizeOf(Tmat3x3) * 2, nil, GL_STATIC_DRAW);
-  glNamedBufferSubData(VBCube.VBO, 0, Length(SphereVertex) * SizeOf(Tmat3x3), PGLvoid(SphereVertex));
-  glNamedBufferSubData(VBCube.VBO, Length(SphereVertex) * SizeOf(Tmat3x3), Length(SphereNormal) * SizeOf(Tmat3x3), PGLvoid(SphereNormal));
+  glNamedBufferData(VBCube.VBO, SphereVertex.Size + SphereNormal.Size, nil, GL_STATIC_DRAW);
+  glNamedBufferSubData(VBCube.VBO, 0, SphereVertex.Size, SphereVertex.Ptr);
+  glNamedBufferSubData(VBCube.VBO, SphereVertex.Size, SphereNormal.Size, SphereNormal.Ptr);
 
   glGenVertexArrays(1, @VBCube.VAO);
   glBindVertexArray(VBCube.VAO);
@@ -202,7 +205,7 @@ begin
   glEnableVertexAttribArray(0);
 
   glVertexAttribBinding(1, 10);
-  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, Length(SphereVertex) * SizeOf(Tmat3x3));
+  glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, SphereVertex.Size);
   glEnableVertexAttribArray(1);
 
   glBindVertexBuffer(10, VBCube.VBO, 0, 12);
@@ -221,6 +224,8 @@ begin
   glCullface(GL_BACK);
 
   Shader.UseProgram;
+
+  glClearBufferfv(GL_COLOR, 0, vec4(0.15, 0.15, 0.1, 1.0));
 
   glBindVertexArray(VBCube.VAO);
 
@@ -246,7 +251,7 @@ begin
 
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO);
         glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, SizeOf(SSBOBuffer), @SSBOBuffer);
-        glDrawArrays(GL_TRIANGLES, 0, Length(SphereVertex) * 3);
+        glDrawArrays(GL_TRIANGLES, 0, SphereVertex.Count);
       end;
     end;
   end;
@@ -284,8 +289,8 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   if MenuItemRotateCube.Checked then begin
-    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
-    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+    ModelMatrix.RotateA(0.0123);
+    ModelMatrix.RotateB(0.0234);
   end;
 
   ogc.Invalidate;
