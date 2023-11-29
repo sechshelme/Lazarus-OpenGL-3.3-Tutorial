@@ -3,6 +3,7 @@ unit oglVectors;
 {$modeswitch typehelpers on}
 {$modeswitch arrayoperators on}
 //{$modeswitch multihelpers}
+{$modeswitch advancedrecords}
 
 interface
 
@@ -15,6 +16,18 @@ type
 
   TVectors2f = type TGlfloats;
   TVectors3f = type TGlfloats;
+
+  { TSphereTab }
+
+  TSphereTab = record
+  private
+    Sectors: integer;
+  public
+    Tab: array of array of record
+      a, b, c: TGLfloat;
+      end;
+    procedure SetSectors(ASectors: integer);
+  end;
 
   { Tglints }
 
@@ -91,7 +104,30 @@ type
     procedure AddFace3DArray(const Face: array of TFace3D);
   end;
 
+var
+  SphereTab: TSphereTab;
+
 implementation
+
+procedure TSphereTab.SetSectors(ASectors: integer);
+var
+  rk, t: TGLfloat;
+  j, i: integer;
+begin
+  Sectors := ASectors;
+  t := 2 * pi / ASectors;
+  SetLength(Tab, ASectors + 1, ASectors div 2 + 1);
+  for j := 0 to ASectors div 2 do begin
+    rk := sin(t * j);
+    for i := 0 to ASectors do begin
+      with Tab[i, j] do begin
+        a := sin(t * i) * rk;
+        b := cos(t * i) * rk;
+        c := cos(t * j);
+      end;
+    end;
+  end;
+end;
 
 { Tglints }
 
@@ -477,38 +513,16 @@ type
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
 
-const
-  Sektoren = 36;
 var
   i, j: integer;
-  t, rk: TGLfloat;
-
-  Tab: array of array of record
-    a, b, c: TGLfloat;
-    end
-  = nil;
-
 begin
-  t := 2 * pi / Sektoren;
-  SetLength(Tab, Sektoren + 1, Sektoren div 2 + 1);
-  for j := 0 to Sektoren div 2 do begin
-    rk := sin(t * j);
-    for i := 0 to Sektoren do begin
-      with Tab[i, j] do begin
-        a := sin(t * i) * rk;
-        b := cos(t * i) * rk;
-        c := cos(t * j);
-      end;
-    end;
-  end;
-
-  for j := 0 to Sektoren div 2 - 1 do begin
-    for i := 0 to Sektoren - 1 do begin
+  for j := 0 to SphereTab.Sectors div 2 - 1 do begin
+    for i := 0 to SphereTab.Sectors - 1 do begin
       Quads([
-        [Tab[i + 0, j + 1].a, Tab[i + 0, j + 1].c, Tab[i + 0, j + 1].b],
-        [Tab[i + 1, j + 1].a, Tab[i + 1, j + 1].c, Tab[i + 1, j + 1].b],
-        [Tab[i + 1, j + 0].a, Tab[i + 1, j + 0].c, Tab[i + 1, j + 0].b],
-        [Tab[i + 0, j + 0].a, Tab[i + 0, j + 0].c, Tab[i + 0, j + 0].b]]);
+        [SphereTab.Tab[i + 0, j + 1].a, SphereTab.Tab[i + 0, j + 1].c, SphereTab.Tab[i + 0, j + 1].b],
+        [SphereTab.Tab[i + 1, j + 1].a, SphereTab.Tab[i + 1, j + 1].c, SphereTab.Tab[i + 1, j + 1].b],
+        [SphereTab.Tab[i + 1, j + 0].a, SphereTab.Tab[i + 1, j + 0].c, SphereTab.Tab[i + 1, j + 0].b],
+        [SphereTab.Tab[i + 0, j + 0].a, SphereTab.Tab[i + 0, j + 0].c, SphereTab.Tab[i + 0, j + 0].b]]);
     end;
   end;
 end;
@@ -518,4 +532,6 @@ begin
   Self.AddSphere;
 end;
 
+begin
+  SphereTab.SetSectors(4);
 end.

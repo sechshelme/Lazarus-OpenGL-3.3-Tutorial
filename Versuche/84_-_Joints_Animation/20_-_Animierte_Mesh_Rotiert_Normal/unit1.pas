@@ -104,7 +104,7 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0.0, 0.0, 2.0);
-    r := sin(time / 100) / 1.2;
+    r := sin(time / 400 * i) / 1.2;
 
     case i mod 6 of
       0, 1: begin
