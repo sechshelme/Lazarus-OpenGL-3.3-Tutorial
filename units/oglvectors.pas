@@ -19,14 +19,19 @@ type
 
   { TSphereTab }
 
+  TABC = record
+    a, b, c: TGLfloat;
+  end;
+  //  TTab=   array of array of TABC;
+
   TSphereTab = record
   private
     Sectors: integer;
+    function Get(j, i: integer): TABC;
   public
-    Tab: array of array of record
-      a, b, c: TGLfloat;
-      end;
+    Tab: array of array of TABC;
     procedure SetSectors(ASectors: integer);
+    property Items[j, i: integer]: TABC read Get; default;
   end;
 
   { Tglints }
@@ -108,6 +113,11 @@ var
   SphereTab: TSphereTab;
 
 implementation
+
+function TSphereTab.Get(j, i: integer): TABC; inline;
+begin
+  Result := Tab[j, i];
+end;
 
 procedure TSphereTab.SetSectors(ASectors: integer);
 var
@@ -519,10 +529,10 @@ begin
   for j := 0 to SphereTab.Sectors div 2 - 1 do begin
     for i := 0 to SphereTab.Sectors - 1 do begin
       Quads([
-        [SphereTab.Tab[i + 0, j + 1].a, SphereTab.Tab[i + 0, j + 1].c, SphereTab.Tab[i + 0, j + 1].b],
-        [SphereTab.Tab[i + 1, j + 1].a, SphereTab.Tab[i + 1, j + 1].c, SphereTab.Tab[i + 1, j + 1].b],
-        [SphereTab.Tab[i + 1, j + 0].a, SphereTab.Tab[i + 1, j + 0].c, SphereTab.Tab[i + 1, j + 0].b],
-        [SphereTab.Tab[i + 0, j + 0].a, SphereTab.Tab[i + 0, j + 0].c, SphereTab.Tab[i + 0, j + 0].b]]);
+        [SphereTab[i + 0, j + 1].a, SphereTab[i + 0, j + 1].c, SphereTab[i + 0, j + 1].b],
+        [SphereTab[i + 1, j + 1].a, SphereTab[i + 1, j + 1].c, SphereTab[i + 1, j + 1].b],
+        [SphereTab[i + 1, j + 0].a, SphereTab[i + 1, j + 0].c, SphereTab[i + 1, j + 0].b],
+        [SphereTab[i + 0, j + 0].a, SphereTab[i + 0, j + 0].c, SphereTab[i + 0, j + 0].b]]);
     end;
   end;
 end;
@@ -533,5 +543,5 @@ begin
 end;
 
 begin
-  SphereTab.SetSectors(4);
+  SphereTab.SetSectors(36);
 end.
