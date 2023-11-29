@@ -19,14 +19,13 @@ type
 
   { TSphereTab }
 
-  TABC = record
-    a, b, c: TGLfloat;
-  end;
-  //  TTab=   array of array of TABC;
-
   TSphereTab = record
   private
-    Sectors: integer;
+    type  TABC = record
+        a, b, c: TGLfloat;
+      end;
+    var
+      Sectors: integer;
     function Get(j, i: integer): TABC;
   public
     Tab: array of array of TABC;
