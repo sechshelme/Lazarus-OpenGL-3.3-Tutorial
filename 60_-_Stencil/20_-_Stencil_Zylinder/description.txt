@@ -1,0 +1,4 @@
+"Es gibt viele Formate"
+
+Da es sehr viele Formate gibt, habe ich eine Klasse geschrieben, welche einem die Arbeit der Erkennung abnimmt.
+'''Hinweis:''' Wen jemand ein Format hat, welches nicht erkannt wird, bitte im Forum melden.

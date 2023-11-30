@@ -63,15 +63,8 @@ var
   SphereNormal: TVectors3f = nil;
   CubeSize: integer;
 
-type
-  TVB = record
-    VAO,
-    VBO: GLuint;
-  end;
-
 var
-  SSBO: GLuint;
-  VBCube: TVB;
+  VAO, VBO, SSBO: GLuint;
 
   FrustumMatrix,
   WorldMatrix,
@@ -121,37 +114,35 @@ begin
   end;
 
   // SSBO mit Buffer reservieren
-  glGenBuffers(1, @SSBO);
-  glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO);
-  glBufferData(GL_SHADER_STORAGE_BUFFER, SizeOf(SSBOBuffer), nil, GL_DYNAMIC_DRAW);
+  glCreateBuffers(1, @SSBO);
+  glNamedBufferData(SSBO, SizeOf(SSBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // SSBO mit dem Shader verbinden
-  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, SSBO);
-
-  glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-  //code-
+  glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, SSBO);
 
   SphereVertex.AddSphere;
   SphereNormal.AddSphereNormale;
 
   // --- Vertex-Daten für Kugel
-  glCreateBuffers(1, @VBCube.VBO);
-  glNamedBufferData(VBCube.VBO, SphereVertex.Size + SphereNormal.Size, nil, GL_STATIC_DRAW);
-  glNamedBufferSubData(VBCube.VBO, 0, SphereVertex.Size, SphereVertex.Ptr);
-  glNamedBufferSubData(VBCube.VBO, SphereVertex.Size, SphereNormal.Size, SphereNormal.Ptr);
+  glCreateBuffers(1, @VBO);
+  glNamedBufferData(VBO, SphereVertex.Size + SphereNormal.Size, nil, GL_STATIC_DRAW);
+  glNamedBufferSubData(VBO, 0, SphereVertex.Size, SphereVertex.Ptr);
+  glNamedBufferSubData(VBO, SphereVertex.Size, SphereNormal.Size, SphereNormal.Ptr);
 
-  glGenVertexArrays(1, @VBCube.VAO);
-  glBindVertexArray(VBCube.VAO);
+  glGenVertexArrays(1, @VAO);
+  glBindVertexArray(VAO);
 
+  // Vektor
   glVertexAttribBinding(0, 10);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
 
+  // Normale
   glVertexAttribBinding(1, 10);
   glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, SphereVertex.Size);
   glEnableVertexAttribArray(1);
 
-  glBindVertexBuffer(10, VBCube.VBO, 0, 12);
+  glBindVertexBuffer(10, VBO, 0, 12);
 
   Timer1.Enabled := True;
 end;
@@ -170,7 +161,7 @@ begin
 
   glClearBufferfv(GL_COLOR, 0, vec4(0.15, 0.15, 0.1, 1.0));
 
-  glBindVertexArray(VBCube.VAO);
+  glBindVertexArray(VAO);
 
   // --- Konstruiere Kugeln
 
@@ -192,7 +183,6 @@ begin
 
         SSBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * SSBOBuffer.Matrix.ModelMatrix;
 
-        glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO);
         glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, SizeOf(SSBOBuffer), @SSBOBuffer);
         glDrawArrays(GL_TRIANGLES, 0, SphereVertex.Count);
       end;
@@ -211,8 +201,8 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VBCube.VAO);
-  glDeleteBuffers(1, @VBCube.VBO);
+  glDeleteVertexArrays(1, @VAO);
+  glDeleteBuffers(1, @VBO);
   glDeleteBuffers(1, @SSBO);
 end;
 

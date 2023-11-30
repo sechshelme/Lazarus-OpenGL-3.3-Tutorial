@@ -11,7 +11,7 @@ in Data {
   vec3 Normal;
 } DataIn;
 
-layout (std140, binding = 3) buffer UBOData {
+layout (std140, binding = 0) buffer UBOData {
   vec3  Mambient;   // Umgebungslicht
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd

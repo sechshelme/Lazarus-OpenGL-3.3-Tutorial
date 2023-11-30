@@ -68,7 +68,7 @@ type
 var
   VBTriangle, VBQuad: TVB;
 
-  vertexID, fragmentID,   ProgramID: TGLuint;
+  vertexID, fragmentID, ProgramID: TGLuint;
   // https://stackoverflow.com/questions/27777226/how-to-use-glcreateshaderprogram
 
 function Initshader(VertexS, FragmentS: string): TGLuint;
@@ -109,7 +109,7 @@ begin
     WriteLn(PChar(log));
   end;
   glUseProgramStages(pipelineID, GL_FRAGMENT_SHADER_BIT, fragmentID);
-  WriteLn('col: ',glGetUniformLocation(fragmentID,'col'));
+  WriteLn('col: ', glGetUniformLocation(fragmentID, 'col'));
   glDeleteProgram(fragmentID);
 
   Result := pipelineID;
@@ -140,22 +140,26 @@ begin
   // Daten für Dreieck
   glGenVertexArrays(1, @VBTriangle.VAO);
   glBindVertexArray(VBTriangle.VAO);
-  glGenBuffers(1, @VBTriangle.VBO);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
+  glCreateBuffers(1, @VBTriangle.VBO);
+  glNamedBufferData(VBTriangle.VBO, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
+
+  glVertexAttribBinding(0, 10);
+  glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+  glBindVertexBuffer(10, VBTriangle.VBO, 0, 12);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Daten für Quadrat
   glGenVertexArrays(1, @VBQuad.VAO);
   glBindVertexArray(VBQuad.VAO);
 
-  glGenBuffers(1, @VBQuad.VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
+  glCreateBuffers(1, @VBQuad.VBO);
+  glNamedBufferData(VBQuad.VBO, sizeof(Quad), @Quad, GL_STATIC_DRAW);
+
+  glVertexAttribBinding(0, 10);
+  glVertexAttribFormat(0, 3, GL_FLOAT, False, 0);
+  glBindVertexBuffer(10, VBQuad.VBO, 0, 12);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -167,12 +171,12 @@ begin
 
   // Zeichne Dreieck
 
-  glProgramUniform3fv(fragmentID, glGetUniformLocation(fragmentID,'col'),1,@vec3red);
+  glProgramUniform3fv(fragmentID, glGetUniformLocation(fragmentID, 'col'), 1, @vec3red);
   glBindVertexArray(VBTriangle.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Triangle));
 
   // Zeichne Quadrat
-  glProgramUniform3fv(fragmentID, glGetUniformLocation(fragmentID,'col'),1,@vec3green);
+  glProgramUniform3fv(fragmentID, glGetUniformLocation(fragmentID, 'col'), 1, @vec3green);
   glBindVertexArray(VBQuad.VAO);
   glDrawArrays(GL_TRIANGLES, 0, Length(Quad));
 

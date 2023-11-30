@@ -10,6 +10,10 @@ interface
 uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
+var
+  Sektoren: integer = 36;
+
+
 type
   TGlInts = array of TGLint;
   TGlfloats = array of TGlfloat;
@@ -54,6 +58,9 @@ type
   public
     procedure Add(const v: TVector2f); overload;
     procedure Add(const v: TVectors2f); overload;
+    procedure AddFace2D(const Face: TFace2D); overload;
+    procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
+    procedure AddFace2DArray(const Face: array of TFace2D);
 
     procedure AddRectangle;
 
@@ -66,10 +73,6 @@ type
     procedure Rotate(angele: TGLfloat);
 
     function Count: TGLint;
-
-    procedure AddFace2D(const Face: TFace2D); overload;
-    procedure AddFace2D(const v0, v1, v2: TVector2f); overload;
-    procedure AddFace2DArray(const Face: array of TFace2D);
   end;
 
   { TVectors3fHelper }
@@ -79,6 +82,8 @@ type
     procedure Add(const v: TVector3f); overload;
     procedure Add(const v: TVectors3f); overload;
     procedure Add(const v: array of TVector3f); overload;
+    procedure AddFace3D(const Face: TFace3D); overload;
+    procedure AddFace3DArray(const Face: array of TFace3D);
 
     procedure AddRectangle;
     procedure AddRectangleColor(const col: TVector3f);
@@ -92,6 +97,9 @@ type
     procedure AddCubeColor(const col: TVector3f);
     procedure AddCubeNormale;
 
+    procedure AddZylinder;
+    procedure AddZylinderNormale;
+
     procedure AddSphere;
     procedure AddSphereNormale;
 
@@ -103,9 +111,6 @@ type
     procedure RotateC(angele: TGLfloat);
 
     function Count: TGLint;
-
-    procedure AddFace3D(const Face: TFace3D); overload;
-    procedure AddFace3DArray(const Face: array of TFace3D);
   end;
 
 var
@@ -113,7 +118,7 @@ var
 
 implementation
 
-function TSphereTab.Get(j, i: integer): TABC; inline;
+function TSphereTab.Get(j, i: integer): TABC;//// inline;
 begin
   Result := Tab[j, i];
 end;
@@ -186,7 +191,7 @@ begin
     -0.5, -0.5, 0.5, 0.5, -0.5, 0.5];
 end;
 
-procedure TVectors2fHelper.AddQuadTexCoords; inline;
+procedure TVectors2fHelper.AddQuadTexCoords;//// inline;
 begin
   Self += [
     0, 0, 1, 0, 1, 1,
@@ -248,7 +253,7 @@ begin
   end;
 end;
 
-function TVectors2fHelper.Count: TGLint; inline;
+function TVectors2fHelper.Count: TGLint;// inline;
 begin
   Result := Length(Self) div 2;
 end;
@@ -282,7 +287,7 @@ end;
 
 // === Standard Funktionen
 
-procedure TVectors3fHelper.Scale(AScale: TGLfloat); inline;
+procedure TVectors3fHelper.Scale(AScale: TGLfloat);// inline;
 var
   i: integer;
 begin
@@ -342,7 +347,7 @@ begin
   end;
 end;
 
-function TVectors3fHelper.Count: TGLint; inline;
+function TVectors3fHelper.Count: TGLint;// inline;
 begin
   Result := Length(Self) div 3;
 end;
@@ -384,6 +389,7 @@ begin
   SetLength(Self, len_self + len_v);
   move(v[0], Self[len_self], len_v * 4);
 end;
+
 
 // === Rechteck
 
@@ -493,6 +499,65 @@ begin
     -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
 end;
 
+procedure TVectors3fHelper.AddZylinder;
+  var
+    i: integer;
+    t: single;
+
+  type
+    quadVector = array[0..3] of TVector3f;
+
+    procedure Quads(Vector: quadVector);//// inline;
+    begin
+      Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+    end;
+
+  begin
+    t := 2 * pi / Sektoren;
+    for i := 0 to Sektoren - 1 do begin
+      //Quads([
+      //  vec3(sin((i + 1) * t) * r1,  cos((i + 1) * t) * r1,h1),
+      //  vec3(sin((i + 1) * t) * r2,  cos((i + 1) * t) * r2,h2),
+      //  vec3(sin((i + 0) * t) * r2,  cos((i + 0) * t) * r2,h2),
+      //  vec3(sin((i + 0) * t) * r1,  cos((i + 0) * t) * r1,h1)]);
+      Quads([
+        vec3(sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, -0.5),
+        vec3(sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, 0.5),
+        vec3(sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.5),
+        vec3(sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, -0.5)]);
+    end;
+  end;
+
+
+procedure TVectors3fHelper.AddZylinderNormale;
+  var
+    i: integer;
+    t: single;
+
+  type
+    quadVector = array[0..3] of TVector3f;
+
+    procedure Quads(Vector: quadVector);//// inline;
+    begin
+      Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+    end;
+
+  begin
+    t := 2 * pi / Sektoren;
+    for i := 0 to Sektoren - 1 do begin
+      //Quads([
+      //  vec3(sin((i + 1) * t) * r1,  cos((i + 1) * t) * r1,h1),
+      //  vec3(sin((i + 1) * t) * r2,  cos((i + 1) * t) * r2,h2),
+      //  vec3(sin((i + 0) * t) * r2,  cos((i + 0) * t) * r2,h2),
+      //  vec3(sin((i + 0) * t) * r1,  cos((i + 0) * t) * r1,h1)]);
+      Quads([
+        vec3(sin((i + 1) * t), cos((i + 1) * t) , 0.0),
+        vec3(sin((i + 1) * t), cos((i + 1) * t) , 0.0),
+        vec3(sin((i + 0) * t), cos((i + 0) * t) , 0.0),
+        vec3(sin((i + 0) * t), cos((i + 0) * t) , 0.0)]);
+    end;
+end;
+
 procedure TVectors3fHelper.AddCubeColor(const col: TVector3f);
 var
   i: integer;
@@ -517,7 +582,7 @@ procedure TVectors3fHelper.AddSphere;
 type
   quadVector = array[0..3] of TVector3f;
 
-  procedure Quads(Vector: quadVector); inline;
+  procedure Quads(Vector: quadVector);// inline;
   begin
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
@@ -542,5 +607,5 @@ begin
 end;
 
 begin
-  SphereTab.SetSectors(36);
+  SphereTab.SetSectors(Sektoren);
 end.
