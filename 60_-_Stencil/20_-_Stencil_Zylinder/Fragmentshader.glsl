@@ -27,7 +27,7 @@ void main()
   float l1 = light(LightPos1, vNorm) * ambient1;
 
   vec4 col = vColor *  texture(Sampler, vTexcoord) * (l0 + l1) ;
-  col = vColor *  vec4(1.0,1.0,1.0,1) * (l0 + l1) ;
+//  col = vColor *  vec4(1.0,1.0,1.0,1) * (l0 + l1) ;
 
   outColor = vec4(col);
 };
