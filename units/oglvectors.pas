@@ -535,7 +535,7 @@ var
 type
   quadVector = array[0..3] of TVector3f;
 
-  procedure Quads(Vector: quadVector);//// inline;
+  procedure Quads(Vector: quadVector);// inline;
   begin
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
