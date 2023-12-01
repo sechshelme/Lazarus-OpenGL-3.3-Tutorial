@@ -100,6 +100,7 @@ type
     procedure AddCubeNormale;
 
     procedure AddZylinder;
+    procedure AddZylinderColor(const col: TVector3f);
     procedure AddZylinderNormale;
 
     procedure AddSphere;
@@ -549,10 +550,19 @@ begin
     //  vec3(sin((i + 0) * t) * r2,  cos((i + 0) * t) * r2,h2),
     //  vec3(sin((i + 0) * t) * r1,  cos((i + 0) * t) * r1,h1)]);
     Quads([
-      [sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, -0.5],
       [sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, 0.5],
-      [sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.5],
-      [sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, -0.5]]);
+      [sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, -0.5],
+      [sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, -0.5],
+      [sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.5]]);
+  end;
+end;
+
+procedure TVectors3fHelper.AddZylinderColor(const col: TVector3f);
+var
+  i: Integer;
+begin
+  for i := 0 to Sektoren - 1 do begin
+    Self.Add([col,col,col,col,col,col]);
   end;
 end;
 
@@ -573,11 +583,6 @@ type
 begin
   t := 2 * pi / Sektoren;
   for i := 0 to Sektoren - 1 do begin
-    //Quads([
-    //  vec3(sin((i + 1) * t) * r1,  cos((i + 1) * t) * r1,h1),
-    //  vec3(sin((i + 1) * t) * r2,  cos((i + 1) * t) * r2,h2),
-    //  vec3(sin((i + 0) * t) * r2,  cos((i + 0) * t) * r2,h2),
-    //  vec3(sin((i + 0) * t) * r1,  cos((i + 0) * t) * r1,h1)]);
     Quads([
       vec3(sin((i + 1) * t), cos((i + 1) * t), 0.0),
       vec3(sin((i + 1) * t), cos((i + 1) * t), 0.0),
