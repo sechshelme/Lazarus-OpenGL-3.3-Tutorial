@@ -11,17 +11,20 @@ uses
 type
   TJointIDs = type TGlInts;
 
-  { TJointIDsHelper }
-
   TJointIDsHelper = type Helper(TglintsHelper) for TJointIDs
+    procedure AddRectangle(pri: integer);
     procedure AddCube(pri, sek: integer);
     procedure AddCubeLateral(pri, sek: integer);
-    procedure AddRectangle(pri: integer);
+    procedure AddDisc(pri: integer);
     procedure AddZylinder(pri, sek: integer);
   end;
 
-
 implementation
+
+procedure TJointIDsHelper.AddRectangle(pri: integer);
+begin
+  Self += [pri, pri, pri, pri, pri, pri];
+end;
 
 procedure TJointIDsHelper.AddCube(pri, sek: integer);
 begin
@@ -43,10 +46,13 @@ begin
     pri, pri, sek, pri, sek, sek]; // unten
 end;
 
-procedure TJointIDsHelper.AddRectangle(pri: integer);
+procedure TJointIDsHelper.AddDisc(pri: integer);
+var
+  i: integer;
 begin
-  Self += [
-    pri, pri, pri, pri, pri, pri];
+  for i := 0 to Sektoren - 1 do begin
+    Self += [pri, pri, pri];
+  end;
 end;
 
 procedure TJointIDsHelper.AddZylinder(pri, sek: integer);
@@ -54,8 +60,7 @@ var
   i: integer;
 begin
   for i := 0 to Sektoren - 1 do begin
-    Self += [
-      sek, pri, pri, sek, pri, sek];
+    Self += [sek, pri, pri, sek, pri, sek];
   end;
 end;
 

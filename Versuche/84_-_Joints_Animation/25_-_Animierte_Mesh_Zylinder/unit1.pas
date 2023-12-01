@@ -173,15 +173,11 @@ begin
   // Arme
   for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
     tmpCube := nil;
-//    tmpCube.AddCubeLateral;
     tmpCube.AddZylinder;
     tmpCube.Scale([1, 1, 0]);
     tmpCube.Translate([0.0, 0.0, 1.0]);
     cube.Add(tmpCube);
-//    cubeColor.AddCubeLateralColor(colors[(i div 6) mod 6]^);
     cubeColor.AddZylinderColor(colors[(i div 6) mod 6]^);
-//    cubeNormale.AddCubeLateralNormale;
-//    cubeJointIDs.AddCubeLateral(i, i + 6);
     cubeNormale.AddZylinderNormale;
     cubeJointIDs.AddZylinder(i, i + 6);
   end;
@@ -189,14 +185,18 @@ begin
   // Abschluss
   for i := 0 to 5 do begin
     tmpCube := nil;
-    tmpCube.AddRectangle;
+//    tmpCube.AddRectangle;
+    tmpCube.AddDisc;
     tmpCube.Translate([0.0, 0.0, 1.0]);
     cube.Add(tmpCube);
 
     ofs := i + Length(UBOBuffer.JointMatrix) - 6;
-    cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
-    cubeNormale.AddRectangleNormale;
-    cubeJointIDs.AddRectangle(ofs);
+//    cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
+//    cubeNormale.AddRectangleNormale;
+//    cubeJointIDs.AddRectangle(ofs);
+    cubeColor.AddDiscColor(colors[((ofs - 6) div 6) mod 6]^);
+    cubeNormale.AddDiscNormal;
+    cubeJointIDs.AddDisc(ofs);
   end;
 
   // --- Create VAO Buffer

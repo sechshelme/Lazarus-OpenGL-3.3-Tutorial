@@ -99,6 +99,10 @@ type
     procedure AddCubeColor(const col: TVector3f);
     procedure AddCubeNormale;
 
+    procedure AddDisc;
+    procedure AddDiscColor(const col: TVector3f);
+    procedure AddDiscNormal;
+
     procedure AddZylinder;
     procedure AddZylinderColor(const col: TVector3f);
     procedure AddZylinderNormale;
@@ -146,7 +150,7 @@ begin
   end;
 end;
 
-{ Tglints }
+{ TglintsHelper }
 
 function TglintsHelper.Size: TGLsizei;
 begin
@@ -236,6 +240,28 @@ begin
   end;
 end;
 
+procedure TVectors2fHelper.AddFace2D(const Face: TFace2D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6);
+  Move(Face, Self[p], SizeOf(TFace2D));
+end;
+
+procedure TVectors2fHelper.AddFace2D(const v0, v1, v2: TVector2f);
+begin
+  Add([v0,v1,v2]);
+end;
+
+procedure TVectors2fHelper.AddFace2DArray(const Face: array of TFace2D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 6 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
+end;
 
 procedure TVectors2fHelper.Scale(AScale: TGLfloat);
 var
@@ -287,117 +313,7 @@ begin
   Result := Length(Self) div 2;
 end;
 
-procedure TVectors2fHelper.AddFace2D(const Face: TFace2D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 6);
-  Move(Face, Self[p], SizeOf(TFace2D));
-end;
-
-procedure TVectors2fHelper.AddFace2D(const v0, v1, v2: TVector2f);
-begin
-  Add(v0);
-  Add(v1);
-  Add(v2);
-end;
-
-procedure TVectors2fHelper.AddFace2DArray(const Face: array of TFace2D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 6 * Length(Face));
-  Move(Face, Self[p], SizeOf(TFace2D) * Length(Face));
-end;
-
 { TVectors3fHelper }
-
-// === Standard Funktionen
-
-procedure TVectors3fHelper.Scale(AScale: TGLfloat);// inline;
-var
-  i: integer;
-begin
-  for i := 0 to Length(Self) - 1 do begin
-    Self[i] *= AScale;
-  end;
-end;
-
-procedure TVectors3fHelper.Scale(const AScale: TVector3f);
-var
-  i: integer;
-  pv: PVector3f;
-begin
-  pv := PVector3f(Self);
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    pv^.Scale(AScale);
-    Inc(pv);
-  end;
-end;
-
-procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
-var
-  i: integer;
-  pv: PVector3f;
-begin
-  pv := PVector3f(Self);
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    pv^.Translate(ATranslate);
-    Inc(pv);
-  end;
-end;
-
-procedure TVectors3fHelper.RotateA(angele: TGLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    PVector3f(@Self[i * 3])^.RotateA(angele);
-  end;
-end;
-
-procedure TVectors3fHelper.RotateB(angele: TGLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    PVector3f(@Self[i * 3])^.RotateB(angele);
-  end;
-end;
-
-procedure TVectors3fHelper.RotateC(angele: TGLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to Length(Self) div 3 - 1 do begin
-    PVector3f(@Self[i * 3])^.RotateC(angele);
-  end;
-end;
-
-function TVectors3fHelper.Count: TGLint;// inline;
-begin
-  Result := Length(Self) div 3;
-end;
-
-procedure TVectors3fHelper.AddFace3D(const Face: TFace3D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 9);
-  Move(Face, Self[p], SizeOf(TFace3D));
-end;
-//
-procedure TVectors3fHelper.AddFace3DArray(const Face: array of TFace3D);
-var
-  p: integer;
-begin
-  p := Length(Self);
-  SetLength(Self, p + 9 * Length(Face));
-  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
-end;
 
 procedure TVectors3fHelper.Add(const v: TVector3f);
 begin
@@ -419,6 +335,23 @@ begin
   move(v[0], Self[len_self], len_v * 4);
 end;
 
+procedure TVectors3fHelper.AddFace3D(const Face: TFace3D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9);
+  Move(Face, Self[p], SizeOf(TFace3D));
+end;
+//
+procedure TVectors3fHelper.AddFace3DArray(const Face: array of TFace3D);
+var
+  p: integer;
+begin
+  p := Length(Self);
+  SetLength(Self, p + 9 * Length(Face));
+  Move(Face, Self[p], SizeOf(TFace3D) * Length(Face));
+end;
 
 // === Rechteck
 
@@ -430,20 +363,15 @@ begin
 end;
 
 procedure TVectors3fHelper.AddRectangleColor(const col: TVector3f);
-var
-  i: integer;
 begin
-  for i := 0 to 5 do begin
-    Self += [col];
-  end;
+  Self.Add([col, col, col, col, col, col]);
 end;
 
 procedure TVectors3fHelper.AddRectangleNormale;
 begin
   Self += [
-    //     vorn
-    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
-
+    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
+    0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
 end;
 
 // === Würfel ohne Boden und Deckel
@@ -528,6 +456,37 @@ begin
     -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0];
 end;
 
+procedure TVectors3fHelper.AddDisc;
+var
+  i: integer;
+  t: single;
+begin
+  t := 2 * pi / Sektoren;
+  for i := 0 to Sektoren - 1 do begin
+    self += [0.0, 0.0, 0.0,
+      sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, 0.0,
+    sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.0];
+  end;
+end;
+
+procedure TVectors3fHelper.AddDiscColor(const col: TVector3f);
+var
+  i: integer;
+begin
+  for i := 0 to Sektoren - 1 do begin
+    Self.Add([col, col, col]);
+  end;
+end;
+
+procedure TVectors3fHelper.AddDiscNormal;
+var
+  i: Integer;
+begin
+  for i := 0 to Sektoren - 1 do begin
+    Self += [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
+  end;
+end;
+
 procedure TVectors3fHelper.AddZylinder;
 var
   i: integer;
@@ -544,11 +503,6 @@ type
 begin
   t := 2 * pi / Sektoren;
   for i := 0 to Sektoren - 1 do begin
-    //Quads([
-    //  vec3(sin((i + 1) * t) * r1,  cos((i + 1) * t) * r1,h1),
-    //  vec3(sin((i + 1) * t) * r2,  cos((i + 1) * t) * r2,h2),
-    //  vec3(sin((i + 0) * t) * r2,  cos((i + 0) * t) * r2,h2),
-    //  vec3(sin((i + 0) * t) * r1,  cos((i + 0) * t) * r1,h1)]);
     Quads([
       [sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, 0.5],
       [sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, -0.5],
@@ -559,10 +513,10 @@ end;
 
 procedure TVectors3fHelper.AddZylinderColor(const col: TVector3f);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to Sektoren - 1 do begin
-    Self.Add([col,col,col,col,col,col]);
+    Self.Add([col, col, col, col, col, col]);
   end;
 end;
 
@@ -638,6 +592,75 @@ procedure TVectors3fHelper.AddSphereNormale;
 begin
   Self.AddSphere;
 end;
+
+// === Standard Funktionen
+
+procedure TVectors3fHelper.Scale(AScale: TGLfloat);// inline;
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) - 1 do begin
+    Self[i] *= AScale;
+  end;
+end;
+
+procedure TVectors3fHelper.Scale(const AScale: TVector3f);
+var
+  i: integer;
+  pv: PVector3f;
+begin
+  pv := PVector3f(Self);
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    pv^.Scale(AScale);
+    Inc(pv);
+  end;
+end;
+
+procedure TVectors3fHelper.Translate(const ATranslate: TVector3f);
+var
+  i: integer;
+  pv: PVector3f;
+begin
+  pv := PVector3f(Self);
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    pv^.Translate(ATranslate);
+    Inc(pv);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateA(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateA(angele);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateB(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateB(angele);
+  end;
+end;
+
+procedure TVectors3fHelper.RotateC(angele: TGLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to Length(Self) div 3 - 1 do begin
+    PVector3f(@Self[i * 3])^.RotateC(angele);
+  end;
+end;
+
+function TVectors3fHelper.Count: TGLint;// inline;
+begin
+  Result := Length(Self) div 3;
+end;
+
+// === Inizialisation
 
 begin
   SphereTab.SetSectors(Sektoren);
