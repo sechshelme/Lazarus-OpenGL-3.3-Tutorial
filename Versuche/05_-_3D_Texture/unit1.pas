@@ -109,6 +109,9 @@ Dazu gebe ich als ersten Parameter die Länge der Array an.
 Natürlich könnte man die Puffer auch einzeln erzeugen.
 
 Das selbe könnte man auch bei den VAOs und VBOs machen.
+
+
+// https://stackoverflow.com/questions/16553671/opengl-how-to-use-glteximage3d-function
 *)
 //code+
 procedure TForm1.CreateScene;
@@ -132,8 +135,8 @@ begin
   glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, 2, 2,2, 0, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
   glTexParameterf(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-  glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//  glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//  glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
