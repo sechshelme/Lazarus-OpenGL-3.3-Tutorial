@@ -52,7 +52,7 @@ const
     (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
 (*
-Da es zwei Texturn hat, ist noch eine zweite Textur-Konstnate dazu gekommen.
+Da es zwei Texturn hat, ist noch eine zweite Textur-Konstante dazu gekommen.
 *)
 //code+
 const
@@ -73,7 +73,7 @@ var
   Matrix_ID: GLint;
 
 (*
-Da es zwei Texturen hat, bracuht es auch zwei IDs.
+Da es zwei Texturen hat, braucht es auch zwei IDs.
 *)
 //code+
 var
@@ -96,7 +96,7 @@ begin
 end;
 
 (*
-Da die Zextur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
+Da die Textur-IDs in einer Array sind, kann man die Textur-Puffer mit nur einem <b>glGenTextures(...</b> erzeugen.
 Dazu gebe ich als ersten Parameter die Länge der Array an.
 Natürlich könnte man die Puffer auch einzeln erzeugen.
 

@@ -1,10 +1,15 @@
 object Form1: TForm1
-  Left = 794
+  Left = 301
   Height = 272
-  Top = 0
+  Top = 158
   Width = 439
   Caption = 'Form1'
   LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 206
+    Top = 60
+  end
 end
