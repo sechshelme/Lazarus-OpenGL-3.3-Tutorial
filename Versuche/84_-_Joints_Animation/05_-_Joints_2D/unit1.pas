@@ -34,6 +34,7 @@ type
   private
     ogc: TContext;
     Shader: TShader;
+    time:Integer;
     procedure CreatJoints;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
@@ -102,10 +103,13 @@ end;
 procedure TForm1.CreatJoints;
 var
   i: integer;
+  r: Single;
 begin
   for i := 0 to JointCount - 1 do begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
+
+      r := sin(time / 400 * i) / 1.2;
 
   for i := 0 to JointCount do begin
     if i > 0 then begin
@@ -113,7 +117,8 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, 0.0, 0.0);
-    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / (now/3000) * i);
+//    UBOBuffer.JointMatrix[i].RotateC((0.5 - random) / (now/3000) * i);
+    UBOBuffer.JointMatrix[i].RotateC(r / 10);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(-0.5, 0.0, 0.0);
     UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
@@ -228,6 +233,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+  Inc(time);
   CreatJoints;
   ogcDrawScene(Sender);
 end;
