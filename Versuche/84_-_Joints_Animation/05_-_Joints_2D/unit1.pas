@@ -109,9 +109,8 @@ begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
 
-      r := sin(time / 400 * i) / 1.2;
-
   for i := 0 to JointCount do begin
+    r := sin(time / 100 * i) / 1.2;
     if i > 0 then begin
       UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
     end;
@@ -159,7 +158,7 @@ begin
   for i := 0 to JointCount - 1 do begin
     tmpQuad := nil;
     tmpQuad.addrectangle;
-    tmpQuad.Translate([0.5, 0.5]);
+    tmpQuad.Translate([0.5, 0.0]);
     tmpQuad.Scale([0, 8]);
 
     tmpQuad.Scale(0.1);

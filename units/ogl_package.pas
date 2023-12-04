@@ -8,11 +8,11 @@ unit ogl_Package;
 interface
 
 uses
-  oglLighting, dglOpenGL, oglShader, oglTexturVAO, oglWaveFrontOBJ, 
-  oglBackground, oglTexturKoerper, oglUnit, oglTextur, oglVAO, 
-  oglColorKoerper, oglLinesVAO, oglVBO, oglDarstellung, oglKoerper, oglCamera, 
-  oglMatrix, oglSteuerung, oglUBO, oglLightingShader, oglContext, oglDebug, 
-  oglVector, oglVectors, LazarusPackageIntf;
+  dglOpenGL, oglShader, oglTextur, oglMatrix, oglContext, oglDebug, oglVector, 
+  oglVectors, oglBackground, oglCamera, oglColorKoerper, oglDarstellung, 
+  oglKoerper, oglLighting, oglLightingShader, oglLinesVAO, oglSteuerung, 
+  oglTexturKoerper, oglTexturVAO, oglUBO, oglUnit, oglVAO, oglVBO, 
+  oglWaveFrontOBJ, LazarusPackageIntf;
 
 implementation
 
