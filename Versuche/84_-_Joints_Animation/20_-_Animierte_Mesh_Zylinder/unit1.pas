@@ -46,6 +46,7 @@ implementation
 const
   jointCount = 6;
   isCylinder: boolean = False;
+  is3Darm: boolean = True;
 
 type
   TUBOBuffer = record
@@ -75,7 +76,7 @@ end;
 procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
-  r: single;
+  angele: single;
 begin
   for i := 0 to 5 do begin
     UBOBuffer.JointMatrix[i].Identity;
@@ -93,20 +94,26 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0.0, 0.0, 2.0);
-    r := sin(time / 400 * i) / 1.2;
+    angele := sin(time / 400 * i) / 1.2;
 
     case i mod 6 of
       0, 1: begin
-        UBOBuffer.JointMatrix[i].RotateA(r);
-        UBOBuffer.JointMatrix[i].RotateB(r * 1.2);
+        UBOBuffer.JointMatrix[i].RotateA(angele);
+        if is3Darm then  begin
+          UBOBuffer.JointMatrix[i].RotateB(angele * 1.2);
+        end;
       end;
       2, 3: begin
-        UBOBuffer.JointMatrix[i].RotateB(r);
-        UBOBuffer.JointMatrix[i].RotateC(r * 1.2);
+        UBOBuffer.JointMatrix[i].RotateB(angele);
+        if is3Darm then  begin
+          UBOBuffer.JointMatrix[i].RotateC(angele * 1.2);
+        end;
       end;
       4, 5: begin
-        UBOBuffer.JointMatrix[i].RotateC(r);
-        UBOBuffer.JointMatrix[i].RotateA(r * 1.2);
+        UBOBuffer.JointMatrix[i].RotateC(angele);
+        if is3Darm then  begin
+          UBOBuffer.JointMatrix[i].RotateA(angele * 1.2);
+        end;
       end;
     end;
     UBOBuffer.JointMatrix[i].Scale(0.95);
@@ -291,6 +298,12 @@ end;
 procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
 begin
   case Key of
+    '2': begin
+      is3Darm := False;
+    end;
+    '3': begin
+      is3Darm := True;
+    end;
     'c': begin
       isCylinder := True;
     end;
