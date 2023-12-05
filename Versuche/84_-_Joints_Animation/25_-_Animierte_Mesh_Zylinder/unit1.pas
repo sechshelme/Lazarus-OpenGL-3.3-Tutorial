@@ -29,6 +29,7 @@ type
     Shader: TShader; // Shader-Object
     time: integer;
     procedure CreatJointsMatrix;
+    procedure CreateArms;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
     procedure ogcKeyPress(Sender: TObject; var Key: char);
@@ -44,6 +45,7 @@ implementation
 
 const
   jointCount = 6;
+  isCylinder: boolean = False;
 
 type
   TUBOBuffer = record
@@ -124,19 +126,106 @@ begin
   end;
 end;
 
-procedure TForm1.CreateScene;
-var
-  i: integer;
-  tmpCube: TVectors3f;
-  ofs: SizeInt;
+procedure TForm1.CreateArms;
 const
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
+var
+  tmpCube: TVectors3f;
+  ofs: SizeInt;
+  i: integer;
+begin
+  cube := nil;
+  cubeColor := nil;
+  cubeNormale := nil;
+  cubeJointIDs := nil;
+
+  // center
+  cube.AddCube;
+  cube.scale(2);
+  cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
+  cubeNormale.AddCubeNormale;
+  cubeJointIDs.AddCube(-1, -1);
+
+  // Arme
+  for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
+    tmpCube := nil;
+    if isCylinder then begin
+      tmpCube.AddZylinder;
+      tmpCube.Scale([1, 1, 0]);
+      tmpCube.Translate([0.0, 0.0, 1.0]);
+      cube.Add(tmpCube);
+      cubeColor.AddZylinderColor(colors[(i div 6) mod 6]^);
+      cubeNormale.AddZylinderNormale;
+      cubeJointIDs.AddZylinder(i, i + 6);
+    end else begin
+      tmpCube.AddCubeLateral;
+      tmpCube.Scale([1, 1, 0]);
+      tmpCube.Translate([0.0, 0.0, 1.0]);
+      cube.Add(tmpCube);
+      cubeColor.AddCubeLateralColor(colors[(i div 6) mod 6]^);
+      cubeNormale.AddCubeLateralNormale;
+      cubeJointIDs.AddCubeLateral(i, i + 6);
+    end;
+  end;
+
+  // Abschluss
+  for i := 0 to 5 do begin
+    tmpCube := nil;
+    ofs := i + Length(UBOBuffer.JointMatrix) - 6;
+    if isCylinder then begin
+      tmpCube.AddDisc;
+      tmpCube.Translate([0.0, 0.0, 1.0]);
+      cube.Add(tmpCube);
+
+      cubeColor.AddDiscColor(colors[((ofs - 6) div 6) mod 6]^);
+      cubeNormale.AddDiscNormal;
+      cubeJointIDs.AddDisc(ofs);
+    end else begin
+      tmpCube.AddRectangle;
+      tmpCube.Translate([0.0, 0.0, 1.0]);
+      cube.Add(tmpCube);
+
+      cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
+      cubeNormale.AddRectangleNormale;
+      cubeJointIDs.AddRectangle(ofs);
+    end;
+  end;
+
+  //  VAO Buffer
+
+  glBindVertexArray(VBQuad.VAO);
+
+  // Vektor
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
+  glBufferData(GL_ARRAY_BUFFER, cube.Size, cube.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  // Color
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOColor);
+  glBufferData(GL_ARRAY_BUFFER, cubeColor.Size, cubeColor.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+
+  // Normale
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBONormal);
+  glBufferData(GL_ARRAY_BUFFER, cubeNormale.Size, cubeNormale.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
+
+  // Joints
+  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOJoint);
+  glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(3);
+  glVertexAttribIPointer(3, 1, GL_INT, 0, nil);
+end;
+
+procedure TForm1.CreateScene;
 begin
   InitOpenGLDebug;
 
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
-  //  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'GeometrieShader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
@@ -161,79 +250,14 @@ begin
   glCullFace(GL_BACK);      // Rückseite nicht zeichnen.
   glClearColor(0.15, 0.15, 0.05, 1.0);
 
-  CreatJointsMatrix;
-
-  // center
-  cube.AddCube;
-  cube.scale(2);
-  cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
-  cubeNormale.AddCubeNormale;
-  cubeJointIDs.AddCube(-1, -1);
-
-  // Arme
-  for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
-    tmpCube := nil;
-    tmpCube.AddZylinder;
-    tmpCube.Scale([1, 1, 0]);
-    tmpCube.Translate([0.0, 0.0, 1.0]);
-    cube.Add(tmpCube);
-    cubeColor.AddZylinderColor(colors[(i div 6) mod 6]^);
-    cubeNormale.AddZylinderNormale;
-    cubeJointIDs.AddZylinder(i, i + 6);
-  end;
-
-  // Abschluss
-  for i := 0 to 5 do begin
-    tmpCube := nil;
-//    tmpCube.AddRectangle;
-    tmpCube.AddDisc;
-    tmpCube.Translate([0.0, 0.0, 1.0]);
-    cube.Add(tmpCube);
-
-    ofs := i + Length(UBOBuffer.JointMatrix) - 6;
-//    cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
-//    cubeNormale.AddRectangleNormale;
-//    cubeJointIDs.AddRectangle(ofs);
-    cubeColor.AddDiscColor(colors[((ofs - 6) div 6) mod 6]^);
-    cubeNormale.AddDiscNormal;
-    cubeJointIDs.AddDisc(ofs);
-  end;
-
-  // --- Create VAO Buffer
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glBindVertexArray(VBQuad.VAO);
-
-  // Vektor
   glGenBuffers(1, @VBQuad.VBO);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
-  glBufferData(GL_ARRAY_BUFFER, cube.Size, cube.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
-
-  // Color
   glGenBuffers(1, @VBQuad.VBOColor);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOColor);
-  glBufferData(GL_ARRAY_BUFFER, cubeColor.Size, cubeColor.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
-
-  // Normale
   glGenBuffers(1, @VBQuad.VBONormal);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBONormal);
-  glBufferData(GL_ARRAY_BUFFER, cubeNormale.Size, cubeNormale.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
-
-  // Joints
   glGenBuffers(1, @VBQuad.VBOJoint);
+  glGenVertexArrays(1, @VBQuad.VAO);
 
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOJoint);
-  glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(3);
-  glVertexAttribIPointer(3, 1, GL_INT, 0, nil);
+  CreatJointsMatrix;
+  CreateArms;
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -251,6 +275,15 @@ end;
 
 procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
 begin
+  case Key of
+    'c': begin
+      isCylinder := True;
+    end;
+    'q': begin
+      isCylinder := False;
+    end;
+  end;
+  CreateArms;
   CreatJointsMatrix;
 end;
 
