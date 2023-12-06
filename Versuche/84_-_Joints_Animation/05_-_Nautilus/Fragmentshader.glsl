@@ -1,10 +1,8 @@
 #version 330
 
-in vec3 vCol;
-
-out vec4 outColor;   // ausgegebene Farbe
+out vec4 outColor;
 
 void main(void)
 {
-  outColor = vec4(vCol, 1.0);
+  outColor = vec4(0.0, 0.0, 1.0, 1.0);
 }

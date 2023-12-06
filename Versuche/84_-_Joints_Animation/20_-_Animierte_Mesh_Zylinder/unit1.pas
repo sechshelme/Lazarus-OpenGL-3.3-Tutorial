@@ -56,7 +56,7 @@ type
 
 var
   VAO: TGLuint;
-  Mesh_Buffers: array [(VBO, VBOColor, VBONormal, VBOJoint, UBO)] of TGLuint;
+  Mesh_Buffers: array [(mbVBO, mbVBOColor, mbVBONormal, mbVBOJoint, mbUBO)] of TGLuint;
   UBOBuffer: TUBOBuffer;
   VertexCount: integer;
 
@@ -189,25 +189,25 @@ begin
   glBindVertexArray(VAO);
 
   // Vektor
-  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[VBO]);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBO]);
   glBufferData(GL_ARRAY_BUFFER, cubeVertex.Size, cubeVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Color
-  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[VBOColor]);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOColor]);
   glBufferData(GL_ARRAY_BUFFER, cubeColor.Size, cubeColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // Normale
-  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[VBONormal]);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
   glBufferData(GL_ARRAY_BUFFER, cubeNormale.Size, cubeNormale.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
 
   // Joints
-  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[VBOJoint]);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOJoint]);
   glBufferData(GL_ARRAY_BUFFER, cubeJointIDs.Size, cubeJointIDs.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(3);
   glVertexAttribIPointer(3, 1, GL_INT, 0, nil);
@@ -235,13 +235,13 @@ begin
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(1.5);
   // UBO anlegen
-  glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[UBO]);
+  glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
   UBO_ID := Shader.UniformBlockIndex('UBO');
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
-  glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[UBO]);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
 
   Timer1.Enabled := True;
 
@@ -306,6 +306,9 @@ begin
     end;
     'c': begin
       isCylinder := True;
+    end;
+    't': begin
+      Timer1.Enabled := not Timer1.Enabled;
     end;
     'q': begin
       isCylinder := False;

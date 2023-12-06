@@ -69,15 +69,8 @@ var
   QuadColor: TVectors3f = nil;
   QuadJoint: TJointIDs = nil;
 
-type
-  TVB = record
-    VAO,
-    VBOVektor, VBOColor, VBOJoint: GLuint;
-  end;
-
-var
-  VBQuad: TVB;
-  UBO_ID, UBO: GLint;
+  VAO: GLuint;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBOColor, mbVBOJoint, mbUBO)] of TGLuint;
 
   { TJointIDsHelper }
 
@@ -129,6 +122,7 @@ const
 var
   tmpQuad: TVectors2f = nil;
   i: integer;
+  UBO_ID: GLuint;
 begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
@@ -136,15 +130,16 @@ begin
   Shader.LinkProgramm;
   Shader.UseProgram;
 
-  glGenBuffers(1, @UBO);
+  glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
+
   // UBO mit Daten laden
-  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+  glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
   UBO_ID := Shader.UniformBlockIndex('UBO');
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
-  glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
 
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ModelMatrix.Scale(scale);
@@ -173,29 +168,23 @@ begin
   end;
 
   // Daten für Quadrat
-  glGenVertexArrays(1, @VBQuad.VAO);
-  glBindVertexArray(VBQuad.VAO);
+  glGenVertexArrays(1, @VAO);
+  glBindVertexArray(VAO);
 
   // Vektor
-  glGenBuffers(1, @VBQuad.VBOVektor);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVektor);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
   glBufferData(GL_ARRAY_BUFFER, QuadVertex.Size, QuadVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 
   // Color
-  glGenBuffers(1, @VBQuad.VBOColor);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOColor);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOColor]);
   glBufferData(GL_ARRAY_BUFFER, QuadColor.Size, QuadColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // Joints
-  glGenBuffers(1, @VBQuad.VBOJoint);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOJoint);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOJoint]);
   glBufferData(GL_ARRAY_BUFFER, QuadJoint.Size, QuadJoint.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
@@ -208,7 +197,7 @@ begin
 
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
 
-  glBindVertexArray(VBQuad.VAO);
+  glBindVertexArray(VAO);
   glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
   ogc.SwapBuffers;
@@ -219,9 +208,8 @@ begin
   Timer1.Enabled := False;
 
   Shader.Free;
-
-  glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBOVektor);
+  glDeleteVertexArrays(1, @VAO);
+  glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 
 procedure TForm1.MenuItem1Click(Sender: TObject);

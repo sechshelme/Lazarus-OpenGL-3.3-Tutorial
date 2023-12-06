@@ -40,7 +40,7 @@ implementation
 //lineal
 
 var
-  Mesh_Buffers: array [(EBO, IEBO, VBO, UBO)] of TGLuint;
+  Mesh_Buffers: array [(mbEBO, mbIEBO, mbVBO, mbUBO)] of TGLuint;
   VAO: TGLuint;
   QuadInstance: TVectors2f = nil;
 
@@ -130,33 +130,33 @@ begin
   glCreateBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 
   // --- UBO
-  glNamedBufferData(Mesh_Buffers[UBO], SizeOf(UBORec9Quad), nil, GL_DYNAMIC_DRAW);
-  glNamedBufferSubData(Mesh_Buffers[UBO], 0, SizeOf(UBORec9Quad), @UBORec9Quad);
-  glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, Mesh_Buffers[UBO]);
+  glNamedBufferData(Mesh_Buffers[mbUBO], SizeOf(UBORec9Quad), nil, GL_DYNAMIC_DRAW);
+  glNamedBufferSubData(Mesh_Buffers[mbUBO], 0, SizeOf(UBORec9Quad), @UBORec9Quad);
+  glBindBufferBase(GL_UNIFORM_BUFFER, uboIndex, Mesh_Buffers[mbUBO]);
 
   // --- Daten für das Quad
   glGenVertexArrays(1, @VAO);
   glBindVertexArray(VAO);
 
   // Attribute Vektor und Color
-  glNamedBufferStorage(Mesh_Buffers[VBO], Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_DYNAMIC_STORAGE_BIT);
+  glNamedBufferStorage(Mesh_Buffers[mbVBO], Length(QuadVector) * SizeOf(TVector6f), PVector6f(QuadVector), GL_DYNAMIC_STORAGE_BIT);
 
   glVertexAttribBinding(0, 0);
   glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
   glEnableVertexAttribArray(0);
-  glBindVertexBuffer(0, Mesh_Buffers[VBO], 0, 24);
+  glBindVertexBuffer(0, Mesh_Buffers[mbVBO], 0, 24);
 
   glVertexAttribBinding(1, 1);
   glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 12);
   glEnableVertexAttribArray(1);
-  glBindVertexBuffer(1, Mesh_Buffers[VBO], 0, 24);
+  glBindVertexBuffer(1, Mesh_Buffers[mbVBO], 0, 24);
 
   // ArrayElement
-  glNamedBufferData(Mesh_Buffers[EBO], Length(QuadIndices) * SizeOf(TGLuint), PGLshort(QuadIndices), GL_STATIC_DRAW);
-  glVertexArrayElementBuffer(VAO, Mesh_Buffers[EBO]);
+  glNamedBufferData(Mesh_Buffers[mbEBO], Length(QuadIndices) * SizeOf(TGLuint), PGLshort(QuadIndices), GL_STATIC_DRAW);
+  glVertexArrayElementBuffer(VAO, Mesh_Buffers[mbEBO]);
 
   // Instance
-  glNamedBufferData(Mesh_Buffers[IEBO], QuadInstance.Size, PGLint(QuadInstance), GL_STATIC_DRAW);
+  glNamedBufferData(Mesh_Buffers[mbIEBO], QuadInstance.Size, PGLint(QuadInstance), GL_STATIC_DRAW);
 
   // https://stackoverflow.com/questions/52993262/vao-drawing-the-wrong-index-buffer
   // https://stackoverflow.com/questions/62005944/trouble-with-glvertexarrayvertexbuffer-glvertexarrayattribformat-in-differ
@@ -169,7 +169,7 @@ begin
   glVertexAttribDivisor(10, 1);
   glEnableVertexAttribArray(10);
 
-  glBindVertexBuffer(10, Mesh_Buffers[IEBO], 0, 8);
+  glBindVertexBuffer(10, Mesh_Buffers[mbIEBO], 0, 8);
 
   glBindVertexArray(0);
 end;
@@ -184,7 +184,7 @@ begin
 
   // Zeichne Quadrat
   glBindVertexArray(VAO);
-  glNamedBufferSubData(Mesh_Buffers[UBO], 0, SizeOf(UBORecQuad), @UBORecQuad);
+  glNamedBufferSubData(Mesh_Buffers[mbUBO], 0, SizeOf(UBORecQuad), @UBORecQuad);
   glDrawElementsInstanced(GL_TRIANGLES, Length(QuadIndices), GL_UNSIGNED_INT, nil, QuadInstance.Count);
 
   ogc.SwapBuffers;
