@@ -13,9 +13,14 @@ uses
   oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
+    Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
     Shader: TShader;
@@ -47,18 +52,21 @@ var
 
 var
   VAO, VBOVektor, VBOColor, UBO: GLint;
+  TimerCounter: integer = 0;
 
 const
-  JointCount = 3;
+  JointCount = 4;
 
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
   Width := 640;
-//  Height := 480;
+  //  Height := 480;
   Height := 640;
   //remove-
+  Timer1.Enabled := False;
+  Timer1.Interval := 200;
   Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
@@ -94,7 +102,7 @@ begin
 
   UBOBuffer.proMatrix.Identity;
   UBOBuffer.proMatrix.Scale(0.02);
-//  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
+  //  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
 
   UBOBuffer.modelMatrix.Identity;
 
@@ -128,53 +136,50 @@ begin
   glBufferData(GL_ARRAY_BUFFER, QuadColor.Size, QuadColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+
+  Timer1.Enabled := True;
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
-  mHand: TMatrix;
+  Hand, uArm, oArm: TMatrix;
+  r: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VAO);
 
-  mHand.Identity;
-  UBOBuffer.modelMatrix := mHand;
+  UBOBuffer.modelMatrix.Identity;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
+  glDrawArrays(GL_TRIANGLES, 0, 6);
 
-  mHand.Identity;
-//  mHand.TranslateLocalspaceX(-4 * 2 * 8);
-  mHand.TranslateLocalspaceX(- 16);
-  mHand.RotateC(pi / 2);
-  mHand.TranslateLocalspaceX( 16);
-//  mHand.TranslateLocalspaceX(4 * 2 * 8);
-
-  UBOBuffer.modelMatrix := mHand;
-
+  r := sin(TimerCounter);
+  oArm.Identity;
+  oArm.TranslateLocalspaceX(-4);
+  oArm.RotateC(r);
+  oArm.TranslateLocalspaceX(4);
+  UBOBuffer.modelMatrix := oArm;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
-//  glDrawArrays(GL_TRIANGLES, 2 * 6, 6);
+  glDrawArrays(GL_TRIANGLES, 1 * 6, 6);
 
+  r := sin(TimerCounter * 2);
+  uArm.Identity;
+  uArm.TranslateLocalspaceX(-12);
+  uArm.RotateC(r);
+  uArm.TranslateLocalspaceX(12);
+  UBOBuffer.modelMatrix := oArm * uArm;
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  glDrawArrays(GL_TRIANGLES, 2 * 6, 6);
 
-
-  //
-  //
-  //  UBOBuffer.modelMatrix.Identity;
-  //  for i := 0 to JointCount - 1 do begin
-  //    UBOBuffer.col := [i / JointCount, 0.5, 1 - i / JointCount];
-  //    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  //
-  //    // Zeichne Quadrat
-  //    glDrawArrays(GL_TRIANGLES, i * 6, 6);
-  //
-  //    UBOBuffer.modelMatrix.TranslateLocalspaceX(-4 * (i+1));
-  //    UBOBuffer.modelMatrix.RotateC(pi / 2);
-  //    UBOBuffer.modelMatrix.TranslateLocalspaceX(4 * (i+1));
-  //
-  //    //    UBOBuffer.modelMatrix.Scale(0.95);
-  //  end;
+  r := sin(TimerCounter * 3);
+  Hand.Identity;
+  Hand.TranslateLocalspaceX(-20);
+  Hand.RotateC(r);
+  Hand.TranslateLocalspaceX(20);
+  UBOBuffer.modelMatrix := oArm * uArm * Hand;
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  glDrawArrays(GL_TRIANGLES, 3 * 6, 6);
 
   ogc.SwapBuffers;
 end;
@@ -187,6 +192,12 @@ begin
   glDeleteBuffers(1, @VBOVektor);
   glDeleteBuffers(1, @VBOColor);
   glDeleteBuffers(1, @UBO);
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  Inc(TimerCounter);
+  ogcDrawScene(Sender);
 end;
 
 //includeglsl Vertexshader.glsl
