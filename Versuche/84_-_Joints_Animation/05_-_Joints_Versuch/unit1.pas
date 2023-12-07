@@ -55,7 +55,7 @@ var
   TimerCounter: integer = 0;
 
 const
-  JointCount = 4;
+  JointCount = 16;
 
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -66,7 +66,7 @@ begin
   Height := 640;
   //remove-
   Timer1.Enabled := False;
-  Timer1.Interval := 200;
+  Timer1.Interval := 20;
   Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
@@ -102,7 +102,7 @@ begin
 
   UBOBuffer.proMatrix.Identity;
   UBOBuffer.proMatrix.Scale(0.02);
-  //  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
+  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
 
   UBOBuffer.modelMatrix.Identity;
 
@@ -116,7 +116,7 @@ begin
     tmpQuad.Translate([-8.0 * i, 0.0]);
     QuadVertex.Add(tmpQuad);
 
-    QuadColor.AddRectangleColor(colors[i mod JointCount]^);
+    QuadColor.AddRectangleColor(colors[i mod Length(colors)]^);
   end;
 
   // Daten für Quadrat
@@ -143,7 +143,7 @@ end;
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
-  Hand, uArm, oArm: TMatrix;
+  Hand: TMatrix;
   r: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -154,32 +154,16 @@ begin
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 
-  r := sin(TimerCounter);
-  oArm.Identity;
-  oArm.TranslateLocalspaceX(-4);
-  oArm.RotateC(r);
-  oArm.TranslateLocalspaceX(4);
-  UBOBuffer.modelMatrix := oArm;
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 1 * 6, 6);
-
-  r := sin(TimerCounter * 2);
-  uArm.Identity;
-  uArm.TranslateLocalspaceX(-12);
-  uArm.RotateC(r);
-  uArm.TranslateLocalspaceX(12);
-  UBOBuffer.modelMatrix := oArm * uArm;
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 2 * 6, 6);
-
-  r := sin(TimerCounter * 3);
-  Hand.Identity;
-  Hand.TranslateLocalspaceX(-20);
-  Hand.RotateC(r);
-  Hand.TranslateLocalspaceX(20);
-  UBOBuffer.modelMatrix := oArm * uArm * Hand;
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 3 * 6, 6);
+  for i := 0 to JointCount - 1 do begin
+    r := sin(TimerCounter * i / 200) / 2;
+    Hand.Identity;
+    Hand.TranslateLocalspaceX(-i * 8 + 4);
+    Hand.RotateC(r);
+    Hand.TranslateLocalspaceX(i * 8 - 4);
+    UBOBuffer.modelMatrix := UBOBuffer.modelMatrix * Hand;
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+    glDrawArrays(GL_TRIANGLES, i * 6, 6);
+  end;
 
   ogc.SwapBuffers;
 end;
