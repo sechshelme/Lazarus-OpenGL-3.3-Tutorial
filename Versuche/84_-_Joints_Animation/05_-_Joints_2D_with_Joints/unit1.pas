@@ -13,8 +13,13 @@ uses
   oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
 type
+  TJointIDs = type TGlInts;
 
-  { TForm1 }
+  { TJointIDsHelper }
+
+  TJointIDsHelper = type Helper(TglintsHelper) for TJointIDs
+    procedure AddQuad(pri, sek: integer);
+  end;
 
   TForm1 = class(TForm)
     Timer1: TTimer;
@@ -40,27 +45,37 @@ implementation
 //image image.png
 //lineal
 
+const
+  JointCount = 120;
+
 type
   TUBOBuffer = record
     proMatrix,
     modelMatrix: TMatrix;
+    JointMatrix: array [0..jointCount] of Tmat4x4;
   end;
 
 var
   UBOBuffer: TUBOBuffer;
   QuadVertex: TVectors2f;
   QuadColor: TVectors3f;
+  QuadJoint: TJointIDs;
 
 var
-  VAO, VBOVektor, VBOColor, UBO: GLint;
-  TimerCounter: integer = 0;
+  //  VAO, VBOVektor, VBOColor, UBO: GLint;
+  VAO: GLuint;
 
-const
-  JointCount = 8;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBOColor, mbVBOJoint, mbUBO)] of TGLuint;
+
+  TimerCounter: integer = 0;
 
 var
   JointsPos: array of single;
 
+procedure TJointIDsHelper.AddQuad(pri, sek: integer);
+begin
+  Self += [sek, pri, pri, sek, pri, sek];
+end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -87,46 +102,33 @@ const
 var
   tmpQuad: TVectors2f = nil;
   i: integer;
-  l: single;
+  LenCube, LenGlobal: single;
 begin
   QuadVertex := nil;
   QuadColor := nil;
+  QuadJoint := nil;
 
-  JointsPos := nil;
-  //  JointsPos += [0.0];
-
-  l := 8;
-
-//    JointsPos:=[0,8,16,24,32,40,48,56];
+  JointsPos := [0];
+  LenGlobal := 0;
 
   for i := 0 to JointCount - 1 do begin
-    //if i = 0 then begin
-    //  l := 8;
-    //end else begin
-    //  l := (0.5 + Random) * 8;
-    ////  l := 8;
-    //end;
-    l := 8;
+    LenCube := (0.5 + Random) * 0.8;
 
     tmpQuad := nil;
     tmpQuad.addrectangle;
-    tmpQuad.Scale([l, 4]);
-    tmpQuad.Translate([-l * i, 0.0]);
+    tmpQuad.Scale([LenCube, 7]);
+    tmpQuad.Translate([-LenGlobal - (LenCube / 2), 0.0]);
     QuadVertex.Add(tmpQuad);
 
-//    JointsPos +=[i* 8];
-
-    if i = 0 then  begin
-      JointsPos +=[ 0];
-    end else begin
-      JointsPos += [(JointsPos[i - 1]) + l];
-    end;
-    //
-
-    WriteLn(JointsPos[i]: 10: 5);
-
+    LenGlobal += LenCube;
+    JointsPos += [LenGlobal];
 
     QuadColor.AddRectangleColor(colors[i mod Length(colors)]^);
+    if i = 0 then  begin
+      QuadJoint.AddQuad(-1, i);
+    end else begin
+      QuadJoint.AddQuad(i - 1, i);
+    end;
   end;
 end;
 
@@ -140,15 +142,16 @@ begin
   Shader.LinkProgramm;
   Shader.UseProgram;
 
-  glGenBuffers(1, @UBO);
+  glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
+
   // UBO mit Daten laden
-  glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+  glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   // UBO mit dem Shader verbinden
   UBO_ID := Shader.UniformBlockIndex('UBO');
   glUniformBlockBinding(Shader.ID, UBO_ID, 0);
-  glBindBufferBase(GL_UNIFORM_BUFFER, 0, UBO);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
 
   UBOBuffer.proMatrix.Identity;
   UBOBuffer.proMatrix.Scale(0.02);
@@ -157,7 +160,7 @@ begin
   UBOBuffer.modelMatrix.Identity;
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   CreateJoints;
 
@@ -166,18 +169,22 @@ begin
   glBindVertexArray(VAO);
 
   // Vektor
-  glGenBuffers(1, @VBOVektor);
-  glBindBuffer(GL_ARRAY_BUFFER, VBOVektor);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
   glBufferData(GL_ARRAY_BUFFER, QuadVertex.Size, QuadVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
 
   // Color
-  glGenBuffers(1, @VBOColor);
-  glBindBuffer(GL_ARRAY_BUFFER, VBOColor);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOColor]);
   glBufferData(GL_ARRAY_BUFFER, QuadColor.Size, QuadColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+
+  // Joints
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOJoint]);
+  glBufferData(GL_ARRAY_BUFFER, QuadJoint.Size, QuadJoint.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(2);
+  glVertexAttribIPointer(2, 1, GL_INT, 0, nil);
 
   Timer1.Enabled := True;
 end;
@@ -185,7 +192,7 @@ end;
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
-  Hand: TMatrix;
+  m: TMatrix;
   r: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -193,28 +200,61 @@ begin
   glBindVertexArray(VAO);
 
   UBOBuffer.modelMatrix.Identity;
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, 6);
 
-  for i := 0 to JointCount - 1 do begin
-    r := sin(TimerCounter * i / 200) / 2;
-    Hand.Identity;
-    Hand.TranslateLocalspaceX(-JointsPos[i] + 4);
-    Hand.RotateC(r);
-    Hand.TranslateLocalspaceX(JointsPos[i] - 4);
-    //Hand.TranslateLocalspaceX(-i * 8 + 4);
-    //Hand.RotateC(r);
-    //Hand.TranslateLocalspaceX(i * 8 - 4);
-
-//    WriteLn(JointsPos[i]: 10: 5);
-//    WriteLn('--- ', single(i * 8 + 4): 10: 5);
-
-
-
-    UBOBuffer.modelMatrix := UBOBuffer.modelMatrix * Hand;
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-    glDrawArrays(GL_TRIANGLES, i * 6, 6);
+  for i := 0 to JointCount do begin
+    UBOBuffer.JointMatrix[i].Identity;
   end;
+
+  m.Identity;
+
+  for i := 0 to JointCount do begin
+    UBOBuffer.JointMatrix[i].Identity;
+    r := sin((TimerCounter + i) / 100) / 80;
+//    r:=(-0.5 +random)/10;
+
+    UBOBuffer.JointMatrix[i] := m;
+
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
+    UBOBuffer.JointMatrix[i].RotateC(r);
+    UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
+
+    m:= UBOBuffer.JointMatrix[i];
+    m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
+    m.RotateC(r);
+    m.TranslateLocalspace(JointsPos[i], 0.0, 0.0);
+
+    UBOBuffer.JointMatrix[i].Scale(0.95);
+  end;
+
+//
+//  for i := 0 to JointCount do begin
+//    r := sin(TimerCounter * i / 200) / 2;
+//
+//    m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
+//    m.RotateC(r);
+//    //    m.TranslateLocalspace(JointsPos[i], 0.0, 0.0);
+//    UBOBuffer.JointMatrix[i] := m;
+//    UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
+//
+//    m.RotateC(r);
+//  end;
+
+  //for i := 0 to JointCount do begin
+  //  UBOBuffer.JointMatrix[i].Identity;
+  //  r := sin(TimerCounter * i / 200) / 2;
+  //
+  //  UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
+  //
+  //  UBOBuffer.JointMatrix[i].TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
+  //  UBOBuffer.JointMatrix[i].RotateC(r);
+  //  UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
+  //  //    UBOBuffer.JointMatrix[i].RotateC(r / 4 );
+  //  UBOBuffer.JointMatrix[i].Scale(0.95);
+  //end;
+
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  glBindVertexArray(VAO);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
   ogc.SwapBuffers;
 end;
@@ -224,9 +264,7 @@ begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VAO);
-  glDeleteBuffers(1, @VBOVektor);
-  glDeleteBuffers(1, @VBOColor);
-  glDeleteBuffers(1, @UBO);
+  glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

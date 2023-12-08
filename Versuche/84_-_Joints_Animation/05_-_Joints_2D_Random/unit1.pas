@@ -114,6 +114,7 @@ begin
 
   for i := 0 to JointCount do begin
     r := (-0.5 + Random()) * 5;
+
     m.TranslateLocalspace(-1.0, 0.0, 0.0);
     m.RotateC(r / 5);
     UBOBuffer.JointMatrix[i] := m;
