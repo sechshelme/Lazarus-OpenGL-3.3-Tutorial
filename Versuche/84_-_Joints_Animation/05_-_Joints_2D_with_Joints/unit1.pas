@@ -46,7 +46,7 @@ implementation
 //lineal
 
 const
-  JointCount = 120;
+  JointCount = 16;
 
 type
   TUBOBuffer = record
@@ -86,7 +86,7 @@ begin
   //remove-
   Randomize;
   Timer1.Enabled := False;
-  Timer1.Interval := 20;
+  Timer1.Interval := 1120;
   Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
@@ -108,11 +108,11 @@ begin
   QuadColor := nil;
   QuadJoint := nil;
 
-  JointsPos := [0];
+  JointsPos := nil;
   LenGlobal := 0;
 
   for i := 0 to JointCount - 1 do begin
-    LenCube := (0.5 + Random) * 0.8;
+    LenCube := (0.5 + Random) / JointCount * 90;
 
     tmpQuad := nil;
     tmpQuad.addrectangle;
@@ -125,7 +125,7 @@ begin
 
     QuadColor.AddRectangleColor(colors[i mod Length(colors)]^);
     if i = 0 then  begin
-      QuadJoint.AddQuad(-1, i);
+      QuadJoint.AddQuad(-1, 0);
     end else begin
       QuadJoint.AddQuad(i - 1, i);
     end;
@@ -193,7 +193,7 @@ procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
   m: TMatrix;
-  r: single;
+  r: single = 0;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -209,8 +209,27 @@ begin
 
   for i := 0 to JointCount do begin
     UBOBuffer.JointMatrix[i].Identity;
+
+    //case i of
+    //0: begin
+    //  r := pi / 4;
+    //end;
+    //2: begin
+    //  r := -pi / 4;
+    //end;
+    //3: begin
+    //  r := pi / 8;
+    //end;
+    //4: begin
+    //  r := -pi / 8;
+    //end;
+    //  else begin
+    //    r := 0;
+    //  end;
+    //end;
     r := sin((TimerCounter + i) / 100) / 80;
-//    r:=(-0.5 +random)/10;
+    r := (-0.5 + random) / 2;
+
 
     UBOBuffer.JointMatrix[i] := m;
 
@@ -218,39 +237,14 @@ begin
     UBOBuffer.JointMatrix[i].RotateC(r);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
 
-    m:= UBOBuffer.JointMatrix[i];
+    m := UBOBuffer.JointMatrix[i];
+
     m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
     m.RotateC(r);
     m.TranslateLocalspace(JointsPos[i], 0.0, 0.0);
 
-    UBOBuffer.JointMatrix[i].Scale(0.95);
+//    m.Scale(1, 0.95, 1);
   end;
-
-//
-//  for i := 0 to JointCount do begin
-//    r := sin(TimerCounter * i / 200) / 2;
-//
-//    m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
-//    m.RotateC(r);
-//    //    m.TranslateLocalspace(JointsPos[i], 0.0, 0.0);
-//    UBOBuffer.JointMatrix[i] := m;
-//    UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
-//
-//    m.RotateC(r);
-//  end;
-
-  //for i := 0 to JointCount do begin
-  //  UBOBuffer.JointMatrix[i].Identity;
-  //  r := sin(TimerCounter * i / 200) / 2;
-  //
-  //  UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 1];
-  //
-  //  UBOBuffer.JointMatrix[i].TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
-  //  UBOBuffer.JointMatrix[i].RotateC(r);
-  //  UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
-  //  //    UBOBuffer.JointMatrix[i].RotateC(r / 4 );
-  //  UBOBuffer.JointMatrix[i].Scale(0.95);
-  //end;
 
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glBindVertexArray(VAO);
