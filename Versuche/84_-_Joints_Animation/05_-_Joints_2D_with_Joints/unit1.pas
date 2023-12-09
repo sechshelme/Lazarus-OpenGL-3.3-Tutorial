@@ -116,7 +116,7 @@ begin
 
     tmpQuad := nil;
     tmpQuad.addrectangle;
-    tmpQuad.Scale([LenCube, 7]);
+    tmpQuad.Scale([LenCube, 4]);
     tmpQuad.Translate([-LenGlobal - (LenCube / 2), 0.0]);
     QuadVertex.Add(tmpQuad);
 
@@ -189,11 +189,24 @@ begin
   Timer1.Enabled := True;
 end;
 
+//WriteLn(1 / cos(pi / 4): 10: 5);  //  1.4121
+//WriteLn(1 / cos(-pi / 4): 10: 5); // -1.4121
+//WriteLn(1 / cos(pi / 2): 10: 5);  //  1.0000
+//WriteLn(1 / cos(-pi / 2): 10: 5); // -1.0000
+//
+//WriteLn(1 / cos(0): 10: 5);       // +Inf
+//WriteLn(1 / cos(0.001): 10: 5);   // 1000.0017
+//
+
+// https://de.serlo.org/mathe/1565/sinus-kosinus-und-tangens?gclid=CjwKCAiAvdCrBhBREiwAX6-6UrPBauxtFzaYCH2OYk9thou_Em8hFJp8fPoMB-xizwmEYPQSwh29NxoCV60QAvD_BwE
+
+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
   m: TMatrix;
-  r: single = 0;
+  angele: single = 0;
+  sc: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -210,40 +223,52 @@ begin
   for i := 0 to JointCount do begin
     UBOBuffer.JointMatrix[i].Identity;
 
+    angele := sin((TimerCounter + i) / 100) / 80;
+    angele := (-0.5 + random) / 2;
+
     //case i of
-    //0: begin
-    //  r := pi / 4;
-    //end;
-    //2: begin
-    //  r := -pi / 4;
-    //end;
-    //3: begin
-    //  r := pi / 8;
-    //end;
-    //4: begin
-    //  r := -pi / 8;
-    //end;
+    //  0: begin
+    //    angele := pi / 4;
+    //  end;
+    //  2: begin
+    //    angele := -pi / 4;
+    //  end;
+    //  3: begin
+    //    angele := pi / 8;
+    //  end;
+    //  4: begin
+    //    angele := -pi / 8;
+    //  end;
+    //  5: begin
+    //    angele := -pi / 8;
+    //  end;
+    //  6: begin
+    //    angele := -pi / 8;
+    //  end;
     //  else begin
-    //    r := 0;
+    //    angele := 0;
     //  end;
     //end;
-    r := sin((TimerCounter + i) / 100) / 80;
-    r := (-0.5 + random) / 2;
-
 
     UBOBuffer.JointMatrix[i] := m;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
-    UBOBuffer.JointMatrix[i].RotateC(r);
+    UBOBuffer.JointMatrix[i].RotateC(angele);
+
+    sc := 1 / cos(abs(angele));
+    //    WriteLn(angele:10:5,' --- ', sc:10:5);
+    //
+    //WriteLn(1/sin(pi/4):10:5);
+    //WriteLn(1/sin(-pi/4):10:5);
+
+    UBOBuffer.JointMatrix[i].Scale(sc, sc, 1);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
 
-    m := UBOBuffer.JointMatrix[i];
-
     m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
-    m.RotateC(r);
+    m.RotateC(angele * 2);
     m.TranslateLocalspace(JointsPos[i], 0.0, 0.0);
 
-//    m.Scale(1, 0.95, 1);
+    //    m.Scale(1, 0.95, 1);
   end;
 
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
