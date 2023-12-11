@@ -11,13 +11,14 @@ in Data {
   vec3 Normal;
 } DataIn;
 
-layout (std140) uniform UBOData {
+layout (std140) uniform UBO {
   vec3  Mambient;   // Umgebungslicht
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd
   float Mshininess; // Glanz
   mat4 ModelMatrix; // Matrix des Modeles, ohne Frustum-Beeinflussung.
   mat4 Matrix;      // Matrix für die Drehbewegung und Frustum.
+  int   size;
 };
 
 out vec4 outColor;

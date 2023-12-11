@@ -212,7 +212,7 @@ end;
 procedure TDonut.WriteVertex;
 var
   Donut: array of array of record
-    x, y, z: real;
+    x, y, z: single;
   end;
   i, j: integer;
   x1, x2, x3, x4, y1, y2, y3, y4, z1, z2, z3, z4: single;

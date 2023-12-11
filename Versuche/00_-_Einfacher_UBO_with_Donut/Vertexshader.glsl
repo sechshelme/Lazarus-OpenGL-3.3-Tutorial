@@ -9,18 +9,25 @@ out Data {
   vec3 Normal;
 } DataOut;
 
-layout (std140) uniform UBOData {
+layout (std140) uniform UBO {
   vec3  Mambient;   // Umgebungslicht
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd
   float Mshininess; // Glanz
   mat4 ModelMatrix; // Matrix des Modeles, ohne Frustum-Beeinflussung.
   mat4 Matrix;      // Matrix für die Drehbewegung und Frustum.
+  int   size;
 };
 
 void main(void)
 {
-  gl_Position    = Matrix * vec4(inPos, 1.0);
+  vec3 p = inPos / 2 - size / 2;
+  p.x += gl_InstanceID % size;
+  p.y += gl_InstanceID / size % size;
+  p.z += gl_InstanceID / size /size;
+
+  gl_Position    = Matrix * vec4(p, 1.0);
+//  gl_Position    = Matrix * vec4(inPos, 1.0);
 
   DataOut.Normal = mat3(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;

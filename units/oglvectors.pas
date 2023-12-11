@@ -110,6 +110,9 @@ type
     procedure AddSphere;
     procedure AddSphereNormale;
 
+    procedure AddDonut;
+    procedure AddDonutNormale;
+
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector3f); overload;
     procedure Translate(const ATranslate: TVector3f);
@@ -251,7 +254,7 @@ end;
 
 procedure TVectors2fHelper.AddFace2D(const v0, v1, v2: TVector2f);
 begin
-  Add([v0,v1,v2]);
+  Add([v0, v1, v2]);
 end;
 
 procedure TVectors2fHelper.AddFace2DArray(const Face: array of TFace2D);
@@ -465,7 +468,7 @@ begin
   for i := 0 to Sektoren - 1 do begin
     self += [0.0, 0.0, 0.0,
       sin((i + 1) * t) * 0.5, cos((i + 1) * t) * 0.5, 0.0,
-    sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.0];
+      sin((i + 0) * t) * 0.5, cos((i + 0) * t) * 0.5, 0.0];
   end;
 end;
 
@@ -480,7 +483,7 @@ end;
 
 procedure TVectors3fHelper.AddDiscNormal;
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to Sektoren - 1 do begin
     Self += [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
@@ -591,6 +594,56 @@ end;
 procedure TVectors3fHelper.AddSphereNormale;
 begin
   Self.AddSphere;
+end;
+
+procedure TVectors3fHelper.AddDonut;
+type
+  quadVector = array[0..3] of TVector3f;
+
+  procedure Quads(Vector: quadVector);// inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+const
+  FSektoren = 36;
+var
+  Donut: array of array of record
+    x, y, z: single;
+    end;
+  i, j: integer;
+  x1,  y1, y2: single;
+begin
+  SetLength(Donut, Sektoren + 1, Sektoren + 1);
+
+  for i := 0 to FSektoren do begin
+    x1 := sin(i * Pi * 2 / FSektoren) * 200;
+    y1 := cos(i * Pi * 2 / FSektoren) * 200;
+    for j := 0 to FSektoren do begin
+      with Donut[i, j] do begin
+        y2 := cos(j * Pi * 2 / FSektoren) * 80;
+        z := (sin(j * Pi * 2 / FSektoren) * 80) / 400;
+        x := (x1 + sin(i * Pi * 2 / FSektoren) * y2) / 400;
+        y := (y1 + cos(i * Pi * 2 / FSektoren) * y2) / 400;
+      end;
+    end;
+  end;
+
+  for i := 0 to FSektoren - 1 do begin
+    for j := 0 to FSektoren - 1 do begin
+      Quads([
+        [Donut[i + 0, j + 0].x, Donut[i + 0, j + 0].y, Donut[i + 0, j + 0].z],
+        [Donut[i + 0, j + 1].x, Donut[i + 0, j + 1].y, Donut[i + 0, j + 1].z],
+        [Donut[i + 1, j + 1].x, Donut[i + 1, j + 1].y, Donut[i + 1, j + 1].z],
+        [Donut[i + 1, j + 0].x, Donut[i + 1, j + 0].y, Donut[i + 1, j + 0].z]]);
+    end;
+  end;
+
+end;
+
+procedure TVectors3fHelper.AddDonutNormale;
+begin
+
 end;
 
 // === Standard Funktionen
