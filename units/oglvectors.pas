@@ -110,7 +110,7 @@ type
     procedure AddSphere;
     procedure AddSphereNormale;
 
-    procedure AddDonut;
+    procedure AddDonut(rd: Single=0.5);
     procedure AddDonutNormale;
 
     procedure Scale(AScale: TGLfloat); overload;
@@ -596,7 +596,7 @@ begin
   Self.AddSphere;
 end;
 
-procedure TVectors3fHelper.AddDonut;
+procedure TVectors3fHelper.AddDonut(rd:Single=0.5);
 type
   quadVector = array[0..3] of TVector3f;
 
@@ -605,32 +605,30 @@ type
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
 
-const
-  FSektoren = 36;
 var
   Donut: array of array of record
     x, y, z: single;
     end;
   i, j: integer;
-  x1,  y1, y2: single;
+  pi2sek, x1, y1, y2: single;
 begin
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
-  for i := 0 to FSektoren do begin
-    x1 := sin(i * Pi * 2 / FSektoren) * 200;
-    y1 := cos(i * Pi * 2 / FSektoren) * 200;
-    for j := 0 to FSektoren do begin
-      with Donut[i, j] do begin
-        y2 := cos(j * Pi * 2 / FSektoren) * 80;
-        z := (sin(j * Pi * 2 / FSektoren) * 80) / 400;
-        x := (x1 + sin(i * Pi * 2 / FSektoren) * y2) / 400;
-        y := (y1 + cos(i * Pi * 2 / FSektoren) * y2) / 400;
-      end;
+  pi2sek := Pi * 2 / Sektoren;
+
+  for i := 0 to Sektoren do begin
+    x1 := sin(i * pi2sek) * 0.5;
+    y1 := cos(i * pi2sek) * 0.5;
+    for j := 0 to Sektoren do begin
+      y2 := cos(j * pi2sek) * rd;
+      Donut[i, j].z := sin(j * pi2sek) * rd;
+      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
+      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
     end;
   end;
 
-  for i := 0 to FSektoren - 1 do begin
-    for j := 0 to FSektoren - 1 do begin
+  for i := 0 to Sektoren - 1 do begin
+    for j := 0 to Sektoren - 1 do begin
       Quads([
         [Donut[i + 0, j + 0].x, Donut[i + 0, j + 0].y, Donut[i + 0, j + 0].z],
         [Donut[i + 0, j + 1].x, Donut[i + 0, j + 1].y, Donut[i + 0, j + 1].z],
@@ -642,7 +640,47 @@ begin
 end;
 
 procedure TVectors3fHelper.AddDonutNormale;
+type
+  quadVector = array[0..3] of TVector3f;
+
+  procedure Quads(Vector: quadVector);// inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+var
+  Donut: array of array of record
+    x, y, z: single;
+    end;
+  i, j: integer;
+  pi2sek, x1, y1, y2: single;
 begin
+  SetLength(Donut, Sektoren + 1, Sektoren + 1);
+
+  pi2sek := Pi * 2 / Sektoren;
+
+  for i := 0 to Sektoren do begin
+//    x1 := sin(i * pi2sek) * 0.5;
+//    y1 := cos(i * pi2sek) * 0.5;
+    x1 := 0;
+    y1 := 0;
+    for j := 0 to Sektoren do begin
+      y2 := cos(j * pi2sek) * 1;
+      Donut[i, j].z := sin(j * pi2sek) * 1;
+      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
+      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
+    end;
+  end;
+
+  for i := 0 to Sektoren - 1 do begin
+    for j := 0 to Sektoren - 1 do begin
+      Quads([
+        [Donut[i + 0, j + 0].x, Donut[i + 0, j + 0].y, Donut[i + 0, j + 0].z],
+        [Donut[i + 0, j + 1].x, Donut[i + 0, j + 1].y, Donut[i + 0, j + 1].z],
+        [Donut[i + 1, j + 1].x, Donut[i + 1, j + 1].y, Donut[i + 1, j + 1].z],
+        [Donut[i + 1, j + 0].x, Donut[i + 1, j + 0].y, Donut[i + 1, j + 0].z]]);
+    end;
+  end;
 
 end;
 

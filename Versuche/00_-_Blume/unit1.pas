@@ -61,18 +61,22 @@ type
       ModelMatrix: Tmat4x4;
       Matrix: Tmat4x4;
       end;
-    size: TGLint;
+    Position:record
+    v:array [0..18] of record  p:TVector2f;
+      pad:TVector2f;
+    end;
+    end;
   end;
 
 var
   UBOBuffer: TUBOBuffer;
 
   SphereVertex, SphereNormal: TVectors3f;
-  CubeSize: integer;
+  RingVertex, RingNormal: TVectors3f;
 
 var
-  Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbUBO)] of TGLuint;
-  VAO: GLuint;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbVBORingVektor, mbVBORingNormal, mbUBO)] of TGLuint;
+  VAO,VAORing: GLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 
@@ -92,16 +96,50 @@ begin
 end;
 
 procedure TForm1.CalcSphere;
+//const size=0.866;
+const size=0.866/2;
 begin
   SphereVertex := nil;
   SphereNormal := nil;
 //  SphereVertex.AddSphere;
 //  SphereNormal.AddSphereNormale;
-  SphereVertex.AddDonut(0.25);
+  SphereVertex.AddDonut(0.025);
   SphereNormal.AddDonutNormale;
+
+  RingVertex := nil;
+  RingNormal := nil;
+//  SphereVertex.AddSphere;
+//  SphereNormal.AddSphereNormale;
+  RingVertex.AddDonut(0.0125);
+  RingVertex.Scale(3);
+  RingNormal.AddDonutNormale;
 
   WriteLn(Length(SphereVertex));
   WriteLn(Length(SphereNormal));
+
+  UBOBuffer.Position.v[0].p:=[0,0];
+  UBOBuffer.Position.v[2].p:=[-1.0,0];
+  UBOBuffer.Position.v[1].p:=[-0.5,0];
+  UBOBuffer.Position.v[3].p:=[0.5,0];
+  UBOBuffer.Position.v[4].p:=[1.0,0];
+
+  UBOBuffer.Position.v[5].p:=[-0.75,size];
+  UBOBuffer.Position.v[6].p:=[-0.25,size];
+  UBOBuffer.Position.v[7].p:=[0.25,size];
+  UBOBuffer.Position.v[8].p:=[0.75,size];
+
+  UBOBuffer.Position.v[9].p:=[-0.5,size*2];
+  UBOBuffer.Position.v[10].p:=[0,size*2];
+  UBOBuffer.Position.v[11].p:=[0.5,size*2];
+
+  UBOBuffer.Position.v[12].p:=[-0.75,-size];
+  UBOBuffer.Position.v[13].p:=[-0.25,-size];
+  UBOBuffer.Position.v[14].p:=[0.25,-size];
+  UBOBuffer.Position.v[15].p:=[0.75,-size];
+
+  UBOBuffer.Position.v[16].p:=[-0.5,-size*2];
+  UBOBuffer.Position.v[17].p:=[0,-size*2];
+  UBOBuffer.Position.v[18].p:=[0.5,-size*2];
 end;
 
 procedure TForm1.CreateScene;
@@ -109,8 +147,6 @@ var
   UBOBuffer_ID: GLuint;
 begin
   CalcSphere;
-
-  CubeSize := 4;
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
@@ -129,6 +165,7 @@ begin
   UBOBuffer_ID := Shader.UniformBlockIndex('UBO');
 
   glGenVertexArrays(1, @VAO);
+  glGenVertexArrays(1, @VAORing);
   glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 
   Timer1.Enabled := True;
@@ -140,7 +177,6 @@ begin
     specular := vec3(0.73, 0.63, 0.63);
     shininess := 76.8;
   end;
-  UBOBuffer.size := 9;
 
   glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
@@ -165,11 +201,26 @@ begin
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
+  // --- Vertex-Daten für Ring
+  glBindVertexArray(VAORing);
+
+  // Vektor
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBORingVektor]);
+  glBufferData(GL_ARRAY_BUFFER, RingVertex.Size, RingVertex.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+
+  // Normale
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBORingNormal]);
+  glBufferData(GL_ARRAY_BUFFER, RingNormal.Size, RingNormal.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  scal, d: single;
+  scal: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -180,15 +231,7 @@ begin
 
   glBindVertexArray(VAO);
 
-  d := (7 / (CubeSize * 2 + 1)) * 8;
-
-  if CubeSize > 1 then begin
-    scal := 80 / (CubeSize * 2 + 1);
-  end else begin
-    scal := 80;
-  end;
-
-  UBOBuffer.size := CubeSize;
+  scal := 25;
 
   UBOBuffer.Matrix.ModelMatrix.Identity;
   UBOBuffer.Matrix.ModelMatrix.Scale(scal);
@@ -196,7 +239,10 @@ begin
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, CubeSize * CubeSize * CubeSize);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, Length(UBOBuffer.Position.v));
+
+  glBindVertexArray(VAORing);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, RingVertex.Count, 1);
 
   ogc.SwapBuffers;
 end;
@@ -211,18 +257,12 @@ begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VAO);
+  glDeleteVertexArrays(1, @VAORing);
   glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 
 procedure TForm1.MenuItemClick(Sender: TObject);
 begin
-  if Sender = MenuItemPlus then begin
-    Inc(CubeSize);
-  end else if Sender = MenuItemMinus then begin
-    if CubeSize > 0 then begin
-      Dec(CubeSize);
-    end;
-  end;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
