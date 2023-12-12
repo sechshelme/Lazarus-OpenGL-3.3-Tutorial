@@ -12,6 +12,7 @@ in Data {
 } DataIn;
 
 layout (std140) uniform UBO {
+  int   IsInstance;
   vec3  Mambient;   // Umgebungslicht
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd

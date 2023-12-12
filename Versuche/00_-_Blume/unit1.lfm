@@ -1,8 +1,8 @@
 object Form1: TForm1
-  Left = 431
-  Height = 1
-  Top = 296
-  Width = 647
+  Left = 273
+  Height = 174
+  Top = 355
+  Width = 363
   Caption = 'Form1'
   Menu = MainMenu1
   LCLVersion = '3.99.0.0'

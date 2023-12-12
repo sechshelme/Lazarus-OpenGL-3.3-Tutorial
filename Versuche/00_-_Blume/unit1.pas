@@ -1,6 +1,10 @@
 unit Unit1;
 
 {$mode objfpc}{$H+}
+{$modeswitch typehelpers on}
+{$modeswitch arrayoperators on}
+//{$modeswitch multihelpers}
+{$modeswitch advancedrecords}
 
 interface
 
@@ -12,11 +16,19 @@ uses
 
   //image image.png
   //lineal
+type
+  TDonut3f = type TVectors3f;
+
+  { TDonut3fHelper }
+
+  TDonut3fHelper = type Helper(TVectors3fHelper) for TDonut3f
+  public
+    procedure AddDonut6(rd: single = 0.5);
+    procedure AddDonut6Normale;
+  end;
+
 
 type
-
-  { TForm1 }
-
   TForm1 = class(TForm)
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
@@ -49,6 +61,8 @@ implementation
 
 type
   TUBOBuffer = record
+    Isinstance:TGLint;
+    pad: TVector3f;           // padding 4Byte
     Material: record
       ambient: TVector3f;      // Umgebungslicht
       pad0: GLfloat;           // padding 4Byte
@@ -61,26 +75,116 @@ type
       ModelMatrix: Tmat4x4;
       Matrix: Tmat4x4;
       end;
-    Position:record
-    v:array [0..18] of record  p:TVector2f;
-      pad:TVector2f;
-    end;
-    end;
+    Position: record
+      v: array [0..29] of record
+        p: TVector2f;
+        pad: TVector2f;
+        end;
+      end;
   end;
 
 var
   UBOBuffer: TUBOBuffer;
 
-  SphereVertex, SphereNormal: TVectors3f;
   RingVertex, RingNormal: TVectors3f;
+  SphereVertex, SphereNormal: TDonut3f;
 
 var
   Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbVBORingVektor, mbVBORingNormal, mbUBO)] of TGLuint;
-  VAO,VAORing: GLuint;
+  VAO, VAORing: GLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 
-  { TForm1 }
+  { TDonut3fHelper }
+
+procedure TDonut3fHelper.AddDonut6(rd: single);
+type
+  quadVector = array[0..3] of TVector3f;
+
+  procedure Quads(Vector: quadVector);// inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+var
+  Donut: array of array of record
+    x, y, z: single;
+    end;
+  i, j: integer;
+  pi2sek, x1, y1, y2: single;
+begin
+  SetLength(Donut, Sektoren + 1, Sektoren + 1);
+
+  pi2sek := Pi * 2 / Sektoren;
+
+  for i := 0 to Sektoren do begin
+    x1 := sin(i * pi2sek) * 0.5;
+    y1 := cos(i * pi2sek) * 0.5;
+    for j := 0 to Sektoren do begin
+      y2 := cos(j * pi2sek) * rd;
+      Donut[i, j].z := sin(j * pi2sek) * rd;
+      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
+      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
+    end;
+  end;
+
+  for i := 0 to Sektoren div 6 - 1 do begin
+    for j := 0 to Sektoren - 1 do begin
+      Quads([
+        [Donut[i + 0, j + 0].x, Donut[i + 0, j + 0].y, Donut[i + 0, j + 0].z],
+        [Donut[i + 0, j + 1].x, Donut[i + 0, j + 1].y, Donut[i + 0, j + 1].z],
+        [Donut[i + 1, j + 1].x, Donut[i + 1, j + 1].y, Donut[i + 1, j + 1].z],
+        [Donut[i + 1, j + 0].x, Donut[i + 1, j + 0].y, Donut[i + 1, j + 0].z]]);
+    end;
+  end;
+end;
+
+procedure TDonut3fHelper.AddDonut6Normale;
+type
+  quadVector = array[0..3] of TVector3f;
+
+  procedure Quads(Vector: quadVector);// inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+var
+  Donut: array of array of record
+    x, y, z: single;
+    end;
+  i, j: integer;
+  pi2sek, x1, y1, y2: single;
+begin
+  SetLength(Donut, Sektoren + 1, Sektoren + 1);
+
+  pi2sek := Pi * 2 / Sektoren;
+
+  for i := 0 to Sektoren do begin
+    //    x1 := sin(i * pi2sek) * 0.5;
+    //    y1 := cos(i * pi2sek) * 0.5;
+    x1 := 0;
+    y1 := 0;
+    for j := 0 to Sektoren do begin
+      y2 := cos(j * pi2sek) * 1;
+      Donut[i, j].z := sin(j * pi2sek) * 1;
+      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
+      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
+    end;
+  end;
+
+  for i := 0 to Sektoren div 6 - 1 do begin
+    for j := 0 to Sektoren - 1 do begin
+      Quads([
+        [Donut[i + 0, j + 0].x, Donut[i + 0, j + 0].y, Donut[i + 0, j + 0].z],
+        [Donut[i + 0, j + 1].x, Donut[i + 0, j + 1].y, Donut[i + 0, j + 1].z],
+        [Donut[i + 1, j + 1].x, Donut[i + 1, j + 1].y, Donut[i + 1, j + 1].z],
+        [Donut[i + 1, j + 0].x, Donut[i + 1, j + 0].y, Donut[i + 1, j + 0].z]]);
+    end;
+  end;
+
+end;
+
+{ TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -96,20 +200,45 @@ begin
 end;
 
 procedure TForm1.CalcSphere;
-//const size=0.866;
-const size=0.866/2;
+const
+  size = 0.866 / 2;
+
+  BlumTab: array of TVector2f = (//(0, 0),
+    (-0.5, 2 * size), (0.0, 2 * size), (0.5, 2 * size),
+    (-0.75, size), (-0.25, size), (0.25, size), (0.75, size),
+    (-1.0, 0), (-0.5, 0), (0.0, 0), (0.5, 0), (1.0, 0),
+
+    (-1.25, -size), (-0.75, -size), (-0.25, -size), (0.25, -size), (0.75, -size), (1.25, -size),
+
+    (-1.0, -2 * size), (-0.5, -2 * size), (0.0, -2 * size), (0.5, -2 * size), (1.0, -2 * size),
+    (-0.75, -3 * size), (-0.25, -3 * size), (0.25, -3 * size), (0.75, -3 * size),
+    (-0.5, -4 * size), (0.0, -4 * size), (0.5, -4 * size));
+var
+  i: integer;
+  m2: Tmat2x2;
+
 begin
+  for i := 0 to 5 do begin
+    m2.Identity;
+    m2.Rotate(pi/3*i);
+    m2.WriteMatrix;
+    WriteLn();
+  end;
+  WriteLn(Length(BlumTab));
+
+
   SphereVertex := nil;
   SphereNormal := nil;
-//  SphereVertex.AddSphere;
-//  SphereNormal.AddSphereNormale;
-  SphereVertex.AddDonut(0.025);
-  SphereNormal.AddDonutNormale;
+  //  SphereVertex.AddSphere;
+  //  SphereNormal.AddSphereNormale;
+  SphereVertex.AddDonut6(0.025);
+  SphereVertex.RotateC(pi/6);
+  SphereNormal.AddDonut6Normale;
 
   RingVertex := nil;
   RingNormal := nil;
-//  SphereVertex.AddSphere;
-//  SphereNormal.AddSphereNormale;
+  //  SphereVertex.AddSphere;
+  //  SphereNormal.AddSphereNormale;
   RingVertex.AddDonut(0.0125);
   RingVertex.Scale(3);
   RingNormal.AddDonutNormale;
@@ -117,29 +246,9 @@ begin
   WriteLn(Length(SphereVertex));
   WriteLn(Length(SphereNormal));
 
-  UBOBuffer.Position.v[0].p:=[0,0];
-  UBOBuffer.Position.v[2].p:=[-1.0,0];
-  UBOBuffer.Position.v[1].p:=[-0.5,0];
-  UBOBuffer.Position.v[3].p:=[0.5,0];
-  UBOBuffer.Position.v[4].p:=[1.0,0];
-
-  UBOBuffer.Position.v[5].p:=[-0.75,size];
-  UBOBuffer.Position.v[6].p:=[-0.25,size];
-  UBOBuffer.Position.v[7].p:=[0.25,size];
-  UBOBuffer.Position.v[8].p:=[0.75,size];
-
-  UBOBuffer.Position.v[9].p:=[-0.5,size*2];
-  UBOBuffer.Position.v[10].p:=[0,size*2];
-  UBOBuffer.Position.v[11].p:=[0.5,size*2];
-
-  UBOBuffer.Position.v[12].p:=[-0.75,-size];
-  UBOBuffer.Position.v[13].p:=[-0.25,-size];
-  UBOBuffer.Position.v[14].p:=[0.25,-size];
-  UBOBuffer.Position.v[15].p:=[0.75,-size];
-
-  UBOBuffer.Position.v[16].p:=[-0.5,-size*2];
-  UBOBuffer.Position.v[17].p:=[0,-size*2];
-  UBOBuffer.Position.v[18].p:=[0.5,-size*2];
+  for i := 0 to Length(BlumTab) - 1 do begin
+    UBOBuffer.Position.v[i].p := BlumTab[i];
+  end;
 end;
 
 procedure TForm1.CreateScene;
@@ -229,7 +338,6 @@ begin
 
   Shader.UseProgram;
 
-  glBindVertexArray(VAO);
 
   scal := 25;
 
@@ -238,9 +346,14 @@ begin
   UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix;
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
+  UBOBuffer.Isinstance:=1;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, Length(UBOBuffer.Position.v));
 
+  glBindVertexArray(VAO);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, Length(UBOBuffer.Position.v) * 6);
+
+  UBOBuffer.Isinstance:=0;
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TGLint), @UBOBuffer.Isinstance);
   glBindVertexArray(VAORing);
   glDrawArraysInstanced(GL_TRIANGLES, 0, RingVertex.Count, 1);
 

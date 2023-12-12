@@ -10,6 +10,7 @@ out Data {
 } DataOut;
 
 layout (std140) uniform UBO {
+  int   IsInstance;
   vec3  Mambient;   // Umgebungslicht
   vec3  Mdiffuse;   // Farbe
   vec3  Mspecular;  // Spiegelnd
@@ -19,17 +20,24 @@ layout (std140) uniform UBO {
   vec2 pos[19];
 };
 
+const mat2x2 m2[] = mat2x2[] (
+  mat2x2( 1.0000000,  0.0000000,  0.0000000,  1.0000000),
+  mat2x2( 0.4999999, -0.8660254,  0.8660254,  0.4999999),
+  mat2x2(-0.5000000, -0.8660253,  0.8660253, -0.5000000),
+  mat2x2(-1.0000000,  0.0000000, -0.0000000, -1.0000000),
+  mat2x2(-0.4999999,  0.8660254, -0.8660254, -0.4999999),
+  mat2x2( 0.4999999,  0.8660254, -0.8660254,  0.4999999));
+
+
 void main(void)
 {
-  //vec3 p = inPos / 2 - size / 2;
-  //p.x += gl_InstanceID % size;
-  //p.y += gl_InstanceID / size % size;
-  //p.z += gl_InstanceID / size /size;
   vec3 p = inPos;
-  p.xy += pos[gl_InstanceID];
+  if (IsInstance > 0 ) {
+    p.xy += pos[gl_InstanceID % 30];
+    p.xy = m2[gl_InstanceID / 30] * p.xy;
+  }
 
   gl_Position    = Matrix * vec4(p, 1.0);
-//  gl_Position    = Matrix * vec4(inPos, 1.0);
 
   DataOut.Normal = mat3(ModelMatrix) * inNormal;
   DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;

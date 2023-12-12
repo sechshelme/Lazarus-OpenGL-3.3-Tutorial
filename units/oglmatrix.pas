@@ -42,6 +42,8 @@ type
     procedure Rotate(w: GLfloat);
 
     procedure Uniform(ShaderID: GLint);
+
+    procedure WriteMatrix;   // Für Testzwecke
   end;
 
   { Tmat3x3Helper }
@@ -174,6 +176,18 @@ end;
 procedure Tmat2x2Helper.Uniform(ShaderID: GLint); inline;
 begin
   glUniformMatrix2fv(ShaderID, 1, False, @Self);
+end;
+
+procedure Tmat2x2Helper.WriteMatrix;
+var
+  x, y: integer;
+begin
+  for y := 0 to 1 do begin
+    for x := 0 to 1 do begin
+      Write( Self[x, y]:20:15);
+    end;
+    Writeln;
+  end;
 end;
 
 { Tmat3x3Helper }
