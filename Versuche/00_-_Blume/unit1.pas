@@ -61,7 +61,7 @@ implementation
 
 type
   TUBOBuffer = record
-    Isinstance:TGLint;
+    Isinstance: TGLint;
     pad: TVector3f;           // padding 4Byte
     Material: record
       ambient: TVector3f;      // Umgebungslicht
@@ -91,7 +91,7 @@ var
 
 var
   Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbVBORingVektor, mbVBORingNormal, mbUBO)] of TGLuint;
-VAOs:array [(  VAOArc, VAORing)]of TGLuint;
+  VAOs: array [(VAOArc, VAORing)] of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 
@@ -113,6 +113,7 @@ var
   i, j: integer;
   pi2sek, x1, y1, y2: single;
 begin
+  WriteLn({$I %CURRENTROUTINE%});
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
   pi2sek := Pi * 2 / Sektoren;
@@ -153,7 +154,7 @@ var
     x, y, z: single;
     end;
   i, j: integer;
-  pi2sek,  y2: single;
+  pi2sek, y2: single;
 begin
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
@@ -163,8 +164,8 @@ begin
     for j := 0 to Sektoren do begin
       y2 := cos(j * pi2sek) * 1;
       Donut[i, j].z := sin(j * pi2sek) * 1;
-      Donut[i, j].x :=  + sin(i * pi2sek) * y2;
-      Donut[i, j].y :=  + cos(i * pi2sek) * y2;
+      Donut[i, j].x := +sin(i * pi2sek) * y2;
+      Donut[i, j].y := +cos(i * pi2sek) * y2;
     end;
   end;
 
@@ -216,7 +217,7 @@ var
 begin
   for i := 0 to 5 do begin
     m2.Identity;
-    m2.Rotate(pi/3*i);
+    m2.Rotate(pi / 3 * i);
     m2.WriteMatrix;
     WriteLn();
   end;
@@ -226,9 +227,9 @@ begin
   ArcVertex := nil;
   ArcNormal := nil;
   ArcVertex.AddDonut6(0.025);
-  ArcVertex.RotateC(pi/6);
+  ArcVertex.RotateC(pi / 6);
   ArcNormal.AddDonut6Normale;
-  ArcNormal.RotateC(pi/6);
+  ArcNormal.RotateC(pi / 6);
 
   RingVertex := nil;
   RingNormal := nil;
@@ -333,13 +334,13 @@ begin
   UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix;
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
-  UBOBuffer.Isinstance:=1;
+  UBOBuffer.Isinstance := 1;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
 
   glBindVertexArray(VAOs[VAOArc]);
   glDrawArraysInstanced(GL_TRIANGLES, 0, ArcVertex.Count, Length(UBOBuffer.Position.v) * 6);
 
-  UBOBuffer.Isinstance:=0;
+  UBOBuffer.Isinstance := 0;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TGLint), @UBOBuffer.Isinstance);
   glBindVertexArray(VAOs[VAORing]);
   glDrawArraysInstanced(GL_TRIANGLES, 0, RingVertex.Count, 1);
@@ -365,11 +366,42 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+const
+  counter: integer = 0;
+var
+  cl: single;
 begin
   if MenuItemRotateCube.Checked then begin
-    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
-    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+//    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
+//    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
   end;
+  Inc(counter);
+
+  case counter of
+    0..99: begin
+      cl := counter / 100;
+      //      UBOBuffer.Material.ambient := [0.17, 0.01, 0.01];
+      //      UBOBuffer.Material.diffuse := [0.61, 0.04, 0.04];
+      UBOBuffer.Material.ambient := [clamp(0.01, 0.17, cl), clamp(0.17, 0.01, cl), 0.01];
+      UBOBuffer.Material.diffuse := [clamp(0.04, 0.61, cl), clamp(0.61, 0.04, cl), 0.01];
+    end;
+    100..199: begin
+      cl := (counter - 100) / 100;
+      //      UBOBuffer.Material.ambient := [0.01, 0.17, 0.01];
+      //      UBOBuffer.Material.diffuse := [0.04, 0.61, 0.04];
+      UBOBuffer.Material.ambient := [clamp(0.17, 0.01, cl), clamp(0.01, 0.17, cl), 0.01];
+      UBOBuffer.Material.diffuse := [clamp(0.61, 0.04, cl), clamp(0.04, 0.61, cl), 0.01];
+    end;
+      //200..299: begin
+      //  cl:=(counter-200)/100;
+      //  UBOBuffer.Material.ambient := [0.01, 0.01, 0.17];
+      //  UBOBuffer.Material.diffuse := [0.04, 0.04, 0.61];
+      //end;
+    else begin
+      counter := 0;
+    end;
+  end;
+  WriteLn(cl: 10: 5);
 
   ogc.Invalidate;
 end;
