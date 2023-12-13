@@ -67,7 +67,7 @@ type
 var
   UBOBuffer: TUBOBuffer;
 
-  SphereVertex, SphereNormal: TVectors3f;
+  DonutVertex, DonutNormal: TVectors3f;
   CubeSize: integer;
 
 var
@@ -93,15 +93,13 @@ end;
 
 procedure TForm1.CalcSphere;
 begin
-  SphereVertex := nil;
-  SphereNormal := nil;
-//  SphereVertex.AddSphere;
-//  SphereNormal.AddSphereNormale;
-  SphereVertex.AddDonut(0.25);
-  SphereNormal.AddDonutNormale;
+  DonutVertex := nil;
+  DonutNormal := nil;
+  DonutVertex.AddDonut(0.25);
+  DonutNormal.AddDonutNormale;
 
-  WriteLn(Length(SphereVertex));
-  WriteLn(Length(SphereNormal));
+  WriteLn(Length(DonutVertex));
+  WriteLn(Length(DonutNormal));
 end;
 
 procedure TForm1.CreateScene;
@@ -155,13 +153,13 @@ begin
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
-  glBufferData(GL_ARRAY_BUFFER, SphereVertex.Size, SphereVertex.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, DonutVertex.Size, DonutVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
-  glBufferData(GL_ARRAY_BUFFER, SphereNormal.Size, SphereNormal.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, DonutNormal.Size, DonutNormal.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
@@ -169,7 +167,7 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  scal, d: single;
+  scal: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -179,8 +177,6 @@ begin
   Shader.UseProgram;
 
   glBindVertexArray(VAO);
-
-  d := (7 / (CubeSize * 2 + 1)) * 8;
 
   if CubeSize > 1 then begin
     scal := 80 / (CubeSize * 2 + 1);
@@ -196,7 +192,7 @@ begin
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, CubeSize * CubeSize * CubeSize);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, DonutVertex.Count, CubeSize * CubeSize * CubeSize);
 
   ogc.SwapBuffers;
 end;

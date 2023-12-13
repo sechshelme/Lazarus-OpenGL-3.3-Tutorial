@@ -11,7 +11,7 @@ uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
 var
-  Sektoren: integer = 36;
+  Sektoren: integer = 36 * 8;
 
 
 type
@@ -651,24 +651,20 @@ type
 var
   Donut: array of array of record
     x, y, z: single;
-    end;
+    end=nil;
   i, j: integer;
-  pi2sek, x1, y1, y2: single;
+  pi2sek,  y2: single;
 begin
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
   pi2sek := Pi * 2 / Sektoren;
 
   for i := 0 to Sektoren do begin
-//    x1 := sin(i * pi2sek) * 0.5;
-//    y1 := cos(i * pi2sek) * 0.5;
-    x1 := 0;
-    y1 := 0;
     for j := 0 to Sektoren do begin
       y2 := cos(j * pi2sek) * 1;
       Donut[i, j].z := sin(j * pi2sek) * 1;
-      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
-      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
+      Donut[i, j].x := sin(i * pi2sek) * y2;
+      Donut[i, j].y := cos(i * pi2sek) * y2;
     end;
   end;
 

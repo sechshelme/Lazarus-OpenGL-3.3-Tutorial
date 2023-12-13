@@ -28,17 +28,18 @@ const mat2x2 m2[] = mat2x2[] (
   mat2x2(-0.4999999,  0.8660254, -0.8660254, -0.4999999),
   mat2x2( 0.4999999,  0.8660254, -0.8660254,  0.4999999));
 
-
 void main(void)
 {
+  vec3 n = inNormal;
   vec3 p = inPos;
+
   if (IsInstance > 0 ) {
     p.xy += pos[gl_InstanceID % 30];
     p.xy = m2[gl_InstanceID / 30] * p.xy;
+    n.xy = m2[gl_InstanceID / 30] * n.xy;
   }
 
+  DataOut.Pos    = (ModelMatrix * vec4(p, 1.0)).xyz;
+  DataOut.Normal = mat3(ModelMatrix) * n;
   gl_Position    = Matrix * vec4(p, 1.0);
-
-  DataOut.Normal = mat3(ModelMatrix) * inNormal;
-  DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
 }

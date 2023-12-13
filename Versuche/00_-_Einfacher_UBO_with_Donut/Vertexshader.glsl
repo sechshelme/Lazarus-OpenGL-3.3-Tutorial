@@ -27,8 +27,7 @@ void main(void)
   p.z += gl_InstanceID / size /size;
 
   gl_Position    = Matrix * vec4(p, 1.0);
-//  gl_Position    = Matrix * vec4(inPos, 1.0);
 
   DataOut.Normal = mat3(ModelMatrix) * inNormal;
-  DataOut.Pos    = (ModelMatrix * vec4(inPos, 1.0)).xyz;
+  DataOut.Pos    = (ModelMatrix * vec4(p, 1.0)).xyz;
 }

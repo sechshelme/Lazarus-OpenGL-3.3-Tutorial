@@ -87,11 +87,11 @@ var
   UBOBuffer: TUBOBuffer;
 
   RingVertex, RingNormal: TVectors3f;
-  SphereVertex, SphereNormal: TDonut3f;
+  ArcVertex, ArcNormal: TDonut3f;
 
 var
   Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbVBORingVektor, mbVBORingNormal, mbUBO)] of TGLuint;
-  VAO, VAORing: GLuint;
+VAOs:array [(  VAOArc, VAORing)]of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 
@@ -101,7 +101,7 @@ procedure TDonut3fHelper.AddDonut6(rd: single);
 type
   quadVector = array[0..3] of TVector3f;
 
-  procedure Quads(Vector: quadVector);// inline;
+  procedure Quads(Vector: quadVector); inline;
   begin
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
@@ -143,7 +143,7 @@ procedure TDonut3fHelper.AddDonut6Normale;
 type
   quadVector = array[0..3] of TVector3f;
 
-  procedure Quads(Vector: quadVector);// inline;
+  procedure Quads(Vector: quadVector); inline;
   begin
     Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
   end;
@@ -153,22 +153,18 @@ var
     x, y, z: single;
     end;
   i, j: integer;
-  pi2sek, x1, y1, y2: single;
+  pi2sek,  y2: single;
 begin
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
   pi2sek := Pi * 2 / Sektoren;
 
   for i := 0 to Sektoren do begin
-    //    x1 := sin(i * pi2sek) * 0.5;
-    //    y1 := cos(i * pi2sek) * 0.5;
-    x1 := 0;
-    y1 := 0;
     for j := 0 to Sektoren do begin
       y2 := cos(j * pi2sek) * 1;
       Donut[i, j].z := sin(j * pi2sek) * 1;
-      Donut[i, j].x := (x1 + sin(i * pi2sek) * y2);
-      Donut[i, j].y := (y1 + cos(i * pi2sek) * y2);
+      Donut[i, j].x :=  + sin(i * pi2sek) * y2;
+      Donut[i, j].y :=  + cos(i * pi2sek) * y2;
     end;
   end;
 
@@ -203,7 +199,7 @@ procedure TForm1.CalcSphere;
 const
   size = 0.866 / 2;
 
-  BlumTab: array of TVector2f = (//(0, 0),
+  BlumTab: array of TVector2f = (
     (-0.5, 2 * size), (0.0, 2 * size), (0.5, 2 * size),
     (-0.75, size), (-0.25, size), (0.25, size), (0.75, size),
     (-1.0, 0), (-0.5, 0), (0.0, 0), (0.5, 0), (1.0, 0),
@@ -227,24 +223,18 @@ begin
   WriteLn(Length(BlumTab));
 
 
-  SphereVertex := nil;
-  SphereNormal := nil;
-  //  SphereVertex.AddSphere;
-  //  SphereNormal.AddSphereNormale;
-  SphereVertex.AddDonut6(0.025);
-  SphereVertex.RotateC(pi/6);
-  SphereNormal.AddDonut6Normale;
+  ArcVertex := nil;
+  ArcNormal := nil;
+  ArcVertex.AddDonut6(0.025);
+  ArcVertex.RotateC(pi/6);
+  ArcNormal.AddDonut6Normale;
+  ArcNormal.RotateC(pi/6);
 
   RingVertex := nil;
   RingNormal := nil;
-  //  SphereVertex.AddSphere;
-  //  SphereNormal.AddSphereNormale;
   RingVertex.AddDonut(0.0125);
   RingVertex.Scale(3);
   RingNormal.AddDonutNormale;
-
-  WriteLn(Length(SphereVertex));
-  WriteLn(Length(SphereNormal));
 
   for i := 0 to Length(BlumTab) - 1 do begin
     UBOBuffer.Position.v[i].p := BlumTab[i];
@@ -273,8 +263,7 @@ begin
   Shader.UseProgram;
   UBOBuffer_ID := Shader.UniformBlockIndex('UBO');
 
-  glGenVertexArrays(1, @VAO);
-  glGenVertexArrays(1, @VAORing);
+  glGenVertexArrays(Length(VAOs), VAOs);
   glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 
   Timer1.Enabled := True;
@@ -295,23 +284,23 @@ begin
 
   glClearColor(0.15, 0.15, 0.1, 1.0);
 
-  // --- Vertex-Daten für Kugel
-  glBindVertexArray(VAO);
+  // --- Vertex-Daten für Bögen
+  glBindVertexArray(VAOs[VAOArc]);
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
-  glBufferData(GL_ARRAY_BUFFER, SphereVertex.Size, SphereVertex.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, ArcVertex.Size, ArcVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
-  glBufferData(GL_ARRAY_BUFFER, SphereNormal.Size, SphereNormal.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, ArcNormal.Size, ArcNormal.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
 
   // --- Vertex-Daten für Ring
-  glBindVertexArray(VAORing);
+  glBindVertexArray(VAOs[VAORing]);
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBORingVektor]);
@@ -332,12 +321,10 @@ var
   scal: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
 
   Shader.UseProgram;
-
 
   scal := 25;
 
@@ -349,12 +336,12 @@ begin
   UBOBuffer.Isinstance:=1;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
 
-  glBindVertexArray(VAO);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, SphereVertex.Count, Length(UBOBuffer.Position.v) * 6);
+  glBindVertexArray(VAOs[VAOArc]);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, ArcVertex.Count, Length(UBOBuffer.Position.v) * 6);
 
   UBOBuffer.Isinstance:=0;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TGLint), @UBOBuffer.Isinstance);
-  glBindVertexArray(VAORing);
+  glBindVertexArray(VAOs[VAORing]);
   glDrawArraysInstanced(GL_TRIANGLES, 0, RingVertex.Count, 1);
 
   ogc.SwapBuffers;
@@ -369,8 +356,7 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VAO);
-  glDeleteVertexArrays(1, @VAORing);
+  glDeleteVertexArrays(Length(VAOs), VAOs);
   glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 
