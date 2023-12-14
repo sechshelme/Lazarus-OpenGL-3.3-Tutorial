@@ -20,8 +20,7 @@ var
 procedure InitOpenGLDebug;
 procedure checkError(command: string);
 
-implementation
-
+{$push,}{$J-}
 const
   clNormal = '0';
   clBlack = '30';
@@ -45,6 +44,9 @@ const
   StrNormal = #27'[' + clNormal + 'm';
   StrBrightRed = #27'[' + clBrightRed + 'm';
   StrGreen = #27'[' + clGreen + 'm';
+  {$J+}{$pop}
+
+implementation
 
   // --- Debugger ---
 

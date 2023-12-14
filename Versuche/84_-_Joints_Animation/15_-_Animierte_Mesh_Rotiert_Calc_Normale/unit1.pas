@@ -27,7 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    time:Integer;
+    time: integer;
     procedure CreatJointsMatrix;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
@@ -82,23 +82,20 @@ begin
   CreateScene;
 end;
 
-const
-  rot = 1.0;
-
 procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
-  r: Single;
+  r: single;
 begin
   for i := 0 to 5 do begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
 
-  UBOBuffer.JointMatrix[1].RotateB(pi);
-  UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 3);
-  UBOBuffer.JointMatrix[3].RotateB(pi / 2);
-  UBOBuffer.JointMatrix[4].RotateA(pi / 2);
-  UBOBuffer.JointMatrix[5].RotateA(-pi / 2);
+  UBOBuffer.JointMatrix[1] := mat4x4B180;
+  UBOBuffer.JointMatrix[2] := mat4x4B270;
+  UBOBuffer.JointMatrix[3] := mat4x4B90;
+  UBOBuffer.JointMatrix[4] := mat4x4A90;
+  UBOBuffer.JointMatrix[5] := mat4x4A270;
 
   for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
     if i > 5 then begin
@@ -106,7 +103,7 @@ begin
     end;
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0, 0, 1.0);
-    r := sin(time/100)/1.2;
+    r := sin(time / 100) / 1.2;
 
     case i mod 6 of
       0, 1: begin
@@ -264,7 +261,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  inc(time);
+  Inc(time);
   CreatJointsMatrix;
   UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);

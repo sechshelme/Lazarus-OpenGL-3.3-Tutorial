@@ -7,7 +7,7 @@ unit oglMatrix;
 interface
 
 uses
-  SysUtils, dglOpenGL, oglVector;
+  SysUtils, dglOpenGL, oglDebug, oglVector;
 
 type
   Tmat2x2 = array[0..1] of TVector2f;
@@ -116,6 +116,21 @@ type
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
+const
+  {$push,}{$J-}
+  mat4x4A90: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 0.0, -1.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4A180: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, -1.0, 0.0, 0.0), (0.0, 0.0, -1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4A270: Tmat4x4 = ((1.0, 0.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, -1.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+
+  mat4x4B90: Tmat4x4 = ((0.0, 0.0, -1.0, 0.0), (0.0, 1.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4B180: Tmat4x4 = ((-1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, -1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4B270: Tmat4x4 = ((0.0, 0.0, 1.0, 0.0), (0.0, 1.0, 0.0, 0.0), (-1.0, 0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+
+  mat4x4C90: Tmat4x4 = ((0.0, -1.0, 0.0, 0.0), (1.0, 0.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4C180: Tmat4x4 = ((-1.0, 0.0, 0.0, 0.0), (0.0, -1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+  mat4x4C270: Tmat4x4 = ((0.0, 1.0, 0.0, 0.0), (-1.0, 0.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0), (0.0, 0.0, 0.0, 1.0));
+{$J+}{$pop}
+
   // === Hilfsfunktionen, ähnlich GLSL ===
 
 function mat3(const v0, v1, v2: TVector3f): Tmat3x3;
@@ -124,9 +139,9 @@ function mat3x2(const v0, v1, v2: TVector2f): Tmat3x2;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const m: Tmat2x2; const v: TVector2f) Res: TVector2f;
-operator * (const m: Tmat3x3; const v: TVector3f) Res: TVector3f;
-operator * (const m: Tmat4x4; const v: TVector4f) Res: TVector4f;
+operator *(const m: Tmat2x2; const v: TVector2f) Res: TVector2f;
+operator *(const m: Tmat3x3; const v: TVector3f) Res: TVector3f;
+operator *(const m: Tmat4x4; const v: TVector4f) Res: TVector4f;
 
 operator +(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 operator +(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
@@ -136,9 +151,9 @@ operator -(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 operator -(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
 operator -(const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
-operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
-operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
-operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
+operator *(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator *(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator *(const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 
 // === Privater Teil ===
 
@@ -184,7 +199,7 @@ var
 begin
   for y := 0 to 1 do begin
     for x := 0 to 1 do begin
-      Write( Self[x, y]:20:15);
+      Write(Self[x, y]: 20: 15);
     end;
     Writeln;
   end;
@@ -621,7 +636,17 @@ var
 begin
   for y := 0 to 3 do begin
     for x := 0 to 3 do begin
-      Write(FormatFloat('###0.0000', Self[x, y]));
+      //      Write(FormatFloat('###0.0000', Self[x, y]), '  ');
+
+      if Self[x, y] < -0.0001 then begin
+        Write(StrBrightRed);
+      end;
+      if Self[x, y] > 0.0001 then begin
+        Write(StrGreen);
+      end;
+      Write(Self[x, y]: 8: 4, ' ');
+      Write(StrNormal);
+
     end;
     Writeln;
   end;
@@ -653,7 +678,7 @@ end;
 
 // === Überladene Opertoren für Matrixmultiplikation ===
 
-operator * (const m: Tmat2x2; const v: TVector2f)Res: TVector2f;
+operator *(const m: Tmat2x2; const v: TVector2f)Res: TVector2f;
 var
   i: integer;
 begin
@@ -662,7 +687,7 @@ begin
   end;
 end;
 
-operator * (const m: Tmat3x3; const v: TVector3f)Res: TVector3f;
+operator *(const m: Tmat3x3; const v: TVector3f)Res: TVector3f;
 var
   i: integer;
 begin
@@ -737,7 +762,7 @@ begin
   end;
 end;
 
-operator * (const mat0, mat1: Tmat2x2) Res: Tmat2x2;
+operator *(const mat0, mat1: Tmat2x2) Res: Tmat2x2;
 var
   i, j, k: integer;
 begin
@@ -751,7 +776,7 @@ begin
   end;
 end;
 
-operator * (const mat0, mat1: Tmat3x3) Res: Tmat3x3;
+operator *(const mat0, mat1: Tmat3x3) Res: Tmat3x3;
 var
   i, j, k: integer;
 begin
@@ -767,7 +792,7 @@ end;
 
 {$if defined(cpux86_64) or defined(cpux86)}
 {$asmmode intel}
-operator * (const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler; nostackframe; register;
+operator *(const m: Tmat4x4; const v: TVector4f)Res: TVector4f; assembler; nostackframe; register;
 asm
          Movups  Xmm4, [m + $00]
          Movups  Xmm5, [m + $10]
@@ -797,7 +822,7 @@ asm
          Movups  [Res], Xmm0
 end;
 
-operator * (const mat0, mat1: Tmat4x4)Res: Tmat4x4; assembler; nostackframe; register;
+operator *(const mat0, mat1: Tmat4x4)Res: Tmat4x4; assembler; nostackframe; register;
 asm
          Movups  Xmm4, [mat0 + $00]
          Movups  Xmm5, [mat0 + $10]
@@ -885,7 +910,7 @@ asm
          Movups  [Result + $30], Xmm0
 end;
 {$else}
-operator * (const m: Tmat4x4; v: TVector4f) Res: TVector4f;
+operator *(const m: Tmat4x4; v: TVector4f) Res: TVector4f;
 var
   i: integer;
 begin
@@ -894,7 +919,7 @@ begin
   end;
 end;
 
-operator * (const mat0, mat1: Tmat4x4) Res: Tmat4x4;
+operator *(const mat0, mat1: Tmat4x4) Res: Tmat4x4;
 var
   i, j, k: integer;
 begin

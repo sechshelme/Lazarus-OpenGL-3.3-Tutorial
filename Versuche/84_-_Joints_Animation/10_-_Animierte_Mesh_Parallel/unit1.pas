@@ -137,7 +137,6 @@ begin
   for j := 0 to 5 do begin
     for i := 0 to jointCount - 1 do begin
       tmpCube := nil;
-//      tmpCube.AddCube(0.5, 0.5, 1.0);
       tmpCube.AddCube;
       tmpCube.Scale([0.5, 0.5, 1.0]);
       tmpCube.Translate([0, 0, 1 + i]);
@@ -247,7 +246,7 @@ begin
     for i := 0 to jointCount - 1 do begin
       moveJoints[j, i].Rotate(step * (1 + (i + j + 1 * 2.2)));
       v := [0.3, 0];
-      v := moveJoints[i*6+j] * v;
+      v := moveJoints[i * 6 + j] * v;
 
       pm := @UBOBuffer.JointMatrix[i * 6 + j];
 

@@ -82,11 +82,11 @@ begin
     UBOBuffer.JointMatrix[i].Identity;
   end;
 
-  UBOBuffer.JointMatrix[1].RotateB(pi);
-  UBOBuffer.JointMatrix[2].RotateB(pi / 2 * 3);
-  UBOBuffer.JointMatrix[3].RotateB(pi / 2);
-  UBOBuffer.JointMatrix[4].RotateA(pi / 2);
-  UBOBuffer.JointMatrix[5].RotateA(-pi / 2);
+  UBOBuffer.JointMatrix[1] := mat4x4B180;
+  UBOBuffer.JointMatrix[2] := mat4x4B270;
+  UBOBuffer.JointMatrix[3] := mat4x4B90;
+  UBOBuffer.JointMatrix[4] := mat4x4A90;
+  UBOBuffer.JointMatrix[5] := mat4x4A270;
 
   for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
     if i > 5 then begin
@@ -132,7 +132,13 @@ var
   cubeColor: TVectors3f = nil;
   cubeNormale: TVectors3f = nil;
   cubeJointIDs: TJointIDs = nil;
+  m:Tmat4x4;
 begin
+  m.Identity;
+  m.RotateC(pi/4);
+  m.WriteMatrix;
+
+
   // center
   cubeVertex.AddCube;
   cubeVertex.scale(2);
@@ -281,7 +287,7 @@ var
 begin
   wm.Identity;
   wm.Translate(0, 0, -50);
-  wm.RotateA(0.3);
+  wm.RotateA(0.30);
   perm.Perspective(30, ClientWidth / ClientHeight, 2.5, 1000.0);
 
   UBOBuffer.WorldMatrix := perm * wm;

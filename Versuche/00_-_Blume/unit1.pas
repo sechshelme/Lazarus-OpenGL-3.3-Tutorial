@@ -30,12 +30,6 @@ type
 
 type
   TForm1 = class(TForm)
-    MainMenu1: TMainMenu;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItemRotateCube: TMenuItem;
-    MenuItemPlus: TMenuItem;
-    MenuItemMinus: TMenuItem;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -367,45 +361,33 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
-  counter: integer = 0;
+  counter: int64 = 100;
+  cd = 20;
 var
-  cl:Single;
-  clr,clg,clb:record
-   ambient,diffuse: single;
-   end;
+  si: single;
+  clr, clg, clb: record
+    ambient, diffuse: single;
+      end;
 begin
-  if MenuItemRotateCube.Checked then begin
-//    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
-//    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
-  end;
-  Inc(counter);
+    ModelMatrix.RotateA((sin(counter / 105)+1)/100);
+    ModelMatrix.RotateB((sin(counter / 314)+1)/100);
 
-  clb.ambient:=0.01;
-  clb.diffuse:=0.04;
+    Inc(counter);
 
-  case counter of
-    0..99: begin
-      cl := counter / 100;
-      clr.ambient:=clamp(0.01, 0.17, cl);
-      clg.ambient:=clamp(0.17, 0.01, cl);
-      clr.diffuse:=clamp(0.04, 0.61, cl);
-      clg.diffuse:=clamp(0.61, 0.04, cl);
-    end;
-    100..199: begin
-      cl := (counter - 100) / 100;
-      clr.ambient:=clamp(0.17, 0.01, cl);
-      clg.ambient:=clamp(0.01, 0.17, cl);
-      clr.diffuse:=clamp(0.61, 0.04, cl);
-      clg.diffuse:=clamp(0.04, 0.61, cl);
-    end;
-    else begin
-      counter := 0;
-    end;
-  end;
-  UBOBuffer.Material.ambient := [clr.ambient,clg.ambient,clb.ambient];
-  UBOBuffer.Material.diffuse := [clr.diffuse,clg.diffuse,clb.diffuse];
-  WriteLn('cnt: ',counter:4,'  cl: ', cl: 10: 5);
+  si := sin(counter / cd) / 2 + 0.5;
+  clr.ambient := mix(0.01, 0.17, si);
+  clr.diffuse := mix(0.04, 0.61, si);
 
+  si := sin(counter / cd * 1.3) / 2 + 0.5;
+  clg.ambient := mix(0.01, 0.17, si);
+  clg.diffuse := mix(0.04, 0.61, si);
+
+  si := sin(counter / cd * 1.7) / 2 + 0.5;
+  clb.ambient := mix(0.01, 0.17, si);
+  clb.diffuse := mix(0.04, 0.61, si);
+
+  UBOBuffer.Material.ambient := [clr.ambient, clg.ambient, clb.ambient];
+  UBOBuffer.Material.diffuse := [clr.diffuse, clg.diffuse, clb.diffuse];
   ogc.Invalidate;
 end;
 
