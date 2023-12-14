@@ -369,7 +369,10 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   counter: integer = 0;
 var
-  cl: single;
+  cl:Single;
+  clr,clg,clb:record
+   ambient,diffuse: single;
+   end;
 begin
   if MenuItemRotateCube.Checked then begin
 //    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
@@ -377,31 +380,31 @@ begin
   end;
   Inc(counter);
 
+  clb.ambient:=0.01;
+  clb.diffuse:=0.04;
+
   case counter of
     0..99: begin
       cl := counter / 100;
-      //      UBOBuffer.Material.ambient := [0.17, 0.01, 0.01];
-      //      UBOBuffer.Material.diffuse := [0.61, 0.04, 0.04];
-      UBOBuffer.Material.ambient := [clamp(0.01, 0.17, cl), clamp(0.17, 0.01, cl), 0.01];
-      UBOBuffer.Material.diffuse := [clamp(0.04, 0.61, cl), clamp(0.61, 0.04, cl), 0.01];
+      clr.ambient:=clamp(0.01, 0.17, cl);
+      clg.ambient:=clamp(0.17, 0.01, cl);
+      clr.diffuse:=clamp(0.04, 0.61, cl);
+      clg.diffuse:=clamp(0.61, 0.04, cl);
     end;
     100..199: begin
       cl := (counter - 100) / 100;
-      //      UBOBuffer.Material.ambient := [0.01, 0.17, 0.01];
-      //      UBOBuffer.Material.diffuse := [0.04, 0.61, 0.04];
-      UBOBuffer.Material.ambient := [clamp(0.17, 0.01, cl), clamp(0.01, 0.17, cl), 0.01];
-      UBOBuffer.Material.diffuse := [clamp(0.61, 0.04, cl), clamp(0.04, 0.61, cl), 0.01];
+      clr.ambient:=clamp(0.17, 0.01, cl);
+      clg.ambient:=clamp(0.01, 0.17, cl);
+      clr.diffuse:=clamp(0.61, 0.04, cl);
+      clg.diffuse:=clamp(0.04, 0.61, cl);
     end;
-      //200..299: begin
-      //  cl:=(counter-200)/100;
-      //  UBOBuffer.Material.ambient := [0.01, 0.01, 0.17];
-      //  UBOBuffer.Material.diffuse := [0.04, 0.04, 0.61];
-      //end;
     else begin
       counter := 0;
     end;
   end;
-  WriteLn(cl: 10: 5);
+  UBOBuffer.Material.ambient := [clr.ambient,clg.ambient,clb.ambient];
+  UBOBuffer.Material.diffuse := [clr.diffuse,clg.diffuse,clb.diffuse];
+  WriteLn('cnt: ',counter:4,'  cl: ', cl: 10: 5);
 
   ogc.Invalidate;
 end;

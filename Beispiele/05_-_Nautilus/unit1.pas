@@ -52,8 +52,8 @@ var
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
-  Width := 640;
-  Height := 480;
+  Width := 320;
+  Height := 240;
   //remove-
   Randomize;
   ogc := TContext.Create(Self);

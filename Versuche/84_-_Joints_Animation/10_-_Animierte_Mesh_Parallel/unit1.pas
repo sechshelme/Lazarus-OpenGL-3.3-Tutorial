@@ -100,7 +100,7 @@ begin
 
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
-  UBOBuffer.ModelMatrix.Scale(1.5);
+  UBOBuffer.ModelMatrix.Scale(2.5);
   glGenBuffers(1, @UBO);
   // UBO mit Daten laden
   glBindBuffer(GL_UNIFORM_BUFFER, UBO);

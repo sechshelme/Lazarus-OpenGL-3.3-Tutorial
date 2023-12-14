@@ -189,15 +189,6 @@ begin
   Timer1.Enabled := True;
 end;
 
-//WriteLn(1 / cos(pi / 4): 10: 5);  //  1.4121
-//WriteLn(1 / cos(-pi / 4): 10: 5); // -1.4121
-//WriteLn(1 / cos(pi / 2): 10: 5);  //  1.0000
-//WriteLn(1 / cos(-pi / 2): 10: 5); // -1.0000
-//
-//WriteLn(1 / cos(0): 10: 5);       // +Inf
-//WriteLn(1 / cos(0.001): 10: 5);   // 1000.0017
-//
-
 // https://de.serlo.org/mathe/1565/sinus-kosinus-und-tangens?gclid=CjwKCAiAvdCrBhBREiwAX6-6UrPBauxtFzaYCH2OYk9thou_Em8hFJp8fPoMB-xizwmEYPQSwh29NxoCV60QAvD_BwE
 
 
@@ -224,7 +215,7 @@ begin
     UBOBuffer.JointMatrix[i].Identity;
 
     angele := sin((TimerCounter + i) / 100) / 80;
-    angele := (-0.5 + random) / 2;
+    angele := (-0.5 + random) / 1;
 
     //case i of
     //  0: begin
@@ -256,10 +247,6 @@ begin
     UBOBuffer.JointMatrix[i].RotateC(angele);
 
     sc := 1 / cos(abs(angele));
-    //    WriteLn(angele:10:5,' --- ', sc:10:5);
-    //
-    //WriteLn(1/sin(pi/4):10:5);
-    //WriteLn(1/sin(-pi/4):10:5);
 
     UBOBuffer.JointMatrix[i].Scale(sc, sc, 1);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);

@@ -14,12 +14,10 @@ out vec3 vCol;
 
 void main(void)
 {
-  vCol = inCol;
-//  gl_Position = proMat * modelMat * vec4(inPos, 0.0, 1.0);
-
   if (inJoint == -1) {
     gl_Position = proMat * modelMat * vec4(inPos, 0.0, 1.0);
   } else {
     gl_Position = proMat * modelMat * JointMatrix[inJoint] * vec4(inPos, 0.0, 1.0);
   };
+  vCol = inCol;
 }
