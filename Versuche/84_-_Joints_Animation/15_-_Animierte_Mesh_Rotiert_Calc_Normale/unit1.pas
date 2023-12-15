@@ -86,16 +86,12 @@ procedure TForm1.CreatJointsMatrix;
 var
   i: integer;
   r: single;
+  matrixs: array of Pmat4x4 = (@mat4x4Identity, @mat4x4B180, @mat4x4B270, @mat4x4B90, @mat4x4A90, @mat4x4A270);
+
 begin
   for i := 0 to 5 do begin
-    UBOBuffer.JointMatrix[i].Identity;
+    UBOBuffer.JointMatrix[i] := matrixs[i]^;
   end;
-
-  UBOBuffer.JointMatrix[1] := mat4x4B180;
-  UBOBuffer.JointMatrix[2] := mat4x4B270;
-  UBOBuffer.JointMatrix[3] := mat4x4B90;
-  UBOBuffer.JointMatrix[4] := mat4x4A90;
-  UBOBuffer.JointMatrix[5] := mat4x4A270;
 
   for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
     if i > 5 then begin
