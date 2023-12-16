@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -54,6 +54,15 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="Tesselationshader.glsl"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="cubejoints.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CubeJoints"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -63,12 +72,12 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../units"/>
       <UnitOutputDirectory Value="/tmp"/>
     </SearchPaths>
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
       <Options>
