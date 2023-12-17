@@ -44,14 +44,15 @@ implementation
 {$R *.lfm}
 
 const
-  jointCount = 6;
+  boneCount=6;
+  jointCount = boneCount+1;
   isCylinder: boolean = False;
   is3Darm: boolean = True;
 
 type
   TUBOBuffer = record
     WorldMatrix, ModelMatrix: Tmat4x4;
-    JointMatrix: array [0..(jointCount + 1) * 6 - 1] of Tmat4x4;
+    JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
   end;
 
 var
@@ -81,16 +82,13 @@ var
 
 begin
   for j := 0 to 5 do begin
-    for i := 0 to jointCount - 1 do begin
+    UBOBuffer.JointMatrix[j * jointCount] := matrixs[j]^;
+    for i := 1 to jointCount - 1 do begin
       ofs := j * jointCount + i;
-      if i = 0 then begin
-        UBOBuffer.JointMatrix[ofs] := matrixs[j]^;
-      end else begin
         UBOBuffer.JointMatrix[ofs] := UBOBuffer.JointMatrix[ofs - 1];
-      end;
 
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, 2.0);
-      angele := sin(time / 400 * i) / 1.2;
+      angele := sin(time / 100 * i) / 1.2;
 
       case j of
         0, 1: begin
@@ -140,7 +138,7 @@ begin
 
   // Arme
   for j := 0 to 5 do begin
-    for i := 0 to jointCount - 1 do begin
+    for i := 0 to boneCount - 1 do begin
       ofs := j * jointCount + i;
       tmpCube := nil;
       if isCylinder then begin
@@ -150,11 +148,7 @@ begin
         cubeVertex.Add(tmpCube);
         cubeColor.AddZylinderColor(colors[i mod 6]^);
         cubeNormale.AddZylinderNormale;
-        if i = 0 then begin
-          cubeJointIDs.AddZylinder(-1, j * jointCount);
-        end else begin
-          cubeJointIDs.AddZylinder(ofs - 1, j * jointCount + i);
-        end;
+          cubeJointIDs.AddZylinder(ofs, ofs+1);
       end else begin
         tmpCube.AddCubeLateral;
         tmpCube.Scale([1, 1, 0]);
@@ -162,11 +156,7 @@ begin
         cubeVertex.Add(tmpCube);
         cubeColor.AddCubeLateralColor(colors[i mod 6]^);
         cubeNormale.AddCubeLateralNormale;
-        if i = 0 then begin
-          cubeJointIDs.AddCubeLateral(-1, j * jointCount);
-        end else begin
-          cubeJointIDs.AddCubeLateral(ofs - 1, j * jointCount + i);
-        end;
+          cubeJointIDs.AddCubeLateral(ofs, ofs+1);
       end;
     end;
 
@@ -177,17 +167,17 @@ begin
       tmpCube.Translate([0.0, 0.0, 1.0]);
       cubeVertex.Add(tmpCube);
 
-      cubeColor.AddDiscColor(colors[(ofs-1) mod 6]^);
+      cubeColor.AddDiscColor(colors[(boneCount-1) mod 6]^);
       cubeNormale.AddDiscNormal;
-      cubeJointIDs.AddDisc(ofs);
+      cubeJointIDs.AddDisc(ofs+1);
     end else begin
       tmpCube.AddRectangle;
       tmpCube.Translate([0.0, 0.0, 1.0]);
       cubeVertex.Add(tmpCube);
 
-      cubeColor.AddRectangleColor(colors[ofs mod 6]^);
+      cubeColor.AddRectangleColor(colors[(boneCount-1) mod 6]^);
       cubeNormale.AddRectangleNormale;
-      cubeJointIDs.AddRectangle(ofs);
+      cubeJointIDs.AddRectangle(ofs+1);
     end;
   end;
 
@@ -331,12 +321,6 @@ end;
 <b>Vertex-Shader:</b>
 *)
 //includeglsl Vertexshader.glsl
-//lineal
-
-(*
-<b>Geometrie-Shader:</b>
-*)
-//includeglsl Geometrieshader.glsl
 //lineal
 
 (*
