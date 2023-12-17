@@ -89,7 +89,7 @@ begin
     for i := 0 to jointCount - 1 do begin
       ofs := j * jointCount + i;
 //      angele := sin(time / 100 * i) / 2.5;
-      angele := sin(time / 100 * i) / boneCount*3;
+      angele := sin(time / 100 * (i/boneCount)) / boneCount*3;
       UBOBuffer.JointMatrix[ofs] := m;
 
       transSize:=cubeSize/2 + i * boneSize;

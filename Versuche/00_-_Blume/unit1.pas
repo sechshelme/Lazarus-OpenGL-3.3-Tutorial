@@ -53,6 +53,12 @@ implementation
 
 {$R *.lfm}
 
+// https://svn.freepascal.org/cgi-bin/viewvc.cgi/trunk/tests/webtbs/tw28927.pp?view=markup&pathrev=47892
+// https://www.math.uni-leipzig.de/pool/tuts/FreePascal/ref/node6.html
+
+//{$packrecords 16}
+// {$align 32}
+
 type
   TUBOBuffer = record
     Isinstance: TGLint;
