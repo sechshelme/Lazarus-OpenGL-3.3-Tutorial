@@ -44,7 +44,9 @@ implementation
 {$R *.lfm}
 
 const
-  boneCount = 6;
+  cubeSize=2;
+  boneCount = 10;
+  boneSize=12/boneCount;
   jointCount = boneCount + 1;
   isCylinder: boolean = False;
   is3Darm: boolean = False;
@@ -77,19 +79,21 @@ end;
 procedure TForm1.CreatJointsMatrix;
 var
   i, j, ofs: integer;
-  sc, angele: single;
+  sc, angele, transSize: single;
   matrixs: array of Pmat4x4 = (@mat4x4Identity, @mat4x4B180, @mat4x4B270, @mat4x4B90, @mat4x4A90, @mat4x4A270);
   m: Tmat4x4;
 
 begin
-  for j := 0 to 1 do begin
+  for j := 0 to 5 do begin
     m := matrixs[j]^;
     for i := 0 to jointCount - 1 do begin
       ofs := j * jointCount + i;
-      angele := sin(time / 100 * i) / 2.5;
+//      angele := sin(time / 100 * i) / 2.5;
+      angele := sin(time / 100 * i) / boneCount*3;
       UBOBuffer.JointMatrix[ofs] := m;
 
-      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, +(2+ i*2));
+      transSize:=cubeSize/2 + i * boneSize;
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, transSize);
 
       case j of
         0, 1: begin
@@ -114,9 +118,9 @@ begin
 
       sc := 1 / cos(abs(angele));
       UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
-      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -(2+ i*2));
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
 
-      m.TranslateLocalspace(0.0, 0.0, +(2+ i*2));
+      m.TranslateLocalspace(0.0, 0.0, transSize);
 
       angele := angele * 2;
       case j of
@@ -140,7 +144,7 @@ begin
         end;
       end;
 
-      m.TranslateLocalspace(0.0, 0.0, -(2+ i*2));
+      m.TranslateLocalspace(0.0, 0.0, -transSize);
 
 
       //      UBOBuffer.JointMatrix[ofs].Scale(0.95);
@@ -155,6 +159,7 @@ var
   tmpCube: TVectors3f;
   ofs: SizeInt;
   i, j: integer;
+  transSize:Single;
 
   cubeVertex: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
@@ -162,31 +167,33 @@ var
   cubeJointIDs: TJointIDs = nil;
 begin
 
-  //// center
-  //cubeVertex.AddCube;
-  //cubeVertex.scale(2);
-  //cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
-  //cubeNormale.AddCubeNormale;
-  //cubeJointIDs.AddCube(-1, -1);
+  // center
+  cubeVertex.AddCube;
+  cubeVertex.scale(cubeSize);
+  cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
+  cubeNormale.AddCubeNormale;
+  cubeJointIDs.AddCube(-1, -1);
 
   // Arme
   for j := 0 to 5 do begin
     for i := 0 to boneCount - 1 do begin
       ofs := j * jointCount + i;
       tmpCube := nil;
+      transSize:=boneSize/2+cubeSize /2 + boneSize * i;
+
       if isCylinder then begin
         tmpCube.AddZylinder;
-        tmpCube.Scale([1, 1, 2]);
-        tmpCube.Translate([0.0, 0.0, 3 + i * 2]);
+        tmpCube.Scale([1, 1, boneSize]);
+        tmpCube.Translate([0.0, 0.0, transSize]);
         cubeVertex.Add(tmpCube);
         cubeColor.AddZylinderColor(colors[i mod 6]^);
         cubeNormale.AddZylinderNormale;
         cubeJointIDs.AddZylinder(ofs, ofs + 1);
       end else begin
         tmpCube.AddCubeLateral;
-        tmpCube.Scale([1, 1, 2]);
-        //        tmpCube.Translate([0.0, 0.0, 1.5 + 2 * i]);
-        tmpCube.Translate([0.0, 0.0, 3 + i * 2]);
+        tmpCube.Scale([1, 1, boneSize]);
+//        tmpCube.Translate([0.0, 0.0,  cubeSize + i * 2]);
+        tmpCube.Translate([0.0, 0.0,  transSize]);
         cubeVertex.Add(tmpCube);
         cubeColor.AddCubeLateralColor(colors[i mod 6]^);
         cubeNormale.AddCubeLateralNormale;
@@ -198,7 +205,7 @@ begin
     tmpCube := nil;
     if isCylinder then begin
       tmpCube.AddDisc;
-      tmpCube.Translate([0.0, 0.0, boneCount * 2+2]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize/2]);
       cubeVertex.Add(tmpCube);
 
       cubeColor.AddDiscColor(colors[(boneCount - 1) mod 6]^);
@@ -206,7 +213,7 @@ begin
       cubeJointIDs.AddDisc(ofs + 1);
     end else begin
       tmpCube.AddRectangle;
-      tmpCube.Translate([0.0, 0.0, boneCount * 2+2]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize/2]);
       cubeVertex.Add(tmpCube);
 
       cubeColor.AddRectangleColor(colors[(boneCount - 1) mod 6]^);
