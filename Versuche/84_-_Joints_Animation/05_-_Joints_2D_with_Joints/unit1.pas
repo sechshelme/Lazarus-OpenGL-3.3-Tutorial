@@ -212,9 +212,7 @@ begin
   m.Identity;
 
   for i := 0 to JointCount do begin
-    UBOBuffer.JointMatrix[i].Identity;
-
-    angele := sin((TimerCounter + i) / 100) / 80;
+   // angele := sin((TimerCounter + i) / 100) / 80;
     angele := (-0.5 + random) / 1;
 
     //case i of
@@ -248,7 +246,7 @@ begin
 
     sc := 1 / cos(abs(angele));
 
-    UBOBuffer.JointMatrix[i].Scale(sc, sc, 1);
+    UBOBuffer.JointMatrix[i].Scale(sc, sc, sc);
     UBOBuffer.JointMatrix[i].TranslateLocalspace(JointsPos[i], 0.0, 0.0);
 
     m.TranslateLocalspace(-JointsPos[i], 0.0, 0.0);
