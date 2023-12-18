@@ -79,7 +79,7 @@ end;
 procedure TForm1.CreatJointsMatrix;
 var
   i, j, ofs: integer;
-  sc, angele, transSize: single;
+  sc, angeleu, transSize, angelem: single;
   matrixs: array of Pmat4x4 = (@mat4x4Identity, @mat4x4B180, @mat4x4B270, @mat4x4B90, @mat4x4A90, @mat4x4A270);
   m: Tmat4x4;
 
@@ -88,61 +88,46 @@ begin
     m := matrixs[j]^;
     for i := 0 to jointCount - 1 do begin
       ofs := j * jointCount + i;
-//      angele := sin(time / 100 * i) / 2.5;
-      angele := sin(time / 100 * (i/boneCount)) / boneCount*3;
-      UBOBuffer.JointMatrix[ofs] := m;
-
       transSize:=cubeSize/2 + i * boneSize;
+//      angeleu := sin(time / 100 * i) / 2.5;
+      angeleu := sin(time / 100 * (i/boneCount)) / boneCount*3;
+      angelem := angeleu * 2;
+
+      UBOBuffer.JointMatrix[ofs] := m;
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, transSize);
-
-      case j of
-        0, 1: begin
-          UBOBuffer.JointMatrix[ofs].RotateA(angele);
-          if is3Darm then  begin
-            UBOBuffer.JointMatrix[ofs].RotateB(angele * 1.2);
-          end;
-        end;
-        2, 3: begin
-          UBOBuffer.JointMatrix[ofs].RotateB(angele);
-          if is3Darm then  begin
-            UBOBuffer.JointMatrix[ofs].RotateC(angele * 1.2);
-          end;
-        end;
-        4, 5: begin
-          UBOBuffer.JointMatrix[ofs].RotateC(angele);
-          if is3Darm then  begin
-            UBOBuffer.JointMatrix[ofs].RotateA(angele * 1.2);
-          end;
-        end;
-      end;
-
-      sc := 1 / cos(abs(angele));
-      UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
-      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
 
       m.TranslateLocalspace(0.0, 0.0, transSize);
 
-      angele := angele * 2;
       case j of
         0, 1: begin
-          m.RotateA(angele);
+          UBOBuffer.JointMatrix[ofs].RotateA(angeleu);
+          m.RotateA(angelem);
           if is3Darm then  begin
-            m.RotateB(angele * 1.2);
+            UBOBuffer.JointMatrix[ofs].RotateB(angeleu * 1.2);
+            m.RotateB(angelem * 1.2);
           end;
         end;
         2, 3: begin
-          m.RotateB(angele);
+          UBOBuffer.JointMatrix[ofs].RotateB(angeleu);
+          m.RotateB(angeleu);
           if is3Darm then  begin
-            m.RotateC(angele * 1.2);
+            UBOBuffer.JointMatrix[ofs].RotateC(angeleu * 1.2);
+            m.RotateC(angelem * 1.2);
           end;
         end;
         4, 5: begin
-          m.RotateC(angele);
+          UBOBuffer.JointMatrix[ofs].RotateC(angeleu);
+          m.RotateC(angeleu);
           if is3Darm then  begin
-            m.RotateA(angele * 1.2);
+            UBOBuffer.JointMatrix[ofs].RotateA(angeleu * 1.2);
+            m.RotateA(angelem * 1.2);
           end;
         end;
       end;
+
+      sc := 1 / cos(angeleu);
+      UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
 
       m.TranslateLocalspace(0.0, 0.0, -transSize);
 
