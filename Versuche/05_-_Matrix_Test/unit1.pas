@@ -52,7 +52,6 @@ type
   TUBOBuffer = record
     proMatrix:Tmat4x4;
     modelMatrix: Tmat2x2;
-    p: Tmat2x2;
   end;
 
 var
@@ -164,41 +163,29 @@ begin
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
-var
-  m_ID:TGlInt;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VAO);
 
-//  UBOBuffer.modelMatrix.Identity;
+  UBOBuffer.modelMatrix.Identity;
 
-m_ID:=Shader.UniformLocation('mm');
-WriteLn(m_ID);
-
-  UBOBuffer.modelMatrix[0,0]:=1;
-  UBOBuffer.modelMatrix[0,1]:=0;
-  UBOBuffer.modelMatrix[1,0]:=0;
-  UBOBuffer.modelMatrix[1,1]:=1;
-
-  UBOBuffer.modelMatrix.Uniform(m_ID);
-
-
-//  UBOBuffer.modelMatrix.Rotate(pi/2);
-//  UBOBuffer.modelMatrix.WriteMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
   glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
-  //UBOBuffer.modelMatrix:=modelMatrix;
-  //glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  //glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
+//  modelMatrix.Identity;
+//  modelMatrix.Rotate(pi/2+0.2);
+  UBOBuffer.modelMatrix:=modelMatrix;
+
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
   ogc.SwapBuffers;
 
-  //Spin0.Value:=  modelMatrix[0,0];
-  //Spin1.Value:=  modelMatrix[0,1];
-  //Spin2.Value:=  modelMatrix[1,0];
-  //Spin3.Value:=  modelMatrix[1,1];
+  Spin0.Value:=  modelMatrix[0,0];
+  Spin1.Value:=  modelMatrix[0,1];
+  Spin2.Value:=  modelMatrix[1,0];
+  Spin3.Value:=  modelMatrix[1,1];
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);

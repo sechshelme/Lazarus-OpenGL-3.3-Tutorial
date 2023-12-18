@@ -1,6 +1,6 @@
 #version 330
 
-layout (std140) uniform UBO {
+layout (packed) uniform UBO {
   mat4x4 proMat;
   mat2x2 modelMat;
 };
