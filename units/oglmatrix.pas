@@ -39,6 +39,8 @@ type
   public
     procedure Identity;
     procedure Zero;
+    procedure Scale(x, y: GLfloat); overload;
+    procedure Scale(s: GLfloat); overload;
     procedure Rotate(w: GLfloat);
 
     procedure Uniform(ShaderID: GLint);
@@ -175,6 +177,26 @@ const
   m: TMat2x2 = ((0.0, 0.0), (0.0, 0.0));
 begin
   Self := m;
+end;
+
+procedure Tmat2x2Helper.Scale(x, y: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 1 do begin
+    Self[i, 0] *= x;
+    Self[i, 1] *= y;
+  end;
+end;
+
+procedure Tmat2x2Helper.Scale(s: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 1 do begin
+    Self[i, 0] *= s;
+    Self[i, 1] *= s;
+  end;
 end;
 
 procedure Tmat2x2Helper.Rotate(w: GLfloat);

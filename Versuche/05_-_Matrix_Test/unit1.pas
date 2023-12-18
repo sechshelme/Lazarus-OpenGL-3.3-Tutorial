@@ -8,23 +8,26 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, Menus,
+  Dialogs, ExtCtrls, Menus, Spin, StdCtrls,
   dglOpenGL,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
 type
-  TJointIDs = type TGlInts;
 
-  { TJointIDsHelper }
-
-  TJointIDsHelper = type Helper(TglintsHelper) for TJointIDs
-    procedure AddQuad(pri, sek: integer);
-  end;
+  { TForm1 }
 
   TForm1 = class(TForm)
+    Button1: TButton;
+    Spin0: TFloatSpinEdit;
+    Panel1: TPanel;
+    Spin1: TFloatSpinEdit;
+    Spin2: TFloatSpinEdit;
+    Spin3: TFloatSpinEdit;
     Timer1: TTimer;
+    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure SpinChange(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
@@ -45,32 +48,22 @@ implementation
 //image image.png
 //lineal
 
-const
-  JointCount = 12;
-
 type
   TUBOBuffer = record
-    proMatrix,
-    modelMatrix: TMatrix;
-    JointMatrix: array [0..jointCount] of Tmat4x4;
+    proMatrix:Tmat4x4;
+    modelMatrix: Tmat2x2;
+    p: Tmat2x2;
   end;
 
 var
   UBOBuffer: TUBOBuffer;
   QuadVertex: TVectors2f;
   QuadColor: TVectors3f;
-  QuadJoint: TJointIDs = nil;
-  JointsPos: array of single;
+
+  modelMatrix:Tmat2x2;
 
   VAO: GLuint;
-  Mesh_Buffers: array [(mbVBOVektor, mbVBOColor, mbVBOJoint, mbUBO)] of TGLuint;
-
-  TimerCounter: integer = 0;
-
-procedure TJointIDsHelper.AddQuad(pri, sek: integer);
-begin
-  Self += [sek, pri, pri, sek, pri, sek];
-end;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBOColor, mbUBO)] of TGLuint;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -89,6 +82,11 @@ begin
   CreateScene;
 end;
 
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+//  modelMatrix.Translate(0,0.5,0);
+end;
+
 // https://www.youtube.com/watch?app=desktop&v=lDaQ3a43x8A
 
 procedure TForm1.CreateJoints;
@@ -96,32 +94,21 @@ const
   colors: array of PVector3f = (@vec3blue, @vec3green, @vec3cyan, @vec3red, @vec3magenta, @vec3yellow);
 var
   tmpQuad: TVectors2f = nil;
-  i: integer;
-  LenCube, LenGlobal: single;
+  x, y: integer;
 begin
   QuadVertex := nil;
   QuadColor := nil;
 
-  JointsPos := [0];
-  LenGlobal := 0;
-
-  for i := 0 to JointCount do begin
-    UBOBuffer.JointMatrix[i].Identity;
-  end;
-
-  for i := 0 to JointCount - 1 do begin
-    LenCube := (0.5 + Random) * 8;
-
-    tmpQuad := nil;
+  for x := 0 to 2 do begin
+    for y := 0 to 2 do    begin
+      tmpQuad := nil;
     tmpQuad.addrectangle;
-    tmpQuad.Scale([LenCube, 7]);
-    tmpQuad.Translate([-LenGlobal - (LenCube / 2), 0.0]);
+    tmpQuad.Scale(0.7);
+    tmpQuad.Translate([x - 1, y - 1]);
     QuadVertex.Add(tmpQuad);
 
-    LenGlobal += LenCube;
-    JointsPos += [LenGlobal];
-
-    QuadColor.AddRectangleColor(colors[i mod Length(colors)]^);
+    QuadColor.AddRectangleColor(colors[(x + y * 3)mod Length(colors)]^);
+    end;
   end;
 end;
 
@@ -147,10 +134,10 @@ begin
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
 
   UBOBuffer.proMatrix.Identity;
-  UBOBuffer.proMatrix.Scale(0.02);
-  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
-
+  UBOBuffer.proMatrix.Scale(0.4);
   UBOBuffer.modelMatrix.Identity;
+
+  modelMatrix.Identity;
 
   glClearColor(0.6, 0.6, 0.4, 1.0); // Hintergrundfarbe
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -178,31 +165,40 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
-  i: integer;
-  Hand: TMatrix;
-  r: single;
+  m_ID:TGlInt;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
   glBindVertexArray(VAO);
 
-  UBOBuffer.modelMatrix.Identity;
+//  UBOBuffer.modelMatrix.Identity;
+
+m_ID:=Shader.UniformLocation('mm');
+WriteLn(m_ID);
+
+  UBOBuffer.modelMatrix[0,0]:=1;
+  UBOBuffer.modelMatrix[0,1]:=0;
+  UBOBuffer.modelMatrix[1,0]:=0;
+  UBOBuffer.modelMatrix[1,1]:=1;
+
+  UBOBuffer.modelMatrix.Uniform(m_ID);
+
+
+//  UBOBuffer.modelMatrix.Rotate(pi/2);
+//  UBOBuffer.modelMatrix.WriteMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, 6);
+  glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
-  for i := 0 to JointCount - 1 do begin
-    r := sin(TimerCounter * i / 200) / 2;
-    Hand.Identity;
-    Hand.TranslateLocalspaceX(-JointsPos[i]);
-    Hand.RotateC(r);
-    Hand.TranslateLocalspaceX(JointsPos[i]);
-
-    UBOBuffer.modelMatrix := UBOBuffer.modelMatrix * Hand;
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
-    glDrawArrays(GL_TRIANGLES, i * 6, 6);
-  end;
+  //UBOBuffer.modelMatrix:=modelMatrix;
+  //glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+  //glDrawArrays(GL_TRIANGLES, 0, QuadVertex.Count);
 
   ogc.SwapBuffers;
+
+  //Spin0.Value:=  modelMatrix[0,0];
+  //Spin1.Value:=  modelMatrix[0,1];
+  //Spin2.Value:=  modelMatrix[1,0];
+  //Spin3.Value:=  modelMatrix[1,1];
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -212,9 +208,16 @@ begin
   glDeleteVertexArrays(1, @VAO);
 end;
 
+procedure TForm1.SpinChange(Sender: TObject);
+begin
+  modelMatrix[0,0]:=Spin0.Value;
+  modelMatrix[0,1]:=Spin1.Value;
+  modelMatrix[1,0]:=Spin2.Value;
+  modelMatrix[1,1]:=Spin3.Value;
+end;
+
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Inc(TimerCounter);
   ogcDrawScene(Sender);
 end;
 

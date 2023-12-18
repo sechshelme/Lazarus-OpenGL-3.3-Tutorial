@@ -1,0 +1,75 @@
+object Form1: TForm1
+  Left = 575
+  Height = 472
+  Top = 673
+  Width = 825
+  Caption = 'Form1'
+  ClientHeight = 472
+  ClientWidth = 825
+  LCLVersion = '3.99.0.0'
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  object Panel1: TPanel
+    Left = 0
+    Height = 472
+    Top = 0
+    Width = 170
+    Align = alLeft
+    Caption = 'Panel1'
+    ClientHeight = 472
+    ClientWidth = 170
+    TabOrder = 0
+    object Spin0: TFloatSpinEdit
+      Left = 16
+      Height = 28
+      Top = 16
+      Width = 66
+      Increment = 0.1
+      TabOrder = 0
+      Value = 1
+      OnChange = SpinChange
+    end
+    object Spin1: TFloatSpinEdit
+      Left = 96
+      Height = 28
+      Top = 16
+      Width = 66
+      Increment = 0.1
+      TabOrder = 1
+      OnChange = SpinChange
+    end
+    object Spin2: TFloatSpinEdit
+      Left = 16
+      Height = 28
+      Top = 56
+      Width = 66
+      Increment = 0.1
+      TabOrder = 2
+      OnChange = SpinChange
+    end
+    object Spin3: TFloatSpinEdit
+      Left = 96
+      Height = 28
+      Top = 56
+      Width = 66
+      Increment = 0.1
+      TabOrder = 3
+      Value = 1
+      OnChange = SpinChange
+    end
+    object Button1: TButton
+      Left = 82
+      Height = 25
+      Top = 315
+      Width = 75
+      Caption = 'Button1'
+      TabOrder = 4
+      OnClick = Button1Click
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 232
+    Top = 48
+  end
+end
