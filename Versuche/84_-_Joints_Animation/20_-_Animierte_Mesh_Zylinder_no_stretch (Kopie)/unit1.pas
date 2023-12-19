@@ -44,9 +44,9 @@ implementation
 {$R *.lfm}
 
 const
-  cubeSize = 2;
+  cubeSize=2;
   boneCount = 10;
-  boneSize = 12 / boneCount;
+  boneSize=12/boneCount;
   jointCount = boneCount + 1;
   isCylinder: boolean = False;
   is3Darm: boolean = False;
@@ -80,43 +80,57 @@ procedure TForm1.CreatJointsMatrix;
 var
   i, j, ofs: integer;
   sc, angeleu, transSize, angelem: single;
-  globalMatrix: Tmat4x4;
-  rotMatrix: array[0..5] of Tmat4x4;
+  matrixs: array of Pmat4x4 = (@mat4x4Identity, @mat4x4B180, @mat4x4B270, @mat4x4B90, @mat4x4A90, @mat4x4A270);
+  m: Tmat4x4;
 
 begin
-  rotMatrix[0] := mat4x4Identity;
-  rotMatrix[1] := mat4x4B180;
-  rotMatrix[2] := mat4x4C90 * mat4x4B90;
-  rotMatrix[3] := mat4x4C90 * mat4x4B270;
-  rotMatrix[4] := mat4x4C90 * mat4x4A90;
-  rotMatrix[5] := mat4x4C270 * mat4x4A90;
-
   for j := 0 to 5 do begin
-    globalMatrix.Identity;
+    m := matrixs[j]^;
     for i := 0 to jointCount - 1 do begin
       ofs := j * jointCount + i;
-      transSize := cubeSize / 2 + i * boneSize;
-      //      angeleu := sin(time / 100 * i) / 2.5;
-      angeleu := sin(time / 100 * (i / boneCount)) / boneCount * 3;
+      transSize:=cubeSize/2 + i * boneSize;
+//      angeleu := sin(time / 100 * i) / 2.5;
+      angeleu := sin(time / 100 * (i/boneCount)) / boneCount*3;
       angelem := angeleu * 2;
 
-      UBOBuffer.JointMatrix[ofs] := globalMatrix;
+      UBOBuffer.JointMatrix[ofs] := m;
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, transSize);
-      UBOBuffer.JointMatrix[ofs].RotateB(angeleu);
 
-      globalMatrix.TranslateLocalspace(0.0, 0.0, transSize);
-      globalMatrix.RotateB(angelem);
-      if is3Darm then  begin
-        UBOBuffer.JointMatrix[ofs].RotateA(angeleu * 1.2);
-        globalMatrix.RotateA(angelem * 1.2);
+      m.TranslateLocalspace(0.0, 0.0, transSize);
+
+      case j of
+        0, 1: begin
+          UBOBuffer.JointMatrix[ofs].RotateA(angeleu);
+          m.RotateA(angelem);
+          if is3Darm then  begin
+            UBOBuffer.JointMatrix[ofs].RotateB(angeleu * 1.2);
+            m.RotateB(angelem * 1.2);
+          end;
+        end;
+        2, 3: begin
+          UBOBuffer.JointMatrix[ofs].RotateB(angeleu);
+          m.RotateB(angeleu);
+          if is3Darm then  begin
+            UBOBuffer.JointMatrix[ofs].RotateC(angeleu * 1.2);
+            m.RotateC(angelem * 1.2);
+          end;
+        end;
+        4, 5: begin
+          UBOBuffer.JointMatrix[ofs].RotateC(angeleu);
+          m.RotateC(angeleu);
+          if is3Darm then  begin
+            UBOBuffer.JointMatrix[ofs].RotateA(angeleu * 1.2);
+            m.RotateA(angelem * 1.2);
+          end;
+        end;
       end;
 
       sc := 1 / cos(angeleu);
       UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
-      UBOBuffer.JointMatrix[ofs] := rotMatrix[j] * UBOBuffer.JointMatrix[ofs];
 
-      globalMatrix.TranslateLocalspace(0.0, 0.0, -transSize);
+      m.TranslateLocalspace(0.0, 0.0, -transSize);
+
 
       //      UBOBuffer.JointMatrix[ofs].Scale(0.95);
     end;
@@ -130,7 +144,7 @@ var
   tmpCube: TVectors3f;
   ofs: SizeInt;
   i, j: integer;
-  transSize: single;
+  transSize:Single;
 
   cubeVertex: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
@@ -150,7 +164,7 @@ begin
     for i := 0 to boneCount - 1 do begin
       ofs := j * jointCount + i;
       tmpCube := nil;
-      transSize := boneSize / 2 + cubeSize / 2 + boneSize * i;
+      transSize:=boneSize/2+cubeSize /2 + boneSize * i;
 
       if isCylinder then begin
         tmpCube.AddZylinder;
@@ -163,7 +177,8 @@ begin
       end else begin
         tmpCube.AddCubeLateral;
         tmpCube.Scale([1, 1, boneSize]);
-        tmpCube.Translate([0.0, 0.0, transSize]);
+//        tmpCube.Translate([0.0, 0.0,  cubeSize + i * 2]);
+        tmpCube.Translate([0.0, 0.0,  transSize]);
         cubeVertex.Add(tmpCube);
         cubeColor.AddCubeLateralColor(colors[i mod 6]^);
         cubeNormale.AddCubeLateralNormale;
@@ -175,7 +190,7 @@ begin
     tmpCube := nil;
     if isCylinder then begin
       tmpCube.AddDisc;
-      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize / 2]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize/2]);
       cubeVertex.Add(tmpCube);
 
       cubeColor.AddDiscColor(colors[(boneCount - 1) mod 6]^);
@@ -183,7 +198,7 @@ begin
       cubeJointIDs.AddDisc(ofs + 1);
     end else begin
       tmpCube.AddRectangle;
-      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize / 2]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize/2]);
       cubeVertex.Add(tmpCube);
 
       cubeColor.AddRectangleColor(colors[(boneCount - 1) mod 6]^);
@@ -193,7 +208,7 @@ begin
   end;
 
 
-  // VAO Buffer
+  //  VAO Buffer
   glBindVertexArray(VAO);
 
   // Vektor
