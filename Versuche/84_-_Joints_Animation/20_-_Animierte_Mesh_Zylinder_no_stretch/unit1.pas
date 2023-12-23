@@ -27,7 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    time: integer;
+    timeCounter: integer;
     procedure CreatJointsMatrix;
     procedure CreateArms;
     procedure CreateScene;
@@ -96,8 +96,12 @@ begin
     for i := 0 to jointCount - 1 do begin
       ofs := j * jointCount + i;
       transSize := cubeSize / 2 + i * boneSize;
-      //      angeleu := sin(time / 100 * i) / 2.5;
-      angeleu := sin(time / 100 * (i / boneCount)) / boneCount * 3;
+      //      angeleu := sin(timeCounter / 100 * i) / 2.5;
+      angeleu := sin(timeCounter / 100 * (i / boneCount)) / boneCount * 3;
+
+      angeleu := sin(timeCounter / 400 * i * 6) / 2.4;
+
+
       angelem := angeleu * 2;
 
       UBOBuffer.JointMatrix[ofs] := globalMatrix;
@@ -114,11 +118,12 @@ begin
       sc := 1 / cos(angeleu);
       UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
+//      UBOBuffer.JointMatrix[ofs].Scale(0.95);
+//      UBOBuffer.JointMatrix[ofs].Scale(0.5,0.5,1.0);
       UBOBuffer.JointMatrix[ofs] := rotMatrix[j] * UBOBuffer.JointMatrix[ofs];
 
       globalMatrix.TranslateLocalspace(0.0, 0.0, -transSize);
 
-      //      UBOBuffer.JointMatrix[ofs].Scale(0.95);
     end;
   end;
 end;
@@ -297,7 +302,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Inc(time);
+  Inc(timeCounter);
   CreatJointsMatrix;
   UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);

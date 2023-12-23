@@ -1,0 +1,9 @@
+object Form2: TForm2
+  Left = 1937
+  Height = 666
+  Top = 577
+  Width = 779
+  Caption = 'Form2'
+  LCLVersion = '3.99.0.0'
+  OnPaint = FormPaint
+end

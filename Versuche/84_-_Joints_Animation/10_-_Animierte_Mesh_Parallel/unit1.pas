@@ -252,7 +252,7 @@ begin
 
       case j of
         0: begin
-          pm^.Translate(v.x, v.y, 0);
+          pm^. Translate(v.x, v.y, 0);
         end;
         1: begin
           pm^.Translate(0, v.x, v.y);

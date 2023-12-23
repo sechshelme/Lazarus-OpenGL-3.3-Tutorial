@@ -10,7 +10,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   dglOpenGL,
-  oglContext, oglShader, oglVector, oglVectors, oglMatrix;
+  oglContext, oglShader, oglVector, oglVectors, oglMatrix,
+  Unit2;
 
 type
   TJointIDs = type TGlInts;
@@ -21,10 +22,13 @@ type
     procedure AddQuad(pri, sek: integer);
   end;
 
+  { TForm1 }
+
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
@@ -59,7 +63,6 @@ var
   UBOBuffer: TUBOBuffer;
   QuadVertex: TVectors2f;
   QuadColor: TVectors3f;
-  QuadJoint: TJointIDs = nil;
   JointsPos: array of single;
 
   VAO: GLuint;
@@ -87,6 +90,7 @@ begin
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
+
 end;
 
 // https://www.youtube.com/watch?app=desktop&v=lDaQ3a43x8A
@@ -179,7 +183,7 @@ end;
 procedure TForm1.ogcDrawScene(Sender: TObject);
 var
   i: integer;
-  Hand: TMatrix;
+  bone: TMatrix;
   r: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
@@ -192,12 +196,12 @@ begin
 
   for i := 0 to JointCount - 1 do begin
     r := sin(TimerCounter * i / 200) / 2;
-    Hand.Identity;
-    Hand.TranslateLocalspaceX(-JointsPos[i]);
-    Hand.RotateC(r);
-    Hand.TranslateLocalspaceX(JointsPos[i]);
+    bone.Identity;
+    bone.TranslateLocalspaceX(-JointsPos[i]);
+    bone.RotateC(r);
+    bone.TranslateLocalspaceX(JointsPos[i]);
 
-    UBOBuffer.modelMatrix := UBOBuffer.modelMatrix * Hand;
+    UBOBuffer.modelMatrix := UBOBuffer.modelMatrix * bone;
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
     glDrawArrays(GL_TRIANGLES, i * 6, 6);
   end;
@@ -210,6 +214,11 @@ begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VAO);
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  Form2.Show;
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

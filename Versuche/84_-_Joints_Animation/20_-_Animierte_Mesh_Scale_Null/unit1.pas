@@ -27,7 +27,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader-Object
-    time: integer;
+    timeCounter: integer;
     procedure CreatJointsMatrix;
     procedure CreateArms;
     procedure CreateScene;
@@ -88,7 +88,7 @@ begin
     UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
 
     UBOBuffer.JointMatrix[i].TranslateLocalspace(0.0, 0.0, 2.0);
-    angele := sin(time / 400 * i) / 1.2;
+    angele := sin(timeCounter / 400 * i) / 1.2;
 
     case i mod 6 of
       0, 1: begin
@@ -289,7 +289,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-  Inc(time);
+  Inc(timeCounter);
   CreatJointsMatrix;
   UBOBuffer.ModelMatrix.RotateB(0.012);
   ogcDrawScene(Sender);
