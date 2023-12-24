@@ -193,6 +193,7 @@ begin
   Shader.Free;
 
   glDeleteVertexArrays(1, @VAO);
+  glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

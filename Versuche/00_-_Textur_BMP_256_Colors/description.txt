@@ -1,0 +1,3 @@
+"256 Color Bitmap"
+
+Direkte Verwendung des Plaetten-Buffers

@@ -5,11 +5,9 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, Menus,
-  sdl, sdl_image,
-  dglOpenGL,
-  oglContext, oglShader, oglVector, oglMatrix;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
+  sdl, sdl_image, // Für 8Bit BMP
+  dglOpenGL, oglContext, oglShader, oglVector, oglMatrix;
 
 type
 
@@ -37,29 +35,27 @@ implementation
 
 //image image.png
 const
-  QuadVertex: array[0..5] of TVector3f =       // Koordinaten der Polygone.
+  QuadVertex: array[0..5] of TVector3f =
     ((-0.8, -0.8, 0.0), (0.8, 0.8, 0.0), (-0.8, 0.8, 0.0),
     (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
 
-  TextureVertex: array[0..5] of TVector2f =    // Textur-Koordinaten
+  TextureVertex: array[0..5] of TVector2f =
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
     (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
+var
+  VAOs: array [(vaMesh)] of TGLuint;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBOTexCoord, mbUBO)] of TGLuint;
+  Textur_Buffers: array [(tbPalette, tbTexture)] of TGLuint;
+
 type
-  TVB = record
-    VAO,
-    VBOVertex,
-    VBOTex: GLuint;
+  TUBOBuffer = record
+    mat: TMatrix;
   end;
 
 var
-  VBQuad: TVB;
-  RotMatrix, ScaleMatrix, ProdMatrix: TMatrix;
-  Matrix_ID: GLint;
-
-var
-  paletteID,
-  textureID: GLuint;
+  UBOBuffer: TUBOBuffer;
+  RotMatrix, ScaleMatrix: TMatrix;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -77,54 +73,64 @@ end;
 procedure TForm1.CreateScene;
 var
   surface: PSDL_Surface;
+  UBO_ID: GLuint;
 begin
+  glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 
-  Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
-  with Shader do begin
-    UseProgram;
-    Matrix_ID := UniformLocation('mat');
-    glUniform1i(UniformLocation('myPalette'), 0);  // Dem Sampler 0 zuweisen.
-    glUniform1i(UniformLocation('myTexture'), 1);  // Dem Sampler 0 zuweisen.
-  end;
+  Shader := TShader.Create;
+  Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
+  Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
+  Shader.LinkProgramm;
+  Shader.UseProgram;
+
+  glUniform1i(Shader.UniformLocation('myPalette'), 0);  // Dem Sampler 0 zuweisen.
+  glUniform1i(Shader.UniformLocation('myTexture'), 1);  // Dem Sampler 0 zuweisen.
+
+  // --- UBO
+  // UBO mit Daten laden
+  glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
+  glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
+
+  // UBO mit dem Shader verbinden
+  UBO_ID := Shader.UniformBlockIndex('UBO');
+  glUniformBlockBinding(Shader.ID, UBO_ID, 0);
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
+
+
   RotMatrix.Identity;
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.7);
-  ProdMatrix.Identity;
 
   // --- vertex-Buffer
-  glGenVertexArrays(1, @VBQuad.VAO);
+  glGenVertexArrays(Length(VAOs), VAOs);
+  glBindVertexArray(VAOs[vaMesh]);
 
-  glGenBuffers(1, @VBQuad.VBOVertex);
-  glBindVertexArray(VBQuad.VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
-  glGenBuffers(1, @VBQuad.VBOTex);
-  glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOTexCoord]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 
-
-//  surface := IMG_Load('Ts01.bmp');
-  surface := IMG_Load('image.bmp');
+  // --- Textur laden
+  surface := IMG_Load('land.bmp');
   if surface = nil then begin
     WriteLn('img Fehler');
   end;
 
-  glGenTextures(1, @paletteID);
-  glBindTexture(GL_TEXTURE_2D, paletteID);
+  glGenTextures(2, Textur_Buffers);
+
+  glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbPalette]);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
- glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface^.format^.palette^.colors);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 256, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface^.format^.palette^.colors);
 
-  // Textur binden.
-  glGenTextures(1, @textureID);
-  glBindTexture(GL_TEXTURE_2D, textureID);
+  glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -144,17 +150,16 @@ begin
   glClear(GL_COLOR_BUFFER_BIT);
 
   glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, paletteID);
+  glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbPalette]);
 
   glActiveTexture(GL_TEXTURE1);
-  glBindTexture(GL_TEXTURE_2D, textureID);
-  //code-
+  glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
 
-  ProdMatrix := ScaleMatrix * RotMatrix;
-  ProdMatrix.Uniform(Matrix_ID);
+  UBOBuffer.mat := ScaleMatrix * RotMatrix;
 
-  // Zeichne Quadrat
-  glBindVertexArray(VBQuad.VAO);
+  glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(TUBOBuffer), @UBOBuffer);
+
+  glBindVertexArray(VAOs[vaMesh]);
   glDrawArrays(GL_TRIANGLES, 0, Length(QuadVertex));
 
   ogc.SwapBuffers;
@@ -164,12 +169,9 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
 
-  glDeleteTextures(1, @textureID);
-  glDeleteTextures(1, @paletteID);
-  glDeleteVertexArrays(1, @VBQuad.VAO);
-  glDeleteBuffers(1, @VBQuad.VBOVertex);
-  glDeleteBuffers(1, @VBQuad.VBOTex);
-
+  glDeleteTextures(2, Textur_Buffers);
+  glDeleteVertexArrays(Length(VAOs), VAOs);
+  glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
   Shader.Free;
 end;
 
