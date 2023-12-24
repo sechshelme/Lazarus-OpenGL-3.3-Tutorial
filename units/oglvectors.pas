@@ -11,7 +11,7 @@ uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
 var
-  Sektoren: integer = 36 * 8;
+  Sektoren: integer = 36;
 
 
 type
