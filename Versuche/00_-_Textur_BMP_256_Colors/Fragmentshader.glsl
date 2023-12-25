@@ -2,7 +2,7 @@
 
 in vec2 UV0;
 
-uniform sampler2D myPalette;
+uniform sampler1D myPalette;
 uniform sampler2D myTexture;
 
 layout (std140) uniform UBO {
@@ -13,8 +13,8 @@ out vec4 FragColor;
 
 void main()
 {
-  vec4 index = texture2D(myTexture, UV0);
+  vec4 index = texture(myTexture, UV0);
 
-  FragColor = texture2D( myPalette, vec2(index.r, 0.5 ));
+  FragColor = texture(myPalette, index.r);
 //  FragColor = texture( myTexture, UV0 );
 }
