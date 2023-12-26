@@ -8,8 +8,11 @@
 // Daten vom Vertex-Shader
 in Data {
   vec3 Pos;
+  vec2 UV0;
   vec3 Normal;
 } DataIn;
+
+uniform sampler2D myTexture;
 
 layout (std140) uniform UBO {
   vec3  Mambient;   // Umgebungslicht
@@ -18,7 +21,6 @@ layout (std140) uniform UBO {
   float Mshininess; // Glanz
   mat4 ModelMatrix; // Matrix des Modeles, ohne Frustum-Beeinflussung.
   mat4 Matrix;      // Matrix für die Drehbewegung und Frustum.
-  int   size;
 };
 
 out vec4 outColor;
@@ -40,8 +42,8 @@ vec3 Light(in vec3 p, in vec3 n) {
   return (Mambient * Lambient) + diffuse + specular;
 }
 
-void main(void)
-{
-  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0);
+void main(void) {
+  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0) + (vec4(1,1,1,1)- texture(myTexture, DataIn.UV0));;
+//  outColor = texture(myTexture, DataIn.UV0);;
 }
 

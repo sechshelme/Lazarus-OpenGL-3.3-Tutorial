@@ -121,7 +121,7 @@ begin
     WriteLn('img Fehler');
   end;
 
-  glGenTextures(2, Textur_Buffers);
+  glGenTextures(Length(Textur_Buffers), Textur_Buffers);
 
   glBindTexture(GL_TEXTURE_1D, Textur_Buffers[tbPalette]);
   glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -168,7 +168,7 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Timer1.Enabled := False;
 
-  glDeleteTextures(2, Textur_Buffers);
+  glDeleteTextures(Length(Textur_Buffers), Textur_Buffers);
   glDeleteVertexArrays(Length(VAOs), VAOs);
   glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
   Shader.Free;

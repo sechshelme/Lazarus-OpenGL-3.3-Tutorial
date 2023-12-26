@@ -10,9 +10,6 @@ interface
 uses
   Classes, SysUtils, dglOpenGL, oglvector;
 
-var
-  Sektoren: integer = 36;
-
 
 type
   TGlInts = array of TGLint;
@@ -29,12 +26,13 @@ type
         a, b, c: TGLfloat;
       end;
     var
-      Sectors: integer;
+      FSectors: integer;
     function Get(j, i: integer): TABC;
   public
     Tab: array of array of TABC;
     procedure SetSectors(ASectors: integer);
     property Items[j, i: integer]: TABC read Get; default;
+    property Sectors: integer read FSectors;
   end;
 
   { Tglints }
@@ -68,6 +66,7 @@ type
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
     procedure AddZylinderTexCoords;
+    procedure AddDonutTexCoords;
 
     procedure Scale(AScale: TGLfloat); overload;
     procedure Scale(const AScale: TVector2f); overload;
@@ -110,7 +109,7 @@ type
     procedure AddSphere;
     procedure AddSphereNormale;
 
-    procedure AddDonut(rd: Single=0.5);
+    procedure AddDonut(rd: single = 0.5);
     procedure AddDonutNormale;
 
     procedure Scale(AScale: TGLfloat); overload;
@@ -138,7 +137,7 @@ var
   rk, t: TGLfloat;
   j, i: integer;
 begin
-  Sectors := ASectors;
+  FSectors := ASectors;
   t := 2 * pi / ASectors;
   SetLength(Tab, ASectors + 1, ASectors div 2 + 1);
   for j := 0 to ASectors div 2 do begin
@@ -229,8 +228,9 @@ end;
 
 procedure TVectors2fHelper.AddZylinderTexCoords;
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren := SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self.Add([
       [(i + 1) / Sektoren, 1.0],
@@ -241,6 +241,53 @@ begin
       [(i + 0) / Sektoren, 0.0],
       [(i + 0) / Sektoren, 1.0]]);
   end;
+end;
+
+procedure TVectors2fHelper.AddDonutTexCoords;
+type
+  quadVector = array[0..3] of TVector2f;
+
+  procedure Quads(Vector: quadVector);// inline;
+  begin
+    Self.Add([Vector[0], Vector[1], Vector[2], Vector[0], Vector[2], Vector[3]]);
+  end;
+
+var
+  Donut: array of array of record
+    x, y, z: single;
+    end
+  = nil;
+  i, j, Sektoren: integer;
+  sx, sy,
+  pi2sek, y2: single;
+begin
+  Sektoren := SphereTab.Sectors;
+  SetLength(Donut, Sektoren + 1, Sektoren + 1);
+
+  pi2sek := Pi * 2 / Sektoren;
+
+  for i := 0 to Sektoren do begin
+    for j := 0 to Sektoren do begin
+      y2 := cos(j * pi2sek) * 1;
+      Donut[i, j].z := sin(j * pi2sek) * 1;
+      Donut[i, j].x := sin(i * pi2sek) * y2;
+      Donut[i, j].y := cos(i * pi2sek) * y2;
+    end;
+  end;
+
+  for i := 0 to Sektoren - 1 do begin
+    for j := 0 to Sektoren - 1 do begin
+      sx := 1 / Sektoren;
+      sy := 1 / Sektoren;
+
+      Quads([
+        [sx * (i + 0), sy * (j + 0)],
+        [sx * (i + 0), sy * (j + 1)],
+        [sx * (i + 1), sy * (j + 1)],
+        [sx * (i + 1), sy * (j + 0)]]);
+    end;
+  end;
+
 end;
 
 procedure TVectors2fHelper.AddFace2D(const Face: TFace2D);
@@ -461,9 +508,10 @@ end;
 
 procedure TVectors3fHelper.AddDisc;
 var
-  i: integer;
+  i, Sektoren: integer;
   t: single;
 begin
+  Sektoren := SphereTab.Sectors;
   t := 2 * pi / Sektoren;
   for i := 0 to Sektoren - 1 do begin
     self += [0.0, 0.0, 0.0,
@@ -474,8 +522,9 @@ end;
 
 procedure TVectors3fHelper.AddDiscColor(const col: TVector3f);
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren := SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self.Add([col, col, col]);
   end;
@@ -483,8 +532,9 @@ end;
 
 procedure TVectors3fHelper.AddDiscNormal;
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren := SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self += [0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0];
   end;
@@ -492,7 +542,7 @@ end;
 
 procedure TVectors3fHelper.AddZylinder;
 var
-  i: integer;
+  i, Sektoren: integer;
   t: single;
 
 type
@@ -504,6 +554,7 @@ type
   end;
 
 begin
+  Sektoren := SphereTab.Sectors;
   t := 2 * pi / Sektoren;
   for i := 0 to Sektoren - 1 do begin
     Quads([
@@ -516,8 +567,9 @@ end;
 
 procedure TVectors3fHelper.AddZylinderColor(const col: TVector3f);
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren := SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self.Add([col, col, col, col, col, col]);
   end;
@@ -526,7 +578,7 @@ end;
 
 procedure TVectors3fHelper.AddZylinderNormale;
 var
-  i: integer;
+  i, Sektoren: integer;
   t: single;
 
 type
@@ -538,6 +590,7 @@ type
   end;
 
 begin
+  Sektoren := SphereTab.Sectors;
   t := 2 * pi / Sektoren;
   for i := 0 to Sektoren - 1 do begin
     Quads([
@@ -596,7 +649,7 @@ begin
   Self.AddSphere;
 end;
 
-procedure TVectors3fHelper.AddDonut(rd:Single=0.5);
+procedure TVectors3fHelper.AddDonut(rd: single = 0.5);
 type
   quadVector = array[0..3] of TVector3f;
 
@@ -609,9 +662,10 @@ var
   Donut: array of array of record
     x, y, z: single;
     end;
-  i, j: integer;
+  i, j, Sektoren: integer;
   pi2sek, x1, y1, y2: single;
 begin
+  Sektoren := SphereTab.Sectors;
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
   pi2sek := Pi * 2 / Sektoren;
@@ -651,10 +705,12 @@ type
 var
   Donut: array of array of record
     x, y, z: single;
-    end=nil;
-  i, j: integer;
-  pi2sek,  y2: single;
+    end
+  = nil;
+  i, j, Sektoren: integer;
+  pi2sek, y2: single;
 begin
+  Sektoren := SphereTab.Sectors;
   SetLength(Donut, Sektoren + 1, Sektoren + 1);
 
   pi2sek := Pi * 2 / Sektoren;
@@ -750,5 +806,5 @@ end;
 // === Inizialisation
 
 begin
-  SphereTab.SetSectors(Sektoren);
+  SphereTab.SetSectors(36);
 end.

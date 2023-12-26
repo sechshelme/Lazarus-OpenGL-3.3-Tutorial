@@ -32,6 +32,7 @@ type
   private
     ogc: TContext;
     Shader: TShader; // Shader Klasse
+    procedure LoadTextures;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
     procedure ogcResize(Sender: TObject);
@@ -68,11 +69,12 @@ var
   UBOBuffer: TUBOBuffer;
 
   DonutVertex, DonutNormal: TVectors3f;
+  DonutTexCoors:TVectors2f;
   CubeSize: integer;
 
-var
-  Mesh_Buffers: array [(mbVBOVektor, mbVBONormal, mbUBO)] of TGLuint;
-  VAO: GLuint;
+  VAOs: array [(vaMesh)] of TGLuint;
+  Mesh_Buffers: array [(mbVBOVektor, mbVBOTexCoord, mbVBONormal, mbUBO)] of TGLuint;
+    Textur_Buffers: array [(tbTexture)] of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 
@@ -93,22 +95,45 @@ end;
 
 procedure TForm1.CalcSphere;
 begin
+  SphereTab.SetSectors(16);
+
   DonutVertex := nil;
+  DonutTexCoors := nil;
   DonutNormal := nil;
   DonutVertex.AddDonut(0.25);
+  DonutTexCoors.AddDonutTexCoords;
   DonutNormal.AddDonutNormale;
 
   WriteLn(Length(DonutVertex));
+  WriteLn(Length(DonutTexCoors));
   WriteLn(Length(DonutNormal));
 end;
+
+procedure TForm1.LoadTextures;
+var
+  pic: TPicture;
+begin
+  glGenTextures(Length(Textur_Buffers), Textur_Buffers);
+    pic := TPicture.Create;
+  pic.LoadFromFile('opengl.bmp');
+
+  glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,pic.Width, pic.Height, 0, GL_BGR, GL_UNSIGNED_BYTE, pic.Bitmap.RawImage.Data);
+
+  pic.Free;
+end;
+
+
 
 procedure TForm1.CreateScene;
 var
   UBOBuffer_ID: GLuint;
 begin
   CalcSphere;
-
-  CubeSize := 4;
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
@@ -126,7 +151,7 @@ begin
   Shader.UseProgram;
   UBOBuffer_ID := Shader.UniformBlockIndex('UBO');
 
-  glGenVertexArrays(1, @VAO);
+  glGenVertexArrays(Length(VAOs), VAOs);
   glGenBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 
   Timer1.Enabled := True;
@@ -148,8 +173,10 @@ begin
 
   glClearColor(0.15, 0.15, 0.1, 1.0);
 
+  LoadTextures;
+
   // --- Vertex-Daten für Kugel
-  glBindVertexArray(VAO);
+  glBindVertexArray(VAOs[vaMesh]);
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
@@ -157,17 +184,21 @@ begin
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
+  // TexturCoords
+  glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOTexCoord]);
+  glBufferData(GL_ARRAY_BUFFER, DonutTexCoors.Size, DonutTexCoors.Ptr, GL_STATIC_DRAW);
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
   glBufferData(GL_ARRAY_BUFFER, DonutNormal.Size, DonutNormal.Ptr, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
 
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
-var
-  scal: single;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
@@ -176,23 +207,17 @@ begin
 
   Shader.UseProgram;
 
-  glBindVertexArray(VAO);
-
-  if CubeSize > 1 then begin
-    scal := 80 / (CubeSize * 2 + 1);
-  end else begin
-    scal := 80;
-  end;
+  glBindVertexArray(VAOs[vaMesh]);
 
   UBOBuffer.size := CubeSize;
 
   UBOBuffer.Matrix.ModelMatrix.Identity;
-  UBOBuffer.Matrix.ModelMatrix.Scale(scal);
+  UBOBuffer.Matrix.ModelMatrix.Scale(60);
   UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix;
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, DonutVertex.Count, CubeSize * CubeSize * CubeSize);
+  glDrawArrays(GL_TRIANGLES, 0, DonutVertex.Count);
 
   ogc.SwapBuffers;
 end;
@@ -206,7 +231,7 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   Shader.Free;
 
-  glDeleteVertexArrays(1, @VAO);
+  glDeleteVertexArrays(Length(VAOs), VAOs);
   glDeleteBuffers(Length(Mesh_Buffers), Mesh_Buffers);
 end;
 

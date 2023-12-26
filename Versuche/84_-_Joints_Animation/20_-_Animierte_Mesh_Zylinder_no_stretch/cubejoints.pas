@@ -48,8 +48,9 @@ end;
 
 procedure TJointIDsHelper.AddDisc(pri: integer);
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren:=SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self += [pri, pri, pri];
   end;
@@ -57,8 +58,9 @@ end;
 
 procedure TJointIDsHelper.AddZylinder(pri, sek: integer);
 var
-  i: integer;
+  i, Sektoren: integer;
 begin
+  Sektoren:=SphereTab.Sectors;
   for i := 0 to Sektoren - 1 do begin
     Self += [sek, pri, pri, sek, pri, sek];
   end;
