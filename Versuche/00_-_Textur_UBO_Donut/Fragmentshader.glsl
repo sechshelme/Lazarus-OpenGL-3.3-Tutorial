@@ -12,7 +12,7 @@ in Data {
   vec3 Normal;
 } DataIn;
 
-uniform sampler2D myTexture;
+uniform sampler2D Texture;
 
 layout (std140) uniform UBO {
   vec3  Mambient;   // Umgebungslicht
@@ -43,7 +43,7 @@ vec3 Light(in vec3 p, in vec3 n) {
 }
 
 void main(void) {
-  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0) + (vec4(1,1,1,1)- texture(myTexture, DataIn.UV0));;
+  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0) + (vec4(1,1,1,1)- texture(Texture, DataIn.UV0));;
 //  outColor = texture(myTexture, DataIn.UV0);;
 }
 

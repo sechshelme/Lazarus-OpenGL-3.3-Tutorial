@@ -63,7 +63,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self, True, 3, 3);
+  ogc := TContext.Create(Self, True);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
@@ -99,7 +99,7 @@ begin
 
   RotMatrix.Identity;
   ScaleMatrix.Identity;
-  ScaleMatrix.Scale(0.7);
+  ScaleMatrix.Scale(0.8);
 
   // --- vertex-Buffer
   glGenVertexArrays(Length(VAOs), VAOs);

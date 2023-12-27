@@ -95,13 +95,14 @@ end;
 
 procedure TForm1.CalcSphere;
 begin
-  SphereTab.SetSectors(16);
+//  SphereTab.SetSectors(16);
 
   DonutVertex := nil;
   DonutTexCoors := nil;
   DonutNormal := nil;
   DonutVertex.AddDonut(0.25);
   DonutTexCoors.AddDonutTexCoords;
+  DonutTexCoors.scale(2);
   DonutNormal.AddDonutNormale;
 
   WriteLn(Length(DonutVertex));
@@ -149,6 +150,8 @@ begin
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   Shader.LinkProgramm;
   Shader.UseProgram;
+
+  glUniform1i(Shader.UniformLocation('Texture'), 0);
   UBOBuffer_ID := Shader.UniformBlockIndex('UBO');
 
   glGenVertexArrays(Length(VAOs), VAOs);

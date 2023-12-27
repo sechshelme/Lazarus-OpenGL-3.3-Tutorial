@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
-    <Version Value="10"/>
+    <Version Value="12"/>
     <BuildModes Active="Default"/>
     <Units Count="11">
       <Unit0>
@@ -56,7 +56,7 @@
         <CursorPos X="38" Y="3"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="C_2B_2B"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
@@ -64,7 +64,7 @@
         <CursorPos X="89" Y="8"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="C_2B_2B"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -91,8 +91,8 @@
         <Filename Value="../../units/oglshader.pas"/>
         <UnitName Value="oglShader"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="324"/>
-        <CursorPos X="100" Y="344"/>
+        <TopLine Value="315"/>
+        <CursorPos X="100" Y="314"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit10>
@@ -219,5 +219,9 @@
         <Caret Line="31" Column="17"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

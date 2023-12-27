@@ -8,7 +8,8 @@ uses
   Classes, SysUtils, Controls, dglOpenGL, OpenGLContext;
 
 type
-  TContext = class(TCustomOpenGLControl)
+//  TContext = class(TCustomOpenGLControl)
+    TContext = class(TOpenGLControl)
   public
     constructor Create(TheOwner: TWinControl; AAutoResize: boolean = True; AMajorVersion: integer = 3; AMinorVersion: integer = 3);
   end;

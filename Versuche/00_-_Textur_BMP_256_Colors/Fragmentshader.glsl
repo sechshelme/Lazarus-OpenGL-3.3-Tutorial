@@ -16,5 +16,4 @@ void main()
   vec4 index = texture(myTexture, UV0);
 
   FragColor = texture(myPalette, index.r);
-//  FragColor = texture( myTexture, UV0 );
 }
