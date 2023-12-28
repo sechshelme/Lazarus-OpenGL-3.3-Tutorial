@@ -18,6 +18,7 @@ layout (std140) uniform UBO {
   float Mshininess; // Glanz
   mat4 ModelMatrix; // Matrix des Modeles, ohne Frustum-Beeinflussung.
   mat4 Matrix;      // Matrix für die Drehbewegung und Frustum.
+  int CubeEnabled;
 };
 
 void main(void)

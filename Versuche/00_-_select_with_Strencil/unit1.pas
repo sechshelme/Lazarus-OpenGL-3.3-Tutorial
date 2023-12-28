@@ -34,11 +34,13 @@ type
     Shader: TShader; // Shader Klasse
     procedure LoadTextures;
     procedure CreateScene;
+    procedure CalcCubePos;
     procedure ogcDrawScene(Sender: TObject);
+    procedure ogcMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: integer);
     procedure ogcResize(Sender: TObject);
 
-    procedure CalcSphere;
-  public
+    procedure CalcCube;
   end;
 
 var
@@ -47,6 +49,9 @@ var
 implementation
 
 {$R *.lfm}
+
+const
+  CubeCount = 20;
 
 type
   TUBOBuffer = record
@@ -62,21 +67,27 @@ type
       ModelMatrix: Tmat4x4;
       Matrix: Tmat4x4;
       end;
-    size: TGLint;
+    CubeEnabled: TGLint;
   end;
 
 var
   UBOBuffer: TUBOBuffer;
 
-  DonutVertex, DonutNormal: TVectors3f;
-  DonutTexCoors:TVectors2f;
+  CubeVertex, CubeNormal: TVectors3f;
+  CubeTexCoors: TVectors2f;
   CubeSize: integer;
 
   VAOs: array [(vaMesh)] of TGLuint;
   Mesh_Buffers: array [(mbVBOVektor, mbVBOTexCoord, mbVBONormal, mbUBO)] of TGLuint;
-    Textur_Buffers: array [(tbTexture)] of TGLuint;
+  Textur_Buffers: array [(tbTexture)] of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
+
+  CubePos: array[0..CubeCount - 1] of record
+    Enabled: TGLint;
+    pos: TVector3f;
+    mat: Tmat4x4;
+    end;
 
   { TForm1 }
 
@@ -85,29 +96,46 @@ begin
   //remove+
   Width := 340;
   Height := 240;
+  ClientWidth := 600;
+  ClientHeight := 600;
   //remove-
+  Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
   ogc.OnResize := @ogcResize;   // neues Ereigniss
+  ogc.OnMouseDown := @ogcMouseDown;
 
   CreateScene;
 end;
 
-procedure TForm1.CalcSphere;
+procedure TForm1.CalcCubePos;
+
+  function Rnd: single;
+  const
+    scale = 5;
+  begin
+    Result := (-0.5 + Random) * scale;
+  end;
+
+var
+  i: integer;
 begin
-//  SphereTab.SetSectors(16);
+  for i := 0 to Length(CubePos) - 1 do begin
+    CubePos[i].pos := [Rnd, Rnd, Rnd];
+    CubePos[i].mat.Identity;
+    CubePos[i].Enabled := 0;
+  end;
+end;
 
-  DonutVertex := nil;
-  DonutTexCoors := nil;
-  DonutNormal := nil;
-  DonutVertex.AddCube;
-  DonutTexCoors.AddCubeTexCoords;
-  DonutTexCoors.scale(2);
-  DonutNormal.AddCubeNormale;
-
-  WriteLn(Length(DonutVertex));
-  WriteLn(Length(DonutTexCoors));
-  WriteLn(Length(DonutNormal));
+procedure TForm1.CalcCube;
+begin
+  CubeVertex := nil;
+  CubeTexCoors := nil;
+  CubeNormal := nil;
+  CubeVertex.AddCube;
+  CubeTexCoors.AddCubeTexCoords;
+  CubeTexCoors.scale([2, 3]);
+  CubeNormal.AddCubeNormale;
 end;
 
 procedure TForm1.LoadTextures;
@@ -115,26 +143,25 @@ var
   pic: TPicture;
 begin
   glGenTextures(Length(Textur_Buffers), Textur_Buffers);
-    pic := TPicture.Create;
+  pic := TPicture.Create;
   pic.LoadFromFile('opengl.bmp');
 
   glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,pic.Width, pic.Height, 0, GL_BGR, GL_UNSIGNED_BYTE, pic.Bitmap.RawImage.Data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pic.Width, pic.Height, 0, GL_BGR, GL_UNSIGNED_BYTE, pic.Bitmap.RawImage.Data);
 
   pic.Free;
 end;
-
-
 
 procedure TForm1.CreateScene;
 var
   UBOBuffer_ID: GLuint;
 begin
-  CalcSphere;
+  CalcCube;
+  CalcCubePos;
 
   WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
@@ -144,6 +171,14 @@ begin
 
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
+  // Stencil
+  glEnable(GL_STENCIL_TEST);
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  glClearColor(0.15, 0.15, 0.1, 1.0);
+
 
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
@@ -166,15 +201,12 @@ begin
     specular := vec3(0.73, 0.63, 0.63);
     shininess := 76.8;
   end;
-  UBOBuffer.size := 9;
 
   glBindBuffer(GL_UNIFORM_BUFFER, Mesh_Buffers[mbUBO]);
   glBufferData(GL_UNIFORM_BUFFER, SizeOf(TUBOBuffer), nil, GL_DYNAMIC_DRAW);
 
   glUniformBlockBinding(Shader.ID, UBOBuffer_ID, 0);
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, Mesh_Buffers[mbUBO]);
-
-  glClearColor(0.15, 0.15, 0.1, 1.0);
 
   LoadTextures;
 
@@ -183,46 +215,93 @@ begin
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
-  glBufferData(GL_ARRAY_BUFFER, DonutVertex.Size, DonutVertex.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, CubeVertex.Size, CubeVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
   // TexturCoords
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOTexCoord]);
-  glBufferData(GL_ARRAY_BUFFER, DonutTexCoors.Size, DonutTexCoors.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, CubeTexCoors.Size, CubeTexCoors.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
-  glBufferData(GL_ARRAY_BUFFER, DonutNormal.Size, DonutNormal.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, CubeNormal.Size, CubeNormal.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
 
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
+var
+  i: integer;
+  m: Tmat4x4;
 begin
-  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
   glEnable(GL_CULL_FACE);
   glCullface(GL_BACK);
+
+  // Stencil
+  glClearStencil(0);
+  glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT or GL_STENCIL_BUFFER_BIT);
 
   Shader.UseProgram;
 
   glBindVertexArray(VAOs[vaMesh]);
 
-  UBOBuffer.size := CubeSize;
+  for i := 0 to Length(CubePos) - 1 do begin
+    UBOBuffer.Matrix.ModelMatrix.Identity;
+    UBOBuffer.Matrix.ModelMatrix.Scale(10);
 
-  UBOBuffer.Matrix.ModelMatrix.Identity;
-  UBOBuffer.Matrix.ModelMatrix.Scale(60);
-  UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix;
+    m.Identity;
+    m.Translate(CubePos[i].pos);
+    m := m * CubePos[i].mat;
 
-  UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
-  glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  glDrawArrays(GL_TRIANGLES, 0, DonutVertex.Count);
+    UBOBuffer.Matrix.ModelMatrix := ModelMatrix * UBOBuffer.Matrix.ModelMatrix * m;
+    UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * UBOBuffer.Matrix.ModelMatrix;
+
+    UBOBuffer.CubeEnabled:=CubePos[i].Enabled;
+
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
+
+    // Stencil
+    glStencilFunc(GL_ALWAYS, i + 1, -1);
+
+    glDrawArrays(GL_TRIANGLES, 0, CubeVertex.Count);
+  end;
 
   ogc.SwapBuffers;
+end;
+
+procedure TForm1.ogcMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
+var
+  col: array[0..3] of byte;
+  depth: TGLfloat;
+  index: TGLint;
+begin
+  y := ClientHeight - y;
+
+  WriteLn('x: ', x, '  y: ', y);
+  glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, @col);
+  WriteLn('r: ', col[0], '  g: ', col[1], '  b: ', col[2], '  a: ', col[3]);
+
+  glReadPixels(x, y, 1, 1, GL_BGRA, GL_UNSIGNED_BYTE, @col);
+  WriteLn('r: ', col[0], '  g: ', col[1], '  b: ', col[2], '  a: ', col[3]);
+
+  glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, @depth);
+  WriteLn('depth: ', depth: 4: 2);
+
+  glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, @index);
+  WriteLn('stencil: ', index);
+
+  if index > 0 then begin
+    CubePos[index - 1].Enabled := not CubePos[index - 1].Enabled;
+  end;
+
+  WriteLn();
 end;
 
 procedure TForm1.ogcResize(Sender: TObject);
@@ -250,10 +329,17 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
+var
+  i: integer;
 begin
   if MenuItemRotateCube.Checked then begin
-    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
-    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+    //    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
+    //    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+
+    for i := 0 to Length(CubePos) - 1 do begin
+      CubePos[i].mat.RotateA((i + 1) / CubeCount / i);
+      CubePos[i].mat.RotateB((i + 1) / CubeCount / i);
+    end;
   end;
 
   ogc.Invalidate;

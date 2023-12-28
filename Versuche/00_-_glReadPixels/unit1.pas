@@ -237,6 +237,7 @@ var
   depth:TGLfloat;
   index:TGLint;
 begin
+  y:=ClientHeight-y;
   WriteLn('x: ',x,'  y: ',y);
   glReadPixels(x,y,1,1,GL_RGBA,GL_UNSIGNED_BYTE, @col);
   WriteLn('r: ',col[0],'  g: ',col[1],'  b: ',col[2],'  a: ',col[3]);

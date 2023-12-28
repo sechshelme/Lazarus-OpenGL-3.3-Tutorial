@@ -21,6 +21,7 @@ layout (std140) uniform UBO {
   float Mshininess; // Glanz
   mat4 ModelMatrix; // Matrix des Modeles, ohne Frustum-Beeinflussung.
   mat4 Matrix;      // Matrix für die Drehbewegung und Frustum.
+  int CubeEnabled;
 };
 
 out vec4 outColor;
@@ -43,7 +44,11 @@ vec3 Light(in vec3 p, in vec3 n) {
 }
 
 void main(void) {
-  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0) + (vec4(1,1,1,1)- texture(Texture, DataIn.UV0));;
-//  outColor = texture(myTexture, DataIn.UV0);;
+  vec4 c = vec4(1.0, 1.0, 1.0, 1.0) - texture(Texture, DataIn.UV0);
+  if (CubeEnabled != 0) {
+    c.rgb += vec3(0.7, 0.7, 0.7);
+  }
+
+  outColor = vec4(Light(Lposition - DataIn.Pos, DataIn.Normal), 1.0) + c;
 }
 
