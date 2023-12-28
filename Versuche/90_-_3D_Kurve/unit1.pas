@@ -84,22 +84,22 @@ end;
 
 procedure TForm1.CalcSphere;
 const
-  size = 500;
+  tileCount = 200;
 var
   x, y: integer;
 begin
   DonutVertex := nil;
-  for x := 0 to size - 1 do begin
-    for y := 0 to size - 1 do begin
+  for x := 0 to tileCount - 0 do begin
+    for y := 0 to tileCount - 1 do begin
       DonutVertex.Add([x, y, 0]);
       DonutVertex.Add([x, y + 1, 0]);
 
-      DonutVertex.Add([x, y, 0]);
-      DonutVertex.Add([x + 1, y, 0]);
+      DonutVertex.Add([y, x, 0]);
+      DonutVertex.Add([y + 1, x, 0]);
     end;
   end;
-  DonutVertex.translate([-size / 2, -size / 2, 0]);
-  DonutVertex.scale(1 / size);
+  DonutVertex.translate([-tileCount / 2, -tileCount / 2, 0]);
+  DonutVertex.scale(1 / tileCount);
 end;
 
 procedure TForm1.LoadTextures;

@@ -1,0 +1,3 @@
+"Auch Float"
+
+Die Textur-Daten können auch als Float vorliegen.
