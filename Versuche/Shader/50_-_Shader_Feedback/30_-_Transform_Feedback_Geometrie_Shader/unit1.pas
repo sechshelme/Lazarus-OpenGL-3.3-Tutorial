@@ -109,7 +109,7 @@ begin
   Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
   glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   matrix_ID := Shader.UniformLocation('matrix');
   Shader.UseProgram;
   //code-

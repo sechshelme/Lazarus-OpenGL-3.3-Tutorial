@@ -105,7 +105,7 @@ begin
   // Sagen, das man einen Interleaved Feedback will
   glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
 
-  shader.LinkProgramm;
+  shader.LinkProgram;
   shader.UseProgram;
 
   // --- VAO und VBO für den Input
@@ -186,7 +186,7 @@ begin
   // Sagen, das man einen Seperator Feedback will
   glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_SEPARATE_ATTRIBS);
 
-  shader.LinkProgramm;
+  shader.LinkProgram;
   shader.UseProgram;
 
   // --- VAO und VBO für den Input

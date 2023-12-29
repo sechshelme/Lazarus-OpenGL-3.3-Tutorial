@@ -66,7 +66,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
 
   glClearColor(0.6, 0.6, 0.4, 1.0);

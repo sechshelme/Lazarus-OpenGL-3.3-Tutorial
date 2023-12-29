@@ -77,7 +77,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadSPRIVShaderObjectFromFile(GL_VERTEX_SHADER, 'vert.spv');
   Shader.LoadSPRIVShaderObjectFromFile(GL_FRAGMENT_SHADER, 'frag.spv');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
 
   glGenVertexArrays(1, @VBTriangle.VAO);

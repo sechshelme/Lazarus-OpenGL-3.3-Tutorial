@@ -44,14 +44,17 @@ implementation
 {$R *.lfm}
 
 const
-  jointCount = 6;
+  cubeSize = 2;
+  boneCount = 10;
+  boneSize = 12 / boneCount;
+  jointCount = boneCount + 1;
   isCylinder: boolean = False;
-  is3Darm: boolean = True;
+  is3Darm: boolean = False;
 
 type
   TUBOBuffer = record
     WorldMatrix, ModelMatrix: Tmat4x4;
-    JointMatrix: array [0..(jointCount + 1) * 6 - 1] of Tmat4x4;
+    JointMatrix: array [0..jointCount * 6 - 1] of Tmat4x4;
   end;
 
 var
@@ -75,42 +78,53 @@ end;
 
 procedure TForm1.CreatJointsMatrix;
 var
-  i: integer;
-  angele: single;
-  matrixs: array of Pmat4x4 = (@mat4x4Identity, @mat4x4B180, @mat4x4B270, @mat4x4B90, @mat4x4A90, @mat4x4A270);
+  i, j, ofs: integer;
+  sc, angeleu, transSize, angelem: single;
+  globalMatrix: Tmat4x4;
+  rotMatrix: array[0..5] of Tmat4x4;
 
 begin
-  for i := 0 to 5 do begin
-    UBOBuffer.JointMatrix[i] := matrixs[i]^;
-  end;
+  rotMatrix[0] := mat4x4Identity;
+  rotMatrix[1] := mat4x4B180;
+  rotMatrix[2] := mat4x4C90 * mat4x4B90;
+  rotMatrix[3] := mat4x4C90 * mat4x4B270;
+  rotMatrix[4] := mat4x4C90 * mat4x4A90;
+  rotMatrix[5] := mat4x4C270 * mat4x4A90;
 
-  for i := 6 to Length(UBOBuffer.JointMatrix) - 1 do begin
-    UBOBuffer.JointMatrix[i] := UBOBuffer.JointMatrix[i - 6];
+  for j := 0 to 5 do begin
+    globalMatrix.Identity;
+    for i := 0 to jointCount - 1 do begin
+      ofs := j * jointCount + i;
+      transSize := cubeSize / 2 + i * boneSize;
+      //      angeleu := sin(timeCounter / 100 * i) / 2.5;
+      //angeleu := sin(timeCounter / 100 * (i / boneCount)) / boneCount * 3;
 
-    UBOBuffer.JointMatrix[i].TranslateLocalspace(0.0, 0.0, 2.0);
-    angele := sin(timeCounter / 400 * i) / 1.2;
+      angeleu := sin(timeCounter / 400 * i * 6) / 2.4;
 
-    case i mod 6 of
-      0, 1: begin
-        UBOBuffer.JointMatrix[i].RotateA(angele);
-        if is3Darm then  begin
-          UBOBuffer.JointMatrix[i].RotateB(angele * 1.2);
-        end;
+
+      angelem := angeleu * 2;
+
+      UBOBuffer.JointMatrix[ofs] := globalMatrix;
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, transSize);
+      UBOBuffer.JointMatrix[ofs].RotateB(angeleu);
+
+      globalMatrix.TranslateLocalspace(0.0, 0.0, transSize);
+      globalMatrix.RotateB(angelem);
+      if is3Darm then  begin
+        UBOBuffer.JointMatrix[ofs].RotateA(angeleu * 1.2);
+        globalMatrix.RotateA(angelem * 1.2);
       end;
-      2, 3: begin
-        UBOBuffer.JointMatrix[i].RotateB(angele);
-        if is3Darm then  begin
-          UBOBuffer.JointMatrix[i].RotateC(angele * 1.2);
-        end;
-      end;
-      4, 5: begin
-        UBOBuffer.JointMatrix[i].RotateC(angele);
-        if is3Darm then  begin
-          UBOBuffer.JointMatrix[i].RotateA(angele * 1.2);
-        end;
-      end;
+
+      sc := 1 / cos(angeleu);
+      UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
+//      UBOBuffer.JointMatrix[ofs].Scale(0.95);
+//      UBOBuffer.JointMatrix[ofs].Scale(0.5,0.5,1.0);
+      UBOBuffer.JointMatrix[ofs] := rotMatrix[j] * UBOBuffer.JointMatrix[ofs];
+
+      globalMatrix.TranslateLocalspace(0.0, 0.0, -transSize);
+
     end;
-    UBOBuffer.JointMatrix[i].Scale(0.95);
   end;
 end;
 
@@ -120,72 +134,71 @@ const
 var
   tmpCube: TVectors3f;
   ofs: SizeInt;
-  i: integer;
-var
+  i, j: integer;
+  transSize: single;
+
   cubeVertex: TVectors3f = nil;
   cubeColor: TVectors3f = nil;
   cubeNormale: TVectors3f = nil;
   cubeJointIDs: TJointIDs = nil;
-  m: Tmat4x4;
 begin
-  m.Identity;
-  m.RotateC(pi / 4);
-  m.WriteMatrix;
-
 
   // center
   cubeVertex.AddCube;
-  cubeVertex.scale(2);
+  cubeVertex.scale(cubeSize);
   cubeColor.AddCubeColor([0.5, 0.5, 0.1]);
   cubeNormale.AddCubeNormale;
   cubeJointIDs.AddCube(-1, -1);
 
   // Arme
-  for i := 0 to Length(UBOBuffer.JointMatrix) - 6 - 1 do begin
-    tmpCube := nil;
-    if isCylinder then begin
-      tmpCube.AddZylinder;
-      tmpCube.Scale([1, 1, 0]);
-      tmpCube.Translate([0.0, 0.0, 1.0]);
-      cubeVertex.Add(tmpCube);
-      cubeColor.AddZylinderColor(colors[(i div 6) mod 6]^);
-      cubeNormale.AddZylinderNormale;
-      cubeJointIDs.AddZylinder(i, i + 6);
-    end else begin
-      tmpCube.AddCubeLateral;
-      tmpCube.Scale([1, 1, 0]);
-      tmpCube.Translate([0.0, 0.0, 1.0]);
-      cubeVertex.Add(tmpCube);
-      cubeColor.AddCubeLateralColor(colors[(i div 6) mod 6]^);
-      cubeNormale.AddCubeLateralNormale;
-      cubeJointIDs.AddCubeLateral(i, i + 6);
-    end;
-  end;
+  for j := 0 to 5 do begin
+    for i := 0 to boneCount - 1 do begin
+      ofs := j * jointCount + i;
+      tmpCube := nil;
+      transSize := boneSize / 2 + cubeSize / 2 + boneSize * i;
 
-  // Abschluss
-  for i := 0 to 5 do begin
+      if isCylinder then begin
+        tmpCube.AddZylinder;
+        tmpCube.Scale([1, 1, boneSize]);
+        tmpCube.Translate([0.0, 0.0, transSize]);
+        cubeVertex.Add(tmpCube);
+        cubeColor.AddZylinderColor(colors[i mod 6]^);
+        cubeNormale.AddZylinderNormale;
+        cubeJointIDs.AddZylinder(ofs, ofs + 1);
+      end else begin
+        tmpCube.AddCubeLateral;
+        tmpCube.Scale([1, 1, boneSize]);
+        tmpCube.Translate([0.0, 0.0, transSize]);
+        cubeVertex.Add(tmpCube);
+        cubeColor.AddCubeLateralColor(colors[i mod 6]^);
+        cubeNormale.AddCubeLateralNormale;
+        cubeJointIDs.AddCubeLateral(ofs, ofs + 1);
+      end;
+    end;
+
+    // Abschluss
     tmpCube := nil;
-    ofs := i + Length(UBOBuffer.JointMatrix) - 6;
     if isCylinder then begin
       tmpCube.AddDisc;
-      tmpCube.Translate([0.0, 0.0, 1.0]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize / 2]);
       cubeVertex.Add(tmpCube);
 
-      cubeColor.AddDiscColor(colors[((ofs - 6) div 6) mod 6]^);
+      cubeColor.AddDiscColor(colors[(boneCount - 1) mod 6]^);
       cubeNormale.AddDiscNormal;
-      cubeJointIDs.AddDisc(ofs);
+      cubeJointIDs.AddDisc(ofs + 1);
     end else begin
       tmpCube.AddRectangle;
-      tmpCube.Translate([0.0, 0.0, 1.0]);
+      tmpCube.Translate([0.0, 0.0, boneCount * boneSize + cubeSize / 2]);
       cubeVertex.Add(tmpCube);
 
-      cubeColor.AddRectangleColor(colors[((ofs - 6) div 6) mod 6]^);
+      cubeColor.AddRectangleColor(colors[(boneCount - 1) mod 6]^);
       cubeNormale.AddRectangleNormale;
-      cubeJointIDs.AddRectangle(ofs);
+      cubeJointIDs.AddRectangle(ofs + 1);
     end;
   end;
 
-  //  VAO Buffer
+
+  // VAO Buffer
   glBindVertexArray(VAO);
 
   // Vektor
@@ -224,7 +237,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
 
   // --- Buffer anlegen
@@ -324,12 +337,6 @@ end;
 <b>Vertex-Shader:</b>
 *)
 //includeglsl Vertexshader.glsl
-//lineal
-
-(*
-<b>Geometrie-Shader:</b>
-*)
-//includeglsl Geometrieshader.glsl
 //lineal
 
 (*

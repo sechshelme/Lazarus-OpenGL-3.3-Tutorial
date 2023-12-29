@@ -71,7 +71,7 @@ begin
   // Feedback
   glTransformFeedbackVaryings(shader.ID, Length(feedbackVarings), PPGLchar(feedbackVarings), GL_INTERLEAVED_ATTRIBS);
 
-  shader.LinkProgramm;
+  shader.LinkProgram;
   shader.UseProgram;
 end;
 

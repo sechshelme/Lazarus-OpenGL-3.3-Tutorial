@@ -98,7 +98,7 @@ begin
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   //code-
 

@@ -130,7 +130,7 @@ begin
   Shader.LoadShaderObjectFromFile(GL_TESS_CONTROL_SHADER, 'tesselationcontrolshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   with Shader do begin
     Uniform_ID.ol := UniformLocation('TLO');

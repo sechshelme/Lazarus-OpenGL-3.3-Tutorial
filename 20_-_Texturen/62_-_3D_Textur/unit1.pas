@@ -101,7 +101,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   glUniform1i(Shader.UniformLocation('Sampler'), 0);
 

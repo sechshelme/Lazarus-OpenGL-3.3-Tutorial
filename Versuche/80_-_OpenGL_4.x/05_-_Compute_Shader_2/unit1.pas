@@ -88,7 +88,7 @@ begin
   InitOpenGLDebug;
   Shader := TShader.Create;
   Shader.LoadShaderObjectFromFile(GL_COMPUTE_SHADER, 'compute.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   //code-
 

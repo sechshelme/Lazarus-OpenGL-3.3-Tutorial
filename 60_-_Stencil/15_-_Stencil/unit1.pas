@@ -174,7 +174,7 @@ begin
   Shader := TShader.Create;
   Shader.LoadShaderObject(GL_VERTEX_SHADER, stencil_testing_Vertex);
   Shader.LoadShaderObject(GL_FRAGMENT_SHADER, stencil_testing_Fragment);
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   with Shader do begin
     ProMatrix_ID := UniformLocation('projection');
@@ -185,7 +185,7 @@ begin
   ShaderSingelColor := TShader.Create;
   ShaderSingelColor.LoadShaderObject(GL_VERTEX_SHADER, stencil_testing_Vertex);
   ShaderSingelColor.LoadShaderObject(GL_FRAGMENT_SHADER, stencil_single_color_Fragment);
-  ShaderSingelColor.LinkProgramm;
+  ShaderSingelColor.LinkProgram;
   ShaderSingelColor.UseProgram;
   with ShaderSingelColor do begin
     ProMatrix_ID := UniformLocation('projection');

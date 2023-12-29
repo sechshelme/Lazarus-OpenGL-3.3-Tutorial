@@ -129,7 +129,7 @@ begin
   Shader.LoadShaderObjectFromFile(GL_TESS_EVALUATION_SHADER, 'Tesselationshader.glsl');
   //  Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'geometrie.glsl');
   Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-  Shader.LinkProgramm;
+  Shader.LinkProgram;
   Shader.UseProgram;
   //code-
 

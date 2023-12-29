@@ -27,7 +27,7 @@ type
     procedure LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
     procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
-    procedure LinkProgramm;
+    procedure LinkProgram;
     procedure UseProgram;
 
     function UniformLocation(ch: PGLChar): GLint;
@@ -145,7 +145,7 @@ Shader := TShader.Create;
 Shader.LoadShaderObjectFromFile(GL_VERTEX_SHADER, 'Vertexshader.glsl');
 Shader.LoadShaderObjectFromFile(GL_GEOMETRY_SHADER, 'Geometrieshader.glsl');
 Shader.LoadShaderObjectFromFile(GL_FRAGMENT_SHADER, 'Fragmentshader.glsl');
-Shader.LinkProgramm;
+Shader.LinkProgram;
 Shader.UseProgram;
  *)
 
@@ -175,7 +175,7 @@ begin
     LoadShaderObject(GL_GEOMETRY_SHADER, sa[1]);
     LoadShaderObject(GL_FRAGMENT_SHADER, sa[2]);
   end;
-  LinkProgramm;
+  LinkProgram;
 end;
 
 procedure TShader.LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
@@ -244,7 +244,7 @@ begin
   LoadSPRIVShaderObject(shaderType, FileToStr(ShaderFile));
 end;
 
-procedure TShader.LinkProgramm;
+procedure TShader.LinkProgram;
 var
   pc: array of char = nil;
   ErrorStatus: boolean;
