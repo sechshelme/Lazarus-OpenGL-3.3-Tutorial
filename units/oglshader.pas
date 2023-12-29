@@ -13,9 +13,6 @@ uses
   oglDebug;
 
 type
-
-  { TShader }
-
   TShader = class(TObject)
   private
     FProgramObject: TGLint;
@@ -31,12 +28,11 @@ type
     procedure LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
     procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LinkProgramm;
-
+    procedure UseProgram;
 
     function UniformLocation(ch: PGLChar): GLint;
     function UniformBlockIndex(ch: PGLChar): GLuint;
     function AttribLocation(ch: PGLChar): GLint;
-    procedure UseProgram;
     function ShaderVersion: string;
   end;
 
