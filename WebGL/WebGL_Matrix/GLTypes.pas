@@ -10,12 +10,12 @@ type
 
 type
 	TVec2 = record
-		x, y: TScalar;
+		x, y: GLfloat;
 	end;
 
 type
 	TVec3 = record
-		x, y, z: TScalar;
+		x, y, z: GLfloat;
 	end;
 
 type

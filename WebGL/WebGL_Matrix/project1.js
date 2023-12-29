@@ -2017,105 +2017,16 @@ rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],funct
     pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
   };
 },[]);
-rtl.module("MemoryBuffer",["System","JS"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TMemoryBuffer",pas.System.TObject,function () {
-    this.$init = function () {
-      pas.System.TObject.$init.call(this);
-      this.byteBuffer = null;
-      this.byteOffset = 0;
-      this.floatBuffer = null;
-    };
-    this.$final = function () {
-      this.byteBuffer = undefined;
-      this.floatBuffer = undefined;
-      pas.System.TObject.$final.call(this);
-    };
-    this.Create$1 = function (size) {
-      this.byteBuffer = new Uint8Array(size);
-      return this;
-    };
-    var kElementSize = 4;
-    this.AddFloats = function (Count, Data) {
-      var floatOffset = 0;
-      floatOffset = rtl.trunc(this.byteOffset / 4);
-      if (this.floatBuffer === null) {
-        this.floatBuffer = new Float32Array(this.byteBuffer.buffer,0,rtl.trunc(this.byteBuffer.byteLength / 4));
-      };
-      this.floatBuffer.set(Data,floatOffset);
-      this.byteOffset = this.byteOffset + (Count * 4);
-    };
-  });
-});
 rtl.module("webgl",["System","JS","Web"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("GLUtils",["System","MemoryBuffer","browserconsole","webgl","JS","Types","SysUtils"],function () {
+rtl.module("GLUtils",["System","browserconsole","webgl","JS","Types","SysUtils"],function () {
   "use strict";
   var $mod = this;
   this.gl = null;
 });
-rtl.module("GLTypes",["System","webgl","SysUtils"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.recNewT(this,"TVec2",function () {
-    this.x = 0.0;
-    this.y = 0.0;
-    this.$eq = function (b) {
-      return (this.x === b.x) && (this.y === b.y);
-    };
-    this.$assign = function (s) {
-      this.x = s.x;
-      this.y = s.y;
-      return this;
-    };
-  });
-  rtl.recNewT(this,"TVec3",function () {
-    this.x = 0.0;
-    this.y = 0.0;
-    this.z = 0.0;
-    this.$eq = function (b) {
-      return (this.x === b.x) && (this.y === b.y) && (this.z === b.z);
-    };
-    this.$assign = function (s) {
-      this.x = s.x;
-      this.y = s.y;
-      this.z = s.z;
-      return this;
-    };
-  });
-  this.V3 = function (x, y, z) {
-    var Result = $mod.TVec3.$new();
-    Result.x = x;
-    Result.y = y;
-    Result.z = z;
-    return Result;
-  };
-  this.V2 = function (x, y) {
-    var Result = $mod.TVec2.$new();
-    Result.x = x;
-    Result.y = y;
-    return Result;
-  };
-  this.ToFloats$1 = function (v) {
-    var Result = [];
-    Result = rtl.arraySetLength(Result,0.0,2);
-    Result[0] = v.x;
-    Result[1] = v.y;
-    return Result;
-  };
-  this.ToFloats3 = function (v) {
-    var Result = [];
-    Result = rtl.arraySetLength(Result,0.0,3);
-    Result[0] = v.x;
-    Result[1] = v.y;
-    Result[2] = v.z;
-    return Result;
-  };
-});
-rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","MemoryBuffer","GLUtils"],function () {
+rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils"],function () {
   "use strict";
   var $mod = this;
   this.TMatrix$clone = function (a) {
@@ -2156,7 +2067,7 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","MemoryBuffer","GLUtils","wglMatrix"],function () {
+rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils","wglMatrix"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TShader",pas.System.TObject,function () {
@@ -2220,7 +2131,7 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","MemoryBuffer","GLUtils","GLTypes","webgl","wglShader","wglMatrix"],function () {
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","GLUtils","webgl","wglShader","wglMatrix"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
@@ -2265,55 +2176,15 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       pas.GLUtils.gl.enableVertexAttribArray(1);
       pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,20,8);
     };
-    var GLVertex2 = rtl.recNewT(null,"",function () {
-      this.$new = function () {
-        var r = Object.create(this);
-        r.pos = pas.GLTypes.TVec2.$new();
-        r.col = pas.GLTypes.TVec3.$new();
-        return r;
-      };
-      this.$eq = function (b) {
-        return this.pos.$eq(b.pos) && this.col.$eq(b.col);
-      };
-      this.$assign = function (s) {
-        this.pos.$assign(s.pos);
-        this.col.$assign(s.col);
-        return this;
-      };
-    });
+    var vector = [-0.5,-0.5,0.5,0,0,-0.5,0.5,0,0.5,0,0.5,0.5,0,0,0.5,0.5,0.5,1,0.5,0.5,-0.5,-0.5,0.5,1,0.5,0.5,-0.5,0.5,0.5,1];
     this.InitVertexData = function () {
       var Result = null;
-      var buf = null;
-      var verts = null;
-      var v = GLVertex2.$new();
-      var i = 0;
-      verts = new Array();
-      v.pos.$assign(pas.GLTypes.V2(-0.5,-0.5));
-      v.col.$assign(pas.GLTypes.V3(0.5,0,0));
-      verts.push(GLVertex2.$clone(v));
-      v.pos.$assign(pas.GLTypes.V2(-0.5,0.5));
-      v.col.$assign(pas.GLTypes.V3(0,0.5,0));
-      verts.push(GLVertex2.$clone(v));
-      v.pos.$assign(pas.GLTypes.V2(0.5,0.5));
-      v.col.$assign(pas.GLTypes.V3(0,0,0.5));
-      verts.push(GLVertex2.$clone(v));
-      v.pos.$assign(pas.GLTypes.V2(0.5,0.5));
-      v.col.$assign(pas.GLTypes.V3(1,0.5,0.5));
-      verts.push(GLVertex2.$clone(v));
-      v.pos.$assign(pas.GLTypes.V2(-0.5,-0.5));
-      v.col.$assign(pas.GLTypes.V3(0.5,1,0.5));
-      verts.push(GLVertex2.$clone(v));
-      v.pos.$assign(pas.GLTypes.V2(0.5,-0.5));
-      v.col.$assign(pas.GLTypes.V3(0.5,0.5,1));
-      verts.push(GLVertex2.$clone(v));
-      buf = pas.MemoryBuffer.TMemoryBuffer.$create("Create$1",[20 * verts.length]);
-      for (var $l = 0, $end = verts.length - 1; $l <= $end; $l++) {
-        i = $l;
-        v.$assign(rtl.getObject(verts[i]));
-        buf.AddFloats(2,pas.GLTypes.ToFloats$1(pas.GLTypes.TVec2.$clone(v.pos)));
-        buf.AddFloats(3,pas.GLTypes.ToFloats3(pas.GLTypes.TVec3.$clone(v.col)));
-      };
-      Result = buf.byteBuffer;
+      var floatBuffer = null;
+      var byteBuffer = null;
+      byteBuffer = new Uint8Array(rtl.length(vector) * 4);
+      floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(vector));
+      floatBuffer.set(vector,0);
+      Result = byteBuffer;
       return Result;
     };
     this.Run = function () {

@@ -1,6 +1,9 @@
 unit wglMatrix;
 
 {$modeswitch typehelpers}
+{$modeswitch arrayoperators}
+//{$modeswitch multihelpers}
+{$modeswitch advancedrecords}
 
 interface
 
@@ -66,12 +69,18 @@ type
 
   t = array[0..15] of GLfloat;
   t2 = JSValue;
-  ta = array of GLfloat;
+  ta = TSingleArray;
 var
-  m: t absolute self;
+  m: TMatrix;
   i: integer;
-  a: t;
+  a: ta;
+
+  v:array[0..2]of Single;
+
+
 begin
+//  a := (self[1]);
+
   //  for i:=0 to Length(m)-1 do Write(m[i],'  ');
   //  Writeln;
 
@@ -79,9 +88,9 @@ begin
   //    Writeln('len: ', Length(a));
 
   //  gl.uniformMatrix4fv(UniformLocation(Name), False,  JSValue(Value));
- // gl.uniformMatrix4fv(UniformLocation(Name), False, Value.GetFloatList);
+  // gl.uniformMatrix4fv(UniformLocation(Name), False, Value.GetFloatList);
   //gl.uniformMatrix4fv(UniformLocation(Name), False,t( Value));
-//  gl.uniformMatrix4fv(ShaderID, False, m);
+  //  gl.uniformMatrix4fv(ShaderID, False, m);
 
   gl.uniformMatrix4fv(ShaderID, False, Self.GetFloatList);
 end;

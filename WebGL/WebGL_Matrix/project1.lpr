@@ -10,7 +10,7 @@ uses
   Classes,
   SysUtils,
   Web,
-  MemoryBuffer,
+//  MemoryBuffer,
   GLUtils,
   GLTypes,
   WebGL,
@@ -52,52 +52,24 @@ var
   end;
 
   function TWebOpenGL.InitVertexData: TJSUInt8Array;
-  type
-    GLVertex2 = record
-    pos: TVec2;
-    col: TVec3;
-  end;
+  const
+    vector: array of GLfloat = (
+      -0.5, -0.5, 0.5, 0, 0,
+      -0.5, 0.5, 0, 0.5, 0,
+      0.5, 0.5, 0, 0, 0.5,
+      0.5, 0.5, 1, 0.5, 0.5,
+      -0.5, -0.5, 0.5, 1, 0.5,
+      0.5, -0.5, 0.5, 0.5, 1);
+   var
+    floatBuffer: TJSFloat32Array;
+    byteBuffer: TJSUint8Array;
 
-  var
-    buf: TMemoryBuffer;
-    verts: TJSArray;
-    v: GLVertex2;
-    i: integer;
   begin
-    verts := TJSArray.new;
+    byteBuffer := TJSUint8Array.New(Length(vector) * 4);
+    floatBuffer := TJSFloat32Array.New(byteBuffer.buffer, 0, Length(vector));
+    floatBuffer._set(vector, 0);
 
-    v.pos := V2(-0.5, -0.5);
-    v.col := V3(0.5, 0, 0);
-    verts.push(v);
-
-    v.pos := V2(-0.5, 0.5);
-    v.col := V3(0, 0.5, 0);
-    verts.push(v);
-
-    v.pos := V2(0.5, 0.5);
-    v.col := V3(0, 0, 0.5);
-    verts.push(v);
-
-    v.pos := V2(0.5, 0.5);
-    v.col := V3(1, 0.5, 0.5);
-    verts.push(v);
-
-    v.pos := V2(-0.5, -0.5);
-    v.col := V3(0.5, 1, 0.5);
-    verts.push(v);
-
-    v.pos := V2(0.5, -0.5);
-    v.col := V3(0.5, 0.5, 1);
-    verts.push(v);
-
-    buf := TMemoryBuffer.Create(20 * verts.length);
-    for i := 0 to verts.length - 1 do begin
-      v := GLVertex2(verts[i]);
-      buf.AddFloats(2, ToFloats(v.pos));
-      buf.AddFloats(3, ToFloats3(v.col));
-    end;
-
-    Result := buf.GetBytes;
+    Result := byteBuffer;
   end;
 
   procedure TWebOpenGL.CreateScene;
@@ -106,7 +78,7 @@ var
 
   begin
     vertexShaderSource :=
-      'attribute vec2 inPos;' +
+    'attribute vec2 inPos;' +
       'attribute vec3 inCol;' +
       'uniform mat4 viewTransform;' +
       'varying vec3 col;' +
@@ -165,8 +137,6 @@ var
 
     window.requestAnimationFrame(@UpdateCanvas);
   end;
-
-
 
   procedure TWebOpenGL.Run;
   begin
