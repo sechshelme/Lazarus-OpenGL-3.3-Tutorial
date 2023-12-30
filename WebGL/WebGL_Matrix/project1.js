@@ -2147,7 +2147,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     this.CreateScene = function () {
       var vertexShaderSource = "";
       var fragmentShaderSource = "";
-      vertexShaderSource = "#version 300 es" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 viewTransform;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = viewTransform * vec4(inPos, 1.0);" + "  col = inCol;}";
+      vertexShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 viewTransform;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = viewTransform * vec4(inPos, 1.0);" + "\n" + "  col = inCol;}";
       fragmentShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "in vec3 col;" + "\n" + "out vec4 outCol;" + "\n" + "void main(void){" + "\n" + "  outCol = vec4(col, 1.0); }";
       $mod.shader = pas.wglShader.TShader.$create("Create$1",[pas.GLUtils.gl,vertexShaderSource,fragmentShaderSource]);
       $mod.shader.LoadShaderObject(35633,vertexShaderSource);
