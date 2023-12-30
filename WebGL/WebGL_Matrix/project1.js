@@ -2126,9 +2126,6 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
       Result = pas.GLUtils.gl.getUniformLocation(this.FProgramObject,Name);
       return Result;
     };
-    this.BindAttribLocation = function (index, Name) {
-      pas.GLUtils.gl.bindAttribLocation(this.FProgramObject,index,Name);
-    };
   });
 });
 rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","GLUtils","webgl","wglShader","wglMatrix"],function () {
@@ -2140,7 +2137,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       $mod.canvas.width = 640;
       $mod.canvas.height = 480;
       document.body.appendChild($mod.canvas);
-      pas.GLUtils.gl = $mod.canvas.getContext("webgl");
+      pas.GLUtils.gl = $mod.canvas.getContext("webgl2");
       if (pas.GLUtils.gl === null) {
         pas.System.Writeln("failed to load webgl!");
         return;
@@ -2150,15 +2147,13 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     this.CreateScene = function () {
       var vertexShaderSource = "";
       var fragmentShaderSource = "";
-      vertexShaderSource = "attribute vec2 inPos;" + "attribute vec3 inCol;" + "uniform mat4 viewTransform;" + "varying vec3 col;" + "void main(){" + "  gl_Position = viewTransform * vec4(inPos, 1.0, 1.0);" + "  col = inCol;}";
-      fragmentShaderSource = "precision highp float;" + "varying vec3 col;" + "void main(void){" + "  gl_FragColor = vec4(col, 1.0); }";
+      vertexShaderSource = "#version 300 es" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 viewTransform;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = viewTransform * vec4(inPos, 1.0);" + "  col = inCol;}";
+      fragmentShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "in vec3 col;" + "\n" + "out vec4 outCol;" + "\n" + "void main(void){" + "\n" + "  outCol = vec4(col, 1.0); }";
       $mod.shader = pas.wglShader.TShader.$create("Create$1",[pas.GLUtils.gl,vertexShaderSource,fragmentShaderSource]);
       $mod.shader.LoadShaderObject(35633,vertexShaderSource);
       $mod.shader.LoadShaderObject(35632,fragmentShaderSource);
       $mod.shader.LinkProgram();
       $mod.modelMatrix_ID = $mod.shader.UniformLocation("viewTransform");
-      $mod.shader.BindAttribLocation(0,"inPos");
-      $mod.shader.BindAttribLocation(1,"inCol");
       $mod.shader.UseProgram();
       pas.GLUtils.gl.clearColor(0.3,0.0,0.0,1);
       pas.GLUtils.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
@@ -2168,22 +2163,27 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         }, set: function (v) {
           this.p.viewTransform = v;
         }});
-      $mod.buffer = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.buffer);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData(),35044);
-      pas.GLUtils.gl.enableVertexAttribArray(0);
-      pas.GLUtils.gl.vertexAttribPointer(0,2,5126,false,20,0);
-      pas.GLUtils.gl.enableVertexAttribArray(1);
-      pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,20,8);
+      $mod.Mesh_Buffers[0] = pas.GLUtils.gl.createBuffer();
+      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleVector),35044);
+      $mod.Mesh_Buffers[1] = pas.GLUtils.gl.createBuffer();
+      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleColor),35044);
+      $mod.Mesh_Buffers[2] = pas.GLUtils.gl.createBuffer();
+      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
+      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadVector),35044);
+      $mod.Mesh_Buffers[3] = pas.GLUtils.gl.createBuffer();
+      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
+      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadColor),35044);
+      pas.GLUtils.gl.bindBuffer(34962,null);
     };
-    var vector = [-0.5,-0.5,0.5,0,0,-0.5,0.5,0,0.5,0,0.5,0.5,0,0,0.5,0.5,0.5,1,0.5,0.5,-0.5,-0.5,0.5,1,0.5,0.5,-0.5,0.5,0.5,1];
-    this.InitVertexData = function () {
+    this.InitVertexData = function (va) {
       var Result = null;
       var floatBuffer = null;
       var byteBuffer = null;
-      byteBuffer = new Uint8Array(rtl.length(vector) * 4);
-      floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(vector));
-      floatBuffer.set(vector,0);
+      byteBuffer = new Uint8Array(rtl.length(va) * 4);
+      floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(va));
+      floatBuffer.set(va,0);
       Result = byteBuffer;
       return Result;
     };
@@ -2195,7 +2195,12 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
   this.modelMatrix_ID = null;
   this.canvas = null;
-  this.buffer = null;
+  this.TMesh_Buffers = {"0": "mbVBOTriangleVector", mbVBOTriangleVector: 0, "1": "mbVBOTriangleColor", mbVBOTriangleColor: 1, "2": "mbVBOQuadVektor", mbVBOQuadVektor: 2, "3": "mbVBOQuadColor", mbVBOQuadColor: 3, "4": "mbUBO", mbUBO: 4};
+  this.Mesh_Buffers = rtl.arraySetLength(null,null,5);
+  this.TriangleVector = [-0.4,0.1,0.0,0.4,0.1,0.0,0.0,0.7,0.0];
+  this.TriangleColor = [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0];
+  this.QuadVector = [-0.2,-0.6,0.0,-0.2,-0.1,0.0,0.2,-0.1,0.0,-0.2,-0.6,0.0,0.2,-0.1,0.0,0.2,-0.6,0.0];
+  this.QuadColor = [1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0];
   this.UpdateCanvas = function (time) {
     pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
         return this.p.viewTransform;
@@ -2208,6 +2213,19 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         this.p.viewTransform = v;
       }},$mod.modelMatrix_ID);
     pas.GLUtils.gl.clear(16384);
+    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+    pas.GLUtils.gl.enableVertexAttribArray(0);
+    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
+    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+    pas.GLUtils.gl.enableVertexAttribArray(1);
+    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
+    pas.GLUtils.gl.drawArrays(4,0,3);
+    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
+    pas.GLUtils.gl.enableVertexAttribArray(0);
+    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
+    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
+    pas.GLUtils.gl.enableVertexAttribArray(1);
+    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
     pas.GLUtils.gl.drawArrays(4,0,6);
     window.requestAnimationFrame($mod.UpdateCanvas);
   };

@@ -74,7 +74,7 @@ var
 
   VAOs: array [(vaMesh)] of TGLuint;
   Mesh_Buffers: array [(mbVBOVektor, mbVBOTexCoord, mbVBONormal, mbUBO)] of TGLuint;
-    Textur_Buffers: array [(tbTexture)] of TGLuint;
+  Textur_Buffers: array [(tbTexture)] of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
 

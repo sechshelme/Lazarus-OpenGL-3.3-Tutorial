@@ -32,8 +32,6 @@ type
     function AttribLocation(Name: string): GLint;
     function UniformLocation(Name: string): TJSWebGLUniformLocation;
 
-    procedure BindAttribLocation(index: GLuint; Name: string);
-
 //    procedure SetUniformVec3(Name: string; Value: TVector3f);
 //    procedure SetUniformFloat(Name: string; Value: GLfloat);
   end;
@@ -116,11 +114,6 @@ end;
 function TShader.AttribLocation(Name: string): GLint;
 begin
   Result := gl.getAttribLocation(FProgramObject, Name);
-end;
-
-procedure TShader.BindAttribLocation(index: GLuint; Name: string);
-begin
-  gl.bindAttribLocation(FProgramObject, index, Name);
 end;
 
 end.

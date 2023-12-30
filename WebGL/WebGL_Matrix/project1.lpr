@@ -10,7 +10,7 @@ uses
   Classes,
   SysUtils,
   Web,
-//  MemoryBuffer,
+  //  MemoryBuffer,
   GLUtils,
   GLTypes,
   WebGL,
@@ -22,7 +22,7 @@ type
   TWebOpenGL = class(TObject)
     constructor Create;
     procedure CreateScene;
-    function InitVertexData: TJSUInt8Array;
+    function InitVertexData(va: array of GLfloat): TJSUInt8Array;
     procedure Run;
   end;
 
@@ -33,7 +33,21 @@ var
   modelMatrix_ID: TJSWebGLUniformLocation;
 
   canvas: TJSHTMLCanvasElement;
-  buffer: TJSWebGLBuffer;
+
+
+const
+  Vector: array of double =
+    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
+
+
+
+type
+  TMesh_Buffers = (mbVBOTriangleVector, mbVBOTriangleColor, mbVBOQuadVektor, mbVBOQuadColor, mbUBO);
+
+var
+  Mesh_Buffers: array [TMesh_Buffers] of TJSWebGLBuffer;
+
+  //  buffer: TJSWebGLBuffer;
 
   constructor TWebOpenGL.Create;
   begin
@@ -43,7 +57,7 @@ var
     canvas.Height := 480;
     document.body.appendChild(canvas);
 
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl'));
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
     if gl = nil then begin
       writeln('failed to load webgl!');
       exit;
@@ -51,26 +65,34 @@ var
 
   end;
 
-  function TWebOpenGL.InitVertexData: TJSUInt8Array;
-  const
-    vector: array of GLfloat = (
-      -0.5, -0.5, 0.5, 0, 0,
-      -0.5, 0.5, 0, 0.5, 0,
-      0.5, 0.5, 0, 0, 0.5,
-      0.5, 0.5, 1, 0.5, 0.5,
-      -0.5, -0.5, 0.5, 1, 0.5,
-      0.5, -0.5, 0.5, 0.5, 1);
-   var
+const
+  TriangleVector: array of GLfloat =
+    (-0.4, 0.1, 0.0, 0.4, 0.1, 0.0, 0.0, 0.7, 0.0);
+  TriangleColor: array of GLfloat =
+    (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
+
+  QuadVector: array of GLfloat =
+    (-0.2, -0.6, 0.0, -0.2, -0.1, 0.0, 0.2, -0.1, 0.0,
+    -0.2, -0.6, 0.0, 0.2, -0.1, 0.0, 0.2, -0.6, 0.0);
+  QuadColor: array of GLfloat =
+    (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0,
+    1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0);
+
+  function TWebOpenGL.InitVertexData(va: array of GLfloat): TJSUInt8Array;
+  var
     floatBuffer: TJSFloat32Array;
     byteBuffer: TJSUint8Array;
 
   begin
-    byteBuffer := TJSUint8Array.New(Length(vector) * 4);
-    floatBuffer := TJSFloat32Array.New(byteBuffer.buffer, 0, Length(vector));
-    floatBuffer._set(vector, 0);
+    byteBuffer := TJSUint8Array.New(Length(va) * 4);
+    floatBuffer := TJSFloat32Array.New(byteBuffer.buffer, 0, Length(va));
+    floatBuffer._set(va, 0);
 
     Result := byteBuffer;
   end;
+
+  // https://webgl2fundamentals.org/webgl/lessons/webgl-shaders-and-glsl.html
+// https://gist.github.com/jialiang/2880d4cc3364df117320e8cb324c2880
 
   procedure TWebOpenGL.CreateScene;
   var
@@ -78,18 +100,34 @@ var
 
   begin
     vertexShaderSource :=
-    'attribute vec2 inPos;' +
-      'attribute vec3 inCol;' +
-      'uniform mat4 viewTransform;' +
-      'varying vec3 col;' +
-      'void main(){' +
-      '  gl_Position = viewTransform * vec4(inPos, 1.0, 1.0);' + '  col = inCol;}';
+      '#version 300 es' + #10 +
+      //
+      //
+      //'      layout (std140) uniform UBO {'+
+      //'        mat4 Matrix2;'+
+      //'      };'+
+
+      'layout(location = 0) in vec3 inPos;' + #10 +
+      'layout(location = 1) in vec3 inCol;' + #10 +
+      'uniform mat4 viewTransform;' + #10 +
+      'out vec3 col;' + #10 +
+      'void main(){' + #10 +
+      '  gl_Position = viewTransform * vec4(inPos, 1.0);' + '  col = inCol;}';
 
     fragmentShaderSource :=
-      'precision highp float;' +
-      'varying vec3 col;' +
-      'void main(void){' +
-      '  gl_FragColor = vec4(col, 1.0); }';
+      '#version 300 es' + #10 +
+
+      'precision highp float;' + #10 +
+
+      //'      layout (std140) uniform UBO {'+
+      //'        mat4 Matrix2;'+
+      //'      };'+
+      //
+      'in vec3 col;' + #10 +
+
+      'out vec4 outCol;' + #10 +
+      'void main(void){' + #10 +
+      '  outCol = vec4(col, 1.0); }';
 
     shader := TShader.Create(gl, vertexShaderSource, fragmentShaderSource);
     shader.LoadShaderObject(gl.VERTEX_SHADER, vertexShaderSource);
@@ -98,9 +136,9 @@ var
 
     modelMatrix_ID := shader.UniformLocation('viewTransform');
 
-    shader.BindAttribLocation(0, 'inPos');
-    shader.BindAttribLocation(1, 'inCol');
-
+    //shader.BindAttribLocation(0, 'inPos');
+    //shader.BindAttribLocation(1, 'inCol');
+    //
     shader.UseProgram;
 
     // prepare context
@@ -111,20 +149,25 @@ var
     // setup transform matricies
     viewTransform.Indenty;
 
-    //    shader.SetUniformMat4('viewTransform', viewTransform);
+    // --- Create Triangle Buffer
+    Mesh_Buffers[mbVBOTriangleVector] := gl.createBuffer;
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleVector]);
+    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(TriangleVector), gl.STATIC_DRAW);
 
-    // create buffer
-    buffer := gl.createBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData, gl.STATIC_DRAW);
+    Mesh_Buffers[mbVBOTriangleColor] := gl.createBuffer;
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleColor]);
+    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(TriangleColor), gl.STATIC_DRAW);
 
-    // position
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 2, gl.FLOAT, False, 20, 0);
+    // --- Create Quad Buffer
+    Mesh_Buffers[mbVBOQuadVektor] := gl.createBuffer;
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
+    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(QuadVector), gl.STATIC_DRAW);
 
-    // color
-    gl.enableVertexAttribArray(1);
-    gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 20, 8);
+    Mesh_Buffers[mbVBOQuadColor] := gl.createBuffer;
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadColor]);
+    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(QuadColor), gl.STATIC_DRAW);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, nil);
   end;
 
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
@@ -133,6 +176,29 @@ var
     viewTransform.Uniform(modelMatrix_ID);
 
     gl.Clear(gl.COLOR_BUFFER_BIT);
+
+    // --- Triangle
+    // position
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleVector]);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 3, gl.FLOAT, False, 0, 0);
+    // color
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleColor]);
+    gl.enableVertexAttribArray(1);
+    gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 0, 0);
+
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+    // --- Quad
+    // position
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 3, gl.FLOAT, False, 0, 0);
+    // color
+    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadColor]);
+    gl.enableVertexAttribArray(1);
+    gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 0, 0);
+
     gl.drawArrays(gl.TRIANGLES, 0, 6);
 
     window.requestAnimationFrame(@UpdateCanvas);
