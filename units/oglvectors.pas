@@ -62,6 +62,7 @@ type
     procedure AddFace2DArray(const Face: array of TFace2D);
 
     procedure AddRectangle;
+    procedure AddRectangleTexCoords;
 
     procedure AddQuadTexCoords;
     procedure AddCubeTexCoords;
@@ -208,6 +209,13 @@ begin
   Self += [
     -0.5, -0.5, 0.5, -0.5, 0.5, 0.5,
     -0.5, -0.5, 0.5, 0.5, -0.5, 0.5];
+end;
+
+procedure TVectors2fHelper.AddRectangleTexCoords;
+begin
+  Self += [
+    0.0, 1.0, 1.0, 1.0, 1.0, 0.0,
+    0.0, 1.0, 1.0, 0.0, 0.0, 0.0];
 end;
 
 procedure TVectors2fHelper.AddQuadTexCoords;//// inline;
