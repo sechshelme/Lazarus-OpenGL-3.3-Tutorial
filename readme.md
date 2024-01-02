@@ -52,7 +52,7 @@ https://ogldev.org/index.html
 ## Info-Seiten zu OpenGL
 
 https://docs.gl
-
+https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 
 
 ## Schlagwörter: 

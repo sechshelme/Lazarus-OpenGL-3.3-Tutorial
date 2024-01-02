@@ -49,12 +49,12 @@ const
 (*
 Da es zwei Texturn hat, ist noch eine zweite Textur-Konstante dazu gekommen.
 *)
-//code+
+  //code+
 const
   Textur32_0: packed array[0..1, 0..1, 0..3] of byte = ((($FF, $00, $00, $FF), ($00, $FF, $00, $FF)), (($00, $00, $FF, $FF), ($FF, $00, $00, $FF)));
-//code-
+  //code-
 
- smiley : array of byte =(
+  smiley: array of byte = (
     $03, $c0, //       ****
     $0f, $f0, //     ********
     $1e, $78, //    ****  ****
@@ -71,7 +71,7 @@ const
     $1f, $f8, //    **********
     $0f, $f0, //     ********
     $03, $c0  //       ****
-);
+    );
 
 type
   TVB = record
@@ -88,7 +88,7 @@ var
 var
   textureID: array[0..1] of GLuint;
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -96,7 +96,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
-  ogc := TContext.Create(Self,true,0,0);
+  ogc := TContext.Create(Self, True, 0, 0);
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
@@ -125,18 +125,18 @@ end;
 // https://stackoverflow.com/questions/327642/opengl-and-monochrome-texture
 procedure TForm1.InitScene;
 const
- index:array[0..1]of GLfloat=(1.0,0.0);
+  index: array[0..1] of GLfloat = (1.0, 0.0);
 begin
   // Textur 0 laden.
-  glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-  glPixelMapfv(GL_PIXEL_MAP_I_TO_R,2,index);;
-  glPixelMapfv(GL_PIXEL_MAP_I_TO_G,2,index);;
-  glPixelMapfv(GL_PIXEL_MAP_I_TO_B,2,index);;
-  glPixelMapfv(GL_PIXEL_MAP_I_TO_A,2,index);;
+  glPixelMapfv(GL_PIXEL_MAP_I_TO_R, 2, index);
+  glPixelMapfv(GL_PIXEL_MAP_I_TO_G, 2, index);
+  glPixelMapfv(GL_PIXEL_MAP_I_TO_B, 2, index);
+  glPixelMapfv(GL_PIXEL_MAP_I_TO_A, 2, index);
 
   glBindTexture(GL_TEXTURE_2D, textureID[0]);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 16, 16, 0, GL_COLOR_INDEX,GL_BITMAP,PGLvoid(smiley));
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 16, 16, 0, GL_COLOR_INDEX, GL_BITMAP, PGLvoid(smiley));
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
   // Textur 1 laden.

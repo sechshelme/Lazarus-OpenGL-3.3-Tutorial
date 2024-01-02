@@ -5,6 +5,7 @@ unit Unit1;
 interface
 
 uses
+  Math,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
   dglOpenGL,
@@ -14,6 +15,10 @@ uses
   //lineal
 
 type
+  TTextureBuffer = record
+    Width, Height: integer;
+    Data: array of byte;
+  end;
 
   { TForm1 }
 
@@ -37,6 +42,7 @@ type
     procedure ogcDrawScene(Sender: TObject);
     procedure ogcResize(Sender: TObject);
 
+    function CalcTexture: TTextureBuffer;
     procedure CalcSphere;
   public
   end;
@@ -58,11 +64,11 @@ type
 var
   UBOBuffer: TUBOBuffer;
 
-  DonutVertex: TVectors3f;
+  RectangleVertex: TVectors3f;
   CubeSize: integer;
 
   VAOs: array [(vaMesh)] of TGLuint;
-  Mesh_Buffers: array [(mbVBOVektor, mbVBOTexCoord, mbVBONormal, mbUBO)] of TGLuint;
+  Mesh_Buffers: array [(mbVBOVektor, mbUBO)] of TGLuint;
   Textur_Buffers: array [(tbTexture)] of TGLuint;
 
   FrustumMatrix, WorldMatrix, ModelMatrix: TMatrix;
@@ -75,6 +81,7 @@ begin
   Width := 340;
   Height := 240;
   //remove-
+  Randomize;
   ogc := TContext.Create(Self);
   ogc.OnPaint := @ogcDrawScene;
   ogc.OnResize := @ogcResize;   // neues Ereigniss
@@ -88,40 +95,57 @@ const
 var
   x, y: integer;
 begin
-  DonutVertex := nil;
+  RectangleVertex := nil;
   for x := 0 to tileCount - 0 do begin
     for y := 0 to tileCount - 1 do begin
-      DonutVertex.Add([x, y, 0]);
-      DonutVertex.Add([x, y + 1, 0]);
+      RectangleVertex.Add([x, y, 0]);
+      RectangleVertex.Add([x, y + 1, 0]);
 
-      DonutVertex.Add([y, x, 0]);
-      DonutVertex.Add([y + 1, x, 0]);
+      RectangleVertex.Add([y, x, 0]);
+      RectangleVertex.Add([y + 1, x, 0]);
     end;
   end;
-  DonutVertex.translate([-tileCount / 2, -tileCount / 2, 0]);
-  DonutVertex.scale(1 / tileCount);
+  RectangleVertex.translate([-tileCount / 2, -tileCount / 2, 0]);
+  RectangleVertex.scale(1 / tileCount);
+end;
+
+function TForm1.CalcTexture: TTextureBuffer;
+const
+  N = 256;
+var
+  i, j: integer;
+  x, y, d, z: TGlfloat;
+begin
+  Result.Width := N;
+  Result.Height := N;
+  SetLength(Result.Data, Result.Width * Result.Height);
+  for i := 0 to Result.Width - 1 do begin
+    for j := 0 to Result.Height - 1 do begin
+      x := (i - N / 2) / (N / 2);
+      y := (j - N / 2) / (N / 2);
+
+      d := Hypot(x, y) * 4;
+      z := (1 - d * d) * Exp(d * d / -2);
+
+      Result.Data[i + j * Result.Width] := Trunc(z * 127 + 128);
+    end;
+  end;
 end;
 
 procedure TForm1.LoadTextures;
 var
-  pic: TPicture;
+  textur: TTextureBuffer;
 begin
   glGenTextures(Length(Textur_Buffers), Textur_Buffers);
-  pic := TPicture.Create;
-  pic.LoadFromFile('opengl.bmp');
-  //  pic.LoadFromFile('image.png');
+  textur := CalcTexture;
 
   glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, pic.Width, pic.Height, 0, GL_BGR, GL_UNSIGNED_BYTE, pic.Bitmap.RawImage.Data);
-
-  pic.Free;
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, textur.Width, textur.Height, 0, GL_RED, GL_UNSIGNED_BYTE, PGLvoid(textur.Data));
 end;
-
-
 
 procedure TForm1.CreateScene;
 var
@@ -168,7 +192,7 @@ begin
 
   // Vektor
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
-  glBufferData(GL_ARRAY_BUFFER, DonutVertex.Size, DonutVertex.Ptr, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, RectangleVertex.Size, RectangleVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
 
@@ -187,8 +211,7 @@ begin
 
   UBOBuffer.Matrix.Matrix := FrustumMatrix * WorldMatrix * ModelMatrix;
   glBufferSubData(GL_UNIFORM_BUFFER, 0, SizeOf(TUBOBuffer), @UBOBuffer);
-  //  glDrawArrays(GL_TRIANGLES, 0, DonutVertex.Count);
-  glDrawArrays(GL_LINES, 0, DonutVertex.Count);
+  glDrawArrays(GL_LINES, 0, RectangleVertex.Count);
 
   ogc.SwapBuffers;
 end;

@@ -17,7 +17,7 @@ void main(void)
   float c = 1.0 - (p.z / 2);
   col = vec3(c, c, c);
   p.z -= 0.5;
-  p.z /= 10;
+//  p.z /= 10;
 
   gl_Position    = Matrix * vec4(p, 1.0);
 }
