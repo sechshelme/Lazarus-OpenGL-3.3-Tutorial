@@ -97,72 +97,11 @@ const
   procedure TWebOpenGL.CreateScene;
   var
     vertexShaderSource, fragmentShaderSource: string;
-
   begin
-    vertexShaderSource :=
-    '#version 300 es' + #10 +
-
-    'precision highp float;' + #10 +
-
-    'layout(location = 0) in vec3 inPos;' + #10 +
-    'layout(location = 1) in vec3 inCol;' + #10 +
-
-    'uniform mat4 viewTransform;' + #10 +
-
-    'out vec3 col;' + #10 +
-
-//    'uniform myUBO {'+
-//    '  vec3 ucol;'+
-//    '};'+
-
-    'void main(){' + #10 +
-    '  gl_Position = viewTransform * vec4(inPos, 1.0);' +#10+
-    '  col = inCol;}';
-//    '  col = ucol;}';
-
-  fragmentShaderSource :=
-    '#version 300 es' + #10 +
-
-    'precision highp float;' + #10 +
-
-//    'uniform myUBO {'+
-//    '  vec3 ucol;'+
-//    '};'+
-
-    'in vec3 col;' + #10 +
-
-    'out vec4 outCol;' + #10 +
-    'void main(void){' + #10 +
-    '  outCol = vec4(col, 1.0); }';
-
-//  '#version 300 es' + #10 +
-//  //
-//  //
-//  //'      uniform UBO {'+
-//  //'        mat4 Matrix2;'+
-//  //'      };'+
-//
-//  'layout(location = 0) in vec3 inPos;' + #10 +
-//  'layout(location = 1) in vec3 inCol;' + #10 +
-//  'uniform mat4 viewTransform;' + #10 +
-//  'out vec3 col;' + #10 +
-//  'void main(){' + #10 +
-//  '  gl_Position = viewTransform * vec4(inPos, 1.0);' + '  col = inCol;}';
-//
-//fragmentShaderSource :=
-//  '#version 300 es' + #10 +
-//
-//  'precision highp float;' + #10 +
-//
-//  //'      uniform UBO {'+
-//  //'        mat4 Matrix2;'+
-//  //'      };'+
-//
-//  'in vec3 col;' + #10 +
-//
-//  'out vec4 outCol;' + #10 +
-//  'void main(void){' + #10 +
-//  '  outCol = vec4(col, 1.0); }';
+    vertexShaderSource:=document.getElementById('vertex.glsl').textContent;
+    fragmentShaderSource:=document.getElementById('fragment.glsl').textContent;
+    Writeln('---',vertexShaderSource);
+    Writeln('---',fragmentShaderSource);
 
     shader := TShader.Create;
     shader.LoadShaderObject(gl.VERTEX_SHADER, vertexShaderSource);

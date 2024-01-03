@@ -1554,9 +1554,6 @@ rtl.module("System",[],function () {
     };
     this.Destroy = function () {
     };
-    this.Free = function () {
-      this.$destroy("Destroy");
-    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
@@ -1573,26 +1570,6 @@ rtl.module("System",[],function () {
     if (Index<1) Index = 1;
     return S.substr(Index-1);
   };
-  this.Writeln = function () {
-    var i = 0;
-    var l = 0;
-    var s = "";
-    l = arguments.length - 1;
-    if ($impl.WriteCallBack != null) {
-      for (var $l = 0, $end = l; $l <= $end; $l++) {
-        i = $l;
-        $impl.WriteCallBack(arguments[i],i === l);
-      };
-    } else {
-      s = $impl.WriteBuf;
-      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
-        i = $l1;
-        s = s + ("" + arguments[i]);
-      };
-      console.log(s);
-      $impl.WriteBuf = "";
-    };
-  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1600,7 +1577,6 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
-    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -2017,224 +1993,26 @@ rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],funct
     pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
   };
 },[]);
-rtl.module("webgl",["System","JS","Web"],function () {
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web"],function () {
   "use strict";
   var $mod = this;
-});
-rtl.module("GLUtils",["System","browserconsole","webgl","JS","Types","SysUtils"],function () {
-  "use strict";
-  var $mod = this;
-  this.gl = null;
-});
-rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils"],function () {
-  "use strict";
-  var $mod = this;
-  this.TMatrix$clone = function (a) {
-    var b = [];
-    b.length = 4;
-    for (var c = 0; c < 4; c++) b[c] = a[c].slice(0);
-    return b;
-  };
-  rtl.createHelper(this,"TMatrixfHelper",null,function () {
-    var MatrixIndenty = [[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]];
-    this.Indenty = function () {
-      this.set($mod.TMatrix$clone(MatrixIndenty));
-    };
-    this.RotateC = function (angele) {
-      var i = 0;
-      var x = 0.0;
-      var y = 0.0;
-      for (i = 0; i <= 1; i++) {
-        x = this.get()[i][0];
-        y = this.get()[i][1];
-        this.get()[i][0] = (x * Math.cos(angele)) - (y * Math.sin(angele));
-        this.get()[i][1] = (x * Math.sin(angele)) + (y * Math.cos(angele));
-      };
-    };
-    this.GetFloatList = function () {
-      var Result = rtl.arraySetLength(null,0.0,16);
-      var x = 0;
-      var y = 0;
-      for (x = 0; x <= 3; x++) {
-        for (y = 0; y <= 3; y++) {
-          Result[x + (y * 4)] = this.get()[x][y];
-        };
-      };
-      return Result;
-    };
-    this.Uniform = function (ShaderID) {
-      pas.GLUtils.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
-    };
-  });
-});
-rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils","wglMatrix"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TShader",pas.System.TObject,function () {
-    this.$init = function () {
-      pas.System.TObject.$init.call(this);
-      this.FProgramObject = null;
-    };
-    this.$final = function () {
-      this.FProgramObject = undefined;
-      pas.System.TObject.$final.call(this);
-    };
-    this.GetShader = function (e) {
-      var Result = "";
-      var $tmp = e;
-      if ($tmp === 35633) {
-        Result = "VERTEX_SHADER";
-      } else if ($tmp === 35632) {
-        Result = "gFRAGMENT_SHADER";
-      };
-      return Result;
-    };
-    this.Create$1 = function () {
-      this.FProgramObject = pas.GLUtils.gl.createProgram();
-      return this;
-    };
-    this.Destroy = function () {
-      pas.GLUtils.gl.deleteProgram(this.FProgramObject);
-      pas.System.TObject.Destroy.call(this);
-    };
-    this.LoadShaderObject = function (shaderType, AShader) {
-      var ShaderObject = null;
-      ShaderObject = pas.GLUtils.gl.createShader(shaderType);
-      if (ShaderObject === null) {
-        pas.System.Writeln("create shader failed");
-      };
-      pas.GLUtils.gl.shaderSource(ShaderObject,AShader);
-      pas.GLUtils.gl.compileShader(ShaderObject);
-      if (!pas.GLUtils.gl.getShaderParameter(ShaderObject,35713)) {
-        pas.System.Writeln("Fehler in ",this.GetShader(shaderType),": ",pas.GLUtils.gl.getShaderInfoLog(ShaderObject));
-      };
-      pas.GLUtils.gl.attachShader(this.FProgramObject,ShaderObject);
-    };
-    this.LinkProgram = function () {
-      pas.GLUtils.gl.linkProgram(this.FProgramObject);
-      if (!pas.GLUtils.gl.getProgramParameter(this.FProgramObject,35714)) {
-        pas.System.Writeln(pas.GLUtils.gl.getProgramInfoLog(this.FProgramObject));
-        pas.GLUtils.gl.deleteProgram(this.FProgramObject);
-      };
-    };
-    this.UseProgram = function () {
-      pas.GLUtils.gl.useProgram(this.FProgramObject);
-    };
-    this.UniformLocation = function (Name) {
-      var Result = null;
-      Result = pas.GLUtils.gl.getUniformLocation(this.FProgramObject,Name);
-      return Result;
-    };
-  });
-});
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","GLUtils","webgl","wglShader","wglMatrix"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
-    this.Create$1 = function () {
-      $mod.canvas = document.createElement("canvas");
-      $mod.canvas.width = 640;
-      $mod.canvas.height = 480;
-      document.body.appendChild($mod.canvas);
-      pas.GLUtils.gl = $mod.canvas.getContext("webgl2");
-      if (pas.GLUtils.gl === null) {
-        pas.System.Writeln("failed to load webgl!");
-        return;
-      };
-      return this;
-    };
-    this.CreateScene = function () {
-      var vertexShaderSource = "";
-      var fragmentShaderSource = "";
-      vertexShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 viewTransform;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = viewTransform * vec4(inPos, 1.0);" + "\n" + "  col = inCol;}";
-      fragmentShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "in vec3 col;" + "\n" + "out vec4 outCol;" + "\n" + "void main(void){" + "\n" + "  outCol = vec4(col, 1.0); }";
-      $mod.shader = pas.wglShader.TShader.$create("Create$1");
-      $mod.shader.LoadShaderObject(35633,vertexShaderSource);
-      $mod.shader.LoadShaderObject(35632,fragmentShaderSource);
-      $mod.shader.LinkProgram();
-      $mod.modelMatrix_ID = $mod.shader.UniformLocation("viewTransform");
-      $mod.shader.UseProgram();
-      pas.GLUtils.gl.clearColor(0.3,0.0,0.0,1);
-      pas.GLUtils.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
-      pas.GLUtils.gl.clear(16384);
-      pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
-          return this.p.viewTransform;
-        }, set: function (v) {
-          this.p.viewTransform = v;
-        }});
-      $mod.Mesh_Buffers[0] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleVector),35044);
-      $mod.Mesh_Buffers[1] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleColor),35044);
-      $mod.Mesh_Buffers[2] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadVector),35044);
-      $mod.Mesh_Buffers[3] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadColor),35044);
-      pas.GLUtils.gl.bindBuffer(34962,null);
-    };
-    this.InitVertexData = function (va) {
-      var Result = null;
-      var floatBuffer = null;
-      var byteBuffer = null;
-      byteBuffer = new Uint8Array(rtl.length(va) * 4);
-      floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(va));
-      floatBuffer.set(va,0);
-      Result = byteBuffer;
-      return Result;
-    };
-    this.Run = function () {
-      window.requestAnimationFrame($mod.UpdateCanvas);
-    };
-  });
-  this.shader = null;
-  this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
-  this.modelMatrix_ID = null;
   this.canvas = null;
-  this.TMesh_Buffers = {"0": "mbVBOTriangleVector", mbVBOTriangleVector: 0, "1": "mbVBOTriangleColor", mbVBOTriangleColor: 1, "2": "mbVBOQuadVektor", mbVBOQuadVektor: 2, "3": "mbVBOQuadColor", mbVBOQuadColor: 3, "4": "mbUBO", mbUBO: 4};
-  this.Mesh_Buffers = rtl.arraySetLength(null,null,5);
-  this.TriangleVector = [-0.4,0.1,0.0,0.4,0.1,0.0,0.0,0.7,0.0];
-  this.TriangleColor = [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0];
-  this.QuadVector = [-0.2,-0.6,0.0,-0.2,-0.1,0.0,0.2,-0.1,0.0,-0.2,-0.6,0.0,0.2,-0.1,0.0,0.2,-0.6,0.0];
-  this.QuadColor = [1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0];
-  this.UpdateCanvas = function (time) {
-    pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
-        return this.p.viewTransform;
-      }, set: function (v) {
-        this.p.viewTransform = v;
-      }},0.03);
-    pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
-        return this.p.viewTransform;
-      }, set: function (v) {
-        this.p.viewTransform = v;
-      }},$mod.modelMatrix_ID);
-    pas.GLUtils.gl.clear(16384);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-    pas.GLUtils.gl.enableVertexAttribArray(0);
-    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-    pas.GLUtils.gl.enableVertexAttribArray(1);
-    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.GLUtils.gl.drawArrays(4,0,3);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-    pas.GLUtils.gl.enableVertexAttribArray(0);
-    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-    pas.GLUtils.gl.enableVertexAttribArray(1);
-    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.GLUtils.gl.drawArrays(4,0,6);
-    window.requestAnimationFrame($mod.UpdateCanvas);
-  };
-  this.MyApp = null;
+  this.s = "";
+  this.reader = null;
+  this.value = undefined;
   $mod.$main = function () {
-    pas.System.Writeln("WebGL Demo");
-    $mod.MyApp = $mod.TWebOpenGL.$create("Create$1");
-    $mod.MyApp.CreateScene();
-    $mod.MyApp.Run();
-    rtl.free($mod,"MyApp");
+    $mod.canvas = document.createElement("canvas");
+    $mod.canvas.width = 640;
+    $mod.canvas.height = 480;
+    document.body.appendChild($mod.canvas);
+    $mod.reader = new XMLHttpRequest();
+    $mod.reader.open("GET","project1.lpr");
+    $mod.value = $mod.reader.response;
+    document.writeln("blabla");
+    document.writeln("Vor Laden:");
+    $mod.s = document.getElementById("project1.lpr").textContent;
+    document.writeln("Nach Laden:");
+    document.writeln($mod.s);
   };
 });
 //# sourceMappingURL=project1.js.map

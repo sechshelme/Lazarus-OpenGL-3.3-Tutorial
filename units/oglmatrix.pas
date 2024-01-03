@@ -76,6 +76,7 @@ type
     procedure CrossV(const v0, v1, v2: TVector3f); overload;
 
     procedure Uniform(ShaderID: GLint);
+    procedure WriteMatrix;   // Für Testzwecke
   end;
 
   { Tmat4x4Helper }
@@ -114,7 +115,6 @@ type
     procedure ShearC(x, y: GLfloat);
 
     procedure Uniform(ID: GLint);
-
     procedure WriteMatrix;   // Für Testzwecke
   end;
 
@@ -367,6 +367,25 @@ end;
 procedure Tmat3x3Helper.Uniform(ShaderID: GLint); inline;
 begin
   glUniformMatrix3fv(ShaderID, 1, False, @Self);
+end;
+
+procedure Tmat3x3Helper.WriteMatrix;
+var
+  x, y: integer;
+begin
+  for y := 0 to 2 do begin
+    for x := 0 to 2 do begin
+      if Self[x, y] < -0.0001 then begin
+        Write(StrBrightRed);
+      end;
+      if Self[x, y] > 0.0001 then begin
+        Write(StrGreen);
+      end;
+      Write(Self[x, y]: 8: 4, ' ');
+      Write(StrNormal);
+    end;
+    Writeln;
+  end;
 end;
 
 procedure Tmat3x3Helper.Shear(x, y: GLfloat);
