@@ -8,7 +8,9 @@ uses
 var
   canvas: TJSHTMLCanvasElement;
   s: string;
-  ImgGhost: TJSHTMLImageElement;
+  Res: TJSHTMLElement;
+  ImgGhost: TJSHTMLTextAreaElement;
+  i: Integer;
 
   Function GetElement(aName : String) : TJSHTMLElement;
 
@@ -17,24 +19,41 @@ var
   end;
 
 
+const
+  arr: array of TObject = (1, 2.6, 'abc', 'v');
 
 begin
+  for i:=0 to Length(arr)-1 do Writeln(arr[i]);
+
+
   canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
   canvas.Width := 640;
   canvas.Height := 480;
 
   document.body.appendChild(canvas);
 
+      ImgGhost:=TJSHTMLTextAreaElement(GetElement('project1.lpr')) ;
+//      document.writeln(ImgGhost.defaultValue);
 
-  ImgGhost:=TJSHTMLtexImageElement(GetElement('ghost'+IntToStr(i))) ;
+
+document.writeln('blabla');
+s:=      Document.getElementById('project1.lpr').textContent;
+document.writeln('blabla');
+Writeln(Length(s));
+document.writeln('blabla');
+
+
+  Res:=TJSHTMLElement(Document.getElementById('project1.lpr'));
+  document.writeln('blabla');
+  Writeln(res.dir);
 
 
   document.writeln('blabla');
 
   document.writeln('Vor Laden:');
-  s := document.getElementById('project1.lpr').textContent;
-  document.writeln('Nach Laden:');
-  document.writeln(s);
+//  s := document.getElementById('project1.lpr').textContent;
+///  document.writeln('Nach Laden:');
+//  document.writeln(s);
 end.
 
 

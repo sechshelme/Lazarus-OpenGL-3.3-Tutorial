@@ -1570,6 +1570,26 @@ rtl.module("System",[],function () {
     if (Index<1) Index = 1;
     return S.substr(Index-1);
   };
+  this.Writeln = function () {
+    var i = 0;
+    var l = 0;
+    var s = "";
+    l = arguments.length - 1;
+    if ($impl.WriteCallBack != null) {
+      for (var $l = 0, $end = l; $l <= $end; $l++) {
+        i = $l;
+        $impl.WriteCallBack(arguments[i],i === l);
+      };
+    } else {
+      s = $impl.WriteBuf;
+      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
+        i = $l1;
+        s = s + ("" + arguments[i]);
+      };
+      console.log(s);
+      $impl.WriteBuf = "";
+    };
+  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1577,6 +1597,7 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
+    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -1998,21 +2019,32 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   var $mod = this;
   this.canvas = null;
   this.s = "";
-  this.reader = null;
-  this.value = undefined;
+  this.Res = null;
+  this.ImgGhost = null;
+  this.i = 0;
+  this.GetElement = function (aName) {
+    var Result = null;
+    Result = document.getElementById(aName);
+    return Result;
+  };
+  this.arr = [1,2.6,"abc","v"];
   $mod.$main = function () {
+    for ($mod.i = 0; $mod.i <= 3; $mod.i++) pas.System.Writeln($mod.arr[$mod.i]);
     $mod.canvas = document.createElement("canvas");
     $mod.canvas.width = 640;
     $mod.canvas.height = 480;
     document.body.appendChild($mod.canvas);
-    $mod.reader = new XMLHttpRequest();
-    $mod.reader.open("GET","project1.lpr");
-    $mod.value = $mod.reader.response;
+    $mod.ImgGhost = $mod.GetElement("project1.lpr");
+    document.writeln("blabla");
+    $mod.s = document.getElementById("project1.lpr").textContent;
+    document.writeln("blabla");
+    pas.System.Writeln($mod.s.length);
+    document.writeln("blabla");
+    $mod.Res = document.getElementById("project1.lpr");
+    document.writeln("blabla");
+    pas.System.Writeln($mod.Res.dir);
     document.writeln("blabla");
     document.writeln("Vor Laden:");
-    $mod.s = document.getElementById("project1.lpr").textContent;
-    document.writeln("Nach Laden:");
-    document.writeln($mod.s);
   };
 });
 //# sourceMappingURL=project1.js.map
