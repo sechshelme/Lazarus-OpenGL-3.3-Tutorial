@@ -2136,26 +2136,32 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   var $mod = this;
   rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
     this.Create$1 = function () {
+      var $Self = this;
       var ButtonLeft = null;
       var Panel = null;
       var ButtonRight = null;
+      var ButtonTop = null;
+      var ButtonBottom = null;
+      function ButtonInit(titel) {
+        var Result = null;
+        Result = document.createElement("input");
+        Result.setAttribute("class","favorite styled");
+        Result.setAttribute("type","button");
+        Result.setAttribute("value",titel);
+        Panel.appendChild(Result);
+        return Result;
+      };
       Panel = document.createElement("div");
       Panel.setAttribute("class","panel panel-default");
       document.body.appendChild(Panel);
-      ButtonLeft = document.createElement("input");
-      ButtonLeft.setAttribute("id","ButtonLeft");
-      ButtonLeft.setAttribute("class","btn btn-default");
-      ButtonLeft.setAttribute("type","submit");
-      ButtonLeft.setAttribute("value","links");
-      ButtonLeft.onclick = rtl.createSafeCallback(this,"ButtonLeftClick");
-      Panel.appendChild(ButtonLeft);
-      ButtonRight = document.createElement("input");
-      ButtonRight.setAttribute("id","ButtonRight");
-      ButtonRight.setAttribute("class","btn btn-default");
-      ButtonRight.setAttribute("type","submit");
-      ButtonRight.setAttribute("value","rechts");
-      ButtonRight.onclick = rtl.createSafeCallback(this,"ButtonRightClick");
-      Panel.appendChild(ButtonRight);
+      ButtonLeft = ButtonInit("X-");
+      ButtonLeft.onclick = rtl.createSafeCallback($Self,"ButtonLeftClick");
+      ButtonRight = ButtonInit("X+");
+      ButtonRight.onclick = rtl.createSafeCallback($Self,"ButtonRightClick");
+      ButtonTop = ButtonInit("Y+");
+      ButtonTop.onclick = rtl.createSafeCallback($Self,"ButtonTopClick");
+      ButtonBottom = ButtonInit("Y-");
+      ButtonBottom.onclick = rtl.createSafeCallback($Self,"ButtonBottomClick");
       $mod.canvas = document.createElement("canvas");
       $mod.canvas.width = 640;
       $mod.canvas.height = 480;
@@ -2219,6 +2225,16 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     this.Run = function () {
       window.requestAnimationFrame($mod.UpdateCanvas);
     };
+    this.ButtonBottomClick = function (aEvent) {
+      var Result = false;
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+          return this.p.proMatrix;
+        }, set: function (v) {
+          this.p.proMatrix = v;
+        }},0,-0.1,0);
+      Result = true;
+      return Result;
+    };
     this.ButtonLeftClick = function (aEvent) {
       var Result = false;
       pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
@@ -2236,6 +2252,16 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         }, set: function (v) {
           this.p.proMatrix = v;
         }},0.1,0,0);
+      Result = true;
+      return Result;
+    };
+    this.ButtonTopClick = function (aEvent) {
+      var Result = false;
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+          return this.p.proMatrix;
+        }, set: function (v) {
+          this.p.proMatrix = v;
+        }},0,0.1,0);
       Result = true;
       return Result;
     };

@@ -28,8 +28,10 @@ type
     function InitVertexData(va: array of GLfloat): TJSUInt8Array;
     procedure Run;
   private
+    function ButtonBottomClick(aEvent: TJSMouseEvent): boolean;
     function ButtonLeftClick(aEvent: TJSMouseEvent): boolean;
     function ButtonRightClick(aEvent: TJSMouseEvent): boolean;
+    function ButtonTopClick(aEvent: TJSMouseEvent): boolean;
   end;
 
 var
@@ -52,30 +54,39 @@ var
   Mesh_Buffers: array [TMesh_Buffers] of TJSWebGLBuffer;
 
   // /home/tux/fpcupdeluxe_trunk/ccr/pas2js-rtl/demo/rtl/democanvas2d.pas
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button
 
   constructor TWebOpenGL.Create;
   var
-    ButtonLeft, Panel, ButtonRight: TJSElement;
+    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, Label1,
+      Label2: TJSElement;
+
+    function ButtonInit(const titel: string): TJSElement;
+    begin
+      Result := document.createElement('input');
+//      Result['id'] := 'Button';
+      Result['class'] := 'favorite styled';
+      Result['type'] := 'button';
+      Result['value'] := titel;
+      Panel.appendChild(Result);
+    end;
+
   begin
     Panel := document.createElement('div');
     Panel['class'] := 'panel panel-default';
     document.body.appendChild(Panel);
 
-    ButtonLeft := document.createElement('input');
-    ButtonLeft['id']:='ButtonLeft';
-    ButtonLeft['class']:='btn btn-default';
-    ButtonLeft['type'] := 'submit';
-    ButtonLeft['value'] := 'links';
+    ButtonLeft := ButtonInit('X-');
     TJSHTMLElement(ButtonLeft).onclick := @ButtonLeftClick;
-    Panel.appendChild(ButtonLeft);
 
-    ButtonRight := document.createElement('input');
-    ButtonRight['id']:='ButtonRight';
-    ButtonRight['class']:='btn btn-default';
-    ButtonRight['type'] := 'submit';
-    ButtonRight['value'] := 'rechts';
+    ButtonRight := ButtonInit('X+');
     TJSHTMLElement(ButtonRight).onclick := @ButtonRightClick;
-    Panel.appendChild(ButtonRight);
+
+    ButtonTop := ButtonInit('Y+');
+    TJSHTMLElement(ButtonTop).onclick := @ButtonTopClick;
+
+    ButtonBottom := ButtonInit('Y-');
+    TJSHTMLElement(ButtonBottom).onclick := @ButtonBottomClick;
 
     // make webgl context
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
@@ -238,14 +249,26 @@ const
   function TWebOpenGL.ButtonLeftClick(aEvent: TJSMouseEvent): boolean;
   begin
     proMatrix.Translate(-0.1, 0, 0);
-    Result:=True;
+    Result := True;
   end;
 
-function TWebOpenGL.ButtonRightClick(aEvent: TJSMouseEvent): boolean;
-begin
-  proMatrix.Translate(0.1, 0, 0);
-  Result:=True;
-end;
+  function TWebOpenGL.ButtonRightClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    proMatrix.Translate(0.1, 0, 0);
+    Result := True;
+  end;
+
+  function TWebOpenGL.ButtonTopClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    proMatrix.Translate(0, 0.1, 0);
+    Result := True;
+  end;
+
+  function TWebOpenGL.ButtonBottomClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    proMatrix.Translate(0, -0.1, 0);
+    Result := True;
+  end;
 
 var
   MyApp: TWebOpenGL;
