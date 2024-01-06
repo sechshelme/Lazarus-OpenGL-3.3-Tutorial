@@ -1552,24 +1552,11 @@ rtl.module("System",[],function () {
     };
     this.$final = function () {
     };
-    this.Destroy = function () {
-    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
     };
   });
-  this.IsConsole = false;
-  this.OnParamCount = null;
-  this.OnParamStr = null;
-  this.Copy = function (S, Index, Size) {
-    if (Index<1) Index = 1;
-    return (Size>0) ? S.substring(Index-1,Index+Size-1) : "";
-  };
-  this.Copy$1 = function (S, Index) {
-    if (Index<1) Index = 1;
-    return S.substr(Index-1);
-  };
   this.Writeln = function () {
     var i = 0;
     var l = 0;
@@ -1604,19 +1591,7 @@ rtl.module("System",[],function () {
     rtl.exitcode = 0;
   };
 },[]);
-rtl.module("Types",["System"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("JS",["System","Types"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("weborworker",["System","JS","Types"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("Web",["System","Types","JS","weborworker"],function () {
+rtl.module("JS",["System"],function () {
   "use strict";
   var $mod = this;
 });
@@ -1624,16 +1599,6 @@ rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
-  this.FreeAndNil = function (Obj) {
-    var o = null;
-    o = Obj.get();
-    if (o === null) return;
-    Obj.set(null);
-    o.$destroy("Destroy");
-  };
-  this.LowerCase = function (s) {
-    return s.toLowerCase();
-  };
   this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
   this.StringReplace = function (aOriginal, aSearch, aReplace, Flags) {
     var Result = "";
@@ -1646,157 +1611,16 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
-  this.OnGetEnvironmentVariable = null;
-  this.OnGetEnvironmentString = null;
-  this.OnGetEnvironmentVariableCount = null;
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
-  this.TStringSplitOptions = {"0": "None", None: 0, "1": "ExcludeEmpty", ExcludeEmpty: 1};
-  rtl.createHelper(this,"TStringHelper",null,function () {
-    this.GetLength = function () {
-      var Result = 0;
-      Result = this.get().length;
-      return Result;
-    };
-    this.IndexOfAny$3 = function (AnyOf, StartIndex) {
-      var Result = 0;
-      Result = $mod.TStringHelper.IndexOfAny$5.call(this,AnyOf,StartIndex,$mod.TStringHelper.GetLength.call(this));
-      return Result;
-    };
-    this.IndexOfAny$5 = function (AnyOf, StartIndex, ACount) {
-      var Result = 0;
-      var i = 0;
-      var L = 0;
-      i = StartIndex + 1;
-      L = (i + ACount) - 1;
-      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
-      Result = -1;
-      while ((Result === -1) && (i <= L)) {
-        if ($impl.HaveChar(this.get().charAt(i - 1),AnyOf)) Result = i - 1;
-        i += 1;
-      };
-      return Result;
-    };
-    this.IndexOfAnyUnquoted$1 = function (AnyOf, StartQuote, EndQuote, StartIndex) {
-      var Result = 0;
-      Result = $mod.TStringHelper.IndexOfAnyUnquoted$2.call(this,AnyOf,StartQuote,EndQuote,StartIndex,$mod.TStringHelper.GetLength.call(this));
-      return Result;
-    };
-    this.IndexOfAnyUnquoted$2 = function (AnyOf, StartQuote, EndQuote, StartIndex, ACount) {
-      var Result = 0;
-      var I = 0;
-      var L = 0;
-      var Q = 0;
-      Result = -1;
-      L = (StartIndex + ACount) - 1;
-      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
-      I = StartIndex + 1;
-      Q = 0;
-      if (StartQuote === EndQuote) {
-        while ((Result === -1) && (I <= L)) {
-          if (this.get().charAt(I - 1) === StartQuote) Q = 1 - Q;
-          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
-          I += 1;
-        };
-      } else {
-        while ((Result === -1) && (I <= L)) {
-          if (this.get().charAt(I - 1) === StartQuote) {
-            Q += 1}
-           else if ((this.get().charAt(I - 1) === EndQuote) && (Q > 0)) Q -= 1;
-          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
-          I += 1;
-        };
-      };
-      return Result;
-    };
-    this.Split$1 = function (Separators) {
-      var Result = [];
-      Result = $mod.TStringHelper.Split$21.call(this,Separators,"\x00","\x00",$mod.TStringHelper.GetLength.call(this) + 1,0);
-      return Result;
-    };
-    var BlockSize = 10;
-    this.Split$21 = function (Separators, AQuoteStart, AQuoteEnd, ACount, Options) {
-      var $Self = this;
-      var Result = [];
-      var S = "";
-      function NextSep(StartIndex) {
-        var Result = 0;
-        if (AQuoteStart !== "\x00") {
-          Result = $mod.TStringHelper.IndexOfAnyUnquoted$1.call({get: function () {
-              return S;
-            }, set: function (v) {
-              S = v;
-            }},Separators,AQuoteStart,AQuoteEnd,StartIndex)}
-         else Result = $mod.TStringHelper.IndexOfAny$3.call({get: function () {
-            return S;
-          }, set: function (v) {
-            S = v;
-          }},Separators,StartIndex);
-        return Result;
-      };
-      function MaybeGrow(Curlen) {
-        if (rtl.length(Result) <= Curlen) Result = rtl.arraySetLength(Result,"",rtl.length(Result) + 10);
-      };
-      var Sep = 0;
-      var LastSep = 0;
-      var Len = 0;
-      var T = "";
-      S = $Self.get();
-      Result = rtl.arraySetLength(Result,"",10);
-      Len = 0;
-      LastSep = 0;
-      Sep = NextSep(0);
-      while ((Sep !== -1) && ((ACount === 0) || (Len < ACount))) {
-        T = $mod.TStringHelper.Substring$1.call($Self,LastSep,Sep - LastSep);
-        if ((T !== "") || !(1 === Options)) {
-          MaybeGrow(Len);
-          Result[Len] = T;
-          Len += 1;
-        };
-        LastSep = Sep + 1;
-        Sep = NextSep(LastSep);
-      };
-      if ((LastSep <= $mod.TStringHelper.GetLength.call($Self)) && ((ACount === 0) || (Len < ACount))) {
-        T = $mod.TStringHelper.Substring.call($Self,LastSep);
-        if ((T !== "") || !(1 === Options)) {
-          MaybeGrow(Len);
-          Result[Len] = T;
-          Len += 1;
-        };
-      };
-      Result = rtl.arraySetLength(Result,"",Len);
-      return Result;
-    };
-    this.Substring = function (AStartIndex) {
-      var Result = "";
-      Result = $mod.TStringHelper.Substring$1.call(this,AStartIndex,$mod.TStringHelper.GetLength.call(this) - AStartIndex);
-      return Result;
-    };
-    this.Substring$1 = function (AStartIndex, ALen) {
-      var Result = "";
-      Result = pas.System.Copy(this.get(),AStartIndex + 1,ALen);
-      return Result;
-    };
-  });
   $mod.$implcode = function () {
     $impl.DefaultShortMonthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     $impl.DefaultShortDayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     $impl.DefaultLongDayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     $impl.RESpecials = "([\\$\\+\\[\\]\\(\\)\\\\\\.\\*\\^\\?\\|])";
-    $impl.HaveChar = function (AChar, AList) {
-      var Result = false;
-      var I = 0;
-      I = 0;
-      Result = false;
-      while (!Result && (I < rtl.length(AList))) {
-        Result = AList[I] === AChar;
-        I += 1;
-      };
-      return Result;
-    };
   };
   $mod.$init = function () {
     $mod.ShortMonthNames = $impl.DefaultShortMonthNames.slice(0);
@@ -1805,7 +1629,15 @@ rtl.module("SysUtils",["System","JS"],function () {
     $mod.LongDayNames = $impl.DefaultLongDayNames.slice(0);
   };
 },[]);
-rtl.module("Classes",["System","Types","SysUtils","JS"],function () {
+rtl.module("weborworker",["System","JS"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("Web",["System","JS","weborworker"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("Classes",["System","SysUtils","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
@@ -1923,327 +1755,72 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $mod.HookConsole();
   };
 },[]);
-rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],function () {
+rtl.module("program",["System","SysUtils","JS","Web","browserconsole"],function () {
   "use strict";
   var $mod = this;
-  var $impl = $mod.$impl;
-  this.ReloadEnvironmentStrings = function () {
-    var I = 0;
-    var S = "";
-    var N = "";
-    var A = [];
-    var P = [];
-    if ($impl.EnvNames != null) pas.SysUtils.FreeAndNil({p: $impl, get: function () {
-        return this.p.EnvNames;
-      }, set: function (v) {
-        this.p.EnvNames = v;
-      }});
-    $impl.EnvNames = new Object();
-    S = window.location.search;
-    S = pas.System.Copy(S,2,S.length - 1);
-    A = S.split("&");
-    for (var $l = 0, $end = rtl.length(A) - 1; $l <= $end; $l++) {
-      I = $l;
-      P = A[I].split("=");
-      N = pas.SysUtils.LowerCase(decodeURIComponent(P[0]));
-      if (rtl.length(P) === 2) {
-        $impl.EnvNames[N] = decodeURIComponent(P[1])}
-       else if (rtl.length(P) === 1) $impl.EnvNames[N] = "";
-    };
-  };
-  $mod.$implcode = function () {
-    $impl.EnvNames = null;
-    $impl.Params = [];
-    $impl.ReloadParamStrings = function () {
-      var ParsLine = "";
-      var Pars = [];
-      var I = 0;
-      ParsLine = pas.System.Copy$1(window.location.hash,2);
-      if (ParsLine !== "") {
-        Pars = pas.SysUtils.TStringHelper.Split$1.call({get: function () {
-            return ParsLine;
-          }, set: function (v) {
-            ParsLine = v;
-          }},["/"])}
-       else Pars = rtl.arraySetLength(Pars,"",0);
-      $impl.Params = rtl.arraySetLength($impl.Params,"",1 + rtl.length(Pars));
-      $impl.Params[0] = window.location.pathname;
-      for (var $l = 0, $end = rtl.length(Pars) - 1; $l <= $end; $l++) {
-        I = $l;
-        $impl.Params[1 + I] = Pars[I];
-      };
-    };
-    $impl.GetParamCount = function () {
-      var Result = 0;
-      Result = rtl.length($impl.Params) - 1;
-      return Result;
-    };
-    $impl.GetParamStr = function (Index) {
-      var Result = "";
-      if ((Index >= 0) && (Index < rtl.length($impl.Params))) Result = $impl.Params[Index];
-      return Result;
-    };
-    $impl.MyGetEnvironmentVariable = function (EnvVar) {
-      var Result = "";
-      var aName = "";
-      aName = pas.SysUtils.LowerCase(EnvVar);
-      if ($impl.EnvNames.hasOwnProperty(aName)) {
-        Result = "" + $impl.EnvNames[aName]}
-       else Result = "";
-      return Result;
-    };
-    $impl.MyGetEnvironmentVariableCount = function () {
-      var Result = 0;
-      Result = rtl.length(Object.getOwnPropertyNames($impl.EnvNames));
-      return Result;
-    };
-    $impl.MyGetEnvironmentString = function (Index) {
-      var Result = "";
-      Result = "" + $impl.EnvNames[Object.getOwnPropertyNames($impl.EnvNames)[Index]];
-      return Result;
-    };
-  };
-  $mod.$init = function () {
-    pas.System.IsConsole = true;
-    pas.System.OnParamCount = $impl.GetParamCount;
-    pas.System.OnParamStr = $impl.GetParamStr;
-    $mod.ReloadEnvironmentStrings();
-    $impl.ReloadParamStrings();
-    pas.SysUtils.OnGetEnvironmentVariable = $impl.MyGetEnvironmentVariable;
-    pas.SysUtils.OnGetEnvironmentVariableCount = $impl.MyGetEnvironmentVariableCount;
-    pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
-  };
-},[]);
-rtl.module("webgl",["System","JS","Web"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("GLUtils",["System","browserconsole","webgl","JS","Types","SysUtils"],function () {
-  "use strict";
-  var $mod = this;
-  this.gl = null;
-});
-rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils"],function () {
-  "use strict";
-  var $mod = this;
-  this.TMatrix$clone = function (a) {
-    var b = [];
-    b.length = 4;
-    for (var c = 0; c < 4; c++) b[c] = a[c].slice(0);
-    return b;
-  };
-  rtl.createHelper(this,"TMatrixfHelper",null,function () {
-    var MatrixIndenty = [[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]];
-    this.Indenty = function () {
-      this.set($mod.TMatrix$clone(MatrixIndenty));
-    };
-    this.RotateC = function (angele) {
-      var i = 0;
-      var x = 0.0;
-      var y = 0.0;
-      for (i = 0; i <= 1; i++) {
-        x = this.get()[i][0];
-        y = this.get()[i][1];
-        this.get()[i][0] = (x * Math.cos(angele)) - (y * Math.sin(angele));
-        this.get()[i][1] = (x * Math.sin(angele)) + (y * Math.cos(angele));
-      };
-    };
-    this.GetFloatList = function () {
-      var Result = rtl.arraySetLength(null,0.0,16);
-      var x = 0;
-      var y = 0;
-      for (x = 0; x <= 3; x++) {
-        for (y = 0; y <= 3; y++) {
-          Result[x + (y * 4)] = this.get()[x][y];
-        };
-      };
-      return Result;
-    };
-    this.Uniform = function (ShaderID) {
-      pas.GLUtils.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
-    };
-  });
-});
-rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils","wglMatrix"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TShader",pas.System.TObject,function () {
+  rtl.createClass(this,"TForm",pas.System.TObject,function () {
     this.$init = function () {
       pas.System.TObject.$init.call(this);
-      this.FProgramObject = null;
+      this.XHR = null;
+      this.Panel = null;
+      this.PanelContent = null;
+      this.Button = null;
     };
     this.$final = function () {
-      this.FProgramObject = undefined;
+      this.XHR = undefined;
+      this.Panel = undefined;
+      this.PanelContent = undefined;
+      this.Button = undefined;
       pas.System.TObject.$final.call(this);
     };
-    this.GetShader = function (e) {
-      var Result = "";
-      var $tmp = e;
-      if ($tmp === 35633) {
-        Result = "VERTEX_SHADER";
-      } else if ($tmp === 35632) {
-        Result = "gFRAGMENT_SHADER";
-      };
-      return Result;
-    };
     this.Create$1 = function () {
-      this.FProgramObject = pas.GLUtils.gl.createProgram();
+      this.Panel = document.createElement("div");
+      this.Panel.setAttribute("class","panel panel-default");
+      this.PanelContent = document.createElement("div");
+      this.PanelContent.setAttribute("class","panel-body");
+      this.Button = document.createElement("input");
+      this.Button.setAttribute("id","Button1");
+      this.Button.setAttribute("type","submit");
+      this.Button.className = "btn btn-default";
+      this.Button.setAttribute("value","Fetch countries");
+      this.Button.onclick = rtl.createSafeCallback(this,"ButtonClick");
+      document.body.appendChild(this.Panel);
+      this.Panel.appendChild(this.PanelContent);
+      this.PanelContent.appendChild(this.Button);
       return this;
     };
-    this.Destroy = function () {
-      pas.GLUtils.gl.deleteProgram(this.FProgramObject);
-      pas.System.TObject.Destroy.call(this);
-    };
-    this.LoadShaderObject = function (shaderType, AShader) {
-      var ShaderObject = null;
-      ShaderObject = pas.GLUtils.gl.createShader(shaderType);
-      if (ShaderObject === null) {
-        pas.System.Writeln("create shader failed");
+    this.ButtonClick = function (Event) {
+      var $Self = this;
+      var Result = false;
+      var geladen = false;
+      function LocalLoad(Event) {
+        var Result = false;
+        var s = "";
+        pas.System.Writeln("Load");
+        window.console.log("Result of call ",$Self.XHR.status);
+        if ($Self.XHR.status === 200) {
+          s = $Self.XHR.responseText;
+          pas.System.Writeln(s.length);
+          pas.System.Writeln(s);
+        };
+        Result = true;
+        geladen = true;
+        return Result;
       };
-      pas.GLUtils.gl.shaderSource(ShaderObject,AShader);
-      pas.GLUtils.gl.compileShader(ShaderObject);
-      if (!pas.GLUtils.gl.getShaderParameter(ShaderObject,35713)) {
-        pas.System.Writeln("Fehler in ",this.GetShader(shaderType),": ",pas.GLUtils.gl.getShaderInfoLog(ShaderObject));
-      };
-      pas.GLUtils.gl.attachShader(this.FProgramObject,ShaderObject);
-    };
-    this.LinkProgram = function () {
-      pas.GLUtils.gl.linkProgram(this.FProgramObject);
-      if (!pas.GLUtils.gl.getProgramParameter(this.FProgramObject,35714)) {
-        pas.System.Writeln(pas.GLUtils.gl.getProgramInfoLog(this.FProgramObject));
-        pas.GLUtils.gl.deleteProgram(this.FProgramObject);
-      };
-    };
-    this.UseProgram = function () {
-      pas.GLUtils.gl.useProgram(this.FProgramObject);
-    };
-    this.UniformLocation = function (Name) {
-      var Result = null;
-      Result = pas.GLUtils.gl.getUniformLocation(this.FProgramObject,Name);
+      geladen = false;
+      pas.System.Writeln("Click1");
+      this.XHR = new XMLHttpRequest();
+      this.XHR.addEventListener("load",rtl.createSafeCallback(null,LocalLoad));
+      this.XHR.open("GET","fragment.glsl",true);
+      this.XHR.send();
+      pas.System.Writeln("Click2");
+      Result = true;
       return Result;
     };
   });
-});
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","GLUtils","webgl","wglShader","wglMatrix"],function () {
-  "use strict";
-  var $mod = this;
-  this.TMesh_Buffers = {"0": "mbVBOTriangleVector", mbVBOTriangleVector: 0, "1": "mbVBOTriangleColor", mbVBOTriangleColor: 1, "2": "mbVBOQuadVektor", mbVBOQuadVektor: 2, "3": "mbVBOQuadColor", mbVBOQuadColor: 3, "4": "mbUBO", mbUBO: 4};
-  this.shader = null;
-  this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
-  this.modelMatrix_ID = null;
-  this.canvas = null;
-  this.Mesh_Buffers = rtl.arraySetLength(null,null,5);
-  this.vertexShaderSource = "";
-  this.fragmentShaderSource = "";
-  this.xhrVert = null;
-  this.xhrFrag = null;
-  this.TriangleVector = [-0.4,0.1,0.0,0.4,0.1,0.0,0.0,0.7,0.0];
-  this.TriangleColor = [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0];
-  this.QuadVector = [-0.2,-0.6,0.0,-0.2,-0.1,0.0,0.2,-0.1,0.0,-0.2,-0.6,0.0,0.2,-0.1,0.0,0.2,-0.6,0.0];
-  this.QuadColor = [1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0];
-  this.InitVertexData = function (va) {
-    var Result = null;
-    var floatBuffer = null;
-    var byteBuffer = null;
-    byteBuffer = new Uint8Array(rtl.length(va) * 4);
-    floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(va));
-    floatBuffer.set(va,0);
-    Result = byteBuffer;
-    return Result;
-  };
-  this.CreateScene = function () {
-    $mod.canvas = document.createElement("canvas");
-    $mod.canvas.width = 640;
-    $mod.canvas.height = 480;
-    document.body.appendChild($mod.canvas);
-    pas.GLUtils.gl = $mod.canvas.getContext("webgl2");
-    if (pas.GLUtils.gl === null) {
-      pas.System.Writeln("Konnte WebGL Context nicht erstellen !");
-    };
-    pas.GLUtils.gl.clearColor(0.3,0.0,0.0,1);
-    pas.GLUtils.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
-    pas.GLUtils.gl.clear(16384);
-    $mod.Mesh_Buffers[0] = pas.GLUtils.gl.createBuffer();
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-    pas.GLUtils.gl.bufferData(34962,$mod.InitVertexData($mod.TriangleVector),35044);
-    $mod.Mesh_Buffers[1] = pas.GLUtils.gl.createBuffer();
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-    pas.GLUtils.gl.bufferData(34962,$mod.InitVertexData($mod.TriangleColor),35044);
-    $mod.Mesh_Buffers[2] = pas.GLUtils.gl.createBuffer();
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-    pas.GLUtils.gl.bufferData(34962,$mod.InitVertexData($mod.QuadVector),35044);
-    $mod.Mesh_Buffers[3] = pas.GLUtils.gl.createBuffer();
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-    pas.GLUtils.gl.bufferData(34962,$mod.InitVertexData($mod.QuadColor),35044);
-    pas.GLUtils.gl.bindBuffer(34962,null);
-  };
-  this.UpdateCanvas = function (time) {
-    if ($mod.shader === null) {
-      if (($mod.vertexShaderSource !== "") && ($mod.fragmentShaderSource !== "")) {
-        $mod.shader = pas.wglShader.TShader.$create("Create$1");
-        $mod.shader.LoadShaderObject(35633,$mod.vertexShaderSource);
-        $mod.shader.LoadShaderObject(35632,$mod.fragmentShaderSource);
-        $mod.shader.LinkProgram();
-        $mod.shader.UseProgram();
-        $mod.modelMatrix_ID = $mod.shader.UniformLocation("viewTransform");
-        pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
-            return this.p.viewTransform;
-          }, set: function (v) {
-            this.p.viewTransform = v;
-          }});
-      };
-    } else {
-      pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
-          return this.p.viewTransform;
-        }, set: function (v) {
-          this.p.viewTransform = v;
-        }},0.03);
-      pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
-          return this.p.viewTransform;
-        }, set: function (v) {
-          this.p.viewTransform = v;
-        }},$mod.modelMatrix_ID);
-      pas.GLUtils.gl.clear(16384);
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-      pas.GLUtils.gl.enableVertexAttribArray(0);
-      pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-      pas.GLUtils.gl.enableVertexAttribArray(1);
-      pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-      pas.GLUtils.gl.drawArrays(4,0,3);
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-      pas.GLUtils.gl.enableVertexAttribArray(0);
-      pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-      pas.GLUtils.gl.enableVertexAttribArray(1);
-      pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-      pas.GLUtils.gl.drawArrays(4,0,6);
-    };
-    window.requestAnimationFrame($mod.UpdateCanvas);
-  };
-  this.vertexLoad = function (Event) {
-    if ($mod.xhrVert.status === 200) {
-      $mod.vertexShaderSource = $mod.xhrVert.responseText;
-    };
-  };
-  this.fragmentLoad = function (Event) {
-    if ($mod.xhrFrag.status === 200) {
-      $mod.fragmentShaderSource = $mod.xhrFrag.responseText;
-    };
-  };
   $mod.$main = function () {
-    pas.System.Writeln("WebGL Demo");
-    $mod.xhrVert = new XMLHttpRequest();
-    $mod.xhrVert.addEventListener("load",rtl.createSafeCallback($mod,"vertexLoad"));
-    $mod.xhrVert.open("GET","vertex.glsl");
-    $mod.xhrVert.send();
-    $mod.xhrFrag = new XMLHttpRequest();
-    $mod.xhrFrag.responseType = "text";
-    $mod.xhrFrag.addEventListener("load",rtl.createSafeCallback($mod,"fragmentLoad"));
-    $mod.xhrFrag.open("GET","fragment.glsl");
-    $mod.xhrFrag.send();
-    $mod.CreateScene();
-    window.requestAnimationFrame($mod.UpdateCanvas);
+    $mod.TForm.$create("Create$1");
+    pas.System.Writeln("create");
   };
 });
 //# sourceMappingURL=project1.js.map

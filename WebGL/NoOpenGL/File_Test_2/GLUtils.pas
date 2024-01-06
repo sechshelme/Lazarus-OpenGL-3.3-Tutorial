@@ -3,6 +3,7 @@ unit GLUtils;
 interface
 
 uses
+  MemoryBuffer,
   BrowserConsole, WebGL, JS,
   Types, SysUtils;
 

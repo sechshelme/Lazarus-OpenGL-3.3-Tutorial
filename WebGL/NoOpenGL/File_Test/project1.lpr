@@ -11,6 +11,7 @@ var
   Res: TJSHTMLElement;
   ImgGhost: TJSHTMLTextAreaElement;
   i: Integer;
+  reader: TJSObject;
 
   Function GetElement(aName : String) : TJSHTMLElement;
 
@@ -23,6 +24,9 @@ const
   arr: array of TObject = (1, 2.6, 'abc', 'v');
 
 begin
+  reader:=TJSXMLHttpRequest.new();
+  reader.re;
+
   for i:=0 to Length(arr)-1 do Writeln(arr[i]);
 
 

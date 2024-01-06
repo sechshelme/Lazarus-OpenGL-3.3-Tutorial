@@ -7,7 +7,7 @@ interface
 uses
   Types, SysUtils,
   BrowserConsole, WebGL, JS,
-   GLUtils,
+  MemoryBuffer, GLUtils,
   wglMatrix;
 
 type

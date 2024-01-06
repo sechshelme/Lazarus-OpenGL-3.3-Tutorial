@@ -10,7 +10,7 @@ interface
 uses
   Types, SysUtils,
   BrowserConsole, WebGL, JS,
-   GLUtils;
+  MemoryBuffer, GLUtils;
 
 type
   TVector3f = array [0..2] of GLfloat;
