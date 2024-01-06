@@ -2145,6 +2145,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       function ButtonInit(titel) {
         var Result = null;
         Result = document.createElement("input");
+        Result.setAttribute("id",titel);
         Result.setAttribute("class","favorite styled");
         Result.setAttribute("type","button");
         Result.setAttribute("value",titel);
@@ -2155,13 +2156,13 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Panel.setAttribute("class","panel panel-default");
       document.body.appendChild(Panel);
       ButtonLeft = ButtonInit("X-");
-      ButtonLeft.onclick = rtl.createSafeCallback($Self,"ButtonLeftClick");
+      ButtonLeft.onclick = rtl.createSafeCallback($Self,"ButtonClick");
       ButtonRight = ButtonInit("X+");
-      ButtonRight.onclick = rtl.createSafeCallback($Self,"ButtonRightClick");
+      ButtonRight.onclick = rtl.createSafeCallback($Self,"ButtonClick");
       ButtonTop = ButtonInit("Y+");
-      ButtonTop.onclick = rtl.createSafeCallback($Self,"ButtonTopClick");
+      ButtonTop.onclick = rtl.createSafeCallback($Self,"ButtonClick");
       ButtonBottom = ButtonInit("Y-");
-      ButtonBottom.onclick = rtl.createSafeCallback($Self,"ButtonBottomClick");
+      ButtonBottom.onclick = rtl.createSafeCallback($Self,"ButtonClick");
       $mod.canvas = document.createElement("canvas");
       $mod.canvas.width = 640;
       $mod.canvas.height = 480;
@@ -2225,43 +2226,38 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     this.Run = function () {
       window.requestAnimationFrame($mod.UpdateCanvas);
     };
-    this.ButtonBottomClick = function (aEvent) {
+    this.ButtonClick = function (aEvent) {
       var Result = false;
-      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-          return this.p.proMatrix;
-        }, set: function (v) {
-          this.p.proMatrix = v;
-        }},0,-0.1,0);
-      Result = true;
-      return Result;
-    };
-    this.ButtonLeftClick = function (aEvent) {
-      var Result = false;
-      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-          return this.p.proMatrix;
-        }, set: function (v) {
-          this.p.proMatrix = v;
-        }},-0.1,0,0);
-      Result = true;
-      return Result;
-    };
-    this.ButtonRightClick = function (aEvent) {
-      var Result = false;
-      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-          return this.p.proMatrix;
-        }, set: function (v) {
-          this.p.proMatrix = v;
-        }},0.1,0,0);
-      Result = true;
-      return Result;
-    };
-    this.ButtonTopClick = function (aEvent) {
-      var Result = false;
-      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-          return this.p.proMatrix;
-        }, set: function (v) {
-          this.p.proMatrix = v;
-        }},0,0.1,0);
+      var id = undefined;
+      id = aEvent.target["id"];
+      if (id == "X-") {
+        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+            return this.p.proMatrix;
+          }, set: function (v) {
+            this.p.proMatrix = v;
+          }},-0.1,0,0);
+      };
+      if (id == "X+") {
+        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+            return this.p.proMatrix;
+          }, set: function (v) {
+            this.p.proMatrix = v;
+          }},0.1,0,0);
+      };
+      if (id == "Y-") {
+        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+            return this.p.proMatrix;
+          }, set: function (v) {
+            this.p.proMatrix = v;
+          }},0,-0.1,0);
+      };
+      if (id == "Y+") {
+        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
+            return this.p.proMatrix;
+          }, set: function (v) {
+            this.p.proMatrix = v;
+          }},0,0.1,0);
+      };
       Result = true;
       return Result;
     };

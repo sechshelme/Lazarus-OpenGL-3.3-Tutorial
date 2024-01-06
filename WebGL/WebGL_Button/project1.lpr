@@ -25,10 +25,7 @@ type
     function InitVertexData(va: array of GLfloat): TJSUInt8Array;
     procedure Run;
   private
-    function ButtonBottomClick(aEvent: TJSMouseEvent): boolean;
-    function ButtonLeftClick(aEvent: TJSMouseEvent): boolean;
-    function ButtonRightClick(aEvent: TJSMouseEvent): boolean;
-    function ButtonTopClick(aEvent: TJSMouseEvent): boolean;
+    function ButtonClick(aEvent: TJSMouseEvent): boolean;
   end;
 
 var
@@ -56,12 +53,12 @@ var
   constructor TWebOpenGL.Create;
   var
     ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, Label1,
-      Label2: TJSElement;
+    Label2: TJSElement;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
       Result := document.createElement('input');
-//      Result['id'] := 'Button';
+      Result['id'] := titel;
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
@@ -74,16 +71,16 @@ var
     document.body.appendChild(Panel);
 
     ButtonLeft := ButtonInit('X-');
-    TJSHTMLElement(ButtonLeft).onclick := @ButtonLeftClick;
+    TJSHTMLElement(ButtonLeft).onclick := @ButtonClick;
 
     ButtonRight := ButtonInit('X+');
-    TJSHTMLElement(ButtonRight).onclick := @ButtonRightClick;
+    TJSHTMLElement(ButtonRight).onclick := @ButtonClick;
 
     ButtonTop := ButtonInit('Y+');
-    TJSHTMLElement(ButtonTop).onclick := @ButtonTopClick;
+    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
 
     ButtonBottom := ButtonInit('Y-');
-    TJSHTMLElement(ButtonBottom).onclick := @ButtonBottomClick;
+    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
 
     // make webgl context
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
@@ -243,27 +240,24 @@ const
     window.requestAnimationFrame(@UpdateCanvas);
   end;
 
-  function TWebOpenGL.ButtonLeftClick(aEvent: TJSMouseEvent): boolean;
+  function TWebOpenGL.ButtonClick(aEvent: TJSMouseEvent): boolean;
+  var
+    id: JSValue;
   begin
-    proMatrix.Translate(-0.1, 0, 0);
-    Result := True;
-  end;
-
-  function TWebOpenGL.ButtonRightClick(aEvent: TJSMouseEvent): boolean;
-  begin
-    proMatrix.Translate(0.1, 0, 0);
-    Result := True;
-  end;
-
-  function TWebOpenGL.ButtonTopClick(aEvent: TJSMouseEvent): boolean;
-  begin
-    proMatrix.Translate(0, 0.1, 0);
-    Result := True;
-  end;
-
-  function TWebOpenGL.ButtonBottomClick(aEvent: TJSMouseEvent): boolean;
-  begin
-    proMatrix.Translate(0, -0.1, 0);
+//Writeln(    aEvent.target.Properties['type']);
+    id := aEvent.target.Properties['id'];
+    if id = 'X-' then  begin
+      proMatrix.Translate(-0.1, 0, 0);
+    end;
+    if id = 'X+' then  begin
+      proMatrix.Translate(0.1, 0, 0);
+    end;
+    if id = 'Y-' then  begin
+      proMatrix.Translate(0, -0.1, 0);
+    end;
+    if id = 'Y+' then  begin
+      proMatrix.Translate(0, 0.1, 0);
+    end;
     Result := True;
   end;
 
