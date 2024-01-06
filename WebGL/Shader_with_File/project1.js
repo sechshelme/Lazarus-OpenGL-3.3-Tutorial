@@ -2033,9 +2033,8 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     return b;
   };
   rtl.createHelper(this,"TMatrixfHelper",null,function () {
-    var MatrixIndenty = [[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]];
     this.Indenty = function () {
-      this.set($mod.TMatrix$clone(MatrixIndenty));
+      this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
     this.RotateC = function (angele) {
       var i = 0;
@@ -2054,7 +2053,7 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       var y = 0;
       for (x = 0; x <= 3; x++) {
         for (y = 0; y <= 3; y++) {
-          Result[x + (y * 4)] = this.get()[x][y];
+          Result[(x * 4) + y] = this.get()[x][y];
         };
       };
       return Result;
