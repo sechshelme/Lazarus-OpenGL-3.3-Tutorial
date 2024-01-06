@@ -7,14 +7,9 @@ interface
 uses
   Types, SysUtils,
   BrowserConsole, WebGL, JS,
-   GLUtils,
-  wglMatrix;
+  wglCommon, wglMatrix;
 
 type
-  //  TJSFloat32List = array of single;
-
-  { TShader }
-
   TShader = class
   private
     FProgramObject: TJSWebGLProgram;
@@ -31,9 +26,6 @@ type
 
     function AttribLocation(Name: string): GLint;
     function UniformLocation(Name: string): TJSWebGLUniformLocation;
-
-//    procedure SetUniformVec3(Name: string; Value: TVector3f);
-//    procedure SetUniformFloat(Name: string; Value: GLfloat);
   end;
 
 
@@ -95,21 +87,9 @@ end;
 
 function TShader.UniformLocation(Name: string): TJSWebGLUniformLocation;
 begin
-  // TODO: cache these. how do we UseProgram dictionarys from JS in Pascal?
   Result := gl.getUniformLocation(FProgramObject, Name);
 end;
 
-//procedure TShader.SetUniformFloat(Name: string; Value: GLfloat);
-//begin
-//  gl.uniform1f(UniformLocation(Name), Value);
-//end;
-
-//procedure TShader.SetUniformVec3(Name: string; Value: TVector3f);
-//begin
-//  //gl.uniform3fv(UniformLocation(name), ToFloats(value));
-//  gl.uniform3f(UniformLocation(Name), Value[0], Value[1], Value[2]);
-//end;
-//
 function TShader.AttribLocation(Name: string): GLint;
 begin
   Result := gl.getAttribLocation(FProgramObject, Name);

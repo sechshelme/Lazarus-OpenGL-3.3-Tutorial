@@ -2021,12 +2021,12 @@ rtl.module("webgl",["System","JS","Web"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("GLUtils",["System","browserconsole","webgl","JS","Types","SysUtils"],function () {
+rtl.module("wglCommon",["System","webgl"],function () {
   "use strict";
   var $mod = this;
   this.gl = null;
 });
-rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils"],function () {
+rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS","wglCommon"],function () {
   "use strict";
   var $mod = this;
   this.TMatrix$clone = function (a) {
@@ -2067,11 +2067,11 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       return Result;
     };
     this.Uniform = function (ShaderID) {
-      pas.GLUtils.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
+      pas.wglCommon.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
     };
   });
 });
-rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","GLUtils","wglMatrix"],function () {
+rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","wglCommon","wglMatrix"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TShader",pas.System.TObject,function () {
@@ -2094,44 +2094,44 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
       return Result;
     };
     this.Create$1 = function () {
-      this.FProgramObject = pas.GLUtils.gl.createProgram();
+      this.FProgramObject = pas.wglCommon.gl.createProgram();
       return this;
     };
     this.Destroy = function () {
-      pas.GLUtils.gl.deleteProgram(this.FProgramObject);
+      pas.wglCommon.gl.deleteProgram(this.FProgramObject);
       pas.System.TObject.Destroy.call(this);
     };
     this.LoadShaderObject = function (shaderType, AShader) {
       var ShaderObject = null;
-      ShaderObject = pas.GLUtils.gl.createShader(shaderType);
+      ShaderObject = pas.wglCommon.gl.createShader(shaderType);
       if (ShaderObject === null) {
         pas.System.Writeln("create shader failed");
       };
-      pas.GLUtils.gl.shaderSource(ShaderObject,AShader);
-      pas.GLUtils.gl.compileShader(ShaderObject);
-      if (!pas.GLUtils.gl.getShaderParameter(ShaderObject,35713)) {
-        pas.System.Writeln("Fehler in ",this.GetShader(shaderType),": ",pas.GLUtils.gl.getShaderInfoLog(ShaderObject));
+      pas.wglCommon.gl.shaderSource(ShaderObject,AShader);
+      pas.wglCommon.gl.compileShader(ShaderObject);
+      if (!pas.wglCommon.gl.getShaderParameter(ShaderObject,35713)) {
+        pas.System.Writeln("Fehler in ",this.GetShader(shaderType),": ",pas.wglCommon.gl.getShaderInfoLog(ShaderObject));
       };
-      pas.GLUtils.gl.attachShader(this.FProgramObject,ShaderObject);
+      pas.wglCommon.gl.attachShader(this.FProgramObject,ShaderObject);
     };
     this.LinkProgram = function () {
-      pas.GLUtils.gl.linkProgram(this.FProgramObject);
-      if (!pas.GLUtils.gl.getProgramParameter(this.FProgramObject,35714)) {
-        pas.System.Writeln(pas.GLUtils.gl.getProgramInfoLog(this.FProgramObject));
-        pas.GLUtils.gl.deleteProgram(this.FProgramObject);
+      pas.wglCommon.gl.linkProgram(this.FProgramObject);
+      if (!pas.wglCommon.gl.getProgramParameter(this.FProgramObject,35714)) {
+        pas.System.Writeln(pas.wglCommon.gl.getProgramInfoLog(this.FProgramObject));
+        pas.wglCommon.gl.deleteProgram(this.FProgramObject);
       };
     };
     this.UseProgram = function () {
-      pas.GLUtils.gl.useProgram(this.FProgramObject);
+      pas.wglCommon.gl.useProgram(this.FProgramObject);
     };
     this.UniformLocation = function (Name) {
       var Result = null;
-      Result = pas.GLUtils.gl.getUniformLocation(this.FProgramObject,Name);
+      Result = pas.wglCommon.gl.getUniformLocation(this.FProgramObject,Name);
       return Result;
     };
   });
 });
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","GLUtils","webgl","wglShader","wglMatrix"],function () {
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglShader","wglMatrix"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
@@ -2166,8 +2166,8 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       $mod.canvas.width = 640;
       $mod.canvas.height = 480;
       document.body.appendChild($mod.canvas);
-      pas.GLUtils.gl = $mod.canvas.getContext("webgl2");
-      if (pas.GLUtils.gl === null) {
+      pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
+      if (pas.wglCommon.gl === null) {
         pas.System.Writeln("failed to load webgl!");
         return;
       };
@@ -2185,9 +2185,9 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       $mod.proMatrix_ID = $mod.shader.UniformLocation("proMatrix");
       $mod.modelMatrix_ID = $mod.shader.UniformLocation("modelMatrix");
       $mod.shader.UseProgram();
-      pas.GLUtils.gl.clearColor(0.3,0.0,0.0,1);
-      pas.GLUtils.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
-      pas.GLUtils.gl.clear(16384);
+      pas.wglCommon.gl.clearColor(0.3,0.0,0.0,1);
+      pas.wglCommon.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
+      pas.wglCommon.gl.clear(16384);
       pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
           return this.p.proMatrix;
         }, set: function (v) {
@@ -2198,19 +2198,19 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         }, set: function (v) {
           this.p.modelMatrix = v;
         }});
-      $mod.Mesh_Buffers[0] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleVector),35044);
-      $mod.Mesh_Buffers[1] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.TriangleColor),35044);
-      $mod.Mesh_Buffers[2] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadVector),35044);
-      $mod.Mesh_Buffers[3] = pas.GLUtils.gl.createBuffer();
-      pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-      pas.GLUtils.gl.bufferData(34962,this.InitVertexData($mod.QuadColor),35044);
-      pas.GLUtils.gl.bindBuffer(34962,null);
+      $mod.Mesh_Buffers[0] = pas.wglCommon.gl.createBuffer();
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.TriangleVector),35044);
+      $mod.Mesh_Buffers[1] = pas.wglCommon.gl.createBuffer();
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.TriangleColor),35044);
+      $mod.Mesh_Buffers[2] = pas.wglCommon.gl.createBuffer();
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
+      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.QuadVector),35044);
+      $mod.Mesh_Buffers[3] = pas.wglCommon.gl.createBuffer();
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
+      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.QuadColor),35044);
+      pas.wglCommon.gl.bindBuffer(34962,null);
     };
     this.InitVertexData = function (va) {
       var Result = null;
@@ -2294,21 +2294,21 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       }, set: function (v) {
         this.p.proMatrix = v;
       }},$mod.proMatrix_ID);
-    pas.GLUtils.gl.clear(16384);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-    pas.GLUtils.gl.enableVertexAttribArray(0);
-    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-    pas.GLUtils.gl.enableVertexAttribArray(1);
-    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.GLUtils.gl.drawArrays(4,0,3);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-    pas.GLUtils.gl.enableVertexAttribArray(0);
-    pas.GLUtils.gl.vertexAttribPointer(0,3,5126,false,0,0);
-    pas.GLUtils.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-    pas.GLUtils.gl.enableVertexAttribArray(1);
-    pas.GLUtils.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.GLUtils.gl.drawArrays(4,0,6);
+    pas.wglCommon.gl.clear(16384);
+    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+    pas.wglCommon.gl.enableVertexAttribArray(0);
+    pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
+    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+    pas.wglCommon.gl.enableVertexAttribArray(1);
+    pas.wglCommon.gl.vertexAttribPointer(1,3,5126,false,0,0);
+    pas.wglCommon.gl.drawArrays(4,0,3);
+    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
+    pas.wglCommon.gl.enableVertexAttribArray(0);
+    pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
+    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
+    pas.wglCommon.gl.enableVertexAttribArray(1);
+    pas.wglCommon.gl.vertexAttribPointer(1,3,5126,false,0,0);
+    pas.wglCommon.gl.drawArrays(4,0,6);
     window.requestAnimationFrame($mod.UpdateCanvas);
   };
   this.MyApp = null;

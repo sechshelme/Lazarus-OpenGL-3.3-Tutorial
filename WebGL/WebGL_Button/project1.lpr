@@ -10,11 +10,8 @@ uses
   Classes,
   SysUtils,
   Web,
-  //  MemoryBuffer,
-  GLUtils,
-  GLTypes,
   WebGL,
-  Math,
+  wglCommon,
   wglShader,
   wglMatrix;
 

@@ -43,16 +43,6 @@
         </CustomData>
       </Unit>
       <Unit>
-        <Filename Value="wglshader.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglShader"/>
-      </Unit>
-      <Unit>
-        <Filename Value="wglmatrix.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglMatrix"/>
-      </Unit>
-      <Unit>
         <Filename Value="vertex.glsl"/>
         <IsPartOfProject Value="True"/>
       </Unit>
@@ -69,6 +59,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../wglUnits"/>
       <UnitOutputDirectory Value="js"/>
     </SearchPaths>
     <Parsing>

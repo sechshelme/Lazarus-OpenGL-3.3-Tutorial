@@ -10,12 +10,10 @@ uses
   Classes,
   SysUtils,
   Web,
-  GLUtils,
-  GLTypes,
   WebGL,
-  Math,
-  wglShader,
-  wglMatrix;
+  wglCommon,
+  wglMatrix,
+  wglShader;
 
 type
   TMesh_Buffers = (mbVBOTriangleVector, mbVBOTriangleColor, mbVBOQuadVektor, mbVBOQuadColor, mbUBO);

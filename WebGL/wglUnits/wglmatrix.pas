@@ -10,7 +10,7 @@ interface
 uses
   Types, SysUtils,
   BrowserConsole, WebGL, JS,
-  MemoryBuffer, GLUtils;
+  wglCommon;
 
 type
   TVector3f = array [0..2] of GLfloat;
@@ -36,7 +36,6 @@ implementation
 procedure TMatrixfHelper.Indenty;
 begin
   Self := [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]];
-  ;
 end;
 
 procedure TMatrixfHelper.RotateC(angele: GLfloat);
