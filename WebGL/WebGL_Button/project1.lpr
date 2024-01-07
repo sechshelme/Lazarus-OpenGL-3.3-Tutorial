@@ -53,7 +53,7 @@ var
   constructor TWebOpenGL.Create;
   var
     ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, Label1,
-    Label2: TJSElement;
+    Label2, img: TJSElement;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -62,7 +62,6 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
-          Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
       Panel.appendChild(Result);
     end;
 
@@ -83,7 +82,6 @@ var
     ButtonBottom := ButtonInit('Y-');
     TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
 
-    // make webgl context
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
     canvas.Width := 640;
     canvas.Height := 480;
