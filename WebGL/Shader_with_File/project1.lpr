@@ -61,6 +61,8 @@ const
   // https://gist.github.com/jialiang/2880d4cc3364df117320e8cb324c2880
 
   procedure CreateScene;
+  var
+    test: TJSObject;
   begin
     // --- Canvas erstellen
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
@@ -69,7 +71,7 @@ const
     document.body.appendChild(canvas);
 
     // --- WebGl Context erstellen
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2',test));
     if gl = nil then begin
       writeln('Konnte WebGL Context nicht erstellen !');
     end;

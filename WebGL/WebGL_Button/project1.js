@@ -2149,6 +2149,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         Result.setAttribute("class","favorite styled");
         Result.setAttribute("type","button");
         Result.setAttribute("value",titel);
+        Result.setAttribute("style","height:25px;width:75px;color=#00ff00;background=#FF0000;");
         Panel.appendChild(Result);
         return Result;
       };

@@ -62,6 +62,7 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
+          Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
       Panel.appendChild(Result);
     end;
 

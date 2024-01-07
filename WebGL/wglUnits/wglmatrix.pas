@@ -13,6 +13,7 @@ uses
   wglCommon;
 
 type
+  TVector2f = array [0..1] of GLfloat;
   TVector3f = array [0..2] of GLfloat;
   TSingleArray = array[0..15] of GLfloat;
   TMatrix = array[0..3, 0..3] of GLfloat;

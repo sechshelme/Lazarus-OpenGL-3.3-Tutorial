@@ -2151,11 +2151,12 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     return Result;
   };
   this.CreateScene = function () {
+    var test = null;
     $mod.canvas = document.createElement("canvas");
     $mod.canvas.width = 640;
     $mod.canvas.height = 480;
     document.body.appendChild($mod.canvas);
-    pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
+    pas.wglCommon.gl = $mod.canvas.getContext("webgl2",test);
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("Konnte WebGL Context nicht erstellen !");
     };
