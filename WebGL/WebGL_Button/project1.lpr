@@ -11,6 +11,7 @@ uses
   SysUtils,
   Web,
   WebGL,
+  Math,
   wglCommon,
   wglShader,
   wglMatrix;
@@ -27,6 +28,9 @@ type
   private
     function ButtonClick(aEvent: TJSMouseEvent): boolean;
   end;
+
+  function Tan(const A : Double): Double; external name 'Math.tan';
+
 
 var
   shader: TShader;
@@ -66,6 +70,8 @@ var
     end;
 
   begin
+   Writeln(Tan(123));
+
     Panel := document.createElement('div');
     Panel['class'] := 'panel panel-default';
     document.body.appendChild(Panel);

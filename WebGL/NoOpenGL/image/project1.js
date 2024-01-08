@@ -2055,6 +2055,12 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       img.setAttribute("id","image");
       img.setAttribute("src","image.png");
       Panel.appendChild(img);
+      pas.System.Writeln(Math.round(0.49999));
+      pas.System.Writeln(Math.round(0.5));
+      pas.System.Writeln(Math.round(1.49999));
+      pas.System.Writeln(Math.round(1.5));
+      pas.System.Writeln(Math.round(2.49999));
+      pas.System.Writeln(Math.round(2.5));
       $mod.canvas = document.createElement("canvas");
       $mod.canvas.width = 640;
       $mod.canvas.height = 480;

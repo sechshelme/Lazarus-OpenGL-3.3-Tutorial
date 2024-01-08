@@ -1554,9 +1554,6 @@ rtl.module("System",[],function () {
     };
     this.Destroy = function () {
     };
-    this.Free = function () {
-      this.$destroy("Destroy");
-    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
@@ -2050,11 +2047,6 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
         this.get()[i][1] = (x * Math.sin(angele)) + (y * Math.cos(angele));
       };
     };
-    this.Translate$1 = function (x, y, z) {
-      this.get()[3][0] += x;
-      this.get()[3][1] += y;
-      this.get()[3][2] += z;
-    };
     this.GetFloatList = function () {
       var Result = rtl.arraySetLength(null,0.0,16);
       var x = 0;
@@ -2131,190 +2123,140 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglShader","wglMatrix"],function () {
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglMatrix","wglShader"],function () {
   "use strict";
   var $mod = this;
-  rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
-    this.Create$1 = function () {
-      var $Self = this;
-      var ButtonLeft = null;
-      var Panel = null;
-      var ButtonRight = null;
-      var ButtonTop = null;
-      var ButtonBottom = null;
-      function ButtonInit(titel) {
-        var Result = null;
-        Result = document.createElement("input");
-        Result.setAttribute("id",titel);
-        Result.setAttribute("class","favorite styled");
-        Result.setAttribute("type","button");
-        Result.setAttribute("value",titel);
-        Panel.appendChild(Result);
-        return Result;
-      };
-      pas.System.Writeln(Math.tan(123));
-      Panel = document.createElement("div");
-      Panel.setAttribute("class","panel panel-default");
-      document.body.appendChild(Panel);
-      ButtonLeft = ButtonInit("X-");
-      ButtonLeft.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonRight = ButtonInit("X+");
-      ButtonRight.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonTop = ButtonInit("Y+");
-      ButtonTop.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonBottom = ButtonInit("Y-");
-      ButtonBottom.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      $mod.canvas = document.createElement("canvas");
-      $mod.canvas.width = 640;
-      $mod.canvas.height = 480;
-      document.body.appendChild($mod.canvas);
-      pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
-      if (pas.wglCommon.gl === null) {
-        pas.System.Writeln("failed to load webgl!");
-        return;
-      };
-      return this;
-    };
-    this.CreateScene = function () {
-      var vertexShaderSource = "";
-      var fragmentShaderSource = "";
-      vertexShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 proMatrix;" + "\n" + "uniform mat4 modelMatrix;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = proMatrix * modelMatrix * vec4(inPos, 1.0);" + "\n" + "  col = inCol;}";
-      fragmentShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "in vec3 col;" + "\n" + "out vec4 outCol;" + "\n" + "void main(void){" + "\n" + "  outCol = vec4(col, 1.0); }";
-      $mod.shader = pas.wglShader.TShader.$create("Create$1");
-      $mod.shader.LoadShaderObject(35633,vertexShaderSource);
-      $mod.shader.LoadShaderObject(35632,fragmentShaderSource);
-      $mod.shader.LinkProgram();
-      $mod.proMatrix_ID = $mod.shader.UniformLocation("proMatrix");
-      $mod.modelMatrix_ID = $mod.shader.UniformLocation("modelMatrix");
-      $mod.shader.UseProgram();
-      pas.wglCommon.gl.clearColor(0.3,0.0,0.0,1);
-      pas.wglCommon.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
-      pas.wglCommon.gl.clear(16384);
-      pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
-          return this.p.proMatrix;
-        }, set: function (v) {
-          this.p.proMatrix = v;
-        }});
-      pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
-          return this.p.modelMatrix;
-        }, set: function (v) {
-          this.p.modelMatrix = v;
-        }});
-      $mod.Mesh_Buffers[0] = pas.wglCommon.gl.createBuffer();
-      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.TriangleVector),35044);
-      $mod.Mesh_Buffers[1] = pas.wglCommon.gl.createBuffer();
-      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.TriangleColor),35044);
-      $mod.Mesh_Buffers[2] = pas.wglCommon.gl.createBuffer();
-      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.QuadVector),35044);
-      $mod.Mesh_Buffers[3] = pas.wglCommon.gl.createBuffer();
-      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-      pas.wglCommon.gl.bufferData(34962,this.InitVertexData($mod.QuadColor),35044);
-      pas.wglCommon.gl.bindBuffer(34962,null);
-    };
-    this.InitVertexData = function (va) {
-      var Result = null;
-      var floatBuffer = null;
-      var byteBuffer = null;
-      byteBuffer = new Uint8Array(rtl.length(va) * 4);
-      floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(va));
-      floatBuffer.set(va,0);
-      Result = byteBuffer;
-      return Result;
-    };
-    this.Run = function () {
-      window.requestAnimationFrame($mod.UpdateCanvas);
-    };
-    this.ButtonClick = function (aEvent) {
-      var Result = false;
-      var id = undefined;
-      id = aEvent.target["id"];
-      if (id == "X-") {
-        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-            return this.p.proMatrix;
-          }, set: function (v) {
-            this.p.proMatrix = v;
-          }},-0.1,0,0);
-      };
-      if (id == "X+") {
-        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-            return this.p.proMatrix;
-          }, set: function (v) {
-            this.p.proMatrix = v;
-          }},0.1,0,0);
-      };
-      if (id == "Y-") {
-        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-            return this.p.proMatrix;
-          }, set: function (v) {
-            this.p.proMatrix = v;
-          }},0,-0.1,0);
-      };
-      if (id == "Y+") {
-        pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: $mod, get: function () {
-            return this.p.proMatrix;
-          }, set: function (v) {
-            this.p.proMatrix = v;
-          }},0,0.1,0);
-      };
-      Result = true;
-      return Result;
-    };
-  });
+  this.TMesh_Buffers = {"0": "mbVBOQuadVektor", mbVBOQuadVektor: 0, "1": "mbVBOTexCoord", mbVBOTexCoord: 1, "2": "mbUBO", mbUBO: 2};
   this.shader = null;
-  this.proMatrix = rtl.arraySetLength(null,0.0,4,4);
-  this.modelMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
   this.modelMatrix_ID = null;
-  this.proMatrix_ID = null;
+  this.textureID = null;
   this.canvas = null;
-  this.TMesh_Buffers = {"0": "mbVBOTriangleVector", mbVBOTriangleVector: 0, "1": "mbVBOTriangleColor", mbVBOTriangleColor: 1, "2": "mbVBOQuadVektor", mbVBOQuadVektor: 2, "3": "mbVBOQuadColor", mbVBOQuadColor: 3, "4": "mbUBO", mbUBO: 4};
-  this.Mesh_Buffers = rtl.arraySetLength(null,null,5);
-  this.TriangleVector = [-0.4,0.1,0.0,0.4,0.1,0.0,0.0,0.7,0.0];
-  this.TriangleColor = [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0];
-  this.QuadVector = [-0.2,-0.6,0.0,-0.2,-0.1,0.0,0.2,-0.1,0.0,-0.2,-0.6,0.0,0.2,-0.1,0.0,0.2,-0.6,0.0];
-  this.QuadColor = [1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0];
-  this.UpdateCanvas = function (time) {
-    pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
-        return this.p.modelMatrix;
-      }, set: function (v) {
-        this.p.modelMatrix = v;
-      }},0.03);
-    pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
-        return this.p.modelMatrix;
-      }, set: function (v) {
-        this.p.modelMatrix = v;
-      }},$mod.modelMatrix_ID);
-    pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
-        return this.p.proMatrix;
-      }, set: function (v) {
-        this.p.proMatrix = v;
-      }},$mod.proMatrix_ID);
+  this.Mesh_Buffers = rtl.arraySetLength(null,null,3);
+  this.vertexShaderSource = "";
+  this.fragmentShaderSource = "";
+  this.xhrVert = null;
+  this.xhrFrag = null;
+  this.QuadVertex = [-0.8,-0.8,0.0,0.8,0.8,0.0,-0.8,0.8,0.0,-0.8,-0.8,0.0,0.8,-0.8,0.0,0.8,0.8,0.0];
+  this.TextureVertex = [0.0,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0];
+  this.InitVertexData = function (va) {
+    var Result = null;
+    var floatBuffer = null;
+    var byteBuffer = null;
+    byteBuffer = new Uint8Array(rtl.length(va) * 4);
+    floatBuffer = new Float32Array(byteBuffer.buffer,0,rtl.length(va));
+    floatBuffer.set(va,0);
+    Result = byteBuffer;
+    return Result;
+  };
+  this.CreateScene = function () {
+    var Panel = null;
+    var img = null;
+    $mod.canvas = document.createElement("canvas");
+    $mod.canvas.width = 640;
+    $mod.canvas.height = 480;
+    document.body.appendChild($mod.canvas);
+    Panel = document.createElement("div");
+    Panel.setAttribute("class","panel panel-default");
+    document.body.appendChild(Panel);
+    img = document.createElement("img");
+    img.setAttribute("id","image");
+    img.setAttribute("src","image.png");
+    img.setAttribute("style","display: none;");
+    document.body.appendChild(img);
+    pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
+    if (pas.wglCommon.gl === null) {
+      pas.System.Writeln("Konnte WebGL Context nicht erstellen !");
+    };
+    pas.wglCommon.gl.clearColor(0.3,0.0,0.0,1);
+    pas.wglCommon.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
     pas.wglCommon.gl.clear(16384);
+    $mod.Mesh_Buffers[0] = pas.wglCommon.gl.createBuffer();
     pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
-    pas.wglCommon.gl.enableVertexAttribArray(0);
-    pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
+    pas.wglCommon.gl.bufferData(34962,$mod.InitVertexData($mod.QuadVertex),35044);
+    $mod.Mesh_Buffers[1] = pas.wglCommon.gl.createBuffer();
     pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
-    pas.wglCommon.gl.enableVertexAttribArray(1);
-    pas.wglCommon.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.wglCommon.gl.drawArrays(4,0,3);
-    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[2]);
-    pas.wglCommon.gl.enableVertexAttribArray(0);
-    pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
-    pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[3]);
-    pas.wglCommon.gl.enableVertexAttribArray(1);
-    pas.wglCommon.gl.vertexAttribPointer(1,3,5126,false,0,0);
-    pas.wglCommon.gl.drawArrays(4,0,6);
+    pas.wglCommon.gl.bufferData(34962,$mod.InitVertexData($mod.TextureVertex),35044);
+    pas.wglCommon.gl.bindBuffer(34962,null);
+  };
+  this.UpdateCanvas = function (time) {
+    var he = null;
+    var im = null;
+    if ($mod.textureID === null) {
+      he = document.getElementById("image");
+      im = he;
+      if (im.width > 0) {
+        $mod.textureID = pas.wglCommon.gl.createTexture();
+        pas.wglCommon.gl.bindTexture(3553,$mod.textureID);
+        pas.wglCommon.gl.texParameteri(3553,10242,33071);
+        pas.wglCommon.gl.texParameteri(3553,10243,33071);
+        pas.wglCommon.gl.texParameteri(3553,10241,9729);
+        pas.wglCommon.gl.texParameteri(3553,10240,9729);
+        pas.wglCommon.gl.texImage2D(3553,0,6408,6408,5121,im);
+        pas.wglCommon.gl.bindTexture(3553,null);
+      };
+    };
+    if ($mod.shader === null) {
+      if (($mod.vertexShaderSource !== "") && ($mod.fragmentShaderSource !== "")) {
+        $mod.shader = pas.wglShader.TShader.$create("Create$1");
+        $mod.shader.LoadShaderObject(35633,$mod.vertexShaderSource);
+        $mod.shader.LoadShaderObject(35632,$mod.fragmentShaderSource);
+        $mod.shader.LinkProgram();
+        $mod.shader.UseProgram();
+        $mod.modelMatrix_ID = $mod.shader.UniformLocation("viewTransform");
+        pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+            return this.p.viewTransform;
+          }, set: function (v) {
+            this.p.viewTransform = v;
+          }});
+      };
+    };
+    if (($mod.shader !== null) && ($mod.textureID !== null)) {
+      pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
+          return this.p.viewTransform;
+        }, set: function (v) {
+          this.p.viewTransform = v;
+        }},0.03);
+      pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
+          return this.p.viewTransform;
+        }, set: function (v) {
+          this.p.viewTransform = v;
+        }},$mod.modelMatrix_ID);
+      pas.wglCommon.gl.clear(16384);
+      pas.wglCommon.gl.bindTexture(3553,$mod.textureID);
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+      pas.wglCommon.gl.enableVertexAttribArray(0);
+      pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+      pas.wglCommon.gl.enableVertexAttribArray(1);
+      pas.wglCommon.gl.vertexAttribPointer(1,2,5126,false,0,0);
+      pas.wglCommon.gl.drawArrays(4,0,6);
+    };
     window.requestAnimationFrame($mod.UpdateCanvas);
   };
-  this.MyApp = null;
+  this.vertexLoad = function (Event) {
+    if ($mod.xhrVert.status === 200) {
+      $mod.vertexShaderSource = $mod.xhrVert.responseText;
+    };
+  };
+  this.fragmentLoad = function (Event) {
+    if ($mod.xhrFrag.status === 200) {
+      $mod.fragmentShaderSource = $mod.xhrFrag.responseText;
+    };
+  };
   $mod.$main = function () {
     pas.System.Writeln("WebGL Demo");
-    $mod.MyApp = $mod.TWebOpenGL.$create("Create$1");
-    $mod.MyApp.CreateScene();
-    $mod.MyApp.Run();
-    rtl.free($mod,"MyApp");
+    $mod.xhrVert = new XMLHttpRequest();
+    $mod.xhrVert.addEventListener("load",rtl.createSafeCallback($mod,"vertexLoad"));
+    $mod.xhrVert.open("GET","vertex.glsl");
+    $mod.xhrVert.send();
+    $mod.xhrFrag = new XMLHttpRequest();
+    $mod.xhrFrag.responseType = "text";
+    $mod.xhrFrag.addEventListener("load",rtl.createSafeCallback($mod,"fragmentLoad"));
+    $mod.xhrFrag.open("GET","fragment.glsl");
+    $mod.xhrFrag.send();
+    $mod.CreateScene();
+    window.requestAnimationFrame($mod.UpdateCanvas);
   };
 });
 //# sourceMappingURL=project1.js.map

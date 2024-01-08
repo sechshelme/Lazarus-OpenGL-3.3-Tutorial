@@ -9,6 +9,7 @@ uses
   JS,
   Classes,
   SysUtils,
+  Math,
   Web;
 
 type
@@ -64,6 +65,14 @@ var
     img['src'] := 'image.png';
 
     Panel.appendChild(img);
+
+
+    Writeln (Round(0.49999));
+    Writeln (Round(0.5));
+    Writeln (Round(1.49999));
+    Writeln (Round(1.5));
+    Writeln (Round(2.49999));
+    Writeln (Round(2.5));
 
 
     // make webgl context
