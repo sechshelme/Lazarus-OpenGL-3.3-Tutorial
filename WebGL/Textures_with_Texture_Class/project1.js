@@ -1552,6 +1552,9 @@ rtl.module("System",[],function () {
     };
     this.$final = function () {
     };
+    this.Create = function () {
+      return this;
+    };
     this.Destroy = function () {
     };
     this.AfterConstruction = function () {
@@ -2123,14 +2126,66 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglMatrix","wglShader"],function () {
+rtl.module("wglTextur",["System","Types","SysUtils","Web","browserconsole","webgl","JS","wglCommon","wglMatrix"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TTextur",pas.System.TObject,function () {
+    this.$init = function () {
+      pas.System.TObject.$init.call(this);
+      this.FID = null;
+      this.FFileName = "";
+    };
+    this.$final = function () {
+      this.FID = undefined;
+      pas.System.TObject.$final.call(this);
+    };
+    this.Create$1 = function (AFilename) {
+      var img = null;
+      pas.System.TObject.Create.call(this);
+      this.FFileName = AFilename;
+      this.FID = null;
+      img = document.createElement("img");
+      img.setAttribute("id",AFilename);
+      img.setAttribute("src",AFilename);
+      img.setAttribute("style","display: none;");
+      document.body.appendChild(img);
+      return this;
+    };
+    this.Destroy = function () {
+      if (this.FID !== null) {
+        pas.wglCommon.gl.deleteTexture(this.FID);
+      };
+      pas.System.TObject.Destroy.call(this);
+    };
+    this.activateAndBin = function (nr) {
+      var im = null;
+      if (this.FID === null) {
+        im = document.getElementById(this.FFileName);
+        if (im.width > 0) {
+          pas.System.Writeln(im.width);
+          this.FID = pas.wglCommon.gl.createTexture();
+          pas.wglCommon.gl.bindTexture(3553,this.FID);
+          pas.wglCommon.gl.texParameteri(3553,10242,33071);
+          pas.wglCommon.gl.texParameteri(3553,10243,33071);
+          pas.wglCommon.gl.texParameteri(3553,10241,9729);
+          pas.wglCommon.gl.texParameteri(3553,10240,9729);
+          pas.wglCommon.gl.texImage2D(3553,0,6408,6408,5121,im);
+        };
+      } else {
+        pas.wglCommon.gl.activeTexture(33984 + nr);
+        pas.wglCommon.gl.bindTexture(3553,this.FID);
+      };
+    };
+  });
+});
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglMatrix","wglShader","wglTextur"],function () {
   "use strict";
   var $mod = this;
   this.TMesh_Buffers = {"0": "mbVBOQuadVektor", mbVBOQuadVektor: 0, "1": "mbVBOTexCoord", mbVBOTexCoord: 1, "2": "mbUBO", mbUBO: 2};
   this.shader = null;
   this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
   this.modelMatrix_ID = null;
-  this.textureID = null;
+  this.myTextur = null;
   this.canvas = null;
   this.Mesh_Buffers = rtl.arraySetLength(null,null,3);
   this.vertexShaderSource = "";
@@ -2151,7 +2206,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   };
   this.CreateScene = function () {
     var Panel = null;
-    var img = null;
     $mod.canvas = document.createElement("canvas");
     $mod.canvas.width = 640;
     $mod.canvas.height = 480;
@@ -2159,11 +2213,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Panel = document.createElement("div");
     Panel.setAttribute("class","panel panel-default");
     document.body.appendChild(Panel);
-    img = document.createElement("img");
-    img.setAttribute("id","image");
-    img.setAttribute("src","image.png");
-    img.setAttribute("style","display: none;");
-    document.body.appendChild(img);
+    $mod.myTextur = pas.wglTextur.TTextur.$create("Create$1",["image.png"]);
     pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("Konnte WebGL Context nicht erstellen !");
@@ -2180,20 +2230,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     pas.wglCommon.gl.bindBuffer(34962,null);
   };
   this.UpdateCanvas = function (time) {
-    var im = null;
-    if ($mod.textureID === null) {
-      im = document.getElementById("image");
-      if (im.width > 0) {
-        $mod.textureID = pas.wglCommon.gl.createTexture();
-        pas.wglCommon.gl.bindTexture(3553,$mod.textureID);
-        pas.wglCommon.gl.texParameteri(3553,10242,33071);
-        pas.wglCommon.gl.texParameteri(3553,10243,33071);
-        pas.wglCommon.gl.texParameteri(3553,10241,9729);
-        pas.wglCommon.gl.texParameteri(3553,10240,9729);
-        pas.wglCommon.gl.texImage2D(3553,0,6408,6408,5121,im);
-        pas.wglCommon.gl.bindTexture(3553,null);
-      };
-    };
     if ($mod.shader === null) {
       if (($mod.vertexShaderSource !== "") && ($mod.fragmentShaderSource !== "")) {
         $mod.shader = pas.wglShader.TShader.$create("Create$1");
@@ -2209,7 +2245,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
           }});
       };
     };
-    if (($mod.shader !== null) && ($mod.textureID !== null)) {
+    if ($mod.shader !== null) {
       pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
           return this.p.viewTransform;
         }, set: function (v) {
@@ -2221,7 +2257,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
           this.p.viewTransform = v;
         }},$mod.modelMatrix_ID);
       pas.wglCommon.gl.clear(16384);
-      pas.wglCommon.gl.bindTexture(3553,$mod.textureID);
+      $mod.myTextur.activateAndBin(0);
       pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
       pas.wglCommon.gl.enableVertexAttribArray(0);
       pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
