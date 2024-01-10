@@ -1552,6 +1552,9 @@ rtl.module("System",[],function () {
     };
     this.$final = function () {
     };
+    this.Create = function () {
+      return this;
+    };
     this.Destroy = function () {
     };
     this.Free = function () {
@@ -2039,6 +2042,14 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     this.Indenty = function () {
       this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
+    this.Scale = function (FaktorX, FaktorY, FaktorZ) {
+      var i = 0;
+      for (i = 0; i <= 2; i++) {
+        this.get()[i][0] *= FaktorX;
+        this.get()[i][1] *= FaktorY;
+        this.get()[i][2] *= FaktorZ;
+      };
+    };
     this.RotateC = function (angele) {
       var i = 0;
       var x = 0.0;
@@ -2070,6 +2081,59 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       pas.wglCommon.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
     };
   });
+  this.MatrixMultiple = function (mat0, mat1) {
+    var Result = rtl.arraySetLength(null,0.0,4,4);
+    var i = 0;
+    var j = 0;
+    var k = 0;
+    for (i = 0; i <= 3; i++) {
+      for (j = 0; j <= 3; j++) {
+        Result[i][j] = 0.0;
+        for (k = 0; k <= 3; k++) {
+          Result[i][j] += mat1[i][k] * mat0[k][j];
+        };
+      };
+    };
+    return Result;
+  };
+  this.WorldMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.ObjectMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.GlobusMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.CloudsMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.mProjectionMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.mRotationMatrix = rtl.arraySetLength(null,0.0,4,4);
+  $mod.$init = function () {
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.WorldMatrix;
+      }, set: function (v) {
+        this.p.WorldMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.ObjectMatrix;
+      }, set: function (v) {
+        this.p.ObjectMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.GlobusMatrix;
+      }, set: function (v) {
+        this.p.GlobusMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.CloudsMatrix;
+      }, set: function (v) {
+        this.p.CloudsMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.mProjectionMatrix;
+      }, set: function (v) {
+        this.p.mProjectionMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+        return this.p.mRotationMatrix;
+      }, set: function (v) {
+        this.p.mRotationMatrix = v;
+      }});
+  };
 });
 rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","wglCommon","wglMatrix"],function () {
   "use strict";
@@ -2124,6 +2188,11 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     this.UseProgram = function () {
       pas.wglCommon.gl.useProgram(this.FProgramObject);
     };
+    this.AttribLocation = function (Name) {
+      var Result = 0;
+      Result = pas.wglCommon.gl.getAttribLocation(this.FProgramObject,Name);
+      return Result;
+    };
     this.UniformLocation = function (Name) {
       var Result = null;
       Result = pas.wglCommon.gl.getUniformLocation(this.FProgramObject,Name);
@@ -2131,7 +2200,190 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglShader","wglMatrix"],function () {
+rtl.module("wglTextur",["System","Types","SysUtils","Web","browserconsole","webgl","JS","wglCommon"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TTextur",pas.System.TObject,function () {
+    this.$init = function () {
+      pas.System.TObject.$init.call(this);
+      this.FID = null;
+      this.FFileName = "";
+    };
+    this.$final = function () {
+      this.FID = undefined;
+      pas.System.TObject.$final.call(this);
+    };
+    this.Create$1 = function (AFilename) {
+      var img = null;
+      pas.System.TObject.Create.call(this);
+      this.FFileName = AFilename;
+      this.FID = null;
+      img = document.createElement("img");
+      img.setAttribute("id",AFilename);
+      img.setAttribute("src",AFilename);
+      img.setAttribute("style","display: none;");
+      document.body.appendChild(img);
+      return this;
+    };
+    this.Destroy = function () {
+      if (this.FID !== null) {
+        pas.wglCommon.gl.deleteTexture(this.FID);
+      };
+      pas.System.TObject.Destroy.call(this);
+    };
+    this.activateAndBind = function (nr) {
+      var im = null;
+      if (this.FID === null) {
+        im = document.getElementById(this.FFileName);
+        if (im.width > 0) {
+          this.FID = pas.wglCommon.gl.createTexture();
+          pas.wglCommon.gl.bindTexture(3553,this.FID);
+          pas.wglCommon.gl.texParameteri(3553,10242,33071);
+          pas.wglCommon.gl.texParameteri(3553,10243,33071);
+          pas.wglCommon.gl.texParameteri(3553,10241,9729);
+          pas.wglCommon.gl.texParameteri(3553,10240,9729);
+          pas.wglCommon.gl.texImage2D(3553,0,6408,6408,5121,im);
+        };
+      } else {
+        pas.wglCommon.gl.activeTexture(33984 + nr);
+        pas.wglCommon.gl.bindTexture(3553,this.FID);
+      };
+    };
+  });
+});
+rtl.module("ShaderSource",["System"],function () {
+  "use strict";
+  var $mod = this;
+  this.texturVertex = "           attribute vec3 inPos;" + "\n" + "           attribute vec3 inNormal;" + "\n" + "           attribute vec2 inUV;" + "\n" + "" + "\n" + "           uniform mat4 ObjectMatrix;" + "\n" + "           uniform mat4 WorldMatrix;" + "\n" + "" + "\n" + "           varying vec3 Pos;" + "\n" + "           varying vec3 Normal;" + "\n" + "           varying vec2 UV;" + "\n" + "" + "\n" + "           void main()" + "\n" + "           {" + "\n" + "           UV = inUV;" + "\n" + "           Pos = (ObjectMatrix * vec4(inPos, 1.0)).xyz;" + "\n" + "           Normal = normalize(mat3(ObjectMatrix) * inNormal);" + "\n" + "           gl_Position = ObjectMatrix * vec4(inPos, 1.0);" + "\n" + "           }";
+  this.texturFragment = "           precision mediump float;" + "\n" + "" + "\n" + "           varying vec3 Pos;" + "\n" + "           varying vec3 Normal;" + "\n" + "           varying vec2 UV;" + "\n" + "" + "\n" + "           uniform sampler2D Sampler0;" + "\n" + "" + "\n" + "           vec3 LightPosition = vec3(1.0, 1.0, 1.4);" + "\n" + "" + "\n" + "           float UmgebungsLicht = 0.3;" + "\n" + "" + "\n" + "           float diffuse()" + "\n" + "           {" + "\n" + "           vec3 LP        = (LightPosition * 1.0) - Pos;" + "\n" + "           float distance = length(LP);" + "\n" + "           float dif      = max(dot(Normal, LP), UmgebungsLicht);" + "\n" + "           return           dif * (1.0 / (1.0 + (0.25 * distance * distance)));" + "\n" + "           }" + "\n" + "" + "\n" + "           float specular()" + "\n" + "           {" + "\n" + "           vec3 Eye          = normalize(LightPosition);" + "\n" + "           vec3 Reflected    = normalize( reflect( -Pos, Normal ));" + "\n" + "           return              0.15 * pow(max(dot(Reflected, Eye), 0.0), 1.0);" + "\n" + "           }" + "\n" + "" + "\n" + "" + "\n" + "           void main()" + "\n" + "           {" + "\n" + "               vec4 Color = texture2D(Sampler0, UV);" + "\n" + "//                Color.a=1.0;  // ?????" + "\n" + "               float cola = Color.a;" + "\n" + "               gl_FragColor = (Color * diffuse() + specular());" + "\n" + "               gl_FragColor.a = cola;" + "\n" + "           }";
+});
+rtl.module("wglVAO",["System","Types","SysUtils","Web","browserconsole","webgl","JS","wglCommon","wglMatrix","wglShader","wglTextur","ShaderSource"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TVBO",pas.System.TObject,function () {
+    this.$init = function () {
+      pas.System.TObject.$init.call(this);
+      this.ID = null;
+      this.fVertexSize = 0;
+    };
+    this.$final = function () {
+      this.ID = undefined;
+      pas.System.TObject.$final.call(this);
+    };
+    this.Create$1 = function (floatArray, vertexSize) {
+      pas.System.TObject.Create.call(this);
+      this.fVertexSize = vertexSize;
+      this.ID = pas.wglCommon.gl.createBuffer();
+      pas.wglCommon.gl.bindBuffer(34962,this.ID);
+      pas.wglCommon.gl.bufferData(34962,floatArray,35044);
+      return this;
+    };
+    this.Destroy = function () {
+      pas.wglCommon.gl.deleteBuffer(this.ID);
+      pas.System.TObject.Destroy.call(this);
+    };
+    this.Bind = function (uniformID) {
+      pas.wglCommon.gl.enableVertexAttribArray(uniformID);
+      pas.wglCommon.gl.bindBuffer(34962,this.ID);
+      pas.wglCommon.gl.vertexAttribPointer(uniformID,this.fVertexSize,5126,false,0,0);
+    };
+  });
+  rtl.createClass(this,"TVAOTextur",pas.System.TObject,function () {
+    this.$init = function () {
+      pas.System.TObject.$init.call(this);
+      this.shader = null;
+      this.posID = 0;
+      this.normalID = 0;
+      this.uvID = 0;
+      this.reader = null;
+      this.matrixID = null;
+      this.posVBO = null;
+      this.normalVBO = null;
+      this.uvVBO = null;
+      this.numItems = 0;
+    };
+    this.$final = function () {
+      this.shader = undefined;
+      this.reader = undefined;
+      this.matrixID = undefined;
+      this.posVBO = undefined;
+      this.normalVBO = undefined;
+      this.uvVBO = undefined;
+      pas.System.TObject.$final.call(this);
+    };
+    this.Create$1 = function (TexturPath) {
+      this.posVBO = null;
+      this.normalVBO = null;
+      this.uvVBO = null;
+      this.shader = pas.wglShader.TShader.$create("Create$1");
+      this.shader.LoadShaderObject(35633,pas.ShaderSource.texturVertex);
+      this.shader.LoadShaderObject(35632,pas.ShaderSource.texturFragment);
+      this.shader.LinkProgram();
+      this.posID = this.shader.AttribLocation("inPos");
+      this.normalID = this.shader.AttribLocation("inNormal");
+      this.uvID = this.shader.AttribLocation("inUV");
+      this.matrixID = this.shader.UniformLocation("ObjectMatrix");
+      pas.wglCommon.gl.uniform1i(this.shader.UniformLocation("Sampler0"),0);
+      this.reader = new XMLHttpRequest();
+      this.reader.addEventListener("load",rtl.createCallback(this,"onload"));
+      this.reader.open("GET","data/" + TexturPath + ".bin");
+      this.reader.responseType = "arraybuffer";
+      this.reader.send(null);
+      this.numItems = 0;
+      return this;
+    };
+    this.onload = function () {
+      var arrayBuffer = null;
+      var floatBufferColor = null;
+      var pos = 0;
+      var len = 0;
+      if (this.reader.status === 200) {
+        arrayBuffer = this.reader.response;
+        pas.System.Writeln("xhrlen: ",arrayBuffer.byteLength);
+        floatBufferColor = new Float32Array(arrayBuffer,0,4);
+        pas.System.Writeln(floatBufferColor[0]);
+        pas.System.Writeln(floatBufferColor[1]);
+        pas.System.Writeln(floatBufferColor[2]);
+        pas.System.Writeln(floatBufferColor[3]);
+        pos = 4;
+        len = rtl.trunc((new Uint32Array(arrayBuffer))[pos] / 4);
+        pos += 1;
+        this.numItems = rtl.trunc(len / 3);
+        pas.System.Writeln("vertexCount: ",this.numItems);
+        this.posVBO = $mod.TVBO.$create("Create$1",[new Float32Array(arrayBuffer,pos * 4,len),3]);
+        pos += len;
+        len = rtl.trunc((new Uint32Array(arrayBuffer))[pos] / 4);
+        pos += 1;
+        this.normalVBO = $mod.TVBO.$create("Create$1",[new Float32Array(arrayBuffer,pos * 4,len),3]);
+        pos += len;
+        len = rtl.trunc((new Uint32Array(arrayBuffer))[pos] / 4);
+        pos += 1;
+        this.uvVBO = $mod.TVBO.$create("Create$1",[new Float32Array(arrayBuffer,pos * 4,len),2]);
+      };
+    };
+    this.draw = function (textur) {
+      var m = rtl.arraySetLength(null,0.0,4,4);
+      this.shader.UseProgram();
+      if (this.posVBO !== null) this.posVBO.Bind(this.posID);
+      if (this.normalVBO !== null) this.normalVBO.Bind(this.normalID);
+      if (this.uvVBO !== null) this.uvVBO.Bind(this.uvID);
+      if (textur !== null) textur.activateAndBind(0);
+      pas.wglMatrix.TMatrixfHelper.Indenty.call({get: function () {
+          return m;
+        }, set: function (v) {
+          m = v;
+        }});
+      m = pas.wglMatrix.MatrixMultiple(pas.wglMatrix.WorldMatrix,pas.wglMatrix.ObjectMatrix);
+      pas.wglMatrix.TMatrixfHelper.Uniform.call({get: function () {
+          return m;
+        }, set: function (v) {
+          m = v;
+        }},this.matrixID);
+      pas.wglCommon.gl.drawArrays(4,0,this.numItems);
+    };
+  });
+});
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","webgl","wglCommon","wglShader","wglMatrix","wglVAO","wglTextur","ShaderSource"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
@@ -2180,6 +2432,9 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       var fragmentShaderSource = "";
       vertexShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "layout(location = 0) in vec3 inPos;" + "\n" + "layout(location = 1) in vec3 inCol;" + "\n" + "uniform mat4 proMatrix;" + "\n" + "uniform mat4 modelMatrix;" + "\n" + "out vec3 col;" + "\n" + "void main(){" + "\n" + "  gl_Position = proMatrix * modelMatrix * vec4(inPos, 1.0);" + "\n" + "  col = inCol;}";
       fragmentShaderSource = "#version 300 es" + "\n" + "precision highp float;" + "\n" + "in vec3 col;" + "\n" + "out vec4 outCol;" + "\n" + "void main(void){" + "\n" + "  outCol = vec4(col, 1.0); }";
+      $mod.BackGroundBuffer = pas.wglVAO.TVAOTextur.$create("Create$1",["BackGround"]);
+      $mod.GlobusBuffer = pas.wglVAO.TVAOTextur.$create("Create$1",["Earth"]);
+      $mod.texturWorldAll = pas.wglTextur.TTextur.$create("Create$1",["data/all.jpg"]);
       $mod.shader = pas.wglShader.TShader.$create("Create$1");
       $mod.shader.LoadShaderObject(35633,vertexShaderSource);
       $mod.shader.LoadShaderObject(35632,fragmentShaderSource);
@@ -2268,6 +2523,9 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.modelMatrix = rtl.arraySetLength(null,0.0,4,4);
   this.modelMatrix_ID = null;
   this.proMatrix_ID = null;
+  this.BackGroundBuffer = null;
+  this.GlobusBuffer = null;
+  this.texturWorldAll = null;
   this.canvas = null;
   this.TMesh_Buffers = {"0": "mbVBOTriangleVector", mbVBOTriangleVector: 0, "1": "mbVBOTriangleColor", mbVBOTriangleColor: 1, "2": "mbVBOQuadVektor", mbVBOQuadVektor: 2, "3": "mbVBOQuadColor", mbVBOQuadColor: 3, "4": "mbUBO", mbUBO: 4};
   this.Mesh_Buffers = rtl.arraySetLength(null,null,5);
@@ -2275,7 +2533,26 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.TriangleColor = [1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0];
   this.QuadVector = [-0.2,-0.6,0.0,-0.2,-0.1,0.0,0.2,-0.1,0.0,-0.2,-0.6,0.0,0.2,-0.1,0.0,0.2,-0.6,0.0];
   this.QuadColor = [1.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0];
+  this.drawBackGround = function () {
+    pas.wglMatrix.TMatrixfHelper.Indenty.call({p: pas.wglMatrix, get: function () {
+        return this.p.WorldMatrix;
+      }, set: function (v) {
+        this.p.WorldMatrix = v;
+      }});
+    pas.wglMatrix.TMatrixfHelper.Indenty.call({p: pas.wglMatrix, get: function () {
+        return this.p.ObjectMatrix;
+      }, set: function (v) {
+        this.p.ObjectMatrix = v;
+      }});
+    pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
+        return this.p.WorldMatrix;
+      }, set: function (v) {
+        this.p.WorldMatrix = v;
+      }},0.3,0.3,1);
+    $mod.BackGroundBuffer.draw($mod.texturWorldAll);
+  };
   this.UpdateCanvas = function (time) {
+    $mod.shader.UseProgram();
     pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
         return this.p.modelMatrix;
       }, set: function (v) {
@@ -2306,6 +2583,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     pas.wglCommon.gl.enableVertexAttribArray(1);
     pas.wglCommon.gl.vertexAttribPointer(1,3,5126,false,0,0);
     pas.wglCommon.gl.drawArrays(4,0,6);
+    $mod.drawBackGround();
     window.requestAnimationFrame($mod.UpdateCanvas);
   };
   this.MyApp = null;

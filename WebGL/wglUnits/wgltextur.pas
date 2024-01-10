@@ -7,7 +7,7 @@ interface
 uses
   Types, SysUtils, Web,
   BrowserConsole, WebGL, JS,
-  wglCommon, wglMatrix;
+  wglCommon;
 
 type
   TTextur = class(TObject)
@@ -17,7 +17,7 @@ type
   public
     constructor Create(AFilename: string);
     destructor Destroy; override;
-    procedure activateAndBin(nr: GLint);
+    procedure activateAndBind(nr: GLint);
   end;
 
 implementation
@@ -45,14 +45,13 @@ begin
   inherited Destroy;
 end;
 
-procedure TTextur.activateAndBin(nr: GLint);
+procedure TTextur.activateAndBind(nr: GLint);
 var
   im: TJSHTMLImageElement;
 begin
   if FID = nil then begin
     im := TJSHTMLImageElement(document.getElementById(FFileName));
     if im.Width > 0 then begin
-      Writeln(im.Width);
       FID := gl.createTexture;
       gl.bindTexture(gl.TEXTURE_2D, FID);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);

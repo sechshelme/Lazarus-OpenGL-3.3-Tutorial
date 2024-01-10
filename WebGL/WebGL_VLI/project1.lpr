@@ -13,7 +13,7 @@ uses
   WebGL,
   wglCommon,
   wglShader,
-  wglMatrix, wglVAO, wglTextur;
+  wglMatrix, wglVAO, wglTextur, ShaderSource, common;
 
 type
 
@@ -33,6 +33,13 @@ var
   proMatrix, modelMatrix: TMatrix;
 
   modelMatrix_ID, proMatrix_ID: TJSWebGLUniformLocation;
+
+  BackGroundBuffer: TVAOTextur;
+  GlobusBuffer: TVAOTextur;
+
+  texturWorldAll: TTextur;
+
+
 
   canvas: TJSHTMLCanvasElement;
 
@@ -115,6 +122,10 @@ const
   begin
     byteBuffer := TJSUint8Array.New(Length(va) * 4);
     floatBuffer := TJSFloat32Array.New(byteBuffer.buffer, 0, Length(va));
+
+    //Writeln('byte: ', byteBuffer.length);
+    //Writeln('float: ', floatBuffer.length);
+
     floatBuffer._set(va, 0);
 
     Result := byteBuffer;
@@ -157,6 +168,11 @@ const
       '  outCol = vec4(col, 1.0); }';
 
 
+    BackGroundBuffer:=TVAOTextur.Create('BackGround');
+    GlobusBuffer:=TVAOTextur.Create('Earth');
+
+    texturWorldAll := TTextur.Create('data/all.jpg');
+
     shader := TShader.Create;
     shader.LoadShaderObject(gl.VERTEX_SHADER, vertexShaderSource);
     shader.LoadShaderObject(gl.FRAGMENT_SHADER, fragmentShaderSource);
@@ -197,8 +213,21 @@ const
     gl.bindBuffer(gl.ARRAY_BUFFER, nil);
   end;
 
+procedure drawBackGround;
+begin
+  WorldMatrix.Indenty;
+  ObjectMatrix.Indenty;
+//  WorldMatrix.Scale(1,1,-1);
+  WorldMatrix.Scale(0.3,0.3,1);
+
+  BackGroundBuffer.draw(texturWorldAll);
+
+  end;
+
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
   begin
+
+    shader.UseProgram;
     modelMatrix.RotateC(0.03);
     modelMatrix.Uniform(modelMatrix_ID);
 
@@ -229,6 +258,9 @@ const
     gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 0, 0);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    drawBackGround;
+
 
     window.requestAnimationFrame(@UpdateCanvas);
   end;

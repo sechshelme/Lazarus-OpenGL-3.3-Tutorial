@@ -2039,6 +2039,14 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     this.Indenty = function () {
       this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
+    this.Scale = function (FaktorX, FaktorY, FaktorZ) {
+      var i = 0;
+      for (i = 0; i <= 2; i++) {
+        this.get()[i][0] *= FaktorX;
+        this.get()[i][1] *= FaktorY;
+        this.get()[i][2] *= FaktorZ;
+      };
+    };
     this.RotateC = function (angele) {
       var i = 0;
       var x = 0.0;
@@ -2126,7 +2134,7 @@ rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS
     };
   });
 });
-rtl.module("wglTextur",["System","Types","SysUtils","Web","browserconsole","webgl","JS","wglCommon","wglMatrix"],function () {
+rtl.module("wglTextur",["System","Types","SysUtils","Web","browserconsole","webgl","JS","wglCommon"],function () {
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TTextur",pas.System.TObject,function () {
@@ -2162,7 +2170,6 @@ rtl.module("wglTextur",["System","Types","SysUtils","Web","browserconsole","webg
       if (this.FID === null) {
         im = document.getElementById(this.FFileName);
         if (im.width > 0) {
-          pas.System.Writeln(im.width);
           this.FID = pas.wglCommon.gl.createTexture();
           pas.wglCommon.gl.bindTexture(3553,this.FID);
           pas.wglCommon.gl.texParameteri(3553,10242,33071);
@@ -2183,9 +2190,11 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   var $mod = this;
   this.TMesh_Buffers = {"0": "mbVBOQuadVektor", mbVBOQuadVektor: 0, "1": "mbVBOTexCoord", mbVBOTexCoord: 1, "2": "mbUBO", mbUBO: 2};
   this.shader = null;
-  this.viewTransform = rtl.arraySetLength(null,0.0,4,4);
+  this.modelMatrix = rtl.arraySetLength(null,0.0,4,4);
   this.modelMatrix_ID = null;
-  this.myTextur = null;
+  this.pos_ID = null;
+  this.myTextur0 = null;
+  this.myTextur1 = null;
   this.canvas = null;
   this.Mesh_Buffers = rtl.arraySetLength(null,null,3);
   this.vertexShaderSource = "";
@@ -2213,7 +2222,8 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Panel = document.createElement("div");
     Panel.setAttribute("class","panel panel-default");
     document.body.appendChild(Panel);
-    $mod.myTextur = pas.wglTextur.TTextur.$create("Create$1",["image.png"]);
+    $mod.myTextur0 = pas.wglTextur.TTextur.$create("Create$1",["examples.ico"]);
+    $mod.myTextur1 = pas.wglTextur.TTextur.$create("Create$1",["image.png"]);
     pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("Konnte WebGL Context nicht erstellen !");
@@ -2238,26 +2248,41 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         $mod.shader.LinkProgram();
         $mod.shader.UseProgram();
         $mod.modelMatrix_ID = $mod.shader.UniformLocation("viewTransform");
+        $mod.pos_ID = $mod.shader.UniformLocation("pos");
         pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
-            return this.p.viewTransform;
+            return this.p.modelMatrix;
           }, set: function (v) {
-            this.p.viewTransform = v;
+            this.p.modelMatrix = v;
           }});
+        pas.wglMatrix.TMatrixfHelper.Scale.call({p: $mod, get: function () {
+            return this.p.modelMatrix;
+          }, set: function (v) {
+            this.p.modelMatrix = v;
+          }},0.5,0.5,1.0);
       };
-    };
-    if ($mod.shader !== null) {
+    } else {
       pas.wglMatrix.TMatrixfHelper.RotateC.call({p: $mod, get: function () {
-          return this.p.viewTransform;
+          return this.p.modelMatrix;
         }, set: function (v) {
-          this.p.viewTransform = v;
+          this.p.modelMatrix = v;
         }},0.03);
       pas.wglMatrix.TMatrixfHelper.Uniform.call({p: $mod, get: function () {
-          return this.p.viewTransform;
+          return this.p.modelMatrix;
         }, set: function (v) {
-          this.p.viewTransform = v;
+          this.p.modelMatrix = v;
         }},$mod.modelMatrix_ID);
       pas.wglCommon.gl.clear(16384);
-      $mod.myTextur.activateAndBin(0);
+      $mod.myTextur0.activateAndBin(0);
+      pas.wglCommon.gl.uniform1f($mod.pos_ID,-0.5);
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
+      pas.wglCommon.gl.enableVertexAttribArray(0);
+      pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);
+      pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[1]);
+      pas.wglCommon.gl.enableVertexAttribArray(1);
+      pas.wglCommon.gl.vertexAttribPointer(1,2,5126,false,0,0);
+      pas.wglCommon.gl.drawArrays(4,0,6);
+      $mod.myTextur1.activateAndBin(0);
+      pas.wglCommon.gl.uniform1f($mod.pos_ID,0.5);
       pas.wglCommon.gl.bindBuffer(34962,$mod.Mesh_Buffers[0]);
       pas.wglCommon.gl.enableVertexAttribArray(0);
       pas.wglCommon.gl.vertexAttribPointer(0,3,5126,false,0,0);

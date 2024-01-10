@@ -70,8 +70,6 @@ var
     end;
 
   begin
-   Writeln(Tan(123));
-
     Panel := document.createElement('div');
     Panel['class'] := 'panel panel-default';
     document.body.appendChild(Panel);

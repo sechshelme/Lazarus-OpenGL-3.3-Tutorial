@@ -22,6 +22,7 @@ type
 
   TMatrixfHelper = type Helper for TMatrix
     procedure Indenty;
+    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
     procedure RotateC(angele: GLfloat);
     procedure Translate(v: TVector3f);
     procedure Translate(x, y, z: GLfloat);
@@ -32,11 +33,32 @@ type
     procedure Uniform(ShaderID: TJSWebGLUniformLocation);
   end;
 
+function MatrixMultiple(const mat0, mat1: TMatrix):TMatrix;
+
+var
+  WorldMatrix,
+  ObjectMatrix,
+  GlobusMatrix,
+  CloudsMatrix,
+  mProjectionMatrix,
+  mRotationMatrix: TMatrix;
+
 implementation
 
 procedure TMatrixfHelper.Indenty;
 begin
   Self := [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]];
+end;
+
+procedure TMatrixfHelper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    Self[i, 0] *= FaktorX;
+    Self[i, 1] *= FaktorY;
+    Self[i, 2] *= FaktorZ;
+  end;
 end;
 
 procedure TMatrixfHelper.RotateC(angele: GLfloat);
@@ -119,4 +141,25 @@ begin
   gl.uniformMatrix4fv(ShaderID, False, Self.GetFloatList);
 end;
 
+function MatrixMultiple(const mat0, mat1: TMatrix): TMatrix;
+var
+  i, j, k: integer;
+begin
+  for i := 0 to 3 do begin
+    for j := 0 to 3 do begin
+      Result[i, j] := 0.0;
+      for k := 0 to 3 do begin
+        Result[i, j] += mat1[i, k] * mat0[k, j];
+      end;
+    end;
+  end;
+end;
+
+begin
+  WorldMatrix.Indenty;
+  ObjectMatrix.Indenty;
+  GlobusMatrix.Indenty;
+  CloudsMatrix.Indenty;
+  mProjectionMatrix.Indenty;
+  mRotationMatrix.Indenty;
 end.

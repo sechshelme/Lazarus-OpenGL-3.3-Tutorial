@@ -2152,7 +2152,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         Panel.appendChild(Result);
         return Result;
       };
-      pas.System.Writeln(Math.tan(123));
       Panel = document.createElement("div");
       Panel.setAttribute("class","panel panel-default");
       document.body.appendChild(Panel);

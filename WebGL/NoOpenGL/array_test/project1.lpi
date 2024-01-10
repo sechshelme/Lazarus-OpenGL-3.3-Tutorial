@@ -13,12 +13,11 @@
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
-    <CustomData Count="5">
-      <Item0 Name="BrowserConsole" Value="1"/>
-      <Item1 Name="MaintainHTML" Value="1"/>
-      <Item2 Name="Pas2JSProject" Value="1"/>
-      <Item3 Name="PasJSLocation" Value="$NameOnly($(ProjFile))"/>
-      <Item4 Name="PasJSWebBrowserProject" Value="1"/>
+    <CustomData Count="4">
+      <Item0 Name="MaintainHTML" Value="1"/>
+      <Item1 Name="Pas2JSProject" Value="1"/>
+      <Item2 Name="PasJSLocation" Value="$NameOnly($(ProjFile))"/>
+      <Item3 Name="PasJSWebBrowserProject" Value="1"/>
     </CustomData>
     <BuildModes>
       <Item Name="Default" Default="True"/>
@@ -42,45 +41,15 @@
           <Item0 Name="PasJSIsProjectHTMLFile" Value="1"/>
         </CustomData>
       </Unit>
-      <Unit>
-        <Filename Value="wglshader.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglShader"/>
-      </Unit>
-      <Unit>
-        <Filename Value="wglmatrix.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglMatrix"/>
-      </Unit>
-      <Unit>
-        <Filename Value="wglvao.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglVAO"/>
-      </Unit>
-      <Unit>
-        <Filename Value="wgltextur.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="wglTextur"/>
-      </Unit>
-      <Unit>
-        <Filename Value="shadersource.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ShaderSource"/>
-      </Unit>
-      <Unit>
-        <Filename Value="common.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
-    <Target>
+    <Target FileExt=".js">
       <Filename Value="project1"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../wglUnits"/>
       <UnitOutputDirectory Value="js"/>
     </SearchPaths>
     <Parsing>
@@ -96,7 +65,6 @@
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
-        <DebugInfoType Value="dsDwarf2Set"/>
         <UseLineInfoUnit Value="False"/>
       </Debugging>
     </Linking>

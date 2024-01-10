@@ -13,7 +13,8 @@ uses
   WebGL,
   wglCommon,
   wglMatrix,
-  wglShader,wglTextur;
+  wglShader,
+  wglTextur;
 
 type
   TMesh_Buffers = (mbVBOQuadVektor, mbVBOTexCoord, mbUBO);
@@ -25,10 +26,11 @@ type
 
 var
   shader: TShader = nil;
-  viewTransform: TMatrix;
+  modelMatrix: TMatrix;
   modelMatrix_ID: TJSWebGLUniformLocation;
+  pos_ID: TJSWebGLUniformLocation;
 
-  myTextur:TTextur;
+  myTextur0, myTextur1: TTextur;
 
   canvas: TJSHTMLCanvasElement;
 
@@ -89,30 +91,13 @@ const
     canvas.Height := 480;
     document.body.appendChild(canvas);
 
-    //<div style="display: none;">
-    //  <img id="ghost1" src="ghost1.png"/>
-    //  <img id="ghost2" src="ghost2.png"/>
-    //  <img id="ghost3" src="ghost3.png"/>
-    //  <img id="ghost4" src="ghost4.png"/>
-    //</div>
-    //
-
-
     Panel := document.createElement('div');
     Panel['class'] := 'panel panel-default';
     document.body.appendChild(Panel);
 
-    //       <img id="ghost1" src="ghost1.png"/>
+    myTextur0 := TTextur.Create('examples.ico');
+    myTextur1 := TTextur.Create('image.png');
 
-    myTextur:=TTextur.Create('image.png');
-
-
-    //img := document.createElement('img');
-    //img['id'] := 'image.png';
-    //img['src'] := 'image.png';
-    //img['style'] := 'display: none;';
-    //document.body.appendChild(img);
-    //
     // --- WebGl Context erstellen
     gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
     if gl = nil then begin
@@ -139,23 +124,8 @@ const
 
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
   var
-   im: TJSHTMLImageElement;
+    im: TJSHTMLImageElement;
   begin
-    //if textureID = nil then begin
-    //  im := TJSHTMLImageElement(document.getElementById('image.png'));
-    //  if im.Width > 0 then begin
-    //    textureID := gl.createTexture;
-    //    gl.bindTexture(gl.TEXTURE_2D, textureID);
-    //    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    //    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    //    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    //    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    //    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
-    //    gl.bindTexture(gl.TEXTURE_2D, nil);
-    //  end;
-    //end;
-
-
     if shader = nil then begin
       if (vertexShaderSource <> '') and (fragmentShaderSource <> '') then begin
         shader := TShader.Create;
@@ -165,20 +135,36 @@ const
         shader.UseProgram;
 
         modelMatrix_ID := shader.UniformLocation('viewTransform');
-        viewTransform.Indenty;
-      end;
-    end;
+        pos_ID := shader.UniformLocation('pos');
 
-    if shader <> nil then begin
-      viewTransform.RotateC(0.03);
-      viewTransform.Uniform(modelMatrix_ID);
+        modelMatrix.Indenty;
+        modelMatrix.Scale(0.5, 0.5, 1.0);
+      end;
+    end else begin
+      modelMatrix.RotateC(0.03);
+      modelMatrix.Uniform(modelMatrix_ID);
 
       gl.Clear(gl.COLOR_BUFFER_BIT);
 
-      // --- Quad
-      myTextur.activateAndBin(0);
+      // --- Quad links
+      myTextur0.activateAndBin(0);
 
-//      gl.bindTexture(gl.TEXTURE_2D, textureID);
+      gl.uniform1f(pos_ID, -0.5);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 3, gl.FLOAT, False, 0, 0);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTexCoord]);
+      gl.enableVertexAttribArray(1);
+      gl.vertexAttribPointer(1, 2, gl.FLOAT, False, 0, 0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      // --- Quad rechts
+      myTextur1.activateAndBin(0);
+
+      gl.uniform1f(pos_ID, 0.5);
 
       gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
       gl.enableVertexAttribArray(0);

@@ -106,9 +106,10 @@ const
     img := document.createElement('img');
     img['id'] := 'image';
     img['src'] := 'image.png';
-    img['style'] := 'display: none;';
+//    img['style'] := 'display: none;';
 
-    document.body.appendChild(img);
+    Panel.appendChild(img);
+//    document.body.appendChild(img);
 
     // --- WebGl Context erstellen
     gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
