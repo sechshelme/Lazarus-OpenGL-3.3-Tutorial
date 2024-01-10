@@ -36,9 +36,26 @@ type
      posVBO,normalVBO,uvVBO: TVBO;
       numItems:Integer;
   public
-    constructor Create(TexturPath: string);
+    constructor Create(VertexPath: string);
     procedure onload;
     procedure draw(textur: TTextur);
+  end;
+
+  { TVAOBumpMapingTextur }
+
+  TVAOBumpMapingTextur = class(TObject)
+  private
+    shader: TShader;
+    posID, normalID, uvID: GLint;
+    reader: TJSXMLHttpRequest;
+    matrixID: TJSWebGLUniformLocation;
+
+     posVBO,normalVBO,uvVBO: TVBO;
+      numItems:Integer;
+  public
+    constructor Create(VertexPath: string);
+    procedure onload;
+    procedure draw(textur, normal: TTextur);
   end;
 
 implementation
@@ -71,7 +88,7 @@ end;
 
 { TVAOTextur }
 
-constructor TVAOTextur.Create(TexturPath: string);
+constructor TVAOTextur.Create(VertexPath: string);
 begin
  posVBO:=nil;
  normalVBO:=nil;
@@ -90,7 +107,7 @@ begin
 
   reader := TJSXMLHttpRequest.New;
   reader.addEventListener('load', @onload);
-  reader.Open('GET', 'data/' + TexturPath + '.bin');
+  reader.Open('GET', 'data/' + VertexPath + '.bin');
   reader.responseType := 'arraybuffer';
   reader.send(nil);
 
@@ -101,9 +118,7 @@ procedure TVAOTextur.onload;
 var
   arrayBuffer: TJSArrayBuffer;
   floatBufferColor:TJSFloat32Array;
-
  pos,len: Integer;
-
 begin
   if (reader.status = 200) then  begin
 
@@ -111,11 +126,6 @@ begin
     Writeln('xhrlen: ',arrayBuffer.byteLength);
 
     floatBufferColor:= TJSFloat32Array.new (arrayBuffer, 0,4);
-
-    Writeln(floatBufferColor[0]);
-    Writeln(floatBufferColor[1]);
-    Writeln(floatBufferColor[2]);
-    Writeln(floatBufferColor[3]);
 
     pos:=4;
     // Vektor
@@ -156,6 +166,99 @@ if uvVBO<>nil then  uvVBO.bind(uvID);
 
   m:=MatrixMultiple(WorldMatrix,ObjectMatrix);
 //  m.Scale(0.5,0.5,0.5);
+
+  m.Uniform(matrixID);
+
+  gl.drawArrays(gl.TRIANGLES,0,numItems);
+end;
+
+{ TVAOBumpMapingTextur }
+
+constructor TVAOBumpMapingTextur.Create(VertexPath: string);
+begin
+ posVBO:=nil;
+ normalVBO:=nil;
+ uvVBO:=nil;
+
+  shader := TShader.Create;
+  shader.LoadShaderObject(gl.VERTEX_SHADER, texturBumpMapingVertex);
+  shader.LoadShaderObject(gl.FRAGMENT_SHADER, texturBumpMapingFragment);
+  shader.LinkProgram;
+
+  posID := shader.AttribLocation('inPos');
+  normalID := shader.AttribLocation('inNormal');
+  uvID := shader.AttribLocation('inUV');
+  matrixID := shader.uniformLocation('ObjectMatrix');
+  gl.uniform1i(shader.uniformLocation('Sampler0'), 0);
+  gl.uniform1i(shader.uniformLocation('Sampler1'), 1);
+
+  reader := TJSXMLHttpRequest.New;
+  reader.addEventListener('load', @onload);
+  reader.Open('GET', 'data/' + VertexPath + '.bin');
+  reader.responseType := 'arraybuffer';
+  reader.send(nil);
+
+  numItems:=0;
+end;
+
+procedure TVAOBumpMapingTextur.onload;
+var
+  arrayBuffer: TJSArrayBuffer;
+  floatBufferColor:TJSFloat32Array;
+ pos,len: Integer;
+begin
+  if (reader.status = 200) then  begin
+
+    arrayBuffer := TJSArrayBuffer( reader.response);
+    Writeln('xhrlen: ',arrayBuffer.byteLength);
+
+    floatBufferColor:= TJSFloat32Array.new (arrayBuffer, 0,4);
+
+    Writeln(floatBufferColor[0]);
+    Writeln(floatBufferColor[1]);
+    Writeln(floatBufferColor[2]);
+    Writeln(floatBufferColor[3]);
+
+//    pos:=4;
+    pos:=0;
+    // Vektor
+    len:=TJSUint32Array.new(arrayBuffer)[pos] div 4;
+    Inc(pos);
+
+    numItems:=len div 3; // Drei Punkte im Dreieck
+    Writeln('vertexCount: ', numItems);
+    posVBO:=TVBO.Create(TJSFloat32Array.new(arrayBuffer,pos*4,len),3);
+    inc(pos,len);
+
+    // Normale
+    len:=TJSUint32Array.new(arrayBuffer)[pos] div 4;
+    Inc(pos);
+    normalVBO:=TVBO.Create(TJSFloat32Array.new(arrayBuffer,pos*4,len),3);
+    inc(pos,len);
+
+    // Normale
+    len:=TJSUint32Array.new(arrayBuffer)[pos] div 4;
+    Inc(pos);
+    uvVBO:=TVBO.Create(TJSFloat32Array.new(arrayBuffer,pos*4,len),2);
+  end;
+end;
+
+procedure TVAOBumpMapingTextur.draw(textur, normal: TTextur);
+var
+ m:TMatrix;
+begin
+  shader.UseProgram;
+
+if posVBO<>nil then  posVBO.bind(posID);
+if normalVBO<>nil then  normalVBO.bind(normalID);
+if uvVBO<>nil then  uvVBO.bind(uvID);
+
+if textur<>nil then textur.activateAndBind(0);
+if normal<>nil then normal.activateAndBind(1);
+
+  m.Indenty;
+
+  m:=MatrixMultiple(WorldMatrix,ObjectMatrix);
 
   m.Uniform(matrixID);
 

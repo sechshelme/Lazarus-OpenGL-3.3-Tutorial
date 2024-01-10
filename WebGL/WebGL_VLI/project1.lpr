@@ -13,7 +13,11 @@ uses
   WebGL,
   wglCommon,
   wglShader,
-  wglMatrix, wglVAO, wglTextur, ShaderSource, common;
+  wglMatrix,
+  wglVAO,
+  wglTextur,
+  ShaderSource,
+  common;
 
 type
 
@@ -35,9 +39,13 @@ var
   modelMatrix_ID, proMatrix_ID: TJSWebGLUniformLocation;
 
   BackGroundBuffer: TVAOTextur;
-  GlobusBuffer: TVAOTextur;
+  GlobusBuffer: TVAOBumpMapingTextur;
 
-  texturWorldAll: TTextur;
+  texturWorldAll,
+  GlobusTextur,
+  GlobusNormal,
+  CloudsTextur,
+  CloudsNormal: TTextur;
 
 
 
@@ -66,7 +74,7 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
-          Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
+      Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
       Panel.appendChild(Result);
     end;
 
@@ -89,8 +97,8 @@ var
 
     // make webgl context
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
-    canvas.Width := 640;
-    canvas.Height := 480;
+    canvas.Width := 800;
+    canvas.Height := 800;
     document.body.appendChild(canvas);
 
     gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
@@ -168,10 +176,15 @@ const
       '  outCol = vec4(col, 1.0); }';
 
 
-    BackGroundBuffer:=TVAOTextur.Create('BackGround');
-    GlobusBuffer:=TVAOTextur.Create('Earth');
+    BackGroundBuffer := TVAOTextur.Create('BackGround');
+    GlobusBuffer := TVAOBumpMapingTextur.Create('Earth');
 
     texturWorldAll := TTextur.Create('data/all.jpg');
+    GlobusTextur := TTextur.Create('data/earth_textur.jpg');
+    GlobusNormal := TTextur.Create('data/earth_normal.jpg');
+    CloudsTextur := TTextur.Create('data/clouds_textur.png');
+    CloudsNormal := TTextur.Create('data/clouds_normal.jpg');
+
 
     shader := TShader.Create;
     shader.LoadShaderObject(gl.VERTEX_SHADER, vertexShaderSource);
@@ -213,15 +226,45 @@ const
     gl.bindBuffer(gl.ARRAY_BUFFER, nil);
   end;
 
-procedure drawBackGround;
-begin
-  WorldMatrix.Indenty;
-  ObjectMatrix.Indenty;
-//  WorldMatrix.Scale(1,1,-1);
-  WorldMatrix.Scale(0.3,0.3,1);
+  procedure drawBackGround;
+  var
+    dummyMatrix, rotMatrix: TMatrix;
+  begin
+    // Sternenhimmel
+    dummyMatrix := WorldMatrix;
+    rotMatrix.Indenty;
 
-  BackGroundBuffer.draw(texturWorldAll);
+    WorldMatrix.Indenty;
+    WorldMatrix.Scale(1, 1, -1);
 
+//    WorldMatrix.Scale(0.6, 0.6, 1);
+    ObjectMatrix.Indenty;
+
+    BackGroundBuffer.draw(texturWorldAll);
+
+    // Globus
+    WorldMatrix.Indenty;
+    WorldMatrix.Translate(0.0, 0.0, 0.985);
+    WorldMatrix.Scale(1.5, 1.5, 0.01);
+
+    GlobusMatrix.RotateB(-0.005);
+
+    ObjectMatrix := MatrixMultiple(rotMatrix, GlobusMatrix);
+
+    GlobusBuffer.draw(GlobusTextur, GlobusNormal);
+
+    // Wolken
+    CloudsMatrix.RotateB(-0.0059);
+
+    ObjectMatrix := MatrixMultiple(rotMatrix, CloudsMatrix);
+
+    WorldMatrix.Translate(0.0, 0.0, -0.1);
+
+    // GlobusBuffer.draw(CloudsTextur,CloudsNormal);
+
+    ObjectMatrix.Indenty;
+
+    WorldMatrix := dummyMatrix;
   end;
 
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
@@ -274,7 +317,7 @@ begin
   var
     id: JSValue;
   begin
-//Writeln(    aEvent.target.Properties['type']);
+    //Writeln(    aEvent.target.Properties['type']);
     id := aEvent.target.Properties['id'];
     if id = 'X-' then  begin
       proMatrix.Translate(-0.1, 0, 0);

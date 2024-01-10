@@ -23,6 +23,8 @@ type
   TMatrixfHelper = type Helper for TMatrix
     procedure Indenty;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+    procedure RotateA(angele: GLfloat);
+    procedure RotateB(angele: GLfloat);
     procedure RotateC(angele: GLfloat);
     procedure Translate(v: TVector3f);
     procedure Translate(x, y, z: GLfloat);
@@ -61,16 +63,48 @@ begin
   end;
 end;
 
+procedure TMatrixfHelper.RotateA(angele: GLfloat);
+var
+  i: integer;
+  y, z, c, s: GLfloat;
+begin
+  c := cos(angele);
+  s := sin(angele);
+  for i := 0 to 2 do begin
+    y := Self[i, 1];
+    z := Self[i, 2];
+    Self[i, 1] := y * c - z * s;
+    Self[i, 2] := y * s + z * c;
+  end;
+end;
+
+procedure TMatrixfHelper.RotateB(angele: GLfloat);
+var
+  i: integer;
+  x, z, c, s: GLfloat;
+begin
+  c := cos(angele);
+  s := sin(angele);
+  for i := 0 to 2 do begin
+    x := Self[i, 0];
+    z := Self[i, 2];
+    Self[i, 0] := x * c - z * s;
+    Self[i, 2] := x * s + z * c;
+  end;
+end;
+
 procedure TMatrixfHelper.RotateC(angele: GLfloat);
 var
   i: integer;
-  x, y: GLfloat;
+  x, y, c, s: GLfloat;
 begin
-  for i := 0 to 1 do begin
+  c := cos(angele);
+  s := sin(angele);
+  for i := 0 to 2 do begin
     x := Self[i, 0];
     y := Self[i, 1];
-    Self[i, 0] := x * cos(angele) - y * sin(angele);
-    Self[i, 1] := x * sin(angele) + y * cos(angele);
+    Self[i, 0] := x * c - y * s;
+    Self[i, 1] := x * s + y * c;
   end;
 end;
 
