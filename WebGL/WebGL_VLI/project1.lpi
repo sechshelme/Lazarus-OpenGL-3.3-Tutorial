@@ -68,8 +68,9 @@
         <UnitName Value="ShaderSource"/>
       </Unit>
       <Unit>
-        <Filename Value="common.pas"/>
+        <Filename Value="masse.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Masse"/>
       </Unit>
     </Units>
   </ProjectOptions>

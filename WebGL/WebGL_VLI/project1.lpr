@@ -17,55 +17,71 @@ uses
   wglVAO,
   wglTextur,
   ShaderSource,
-  common;
-
-type
-
-  { TWebOpenGL }
-
-  TWebOpenGL = class(TObject)
-    constructor Create;
-    procedure CreateScene;
-    function InitVertexData(va: array of GLfloat): TJSUInt8Array;
-    procedure Run;
-  private
-    function ButtonClick(aEvent: TJSMouseEvent): boolean;
-  end;
+  Masse;
 
 var
-  shader: TShader;
-  proMatrix, modelMatrix: TMatrix;
+  canvas: TJSHTMLCanvasElement;
 
-  modelMatrix_ID, proMatrix_ID: TJSWebGLUniformLocation;
+  VLIMasse: TVLIMasse;
 
   BackGroundBuffer: TVAOTextur;
   GlobusBuffer: TVAOBumpMapingTextur;
 
-  texturWorldAll,
+  WorldAllTextur,
   GlobusTextur,
   GlobusNormal,
   CloudsTextur,
   CloudsNormal: TTextur;
 
+ FluegeliBuffer,
+ InnenProfilBuffer,
+ InnenProfilSchnittBuffer,
+
+ ProcessFlanschSchnittBuffer,
+ ProcessFlanschBuffer,
+ RohrFlanschSchnittBuffer,
+ RohrFlanschBuffer,
+ StutzenSchnittBuffer,
+ StutzenBuffer,
+ StandRohrSchnittBuffer,
+ StandRohrBuffer,
+ SchwimmerSchnittBuffer,
+ SchwimmerBuffer,
+
+ DichtungProcessFlanschSchnittBuffer,
+ DichtungProcessFlanschBuffer,
+ DichtungRohrFlanschSchnittBuffer,
+ DichtungRohrFlanschBuffer,
+
+ WasserUntenBuffer,
+ WasserSchwimmerSchnittBuffer,
+ WasserSchwimmerBuffer: TVAOMonoColor;
 
 
-  canvas: TJSHTMLCanvasElement;
-
-const
-  Vector: array of double =
-    (((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0)));
-
-type
-  TMesh_Buffers = (mbVBOTriangleVector, mbVBOTriangleColor, mbVBOQuadVektor, mbVBOQuadColor, mbUBO);
-  TDirections = (dLeft, dRight, dTop, dBottom);
-
-var
-  Mesh_Buffers: array [TMesh_Buffers] of TJSWebGLBuffer;
-
-  constructor TWebOpenGL.Create;
+  function ButtonClick(aEvent: TJSMouseEvent): boolean;
   var
-    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, Label1,
-    Label2: TJSElement;
+    id: JSValue;
+  begin
+    //Writeln(    aEvent.target.Properties['type']);
+    id := aEvent.target.Properties['id'];
+    if id = 'X-' then  begin
+      //      proMatrix.Translate(-0.1, 0, 0);
+    end;
+    if id = 'X+' then  begin
+      //      proMatrix.Translate(0.1, 0, 0);
+    end;
+    if id = 'Y-' then  begin
+      //      proMatrix.Translate(0, -0.1, 0);
+    end;
+    if id = 'Y+' then  begin
+      //      proMatrix.Translate(0, 0.1, 0);
+    end;
+    Result := True;
+  end;
+
+  procedure Create;
+  var
+    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom: TJSElement;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -95,7 +111,7 @@ var
     ButtonBottom := ButtonInit('Y-');
     TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
 
-    // make webgl context
+    // Context einrichten
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
     canvas.Width := 800;
     canvas.Height := 800;
@@ -107,123 +123,63 @@ var
       exit;
     end;
 
-  end;
+    // WebGl Standard Parameter
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearDepth(1.0); // Die gesamte Tiefe des Bildes soll gelöscht werden
 
-const
-  TriangleVector: array of GLfloat =
-    (-0.4, 0.1, 0.0, 0.4, 0.1, 0.0, 0.0, 0.7, 0.0);
-  TriangleColor: array of GLfloat =
-    (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0);
+    gl.enable(gl.DEPTH_TEST);
+    //    gl.depthFunc(gl.LEQUAL);
+    gl.depthFunc(gl.LESS);
 
-  QuadVector: array of GLfloat =
-    (-0.2, -0.6, 0.0, -0.2, -0.1, 0.0, 0.2, -0.1, 0.0,
-    -0.2, -0.6, 0.0, 0.2, -0.1, 0.0, 0.2, -0.6, 0.0);
-  QuadColor: array of GLfloat =
-    (1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0,
-    1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0);
+    gl.enable(gl.CULL_FACE);
+    gl.cullFace(gl.BACK);
 
-  function TWebOpenGL.InitVertexData(va: array of GLfloat): TJSUInt8Array;
-  var
-    floatBuffer: TJSFloat32Array;
-    byteBuffer: TJSUint8Array;
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-  begin
-    byteBuffer := TJSUint8Array.New(Length(va) * 4);
-    floatBuffer := TJSFloat32Array.New(byteBuffer.buffer, 0, Length(va));
+    gl.viewport(0, 0, canvas.Width, canvas.Height);
 
-    //Writeln('byte: ', byteBuffer.length);
-    //Writeln('float: ', floatBuffer.length);
+    // --- VLIMasse
+    VLIMasse:=TVLIMasse.Create;
 
-    floatBuffer._set(va, 0);
-
-    Result := byteBuffer;
-  end;
-
-  // https://webgl2fundamentals.org/webgl/lessons/webgl-shaders-and-glsl.html
-  // https://gist.github.com/jialiang/2880d4cc3364df117320e8cb324c2880
-
-  procedure TWebOpenGL.CreateScene;
-  var
-    vertexShaderSource, fragmentShaderSource: string;
-
-  begin
-    vertexShaderSource :=
-      '#version 300 es' + #10 +
-
-      'precision highp float;' + #10 +
-
-      'layout(location = 0) in vec3 inPos;' + #10 +
-      'layout(location = 1) in vec3 inCol;' + #10 +
-
-      'uniform mat4 proMatrix;' + #10 +
-      'uniform mat4 modelMatrix;' + #10 +
-
-      'out vec3 col;' + #10 +
-
-      'void main(){' + #10 +
-      '  gl_Position = proMatrix * modelMatrix * vec4(inPos, 1.0);' + #10 +
-      '  col = inCol;}';
-
-    fragmentShaderSource :=
-      '#version 300 es' + #10 +
-
-      'precision highp float;' + #10 +
-
-      'in vec3 col;' + #10 +
-
-      'out vec4 outCol;' + #10 +
-      'void main(void){' + #10 +
-      '  outCol = vec4(col, 1.0); }';
-
-
+    // --- HinterGrund inizialisieren
     BackGroundBuffer := TVAOTextur.Create('BackGround');
-    GlobusBuffer := TVAOBumpMapingTextur.Create('Earth');
+    WorldAllTextur := TTextur.Create('data/all.jpg');
 
-    texturWorldAll := TTextur.Create('data/all.jpg');
+    // --- Globus inizialisieren
+    GlobusBuffer := TVAOBumpMapingTextur.Create('Earth');
     GlobusTextur := TTextur.Create('data/earth_textur.jpg');
     GlobusNormal := TTextur.Create('data/earth_normal.jpg');
     CloudsTextur := TTextur.Create('data/clouds_textur.png');
     CloudsNormal := TTextur.Create('data/clouds_normal.jpg');
 
+    // --- VLI
+    FluegeliBuffer := TVAOMonoColor.Create('Fluegeli');
+    InnenProfilBuffer := TVAOMonoColor.Create('InnenProfil');
+    InnenProfilSchnittBuffer := TVAOMonoColor.Create('InnenProfilSchnitt');
 
-    shader := TShader.Create;
-    shader.LoadShaderObject(gl.VERTEX_SHADER, vertexShaderSource);
-    shader.LoadShaderObject(gl.FRAGMENT_SHADER, fragmentShaderSource);
-    shader.LinkProgram;
+    ProcessFlanschSchnittBuffer := TVAOMonoColor.Create('ProcessFlanschSchnitt');
+    ProcessFlanschBuffer := TVAOMonoColor.Create('ProcessFlansch');
+    RohrFlanschSchnittBuffer := TVAOMonoColor.Create('RohrFlanschSchnitt');
+    RohrFlanschBuffer := TVAOMonoColor.Create('RohrFlansch');
+    StutzenSchnittBuffer := TVAOMonoColor.Create('StutzenSchnitt');
+    StutzenBuffer := TVAOMonoColor.Create('Stutzen');
+    StandRohrSchnittBuffer := TVAOMonoColor.Create('StandRohrSchnitt');
+    StandRohrBuffer := TVAOMonoColor.Create('StandRohr');
+    SchwimmerSchnittBuffer := TVAOMonoColor.Create('SchwimmerSchnitt');
+    SchwimmerBuffer := TVAOMonoColor.Create('Schwimmer');
 
-    proMatrix_ID := shader.UniformLocation('proMatrix');
-    modelMatrix_ID := shader.UniformLocation('modelMatrix');
+    DichtungProcessFlanschSchnittBuffer := TVAOMonoColor.Create('DichtungProcessFlanschSchnitt');
+    DichtungProcessFlanschBuffer := TVAOMonoColor.Create('DichtungProcessFlansch');
+    DichtungRohrFlanschSchnittBuffer := TVAOMonoColor.Create('DichtungRohrFlanschSchnitt');
+    DichtungRohrFlanschBuffer := TVAOMonoColor.Create('DichtungRohrFlansch');
 
-    shader.UseProgram;
+    WasserUntenBuffer := TVAOMonoColor.Create('WasserUnten');
+    WasserSchwimmerSchnittBuffer := TVAOMonoColor.Create('WasserSchwimmerSchnitt');
+    WasserSchwimmerBuffer := TVAOMonoColor.Create('WasserSchwimmer');
 
-    // prepare context
-    gl.clearColor(0.3, 0.0, 0.0, 1);
-    gl.viewport(0, 0, canvas.Width, canvas.Height);
-    gl.Clear(gl.COLOR_BUFFER_BIT);
+    mProjectionMatrix.persp;
 
-    // setup transform matricies
-    proMatrix.Indenty;
-    modelMatrix.Indenty;
-
-    // --- Create Triangle Buffer
-    Mesh_Buffers[mbVBOTriangleVector] := gl.createBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleVector]);
-    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(TriangleVector), gl.STATIC_DRAW);
-
-    Mesh_Buffers[mbVBOTriangleColor] := gl.createBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleColor]);
-    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(TriangleColor), gl.STATIC_DRAW);
-
-    // --- Create Quad Buffer
-    Mesh_Buffers[mbVBOQuadVektor] := gl.createBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
-    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(QuadVector), gl.STATIC_DRAW);
-
-    Mesh_Buffers[mbVBOQuadColor] := gl.createBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadColor]);
-    gl.bufferData(gl.ARRAY_BUFFER, InitVertexData(QuadColor), gl.STATIC_DRAW);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, nil);
   end;
 
   procedure drawBackGround;
@@ -237,10 +193,9 @@ const
     WorldMatrix.Indenty;
     WorldMatrix.Scale(1, 1, -1);
 
-//    WorldMatrix.Scale(0.6, 0.6, 1);
     ObjectMatrix.Indenty;
 
-    BackGroundBuffer.draw(texturWorldAll);
+    BackGroundBuffer.draw(WorldAllTextur);
 
     // Globus
     WorldMatrix.Indenty;
@@ -248,101 +203,36 @@ const
     WorldMatrix.Scale(1.5, 1.5, 0.01);
 
     GlobusMatrix.RotateB(-0.005);
-
     ObjectMatrix := MatrixMultiple(rotMatrix, GlobusMatrix);
-
     GlobusBuffer.draw(GlobusTextur, GlobusNormal);
 
     // Wolken
     CloudsMatrix.RotateB(-0.0059);
-
     ObjectMatrix := MatrixMultiple(rotMatrix, CloudsMatrix);
-
     WorldMatrix.Translate(0.0, 0.0, -0.1);
-
-    // GlobusBuffer.draw(CloudsTextur,CloudsNormal);
-
-    ObjectMatrix.Indenty;
+    GlobusBuffer.draw(CloudsTextur, CloudsNormal);
 
     WorldMatrix := dummyMatrix;
   end;
 
+procedure RenderScene(OMatrix:TMatrix);
+begin
+end;
+
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
+  var
+    scretch: TMatrix;
   begin
-
-    shader.UseProgram;
-    modelMatrix.RotateC(0.03);
-    modelMatrix.Uniform(modelMatrix_ID);
-
-    proMatrix.Uniform(proMatrix_ID);
-
-    gl.Clear(gl.COLOR_BUFFER_BIT);
-
-    // --- Triangle
-    // position
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleVector]);
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 3, gl.FLOAT, False, 0, 0);
-    // color
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOTriangleColor]);
-    gl.enableVertexAttribArray(1);
-    gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 0, 0);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    // --- Quad
-    // position
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadVektor]);
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 3, gl.FLOAT, False, 0, 0);
-    // color
-    gl.bindBuffer(gl.ARRAY_BUFFER, Mesh_Buffers[mbVBOQuadColor]);
-    gl.enableVertexAttribArray(1);
-    gl.vertexAttribPointer(1, 3, gl.FLOAT, False, 0, 0);
-
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-
     drawBackGround;
 
+    scretch:=MatrixMultiple( mProjectionMatrix,mRotationMatrix);
+    RenderScene(scretch);
 
     window.requestAnimationFrame(@UpdateCanvas);
   end;
-
-  procedure TWebOpenGL.Run;
-  begin
-    window.requestAnimationFrame(@UpdateCanvas);
-  end;
-
-  function TWebOpenGL.ButtonClick(aEvent: TJSMouseEvent): boolean;
-  var
-    id: JSValue;
-  begin
-    //Writeln(    aEvent.target.Properties['type']);
-    id := aEvent.target.Properties['id'];
-    if id = 'X-' then  begin
-      proMatrix.Translate(-0.1, 0, 0);
-    end;
-    if id = 'X+' then  begin
-      proMatrix.Translate(0.1, 0, 0);
-    end;
-    if id = 'Y-' then  begin
-      proMatrix.Translate(0, -0.1, 0);
-    end;
-    if id = 'Y+' then  begin
-      proMatrix.Translate(0, 0.1, 0);
-    end;
-    Result := True;
-  end;
-
-var
-  MyApp: TWebOpenGL;
 
 begin
   Writeln('WebGL Demo');
-  MyApp := TWebOpenGL.Create;
-
-  MyApp.CreateScene;
-  MyApp.Run;
-
-  MyApp.Free;
+  Create;
+  window.requestAnimationFrame(@UpdateCanvas);
 end.
