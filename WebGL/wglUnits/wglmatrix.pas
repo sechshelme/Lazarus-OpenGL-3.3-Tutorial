@@ -14,6 +14,7 @@ uses
 
 var
   isGold:Boolean=False;
+  Geschnitten:Boolean=True;
 
 type
   TVector2f = array [0..1] of GLfloat;
@@ -25,8 +26,16 @@ type
   { TMatrixfHelper }
 
   TMatrixfHelper = type Helper for TMatrix
-    procedure Indenty;
+    procedure Identity;
+
+      procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+    //    FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
+    procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
+    //    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
+    procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
+
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+    procedure Scale(Faktor: GLfloat);
     procedure RotateA(angele: GLfloat);
     procedure RotateB(angele: GLfloat);
     procedure RotateC(angele: GLfloat);
@@ -51,9 +60,43 @@ var
 
 implementation
 
-procedure TMatrixfHelper.Indenty;
+procedure TMatrixfHelper.Identity;
 begin
   Self := [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]];
+end;
+
+procedure TMatrixfHelper.Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+begin
+  Identity;
+  Self[0, 0] := 2 / (right - left);
+  Self[1, 1] := 2 / (top - bottom);
+  Self[2, 2] := -2 / (zfar - znear);
+  Self[3, 0] := -(right + left) / (right - left);
+  Self[3, 1] := -(top + bottom) / (top - bottom);
+  Self[3, 2] := -(zfar + znear) / (zfar - znear);
+end;
+
+procedure TMatrixfHelper.Frustum(left, right, bottom, top, znear, zfar: GLfloat  );
+begin
+  Identity;
+  Self[0, 0] := 2 * znear / (right - left);
+  Self[1, 1] := 2 * znear / (top - bottom);
+  Self[2, 0] := (right + left) / (right - left);
+  Self[2, 1] := (top + bottom) / (top - bottom);
+  Self[2, 2] := -(zfar + znear) / (zfar - znear);
+  Self[2, 3] := -1.0;
+  Self[3, 2] := -2 * zfar * znear / (zfar - znear);
+  Self[3, 3] := 0.0;
+end;
+
+procedure TMatrixfHelper.Perspective(fovy, aspect, znear, zfar: GLfloat);
+var
+  p, right, top: GLfloat;
+begin
+  p := fovy * Pi / 360;
+  top := znear * (sin(p) / cos(p)); // top := znear * tan(p);
+  right := top * aspect;
+  Frustum(-right, right, -top, top, znear, zfar);
 end;
 
 procedure TMatrixfHelper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
@@ -64,6 +107,17 @@ begin
     Self[i, 0] *= FaktorX;
     Self[i, 1] *= FaktorY;
     Self[i, 2] *= FaktorZ;
+  end;
+end;
+
+procedure TMatrixfHelper.Scale(Faktor: GLfloat);
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    Self[i, 0] *= Faktor;
+    Self[i, 1] *= Faktor;
+    Self[i, 2] *= Faktor;
   end;
 end;
 
@@ -194,10 +248,10 @@ begin
 end;
 
 begin
-  WorldMatrix.Indenty;
-  ObjectMatrix.Indenty;
-  GlobusMatrix.Indenty;
-  CloudsMatrix.Indenty;
-  mProjectionMatrix.Indenty;
-  mRotationMatrix.Indenty;
+  WorldMatrix.Identity;
+  ObjectMatrix.Identity;
+  GlobusMatrix.Identity;
+  CloudsMatrix.Identity;
+  mProjectionMatrix.Identity;
+  mRotationMatrix.Identity;
 end.

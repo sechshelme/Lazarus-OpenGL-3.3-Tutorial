@@ -142,7 +142,7 @@ begin
   if (reader.status = 200) then  begin
 
     arrayBuffer := TJSArrayBuffer(reader.response);
-    Writeln('VAOlen: ', arrayBuffer.byteLength);
+    //Writeln('VAOlen: ', arrayBuffer.byteLength);
 
     floatBufferColor := TJSFloat32Array.new(arrayBuffer, 0, 4);
     for i := 0 to 3 do begin
@@ -155,7 +155,7 @@ begin
     Inc(pos);
 
     numItems := len div 3; // Drei Punkte im Dreieck
-    Writeln('vertexCount: ', numItems);
+//    Writeln('vertexCount: ', numItems);
     posVBO := TVBO.Create(TJSFloat32Array.new(arrayBuffer, pos * 4, len), 3);
     Inc(pos, len);
 
@@ -182,13 +182,15 @@ begin
     normalVBO.bind(normalID);
   end;
 
+ // Writeln(numItems);;
+
   if isGold then begin
     gl.uniform4fv(colorID, GoldCol);
   end else begin
     gl.uniform4fv(colorID, Color);
   end;
 
-  m.Indenty;
+  m.Identity;
   m := MatrixMultiple(WorldMatrix, ObjectMatrix);
   m.Uniform(matrixID);
 
@@ -248,7 +250,7 @@ begin
     Inc(pos);
 
     numItems := len div 3; // Drei Punkte im Dreieck
-    Writeln('vertexCount: ', numItems);
+//    Writeln('vertexCount: ', numItems);
     posVBO := TVBO.Create(TJSFloat32Array.new(arrayBuffer, pos * 4, len), 3);
     Inc(pos, len);
 
@@ -285,7 +287,7 @@ begin
     textur.activateAndBind(0);
   end;
 
-  m.Indenty;
+  m.Identity;
   m := MatrixMultiple(WorldMatrix, ObjectMatrix);
   m.Uniform(matrixID);
 
@@ -342,7 +344,7 @@ begin
     Inc(pos);
 
     numItems := len div 3; // Drei Punkte im Dreieck
-    Writeln('vertexCount: ', numItems);
+//    Writeln('vertexCount: ', numItems);
     posVBO := TVBO.Create(TJSFloat32Array.new(arrayBuffer, pos * 4, len), 3);
     Inc(pos, len);
 
@@ -382,7 +384,7 @@ begin
     normal.activateAndBind(1);
   end;
 
-  m.Indenty;
+  m.Identity;
   m := MatrixMultiple(WorldMatrix, ObjectMatrix);
   m.Uniform(matrixID);
 

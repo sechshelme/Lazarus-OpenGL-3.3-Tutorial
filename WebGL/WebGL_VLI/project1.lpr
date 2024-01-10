@@ -33,29 +33,31 @@ var
   CloudsTextur,
   CloudsNormal: TTextur;
 
- FluegeliBuffer,
- InnenProfilBuffer,
- InnenProfilSchnittBuffer,
+  FluegeliBuffer,
+  InnenProfilBuffer,
+  InnenProfilSchnittBuffer,
 
- ProcessFlanschSchnittBuffer,
- ProcessFlanschBuffer,
- RohrFlanschSchnittBuffer,
- RohrFlanschBuffer,
- StutzenSchnittBuffer,
- StutzenBuffer,
- StandRohrSchnittBuffer,
- StandRohrBuffer,
- SchwimmerSchnittBuffer,
- SchwimmerBuffer,
+  ProcessFlanschSchnittBuffer,
+  ProcessFlanschBuffer,
+  RohrFlanschSchnittBuffer,
+  RohrFlanschBuffer,
+  StutzenSchnittBuffer,
+  StutzenBuffer,
+  StandRohrSchnittBuffer,
+  StandRohrBuffer,
+  SchwimmerSchnittBuffer,
+  SchwimmerBuffer,
 
- DichtungProcessFlanschSchnittBuffer,
- DichtungProcessFlanschBuffer,
- DichtungRohrFlanschSchnittBuffer,
- DichtungRohrFlanschBuffer,
+  DichtungProcessFlanschSchnittBuffer,
+  DichtungProcessFlanschBuffer,
+  DichtungRohrFlanschSchnittBuffer,
+  DichtungRohrFlanschBuffer,
 
- WasserUntenBuffer,
- WasserSchwimmerSchnittBuffer,
- WasserSchwimmerBuffer: TVAOMonoColor;
+  WasserUntenBuffer,
+  WasserSchwimmerSchnittBuffer,
+  WasserSchwimmerBuffer: TVAOMonoColor;
+
+  isFrontFace: boolean = False;
 
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
@@ -140,7 +142,7 @@ var
     gl.viewport(0, 0, canvas.Width, canvas.Height);
 
     // --- VLIMasse
-    VLIMasse:=TVLIMasse.Create;
+    VLIMasse := TVLIMasse.Create;
 
     // --- HinterGrund inizialisieren
     BackGroundBuffer := TVAOTextur.Create('BackGround');
@@ -178,7 +180,9 @@ var
     WasserSchwimmerSchnittBuffer := TVAOMonoColor.Create('WasserSchwimmerSchnitt');
     WasserSchwimmerBuffer := TVAOMonoColor.Create('WasserSchwimmer');
 
-    mProjectionMatrix.persp;
+    mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
+    mProjectionMatrix.Translate(0, -0.4, -5);
+    mProjectionMatrix.Scale(0.004);
 
   end;
 
@@ -188,17 +192,17 @@ var
   begin
     // Sternenhimmel
     dummyMatrix := WorldMatrix;
-    rotMatrix.Indenty;
+    rotMatrix.Identity;
 
-    WorldMatrix.Indenty;
+    WorldMatrix.Identity;
     WorldMatrix.Scale(1, 1, -1);
 
-    ObjectMatrix.Indenty;
+    ObjectMatrix.Identity;
 
     BackGroundBuffer.draw(WorldAllTextur);
 
     // Globus
-    WorldMatrix.Indenty;
+    WorldMatrix.Identity;
     WorldMatrix.Translate(0.0, 0.0, 0.985);
     WorldMatrix.Scale(1.5, 1.5, 0.01);
 
@@ -215,17 +219,104 @@ var
     WorldMatrix := dummyMatrix;
   end;
 
-procedure RenderScene(OMatrix:TMatrix);
-begin
-end;
+  procedure SwapFrontFace;
+  begin
+    isFrontFace := not isFrontFace;
+    if not isFrontFace then begin
+      gl.frontFace(gl.CCW);
+    end else begin
+      gl.frontFace(gl.CW);
+    end;
+  end;
+
+  procedure DrawElement(Koerper, Schnitt: TVAOMonoColor; geschnitten: boolean);
+  begin
+    Koerper.draw;
+    if geschnitten then begin
+      if Schnitt <> nil then begin
+        Schnitt.draw;
+      end else
+    end else begin
+      ObjectMatrix.Scale(-1, 1, 1);
+      SwapFrontFace;
+      Koerper.draw;
+      SwapFrontFace;
+    end;
+  end;
+
+  procedure RenderScene(OMatrix: TMatrix);
+  begin
+    WorldMatrix := OMatrix;
+    ObjectMatrix.Identity;
+
+    // ===== Flügeli
+
+
+    // ===== Innenprofil
+    ObjectMatrix.Translate(0, 0, VLIMasse.AussenD / 2);
+    DrawElement(InnenProfilBuffer, InnenProfilSchnittBuffer, Geschnitten);
+    ObjectMatrix.Identity;
+
+    // =====  StandRohr
+    DrawElement(StandRohrBuffer, StandRohrSchnittBuffer, Geschnitten);
+
+    // =====  Stutzen unten
+    DrawElement(StutzenBuffer, StutzenSchnittBuffer, Geschnitten);
+
+    // =====  Stutzen oben
+    ObjectMatrix.Translate( [0.0, vliMasse.L, 0.0]);
+    DrawElement(StutzenBuffer, StutzenSchnittBuffer, Geschnitten);
+
+    // =====  ProcessFlansch unten
+     ObjectMatrix.Translate( [0.0, 0.0, -vliMasse.t]);
+     ObjectMatrix.RotateA( PI / 2);
+     DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
+
+     // =====  ProcessFlansch oben
+     ObjectMatrix.Translate( [0.0, vliMasse.L, -vliMasse.t]);
+     ObjectMatrix.RotateA(PI / 2);
+     DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
+
+     // =====  RohrFlansch unten
+     ObjectMatrix.Translate( [0.0, -vliMasse.C1, 0.0]);
+     DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
+
+     // =====  RohrFlansch oben
+     ObjectMatrix.Translate( [0.0, vliMasse.L + vliMasse.C2, 0.0]);
+     ObjectMatrix.RotateA(PI);
+     DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
+
+     // =====  DichtungProcessFlansch unten
+     ObjectMatrix.Translate( [0.0, 0.0, -vliMasse.t - 2.0]);
+     ObjectMatrix.RotateA(PI / 2);
+     DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
+
+     // =====  DichtungProcessFlansch oben
+     ObjectMatrix.Translate( [0.0, vliMasse.L, -vliMasse.t - 2.0]);
+     ObjectMatrix.RotateA(PI / 2);
+     DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
+
+     // =====  DichtungRohrFlansch unten
+     ObjectMatrix.Translate([0.0, -vliMasse.C1 - 2.0, 0.0]);
+     DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
+
+     // =====  DichtungRohrFlansch oben
+     ObjectMatrix.Translate( [0.0, vliMasse.L + vliMasse.C2 + 2.0, 0.0]);
+     ObjectMatrix.RotateA(PI);
+     DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
+
+  end;
 
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
   var
     scretch: TMatrix;
   begin
+    gl.Clear(gl.COLOR_BUFFER_BIT or gl.DEPTH_BUFFER_BIT);
+    gl.clearColor(0.7,0.5,0.2,1.0);
+
     drawBackGround;
 
-    scretch:=MatrixMultiple( mProjectionMatrix,mRotationMatrix);
+    scretch := MatrixMultiple(mProjectionMatrix, mRotationMatrix);
     RenderScene(scretch);
 
     window.requestAnimationFrame(@UpdateCanvas);
