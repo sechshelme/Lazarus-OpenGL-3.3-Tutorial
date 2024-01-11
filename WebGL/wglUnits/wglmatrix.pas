@@ -34,7 +34,7 @@ type
     //    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
-    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+    procedure Scale(Faktor: TVector3f);
     procedure Scale(Faktor: GLfloat);
     procedure RotateA(angele: GLfloat);
     procedure RotateB(angele: GLfloat);
@@ -99,14 +99,14 @@ begin
   Frustum(-right, right, -top, top, znear, zfar);
 end;
 
-procedure TMatrixfHelper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+procedure TMatrixfHelper.Scale(Faktor: TVector3f);
 var
   i: integer;
 begin
   for i := 0 to 2 do begin
-    Self[i, 0] *= FaktorX;
-    Self[i, 1] *= FaktorY;
-    Self[i, 2] *= FaktorZ;
+    Self[i, 0] *= Faktor[0];
+    Self[i, 1] *= Faktor[1];
+    Self[i, 2] *= Faktor[2];
   end;
 end;
 

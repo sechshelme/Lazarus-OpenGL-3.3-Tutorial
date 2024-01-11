@@ -2041,32 +2041,21 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     this.Identity = function () {
       this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
-    this.Frustum = function (left, right, bottom, top, znear, zfar) {
+    this.Ortho = function (left, right, bottom, top, znear, zfar) {
       $mod.TMatrixfHelper.Identity.call(this);
-      this.get()[0][0] = (2 * znear) / (right - left);
-      this.get()[1][1] = (2 * znear) / (top - bottom);
-      this.get()[2][0] = (right + left) / (right - left);
-      this.get()[2][1] = (top + bottom) / (top - bottom);
-      this.get()[2][2] = -(zfar + znear) / (zfar - znear);
-      this.get()[2][3] = -1.0;
-      this.get()[3][2] = (-2 * zfar * znear) / (zfar - znear);
-      this.get()[3][3] = 0.0;
+      this.get()[0][0] = 2 / (right - left);
+      this.get()[1][1] = 2 / (top - bottom);
+      this.get()[2][2] = -2 / (zfar - znear);
+      this.get()[3][0] = -(right + left) / (right - left);
+      this.get()[3][1] = -(top + bottom) / (top - bottom);
+      this.get()[3][2] = -(zfar + znear) / (zfar - znear);
     };
-    this.Perspective = function (fovy, aspect, znear, zfar) {
-      var p = 0.0;
-      var right = 0.0;
-      var top = 0.0;
-      p = (fovy * Math.PI) / 360;
-      top = znear * (Math.sin(p) / Math.cos(p));
-      right = top * aspect;
-      $mod.TMatrixfHelper.Frustum.call(this,-right,right,-top,top,znear,zfar);
-    };
-    this.Scale = function (FaktorX, FaktorY, FaktorZ) {
+    this.Scale = function (Faktor) {
       var i = 0;
       for (i = 0; i <= 2; i++) {
-        this.get()[i][0] *= FaktorX;
-        this.get()[i][1] *= FaktorY;
-        this.get()[i][2] *= FaktorZ;
+        this.get()[i][0] *= Faktor[0];
+        this.get()[i][1] *= Faktor[1];
+        this.get()[i][2] *= Faktor[2];
       };
     };
     this.Scale$1 = function (Faktor) {
@@ -2105,6 +2094,21 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
         z = this.get()[i][2];
         this.get()[i][0] = (x * c) - (z * s);
         this.get()[i][2] = (x * s) + (z * c);
+      };
+    };
+    this.RotateC = function (angele) {
+      var i = 0;
+      var x = 0.0;
+      var y = 0.0;
+      var c = 0.0;
+      var s = 0.0;
+      c = Math.cos(angele);
+      s = Math.sin(angele);
+      for (i = 0; i <= 2; i++) {
+        x = this.get()[i][0];
+        y = this.get()[i][1];
+        this.get()[i][0] = (x * c) - (y * s);
+        this.get()[i][1] = (x * s) + (y * c);
       };
     };
     this.Translate = function (v) {
@@ -2719,14 +2723,100 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.WasserSchwimmerSchnittBuffer = null;
   this.WasserSchwimmerBuffer = null;
   this.isFrontFace = false;
+  this.Niveau = 0;
+  var TransFactor = 10.0;
+  var RotFactor = 0.1;
   this.ButtonClick = function (aEvent) {
     var Result = false;
     var id = undefined;
     id = aEvent.target["id"];
-    if (id == "X-") ;
-    if (id == "X+") ;
-    if (id == "Y-") ;
-    if (id == "Y+") ;
+    if (id == "A-") {
+      pas.wglMatrix.TMatrixfHelper.RotateA.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},-0.1);
+    };
+    id = aEvent.target["id"];
+    if (id == "A+") {
+      pas.wglMatrix.TMatrixfHelper.RotateA.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0.1);
+    };
+    if (id == "B-") {
+      pas.wglMatrix.TMatrixfHelper.RotateB.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},-0.1);
+    };
+    id = aEvent.target["id"];
+    if (id == "B+") {
+      pas.wglMatrix.TMatrixfHelper.RotateB.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0.1);
+    };
+    if (id == "C-") {
+      pas.wglMatrix.TMatrixfHelper.RotateC.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},-0.1);
+    };
+    id = aEvent.target["id"];
+    if (id == "C+") {
+      pas.wglMatrix.TMatrixfHelper.RotateC.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0.1);
+    };
+    if (id == "X-") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},-10,0,0);
+    };
+    if (id == "X+") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},10,0,0);
+    };
+    if (id == "Y-") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0,-10,0);
+    };
+    if (id == "Y+") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0,10,0);
+    };
+    if (id == "Z-") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0,0,-10);
+    };
+    if (id == "Z+") {
+      pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0,0,10);
+    };
     Result = true;
     return Result;
   };
@@ -2743,7 +2833,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Result.setAttribute("class","favorite styled");
       Result.setAttribute("type","button");
       Result.setAttribute("value",titel);
-      Result.setAttribute("style","height:25px;width:75px;color=#00ff00;background=#FF0000;");
+      Result.setAttribute("style","height:25px;width:30px;color=#00ff00;background=#FF0000;");
       Panel.appendChild(Result);
       return Result;
     };
@@ -2757,6 +2847,22 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     ButtonTop = ButtonInit("Y+");
     ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     ButtonBottom = ButtonInit("Y-");
+    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonTop = ButtonInit("Z+");
+    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonBottom = ButtonInit("Z-");
+    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonLeft = ButtonInit("A-");
+    ButtonLeft.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonRight = ButtonInit("A+");
+    ButtonRight.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonTop = ButtonInit("B+");
+    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonBottom = ButtonInit("B-");
+    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonTop = ButtonInit("C+");
+    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    ButtonBottom = ButtonInit("C-");
     ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     $mod.canvas = document.createElement("canvas");
     $mod.canvas.width = 800;
@@ -2804,16 +2910,11 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.WasserUntenBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserUnten"]);
     $mod.WasserSchwimmerSchnittBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmerSchnitt"]);
     $mod.WasserSchwimmerBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmer"]);
-    pas.wglMatrix.TMatrixfHelper.Perspective.call({p: pas.wglMatrix, get: function () {
+    pas.wglMatrix.TMatrixfHelper.Ortho.call({p: pas.wglMatrix, get: function () {
         return this.p.mProjectionMatrix;
       }, set: function (v) {
         this.p.mProjectionMatrix = v;
-      }},30,1.0,0.1,100.0);
-    pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
-        return this.p.mProjectionMatrix;
-      }, set: function (v) {
-        this.p.mProjectionMatrix = v;
-      }},0,-0.4,-5);
+      }},-1,+1,-1,+1,-1000,1000.0);
     pas.wglMatrix.TMatrixfHelper.Scale$1.call({p: pas.wglMatrix, get: function () {
         return this.p.mProjectionMatrix;
       }, set: function (v) {
@@ -2838,7 +2939,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         return this.p.WorldMatrix;
       }, set: function (v) {
         this.p.WorldMatrix = v;
-      }},1,1,-1);
+      }},[1,1,-1]);
     pas.wglMatrix.TMatrixfHelper.Identity.call({p: pas.wglMatrix, get: function () {
         return this.p.ObjectMatrix;
       }, set: function (v) {
@@ -2859,7 +2960,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         return this.p.WorldMatrix;
       }, set: function (v) {
         this.p.WorldMatrix = v;
-      }},1.5,1.5,0.01);
+      }},[1.5,1.5,0.01]);
     pas.wglMatrix.TMatrixfHelper.RotateB.call({p: pas.wglMatrix, get: function () {
         return this.p.GlobusMatrix;
       }, set: function (v) {
@@ -2900,7 +3001,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
           return this.p.ObjectMatrix;
         }, set: function (v) {
           this.p.ObjectMatrix = v;
-        }},-1,1,1);
+        }},[-1,1,1]);
       $mod.SwapFrontFace();
       Koerper.draw();
       $mod.SwapFrontFace();
@@ -3010,6 +3111,31 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         this.p.ObjectMatrix = v;
       }},Math.PI);
     $mod.DrawElement($mod.DichtungRohrFlanschBuffer,$mod.DichtungRohrFlanschSchnittBuffer,pas.wglMatrix.Geschnitten);
+    if (pas.wglMatrix.Geschnitten) {
+      pas.wglMatrix.TMatrixfHelper.Translate.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[0.0,$mod.Niveau,0.0]);
+      $mod.DrawElement($mod.SchwimmerBuffer,$mod.SchwimmerSchnittBuffer,false);
+      pas.wglMatrix.TMatrixfHelper.Translate.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[0.0,$mod.Niveau,0.0]);
+      $mod.DrawElement($mod.WasserSchwimmerBuffer,$mod.WasserSchwimmerSchnittBuffer,true);
+      pas.wglMatrix.TMatrixfHelper.Translate.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[0.0,-$mod.VLIMasse.C1,-$mod.VLIMasse.InnenD / 2]);
+      pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[1.0,($mod.VLIMasse.C1 + $mod.Niveau + ($mod.VLIMasse.SchwimmerAussenD / 2)) - ($mod.VLIMasse.SchwimmerAussenD * $mod.VLIMasse.anzKugeln),$mod.VLIMasse.InnenD]);
+      $mod.DrawElement($mod.WasserUntenBuffer,null,true);
+    };
   };
   this.UpdateCanvas = function (time) {
     var scretch = rtl.arraySetLength(null,0.0,4,4);

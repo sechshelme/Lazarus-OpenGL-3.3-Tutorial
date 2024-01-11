@@ -58,25 +58,57 @@ var
   WasserSchwimmerBuffer: TVAOMonoColor;
 
   isFrontFace: boolean = False;
+  Niveau:Single=0;
 
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
+  const
+    TransFactor = 10.0;
+    RotFactor = 0.1;
   var
     id: JSValue;
   begin
     //Writeln(    aEvent.target.Properties['type']);
     id := aEvent.target.Properties['id'];
+    if id = 'A-' then  begin
+      mRotationMatrix.RotateA(-RotFactor);
+    end;
+    id := aEvent.target.Properties['id'];
+    if id = 'A+' then  begin
+      mRotationMatrix.RotateA(RotFactor);
+    end;
+    if id = 'B-' then  begin
+      mRotationMatrix.RotateB(-RotFactor);
+    end;
+    id := aEvent.target.Properties['id'];
+    if id = 'B+' then  begin
+      mRotationMatrix.RotateB(RotFactor);
+    end;
+    if id = 'C-' then  begin
+      mRotationMatrix.RotateC(-RotFactor);
+    end;
+    id := aEvent.target.Properties['id'];
+    if id = 'C+' then  begin
+      mRotationMatrix.RotateC(RotFactor);
+    end;
+
     if id = 'X-' then  begin
-      //      proMatrix.Translate(-0.1, 0, 0);
+      mRotationMatrix.Translate(-TransFactor, 0, 0);
     end;
     if id = 'X+' then  begin
-      //      proMatrix.Translate(0.1, 0, 0);
+      mRotationMatrix.Translate(TransFactor, 0, 0);
     end;
     if id = 'Y-' then  begin
-      //      proMatrix.Translate(0, -0.1, 0);
+      mRotationMatrix.Translate(0, -TransFactor, 0);
     end;
     if id = 'Y+' then  begin
-      //      proMatrix.Translate(0, 0.1, 0);
+      mRotationMatrix.Translate(0, TransFactor, 0);
+    end;
+    if id = 'Z-' then  begin
+      mRotationMatrix.Translate(0, 0, -TransFactor);
+    end;
+    if id = 'Z+' then  begin
+      mRotationMatrix.Translate(0, 0, TransFactor);
     end;
     Result := True;
   end;
@@ -92,7 +124,7 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
-      Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
+      Result['style'] := 'height:25px;width:30px;color=#00ff00;background=#FF0000;';
       Panel.appendChild(Result);
     end;
 
@@ -111,6 +143,30 @@ var
     TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
 
     ButtonBottom := ButtonInit('Y-');
+    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
+
+    ButtonTop := ButtonInit('Z+');
+    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
+
+    ButtonBottom := ButtonInit('Z-');
+    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
+
+    ButtonLeft := ButtonInit('A-');
+    TJSHTMLElement(ButtonLeft).onclick := @ButtonClick;
+
+    ButtonRight := ButtonInit('A+');
+    TJSHTMLElement(ButtonRight).onclick := @ButtonClick;
+
+    ButtonTop := ButtonInit('B+');
+    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
+
+    ButtonBottom := ButtonInit('B-');
+    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
+
+    ButtonTop := ButtonInit('C+');
+    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
+
+    ButtonBottom := ButtonInit('C-');
     TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
 
     // Context einrichten
@@ -180,8 +236,9 @@ var
     WasserSchwimmerSchnittBuffer := TVAOMonoColor.Create('WasserSchwimmerSchnitt');
     WasserSchwimmerBuffer := TVAOMonoColor.Create('WasserSchwimmer');
 
-    mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
-    mProjectionMatrix.Translate(0, -0.4, -5);
+ //   mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
+    mProjectionMatrix.Ortho(-1, +1, -1, + 1, -1000, 1000.0);
+//    mProjectionMatrix.Translate(0, -0.4, -5);
     mProjectionMatrix.Scale(0.004);
 
   end;
@@ -195,7 +252,7 @@ var
     rotMatrix.Identity;
 
     WorldMatrix.Identity;
-    WorldMatrix.Scale(1, 1, -1);
+    WorldMatrix.Scale([1, 1, -1]);
 
     ObjectMatrix.Identity;
 
@@ -204,7 +261,7 @@ var
     // Globus
     WorldMatrix.Identity;
     WorldMatrix.Translate(0.0, 0.0, 0.985);
-    WorldMatrix.Scale(1.5, 1.5, 0.01);
+    WorldMatrix.Scale([1.5, 1.5, 0.01]);
 
     GlobusMatrix.RotateB(-0.005);
     ObjectMatrix := MatrixMultiple(rotMatrix, GlobusMatrix);
@@ -235,9 +292,10 @@ var
     if geschnitten then begin
       if Schnitt <> nil then begin
         Schnitt.draw;
-      end else
+      end else begin
+      end;
     end else begin
-      ObjectMatrix.Scale(-1, 1, 1);
+      ObjectMatrix.Scale([-1, 1, 1]);
       SwapFrontFace;
       Koerper.draw;
       SwapFrontFace;
@@ -264,46 +322,62 @@ var
     DrawElement(StutzenBuffer, StutzenSchnittBuffer, Geschnitten);
 
     // =====  Stutzen oben
-    ObjectMatrix.Translate( [0.0, vliMasse.L, 0.0]);
+    ObjectMatrix.Translate([0.0, vliMasse.L, 0.0]);
     DrawElement(StutzenBuffer, StutzenSchnittBuffer, Geschnitten);
 
     // =====  ProcessFlansch unten
-     ObjectMatrix.Translate( [0.0, 0.0, -vliMasse.t]);
-     ObjectMatrix.RotateA( PI / 2);
-     DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
+    ObjectMatrix.Translate([0.0, 0.0, -vliMasse.t]);
+    ObjectMatrix.RotateA(PI / 2);
+    DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
 
-     // =====  ProcessFlansch oben
-     ObjectMatrix.Translate( [0.0, vliMasse.L, -vliMasse.t]);
-     ObjectMatrix.RotateA(PI / 2);
-     DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
+    // =====  ProcessFlansch oben
+    ObjectMatrix.Translate([0.0, vliMasse.L, -vliMasse.t]);
+    ObjectMatrix.RotateA(PI / 2);
+    DrawElement(ProcessFlanschBuffer, ProcessFlanschSchnittBuffer, Geschnitten);
 
-     // =====  RohrFlansch unten
-     ObjectMatrix.Translate( [0.0, -vliMasse.C1, 0.0]);
-     DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
+    // =====  RohrFlansch unten
+    ObjectMatrix.Translate([0.0, -vliMasse.C1, 0.0]);
+    DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
 
-     // =====  RohrFlansch oben
-     ObjectMatrix.Translate( [0.0, vliMasse.L + vliMasse.C2, 0.0]);
-     ObjectMatrix.RotateA(PI);
-     DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
+    // =====  RohrFlansch oben
+    ObjectMatrix.Translate([0.0, vliMasse.L + vliMasse.C2, 0.0]);
+    ObjectMatrix.RotateA(PI);
+    DrawElement(RohrFlanschBuffer, RohrFlanschSchnittBuffer, Geschnitten);
 
-     // =====  DichtungProcessFlansch unten
-     ObjectMatrix.Translate( [0.0, 0.0, -vliMasse.t - 2.0]);
-     ObjectMatrix.RotateA(PI / 2);
-     DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
+    // =====  DichtungProcessFlansch unten
+    ObjectMatrix.Translate([0.0, 0.0, -vliMasse.t - 2.0]);
+    ObjectMatrix.RotateA(PI / 2);
+    DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
 
-     // =====  DichtungProcessFlansch oben
-     ObjectMatrix.Translate( [0.0, vliMasse.L, -vliMasse.t - 2.0]);
-     ObjectMatrix.RotateA(PI / 2);
-     DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
+    // =====  DichtungProcessFlansch oben
+    ObjectMatrix.Translate([0.0, vliMasse.L, -vliMasse.t - 2.0]);
+    ObjectMatrix.RotateA(PI / 2);
+    DrawElement(DichtungProcessFlanschBuffer, DichtungProcessFlanschSchnittBuffer, Geschnitten);
 
-     // =====  DichtungRohrFlansch unten
-     ObjectMatrix.Translate([0.0, -vliMasse.C1 - 2.0, 0.0]);
-     DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
+    // =====  DichtungRohrFlansch unten
+    ObjectMatrix.Translate([0.0, -vliMasse.C1 - 2.0, 0.0]);
+    DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
 
-     // =====  DichtungRohrFlansch oben
-     ObjectMatrix.Translate( [0.0, vliMasse.L + vliMasse.C2 + 2.0, 0.0]);
-     ObjectMatrix.RotateA(PI);
-     DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
+    // =====  DichtungRohrFlansch oben
+    ObjectMatrix.Translate([0.0, vliMasse.L + vliMasse.C2 + 2.0, 0.0]);
+    ObjectMatrix.RotateA(PI);
+    DrawElement(DichtungRohrFlanschBuffer, DichtungRohrFlanschSchnittBuffer, Geschnitten);
+
+    if Geschnitten then begin
+
+              // =====  Schwimmer
+              ObjectMatrix.Translate( [0.0, Niveau, 0.0]);
+              DrawElement(SchwimmerBuffer, SchwimmerSchnittBuffer, false);
+
+              // =====  Wasser Schwimmer
+              ObjectMatrix.Translate( [0.0, Niveau, 0.0]);
+              DrawElement(WasserSchwimmerBuffer, WasserSchwimmerSchnittBuffer, true);
+
+              // =====  Wasser Unten
+              ObjectMatrix.Translate( [0.0, -vliMasse.C1, -vliMasse.InnenD / 2]);
+              ObjectMatrix.Scale( [1.0, vliMasse.C1 + Niveau + vliMasse.SchwimmerAussenD / 2 - vliMasse.SchwimmerAussenD * (vliMasse.anzKugeln), vliMasse.InnenD]);
+              DrawElement(WasserUntenBuffer, nil, true);
+    end;
 
   end;
 
@@ -312,7 +386,7 @@ var
     scretch: TMatrix;
   begin
     gl.Clear(gl.COLOR_BUFFER_BIT or gl.DEPTH_BUFFER_BIT);
-    gl.clearColor(0.7,0.5,0.2,1.0);
+    gl.clearColor(0.7, 0.5, 0.2, 1.0);
 
     drawBackGround;
 
