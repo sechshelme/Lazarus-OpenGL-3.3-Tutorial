@@ -58,7 +58,8 @@ var
   WasserSchwimmerBuffer: TVAOMonoColor;
 
   isFrontFace: boolean = False;
-  Niveau:Single=0;
+  Niveau: single = 0;
+  NiveauRichtung: boolean = True;
 
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
@@ -116,6 +117,8 @@ var
   procedure Create;
   var
     ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom: TJSElement;
+    mp, mt:TMatrix;
+    cA: TJSObject=nil;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -175,7 +178,7 @@ var
     canvas.Height := 800;
     document.body.appendChild(canvas);
 
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2'));
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2',cA));
     if gl = nil then begin
       writeln('failed to load webgl!');
       exit;
@@ -236,10 +239,17 @@ var
     WasserSchwimmerSchnittBuffer := TVAOMonoColor.Create('WasserSchwimmerSchnitt');
     WasserSchwimmerBuffer := TVAOMonoColor.Create('WasserSchwimmer');
 
- //   mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
-    mProjectionMatrix.Ortho(-1, +1, -1, + 1, -1000, 1000.0);
-//    mProjectionMatrix.Translate(0, -0.4, -5);
-    mProjectionMatrix.Scale(0.004);
+
+    mp.Perspective(30, 1.0, 0.1, 100.0);
+    mt.Identity;
+    mt.Translate(0, -0.4, -5);
+    mt.Scale(0.004);
+    mProjectionMatrix:=MatrixMultiple(mp,mt);
+
+
+    //mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
+    //mProjectionMatrix.TranslateLocalspace(0, -0.4, -5);
+    //mProjectionMatrix.Scale(0.004);
 
   end;
 
@@ -247,20 +257,20 @@ var
   var
     dummyMatrix, rotMatrix: TMatrix;
   begin
-    // Sternenhimmel
     dummyMatrix := WorldMatrix;
+
+    // Sternenhimmel
     rotMatrix.Identity;
 
     WorldMatrix.Identity;
     WorldMatrix.Scale([1, 1, -1]);
-
     ObjectMatrix.Identity;
-
     BackGroundBuffer.draw(WorldAllTextur);
 
     // Globus
     WorldMatrix.Identity;
-    WorldMatrix.Translate(0.0, 0.0, 0.985);
+//    WorldMatrix.Translate(0.0, 0.0, 0.985);
+    WorldMatrix.Translate(0.0, 0.0, 0.99);
     WorldMatrix.Scale([1.5, 1.5, 0.01]);
 
     GlobusMatrix.RotateB(-0.005);
@@ -270,7 +280,8 @@ var
     // Wolken
     CloudsMatrix.RotateB(-0.0059);
     ObjectMatrix := MatrixMultiple(rotMatrix, CloudsMatrix);
-    WorldMatrix.Translate(0.0, 0.0, -0.1);
+//    WorldMatrix.Translate(0.0, 0.0, -0.1);
+    WorldMatrix.Translate(0.0, 0.0, -0.01);
     GlobusBuffer.draw(CloudsTextur, CloudsNormal);
 
     WorldMatrix := dummyMatrix;
@@ -300,14 +311,69 @@ var
       Koerper.draw;
       SwapFrontFace;
     end;
+    ObjectMatrix.Identity;
   end;
 
   procedure RenderScene(OMatrix: TMatrix);
+  var
+    i: integer;
+    FlugelWinkel: single;
   begin
     WorldMatrix := OMatrix;
     ObjectMatrix.Identity;
 
     // ===== Flügeli
+
+    for i := 0 - 5 to vliMasse.anzFluegeli - 6 do begin
+
+      FlugelWinkel := (Niveau / 10.0 - i) * 30 + 90;
+      if FlugelWinkel > 180.0 then begin
+        FlugelWinkel := 180.0;
+      end;
+
+      if FlugelWinkel < 0.0 then  begin
+        FlugelWinkel := 0.0;
+      end;
+
+      ObjectMatrix.Translate([0.0, 10.0 * i + 5, vliMasse.AussenD / 2 + 10]);
+      ObjectMatrix.RotateA(FlugelWinkel / 180 * PI);
+      if i > 0 then begin
+        FluegeliBuffer.setColor(vec3white);
+      end else begin
+        FluegeliBuffer.setColor(vec3red);
+      end;
+
+
+      // ---- Weisse Rechte Hï¿½lfte
+
+      FluegeliBuffer.draw();
+
+      // ----- Weisse Linke Hï¿½lfte
+
+
+      //mat4.rotateZ(ObjectMatrix, Math.PI);
+      ObjectMatrix.Scale([-1.0, -1.0, 1.0]);
+      FluegeliBuffer.draw();
+
+      // ----- Rote Rechte Hï¿½lfte
+
+      if i > 0 then begin
+        FluegeliBuffer.setColor(vec3yellow);
+      end else begin
+        FluegeliBuffer.setColor(vec3green);
+      end;
+
+      ObjectMatrix.Scale([1.0, -1.0, -1.0]);
+      FluegeliBuffer.draw();
+
+      // ----- Rote Linke Hï¿½lfte
+
+      ObjectMatrix.Scale([-1.0, -1.0, 1.0]);
+      FluegeliBuffer.draw();
+      ObjectMatrix.Identity;
+    end;
+
+
 
 
     // ===== Innenprofil
@@ -365,18 +431,18 @@ var
 
     if Geschnitten then begin
 
-              // =====  Schwimmer
-              ObjectMatrix.Translate( [0.0, Niveau, 0.0]);
-              DrawElement(SchwimmerBuffer, SchwimmerSchnittBuffer, false);
+      // =====  Schwimmer
+      ObjectMatrix.Translate([0.0, Niveau, 0.0]);
+      DrawElement(SchwimmerBuffer, SchwimmerSchnittBuffer, False);
 
-              // =====  Wasser Schwimmer
-              ObjectMatrix.Translate( [0.0, Niveau, 0.0]);
-              DrawElement(WasserSchwimmerBuffer, WasserSchwimmerSchnittBuffer, true);
+      // =====  Wasser Schwimmer
+      ObjectMatrix.Translate([0.0, Niveau, 0.0]);
+      DrawElement(WasserSchwimmerBuffer, WasserSchwimmerSchnittBuffer, True);
 
-              // =====  Wasser Unten
-              ObjectMatrix.Translate( [0.0, -vliMasse.C1, -vliMasse.InnenD / 2]);
-              ObjectMatrix.Scale( [1.0, vliMasse.C1 + Niveau + vliMasse.SchwimmerAussenD / 2 - vliMasse.SchwimmerAussenD * (vliMasse.anzKugeln), vliMasse.InnenD]);
-              DrawElement(WasserUntenBuffer, nil, true);
+      // =====  Wasser Unten
+      ObjectMatrix.Translate([0.0, -vliMasse.C1, -vliMasse.InnenD / 2]);
+      ObjectMatrix.Scale([1.0, vliMasse.C1 + Niveau + vliMasse.SchwimmerAussenD / 2 - vliMasse.SchwimmerAussenD * (vliMasse.anzKugeln), vliMasse.InnenD]);
+      DrawElement(WasserUntenBuffer, nil, True);
     end;
 
   end;
@@ -385,6 +451,18 @@ var
   var
     scretch: TMatrix;
   begin
+    if NiveauRichtung then begin
+      Niveau += 0.7;
+      if Niveau > vliMasse.L + 30 then begin
+        NiveauRichtung := False;
+      end;
+    end else begin
+      Niveau -= 0.7;
+      if Niveau < -30 then begin
+        NiveauRichtung := True;
+      end;
+    end;
+
     gl.Clear(gl.COLOR_BUFFER_BIT or gl.DEPTH_BUFFER_BIT);
     gl.clearColor(0.7, 0.5, 0.2, 1.0);
 

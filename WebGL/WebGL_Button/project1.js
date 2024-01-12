@@ -2036,18 +2036,22 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     return b;
   };
   rtl.createHelper(this,"TMatrixfHelper",null,function () {
-    this.Indenty = function () {
+    this.Identity = function () {
       this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
     this.RotateC = function (angele) {
       var i = 0;
       var x = 0.0;
       var y = 0.0;
-      for (i = 0; i <= 1; i++) {
+      var c = 0.0;
+      var s = 0.0;
+      c = Math.cos(angele);
+      s = Math.sin(angele);
+      for (i = 0; i <= 2; i++) {
         x = this.get()[i][0];
         y = this.get()[i][1];
-        this.get()[i][0] = (x * Math.cos(angele)) - (y * Math.sin(angele));
-        this.get()[i][1] = (x * Math.sin(angele)) + (y * Math.cos(angele));
+        this.get()[i][0] = (x * c) - (y * s);
+        this.get()[i][1] = (x * s) + (y * c);
       };
     };
     this.Translate$1 = function (x, y, z) {
@@ -2070,6 +2074,44 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       pas.wglCommon.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
     };
   });
+  this.WorldMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.ObjectMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.GlobusMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.CloudsMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.mProjectionMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.mRotationMatrix = rtl.arraySetLength(null,0.0,4,4);
+  $mod.$init = function () {
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.WorldMatrix;
+      }, set: function (v) {
+        this.p.WorldMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.ObjectMatrix;
+      }, set: function (v) {
+        this.p.ObjectMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.GlobusMatrix;
+      }, set: function (v) {
+        this.p.GlobusMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.CloudsMatrix;
+      }, set: function (v) {
+        this.p.CloudsMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.mProjectionMatrix;
+      }, set: function (v) {
+        this.p.mProjectionMatrix = v;
+      }});
+    $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
+        return this.p.mRotationMatrix;
+      }, set: function (v) {
+        this.p.mRotationMatrix = v;
+      }});
+  };
 });
 rtl.module("wglShader",["System","Types","SysUtils","browserconsole","webgl","JS","wglCommon","wglMatrix"],function () {
   "use strict";
@@ -2189,12 +2231,12 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       pas.wglCommon.gl.clearColor(0.3,0.0,0.0,1);
       pas.wglCommon.gl.viewport(0,0,$mod.canvas.width,$mod.canvas.height);
       pas.wglCommon.gl.clear(16384);
-      pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+      pas.wglMatrix.TMatrixfHelper.Identity.call({p: $mod, get: function () {
           return this.p.proMatrix;
         }, set: function (v) {
           this.p.proMatrix = v;
         }});
-      pas.wglMatrix.TMatrixfHelper.Indenty.call({p: $mod, get: function () {
+      pas.wglMatrix.TMatrixfHelper.Identity.call({p: $mod, get: function () {
           return this.p.modelMatrix;
         }, set: function (v) {
           this.p.modelMatrix = v;

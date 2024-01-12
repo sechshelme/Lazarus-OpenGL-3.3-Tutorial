@@ -13,8 +13,8 @@ uses
   wglCommon;
 
 var
-  isGold:Boolean=False;
-  Geschnitten:Boolean=True;
+  isGold: boolean = False;
+  Geschnitten: boolean = True;
 
 type
   TVector2f = array [0..1] of GLfloat;
@@ -28,9 +28,9 @@ type
   TMatrixfHelper = type Helper for TMatrix
     procedure Identity;
 
-      procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
+    procedure Ortho(left, right, bottom, top, znear, zfar: GLfloat);
     //    FrustumMatrix.Frustum(-w, w, -w, w, 2.5, 1000.0);
-    procedure Frustum(left, right, bottom, top, znear, zfar: GLfloat);
+    procedure Frustum(left, right, bottom, top, near, far: GLfloat);
     //    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
@@ -48,7 +48,10 @@ type
     procedure Uniform(ShaderID: TJSWebGLUniformLocation);
   end;
 
-function MatrixMultiple(const mat0, mat1: TMatrix):TMatrix;
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f; overload;
+
+
+function MatrixMultiple(const mat0, mat1: TMatrix): TMatrix;
 
 var
   WorldMatrix,
@@ -57,6 +60,18 @@ var
   CloudsMatrix,
   mProjectionMatrix,
   mRotationMatrix: TMatrix;
+
+const
+  //  {$push,}{$J-}
+  vec3black: TVector3f = (0.0, 0.0, 0.0);
+  vec3blue: TVector3f = (0.0, 0.0, 1.0);
+  vec3green: TVector3f = (0.0, 1.0, 0.0);
+  vec3cyan: TVector3f = (0.0, 1.0, 1.0);
+  vec3red: TVector3f = (1.0, 0.0, 0.0);
+  vec3magenta: TVector3f = (1.0, 0.0, 1.0);
+  vec3yellow: TVector3f = (1.0, 1.0, 0.0);
+  vec3white: TVector3f = (1.0, 1.0, 1.0);
+  //{$J+}{$pop}
 
 implementation
 
@@ -76,16 +91,32 @@ begin
   Self[3, 2] := -(zfar + znear) / (zfar - znear);
 end;
 
-procedure TMatrixfHelper.Frustum(left, right, bottom, top, znear, zfar: GLfloat  );
+procedure TMatrixfHelper.Frustum(left, right, bottom, top, near, far: GLfloat);
+var
+  rl, tb, fn: GLfloat;
 begin
-  Identity;
-  Self[0, 0] := 2 * znear / (right - left);
-  Self[1, 1] := 2 * znear / (top - bottom);
-  Self[2, 0] := (right + left) / (right - left);
-  Self[2, 1] := (top + bottom) / (top - bottom);
-  Self[2, 2] := -(zfar + znear) / (zfar - znear);
+  rl := right - left;
+  tb := top - bottom;
+  fn := far - near;
+  //  Identity;
+  Self[0, 0] := 2 * near / rl;
+  Self[0, 1] := 0.0;
+  Self[0, 2] := 0.0;
+  Self[0, 3] := 0.0;
+
+  Self[1, 0] := 0.0;
+  Self[1, 1] := 2 * near / tb;
+  Self[1, 2] := 0.0;
+  Self[1, 3] := 0.0;
+
+  Self[2, 0] := (right + left) / rl;
+  Self[2, 1] := (top + bottom) / tb;
+  Self[2, 2] := -(far + near) / fn;
   Self[2, 3] := -1.0;
-  Self[3, 2] := -2 * zfar * znear / (zfar - znear);
+
+  Self[3, 0] := 0.0;
+  Self[3, 1] := 0.0;
+  Self[3, 2] := -2 * far * near / fn;
   Self[3, 3] := 0.0;
 end;
 
@@ -175,6 +206,8 @@ end;
 
 procedure TMatrixfHelper.Translate(x, y, z: GLfloat);
 begin
+  //  TranslateLocalspace(x,y,z);
+
   Self[3, 0] += x;
   Self[3, 1] += y;
   Self[3, 2] += z;
@@ -231,6 +264,14 @@ begin
   //  gl.uniformMatrix4fv(ShaderID, False, m);
 
   gl.uniformMatrix4fv(ShaderID, False, Self.GetFloatList);
+end;
+
+function vec4(const xyz: TVector3f; w: GLfloat): TVector4f;
+begin
+  Result[0] := xyz[0];
+  Result[1] := xyz[1];
+  Result[2] := xyz[2];
+  Result[3] := w;
 end;
 
 function MatrixMultiple(const mat0, mat1: TMatrix): TMatrix;

@@ -144,12 +144,8 @@ monoColorVertex=
 '        Pos = (ObjectMatrix * vec4(inPos, 1.0)).xyz;'+#10+
 '        Normal = normalize(mat3(ObjectMatrix) * inNormal);'+#10+
 '        gl_Position = ObjectMatrix * vec4(inPos, 1.0);'+#10+
-//'        gl_Position.z = 0.0;'+#10+
-//'        gl_Position.x *= 10000.0;'+#10+
-//'        gl_Position.y *= 10000.0;'+#10+
 
 '        Color = VecColor;'+#10+
-//'        Color.a = 1.0;'+#10+
 '        }';
 
 monoColorFragment=

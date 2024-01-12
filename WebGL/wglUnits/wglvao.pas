@@ -41,7 +41,7 @@ type
     constructor Create(VertexPath: string);
     procedure onload;
     procedure draw;
-    procedure setColor(Acol:TVector4f);
+    procedure setColor(Acol:TVector3f);
   end;
 
   { TVAOTextur }
@@ -197,9 +197,9 @@ begin
   gl.drawArrays(gl.TRIANGLES, 0, numItems);
 end;
 
-procedure TVAOMonoColor.setColor(Acol: TVector4f);
+procedure TVAOMonoColor.setColor(Acol: TVector3f);
 begin
-  Color:=Acol;
+  Color:=vec4( Acol,1.0);
 end;
 
 { TVAOTextur }

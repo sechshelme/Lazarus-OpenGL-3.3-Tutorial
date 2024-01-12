@@ -49,6 +49,7 @@ procedure TTextur.activateAndBind(nr: GLint);
 var
   im: TJSHTMLImageElement;
 begin
+//  Writeln(FID);
   if FID = nil then begin
     im := TJSHTMLImageElement(document.getElementById(FFileName));
     if im.Width > 0 then begin

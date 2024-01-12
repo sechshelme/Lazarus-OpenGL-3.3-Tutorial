@@ -2041,14 +2041,38 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     this.Identity = function () {
       this.set([[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]);
     };
-    this.Ortho = function (left, right, bottom, top, znear, zfar) {
-      $mod.TMatrixfHelper.Identity.call(this);
-      this.get()[0][0] = 2 / (right - left);
-      this.get()[1][1] = 2 / (top - bottom);
-      this.get()[2][2] = -2 / (zfar - znear);
-      this.get()[3][0] = -(right + left) / (right - left);
-      this.get()[3][1] = -(top + bottom) / (top - bottom);
-      this.get()[3][2] = -(zfar + znear) / (zfar - znear);
+    this.Frustum = function (left, right, bottom, top, near, far) {
+      var rl = 0.0;
+      var tb = 0.0;
+      var fn = 0.0;
+      rl = right - left;
+      tb = top - bottom;
+      fn = far - near;
+      this.get()[0][0] = (2 * near) / rl;
+      this.get()[0][1] = 0.0;
+      this.get()[0][2] = 0.0;
+      this.get()[0][3] = 0.0;
+      this.get()[1][0] = 0.0;
+      this.get()[1][1] = (2 * near) / tb;
+      this.get()[1][2] = 0.0;
+      this.get()[1][3] = 0.0;
+      this.get()[2][0] = (right + left) / rl;
+      this.get()[2][1] = (top + bottom) / tb;
+      this.get()[2][2] = -(far + near) / fn;
+      this.get()[2][3] = -1.0;
+      this.get()[3][0] = 0.0;
+      this.get()[3][1] = 0.0;
+      this.get()[3][2] = (-2 * far * near) / fn;
+      this.get()[3][3] = 0.0;
+    };
+    this.Perspective = function (fovy, aspect, znear, zfar) {
+      var p = 0.0;
+      var right = 0.0;
+      var top = 0.0;
+      p = (fovy * Math.PI) / 360;
+      top = znear * (Math.sin(p) / Math.cos(p));
+      right = top * aspect;
+      $mod.TMatrixfHelper.Frustum.call(this,-right,right,-top,top,znear,zfar);
     };
     this.Scale = function (Faktor) {
       var i = 0;
@@ -2136,6 +2160,14 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       pas.wglCommon.gl.uniformMatrix4fv(ShaderID,false,$mod.TMatrixfHelper.GetFloatList.call(this));
     };
   });
+  this.vec4 = function (xyz, w) {
+    var Result = rtl.arraySetLength(null,0.0,4);
+    Result[0] = xyz[0];
+    Result[1] = xyz[1];
+    Result[2] = xyz[2];
+    Result[3] = w;
+    return Result;
+  };
   this.MatrixMultiple = function (mat0, mat1) {
     var Result = rtl.arraySetLength(null,0.0,4,4);
     var i = 0;
@@ -2157,6 +2189,10 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
   this.CloudsMatrix = rtl.arraySetLength(null,0.0,4,4);
   this.mProjectionMatrix = rtl.arraySetLength(null,0.0,4,4);
   this.mRotationMatrix = rtl.arraySetLength(null,0.0,4,4);
+  this.vec3green = [0.0,1.0,0.0];
+  this.vec3red = [1.0,0.0,0.0];
+  this.vec3yellow = [1.0,1.0,0.0];
+  this.vec3white = [1.0,1.0,1.0];
   $mod.$init = function () {
     $mod.TMatrixfHelper.Identity.call({p: $mod, get: function () {
         return this.p.WorldMatrix;
@@ -2442,6 +2478,9 @@ rtl.module("wglVAO",["System","Types","SysUtils","Web","browserconsole","webgl",
         }},this.matrixID);
       pas.wglCommon.gl.drawArrays(4,0,this.numItems);
     };
+    this.setColor = function (Acol) {
+      this.Color = pas.wglMatrix.vec4(Acol,1.0);
+    };
   });
   rtl.createClass(this,"TVAOTextur",pas.System.TObject,function () {
     this.$init = function () {
@@ -2724,6 +2763,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.WasserSchwimmerBuffer = null;
   this.isFrontFace = false;
   this.Niveau = 0;
+  this.NiveauRichtung = true;
   var TransFactor = 10.0;
   var RotFactor = 0.1;
   this.ButtonClick = function (aEvent) {
@@ -2826,6 +2866,9 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     var ButtonRight = null;
     var ButtonTop = null;
     var ButtonBottom = null;
+    var mp = rtl.arraySetLength(null,0.0,4,4);
+    var mt = rtl.arraySetLength(null,0.0,4,4);
+    var cA = null;
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2868,7 +2911,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.canvas.width = 800;
     $mod.canvas.height = 800;
     document.body.appendChild($mod.canvas);
-    pas.wglCommon.gl = $mod.canvas.getContext("webgl2");
+    pas.wglCommon.gl = $mod.canvas.getContext("webgl2",cA);
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("failed to load webgl!");
       return;
@@ -2910,16 +2953,27 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.WasserUntenBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserUnten"]);
     $mod.WasserSchwimmerSchnittBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmerSchnitt"]);
     $mod.WasserSchwimmerBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmer"]);
-    pas.wglMatrix.TMatrixfHelper.Ortho.call({p: pas.wglMatrix, get: function () {
-        return this.p.mProjectionMatrix;
+    pas.wglMatrix.TMatrixfHelper.Perspective.call({get: function () {
+        return mp;
       }, set: function (v) {
-        this.p.mProjectionMatrix = v;
-      }},-1,+1,-1,+1,-1000,1000.0);
-    pas.wglMatrix.TMatrixfHelper.Scale$1.call({p: pas.wglMatrix, get: function () {
-        return this.p.mProjectionMatrix;
+        mp = v;
+      }},30,1.0,0.1,100.0);
+    pas.wglMatrix.TMatrixfHelper.Identity.call({get: function () {
+        return mt;
       }, set: function (v) {
-        this.p.mProjectionMatrix = v;
+        mt = v;
+      }});
+    pas.wglMatrix.TMatrixfHelper.Translate$1.call({get: function () {
+        return mt;
+      }, set: function (v) {
+        mt = v;
+      }},0,-0.4,-5);
+    pas.wglMatrix.TMatrixfHelper.Scale$1.call({get: function () {
+        return mt;
+      }, set: function (v) {
+        mt = v;
       }},0.004);
+    pas.wglMatrix.mProjectionMatrix = pas.wglMatrix.MatrixMultiple(mp,mt);
   };
   this.drawBackGround = function () {
     var dummyMatrix = rtl.arraySetLength(null,0.0,4,4);
@@ -2955,7 +3009,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         return this.p.WorldMatrix;
       }, set: function (v) {
         this.p.WorldMatrix = v;
-      }},0.0,0.0,0.985);
+      }},0.0,0.0,0.99);
     pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
         return this.p.WorldMatrix;
       }, set: function (v) {
@@ -2978,7 +3032,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         return this.p.WorldMatrix;
       }, set: function (v) {
         this.p.WorldMatrix = v;
-      }},0.0,0.0,-0.1);
+      }},0.0,0.0,-0.01);
     $mod.GlobusBuffer.draw($mod.CloudsTextur,$mod.CloudsNormal);
     pas.wglMatrix.WorldMatrix = pas.wglMatrix.TMatrix$clone(dummyMatrix);
   };
@@ -3006,14 +3060,75 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Koerper.draw();
       $mod.SwapFrontFace();
     };
+    pas.wglMatrix.TMatrixfHelper.Identity.call({p: pas.wglMatrix, get: function () {
+        return this.p.ObjectMatrix;
+      }, set: function (v) {
+        this.p.ObjectMatrix = v;
+      }});
   };
   this.RenderScene = function (OMatrix) {
+    var i = 0;
+    var FlugelWinkel = 0.0;
     pas.wglMatrix.WorldMatrix = pas.wglMatrix.TMatrix$clone(OMatrix);
     pas.wglMatrix.TMatrixfHelper.Identity.call({p: pas.wglMatrix, get: function () {
         return this.p.ObjectMatrix;
       }, set: function (v) {
         this.p.ObjectMatrix = v;
       }});
+    for (var $l = -5, $end = $mod.VLIMasse.anzFluegeli - 6; $l <= $end; $l++) {
+      i = $l;
+      FlugelWinkel = ((($mod.Niveau / 10.0) - i) * 30) + 90;
+      if (FlugelWinkel > 180.0) {
+        FlugelWinkel = 180.0;
+      };
+      if (FlugelWinkel < 0.0) {
+        FlugelWinkel = 0.0;
+      };
+      pas.wglMatrix.TMatrixfHelper.Translate.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[0.0,(10.0 * i) + 5,($mod.VLIMasse.AussenD / 2) + 10]);
+      pas.wglMatrix.TMatrixfHelper.RotateA.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},(FlugelWinkel / 180) * Math.PI);
+      if (i > 0) {
+        $mod.FluegeliBuffer.setColor(pas.wglMatrix.vec3white.slice(0));
+      } else {
+        $mod.FluegeliBuffer.setColor(pas.wglMatrix.vec3red.slice(0));
+      };
+      $mod.FluegeliBuffer.draw();
+      pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[-1.0,-1.0,1.0]);
+      $mod.FluegeliBuffer.draw();
+      if (i > 0) {
+        $mod.FluegeliBuffer.setColor(pas.wglMatrix.vec3yellow.slice(0));
+      } else {
+        $mod.FluegeliBuffer.setColor(pas.wglMatrix.vec3green.slice(0));
+      };
+      pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[1.0,-1.0,-1.0]);
+      $mod.FluegeliBuffer.draw();
+      pas.wglMatrix.TMatrixfHelper.Scale.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }},[-1.0,-1.0,1.0]);
+      $mod.FluegeliBuffer.draw();
+      pas.wglMatrix.TMatrixfHelper.Identity.call({p: pas.wglMatrix, get: function () {
+          return this.p.ObjectMatrix;
+        }, set: function (v) {
+          this.p.ObjectMatrix = v;
+        }});
+    };
     pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
         return this.p.ObjectMatrix;
       }, set: function (v) {
@@ -3139,6 +3254,17 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   };
   this.UpdateCanvas = function (time) {
     var scretch = rtl.arraySetLength(null,0.0,4,4);
+    if ($mod.NiveauRichtung) {
+      $mod.Niveau += 0.7;
+      if ($mod.Niveau > ($mod.VLIMasse.L + 30)) {
+        $mod.NiveauRichtung = false;
+      };
+    } else {
+      $mod.Niveau -= 0.7;
+      if ($mod.Niveau < -30) {
+        $mod.NiveauRichtung = true;
+      };
+    };
     pas.wglCommon.gl.clear(16384 | 256);
     pas.wglCommon.gl.clearColor(0.7,0.5,0.2,1.0);
     $mod.drawBackGround();
