@@ -220,10 +220,6 @@ begin
     VLILighting.Add(DichtungProcessFlansch);
     VLILighting.Add(DichtungProcessFlanschSchnitt);
 
-    //    VLILighting.Add(WasserUnten);
-    //    VLILighting.Add(WasserSchwimmer);
-    //    VLILighting.Add(WasserSchwimmerSchnitt);
-
     Darstellung1.Add(Fluegeli, [noSchnitt]);
     Darstellung1.Add(AnzeigeSchiene, []);
     Darstellung1.Add(Schwimmer, []);
@@ -398,6 +394,18 @@ var
     end;
   end;
 
+procedure MatScale(var mat:TMatrix; x,y,z:Single);
+var
+  i: integer;
+begin
+  for i := 0 to 2 do begin
+    mat[i, 0] *= x;
+    mat[i, 1] *= y;
+    mat[i, 2] *= z;
+  end;
+  end;
+
+
 begin
 
   with OpenGL.Camera do begin
@@ -571,7 +579,9 @@ begin
 
       ObjectMatrix := GlobusMatrix;
       ObjectMatrix.Translate(0.0, 0.0, -1.0);
-      ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+
+      MatScale(ObjectMatrix,1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+//      ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
 
       with EarthTextur do begin
         Sphere.Draw(Pos, Normal);
@@ -579,7 +589,8 @@ begin
 
       ObjectMatrix := WolkenMatrix;
       ObjectMatrix.Translate(0.0, 0.0, -0.99);
-      ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+    MatScale(ObjectMatrix,1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+  //    ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
 
       with CloudsTextur do begin
         Sphere.Draw(Pos, Normal);

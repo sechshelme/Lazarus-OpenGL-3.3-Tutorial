@@ -117,8 +117,11 @@ var
   procedure Create;
   var
     ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom: TJSElement;
-    mp, mt:TMatrix;
-    cA: TJSObject=nil;
+    cA: record
+    alpha: boolean;
+    depth: boolean;
+      end
+    = (alpha: True; depth: False);
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -178,7 +181,7 @@ var
     canvas.Height := 800;
     document.body.appendChild(canvas);
 
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2',cA));
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', TJSObject(cA)));
     if gl = nil then begin
       writeln('failed to load webgl!');
       exit;
@@ -239,18 +242,9 @@ var
     WasserSchwimmerSchnittBuffer := TVAOMonoColor.Create('WasserSchwimmerSchnitt');
     WasserSchwimmerBuffer := TVAOMonoColor.Create('WasserSchwimmer');
 
-
-    mp.Perspective(30, 1.0, 0.1, 100.0);
-    mt.Identity;
-    mt.Translate(0, -0.4, -5);
-    mt.Scale(0.004);
-    mProjectionMatrix:=MatrixMultiple(mp,mt);
-
-
-    //mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
-    //mProjectionMatrix.TranslateLocalspace(0, -0.4, -5);
-    //mProjectionMatrix.Scale(0.004);
-
+    mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
+    mProjectionMatrix.TranslateLocalspace(0, -0.4, -5);
+    mProjectionMatrix.Scale(0.004);
   end;
 
   procedure drawBackGround;
@@ -269,7 +263,7 @@ var
 
     // Globus
     WorldMatrix.Identity;
-//    WorldMatrix.Translate(0.0, 0.0, 0.985);
+    //    WorldMatrix.Translate(0.0, 0.0, 0.985);
     WorldMatrix.Translate(0.0, 0.0, 0.99);
     WorldMatrix.Scale([1.5, 1.5, 0.01]);
 
@@ -278,9 +272,9 @@ var
     GlobusBuffer.draw(GlobusTextur, GlobusNormal);
 
     // Wolken
-    CloudsMatrix.RotateB(-0.0059);
+    CloudsMatrix.RotateB(-0.006);
     ObjectMatrix := MatrixMultiple(rotMatrix, CloudsMatrix);
-//    WorldMatrix.Translate(0.0, 0.0, -0.1);
+    //    WorldMatrix.Translate(0.0, 0.0, -0.1);
     WorldMatrix.Translate(0.0, 0.0, -0.01);
     GlobusBuffer.draw(CloudsTextur, CloudsNormal);
 

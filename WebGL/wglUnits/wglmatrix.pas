@@ -135,9 +135,10 @@ var
   i: integer;
 begin
   for i := 0 to 2 do begin
-    Self[i, 0] *= Faktor[0];
-    Self[i, 1] *= Faktor[1];
-    Self[i, 2] *= Faktor[2];
+    Self[i, 0] *= Faktor[i];
+    Self[i, 1] *= Faktor[i];
+    Self[i, 2] *= Faktor[i];
+    Self[i, 3] *= Faktor[i];
   end;
 end;
 
@@ -149,6 +150,7 @@ begin
     Self[i, 0] *= Faktor;
     Self[i, 1] *= Faktor;
     Self[i, 2] *= Faktor;
+    Self[i, 3] *= Faktor;
   end;
 end;
 

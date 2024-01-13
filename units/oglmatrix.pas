@@ -92,8 +92,9 @@ type
     //    FrustumMatrix.Perspective(45, ClientWidth / ClientHeight, 2.5, 1000.0);
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
-    procedure Scale(Faktor: GLfloat); overload;
-    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload;
+    procedure Scale(scal: GLfloat); overload;
+    procedure Scale(scal: TVector3f); overload;
+    procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload; deprecated;
     procedure Translate(x, y, z: GLfloat); overload;           // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
     procedure TranslateX(x: GLfloat);
@@ -613,26 +614,37 @@ begin
   end;
 end;
 
-procedure Tmat4x4Helper.Scale(Faktor: GLfloat);
+procedure Tmat4x4Helper.Scale(scal: GLfloat);
 var
-  x, y: integer;
+ x, y: integer;
 begin
+  //for x := 0 to 2 do begin
+  //  for y := 0 to 2 do begin
+  //    Self[x, y] *= scal;
+  //  end;
+  //end;
   for x := 0 to 2 do begin
-    for y := 0 to 2 do begin
-      Self[x, y] *= Faktor;
-    end;
+    for y := 0 to 3 do begin
+    Self[x, y] *= scal;
+  end;
   end;
 end;
 
-procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);
+procedure Tmat4x4Helper.Scale(scal: TVector3f);
 var
-  i: integer;
+  i: Integer;
 begin
   for i := 0 to 2 do begin
-    Self[i, 0] *= FaktorX;
-    Self[i, 1] *= FaktorY;
-    Self[i, 2] *= FaktorZ;
-  end;
+  Self[i, 0] *= scal[i];
+  Self[i, 1] *= scal[i];
+  Self[i, 2] *= scal[i];
+  Self[i, 3] *= scal[i];
+end;
+end;
+
+procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);     deprecated;
+begin
+  Scale([FaktorX, FaktorY, FaktorZ]);
 end;
 
 procedure Tmat4x4Helper.ShearA(y, z: GLfloat); inline;

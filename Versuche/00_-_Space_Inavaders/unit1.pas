@@ -160,7 +160,7 @@ begin
   glBindTexture(GL_TEXTURE_2D, Textur_Buffers[tbTexture]);
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
   Data := CreateMonsters;
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 11, 8, 0, GL_BGRA, GL_UNSIGNED_BYTE, PGLvoid(Data));

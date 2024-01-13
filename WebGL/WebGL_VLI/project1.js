@@ -2077,9 +2077,10 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
     this.Scale = function (Faktor) {
       var i = 0;
       for (i = 0; i <= 2; i++) {
-        this.get()[i][0] *= Faktor[0];
-        this.get()[i][1] *= Faktor[1];
-        this.get()[i][2] *= Faktor[2];
+        this.get()[i][0] *= Faktor[i];
+        this.get()[i][1] *= Faktor[i];
+        this.get()[i][2] *= Faktor[i];
+        this.get()[i][3] *= Faktor[i];
       };
     };
     this.Scale$1 = function (Faktor) {
@@ -2088,6 +2089,7 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
         this.get()[i][0] *= Faktor;
         this.get()[i][1] *= Faktor;
         this.get()[i][2] *= Faktor;
+        this.get()[i][3] *= Faktor;
       };
     };
     this.RotateA = function (angele) {
@@ -2144,6 +2146,12 @@ rtl.module("wglMatrix",["System","Types","SysUtils","browserconsole","webgl","JS
       this.get()[3][0] += x;
       this.get()[3][1] += y;
       this.get()[3][2] += z;
+    };
+    this.TranslateLocalspace = function (x, y, z) {
+      var i = 0;
+      for (i = 0; i <= 3; i++) {
+        this.get()[3][i] += (this.get()[0][i] * x) + (this.get()[1][i] * y) + (this.get()[2][i] * z);
+      };
     };
     this.GetFloatList = function () {
       var Result = rtl.arraySetLength(null,0.0,16);
@@ -2860,15 +2868,21 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Result = true;
     return Result;
   };
+  var cA$a = rtl.recNewT(null,"",function () {
+    this.$eq = function (b) {
+      return true;
+    };
+    this.$assign = function (s) {
+      return this;
+    };
+  });
   this.Create = function () {
     var ButtonLeft = null;
     var Panel = null;
     var ButtonRight = null;
     var ButtonTop = null;
     var ButtonBottom = null;
-    var mp = rtl.arraySetLength(null,0.0,4,4);
-    var mt = rtl.arraySetLength(null,0.0,4,4);
-    var cA = null;
+    var cA = cA$a.$clone({alpha: true, depth: false});
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2953,27 +2967,21 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.WasserUntenBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserUnten"]);
     $mod.WasserSchwimmerSchnittBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmerSchnitt"]);
     $mod.WasserSchwimmerBuffer = pas.wglVAO.TVAOMonoColor.$create("Create$1",["WasserSchwimmer"]);
-    pas.wglMatrix.TMatrixfHelper.Perspective.call({get: function () {
-        return mp;
+    pas.wglMatrix.TMatrixfHelper.Perspective.call({p: pas.wglMatrix, get: function () {
+        return this.p.mProjectionMatrix;
       }, set: function (v) {
-        mp = v;
+        this.p.mProjectionMatrix = v;
       }},30,1.0,0.1,100.0);
-    pas.wglMatrix.TMatrixfHelper.Identity.call({get: function () {
-        return mt;
+    pas.wglMatrix.TMatrixfHelper.TranslateLocalspace.call({p: pas.wglMatrix, get: function () {
+        return this.p.mProjectionMatrix;
       }, set: function (v) {
-        mt = v;
-      }});
-    pas.wglMatrix.TMatrixfHelper.Translate$1.call({get: function () {
-        return mt;
-      }, set: function (v) {
-        mt = v;
+        this.p.mProjectionMatrix = v;
       }},0,-0.4,-5);
-    pas.wglMatrix.TMatrixfHelper.Scale$1.call({get: function () {
-        return mt;
+    pas.wglMatrix.TMatrixfHelper.Scale$1.call({p: pas.wglMatrix, get: function () {
+        return this.p.mProjectionMatrix;
       }, set: function (v) {
-        mt = v;
+        this.p.mProjectionMatrix = v;
       }},0.004);
-    pas.wglMatrix.mProjectionMatrix = pas.wglMatrix.MatrixMultiple(mp,mt);
   };
   this.drawBackGround = function () {
     var dummyMatrix = rtl.arraySetLength(null,0.0,4,4);
@@ -3026,7 +3034,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
         return this.p.CloudsMatrix;
       }, set: function (v) {
         this.p.CloudsMatrix = v;
-      }},-0.0059);
+      }},-0.006);
     pas.wglMatrix.ObjectMatrix = pas.wglMatrix.MatrixMultiple(rotMatrix,pas.wglMatrix.CloudsMatrix);
     pas.wglMatrix.TMatrixfHelper.Translate$1.call({p: pas.wglMatrix, get: function () {
         return this.p.WorldMatrix;
