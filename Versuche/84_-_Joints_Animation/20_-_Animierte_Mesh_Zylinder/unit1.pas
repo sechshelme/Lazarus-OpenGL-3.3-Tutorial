@@ -118,8 +118,8 @@ begin
       sc := 1 / cos(angeleu);
       UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
       UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
-//      UBOBuffer.JointMatrix[ofs].Scale(0.95);
-//      UBOBuffer.JointMatrix[ofs].Scale(0.5,0.5,1.0);
+      //      UBOBuffer.JointMatrix[ofs].Scale(0.95);
+      //      UBOBuffer.JointMatrix[ofs].Scale(0.5,0.5,1.0);
       UBOBuffer.JointMatrix[ofs] := rotMatrix[j] * UBOBuffer.JointMatrix[ofs];
 
       globalMatrix.TranslateLocalspace(0.0, 0.0, -transSize);
@@ -198,7 +198,7 @@ begin
   end;
 
 
-  // VAO Buffer
+  // --- VAO Buffer
   glBindVertexArray(VAO);
 
   // Vektor
@@ -293,10 +293,9 @@ var
   perm, wm: Tmat4x4;
 begin
   wm.Identity;
-  wm.Translate(0, 0, -50);
   wm.RotateA(0.30);
   perm.Perspective(30, ClientWidth / ClientHeight, 2.5, 1000.0);
-
+  perm.TranslateLocalspace(0, 0, -50);
   UBOBuffer.WorldMatrix := perm * wm;
 end;
 

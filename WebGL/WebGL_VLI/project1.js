@@ -2868,21 +2868,13 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Result = true;
     return Result;
   };
-  var cA$a = rtl.recNewT(null,"",function () {
-    this.$eq = function (b) {
-      return true;
-    };
-    this.$assign = function (s) {
-      return this;
-    };
-  });
   this.Create = function () {
     var ButtonLeft = null;
     var Panel = null;
     var ButtonRight = null;
     var ButtonTop = null;
     var ButtonBottom = null;
-    var cA = cA$a.$clone({alpha: true, depth: false});
+    var cA = null;
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2925,6 +2917,10 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.canvas.width = 800;
     $mod.canvas.height = 800;
     document.body.appendChild($mod.canvas);
+    cA = new Object();
+    cA["depth"] = true;
+    cA["antialias"] = true;
+    cA["alpha"] = false;
     pas.wglCommon.gl = $mod.canvas.getContext("webgl2",cA);
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("failed to load webgl!");

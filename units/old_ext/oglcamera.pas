@@ -150,16 +150,10 @@ begin
 end;
 
 procedure TCamera.Perspective(fovy, aspect, near, far, posZ, Scale: single);
-var
-  TransMatrix: TMatrix;
 begin
-  TransMatrix.Identity;
-
-  TransMatrix.Translate(0.0, 0.0, posZ);
-  TransMatrix.Scale(scale);
-
   FProjectionMatrix.Perspective(fovy, aspect, near, far);
-  FProjectionMatrix := FProjectionMatrix * TransMatrix;
+  FProjectionMatrix.TranslateLocalspace(0.0, 0.0, posZ);
+  FProjectionMatrix.Scale(scale);
 
   MatrixMulti;
 end;
@@ -178,10 +172,10 @@ end;
 procedure TCamera.Scale(FaktorX, FaktorY, FaktorZ: single);
 begin
   if FIsCameraMatrixTransform then begin
-    FRotationsMatrix.Scale(FaktorX, FaktorY, FaktorZ);
+    FRotationsMatrix.Scale([FaktorX, FaktorY, FaktorZ]);
     MatrixMulti;
   end else begin
-    FWorldMatrix.Scale(FaktorX, FaktorY, FaktorZ);
+    FWorldMatrix.Scale([FaktorX, FaktorY, FaktorZ]);
   end;
 end;
 

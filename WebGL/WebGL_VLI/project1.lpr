@@ -117,11 +117,7 @@ var
   procedure Create;
   var
     ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom: TJSElement;
-    cA: record
-    alpha: boolean;
-    depth: boolean;
-      end
-    = (alpha: True; depth: False);
+    cA: TJSObject;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -181,7 +177,12 @@ var
     canvas.Height := 800;
     document.body.appendChild(canvas);
 
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', TJSObject(cA)));
+    ca := TJSObject.new;
+    ca['depth'] := True;
+    ca['antialias'] := True;
+    ca['alpha'] := False;
+
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', cA));
     if gl = nil then begin
       writeln('failed to load webgl!');
       exit;
