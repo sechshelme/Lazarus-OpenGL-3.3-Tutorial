@@ -5,32 +5,14 @@ unit HauptFenster;
 interface
 
 uses
-  SysUtils,
-  Classes,
-  Forms,
-  ExtCtrls,
-  Dialogs,
-  Menus, StdCtrls,
-  types, Graphics,
-  LCLVersion,
-  oglUnit,
+  SysUtils,  Classes,  Forms,  ExtCtrls,  Dialogs,  Menus, StdCtrls,  types, Graphics,
+  LCLVersion, Controls, Buttons,
   dglOpenGL,
-  oglTextur, oglTexturVAO, oglTexturKoerper,
-  oglVector, oglMatrix,
-  oglLighting,
-  oglSteuerung,
-  oglBackground, oglDarstellung, oglVAO,
-  VLIAnzeigeschiene,
-  VLIFluegeli,
-  VLIStandRohr,
-  VLIArmaflex,
-  VLIBasis,
-  VLIStutzen,
-  VLIFlansch,
-  VLISchwimmer,
-  VLIDichtung,
-  AnzeigerOptionen,
-  VLIWasser, Controls, Buttons;
+  oglUnit,  oglTextur, oglTexturVAO, oglTexturKoerper,  oglVector, oglMatrix,
+  oglLighting,  oglSteuerung,  oglBackground, oglDarstellung, oglVAO,
+  VLIAnzeigeschiene,  VLIFluegeli,  VLIStandRohr,  VLIArmaflex,  VLIBasis,
+  VLIStutzen,  VLIFlansch,  VLISchwimmer,  VLIDichtung,  AnzeigerOptionen,
+  VLIWasser;
 
 type
 
@@ -76,7 +58,7 @@ type
     Niveau: record
       Pegel: single;
       Richtung: (oben, unten);
-    end;
+      end;
     OpenGL: TOpenGL;
 
     Globus: record
@@ -85,17 +67,17 @@ type
 
       EarthTextur: record
         Pos, Normal: TTexturBuffer;
-      end;
+        end;
 
       CloudsTextur: record
         Pos, Normal: TTexturBuffer;
+        end;
       end;
-    end;
 
     All: record
       Textur: TTexturBuffer;
       Background: TBackGround;
-    end;
+      end;
   public
     VLILighting: TLightingDlg;
     GlobusLighting: TLightingDlg;
@@ -133,7 +115,7 @@ type
       WasserSchwimmerSchnitt: TWasserSchwimmerSchnitt;
 
       WasserUnten: TWasserUnten;
-    end;
+      end;
 
     procedure RenderScene;
     procedure InitScene;
@@ -151,7 +133,7 @@ implementation
 
 procedure THauptForm.FormCreate(Sender: TObject);
 var
-  r:TRect;
+  r: TRect;
 begin
   Color := clBlack;
   Height := Screen.Height div 4 * 3;
@@ -244,8 +226,10 @@ begin
   end;
 
   with Globus do begin
-    GlobusMatrix.Identity;;
-    WolkenMatrix.Identity;;
+    GlobusMatrix.Identity;
+    ;
+    WolkenMatrix.Identity;
+    ;
 
     with EarthTextur do begin
       Pos := TTexturBuffer.Create;
@@ -394,15 +378,15 @@ var
     end;
   end;
 
-procedure MatScale(var mat:TMatrix; x,y,z:Single);
-var
-  i: integer;
-begin
-  for i := 0 to 2 do begin
-    mat[i, 0] *= x;
-    mat[i, 1] *= y;
-    mat[i, 2] *= z;
-  end;
+  procedure MatScale(var mat: TMatrix; x, y, z: single);
+  var
+    i: integer;
+  begin
+    for i := 0 to 2 do begin
+      mat[i, 0] *= x;
+      mat[i, 1] *= y;
+      mat[i, 2] *= z;
+    end;
   end;
 
 
@@ -580,8 +564,8 @@ begin
       ObjectMatrix := GlobusMatrix;
       ObjectMatrix.Translate(0.0, 0.0, -1.0);
 
-      MatScale(ObjectMatrix,1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
-//      ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+      MatScale(ObjectMatrix, 1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+      //      ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
 
       with EarthTextur do begin
         Sphere.Draw(Pos, Normal);
@@ -589,8 +573,8 @@ begin
 
       ObjectMatrix := WolkenMatrix;
       ObjectMatrix.Translate(0.0, 0.0, -0.99);
-    MatScale(ObjectMatrix,1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
-  //    ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+      MatScale(ObjectMatrix, 1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
+      //    ObjectMatrix.Scale(1.5 * (ClientHeight / ClientWidth), 1.5, 0.01);
 
       with CloudsTextur do begin
         Sphere.Draw(Pos, Normal);
@@ -679,16 +663,16 @@ end;
 
 procedure THauptForm.MenuItem4Click(Sender: TObject); inline;
 var
-  FPC_Info:record
-    Lazarus, FPC, OS, CPU: String
-  end;
+  FPC_Info: record
+    Lazarus, FPC, OS, CPU: string
+      end;
 
 begin
   with FPC_Info do begin
-    Lazarus:=  lcl_version;
-    FPC:= {$I %FPCVERSION%};
-    OS:= {$I %FPCTARGETOS%};
-    CPU:= {$I %FPCTARGETCPU%};
+    Lazarus := lcl_version;
+    FPC := {$I %FPCVERSION%};
+    OS := {$I %FPCTARGETOS%};
+    CPU := {$I %FPCTARGETCPU%};
   end;
   with FPC_Info do begin
     ShowMessage('Copyright '#194#169' by M. Burkhard' + LineEnding + LineEnding + 'Compiliert mit Lazarus: ' +
@@ -768,7 +752,7 @@ procedure THauptForm.MenuItem7Click(Sender: TObject);
 
       stream.Write(StandRohr.AussenD, SizeOf(single));
       stream.Write(StandRohr.InnenD, SizeOf(single));
-      stream.Write(Schwimmer.anzKugeln, SizeOf(Int32));
+      stream.Write(Schwimmer.anzKugeln, SizeOf(int32));
       stream.Write(Schwimmer.AussenD, SizeOf(single));
 
       stream.Free;
@@ -795,7 +779,7 @@ begin
     Bitmap.PixelFormat := pf32bit;
     Bitmap.Width := ClientWidth;
     Bitmap.Height := ClientHeight;
-//      glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+    //      glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glReadPixels(0, 0, ClientWidth, ClientHeight, GL_RGBA, GL_UNSIGNED_BYTE, Bitmap.RawImage.Data);
 

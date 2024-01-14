@@ -163,9 +163,6 @@ begin
   material := mat;
 end;
 
-var
-  maxDepth: integer = 0;
-
 function cast_ray(const orig, dir: TVector3f; depth: integer = 0): TVector3f;
 var
   hit: boolean;
@@ -175,11 +172,6 @@ var
   specular_light_intensity: single = 0;
   i: integer;
 begin
-  //if depth > maxDepth then begin
-  //  maxDepth := depth;
-  //  WriteLn(maxDepth);
-  //end;
-
   scene_intersect(orig, dir, hit, point, N, material);
 
   if (depth > 4) or (not hit) then begin
@@ -191,8 +183,6 @@ begin
 
   reflect_color := cast_ray(point, reflect_dir, depth + 1);
   refract_color := cast_ray(point, refract_dir, depth + 1);
-//  reflect_color := vec3(0.2, 0.7, 0.8);
-//  refract_color := vec3(0.2, 0.7, 0.8);
 
   for i := 0 to Length(lights) - 1 do begin
     light_dir := normalize(lights[i] - point);
@@ -230,8 +220,6 @@ begin
     dir_x := (i mod Width + 0.5) - Width / 2;
     dir_y := -(i div Width + 0.5) + Height / 2;
 
-//    WriteLn('  x: ',dir_x:10:5,'  y: ',dir_y:10:5);
-
     dir_z := -Height / (2 * tan(fov / 2));
     color := cast_ray(vec3(0, 0, 0), normalize(vec3(dir_x, dir_y, dir_z)));
 
@@ -245,12 +233,7 @@ end;
 
 
 procedure TForm1.FormCreate(Sender: TObject);
-var
-  v: Tmat3x3;
-  b: byte = 0;
 begin
-  v := [[1, b, 1], [1, 1, 1], [1, 1, 1]];
-
   //remove+
   Width := 1024;
   Height := 768;

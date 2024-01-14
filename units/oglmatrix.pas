@@ -67,14 +67,6 @@ type
 
     procedure Frustum(left, right, zNear, zFar: GLfloat);
 
-    // Mesh / Vektor manipulieren
-    procedure ScaleV(x, y, z: GLfloat); overload;
-    procedure ScaleV(s: GLfloat); overload;
-    procedure TranslateV(x, y, z: GLfloat);
-    procedure CrossV(const m: Tmat3x3); overload;
-    procedure CrossV(const v0, v1: TVector3f); overload;
-    procedure CrossV(const v0, v1, v2: TVector3f); overload;
-
     procedure Uniform(ShaderID: GLint);
     procedure WriteMatrix;   // Für Testzwecke
   end;
@@ -93,18 +85,21 @@ type
     procedure Perspective(fovy, aspect, znear, zfar: GLfloat);
 
     procedure Scale(scal: GLfloat); overload;
-    procedure Scale(scal: TVector3f); overload;
+    procedure Scale(const scal: TVector3f); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload; deprecated;
-    procedure Translate(x, y, z: GLfloat); overload;           // Worldspace Translation
+    // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
+    procedure Translate(x, y, z: GLfloat); overload; deprecated;
     procedure TranslateX(x: GLfloat);
     procedure TranslateY(y: GLfloat);
     procedure TranslateZ(z: GLfloat);
-    procedure TranslateLocalspace(x, y, z: GLfloat); overload; // Localspace Translation
+    // Localspace Translation
     procedure TranslateLocalspace(const v: TVector3f); overload;
+    procedure TranslateLocalspace(x, y, z: GLfloat); overload; deprecated;
     procedure TranslateLocalspaceX(x: GLfloat);
     procedure TranslateLocalspaceY(y: GLfloat);
     procedure TranslateLocalspaceZ(z: GLfloat);
+
     procedure Rotate(Winkel, x, y, z: GLfloat); overload;
     procedure Rotate(Winkel: GLfloat; const a: TVector3f); overload;
     procedure RotateA(Winkel: GLfloat);
@@ -264,64 +259,6 @@ begin
     Self[i, 0] *= s;
     Self[i, 1] *= s;
   end;
-end;
-
-procedure Tmat3x3Helper.ScaleV(x, y, z: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 2 do begin
-    Self[i, 0] *= x;
-    Self[i, 1] *= y;
-    Self[i, 2] *= z;
-  end;
-end;
-
-procedure Tmat3x3Helper.ScaleV(s: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 2 do begin
-    Self[i, 0] *= s;
-    Self[i, 1] *= s;
-    Self[i, 2] *= s;
-  end;
-end;
-
-procedure Tmat3x3Helper.TranslateV(x, y, z: GLfloat);
-var
-  i: integer;
-begin
-  for i := 0 to 2 do begin
-    Self[i, 0] += x;
-    Self[i, 1] += y;
-    Self[i, 2] += z;
-  end;
-end;
-
-procedure Tmat3x3Helper.CrossV(const m: Tmat3x3);
-begin
-  CrossV(m[0], m[1], m[2]);
-end;
-
-procedure Tmat3x3Helper.CrossV(const v0, v1: TVector3f);
-var
-  v: TVector3f;
-begin
-  v.Cross(v0, v1);
-  Self[0] := v;
-  Self[1] := v;
-  Self[2] := v;
-end;
-
-procedure Tmat3x3Helper.CrossV(const v0, v1, v2: TVector3f);
-var
-  v: TVector3f;
-begin
-  v.Cross(v0, v1, v2);
-  Self[0] := v;
-  Self[1] := v;
-  Self[2] := v;
 end;
 
 procedure Tmat3x3Helper.Translate(x, y: GLfloat); inline;
@@ -616,7 +553,7 @@ end;
 
 procedure Tmat4x4Helper.Scale(scal: GLfloat);
 var
- x, y: integer;
+  x, y: integer;
 begin
   //for x := 0 to 2 do begin
   //  for y := 0 to 2 do begin
@@ -625,24 +562,24 @@ begin
   //end;
   for x := 0 to 2 do begin
     for y := 0 to 3 do begin
-    Self[x, y] *= scal;
-  end;
+      Self[x, y] *= scal;
+    end;
   end;
 end;
 
-procedure Tmat4x4Helper.Scale(scal: TVector3f);
+procedure Tmat4x4Helper.Scale(const scal: TVector3f);
 var
-  i: Integer;
+  i: integer;
 begin
   for i := 0 to 2 do begin
-  Self[i, 0] *= scal[i];
-  Self[i, 1] *= scal[i];
-  Self[i, 2] *= scal[i];
-  Self[i, 3] *= scal[i];
-end;
+    Self[i, 0] *= scal[i];
+    Self[i, 1] *= scal[i];
+    Self[i, 2] *= scal[i];
+    Self[i, 3] *= scal[i];
+  end;
 end;
 
-procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat);     deprecated;
+procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat); deprecated;
 begin
   Scale([FaktorX, FaktorY, FaktorZ]);
 end;
