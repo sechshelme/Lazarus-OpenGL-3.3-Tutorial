@@ -179,7 +179,7 @@ const
     gl.Clear(gl.COLOR_BUFFER_BIT);
 
     // setup transform matricies
-    viewTransform.Indenty;
+    viewTransform.Identity;
 
     // --- Create Triangle Buffer
     Mesh_Buffers[mbVBOTriangleVector] := gl.createBuffer;

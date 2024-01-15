@@ -1614,6 +1614,40 @@ rtl.module("Types",["System"],function () {
 rtl.module("JS",["System","Types"],function () {
   "use strict";
   var $mod = this;
+  rtl.createClass(this,"EJS",pas.System.TObject,function () {
+    this.$init = function () {
+      pas.System.TObject.$init.call(this);
+      this.FMessage = "";
+    };
+    this.Create$1 = function (Msg) {
+      this.FMessage = Msg;
+      return this;
+    };
+  });
+  this.New = function (aElements) {
+    var Result = null;
+    var L = 0;
+    var I = 0;
+    var S = "";
+    L = rtl.length(aElements);
+    if ((L % 2) === 1) throw $mod.EJS.$create("Create$1",["Number of arguments must be even"]);
+    I = 0;
+    while (I < L) {
+      if (!rtl.isString(aElements[I])) {
+        S = String(I);
+        throw $mod.EJS.$create("Create$1",["Argument " + S + " must be a string."]);
+      };
+      I += 2;
+    };
+    I = 0;
+    Result = new Object();
+    while (I < L) {
+      S = "" + aElements[I];
+      Result[S] = aElements[I + 1];
+      I += 2;
+    };
+    return Result;
+  };
 });
 rtl.module("weborworker",["System","JS","Types"],function () {
   "use strict";
@@ -2874,7 +2908,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     var ButtonRight = null;
     var ButtonTop = null;
     var ButtonBottom = null;
-    var cA = null;
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2882,6 +2915,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Result.setAttribute("class","favorite styled");
       Result.setAttribute("type","button");
       Result.setAttribute("value",titel);
+      Result.setAttribute("backgroundColor","red");
       Result.setAttribute("style","height:25px;width:30px;color=#00ff00;background=#FF0000;");
       Panel.appendChild(Result);
       return Result;
@@ -2917,11 +2951,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.canvas.width = 800;
     $mod.canvas.height = 800;
     document.body.appendChild($mod.canvas);
-    cA = new Object();
-    cA["depth"] = true;
-    cA["antialias"] = true;
-    cA["alpha"] = false;
-    pas.wglCommon.gl = $mod.canvas.getContext("webgl2",cA);
+    pas.wglCommon.gl = $mod.canvas.getContext("webgl2",pas.JS.New(["depth",true,"antialias",true,"alpha",false]));
     if (pas.wglCommon.gl === null) {
       pas.System.Writeln("failed to load webgl!");
       return;

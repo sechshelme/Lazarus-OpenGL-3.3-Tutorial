@@ -68,6 +68,7 @@ var
     RotFactor = 0.1;
   var
     id: JSValue;
+    tag: TJSElement;
   begin
     //Writeln(    aEvent.target.Properties['type']);
     id := aEvent.target.Properties['id'];
@@ -112,6 +113,8 @@ var
       mRotationMatrix.Translate(0, 0, TransFactor);
     end;
     Result := True;
+
+    //    document.getElementById('A-')['value']:='red';
   end;
 
   procedure Create;
@@ -126,6 +129,7 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
+      Result['backgroundColor'] := 'red';
       Result['style'] := 'height:25px;width:30px;color=#00ff00;background=#FF0000;';
       Panel.appendChild(Result);
     end;
@@ -177,12 +181,15 @@ var
     canvas.Height := 800;
     document.body.appendChild(canvas);
 
-    ca := TJSObject.new;
-    ca['depth'] := True;
-    ca['antialias'] := True;
-    ca['alpha'] := False;
+    //ca := TJSObject.new;
+    //ca['depth'] := True;
+    //ca['antialias'] := True;
+    //ca['alpha'] := False;
+    //
 
-    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', cA));
+//    cA := new(['depth', True, 'antialias', True, 'alpha', False]);
+//    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', cA));
+    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', new(['depth', True, 'antialias', True, 'alpha', False])));
     if gl = nil then begin
       writeln('failed to load webgl!');
       exit;
