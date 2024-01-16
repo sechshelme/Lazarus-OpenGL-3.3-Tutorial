@@ -1554,9 +1554,6 @@ rtl.module("System",[],function () {
     };
     this.Destroy = function () {
     };
-    this.Free = function () {
-      this.$destroy("Destroy");
-    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
@@ -2020,75 +2017,73 @@ rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],funct
 rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web"],function () {
   "use strict";
   var $mod = this;
-  rtl.createClass(this,"TWebOpenGL",pas.System.TObject,function () {
-    this.Create$1 = function () {
-      var $Self = this;
-      var ButtonLeft = null;
-      var Panel = null;
-      var ButtonRight = null;
-      var ButtonTop = null;
-      var ButtonBottom = null;
-      var img = null;
-      function ButtonInit(titel) {
-        var Result = null;
-        Result = document.createElement("input");
-        Result.setAttribute("id",titel);
-        Result.setAttribute("class","favorite styled");
-        Result.setAttribute("type","button");
-        Result.setAttribute("value",titel);
-        Result.setAttribute("style","height:25px;width:75px;color=#00ff00;background=#FF0000;");
-        Panel.appendChild(Result);
-        return Result;
-      };
-      Panel = document.createElement("div");
-      Panel.setAttribute("class","panel panel-default");
-      document.body.appendChild(Panel);
-      ButtonLeft = ButtonInit("X-");
-      ButtonLeft.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonRight = ButtonInit("X+");
-      ButtonRight.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonTop = ButtonInit("Y+");
-      ButtonTop.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      ButtonBottom = ButtonInit("Y-");
-      ButtonBottom.onclick = rtl.createSafeCallback($Self,"ButtonClick");
-      img = document.createElement("img");
-      img.setAttribute("id","image");
-      img.setAttribute("src","image.png");
-      Panel.appendChild(img);
-      pas.System.Writeln(Math.round(0.49999));
-      pas.System.Writeln(Math.round(0.5));
-      pas.System.Writeln(Math.round(1.49999));
-      pas.System.Writeln(Math.round(1.5));
-      pas.System.Writeln(Math.round(2.49999));
-      pas.System.Writeln(Math.round(2.5));
-      $mod.canvas = document.createElement("canvas");
-      $mod.canvas.width = 640;
-      $mod.canvas.height = 480;
-      document.body.appendChild($mod.canvas);
-      return this;
-    };
-    this.Run = function () {
-      window.requestAnimationFrame($mod.UpdateCanvas);
-    };
-    this.ButtonClick = function (aEvent) {
-      var Result = false;
-      var id = undefined;
-      id = aEvent.target["id"];
-      if (id == "X-") ;
-      Result = true;
-      return Result;
-    };
-  });
-  this.canvas = null;
-  this.UpdateCanvas = function (time) {
-    window.requestAnimationFrame($mod.UpdateCanvas);
+  this.ButtonClick = function (aEvent) {
+    var Result = false;
+    var id = undefined;
+    pas.System.Writeln(aEvent.target["id"]);
+    id = aEvent.target["id"];
+    if (id == "X-") ;
+    Result = true;
+    return Result;
   };
-  this.MyApp = null;
+  this.Create = function () {
+    var Panel = null;
+    var img = null;
+    var ColorButton = null;
+    var LabelRed = null;
+    var div1 = null;
+    var Button1 = null;
+    var Button2 = null;
+    var myStyle = null;
+    Panel = document.createElement("div");
+    Panel.setAttribute("class","panel panel-default");
+    document.body.appendChild(Panel);
+    LabelRed = document.createElement("div");
+    LabelRed.innerHTML = "<b>Bitte drücke einen Knopf</b>";
+    Panel.appendChild(LabelRed);
+    div1 = document.createElement("div");
+    Panel.appendChild(div1);
+    myStyle = document.createElement("style");
+    myStyle.setAttribute("id","myStyle");
+    myStyle.setAttribute("style","background-color: #FFBBBB;");
+    Panel.appendChild(myStyle);
+    Button1 = document.createElement("input");
+    Button1.setAttribute("id","Button1");
+    Button1.setAttribute("type","button");
+    Button1.setAttribute("value","Button1");
+    Button1.setAttribute("style","background-color: #FFBBBB;");
+    Button1.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    Panel.appendChild(Button1);
+    div1 = document.createElement("div");
+    div1.innerHTML = "Zeile 1<br>Zeile 2";
+    Panel.appendChild(div1);
+    Button2 = document.createElement("input");
+    Button2.setAttribute("id","Button2");
+    Button2.setAttribute("class","favorite styled");
+    Button2.setAttribute("type","button");
+    Button2.setAttribute("value","Button2");
+    Button2.setAttribute("style","height:25px;width:75px;color=#00ff00;background=#FF0000;");
+    Button2.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    Panel.appendChild(Button2);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#00ff00");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#00ff00");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    img = document.createElement("img");
+    img.setAttribute("id","image");
+    img.setAttribute("src","image.png");
+    Panel.appendChild(img);
+  };
   $mod.$main = function () {
-    pas.System.Writeln("WebGL Demo");
-    $mod.MyApp = $mod.TWebOpenGL.$create("Create$1");
-    $mod.MyApp.Run();
-    rtl.free($mod,"MyApp");
+    $mod.Create();
   };
 });
 //# sourceMappingURL=project1.js.map

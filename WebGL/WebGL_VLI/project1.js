@@ -2908,6 +2908,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     var ButtonRight = null;
     var ButtonTop = null;
     var ButtonBottom = null;
+    var div1 = null;
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2916,7 +2917,7 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Result.setAttribute("type","button");
       Result.setAttribute("value",titel);
       Result.setAttribute("backgroundColor","red");
-      Result.setAttribute("style","height:25px;width:30px;color=#00ff00;background=#FF0000;");
+      Result.setAttribute("style","height:25px;width:30px;color=#00ff00;background-color:#FFBBBB;");
       Panel.appendChild(Result);
       return Result;
     };
@@ -2935,6 +2936,8 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     ButtonBottom = ButtonInit("Z-");
     ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    div1 = document.createElement("div");
+    Panel.appendChild(div1);
     ButtonLeft = ButtonInit("A-");
     ButtonLeft.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     ButtonRight = ButtonInit("A+");

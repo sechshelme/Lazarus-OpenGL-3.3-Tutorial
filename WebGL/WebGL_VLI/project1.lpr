@@ -119,7 +119,7 @@ var
 
   procedure Create;
   var
-    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom: TJSElement;
+    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, div1: TJSElement;
     cA: TJSObject;
 
     function ButtonInit(const titel: string): TJSElement;
@@ -129,8 +129,9 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
+//      Button1['style'] := 'background-color: #FFBBBB;';
       Result['backgroundColor'] := 'red';
-      Result['style'] := 'height:25px;width:30px;color=#00ff00;background=#FF0000;';
+      Result['style'] := 'height:25px;width:30px;color=#00ff00;background-color:#FFBBBB;';
       Panel.appendChild(Result);
     end;
 
@@ -156,6 +157,11 @@ var
 
     ButtonBottom := ButtonInit('Z-');
     TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
+
+        div1 := document.createElement('div');
+    //    Panel.innerHTML:='Drücke ein Knopf !';
+        Panel.appendChild(div1);
+
 
     ButtonLeft := ButtonInit('A-');
     TJSHTMLElement(ButtonLeft).onclick := @ButtonClick;
