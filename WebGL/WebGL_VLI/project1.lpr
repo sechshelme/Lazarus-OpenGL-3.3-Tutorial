@@ -61,6 +61,10 @@ var
   Niveau: single = 0;
   NiveauRichtung: boolean = True;
 
+  MousePos: record
+    X, Y: double;
+      end
+  = (X: 0; Y: 0);
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
   const
@@ -117,10 +121,48 @@ var
     //    document.getElementById('A-')['value']:='red';
   end;
 
+  function onwheel(aEvent: TJSWheelEvent): boolean;
+  begin
+    if aEvent.deltaY < 0 then begin
+      mRotationMatrix.Scale(1.1);
+    end else begin
+      mRotationMatrix.Scale(0.9);
+    end;
+    Result := True;
+  end;
+
+  function onmousedown(aEvent: TJSMouseEvent): boolean;
+  begin
+    if (aEvent.offsetX < 7) and (aEvent.offsetY < 7) then begin
+      isGold := not isGold;
+    end;
+    Geschnitten := not Geschnitten;
+    Result := True;
+  end;
+
+  function onmousemove(Event: TJSMouseEvent): boolean;
+  begin
+    Event.preventDefault();
+    case Event.Buttons of
+      1: begin
+        mRotationMatrix.Translate([Event.clientX - MousePos.X, -(Event.clientY - MousePos.Y), 0.0]);
+      end;
+      2: begin
+        mRotationMatrix.RotateA((Event.clientY - MousePos.Y) / 200);
+        mRotationMatrix.RotateB((Event.clientX - MousePos.X) / 200);
+      end;
+    end;
+    MousePos.X := Event.clientX;
+    MousePos.Y := Event.clientY;
+    Result := True;
+  end;
+
   procedure Create;
+  const
+    ButtonCaption: array of string = ('X-', 'X+', 'Y+', 'Y-', 'Z+', 'Z-', 'A-', 'A+', 'B+', 'B-', 'C+', 'C-');
   var
-    ButtonLeft, Panel, ButtonRight, ButtonTop, ButtonBottom, div1: TJSElement;
-    cA: TJSObject;
+    Button, Panel, div1: TJSElement;
+    i: integer;
 
     function ButtonInit(const titel: string): TJSElement;
     begin
@@ -129,8 +171,7 @@ var
       Result['class'] := 'favorite styled';
       Result['type'] := 'button';
       Result['value'] := titel;
-//      Button1['style'] := 'background-color: #FFBBBB;';
-      Result['backgroundColor'] := 'red';
+      //      Button1['style'] := 'background-color: #FFBBBB;';
       Result['style'] := 'height:25px;width:30px;color=#00ff00;background-color:#FFBBBB;';
       Panel.appendChild(Result);
     end;
@@ -140,61 +181,27 @@ var
     Panel['class'] := 'panel panel-default';
     document.body.appendChild(Panel);
 
-    ButtonLeft := ButtonInit('X-');
-    TJSHTMLElement(ButtonLeft).onclick := @ButtonClick;
+    div1 := document.createElement('div');
+    div1.innerHTML := '<b>WebGL VLI-Demo</b>';
+    Panel.appendChild(div1);
 
-    ButtonRight := ButtonInit('X+');
-    TJSHTMLElement(ButtonRight).onclick := @ButtonClick;
-
-    ButtonTop := ButtonInit('Y+');
-    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
-
-    ButtonBottom := ButtonInit('Y-');
-    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
-
-    ButtonTop := ButtonInit('Z+');
-    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
-
-    ButtonBottom := ButtonInit('Z-');
-    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
-
-        div1 := document.createElement('div');
-    //    Panel.innerHTML:='Drücke ein Knopf !';
-        Panel.appendChild(div1);
-
-
-    ButtonLeft := ButtonInit('A-');
-    TJSHTMLElement(ButtonLeft).onclick := @ButtonClick;
-
-    ButtonRight := ButtonInit('A+');
-    TJSHTMLElement(ButtonRight).onclick := @ButtonClick;
-
-    ButtonTop := ButtonInit('B+');
-    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
-
-    ButtonBottom := ButtonInit('B-');
-    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
-
-    ButtonTop := ButtonInit('C+');
-    TJSHTMLElement(ButtonTop).onclick := @ButtonClick;
-
-    ButtonBottom := ButtonInit('C-');
-    TJSHTMLElement(ButtonBottom).onclick := @ButtonClick;
+    for i := 0 to Length(ButtonCaption) - 1 do begin
+      Button := ButtonInit(ButtonCaption[i]);
+      TJSHTMLElement(Button).onclick := @ButtonClick;
+      if i = 5 then begin
+        Panel.appendChild(document.createElement('div'));
+      end;
+    end;
 
     // Context einrichten
     canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
     canvas.Width := 800;
     canvas.Height := 800;
+    canvas.onwheel := @onwheel;
+    canvas.onmousedown := @onmousedown;
+    canvas.onmousemove := @onmousemove;
     document.body.appendChild(canvas);
 
-    //ca := TJSObject.new;
-    //ca['depth'] := True;
-    //ca['antialias'] := True;
-    //ca['alpha'] := False;
-    //
-
-//    cA := new(['depth', True, 'antialias', True, 'alpha', False]);
-//    gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', cA));
     gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', new(['depth', True, 'antialias', True, 'alpha', False])));
     if gl = nil then begin
       writeln('failed to load webgl!');
@@ -203,10 +210,8 @@ var
 
     // WebGl Standard Parameter
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clearDepth(1.0); // Die gesamte Tiefe des Bildes soll gelöscht werden
 
     gl.enable(gl.DEPTH_TEST);
-    //    gl.depthFunc(gl.LEQUAL);
     gl.depthFunc(gl.LESS);
 
     gl.enable(gl.CULL_FACE);
@@ -259,6 +264,8 @@ var
     mProjectionMatrix.Perspective(30, 1.0, 0.1, 100.0);
     mProjectionMatrix.TranslateLocalspace(0, -0.4, -5);
     mProjectionMatrix.Scale(0.004);
+
+    mRotationMatrix.RotateB(-0.6);
   end;
 
   procedure drawBackGround;
@@ -277,7 +284,6 @@ var
 
     // Globus
     WorldMatrix.Identity;
-    //    WorldMatrix.Translate(0.0, 0.0, 0.985);
     WorldMatrix.Translate(0.0, 0.0, 0.99);
     WorldMatrix.Scale([1.5, 1.5, 0.01]);
 
@@ -288,7 +294,6 @@ var
     // Wolken
     CloudsMatrix.RotateB(-0.006);
     ObjectMatrix := MatrixMultiple(rotMatrix, CloudsMatrix);
-    //    WorldMatrix.Translate(0.0, 0.0, -0.1);
     WorldMatrix.Translate(0.0, 0.0, -0.01);
     GlobusBuffer.draw(CloudsTextur, CloudsNormal);
 
@@ -325,13 +330,12 @@ var
   procedure RenderScene(OMatrix: TMatrix);
   var
     i: integer;
-    FlugelWinkel: single;
+    FlugelWinkel: double;
   begin
     WorldMatrix := OMatrix;
     ObjectMatrix.Identity;
 
     // ===== Flügeli
-
     for i := 0 - 5 to vliMasse.anzFluegeli - 6 do begin
 
       FlugelWinkel := (Niveau / 10.0 - i) * 30 + 90;
@@ -351,20 +355,14 @@ var
         FluegeliBuffer.setColor(vec3red);
       end;
 
-
-      // ---- Weisse Rechte Hï¿½lfte
-
+      // ---- Weisse Rechte Hälfte
       FluegeliBuffer.draw();
 
-      // ----- Weisse Linke Hï¿½lfte
-
-
-      //mat4.rotateZ(ObjectMatrix, Math.PI);
+      // ----- Weisse Linke Hälfte
       ObjectMatrix.Scale([-1.0, -1.0, 1.0]);
       FluegeliBuffer.draw();
 
-      // ----- Rote Rechte Hï¿½lfte
-
+      // ----- Rote Rechte Hälfte
       if i > 0 then begin
         FluegeliBuffer.setColor(vec3yellow);
       end else begin
@@ -374,15 +372,11 @@ var
       ObjectMatrix.Scale([1.0, -1.0, -1.0]);
       FluegeliBuffer.draw();
 
-      // ----- Rote Linke Hï¿½lfte
-
+      // ----- Rote Linke Hälfte
       ObjectMatrix.Scale([-1.0, -1.0, 1.0]);
       FluegeliBuffer.draw();
       ObjectMatrix.Identity;
     end;
-
-
-
 
     // ===== Innenprofil
     ObjectMatrix.Translate(0, 0, VLIMasse.AussenD / 2);
@@ -452,7 +446,6 @@ var
       ObjectMatrix.Scale([1.0, vliMasse.C1 + Niveau + vliMasse.SchwimmerAussenD / 2 - vliMasse.SchwimmerAussenD * (vliMasse.anzKugeln), vliMasse.InnenD]);
       DrawElement(WasserUntenBuffer, nil, True);
     end;
-
   end;
 
   procedure UpdateCanvas(time: TJSDOMHighResTimeStamp);
@@ -483,7 +476,6 @@ var
   end;
 
 begin
-  Writeln('WebGL Demo');
   Create;
   window.requestAnimationFrame(@UpdateCanvas);
 end.

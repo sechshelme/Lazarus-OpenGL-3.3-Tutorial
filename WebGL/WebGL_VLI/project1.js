@@ -2755,7 +2755,6 @@ rtl.module("Masse",["System","Types","SysUtils","Web","browserconsole","webgl","
       var floatBuffer = null;
       var intBuffer = null;
       arrayBuffer = this.reader.response;
-      pas.System.Writeln("xhrlen: ",arrayBuffer.byteLength);
       floatBuffer = new Float32Array(arrayBuffer);
       intBuffer = new Int32Array(arrayBuffer);
       this.L = floatBuffer[0];
@@ -2806,6 +2805,19 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
   this.isFrontFace = false;
   this.Niveau = 0;
   this.NiveauRichtung = true;
+  rtl.recNewT(this,"MousePos$a",function () {
+    this.X = 0.0;
+    this.Y = 0.0;
+    this.$eq = function (b) {
+      return (this.X === b.X) && (this.Y === b.Y);
+    };
+    this.$assign = function (s) {
+      this.X = s.X;
+      this.Y = s.Y;
+      return this;
+    };
+  });
+  this.MousePos = this.MousePos$a.$clone({X: 0, Y: 0});
   var TransFactor = 10.0;
   var RotFactor = 0.1;
   this.ButtonClick = function (aEvent) {
@@ -2902,13 +2914,66 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Result = true;
     return Result;
   };
+  this.onwheel = function (aEvent) {
+    var Result = false;
+    if (aEvent.deltaY < 0) {
+      pas.wglMatrix.TMatrixfHelper.Scale$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},1.1);
+    } else {
+      pas.wglMatrix.TMatrixfHelper.Scale$1.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},0.9);
+    };
+    Result = true;
+    return Result;
+  };
+  this.onmousedown = function (aEvent) {
+    var Result = false;
+    if ((aEvent.offsetX < 7) && (aEvent.offsetY < 7)) {
+      pas.wglMatrix.isGold = !pas.wglMatrix.isGold;
+    };
+    pas.wglMatrix.Geschnitten = !pas.wglMatrix.Geschnitten;
+    Result = true;
+    return Result;
+  };
+  this.onmousemove = function (Event) {
+    var Result = false;
+    Event.preventDefault();
+    var $tmp = Event.buttons;
+    if ($tmp === 1) {
+      pas.wglMatrix.TMatrixfHelper.Translate.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},[Event.clientX - $mod.MousePos.X,-(Event.clientY - $mod.MousePos.Y),0.0]);
+    } else if ($tmp === 2) {
+      pas.wglMatrix.TMatrixfHelper.RotateA.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},(Event.clientY - $mod.MousePos.Y) / 200);
+      pas.wglMatrix.TMatrixfHelper.RotateB.call({p: pas.wglMatrix, get: function () {
+          return this.p.mRotationMatrix;
+        }, set: function (v) {
+          this.p.mRotationMatrix = v;
+        }},(Event.clientX - $mod.MousePos.X) / 200);
+    };
+    $mod.MousePos.X = Event.clientX;
+    $mod.MousePos.Y = Event.clientY;
+    Result = true;
+    return Result;
+  };
+  var ButtonCaption = ["X-","X+","Y+","Y-","Z+","Z-","A-","A+","B+","B-","C+","C-"];
   this.Create = function () {
-    var ButtonLeft = null;
+    var Button = null;
     var Panel = null;
-    var ButtonRight = null;
-    var ButtonTop = null;
-    var ButtonBottom = null;
     var div1 = null;
+    var i = 0;
     function ButtonInit(titel) {
       var Result = null;
       Result = document.createElement("input");
@@ -2916,7 +2981,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       Result.setAttribute("class","favorite styled");
       Result.setAttribute("type","button");
       Result.setAttribute("value",titel);
-      Result.setAttribute("backgroundColor","red");
       Result.setAttribute("style","height:25px;width:30px;color=#00ff00;background-color:#FFBBBB;");
       Panel.appendChild(Result);
       return Result;
@@ -2924,35 +2988,22 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Panel = document.createElement("div");
     Panel.setAttribute("class","panel panel-default");
     document.body.appendChild(Panel);
-    ButtonLeft = ButtonInit("X-");
-    ButtonLeft.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonRight = ButtonInit("X+");
-    ButtonRight.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonTop = ButtonInit("Y+");
-    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonBottom = ButtonInit("Y-");
-    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonTop = ButtonInit("Z+");
-    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonBottom = ButtonInit("Z-");
-    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     div1 = document.createElement("div");
+    div1.innerHTML = "<b>WebGL VLI-Demo</b>";
     Panel.appendChild(div1);
-    ButtonLeft = ButtonInit("A-");
-    ButtonLeft.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonRight = ButtonInit("A+");
-    ButtonRight.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonTop = ButtonInit("B+");
-    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonBottom = ButtonInit("B-");
-    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonTop = ButtonInit("C+");
-    ButtonTop.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    ButtonBottom = ButtonInit("C-");
-    ButtonBottom.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    for (i = 0; i <= 11; i++) {
+      Button = ButtonInit(ButtonCaption[i]);
+      Button.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+      if (i === 5) {
+        Panel.appendChild(document.createElement("div"));
+      };
+    };
     $mod.canvas = document.createElement("canvas");
     $mod.canvas.width = 800;
     $mod.canvas.height = 800;
+    $mod.canvas.onwheel = rtl.createSafeCallback($mod,"onwheel");
+    $mod.canvas.onmousedown = rtl.createSafeCallback($mod,"onmousedown");
+    $mod.canvas.onmousemove = rtl.createSafeCallback($mod,"onmousemove");
     document.body.appendChild($mod.canvas);
     pas.wglCommon.gl = $mod.canvas.getContext("webgl2",pas.JS.New(["depth",true,"antialias",true,"alpha",false]));
     if (pas.wglCommon.gl === null) {
@@ -2960,7 +3011,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       return;
     };
     pas.wglCommon.gl.clearColor(0.0,0.0,0.0,1.0);
-    pas.wglCommon.gl.clearDepth(1.0);
     pas.wglCommon.gl.enable(2929);
     pas.wglCommon.gl.depthFunc(513);
     pas.wglCommon.gl.enable(2884);
@@ -3011,6 +3061,11 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
       }, set: function (v) {
         this.p.mProjectionMatrix = v;
       }},0.004);
+    pas.wglMatrix.TMatrixfHelper.RotateB.call({p: pas.wglMatrix, get: function () {
+        return this.p.mRotationMatrix;
+      }, set: function (v) {
+        this.p.mRotationMatrix = v;
+      }},-0.6);
   };
   this.drawBackGround = function () {
     var dummyMatrix = rtl.arraySetLength(null,0.0,4,4);
@@ -3310,7 +3365,6 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     window.requestAnimationFrame($mod.UpdateCanvas);
   };
   $mod.$main = function () {
-    pas.System.Writeln("WebGL Demo");
     $mod.Create();
     window.requestAnimationFrame($mod.UpdateCanvas);
   };
