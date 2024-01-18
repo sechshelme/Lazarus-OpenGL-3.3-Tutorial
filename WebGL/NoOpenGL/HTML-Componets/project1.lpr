@@ -26,11 +26,21 @@ var
   end;
 
 
+  function ButtonDisabledClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    TJSHTMLButtonElement(document.getElementById('Button1')).disabled := not TJSHTMLButtonElement(document.getElementById('Button1')).disabled;
+//    Writeln(TJSHTMLInputElement(document.getElementById('Button1')).size);
+//    TJSHTMLInputElement(document.getElementById('Button1')).size := 50;
+    TJSHTMLButtonElement(document.getElementById('Button1')).Value := 'bla';
+//    Writeln(TJSHTMLInputElement(document.getElementById('Button1')).size);
+  end;
+
+
 
   procedure Create;
   var
-    Panel, img, ColorButton, LabelRed, div1, Button1, Button2,
-      myStyle: TJSElement;
+    Panel, img, ColorButton, LabelRed, div1, Button1, ButtonDisabled,
+    myStyle, Edit1, label1, CheckBox1, Fieldset, divCB: TJSElement;
   begin
     Panel := document.createElement('div');
     Panel['class'] := 'panel panel-default';
@@ -48,20 +58,20 @@ var
     div1 := document.createElement('div');
     Panel.appendChild(div1);
 
-    myStyle:=document.createElement('style');
+    myStyle := document.createElement('style');
     myStyle['id'] := 'myStyle';
-    myStyle['style'] := 'background-color: #FFBBBB;';
+    myStyle['style'] := 'background-color: #BBFFBB;';
     Panel.appendChild(myStyle);
 
     Button1 := document.createElement('input');
     Button1['id'] := 'Button1';
-//    Button1['class'] := 'favorite styled';
+    Button1['class'] := 'myStyle';
     Button1['type'] := 'button';
     Button1['value'] := 'Button1';
- //   Button1['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
-//    Button1['style'] := 'border: 15px outset red;  background-color: lightblue; text-align: center;';
- Button1['style'] := 'background-color: #FFBBBB;';
-//Button1['class'] := 'myStyle';
+    //   Button1['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
+    //    Button1['style'] := 'border: 15px outset red;  background-color: lightblue; text-align: center;';
+    // Button1['style'] := 'background-color: #FFBBBB;';
+    //Button1['class'] := 'myStyle';
 
     TJSHTMLElement(Button1).onclick := @ButtonClick;
     Panel.appendChild(Button1);
@@ -71,18 +81,27 @@ var
     Panel.appendChild(div1);
 
 
-    Button2 := document.createElement('input');
-    Button2['id'] := 'Button2';
-    Button2['class'] := 'favorite styled';
-    Button2['type'] := 'button';
-    Button2['value'] := 'Button2';
-    Button2['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
+    ButtonDisabled := document.createElement('input');
+    ButtonDisabled['id'] := 'disabledBtn';
+    ButtonDisabled['class'] := 'favorite styled';
+    ButtonDisabled['type'] := 'button';
+    ButtonDisabled['value'] := 'disabled    Btn';
+    ButtonDisabled['style'] := 'height:25px;width:75px;color=#00ff00;background-color: #FF0000;';
 
-    TJSHTMLElement(Button2).onclick := @ButtonClick;
-    Panel.appendChild(Button2);
+    Writeln(TJSHTMLInputElement(ButtonDisabled).style.item(0));
+    Writeln(TJSHTMLInputElement(ButtonDisabled).style.item(1));
+    Writeln(TJSHTMLInputElement(ButtonDisabled).style.length);
+    TJSHTMLStyleElement(ButtonDisabled).style.cssText:='height:125px;background-color: #FF00FF';
+
+
+//    TJSHTMLInputElement(ButtonDisabled).style := 'background-color: #FF00FF';
+
+
+    TJSHTMLElement(ButtonDisabled).onclick := @ButtonDisabledClick;
+    Panel.appendChild(ButtonDisabled);
 
     ColorButton := document.createElement('input');
-    ColorButton['value'] := '#00ff00';
+    ColorButton['value'] := '#0000ff';
     ColorButton['type'] := 'color';
     ColorButton['id'] := 'head';
     ColorButton['name'] := 'head';
@@ -94,6 +113,38 @@ var
     ColorButton['id'] := 'head';
     ColorButton['name'] := 'head';
     Panel.appendChild(ColorButton);
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
+    label1 := document.createElement('label');
+    label1.innerHTML := '<br>Zeile 1<br>Zeile 2<br>Zeile 3<br>Zeile 4';
+    label1['for'] := 'name';
+    Panel.appendChild(label1);
+
+    Edit1 := document.createElement('input');
+    Edit1['name'] := 'name';
+    Edit1['type'] := 'text';
+    Edit1['minlength'] := '4';
+    Edit1['maxlength'] := '8';
+    Edit1['size'] := '12';
+    Panel.appendChild(Edit1);
+
+    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+
+    Fieldset := document.createElement('fieldset');
+    Panel.appendChild(Fieldset);
+
+
+    divCB := document.createElement('div');
+    TJSHTMLInputElement(divCB).Value := 'fgfdgdsg';
+    //    divCB.innerHTML := 'Zeile 1111';
+    Fieldset.appendChild(divCB);
+
+
+    CheckBox1 := document.createElement('input');
+    CheckBox1['type'] := 'checkbox';
+    CheckBox1['name'] := 'checkbox';
+    divCB.appendChild(CheckBox1);
+
 
 
     //       <img id="ghost1" src="ghost1.png"/>
