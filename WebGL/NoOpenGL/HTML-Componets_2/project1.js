@@ -1552,11 +1552,44 @@ rtl.module("System",[],function () {
     };
     this.$final = function () {
     };
+    this.Destroy = function () {
+    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
     };
   });
+  this.IsConsole = false;
+  this.OnParamCount = null;
+  this.OnParamStr = null;
+  this.Copy = function (S, Index, Size) {
+    if (Index<1) Index = 1;
+    return (Size>0) ? S.substring(Index-1,Index+Size-1) : "";
+  };
+  this.Copy$1 = function (S, Index) {
+    if (Index<1) Index = 1;
+    return S.substr(Index-1);
+  };
+  this.Writeln = function () {
+    var i = 0;
+    var l = 0;
+    var s = "";
+    l = arguments.length - 1;
+    if ($impl.WriteCallBack != null) {
+      for (var $l = 0, $end = l; $l <= $end; $l++) {
+        i = $l;
+        $impl.WriteCallBack(arguments[i],i === l);
+      };
+    } else {
+      s = $impl.WriteBuf;
+      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
+        i = $l1;
+        s = s + ("" + arguments[i]);
+      };
+      console.log(s);
+      $impl.WriteBuf = "";
+    };
+  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1564,13 +1597,26 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
+    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
     rtl.exitcode = 0;
   };
 },[]);
-rtl.module("JS",["System"],function () {
+rtl.module("Types",["System"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("JS",["System","Types"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("weborworker",["System","JS","Types"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("Web",["System","Types","JS","weborworker"],function () {
   "use strict";
   var $mod = this;
 });
@@ -1578,6 +1624,16 @@ rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
+  this.FreeAndNil = function (Obj) {
+    var o = null;
+    o = Obj.get();
+    if (o === null) return;
+    Obj.set(null);
+    o.$destroy("Destroy");
+  };
+  this.LowerCase = function (s) {
+    return s.toLowerCase();
+  };
   this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
   this.StringReplace = function (aOriginal, aSearch, aReplace, Flags) {
     var Result = "";
@@ -1590,16 +1646,157 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
+  this.OnGetEnvironmentVariable = null;
+  this.OnGetEnvironmentString = null;
+  this.OnGetEnvironmentVariableCount = null;
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
+  this.TStringSplitOptions = {"0": "None", None: 0, "1": "ExcludeEmpty", ExcludeEmpty: 1};
+  rtl.createHelper(this,"TStringHelper",null,function () {
+    this.GetLength = function () {
+      var Result = 0;
+      Result = this.get().length;
+      return Result;
+    };
+    this.IndexOfAny$3 = function (AnyOf, StartIndex) {
+      var Result = 0;
+      Result = $mod.TStringHelper.IndexOfAny$5.call(this,AnyOf,StartIndex,$mod.TStringHelper.GetLength.call(this));
+      return Result;
+    };
+    this.IndexOfAny$5 = function (AnyOf, StartIndex, ACount) {
+      var Result = 0;
+      var i = 0;
+      var L = 0;
+      i = StartIndex + 1;
+      L = (i + ACount) - 1;
+      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
+      Result = -1;
+      while ((Result === -1) && (i <= L)) {
+        if ($impl.HaveChar(this.get().charAt(i - 1),AnyOf)) Result = i - 1;
+        i += 1;
+      };
+      return Result;
+    };
+    this.IndexOfAnyUnquoted$1 = function (AnyOf, StartQuote, EndQuote, StartIndex) {
+      var Result = 0;
+      Result = $mod.TStringHelper.IndexOfAnyUnquoted$2.call(this,AnyOf,StartQuote,EndQuote,StartIndex,$mod.TStringHelper.GetLength.call(this));
+      return Result;
+    };
+    this.IndexOfAnyUnquoted$2 = function (AnyOf, StartQuote, EndQuote, StartIndex, ACount) {
+      var Result = 0;
+      var I = 0;
+      var L = 0;
+      var Q = 0;
+      Result = -1;
+      L = (StartIndex + ACount) - 1;
+      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
+      I = StartIndex + 1;
+      Q = 0;
+      if (StartQuote === EndQuote) {
+        while ((Result === -1) && (I <= L)) {
+          if (this.get().charAt(I - 1) === StartQuote) Q = 1 - Q;
+          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
+          I += 1;
+        };
+      } else {
+        while ((Result === -1) && (I <= L)) {
+          if (this.get().charAt(I - 1) === StartQuote) {
+            Q += 1}
+           else if ((this.get().charAt(I - 1) === EndQuote) && (Q > 0)) Q -= 1;
+          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
+          I += 1;
+        };
+      };
+      return Result;
+    };
+    this.Split$1 = function (Separators) {
+      var Result = [];
+      Result = $mod.TStringHelper.Split$21.call(this,Separators,"\x00","\x00",$mod.TStringHelper.GetLength.call(this) + 1,0);
+      return Result;
+    };
+    var BlockSize = 10;
+    this.Split$21 = function (Separators, AQuoteStart, AQuoteEnd, ACount, Options) {
+      var $Self = this;
+      var Result = [];
+      var S = "";
+      function NextSep(StartIndex) {
+        var Result = 0;
+        if (AQuoteStart !== "\x00") {
+          Result = $mod.TStringHelper.IndexOfAnyUnquoted$1.call({get: function () {
+              return S;
+            }, set: function (v) {
+              S = v;
+            }},Separators,AQuoteStart,AQuoteEnd,StartIndex)}
+         else Result = $mod.TStringHelper.IndexOfAny$3.call({get: function () {
+            return S;
+          }, set: function (v) {
+            S = v;
+          }},Separators,StartIndex);
+        return Result;
+      };
+      function MaybeGrow(Curlen) {
+        if (rtl.length(Result) <= Curlen) Result = rtl.arraySetLength(Result,"",rtl.length(Result) + 10);
+      };
+      var Sep = 0;
+      var LastSep = 0;
+      var Len = 0;
+      var T = "";
+      S = $Self.get();
+      Result = rtl.arraySetLength(Result,"",10);
+      Len = 0;
+      LastSep = 0;
+      Sep = NextSep(0);
+      while ((Sep !== -1) && ((ACount === 0) || (Len < ACount))) {
+        T = $mod.TStringHelper.Substring$1.call($Self,LastSep,Sep - LastSep);
+        if ((T !== "") || !(1 === Options)) {
+          MaybeGrow(Len);
+          Result[Len] = T;
+          Len += 1;
+        };
+        LastSep = Sep + 1;
+        Sep = NextSep(LastSep);
+      };
+      if ((LastSep <= $mod.TStringHelper.GetLength.call($Self)) && ((ACount === 0) || (Len < ACount))) {
+        T = $mod.TStringHelper.Substring.call($Self,LastSep);
+        if ((T !== "") || !(1 === Options)) {
+          MaybeGrow(Len);
+          Result[Len] = T;
+          Len += 1;
+        };
+      };
+      Result = rtl.arraySetLength(Result,"",Len);
+      return Result;
+    };
+    this.Substring = function (AStartIndex) {
+      var Result = "";
+      Result = $mod.TStringHelper.Substring$1.call(this,AStartIndex,$mod.TStringHelper.GetLength.call(this) - AStartIndex);
+      return Result;
+    };
+    this.Substring$1 = function (AStartIndex, ALen) {
+      var Result = "";
+      Result = pas.System.Copy(this.get(),AStartIndex + 1,ALen);
+      return Result;
+    };
+  });
   $mod.$implcode = function () {
     $impl.DefaultShortMonthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     $impl.DefaultShortDayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     $impl.DefaultLongDayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     $impl.RESpecials = "([\\$\\+\\[\\]\\(\\)\\\\\\.\\*\\^\\?\\|])";
+    $impl.HaveChar = function (AChar, AList) {
+      var Result = false;
+      var I = 0;
+      I = 0;
+      Result = false;
+      while (!Result && (I < rtl.length(AList))) {
+        Result = AList[I] === AChar;
+        I += 1;
+      };
+      return Result;
+    };
   };
   $mod.$init = function () {
     $mod.ShortMonthNames = $impl.DefaultShortMonthNames.slice(0);
@@ -1608,7 +1805,7 @@ rtl.module("SysUtils",["System","JS"],function () {
     $mod.LongDayNames = $impl.DefaultLongDayNames.slice(0);
   };
 },[]);
-rtl.module("Classes",["System","SysUtils","JS"],function () {
+rtl.module("Classes",["System","Types","SysUtils","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
@@ -1628,14 +1825,6 @@ rtl.module("Classes",["System","SysUtils","JS"],function () {
     $impl.ClassList = new Object();
   };
 },[]);
-rtl.module("weborworker",["System","JS"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("Web",["System","JS","weborworker"],function () {
-  "use strict";
-  var $mod = this;
-});
 rtl.module("Rtl.BrowserLoadHelper",["System","Classes","SysUtils","JS","Web"],function () {
   "use strict";
   var $mod = this;
@@ -1734,93 +1923,237 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $mod.HookConsole();
   };
 },[]);
-rtl.module("program",["System","JS","Classes","SysUtils","browserconsole","Web"],function () {
+rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],function () {
   "use strict";
   var $mod = this;
-  this.onclick = function (aEvent) {
-    var Result = false;
-    return Result;
+  var $impl = $mod.$impl;
+  this.ReloadEnvironmentStrings = function () {
+    var I = 0;
+    var S = "";
+    var N = "";
+    var A = [];
+    var P = [];
+    if ($impl.EnvNames != null) pas.SysUtils.FreeAndNil({p: $impl, get: function () {
+        return this.p.EnvNames;
+      }, set: function (v) {
+        this.p.EnvNames = v;
+      }});
+    $impl.EnvNames = new Object();
+    S = window.location.search;
+    S = pas.System.Copy(S,2,S.length - 1);
+    A = S.split("&");
+    for (var $l = 0, $end = rtl.length(A) - 1; $l <= $end; $l++) {
+      I = $l;
+      P = A[I].split("=");
+      N = pas.SysUtils.LowerCase(decodeURIComponent(P[0]));
+      if (rtl.length(P) === 2) {
+        $impl.EnvNames[N] = decodeURIComponent(P[1])}
+       else if (rtl.length(P) === 1) $impl.EnvNames[N] = "";
+    };
+  };
+  $mod.$implcode = function () {
+    $impl.EnvNames = null;
+    $impl.Params = [];
+    $impl.ReloadParamStrings = function () {
+      var ParsLine = "";
+      var Pars = [];
+      var I = 0;
+      ParsLine = pas.System.Copy$1(window.location.hash,2);
+      if (ParsLine !== "") {
+        Pars = pas.SysUtils.TStringHelper.Split$1.call({get: function () {
+            return ParsLine;
+          }, set: function (v) {
+            ParsLine = v;
+          }},["/"])}
+       else Pars = rtl.arraySetLength(Pars,"",0);
+      $impl.Params = rtl.arraySetLength($impl.Params,"",1 + rtl.length(Pars));
+      $impl.Params[0] = window.location.pathname;
+      for (var $l = 0, $end = rtl.length(Pars) - 1; $l <= $end; $l++) {
+        I = $l;
+        $impl.Params[1 + I] = Pars[I];
+      };
+    };
+    $impl.GetParamCount = function () {
+      var Result = 0;
+      Result = rtl.length($impl.Params) - 1;
+      return Result;
+    };
+    $impl.GetParamStr = function (Index) {
+      var Result = "";
+      if ((Index >= 0) && (Index < rtl.length($impl.Params))) Result = $impl.Params[Index];
+      return Result;
+    };
+    $impl.MyGetEnvironmentVariable = function (EnvVar) {
+      var Result = "";
+      var aName = "";
+      aName = pas.SysUtils.LowerCase(EnvVar);
+      if ($impl.EnvNames.hasOwnProperty(aName)) {
+        Result = "" + $impl.EnvNames[aName]}
+       else Result = "";
+      return Result;
+    };
+    $impl.MyGetEnvironmentVariableCount = function () {
+      var Result = 0;
+      Result = rtl.length(Object.getOwnPropertyNames($impl.EnvNames));
+      return Result;
+    };
+    $impl.MyGetEnvironmentString = function (Index) {
+      var Result = "";
+      Result = "" + $impl.EnvNames[Object.getOwnPropertyNames($impl.EnvNames)[Index]];
+      return Result;
+    };
+  };
+  $mod.$init = function () {
+    pas.System.IsConsole = true;
+    pas.System.OnParamCount = $impl.GetParamCount;
+    pas.System.OnParamStr = $impl.GetParamStr;
+    $mod.ReloadEnvironmentStrings();
+    $impl.ReloadParamStrings();
+    pas.SysUtils.OnGetEnvironmentVariable = $impl.MyGetEnvironmentVariable;
+    pas.SysUtils.OnGetEnvironmentVariableCount = $impl.MyGetEnvironmentVariableCount;
+    pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
+  };
+},[]);
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web"],function () {
+  "use strict";
+  var $mod = this;
+  this.CreateButton = function (Parent, Caption) {
+    var btn = null;
+    btn = document.createElement("input");
+    btn.setAttribute("id",Caption + "_id");
+    btn.setAttribute("class","myStyle");
+    btn.setAttribute("type","button");
+    btn.setAttribute("value",Caption);
+    Parent.appendChild(btn);
+  };
+  this.CreateLabelButton = function (Parent, Caption) {
+    var Lab = null;
+    Lab = document.createElement("div");
+    Lab.innerHTML = Caption;
+    $mod.CreateButton(Lab,"X");
+    $mod.CreateButton(Lab,"Y");
+    $mod.CreateButton(Lab,"Z");
+    Parent.appendChild(Lab);
+  };
+  this.CreateBox = function (Parent, Caption) {
+    var Lab = null;
+    Lab = document.createElement("div");
+    Lab.setAttribute("style","width:175px;  border-left: dotted blue;  border-right: dotted red; background-color: #FFBBBB;");
+    Lab.innerHTML = Caption;
+    $mod.CreateLabelButton(Lab,"Create Box 1");
+    $mod.CreateLabelButton(Lab,"Create Box 2");
+    $mod.CreateLabelButton(Lab,"Create Box 3");
+    Parent.appendChild(Lab);
   };
   this.ButtonClick = function (aEvent) {
     var Result = false;
-    document.getElementsByTagName("input").item(0).style.backgroundColor = "red";
-    document.getElementsByTagName("input").item(0).style.borderColor = "yellow";
-    document.getElementsByTagName("input").item(1).style.backgroundColor = "blue";
-    document.getElementsByTagName("body").item(0).style.backgroundColor = "green";
-    document.getElementsByTagName("input").item(0).style.cssText = " background-color:red";
-    document.getElementsByTagName("input").item(0).style.cssText = " borderColor:green";
+    var id = undefined;
+    pas.System.Writeln(aEvent.target["id"]);
+    id = aEvent.target["id"];
+    if (id == "X-") ;
+    Result = true;
     return Result;
   };
-  this.Button1 = null;
-  this.Button2 = null;
-  this.row1 = null;
-  this.heading1 = null;
-  this.heading2 = null;
-  this.heading3 = null;
-  this.row2 = null;
-  this.row2_data_1 = null;
-  this.row2_data_2 = null;
-  this.row2_data_3 = null;
-  this.row3 = null;
-  this.row3_data_1 = null;
-  this.row3_data_2 = null;
-  this.row3_data_3 = null;
-  this.table1 = null;
-  this.thead1 = null;
-  this.tbody1 = null;
+  this.ButtonDisabledClick = function (aEvent) {
+    var Result = false;
+    document.getElementById("Button1").disabled = !document.getElementById("Button1").disabled;
+    document.getElementById("Button1").value = "bla";
+    return Result;
+  };
+  this.Create = function () {
+    var Panel = null;
+    var img = null;
+    var ColorButton = null;
+    var LabelRed = null;
+    var div1 = null;
+    var Button1 = null;
+    var ButtonDisabled = null;
+    var myStyle = null;
+    var Edit1 = null;
+    var label1 = null;
+    var CheckBox1 = null;
+    var Fieldset = null;
+    var divCB = null;
+    $mod.CreateBox(document.body,"body");
+    $mod.CreateLabelButton(document.body,"Knopf1: ");
+    $mod.CreateButton(document.body,"Button1");
+    $mod.CreateLabelButton(document.body,"Knopf2: ");
+    $mod.CreateButton(document.body,"Button2");
+    $mod.CreateLabelButton(document.body,"Knopf3: ");
+    $mod.CreateButton(document.body,"Button3");
+    Panel = document.createElement("div");
+    Panel.setAttribute("class","panel panel-default");
+    document.body.appendChild(Panel);
+    LabelRed = document.createElement("div");
+    LabelRed.innerHTML = "<b>Bitte drücke einen Knopf</b>";
+    Panel.appendChild(LabelRed);
+    div1 = document.createElement("div");
+    Panel.appendChild(div1);
+    myStyle = document.createElement("style");
+    myStyle.setAttribute("id","myStyle");
+    myStyle.setAttribute("style","background-color: #BBFFBB;");
+    Panel.appendChild(myStyle);
+    Button1 = document.createElement("input");
+    Button1.setAttribute("id","Button1");
+    Button1.setAttribute("class","myStyle");
+    Button1.setAttribute("type","button");
+    Button1.setAttribute("value","Button1");
+    Button1.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    Panel.appendChild(Button1);
+    div1 = document.createElement("div");
+    div1.innerHTML = "Zeile 1<br>Zeile 2";
+    Panel.appendChild(div1);
+    ButtonDisabled = document.createElement("input");
+    ButtonDisabled.setAttribute("id","disabledBtn");
+    ButtonDisabled.setAttribute("class","favorite styled");
+    ButtonDisabled.setAttribute("type","button");
+    ButtonDisabled.setAttribute("value","disabled    Btn");
+    ButtonDisabled.setAttribute("style","height:25px;width:75px;color=#00ff00;background-color: #FF0000;");
+    pas.System.Writeln(ButtonDisabled.style.item(0));
+    pas.System.Writeln(ButtonDisabled.style.item(1));
+    pas.System.Writeln(ButtonDisabled.style.length);
+    ButtonDisabled.style.cssText = "height:125px;background-color: #FF00FF";
+    ButtonDisabled.onclick = rtl.createSafeCallback($mod,"ButtonDisabledClick");
+    Panel.appendChild(ButtonDisabled);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#0000ff");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#00ff00");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    label1 = document.createElement("label");
+    label1.innerHTML = "<br>Zeile 1<br>Zeile 2<br>Zeile 3<br>Zeile 4";
+    label1.setAttribute("for","name");
+    Panel.appendChild(label1);
+    Edit1 = document.createElement("input");
+    Edit1.setAttribute("name","name");
+    Edit1.setAttribute("type","text");
+    Edit1.setAttribute("minlength","4");
+    Edit1.setAttribute("maxlength","8");
+    Edit1.setAttribute("size","12");
+    Panel.appendChild(Edit1);
+    Fieldset = document.createElement("fieldset");
+    Panel.appendChild(Fieldset);
+    divCB = document.createElement("div");
+    divCB.value = "fgfdgdsg";
+    Fieldset.appendChild(divCB);
+    CheckBox1 = document.createElement("input");
+    CheckBox1.setAttribute("type","checkbox");
+    CheckBox1.setAttribute("name","checkbox");
+    divCB.appendChild(CheckBox1);
+    img = document.createElement("img");
+    img.setAttribute("id","image");
+    img.setAttribute("src","image.png");
+    Panel.appendChild(img);
+  };
   $mod.$main = function () {
-    $mod.Button1 = document.createElement("input");
-    $mod.Button1.setAttribute("id","Button2_id");
-    $mod.Button1.setAttribute("type","button");
-    $mod.Button1.setAttribute("value","Button2");
-    document.body.appendChild($mod.Button1);
-    $mod.Button2 = document.createElement("input");
-    $mod.Button2.setAttribute("id","Button1_id");
-    $mod.Button2.setAttribute("type","button");
-    $mod.Button2.setAttribute("value","Button1");
-    $mod.Button2.onclick = rtl.createSafeCallback($mod,"ButtonClick");
-    document.body.appendChild($mod.Button2);
-    document.getElementsByTagName("input").item(0).style.backgroundColor = "white";
-    $mod.table1 = document.createElement("table");
-    $mod.thead1 = document.createElement("thead");
-    $mod.tbody1 = document.createElement("tbody");
-    $mod.table1.appendChild($mod.thead1);
-    $mod.table1.appendChild($mod.tbody1);
-    document.body.appendChild($mod.table1);
-    $mod.row1 = document.createElement("tr");
-    $mod.heading1 = document.createElement("th");
-    $mod.heading1.innerHTML = "Str. No.";
-    $mod.heading2 = document.createElement("th");
-    $mod.heading2.innerHTML = "Name";
-    $mod.heading3 = document.createElement("th");
-    $mod.heading3.innerHTML = "Company";
-    $mod.row1.appendChild($mod.heading1);
-    $mod.row1.appendChild($mod.heading2);
-    $mod.row1.appendChild($mod.heading3);
-    $mod.thead1.appendChild($mod.row1);
-    $mod.row2 = document.createElement("tr");
-    $mod.row2_data_1 = document.createElement("td");
-    $mod.row2_data_1.innerHTML = "123";
-    $mod.row2_data_2 = document.createElement("td");
-    $mod.row2_data_2.innerHTML = "James Clerk";
-    $mod.row2_data_3 = document.createElement("td");
-    $mod.row2_data_3.innerHTML = "Netflix";
-    $mod.row2.appendChild($mod.row2_data_1);
-    $mod.row2.appendChild($mod.row2_data_2);
-    $mod.row2.appendChild($mod.row2_data_3);
-    $mod.tbody1.appendChild($mod.row2);
-    $mod.row3 = document.createElement("tr");
-    $mod.row3_data_1 = document.createElement("td");
-    $mod.row3_data_1.innerHTML = "456";
-    $mod.row3_data_2 = document.createElement("td");
-    $mod.row3_data_2.innerHTML = "Adam White";
-    $mod.row3_data_3 = document.createElement("td");
-    $mod.row3_data_3.innerHTML = "IBM";
-    $mod.row3.appendChild($mod.row3_data_1);
-    $mod.row3.appendChild($mod.row3_data_2);
-    $mod.row3.appendChild($mod.row3_data_3);
-    $mod.tbody1.appendChild($mod.row3);
-    window.onclick = rtl.createSafeCallback($mod,"onclick");
+    $mod.Create();
   };
 });
 //# sourceMappingURL=project1.js.map
