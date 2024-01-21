@@ -57,6 +57,8 @@ var
     row3_data_2, row3_data_3, table1, thead1, tbody1: TJSElement;
 
 begin
+  wri
+
   Button1 := document.createElement('input');
   Button1['id'] := 'Button2_id';
   Button1['type'] := 'button';

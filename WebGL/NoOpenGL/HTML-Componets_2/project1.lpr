@@ -14,53 +14,128 @@ uses
 var
   canvas: TJSHTMLCanvasElement;
 
-  procedure CreateButton(Parent: TJSElement; const Caption: string);
-  var
-    btn: TJSElement;
+  function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
   begin
-    btn := document.createElement('input');
-    btn['id'] := Caption + '_id';
-    btn['class'] := 'myStyle';
-    btn['type'] := 'button';
-    btn['value'] := Caption;
-    //   btn['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
-    //    btn['style'] := 'border: 15px outset red;  background-color: lightblue; text-align: center;';
-    // btn['style'] := 'background-color: #FFBBBB;';
-    //btn['class'] := 'myStyle';
+    Result := document.createElement('input');
+    Result['id'] := Caption + '_id';
+    Result['class'] := 'myStyle';
+    Result['type'] := 'button';
+    Result['value'] := Caption;
+    //   Result['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
+    //    Result['style'] := 'border: 15px outset red;  background-color: lightblue; text-align: center;';
+    // Result['style'] := 'background-color: #FFBBBB;';
+    //Result['class'] := 'myStyle';
 
-    //  TJSHTMLElement(btn).onclick := @ButtonClick;
-    Parent.appendChild(btn);
+    //  TJSHTMLElement(Result).onclick := @ButtonClick;
+    Parent.appendChild(Result);
   end;
 
-  procedure CreateLabelButton(Parent: TJSElement; const Caption: string);
-  var
-    Lab: TJSElement;
+  function CreateLabelButton(Parent: TJSElement; const Caption: string): TJSElement;
   begin
-    Lab := document.createElement('div');
-       Lab.innerHTML := Caption;
-       CreateButton(Lab,'X');
-       CreateButton(Lab,'Y');
-       CreateButton(Lab,'Z');
-    Parent.appendChild(Lab);
+    Result := document.createElement('div');
+    Result.innerHTML := Caption;
+    CreateButton(Result, 'X');
+    CreateButton(Result, 'Y');
+    CreateButton(Result, 'Z');
+    Parent.appendChild(Result);
   end;
 
-procedure
- CreateBox(Parent: TJSElement; const Caption: string);
-var
-  Lab: TJSElement;
-begin
-  Lab := document.createElement('div');
-//  Lab['style'] := 'border-style: solid; border-width: 3px;  height:125px;width:175px;border-color=red;background-color: #FFBBBB;';
-  Lab['style'] := 'width:175px;  border-left: dotted blue;  border-right: dotted red; background-color: #FFBBBB;';
+  function CreateBox(Parent: TJSElement; const Caption: string): TJSElement;
+  begin
+    Result := document.createElement('div');
+    //  Result['style'] := 'border-style: solid; border-width: 3px;  height:125px;width:175px;border-color=red;background-color: #FFBBBB;';
+    Result['style'] :=
+      'width:175px;  border-left: dotted blue;  border-right: dotted red; background-color: #FFBBBB;';
 
-     Lab.innerHTML := Caption;
-     CreateLabelButton(Lab, 'Create Box 1');
-     CreateLabelButton(Lab, 'Create Box 2');
-     CreateLabelButton(Lab, 'Create Box 3');
-  Parent.appendChild(Lab);
+    Result.innerHTML := Caption;
+    CreateLabelButton(Result, 'Create Box 1');
+    CreateLabelButton(Result, 'Create Box 2');
+    CreateLabelButton(Result, 'Create Box 3');
+    Parent.appendChild(Result);
   end;
 
+  // === RadioGroup
 
+
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
+
+  function CreateRadioButton(Parent: TJSElement; const Caption, Name: string;
+    isChecked: boolean = False): TJSElement;
+  var
+    rb1, label1: TJSElement;
+  begin
+    Result := document.createElement('div');
+
+    rb1 := document.createElement('input');
+    rb1['type'] := 'radio';
+    rb1['name'] := Name;
+    if isChecked then  rb1['checked'] := '';
+
+    label1 := document.createElement('label');
+    rb1['for'] := 'Caption';
+    label1.innerHTML := Caption;
+
+    Result.appendChild(label1);
+    Result.appendChild(rb1);
+
+    Parent.appendChild(Result);
+  end;
+
+  function CreateRadioGroup(Parent: TJSElement; const Caption: string): TJSElement;
+  var
+    legend: TJSElement;
+  begin
+    Result := document.createElement('fieldset');
+
+    legend := document.createElement('legend');
+    legend.innerHTML := 'RadioGroup';
+    Result.appendChild(legend);
+
+    CreateRadioButton(Result, 'Radio 1', Caption);
+    CreateRadioButton(Result, 'Radio 2', Caption, True);
+    CreateRadioButton(Result, 'Radio 3', Caption);
+
+    Parent.appendChild(Result);
+  end;
+
+  // === CheckGroup
+
+  function CreateCheckButton(Parent: TJSElement; const Caption: string): TJSElement;
+  var
+    rb1, label1: TJSElement;
+  begin
+    Result := document.createElement('div');
+
+    rb1 := document.createElement('input');
+    rb1['type'] := 'checkbox';
+    rb1['name'] := 'drone';
+
+    label1 := document.createElement('label');
+    rb1['for'] := 'Caption';
+    label1.innerHTML := Caption;
+
+    Result.appendChild(label1);
+    Result.appendChild(rb1);
+
+    Parent.appendChild(Result);
+  end;
+
+  function CreateCheckGroup(Parent: TJSElement): TJSElement;
+  var
+    legend: TJSElement;
+  begin
+    Result := document.createElement('fieldset');
+
+    legend := document.createElement('legend');
+    legend.innerHTML := 'CheckGroup';
+    Result.appendChild(legend);
+
+    CreateCheckButton(Result, 'Check 1');
+    CreateCheckButton(Result, 'Check 2');
+    CreateCheckButton(Result, 'Check 3');
+
+    Parent.appendChild(Result);
+  end;
 
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
@@ -69,14 +144,16 @@ begin
   begin
     Writeln(aEvent.target.Properties['id']);
     id := aEvent.target.Properties['id'];
-    if id = 'X-' then  begin
+    if id = 'X-' then
+    begin
     end;
     Result := True;
   end;
 
   function ButtonDisabledClick(aEvent: TJSMouseEvent): boolean;
   begin
-    TJSHTMLButtonElement(document.getElementById('Button1')).disabled := not TJSHTMLButtonElement(document.getElementById('Button1')).disabled;
+    TJSHTMLButtonElement(document.getElementById('Button1')).disabled :=
+      not TJSHTMLButtonElement(document.getElementById('Button1')).disabled;
     //    Writeln(TJSHTMLInputElement(document.getElementById('Button1')).size);
     //    TJSHTMLInputElement(document.getElementById('Button1')).size := 50;
     TJSHTMLButtonElement(document.getElementById('Button1')).Value := 'bla';
@@ -88,7 +165,7 @@ begin
     Panel, img, ColorButton, LabelRed, div1, Button1, ButtonDisabled,
     myStyle, Edit1, label1, CheckBox1, Fieldset, divCB: TJSElement;
   begin
-    CreateBox(document.body,'body');
+    CreateBox(document.body, 'body');
 
 
     CreateLabelButton(document.body, 'Knopf1: ');
@@ -98,110 +175,9 @@ begin
     CreateLabelButton(document.body, 'Knopf3: ');
     CreateButton(document.body, 'Button3');
 
-
-    Panel := document.createElement('div');
-    Panel['class'] := 'panel panel-default';
-    document.body.appendChild(Panel);
-
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color
-    // https://www.w3schools.com/tags/tag_div.ASP
-
-    LabelRed := document.createElement('div');
-    LabelRed.innerHTML := '<b>Bitte drücke einen Knopf</b>';
-    //    LabelRed.outerHTML:='<b>Bitte drücke einen Knopf</b>';
-    Panel.appendChild(LabelRed);
-
-
-    div1 := document.createElement('div');
-    Panel.appendChild(div1);
-
-    myStyle := document.createElement('style');
-    myStyle['id'] := 'myStyle';
-    myStyle['style'] := 'background-color: #BBFFBB;';
-    Panel.appendChild(myStyle);
-
-    Button1 := document.createElement('input');
-    Button1['id'] := 'Button1';
-    Button1['class'] := 'myStyle';
-    Button1['type'] := 'button';
-    Button1['value'] := 'Button1';
-    //   Button1['style'] := 'height:25px;width:75px;color=#00ff00;background=#FF0000;';
-    //    Button1['style'] := 'border: 15px outset red;  background-color: lightblue; text-align: center;';
-    // Button1['style'] := 'background-color: #FFBBBB;';
-    //Button1['class'] := 'myStyle';
-
-    TJSHTMLElement(Button1).onclick := @ButtonClick;
-    Panel.appendChild(Button1);
-
-    div1 := document.createElement('div');
-    div1.innerHTML := 'Zeile 1<br>Zeile 2';
-    Panel.appendChild(div1);
-
-
-    ButtonDisabled := document.createElement('input');
-    ButtonDisabled['id'] := 'disabledBtn';
-    ButtonDisabled['class'] := 'favorite styled';
-    ButtonDisabled['type'] := 'button';
-    ButtonDisabled['value'] := 'disabled    Btn';
-    ButtonDisabled['style'] := 'height:25px;width:75px;color=#00ff00;background-color: #FF0000;';
-
-    Writeln(TJSHTMLInputElement(ButtonDisabled).style.item(0));
-    Writeln(TJSHTMLInputElement(ButtonDisabled).style.item(1));
-    Writeln(TJSHTMLInputElement(ButtonDisabled).style.length);
-    TJSHTMLStyleElement(ButtonDisabled).style.cssText := 'height:125px;background-color: #FF00FF';
-
-
-    //    TJSHTMLInputElement(ButtonDisabled).style := 'background-color: #FF00FF';
-
-
-    TJSHTMLElement(ButtonDisabled).onclick := @ButtonDisabledClick;
-    Panel.appendChild(ButtonDisabled);
-
-    ColorButton := document.createElement('input');
-    ColorButton['value'] := '#0000ff';
-    ColorButton['type'] := 'color';
-    ColorButton['id'] := 'head';
-    ColorButton['name'] := 'head';
-    Panel.appendChild(ColorButton);
-
-    ColorButton := document.createElement('input');
-    ColorButton['value'] := '#00ff00';
-    ColorButton['type'] := 'color';
-    ColorButton['id'] := 'head';
-    ColorButton['name'] := 'head';
-    Panel.appendChild(ColorButton);
-
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input
-    label1 := document.createElement('label');
-    label1.innerHTML := '<br>Zeile 1<br>Zeile 2<br>Zeile 3<br>Zeile 4';
-    label1['for'] := 'name';
-    Panel.appendChild(label1);
-
-    Edit1 := document.createElement('input');
-    Edit1['name'] := 'name';
-    Edit1['type'] := 'text';
-    Edit1['minlength'] := '4';
-    Edit1['maxlength'] := '8';
-    Edit1['size'] := '12';
-    Panel.appendChild(Edit1);
-
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
-
-    Fieldset := document.createElement('fieldset');
-    Panel.appendChild(Fieldset);
-
-
-    divCB := document.createElement('div');
-    TJSHTMLInputElement(divCB).Value := 'fgfdgdsg';
-    //    divCB.innerHTML := 'Zeile 1111';
-    Fieldset.appendChild(divCB);
-
-
-    CheckBox1 := document.createElement('input');
-    CheckBox1['type'] := 'checkbox';
-    CheckBox1['name'] := 'checkbox';
-    divCB.appendChild(CheckBox1);
-
+    CreateRadioGroup(document.body, 'gruppe1');
+    CreateRadioGroup(document.body, 'gruppe2');
+    CreateCheckGroup(document.body);
 
 
     //       <img id="ghost1" src="ghost1.png"/>
