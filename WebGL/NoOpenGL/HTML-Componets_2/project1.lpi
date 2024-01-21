@@ -52,6 +52,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="wglMatrix"/>
       </Unit>
+      <Unit>
+        <Filename Value="radio_and_check_group.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Radio_and_Check_Group"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -1570,6 +1570,26 @@ rtl.module("System",[],function () {
     if (Index<1) Index = 1;
     return S.substr(Index-1);
   };
+  this.Writeln = function () {
+    var i = 0;
+    var l = 0;
+    var s = "";
+    l = arguments.length - 1;
+    if ($impl.WriteCallBack != null) {
+      for (var $l = 0, $end = l; $l <= $end; $l++) {
+        i = $l;
+        $impl.WriteCallBack(arguments[i],i === l);
+      };
+    } else {
+      s = $impl.WriteBuf;
+      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
+        i = $l1;
+        s = s + ("" + arguments[i]);
+      };
+      console.log(s);
+      $impl.WriteBuf = "";
+    };
+  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1577,6 +1597,7 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
+    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -1993,7 +2014,84 @@ rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],funct
     pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
   };
 },[]);
-rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web"],function () {
+rtl.module("Radio_and_Check_Group",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
+  "use strict";
+  var $mod = this;
+  this.CreateRadioButton = function (Parent, Caption, Name, isChecked) {
+    var Result = null;
+    var rb1 = null;
+    var label1 = null;
+    Result = document.createElement("div");
+    rb1 = document.createElement("input");
+    rb1.setAttribute("type","radio");
+    rb1.setAttribute("name",Name);
+    if (isChecked) rb1.setAttribute("checked","");
+    label1 = document.createElement("label");
+    rb1.setAttribute("for","Caption");
+    label1.innerHTML = Caption;
+    Result.appendChild(label1);
+    Result.appendChild(rb1);
+    Parent.appendChild(Result);
+    return Result;
+  };
+  this.CreateRadioGroup = function (Parent, Caption) {
+    var Result = null;
+    var legend = null;
+    Result = document.createElement("fieldset");
+    legend = document.createElement("legend");
+    legend.innerHTML = "RadioGroup";
+    Result.appendChild(legend);
+    $mod.CreateRadioButton(Result,"Radio 1",Caption,false);
+    $mod.CreateRadioButton(Result,"Radio 2",Caption,true);
+    $mod.CreateRadioButton(Result,"Radio 3",Caption,false);
+    Parent.appendChild(Result);
+    return Result;
+  };
+  this.getRadioButton = function (name) {
+    var Result = 0;
+    var radioButtons = null;
+    var len = 0;
+    var i = 0;
+    radioButtons = document.querySelectorAll('input[name="' + name + '"]');
+    len = radioButtons.length;
+    pas.System.Writeln("count: ",len);
+    for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
+      i = $l;
+      pas.System.Writeln(radioButtons.item(i).checked);
+    };
+    return Result;
+  };
+  this.CreateCheckButton = function (Parent, Caption) {
+    var Result = null;
+    var rb1 = null;
+    var label1 = null;
+    Result = document.createElement("div");
+    rb1 = document.createElement("input");
+    rb1.setAttribute("type","checkbox");
+    rb1.setAttribute("name","drone");
+    label1 = document.createElement("label");
+    rb1.setAttribute("for","Caption");
+    label1.innerHTML = Caption;
+    Result.appendChild(label1);
+    Result.appendChild(rb1);
+    Parent.appendChild(Result);
+    return Result;
+  };
+  this.CreateCheckGroup = function (Parent) {
+    var Result = null;
+    var legend = null;
+    Result = document.createElement("fieldset");
+    legend = document.createElement("legend");
+    legend.innerHTML = "CheckGroup";
+    Result.appendChild(legend);
+    $mod.CreateCheckButton(Result,"Check 1");
+    $mod.CreateCheckButton(Result,"Check 2");
+    $mod.CreateCheckButton(Result,"Check 3");
+    Parent.appendChild(Result);
+    return Result;
+  };
+});
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web","Radio_and_Check_Group"],function () {
   "use strict";
   var $mod = this;
   this.CreateButton = function (Parent, Caption) {
@@ -2027,68 +2125,17 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     Parent.appendChild(Result);
     return Result;
   };
-  this.CreateRadioButton = function (Parent, Caption, Name, isChecked) {
-    var Result = null;
-    var rb1 = null;
-    var label1 = null;
-    Result = document.createElement("div");
-    rb1 = document.createElement("input");
-    rb1.setAttribute("type","radio");
-    rb1.setAttribute("name",Name);
-    if (isChecked) rb1.setAttribute("checked","");
-    label1 = document.createElement("label");
-    rb1.setAttribute("for","Caption");
-    label1.innerHTML = Caption;
-    Result.appendChild(label1);
-    Result.appendChild(rb1);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateRadioGroup = function (Parent, Caption) {
-    var Result = null;
-    var legend = null;
-    Result = document.createElement("fieldset");
-    legend = document.createElement("legend");
-    legend.innerHTML = "RadioGroup";
-    Result.appendChild(legend);
-    $mod.CreateRadioButton(Result,"Radio 1",Caption,false);
-    $mod.CreateRadioButton(Result,"Radio 2",Caption,true);
-    $mod.CreateRadioButton(Result,"Radio 3",Caption,false);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateCheckButton = function (Parent, Caption) {
-    var Result = null;
-    var rb1 = null;
-    var label1 = null;
-    Result = document.createElement("div");
-    rb1 = document.createElement("input");
-    rb1.setAttribute("type","checkbox");
-    rb1.setAttribute("name","drone");
-    label1 = document.createElement("label");
-    rb1.setAttribute("for","Caption");
-    label1.innerHTML = Caption;
-    Result.appendChild(label1);
-    Result.appendChild(rb1);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateCheckGroup = function (Parent) {
-    var Result = null;
-    var legend = null;
-    Result = document.createElement("fieldset");
-    legend = document.createElement("legend");
-    legend.innerHTML = "CheckGroup";
-    Result.appendChild(legend);
-    $mod.CreateCheckButton(Result,"Check 1");
-    $mod.CreateCheckButton(Result,"Check 2");
-    $mod.CreateCheckButton(Result,"Check 3");
-    Parent.appendChild(Result);
+  this.ButtonClick = function (aEvent) {
+    var Result = false;
+    var index = 0;
+    index = pas.Radio_and_Check_Group.getRadioButton("gruppe1");
+    Result = true;
     return Result;
   };
   this.Create = function () {
     var Panel = null;
     var img = null;
+    var btn = null;
     $mod.CreateBox(document.body,"body");
     $mod.CreateLabelButton(document.body,"Knopf1: ");
     $mod.CreateButton(document.body,"Button1");
@@ -2096,9 +2143,11 @@ rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","Sys
     $mod.CreateButton(document.body,"Button2");
     $mod.CreateLabelButton(document.body,"Knopf3: ");
     $mod.CreateButton(document.body,"Button3");
-    $mod.CreateRadioGroup(document.body,"gruppe1");
-    $mod.CreateRadioGroup(document.body,"gruppe2");
-    $mod.CreateCheckGroup(document.body);
+    pas.Radio_and_Check_Group.CreateRadioGroup(document.body,"gruppe1");
+    pas.Radio_and_Check_Group.CreateRadioGroup(document.body,"gruppe2");
+    pas.Radio_and_Check_Group.CreateCheckGroup(document.body);
+    btn = $mod.CreateButton(document.body,"Radio Auswertung");
+    btn.onclick = rtl.createSafeCallback($mod,"ButtonClick");
     img = document.createElement("img");
     img.setAttribute("id","image");
     img.setAttribute("src","image.png");
