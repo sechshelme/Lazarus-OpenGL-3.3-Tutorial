@@ -23,7 +23,7 @@ begin  sl:=TStringList.Create;
 // https://github.com/Kryuski/pas2js-for-delphi/blob/master/packages/chartjs/chartjs.pas
 
   type
-    TColorElement = class external name 'Object' (TJSCSSStyleDeclaration)
+    TJSCSSStyleDeclaration = class external name 'Object' (Web.TJSCSSStyleDeclaration)
       backgroundColor: String; external name 'backgroundColor';
       borderColor: String; external name 'borderColor';
 
@@ -39,13 +39,13 @@ begin  sl:=TStringList.Create;
 
   function ButtonClick(aEvent: TJSMouseEvent): boolean;
   begin
-    TColorElement(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).backgroundColor := 'red';
-    TColorElement(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).borderColor := 'yellow';
+    TJSCSSStyleDeclaration(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).backgroundColor := 'red';
+    TJSCSSStyleDeclaration(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).borderColor := 'yellow';
 //    TColorElement(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).color := 'green';
 
 
-    TColorElement(TJSHTMLElement(document.getElementsByTagName('input')[1]).style).backgroundColor := 'blue';
-    TColorElement(TJSHTMLElement(document.getElementsByTagName('body')[0]).style).backgroundColor := 'green';
+    TJSCSSStyleDeclaration(TJSHTMLElement(document.getElementsByTagName('input')[1]).style).backgroundColor := 'blue';
+    TJSCSSStyleDeclaration(TJSHTMLElement(document.getElementsByTagName('body')[0]).style).backgroundColor := 'green';
 
     TJSHTMLElement(document.getElementsByTagName('input')[0]).style.cssText:=' background-color:red';
     TJSHTMLElement(document.getElementsByTagName('input')[0]).style.cssText:=' borderColor:green';
@@ -57,8 +57,6 @@ var
     row3_data_2, row3_data_3, table1, thead1, tbody1: TJSElement;
 
 begin
-  wri
-
   Button1 := document.createElement('input');
   Button1['id'] := 'Button2_id';
   Button1['type'] := 'button';
@@ -77,7 +75,7 @@ begin
   TJSHTMLElement(Button2).onclick := @ButtonClick;
   document.body.appendChild(Button2);
 
-  TColorElement(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).backgroundColor := 'white';
+  TJSCSSStyleDeclaration(TJSHTMLElement(document.getElementsByTagName('input')[0]).style).backgroundColor := 'white';
 
   // https://www.delftstack.com/de/howto/javascript/create-table-javascript/
 

@@ -5,14 +5,17 @@ program project1;
 
 uses
   browserconsole,
-  browserapp,
+  //  browserapp,
   JS,
   Classes,
   SysUtils,
-  Web, Radio_and_Check_Group;
+  Web,
+  Radio_and_Check_Group;
 
 var
   canvas: TJSHTMLCanvasElement;
+  RG1: TRadioGroup;
+  RG2: TRadioGroup;
 
   function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
   begin
@@ -54,11 +57,12 @@ var
     Parent.appendChild(Result);
   end;
 
-  function ButtonClick(aEvent: TJSMouseEvent): boolean;
+  function ButtonShowRadioClick(aEvent: TJSMouseEvent): boolean;
   var
-    index: Integer;
+    index: integer;
   begin
-    index:=getRadioButton('gruppe1');
+    Writeln(RG1.GetRadioChecked);
+    //    index:=getRadioButton('gruppe1');
 
     Result := True;
   end;
@@ -73,10 +77,28 @@ var
     //    Writeln(TJSHTMLInputElement(document.getElementById('Button1')).size);
   end;
 
+  function ButtonNewRadioClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    RG1.Add('New');
+  end;
+
   procedure Create;
   var
-    Panel, img,     btn: TJSElement;
+    Panel, img, ButtonShowRadio: TJSElement;
   begin
+    RG1 := TRadioGroup.Create(document.body);
+    RG1.Caption := 'Radio 1 Gruppe mit class';
+    RG1.Add('Radio 0');
+    RG1.Add('Radio 1');
+    RG1.Add('Radio 2');
+
+    RG2 := TRadioGroup.Create(document.body);
+    RG2.Caption := 'Radio 2 Gruppe mit class';
+    RG2.Add('Radio 100');
+    RG2.Add('Radio 101');
+    RG2.Add('Radio 102');
+
+
     CreateBox(document.body, 'body');
 
 
@@ -91,9 +113,11 @@ var
     CreateRadioGroup(document.body, 'gruppe2');
     CreateCheckGroup(document.body);
 
-    btn:=CreateButton(document.body, 'Radio Auswertung');
+    ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
+    TJSHTMLElement(ButtonShowRadio).onclick := @ButtonShowRadioClick;
 
-    TJSHTMLElement(btn).onclick := @ButtonClick;
+    ButtonShowRadio := CreateButton(document.body, 'Neuer Radio');
+    TJSHTMLElement(ButtonShowRadio).onclick := @ButtonNewRadioClick;
 
 
 
