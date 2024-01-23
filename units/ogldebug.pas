@@ -141,8 +141,6 @@ begin
   end;
 end;
 
-
-
 procedure TLogForm.Add(s: string);
 begin
   {$I-}// Wegen Windows

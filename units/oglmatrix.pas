@@ -86,7 +86,6 @@ type
 
     procedure Scale(scal: GLfloat); overload;
     procedure Scale(const scal: TVector3f); overload;
-    procedure ScaleTest(const scal: TVector3f); overload;
     procedure Scale(FaktorX, FaktorY, FaktorZ: GLfloat); overload; deprecated;
     // Worldspace Translation
     procedure Translate(const v: TVector3f); overload;
@@ -578,18 +577,6 @@ begin
     Self[i, 2] *= scal[i];
     Self[i, 3] *= scal[i];
   end;
-end;
-
-procedure Tmat4x4Helper.ScaleTest(const scal: TVector3f);
-var
-  i: Integer;
-begin
-  for i := 0 to 2 do begin
-    Self[0, i] *= scal[1];
-    Self[1, i] *= scal[2];
-    Self[2, i] *= scal[3];
-  end;
-
 end;
 
 procedure Tmat4x4Helper.Scale(FaktorX, FaktorY, FaktorZ: GLfloat); deprecated;

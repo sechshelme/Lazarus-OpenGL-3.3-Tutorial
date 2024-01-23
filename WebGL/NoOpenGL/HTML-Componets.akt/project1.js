@@ -1552,11 +1552,24 @@ rtl.module("System",[],function () {
     };
     this.$final = function () {
     };
+    this.Destroy = function () {
+    };
     this.AfterConstruction = function () {
     };
     this.BeforeDestruction = function () {
     };
   });
+  this.IsConsole = false;
+  this.OnParamCount = null;
+  this.OnParamStr = null;
+  this.Copy = function (S, Index, Size) {
+    if (Index<1) Index = 1;
+    return (Size>0) ? S.substring(Index-1,Index+Size-1) : "";
+  };
+  this.Copy$1 = function (S, Index) {
+    if (Index<1) Index = 1;
+    return S.substr(Index-1);
+  };
   this.Writeln = function () {
     var i = 0;
     var l = 0;
@@ -1591,15 +1604,19 @@ rtl.module("System",[],function () {
     rtl.exitcode = 0;
   };
 },[]);
-rtl.module("JS",["System"],function () {
+rtl.module("Types",["System"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("weborworker",["System","JS"],function () {
+rtl.module("JS",["System","Types"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("Web",["System","JS","weborworker"],function () {
+rtl.module("weborworker",["System","JS","Types"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("Web",["System","Types","JS","weborworker"],function () {
   "use strict";
   var $mod = this;
 });
@@ -1607,6 +1624,16 @@ rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
+  this.FreeAndNil = function (Obj) {
+    var o = null;
+    o = Obj.get();
+    if (o === null) return;
+    Obj.set(null);
+    o.$destroy("Destroy");
+  };
+  this.LowerCase = function (s) {
+    return s.toLowerCase();
+  };
   this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
   this.StringReplace = function (aOriginal, aSearch, aReplace, Flags) {
     var Result = "";
@@ -1619,19 +1646,137 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
-  this.IntToStr = function (Value) {
-    var Result = "";
-    Result = "" + Value;
-    return Result;
-  };
+  this.OnGetEnvironmentVariable = null;
+  this.OnGetEnvironmentString = null;
+  this.OnGetEnvironmentVariableCount = null;
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
-  rtl.createHelper(this,"TIntegerHelper",null,function () {
-    this.ToString$1 = function () {
+  this.TStringSplitOptions = {"0": "None", None: 0, "1": "ExcludeEmpty", ExcludeEmpty: 1};
+  rtl.createHelper(this,"TStringHelper",null,function () {
+    this.GetLength = function () {
+      var Result = 0;
+      Result = this.get().length;
+      return Result;
+    };
+    this.IndexOfAny$3 = function (AnyOf, StartIndex) {
+      var Result = 0;
+      Result = $mod.TStringHelper.IndexOfAny$5.call(this,AnyOf,StartIndex,$mod.TStringHelper.GetLength.call(this));
+      return Result;
+    };
+    this.IndexOfAny$5 = function (AnyOf, StartIndex, ACount) {
+      var Result = 0;
+      var i = 0;
+      var L = 0;
+      i = StartIndex + 1;
+      L = (i + ACount) - 1;
+      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
+      Result = -1;
+      while ((Result === -1) && (i <= L)) {
+        if ($impl.HaveChar(this.get().charAt(i - 1),AnyOf)) Result = i - 1;
+        i += 1;
+      };
+      return Result;
+    };
+    this.IndexOfAnyUnquoted$1 = function (AnyOf, StartQuote, EndQuote, StartIndex) {
+      var Result = 0;
+      Result = $mod.TStringHelper.IndexOfAnyUnquoted$2.call(this,AnyOf,StartQuote,EndQuote,StartIndex,$mod.TStringHelper.GetLength.call(this));
+      return Result;
+    };
+    this.IndexOfAnyUnquoted$2 = function (AnyOf, StartQuote, EndQuote, StartIndex, ACount) {
+      var Result = 0;
+      var I = 0;
+      var L = 0;
+      var Q = 0;
+      Result = -1;
+      L = (StartIndex + ACount) - 1;
+      if (L > $mod.TStringHelper.GetLength.call(this)) L = $mod.TStringHelper.GetLength.call(this);
+      I = StartIndex + 1;
+      Q = 0;
+      if (StartQuote === EndQuote) {
+        while ((Result === -1) && (I <= L)) {
+          if (this.get().charAt(I - 1) === StartQuote) Q = 1 - Q;
+          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
+          I += 1;
+        };
+      } else {
+        while ((Result === -1) && (I <= L)) {
+          if (this.get().charAt(I - 1) === StartQuote) {
+            Q += 1}
+           else if ((this.get().charAt(I - 1) === EndQuote) && (Q > 0)) Q -= 1;
+          if ((Q === 0) && $impl.HaveChar(this.get().charAt(I - 1),AnyOf)) Result = I - 1;
+          I += 1;
+        };
+      };
+      return Result;
+    };
+    this.Split$1 = function (Separators) {
+      var Result = [];
+      Result = $mod.TStringHelper.Split$21.call(this,Separators,"\x00","\x00",$mod.TStringHelper.GetLength.call(this) + 1,0);
+      return Result;
+    };
+    var BlockSize = 10;
+    this.Split$21 = function (Separators, AQuoteStart, AQuoteEnd, ACount, Options) {
+      var $Self = this;
+      var Result = [];
+      var S = "";
+      function NextSep(StartIndex) {
+        var Result = 0;
+        if (AQuoteStart !== "\x00") {
+          Result = $mod.TStringHelper.IndexOfAnyUnquoted$1.call({get: function () {
+              return S;
+            }, set: function (v) {
+              S = v;
+            }},Separators,AQuoteStart,AQuoteEnd,StartIndex)}
+         else Result = $mod.TStringHelper.IndexOfAny$3.call({get: function () {
+            return S;
+          }, set: function (v) {
+            S = v;
+          }},Separators,StartIndex);
+        return Result;
+      };
+      function MaybeGrow(Curlen) {
+        if (rtl.length(Result) <= Curlen) Result = rtl.arraySetLength(Result,"",rtl.length(Result) + 10);
+      };
+      var Sep = 0;
+      var LastSep = 0;
+      var Len = 0;
+      var T = "";
+      S = $Self.get();
+      Result = rtl.arraySetLength(Result,"",10);
+      Len = 0;
+      LastSep = 0;
+      Sep = NextSep(0);
+      while ((Sep !== -1) && ((ACount === 0) || (Len < ACount))) {
+        T = $mod.TStringHelper.Substring$1.call($Self,LastSep,Sep - LastSep);
+        if ((T !== "") || !(1 === Options)) {
+          MaybeGrow(Len);
+          Result[Len] = T;
+          Len += 1;
+        };
+        LastSep = Sep + 1;
+        Sep = NextSep(LastSep);
+      };
+      if ((LastSep <= $mod.TStringHelper.GetLength.call($Self)) && ((ACount === 0) || (Len < ACount))) {
+        T = $mod.TStringHelper.Substring.call($Self,LastSep);
+        if ((T !== "") || !(1 === Options)) {
+          MaybeGrow(Len);
+          Result[Len] = T;
+          Len += 1;
+        };
+      };
+      Result = rtl.arraySetLength(Result,"",Len);
+      return Result;
+    };
+    this.Substring = function (AStartIndex) {
       var Result = "";
-      Result = $mod.IntToStr(this.get());
+      Result = $mod.TStringHelper.Substring$1.call(this,AStartIndex,$mod.TStringHelper.GetLength.call(this) - AStartIndex);
+      return Result;
+    };
+    this.Substring$1 = function (AStartIndex, ALen) {
+      var Result = "";
+      Result = pas.System.Copy(this.get(),AStartIndex + 1,ALen);
       return Result;
     };
   });
@@ -1641,6 +1786,17 @@ rtl.module("SysUtils",["System","JS"],function () {
     $impl.DefaultShortDayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     $impl.DefaultLongDayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     $impl.RESpecials = "([\\$\\+\\[\\]\\(\\)\\\\\\.\\*\\^\\?\\|])";
+    $impl.HaveChar = function (AChar, AList) {
+      var Result = false;
+      var I = 0;
+      I = 0;
+      Result = false;
+      while (!Result && (I < rtl.length(AList))) {
+        Result = AList[I] === AChar;
+        I += 1;
+      };
+      return Result;
+    };
   };
   $mod.$init = function () {
     $mod.ShortMonthNames = $impl.DefaultShortMonthNames.slice(0);
@@ -1649,7 +1805,7 @@ rtl.module("SysUtils",["System","JS"],function () {
     $mod.LongDayNames = $impl.DefaultLongDayNames.slice(0);
   };
 },[]);
-rtl.module("Classes",["System","SysUtils","JS"],function () {
+rtl.module("Classes",["System","Types","SysUtils","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
@@ -1767,210 +1923,195 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $mod.HookConsole();
   };
 },[]);
-rtl.module("Radio_and_Check_Group",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
+rtl.module("BrowserApp",["System","Classes","SysUtils","Types","JS","Web"],function () {
   "use strict";
   var $mod = this;
-  this.CreateRadioButton = function (Parent, Caption, Name, isChecked) {
-    var Result = null;
-    var rb1 = null;
-    var label1 = null;
-    Result = document.createElement("div");
-    rb1 = document.createElement("input");
-    rb1.setAttribute("type","radio");
-    rb1.setAttribute("name",Name);
-    if (isChecked) {
-      rb1.setAttribute("checked","");
+  var $impl = $mod.$impl;
+  this.ReloadEnvironmentStrings = function () {
+    var I = 0;
+    var S = "";
+    var N = "";
+    var A = [];
+    var P = [];
+    if ($impl.EnvNames != null) pas.SysUtils.FreeAndNil({p: $impl, get: function () {
+        return this.p.EnvNames;
+      }, set: function (v) {
+        this.p.EnvNames = v;
+      }});
+    $impl.EnvNames = new Object();
+    S = window.location.search;
+    S = pas.System.Copy(S,2,S.length - 1);
+    A = S.split("&");
+    for (var $l = 0, $end = rtl.length(A) - 1; $l <= $end; $l++) {
+      I = $l;
+      P = A[I].split("=");
+      N = pas.SysUtils.LowerCase(decodeURIComponent(P[0]));
+      if (rtl.length(P) === 2) {
+        $impl.EnvNames[N] = decodeURIComponent(P[1])}
+       else if (rtl.length(P) === 1) $impl.EnvNames[N] = "";
     };
-    label1 = document.createElement("label");
-    rb1.setAttribute("for","Caption");
-    label1.innerHTML = Caption;
-    Result.appendChild(label1);
-    Result.appendChild(rb1);
-    Parent.appendChild(Result);
-    return Result;
   };
-  this.CreateRadioGroup = function (Parent, Caption) {
-    var Result = null;
-    var legend = null;
-    Result = document.createElement("fieldset");
-    legend = document.createElement("legend");
-    legend.innerHTML = "RadioGroup";
-    Result.appendChild(legend);
-    $mod.CreateRadioButton(Result,"Radio 1",Caption,false);
-    $mod.CreateRadioButton(Result,"Radio 2",Caption,true);
-    $mod.CreateRadioButton(Result,"Radio 3",Caption,false);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateCheckButton = function (Parent, Caption) {
-    var Result = null;
-    var rb1 = null;
-    var label1 = null;
-    Result = document.createElement("div");
-    rb1 = document.createElement("input");
-    rb1.setAttribute("type","checkbox");
-    rb1.setAttribute("name","drone");
-    label1 = document.createElement("label");
-    rb1.setAttribute("for","Caption");
-    label1.innerHTML = Caption;
-    Result.appendChild(label1);
-    Result.appendChild(rb1);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateCheckGroup = function (Parent) {
-    var Result = null;
-    var legend = null;
-    Result = document.createElement("fieldset");
-    legend = document.createElement("legend");
-    legend.innerHTML = "CheckGroup";
-    Result.appendChild(legend);
-    $mod.CreateCheckButton(Result,"Check 1");
-    $mod.CreateCheckButton(Result,"Check 2");
-    $mod.CreateCheckButton(Result,"Check 3");
-    Parent.appendChild(Result);
-    return Result;
-  };
-  rtl.createClass(this,"TRadioGroup",pas.System.TObject,function () {
-    this.GroupIndex = 0;
-    this.$init = function () {
-      pas.System.TObject.$init.call(this);
-      this.FCaption = "";
-      this.fieldset = null;
-      this.legend = null;
-      this.Name = "";
-    };
-    this.$final = function () {
-      this.fieldset = undefined;
-      this.legend = undefined;
-      pas.System.TObject.$final.call(this);
-    };
-    this.SetCaption = function (AValue) {
-      if (this.FCaption === AValue) return;
-      this.FCaption = AValue;
-      this.legend.innerHTML = this.FCaption;
-      this.fieldset.appendChild(this.legend);
-    };
-    this.Create$1 = function (Parent) {
-      this.fieldset = document.createElement("fieldset");
-      Parent.appendChild(this.fieldset);
-      this.legend = document.createElement("legend");
-      $mod.TRadioGroup.GroupIndex += 1;
-      return this;
-    };
-    this.Add = function (Caption) {
-      var div_ = null;
-      var rb = null;
-      var label1 = null;
-      div_ = document.createElement("div");
-      rb = document.createElement("input");
-      rb.setAttribute("type","radio");
-      this.Name = "name" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TRadioGroup, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      rb.setAttribute("name",this.Name);
-      label1 = document.createElement("label");
-      rb.setAttribute("for","Caption");
-      label1.innerHTML = Caption;
-      div_.appendChild(label1);
-      div_.appendChild(rb);
-      this.fieldset.appendChild(div_);
-    };
-    this.GetRadioChecked = function () {
-      var Result = 0;
-      var radioButtons = null;
-      var len = 0;
-      var i = 0;
-      Result = -1;
-      radioButtons = document.querySelectorAll('input[name="' + this.Name + '"]');
-      len = radioButtons.length;
-      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
-        i = $l;
-        if (radioButtons.item(i).checked) {
-          Result = i;
-        };
+  $mod.$implcode = function () {
+    $impl.EnvNames = null;
+    $impl.Params = [];
+    $impl.ReloadParamStrings = function () {
+      var ParsLine = "";
+      var Pars = [];
+      var I = 0;
+      ParsLine = pas.System.Copy$1(window.location.hash,2);
+      if (ParsLine !== "") {
+        Pars = pas.SysUtils.TStringHelper.Split$1.call({get: function () {
+            return ParsLine;
+          }, set: function (v) {
+            ParsLine = v;
+          }},["/"])}
+       else Pars = rtl.arraySetLength(Pars,"",0);
+      $impl.Params = rtl.arraySetLength($impl.Params,"",1 + rtl.length(Pars));
+      $impl.Params[0] = window.location.pathname;
+      for (var $l = 0, $end = rtl.length(Pars) - 1; $l <= $end; $l++) {
+        I = $l;
+        $impl.Params[1 + I] = Pars[I];
       };
+    };
+    $impl.GetParamCount = function () {
+      var Result = 0;
+      Result = rtl.length($impl.Params) - 1;
       return Result;
     };
-  });
-});
-rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web","Radio_and_Check_Group"],function () {
+    $impl.GetParamStr = function (Index) {
+      var Result = "";
+      if ((Index >= 0) && (Index < rtl.length($impl.Params))) Result = $impl.Params[Index];
+      return Result;
+    };
+    $impl.MyGetEnvironmentVariable = function (EnvVar) {
+      var Result = "";
+      var aName = "";
+      aName = pas.SysUtils.LowerCase(EnvVar);
+      if ($impl.EnvNames.hasOwnProperty(aName)) {
+        Result = "" + $impl.EnvNames[aName]}
+       else Result = "";
+      return Result;
+    };
+    $impl.MyGetEnvironmentVariableCount = function () {
+      var Result = 0;
+      Result = rtl.length(Object.getOwnPropertyNames($impl.EnvNames));
+      return Result;
+    };
+    $impl.MyGetEnvironmentString = function (Index) {
+      var Result = "";
+      Result = "" + $impl.EnvNames[Object.getOwnPropertyNames($impl.EnvNames)[Index]];
+      return Result;
+    };
+  };
+  $mod.$init = function () {
+    pas.System.IsConsole = true;
+    pas.System.OnParamCount = $impl.GetParamCount;
+    pas.System.OnParamStr = $impl.GetParamStr;
+    $mod.ReloadEnvironmentStrings();
+    $impl.ReloadParamStrings();
+    pas.SysUtils.OnGetEnvironmentVariable = $impl.MyGetEnvironmentVariable;
+    pas.SysUtils.OnGetEnvironmentVariableCount = $impl.MyGetEnvironmentVariableCount;
+    pas.SysUtils.OnGetEnvironmentString = $impl.MyGetEnvironmentString;
+  };
+},[]);
+rtl.module("program",["System","browserconsole","BrowserApp","JS","Classes","SysUtils","Web"],function () {
   "use strict";
   var $mod = this;
-  this.RG1 = null;
-  this.RG2 = null;
-  this.CreateButton = function (Parent, Caption) {
-    var Result = null;
-    Result = document.createElement("input");
-    Result.setAttribute("id",Caption + "_id");
-    Result.setAttribute("class","myStyle");
-    Result.setAttribute("type","button");
-    Result.setAttribute("value",Caption);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateLabelButton = function (Parent, Caption) {
-    var Result = null;
-    Result = document.createElement("div");
-    Result.innerHTML = Caption;
-    $mod.CreateButton(Result,"X");
-    $mod.CreateButton(Result,"Y");
-    $mod.CreateButton(Result,"Z");
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.CreateBox = function (Parent, Caption) {
-    var Result = null;
-    Result = document.createElement("div");
-    Result.setAttribute("style","width:175px;  border-left: dotted blue;  border-right: dotted red; background-color: #FFBBBB;");
-    Result.innerHTML = Caption;
-    $mod.CreateLabelButton(Result,"Create Box 1");
-    $mod.CreateLabelButton(Result,"Create Box 2");
-    $mod.CreateLabelButton(Result,"Create Box 3");
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.ButtonShowRadioClick = function (aEvent) {
+  this.ButtonClick = function (aEvent) {
     var Result = false;
-    pas.System.Writeln($mod.RG1.GetRadioChecked());
+    var id = undefined;
+    pas.System.Writeln(aEvent.target["id"]);
+    id = aEvent.target["id"];
+    if (id == "X-") ;
     Result = true;
     return Result;
   };
-  this.ButtonNewRadioClick = function (aEvent) {
+  this.ButtonDisabledClick = function (aEvent) {
     var Result = false;
-    $mod.RG1.Add("New");
+    document.getElementById("Button1").disabled = !document.getElementById("Button1").disabled;
+    document.getElementById("Button1").value = "bla";
     return Result;
   };
   this.Create = function () {
     var Panel = null;
     var img = null;
-    var ButtonShowRadio = null;
-    $mod.RG1 = pas.Radio_and_Check_Group.TRadioGroup.$create("Create$1",[document.body]);
-    $mod.RG1.SetCaption("Radio 1 Gruppe mit class");
-    $mod.RG1.Add("Radio 0");
-    $mod.RG1.Add("Radio 1");
-    $mod.RG1.Add("Radio 2");
-    $mod.RG2 = pas.Radio_and_Check_Group.TRadioGroup.$create("Create$1",[document.body]);
-    $mod.RG2.SetCaption("Radio 2 Gruppe mit class");
-    $mod.RG2.Add("Radio 100");
-    $mod.RG2.Add("Radio 101");
-    $mod.RG2.Add("Radio 102");
-    $mod.CreateBox(document.body,"body");
-    $mod.CreateLabelButton(document.body,"Knopf1: ");
-    $mod.CreateButton(document.body,"Button1");
-    $mod.CreateLabelButton(document.body,"Knopf2: ");
-    $mod.CreateButton(document.body,"Button2");
-    $mod.CreateLabelButton(document.body,"Knopf3: ");
-    $mod.CreateButton(document.body,"Button3");
-    pas.Radio_and_Check_Group.CreateRadioGroup(document.body,"gruppe1");
-    pas.Radio_and_Check_Group.CreateRadioGroup(document.body,"gruppe2");
-    pas.Radio_and_Check_Group.CreateCheckGroup(document.body);
-    ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
-    ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonShowRadioClick");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Neuer Radio");
-    ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
+    var ColorButton = null;
+    var LabelRed = null;
+    var div1 = null;
+    var Button1 = null;
+    var ButtonDisabled = null;
+    var myStyle = null;
+    var Edit1 = null;
+    var label1 = null;
+    var CheckBox1 = null;
+    var Fieldset = null;
+    var divCB = null;
+    Panel = document.createElement("div");
+    Panel.setAttribute("class","panel panel-default");
+    document.body.appendChild(Panel);
+    LabelRed = document.createElement("div");
+    LabelRed.innerHTML = "<b>Bitte drücke einen Knopf</b>";
+    Panel.appendChild(LabelRed);
+    div1 = document.createElement("div");
+    Panel.appendChild(div1);
+    myStyle = document.createElement("style");
+    myStyle.setAttribute("id","myStyle");
+    myStyle.setAttribute("style","background-color: #BBFFBB;");
+    Panel.appendChild(myStyle);
+    Button1 = document.createElement("input");
+    Button1.setAttribute("id","Button1");
+    Button1.setAttribute("class","myStyle");
+    Button1.setAttribute("type","button");
+    Button1.setAttribute("value","Button1");
+    Button1.onclick = rtl.createSafeCallback($mod,"ButtonClick");
+    Panel.appendChild(Button1);
+    div1 = document.createElement("div");
+    div1.innerHTML = "Zeile 1<br>Zeile 2";
+    Panel.appendChild(div1);
+    ButtonDisabled = document.createElement("input");
+    ButtonDisabled.setAttribute("id","disabledBtn");
+    ButtonDisabled.setAttribute("class","favorite styled");
+    ButtonDisabled.setAttribute("type","button");
+    ButtonDisabled.setAttribute("value","disabled    Btn");
+    ButtonDisabled.setAttribute("style","height:25px;width:75px;color=#00ff00;background-color: #FF0000;");
+    pas.System.Writeln(ButtonDisabled.style.item(0));
+    pas.System.Writeln(ButtonDisabled.style.item(1));
+    pas.System.Writeln(ButtonDisabled.style.length);
+    ButtonDisabled.style.cssText = "height:125px;background-color: #FF00FF";
+    ButtonDisabled.onclick = rtl.createSafeCallback($mod,"ButtonDisabledClick");
+    Panel.appendChild(ButtonDisabled);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#0000ff");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    ColorButton = document.createElement("input");
+    ColorButton.setAttribute("value","#00ff00");
+    ColorButton.setAttribute("type","color");
+    ColorButton.setAttribute("id","head");
+    ColorButton.setAttribute("name","head");
+    Panel.appendChild(ColorButton);
+    label1 = document.createElement("label");
+    label1.innerHTML = "<br>Zeile 1<br>Zeile 2<br>Zeile 3<br>Zeile 4";
+    label1.setAttribute("for","name");
+    Panel.appendChild(label1);
+    Edit1 = document.createElement("input");
+    Edit1.setAttribute("name","name");
+    Edit1.setAttribute("type","text");
+    Edit1.setAttribute("minlength","4");
+    Edit1.setAttribute("maxlength","8");
+    Edit1.setAttribute("size","12");
+    Panel.appendChild(Edit1);
+    Fieldset = document.createElement("fieldset");
+    Panel.appendChild(Fieldset);
+    divCB = document.createElement("div");
+    divCB.value = "fgfdgdsg";
+    Fieldset.appendChild(divCB);
+    CheckBox1 = document.createElement("input");
+    CheckBox1.setAttribute("type","checkbox");
+    CheckBox1.setAttribute("name","checkbox");
+    divCB.appendChild(CheckBox1);
     img = document.createElement("img");
     img.setAttribute("id","image");
     img.setAttribute("src","image.png");
