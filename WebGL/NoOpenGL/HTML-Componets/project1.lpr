@@ -14,7 +14,7 @@ uses
 
 var
   canvas: TJSHTMLCanvasElement;
-  RG1,RG2: TRadioGroup;
+  RG1, RG2: TRadioGroup;
   CG1: TCheckGroup;
 
   function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
@@ -33,15 +33,21 @@ var
     Parent.appendChild(Result);
   end;
 
-  function CreateLabelButton(Parent: TJSElement; const Caption: string): TJSElement;
-  begin
-    Result := document.createElement('div');
-    Result.innerHTML := Caption;
-    CreateButton(Result, 'X');
-    CreateButton(Result, 'Y');
-    CreateButton(Result, 'Z');
-    Parent.appendChild(Result);
-  end;
+function CreateLabelButton(Parent: TJSElement; const Caption: string): TJSElement;
+begin
+  Result := document.createElement('div');
+  Result.innerHTML := Caption;
+  CreateButton(Result, 'X');
+  CreateButton(Result, 'Y');
+  CreateButton(Result, 'Z');
+  Parent.appendChild(Result);
+end;
+
+function CreateNewLine(Parent: TJSElement): TJSElement;
+begin
+  Result := document.createElement('div');
+  Parent.appendChild(Result);
+end;
 
   function CreateBox(Parent: TJSElement; const Caption: string): TJSElement;
   begin
@@ -92,12 +98,17 @@ var
     RG1.Add('Radio 0');
     RG1.Add('Radio 1');
     RG1.Add('Radio 2');
+    RG1.Width := 200;
+    RG1.backgroundColor := '#FFFFBB';
 
     RG2 := TRadioGroup.Create(document.body);
     RG2.Caption := 'Radio 2 Gruppe mit class';
     RG2.Add('Radio 100');
     RG2.Add('Radio 101');
     RG2.Add('Radio 102');
+    RG2.backgroundColor := '#BBFFFF';
+    RG2.Height := 200;
+    RG2.Width := 200;
 
 
     CG1 := TCheckGroup.Create(document.body);
@@ -105,12 +116,15 @@ var
     CG1.Add('Check 1');
     CG1.Add('Check 2');
     CG1.Add('Check 2');
+    CG1.Width := 200;
+    CG1.backgroundColor := '#FFBBFF';
 
-        ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
-        TJSHTMLElement(ButtonShowRadio).onclick := @ButtonEvaluationsClick;
+    ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
+    TJSHTMLElement(ButtonShowRadio).onclick := @ButtonEvaluationsClick;
 
-        ButtonShowRadio := CreateButton(document.body, 'Neuer Radio');
-        TJSHTMLElement(ButtonShowRadio).onclick := @ButtonNewRadioClick;
+    ButtonShowRadio := CreateButton(document.body, 'Neuer RadioButton');
+    TJSHTMLElement(ButtonShowRadio).onclick := @ButtonNewRadioClick;
+    CreateNewLine(document.body);
 
     //       <img id="ghost1" src="ghost1.png"/>
 

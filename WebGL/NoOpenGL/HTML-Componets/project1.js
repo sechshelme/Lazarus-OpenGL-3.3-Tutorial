@@ -1775,9 +1775,12 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
     this.$init = function () {
       pas.System.TObject.$init.call(this);
       this.ButtonTyp = "";
+      this.FbackgroundColor = "";
       this.FCaption = "";
+      this.Fheight = 0;
       this.fieldset = null;
       this.legend = null;
+      this.Fwidth = 0;
       this.Name = "";
     };
     this.$final = function () {
@@ -1785,20 +1788,50 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
       this.legend = undefined;
       pas.System.TObject.$final.call(this);
     };
+    this.SetbackgroundColor = function (AValue) {
+      if (this.FbackgroundColor === AValue) {
+        return;
+      };
+      this.FbackgroundColor = AValue;
+      this.fieldset.setAttribute("style",this.fieldset.getAttribute("style") + "background-color:" + AValue + ";");
+    };
     this.SetCaption = function (AValue) {
       if (this.FCaption === AValue) {
         return;
       };
       this.FCaption = AValue;
       this.legend.innerHTML = this.FCaption;
-      this.fieldset.appendChild(this.legend);
+    };
+    this.Setheight = function (AValue) {
+      if (this.Fheight === AValue) {
+        return;
+      };
+      this.Fheight = AValue;
+      this.fieldset.setAttribute("style",this.fieldset.getAttribute("style") + "height:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+          return AValue;
+        }, set: function (v) {
+          AValue = v;
+        }}) + "px;");
+    };
+    this.Setwidth = function (AValue) {
+      if (this.Fwidth === AValue) {
+        return;
+      };
+      this.Fwidth = AValue;
+      this.fieldset.setAttribute("style",this.fieldset.getAttribute("style") + "width:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+          return AValue;
+        }, set: function (v) {
+          AValue = v;
+        }}) + "px;");
+      pas.System.Writeln(this.fieldset.getAttribute("style"));
     };
     this.Create$1 = function (Parent) {
       this.fieldset = document.createElement("fieldset");
       Parent.appendChild(this.fieldset);
       this.legend = document.createElement("legend");
-      this.fieldset.setAttribute("style","width:175px;");
-      this.fieldset.setAttribute("style",this.fieldset.getAttribute("style") + "background-color: #FFBBBB;");
+      this.legend.innerHTML = this.FCaption;
+      this.fieldset.appendChild(this.legend);
+      this.fieldset.setAttribute("style","");
       return this;
     };
     this.Add = function (Caption) {
@@ -1819,6 +1852,11 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
   });
   rtl.createClass(this,"TRadioGroup",this.TGroupBox,function () {
     this.Create$2 = function (Parent) {
+      this.FCaption = "RadioGroup" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
+          return this.p.GroupIndex;
+        }, set: function (v) {
+          this.p.GroupIndex = v;
+        }});
       $mod.TGroupBox.Create$1.call(this,Parent);
       this.ButtonTyp = "radio";
       this.Name = "RadioButtonName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
@@ -1848,6 +1886,11 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
   });
   rtl.createClass(this,"TCheckGroup",this.TGroupBox,function () {
     this.Create$2 = function (Parent) {
+      this.FCaption = "CheckGroup" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
+          return this.p.GroupIndex;
+        }, set: function (v) {
+          this.p.GroupIndex = v;
+        }});
       $mod.TGroupBox.Create$1.call(this,Parent);
       this.ButtonTyp = "checkbox";
       this.Name = "CheckBoxName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
@@ -1894,6 +1937,12 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     Parent.appendChild(Result);
     return Result;
   };
+  this.CreateNewLine = function (Parent) {
+    var Result = null;
+    Result = document.createElement("div");
+    Parent.appendChild(Result);
+    return Result;
+  };
   this.ButtonEvaluationsClick = function (aEvent) {
     var Result = false;
     pas.System.Writeln($mod.RG1.GetChecked());
@@ -1914,20 +1963,28 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     $mod.RG1.Add("Radio 0");
     $mod.RG1.Add("Radio 1");
     $mod.RG1.Add("Radio 2");
+    $mod.RG1.Setwidth(200);
+    $mod.RG1.SetbackgroundColor("#FFFFBB");
     $mod.RG2 = pas.GroupBox.TRadioGroup.$create("Create$2",[document.body]);
     $mod.RG2.SetCaption("Radio 2 Gruppe mit class");
     $mod.RG2.Add("Radio 100");
     $mod.RG2.Add("Radio 101");
     $mod.RG2.Add("Radio 102");
+    $mod.RG2.SetbackgroundColor("#BBFFFF");
+    $mod.RG2.Setheight(200);
+    $mod.RG2.Setwidth(200);
     $mod.CG1 = pas.GroupBox.TCheckGroup.$create("Create$2",[document.body]);
     $mod.CG1.SetCaption("CheckBox 1 Gruppe mit class");
     $mod.CG1.Add("Check 1");
     $mod.CG1.Add("Check 2");
     $mod.CG1.Add("Check 2");
+    $mod.CG1.Setwidth(200);
+    $mod.CG1.SetbackgroundColor("#FFBBFF");
     ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonEvaluationsClick");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Neuer Radio");
+    ButtonShowRadio = $mod.CreateButton(document.body,"Neuer RadioButton");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
+    $mod.CreateNewLine(document.body);
     img = document.createElement("img");
     img.setAttribute("id","image");
     img.setAttribute("src","image.png");

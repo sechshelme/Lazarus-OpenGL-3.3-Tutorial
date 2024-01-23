@@ -15,20 +15,27 @@ uses
 type
   TBooleans = array of boolean;
 
-  // --- TGroupBox ---
-
   TGroupBox = class(TObject)
   private
     ButtonTyp: string;
+    FbackgroundColor: string;
     FCaption: string;
+    Fheight: integer;
     fieldset, legend: TJSElement;
+    Fwidth: integer;
     GroupIndex: integer; static;
     Name: string;
+    procedure SetbackgroundColor(AValue: string);
     procedure SetCaption(AValue: string);
+    procedure Setheight(AValue: integer);
+    procedure Setwidth(AValue: integer);
   public
     constructor Create(Parent: TJSElement);
     procedure Add(Caption: string);
     property Caption: string read FCaption write SetCaption;
+    property backgroundColor: string read FbackgroundColor write SetbackgroundColor;
+    property Width: integer read Fwidth write Setwidth;
+    property Height: integer read Fheight write Setheight;
   end;
 
   TRadioGroup = class(TGroupBox)
@@ -37,8 +44,6 @@ type
     constructor Create(Parent: TJSElement);
     function GetChecked: integer;
   end;
-
-  // --- TCheckGroup ---
 
   TCheckGroup = class(TGroupBox)
   private
@@ -49,16 +54,18 @@ type
 
 implementation
 
+// --- TGroupBox ---
+
 constructor TGroupBox.Create(Parent: TJSElement);
 begin
   fieldset := document.createElement('fieldset');
   Parent.appendChild(fieldset);
 
   legend := document.createElement('legend');
+  legend.innerHTML:=FCaption;
+  fieldset.appendChild(legend);
 
-  fieldset['style'] := 'width:175px;';
-  //  fieldset['style'] +=    'background-color: #FFBBBB;';
-  fieldset['style'] := fieldset['style'] + 'background-color: #FFBBBB;';
+  fieldset['style'] := '';
 end;
 
 procedure TGroupBox.Add(Caption: string);
@@ -89,11 +96,42 @@ begin
   end;
   FCaption := AValue;
   legend.innerHTML := FCaption;
-  fieldset.appendChild(legend);
 end;
+
+procedure TGroupBox.Setheight(AValue: integer);
+begin
+  if Fheight = AValue then begin
+    Exit;
+  end;
+  Fheight := AValue;
+  fieldset['style'] := fieldset['style'] + 'height:' + AValue.ToString + 'px;';
+end;
+
+procedure TGroupBox.Setwidth(AValue: integer);
+begin
+  if Fwidth = AValue then begin
+    Exit;
+  end;
+  Fwidth := AValue;
+  fieldset['style'] := fieldset['style'] + 'width:' + AValue.ToString + 'px;';
+
+  Writeln(fieldset['style']);
+end;
+
+procedure TGroupBox.SetbackgroundColor(AValue: string);
+begin
+  if FbackgroundColor = AValue then begin
+    Exit;
+  end;
+  FbackgroundColor := AValue;
+  fieldset['style'] := fieldset['style'] + 'background-color:' + AValue + ';';
+end;
+
+// --- TRadioGroup ---
 
 constructor TRadioGroup.Create(Parent: TJSElement);
 begin
+  FCaption:='RadioGroup'+GroupIndex.ToString;
   inherited Create(Parent);
   ButtonTyp := 'radio';
 
@@ -121,6 +159,7 @@ end;
 
 constructor TCheckGroup.Create(Parent: TJSElement);
 begin
+  FCaption:='CheckGroup'+GroupIndex.ToString;
   inherited Create(Parent);
   ButtonTyp := 'checkbox';
 
