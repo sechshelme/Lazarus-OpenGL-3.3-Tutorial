@@ -1812,8 +1812,8 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
       label1 = document.createElement("label");
       rb.setAttribute("for","Caption");
       label1.innerHTML = Caption;
-      div_.appendChild(label1);
       div_.appendChild(rb);
+      div_.appendChild(label1);
       this.fieldset.appendChild(div_);
     };
   });

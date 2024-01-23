@@ -76,8 +76,8 @@ begin
   rb['for'] := 'Caption';
   label1.innerHTML := Caption;
 
-  div_.appendChild(label1);
   div_.appendChild(rb);
+  div_.appendChild(label1);
 
   fieldset.appendChild(div_);
 end;
