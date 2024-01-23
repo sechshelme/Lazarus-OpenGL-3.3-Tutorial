@@ -3,7 +3,7 @@ unit oglVectors;
 {$modeswitch typehelpers on}
 {$modeswitch arrayoperators on}
 //{$modeswitch multihelpers}
-{$modeswitch advancedrecords}
+{$modeswitch advancedrecords on}
 
 interface
 

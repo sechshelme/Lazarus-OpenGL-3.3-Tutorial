@@ -1595,14 +1595,6 @@ rtl.module("JS",["System"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("weborworker",["System","JS"],function () {
-  "use strict";
-  var $mod = this;
-});
-rtl.module("Web",["System","JS","weborworker"],function () {
-  "use strict";
-  var $mod = this;
-});
 rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
@@ -1619,22 +1611,10 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
-  this.IntToStr = function (Value) {
-    var Result = "";
-    Result = "" + Value;
-    return Result;
-  };
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
-  rtl.createHelper(this,"TIntegerHelper",null,function () {
-    this.ToString$1 = function () {
-      var Result = "";
-      Result = $mod.IntToStr(this.get());
-      return Result;
-    };
-  });
   $mod.$implcode = function () {
     $impl.DefaultShortMonthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1669,6 +1649,14 @@ rtl.module("Classes",["System","SysUtils","JS"],function () {
     $impl.ClassList = new Object();
   };
 },[]);
+rtl.module("weborworker",["System","JS"],function () {
+  "use strict";
+  var $mod = this;
+});
+rtl.module("Web",["System","JS","weborworker"],function () {
+  "use strict";
+  var $mod = this;
+});
 rtl.module("Rtl.BrowserLoadHelper",["System","Classes","SysUtils","JS","Web"],function () {
   "use strict";
   var $mod = this;
@@ -1767,174 +1755,20 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $mod.HookConsole();
   };
 },[]);
-rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
+rtl.module("program",["System","JS","Classes","SysUtils","browserconsole","Web"],function () {
   "use strict";
   var $mod = this;
-  rtl.createClass(this,"TGroupBox",pas.System.TObject,function () {
-    this.GroupIndex = 0;
-    this.$init = function () {
-      pas.System.TObject.$init.call(this);
-      this.ButtonTyp = "";
-      this.FCaption = "";
-      this.fieldset = null;
-      this.legend = null;
-      this.Name = "";
-    };
-    this.$final = function () {
-      this.fieldset = undefined;
-      this.legend = undefined;
-      pas.System.TObject.$final.call(this);
-    };
-    this.SetCaption = function (AValue) {
-      if (this.FCaption === AValue) {
-        return;
-      };
-      this.FCaption = AValue;
-      this.legend.innerHTML = this.FCaption;
-      this.fieldset.appendChild(this.legend);
-    };
-    this.Create$1 = function (Parent) {
-      this.fieldset = document.createElement("fieldset");
-      Parent.appendChild(this.fieldset);
-      this.legend = document.createElement("legend");
-      this.fieldset.setAttribute("style","width:175px;");
-      this.fieldset.setAttribute("style",this.fieldset.getAttribute("style") + "background-color: #FFBBBB;");
-      return this;
-    };
-    this.Add = function (Caption) {
-      var div_ = null;
-      var rb = null;
-      var label1 = null;
-      div_ = document.createElement("div");
-      rb = document.createElement("input");
-      rb.setAttribute("type",this.ButtonTyp);
-      rb.setAttribute("name",this.Name);
-      label1 = document.createElement("label");
-      rb.setAttribute("for","Caption");
-      label1.innerHTML = Caption;
-      div_.appendChild(label1);
-      div_.appendChild(rb);
-      this.fieldset.appendChild(div_);
-    };
-  });
-  rtl.createClass(this,"TRadioGroup",this.TGroupBox,function () {
-    this.Create$2 = function (Parent) {
-      $mod.TGroupBox.Create$1.call(this,Parent);
-      this.ButtonTyp = "radio";
-      this.Name = "RadioButtonName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TGroupBox.GroupIndex += 1;
-      return this;
-    };
-    this.GetChecked = function () {
-      var Result = 0;
-      var radioButtons = null;
-      var len = 0;
-      var i = 0;
-      Result = -1;
-      radioButtons = document.querySelectorAll('input[name="' + this.Name + '"]');
-      len = radioButtons.length;
-      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
-        i = $l;
-        if (radioButtons.item(i).checked) {
-          Result = i;
-        };
-      };
-      return Result;
-    };
-  });
-  rtl.createClass(this,"TCheckGroup",this.TGroupBox,function () {
-    this.Create$2 = function (Parent) {
-      $mod.TGroupBox.Create$1.call(this,Parent);
-      this.ButtonTyp = "checkbox";
-      this.Name = "CheckBoxName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TGroupBox.GroupIndex += 1;
-      return this;
-    };
-    this.GetCheckeds = function () {
-      var Result = [];
-      var i = 0;
-      var checkBoxes = null;
-      var len = 0;
-      checkBoxes = document.querySelectorAll('input[name="' + this.Name + '"]');
-      len = checkBoxes.length;
-      Result = [];
-      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
-        i = $l;
-        if (checkBoxes.item(i).checked) {
-          Result = rtl.arrayPushN(Result,true);
-        } else {
-          Result = rtl.arrayPushN(Result,false);
-        };
-      };
-      return Result;
-    };
-  });
-});
-rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web","GroupBox"],function () {
-  "use strict";
-  var $mod = this;
-  this.RG1 = null;
-  this.RG2 = null;
-  this.CG1 = null;
-  this.CreateButton = function (Parent, Caption) {
-    var Result = null;
-    Result = document.createElement("input");
-    Result.setAttribute("id",Caption + "_id");
-    Result.setAttribute("class","myStyle");
-    Result.setAttribute("type","button");
-    Result.setAttribute("value",Caption);
-    Parent.appendChild(Result);
-    return Result;
-  };
-  this.ButtonEvaluationsClick = function (aEvent) {
-    var Result = false;
-    pas.System.Writeln($mod.RG1.GetChecked());
-    pas.System.Writeln($mod.CG1.GetCheckeds());
-    Result = true;
-    return Result;
-  };
-  this.ButtonNewRadioClick = function (aEvent) {
-    var Result = false;
-    $mod.RG1.Add("New");
-    return Result;
-  };
-  this.Create = function () {
-    var img = null;
-    var ButtonShowRadio = null;
-    $mod.RG1 = pas.GroupBox.TRadioGroup.$create("Create$2",[document.body]);
-    $mod.RG1.SetCaption("Radio 1 Gruppe mit class");
-    $mod.RG1.Add("Radio 0");
-    $mod.RG1.Add("Radio 1");
-    $mod.RG1.Add("Radio 2");
-    $mod.RG2 = pas.GroupBox.TRadioGroup.$create("Create$2",[document.body]);
-    $mod.RG2.SetCaption("Radio 2 Gruppe mit class");
-    $mod.RG2.Add("Radio 100");
-    $mod.RG2.Add("Radio 101");
-    $mod.RG2.Add("Radio 102");
-    $mod.CG1 = pas.GroupBox.TCheckGroup.$create("Create$2",[document.body]);
-    $mod.CG1.SetCaption("CheckBox 1 Gruppe mit class");
-    $mod.CG1.Add("Check 1");
-    $mod.CG1.Add("Check 2");
-    $mod.CG1.Add("Check 2");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
-    ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonEvaluationsClick");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Neuer Radio");
-    ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
-    img = document.createElement("img");
-    img.setAttribute("id","image");
-    img.setAttribute("src","image.png");
-    document.body.appendChild(img);
-  };
+  this.panel = null;
+  this.s = "";
   $mod.$main = function () {
-    $mod.Create();
+    document.body.setAttribute("style","background-color: #BBFFBB;");
+    $mod.panel = document.createElement("div");
+    document.body.appendChild($mod.panel);
+    $mod.panel.setAttribute("style","width:175px; height:175px;");
+    $mod.panel.setAttribute("style",$mod.panel.getAttribute("style") + "background-color: #FFBBBB;");
+    $mod.s = "abc";
+    $mod.s += "def";
+    pas.System.Writeln($mod.s);
   };
 });
 //# sourceMappingURL=project1.js.map
