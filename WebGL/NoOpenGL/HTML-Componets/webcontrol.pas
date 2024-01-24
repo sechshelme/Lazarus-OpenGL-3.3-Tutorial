@@ -19,12 +19,14 @@ type
   TControl = class(TObject)
   private
     FbackgroundColor: string;
+    FColor: string;
     Fheight: integer;
   Flegend,  FElement: TJSElement;
     FCaption: string;
     Fwidth: integer;
-    procedure SetbackgroundColor(AValue: string);
+    procedure SetbackgroundColor(ABackgroundColor: string);
     procedure SetCaption(ACaption: string);
+    procedure SetColor(AColor: string);
     procedure Setheight(AValue: integer);
     procedure Setwidth(AValue: integer);
   public
@@ -33,6 +35,7 @@ type
     procedure Add(AElement: TControl); overload;
     procedure Add(AElement: TJSElement); overload;
     property Caption: string read FCaption write SetCaption;
+    property Color: string read FColor write SetColor;
     property backgroundColor: string read FbackgroundColor write SetbackgroundColor;
     property Width: integer read Fwidth write Setwidth;
     property Height: integer read Fheight write Setheight;
@@ -55,9 +58,11 @@ begin
   FElement := document.createElement(ElementTyp);
     document.body.appendChild(FElement);
 
-  FElement['style'] := '';
+    FElement['style'] := '';
+ //   FElement['style'] := 'font-family:''Courier New''';
 
   Flegend := document.createElement('legend');
+  Flegend['style'] := 'font-family:''Courier New''';
   Flegend.innerHTML:='';
   FElement.appendChild(Flegend);
 end;
@@ -78,13 +83,24 @@ begin
 //  Flegend.innerHTML:=ACaption;
 end;
 
-procedure TControl.SetbackgroundColor(AValue: string);
+procedure TControl.SetColor(AColor: string);
 begin
-  if FbackgroundColor = AValue then begin
+  if FColor = AColor then begin
     Exit;
   end;
-  FbackgroundColor := AValue;
-  FElement['style'] := FElement['style'] + 'background-color:' + AValue + ';';
+  FColor := AColor;
+  FElement['style'] := FElement['style'] + 'color:' + AColor + ';';
+//  FElement['style'] := FElement['style'] + 'background-color:' + AColor + '; color:red';
+end;
+
+procedure TControl.SetbackgroundColor(ABackgroundColor: string);
+begin
+  if FbackgroundColor = ABackgroundColor then begin
+    Exit;
+  end;
+  FbackgroundColor := ABackgroundColor;
+  FElement['style'] := FElement['style'] + 'background-color:' + ABackgroundColor + ';';
+//  FElement['style'] := FElement['style'] + 'background-color:' + ABackgroundColor + '; color:red';
 end;
 
 procedure TControl.Setheight(AValue: integer);

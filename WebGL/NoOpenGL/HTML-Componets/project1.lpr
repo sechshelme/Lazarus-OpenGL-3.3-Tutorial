@@ -17,6 +17,7 @@ var
   canvas: TJSHTMLCanvasElement;
   RG1, RG2: TOldRadioGroup;
   CG1: TCheckGroup;
+  NewRG1, NewRG2: TRadioGroupBox;
 
   function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
   begin
@@ -68,9 +69,8 @@ var
   var
     index: integer;
   begin
-    Writeln(RG1.GetChecked);
-    Writeln(CG1.GetCheckeds);
-    //    index:=getRadioButton('gruppe1');
+    Writeln(NewRG1.GetChecked);
+    Writeln(NewRG2.GetChecked);
 
     Result := True;
   end;
@@ -95,33 +95,32 @@ var
     img, ButtonShowRadio: TJSElement;
     subwc, subwc2: TControl;
     gp: TGroupBox;
-    NewRG1, NewRG2: TRadioGroupBox;
   begin
-    RG1 := TOldRadioGroup.Create(document.body);
-    RG1.Caption := 'Radio 1 Gruppe mit class';
-    RG1.Add('Radio 0');
-    RG1.Add('Radio 1');
-    RG1.Add('Radio 2');
-    RG1.Width := 200;
-    RG1.backgroundColor := '#FFFFBB';
-
-    RG2 := TOldRadioGroup.Create(document.body);
-    RG2.Caption := 'Radio 2 Gruppe mit class';
-    RG2.Add('Radio 100');
-    RG2.Add('Radio 101');
-    RG2.Add('Radio 102');
-    RG2.backgroundColor := '#BBFFFF';
-    RG2.Height := 200;
-    RG2.Width := 200;
-
-
-    CG1 := TCheckGroup.Create(document.body);
-    CG1.Caption := 'CheckBox 1 Gruppe mit class<br>Zeile 2';
-    CG1.Add('Check 1');
-    CG1.Add('Check 2');
-    CG1.Add('Check 2');
-    CG1.Width := 400;
-    CG1.backgroundColor := '#FFBBFF';
+    //RG1 := TOldRadioGroup.Create(document.body);
+    //RG1.Caption := 'Radio 1 Gruppe mit class';
+    //RG1.Add('Radio 0');
+    //RG1.Add('Radio 1');
+    //RG1.Add('Radio 2');
+    //RG1.Width := 200;
+    //RG1.backgroundColor := '#FFFFBB';
+    //
+    //RG2 := TOldRadioGroup.Create(document.body);
+    //RG2.Caption := 'Radio 2 Gruppe mit class';
+    //RG2.Add('Radio 100');
+    //RG2.Add('Radio 101');
+    //RG2.Add('Radio 102');
+    //RG2.backgroundColor := '#BBFFFF';
+    //RG2.Height := 200;
+    //RG2.Width := 200;
+    //
+    //
+    //CG1 := TCheckGroup.Create(document.body);
+    //CG1.Caption := 'CheckBox 1 Gruppe mit class<br>Zeile 2';
+    //CG1.Add('Check 1');
+    //CG1.Add('Check 2');
+    //CG1.Add('Check 2');
+    //CG1.Width := 400;
+    //CG1.backgroundColor := '#FFBBFF';
 
     gp := TGroupBox.Create;
     gp.Width := 150;
@@ -141,19 +140,23 @@ var
     subwc2.Add(subwc);
 
     NewRG1:=TRadioGroupBox.Create;
-    NewRG1.SetLegend('Gruppe 1');
+    NewRG1.Caption:='innerHTML Gruppe 1';
+    NewRG1.SetLegend('Legend Gruppe 1');
     NewRG1.AddButton('Button 1');
     NewRG1.AddButton('Button 2');
     NewRG1.AddButton('Button 3');
     NewRG1.Width:=180;
     NewRG1.backgroundColor := '#FFBBFF';
+    NewRG1.Color := '#00BBFF';
 
     NewRG2:=TRadioGroupBox.Create;
-//    NewRG2.Caption:='Gruppe 2';
-    NewRG2.SetLegend('Gruppe 2');
+//    NewRG2.Caption:='innerHTML Gruppe 2';
+    NewRG2.SetLegend('Legend Gruppe 2');
     NewRG2.AddButton('Button 11');
     NewRG2.AddButton('Button 12');
     NewRG2.AddButton('Button 13');
+    NewRG2.AddButton('Button 14');
+    NewRG2.AddButton('Button 15');
     NewRG2.Width:=180;
 
     ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');

@@ -1774,67 +1774,15 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
   "use strict";
   var $mod = this;
   rtl.createClass(this,"TOldGroupBox",pas.System.TObject,function () {
-    this.GroupIndex = 0;
     this.$init = function () {
       pas.System.TObject.$init.call(this);
       this.ButtonTyp = "";
-      this.FbackgroundColor = "";
-      this.FCaption = "";
-      this.Fheight = 0;
       this.FElement = null;
-      this.legend = null;
-      this.Fwidth = 0;
       this.Name = "";
     };
     this.$final = function () {
       this.FElement = undefined;
-      this.legend = undefined;
       pas.System.TObject.$final.call(this);
-    };
-    this.SetbackgroundColor = function (AbackGroundColor) {
-      if (this.FbackgroundColor === AbackGroundColor) {
-        return;
-      };
-      this.FbackgroundColor = AbackGroundColor;
-      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "background-color:" + AbackGroundColor + ";");
-    };
-    this.SetCaption = function (AValue) {
-      if (this.FCaption === AValue) {
-        return;
-      };
-      this.FCaption = AValue;
-      this.legend.innerHTML = this.FCaption;
-    };
-    this.Setheight = function (Aheight) {
-      if (this.Fheight === Aheight) {
-        return;
-      };
-      this.Fheight = Aheight;
-      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "height:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
-          return Aheight;
-        }, set: function (v) {
-          Aheight = v;
-        }}) + "px;");
-    };
-    this.Setwidth = function (AWidth) {
-      if (this.Fwidth === AWidth) {
-        return;
-      };
-      this.Fwidth = AWidth;
-      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "width:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
-          return AWidth;
-        }, set: function (v) {
-          AWidth = v;
-        }}) + "px;");
-    };
-    this.Create$1 = function (Parent) {
-      this.FElement = document.createElement("div");
-      Parent.appendChild(this.FElement);
-      this.legend = document.createElement("legend");
-      this.legend.innerHTML = this.FCaption;
-      this.FElement.appendChild(this.legend);
-      this.FElement.setAttribute("style","");
-      return this;
     };
     this.Add = function (Caption) {
       var div_ = null;
@@ -1853,74 +1801,6 @@ rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"
     };
   });
   rtl.createClass(this,"TOldRadioGroup",this.TOldGroupBox,function () {
-    this.Create$2 = function (Parent) {
-      this.FCaption = "RadioGroup" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TOldGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TOldGroupBox.Create$1.call(this,Parent);
-      this.ButtonTyp = "radio";
-      this.Name = "RadioButtonName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TOldGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TOldGroupBox.GroupIndex += 1;
-      return this;
-    };
-    this.GetChecked = function () {
-      var Result = 0;
-      var radioButtons = null;
-      var len = 0;
-      var i = 0;
-      Result = -1;
-      radioButtons = document.querySelectorAll('input[name="' + this.Name + '"]');
-      len = radioButtons.length;
-      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
-        i = $l;
-        if (radioButtons.item(i).checked) {
-          Result = i;
-        };
-      };
-      return Result;
-    };
-  });
-  rtl.createClass(this,"TCheckGroup",this.TOldGroupBox,function () {
-    this.Create$2 = function (Parent) {
-      this.FCaption = "CheckGroup" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TOldGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TOldGroupBox.Create$1.call(this,Parent);
-      this.ButtonTyp = "checkbox";
-      this.Name = "CheckBoxName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TOldGroupBox, get: function () {
-          return this.p.GroupIndex;
-        }, set: function (v) {
-          this.p.GroupIndex = v;
-        }});
-      $mod.TOldGroupBox.GroupIndex += 1;
-      return this;
-    };
-    this.GetCheckeds = function () {
-      var Result = [];
-      var i = 0;
-      var checkBoxes = null;
-      var len = 0;
-      checkBoxes = document.querySelectorAll('input[name="' + this.Name + '"]');
-      len = checkBoxes.length;
-      Result = [];
-      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
-        i = $l;
-        if (checkBoxes.item(i).checked) {
-          Result = rtl.arrayPushN(Result,true);
-        } else {
-          Result = rtl.arrayPushN(Result,false);
-        };
-      };
-      return Result;
-    };
   });
 });
 rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
@@ -1930,6 +1810,7 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
     this.$init = function () {
       pas.System.TObject.$init.call(this);
       this.FbackgroundColor = "";
+      this.FColor = "";
       this.Fheight = 0;
       this.Flegend = null;
       this.FElement = null;
@@ -1941,12 +1822,12 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       this.FElement = undefined;
       pas.System.TObject.$final.call(this);
     };
-    this.SetbackgroundColor = function (AValue) {
-      if (this.FbackgroundColor === AValue) {
+    this.SetbackgroundColor = function (ABackgroundColor) {
+      if (this.FbackgroundColor === ABackgroundColor) {
         return;
       };
-      this.FbackgroundColor = AValue;
-      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "background-color:" + AValue + ";");
+      this.FbackgroundColor = ABackgroundColor;
+      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "background-color:" + ABackgroundColor + ";");
     };
     this.SetCaption = function (ACaption) {
       if (this.FCaption === ACaption) {
@@ -1954,6 +1835,13 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       };
       this.FCaption = ACaption;
       this.FElement.innerHTML = this.FCaption;
+    };
+    this.SetColor = function (AColor) {
+      if (this.FColor === AColor) {
+        return;
+      };
+      this.FColor = AColor;
+      this.FElement.setAttribute("style",this.FElement.getAttribute("style") + "color:" + AColor + ";");
     };
     this.Setwidth = function (AValue) {
       if (this.Fwidth === AValue) {
@@ -1975,6 +1863,7 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       document.body.appendChild(this.FElement);
       this.FElement.setAttribute("style","");
       this.Flegend = document.createElement("legend");
+      this.Flegend.setAttribute("style","font-family:'Courier New'");
       this.Flegend.innerHTML = "";
       this.FElement.appendChild(this.Flegend);
       return this;
@@ -2051,14 +1940,30 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
       RB = $mod.TRadioButton.$create("Create$2",[Caption,this.Name]);
       this.Add(RB);
     };
+    this.GetChecked = function () {
+      var Result = 0;
+      var radioButtons = null;
+      var len = 0;
+      var i = 0;
+      Result = -1;
+      radioButtons = document.querySelectorAll('input[name="' + this.Name + '"]');
+      len = radioButtons.length;
+      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
+        i = $l;
+        if (radioButtons.item(i).checked) {
+          Result = i;
+        };
+      };
+      return Result;
+    };
   });
 });
 rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web","GroupBox","webControl","webInput"],function () {
   "use strict";
   var $mod = this;
   this.RG1 = null;
-  this.RG2 = null;
-  this.CG1 = null;
+  this.NewRG1 = null;
+  this.NewRG2 = null;
   this.CreateButton = function (Parent, Caption) {
     var Result = null;
     Result = document.createElement("input");
@@ -2077,8 +1982,8 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
   };
   this.ButtonEvaluationsClick = function (aEvent) {
     var Result = false;
-    pas.System.Writeln($mod.RG1.GetChecked());
-    pas.System.Writeln($mod.CG1.GetCheckeds());
+    pas.System.Writeln($mod.NewRG1.GetChecked());
+    pas.System.Writeln($mod.NewRG2.GetChecked());
     Result = true;
     return Result;
   };
@@ -2093,30 +1998,6 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     var subwc = null;
     var subwc2 = null;
     var gp = null;
-    var NewRG1 = null;
-    var NewRG2 = null;
-    $mod.RG1 = pas.GroupBox.TOldRadioGroup.$create("Create$2",[document.body]);
-    $mod.RG1.SetCaption("Radio 1 Gruppe mit class");
-    $mod.RG1.Add("Radio 0");
-    $mod.RG1.Add("Radio 1");
-    $mod.RG1.Add("Radio 2");
-    $mod.RG1.Setwidth(200);
-    $mod.RG1.SetbackgroundColor("#FFFFBB");
-    $mod.RG2 = pas.GroupBox.TOldRadioGroup.$create("Create$2",[document.body]);
-    $mod.RG2.SetCaption("Radio 2 Gruppe mit class");
-    $mod.RG2.Add("Radio 100");
-    $mod.RG2.Add("Radio 101");
-    $mod.RG2.Add("Radio 102");
-    $mod.RG2.SetbackgroundColor("#BBFFFF");
-    $mod.RG2.Setheight(200);
-    $mod.RG2.Setwidth(200);
-    $mod.CG1 = pas.GroupBox.TCheckGroup.$create("Create$2",[document.body]);
-    $mod.CG1.SetCaption("CheckBox 1 Gruppe mit class<br>Zeile 2");
-    $mod.CG1.Add("Check 1");
-    $mod.CG1.Add("Check 2");
-    $mod.CG1.Add("Check 2");
-    $mod.CG1.Setwidth(400);
-    $mod.CG1.SetbackgroundColor("#FFBBFF");
     gp = pas.webInput.TGroupBox.$create("Create$2");
     gp.Setwidth(150);
     gp.SetbackgroundColor("#FFBBBB");
@@ -2130,19 +2011,23 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     subwc2.SetbackgroundColor("#FFFFBB");
     subwc2.SetCaption("Sub 2");
     subwc2.Add(subwc);
-    NewRG1 = pas.webInput.TRadioGroupBox.$create("Create$3");
-    NewRG1.SetLegend("Gruppe 1");
-    NewRG1.AddButton("Button 1");
-    NewRG1.AddButton("Button 2");
-    NewRG1.AddButton("Button 3");
-    NewRG1.Setwidth(180);
-    NewRG1.SetbackgroundColor("#FFBBFF");
-    NewRG2 = pas.webInput.TRadioGroupBox.$create("Create$3");
-    NewRG2.SetLegend("Gruppe 2");
-    NewRG2.AddButton("Button 11");
-    NewRG2.AddButton("Button 12");
-    NewRG2.AddButton("Button 13");
-    NewRG2.Setwidth(180);
+    $mod.NewRG1 = pas.webInput.TRadioGroupBox.$create("Create$3");
+    $mod.NewRG1.SetCaption("innerHTML Gruppe 1");
+    $mod.NewRG1.SetLegend("Legend Gruppe 1");
+    $mod.NewRG1.AddButton("Button 1");
+    $mod.NewRG1.AddButton("Button 2");
+    $mod.NewRG1.AddButton("Button 3");
+    $mod.NewRG1.Setwidth(180);
+    $mod.NewRG1.SetbackgroundColor("#FFBBFF");
+    $mod.NewRG1.SetColor("#00BBFF");
+    $mod.NewRG2 = pas.webInput.TRadioGroupBox.$create("Create$3");
+    $mod.NewRG2.SetLegend("Legend Gruppe 2");
+    $mod.NewRG2.AddButton("Button 11");
+    $mod.NewRG2.AddButton("Button 12");
+    $mod.NewRG2.AddButton("Button 13");
+    $mod.NewRG2.AddButton("Button 14");
+    $mod.NewRG2.AddButton("Button 15");
+    $mod.NewRG2.Setwidth(180);
     ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonEvaluationsClick");
     ButtonShowRadio = $mod.CreateButton(document.body,"Neuer RadioButton");

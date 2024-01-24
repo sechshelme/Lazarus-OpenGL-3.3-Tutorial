@@ -49,6 +49,7 @@ type
   public
     constructor Create;
     procedure AddButton(Caption: string);
+    function GetChecked: integer;
   end;
 
 
@@ -130,6 +131,22 @@ begin
   //     div_.appendChild(label1);
   //
   //     FElement.appendChild(div_);
+end;
+
+function TRadioGroupBox.GetChecked: integer;
+var
+  radioButtons: TJSNodeList;
+  len: nativeint;
+  i: integer;
+begin
+  Result := -1;
+  radioButtons := document.querySelectorAll('input[name="' + Name + '"]');
+  len := radioButtons.length;
+  for i := 0 to len - 1 do begin
+    if TJSHTMLInputElement(radioButtons[i]).Checked then begin
+      Result := i;
+    end;
+  end;
 end;
 
 end.
