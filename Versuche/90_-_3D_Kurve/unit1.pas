@@ -56,6 +56,7 @@ implementation
 
 type
   TUBOBuffer = record
+    ofs, pad:TVector2f;
     Matrix: record
       Matrix: Tmat4x4;
       end;
@@ -156,6 +157,8 @@ begin
   WorldMatrix.Identity;
   WorldMatrix.Translate(0, 0, -300.0);
   WorldMatrix.Scale(150);
+  WorldMatrix.RotateA(-pi / 6);
+  WorldMatrix.RotateB(pi / 6);
 
   ModelMatrix.Identity;
 
@@ -243,8 +246,10 @@ end;
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   if MenuItemRotateCube.Checked then begin
-    ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
-    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+ //   ModelMatrix.RotateA(0.0123);  // Drehe um X-Achse
+//    ModelMatrix.RotateB(0.0234);  // Drehe um Y-Achse
+    UBOBuffer.ofs.x:=sin(GetTickCount64/1000) * 0.2;
+    UBOBuffer.ofs.y:=cos(GetTickCount64/1000) * 0.2;
   end;
 
   ogc.Invalidate;

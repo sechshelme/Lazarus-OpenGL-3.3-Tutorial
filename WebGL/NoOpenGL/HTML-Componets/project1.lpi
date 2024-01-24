@@ -57,6 +57,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="GroupBox"/>
       </Unit>
+      <Unit>
+        <Filename Value="webcontrol.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="webControl"/>
+      </Unit>
+      <Unit>
+        <Filename Value="webinput.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="webInput"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

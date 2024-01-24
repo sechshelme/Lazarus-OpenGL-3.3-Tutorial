@@ -10,11 +10,12 @@ uses
   Classes,
   SysUtils,
   Web,
-  GroupBox;
+  GroupBox,
+  webControl, webInput;
 
 var
   canvas: TJSHTMLCanvasElement;
-  RG1, RG2: TRadioGroup;
+  RG1, RG2: TOldRadioGroup;
   CG1: TCheckGroup;
 
   function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
@@ -33,21 +34,21 @@ var
     Parent.appendChild(Result);
   end;
 
-function CreateLabelButton(Parent: TJSElement; const Caption: string): TJSElement;
-begin
-  Result := document.createElement('div');
-  Result.innerHTML := Caption;
-  CreateButton(Result, 'X');
-  CreateButton(Result, 'Y');
-  CreateButton(Result, 'Z');
-  Parent.appendChild(Result);
-end;
+  function CreateLabelButton(Parent: TJSElement; const Caption: string): TJSElement;
+  begin
+    Result := document.createElement('div');
+    Result.innerHTML := Caption;
+    CreateButton(Result, 'X');
+    CreateButton(Result, 'Y');
+    CreateButton(Result, 'Z');
+    Parent.appendChild(Result);
+  end;
 
-function CreateNewLine(Parent: TJSElement): TJSElement;
-begin
-  Result := document.createElement('div');
-  Parent.appendChild(Result);
-end;
+  function CreateNewLine(Parent: TJSElement): TJSElement;
+  begin
+    Result := document.createElement('div');
+    Parent.appendChild(Result);
+  end;
 
   function CreateBox(Parent: TJSElement; const Caption: string): TJSElement;
   begin
@@ -89,11 +90,14 @@ end;
     RG1.Add('New');
   end;
 
-  procedure Create;
+  procedure Main;
   var
     img, ButtonShowRadio: TJSElement;
+    subwc, subwc2: TControl;
+    gp: TGroupBox;
+    NewRG1, NewRG2: TRadioGroupBox;
   begin
-    RG1 := TRadioGroup.Create(document.body);
+    RG1 := TOldRadioGroup.Create(document.body);
     RG1.Caption := 'Radio 1 Gruppe mit class';
     RG1.Add('Radio 0');
     RG1.Add('Radio 1');
@@ -101,7 +105,7 @@ end;
     RG1.Width := 200;
     RG1.backgroundColor := '#FFFFBB';
 
-    RG2 := TRadioGroup.Create(document.body);
+    RG2 := TOldRadioGroup.Create(document.body);
     RG2.Caption := 'Radio 2 Gruppe mit class';
     RG2.Add('Radio 100');
     RG2.Add('Radio 101');
@@ -112,12 +116,45 @@ end;
 
 
     CG1 := TCheckGroup.Create(document.body);
-    CG1.Caption := 'CheckBox 1 Gruppe mit class';
+    CG1.Caption := 'CheckBox 1 Gruppe mit class<br>Zeile 2';
     CG1.Add('Check 1');
     CG1.Add('Check 2');
     CG1.Add('Check 2');
-    CG1.Width := 200;
+    CG1.Width := 400;
     CG1.backgroundColor := '#FFBBFF';
+
+    gp := TGroupBox.Create;
+    gp.Width := 150;
+    gp.backgroundColor := '#FFBBBB';
+    gp.Caption:='Hello World !<br>Hello World !<br>Hello World !<br>Hello World !';
+
+    subwc := TControl.Create( 'div');
+    subwc.Width := 80;
+    subwc.backgroundColor := '#FFBBFF';
+    subwc.Caption:='Hallo Welt';
+
+    subwc2 := TControl.Create( 'div');
+    subwc2.Width := 100;
+    subwc2.backgroundColor := '#FFFFBB';
+    subwc2.Caption:='Sub 2';
+
+    subwc2.Add(subwc);
+
+    NewRG1:=TRadioGroupBox.Create;
+    NewRG1.SetLegend('Gruppe 1');
+    NewRG1.AddButton('Button 1');
+    NewRG1.AddButton('Button 2');
+    NewRG1.AddButton('Button 3');
+    NewRG1.Width:=180;
+    NewRG1.backgroundColor := '#FFBBFF';
+
+    NewRG2:=TRadioGroupBox.Create;
+//    NewRG2.Caption:='Gruppe 2';
+    NewRG2.SetLegend('Gruppe 2');
+    NewRG2.AddButton('Button 11');
+    NewRG2.AddButton('Button 12');
+    NewRG2.AddButton('Button 13');
+    NewRG2.Width:=180;
 
     ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
     TJSHTMLElement(ButtonShowRadio).onclick := @ButtonEvaluationsClick;
@@ -133,8 +170,9 @@ end;
     img['src'] := 'image.png';
 
     document.body.appendChild(img);
+//   subwc2.Add(img);
   end;
 
 begin
-  Create;
+  Main;
 end.

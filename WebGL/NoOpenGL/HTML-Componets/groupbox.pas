@@ -15,20 +15,20 @@ uses
 type
   TBooleans = array of boolean;
 
-  TGroupBox = class(TObject)
+  TOldGroupBox = class(TObject)
   private
     ButtonTyp: string;
     FbackgroundColor: string;
     FCaption: string;
     Fheight: integer;
-    fieldset, legend: TJSElement;
+    FElement, legend: TJSElement;
     Fwidth: integer;
     GroupIndex: integer; static;
     Name: string;
-    procedure SetbackgroundColor(AValue: string);
+    procedure SetbackgroundColor(AbackGroundColor: string);
     procedure SetCaption(AValue: string);
-    procedure Setheight(AValue: integer);
-    procedure Setwidth(AValue: integer);
+    procedure Setheight(Aheight: integer);
+    procedure Setwidth(AWidth: integer);
   public
     constructor Create(Parent: TJSElement);
     procedure Add(Caption: string);
@@ -38,15 +38,13 @@ type
     property Height: integer read Fheight write Setheight;
   end;
 
-  TRadioGroup = class(TGroupBox)
-  private
+  TOldRadioGroup = class(TOldGroupBox)
   public
     constructor Create(Parent: TJSElement);
     function GetChecked: integer;
   end;
 
-  TCheckGroup = class(TGroupBox)
-  private
+  TCheckGroup = class(TOldGroupBox)
   public
     constructor Create(Parent: TJSElement);
     function GetCheckeds: TBooleans;
@@ -54,21 +52,21 @@ type
 
 implementation
 
-// --- TGroupBox ---
+// --- TOldGroupBox ---
 
-constructor TGroupBox.Create(Parent: TJSElement);
+constructor TOldGroupBox.Create(Parent: TJSElement);
 begin
-  fieldset := document.createElement('fieldset');
-  Parent.appendChild(fieldset);
+  FElement := document.createElement('div');
+  Parent.appendChild(FElement);
 
   legend := document.createElement('legend');
   legend.innerHTML:=FCaption;
-  fieldset.appendChild(legend);
+  FElement.appendChild(legend);
 
-  fieldset['style'] := '';
+  FElement['style'] := '';
 end;
 
-procedure TGroupBox.Add(Caption: string);
+procedure TOldGroupBox.Add(Caption: string);
 var
   div_, rb, label1: TJSElement;
 begin
@@ -86,10 +84,10 @@ begin
   div_.appendChild(rb);
   div_.appendChild(label1);
 
-  fieldset.appendChild(div_);
+  FElement.appendChild(div_);
 end;
 
-procedure TGroupBox.SetCaption(AValue: string);
+procedure TOldGroupBox.SetCaption(AValue: string);
 begin
   if FCaption = AValue then begin
     Exit;
@@ -98,38 +96,36 @@ begin
   legend.innerHTML := FCaption;
 end;
 
-procedure TGroupBox.Setheight(AValue: integer);
+procedure TOldGroupBox.Setheight(Aheight: integer);
 begin
-  if Fheight = AValue then begin
+  if Fheight = Aheight then begin
     Exit;
   end;
-  Fheight := AValue;
-  fieldset['style'] := fieldset['style'] + 'height:' + AValue.ToString + 'px;';
+  Fheight := Aheight;
+  FElement['style'] := FElement['style'] + 'height:' + Aheight.ToString + 'px;';
 end;
 
-procedure TGroupBox.Setwidth(AValue: integer);
+procedure TOldGroupBox.Setwidth(AWidth: integer);
 begin
-  if Fwidth = AValue then begin
+  if Fwidth = AWidth then begin
     Exit;
   end;
-  Fwidth := AValue;
-  fieldset['style'] := fieldset['style'] + 'width:' + AValue.ToString + 'px;';
-
-  Writeln(fieldset['style']);
+  Fwidth := AWidth;
+  FElement['style'] := FElement['style'] + 'width:' + AWidth.ToString + 'px;';
 end;
 
-procedure TGroupBox.SetbackgroundColor(AValue: string);
+procedure TOldGroupBox.SetbackgroundColor(AbackGroundColor: string);
 begin
-  if FbackgroundColor = AValue then begin
+  if FbackgroundColor = AbackGroundColor then begin
     Exit;
   end;
-  FbackgroundColor := AValue;
-  fieldset['style'] := fieldset['style'] + 'background-color:' + AValue + ';';
+  FbackgroundColor := AbackGroundColor;
+  FElement['style'] := FElement['style'] + 'background-color:' + AbackGroundColor + ';';
 end;
 
-// --- TRadioGroup ---
+// --- TOldRadioGroup ---
 
-constructor TRadioGroup.Create(Parent: TJSElement);
+constructor TOldRadioGroup.Create(Parent: TJSElement);
 begin
   FCaption:='RadioGroup'+GroupIndex.ToString;
   inherited Create(Parent);
@@ -139,7 +135,7 @@ begin
   Inc(GroupIndex);
 end;
 
-function TRadioGroup.GetChecked: integer;
+function TOldRadioGroup.GetChecked: integer;
 var
   radioButtons: TJSNodeList;
   len: nativeint;
