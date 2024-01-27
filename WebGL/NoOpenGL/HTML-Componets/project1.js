@@ -1770,39 +1770,6 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $mod.HookConsole();
   };
 },[]);
-rtl.module("GroupBox",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
-  "use strict";
-  var $mod = this;
-  rtl.createClass(this,"TOldGroupBox",pas.System.TObject,function () {
-    this.$init = function () {
-      pas.System.TObject.$init.call(this);
-      this.ButtonTyp = "";
-      this.FElement = null;
-      this.Name = "";
-    };
-    this.$final = function () {
-      this.FElement = undefined;
-      pas.System.TObject.$final.call(this);
-    };
-    this.Add = function (Caption) {
-      var div_ = null;
-      var rb = null;
-      var label1 = null;
-      div_ = document.createElement("div");
-      rb = document.createElement("input");
-      rb.setAttribute("type",this.ButtonTyp);
-      rb.setAttribute("name",this.Name);
-      label1 = document.createElement("label");
-      rb.setAttribute("for","Caption");
-      label1.innerHTML = Caption;
-      div_.appendChild(rb);
-      div_.appendChild(label1);
-      this.FElement.appendChild(div_);
-    };
-  });
-  rtl.createClass(this,"TOldRadioGroup",this.TOldGroupBox,function () {
-  });
-});
 rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsole"],function () {
   "use strict";
   var $mod = this;
@@ -1865,11 +1832,11 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       this.Flegend = document.createElement("legend");
       this.Flegend.setAttribute("style","font-family:'Courier New'");
       this.Flegend.innerHTML = "";
-      this.FElement.appendChild(this.Flegend);
       return this;
     };
     this.SetLegend = function (s) {
       this.Flegend.innerHTML = s;
+      this.FElement.appendChild(this.Flegend);
     };
     this.Add = function (AElement) {
       this.FElement.appendChild(AElement.FElement);
@@ -1882,6 +1849,12 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
   rtl.createClass(this,"TInput",pas.webControl.TControl,function () {
     this.Create$2 = function () {
       pas.webControl.TControl.Create$1.call(this,"input");
+      return this;
+    };
+  });
+  rtl.createClass(this,"TGroupBox",pas.webControl.TControl,function () {
+    this.Create$2 = function () {
+      pas.webControl.TControl.Create$1.call(this,"fieldset");
       return this;
     };
   });
@@ -1910,12 +1883,6 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
       title = pas.webControl.TControl.$create("Create$1",["label"]);
       title.SetCaption(Caption);
       this.Add(title);
-      return this;
-    };
-  });
-  rtl.createClass(this,"TGroupBox",pas.webControl.TControl,function () {
-    this.Create$2 = function () {
-      pas.webControl.TControl.Create$1.call(this,"fieldset");
       return this;
     };
   });
@@ -1957,13 +1924,82 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
       return Result;
     };
   });
+  rtl.createClass(this,"TPureCheckButton",this.TInput,function () {
+    this.Create$3 = function (AGroupName) {
+      $mod.TInput.Create$2.call(this);
+      this.FElement.setAttribute("type","checkbox");
+      this.FElement.setAttribute("name",AGroupName);
+      return this;
+    };
+  });
+  rtl.createClass(this,"TCheckButton",pas.webControl.TControl,function () {
+    this.$init = function () {
+      pas.webControl.TControl.$init.call(this);
+      this.cb = null;
+    };
+    this.$final = function () {
+      this.cb = undefined;
+      pas.webControl.TControl.$final.call(this);
+    };
+    this.Create$2 = function (Caption, AGroupName) {
+      var title = null;
+      pas.webControl.TControl.Create$1.call(this,"div");
+      this.cb = $mod.TPureCheckButton.$create("Create$3",[AGroupName]);
+      this.Add(this.cb);
+      title = pas.webControl.TControl.$create("Create$1",["label"]);
+      title.SetCaption(Caption);
+      this.Add(title);
+      return this;
+    };
+  });
+  rtl.createClass(this,"TCheckGroupBox",this.TGroupBox,function () {
+    this.GroupIndex = 0;
+    this.$init = function () {
+      $mod.TGroupBox.$init.call(this);
+      this.Name = "";
+    };
+    this.Create$3 = function () {
+      $mod.TGroupBox.Create$2.call(this);
+      this.Name = "CheckButtonName" + pas.SysUtils.TIntegerHelper.ToString$1.call({p: $mod.TCheckGroupBox, get: function () {
+          return this.p.GroupIndex;
+        }, set: function (v) {
+          this.p.GroupIndex = v;
+        }});
+      $mod.TCheckGroupBox.GroupIndex += 1;
+      return this;
+    };
+    this.AddButton = function (Caption) {
+      var CB = null;
+      CB = $mod.TCheckButton.$create("Create$2",[Caption,this.Name]);
+      this.Add(CB);
+    };
+    this.GetChecked = function () {
+      var Result = [];
+      var i = 0;
+      var checkBoxes = null;
+      var len = 0;
+      checkBoxes = document.querySelectorAll('input[name="' + this.Name + '"]');
+      len = checkBoxes.length;
+      Result = [];
+      for (var $l = 0, $end = len - 1; $l <= $end; $l++) {
+        i = $l;
+        if (checkBoxes.item(i).checked) {
+          Result = rtl.arrayPushN(Result,true);
+        } else {
+          Result = rtl.arrayPushN(Result,false);
+        };
+      };
+      return Result;
+    };
+  });
 });
-rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web","GroupBox","webControl","webInput"],function () {
+rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web","webControl","webInput"],function () {
   "use strict";
   var $mod = this;
-  this.RG1 = null;
   this.NewRG1 = null;
   this.NewRG2 = null;
+  this.NewCG1 = null;
+  this.NewCG2 = null;
   this.CreateButton = function (Parent, Caption) {
     var Result = null;
     Result = document.createElement("input");
@@ -1984,12 +2020,14 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     var Result = false;
     pas.System.Writeln($mod.NewRG1.GetChecked());
     pas.System.Writeln($mod.NewRG2.GetChecked());
+    pas.System.Writeln($mod.NewCG1.GetChecked());
+    pas.System.Writeln($mod.NewCG2.GetChecked());
     Result = true;
     return Result;
   };
   this.ButtonNewRadioClick = function (aEvent) {
     var Result = false;
-    $mod.RG1.Add("New");
+    $mod.NewCG1.AddButton("New");
     return Result;
   };
   this.Main = function () {
@@ -2012,7 +2050,6 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     subwc2.SetCaption("Sub 2");
     subwc2.Add(subwc);
     $mod.NewRG1 = pas.webInput.TRadioGroupBox.$create("Create$3");
-    $mod.NewRG1.SetCaption("innerHTML Gruppe 1");
     $mod.NewRG1.SetLegend("Legend Gruppe 1");
     $mod.NewRG1.AddButton("Button 1");
     $mod.NewRG1.AddButton("Button 2");
@@ -2027,10 +2064,23 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     $mod.NewRG2.AddButton("Button 13");
     $mod.NewRG2.AddButton("Button 14");
     $mod.NewRG2.AddButton("Button 15");
-    $mod.NewRG2.Setwidth(180);
+    $mod.NewRG2.Setwidth(280);
+    $mod.NewCG1 = pas.webInput.TCheckGroupBox.$create("Create$3");
+    $mod.NewCG1.SetLegend("Check Gruppe 1");
+    $mod.NewCG1.AddButton("Button 21");
+    $mod.NewCG1.AddButton("Button 22");
+    $mod.NewCG1.AddButton("Button 23");
+    $mod.NewCG1.Setwidth(180);
+    $mod.NewCG2 = pas.webInput.TCheckGroupBox.$create("Create$3");
+    $mod.NewCG2.SetLegend("Check Gruppe 2");
+    $mod.NewCG2.AddButton("Button 31");
+    $mod.NewCG2.AddButton("Button 32");
+    $mod.NewCG2.AddButton("Button 33");
+    $mod.NewCG2.AddButton("Button 34");
+    $mod.NewCG2.Setwidth(180);
     ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonEvaluationsClick");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Neuer RadioButton");
+    ButtonShowRadio = $mod.CreateButton(document.body,"Neue CheckBox");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
     $mod.CreateNewLine(document.body);
     img = document.createElement("img");

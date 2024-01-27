@@ -12,15 +12,14 @@ uses
   webgl,
   browserconsole;
 
-    type
-    TNewJSHTMLElement = class external name 'Object' (TJSHTMLElement)
-      procedure animate(contextAttributes : TJSObject; t:Integer); external name 'animate';
+  type
+    TNewJSHTMLElement = class(TJSHTMLElement)
+      procedure animate(contextAttributes : TJSObject);varargs external name 'animate';
     end;
 
 var
   mydiv: TJSElement;
-  canvas: TJSHTMLCanvasElement;
-  cA, timeline: TJSObject;
+  cA: TJSObject;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
 // https://wiki.selfhtml.org/wiki/JavaScript/DOM/Element/animate
@@ -48,25 +47,26 @@ var
 
 
 begin
-  mydiv := document.createElement('div');
-  mydiv['style'] := 'background-color:red; width: 300px;  height: 200px;';
-//  //  TJSHTMLElement( mydiv).style.cssText:='background-color:red; width: 300px;  height: 200px;';
-//
-//
-////  mydiv['style'] := '@keyframes blamove {  from {top: 0px;}  to {top: 200px;background-color: green;  }}div {  width: 100px;  height: 100px;  background-color: red;  position: relative;  animation: blamove 5s infinite;}';
-////  TJSHTMLElement( mydiv).style.cssText:='div {  width: 100px;  height: 100px;  position: relative;  animation: blamove 5s infinite;}@keyframes blamove {  from {top: 0px;background-color: red;}  to {top: 200px;background-color: green;  }}';
-//
-  document.body.appendChild(mydiv);
-//
   document.body['style'] := 'background-color:green; width: 300px;  height: 200px;';
-//
-//
    cA:=  new(['background', TJSArray._of('black', 'red' , 'black' )  ]);
-//
-TNewJSHTMLElement( document.body).animate(cA, 1000);
 
-TNewJSHTMLElement( mydiv).animate(cA, 3000);
+   //cA:=  new([
+   //  'background', TJSArray._of('black', 'red' , 'black' ),
+   //  'duration', 10000,
+   //  'iterations', 'Infinity',
+   //  'delay', 300]);
 
+  TNewJSHTMLElement(document.body).animate(cA, 1000);
+
+  mydiv := document.createElement('div');
+  mydiv['style'] := 'width: 300px;  height: 200px;';
+  document.body.appendChild(mydiv);
+
+  TNewJSHTMLElement(mydiv).animate(
+    new([
+    'background', TJSArray._of('black', 'red', 'black'),
+    'width', TJSArray._of('100px', '300px', '100px')]),
+    10000);
 
   Writeln('xxx');
 

@@ -19,13 +19,17 @@ type
     constructor Create;
   end;
 
-  { TPureRadioButton }
+  { TGroupBox }
+
+  TGroupBox = class(TControl)
+    constructor Create;
+  end;
+
+  // === Radio Buttons
 
   TPureRadioButton = class(TInput)
     constructor Create(AGroupName: string);
   end;
-
-  { TRadioButton }
 
   TRadioButton = class(TControl)
   private
@@ -33,14 +37,6 @@ type
   public
     constructor Create(Caption, AGroupName: string);
   end;
-
-  { TGroupBox }
-
-  TGroupBox = class(TControl)
-    constructor Create;
-  end;
-
-  { TRadioGroupBox }
 
   TRadioGroupBox = class(TGroupBox)
   private
@@ -50,6 +46,29 @@ type
     constructor Create;
     procedure AddButton(Caption: string);
     function GetChecked: integer;
+  end;
+
+  // === Check Buttons
+
+  TPureCheckButton = class(TInput)
+    constructor Create(AGroupName: string);
+  end;
+
+  TCheckButton = class(TControl)
+  private
+    cb: TPureCheckButton;
+  public
+    constructor Create(Caption, AGroupName: string);
+  end;
+
+  TCheckGroupBox = class(TGroupBox)
+  private
+    GroupIndex: integer; static;
+    Name: string;
+  public
+    constructor Create;
+    procedure AddButton(Caption: string);
+    function GetChecked: TBooleans;
   end;
 
 
@@ -62,7 +81,14 @@ begin
   inherited Create('input');
 end;
 
-{ TPureRadioButton }
+{ TGroupBox }
+
+constructor TGroupBox.Create;
+begin
+  inherited Create('fieldset');
+end;
+
+// === Radio Buttons
 
 constructor TPureRadioButton.Create(AGroupName: string);
 begin
@@ -70,8 +96,6 @@ begin
   self.Element['type'] := 'radio';
   self.Element['name'] := AGroupName;
 end;
-
-{ TRadioButton }
 
 constructor TRadioButton.Create(Caption, AGroupName: string);
 var
@@ -85,22 +109,11 @@ begin
   self.Add(title);
 end;
 
-{ TGroupBox }
-
-constructor TGroupBox.Create;
-begin
-  inherited Create('fieldset');
-end;
-
 { TRadioGroupBox }
 
 constructor TRadioGroupBox.Create;
 begin
   inherited Create;
-
-  //   FCaption:='RadioGroup'+GroupIndex.ToString;
-  //   inherited Create(Parent);
-  //   ButtonTyp := 'radio';
 
   Name := 'RadioButtonName' + GroupIndex.ToString;
   Inc(GroupIndex);
@@ -145,6 +158,63 @@ begin
   for i := 0 to len - 1 do begin
     if TJSHTMLInputElement(radioButtons[i]).Checked then begin
       Result := i;
+    end;
+  end;
+end;
+
+// === Check Buttons
+
+constructor TPureCheckButton.Create(AGroupName: string);
+begin
+  inherited Create;
+  self.Element['type'] := 'checkbox';
+  self.Element['name'] := AGroupName;
+end;
+
+constructor TCheckButton.Create(Caption, AGroupName: string);
+var
+  title: TControl;
+begin
+  inherited Create('div');
+  cb := TPureCheckButton.Create(AGroupName);
+  self.Add(cb);
+  title := TControl.Create('label');
+  title.Caption := Caption;
+  self.Add(title);
+end;
+
+{ TCheckGroupBox }
+
+constructor TCheckGroupBox.Create;
+begin
+  inherited Create;
+
+  Name := 'CheckButtonName' + GroupIndex.ToString;
+  Inc(GroupIndex);
+end;
+
+procedure TCheckGroupBox.AddButton(Caption: string);
+var
+  CB: TCheckButton;
+begin
+  CB := TCheckButton.Create(Caption, Name);
+  self.Add(CB);
+end;
+
+function TCheckGroupBox.GetChecked: TBooleans;
+var
+  i: integer;
+  checkBoxes: TJSNodeList;
+  len: nativeint;
+begin
+  checkBoxes := document.querySelectorAll('input[name="' + Name + '"]');
+  len := checkBoxes.length;
+  Result := nil;
+  for i := 0 to len - 1 do begin
+    if TJSHTMLInputElement(checkBoxes[i]).Checked then begin
+      Result := Result + [True];
+    end else begin
+      Result := Result + [False];
     end;
   end;
 end;

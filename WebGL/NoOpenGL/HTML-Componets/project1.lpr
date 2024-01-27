@@ -10,14 +10,13 @@ uses
   Classes,
   SysUtils,
   Web,
-  GroupBox,
+//  GroupBox,
   webControl, webInput;
 
 var
   canvas: TJSHTMLCanvasElement;
-  RG1, RG2: TOldRadioGroup;
-  CG1: TCheckGroup;
   NewRG1, NewRG2: TRadioGroupBox;
+  NewCG1,NewCG2: TCheckGroupBox;
 
   function CreateButton(Parent: TJSElement; const Caption: string): TJSElement;
   begin
@@ -51,26 +50,13 @@ var
     Parent.appendChild(Result);
   end;
 
-  function CreateBox(Parent: TJSElement; const Caption: string): TJSElement;
-  begin
-    Result := document.createElement('div');
-    //  Result['style'] := 'border-style: solid; border-width: 3px;  height:125px;width:175px;border-color=red;background-color: #FFBBBB;';
-    Result['style'] :=
-      'width:175px;  border-left: dotted blue;  border-right: dotted red; background-color: #FFBBBB;';
-
-    Result.innerHTML := Caption;
-    CreateLabelButton(Result, 'Create Box 1');
-    CreateLabelButton(Result, 'Create Box 2');
-    CreateLabelButton(Result, 'Create Box 3');
-    Parent.appendChild(Result);
-  end;
-
   function ButtonEvaluationsClick(aEvent: TJSMouseEvent): boolean;
-  var
-    index: integer;
   begin
     Writeln(NewRG1.GetChecked);
     Writeln(NewRG2.GetChecked);
+
+    Writeln(NewCG1.GetChecked);
+    Writeln(NewCG2.GetChecked);
 
     Result := True;
   end;
@@ -87,7 +73,7 @@ var
 
   function ButtonNewRadioClick(aEvent: TJSMouseEvent): boolean;
   begin
-    RG1.Add('New');
+    NewCG1.AddButton('New');
   end;
 
   procedure Main;
@@ -96,32 +82,6 @@ var
     subwc, subwc2: TControl;
     gp: TGroupBox;
   begin
-    //RG1 := TOldRadioGroup.Create(document.body);
-    //RG1.Caption := 'Radio 1 Gruppe mit class';
-    //RG1.Add('Radio 0');
-    //RG1.Add('Radio 1');
-    //RG1.Add('Radio 2');
-    //RG1.Width := 200;
-    //RG1.backgroundColor := '#FFFFBB';
-    //
-    //RG2 := TOldRadioGroup.Create(document.body);
-    //RG2.Caption := 'Radio 2 Gruppe mit class';
-    //RG2.Add('Radio 100');
-    //RG2.Add('Radio 101');
-    //RG2.Add('Radio 102');
-    //RG2.backgroundColor := '#BBFFFF';
-    //RG2.Height := 200;
-    //RG2.Width := 200;
-    //
-    //
-    //CG1 := TCheckGroup.Create(document.body);
-    //CG1.Caption := 'CheckBox 1 Gruppe mit class<br>Zeile 2';
-    //CG1.Add('Check 1');
-    //CG1.Add('Check 2');
-    //CG1.Add('Check 2');
-    //CG1.Width := 400;
-    //CG1.backgroundColor := '#FFBBFF';
-
     gp := TGroupBox.Create;
     gp.Width := 150;
     gp.backgroundColor := '#FFBBBB';
@@ -140,7 +100,7 @@ var
     subwc2.Add(subwc);
 
     NewRG1:=TRadioGroupBox.Create;
-    NewRG1.Caption:='innerHTML Gruppe 1';
+//    NewRG1.Caption:='Caption Gruppe 1';
     NewRG1.SetLegend('Legend Gruppe 1');
     NewRG1.AddButton('Button 1');
     NewRG1.AddButton('Button 2');
@@ -150,19 +110,36 @@ var
     NewRG1.Color := '#00BBFF';
 
     NewRG2:=TRadioGroupBox.Create;
-//    NewRG2.Caption:='innerHTML Gruppe 2';
+//    NewRG2.Caption:='Caption Gruppe 2';
     NewRG2.SetLegend('Legend Gruppe 2');
     NewRG2.AddButton('Button 11');
     NewRG2.AddButton('Button 12');
     NewRG2.AddButton('Button 13');
     NewRG2.AddButton('Button 14');
     NewRG2.AddButton('Button 15');
-    NewRG2.Width:=180;
+    NewRG2.Width:=280;
+
+    NewCG1:=TCheckGroupBox.Create;
+//    NewRG2.Caption:='Caption Gruppe 2';
+    NewCG1.SetLegend('Check Gruppe 1');
+    NewCG1.AddButton('Button 21');
+    NewCG1.AddButton('Button 22');
+    NewCG1.AddButton('Button 23');
+    NewCG1.Width:=180;
+
+    NewCG2:=TCheckGroupBox.Create;
+//    NewRG2.Caption:='Caption Gruppe 2';
+    NewCG2.SetLegend('Check Gruppe 2');
+    NewCG2.AddButton('Button 31');
+    NewCG2.AddButton('Button 32');
+    NewCG2.AddButton('Button 33');
+    NewCG2.AddButton('Button 34');
+    NewCG2.Width:=180;
 
     ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
     TJSHTMLElement(ButtonShowRadio).onclick := @ButtonEvaluationsClick;
 
-    ButtonShowRadio := CreateButton(document.body, 'Neuer RadioButton');
+    ButtonShowRadio := CreateButton(document.body, 'Neue CheckBox');
     TJSHTMLElement(ButtonShowRadio).onclick := @ButtonNewRadioClick;
     CreateNewLine(document.body);
 

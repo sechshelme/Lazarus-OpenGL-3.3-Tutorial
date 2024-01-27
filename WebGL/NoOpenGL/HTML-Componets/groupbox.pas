@@ -44,7 +44,7 @@ type
     function GetChecked: integer;
   end;
 
-  TCheckGroup = class(TOldGroupBox)
+  TOldCheckGroup = class(TOldGroupBox)
   public
     constructor Create(Parent: TJSElement);
     function GetCheckeds: TBooleans;
@@ -151,9 +151,9 @@ begin
   end;
 end;
 
-// --- TCheckGroup ---
+// --- TOldCheckGroup ---
 
-constructor TCheckGroup.Create(Parent: TJSElement);
+constructor TOldCheckGroup.Create(Parent: TJSElement);
 begin
   FCaption:='CheckGroup'+GroupIndex.ToString;
   inherited Create(Parent);
@@ -163,7 +163,7 @@ begin
   Inc(GroupIndex);
 end;
 
-function TCheckGroup.GetCheckeds: TBooleans;
+function TOldCheckGroup.GetCheckeds: TBooleans;
 var
   i: integer;
   checkBoxes: TJSNodeList;

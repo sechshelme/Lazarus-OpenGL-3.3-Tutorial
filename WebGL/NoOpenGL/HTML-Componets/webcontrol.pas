@@ -64,12 +64,12 @@ begin
   Flegend := document.createElement('legend');
   Flegend['style'] := 'font-family:''Courier New''';
   Flegend.innerHTML:='';
-  FElement.appendChild(Flegend);
 end;
 
 procedure TControl.SetLegend(s: String);
 begin
-      Flegend.innerHTML:=s;
+  Flegend.innerHTML:=s;
+  FElement.appendChild(Flegend);
 end;
 
 procedure TControl.SetCaption(ACaption: string);

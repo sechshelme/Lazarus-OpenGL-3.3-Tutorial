@@ -1796,16 +1796,22 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
 rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"],function () {
   "use strict";
   var $mod = this;
+  rtl.createClassExt(this,"TNewJSHTMLElement",HTMLElement,"",function () {
+    this.$init = function () {
+    };
+    this.$final = function () {
+    };
+  });
   this.mydiv = null;
   this.cA = null;
   $mod.$main = function () {
-    $mod.mydiv = document.createElement("div");
-    $mod.mydiv.setAttribute("style","background-color:red; width: 300px;  height: 200px;");
-    document.body.appendChild($mod.mydiv);
     document.body.setAttribute("style","background-color:green; width: 300px;  height: 200px;");
     $mod.cA = pas.JS.New(["background",Array.of("black","red","black")]);
     document.body.animate($mod.cA,1000);
-    $mod.mydiv.animate($mod.cA,3000);
+    $mod.mydiv = document.createElement("div");
+    $mod.mydiv.setAttribute("style","width: 300px;  height: 200px;");
+    document.body.appendChild($mod.mydiv);
+    $mod.mydiv.animate(pas.JS.New(["background",Array.of("black","red","black"),"width",Array.of("100px","300px","100px")]),10000);
     pas.System.Writeln("xxx");
   };
 });
