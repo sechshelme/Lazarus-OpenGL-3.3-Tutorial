@@ -19,11 +19,12 @@ uses
 
 var
   mydiv: TJSElement;
-  cA, cAd: TJSObject;
+  cA: TJSObject;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
 // https://wiki.selfhtml.org/wiki/JavaScript/DOM/Element/animate
 // https://wiki.freepascal.org/pas2js#Create_simple_JS_objects_with_the_new_function
+// https://www.mediaevent.de/javascript/animation-api.html
 
 //
 //
@@ -47,35 +48,25 @@ var
 
 
 begin
+  document.body.innerHTML:='<h1>Kreis Animation</h1>';
   document.body['style'] := 'background-color:green; width: 300px;  height: 200px;';
 
-  cA:=  new(['background', TJSArray._of('black', 'red' , 'black' )  ]);
+  cA := new(['background', TJSArray._of('black', 'red', 'black')]);
   TNewJSHTMLElement(document.body).animate(cA, 1000);
 
   mydiv := document.createElement('div');
-  mydiv['style'] := 'width: 300px;  height: 200px;';
+//  mydiv['style'] := 'width: 300px;  height: 200px;';
+  mydiv['style'] := '	position: absolute;	left: 1em;	top: 5em;	width: 5em;	height: 5em;	border-radius: 50%;	background: #dfac20;	border: 1px solid #222;';
   document.body.appendChild(mydiv);
 
 
-  cA:=TJSObject(TJSArray._of(
-    new(['background', 'black', 'width', '100px']),
-    new(['background', 'red', 'width', '300px']),
-    new(['background', 'yellow', 'width', '100px']))    );
-
-  cAd:=new(['duration', 100, 'iterations', 'Infinity', 'delay', 300]);
-
-
-
-  TNewJSHTMLElement(mydiv).animate(cA, cAd);
-  Writeln('xxx');
-
-//  cA:=  new(['depth', True, 'antialias', True, 'alpha', False]);
-//    canvas := TJSHTMLCanvasElement(document.createElement('canvas'));
-//  gl := TJSWebGLRenderingContext(canvas.getContext('webgl2', new(['depth', True, 'antialias', True, 'alpha', False])));
-
-//  Function getContext(contextType : string; contextAttributes : TJSObject) : TJSObject;
-
-
+  TNewJSHTMLElement(mydiv).animate(
+    TJSArray._of(
+    new(['transform', 'translatey(  0px)', 'background', 'black', 'width', '100px']),
+    new(['transform', 'translatey(  100px)', 'background', 'red', 'width', '300px']),
+    new(['transform', 'translatey(  0px)', 'background', 'yellow', 'width', '100px'])),
+    new(['duration', 400, 'iterations', 'Infinity', 'delay', 300]));
+//  Writeln('xxx');
 end.
 
 
