@@ -1557,6 +1557,26 @@ rtl.module("System",[],function () {
     this.BeforeDestruction = function () {
     };
   });
+  this.Writeln = function () {
+    var i = 0;
+    var l = 0;
+    var s = "";
+    l = arguments.length - 1;
+    if ($impl.WriteCallBack != null) {
+      for (var $l = 0, $end = l; $l <= $end; $l++) {
+        i = $l;
+        $impl.WriteCallBack(arguments[i],i === l);
+      };
+    } else {
+      s = $impl.WriteBuf;
+      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
+        i = $l1;
+        s = s + ("" + arguments[i]);
+      };
+      console.log(s);
+      $impl.WriteBuf = "";
+    };
+  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1564,6 +1584,7 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
+    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -1781,17 +1802,37 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"]
     this.$final = function () {
     };
   });
-  this.mydiv = null;
+  this.CreateDIV1 = function (parent) {
+    var Result = null;
+    var i = 0;
+    Result = document.createElement("div");
+    Result.setAttribute("style","\tposition: absolute;\tleft: 1em;\ttop: 5em;\twidth: 5em;\theight: 5em;\tborder-radius: 50%;\tbackground: #dfac20;\tborder: 1px solid #222;");
+    for (var $l = 0, $end = Result.style.length - 1; $l <= $end; $l++) {
+      i = $l;
+      pas.System.Writeln(Result.style.item(i));
+    };
+    parent.appendChild(Result);
+    Result.animate(Array.of(pas.JS.New(["transform","translatey(  0px)","background","black","width","100px"]),pas.JS.New(["transform","translatey(  100px)","background","red","width","300px"]),pas.JS.New(["transform","translatey(  0px)","background","yellow","width","100px"])),pas.JS.New(["duration",400,"iterations","Infinity","delay",300]));
+    return Result;
+  };
+  this.CreateDIV2 = function (parent) {
+    var Result = null;
+    Result = document.createElement("div");
+    Result.innerHTML = "Spinning newspaper<br />causes dizziness";
+    Result.setAttribute("style","left: 2000em;  text-transform: uppercase;  text-align: center;  background-color: white;  cursor: pointer;");
+    parent.appendChild(Result);
+    Result.animate(Array.of(pas.JS.New(["transform","rotate(0deg) scale(1)"]),pas.JS.New(["transform","rotate(360deg) scale(0)"])),pas.JS.New(["duration",4000,"iterations","Infinity"]));
+    return Result;
+  };
   this.cA = null;
   $mod.$main = function () {
     document.body.innerHTML = "<h1>Kreis Animation</h1>";
     document.body.setAttribute("style","background-color:green; width: 300px;  height: 200px;");
     $mod.cA = pas.JS.New(["background",Array.of("black","red","black")]);
     document.body.animate($mod.cA,1000);
-    $mod.mydiv = document.createElement("div");
-    $mod.mydiv.setAttribute("style","\tposition: absolute;\tleft: 1em;\ttop: 5em;\twidth: 5em;\theight: 5em;\tborder-radius: 50%;\tbackground: #dfac20;\tborder: 1px solid #222;");
-    document.body.appendChild($mod.mydiv);
-    $mod.mydiv.animate(Array.of(pas.JS.New(["transform","translatey(  0px)","background","black","width","100px"]),pas.JS.New(["transform","translatey(  100px)","background","red","width","300px"]),pas.JS.New(["transform","translatey(  0px)","background","yellow","width","100px"])),pas.JS.New(["duration",400,"iterations","Infinity","delay",300]));
+    $mod.CreateDIV1(document.body);
+    $mod.CreateDIV2(document.body);
+    pas.System.Writeln("xxx");
   };
 });
 //# sourceMappingURL=project1.js.map
