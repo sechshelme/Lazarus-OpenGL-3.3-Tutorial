@@ -14,12 +14,12 @@ uses
 
   type
     TNewJSHTMLElement = class(TJSHTMLElement)
-      procedure animate(contextAttributes : TJSObject);varargs external name 'animate';
+      procedure animate;varargs external name 'animate';
     end;
 
 var
   mydiv: TJSElement;
-  cA: TJSObject;
+  cA, cAd: TJSObject;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
 // https://wiki.selfhtml.org/wiki/JavaScript/DOM/Element/animate
@@ -48,26 +48,25 @@ var
 
 begin
   document.body['style'] := 'background-color:green; width: 300px;  height: 200px;';
-   cA:=  new(['background', TJSArray._of('black', 'red' , 'black' )  ]);
 
-   //cA:=  new([
-   //  'background', TJSArray._of('black', 'red' , 'black' ),
-   //  'duration', 10000,
-   //  'iterations', 'Infinity',
-   //  'delay', 300]);
-
+  cA:=  new(['background', TJSArray._of('black', 'red' , 'black' )  ]);
   TNewJSHTMLElement(document.body).animate(cA, 1000);
 
   mydiv := document.createElement('div');
   mydiv['style'] := 'width: 300px;  height: 200px;';
   document.body.appendChild(mydiv);
 
-  TNewJSHTMLElement(mydiv).animate(
-    new([
-    'background', TJSArray._of('black', 'red', 'black'),
-    'width', TJSArray._of('100px', '300px', '100px')]),
-    10000);
 
+  cA:=TJSObject(TJSArray._of(
+    new(['background', 'black', 'width', '100px']),
+    new(['background', 'red', 'width', '300px']),
+    new(['background', 'yellow', 'width', '100px']))    );
+
+  cAd:=new(['duration', 100, 'iterations', 'Infinity', 'delay', 300]);
+
+
+
+  TNewJSHTMLElement(mydiv).animate(cA, cAd);
   Writeln('xxx');
 
 //  cA:=  new(['depth', True, 'antialias', True, 'alpha', False]);

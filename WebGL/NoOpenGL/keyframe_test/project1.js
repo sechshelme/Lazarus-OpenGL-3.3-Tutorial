@@ -1804,6 +1804,7 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"]
   });
   this.mydiv = null;
   this.cA = null;
+  this.cAd = null;
   $mod.$main = function () {
     document.body.setAttribute("style","background-color:green; width: 300px;  height: 200px;");
     $mod.cA = pas.JS.New(["background",Array.of("black","red","black")]);
@@ -1811,7 +1812,9 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"]
     $mod.mydiv = document.createElement("div");
     $mod.mydiv.setAttribute("style","width: 300px;  height: 200px;");
     document.body.appendChild($mod.mydiv);
-    $mod.mydiv.animate(pas.JS.New(["background",Array.of("black","red","black"),"width",Array.of("100px","300px","100px")]),10000);
+    $mod.cA = Array.of(pas.JS.New(["background","black","width","100px"]),pas.JS.New(["background","red","width","300px"]),pas.JS.New(["background","yellow","width","100px"]));
+    $mod.cAd = pas.JS.New(["duration",100,"iterations","Infinity","delay",300]);
+    $mod.mydiv.animate($mod.cA,$mod.cAd);
     pas.System.Writeln("xxx");
   };
 });
