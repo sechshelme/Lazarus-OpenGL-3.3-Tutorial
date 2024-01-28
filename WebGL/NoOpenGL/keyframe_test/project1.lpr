@@ -66,6 +66,7 @@ var
   // https://wiki.freepascal.org/pas2js#Create_simple_JS_objects_with_the_new_function
   // https://www.mediaevent.de/javascript/animation-api.html
   // https://stackoverflow.com/questions/59573722/how-can-i-set-a-css-keyframes-in-javascript
+  // https://www.joshwcomeau.com/animation/keyframe-animations/
 
   //
   //

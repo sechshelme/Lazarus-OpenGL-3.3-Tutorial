@@ -150,6 +150,8 @@ var
     img['src'] := 'image.png';
 
     document.body.appendChild(img);
+
+//    Writeln(document.body.innerHTML);
 //   subwc2.Add(img);
   end;
 
