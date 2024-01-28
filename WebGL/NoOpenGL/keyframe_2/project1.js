@@ -1557,6 +1557,26 @@ rtl.module("System",[],function () {
     this.BeforeDestruction = function () {
     };
   });
+  this.Writeln = function () {
+    var i = 0;
+    var l = 0;
+    var s = "";
+    l = arguments.length - 1;
+    if ($impl.WriteCallBack != null) {
+      for (var $l = 0, $end = l; $l <= $end; $l++) {
+        i = $l;
+        $impl.WriteCallBack(arguments[i],i === l);
+      };
+    } else {
+      s = $impl.WriteBuf;
+      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
+        i = $l1;
+        s = s + ("" + arguments[i]);
+      };
+      console.log(s);
+      $impl.WriteBuf = "";
+    };
+  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1564,6 +1584,7 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
+    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -1765,13 +1786,16 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"]
     parent.appendChild(Result);
     return Result;
   };
-  this.tb = null;
-  this.tb2 = null;
+  this.mydiv = null;
+  this.mydiv2 = null;
   $mod.$main = function () {
-    $mod.tb = $mod.CreateTextBox(document.body,"Spinning newspaper<br />causes dizziness","red",180,300);
-    $mod.tb2 = $mod.CreateTextBox($mod.tb,"Spinning newspaper<br />causes dizziness","green",160,200);
-    $mod.CreateTextBox($mod.tb2,"Spinning newspaper<br />causes dizziness","yellow",160,200);
-    document.body.innerHTML += "<div>" + "  <style>" + "    div {" + "      width: 100px;" + "      height: 100px;" + "      background: red;" + "      position: relative;" + "      animation: mymove 5s infinite;" + "    }" + "" + "    @keyframes mymove {" + "      from {top: 0px;}" + "      to {top: 200px;}" + "    }" + "  </style>" + "</div>";
+    $mod.mydiv = $mod.CreateTextBox(document.body,"keyframes Box 1","yellow",160,200);
+    $mod.mydiv.setAttribute("style",$mod.mydiv.getAttribute("style") + "position: relative; " + "animation: mymove1 3s infinite ;");
+    document.body.innerHTML += "<style>" + "  @keyframes mymove1 {" + "    0% {top: 0px; background-color: red}" + "    50% {top: 200px; background-color: green}" + "    100% {top: 0px; background-color: red}" + "  }" + "  @keyframes mymove2 {" + "    0% {left: 200px; background-color: yellow}" + "    50% {left: 100px; background-color: cyan}" + "    100% {left: 200px; background-color: yellow}" + "  }" + "</style>";
+    pas.System.Writeln($mod.mydiv.outerHTML);
+    $mod.mydiv2 = $mod.CreateTextBox(document.body,"keyframes Box 2","yellow",160,200);
+    $mod.mydiv2.setAttribute("style",$mod.mydiv2.getAttribute("style") + "position: relative; " + "animation: mymove2 5s infinite;");
+    pas.System.Writeln($mod.mydiv2.outerHTML);
   };
 });
 //# sourceMappingURL=project1.js.map

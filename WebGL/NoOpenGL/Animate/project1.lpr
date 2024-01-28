@@ -30,8 +30,6 @@ type
 
     parent.appendChild(Result);
 
-
-
     TNewJSHTMLElement(Result).animate(
       TJSArray._of(
       new(['transform', 'translatey(  0px)', 'background', 'black', 'width', '100px']),

@@ -1557,26 +1557,6 @@ rtl.module("System",[],function () {
     this.BeforeDestruction = function () {
     };
   });
-  this.Writeln = function () {
-    var i = 0;
-    var l = 0;
-    var s = "";
-    l = arguments.length - 1;
-    if ($impl.WriteCallBack != null) {
-      for (var $l = 0, $end = l; $l <= $end; $l++) {
-        i = $l;
-        $impl.WriteCallBack(arguments[i],i === l);
-      };
-    } else {
-      s = $impl.WriteBuf;
-      for (var $l1 = 0, $end1 = l; $l1 <= $end1; $l1++) {
-        i = $l1;
-        s = s + ("" + arguments[i]);
-      };
-      console.log(s);
-      $impl.WriteBuf = "";
-    };
-  };
   this.SetWriteCallBack = function (H) {
     var Result = null;
     Result = $impl.WriteCallBack;
@@ -1584,7 +1564,6 @@ rtl.module("System",[],function () {
     return Result;
   };
   $mod.$implcode = function () {
-    $impl.WriteBuf = "";
     $impl.WriteCallBack = null;
   };
   $mod.$init = function () {
@@ -1611,22 +1590,10 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
-  this.IntToStr = function (Value) {
-    var Result = "";
-    Result = "" + Value;
-    return Result;
-  };
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
-  rtl.createHelper(this,"TIntegerHelper",null,function () {
-    this.ToString$1 = function () {
-      var Result = "";
-      Result = $mod.IntToStr(this.get());
-      return Result;
-    };
-  });
   $mod.$implcode = function () {
     $impl.DefaultShortMonthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1770,33 +1737,8 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
 rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"],function () {
   "use strict";
   var $mod = this;
-  this.CreateTextBox = function (parent, Caption, color, Width, Height) {
-    var Result = null;
-    Result = document.createElement("div");
-    Result.innerHTML = Caption;
-    Result.setAttribute("style","width:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
-        return Width;
-      }, set: function (v) {
-        Width = v;
-      }}) + "px; height:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
-        return Height;
-      }, set: function (v) {
-        Height = v;
-      }}) + "px ; background-color:" + color + "; cursor: pointer; padding:10px ; border: 10px solid #999;");
-    parent.appendChild(Result);
-    return Result;
-  };
-  this.mydiv = null;
-  this.mydiv2 = null;
   $mod.$main = function () {
-    $mod.mydiv = $mod.CreateTextBox(document.body,"keyframes Box","yellow",160,200);
-    $mod.mydiv.setAttribute("style",$mod.mydiv.getAttribute("style") + "position: relative; " + "animation: mymove 5s infinite;");
-    $mod.mydiv.innerHTML = "<style>" + "  @keyframes mymove {" + "    from {top: 0px;}" + "    to {top: 200px;}" + "  }" + "</style>";
-    pas.System.Writeln($mod.mydiv.outerHTML);
-    $mod.mydiv2 = $mod.CreateTextBox(document.body,"keyframes Box","yellow",160,200);
-    $mod.mydiv2.setAttribute("style",$mod.mydiv2.getAttribute("style") + "position: relative; " + "animation: mymove2 5s infinite;");
-    $mod.mydiv2.innerHTML = "<style>" + "  @keyframes mymove2 {" + "    from {top: 200px;}" + "    to {top: 100px;}" + "  }" + "</style>";
-    pas.System.Writeln($mod.mydiv2.outerHTML);
+    document.body.innerHTML += "<div>" + "  <style>" + "    div {" + "      width: 100px;" + "      height: 100px;" + "      background: red;" + "      position: relative;" + "      animation: mymove 5s infinite;" + "    }" + "" + "    @keyframes mymove {" + "      from {top: 0px;}" + "      to {top: 200px;}" + "    }" + "  </style>" + "</div>";
   };
 });
 //# sourceMappingURL=project1.js.map

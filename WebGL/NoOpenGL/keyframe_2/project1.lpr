@@ -27,30 +27,28 @@ begin
   //tb2 := CreateTextBox(tb, 'Spinning newspaper<br />causes dizziness', 'green', 160, 200);
   //CreateTextBox(tb2, 'Spinning newspaper<br />causes dizziness', 'yellow', 160, 200);
 
-  mydiv := CreateTextBox(document.body, 'keyframes Box', 'yellow', 160, 200);
-  mydiv['style'] := mydiv['style'] + 'position: relative; ' + 'animation: mymove 5s infinite;';
+  mydiv := CreateTextBox(document.body, 'keyframes Box 1', 'yellow', 160, 200);
+  mydiv['style'] := mydiv['style'] + 'position: relative; ' + 'animation: mymove1 3s infinite ;';
 
-  mydiv.innerHTML :=
+  document.body.innerHTML +=
     '<style>' +
-    '  @keyframes mymove {' +
-    '    from {top: 0px;}' +
-    '    to {top: 200px;}' +
+    '  @keyframes mymove1 {' +
+    '    0% {top: 0px; background-color: red}' +
+    '    50% {top: 200px; background-color: green}' +
+    '    100% {top: 0px; background-color: red}' +
+    '  }' +
+    '  @keyframes mymove2 {' +
+    '    0% {left: 200px; background-color: yellow}' +
+    '    50% {left: 100px; background-color: cyan}' +
+    '    100% {left: 200px; background-color: yellow}' +
     '  }' +
     '</style>';
 
   Writeln(mydiv.outerHTML);
 
 
-  mydiv2 := CreateTextBox(document.body, 'keyframes Box', 'yellow', 160, 200);
+  mydiv2 := CreateTextBox(document.body, 'keyframes Box 2', 'yellow', 160, 200);
   mydiv2['style'] := mydiv2['style'] + 'position: relative; ' + 'animation: mymove2 5s infinite;';
-
-  mydiv2.innerHTML :=
-    '<style>' +
-    '  @keyframes mymove2 {' +
-    '    from {top: 200px;}' +
-    '    to {top: 100px;}' +
-    '  }' +
-    '</style>';
 
   Writeln(mydiv2.outerHTML);
 end.
