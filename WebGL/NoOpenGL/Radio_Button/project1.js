@@ -1547,9 +1547,7 @@ rtl.module("System",[],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
-  var $lt = null;
   rtl.createClass(this,"TObject",null,function () {
-    $lt = this;
     this.$init = function () {
     };
     this.$final = function () {
@@ -1575,16 +1573,12 @@ rtl.module("System",[],function () {
 rtl.module("JS",["System"],function () {
   "use strict";
   var $mod = this;
-  var $lt = null;
-  var $lt1 = null;
-  var $lt2 = null;
 });
 rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
-  var $lt = null;
-  $lt = this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
+  this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
   this.StringReplace = function (aOriginal, aSearch, aReplace, Flags) {
     var Result = "";
     var REFlags = "";
@@ -1596,10 +1590,22 @@ rtl.module("SysUtils",["System","JS"],function () {
     Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
     return Result;
   };
+  this.IntToStr = function (Value) {
+    var Result = "";
+    Result = "" + Value;
+    return Result;
+  };
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
   this.LongDayNames = rtl.arraySetLength(null,"",7);
+  rtl.createHelper(this,"TIntegerHelper",null,function () {
+    this.ToString$1 = function () {
+      var Result = "";
+      Result = $mod.IntToStr(this.get());
+      return Result;
+    };
+  });
   $mod.$implcode = function () {
     $impl.DefaultShortMonthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -1618,11 +1624,7 @@ rtl.module("Classes",["System","SysUtils","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
-  var $lt = null;
-  var $lm = pas.System;
-  var $lt1 = $lm.TObject;
-  rtl.createClass(this,"TLoadHelper",$lt1,function () {
-    $lt = this;
+  rtl.createClass(this,"TLoadHelper",pas.System.TObject,function () {
   });
   this.SetLoadHelperClass = function (aClass) {
     var Result = null;
@@ -1641,38 +1643,24 @@ rtl.module("Classes",["System","SysUtils","JS"],function () {
 rtl.module("weborworker",["System","JS"],function () {
   "use strict";
   var $mod = this;
-  var $lt = null;
-  var $lt1 = null;
 });
 rtl.module("Web",["System","JS","weborworker"],function () {
   "use strict";
   var $mod = this;
-  var $lt = null;
-  var $lt1 = null;
-  var $lt2 = null;
 });
 rtl.module("Rtl.BrowserLoadHelper",["System","Classes","SysUtils","JS","Web"],function () {
   "use strict";
   var $mod = this;
-  var $lt = null;
-  var $lm = pas.Classes;
-  var $lt1 = $lm.TLoadHelper;
-  var $lp = $lm.SetLoadHelperClass;
-  rtl.createClass(this,"TBrowserLoadHelper",$lt1,function () {
-    $lt = this;
+  rtl.createClass(this,"TBrowserLoadHelper",pas.Classes.TLoadHelper,function () {
   });
   $mod.$init = function () {
-    $lp($lt);
+    pas.Classes.SetLoadHelperClass($mod.TBrowserLoadHelper);
   };
 });
 rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUtils"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
-  var $lm = pas.System;
-  var $lp = $lm.SetWriteCallBack;
-  var $lm1 = pas.SysUtils;
-  var $lp1 = $lm1.StringReplace;
   this.BrowserLineBreak = "\n";
   this.DefaultMaxConsoleLines = 25;
   this.DefaultConsoleStyle = ".pasconsole { " + this.BrowserLineBreak + "font-family: courier;" + this.BrowserLineBreak + "font-size: 14px;" + this.BrowserLineBreak + "background: #FFFFFF;" + this.BrowserLineBreak + "color: #000000;" + this.BrowserLineBreak + "display: block;" + this.BrowserLineBreak + "}";
@@ -1703,7 +1691,7 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     if ($impl.ConsoleElement === null) return;
     $mod.InitConsole();
     $mod.ResetConsole();
-    $lp($impl.WriteConsole);
+    pas.System.SetWriteCallBack($impl.WriteConsole);
   };
   $mod.$implcode = function () {
     $impl.LastLine = null;
@@ -1730,12 +1718,12 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
     $impl.EscapeString = function (S) {
       var Result = "";
       var CL = "";
-      CL = $lp1(S,"<","&lt;",rtl.createSet(0));
-      CL = $lp1(CL,">","&gt;",rtl.createSet(0));
-      CL = $lp1(CL," ","&nbsp;",rtl.createSet(0));
-      CL = $lp1(CL,"\r\n","<br>",rtl.createSet(0));
-      CL = $lp1(CL,"\n","<br>",rtl.createSet(0));
-      CL = $lp1(CL,"\r","<br>",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(S,"<","&lt;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,">","&gt;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL," ","&nbsp;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\r\n","<br>",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\n","<br>",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\r","<br>",rtl.createSet(0));
       Result = CL;
       return Result;
     };
@@ -1761,8 +1749,42 @@ rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUti
 rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"],function () {
   "use strict";
   var $mod = this;
+  this.CreateTextBox = function (parent, Caption, color, Width, Height) {
+    var Result = null;
+    Result = document.createElement("p");
+    Result.innerHTML = Caption;
+    Result.setAttribute("style","width:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+        return Width;
+      }, set: function (v) {
+        Width = v;
+      }}) + "px; height:" + pas.SysUtils.TIntegerHelper.ToString$1.call({get: function () {
+        return Height;
+      }, set: function (v) {
+        Height = v;
+      }}) + "px ; background-color:" + color + "; cursor: pointer; padding:10px ; border: 10px solid #999;");
+    parent.appendChild(Result);
+    return Result;
+  };
+  this.CreateRadioButton = function (parent) {
+    var Result = null;
+    Result = document.createElement("input");
+    Result.innerText = "Mein Button";
+    Result.setAttribute("type","radio");
+    Result.setAttribute("value","Value button");
+    Result.setAttribute("name","group1");
+    Result.setAttribute("style","width: 50px;" + "height: 50px;" + "border-radius: 50px;" + "top: -2px;" + "left: -1px;" + "position: relative;" + "background-color: #d1d3d1;" + "content: ';" + "display: inline-block;" + "visibility: visible;" + "border: 2px solid white;");
+    parent.appendChild(Result);
+    return Result;
+  };
+  this.tb = null;
+  this.tb2 = null;
   $mod.$main = function () {
-    document.body.innerHTML += "<div>" + "  <style>" + "    div {" + "      width: 100px;" + "      height: 100px;" + "      background: red;" + "      position: relative;" + "      animation: mymove 5s infinite;" + "    }" + "" + "    @keyframes mymove {" + "      from {top: 0px;}" + "      to {top: 200px;}" + "    }" + "  </style>" + "</div>";
+    $mod.tb = $mod.CreateTextBox(document.body,"Spinning newspaper<br />causes dizziness","red",180,300);
+    $mod.tb2 = $mod.CreateTextBox($mod.tb,"Spinning newspaper<br />causes dizziness","green",160,200);
+    $mod.CreateTextBox($mod.tb2,"Spinning newspaper<br />causes dizziness","yellow",160,200);
+    $mod.CreateRadioButton(document.body);
+    $mod.CreateRadioButton(document.body);
+    $mod.CreateRadioButton(document.body);
   };
 });
 //# sourceMappingURL=project1.js.map

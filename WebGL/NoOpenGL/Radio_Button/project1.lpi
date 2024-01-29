@@ -61,9 +61,6 @@
     </Parsing>
     <CodeGeneration>
       <TargetOS Value="browser"/>
-      <Optimizations>
-        <OptimizationLevel Value="2"/>
-      </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>

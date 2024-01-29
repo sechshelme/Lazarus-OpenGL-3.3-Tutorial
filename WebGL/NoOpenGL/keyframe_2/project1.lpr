@@ -30,6 +30,9 @@ begin
   mydiv := CreateTextBox(document.body, 'keyframes Box 1', 'yellow', 160, 200);
   mydiv['style'] := mydiv['style'] + 'position: relative; ' + 'animation: mymove1 3s infinite ;';
 
+  mydiv2 := CreateTextBox(document.body, 'keyframes Box 2', 'yellow', 160, 200);
+  mydiv2['style'] := mydiv2['style'] + 'position: relative; ' + 'animation: mymove2 5s infinite;';
+
   document.body.innerHTML +=
     '<style>' +
     '  @keyframes mymove1 {' +
@@ -44,11 +47,6 @@ begin
     '  }' +
     '</style>';
 
-  Writeln(mydiv.outerHTML);
-
-
-  mydiv2 := CreateTextBox(document.body, 'keyframes Box 2', 'yellow', 160, 200);
-  mydiv2['style'] := mydiv2['style'] + 'position: relative; ' + 'animation: mymove2 5s infinite;';
-
-  Writeln(mydiv2.outerHTML);
+  Writeln(document.head.outerHTML);
+  Writeln(document.body.outerHTML);
 end.

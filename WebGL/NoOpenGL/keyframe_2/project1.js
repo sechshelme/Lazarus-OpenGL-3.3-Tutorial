@@ -1791,11 +1791,11 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web","browserconsole"]
   $mod.$main = function () {
     $mod.mydiv = $mod.CreateTextBox(document.body,"keyframes Box 1","yellow",160,200);
     $mod.mydiv.setAttribute("style",$mod.mydiv.getAttribute("style") + "position: relative; " + "animation: mymove1 3s infinite ;");
-    document.body.innerHTML += "<style>" + "  @keyframes mymove1 {" + "    0% {top: 0px; background-color: red}" + "    50% {top: 200px; background-color: green}" + "    100% {top: 0px; background-color: red}" + "  }" + "  @keyframes mymove2 {" + "    0% {left: 200px; background-color: yellow}" + "    50% {left: 100px; background-color: cyan}" + "    100% {left: 200px; background-color: yellow}" + "  }" + "</style>";
-    pas.System.Writeln($mod.mydiv.outerHTML);
     $mod.mydiv2 = $mod.CreateTextBox(document.body,"keyframes Box 2","yellow",160,200);
     $mod.mydiv2.setAttribute("style",$mod.mydiv2.getAttribute("style") + "position: relative; " + "animation: mymove2 5s infinite;");
-    pas.System.Writeln($mod.mydiv2.outerHTML);
+    document.body.innerHTML += "<style>" + "  @keyframes mymove1 {" + "    0% {top: 0px; background-color: red}" + "    50% {top: 200px; background-color: green}" + "    100% {top: 0px; background-color: red}" + "  }" + "  @keyframes mymove2 {" + "    0% {left: 200px; background-color: yellow}" + "    50% {left: 100px; background-color: cyan}" + "    100% {left: 200px; background-color: yellow}" + "  }" + "</style>";
+    pas.System.Writeln(document.head.outerHTML);
+    pas.System.Writeln(document.body.outerHTML);
   };
 });
 //# sourceMappingURL=project1.js.map

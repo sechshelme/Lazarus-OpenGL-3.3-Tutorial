@@ -20,10 +20,39 @@ uses
     parent.appendChild(Result);
   end;
 
+  // https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons
+
+  function CreateRadioButton(parent: TJSElement): TJSElement;
+  begin
+    Result := document.createElement('input');
+    Result.innerText := 'Mein Button';
+    Result['type'] := 'radio';
+    Result['value'] := 'Value button';
+    Result['name'] := 'group1';
+
+    Result['style'] :=
+      'width: 50px;' +
+      'height: 50px;' +
+      'border-radius: 50px;' +
+      'top: -2px;' +
+      'left: -1px;' +
+      'position: relative;' +
+      'background-color: #d1d3d1;' +
+      'content: '';' +
+      'display: inline-block;' +
+      'visibility: visible;' +
+      'border: 2px solid white;';
+    parent.appendChild(Result);
+  end;
+
 var
   tb, tb2: TJSElement;
 begin
   tb := CreateTextBox(document.body, 'Spinning newspaper<br />causes dizziness', 'red', 180, 300);
   tb2 := CreateTextBox(tb, 'Spinning newspaper<br />causes dizziness', 'green', 160, 200);
   CreateTextBox(tb2, 'Spinning newspaper<br />causes dizziness', 'yellow', 160, 200);
+
+  CreateRadioButton(document.body);
+  CreateRadioButton(document.body);
+  CreateRadioButton(document.body);
 end.
