@@ -1829,6 +1829,7 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       this.FElement = document.createElement(ElementTyp);
       document.body.appendChild(this.FElement);
       this.FElement.setAttribute("style","");
+      this.FElement.setAttribute("style","font-family:'Courier New'");
       this.Flegend = document.createElement("legend");
       this.Flegend.setAttribute("style","font-family:'Courier New'");
       this.Flegend.innerHTML = "";
@@ -1838,8 +1839,14 @@ rtl.module("webControl",["System","Classes","SysUtils","JS","Web","browserconsol
       this.Flegend.innerHTML = s;
       this.FElement.appendChild(this.Flegend);
     };
-    this.Add = function (AElement) {
-      this.FElement.appendChild(AElement.FElement);
+    this.Add = function (AControl) {
+      this.FElement.appendChild(AControl.FElement);
+    };
+    this.Delete = function (Aindex) {
+      this.FElement.removeChild(this.FElement.children.item(Aindex));
+    };
+    this.Insert = function (Aindex, AElement) {
+      this.FElement.insertBefore(AElement,this.FElement.children.item(Aindex));
     };
   });
 });
@@ -1856,6 +1863,9 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
     this.Create$2 = function () {
       pas.webControl.TControl.Create$1.call(this,"fieldset");
       return this;
+    };
+    this.DeleteButton = function (Aindex) {
+      this.Delete(Aindex + 1);
     };
   });
   rtl.createClass(this,"TPureRadioButton",this.TInput,function () {
@@ -1902,10 +1912,15 @@ rtl.module("webInput",["System","Classes","SysUtils","JS","Web","browserconsole"
       $mod.TRadioGroupBox.GroupIndex += 1;
       return this;
     };
-    this.AddButton = function (Caption) {
+    this.AddButton = function (ACaption) {
       var RB = null;
-      RB = $mod.TRadioButton.$create("Create$2",[Caption,this.Name]);
+      RB = $mod.TRadioButton.$create("Create$2",[ACaption,this.Name]);
       this.Add(RB);
+    };
+    this.InsertButton = function (Aindex, ACaption) {
+      var RB = null;
+      RB = $mod.TRadioButton.$create("Create$2",[ACaption,this.Name]);
+      this.Insert(Aindex + 1,RB.FElement);
     };
     this.GetChecked = function () {
       var Result = 0;
@@ -2027,14 +2042,22 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
   };
   this.ButtonNewRadioClick = function (aEvent) {
     var Result = false;
-    $mod.NewCG1.AddButton("New");
+    $mod.NewRG1.InsertButton(1,"New");
+    return Result;
+  };
+  this.ButtonDeleteRadioClick = function (aEvent) {
+    var Result = false;
+    $mod.NewRG1.DeleteButton(0);
     return Result;
   };
   this.Main = function () {
     var img = null;
     var ButtonShowRadio = null;
+    var NewRadioButton = null;
+    var DeleteRadioButton = null;
     var subwc = null;
     var subwc2 = null;
+    var MyBox = null;
     var gp = null;
     gp = pas.webInput.TGroupBox.$create("Create$2");
     gp.Setwidth(150);
@@ -2080,13 +2103,20 @@ rtl.module("program",["System","browserconsole","JS","Classes","SysUtils","Web",
     $mod.NewCG2.Setwidth(180);
     ButtonShowRadio = $mod.CreateButton(document.body,"Radio Auswertung");
     ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonEvaluationsClick");
-    ButtonShowRadio = $mod.CreateButton(document.body,"Neue CheckBox");
-    ButtonShowRadio.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
+    NewRadioButton = $mod.CreateButton(document.body,"Neuer RadioButton");
+    NewRadioButton.onclick = rtl.createSafeCallback($mod,"ButtonNewRadioClick");
+    DeleteRadioButton = $mod.CreateButton(document.body,"RadioButton entfernen");
+    DeleteRadioButton.onclick = rtl.createSafeCallback($mod,"ButtonDeleteRadioClick");
     $mod.CreateNewLine(document.body);
     img = document.createElement("img");
     img.setAttribute("id","image");
     img.setAttribute("src","image.png");
     document.body.appendChild(img);
+    MyBox = pas.webControl.TControl.$create("Create$1",["div"]);
+    MyBox.FElement.innerHTML += '<div><input type="button" value="Knopf">bla</input>  Hello World !<input type="button"; value="Knopf">bla</input>  Hello World !</div>';
+    pas.System.Writeln(MyBox.FElement.outerHTML);
+    pas.System.Writeln(MyBox.FElement.innerHTML);
+    pas.System.Writeln(MyBox.FElement.innerText);
   };
   $mod.$main = function () {
     $mod.Main();

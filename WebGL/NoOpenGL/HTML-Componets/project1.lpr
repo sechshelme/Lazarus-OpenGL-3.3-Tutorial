@@ -73,13 +73,19 @@ var
 
   function ButtonNewRadioClick(aEvent: TJSMouseEvent): boolean;
   begin
-    NewCG1.AddButton('New');
+//    NewRG1.AddButton('New');
+    NewRG1.InsertButton(1,'New');
+  end;
+
+  function ButtonDeleteRadioClick(aEvent: TJSMouseEvent): boolean;
+  begin
+    NewRG1.DeleteButton(0);
   end;
 
   procedure Main;
   var
-    img, ButtonShowRadio: TJSElement;
-    subwc, subwc2: TControl;
+    img, ButtonShowRadio, NewRadioButton, DeleteRadioButton: TJSElement;
+    subwc, subwc2, MyBox: TControl;
     gp: TGroupBox;
   begin
     gp := TGroupBox.Create;
@@ -139,9 +145,15 @@ var
     ButtonShowRadio := CreateButton(document.body, 'Radio Auswertung');
     TJSHTMLElement(ButtonShowRadio).onclick := @ButtonEvaluationsClick;
 
-    ButtonShowRadio := CreateButton(document.body, 'Neue CheckBox');
-    TJSHTMLElement(ButtonShowRadio).onclick := @ButtonNewRadioClick;
+    NewRadioButton := CreateButton(document.body, 'Neuer RadioButton');
+    TJSHTMLElement(NewRadioButton).onclick := @ButtonNewRadioClick;
+
+    DeleteRadioButton := CreateButton(document.body, 'RadioButton entfernen');
+    TJSHTMLElement(DeleteRadioButton).onclick := @ButtonDeleteRadioClick;
     CreateNewLine(document.body);
+
+//    Writeln(NewCG1.Element.innerHTML);
+//    Writeln(NewCG1.Element.innerText);
 
     //       <img id="ghost1" src="ghost1.png"/>
 
@@ -151,7 +163,13 @@ var
 
     document.body.appendChild(img);
 
-//    Writeln(document.body.innerHTML);
+    MyBox:=TControl.Create('div');
+
+    MyBox.Element.innerHTML+='<div><input type="button" value="Knopf">bla</input>  Hello World !<input type="button"; value="Knopf">bla</input>  Hello World !</div>';
+
+    Writeln(MyBox.Element.outerHTML);
+    Writeln(MyBox.Element.innerHTML);
+    Writeln(MyBox.Element.innerText);
 //   subwc2.Add(img);
   end;
 

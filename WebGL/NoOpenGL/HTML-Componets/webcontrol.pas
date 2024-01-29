@@ -21,7 +21,7 @@ type
     FbackgroundColor: string;
     FColor: string;
     Fheight: integer;
-  Flegend,  FElement: TJSElement;
+    Flegend, FElement: TJSElement;
     FCaption: string;
     Fwidth: integer;
     procedure SetbackgroundColor(ABackgroundColor: string);
@@ -31,9 +31,11 @@ type
     procedure Setwidth(AValue: integer);
   public
     constructor Create(ElementTyp: string);
-    procedure SetLegend(s:String);
-    procedure Add(AElement: TControl); overload;
+    procedure SetLegend(s: string);
+    procedure Add(AControl: TControl); overload;
     procedure Add(AElement: TJSElement); overload;
+    procedure Delete(Aindex: integer);
+    procedure Insert(Aindex: integer;AElement: TJSElement );
     property Caption: string read FCaption write SetCaption;
     property Color: string read FColor write SetColor;
     property backgroundColor: string read FbackgroundColor write SetbackgroundColor;
@@ -56,19 +58,19 @@ begin
   FbackgroundColor := '';
 
   FElement := document.createElement(ElementTyp);
-    document.body.appendChild(FElement);
+  document.body.appendChild(FElement);
 
-    FElement['style'] := '';
- //   FElement['style'] := 'font-family:''Courier New''';
+  FElement['style'] := '';
+  FElement['style'] := 'font-family:''Courier New''';
 
   Flegend := document.createElement('legend');
   Flegend['style'] := 'font-family:''Courier New''';
-  Flegend.innerHTML:='';
+  Flegend.innerHTML := '';
 end;
 
-procedure TControl.SetLegend(s: String);
+procedure TControl.SetLegend(s: string);
 begin
-  Flegend.innerHTML:=s;
+  Flegend.innerHTML := s;
   FElement.appendChild(Flegend);
 end;
 
@@ -80,7 +82,7 @@ begin
   FCaption := ACaption;
   FElement.innerHTML := FCaption;
 
-//  Flegend.innerHTML:=ACaption;
+  //  Flegend.innerHTML:=ACaption;
 end;
 
 procedure TControl.SetColor(AColor: string);
@@ -90,7 +92,7 @@ begin
   end;
   FColor := AColor;
   FElement['style'] := FElement['style'] + 'color:' + AColor + ';';
-//  FElement['style'] := FElement['style'] + 'background-color:' + AColor + '; color:red';
+  //  FElement['style'] := FElement['style'] + 'background-color:' + AColor + '; color:red';
 end;
 
 procedure TControl.SetbackgroundColor(ABackgroundColor: string);
@@ -100,7 +102,7 @@ begin
   end;
   FbackgroundColor := ABackgroundColor;
   FElement['style'] := FElement['style'] + 'background-color:' + ABackgroundColor + ';';
-//  FElement['style'] := FElement['style'] + 'background-color:' + ABackgroundColor + '; color:red';
+  //  FElement['style'] := FElement['style'] + 'background-color:' + ABackgroundColor + '; color:red';
 end;
 
 procedure TControl.Setheight(AValue: integer);
@@ -126,9 +128,19 @@ begin
   FElement.appendChild(AElement);
 end;
 
-procedure TControl.Add(AElement: TControl);
+procedure TControl.Delete(Aindex: integer);
 begin
-  FElement.appendChild(AElement.Element);
+    FElement.removeChild(FElement.children[Aindex]);
+end;
+
+procedure TControl.Insert(Aindex: integer; AElement: TJSElement);
+begin
+    FElement.insertBefore(AElement,FElement.children[Aindex]);
+end;
+
+procedure TControl.Add(AControl: TControl);
+begin
+  FElement.appendChild(AControl.Element);
 end;
 
 end.

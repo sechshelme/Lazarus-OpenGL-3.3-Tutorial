@@ -23,20 +23,23 @@ type
 
   TGroupBox = class(TControl)
     constructor Create;
+    procedure DeleteButton(Aindex: integer);
   end;
 
   // === Radio Buttons
 
   TPureRadioButton = class(TInput)
-    constructor Create(AGroupName: string);
+    constructor Create(const AGroupName: string);
   end;
 
   TRadioButton = class(TControl)
   private
     rb: TPureRadioButton;
   public
-    constructor Create(Caption, AGroupName: string);
+    constructor Create(const Caption, AGroupName: string);
   end;
+
+  { TRadioGroupBox }
 
   TRadioGroupBox = class(TGroupBox)
   private
@@ -44,22 +47,25 @@ type
     Name: string;
   public
     constructor Create;
-    procedure AddButton(Caption: string);
+    procedure AddButton(const ACaption: string);
+    procedure InsertButton(Aindex: integer; const ACaption: string);
     function GetChecked: integer;
   end;
 
   // === Check Buttons
 
   TPureCheckButton = class(TInput)
-    constructor Create(AGroupName: string);
+    constructor Create(const AGroupName: string);
   end;
 
   TCheckButton = class(TControl)
   private
     cb: TPureCheckButton;
   public
-    constructor Create(Caption, AGroupName: string);
+    constructor Create(const Caption, AGroupName: string);
   end;
+
+  { TCheckGroupBox }
 
   TCheckGroupBox = class(TGroupBox)
   private
@@ -67,7 +73,8 @@ type
     Name: string;
   public
     constructor Create;
-    procedure AddButton(Caption: string);
+    procedure AddButton(const Caption: string);
+    procedure InsertButton(Aindex: integer; const ACaption: string);
     function GetChecked: TBooleans;
   end;
 
@@ -88,25 +95,33 @@ begin
   inherited Create('fieldset');
 end;
 
+procedure TGroupBox.DeleteButton(Aindex: integer);
+begin
+  Self.Delete(Aindex + 1);  // +1 wegen Legends
+end;
+
 // === Radio Buttons
 
-constructor TPureRadioButton.Create(AGroupName: string);
+constructor TPureRadioButton.Create(const AGroupName: string);
 begin
   inherited Create;
   self.Element['type'] := 'radio';
   self.Element['name'] := AGroupName;
 end;
 
-constructor TRadioButton.Create(Caption, AGroupName: string);
+constructor TRadioButton.Create(const Caption, AGroupName: string);
 var
   title: TControl;
 begin
   inherited Create('div');
+
   rb := TPureRadioButton.Create(AGroupName);
   self.Add(rb);
   title := TControl.Create('label');
   title.Caption := Caption;
   self.Add(title);
+
+  //      self.Element.innerHTML+=   'radio123';
 end;
 
 { TRadioGroupBox }
@@ -119,14 +134,12 @@ begin
   Inc(GroupIndex);
 end;
 
-procedure TRadioGroupBox.AddButton(Caption: string);
+procedure TRadioGroupBox.AddButton(const ACaption: string);
 var
   RB: TRadioButton;
 begin
-  RB := TRadioButton.Create(Caption, Name);
+  RB := TRadioButton.Create(ACaption, Name);
   self.Add(RB);
-
-
 
   //
   //     div_ := document.createElement('div');
@@ -144,6 +157,14 @@ begin
   //     div_.appendChild(label1);
   //
   //     FElement.appendChild(div_);
+end;
+
+procedure TRadioGroupBox.InsertButton(Aindex: integer; const ACaption: string);
+var
+  RB: TRadioButton;
+begin
+  RB := TRadioButton.Create(ACaption, Name);
+  self.Insert(Aindex + 1, RB.Element);   // +1 wegen Legends
 end;
 
 function TRadioGroupBox.GetChecked: integer;
@@ -164,14 +185,14 @@ end;
 
 // === Check Buttons
 
-constructor TPureCheckButton.Create(AGroupName: string);
+constructor TPureCheckButton.Create(const AGroupName: string);
 begin
   inherited Create;
   self.Element['type'] := 'checkbox';
   self.Element['name'] := AGroupName;
 end;
 
-constructor TCheckButton.Create(Caption, AGroupName: string);
+constructor TCheckButton.Create(const Caption, AGroupName: string);
 var
   title: TControl;
 begin
@@ -193,12 +214,20 @@ begin
   Inc(GroupIndex);
 end;
 
-procedure TCheckGroupBox.AddButton(Caption: string);
+procedure TCheckGroupBox.AddButton(const Caption: string);
 var
   CB: TCheckButton;
 begin
   CB := TCheckButton.Create(Caption, Name);
   self.Add(CB);
+end;
+
+procedure TCheckGroupBox.InsertButton(Aindex: integer; const ACaption: string);
+var
+  CB: TCheckButton;
+begin
+  CB := TCheckButton.Create(ACaption, Name);
+  self.Insert(Aindex + 1, CB.Element);   // +1 wegen Legends
 end;
 
 function TCheckGroupBox.GetChecked: TBooleans;
