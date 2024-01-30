@@ -6,8 +6,8 @@ uses
   JS,
   Classes,
   SysUtils,
-  Web,
-  browserconsole;
+//  browserconsole,
+  Web;
 
   function CreateTextBox(parent: TJSElement; const Caption, color: string; Width, Height: integer): TJSElement;
   begin
@@ -19,6 +19,35 @@ uses
 
     parent.appendChild(Result);
   end;
+
+  // https://html5-tutorial.net/de/337/formulare/radio-buttons/
+
+  function CreateRadioBox(parent: TJSElement): TJSElement;
+  var
+    legend, rb: TJSElement;
+    i: integer;
+  begin
+    Result := document.createElement('fieldset');
+    legend := document.createElement('legend');
+    legend['style'] := 'color: red';
+
+    legend.innerHTML := 'Radio Box';
+    Writeln(legend.outerHTML);
+
+    for i := 0 to 7 do begin
+      rb := document.createElement('input');
+      rb['type'] := 'radio';
+      rb['name'] := 'gruppe';
+      rb['value'] := 'gruppe';
+      rb.innerHTML := '<b>RadioButton ' + IntToStr(i) + '</b>';
+      Writeln(rb.outerHTML);
+      Result.appendChild(rb);
+    end;
+
+    parent.appendChild(Result);
+    Result.appendChild(legend);
+  end;
+
 
   // https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons
 
@@ -48,11 +77,13 @@ uses
 var
   tb, tb2: TJSElement;
 begin
-  tb := CreateTextBox(document.body, 'Spinning newspaper<br />causes dizziness', 'red', 180, 300);
-  tb2 := CreateTextBox(tb, 'Spinning newspaper<br />causes dizziness', 'green', 160, 200);
-  CreateTextBox(tb2, 'Spinning newspaper<br />causes dizziness', 'yellow', 160, 200);
+  //tb := CreateTextBox(document.body, 'Spinning newspaper<br />causes dizziness', 'red', 180, 300);
+  //tb2 := CreateTextBox(tb, 'Spinning newspaper<br />causes dizziness', 'green', 160, 200);
+  //CreateTextBox(tb2, 'Spinning newspaper<br />causes dizziness', 'yellow', 160, 200);
 
-  CreateRadioButton(document.body);
-  CreateRadioButton(document.body);
-  CreateRadioButton(document.body);
+  CreateRadioBox(document.body);
+  //
+  //  CreateRadioButton(document.body);
+  //  CreateRadioButton(document.body);
+  //  CreateRadioButton(document.body);
 end.
