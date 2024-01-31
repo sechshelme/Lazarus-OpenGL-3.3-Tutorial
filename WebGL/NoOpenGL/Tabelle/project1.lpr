@@ -37,6 +37,7 @@ function Create_tr(parent: TJSElement; const sa: TStringArray): TJSElement;
 //    Result := document.createElement('table border=1  bordercolor=blue');
     Result := document.createElement('table');
     Result.setAttribute('border', '1');
+    Result.setAttribute('bordercolor', 'red');
 //    Result.innerHTML := Caption;
 //     Result['style'] := ' bordercolor:blue; border: 10px color: red background-color: yellow; width:400px; height:400px;';
     //     Result.innerHTML := '<table border=1 color=red background-color=yellow></table>';
