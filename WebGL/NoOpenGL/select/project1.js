@@ -1622,11 +1622,33 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web"],function () {
     parent.appendChild(Result);
     return Result;
   };
+  this.CreateDataList = function (parent, Items) {
+    var Result = null;
+    var i = 0;
+    Result = document.createElement("datalist");
+    Result.setAttribute("id","browsers");
+    for (var $l = 0, $end = rtl.length(Items) - 1; $l <= $end; $l++) {
+      i = $l;
+      $mod.CreateSelectItem(Result,Items[i]);
+    };
+    parent.appendChild(Result);
+    return Result;
+  };
+  this.CreateComboBox = function (parent, Items) {
+    var Result = null;
+    Result = document.createElement("input");
+    Result.setAttribute("list","browsers");
+    $mod.CreateDataList(Result,Items);
+    parent.appendChild(Result);
+    return Result;
+  };
   $mod.$main = function () {
     document.body.innerHTML = "<hr>";
     $mod.CreateLabel(document.body,"Wähle eine Option:");
     $mod.CreateSelect(document.body,["abc","def","ghi"]);
     document.body.innerHTML += "<hr>";
+    $mod.CreateLabel(document.body,"Wähle eine Option:");
+    $mod.CreateComboBox(document.body,["abc","def","ghi"]);
   };
 });
 //# sourceMappingURL=project1.js.map
