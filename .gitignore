@@ -31,3 +31,4 @@ lib/
 
 # Application bundle for Mac OS
 *.app/
+/WebGL/Netbeans/Erster_Versuch/HTML5Application/nbproject/private/

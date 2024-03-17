@@ -1546,10 +1546,30 @@ var rtl = {
 rtl.module("System",[],function () {
   "use strict";
   var $mod = this;
+  var $impl = $mod.$impl;
+  rtl.createClass(this,"TObject",null,function () {
+    this.$init = function () {
+    };
+    this.$final = function () {
+    };
+    this.AfterConstruction = function () {
+    };
+    this.BeforeDestruction = function () {
+    };
+  });
+  this.SetWriteCallBack = function (H) {
+    var Result = null;
+    Result = $impl.WriteCallBack;
+    $impl.WriteCallBack = H;
+    return Result;
+  };
+  $mod.$implcode = function () {
+    $impl.WriteCallBack = null;
+  };
   $mod.$init = function () {
     rtl.exitcode = 0;
   };
-});
+},[]);
 rtl.module("JS",["System"],function () {
   "use strict";
   var $mod = this;
@@ -1558,6 +1578,18 @@ rtl.module("SysUtils",["System","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
+  this.TStringReplaceFlag = {"0": "rfReplaceAll", rfReplaceAll: 0, "1": "rfIgnoreCase", rfIgnoreCase: 1};
+  this.StringReplace = function (aOriginal, aSearch, aReplace, Flags) {
+    var Result = "";
+    var REFlags = "";
+    var REString = "";
+    REFlags = "";
+    if (0 in Flags) REFlags = "g";
+    if (1 in Flags) REFlags = REFlags + "i";
+    REString = aSearch.replace(new RegExp($impl.RESpecials,"g"),"\\$1");
+    Result = aOriginal.replace(new RegExp(REString,REFlags),aReplace);
+    return Result;
+  };
   this.ShortMonthNames = rtl.arraySetLength(null,"",12);
   this.LongMonthNames = rtl.arraySetLength(null,"",12);
   this.ShortDayNames = rtl.arraySetLength(null,"",7);
@@ -1567,6 +1599,7 @@ rtl.module("SysUtils",["System","JS"],function () {
     $impl.DefaultLongMonthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     $impl.DefaultShortDayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     $impl.DefaultLongDayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    $impl.RESpecials = "([\\$\\+\\[\\]\\(\\)\\\\\\.\\*\\^\\?\\|])";
   };
   $mod.$init = function () {
     $mod.ShortMonthNames = $impl.DefaultShortMonthNames.slice(0);
@@ -1579,7 +1612,16 @@ rtl.module("Classes",["System","SysUtils","JS"],function () {
   "use strict";
   var $mod = this;
   var $impl = $mod.$impl;
+  rtl.createClass(this,"TLoadHelper",pas.System.TObject,function () {
+  });
+  this.SetLoadHelperClass = function (aClass) {
+    var Result = null;
+    Result = $impl.GlobalLoadHelper;
+    $impl.GlobalLoadHelper = aClass;
+    return Result;
+  };
   $mod.$implcode = function () {
+    $impl.GlobalLoadHelper = null;
     $impl.ClassList = null;
   };
   $mod.$init = function () {
@@ -1594,7 +1636,105 @@ rtl.module("Web",["System","JS","weborworker"],function () {
   "use strict";
   var $mod = this;
 });
-rtl.module("program",["System","JS","Classes","SysUtils","Web"],function () {
+rtl.module("Rtl.BrowserLoadHelper",["System","Classes","SysUtils","JS","Web"],function () {
+  "use strict";
+  var $mod = this;
+  rtl.createClass(this,"TBrowserLoadHelper",pas.Classes.TLoadHelper,function () {
+  });
+  $mod.$init = function () {
+    pas.Classes.SetLoadHelperClass($mod.TBrowserLoadHelper);
+  };
+});
+rtl.module("browserconsole",["System","JS","Web","Rtl.BrowserLoadHelper","SysUtils"],function () {
+  "use strict";
+  var $mod = this;
+  var $impl = $mod.$impl;
+  this.BrowserLineBreak = "\n";
+  this.DefaultMaxConsoleLines = 25;
+  this.DefaultConsoleStyle = ".pasconsole { " + this.BrowserLineBreak + "font-family: courier;" + this.BrowserLineBreak + "font-size: 14px;" + this.BrowserLineBreak + "background: #FFFFFF;" + this.BrowserLineBreak + "color: #000000;" + this.BrowserLineBreak + "display: block;" + this.BrowserLineBreak + "}";
+  this.ConsoleElementID = "";
+  this.ConsoleStyle = "";
+  this.MaxConsoleLines = 0;
+  this.ConsoleLinesToBrowserLog = false;
+  this.ResetConsole = function () {
+    if ($impl.LinesParent === null) return;
+    while ($impl.LinesParent.firstElementChild !== null) $impl.LinesParent.removeChild($impl.LinesParent.firstElementChild);
+    $impl.AppendLine();
+  };
+  this.InitConsole = function () {
+    if ($impl.ConsoleElement === null) return;
+    if ($impl.ConsoleElement.nodeName.toLowerCase() !== "body") {
+      while ($impl.ConsoleElement.firstElementChild !== null) $impl.ConsoleElement.removeChild($impl.ConsoleElement.firstElementChild);
+    };
+    $impl.StyleElement = document.createElement("style");
+    $impl.StyleElement.innerText = $mod.ConsoleStyle;
+    $impl.ConsoleElement.appendChild($impl.StyleElement);
+    $impl.LinesParent = document.createElement("div");
+    $impl.ConsoleElement.appendChild($impl.LinesParent);
+  };
+  this.HookConsole = function () {
+    $impl.ConsoleElement = null;
+    if ($mod.ConsoleElementID !== "") $impl.ConsoleElement = document.getElementById($mod.ConsoleElementID);
+    if ($impl.ConsoleElement === null) $impl.ConsoleElement = document.body;
+    if ($impl.ConsoleElement === null) return;
+    $mod.InitConsole();
+    $mod.ResetConsole();
+    pas.System.SetWriteCallBack($impl.WriteConsole);
+  };
+  $mod.$implcode = function () {
+    $impl.LastLine = null;
+    $impl.StyleElement = null;
+    $impl.LinesParent = null;
+    $impl.ConsoleElement = null;
+    $impl.AppendLine = function () {
+      var CurrentCount = 0;
+      var S = null;
+      CurrentCount = 0;
+      S = $impl.LinesParent.firstChild;
+      while (S != null) {
+        CurrentCount += 1;
+        S = S.nextSibling;
+      };
+      while (CurrentCount > $mod.MaxConsoleLines) {
+        CurrentCount -= 1;
+        $impl.LinesParent.removeChild($impl.LinesParent.firstChild);
+      };
+      $impl.LastLine = document.createElement("div");
+      $impl.LastLine.className = "pasconsole";
+      $impl.LinesParent.appendChild($impl.LastLine);
+    };
+    $impl.EscapeString = function (S) {
+      var Result = "";
+      var CL = "";
+      CL = pas.SysUtils.StringReplace(S,"<","&lt;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,">","&gt;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL," ","&nbsp;",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\r\n","<br>",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\n","<br>",rtl.createSet(0));
+      CL = pas.SysUtils.StringReplace(CL,"\r","<br>",rtl.createSet(0));
+      Result = CL;
+      return Result;
+    };
+    $impl.WriteConsole = function (S, NewLine) {
+      var CL = "";
+      CL = $impl.LastLine.innerHTML;
+      CL = CL + $impl.EscapeString("" + S);
+      $impl.LastLine.innerHTML = CL;
+      if (NewLine) {
+        if ($mod.ConsoleLinesToBrowserLog) window.console.log($impl.LastLine.innerText);
+        $impl.AppendLine();
+      };
+    };
+  };
+  $mod.$init = function () {
+    $mod.ConsoleLinesToBrowserLog = true;
+    $mod.ConsoleElementID = "pasjsconsole";
+    $mod.ConsoleStyle = $mod.DefaultConsoleStyle;
+    $mod.MaxConsoleLines = 25;
+    $mod.HookConsole();
+  };
+},[]);
+rtl.module("program",["System","JS","Classes","SysUtils","browserconsole","Web"],function () {
   "use strict";
   var $mod = this;
   this.CreateLabel = function (parent, Caption) {
@@ -1615,6 +1755,7 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web"],function () {
     var Result = null;
     var i = 0;
     Result = document.createElement("select");
+    Result.setAttribute("size","4");
     for (var $l = 0, $end = rtl.length(Items) - 1; $l <= $end; $l++) {
       i = $l;
       $mod.CreateSelectItem(Result,Items[i]);
@@ -1643,12 +1784,13 @@ rtl.module("program",["System","JS","Classes","SysUtils","Web"],function () {
     return Result;
   };
   $mod.$main = function () {
-    document.body.innerHTML = "<hr>";
-    $mod.CreateLabel(document.body,"Wähle eine Option:");
-    $mod.CreateSelect(document.body,["abc","def","ghi"]);
     document.body.innerHTML += "<hr>";
     $mod.CreateLabel(document.body,"Wähle eine Option:");
-    $mod.CreateComboBox(document.body,["abc","def","ghi"]);
+    $mod.CreateSelect(document.body,["aaa","bbb","ccc","abc","def","ghi"]);
+    document.body.innerHTML += "<hr>";
+    $mod.CreateLabel(document.body,"Wähle eine Option:");
+    $mod.CreateComboBox(document.body,["aaa","bbb","ccc","abc","def","ghi"]);
+    document.body.innerHTML += "<hr>";
   };
 });
 //# sourceMappingURL=project1.js.map

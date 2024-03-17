@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+main {
+  margin: auto;
+  block-size: 60vmin;
+  inline-size: 60vmin;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 32222ms infinite alternate ease-in-out;
+}
+div {
+  animation: distanced 8000ms infinite alternate ease-in-out;
+  offset-distance: 50%;
+  offset-path: ray(var(--angle-start, 45deg) farthest-side);
+  --angle-start: calc(45deg + (30deg * var(--i, 0)));
+}
+.rayed {
+  animation: rayed 5000ms infinite linear;
+  background: hsl(0 90% 98%);
+  offset-rotate: auto 0.25turn;
+}
+
+body {
+  block-size: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  background: hsl(160 90% 2%);
+  background: radial-gradient(circle, hsl(0 90% 3%), hsl(0 100% 0%));
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes distanced {
+  0% {
+    offset-distance: -10%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
+@keyframes rayed {
+  0% {
+    offset-path: ray(var(--angle-start, 45deg) farthest-side);
+  }
+  100% {
+    offset-path: ray(calc(var(--angle-start, 45deg) + 1turn) farthest-side);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+div {
+  position: absolute;
+  --side: 8.5vmin;
+  --side-inner: 7vmin;
+  --side-inner2: 5.5vmin;
+  --side-inner3: 4vmin;
+  block-size: calc(var(--side) * 2);
+  inline-size: calc(var(--side) * 2);
+  clip-path: polygon(100, 100, 200, 150, 300, 400);
+
+  background: linear-gradient(
+    to bottom,
+    hsl(calc(313 + (30 * var(--i, 0))) 100% 50%),
+    hsl(calc(343 + (30 * var(--i, 0))) 100% 50%)
+  );
+
+  /**/
+  mix-blend-mode: screen; /**/
+}
+</style>
+</head>
+
+
+<body>
+<main>
+  <div>
+<fieldset>
+  <legend>Select a maintenance drone:</legend>
+
+  <div>
+    <input type="radio" id="huey" name="drone" value="huey" checked />
+    <label for="huey">Huey</label>
+  </div>
+
+  <div>
+    <input type="radio" id="dewey" name="drone" value="dewey" />
+    <label for="dewey">Dewey</label>
+  </div>
+
+  <div>
+    <input type="radio" id="louie" name="drone" value="louie" />
+    <label for="louie">Louie</label>
+  </div>
+</fieldset>
+      </div>
+</main>
+</body>
+</html>

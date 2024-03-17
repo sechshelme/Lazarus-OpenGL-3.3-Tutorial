@@ -155,7 +155,7 @@ begin
   CalcSphere;
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -300.0);
+  WorldMatrix.Translate([0, 0, -300.0]);
   WorldMatrix.Scale(150);
   WorldMatrix.RotateA(-pi / 6);
   WorldMatrix.RotateB(pi / 6);

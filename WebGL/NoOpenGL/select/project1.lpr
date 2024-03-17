@@ -6,7 +6,7 @@ uses
   JS,
   Classes,
   SysUtils,
-//  browserconsole,
+  browserconsole,
   Web;
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
@@ -36,6 +36,7 @@ var
   i: Integer;
 begin
   Result := document.createElement('select');
+  Result.setAttribute('size', '4');
 //    Result.innerHTML := Caption;
   for i:=0 to Length(Items)-1 do CreateSelectItem(Result, Items[i]);
 
@@ -75,11 +76,16 @@ CreateDataList(Result, Items);
   parent.appendChild(Result);
 end;
 
+var
+  t: TJSNode;
+  mydiv, div2: TJSElement;
 begin
-  document.body.innerHTML:='<hr>';
-  CreateLabel(document.body,'Wähle eine Option:');
-  CreateSelect(document.body,['abc','def','ghi']);
   document.body.innerHTML+='<hr>';
   CreateLabel(document.body,'Wähle eine Option:');
-  CreateComboBox(document.body,['abc','def','ghi']);
+  CreateSelect(document.body,['aaa','bbb','ccc','abc','def','ghi']);
+  document.body.innerHTML+='<hr>';
+  CreateLabel(document.body,'Wähle eine Option:');
+  CreateComboBox(document.body,['aaa','bbb','ccc','abc','def','ghi']);
+  document.body.innerHTML+='<hr>';
+
 end.
