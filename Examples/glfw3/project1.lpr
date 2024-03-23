@@ -3,10 +3,14 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
-  gl, glext,
+  gl,
+  glext,
   glfw3,
-  oglShader,
-  oglVector;
+  oglShader;
+
+type
+    TVector3f = array[0..2] of GLfloat;
+    PVector3f = ^TVector3f;
 
   procedure error_callback(error_code: longint; description: PChar); cdecl;
   begin
@@ -83,7 +87,7 @@ const
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    //Load_GL_VERSION_3_3();
+    Load_GL_VERSION_3_3();
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
