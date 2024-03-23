@@ -20,9 +20,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="107"/>
-        <CursorPos X="58" Y="146"/>
+        <TopLine Value="61"/>
+        <CursorPos X="24" Y="86"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -51,18 +50,18 @@
       </Unit4>
       <Unit5>
         <Filename Value="Vertexshader.glsl"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="105" Y="8"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="C_2B_2B"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="C++"/>
+        <DefaultSyntaxHighlighter Value="C_2B_2B"/>
       </Unit6>
       <Unit7>
         <Filename Value="/usr/share/lazarus/1.9.0.56687/components/opengl/openglcontext.pas"/>
@@ -74,13 +73,15 @@
       </Unit7>
       <Unit8>
         <Filename Value="../../units/dglOpenGL.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="11305"/>
-        <CursorPos X="97" Y="11308"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="230"/>
+        <CursorPos X="3" Y="257"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit8>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="18" Column="3"/>
@@ -197,6 +198,10 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="146" Column="58" TopLine="93"/>
       </Position29>
+      <Position30>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="86" Column="24" TopLine="61"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

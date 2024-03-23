@@ -136,6 +136,9 @@ const
       glfwPollEvents;
     end;
 
+    glDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
+    glDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
+
     glfwDestroyWindow(window);
     glfwTerminate;
   end;
