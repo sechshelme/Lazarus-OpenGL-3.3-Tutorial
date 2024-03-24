@@ -8,6 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
   dglOpenGL,
+ // gl,glext,
   oglContext;
 
 type
@@ -83,9 +84,9 @@ var
   sl: TStringList;
   s: string;
 
-  ProgramObject: GLhandle;
-  VertexShaderObject: GLhandle;
-  FragmentShaderObject: GLhandle;
+  ProgramObject: GLint;
+  VertexShaderObject: GLint;
+  FragmentShaderObject: GLint;
 
   ErrorStatus, InfoLogLength: integer;
 
@@ -200,14 +201,14 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle), @Triangle, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 (*
