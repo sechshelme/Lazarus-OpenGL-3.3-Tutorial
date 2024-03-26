@@ -10,9 +10,28 @@ interface
 uses
   //    SDL_pixels,
   //      gl,GLext,
-//  oglGL,
-//  oglGLext,
+    oglGL,
+    oglGLext,
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, FileUtil;
+
+(*
+// === Eigene Typen  oglGL.pas
+{$LinkLib 'GL'}
+
+type
+  PPGLvoid = ^PGLvoid;
+
+// === Eigene Typen  oglGLext.pas
+type
+  Tkhronos_ssize_t = SizeInt;
+  Tkhronos_intptr_t = PtrInt;
+  Tkhronos_uint16_t = uint16;
+
+  P_GLsync = DWord;
+  Tkhronos_uint64_t = uint64;
+  Tkhronos_int64_t = int16;
+  Tkhronos_int32_t = int32;
+*)
 
 type
 
@@ -47,8 +66,8 @@ const
 
   deletetString: array of string = (
     ' const ',
-    'GLAPI',
     'GLAPIENTRY',
+    'GLAPI',
     'APIENTRY');
 
 procedure TForm1.Clean(const path: string);
@@ -56,31 +75,38 @@ var
   slGL_C_include: TStringList;
   s: string;
   i, j, p: SizeInt;
+  IsDelete: boolean;
 
 begin
   Memo1.Clear;
   slGL_C_include := TStringList.Create;
   slGL_C_include.LoadFromFile(path);
-  //  slGL_C_include.LoadFromFile('/home/tux/Schreibtisch/von_Git/mesa/mesa/include/GL/glext.h');
 
   for i := 0 to slGL_C_include.Count - 1 do begin
+    IsDelete:=False;
     s := slGL_C_include[i];
 
+    if pos('#define GLAPIENTRY', s) > 0 then begin
+      //      s := '//////' + s;
+      IsDelete := True;
+    end;
+
     if pos('APIENTRYP', s) > 0 then begin
-      s := '//////' + s;
+      //      s := '//////' + s;
+      IsDelete := True;
     end;
 
 
     if pos('#', s) > 0 then begin
       if pos('#define', s) = 0 then  begin
-        s := '//////' + s;
-        //        WriteLn(s);
+        //        s := '//////' + s;
+        IsDelete := True;
       end;
     end;
     for j := 0 to Length(checkList) - 1 do begin
       if pos(checkList[j], s) = 1 then  begin
-        s := '//////' + s;
-        //        WriteLn(s);
+        //        s := '//////' + s;
+        IsDelete := True;
       end;
     end;
 
@@ -107,12 +133,15 @@ begin
     s := StringReplace(s, '*const*', '**', []);
 
 
-    slGL_C_include[i] := s;
+    if not IsDelete then begin
+      slPasUnit.Add(s);
+    end;
+    //    slGL_C_include[i] := s;
     Memo1.Lines.Add(s);
   end;
   //    slGL_C_include.SaveToFile('temp.h');
 
-  slPasUnit.AddStrings(slGL_C_include);
+  //  slPasUnit.AddStrings(slGL_C_include);
   slGL_C_include.Free;
 
 end;

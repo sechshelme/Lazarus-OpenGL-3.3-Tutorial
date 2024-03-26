@@ -1,101 +1,19 @@
-
 unit oglGL;
+
 interface
+
+{$LinkLib 'GL'}
+
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{//////////////////////////////////////////////////////////////////////// }
-{ }
-{    gl.h }
-{ }
-{//////////////////////////////////////////////////////////////////////// }
-{
- * Mesa 3-D graphics library
- *
- * Copyright (C) 1999-2006  Brian Paul   All Rights Reserved.
- * Copyright (C) 2009  VMware, Inc.  All Rights Reserved.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
-  }
-{////#ifndef __gl_h_ }
-{$define __gl_h_}
-{*********************************************************************
- * Begin system-specific stuff.
-  }
-{////#if defined(_WIN32) && !defined(__WIN32__) && !defined(__CYGWIN__) }
-{$define __WIN32__}
-{////#endif }
-{////#if defined(__WIN32__) && !defined(__CYGWIN__) }
-{////#  define  extern }
-{////#  if !defined(_WIN32_WCE) && !defined(__SCITECH_SNAP__) }
-{ Win32 but not WinCE  }
-{////#    define ENTRY __stdcall }
-{////#  else }
-{////#    define ENTRY }
-{////#  endif }
-{////#elif defined(__CYGWIN__) && defined(USE_OPENGL32) /* use native windows opengl32 */ }
-{////#  define  extern }
-{////#  define ENTRY __stdcall }
-{////#elif (defined(__GNUC__) && __GNUC__ >= 4) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590)) }
-{////#  define  __attribute__((visibility("default"))) }
-{////#  define ENTRY }
-{////#endif /* WIN32 && !CYGWIN */ }
-{
- * WINDOWS: Include windows.h here to define .
- * It is also useful when applications include this file by
- * including only glut.h, since glut.h depends on windows.h.
- * Applications needing to include windows.h with parms other
- * than "WIN32_LEAN_AND_MEAN" may include windows.h before
- * glut.h or gl.h.
-  }
-{////#if defined(_WIN32) && !defined() && !defined(__CYGWIN__) }
-{////#ifndef WIN32_LEAN_AND_MEAN }
-
 const
   WIN32_LEAN_AND_MEAN = 1;  
-{////#endif }
-{////#include <windows.h> }
-{////#endif }
-{////#ifndef  }
-{////#define  extern }
-{////#endif }
-{////#ifndef ENTRY }
-{$define ENTRY}
-{////#endif }
-{////#ifndef  }
-{////#define  ENTRY }
-{////#endif }
 { "P" suffix to be used for a pointer to a function  }
-{//////////#ifndef P }
-{////#define P APIENTRY * }
-{////#endif }
-{//////////#ifndef ENTRYP }
-{////#define ENTRYP  * }
-{////#endif }
 {
  * End system-specific stuff.
  ********************************************************************* }
-{////#ifdef __cplusplus }
-{////extern "C"  }
-{////#endif }
   GL_VERSION_1_1 = 1;  
   GL_VERSION_1_2 = 1;  
   GL_VERSION_1_3 = 1;  
@@ -114,7 +32,6 @@ type
   PGLbitfield = ^TGLbitfield;
   TGLbitfield = dword;
 
-  PPGLvoid = ^PGLvoid;
   PGLvoid = ^TGLvoid;
   TGLvoid = pointer;
 
@@ -165,6 +82,10 @@ type
  * Constants
   }
 { Boolean values  }
+
+// === Eigene Typen
+type
+  PPGLvoid = ^PGLvoid;
 
 const
   GL_FALSE = 0;  
@@ -970,13 +891,9 @@ procedure glRectd(x1:TGLdouble; y1:TGLdouble; x2:TGLdouble; y2:TGLdouble);cdecl;
 procedure glRectf(x1:TGLfloat; y1:TGLfloat; x2:TGLfloat; y2:TGLfloat);cdecl;external;
 procedure glRecti(x1:TGLint; y1:TGLint; x2:TGLint; y2:TGLint);cdecl;external;
 procedure glRects(x1:TGLshort; y1:TGLshort; x2:TGLshort; y2:TGLshort);cdecl;external;
-(* Const before type ignored *)
 procedure glRectdv(v1:PGLdouble; v2:PGLdouble);cdecl;external;
-(* Const before type ignored *)
 procedure glRectfv(v1:PGLfloat; v2:PGLfloat);cdecl;external;
-(* Const before type ignored *)
 procedure glRectiv(v1:PGLint; v2:PGLint);cdecl;external;
-(* Const before type ignored *)
 procedure glRectsv(v1:PGLshort; v2:PGLshort);cdecl;external;
 {
  * Vertex Arrays  (1.1)
@@ -1194,10 +1111,6 @@ procedure glTexSubImage3D(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:
             pixels:PGLvoid);cdecl;external;
 procedure glCopyTexSubImage3D(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;external;
-{////typedef void (P PFNGLDRAWRANGEELEMENTSPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count, GLenum type,GLvoid *indices); }
-{////typedef void (P PFNGLTEXIMAGE3DPROC) (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,GLvoid *pixels); }
-{////typedef void (P PFNGLTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,GLvoid *pixels); }
-{////typedef void (P PFNGLCOPYTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
 {
  * GL_ARB_imaging
   }
@@ -1318,7 +1231,6 @@ procedure glCopyConvolutionFilter2D(target:TGLenum; internalformat:TGLenum; x:TG
 procedure glGetConvolutionFilter(target:TGLenum; format:TGLenum; _type:TGLenum; image:PGLvoid);cdecl;external;
 procedure glGetConvolutionParameterfv(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetConvolutionParameteriv(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
-(* Const before type ignored *)
 procedure glSeparableFilter2D(target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
             _type:TGLenum; row:PGLvoid; column:PGLvoid);cdecl;external;
 procedure glGetSeparableFilter(target:TGLenum; format:TGLenum; _type:TGLenum; row:PGLvoid; column:PGLvoid; 
@@ -1485,19 +1397,9 @@ procedure glLoadTransposeMatrixf(m:PGLfloat);cdecl;external;
 procedure glMultTransposeMatrixd(m:PGLdouble);cdecl;external;
 procedure glMultTransposeMatrixf(m:PGLfloat);cdecl;external;
 procedure glSampleCoverage(value:TGLclampf; invert:TGLboolean);cdecl;external;
-{////typedef void (P PFNGLACTIVETEXTUREPROC) (GLenum texture); }
-{////typedef void (P PFNGLSAMPLECOVERAGEPROC) (GLclampf value, GLboolean invert); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE3DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE2DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE1DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,GLvoid *data); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXIMAGEPROC) (GLenum target, GLint level, GLvoid *img); }
 {
  * GL_ARB_multitexture (ARB extension 1 and OpenGL 1.2.1)
   }
-{////#ifndef GL_ARB_multitexture }
 const
   GL_ARB_multitexture = 1;  
   GL_TEXTURE0_ARB = $84C0;  
@@ -1570,55 +1472,15 @@ procedure glMultiTexCoord4iARB(target:TGLenum; s:TGLint; t:TGLint; r:TGLint; q:T
 procedure glMultiTexCoord4ivARB(target:TGLenum; v:PGLint);cdecl;external;
 procedure glMultiTexCoord4sARB(target:TGLenum; s:TGLshort; t:TGLshort; r:TGLshort; q:TGLshort);cdecl;external;
 procedure glMultiTexCoord4svARB(target:TGLenum; v:PGLshort);cdecl;external;
-{////typedef void (P PFNGLACTIVETEXTUREARBPROC) (GLenum texture); }
-{////typedef void (P PFNGLCLIENTACTIVETEXTUREARBPROC) (GLenum texture); }
-{////typedef void (P PFNGLMULTITEXCOORD1DARBPROC) (GLenum target, GLdouble s); }
-{////typedef void (P PFNGLMULTITEXCOORD1DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1FARBPROC) (GLenum target, GLfloat s); }
-{////typedef void (P PFNGLMULTITEXCOORD1FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1IARBPROC) (GLenum target, GLint s); }
-{////typedef void (P PFNGLMULTITEXCOORD1IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1SARBPROC) (GLenum target, GLshort s); }
-{////typedef void (P PFNGLMULTITEXCOORD1SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2DARBPROC) (GLenum target, GLdouble s, GLdouble t); }
-{////typedef void (P PFNGLMULTITEXCOORD2DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2FARBPROC) (GLenum target, GLfloat s, GLfloat t); }
-{////typedef void (P PFNGLMULTITEXCOORD2FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2IARBPROC) (GLenum target, GLint s, GLint t); }
-{////typedef void (P PFNGLMULTITEXCOORD2IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2SARBPROC) (GLenum target, GLshort s, GLshort t); }
-{////typedef void (P PFNGLMULTITEXCOORD2SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r); }
-{////typedef void (P PFNGLMULTITEXCOORD3DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r); }
-{////typedef void (P PFNGLMULTITEXCOORD3FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3IARBPROC) (GLenum target, GLint s, GLint t, GLint r); }
-{////typedef void (P PFNGLMULTITEXCOORD3IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r); }
-{////typedef void (P PFNGLMULTITEXCOORD3SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q); }
-{////typedef void (P PFNGLMULTITEXCOORD4DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q); }
-{////typedef void (P PFNGLMULTITEXCOORD4FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4IARBPROC) (GLenum target, GLint s, GLint t, GLint r, GLint q); }
-{////typedef void (P PFNGLMULTITEXCOORD4IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q); }
-{////typedef void (P PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target,GLshort *v); }
-{////#endif /* GL_ARB_multitexture */ }
 {
  * Define this token if you want "old-style" header file behaviour (extensions
  * defined in gl.h).  Otherwise, extensions will be included from glext.h.
   }
-{////#if defined(GL_GLEXT_LEGACY) }
 { All extensions that used to be here are now found in glext.h  }
-{////#else  /* GL_GLEXT_LEGACY */ }
-{////#include <GL/glext.h> }
-{////#endif  /* GL_GLEXT_LEGACY */ }
 {
  * ???. GL_MESA_packed_depth_stencil
  * XXX obsolete
   }
-{////#ifndef GL_MESA_packed_depth_stencil }
 const
   GL_MESA_packed_depth_stencil = 1;  
   GL_DEPTH_STENCIL_MESA = $8750;  
@@ -1626,36 +1488,20 @@ const
   GL_UNSIGNED_INT_8_24_REV_MESA = $8752;  
   GL_UNSIGNED_SHORT_15_1_MESA = $8753;  
   GL_UNSIGNED_SHORT_1_15_REV_MESA = $8754;  
-{////#endif /* GL_MESA_packed_depth_stencil */ }
-{////#ifndef GL_ATI_blend_equation_separate }
   GL_ATI_blend_equation_separate = 1;  
   GL_ALPHA_BLEND_EQUATION_ATI = $883D;  
 
 procedure glBlendEquationSeparateATI(modeRGB:TGLenum; modeA:TGLenum);cdecl;external;
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEATIPROC) (GLenum modeRGB, GLenum modeA); }
-{////#endif /* GL_ATI_blend_equation_separate */ }
 { GL_OES_EGL_image  }
-{////#if !defined(GL_OES_EGL_image) && !defined(GL_EXT_EGL_image_storage) }
 type
   PGLeglImageOES = ^TGLeglImageOES;
   TGLeglImageOES = pointer;
-{////#endif }
-{////#ifndef GL_OES_EGL_image }
 
 const
   GL_OES_EGL_image = 1;  
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glEGLImageTargetTexture2DOES(target:TGLenum; image:TGLeglImageOES);cdecl;external;
 procedure glEGLImageTargetRenderbufferStorageOES(target:TGLenum; image:TGLeglImageOES);cdecl;external;
-{////#endif }
-{////typedef void (P PFNGLEGLIMAGETARGETTEXTURE2DOESPROC) (GLenum target, GLeglImageOES image); }
-{////typedef void (P PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, GLeglImageOES image); }
-{////#endif }
-{////#ifdef __cplusplus }
-{//// }
-{////#endif }
-{////#endif /* __gl_h_ */ }
 
 implementation
 

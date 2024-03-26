@@ -29,32 +29,15 @@
  */
 
 
-//////#ifndef __gl_h_
 #define __gl_h_
 
 /**********************************************************************
  * Begin system-specific stuff.
  */
 
-//////#if defined(_WIN32) && !defined(__WIN32__) && !defined(__CYGWIN__)
 #define __WIN32__
-//////#endif
 
-//////#if defined(__WIN32__) && !defined(__CYGWIN__)
-//////#  define  extern
-//////#  if !defined(_WIN32_WCE) && !defined(__SCITECH_SNAP__)
      /* Win32 but not WinCE */
-//////#    define ENTRY __stdcall
-//////#  else
-//////#    define ENTRY
-//////#  endif
-//////#elif defined(__CYGWIN__) && defined(USE_OPENGL32) /* use native windows opengl32 */
-//////#  define  extern
-//////#  define ENTRY __stdcall
-//////#elif (defined(__GNUC__) && __GNUC__ >= 4) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
-//////#  define  __attribute__((visibility("default")))
-//////#  define ENTRY
-//////#endif /* WIN32 && !CYGWIN */
 
 /*
  * WINDOWS: Include windows.h here to define .
@@ -64,33 +47,13 @@
  * than "WIN32_LEAN_AND_MEAN" may include windows.h before
  * glut.h or gl.h.
  */
-//////#if defined(_WIN32) && !defined() && !defined(__CYGWIN__)
-//////#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN 1
-//////#endif
-//////#include <windows.h>
-//////#endif
 
-//////#ifndef 
-//////#define  extern
-//////#endif
 
-//////#ifndef ENTRY
-#define ENTRY
-//////#endif
 
-//////#ifndef 
-//////#define  ENTRY
-//////#endif
 
 /* "P" suffix to be used for a pointer to a function */
-////////////#ifndef P
-//////#define P  *
-//////#endif
 
-////////////#ifndef ENTRYP
-//////#define ENTRYP ENTRY *
-//////#endif
 
 /*
  * End system-specific stuff.
@@ -98,9 +61,6 @@
 
 
 
-//////#ifdef __cplusplus
-//////extern "C" {
-//////#endif
 
 
 
@@ -740,483 +700,483 @@ typedef double		GLclampd;	/* double precision float in [0,1] */
  * Miscellaneous
  */
 
- void ENTRY glClearIndex( GLfloat c );
+ void  glClearIndex( GLfloat c );
 
- void ENTRY glClearColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha );
+ void  glClearColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha );
 
- void ENTRY glClear( GLbitfield mask );
+ void  glClear( GLbitfield mask );
 
- void ENTRY glIndexMask( GLuint mask );
+ void  glIndexMask( GLuint mask );
 
- void ENTRY glColorMask( GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha );
+ void  glColorMask( GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha );
 
- void ENTRY glAlphaFunc( GLenum func, GLclampf ref );
+ void  glAlphaFunc( GLenum func, GLclampf ref );
 
- void ENTRY glBlendFunc( GLenum sfactor, GLenum dfactor );
+ void  glBlendFunc( GLenum sfactor, GLenum dfactor );
 
- void ENTRY glLogicOp( GLenum opcode );
+ void  glLogicOp( GLenum opcode );
 
- void ENTRY glCullFace( GLenum mode );
+ void  glCullFace( GLenum mode );
 
- void ENTRY glFrontFace( GLenum mode );
+ void  glFrontFace( GLenum mode );
 
- void ENTRY glPointSize( GLfloat size );
+ void  glPointSize( GLfloat size );
 
- void ENTRY glLineWidth( GLfloat width );
+ void  glLineWidth( GLfloat width );
 
- void ENTRY glLineStipple( GLint factor, GLushort pattern );
+ void  glLineStipple( GLint factor, GLushort pattern );
 
- void ENTRY glPolygonMode( GLenum face, GLenum mode );
+ void  glPolygonMode( GLenum face, GLenum mode );
 
- void ENTRY glPolygonOffset( GLfloat factor, GLfloat units );
+ void  glPolygonOffset( GLfloat factor, GLfloat units );
 
- void ENTRY glPolygonStipple(GLubyte *mask );
+ void  glPolygonStipple(GLubyte *mask );
 
- void ENTRY glGetPolygonStipple( GLubyte *mask );
+ void  glGetPolygonStipple( GLubyte *mask );
 
- void ENTRY glEdgeFlag( GLboolean flag );
+ void  glEdgeFlag( GLboolean flag );
 
- void ENTRY glEdgeFlagv(GLboolean *flag );
+ void  glEdgeFlagv(GLboolean *flag );
 
- void ENTRY glScissor( GLint x, GLint y, GLsizei width, GLsizei height);
+ void  glScissor( GLint x, GLint y, GLsizei width, GLsizei height);
 
- void ENTRY glClipPlane( GLenum plane,GLdouble *equation );
+ void  glClipPlane( GLenum plane,GLdouble *equation );
 
- void ENTRY glGetClipPlane( GLenum plane, GLdouble *equation );
+ void  glGetClipPlane( GLenum plane, GLdouble *equation );
 
- void ENTRY glDrawBuffer( GLenum mode );
+ void  glDrawBuffer( GLenum mode );
 
- void ENTRY glReadBuffer( GLenum mode );
+ void  glReadBuffer( GLenum mode );
 
- void ENTRY glEnable( GLenum cap );
+ void  glEnable( GLenum cap );
 
- void ENTRY glDisable( GLenum cap );
+ void  glDisable( GLenum cap );
 
- GLboolean ENTRY glIsEnabled( GLenum cap );
-
-
- void ENTRY glEnableClientState( GLenum cap );  /* 1.1 */
-
- void ENTRY glDisableClientState( GLenum cap );  /* 1.1 */
+ GLboolean  glIsEnabled( GLenum cap );
 
 
- void ENTRY glGetBooleanv( GLenum pname, GLboolean *params );
+ void  glEnableClientState( GLenum cap );  /* 1.1 */
 
- void ENTRY glGetDoublev( GLenum pname, GLdouble *params );
-
- void ENTRY glGetFloatv( GLenum pname, GLfloat *params );
-
- void ENTRY glGetIntegerv( GLenum pname, GLint *params );
+ void  glDisableClientState( GLenum cap );  /* 1.1 */
 
 
- void ENTRY glPushAttrib( GLbitfield mask );
+ void  glGetBooleanv( GLenum pname, GLboolean *params );
 
- void ENTRY glPopAttrib( void );
+ void  glGetDoublev( GLenum pname, GLdouble *params );
+
+ void  glGetFloatv( GLenum pname, GLfloat *params );
+
+ void  glGetIntegerv( GLenum pname, GLint *params );
 
 
- void ENTRY glPushClientAttrib( GLbitfield mask );  /* 1.1 */
+ void  glPushAttrib( GLbitfield mask );
 
- void ENTRY glPopClientAttrib( void );  /* 1.1 */
+ void  glPopAttrib( void );
 
 
- GLint ENTRY glRenderMode( GLenum mode );
+ void  glPushClientAttrib( GLbitfield mask );  /* 1.1 */
 
- GLenum ENTRY glGetError( void );
+ void  glPopClientAttrib( void );  /* 1.1 */
 
-GLubyte * ENTRY glGetString( GLenum name );
 
- void ENTRY glFinish( void );
+ GLint  glRenderMode( GLenum mode );
 
- void ENTRY glFlush( void );
+ GLenum  glGetError( void );
 
- void ENTRY glHint( GLenum target, GLenum mode );
+GLubyte *  glGetString( GLenum name );
+
+ void  glFinish( void );
+
+ void  glFlush( void );
+
+ void  glHint( GLenum target, GLenum mode );
 
 
 /*
  * Depth Buffer
  */
 
- void ENTRY glClearDepth( GLclampd depth );
+ void  glClearDepth( GLclampd depth );
 
- void ENTRY glDepthFunc( GLenum func );
+ void  glDepthFunc( GLenum func );
 
- void ENTRY glDepthMask( GLboolean flag );
+ void  glDepthMask( GLboolean flag );
 
- void ENTRY glDepthRange( GLclampd near_val, GLclampd far_val );
+ void  glDepthRange( GLclampd near_val, GLclampd far_val );
 
 
 /*
  * Accumulation Buffer
  */
 
- void ENTRY glClearAccum( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha );
+ void  glClearAccum( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha );
 
- void ENTRY glAccum( GLenum op, GLfloat value );
+ void  glAccum( GLenum op, GLfloat value );
 
 
 /*
  * Transformation
  */
 
- void ENTRY glMatrixMode( GLenum mode );
+ void  glMatrixMode( GLenum mode );
 
- void ENTRY glOrtho( GLdouble left, GLdouble right,
+ void  glOrtho( GLdouble left, GLdouble right,
                                  GLdouble bottom, GLdouble top,
                                  GLdouble near_val, GLdouble far_val );
 
- void ENTRY glFrustum( GLdouble left, GLdouble right,
+ void  glFrustum( GLdouble left, GLdouble right,
                                    GLdouble bottom, GLdouble top,
                                    GLdouble near_val, GLdouble far_val );
 
- void ENTRY glViewport( GLint x, GLint y,
+ void  glViewport( GLint x, GLint y,
                                     GLsizei width, GLsizei height );
 
- void ENTRY glPushMatrix( void );
+ void  glPushMatrix( void );
 
- void ENTRY glPopMatrix( void );
+ void  glPopMatrix( void );
 
- void ENTRY glLoadIdentity( void );
+ void  glLoadIdentity( void );
 
- void ENTRY glLoadMatrixd(GLdouble *m );
- void ENTRY glLoadMatrixf(GLfloat *m );
+ void  glLoadMatrixd(GLdouble *m );
+ void  glLoadMatrixf(GLfloat *m );
 
- void ENTRY glMultMatrixd(GLdouble *m );
- void ENTRY glMultMatrixf(GLfloat *m );
+ void  glMultMatrixd(GLdouble *m );
+ void  glMultMatrixf(GLfloat *m );
 
- void ENTRY glRotated( GLdouble angle,
+ void  glRotated( GLdouble angle,
                                    GLdouble x, GLdouble y, GLdouble z );
- void ENTRY glRotatef( GLfloat angle,
+ void  glRotatef( GLfloat angle,
                                    GLfloat x, GLfloat y, GLfloat z );
 
- void ENTRY glScaled( GLdouble x, GLdouble y, GLdouble z );
- void ENTRY glScalef( GLfloat x, GLfloat y, GLfloat z );
+ void  glScaled( GLdouble x, GLdouble y, GLdouble z );
+ void  glScalef( GLfloat x, GLfloat y, GLfloat z );
 
- void ENTRY glTranslated( GLdouble x, GLdouble y, GLdouble z );
- void ENTRY glTranslatef( GLfloat x, GLfloat y, GLfloat z );
+ void  glTranslated( GLdouble x, GLdouble y, GLdouble z );
+ void  glTranslatef( GLfloat x, GLfloat y, GLfloat z );
 
 
 /*
  * Display Lists
  */
 
- GLboolean ENTRY glIsList( GLuint list );
+ GLboolean  glIsList( GLuint list );
 
- void ENTRY glDeleteLists( GLuint list, GLsizei range );
+ void  glDeleteLists( GLuint list, GLsizei range );
 
- GLuint ENTRY glGenLists( GLsizei range );
+ GLuint  glGenLists( GLsizei range );
 
- void ENTRY glNewList( GLuint list, GLenum mode );
+ void  glNewList( GLuint list, GLenum mode );
 
- void ENTRY glEndList( void );
+ void  glEndList( void );
 
- void ENTRY glCallList( GLuint list );
+ void  glCallList( GLuint list );
 
- void ENTRY glCallLists( GLsizei n, GLenum type,
+ void  glCallLists( GLsizei n, GLenum type,
                                     GLvoid *lists );
 
- void ENTRY glListBase( GLuint base );
+ void  glListBase( GLuint base );
 
 
 /*
  * Drawing Functions
  */
 
- void ENTRY glBegin( GLenum mode );
+ void  glBegin( GLenum mode );
 
- void ENTRY glEnd( void );
-
-
- void ENTRY glVertex2d( GLdouble x, GLdouble y );
- void ENTRY glVertex2f( GLfloat x, GLfloat y );
- void ENTRY glVertex2i( GLint x, GLint y );
- void ENTRY glVertex2s( GLshort x, GLshort y );
-
- void ENTRY glVertex3d( GLdouble x, GLdouble y, GLdouble z );
- void ENTRY glVertex3f( GLfloat x, GLfloat y, GLfloat z );
- void ENTRY glVertex3i( GLint x, GLint y, GLint z );
- void ENTRY glVertex3s( GLshort x, GLshort y, GLshort z );
-
- void ENTRY glVertex4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w );
- void ENTRY glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w );
- void ENTRY glVertex4i( GLint x, GLint y, GLint z, GLint w );
- void ENTRY glVertex4s( GLshort x, GLshort y, GLshort z, GLshort w );
-
- void ENTRY glVertex2dv(GLdouble *v );
- void ENTRY glVertex2fv(GLfloat *v );
- void ENTRY glVertex2iv(GLint *v );
- void ENTRY glVertex2sv(GLshort *v );
-
- void ENTRY glVertex3dv(GLdouble *v );
- void ENTRY glVertex3fv(GLfloat *v );
- void ENTRY glVertex3iv(GLint *v );
- void ENTRY glVertex3sv(GLshort *v );
-
- void ENTRY glVertex4dv(GLdouble *v );
- void ENTRY glVertex4fv(GLfloat *v );
- void ENTRY glVertex4iv(GLint *v );
- void ENTRY glVertex4sv(GLshort *v );
+ void  glEnd( void );
 
 
- void ENTRY glNormal3b( GLbyte nx, GLbyte ny, GLbyte nz );
- void ENTRY glNormal3d( GLdouble nx, GLdouble ny, GLdouble nz );
- void ENTRY glNormal3f( GLfloat nx, GLfloat ny, GLfloat nz );
- void ENTRY glNormal3i( GLint nx, GLint ny, GLint nz );
- void ENTRY glNormal3s( GLshort nx, GLshort ny, GLshort nz );
+ void  glVertex2d( GLdouble x, GLdouble y );
+ void  glVertex2f( GLfloat x, GLfloat y );
+ void  glVertex2i( GLint x, GLint y );
+ void  glVertex2s( GLshort x, GLshort y );
 
- void ENTRY glNormal3bv(GLbyte *v );
- void ENTRY glNormal3dv(GLdouble *v );
- void ENTRY glNormal3fv(GLfloat *v );
- void ENTRY glNormal3iv(GLint *v );
- void ENTRY glNormal3sv(GLshort *v );
+ void  glVertex3d( GLdouble x, GLdouble y, GLdouble z );
+ void  glVertex3f( GLfloat x, GLfloat y, GLfloat z );
+ void  glVertex3i( GLint x, GLint y, GLint z );
+ void  glVertex3s( GLshort x, GLshort y, GLshort z );
+
+ void  glVertex4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w );
+ void  glVertex4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w );
+ void  glVertex4i( GLint x, GLint y, GLint z, GLint w );
+ void  glVertex4s( GLshort x, GLshort y, GLshort z, GLshort w );
+
+ void  glVertex2dv(GLdouble *v );
+ void  glVertex2fv(GLfloat *v );
+ void  glVertex2iv(GLint *v );
+ void  glVertex2sv(GLshort *v );
+
+ void  glVertex3dv(GLdouble *v );
+ void  glVertex3fv(GLfloat *v );
+ void  glVertex3iv(GLint *v );
+ void  glVertex3sv(GLshort *v );
+
+ void  glVertex4dv(GLdouble *v );
+ void  glVertex4fv(GLfloat *v );
+ void  glVertex4iv(GLint *v );
+ void  glVertex4sv(GLshort *v );
 
 
- void ENTRY glIndexd( GLdouble c );
- void ENTRY glIndexf( GLfloat c );
- void ENTRY glIndexi( GLint c );
- void ENTRY glIndexs( GLshort c );
- void ENTRY glIndexub( GLubyte c );  /* 1.1 */
+ void  glNormal3b( GLbyte nx, GLbyte ny, GLbyte nz );
+ void  glNormal3d( GLdouble nx, GLdouble ny, GLdouble nz );
+ void  glNormal3f( GLfloat nx, GLfloat ny, GLfloat nz );
+ void  glNormal3i( GLint nx, GLint ny, GLint nz );
+ void  glNormal3s( GLshort nx, GLshort ny, GLshort nz );
 
- void ENTRY glIndexdv(GLdouble *c );
- void ENTRY glIndexfv(GLfloat *c );
- void ENTRY glIndexiv(GLint *c );
- void ENTRY glIndexsv(GLshort *c );
- void ENTRY glIndexubv(GLubyte *c );  /* 1.1 */
+ void  glNormal3bv(GLbyte *v );
+ void  glNormal3dv(GLdouble *v );
+ void  glNormal3fv(GLfloat *v );
+ void  glNormal3iv(GLint *v );
+ void  glNormal3sv(GLshort *v );
 
- void ENTRY glColor3b( GLbyte red, GLbyte green, GLbyte blue );
- void ENTRY glColor3d( GLdouble red, GLdouble green, GLdouble blue );
- void ENTRY glColor3f( GLfloat red, GLfloat green, GLfloat blue );
- void ENTRY glColor3i( GLint red, GLint green, GLint blue );
- void ENTRY glColor3s( GLshort red, GLshort green, GLshort blue );
- void ENTRY glColor3ub( GLubyte red, GLubyte green, GLubyte blue );
- void ENTRY glColor3ui( GLuint red, GLuint green, GLuint blue );
- void ENTRY glColor3us( GLushort red, GLushort green, GLushort blue );
 
- void ENTRY glColor4b( GLbyte red, GLbyte green,
+ void  glIndexd( GLdouble c );
+ void  glIndexf( GLfloat c );
+ void  glIndexi( GLint c );
+ void  glIndexs( GLshort c );
+ void  glIndexub( GLubyte c );  /* 1.1 */
+
+ void  glIndexdv(GLdouble *c );
+ void  glIndexfv(GLfloat *c );
+ void  glIndexiv(GLint *c );
+ void  glIndexsv(GLshort *c );
+ void  glIndexubv(GLubyte *c );  /* 1.1 */
+
+ void  glColor3b( GLbyte red, GLbyte green, GLbyte blue );
+ void  glColor3d( GLdouble red, GLdouble green, GLdouble blue );
+ void  glColor3f( GLfloat red, GLfloat green, GLfloat blue );
+ void  glColor3i( GLint red, GLint green, GLint blue );
+ void  glColor3s( GLshort red, GLshort green, GLshort blue );
+ void  glColor3ub( GLubyte red, GLubyte green, GLubyte blue );
+ void  glColor3ui( GLuint red, GLuint green, GLuint blue );
+ void  glColor3us( GLushort red, GLushort green, GLushort blue );
+
+ void  glColor4b( GLbyte red, GLbyte green,
                                    GLbyte blue, GLbyte alpha );
- void ENTRY glColor4d( GLdouble red, GLdouble green,
+ void  glColor4d( GLdouble red, GLdouble green,
                                    GLdouble blue, GLdouble alpha );
- void ENTRY glColor4f( GLfloat red, GLfloat green,
+ void  glColor4f( GLfloat red, GLfloat green,
                                    GLfloat blue, GLfloat alpha );
- void ENTRY glColor4i( GLint red, GLint green,
+ void  glColor4i( GLint red, GLint green,
                                    GLint blue, GLint alpha );
- void ENTRY glColor4s( GLshort red, GLshort green,
+ void  glColor4s( GLshort red, GLshort green,
                                    GLshort blue, GLshort alpha );
- void ENTRY glColor4ub( GLubyte red, GLubyte green,
+ void  glColor4ub( GLubyte red, GLubyte green,
                                     GLubyte blue, GLubyte alpha );
- void ENTRY glColor4ui( GLuint red, GLuint green,
+ void  glColor4ui( GLuint red, GLuint green,
                                     GLuint blue, GLuint alpha );
- void ENTRY glColor4us( GLushort red, GLushort green,
+ void  glColor4us( GLushort red, GLushort green,
                                     GLushort blue, GLushort alpha );
 
 
- void ENTRY glColor3bv(GLbyte *v );
- void ENTRY glColor3dv(GLdouble *v );
- void ENTRY glColor3fv(GLfloat *v );
- void ENTRY glColor3iv(GLint *v );
- void ENTRY glColor3sv(GLshort *v );
- void ENTRY glColor3ubv(GLubyte *v );
- void ENTRY glColor3uiv(GLuint *v );
- void ENTRY glColor3usv(GLushort *v );
+ void  glColor3bv(GLbyte *v );
+ void  glColor3dv(GLdouble *v );
+ void  glColor3fv(GLfloat *v );
+ void  glColor3iv(GLint *v );
+ void  glColor3sv(GLshort *v );
+ void  glColor3ubv(GLubyte *v );
+ void  glColor3uiv(GLuint *v );
+ void  glColor3usv(GLushort *v );
 
- void ENTRY glColor4bv(GLbyte *v );
- void ENTRY glColor4dv(GLdouble *v );
- void ENTRY glColor4fv(GLfloat *v );
- void ENTRY glColor4iv(GLint *v );
- void ENTRY glColor4sv(GLshort *v );
- void ENTRY glColor4ubv(GLubyte *v );
- void ENTRY glColor4uiv(GLuint *v );
- void ENTRY glColor4usv(GLushort *v );
-
-
- void ENTRY glTexCoord1d( GLdouble s );
- void ENTRY glTexCoord1f( GLfloat s );
- void ENTRY glTexCoord1i( GLint s );
- void ENTRY glTexCoord1s( GLshort s );
-
- void ENTRY glTexCoord2d( GLdouble s, GLdouble t );
- void ENTRY glTexCoord2f( GLfloat s, GLfloat t );
- void ENTRY glTexCoord2i( GLint s, GLint t );
- void ENTRY glTexCoord2s( GLshort s, GLshort t );
-
- void ENTRY glTexCoord3d( GLdouble s, GLdouble t, GLdouble r );
- void ENTRY glTexCoord3f( GLfloat s, GLfloat t, GLfloat r );
- void ENTRY glTexCoord3i( GLint s, GLint t, GLint r );
- void ENTRY glTexCoord3s( GLshort s, GLshort t, GLshort r );
-
- void ENTRY glTexCoord4d( GLdouble s, GLdouble t, GLdouble r, GLdouble q );
- void ENTRY glTexCoord4f( GLfloat s, GLfloat t, GLfloat r, GLfloat q );
- void ENTRY glTexCoord4i( GLint s, GLint t, GLint r, GLint q );
- void ENTRY glTexCoord4s( GLshort s, GLshort t, GLshort r, GLshort q );
-
- void ENTRY glTexCoord1dv(GLdouble *v );
- void ENTRY glTexCoord1fv(GLfloat *v );
- void ENTRY glTexCoord1iv(GLint *v );
- void ENTRY glTexCoord1sv(GLshort *v );
-
- void ENTRY glTexCoord2dv(GLdouble *v );
- void ENTRY glTexCoord2fv(GLfloat *v );
- void ENTRY glTexCoord2iv(GLint *v );
- void ENTRY glTexCoord2sv(GLshort *v );
-
- void ENTRY glTexCoord3dv(GLdouble *v );
- void ENTRY glTexCoord3fv(GLfloat *v );
- void ENTRY glTexCoord3iv(GLint *v );
- void ENTRY glTexCoord3sv(GLshort *v );
-
- void ENTRY glTexCoord4dv(GLdouble *v );
- void ENTRY glTexCoord4fv(GLfloat *v );
- void ENTRY glTexCoord4iv(GLint *v );
- void ENTRY glTexCoord4sv(GLshort *v );
+ void  glColor4bv(GLbyte *v );
+ void  glColor4dv(GLdouble *v );
+ void  glColor4fv(GLfloat *v );
+ void  glColor4iv(GLint *v );
+ void  glColor4sv(GLshort *v );
+ void  glColor4ubv(GLubyte *v );
+ void  glColor4uiv(GLuint *v );
+ void  glColor4usv(GLushort *v );
 
 
- void ENTRY glRasterPos2d( GLdouble x, GLdouble y );
- void ENTRY glRasterPos2f( GLfloat x, GLfloat y );
- void ENTRY glRasterPos2i( GLint x, GLint y );
- void ENTRY glRasterPos2s( GLshort x, GLshort y );
+ void  glTexCoord1d( GLdouble s );
+ void  glTexCoord1f( GLfloat s );
+ void  glTexCoord1i( GLint s );
+ void  glTexCoord1s( GLshort s );
 
- void ENTRY glRasterPos3d( GLdouble x, GLdouble y, GLdouble z );
- void ENTRY glRasterPos3f( GLfloat x, GLfloat y, GLfloat z );
- void ENTRY glRasterPos3i( GLint x, GLint y, GLint z );
- void ENTRY glRasterPos3s( GLshort x, GLshort y, GLshort z );
+ void  glTexCoord2d( GLdouble s, GLdouble t );
+ void  glTexCoord2f( GLfloat s, GLfloat t );
+ void  glTexCoord2i( GLint s, GLint t );
+ void  glTexCoord2s( GLshort s, GLshort t );
 
- void ENTRY glRasterPos4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w );
- void ENTRY glRasterPos4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w );
- void ENTRY glRasterPos4i( GLint x, GLint y, GLint z, GLint w );
- void ENTRY glRasterPos4s( GLshort x, GLshort y, GLshort z, GLshort w );
+ void  glTexCoord3d( GLdouble s, GLdouble t, GLdouble r );
+ void  glTexCoord3f( GLfloat s, GLfloat t, GLfloat r );
+ void  glTexCoord3i( GLint s, GLint t, GLint r );
+ void  glTexCoord3s( GLshort s, GLshort t, GLshort r );
 
- void ENTRY glRasterPos2dv(GLdouble *v );
- void ENTRY glRasterPos2fv(GLfloat *v );
- void ENTRY glRasterPos2iv(GLint *v );
- void ENTRY glRasterPos2sv(GLshort *v );
+ void  glTexCoord4d( GLdouble s, GLdouble t, GLdouble r, GLdouble q );
+ void  glTexCoord4f( GLfloat s, GLfloat t, GLfloat r, GLfloat q );
+ void  glTexCoord4i( GLint s, GLint t, GLint r, GLint q );
+ void  glTexCoord4s( GLshort s, GLshort t, GLshort r, GLshort q );
 
- void ENTRY glRasterPos3dv(GLdouble *v );
- void ENTRY glRasterPos3fv(GLfloat *v );
- void ENTRY glRasterPos3iv(GLint *v );
- void ENTRY glRasterPos3sv(GLshort *v );
+ void  glTexCoord1dv(GLdouble *v );
+ void  glTexCoord1fv(GLfloat *v );
+ void  glTexCoord1iv(GLint *v );
+ void  glTexCoord1sv(GLshort *v );
 
- void ENTRY glRasterPos4dv(GLdouble *v );
- void ENTRY glRasterPos4fv(GLfloat *v );
- void ENTRY glRasterPos4iv(GLint *v );
- void ENTRY glRasterPos4sv(GLshort *v );
+ void  glTexCoord2dv(GLdouble *v );
+ void  glTexCoord2fv(GLfloat *v );
+ void  glTexCoord2iv(GLint *v );
+ void  glTexCoord2sv(GLshort *v );
+
+ void  glTexCoord3dv(GLdouble *v );
+ void  glTexCoord3fv(GLfloat *v );
+ void  glTexCoord3iv(GLint *v );
+ void  glTexCoord3sv(GLshort *v );
+
+ void  glTexCoord4dv(GLdouble *v );
+ void  glTexCoord4fv(GLfloat *v );
+ void  glTexCoord4iv(GLint *v );
+ void  glTexCoord4sv(GLshort *v );
 
 
- void ENTRY glRectd( GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2 );
- void ENTRY glRectf( GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2 );
- void ENTRY glRecti( GLint x1, GLint y1, GLint x2, GLint y2 );
- void ENTRY glRects( GLshort x1, GLshort y1, GLshort x2, GLshort y2 );
+ void  glRasterPos2d( GLdouble x, GLdouble y );
+ void  glRasterPos2f( GLfloat x, GLfloat y );
+ void  glRasterPos2i( GLint x, GLint y );
+ void  glRasterPos2s( GLshort x, GLshort y );
+
+ void  glRasterPos3d( GLdouble x, GLdouble y, GLdouble z );
+ void  glRasterPos3f( GLfloat x, GLfloat y, GLfloat z );
+ void  glRasterPos3i( GLint x, GLint y, GLint z );
+ void  glRasterPos3s( GLshort x, GLshort y, GLshort z );
+
+ void  glRasterPos4d( GLdouble x, GLdouble y, GLdouble z, GLdouble w );
+ void  glRasterPos4f( GLfloat x, GLfloat y, GLfloat z, GLfloat w );
+ void  glRasterPos4i( GLint x, GLint y, GLint z, GLint w );
+ void  glRasterPos4s( GLshort x, GLshort y, GLshort z, GLshort w );
+
+ void  glRasterPos2dv(GLdouble *v );
+ void  glRasterPos2fv(GLfloat *v );
+ void  glRasterPos2iv(GLint *v );
+ void  glRasterPos2sv(GLshort *v );
+
+ void  glRasterPos3dv(GLdouble *v );
+ void  glRasterPos3fv(GLfloat *v );
+ void  glRasterPos3iv(GLint *v );
+ void  glRasterPos3sv(GLshort *v );
+
+ void  glRasterPos4dv(GLdouble *v );
+ void  glRasterPos4fv(GLfloat *v );
+ void  glRasterPos4iv(GLint *v );
+ void  glRasterPos4sv(GLshort *v );
 
 
- void ENTRY glRectdv(GLdouble *v1,GLdouble *v2 );
- void ENTRY glRectfv(GLfloat *v1,GLfloat *v2 );
- void ENTRY glRectiv(GLint *v1,GLint *v2 );
- void ENTRY glRectsv(GLshort *v1,GLshort *v2 );
+ void  glRectd( GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2 );
+ void  glRectf( GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2 );
+ void  glRecti( GLint x1, GLint y1, GLint x2, GLint y2 );
+ void  glRects( GLshort x1, GLshort y1, GLshort x2, GLshort y2 );
+
+
+ void  glRectdv(GLdouble *v1,GLdouble *v2 );
+ void  glRectfv(GLfloat *v1,GLfloat *v2 );
+ void  glRectiv(GLint *v1,GLint *v2 );
+ void  glRectsv(GLshort *v1,GLshort *v2 );
 
 
 /*
  * Vertex Arrays  (1.1)
  */
 
- void ENTRY glVertexPointer( GLint size, GLenum type,
+ void  glVertexPointer( GLint size, GLenum type,
                                        GLsizei stride,GLvoid *ptr );
 
- void ENTRY glNormalPointer( GLenum type, GLsizei stride,
+ void  glNormalPointer( GLenum type, GLsizei stride,
                                       GLvoid *ptr );
 
- void ENTRY glColorPointer( GLint size, GLenum type,
+ void  glColorPointer( GLint size, GLenum type,
                                       GLsizei stride,GLvoid *ptr );
 
- void ENTRY glIndexPointer( GLenum type, GLsizei stride,
+ void  glIndexPointer( GLenum type, GLsizei stride,
                                      GLvoid *ptr );
 
- void ENTRY glTexCoordPointer( GLint size, GLenum type,
+ void  glTexCoordPointer( GLint size, GLenum type,
                                          GLsizei stride,GLvoid *ptr );
 
- void ENTRY glEdgeFlagPointer( GLsizei stride,GLvoid *ptr );
+ void  glEdgeFlagPointer( GLsizei stride,GLvoid *ptr );
 
- void ENTRY glGetPointerv( GLenum pname, GLvoid **params );
+ void  glGetPointerv( GLenum pname, GLvoid **params );
 
- void ENTRY glArrayElement( GLint i );
+ void  glArrayElement( GLint i );
 
- void ENTRY glDrawArrays( GLenum mode, GLint first, GLsizei count );
+ void  glDrawArrays( GLenum mode, GLint first, GLsizei count );
 
- void ENTRY glDrawElements( GLenum mode, GLsizei count,
+ void  glDrawElements( GLenum mode, GLsizei count,
                                       GLenum type,GLvoid *indices );
 
- void ENTRY glInterleavedArrays( GLenum format, GLsizei stride,
+ void  glInterleavedArrays( GLenum format, GLsizei stride,
                                           GLvoid *pointer );
 
 /*
  * Lighting
  */
 
- void ENTRY glShadeModel( GLenum mode );
+ void  glShadeModel( GLenum mode );
 
- void ENTRY glLightf( GLenum light, GLenum pname, GLfloat param );
- void ENTRY glLighti( GLenum light, GLenum pname, GLint param );
- void ENTRY glLightfv( GLenum light, GLenum pname,
+ void  glLightf( GLenum light, GLenum pname, GLfloat param );
+ void  glLighti( GLenum light, GLenum pname, GLint param );
+ void  glLightfv( GLenum light, GLenum pname,
                                 GLfloat *params );
- void ENTRY glLightiv( GLenum light, GLenum pname,
+ void  glLightiv( GLenum light, GLenum pname,
                                 GLint *params );
 
- void ENTRY glGetLightfv( GLenum light, GLenum pname,
+ void  glGetLightfv( GLenum light, GLenum pname,
                                     GLfloat *params );
- void ENTRY glGetLightiv( GLenum light, GLenum pname,
+ void  glGetLightiv( GLenum light, GLenum pname,
                                     GLint *params );
 
- void ENTRY glLightModelf( GLenum pname, GLfloat param );
- void ENTRY glLightModeli( GLenum pname, GLint param );
- void ENTRY glLightModelfv( GLenum pname,GLfloat *params );
- void ENTRY glLightModeliv( GLenum pname,GLint *params );
+ void  glLightModelf( GLenum pname, GLfloat param );
+ void  glLightModeli( GLenum pname, GLint param );
+ void  glLightModelfv( GLenum pname,GLfloat *params );
+ void  glLightModeliv( GLenum pname,GLint *params );
 
- void ENTRY glMaterialf( GLenum face, GLenum pname, GLfloat param );
- void ENTRY glMateriali( GLenum face, GLenum pname, GLint param );
- void ENTRY glMaterialfv( GLenum face, GLenum pname,GLfloat *params );
- void ENTRY glMaterialiv( GLenum face, GLenum pname,GLint *params );
+ void  glMaterialf( GLenum face, GLenum pname, GLfloat param );
+ void  glMateriali( GLenum face, GLenum pname, GLint param );
+ void  glMaterialfv( GLenum face, GLenum pname,GLfloat *params );
+ void  glMaterialiv( GLenum face, GLenum pname,GLint *params );
 
- void ENTRY glGetMaterialfv( GLenum face, GLenum pname, GLfloat *params );
- void ENTRY glGetMaterialiv( GLenum face, GLenum pname, GLint *params );
+ void  glGetMaterialfv( GLenum face, GLenum pname, GLfloat *params );
+ void  glGetMaterialiv( GLenum face, GLenum pname, GLint *params );
 
- void ENTRY glColorMaterial( GLenum face, GLenum mode );
+ void  glColorMaterial( GLenum face, GLenum mode );
 
 
 /*
  * Raster functions
  */
 
- void ENTRY glPixelZoom( GLfloat xfactor, GLfloat yfactor );
+ void  glPixelZoom( GLfloat xfactor, GLfloat yfactor );
 
- void ENTRY glPixelStoref( GLenum pname, GLfloat param );
- void ENTRY glPixelStorei( GLenum pname, GLint param );
+ void  glPixelStoref( GLenum pname, GLfloat param );
+ void  glPixelStorei( GLenum pname, GLint param );
 
- void ENTRY glPixelTransferf( GLenum pname, GLfloat param );
- void ENTRY glPixelTransferi( GLenum pname, GLint param );
+ void  glPixelTransferf( GLenum pname, GLfloat param );
+ void  glPixelTransferi( GLenum pname, GLint param );
 
- void ENTRY glPixelMapfv( GLenum map, GLsizei mapsize,
+ void  glPixelMapfv( GLenum map, GLsizei mapsize,
                                    GLfloat *values );
- void ENTRY glPixelMapuiv( GLenum map, GLsizei mapsize,
+ void  glPixelMapuiv( GLenum map, GLsizei mapsize,
                                     GLuint *values );
- void ENTRY glPixelMapusv( GLenum map, GLsizei mapsize,
+ void  glPixelMapusv( GLenum map, GLsizei mapsize,
                                     GLushort *values );
 
- void ENTRY glGetPixelMapfv( GLenum map, GLfloat *values );
- void ENTRY glGetPixelMapuiv( GLenum map, GLuint *values );
- void ENTRY glGetPixelMapusv( GLenum map, GLushort *values );
+ void  glGetPixelMapfv( GLenum map, GLfloat *values );
+ void  glGetPixelMapuiv( GLenum map, GLuint *values );
+ void  glGetPixelMapusv( GLenum map, GLushort *values );
 
- void ENTRY glBitmap( GLsizei width, GLsizei height,
+ void  glBitmap( GLsizei width, GLsizei height,
                                 GLfloat xorig, GLfloat yorig,
                                 GLfloat xmove, GLfloat ymove,
                                GLubyte *bitmap );
 
- void ENTRY glReadPixels( GLint x, GLint y,
+ void  glReadPixels( GLint x, GLint y,
                                     GLsizei width, GLsizei height,
                                     GLenum format, GLenum type,
                                     GLvoid *pixels );
 
- void ENTRY glDrawPixels( GLsizei width, GLsizei height,
+ void  glDrawPixels( GLsizei width, GLsizei height,
                                     GLenum format, GLenum type,
                                    GLvoid *pixels );
 
- void ENTRY glCopyPixels( GLint x, GLint y,
+ void  glCopyPixels( GLint x, GLint y,
                                     GLsizei width, GLsizei height,
                                     GLenum type );
 
@@ -1224,13 +1184,13 @@ GLubyte * ENTRY glGetString( GLenum name );
  * Stenciling
  */
 
- void ENTRY glStencilFunc( GLenum func, GLint ref, GLuint mask );
+ void  glStencilFunc( GLenum func, GLint ref, GLuint mask );
 
- void ENTRY glStencilMask( GLuint mask );
+ void  glStencilMask( GLuint mask );
 
- void ENTRY glStencilOp( GLenum fail, GLenum zfail, GLenum zpass );
+ void  glStencilOp( GLenum fail, GLenum zfail, GLenum zpass );
 
- void ENTRY glClearStencil( GLint s );
+ void  glClearStencil( GLint s );
 
 
 
@@ -1238,116 +1198,116 @@ GLubyte * ENTRY glGetString( GLenum name );
  * Texture mapping
  */
 
- void ENTRY glTexGend( GLenum coord, GLenum pname, GLdouble param );
- void ENTRY glTexGenf( GLenum coord, GLenum pname, GLfloat param );
- void ENTRY glTexGeni( GLenum coord, GLenum pname, GLint param );
+ void  glTexGend( GLenum coord, GLenum pname, GLdouble param );
+ void  glTexGenf( GLenum coord, GLenum pname, GLfloat param );
+ void  glTexGeni( GLenum coord, GLenum pname, GLint param );
 
- void ENTRY glTexGendv( GLenum coord, GLenum pname,GLdouble *params );
- void ENTRY glTexGenfv( GLenum coord, GLenum pname,GLfloat *params );
- void ENTRY glTexGeniv( GLenum coord, GLenum pname,GLint *params );
+ void  glTexGendv( GLenum coord, GLenum pname,GLdouble *params );
+ void  glTexGenfv( GLenum coord, GLenum pname,GLfloat *params );
+ void  glTexGeniv( GLenum coord, GLenum pname,GLint *params );
 
- void ENTRY glGetTexGendv( GLenum coord, GLenum pname, GLdouble *params );
- void ENTRY glGetTexGenfv( GLenum coord, GLenum pname, GLfloat *params );
- void ENTRY glGetTexGeniv( GLenum coord, GLenum pname, GLint *params );
-
-
- void ENTRY glTexEnvf( GLenum target, GLenum pname, GLfloat param );
- void ENTRY glTexEnvi( GLenum target, GLenum pname, GLint param );
-
- void ENTRY glTexEnvfv( GLenum target, GLenum pname,GLfloat *params );
- void ENTRY glTexEnviv( GLenum target, GLenum pname,GLint *params );
-
- void ENTRY glGetTexEnvfv( GLenum target, GLenum pname, GLfloat *params );
- void ENTRY glGetTexEnviv( GLenum target, GLenum pname, GLint *params );
+ void  glGetTexGendv( GLenum coord, GLenum pname, GLdouble *params );
+ void  glGetTexGenfv( GLenum coord, GLenum pname, GLfloat *params );
+ void  glGetTexGeniv( GLenum coord, GLenum pname, GLint *params );
 
 
- void ENTRY glTexParameterf( GLenum target, GLenum pname, GLfloat param );
- void ENTRY glTexParameteri( GLenum target, GLenum pname, GLint param );
+ void  glTexEnvf( GLenum target, GLenum pname, GLfloat param );
+ void  glTexEnvi( GLenum target, GLenum pname, GLint param );
 
- void ENTRY glTexParameterfv( GLenum target, GLenum pname,
+ void  glTexEnvfv( GLenum target, GLenum pname,GLfloat *params );
+ void  glTexEnviv( GLenum target, GLenum pname,GLint *params );
+
+ void  glGetTexEnvfv( GLenum target, GLenum pname, GLfloat *params );
+ void  glGetTexEnviv( GLenum target, GLenum pname, GLint *params );
+
+
+ void  glTexParameterf( GLenum target, GLenum pname, GLfloat param );
+ void  glTexParameteri( GLenum target, GLenum pname, GLint param );
+
+ void  glTexParameterfv( GLenum target, GLenum pname,
                                          GLfloat *params );
- void ENTRY glTexParameteriv( GLenum target, GLenum pname,
+ void  glTexParameteriv( GLenum target, GLenum pname,
                                          GLint *params );
 
- void ENTRY glGetTexParameterfv( GLenum target,
+ void  glGetTexParameterfv( GLenum target,
                                            GLenum pname, GLfloat *params);
- void ENTRY glGetTexParameteriv( GLenum target,
+ void  glGetTexParameteriv( GLenum target,
                                            GLenum pname, GLint *params );
 
- void ENTRY glGetTexLevelParameterfv( GLenum target, GLint level,
+ void  glGetTexLevelParameterfv( GLenum target, GLint level,
                                                 GLenum pname, GLfloat *params );
- void ENTRY glGetTexLevelParameteriv( GLenum target, GLint level,
+ void  glGetTexLevelParameteriv( GLenum target, GLint level,
                                                 GLenum pname, GLint *params );
 
 
- void ENTRY glTexImage1D( GLenum target, GLint level,
+ void  glTexImage1D( GLenum target, GLint level,
                                     GLint internalFormat,
                                     GLsizei width, GLint border,
                                     GLenum format, GLenum type,
                                    GLvoid *pixels );
 
- void ENTRY glTexImage2D( GLenum target, GLint level,
+ void  glTexImage2D( GLenum target, GLint level,
                                     GLint internalFormat,
                                     GLsizei width, GLsizei height,
                                     GLint border, GLenum format, GLenum type,
                                    GLvoid *pixels );
 
- void ENTRY glGetTexImage( GLenum target, GLint level,
+ void  glGetTexImage( GLenum target, GLint level,
                                      GLenum format, GLenum type,
                                      GLvoid *pixels );
 
 
 /* 1.1 functions */
 
- void ENTRY glGenTextures( GLsizei n, GLuint *textures );
+ void  glGenTextures( GLsizei n, GLuint *textures );
 
- void ENTRY glDeleteTextures( GLsizei n,GLuint *textures);
+ void  glDeleteTextures( GLsizei n,GLuint *textures);
 
- void ENTRY glBindTexture( GLenum target, GLuint texture );
+ void  glBindTexture( GLenum target, GLuint texture );
 
- void ENTRY glPrioritizeTextures( GLsizei n,
+ void  glPrioritizeTextures( GLsizei n,
                                            GLuint *textures,
                                            GLclampf *priorities );
 
- GLboolean ENTRY glAreTexturesResident( GLsizei n,
+ GLboolean  glAreTexturesResident( GLsizei n,
                                                  GLuint *textures,
                                                   GLboolean *residences );
 
- GLboolean ENTRY glIsTexture( GLuint texture );
+ GLboolean  glIsTexture( GLuint texture );
 
 
- void ENTRY glTexSubImage1D( GLenum target, GLint level,
+ void  glTexSubImage1D( GLenum target, GLint level,
                                        GLint xoffset,
                                        GLsizei width, GLenum format,
                                        GLenum type,GLvoid *pixels );
 
 
- void ENTRY glTexSubImage2D( GLenum target, GLint level,
+ void  glTexSubImage2D( GLenum target, GLint level,
                                        GLint xoffset, GLint yoffset,
                                        GLsizei width, GLsizei height,
                                        GLenum format, GLenum type,
                                       GLvoid *pixels );
 
 
- void ENTRY glCopyTexImage1D( GLenum target, GLint level,
+ void  glCopyTexImage1D( GLenum target, GLint level,
                                         GLenum internalformat,
                                         GLint x, GLint y,
                                         GLsizei width, GLint border );
 
 
- void ENTRY glCopyTexImage2D( GLenum target, GLint level,
+ void  glCopyTexImage2D( GLenum target, GLint level,
                                         GLenum internalformat,
                                         GLint x, GLint y,
                                         GLsizei width, GLsizei height,
                                         GLint border );
 
 
- void ENTRY glCopyTexSubImage1D( GLenum target, GLint level,
+ void  glCopyTexSubImage1D( GLenum target, GLint level,
                                            GLint xoffset, GLint x, GLint y,
                                            GLsizei width );
 
 
- void ENTRY glCopyTexSubImage2D( GLenum target, GLint level,
+ void  glCopyTexSubImage2D( GLenum target, GLint level,
                                            GLint xoffset, GLint yoffset,
                                            GLint x, GLint y,
                                            GLsizei width, GLsizei height );
@@ -1357,85 +1317,85 @@ GLubyte * ENTRY glGetString( GLenum name );
  * Evaluators
  */
 
- void ENTRY glMap1d( GLenum target, GLdouble u1, GLdouble u2,
+ void  glMap1d( GLenum target, GLdouble u1, GLdouble u2,
                                GLint stride,
                                GLint order,GLdouble *points );
- void ENTRY glMap1f( GLenum target, GLfloat u1, GLfloat u2,
+ void  glMap1f( GLenum target, GLfloat u1, GLfloat u2,
                                GLint stride,
                                GLint order,GLfloat *points );
 
- void ENTRY glMap2d( GLenum target,
+ void  glMap2d( GLenum target,
 		     GLdouble u1, GLdouble u2, GLint ustride, GLint uorder,
 		     GLdouble v1, GLdouble v2, GLint vstride, GLint vorder,
 		    GLdouble *points );
- void ENTRY glMap2f( GLenum target,
+ void  glMap2f( GLenum target,
 		     GLfloat u1, GLfloat u2, GLint ustride, GLint uorder,
 		     GLfloat v1, GLfloat v2, GLint vstride, GLint vorder,
 		    GLfloat *points );
 
- void ENTRY glGetMapdv( GLenum target, GLenum query, GLdouble *v );
- void ENTRY glGetMapfv( GLenum target, GLenum query, GLfloat *v );
- void ENTRY glGetMapiv( GLenum target, GLenum query, GLint *v );
+ void  glGetMapdv( GLenum target, GLenum query, GLdouble *v );
+ void  glGetMapfv( GLenum target, GLenum query, GLfloat *v );
+ void  glGetMapiv( GLenum target, GLenum query, GLint *v );
 
- void ENTRY glEvalCoord1d( GLdouble u );
- void ENTRY glEvalCoord1f( GLfloat u );
+ void  glEvalCoord1d( GLdouble u );
+ void  glEvalCoord1f( GLfloat u );
 
- void ENTRY glEvalCoord1dv(GLdouble *u );
- void ENTRY glEvalCoord1fv(GLfloat *u );
+ void  glEvalCoord1dv(GLdouble *u );
+ void  glEvalCoord1fv(GLfloat *u );
 
- void ENTRY glEvalCoord2d( GLdouble u, GLdouble v );
- void ENTRY glEvalCoord2f( GLfloat u, GLfloat v );
+ void  glEvalCoord2d( GLdouble u, GLdouble v );
+ void  glEvalCoord2f( GLfloat u, GLfloat v );
 
- void ENTRY glEvalCoord2dv(GLdouble *u );
- void ENTRY glEvalCoord2fv(GLfloat *u );
+ void  glEvalCoord2dv(GLdouble *u );
+ void  glEvalCoord2fv(GLfloat *u );
 
- void ENTRY glMapGrid1d( GLint un, GLdouble u1, GLdouble u2 );
- void ENTRY glMapGrid1f( GLint un, GLfloat u1, GLfloat u2 );
+ void  glMapGrid1d( GLint un, GLdouble u1, GLdouble u2 );
+ void  glMapGrid1f( GLint un, GLfloat u1, GLfloat u2 );
 
- void ENTRY glMapGrid2d( GLint un, GLdouble u1, GLdouble u2,
+ void  glMapGrid2d( GLint un, GLdouble u1, GLdouble u2,
                                    GLint vn, GLdouble v1, GLdouble v2 );
- void ENTRY glMapGrid2f( GLint un, GLfloat u1, GLfloat u2,
+ void  glMapGrid2f( GLint un, GLfloat u1, GLfloat u2,
                                    GLint vn, GLfloat v1, GLfloat v2 );
 
- void ENTRY glEvalPoint1( GLint i );
+ void  glEvalPoint1( GLint i );
 
- void ENTRY glEvalPoint2( GLint i, GLint j );
+ void  glEvalPoint2( GLint i, GLint j );
 
- void ENTRY glEvalMesh1( GLenum mode, GLint i1, GLint i2 );
+ void  glEvalMesh1( GLenum mode, GLint i1, GLint i2 );
 
- void ENTRY glEvalMesh2( GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2 );
+ void  glEvalMesh2( GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2 );
 
 
 /*
  * Fog
  */
 
- void ENTRY glFogf( GLenum pname, GLfloat param );
+ void  glFogf( GLenum pname, GLfloat param );
 
- void ENTRY glFogi( GLenum pname, GLint param );
+ void  glFogi( GLenum pname, GLint param );
 
- void ENTRY glFogfv( GLenum pname,GLfloat *params );
+ void  glFogfv( GLenum pname,GLfloat *params );
 
- void ENTRY glFogiv( GLenum pname,GLint *params );
+ void  glFogiv( GLenum pname,GLint *params );
 
 
 /*
  * Selection and Feedback
  */
 
- void ENTRY glFeedbackBuffer( GLsizei size, GLenum type, GLfloat *buffer );
+ void  glFeedbackBuffer( GLsizei size, GLenum type, GLfloat *buffer );
 
- void ENTRY glPassThrough( GLfloat token );
+ void  glPassThrough( GLfloat token );
 
- void ENTRY glSelectBuffer( GLsizei size, GLuint *buffer );
+ void  glSelectBuffer( GLsizei size, GLuint *buffer );
 
- void ENTRY glInitNames( void );
+ void  glInitNames( void );
 
- void ENTRY glLoadName( GLuint name );
+ void  glLoadName( GLuint name );
 
- void ENTRY glPushName( GLuint name );
+ void  glPushName( GLuint name );
 
- void ENTRY glPopName( void );
+ void  glPopName( void );
 
 
 
@@ -1485,33 +1445,29 @@ GLubyte * ENTRY glGetString( GLenum name );
 #define GL_MAX_3D_TEXTURE_SIZE			0x8073
 #define GL_TEXTURE_BINDING_3D			0x806A
 
- void ENTRY glDrawRangeElements( GLenum mode, GLuint start,
+ void  glDrawRangeElements( GLenum mode, GLuint start,
 	GLuint end_, GLsizei count, GLenum type,GLvoid *indices );
 
- void ENTRY glTexImage3D( GLenum target, GLint level,
+ void  glTexImage3D( GLenum target, GLint level,
                                       GLint internalFormat,
                                       GLsizei width, GLsizei height,
                                       GLsizei depth, GLint border,
                                       GLenum format, GLenum type,
                                      GLvoid *pixels );
 
- void ENTRY glTexSubImage3D( GLenum target, GLint level,
+ void  glTexSubImage3D( GLenum target, GLint level,
                                          GLint xoffset, GLint yoffset,
                                          GLint zoffset, GLsizei width,
                                          GLsizei height, GLsizei depth,
                                          GLenum format,
                                          GLenum type,GLvoid *pixels);
 
- void ENTRY glCopyTexSubImage3D( GLenum target, GLint level,
+ void  glCopyTexSubImage3D( GLenum target, GLint level,
                                              GLint xoffset, GLint yoffset,
                                              GLint zoffset, GLint x,
                                              GLint y, GLsizei width,
                                              GLsizei height );
 
-//////typedef void (P PFNGLDRAWRANGEELEMENTSPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count, GLenum type,GLvoid *indices);
-//////typedef void (P PFNGLTEXIMAGE3DPROC) (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,GLvoid *pixels);
-//////typedef void (P PFNGLTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,GLvoid *pixels);
-//////typedef void (P PFNGLCOPYTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
 
 
 /*
@@ -1595,112 +1551,112 @@ GLubyte * ENTRY glGetString( GLenum name );
 #define GL_BLEND_COLOR				0x8005
 
 
- void ENTRY glColorTable( GLenum target, GLenum internalformat,
+ void  glColorTable( GLenum target, GLenum internalformat,
                                     GLsizei width, GLenum format,
                                     GLenum type,GLvoid *table );
 
- void ENTRY glColorSubTable( GLenum target,
+ void  glColorSubTable( GLenum target,
                                        GLsizei start, GLsizei count,
                                        GLenum format, GLenum type,
                                       GLvoid *data );
 
- void ENTRY glColorTableParameteriv(GLenum target, GLenum pname,
+ void  glColorTableParameteriv(GLenum target, GLenum pname,
                                              GLint *params);
 
- void ENTRY glColorTableParameterfv(GLenum target, GLenum pname,
+ void  glColorTableParameterfv(GLenum target, GLenum pname,
                                              GLfloat *params);
 
- void ENTRY glCopyColorSubTable( GLenum target, GLsizei start,
+ void  glCopyColorSubTable( GLenum target, GLsizei start,
                                            GLint x, GLint y, GLsizei width );
 
- void ENTRY glCopyColorTable( GLenum target, GLenum internalformat,
+ void  glCopyColorTable( GLenum target, GLenum internalformat,
                                         GLint x, GLint y, GLsizei width );
 
- void ENTRY glGetColorTable( GLenum target, GLenum format,
+ void  glGetColorTable( GLenum target, GLenum format,
                                        GLenum type, GLvoid *table );
 
- void ENTRY glGetColorTableParameterfv( GLenum target, GLenum pname,
+ void  glGetColorTableParameterfv( GLenum target, GLenum pname,
                                                   GLfloat *params );
 
- void ENTRY glGetColorTableParameteriv( GLenum target, GLenum pname,
+ void  glGetColorTableParameteriv( GLenum target, GLenum pname,
                                                   GLint *params );
 
- void ENTRY glBlendEquation( GLenum mode );
+ void  glBlendEquation( GLenum mode );
 
- void ENTRY glBlendColor( GLclampf red, GLclampf green,
+ void  glBlendColor( GLclampf red, GLclampf green,
                                     GLclampf blue, GLclampf alpha );
 
- void ENTRY glHistogram( GLenum target, GLsizei width,
+ void  glHistogram( GLenum target, GLsizei width,
 				   GLenum internalformat, GLboolean sink );
 
- void ENTRY glResetHistogram( GLenum target );
+ void  glResetHistogram( GLenum target );
 
- void ENTRY glGetHistogram( GLenum target, GLboolean reset,
+ void  glGetHistogram( GLenum target, GLboolean reset,
 				      GLenum format, GLenum type,
 				      GLvoid *values );
 
- void ENTRY glGetHistogramParameterfv( GLenum target, GLenum pname,
+ void  glGetHistogramParameterfv( GLenum target, GLenum pname,
 						 GLfloat *params );
 
- void ENTRY glGetHistogramParameteriv( GLenum target, GLenum pname,
+ void  glGetHistogramParameteriv( GLenum target, GLenum pname,
 						 GLint *params );
 
- void ENTRY glMinmax( GLenum target, GLenum internalformat,
+ void  glMinmax( GLenum target, GLenum internalformat,
 				GLboolean sink );
 
- void ENTRY glResetMinmax( GLenum target );
+ void  glResetMinmax( GLenum target );
 
- void ENTRY glGetMinmax( GLenum target, GLboolean reset,
+ void  glGetMinmax( GLenum target, GLboolean reset,
                                    GLenum format, GLenum types,
                                    GLvoid *values );
 
- void ENTRY glGetMinmaxParameterfv( GLenum target, GLenum pname,
+ void  glGetMinmaxParameterfv( GLenum target, GLenum pname,
 					      GLfloat *params );
 
- void ENTRY glGetMinmaxParameteriv( GLenum target, GLenum pname,
+ void  glGetMinmaxParameteriv( GLenum target, GLenum pname,
 					      GLint *params );
 
- void ENTRY glConvolutionFilter1D( GLenum target,
+ void  glConvolutionFilter1D( GLenum target,
 	GLenum internalformat, GLsizei width, GLenum format, GLenum type,
 	const GLvoid *image );
 
- void ENTRY glConvolutionFilter2D( GLenum target,
+ void  glConvolutionFilter2D( GLenum target,
 	GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
 	GLenum type,GLvoid *image );
 
- void ENTRY glConvolutionParameterf( GLenum target, GLenum pname,
+ void  glConvolutionParameterf( GLenum target, GLenum pname,
 	GLfloat params );
 
- void ENTRY glConvolutionParameterfv( GLenum target, GLenum pname,
+ void  glConvolutionParameterfv( GLenum target, GLenum pname,
 	const GLfloat *params );
 
- void ENTRY glConvolutionParameteri( GLenum target, GLenum pname,
+ void  glConvolutionParameteri( GLenum target, GLenum pname,
 	GLint params );
 
- void ENTRY glConvolutionParameteriv( GLenum target, GLenum pname,
+ void  glConvolutionParameteriv( GLenum target, GLenum pname,
 	const GLint *params );
 
- void ENTRY glCopyConvolutionFilter1D( GLenum target,
+ void  glCopyConvolutionFilter1D( GLenum target,
 	GLenum internalformat, GLint x, GLint y, GLsizei width );
 
- void ENTRY glCopyConvolutionFilter2D( GLenum target,
+ void  glCopyConvolutionFilter2D( GLenum target,
 	GLenum internalformat, GLint x, GLint y, GLsizei width,
 	GLsizei height);
 
- void ENTRY glGetConvolutionFilter( GLenum target, GLenum format,
+ void  glGetConvolutionFilter( GLenum target, GLenum format,
 	GLenum type, GLvoid *image );
 
- void ENTRY glGetConvolutionParameterfv( GLenum target, GLenum pname,
+ void  glGetConvolutionParameterfv( GLenum target, GLenum pname,
 	GLfloat *params );
 
- void ENTRY glGetConvolutionParameteriv( GLenum target, GLenum pname,
+ void  glGetConvolutionParameteriv( GLenum target, GLenum pname,
 	GLint *params );
 
- void ENTRY glSeparableFilter2D( GLenum target,
+ void  glSeparableFilter2D( GLenum target,
 	GLenum internalformat, GLsizei width, GLsizei height, GLenum format,
 	GLenum type,GLvoid *row,GLvoid *column );
 
- void ENTRY glGetSeparableFilter( GLenum target, GLenum format,
+ void  glGetSeparableFilter( GLenum target, GLenum format,
 	GLenum type, GLvoid *row, GLvoid *column, GLvoid *span );
 
 
@@ -1815,116 +1771,106 @@ GLubyte * ENTRY glGetString( GLenum name );
 /* texture_border_clamp */
 #define GL_CLAMP_TO_BORDER			0x812D
 
- void ENTRY glActiveTexture( GLenum texture );
+ void  glActiveTexture( GLenum texture );
 
- void ENTRY glClientActiveTexture( GLenum texture );
+ void  glClientActiveTexture( GLenum texture );
 
- void ENTRY glCompressedTexImage1D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexImage1D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glCompressedTexImage2D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexImage2D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glCompressedTexImage3D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexImage3D( GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glCompressedTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexSubImage1D( GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glCompressedTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexSubImage2D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glCompressedTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,GLvoid *data );
+ void  glCompressedTexSubImage3D( GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,GLvoid *data );
 
- void ENTRY glGetCompressedTexImage( GLenum target, GLint lod, GLvoid *img );
+ void  glGetCompressedTexImage( GLenum target, GLint lod, GLvoid *img );
 
- void ENTRY glMultiTexCoord1d( GLenum target, GLdouble s );
+ void  glMultiTexCoord1d( GLenum target, GLdouble s );
 
- void ENTRY glMultiTexCoord1dv( GLenum target,GLdouble *v );
+ void  glMultiTexCoord1dv( GLenum target,GLdouble *v );
 
- void ENTRY glMultiTexCoord1f( GLenum target, GLfloat s );
+ void  glMultiTexCoord1f( GLenum target, GLfloat s );
 
- void ENTRY glMultiTexCoord1fv( GLenum target,GLfloat *v );
+ void  glMultiTexCoord1fv( GLenum target,GLfloat *v );
 
- void ENTRY glMultiTexCoord1i( GLenum target, GLint s );
+ void  glMultiTexCoord1i( GLenum target, GLint s );
 
- void ENTRY glMultiTexCoord1iv( GLenum target,GLint *v );
+ void  glMultiTexCoord1iv( GLenum target,GLint *v );
 
- void ENTRY glMultiTexCoord1s( GLenum target, GLshort s );
+ void  glMultiTexCoord1s( GLenum target, GLshort s );
 
- void ENTRY glMultiTexCoord1sv( GLenum target,GLshort *v );
+ void  glMultiTexCoord1sv( GLenum target,GLshort *v );
 
- void ENTRY glMultiTexCoord2d( GLenum target, GLdouble s, GLdouble t );
+ void  glMultiTexCoord2d( GLenum target, GLdouble s, GLdouble t );
 
- void ENTRY glMultiTexCoord2dv( GLenum target,GLdouble *v );
+ void  glMultiTexCoord2dv( GLenum target,GLdouble *v );
 
- void ENTRY glMultiTexCoord2f( GLenum target, GLfloat s, GLfloat t );
+ void  glMultiTexCoord2f( GLenum target, GLfloat s, GLfloat t );
 
- void ENTRY glMultiTexCoord2fv( GLenum target,GLfloat *v );
+ void  glMultiTexCoord2fv( GLenum target,GLfloat *v );
 
- void ENTRY glMultiTexCoord2i( GLenum target, GLint s, GLint t );
+ void  glMultiTexCoord2i( GLenum target, GLint s, GLint t );
 
- void ENTRY glMultiTexCoord2iv( GLenum target,GLint *v );
+ void  glMultiTexCoord2iv( GLenum target,GLint *v );
 
- void ENTRY glMultiTexCoord2s( GLenum target, GLshort s, GLshort t );
+ void  glMultiTexCoord2s( GLenum target, GLshort s, GLshort t );
 
- void ENTRY glMultiTexCoord2sv( GLenum target,GLshort *v );
+ void  glMultiTexCoord2sv( GLenum target,GLshort *v );
 
- void ENTRY glMultiTexCoord3d( GLenum target, GLdouble s, GLdouble t, GLdouble r );
+ void  glMultiTexCoord3d( GLenum target, GLdouble s, GLdouble t, GLdouble r );
 
- void ENTRY glMultiTexCoord3dv( GLenum target,GLdouble *v );
+ void  glMultiTexCoord3dv( GLenum target,GLdouble *v );
 
- void ENTRY glMultiTexCoord3f( GLenum target, GLfloat s, GLfloat t, GLfloat r );
+ void  glMultiTexCoord3f( GLenum target, GLfloat s, GLfloat t, GLfloat r );
 
- void ENTRY glMultiTexCoord3fv( GLenum target,GLfloat *v );
+ void  glMultiTexCoord3fv( GLenum target,GLfloat *v );
 
- void ENTRY glMultiTexCoord3i( GLenum target, GLint s, GLint t, GLint r );
+ void  glMultiTexCoord3i( GLenum target, GLint s, GLint t, GLint r );
 
- void ENTRY glMultiTexCoord3iv( GLenum target,GLint *v );
+ void  glMultiTexCoord3iv( GLenum target,GLint *v );
 
- void ENTRY glMultiTexCoord3s( GLenum target, GLshort s, GLshort t, GLshort r );
+ void  glMultiTexCoord3s( GLenum target, GLshort s, GLshort t, GLshort r );
 
- void ENTRY glMultiTexCoord3sv( GLenum target,GLshort *v );
+ void  glMultiTexCoord3sv( GLenum target,GLshort *v );
 
- void ENTRY glMultiTexCoord4d( GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q );
+ void  glMultiTexCoord4d( GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q );
 
- void ENTRY glMultiTexCoord4dv( GLenum target,GLdouble *v );
+ void  glMultiTexCoord4dv( GLenum target,GLdouble *v );
 
- void ENTRY glMultiTexCoord4f( GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q );
+ void  glMultiTexCoord4f( GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q );
 
- void ENTRY glMultiTexCoord4fv( GLenum target,GLfloat *v );
+ void  glMultiTexCoord4fv( GLenum target,GLfloat *v );
 
- void ENTRY glMultiTexCoord4i( GLenum target, GLint s, GLint t, GLint r, GLint q );
+ void  glMultiTexCoord4i( GLenum target, GLint s, GLint t, GLint r, GLint q );
 
- void ENTRY glMultiTexCoord4iv( GLenum target,GLint *v );
+ void  glMultiTexCoord4iv( GLenum target,GLint *v );
 
- void ENTRY glMultiTexCoord4s( GLenum target, GLshort s, GLshort t, GLshort r, GLshort q );
+ void  glMultiTexCoord4s( GLenum target, GLshort s, GLshort t, GLshort r, GLshort q );
 
- void ENTRY glMultiTexCoord4sv( GLenum target,GLshort *v );
-
-
- void ENTRY glLoadTransposeMatrixd(GLdouble * m );
-
- void ENTRY glLoadTransposeMatrixf(GLfloat * m );
-
- void ENTRY glMultTransposeMatrixd(GLdouble * m );
-
- void ENTRY glMultTransposeMatrixf(GLfloat * m );
-
- void ENTRY glSampleCoverage( GLclampf value, GLboolean invert );
+ void  glMultiTexCoord4sv( GLenum target,GLshort *v );
 
 
-//////typedef void (P PFNGLACTIVETEXTUREPROC) (GLenum texture);
-//////typedef void (P PFNGLSAMPLECOVERAGEPROC) (GLclampf value, GLboolean invert);
-//////typedef void (P PFNGLCOMPRESSEDTEXIMAGE3DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLCOMPRESSEDTEXIMAGE2DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLCOMPRESSEDTEXIMAGE1DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,GLvoid *data);
-//////typedef void (P PFNGLGETCOMPRESSEDTEXIMAGEPROC) (GLenum target, GLint level, GLvoid *img);
+ void  glLoadTransposeMatrixd(GLdouble * m );
+
+ void  glLoadTransposeMatrixf(GLfloat * m );
+
+ void  glMultTransposeMatrixd(GLdouble * m );
+
+ void  glMultTransposeMatrixf(GLfloat * m );
+
+ void  glSampleCoverage( GLclampf value, GLboolean invert );
+
+
 
 
 
 /*
  * GL_ARB_multitexture (ARB extension 1 and OpenGL 1.2.1)
  */
-//////#ifndef GL_ARB_multitexture
 #define GL_ARB_multitexture 1
 
 #define GL_TEXTURE0_ARB				0x84C0
@@ -1963,77 +1909,42 @@ GLubyte * ENTRY glGetString( GLenum name );
 #define GL_CLIENT_ACTIVE_TEXTURE_ARB		0x84E1
 #define GL_MAX_TEXTURE_UNITS_ARB		0x84E2
 
- void ENTRY glActiveTextureARB(GLenum texture);
- void ENTRY glClientActiveTextureARB(GLenum texture);
- void ENTRY glMultiTexCoord1dARB(GLenum target, GLdouble s);
- void ENTRY glMultiTexCoord1dvARB(GLenum target,GLdouble *v);
- void ENTRY glMultiTexCoord1fARB(GLenum target, GLfloat s);
- void ENTRY glMultiTexCoord1fvARB(GLenum target,GLfloat *v);
- void ENTRY glMultiTexCoord1iARB(GLenum target, GLint s);
- void ENTRY glMultiTexCoord1ivARB(GLenum target,GLint *v);
- void ENTRY glMultiTexCoord1sARB(GLenum target, GLshort s);
- void ENTRY glMultiTexCoord1svARB(GLenum target,GLshort *v);
- void ENTRY glMultiTexCoord2dARB(GLenum target, GLdouble s, GLdouble t);
- void ENTRY glMultiTexCoord2dvARB(GLenum target,GLdouble *v);
- void ENTRY glMultiTexCoord2fARB(GLenum target, GLfloat s, GLfloat t);
- void ENTRY glMultiTexCoord2fvARB(GLenum target,GLfloat *v);
- void ENTRY glMultiTexCoord2iARB(GLenum target, GLint s, GLint t);
- void ENTRY glMultiTexCoord2ivARB(GLenum target,GLint *v);
- void ENTRY glMultiTexCoord2sARB(GLenum target, GLshort s, GLshort t);
- void ENTRY glMultiTexCoord2svARB(GLenum target,GLshort *v);
- void ENTRY glMultiTexCoord3dARB(GLenum target, GLdouble s, GLdouble t, GLdouble r);
- void ENTRY glMultiTexCoord3dvARB(GLenum target,GLdouble *v);
- void ENTRY glMultiTexCoord3fARB(GLenum target, GLfloat s, GLfloat t, GLfloat r);
- void ENTRY glMultiTexCoord3fvARB(GLenum target,GLfloat *v);
- void ENTRY glMultiTexCoord3iARB(GLenum target, GLint s, GLint t, GLint r);
- void ENTRY glMultiTexCoord3ivARB(GLenum target,GLint *v);
- void ENTRY glMultiTexCoord3sARB(GLenum target, GLshort s, GLshort t, GLshort r);
- void ENTRY glMultiTexCoord3svARB(GLenum target,GLshort *v);
- void ENTRY glMultiTexCoord4dARB(GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
- void ENTRY glMultiTexCoord4dvARB(GLenum target,GLdouble *v);
- void ENTRY glMultiTexCoord4fARB(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
- void ENTRY glMultiTexCoord4fvARB(GLenum target,GLfloat *v);
- void ENTRY glMultiTexCoord4iARB(GLenum target, GLint s, GLint t, GLint r, GLint q);
- void ENTRY glMultiTexCoord4ivARB(GLenum target,GLint *v);
- void ENTRY glMultiTexCoord4sARB(GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
- void ENTRY glMultiTexCoord4svARB(GLenum target,GLshort *v);
+ void  glActiveTextureARB(GLenum texture);
+ void  glClientActiveTextureARB(GLenum texture);
+ void  glMultiTexCoord1dARB(GLenum target, GLdouble s);
+ void  glMultiTexCoord1dvARB(GLenum target,GLdouble *v);
+ void  glMultiTexCoord1fARB(GLenum target, GLfloat s);
+ void  glMultiTexCoord1fvARB(GLenum target,GLfloat *v);
+ void  glMultiTexCoord1iARB(GLenum target, GLint s);
+ void  glMultiTexCoord1ivARB(GLenum target,GLint *v);
+ void  glMultiTexCoord1sARB(GLenum target, GLshort s);
+ void  glMultiTexCoord1svARB(GLenum target,GLshort *v);
+ void  glMultiTexCoord2dARB(GLenum target, GLdouble s, GLdouble t);
+ void  glMultiTexCoord2dvARB(GLenum target,GLdouble *v);
+ void  glMultiTexCoord2fARB(GLenum target, GLfloat s, GLfloat t);
+ void  glMultiTexCoord2fvARB(GLenum target,GLfloat *v);
+ void  glMultiTexCoord2iARB(GLenum target, GLint s, GLint t);
+ void  glMultiTexCoord2ivARB(GLenum target,GLint *v);
+ void  glMultiTexCoord2sARB(GLenum target, GLshort s, GLshort t);
+ void  glMultiTexCoord2svARB(GLenum target,GLshort *v);
+ void  glMultiTexCoord3dARB(GLenum target, GLdouble s, GLdouble t, GLdouble r);
+ void  glMultiTexCoord3dvARB(GLenum target,GLdouble *v);
+ void  glMultiTexCoord3fARB(GLenum target, GLfloat s, GLfloat t, GLfloat r);
+ void  glMultiTexCoord3fvARB(GLenum target,GLfloat *v);
+ void  glMultiTexCoord3iARB(GLenum target, GLint s, GLint t, GLint r);
+ void  glMultiTexCoord3ivARB(GLenum target,GLint *v);
+ void  glMultiTexCoord3sARB(GLenum target, GLshort s, GLshort t, GLshort r);
+ void  glMultiTexCoord3svARB(GLenum target,GLshort *v);
+ void  glMultiTexCoord4dARB(GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
+ void  glMultiTexCoord4dvARB(GLenum target,GLdouble *v);
+ void  glMultiTexCoord4fARB(GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+ void  glMultiTexCoord4fvARB(GLenum target,GLfloat *v);
+ void  glMultiTexCoord4iARB(GLenum target, GLint s, GLint t, GLint r, GLint q);
+ void  glMultiTexCoord4ivARB(GLenum target,GLint *v);
+ void  glMultiTexCoord4sARB(GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
+ void  glMultiTexCoord4svARB(GLenum target,GLshort *v);
 
-//////typedef void (P PFNGLACTIVETEXTUREARBPROC) (GLenum texture);
-//////typedef void (P PFNGLCLIENTACTIVETEXTUREARBPROC) (GLenum texture);
-//////typedef void (P PFNGLMULTITEXCOORD1DARBPROC) (GLenum target, GLdouble s);
-//////typedef void (P PFNGLMULTITEXCOORD1DVARBPROC) (GLenum target,GLdouble *v);
-//////typedef void (P PFNGLMULTITEXCOORD1FARBPROC) (GLenum target, GLfloat s);
-//////typedef void (P PFNGLMULTITEXCOORD1FVARBPROC) (GLenum target,GLfloat *v);
-//////typedef void (P PFNGLMULTITEXCOORD1IARBPROC) (GLenum target, GLint s);
-//////typedef void (P PFNGLMULTITEXCOORD1IVARBPROC) (GLenum target,GLint *v);
-//////typedef void (P PFNGLMULTITEXCOORD1SARBPROC) (GLenum target, GLshort s);
-//////typedef void (P PFNGLMULTITEXCOORD1SVARBPROC) (GLenum target,GLshort *v);
-//////typedef void (P PFNGLMULTITEXCOORD2DARBPROC) (GLenum target, GLdouble s, GLdouble t);
-//////typedef void (P PFNGLMULTITEXCOORD2DVARBPROC) (GLenum target,GLdouble *v);
-//////typedef void (P PFNGLMULTITEXCOORD2FARBPROC) (GLenum target, GLfloat s, GLfloat t);
-//////typedef void (P PFNGLMULTITEXCOORD2FVARBPROC) (GLenum target,GLfloat *v);
-//////typedef void (P PFNGLMULTITEXCOORD2IARBPROC) (GLenum target, GLint s, GLint t);
-//////typedef void (P PFNGLMULTITEXCOORD2IVARBPROC) (GLenum target,GLint *v);
-//////typedef void (P PFNGLMULTITEXCOORD2SARBPROC) (GLenum target, GLshort s, GLshort t);
-//////typedef void (P PFNGLMULTITEXCOORD2SVARBPROC) (GLenum target,GLshort *v);
-//////typedef void (P PFNGLMULTITEXCOORD3DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r);
-//////typedef void (P PFNGLMULTITEXCOORD3DVARBPROC) (GLenum target,GLdouble *v);
-//////typedef void (P PFNGLMULTITEXCOORD3FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r);
-//////typedef void (P PFNGLMULTITEXCOORD3FVARBPROC) (GLenum target,GLfloat *v);
-//////typedef void (P PFNGLMULTITEXCOORD3IARBPROC) (GLenum target, GLint s, GLint t, GLint r);
-//////typedef void (P PFNGLMULTITEXCOORD3IVARBPROC) (GLenum target,GLint *v);
-//////typedef void (P PFNGLMULTITEXCOORD3SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r);
-//////typedef void (P PFNGLMULTITEXCOORD3SVARBPROC) (GLenum target,GLshort *v);
-//////typedef void (P PFNGLMULTITEXCOORD4DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
-//////typedef void (P PFNGLMULTITEXCOORD4DVARBPROC) (GLenum target,GLdouble *v);
-//////typedef void (P PFNGLMULTITEXCOORD4FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
-//////typedef void (P PFNGLMULTITEXCOORD4FVARBPROC) (GLenum target,GLfloat *v);
-//////typedef void (P PFNGLMULTITEXCOORD4IARBPROC) (GLenum target, GLint s, GLint t, GLint r, GLint q);
-//////typedef void (P PFNGLMULTITEXCOORD4IVARBPROC) (GLenum target,GLint *v);
-//////typedef void (P PFNGLMULTITEXCOORD4SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
-//////typedef void (P PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target,GLshort *v);
 
-//////#endif /* GL_ARB_multitexture */
 
 
 
@@ -2041,15 +1952,11 @@ GLubyte * ENTRY glGetString( GLenum name );
  * Define this token if you want "old-style" header file behaviour (extensions
  * defined in gl.h).  Otherwise, extensions will be included from glext.h.
  */
-//////#if defined(GL_GLEXT_LEGACY)
 
 /* All extensions that used to be here are now found in glext.h */
 
-//////#else  /* GL_GLEXT_LEGACY */
 
-//////#include <GL/glext.h>
 
-//////#endif  /* GL_GLEXT_LEGACY */
 
 
 
@@ -2057,7 +1964,6 @@ GLubyte * ENTRY glGetString( GLenum name );
  * ???. GL_MESA_packed_depth_stencil
  * XXX obsolete
  */
-//////#ifndef GL_MESA_packed_depth_stencil
 #define GL_MESA_packed_depth_stencil 1
 
 #define GL_DEPTH_STENCIL_MESA			0x8750
@@ -2066,38 +1972,22 @@ GLubyte * ENTRY glGetString( GLenum name );
 #define GL_UNSIGNED_SHORT_15_1_MESA		0x8753
 #define GL_UNSIGNED_SHORT_1_15_REV_MESA		0x8754
 
-//////#endif /* GL_MESA_packed_depth_stencil */
 
 
-//////#ifndef GL_ATI_blend_equation_separate
 #define GL_ATI_blend_equation_separate 1
 
 #define GL_ALPHA_BLEND_EQUATION_ATI	        0x883D
 
- void ENTRY glBlendEquationSeparateATI( GLenum modeRGB, GLenum modeA );
-//////typedef void (P PFNGLBLENDEQUATIONSEPARATEATIPROC) (GLenum modeRGB, GLenum modeA);
+ void  glBlendEquationSeparateATI( GLenum modeRGB, GLenum modeA );
 
-//////#endif /* GL_ATI_blend_equation_separate */
 
 
 /* GL_OES_EGL_image */
-//////#if !defined(GL_OES_EGL_image) && !defined(GL_EXT_EGL_image_storage)
 typedef void* GLeglImageOES;
-//////#endif
 
-//////#ifndef GL_OES_EGL_image
 #define GL_OES_EGL_image 1
-//////#ifdef GL_GLEXT_PROTOTYPES
  void  glEGLImageTargetTexture2DOES (GLenum target, GLeglImageOES image);
  void  glEGLImageTargetRenderbufferStorageOES (GLenum target, GLeglImageOES image);
-//////#endif
-//////typedef void (P PFNGLEGLIMAGETARGETTEXTURE2DOESPROC) (GLenum target, GLeglImageOES image);
-//////typedef void (P PFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC) (GLenum target, GLeglImageOES image);
-//////#endif
 
 
-//////#ifdef __cplusplus
-//////}
-//////#endif
 
-//////#endif /* __gl_h_ */

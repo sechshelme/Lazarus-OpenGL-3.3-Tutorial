@@ -1,79 +1,27 @@
-
 unit oglGLext;
+
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from oglGLext.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    oglGLext.h
-}
+uses
+  oglGL;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-P_GLsync  = ^_GLsync;
-Pcl_context  = ^cl_context;
-Pcl_event  = ^cl_event;
-PGLboolean  = ^GLboolean;
-PGLbyte  = ^GLbyte;
-PGLchar  = ^GLchar;
-PGLcharARB  = ^GLcharARB;
-PGLclampf  = ^GLclampf;
-PGLdouble  = ^GLdouble;
-PGLeglClientBufferEXT  = ^GLeglClientBufferEXT;
-PGLeglImageOES  = ^GLeglImageOES;
-PGLenum  = ^GLenum;
-PGLfixed  = ^GLfixed;
-PGLfloat  = ^GLfloat;
-PGLhalf  = ^GLhalf;
-PGLhalfARB  = ^GLhalfARB;
-PGLhalfNV  = ^GLhalfNV;
-PGLhandleARB  = ^GLhandleARB;
-PGLint  = ^GLint;
-PGLint64  = ^GLint64;
-PGLint64EXT  = ^GLint64EXT;
-PGLintptr  = ^GLintptr;
-PGLintptrARB  = ^GLintptrARB;
-PGLshort  = ^GLshort;
-PGLsizei  = ^GLsizei;
-PGLsizeiptr  = ^GLsizeiptr;
-PGLsizeiptrARB  = ^GLsizeiptrARB;
-PGLsync  = ^GLsync;
-PGLubyte  = ^GLubyte;
-PGLuint  = ^GLuint;
-PGLuint64  = ^GLuint64;
-PGLuint64EXT  = ^GLuint64EXT;
-PGLushort  = ^GLushort;
-PGLvdpauSurfaceNV  = ^GLvdpauSurfaceNV;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
+  // === Eigene Typen
+type
+  Tkhronos_ssize_t = SizeInt;
+  Tkhronos_intptr_t = PtrInt;
+  Tkhronos_uint16_t = uint16;
 
-{//////////////////////////////////////////////////////////////////////// }
-{ }
-{    glext.h }
-{ }
-{//////////////////////////////////////////////////////////////////////// }
-{////#ifndef __gl_glext_h_ }
+  P_GLsync = DWord;
+  Tkhronos_uint64_t = uint64;
+  Tkhronos_int64_t = int16;
+  Tkhronos_int32_t = int32;
 
 const
   __gl_glext_h_ = 1;  
-{////#ifdef __cplusplus }
-{////extern "C"  }
-{////#endif }
 {
 ** Copyright 2013-2020 The Khronos Group Inc.
 ** SPDX-License-Identifier: MIT
@@ -83,23 +31,8 @@ const
 ** used to make the header, and the header can be found at
 **   https://github.com/KhronosGroup/OpenGL-Registry
  }
-{////#if defined(_WIN32) && !defined() && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__) }
-{////#ifndef WIN32_LEAN_AND_MEAN }
   WIN32_LEAN_AND_MEAN = 1;  
-{////#endif }
-{////#include <windows.h> }
-{////#endif }
-{////#ifndef  }
-{////#define  }
-{////#endif }
-{//////////#ifndef P }
-{////#define P  * }
-{////#endif }
-{////#ifndef  }
-{////#define  extern }
-{////#endif }
   GL_GLEXT_VERSION = 20230309;  
-{////#include <KHR/khrplatform.h> }
 { Generated C header for:
  * API: gl
  * Profile: compatibility
@@ -109,7 +42,6 @@ const
  * Additional extensions included: _nomatch_^
  * Extensions removed: _nomatch_^
   }
-{////#ifndef GL_VERSION_1_2 }
   GL_VERSION_1_2 = 1;  
   GL_UNSIGNED_BYTE_3_3_2 = $8032;  
   GL_UNSIGNED_SHORT_4_4_4_4 = $8033;  
@@ -152,11 +84,6 @@ const
   GL_SINGLE_COLOR = $81F9;  
   GL_SEPARATE_SPECULAR_COLOR = $81FA;  
   GL_ALIASED_POINT_SIZE_RANGE = $846D;  
-{////typedef void (P PFNGLDRAWRANGEELEMENTSPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count, GLenum type,void *indices); }
-{////typedef void (P PFNGLTEXIMAGE3DPROC) (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOPYTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawRangeElements(mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum; 
             indices:pointer);cdecl;external;
@@ -167,9 +94,6 @@ procedure glTexSubImage3D(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:
             pixels:pointer);cdecl;external;
 procedure glCopyTexSubImage3D(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_1_2 */ }
-{////#ifndef GL_VERSION_1_3 }
 const
   GL_VERSION_1_3 = 1;  
   GL_TEXTURE0 = $84C0;  
@@ -268,53 +192,6 @@ const
   GL_PREVIOUS = $8578;  
   GL_DOT3_RGB = $86AE;  
   GL_DOT3_RGBA = $86AF;  
-{////typedef void (P PFNGLACTIVETEXTUREPROC) (GLenum texture); }
-{////typedef void (P PFNGLSAMPLECOVERAGEPROC) (GLfloat value, GLboolean invert); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE3DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE2DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE1DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXIMAGEPROC) (GLenum target, GLint level, void *img); }
-{////typedef void (P PFNGLCLIENTACTIVETEXTUREPROC) (GLenum texture); }
-{////typedef void (P PFNGLMULTITEXCOORD1DPROC) (GLenum target, GLdouble s); }
-{////typedef void (P PFNGLMULTITEXCOORD1DVPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1FPROC) (GLenum target, GLfloat s); }
-{////typedef void (P PFNGLMULTITEXCOORD1FVPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1IPROC) (GLenum target, GLint s); }
-{////typedef void (P PFNGLMULTITEXCOORD1IVPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1SPROC) (GLenum target, GLshort s); }
-{////typedef void (P PFNGLMULTITEXCOORD1SVPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2DPROC) (GLenum target, GLdouble s, GLdouble t); }
-{////typedef void (P PFNGLMULTITEXCOORD2DVPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2FPROC) (GLenum target, GLfloat s, GLfloat t); }
-{////typedef void (P PFNGLMULTITEXCOORD2FVPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2IPROC) (GLenum target, GLint s, GLint t); }
-{////typedef void (P PFNGLMULTITEXCOORD2IVPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2SPROC) (GLenum target, GLshort s, GLshort t); }
-{////typedef void (P PFNGLMULTITEXCOORD2SVPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3DPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r); }
-{////typedef void (P PFNGLMULTITEXCOORD3DVPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3FPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r); }
-{////typedef void (P PFNGLMULTITEXCOORD3FVPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3IPROC) (GLenum target, GLint s, GLint t, GLint r); }
-{////typedef void (P PFNGLMULTITEXCOORD3IVPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3SPROC) (GLenum target, GLshort s, GLshort t, GLshort r); }
-{////typedef void (P PFNGLMULTITEXCOORD3SVPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4DPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q); }
-{////typedef void (P PFNGLMULTITEXCOORD4DVPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4FPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q); }
-{////typedef void (P PFNGLMULTITEXCOORD4FVPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4IPROC) (GLenum target, GLint s, GLint t, GLint r, GLint q); }
-{////typedef void (P PFNGLMULTITEXCOORD4IVPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4SPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q); }
-{////typedef void (P PFNGLMULTITEXCOORD4SVPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLLOADTRANSPOSEMATRIXFPROC) ( GLfloat *m); }
-{////typedef void (P PFNGLLOADTRANSPOSEMATRIXDPROC) ( GLdouble *m); }
-{////typedef void (P PFNGLMULTTRANSPOSEMATRIXFPROC) ( GLfloat *m); }
-{////typedef void (P PFNGLMULTTRANSPOSEMATRIXDPROC) ( GLdouble *m); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glActiveTexture(texture:TGLenum);cdecl;external;
 procedure glSampleCoverage(value:TGLfloat; invert:TGLboolean);cdecl;external;
@@ -369,9 +246,6 @@ procedure glLoadTransposeMatrixf(m:PGLfloat);cdecl;external;
 procedure glLoadTransposeMatrixd(m:PGLdouble);cdecl;external;
 procedure glMultTransposeMatrixf(m:PGLfloat);cdecl;external;
 procedure glMultTransposeMatrixd(m:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_1_3 */ }
-{////#ifndef GL_VERSION_1_4 }
 const
   GL_VERSION_1_4 = 1;  
   GL_BLEND_DST_RGB = $80C8;  
@@ -424,54 +298,6 @@ const
   GL_FUNC_SUBTRACT = $800A;  
   GL_MIN = $8007;  
   GL_MAX = $8008;  
-{////typedef void (P PFNGLBLENDFUNCSEPARATEPROC) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha); }
-{////typedef void (P PFNGLMULTIDRAWARRAYSPROC) (GLenum mode,GLint *first,GLsizei *count, GLsizei drawcount); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSPROC) (GLenum mode,GLsizei *count, GLenum type,void **indices, GLsizei drawcount); }
-{////typedef void (P PFNGLPOINTPARAMETERFPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPOINTPARAMETERFVPROC) (GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLPOINTPARAMETERIPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLPOINTPARAMETERIVPROC) (GLenum pname,GLint *params); }
-{////typedef void (P PFNGLFOGCOORDFPROC) (GLfloat coord); }
-{////typedef void (P PFNGLFOGCOORDFVPROC) ( GLfloat *coord); }
-{////typedef void (P PFNGLFOGCOORDDPROC) (GLdouble coord); }
-{////typedef void (P PFNGLFOGCOORDDVPROC) ( GLdouble *coord); }
-{////typedef void (P PFNGLFOGCOORDPOINTERPROC) (GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLSECONDARYCOLOR3BPROC) (GLbyte red, GLbyte green, GLbyte blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3BVPROC) ( GLbyte *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3DPROC) (GLdouble red, GLdouble green, GLdouble blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3DVPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3FPROC) (GLfloat red, GLfloat green, GLfloat blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3FVPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3IPROC) (GLint red, GLint green, GLint blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3IVPROC) ( GLint *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3SPROC) (GLshort red, GLshort green, GLshort blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3SVPROC) ( GLshort *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UBPROC) (GLubyte red, GLubyte green, GLubyte blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UBVPROC) ( GLubyte *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UIPROC) (GLuint red, GLuint green, GLuint blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UIVPROC) ( GLuint *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3USPROC) (GLushort red, GLushort green, GLushort blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3USVPROC) ( GLushort *v); }
-{////typedef void (P PFNGLSECONDARYCOLORPOINTERPROC) (GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLWINDOWPOS2DPROC) (GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLWINDOWPOS2DVPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS2FPROC) (GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLWINDOWPOS2FVPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS2IPROC) (GLint x, GLint y); }
-{////typedef void (P PFNGLWINDOWPOS2IVPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS2SPROC) (GLshort x, GLshort y); }
-{////typedef void (P PFNGLWINDOWPOS2SVPROC) ( GLshort *v); }
-{////typedef void (P PFNGLWINDOWPOS3DPROC) (GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLWINDOWPOS3DVPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS3FPROC) (GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLWINDOWPOS3FVPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS3IPROC) (GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLWINDOWPOS3IVPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS3SPROC) (GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLWINDOWPOS3SVPROC) ( GLshort *v); }
-{////typedef void (P PFNGLBLENDCOLORPROC) (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha); }
-{////typedef void (P PFNGLBLENDEQUATIONPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendFuncSeparate(sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;external;
 procedure glMultiDrawArrays(mode:TGLenum; first:PGLint; count:PGLsizei; drawcount:TGLsizei);cdecl;external;
@@ -520,9 +346,6 @@ procedure glWindowPos3s(x:TGLshort; y:TGLshort; z:TGLshort);cdecl;external;
 procedure glWindowPos3sv(v:PGLshort);cdecl;external;
 procedure glBlendColor(red:TGLfloat; green:TGLfloat; blue:TGLfloat; alpha:TGLfloat);cdecl;external;
 procedure glBlendEquation(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_1_4 */ }
-{////#ifndef GL_VERSION_1_5 }
 const
   GL_VERSION_1_5 = 1;  
 type
@@ -583,26 +406,6 @@ const
   GL_SRC2_RGB = $8582;  
   GL_SRC0_ALPHA = $8588;  
   GL_SRC2_ALPHA = $858A;  
-{////typedef void (P PFNGLGENQUERIESPROC) (GLsizei n, GLuint *ids); }
-{////typedef void (P PFNGLDELETEQUERIESPROC) (GLsizei n,GLuint *ids); }
-{////typedef GLboolean (P PFNGLISQUERYPROC) (GLuint id); }
-{////typedef void (P PFNGLBEGINQUERYPROC) (GLenum target, GLuint id); }
-{////typedef void (P PFNGLENDQUERYPROC) (GLenum target); }
-{////typedef void (P PFNGLGETQUERYIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTIVPROC) (GLuint id, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTUIVPROC) (GLuint id, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLBINDBUFFERPROC) (GLenum target, GLuint buffer); }
-{////typedef void (P PFNGLDELETEBUFFERSPROC) (GLsizei n,GLuint *buffers); }
-{////typedef void (P PFNGLGENBUFFERSPROC) (GLsizei n, GLuint *buffers); }
-{////typedef GLboolean (P PFNGLISBUFFERPROC) (GLuint buffer); }
-{////typedef void (P PFNGLBUFFERDATAPROC) (GLenum target, GLsizeiptr size,void *data, GLenum usage); }
-{////typedef void (P PFNGLBUFFERSUBDATAPROC) (GLenum target, GLintptr offset, GLsizeiptr size,void *data); }
-{////typedef void (P PFNGLGETBUFFERSUBDATAPROC) (GLenum target, GLintptr offset, GLsizeiptr size, void *data); }
-{////typedef void *(P PFNGLMAPBUFFERPROC) (GLenum target, GLenum access); }
-{////typedef GLboolean (P PFNGLUNMAPBUFFERPROC) (GLenum target); }
-{////typedef void (P PFNGLGETBUFFERPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETBUFFERPOINTERVPROC) (GLenum target, GLenum pname, void **params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenQueries(n:TGLsizei; ids:PGLuint);cdecl;external;
 procedure glDeleteQueries(n:TGLsizei; ids:PGLuint);cdecl;external;
@@ -623,12 +426,10 @@ function glMapBuffer(target:TGLenum; access:TGLenum):pointer;cdecl;external;
 function glUnmapBuffer(target:TGLenum):TGLboolean;cdecl;external;
 procedure glGetBufferParameteriv(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetBufferPointerv(target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_1_5 */ }
-{////#ifndef GL_VERSION_2_0 }
 const
   GL_VERSION_2_0 = 1;  
 type
+  PPGLchar = ^PGLchar;
   PGLchar = ^TGLchar;
   TGLchar = char;
 
@@ -717,100 +518,6 @@ const
   GL_POINT_SPRITE = $8861;  
   GL_COORD_REPLACE = $8862;  
   GL_MAX_TEXTURE_COORDS = $8871;  
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEPROC) (GLenum modeRGB, GLenum modeAlpha); }
-{////typedef void (P PFNGLDRAWBUFFERSPROC) (GLsizei n,GLenum *bufs); }
-{////typedef void (P PFNGLSTENCILOPSEPARATEPROC) (GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass); }
-{////typedef void (P PFNGLSTENCILFUNCSEPARATEPROC) (GLenum face, GLenum func, GLint ref, GLuint mask); }
-{////typedef void (P PFNGLSTENCILMASKSEPARATEPROC) (GLenum face, GLuint mask); }
-{////typedef void (P PFNGLATTACHSHADERPROC) (GLuint program_, GLuint shader); }
-{////typedef void (P PFNGLBINDATTRIBLOCATIONPROC) (GLuint program_, GLuint index,GLchar *name); }
-{////typedef void (P PFNGLCOMPILESHADERPROC) (GLuint shader); }
-{////typedef GLuint (P PFNGLCREATEPROGRAMPROC) (void); }
-{////typedef GLuint (P PFNGLCREATESHADERPROC) (GLenum type); }
-{////typedef void (P PFNGLDELETEPROGRAMPROC) (GLuint program_); }
-{////typedef void (P PFNGLDELETESHADERPROC) (GLuint shader); }
-{////typedef void (P PFNGLDETACHSHADERPROC) (GLuint program_, GLuint shader); }
-{////typedef void (P PFNGLDISABLEVERTEXATTRIBARRAYPROC) (GLuint index); }
-{////typedef void (P PFNGLENABLEVERTEXATTRIBARRAYPROC) (GLuint index); }
-{////typedef void (P PFNGLGETACTIVEATTRIBPROC) (GLuint program_, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMPROC) (GLuint program_, GLuint index, GLsizei bufSize, GLsizei *length, GLint *size, GLenum *type, GLchar *name); }
-{////typedef void (P PFNGLGETATTACHEDSHADERSPROC) (GLuint program_, GLsizei maxCount, GLsizei *count, GLuint *shaders); }
-{////typedef GLint (P PFNGLGETATTRIBLOCATIONPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLGETPROGRAMIVPROC) (GLuint program_, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETPROGRAMINFOLOGPROC) (GLuint program_, GLsizei bufSize, GLsizei *length, GLchar *infoLog); }
-{////typedef void (P PFNGLGETSHADERIVPROC) (GLuint shader, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETSHADERINFOLOGPROC) (GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog); }
-{////typedef void (P PFNGLGETSHADERSOURCEPROC) (GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *source); }
-{////typedef GLint (P PFNGLGETUNIFORMLOCATIONPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLGETUNIFORMFVPROC) (GLuint program_, GLint location, GLfloat *params); }
-{////typedef void (P PFNGLGETUNIFORMIVPROC) (GLuint program_, GLint location, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBDVPROC) (GLuint index, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBFVPROC) (GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIVPROC) (GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBPOINTERVPROC) (GLuint index, GLenum pname, void **pointer); }
-{////typedef GLboolean (P PFNGLISPROGRAMPROC) (GLuint program_); }
-{////typedef GLboolean (P PFNGLISSHADERPROC) (GLuint shader); }
-{////typedef void (P PFNGLLINKPROGRAMPROC) (GLuint program_); }
-{////typedef void (P PFNGLSHADERSOURCEPROC) (GLuint shader, GLsizei count,GLchar **string,GLint *length); }
-{////typedef void (P PFNGLUSEPROGRAMPROC) (GLuint program_); }
-{////typedef void (P PFNGLUNIFORM1FPROC) (GLint location, GLfloat v0); }
-{////typedef void (P PFNGLUNIFORM2FPROC) (GLint location, GLfloat v0, GLfloat v1); }
-{////typedef void (P PFNGLUNIFORM3FPROC) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2); }
-{////typedef void (P PFNGLUNIFORM4FPROC) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3); }
-{////typedef void (P PFNGLUNIFORM1IPROC) (GLint location, GLint v0); }
-{////typedef void (P PFNGLUNIFORM2IPROC) (GLint location, GLint v0, GLint v1); }
-{////typedef void (P PFNGLUNIFORM3IPROC) (GLint location, GLint v0, GLint v1, GLint v2); }
-{////typedef void (P PFNGLUNIFORM4IPROC) (GLint location, GLint v0, GLint v1, GLint v2, GLint v3); }
-{////typedef void (P PFNGLUNIFORM1FVPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM2FVPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM3FVPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM4FVPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM1IVPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM2IVPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM3IVPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM4IVPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLVALIDATEPROGRAMPROC) (GLuint program_); }
-{////typedef void (P PFNGLVERTEXATTRIB1DPROC) (GLuint index, GLdouble x); }
-{////typedef void (P PFNGLVERTEXATTRIB1DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1FPROC) (GLuint index, GLfloat x); }
-{////typedef void (P PFNGLVERTEXATTRIB1FVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1SPROC) (GLuint index, GLshort x); }
-{////typedef void (P PFNGLVERTEXATTRIB1SVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2DPROC) (GLuint index, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXATTRIB2DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2FPROC) (GLuint index, GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLVERTEXATTRIB2FVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2SPROC) (GLuint index, GLshort x, GLshort y); }
-{////typedef void (P PFNGLVERTEXATTRIB2SVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3DPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXATTRIB3DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3FPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLVERTEXATTRIB3FVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3SPROC) (GLuint index, GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLVERTEXATTRIB3SVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NBVPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NIVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NSVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUBPROC) (GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUBVPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUSVPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4BVPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4DPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXATTRIB4DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4FPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLVERTEXATTRIB4FVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4IVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4SPROC) (GLuint index, GLshort x, GLshort y, GLshort z, GLshort w); }
-{////typedef void (P PFNGLVERTEXATTRIB4SVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4UBVPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4UIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4USVPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBPOINTERPROC) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendEquationSeparate(modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;external;
 procedure glDrawBuffers(n:TGLsizei; bufs:PGLenum);cdecl;external;
@@ -908,9 +615,6 @@ procedure glVertexAttrib4uiv(index:TGLuint; v:PGLuint);cdecl;external;
 procedure glVertexAttrib4usv(index:TGLuint; v:PGLushort);cdecl;external;
 procedure glVertexAttribPointer(index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei; 
             pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_2_0 */ }
-{////#ifndef GL_VERSION_2_1 }
 const
   GL_VERSION_2_1 = 1;  
   GL_PIXEL_PACK_BUFFER = $88EB;  
@@ -936,13 +640,6 @@ const
   GL_SLUMINANCE8 = $8C47;  
   GL_COMPRESSED_SLUMINANCE = $8C4A;  
   GL_COMPRESSED_SLUMINANCE_ALPHA = $8C4B;  
-{////typedef void (P PFNGLUNIFORMMATRIX2X3FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3X2FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2X4FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4X2FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3X4FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4X3FVPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUniformMatrix2x3fv(location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;external;
 procedure glUniformMatrix3x2fv(location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;external;
@@ -950,9 +647,6 @@ procedure glUniformMatrix2x4fv(location:TGLint; count:TGLsizei; transpose:TGLboo
 procedure glUniformMatrix4x2fv(location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;external;
 procedure glUniformMatrix3x4fv(location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;external;
 procedure glUniformMatrix4x3fv(location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_2_1 */ }
-{////#ifndef GL_VERSION_3_0 }
 const
   GL_VERSION_3_0 = 1;  
 type
@@ -1197,91 +891,6 @@ const
   GL_CLAMP_VERTEX_COLOR = $891A;  
   GL_CLAMP_FRAGMENT_COLOR = $891B;  
   GL_ALPHA_INTEGER = $8D97;  
-{////typedef void (P PFNGLCOLORMASKIPROC) (GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a); }
-{////typedef void (P PFNGLGETBOOLEANI_VPROC) (GLenum target, GLuint index, GLboolean *data); }
-{////typedef void (P PFNGLGETINTEGERI_VPROC) (GLenum target, GLuint index, GLint *data); }
-{////typedef void (P PFNGLENABLEIPROC) (GLenum target, GLuint index); }
-{////typedef void (P PFNGLDISABLEIPROC) (GLenum target, GLuint index); }
-{////typedef GLboolean (P PFNGLISENABLEDIPROC) (GLenum target, GLuint index); }
-{////typedef void (P PFNGLBEGINTRANSFORMFEEDBACKPROC) (GLenum primitiveMode); }
-{////typedef void (P PFNGLENDTRANSFORMFEEDBACKPROC) (void); }
-{////typedef void (P PFNGLBINDBUFFERRANGEPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLBINDBUFFERBASEPROC) (GLenum target, GLuint index, GLuint buffer); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKVARYINGSPROC) (GLuint program_, GLsizei count,GLchar **varyings, GLenum bufferMode); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKVARYINGPROC) (GLuint program_, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name); }
-{////typedef void (P PFNGLCLAMPCOLORPROC) (GLenum target, GLenum clamp); }
-{////typedef void (P PFNGLBEGINCONDITIONALRENDERPROC) (GLuint id, GLenum mode); }
-{////typedef void (P PFNGLENDCONDITIONALRENDERPROC) (void); }
-{////typedef void (P PFNGLVERTEXATTRIBIPOINTERPROC) (GLuint index, GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIIVPROC) (GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIUIVPROC) (GLuint index, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLVERTEXATTRIBI1IPROC) (GLuint index, GLint x); }
-{////typedef void (P PFNGLVERTEXATTRIBI2IPROC) (GLuint index, GLint x, GLint y); }
-{////typedef void (P PFNGLVERTEXATTRIBI3IPROC) (GLuint index, GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLVERTEXATTRIBI4IPROC) (GLuint index, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLVERTEXATTRIBI1UIPROC) (GLuint index, GLuint x); }
-{////typedef void (P PFNGLVERTEXATTRIBI2UIPROC) (GLuint index, GLuint x, GLuint y); }
-{////typedef void (P PFNGLVERTEXATTRIBI3UIPROC) (GLuint index, GLuint x, GLuint y, GLuint z); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UIPROC) (GLuint index, GLuint x, GLuint y, GLuint z, GLuint w); }
-{////typedef void (P PFNGLVERTEXATTRIBI1IVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI2IVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI3IVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4IVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI1UIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI2UIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI3UIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UIVPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4BVPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4SVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UBVPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4USVPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLGETUNIFORMUIVPROC) (GLuint program_, GLint location, GLuint *params); }
-{////typedef void (P PFNGLBINDFRAGDATALOCATIONPROC) (GLuint program_, GLuint color,GLchar *name); }
-{////typedef GLint (P PFNGLGETFRAGDATALOCATIONPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLUNIFORM1UIPROC) (GLint location, GLuint v0); }
-{////typedef void (P PFNGLUNIFORM2UIPROC) (GLint location, GLuint v0, GLuint v1); }
-{////typedef void (P PFNGLUNIFORM3UIPROC) (GLint location, GLuint v0, GLuint v1, GLuint v2); }
-{////typedef void (P PFNGLUNIFORM4UIPROC) (GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3); }
-{////typedef void (P PFNGLUNIFORM1UIVPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM2UIVPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM3UIVPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM4UIVPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLTEXPARAMETERIIVPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLTEXPARAMETERIUIVPROC) (GLenum target, GLenum pname,GLuint *params); }
-{////typedef void (P PFNGLGETTEXPARAMETERIIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXPARAMETERIUIVPROC) (GLenum target, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLCLEARBUFFERIVPROC) (GLenum buffer, GLint drawbuffer,GLint *value); }
-{////typedef void (P PFNGLCLEARBUFFERUIVPROC) (GLenum buffer, GLint drawbuffer,GLuint *value); }
-{////typedef void (P PFNGLCLEARBUFFERFVPROC) (GLenum buffer, GLint drawbuffer,GLfloat *value); }
-{////typedef void (P PFNGLCLEARBUFFERFIPROC) (GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil); }
-{////typedefGLubyte *(P PFNGLGETSTRINGIPROC) (GLenum name, GLuint index); }
-{////typedef GLboolean (P PFNGLISRENDERBUFFERPROC) (GLuint renderbuffer); }
-{////typedef void (P PFNGLBINDRENDERBUFFERPROC) (GLenum target, GLuint renderbuffer); }
-{////typedef void (P PFNGLDELETERENDERBUFFERSPROC) (GLsizei n,GLuint *renderbuffers); }
-{////typedef void (P PFNGLGENRENDERBUFFERSPROC) (GLsizei n, GLuint *renderbuffers); }
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETRENDERBUFFERPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef GLboolean (P PFNGLISFRAMEBUFFERPROC) (GLuint framebuffer); }
-{////typedef void (P PFNGLBINDFRAMEBUFFERPROC) (GLenum target, GLuint framebuffer); }
-{////typedef void (P PFNGLDELETEFRAMEBUFFERSPROC) (GLsizei n,GLuint *framebuffers); }
-{////typedef void (P PFNGLGENFRAMEBUFFERSPROC) (GLsizei n, GLuint *framebuffers); }
-{////typedef GLenum (P PFNGLCHECKFRAMEBUFFERSTATUSPROC) (GLenum target); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE1DPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE2DPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE3DPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset); }
-{////typedef void (P PFNGLFRAMEBUFFERRENDERBUFFERPROC) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer); }
-{////typedef void (P PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC) (GLenum target, GLenum attachment, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGENERATEMIPMAPPROC) (GLenum target); }
-{////typedef void (P PFNGLBLITFRAMEBUFFERPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter); }
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURELAYERPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer); }
-{////typedef void *(P PFNGLMAPBUFFERRANGEPROC) (GLenum target, GLintptr offset, GLsizeiptr length, GLbitfield access); }
-{////typedef void (P PFNGLFLUSHMAPPEDBUFFERRANGEPROC) (GLenum target, GLintptr offset, GLsizeiptr length); }
-{////typedef void (P PFNGLBINDVERTEXARRAYPROC) (GLuint array_); }
-{////typedef void (P PFNGLDELETEVERTEXARRAYSPROC) (GLsizei n,GLuint *arrays); }
-{////typedef void (P PFNGLGENVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays); }
-{////typedef GLboolean (P PFNGLISVERTEXARRAYPROC) (GLuint array_); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorMaski(index:TGLuint; r:TGLboolean; g:TGLboolean; b:TGLboolean; a:TGLboolean);cdecl;external;
 procedure glGetBooleani_v(target:TGLenum; index:TGLuint; data:PGLboolean);cdecl;external;
@@ -1370,9 +979,6 @@ procedure glBindVertexArray(array_:TGLuint);cdecl;external;
 procedure glDeleteVertexArrays(n:TGLsizei; arrays:PGLuint);cdecl;external;
 procedure glGenVertexArrays(n:TGLsizei; arrays:PGLuint);cdecl;external;
 function glIsVertexArray(array_:TGLuint):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_3_0 */ }
-{////#ifndef GL_VERSION_3_1 }
 const
   GL_VERSION_3_1 = 1;  
   GL_SAMPLER_2D_RECT = $8B63;  
@@ -1436,19 +1042,6 @@ const
   GL_UNIFORM_BLOCK_REFERENCED_BY_GEOMETRY_SHADER = $8A45;  
   GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = $8A46;  
   GL_INVALID_INDEX = $FFFFFFFF;  
-{////typedef void (P PFNGLDRAWARRAYSINSTANCEDPROC) (GLenum mode, GLint first, GLsizei count, GLsizei instancecount); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei instancecount); }
-{////typedef void (P PFNGLTEXBUFFERPROC) (GLenum target, GLenum internalformat, GLuint buffer); }
-{////typedef void (P PFNGLPRIMITIVERESTARTINDEXPROC) (GLuint index); }
-{////typedef void (P PFNGLCOPYBUFFERSUBDATAPROC) (GLenum readTarget, GLenum writeTarget, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size); }
-{////typedef void (P PFNGLGETUNIFORMINDICESPROC) (GLuint program_, GLsizei uniformCount,GLchar **uniformNames, GLuint *uniformIndices); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMSIVPROC) (GLuint program_, GLsizei uniformCount,GLuint *uniformIndices, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMNAMEPROC) (GLuint program_, GLuint uniformIndex, GLsizei bufSize, GLsizei *length, GLchar *uniformName); }
-{////typedef GLuint (P PFNGLGETUNIFORMBLOCKINDEXPROC) (GLuint program_,GLchar *uniformBlockName); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMBLOCKIVPROC) (GLuint program_, GLuint uniformBlockIndex, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC) (GLuint program_, GLuint uniformBlockIndex, GLsizei bufSize, GLsizei *length, GLchar *uniformBlockName); }
-{////typedef void (P PFNGLUNIFORMBLOCKBINDINGPROC) (GLuint program_, GLuint uniformBlockIndex, GLuint uniformBlockBinding); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawArraysInstanced(mode:TGLenum; first:TGLint; count:TGLsizei; instancecount:TGLsizei);cdecl;external;
 procedure glDrawElementsInstanced(mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei);cdecl;external;
@@ -1462,9 +1055,6 @@ function glGetUniformBlockIndex(program_:TGLuint; uniformBlockName:PGLchar):TGLu
 procedure glGetActiveUniformBlockiv(program_:TGLuint; uniformBlockIndex:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetActiveUniformBlockName(program_:TGLuint; uniformBlockIndex:TGLuint; bufSize:TGLsizei; length:PGLsizei; uniformBlockName:PGLchar);cdecl;external;
 procedure glUniformBlockBinding(program_:TGLuint; uniformBlockIndex:TGLuint; uniformBlockBinding:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_3_1 */ }
-{////#ifndef GL_VERSION_3_2 }
 const
   GL_VERSION_3_2 = 1;  
 type
@@ -1542,26 +1132,6 @@ const
   GL_MAX_COLOR_TEXTURE_SAMPLES = $910E;  
   GL_MAX_DEPTH_TEXTURE_SAMPLES = $910F;  
   GL_MAX_INTEGER_SAMPLES = $9110;  
-{////typedef void (P PFNGLDRAWELEMENTSBASEVERTEXPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLint basevertex); }
-{////typedef void (P PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count, GLenum type,void *indices, GLint basevertex); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei instancecount, GLint basevertex); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC) (GLenum mode,GLsizei *count, GLenum type,void **indices, GLsizei drawcount,GLint *basevertex); }
-{////typedef void (P PFNGLPROVOKINGVERTEXPROC) (GLenum mode); }
-{////typedef GLsync (P PFNGLFENCESYNCPROC) (GLenum condition, GLbitfield flags); }
-{////typedef GLboolean (P PFNGLISSYNCPROC) (GLsync sync); }
-{////typedef void (P PFNGLDELETESYNCPROC) (GLsync sync); }
-{////typedef GLenum (P PFNGLCLIENTWAITSYNCPROC) (GLsync sync, GLbitfield flags, GLuint64 timeout); }
-{////typedef void (P PFNGLWAITSYNCPROC) (GLsync sync, GLbitfield flags, GLuint64 timeout); }
-{////typedef void (P PFNGLGETINTEGER64VPROC) (GLenum pname, GLint64 *data); }
-{////typedef void (P PFNGLGETSYNCIVPROC) (GLsync sync, GLenum pname, GLsizei count, GLsizei *length, GLint *values); }
-{////typedef void (P PFNGLGETINTEGER64I_VPROC) (GLenum target, GLuint index, GLint64 *data); }
-{////typedef void (P PFNGLGETBUFFERPARAMETERI64VPROC) (GLenum target, GLenum pname, GLint64 *params); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level); }
-{////typedef void (P PFNGLTEXIMAGE2DMULTISAMPLEPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXIMAGE3DMULTISAMPLEPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLGETMULTISAMPLEFVPROC) (GLenum pname, GLuint index, GLfloat *val); }
-{////typedef void (P PFNGLSAMPLEMASKIPROC) (GLuint maskNumber, GLbitfield mask); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawElementsBaseVertex(mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; basevertex:TGLint);cdecl;external;
 procedure glDrawRangeElementsBaseVertex(mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum; 
@@ -1587,9 +1157,6 @@ procedure glTexImage3DMultisample(target:TGLenum; samples:TGLsizei; internalform
             depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;external;
 procedure glGetMultisamplefv(pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;external;
 procedure glSampleMaski(maskNumber:TGLuint; mask:TGLbitfield);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_3_2 */ }
-{////#ifndef GL_VERSION_3_3 }
 const
   GL_VERSION_3_3 = 1;  
   GL_VERTEX_ATTRIB_ARRAY_DIVISOR = $88FE;  
@@ -1608,65 +1175,6 @@ const
   GL_TIME_ELAPSED = $88BF;  
   GL_TIMESTAMP = $8E28;  
   GL_INT_2_10_10_10_REV = $8D9F;  
-{////typedef void (P PFNGLBINDFRAGDATALOCATIONINDEXEDPROC) (GLuint program_, GLuint colorNumber, GLuint index,GLchar *name); }
-{////typedef GLint (P PFNGLGETFRAGDATAINDEXPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLGENSAMPLERSPROC) (GLsizei count, GLuint *samplers); }
-{////typedef void (P PFNGLDELETESAMPLERSPROC) (GLsizei count,GLuint *samplers); }
-{////typedef GLboolean (P PFNGLISSAMPLERPROC) (GLuint sampler); }
-{////typedef void (P PFNGLBINDSAMPLERPROC) (GLuint unit_, GLuint sampler); }
-{////typedef void (P PFNGLSAMPLERPARAMETERIPROC) (GLuint sampler, GLenum pname, GLint param); }
-{////typedef void (P PFNGLSAMPLERPARAMETERIVPROC) (GLuint sampler, GLenum pname,GLint *param); }
-{////typedef void (P PFNGLSAMPLERPARAMETERFPROC) (GLuint sampler, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLSAMPLERPARAMETERFVPROC) (GLuint sampler, GLenum pname,GLfloat *param); }
-{////typedef void (P PFNGLSAMPLERPARAMETERIIVPROC) (GLuint sampler, GLenum pname,GLint *param); }
-{////typedef void (P PFNGLSAMPLERPARAMETERIUIVPROC) (GLuint sampler, GLenum pname,GLuint *param); }
-{////typedef void (P PFNGLGETSAMPLERPARAMETERIVPROC) (GLuint sampler, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETSAMPLERPARAMETERIIVPROC) (GLuint sampler, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETSAMPLERPARAMETERFVPROC) (GLuint sampler, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETSAMPLERPARAMETERIUIVPROC) (GLuint sampler, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLQUERYCOUNTERPROC) (GLuint id, GLenum target); }
-{////typedef void (P PFNGLGETQUERYOBJECTI64VPROC) (GLuint id, GLenum pname, GLint64 *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTUI64VPROC) (GLuint id, GLenum pname, GLuint64 *params); }
-{////typedef void (P PFNGLVERTEXATTRIBDIVISORPROC) (GLuint index, GLuint divisor); }
-{////typedef void (P PFNGLVERTEXATTRIBP1UIPROC) (GLuint index, GLenum type, GLboolean normalized, GLuint value); }
-{////typedef void (P PFNGLVERTEXATTRIBP1UIVPROC) (GLuint index, GLenum type, GLboolean normalized,GLuint *value); }
-{////typedef void (P PFNGLVERTEXATTRIBP2UIPROC) (GLuint index, GLenum type, GLboolean normalized, GLuint value); }
-{////typedef void (P PFNGLVERTEXATTRIBP2UIVPROC) (GLuint index, GLenum type, GLboolean normalized,GLuint *value); }
-{////typedef void (P PFNGLVERTEXATTRIBP3UIPROC) (GLuint index, GLenum type, GLboolean normalized, GLuint value); }
-{////typedef void (P PFNGLVERTEXATTRIBP3UIVPROC) (GLuint index, GLenum type, GLboolean normalized,GLuint *value); }
-{////typedef void (P PFNGLVERTEXATTRIBP4UIPROC) (GLuint index, GLenum type, GLboolean normalized, GLuint value); }
-{////typedef void (P PFNGLVERTEXATTRIBP4UIVPROC) (GLuint index, GLenum type, GLboolean normalized,GLuint *value); }
-{////typedef void (P PFNGLVERTEXP2UIPROC) (GLenum type, GLuint value); }
-{////typedef void (P PFNGLVERTEXP2UIVPROC) (GLenum type,GLuint *value); }
-{////typedef void (P PFNGLVERTEXP3UIPROC) (GLenum type, GLuint value); }
-{////typedef void (P PFNGLVERTEXP3UIVPROC) (GLenum type,GLuint *value); }
-{////typedef void (P PFNGLVERTEXP4UIPROC) (GLenum type, GLuint value); }
-{////typedef void (P PFNGLVERTEXP4UIVPROC) (GLenum type,GLuint *value); }
-{////typedef void (P PFNGLTEXCOORDP1UIPROC) (GLenum type, GLuint coords); }
-{////typedef void (P PFNGLTEXCOORDP1UIVPROC) (GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLTEXCOORDP2UIPROC) (GLenum type, GLuint coords); }
-{////typedef void (P PFNGLTEXCOORDP2UIVPROC) (GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLTEXCOORDP3UIPROC) (GLenum type, GLuint coords); }
-{////typedef void (P PFNGLTEXCOORDP3UIVPROC) (GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLTEXCOORDP4UIPROC) (GLenum type, GLuint coords); }
-{////typedef void (P PFNGLTEXCOORDP4UIVPROC) (GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP1UIPROC) (GLenum texture, GLenum type, GLuint coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP1UIVPROC) (GLenum texture, GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP2UIPROC) (GLenum texture, GLenum type, GLuint coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP2UIVPROC) (GLenum texture, GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP3UIPROC) (GLenum texture, GLenum type, GLuint coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP3UIVPROC) (GLenum texture, GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP4UIPROC) (GLenum texture, GLenum type, GLuint coords); }
-{////typedef void (P PFNGLMULTITEXCOORDP4UIVPROC) (GLenum texture, GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLNORMALP3UIPROC) (GLenum type, GLuint coords); }
-{////typedef void (P PFNGLNORMALP3UIVPROC) (GLenum type,GLuint *coords); }
-{////typedef void (P PFNGLCOLORP3UIPROC) (GLenum type, GLuint color); }
-{////typedef void (P PFNGLCOLORP3UIVPROC) (GLenum type,GLuint *color); }
-{////typedef void (P PFNGLCOLORP4UIPROC) (GLenum type, GLuint color); }
-{////typedef void (P PFNGLCOLORP4UIVPROC) (GLenum type,GLuint *color); }
-{////typedef void (P PFNGLSECONDARYCOLORP3UIPROC) (GLenum type, GLuint color); }
-{////typedef void (P PFNGLSECONDARYCOLORP3UIVPROC) (GLenum type,GLuint *color); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindFragDataLocationIndexed(program_:TGLuint; colorNumber:TGLuint; index:TGLuint; name:PGLchar);cdecl;external;
 function glGetFragDataIndex(program_:TGLuint; name:PGLchar):TGLint;cdecl;external;
@@ -1726,9 +1234,6 @@ procedure glColorP4ui(_type:TGLenum; color:TGLuint);cdecl;external;
 procedure glColorP4uiv(_type:TGLenum; color:PGLuint);cdecl;external;
 procedure glSecondaryColorP3ui(_type:TGLenum; color:TGLuint);cdecl;external;
 procedure glSecondaryColorP3uiv(_type:TGLenum; color:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_3_3 */ }
-{////#ifndef GL_VERSION_4_0 }
 const
   GL_VERSION_4_0 = 1;  
   GL_SAMPLE_SHADING = $8C36;  
@@ -1808,53 +1313,6 @@ const
   GL_TRANSFORM_FEEDBACK_BUFFER_ACTIVE = $8E24;  
   GL_TRANSFORM_FEEDBACK_BINDING = $8E25;  
   GL_MAX_TRANSFORM_FEEDBACK_BUFFERS = $8E70;  
-{////typedef void (P PFNGLMINSAMPLESHADINGPROC) (GLfloat value); }
-{////typedef void (P PFNGLBLENDEQUATIONIPROC) (GLuint buf, GLenum mode); }
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEIPROC) (GLuint buf, GLenum modeRGB, GLenum modeAlpha); }
-{////typedef void (P PFNGLBLENDFUNCIPROC) (GLuint buf, GLenum src, GLenum dst); }
-{////typedef void (P PFNGLBLENDFUNCSEPARATEIPROC) (GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha); }
-{////typedef void (P PFNGLDRAWARRAYSINDIRECTPROC) (GLenum mode,void *indirect); }
-{////typedef void (P PFNGLDRAWELEMENTSINDIRECTPROC) (GLenum mode, GLenum type,void *indirect); }
-{////typedef void (P PFNGLUNIFORM1DPROC) (GLint location, GLdouble x); }
-{////typedef void (P PFNGLUNIFORM2DPROC) (GLint location, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLUNIFORM3DPROC) (GLint location, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLUNIFORM4DPROC) (GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLUNIFORM1DVPROC) (GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORM2DVPROC) (GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORM3DVPROC) (GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORM4DVPROC) (GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2X3DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2X4DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3X2DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3X4DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4X2DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4X3DVPROC) (GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLGETUNIFORMDVPROC) (GLuint program_, GLint location, GLdouble *params); }
-{////typedef GLint (P PFNGLGETSUBROUTINEUNIFORMLOCATIONPROC) (GLuint program_, GLenum shadertype,GLchar *name); }
-{////typedef GLuint (P PFNGLGETSUBROUTINEINDEXPROC) (GLuint program_, GLenum shadertype,GLchar *name); }
-{////typedef void (P PFNGLGETACTIVESUBROUTINEUNIFORMIVPROC) (GLuint program_, GLenum shadertype, GLuint index, GLenum pname, GLint *values); }
-{////typedef void (P PFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC) (GLuint program_, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei *length, GLchar *name); }
-{////typedef void (P PFNGLGETACTIVESUBROUTINENAMEPROC) (GLuint program_, GLenum shadertype, GLuint index, GLsizei bufSize, GLsizei *length, GLchar *name); }
-{////typedef void (P PFNGLUNIFORMSUBROUTINESUIVPROC) (GLenum shadertype, GLsizei count,GLuint *indices); }
-{////typedef void (P PFNGLGETUNIFORMSUBROUTINEUIVPROC) (GLenum shadertype, GLint location, GLuint *params); }
-{////typedef void (P PFNGLGETPROGRAMSTAGEIVPROC) (GLuint program_, GLenum shadertype, GLenum pname, GLint *values); }
-{////typedef void (P PFNGLPATCHPARAMETERIPROC) (GLenum pname, GLint value); }
-{////typedef void (P PFNGLPATCHPARAMETERFVPROC) (GLenum pname,GLfloat *values); }
-{////typedef void (P PFNGLBINDTRANSFORMFEEDBACKPROC) (GLenum target, GLuint id); }
-{////typedef void (P PFNGLDELETETRANSFORMFEEDBACKSPROC) (GLsizei n,GLuint *ids); }
-{////typedef void (P PFNGLGENTRANSFORMFEEDBACKSPROC) (GLsizei n, GLuint *ids); }
-{////typedef GLboolean (P PFNGLISTRANSFORMFEEDBACKPROC) (GLuint id); }
-{////typedef void (P PFNGLPAUSETRANSFORMFEEDBACKPROC) (void); }
-{////typedef void (P PFNGLRESUMETRANSFORMFEEDBACKPROC) (void); }
-{////typedef void (P PFNGLDRAWTRANSFORMFEEDBACKPROC) (GLenum mode, GLuint id); }
-{////typedef void (P PFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC) (GLenum mode, GLuint id, GLuint stream); }
-{////typedef void (P PFNGLBEGINQUERYINDEXEDPROC) (GLenum target, GLuint index, GLuint id); }
-{////typedef void (P PFNGLENDQUERYINDEXEDPROC) (GLenum target, GLuint index); }
-{////typedef void (P PFNGLGETQUERYINDEXEDIVPROC) (GLenum target, GLuint index, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMinSampleShading(value:TGLfloat);cdecl;external;
 procedure glBlendEquationi(buf:TGLuint; mode:TGLenum);cdecl;external;
@@ -1904,9 +1362,6 @@ procedure glDrawTransformFeedbackStream(mode:TGLenum; id:TGLuint; stream:TGLuint
 procedure glBeginQueryIndexed(target:TGLenum; index:TGLuint; id:TGLuint);cdecl;external;
 procedure glEndQueryIndexed(target:TGLenum; index:TGLuint);cdecl;external;
 procedure glGetQueryIndexediv(target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_0 */ }
-{////#ifndef GL_VERSION_4_1 }
 const
   GL_VERSION_4_1 = 1;  
   GL_FIXED = $140C;  
@@ -1944,95 +1399,6 @@ const
   GL_LAYER_PROVOKING_VERTEX = $825E;  
   GL_VIEWPORT_INDEX_PROVOKING_VERTEX = $825F;  
   GL_UNDEFINED_VERTEX = $8260;  
-{////typedef void (P PFNGLRELEASESHADERCOMPILERPROC) (void); }
-{////typedef void (P PFNGLSHADERBINARYPROC) (GLsizei count,GLuint *shaders, GLenum binaryFormat,void *binary, GLsizei length); }
-{////typedef void (P PFNGLGETSHADERPRECISIONFORMATPROC) (GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision); }
-{////typedef void (P PFNGLDEPTHRANGEFPROC) (GLfloat n, GLfloat f); }
-{////typedef void (P PFNGLCLEARDEPTHFPROC) (GLfloat d); }
-{////typedef void (P PFNGLGETPROGRAMBINARYPROC) (GLuint program_, GLsizei bufSize, GLsizei *length, GLenum *binaryFormat, void *binary); }
-{////typedef void (P PFNGLPROGRAMBINARYPROC) (GLuint program_, GLenum binaryFormat,void *binary, GLsizei length); }
-{////typedef void (P PFNGLPROGRAMPARAMETERIPROC) (GLuint program_, GLenum pname, GLint value); }
-{////typedef void (P PFNGLUSEPROGRAMSTAGESPROC) (GLuint pipeline, GLbitfield stages, GLuint program_); }
-{////typedef void (P PFNGLACTIVESHADERPROGRAMPROC) (GLuint pipeline, GLuint program_); }
-{////typedef GLuint (P PFNGLCREATESHADERPROGRAMVPROC) (GLenum type, GLsizei count,GLchar **strings); }
-{////typedef void (P PFNGLBINDPROGRAMPIPELINEPROC) (GLuint pipeline); }
-{////typedef void (P PFNGLDELETEPROGRAMPIPELINESPROC) (GLsizei n,GLuint *pipelines); }
-{////typedef void (P PFNGLGENPROGRAMPIPELINESPROC) (GLsizei n, GLuint *pipelines); }
-{////typedef GLboolean (P PFNGLISPROGRAMPIPELINEPROC) (GLuint pipeline); }
-{////typedef void (P PFNGLGETPROGRAMPIPELINEIVPROC) (GLuint pipeline, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1IPROC) (GLuint program_, GLint location, GLint v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1IVPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1FPROC) (GLuint program_, GLint location, GLfloat v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1FVPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1DPROC) (GLuint program_, GLint location, GLdouble v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1DVPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UIPROC) (GLuint program_, GLint location, GLuint v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UIVPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2IPROC) (GLuint program_, GLint location, GLint v0, GLint v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2IVPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2FPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2FVPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2DPROC) (GLuint program_, GLint location, GLdouble v0, GLdouble v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2DVPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UIPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UIVPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3IPROC) (GLuint program_, GLint location, GLint v0, GLint v1, GLint v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3IVPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3FPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1, GLfloat v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3FVPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3DPROC) (GLuint program_, GLint location, GLdouble v0, GLdouble v1, GLdouble v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3DVPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UIPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1, GLuint v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UIVPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4IPROC) (GLuint program_, GLint location, GLint v0, GLint v1, GLint v2, GLint v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4IVPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4FPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4FVPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4DPROC) (GLuint program_, GLint location, GLdouble v0, GLdouble v1, GLdouble v2, GLdouble v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4DVPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UIPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UIVPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X3FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X2FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X4FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X2FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X4FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X3FVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X3DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X2DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X4DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X2DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X4DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X3DVPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLVALIDATEPROGRAMPIPELINEPROC) (GLuint pipeline); }
-{////typedef void (P PFNGLGETPROGRAMPIPELINEINFOLOGPROC) (GLuint pipeline, GLsizei bufSize, GLsizei *length, GLchar *infoLog); }
-{////typedef void (P PFNGLVERTEXATTRIBL1DPROC) (GLuint index, GLdouble x); }
-{////typedef void (P PFNGLVERTEXATTRIBL2DPROC) (GLuint index, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXATTRIBL3DPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXATTRIBL4DPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXATTRIBL1DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL2DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL3DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL4DVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBLPOINTERPROC) (GLuint index, GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLGETVERTEXATTRIBLDVPROC) (GLuint index, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLVIEWPORTARRAYVPROC) (GLuint first, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLVIEWPORTINDEXEDFPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat w, GLfloat h); }
-{////typedef void (P PFNGLVIEWPORTINDEXEDFVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLSCISSORARRAYVPROC) (GLuint first, GLsizei count,GLint *v); }
-{////typedef void (P PFNGLSCISSORINDEXEDPROC) (GLuint index, GLint left, GLint bottom, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLSCISSORINDEXEDVPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLDEPTHRANGEARRAYVPROC) (GLuint first, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLDEPTHRANGEINDEXEDPROC) (GLuint index, GLdouble n, GLdouble f); }
-{////typedef void (P PFNGLGETFLOATI_VPROC) (GLenum target, GLuint index, GLfloat *data); }
-{////typedef void (P PFNGLGETDOUBLEI_VPROC) (GLenum target, GLuint index, GLdouble *data); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glReleaseShaderCompiler;cdecl;external;
 procedure glShaderBinary(count:TGLsizei; shaders:PGLuint; binaryFormat:TGLenum; binary:pointer; length:TGLsizei);cdecl;external;
@@ -2126,9 +1492,6 @@ procedure glDepthRangeArrayv(first:TGLuint; count:TGLsizei; v:PGLdouble);cdecl;e
 procedure glDepthRangeIndexed(index:TGLuint; n:TGLdouble; f:TGLdouble);cdecl;external;
 procedure glGetFloati_v(target:TGLenum; index:TGLuint; data:PGLfloat);cdecl;external;
 procedure glGetDoublei_v(target:TGLenum; index:TGLuint; data:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_1 */ }
-{////#ifndef GL_VERSION_4_2 }
 const
   GL_VERSION_4_2 = 1;  
   GL_COPY_READ_BUFFER_BINDING = $8F36;  
@@ -2243,19 +1606,6 @@ const
   GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT = $8E8E;  
   GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT = $8E8F;  
   GL_TEXTURE_IMMUTABLE_FORMAT = $912F;  
-{////typedef void (P PFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC) (GLenum mode, GLint first, GLsizei count, GLsizei instancecount, GLuint baseinstance); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei instancecount, GLuint baseinstance); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei instancecount, GLint basevertex, GLuint baseinstance); }
-{////typedef void (P PFNGLGETINTERNALFORMATIVPROC) (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint *params); }
-{////typedef void (P PFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC) (GLuint program_, GLuint bufferIndex, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLBINDIMAGETEXTUREPROC) (GLuint unit_, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLenum format); }
-{////typedef void (P PFNGLMEMORYBARRIERPROC) (GLbitfield barriers); }
-{////typedef void (P PFNGLTEXSTORAGE1DPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width); }
-{////typedef void (P PFNGLTEXSTORAGE2DPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLTEXSTORAGE3DPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth); }
-{////typedef void (P PFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC) (GLenum mode, GLuint id, GLsizei instancecount); }
-{////typedef void (P PFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC) (GLenum mode, GLuint id, GLuint stream, GLsizei instancecount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawArraysInstancedBaseInstance(mode:TGLenum; first:TGLint; count:TGLsizei; instancecount:TGLsizei; baseinstance:TGLuint);cdecl;external;
 procedure glDrawElementsInstancedBaseInstance(mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei; 
@@ -2273,9 +1623,6 @@ procedure glTexStorage3D(target:TGLenum; levels:TGLsizei; internalformat:TGLenum
             depth:TGLsizei);cdecl;external;
 procedure glDrawTransformFeedbackInstanced(mode:TGLenum; id:TGLuint; instancecount:TGLsizei);cdecl;external;
 procedure glDrawTransformFeedbackStreamInstanced(mode:TGLenum; id:TGLuint; stream:TGLuint; instancecount:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_2 */ }
-{////#ifndef GL_VERSION_4_3 }
 const
   GL_VERSION_4_3 = 1;  
 (* Const before type ignored *)
@@ -2544,50 +1891,6 @@ const
   GL_MAX_VERTEX_ATTRIB_BINDINGS = $82DA;  
   GL_VERTEX_BINDING_BUFFER = $8F4F;  
   GL_DISPLAY_LIST = $82E7;  
-{////typedef void (P PFNGLCLEARBUFFERDATAPROC) (GLenum target, GLenum internalformat, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCLEARBUFFERSUBDATAPROC) (GLenum target, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLDISPATCHCOMPUTEPROC) (GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z); }
-{////typedef void (P PFNGLDISPATCHCOMPUTEINDIRECTPROC) (GLintptr indirect); }
-{////typedef void (P PFNGLCOPYIMAGESUBDATAPROC) (GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth); }
-{////typedef void (P PFNGLFRAMEBUFFERPARAMETERIPROC) (GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLGETFRAMEBUFFERPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETINTERNALFORMATI64VPROC) (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint64 *params); }
-{////typedef void (P PFNGLINVALIDATETEXSUBIMAGEPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth); }
-{////typedef void (P PFNGLINVALIDATETEXIMAGEPROC) (GLuint texture, GLint level); }
-{////typedef void (P PFNGLINVALIDATEBUFFERSUBDATAPROC) (GLuint buffer, GLintptr offset, GLsizeiptr length); }
-{////typedef void (P PFNGLINVALIDATEBUFFERDATAPROC) (GLuint buffer); }
-{////typedef void (P PFNGLINVALIDATEFRAMEBUFFERPROC) (GLenum target, GLsizei numAttachments,GLenum *attachments); }
-{////typedef void (P PFNGLINVALIDATESUBFRAMEBUFFERPROC) (GLenum target, GLsizei numAttachments,GLenum *attachments, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTPROC) (GLenum mode,void *indirect, GLsizei drawcount, GLsizei stride); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTPROC) (GLenum mode, GLenum type,void *indirect, GLsizei drawcount, GLsizei stride); }
-{////typedef void (P PFNGLGETPROGRAMINTERFACEIVPROC) (GLuint program_, GLenum programInterface, GLenum pname, GLint *params); }
-{////typedef GLuint (P PFNGLGETPROGRAMRESOURCEINDEXPROC) (GLuint program_, GLenum programInterface,GLchar *name); }
-{////typedef void (P PFNGLGETPROGRAMRESOURCENAMEPROC) (GLuint program_, GLenum programInterface, GLuint index, GLsizei bufSize, GLsizei *length, GLchar *name); }
-{////typedef void (P PFNGLGETPROGRAMRESOURCEIVPROC) (GLuint program_, GLenum programInterface, GLuint index, GLsizei propCount,GLenum *props, GLsizei count, GLsizei *length, GLint *params); }
-{////typedef GLint (P PFNGLGETPROGRAMRESOURCELOCATIONPROC) (GLuint program_, GLenum programInterface,GLchar *name); }
-{////typedef GLint (P PFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC) (GLuint program_, GLenum programInterface,GLchar *name); }
-{////typedef void (P PFNGLSHADERSTORAGEBLOCKBINDINGPROC) (GLuint program_, GLuint storageBlockIndex, GLuint storageBlockBinding); }
-{////typedef void (P PFNGLTEXBUFFERRANGEPROC) (GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLTEXSTORAGE2DMULTISAMPLEPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXSTORAGE3DMULTISAMPLEPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXTUREVIEWPROC) (GLuint texture, GLenum target, GLuint origtexture, GLenum internalformat, GLuint minlevel, GLuint numlevels, GLuint minlayer, GLuint numlayers); }
-{////typedef void (P PFNGLBINDVERTEXBUFFERPROC) (GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride); }
-{////typedef void (P PFNGLVERTEXATTRIBFORMATPROC) (GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXATTRIBIFORMATPROC) (GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXATTRIBLFORMATPROC) (GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXATTRIBBINDINGPROC) (GLuint attribindex, GLuint bindingindex); }
-{////typedef void (P PFNGLVERTEXBINDINGDIVISORPROC) (GLuint bindingindex, GLuint divisor); }
-{////typedef void (P PFNGLDEBUGMESSAGECONTROLPROC) (GLenum source, GLenum type, GLenum severity, GLsizei count,GLuint *ids, GLboolean enabled); }
-{////typedef void (P PFNGLDEBUGMESSAGEINSERTPROC) (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,GLchar *buf); }
-{////typedef void (P PFNGLDEBUGMESSAGECALLBACKPROC) (GLDEBUGPROC callback,void *userParam); }
-{////typedef GLuint (P PFNGLGETDEBUGMESSAGELOGPROC) (GLuint count, GLsizei bufSize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog); }
-{////typedef void (P PFNGLPUSHDEBUGGROUPPROC) (GLenum source, GLuint id, GLsizei length,GLchar *message); }
-{////typedef void (P PFNGLPOPDEBUGGROUPPROC) (void); }
-{////typedef void (P PFNGLOBJECTLABELPROC) (GLenum identifier, GLuint name, GLsizei length,GLchar *label); }
-{////typedef void (P PFNGLGETOBJECTLABELPROC) (GLenum identifier, GLuint name, GLsizei bufSize, GLsizei *length, GLchar *label); }
-{////typedef void (P PFNGLOBJECTPTRLABELPROC) ( void *ptr, GLsizei length,GLchar *label); }
-{////typedef void (P PFNGLGETOBJECTPTRLABELPROC) ( void *ptr, GLsizei bufSize, GLsizei *length, GLchar *label); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glClearBufferData(target:TGLenum; internalformat:TGLenum; format:TGLenum; _type:TGLenum; data:pointer);cdecl;external;
 procedure glClearBufferSubData(target:TGLenum; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum; 
@@ -2645,9 +1948,6 @@ procedure glObjectLabel(identifier:TGLenum; name:TGLuint; length:TGLsizei; _labe
 procedure glGetObjectLabel(identifier:TGLenum; name:TGLuint; bufSize:TGLsizei; length:PGLsizei; _label:PGLchar);cdecl;external;
 procedure glObjectPtrLabel(ptr:pointer; length:TGLsizei; _label:PGLchar);cdecl;external;
 procedure glGetObjectPtrLabel(ptr:pointer; bufSize:TGLsizei; length:PGLsizei; _label:PGLchar);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_3 */ }
-{////#ifndef GL_VERSION_4_4 }
 const
   GL_VERSION_4_4 = 1;  
   GL_MAX_VERTEX_ATTRIB_STRIDE = $82E5;  
@@ -2669,16 +1969,6 @@ const
   GL_QUERY_BUFFER_BINDING = $9193;  
   GL_QUERY_RESULT_NO_WAIT = $9194;  
   GL_MIRROR_CLAMP_TO_EDGE = $8743;  
-{////typedef void (P PFNGLBUFFERSTORAGEPROC) (GLenum target, GLsizeiptr size,void *data, GLbitfield flags); }
-{////typedef void (P PFNGLCLEARTEXIMAGEPROC) (GLuint texture, GLint level, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCLEARTEXSUBIMAGEPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLBINDBUFFERSBASEPROC) (GLenum target, GLuint first, GLsizei count,GLuint *buffers); }
-{////typedef void (P PFNGLBINDBUFFERSRANGEPROC) (GLenum target, GLuint first, GLsizei count,GLuint *buffers,GLintptr *offsets,GLsizeiptr *sizes); }
-{////typedef void (P PFNGLBINDTEXTURESPROC) (GLuint first, GLsizei count,GLuint *textures); }
-{////typedef void (P PFNGLBINDSAMPLERSPROC) (GLuint first, GLsizei count,GLuint *samplers); }
-{////typedef void (P PFNGLBINDIMAGETEXTURESPROC) (GLuint first, GLsizei count,GLuint *textures); }
-{////typedef void (P PFNGLBINDVERTEXBUFFERSPROC) (GLuint first, GLsizei count,GLuint *buffers,GLintptr *offsets,GLsizei *strides); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferStorage(target:TGLenum; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;external;
 procedure glClearTexImage(texture:TGLuint; level:TGLint; format:TGLenum; _type:TGLenum; data:pointer);cdecl;external;
@@ -2692,9 +1982,6 @@ procedure glBindTextures(first:TGLuint; count:TGLsizei; textures:PGLuint);cdecl;
 procedure glBindSamplers(first:TGLuint; count:TGLsizei; samplers:PGLuint);cdecl;external;
 procedure glBindImageTextures(first:TGLuint; count:TGLsizei; textures:PGLuint);cdecl;external;
 procedure glBindVertexBuffers(first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr; strides:PGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_4 */ }
-{////#ifndef GL_VERSION_4_5 }
 const
   GL_VERSION_4_5 = 1;  
   GL_CONTEXT_LOST = $0507;  
@@ -2731,129 +2018,6 @@ const
   GL_MINMAX = $802E;  
   GL_CONTEXT_RELEASE_BEHAVIOR = $82FB;  
   GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = $82FC;  
-{////typedef void (P PFNGLCLIPCONTROLPROC) (GLenum origin, GLenum depth); }
-{////typedef void (P PFNGLCREATETRANSFORMFEEDBACKSPROC) (GLsizei n, GLuint *ids); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKBUFFERBASEPROC) (GLuint xfb, GLuint index, GLuint buffer); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC) (GLuint xfb, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKIVPROC) (GLuint xfb, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKI_VPROC) (GLuint xfb, GLenum pname, GLuint index, GLint *param); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKI64_VPROC) (GLuint xfb, GLenum pname, GLuint index, GLint64 *param); }
-{////typedef void (P PFNGLCREATEBUFFERSPROC) (GLsizei n, GLuint *buffers); }
-{////typedef void (P PFNGLNAMEDBUFFERSTORAGEPROC) (GLuint buffer, GLsizeiptr size,void *data, GLbitfield flags); }
-{////typedef void (P PFNGLNAMEDBUFFERDATAPROC) (GLuint buffer, GLsizeiptr size,void *data, GLenum usage); }
-{////typedef void (P PFNGLNAMEDBUFFERSUBDATAPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size,void *data); }
-{////typedef void (P PFNGLCOPYNAMEDBUFFERSUBDATAPROC) (GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size); }
-{////typedef void (P PFNGLCLEARNAMEDBUFFERDATAPROC) (GLuint buffer, GLenum internalformat, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCLEARNAMEDBUFFERSUBDATAPROC) (GLuint buffer, GLenum internalformat, GLintptr offset, GLsizeiptr size, GLenum format, GLenum type,void *data); }
-{////typedef void *(P PFNGLMAPNAMEDBUFFERPROC) (GLuint buffer, GLenum access); }
-{////typedef void *(P PFNGLMAPNAMEDBUFFERRANGEPROC) (GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access); }
-{////typedef GLboolean (P PFNGLUNMAPNAMEDBUFFERPROC) (GLuint buffer); }
-{////typedef void (P PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC) (GLuint buffer, GLintptr offset, GLsizeiptr length); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPARAMETERIVPROC) (GLuint buffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPARAMETERI64VPROC) (GLuint buffer, GLenum pname, GLint64 *params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPOINTERVPROC) (GLuint buffer, GLenum pname, void **params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERSUBDATAPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, void *data); }
-{////typedef void (P PFNGLCREATEFRAMEBUFFERSPROC) (GLsizei n, GLuint *framebuffers); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC) (GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERPARAMETERIPROC) (GLuint framebuffer, GLenum pname, GLint param); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTUREPROC) (GLuint framebuffer, GLenum attachment, GLuint texture, GLint level); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC) (GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC) (GLuint framebuffer, GLenum buf); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC) (GLuint framebuffer, GLsizei n,GLenum *bufs); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERREADBUFFERPROC) (GLuint framebuffer, GLenum src); }
-{////typedef void (P PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC) (GLuint framebuffer, GLsizei numAttachments,GLenum *attachments); }
-{////typedef void (P PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC) (GLuint framebuffer, GLsizei numAttachments,GLenum *attachments, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLCLEARNAMEDFRAMEBUFFERIVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer,GLint *value); }
-{////typedef void (P PFNGLCLEARNAMEDFRAMEBUFFERUIVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer,GLuint *value); }
-{////typedef void (P PFNGLCLEARNAMEDFRAMEBUFFERFVPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer,GLfloat *value); }
-{////typedef void (P PFNGLCLEARNAMEDFRAMEBUFFERFIPROC) (GLuint framebuffer, GLenum buffer, GLint drawbuffer, GLfloat depth, GLint stencil); }
-{////typedef void (P PFNGLBLITNAMEDFRAMEBUFFERPROC) (GLuint readFramebuffer, GLuint drawFramebuffer, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter); }
-{////typedef GLenum (P PFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC) (GLuint framebuffer, GLenum target); }
-{////typedef void (P PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC) (GLuint framebuffer, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC) (GLuint framebuffer, GLenum attachment, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLCREATERENDERBUFFERSPROC) (GLsizei n, GLuint *renderbuffers); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEPROC) (GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC) (GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC) (GLuint renderbuffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLCREATETEXTURESPROC) (GLenum target, GLsizei n, GLuint *textures); }
-{////typedef void (P PFNGLTEXTUREBUFFERPROC) (GLuint texture, GLenum internalformat, GLuint buffer); }
-{////typedef void (P PFNGLTEXTUREBUFFERRANGEPROC) (GLuint texture, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLTEXTURESTORAGE1DPROC) (GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width); }
-{////typedef void (P PFNGLTEXTURESTORAGE2DPROC) (GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLTEXTURESTORAGE3DPROC) (GLuint texture, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth); }
-{////typedef void (P PFNGLTEXTURESTORAGE2DMULTISAMPLEPROC) (GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXTURESTORAGE3DMULTISAMPLEPROC) (GLuint texture, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE1DPROC) (GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE2DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE3DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC) (GLuint texture, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE1DPROC) (GLuint texture, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE2DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE3DPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLTEXTUREPARAMETERFPROC) (GLuint texture, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLTEXTUREPARAMETERFVPROC) (GLuint texture, GLenum pname,GLfloat *param); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIPROC) (GLuint texture, GLenum pname, GLint param); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIIVPROC) (GLuint texture, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIUIVPROC) (GLuint texture, GLenum pname,GLuint *params); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIVPROC) (GLuint texture, GLenum pname,GLint *param); }
-{////typedef void (P PFNGLGENERATETEXTUREMIPMAPPROC) (GLuint texture); }
-{////typedef void (P PFNGLBINDTEXTUREUNITPROC) (GLuint unit_, GLuint texture); }
-{////typedef void (P PFNGLGETTEXTUREIMAGEPROC) (GLuint texture, GLint level, GLenum format, GLenum type, GLsizei bufSize, void *pixels); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXTUREIMAGEPROC) (GLuint texture, GLint level, GLsizei bufSize, void *pixels); }
-{////typedef void (P PFNGLGETTEXTURELEVELPARAMETERFVPROC) (GLuint texture, GLint level, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETTEXTURELEVELPARAMETERIVPROC) (GLuint texture, GLint level, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERFVPROC) (GLuint texture, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIIVPROC) (GLuint texture, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIUIVPROC) (GLuint texture, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIVPROC) (GLuint texture, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLCREATEVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays); }
-{////typedef void (P PFNGLDISABLEVERTEXARRAYATTRIBPROC) (GLuint vaobj, GLuint index); }
-{////typedef void (P PFNGLENABLEVERTEXARRAYATTRIBPROC) (GLuint vaobj, GLuint index); }
-{////typedef void (P PFNGLVERTEXARRAYELEMENTBUFFERPROC) (GLuint vaobj, GLuint buffer); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXBUFFERPROC) (GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXBUFFERSPROC) (GLuint vaobj, GLuint first, GLsizei count,GLuint *buffers,GLintptr *offsets,GLsizei *strides); }
-{////typedef void (P PFNGLVERTEXARRAYATTRIBBINDINGPROC) (GLuint vaobj, GLuint attribindex, GLuint bindingindex); }
-{////typedef void (P PFNGLVERTEXARRAYATTRIBFORMATPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYATTRIBIFORMATPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYATTRIBLFORMATPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYBINDINGDIVISORPROC) (GLuint vaobj, GLuint bindingindex, GLuint divisor); }
-{////typedef void (P PFNGLGETVERTEXARRAYIVPROC) (GLuint vaobj, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETVERTEXARRAYINDEXEDIVPROC) (GLuint vaobj, GLuint index, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETVERTEXARRAYINDEXED64IVPROC) (GLuint vaobj, GLuint index, GLenum pname, GLint64 *param); }
-{////typedef void (P PFNGLCREATESAMPLERSPROC) (GLsizei n, GLuint *samplers); }
-{////typedef void (P PFNGLCREATEPROGRAMPIPELINESPROC) (GLsizei n, GLuint *pipelines); }
-{////typedef void (P PFNGLCREATEQUERIESPROC) (GLenum target, GLsizei n, GLuint *ids); }
-{////typedef void (P PFNGLGETQUERYBUFFEROBJECTI64VPROC) (GLuint id, GLuint buffer, GLenum pname, GLintptr offset); }
-{////typedef void (P PFNGLGETQUERYBUFFEROBJECTIVPROC) (GLuint id, GLuint buffer, GLenum pname, GLintptr offset); }
-{////typedef void (P PFNGLGETQUERYBUFFEROBJECTUI64VPROC) (GLuint id, GLuint buffer, GLenum pname, GLintptr offset); }
-{////typedef void (P PFNGLGETQUERYBUFFEROBJECTUIVPROC) (GLuint id, GLuint buffer, GLenum pname, GLintptr offset); }
-{////typedef void (P PFNGLMEMORYBARRIERBYREGIONPROC) (GLbitfield barriers); }
-{////typedef void (P PFNGLGETTEXTURESUBIMAGEPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, GLsizei bufSize, void *pixels); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei bufSize, void *pixels); }
-{////typedef GLenum (P PFNGLGETGRAPHICSRESETSTATUSPROC) (void); }
-{////typedef void (P PFNGLGETNCOMPRESSEDTEXIMAGEPROC) (GLenum target, GLint lod, GLsizei bufSize, void *pixels); }
-{////typedef void (P PFNGLGETNTEXIMAGEPROC) (GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void *pixels); }
-{////typedef void (P PFNGLGETNUNIFORMDVPROC) (GLuint program_, GLint location, GLsizei bufSize, GLdouble *params); }
-{////typedef void (P PFNGLGETNUNIFORMFVPROC) (GLuint program_, GLint location, GLsizei bufSize, GLfloat *params); }
-{////typedef void (P PFNGLGETNUNIFORMIVPROC) (GLuint program_, GLint location, GLsizei bufSize, GLint *params); }
-{////typedef void (P PFNGLGETNUNIFORMUIVPROC) (GLuint program_, GLint location, GLsizei bufSize, GLuint *params); }
-{////typedef void (P PFNGLREADNPIXELSPROC) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void *data); }
-{////typedef void (P PFNGLGETNMAPDVPROC) (GLenum target, GLenum query, GLsizei bufSize, GLdouble *v); }
-{////typedef void (P PFNGLGETNMAPFVPROC) (GLenum target, GLenum query, GLsizei bufSize, GLfloat *v); }
-{////typedef void (P PFNGLGETNMAPIVPROC) (GLenum target, GLenum query, GLsizei bufSize, GLint *v); }
-{////typedef void (P PFNGLGETNPIXELMAPFVPROC) (GLenum map, GLsizei bufSize, GLfloat *values); }
-{////typedef void (P PFNGLGETNPIXELMAPUIVPROC) (GLenum map, GLsizei bufSize, GLuint *values); }
-{////typedef void (P PFNGLGETNPIXELMAPUSVPROC) (GLenum map, GLsizei bufSize, GLushort *values); }
-{////typedef void (P PFNGLGETNPOLYGONSTIPPLEPROC) (GLsizei bufSize, GLubyte *pattern); }
-{////typedef void (P PFNGLGETNCOLORTABLEPROC) (GLenum target, GLenum format, GLenum type, GLsizei bufSize, void *table); }
-{////typedef void (P PFNGLGETNCONVOLUTIONFILTERPROC) (GLenum target, GLenum format, GLenum type, GLsizei bufSize, void *image); }
-{////typedef void (P PFNGLGETNSEPARABLEFILTERPROC) (GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void *row, GLsizei columnBufSize, void *column, void *span); }
-{////typedef void (P PFNGLGETNHISTOGRAMPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void *values); }
-{////typedef void (P PFNGLGETNMINMAXPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void *values); }
-{////typedef void (P PFNGLTEXTUREBARRIERPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glClipControl(origin:TGLenum; depth:TGLenum);cdecl;external;
 procedure glCreateTransformFeedbacks(n:TGLsizei; ids:PGLuint);cdecl;external;
@@ -3006,9 +2170,6 @@ procedure glGetnHistogram(target:TGLenum; reset:TGLboolean; format:TGLenum; _typ
 procedure glGetnMinmax(target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
             values:pointer);cdecl;external;
 procedure glTextureBarrier;cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_5 */ }
-{////#ifndef GL_VERSION_4_6 }
 const
   GL_VERSION_4_6 = 1;  
   GL_SHADER_BINARY_FORMAT_SPIR_V = $9551;  
@@ -3033,49 +2194,26 @@ const
   GL_MAX_TEXTURE_MAX_ANISOTROPY = $84FF;  
   GL_TRANSFORM_FEEDBACK_OVERFLOW = $82EC;  
   GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW = $82ED;  
-{////typedef void (P PFNGLSPECIALIZESHADERPROC) (GLuint shader,GLchar *pEntryPoint, GLuint numSpecializationConstants,GLuint *pConstantIndex,GLuint *pConstantValue); }
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC) (GLenum mode,void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC) (GLenum mode, GLenum type,void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride); }
-{////typedef void (P PFNGLPOLYGONOFFSETCLAMPPROC) (GLfloat factor, GLfloat units, GLfloat clamp); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSpecializeShader(shader:TGLuint; pEntryPoint:PGLchar; numSpecializationConstants:TGLuint; pConstantIndex:PGLuint; pConstantValue:PGLuint);cdecl;external;
 procedure glMultiDrawArraysIndirectCount(mode:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;external;
 procedure glMultiDrawElementsIndirectCount(mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; 
             stride:TGLsizei);cdecl;external;
 procedure glPolygonOffsetClamp(factor:TGLfloat; units:TGLfloat; clamp:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_VERSION_4_6 */ }
-{////#ifndef GL_ARB_ES2_compatibility }
 const
   GL_ARB_ES2_compatibility = 1;  
-{////#endif /* GL_ARB_ES2_compatibility */ }
-{////#ifndef GL_ARB_ES3_1_compatibility }
   GL_ARB_ES3_1_compatibility = 1;  
-{////#endif /* GL_ARB_ES3_1_compatibility */ }
-{////#ifndef GL_ARB_ES3_2_compatibility }
   GL_ARB_ES3_2_compatibility = 1;  
   GL_PRIMITIVE_BOUNDING_BOX_ARB = $92BE;  
   GL_MULTISAMPLE_LINE_WIDTH_RANGE_ARB = $9381;  
   GL_MULTISAMPLE_LINE_WIDTH_GRANULARITY_ARB = $9382;  
-{////typedef void (P PFNGLPRIMITIVEBOUNDINGBOXARBPROC) (GLfloat minX, GLfloat minY, GLfloat minZ, GLfloat minW, GLfloat maxX, GLfloat maxY, GLfloat maxZ, GLfloat maxW); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPrimitiveBoundingBoxARB(minX:TGLfloat; minY:TGLfloat; minZ:TGLfloat; minW:TGLfloat; maxX:TGLfloat; 
             maxY:TGLfloat; maxZ:TGLfloat; maxW:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_ES3_2_compatibility */ }
-{////#ifndef GL_ARB_ES3_compatibility }
 const
   GL_ARB_ES3_compatibility = 1;  
-{////#endif /* GL_ARB_ES3_compatibility */ }
-{////#ifndef GL_ARB_arrays_of_arrays }
   GL_ARB_arrays_of_arrays = 1;  
-{////#endif /* GL_ARB_arrays_of_arrays */ }
-{////#ifndef GL_ARB_base_instance }
   GL_ARB_base_instance = 1;  
-{////#endif /* GL_ARB_base_instance */ }
-{////#ifndef GL_ARB_bindless_texture }
   GL_ARB_bindless_texture = 1;  
 type
   PGLuint64EXT = ^TGLuint64EXT;
@@ -3083,23 +2221,6 @@ type
 
 const
   GL_UNSIGNED_INT64_ARB = $140F;  
-{////typedef GLuint64 (P PFNGLGETTEXTUREHANDLEARBPROC) (GLuint texture); }
-{////typedef GLuint64 (P PFNGLGETTEXTURESAMPLERHANDLEARBPROC) (GLuint texture, GLuint sampler); }
-{////typedef void (P PFNGLMAKETEXTUREHANDLERESIDENTARBPROC) (GLuint64 handle); }
-{////typedef void (P PFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC) (GLuint64 handle); }
-{////typedef GLuint64 (P PFNGLGETIMAGEHANDLEARBPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format); }
-{////typedef void (P PFNGLMAKEIMAGEHANDLERESIDENTARBPROC) (GLuint64 handle, GLenum access); }
-{////typedef void (P PFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC) (GLuint64 handle); }
-{////typedef void (P PFNGLUNIFORMHANDLEUI64ARBPROC) (GLint location, GLuint64 value); }
-{////typedef void (P PFNGLUNIFORMHANDLEUI64VARBPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC) (GLuint program_, GLint location, GLuint64 value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *values); }
-{////typedef GLboolean (P PFNGLISTEXTUREHANDLERESIDENTARBPROC) (GLuint64 handle); }
-{////typedef GLboolean (P PFNGLISIMAGEHANDLERESIDENTARBPROC) (GLuint64 handle); }
-{////typedef void (P PFNGLVERTEXATTRIBL1UI64ARBPROC) (GLuint index, GLuint64EXT x); }
-{////typedef void (P PFNGLVERTEXATTRIBL1UI64VARBPROC) (GLuint index,GLuint64EXT *v); }
-{////typedef void (P PFNGLGETVERTEXATTRIBLUI64VARBPROC) (GLuint index, GLenum pname, GLuint64EXT *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGetTextureHandleARB(texture:TGLuint):TGLuint64;cdecl;external;
 function glGetTextureSamplerHandleARB(texture:TGLuint; sampler:TGLuint):TGLuint64;cdecl;external;
@@ -3117,16 +2238,9 @@ function glIsImageHandleResidentARB(handle:TGLuint64):TGLboolean;cdecl;external;
 procedure glVertexAttribL1ui64ARB(index:TGLuint; x:TGLuint64EXT);cdecl;external;
 procedure glVertexAttribL1ui64vARB(index:TGLuint; v:PGLuint64EXT);cdecl;external;
 procedure glGetVertexAttribLui64vARB(index:TGLuint; pname:TGLenum; params:PGLuint64EXT);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_bindless_texture */ }
-{////#ifndef GL_ARB_blend_func_extended }
 const
   GL_ARB_blend_func_extended = 1;  
-{////#endif /* GL_ARB_blend_func_extended */ }
-{////#ifndef GL_ARB_buffer_storage }
   GL_ARB_buffer_storage = 1;  
-{////#endif /* GL_ARB_buffer_storage */ }
-{////#ifndef GL_ARB_cl_event }
   GL_ARB_cl_event = 1;  
 type
   Pcl_context = ^Tcl_context;
@@ -3143,75 +2257,38 @@ type
 const
   GL_SYNC_CL_EVENT_ARB = $8240;  
   GL_SYNC_CL_EVENT_COMPLETE_ARB = $8241;  
-{////typedef GLsync (P PFNGLCREATESYNCFROMCLEVENTARBPROC) (struct _cl_context *context, struct _cl_event *event, GLbitfield flags); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glCreateSyncFromCLeventARB(context:Pcl_context; event:Pcl_event; flags:TGLbitfield):TGLsync;cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_cl_event */ }
-{////#ifndef GL_ARB_clear_buffer_object }
 const
   GL_ARB_clear_buffer_object = 1;  
-{////#endif /* GL_ARB_clear_buffer_object */ }
-{////#ifndef GL_ARB_clear_texture }
   GL_ARB_clear_texture = 1;  
-{////#endif /* GL_ARB_clear_texture */ }
-{////#ifndef GL_ARB_clip_control }
   GL_ARB_clip_control = 1;  
-{////#endif /* GL_ARB_clip_control */ }
-{////#ifndef GL_ARB_color_buffer_float }
   GL_ARB_color_buffer_float = 1;  
   GL_RGBA_FLOAT_MODE_ARB = $8820;  
   GL_CLAMP_VERTEX_COLOR_ARB = $891A;  
   GL_CLAMP_FRAGMENT_COLOR_ARB = $891B;  
   GL_CLAMP_READ_COLOR_ARB = $891C;  
   GL_FIXED_ONLY_ARB = $891D;  
-{////typedef void (P PFNGLCLAMPCOLORARBPROC) (GLenum target, GLenum clamp); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glClampColorARB(target:TGLenum; clamp:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_color_buffer_float */ }
-{////#ifndef GL_ARB_compatibility }
 const
   GL_ARB_compatibility = 1;  
-{////#endif /* GL_ARB_compatibility */ }
-{////#ifndef GL_ARB_compressed_texture_pixel_storage }
   GL_ARB_compressed_texture_pixel_storage = 1;  
-{////#endif /* GL_ARB_compressed_texture_pixel_storage */ }
-{////#ifndef GL_ARB_compute_shader }
   GL_ARB_compute_shader = 1;  
-{////#endif /* GL_ARB_compute_shader */ }
-{////#ifndef GL_ARB_compute_variable_group_size }
   GL_ARB_compute_variable_group_size = 1;  
   GL_MAX_COMPUTE_VARIABLE_GROUP_INVOCATIONS_ARB = $9344;  
   GL_MAX_COMPUTE_FIXED_GROUP_INVOCATIONS_ARB = $90EB;  
   GL_MAX_COMPUTE_VARIABLE_GROUP_SIZE_ARB = $9345;  
   GL_MAX_COMPUTE_FIXED_GROUP_SIZE_ARB = $91BF;  
-{////typedef void (P PFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC) (GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z, GLuint group_size_x, GLuint group_size_y, GLuint group_size_z); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDispatchComputeGroupSizeARB(num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint; group_size_x:TGLuint; group_size_y:TGLuint; 
             group_size_z:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_compute_variable_group_size */ }
-{////#ifndef GL_ARB_conditional_render_inverted }
 const
   GL_ARB_conditional_render_inverted = 1;  
-{////#endif /* GL_ARB_conditional_render_inverted */ }
-{////#ifndef GL_ARB_conservative_depth }
   GL_ARB_conservative_depth = 1;  
-{////#endif /* GL_ARB_conservative_depth */ }
-{////#ifndef GL_ARB_copy_buffer }
   GL_ARB_copy_buffer = 1;  
-{////#endif /* GL_ARB_copy_buffer */ }
-{////#ifndef GL_ARB_copy_image }
   GL_ARB_copy_image = 1;  
-{////#endif /* GL_ARB_copy_image */ }
-{////#ifndef GL_ARB_cull_distance }
   GL_ARB_cull_distance = 1;  
-{////#endif /* GL_ARB_cull_distance */ }
-{////#ifndef GL_ARB_debug_output }
   GL_ARB_debug_output = 1;  
 (* Const before type ignored *)
 type
@@ -3242,11 +2319,6 @@ const
   GL_DEBUG_SEVERITY_HIGH_ARB = $9146;  
   GL_DEBUG_SEVERITY_MEDIUM_ARB = $9147;  
   GL_DEBUG_SEVERITY_LOW_ARB = $9148;  
-{////typedef void (P PFNGLDEBUGMESSAGECONTROLARBPROC) (GLenum source, GLenum type, GLenum severity, GLsizei count,GLuint *ids, GLboolean enabled); }
-{////typedef void (P PFNGLDEBUGMESSAGEINSERTARBPROC) (GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,GLchar *buf); }
-{////typedef void (P PFNGLDEBUGMESSAGECALLBACKARBPROC) (GLDEBUGPROCARB callback,void *userParam); }
-{////typedef GLuint (P PFNGLGETDEBUGMESSAGELOGARBPROC) (GLuint count, GLsizei bufSize, GLenum *sources, GLenum *types, GLuint *ids, GLenum *severities, GLsizei *lengths, GLchar *messageLog); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDebugMessageControlARB(source:TGLenum; _type:TGLenum; severity:TGLenum; count:TGLsizei; ids:PGLuint; 
             enabled:TGLboolean);cdecl;external;
@@ -3255,30 +2327,17 @@ procedure glDebugMessageInsertARB(source:TGLenum; _type:TGLenum; id:TGLuint; sev
 procedure glDebugMessageCallbackARB(callback:TGLDEBUGPROCARB; userParam:pointer);cdecl;external;
 function glGetDebugMessageLogARB(count:TGLuint; bufSize:TGLsizei; sources:PGLenum; types:PGLenum; ids:PGLuint; 
            severities:PGLenum; lengths:PGLsizei; messageLog:PGLchar):TGLuint;cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_debug_output */ }
-{////#ifndef GL_ARB_depth_buffer_float }
 const
   GL_ARB_depth_buffer_float = 1;  
-{////#endif /* GL_ARB_depth_buffer_float */ }
-{////#ifndef GL_ARB_depth_clamp }
   GL_ARB_depth_clamp = 1;  
-{////#endif /* GL_ARB_depth_clamp */ }
-{////#ifndef GL_ARB_depth_texture }
   GL_ARB_depth_texture = 1;  
   GL_DEPTH_COMPONENT16_ARB = $81A5;  
   GL_DEPTH_COMPONENT24_ARB = $81A6;  
   GL_DEPTH_COMPONENT32_ARB = $81A7;  
   GL_TEXTURE_DEPTH_SIZE_ARB = $884A;  
   GL_DEPTH_TEXTURE_MODE_ARB = $884B;  
-{////#endif /* GL_ARB_depth_texture */ }
-{////#ifndef GL_ARB_derivative_control }
   GL_ARB_derivative_control = 1;  
-{////#endif /* GL_ARB_derivative_control */ }
-{////#ifndef GL_ARB_direct_state_access }
   GL_ARB_direct_state_access = 1;  
-{////#endif /* GL_ARB_direct_state_access */ }
-{////#ifndef GL_ARB_draw_buffers }
   GL_ARB_draw_buffers = 1;  
   GL_MAX_DRAW_BUFFERS_ARB = $8824;  
   GL_DRAW_BUFFER0_ARB = $8825;  
@@ -3297,61 +2356,28 @@ const
   GL_DRAW_BUFFER13_ARB = $8832;  
   GL_DRAW_BUFFER14_ARB = $8833;  
   GL_DRAW_BUFFER15_ARB = $8834;  
-{////typedef void (P PFNGLDRAWBUFFERSARBPROC) (GLsizei n,GLenum *bufs); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawBuffersARB(n:TGLsizei; bufs:PGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_draw_buffers */ }
-{////#ifndef GL_ARB_draw_buffers_blend }
 const
   GL_ARB_draw_buffers_blend = 1;  
-{////typedef void (P PFNGLBLENDEQUATIONIARBPROC) (GLuint buf, GLenum mode); }
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEIARBPROC) (GLuint buf, GLenum modeRGB, GLenum modeAlpha); }
-{////typedef void (P PFNGLBLENDFUNCIARBPROC) (GLuint buf, GLenum src, GLenum dst); }
-{////typedef void (P PFNGLBLENDFUNCSEPARATEIARBPROC) (GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendEquationiARB(buf:TGLuint; mode:TGLenum);cdecl;external;
 procedure glBlendEquationSeparateiARB(buf:TGLuint; modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;external;
 procedure glBlendFunciARB(buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;external;
 procedure glBlendFuncSeparateiARB(buf:TGLuint; srcRGB:TGLenum; dstRGB:TGLenum; srcAlpha:TGLenum; dstAlpha:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_draw_buffers_blend */ }
-{////#ifndef GL_ARB_draw_elements_base_vertex }
 const
   GL_ARB_draw_elements_base_vertex = 1;  
-{////#endif /* GL_ARB_draw_elements_base_vertex */ }
-{////#ifndef GL_ARB_draw_indirect }
   GL_ARB_draw_indirect = 1;  
-{////#endif /* GL_ARB_draw_indirect */ }
-{////#ifndef GL_ARB_draw_instanced }
   GL_ARB_draw_instanced = 1;  
-{////typedef void (P PFNGLDRAWARRAYSINSTANCEDARBPROC) (GLenum mode, GLint first, GLsizei count, GLsizei primcount); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDARBPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei primcount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawArraysInstancedARB(mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;external;
 procedure glDrawElementsInstancedARB(mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_draw_instanced */ }
-{////#ifndef GL_ARB_enhanced_layouts }
 const
   GL_ARB_enhanced_layouts = 1;  
-{////#endif /* GL_ARB_enhanced_layouts */ }
-{////#ifndef GL_ARB_explicit_attrib_location }
   GL_ARB_explicit_attrib_location = 1;  
-{////#endif /* GL_ARB_explicit_attrib_location */ }
-{////#ifndef GL_ARB_explicit_uniform_location }
   GL_ARB_explicit_uniform_location = 1;  
-{////#endif /* GL_ARB_explicit_uniform_location */ }
-{////#ifndef GL_ARB_fragment_coord_conventions }
   GL_ARB_fragment_coord_conventions = 1;  
-{////#endif /* GL_ARB_fragment_coord_conventions */ }
-{////#ifndef GL_ARB_fragment_layer_viewport }
   GL_ARB_fragment_layer_viewport = 1;  
-{////#endif /* GL_ARB_fragment_layer_viewport */ }
-{////#ifndef GL_ARB_fragment_program }
   GL_ARB_fragment_program = 1;  
   GL_FRAGMENT_PROGRAM_ARB = $8804;  
   GL_PROGRAM_FORMAT_ASCII_ARB = $8875;  
@@ -3431,26 +2457,6 @@ const
   GL_MATRIX29_ARB = $88DD;  
   GL_MATRIX30_ARB = $88DE;  
   GL_MATRIX31_ARB = $88DF;  
-{////typedef void (P PFNGLPROGRAMSTRINGARBPROC) (GLenum target, GLenum format, GLsizei len,void *string); }
-{////typedef void (P PFNGLBINDPROGRAMARBPROC) (GLenum target, GLuint program_); }
-{////typedef void (P PFNGLDELETEPROGRAMSARBPROC) (GLsizei n,GLuint *programs); }
-{////typedef void (P PFNGLGENPROGRAMSARBPROC) (GLsizei n, GLuint *programs); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETER4DARBPROC) (GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETER4DVARBPROC) (GLenum target, GLuint index,GLdouble *params); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETER4FARBPROC) (GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETER4FVARBPROC) (GLenum target, GLuint index,GLfloat *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETER4DARBPROC) (GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETER4DVARBPROC) (GLenum target, GLuint index,GLdouble *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETER4FARBPROC) (GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETER4FVARBPROC) (GLenum target, GLuint index,GLfloat *params); }
-{////typedef void (P PFNGLGETPROGRAMENVPARAMETERDVARBPROC) (GLenum target, GLuint index, GLdouble *params); }
-{////typedef void (P PFNGLGETPROGRAMENVPARAMETERFVARBPROC) (GLenum target, GLuint index, GLfloat *params); }
-{////typedef void (P PFNGLGETPROGRAMLOCALPARAMETERDVARBPROC) (GLenum target, GLuint index, GLdouble *params); }
-{////typedef void (P PFNGLGETPROGRAMLOCALPARAMETERFVARBPROC) (GLenum target, GLuint index, GLfloat *params); }
-{////typedef void (P PFNGLGETPROGRAMIVARBPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETPROGRAMSTRINGARBPROC) (GLenum target, GLenum pname, void *string); }
-{////typedef GLboolean (P PFNGLISPROGRAMARBPROC) (GLuint program_); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramStringARB(target:TGLenum; format:TGLenum; len:TGLsizei; _string:pointer);cdecl;external;
 procedure glBindProgramARB(target:TGLenum; program_:TGLuint);cdecl;external;
@@ -3475,31 +2481,16 @@ procedure glGetProgramLocalParameterfvARB(target:TGLenum; index:TGLuint; params:
 procedure glGetProgramivARB(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetProgramStringARB(target:TGLenum; pname:TGLenum; _string:pointer);cdecl;external;
 function glIsProgramARB(program_:TGLuint):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_fragment_program */ }
-{////#ifndef GL_ARB_fragment_program_shadow }
 const
   GL_ARB_fragment_program_shadow = 1;  
-{////#endif /* GL_ARB_fragment_program_shadow */ }
-{////#ifndef GL_ARB_fragment_shader }
   GL_ARB_fragment_shader = 1;  
   GL_FRAGMENT_SHADER_ARB = $8B30;  
   GL_MAX_FRAGMENT_UNIFORM_COMPONENTS_ARB = $8B49;  
   GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB = $8B8B;  
-{////#endif /* GL_ARB_fragment_shader */ }
-{////#ifndef GL_ARB_fragment_shader_interlock }
   GL_ARB_fragment_shader_interlock = 1;  
-{////#endif /* GL_ARB_fragment_shader_interlock */ }
-{////#ifndef GL_ARB_framebuffer_no_attachments }
   GL_ARB_framebuffer_no_attachments = 1;  
-{////#endif /* GL_ARB_framebuffer_no_attachments */ }
-{////#ifndef GL_ARB_framebuffer_object }
   GL_ARB_framebuffer_object = 1;  
-{////#endif /* GL_ARB_framebuffer_object */ }
-{////#ifndef GL_ARB_framebuffer_sRGB }
   GL_ARB_framebuffer_sRGB = 1;  
-{////#endif /* GL_ARB_framebuffer_sRGB */ }
-{////#ifndef GL_ARB_geometry_shader4 }
   GL_ARB_geometry_shader4 = 1;  
   GL_LINES_ADJACENCY_ARB = $000A;  
   GL_LINE_STRIP_ADJACENCY_ARB = $000B;  
@@ -3519,43 +2510,22 @@ const
   GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_ARB = $8DDF;  
   GL_MAX_GEOMETRY_OUTPUT_VERTICES_ARB = $8DE0;  
   GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_ARB = $8DE1;  
-{////typedef void (P PFNGLPROGRAMPARAMETERIARBPROC) (GLuint program_, GLenum pname, GLint value); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREARBPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURELAYERARBPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREFACEARBPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramParameteriARB(program_:TGLuint; pname:TGLenum; value:TGLint);cdecl;external;
 procedure glFramebufferTextureARB(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint);cdecl;external;
 procedure glFramebufferTextureLayerARB(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;external;
 procedure glFramebufferTextureFaceARB(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; face:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_geometry_shader4 */ }
-{////#ifndef GL_ARB_get_program_binary }
 const
   GL_ARB_get_program_binary = 1;  
-{////#endif /* GL_ARB_get_program_binary */ }
-{////#ifndef GL_ARB_get_texture_sub_image }
   GL_ARB_get_texture_sub_image = 1;  
-{////#endif /* GL_ARB_get_texture_sub_image */ }
-{////#ifndef GL_ARB_gl_spirv }
   GL_ARB_gl_spirv = 1;  
   GL_SHADER_BINARY_FORMAT_SPIR_V_ARB = $9551;  
   GL_SPIR_V_BINARY_ARB = $9552;  
-{////typedef void (P PFNGLSPECIALIZESHADERARBPROC) (GLuint shader,GLchar *pEntryPoint, GLuint numSpecializationConstants,GLuint *pConstantIndex,GLuint *pConstantValue); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSpecializeShaderARB(shader:TGLuint; pEntryPoint:PGLchar; numSpecializationConstants:TGLuint; pConstantIndex:PGLuint; pConstantValue:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_gl_spirv */ }
-{////#ifndef GL_ARB_gpu_shader5 }
 const
   GL_ARB_gpu_shader5 = 1;  
-{////#endif /* GL_ARB_gpu_shader5 */ }
-{////#ifndef GL_ARB_gpu_shader_fp64 }
   GL_ARB_gpu_shader_fp64 = 1;  
-{////#endif /* GL_ARB_gpu_shader_fp64 */ }
-{////#ifndef GL_ARB_gpu_shader_int64 }
   GL_ARB_gpu_shader_int64 = 1;  
   GL_INT64_ARB = $140E;  
   GL_INT64_VEC2_ARB = $8FE9;  
@@ -3564,43 +2534,6 @@ const
   GL_UNSIGNED_INT64_VEC2_ARB = $8FF5;  
   GL_UNSIGNED_INT64_VEC3_ARB = $8FF6;  
   GL_UNSIGNED_INT64_VEC4_ARB = $8FF7;  
-{////typedef void (P PFNGLUNIFORM1I64ARBPROC) (GLint location, GLint64 x); }
-{////typedef void (P PFNGLUNIFORM2I64ARBPROC) (GLint location, GLint64 x, GLint64 y); }
-{////typedef void (P PFNGLUNIFORM3I64ARBPROC) (GLint location, GLint64 x, GLint64 y, GLint64 z); }
-{////typedef void (P PFNGLUNIFORM4I64ARBPROC) (GLint location, GLint64 x, GLint64 y, GLint64 z, GLint64 w); }
-{////typedef void (P PFNGLUNIFORM1I64VARBPROC) (GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLUNIFORM2I64VARBPROC) (GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLUNIFORM3I64VARBPROC) (GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLUNIFORM4I64VARBPROC) (GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLUNIFORM1UI64ARBPROC) (GLint location, GLuint64 x); }
-{////typedef void (P PFNGLUNIFORM2UI64ARBPROC) (GLint location, GLuint64 x, GLuint64 y); }
-{////typedef void (P PFNGLUNIFORM3UI64ARBPROC) (GLint location, GLuint64 x, GLuint64 y, GLuint64 z); }
-{////typedef void (P PFNGLUNIFORM4UI64ARBPROC) (GLint location, GLuint64 x, GLuint64 y, GLuint64 z, GLuint64 w); }
-{////typedef void (P PFNGLUNIFORM1UI64VARBPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLUNIFORM2UI64VARBPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLUNIFORM3UI64VARBPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLUNIFORM4UI64VARBPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLGETUNIFORMI64VARBPROC) (GLuint program_, GLint location, GLint64 *params); }
-{////typedef void (P PFNGLGETUNIFORMUI64VARBPROC) (GLuint program_, GLint location, GLuint64 *params); }
-{////typedef void (P PFNGLGETNUNIFORMI64VARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLint64 *params); }
-{////typedef void (P PFNGLGETNUNIFORMUI64VARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLuint64 *params); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1I64ARBPROC) (GLuint program_, GLint location, GLint64 x); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2I64ARBPROC) (GLuint program_, GLint location, GLint64 x, GLint64 y); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3I64ARBPROC) (GLuint program_, GLint location, GLint64 x, GLint64 y, GLint64 z); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4I64ARBPROC) (GLuint program_, GLint location, GLint64 x, GLint64 y, GLint64 z, GLint64 w); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1I64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2I64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3I64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4I64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UI64ARBPROC) (GLuint program_, GLint location, GLuint64 x); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UI64ARBPROC) (GLuint program_, GLint location, GLuint64 x, GLuint64 y); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UI64ARBPROC) (GLuint program_, GLint location, GLuint64 x, GLuint64 y, GLuint64 z); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UI64ARBPROC) (GLuint program_, GLint location, GLuint64 x, GLuint64 y, GLuint64 z, GLuint64 w); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UI64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UI64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UI64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UI64VARBPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUniform1i64ARB(location:TGLint; x:TGLint64);cdecl;external;
 procedure glUniform2i64ARB(location:TGLint; x:TGLint64; y:TGLint64);cdecl;external;
@@ -3640,9 +2573,6 @@ procedure glProgramUniform1ui64vARB(program_:TGLuint; location:TGLint; count:TGL
 procedure glProgramUniform2ui64vARB(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;external;
 procedure glProgramUniform3ui64vARB(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;external;
 procedure glProgramUniform4ui64vARB(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_gpu_shader_int64 */ }
-{////#ifndef GL_ARB_half_float_pixel }
 const
   GL_ARB_half_float_pixel = 1;  
 type
@@ -3651,11 +2581,7 @@ type
 
 const
   GL_HALF_FLOAT_ARB = $140B;  
-{////#endif /* GL_ARB_half_float_pixel */ }
-{////#ifndef GL_ARB_half_float_vertex }
   GL_ARB_half_float_vertex = 1;  
-{////#endif /* GL_ARB_half_float_vertex */ }
-{////#ifndef GL_ARB_imaging }
   GL_ARB_imaging = 1;  
   GL_CONVOLUTION_BORDER_MODE = $8013;  
   GL_CONVOLUTION_FILTER_SCALE = $8014;  
@@ -3709,39 +2635,6 @@ const
   GL_CONSTANT_BORDER = $8151;  
   GL_REPLICATE_BORDER = $8153;  
   GL_CONVOLUTION_BORDER_COLOR = $8154;  
-{////typedef void (P PFNGLCOLORTABLEPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type,void *table); }
-{////typedef void (P PFNGLCOLORTABLEPARAMETERFVPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLCOLORTABLEPARAMETERIVPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLCOPYCOLORTABLEPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLGETCOLORTABLEPROC) (GLenum target, GLenum format, GLenum type, void *table); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERFVPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLCOLORSUBTABLEPROC) (GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCOPYCOLORSUBTABLEPROC) (GLenum target, GLsizei start, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCONVOLUTIONFILTER1DPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type,void *image); }
-{////typedef void (P PFNGLCONVOLUTIONFILTER2DPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type,void *image); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERFPROC) (GLenum target, GLenum pname, GLfloat params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERFVPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERIPROC) (GLenum target, GLenum pname, GLint params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERIVPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLCOPYCONVOLUTIONFILTER1DPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYCONVOLUTIONFILTER2DPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETCONVOLUTIONFILTERPROC) (GLenum target, GLenum format, GLenum type, void *image); }
-{////typedef void (P PFNGLGETCONVOLUTIONPARAMETERFVPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCONVOLUTIONPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETSEPARABLEFILTERPROC) (GLenum target, GLenum format, GLenum type, void *row, void *column, void *span); }
-{////typedef void (P PFNGLSEPARABLEFILTER2DPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type,void *row,void *column); }
-{////typedef void (P PFNGLGETHISTOGRAMPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, void *values); }
-{////typedef void (P PFNGLGETHISTOGRAMPARAMETERFVPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETHISTOGRAMPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMINMAXPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, void *values); }
-{////typedef void (P PFNGLGETMINMAXPARAMETERFVPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMINMAXPARAMETERIVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLHISTOGRAMPROC) (GLenum target, GLsizei width, GLenum internalformat, GLboolean sink); }
-{////typedef void (P PFNGLMINMAXPROC) (GLenum target, GLenum internalformat, GLboolean sink); }
-{////typedef void (P PFNGLRESETHISTOGRAMPROC) (GLenum target); }
-{////typedef void (P PFNGLRESETMINMAXPROC) (GLenum target); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorTable(target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
             table:pointer);cdecl;external;
@@ -3782,37 +2675,21 @@ procedure glHistogram(target:TGLenum; width:TGLsizei; internalformat:TGLenum; si
 procedure glMinmax(target:TGLenum; internalformat:TGLenum; sink:TGLboolean);cdecl;external;
 procedure glResetHistogram(target:TGLenum);cdecl;external;
 procedure glResetMinmax(target:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_imaging */ }
-{////#ifndef GL_ARB_indirect_parameters }
 const
   GL_ARB_indirect_parameters = 1;  
   GL_PARAMETER_BUFFER_ARB = $80EE;  
   GL_PARAMETER_BUFFER_BINDING_ARB = $80EF;  
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC) (GLenum mode,void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC) (GLenum mode, GLenum type,void *indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiDrawArraysIndirectCountARB(mode:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;external;
 procedure glMultiDrawElementsIndirectCountARB(mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; 
             stride:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_indirect_parameters */ }
-{////#ifndef GL_ARB_instanced_arrays }
 const
   GL_ARB_instanced_arrays = 1;  
   GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ARB = $88FE;  
-{////typedef void (P PFNGLVERTEXATTRIBDIVISORARBPROC) (GLuint index, GLuint divisor); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttribDivisorARB(index:TGLuint; divisor:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_instanced_arrays */ }
-{////#ifndef GL_ARB_internalformat_query }
 const
   GL_ARB_internalformat_query = 1;  
-{////#endif /* GL_ARB_internalformat_query */ }
-{////#ifndef GL_ARB_internalformat_query2 }
   GL_ARB_internalformat_query2 = 1;  
   GL_SRGB_DECODE_ARB = $8299;  
   GL_VIEW_CLASS_EAC_R11 = $9383;  
@@ -3834,17 +2711,9 @@ const
   GL_VIEW_CLASS_ASTC_10x10_RGBA = $9393;  
   GL_VIEW_CLASS_ASTC_12x10_RGBA = $9394;  
   GL_VIEW_CLASS_ASTC_12x12_RGBA = $9395;  
-{////#endif /* GL_ARB_internalformat_query2 */ }
-{////#ifndef GL_ARB_invalidate_subdata }
   GL_ARB_invalidate_subdata = 1;  
-{////#endif /* GL_ARB_invalidate_subdata */ }
-{////#ifndef GL_ARB_map_buffer_alignment }
   GL_ARB_map_buffer_alignment = 1;  
-{////#endif /* GL_ARB_map_buffer_alignment */ }
-{////#ifndef GL_ARB_map_buffer_range }
   GL_ARB_map_buffer_range = 1;  
-{////#endif /* GL_ARB_map_buffer_range */ }
-{////#ifndef GL_ARB_matrix_palette }
   GL_ARB_matrix_palette = 1;  
   GL_MATRIX_PALETTE_ARB = $8840;  
   GL_MAX_MATRIX_PALETTE_STACK_DEPTH_ARB = $8841;  
@@ -3856,28 +2725,15 @@ const
   GL_MATRIX_INDEX_ARRAY_TYPE_ARB = $8847;  
   GL_MATRIX_INDEX_ARRAY_STRIDE_ARB = $8848;  
   GL_MATRIX_INDEX_ARRAY_POINTER_ARB = $8849;  
-{////typedef void (P PFNGLCURRENTPALETTEMATRIXARBPROC) (GLint index); }
-{////typedef void (P PFNGLMATRIXINDEXUBVARBPROC) (GLint size,GLubyte *indices); }
-{////typedef void (P PFNGLMATRIXINDEXUSVARBPROC) (GLint size,GLushort *indices); }
-{////typedef void (P PFNGLMATRIXINDEXUIVARBPROC) (GLint size,GLuint *indices); }
-{////typedef void (P PFNGLMATRIXINDEXPOINTERARBPROC) (GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCurrentPaletteMatrixARB(index:TGLint);cdecl;external;
 procedure glMatrixIndexubvARB(size:TGLint; indices:PGLubyte);cdecl;external;
 procedure glMatrixIndexusvARB(size:TGLint; indices:PGLushort);cdecl;external;
 procedure glMatrixIndexuivARB(size:TGLint; indices:PGLuint);cdecl;external;
 procedure glMatrixIndexPointerARB(size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_matrix_palette */ }
-{////#ifndef GL_ARB_multi_bind }
 const
   GL_ARB_multi_bind = 1;  
-{////#endif /* GL_ARB_multi_bind */ }
-{////#ifndef GL_ARB_multi_draw_indirect }
   GL_ARB_multi_draw_indirect = 1;  
-{////#endif /* GL_ARB_multi_draw_indirect */ }
-{////#ifndef GL_ARB_multisample }
   GL_ARB_multisample = 1;  
   GL_MULTISAMPLE_ARB = $809D;  
   GL_SAMPLE_ALPHA_TO_COVERAGE_ARB = $809E;  
@@ -3888,13 +2744,8 @@ const
   GL_SAMPLE_COVERAGE_VALUE_ARB = $80AA;  
   GL_SAMPLE_COVERAGE_INVERT_ARB = $80AB;  
   GL_MULTISAMPLE_BIT_ARB = $20000000;  
-{////typedef void (P PFNGLSAMPLECOVERAGEARBPROC) (GLfloat value, GLboolean invert); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSampleCoverageARB(value:TGLfloat; invert:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_multisample */ }
-{////#ifndef GL_ARB_multitexture }
 const
   GL_ARB_multitexture = 1;  
   GL_TEXTURE0_ARB = $84C0;  
@@ -3932,41 +2783,6 @@ const
   GL_ACTIVE_TEXTURE_ARB = $84E0;  
   GL_CLIENT_ACTIVE_TEXTURE_ARB = $84E1;  
   GL_MAX_TEXTURE_UNITS_ARB = $84E2;  
-{////typedef void (P PFNGLACTIVETEXTUREARBPROC) (GLenum texture); }
-{////typedef void (P PFNGLCLIENTACTIVETEXTUREARBPROC) (GLenum texture); }
-{////typedef void (P PFNGLMULTITEXCOORD1DARBPROC) (GLenum target, GLdouble s); }
-{////typedef void (P PFNGLMULTITEXCOORD1DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1FARBPROC) (GLenum target, GLfloat s); }
-{////typedef void (P PFNGLMULTITEXCOORD1FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1IARBPROC) (GLenum target, GLint s); }
-{////typedef void (P PFNGLMULTITEXCOORD1IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1SARBPROC) (GLenum target, GLshort s); }
-{////typedef void (P PFNGLMULTITEXCOORD1SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2DARBPROC) (GLenum target, GLdouble s, GLdouble t); }
-{////typedef void (P PFNGLMULTITEXCOORD2DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2FARBPROC) (GLenum target, GLfloat s, GLfloat t); }
-{////typedef void (P PFNGLMULTITEXCOORD2FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2IARBPROC) (GLenum target, GLint s, GLint t); }
-{////typedef void (P PFNGLMULTITEXCOORD2IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2SARBPROC) (GLenum target, GLshort s, GLshort t); }
-{////typedef void (P PFNGLMULTITEXCOORD2SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r); }
-{////typedef void (P PFNGLMULTITEXCOORD3DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r); }
-{////typedef void (P PFNGLMULTITEXCOORD3FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3IARBPROC) (GLenum target, GLint s, GLint t, GLint r); }
-{////typedef void (P PFNGLMULTITEXCOORD3IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r); }
-{////typedef void (P PFNGLMULTITEXCOORD3SVARBPROC) (GLenum target,GLshort *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4DARBPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q); }
-{////typedef void (P PFNGLMULTITEXCOORD4DVARBPROC) (GLenum target,GLdouble *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q); }
-{////typedef void (P PFNGLMULTITEXCOORD4FVARBPROC) (GLenum target,GLfloat *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4IARBPROC) (GLenum target, GLint s, GLint t, GLint r, GLint q); }
-{////typedef void (P PFNGLMULTITEXCOORD4IVARBPROC) (GLenum target,GLint *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4SARBPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q); }
-{////typedef void (P PFNGLMULTITEXCOORD4SVARBPROC) (GLenum target,GLshort *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glActiveTextureARB(texture:TGLenum);cdecl;external;
 procedure glClientActiveTextureARB(texture:TGLenum);cdecl;external;
@@ -4002,9 +2818,6 @@ procedure glMultiTexCoord4iARB(target:TGLenum; s:TGLint; t:TGLint; r:TGLint; q:T
 procedure glMultiTexCoord4ivARB(target:TGLenum; v:PGLint);cdecl;external;
 procedure glMultiTexCoord4sARB(target:TGLenum; s:TGLshort; t:TGLshort; r:TGLshort; q:TGLshort);cdecl;external;
 procedure glMultiTexCoord4svARB(target:TGLenum; v:PGLshort);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_multitexture */ }
-{////#ifndef GL_ARB_occlusion_query }
 const
   GL_ARB_occlusion_query = 1;  
   GL_QUERY_COUNTER_BITS_ARB = $8864;  
@@ -4012,15 +2825,6 @@ const
   GL_QUERY_RESULT_ARB = $8866;  
   GL_QUERY_RESULT_AVAILABLE_ARB = $8867;  
   GL_SAMPLES_PASSED_ARB = $8914;  
-{////typedef void (P PFNGLGENQUERIESARBPROC) (GLsizei n, GLuint *ids); }
-{////typedef void (P PFNGLDELETEQUERIESARBPROC) (GLsizei n,GLuint *ids); }
-{////typedef GLboolean (P PFNGLISQUERYARBPROC) (GLuint id); }
-{////typedef void (P PFNGLBEGINQUERYARBPROC) (GLenum target, GLuint id); }
-{////typedef void (P PFNGLENDQUERYARBPROC) (GLenum target); }
-{////typedef void (P PFNGLGETQUERYIVARBPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTIVARBPROC) (GLuint id, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTUIVARBPROC) (GLuint id, GLenum pname, GLuint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenQueriesARB(n:TGLsizei; ids:PGLuint);cdecl;external;
 procedure glDeleteQueriesARB(n:TGLsizei; ids:PGLuint);cdecl;external;
@@ -4030,23 +2834,13 @@ procedure glEndQueryARB(target:TGLenum);cdecl;external;
 procedure glGetQueryivARB(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetQueryObjectivARB(id:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetQueryObjectuivARB(id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_occlusion_query */ }
-{////#ifndef GL_ARB_occlusion_query2 }
 const
   GL_ARB_occlusion_query2 = 1;  
-{////#endif /* GL_ARB_occlusion_query2 */ }
-{////#ifndef GL_ARB_parallel_shader_compile }
   GL_ARB_parallel_shader_compile = 1;  
   GL_MAX_SHADER_COMPILER_THREADS_ARB = $91B0;  
   GL_COMPLETION_STATUS_ARB = $91B1;  
-{////typedef void (P PFNGLMAXSHADERCOMPILERTHREADSARBPROC) (GLuint count); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMaxShaderCompilerThreadsARB(count:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_parallel_shader_compile */ }
-{////#ifndef GL_ARB_pipeline_statistics_query }
 const
   GL_ARB_pipeline_statistics_query = 1;  
   GL_VERTICES_SUBMITTED_ARB = $82EE;  
@@ -4059,53 +2853,29 @@ const
   GL_COMPUTE_SHADER_INVOCATIONS_ARB = $82F5;  
   GL_CLIPPING_INPUT_PRIMITIVES_ARB = $82F6;  
   GL_CLIPPING_OUTPUT_PRIMITIVES_ARB = $82F7;  
-{////#endif /* GL_ARB_pipeline_statistics_query */ }
-{////#ifndef GL_ARB_pixel_buffer_object }
   GL_ARB_pixel_buffer_object = 1;  
   GL_PIXEL_PACK_BUFFER_ARB = $88EB;  
   GL_PIXEL_UNPACK_BUFFER_ARB = $88EC;  
   GL_PIXEL_PACK_BUFFER_BINDING_ARB = $88ED;  
   GL_PIXEL_UNPACK_BUFFER_BINDING_ARB = $88EF;  
-{////#endif /* GL_ARB_pixel_buffer_object */ }
-{////#ifndef GL_ARB_point_parameters }
   GL_ARB_point_parameters = 1;  
   GL_POINT_SIZE_MIN_ARB = $8126;  
   GL_POINT_SIZE_MAX_ARB = $8127;  
   GL_POINT_FADE_THRESHOLD_SIZE_ARB = $8128;  
   GL_POINT_DISTANCE_ATTENUATION_ARB = $8129;  
-{////typedef void (P PFNGLPOINTPARAMETERFARBPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPOINTPARAMETERFVARBPROC) (GLenum pname,GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPointParameterfARB(pname:TGLenum; param:TGLfloat);cdecl;external;
 procedure glPointParameterfvARB(pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_point_parameters */ }
-{////#ifndef GL_ARB_point_sprite }
 const
   GL_ARB_point_sprite = 1;  
   GL_POINT_SPRITE_ARB = $8861;  
   GL_COORD_REPLACE_ARB = $8862;  
-{////#endif /* GL_ARB_point_sprite */ }
-{////#ifndef GL_ARB_polygon_offset_clamp }
   GL_ARB_polygon_offset_clamp = 1;  
-{////#endif /* GL_ARB_polygon_offset_clamp */ }
-{////#ifndef GL_ARB_post_depth_coverage }
   GL_ARB_post_depth_coverage = 1;  
-{////#endif /* GL_ARB_post_depth_coverage */ }
-{////#ifndef GL_ARB_program_interface_query }
   GL_ARB_program_interface_query = 1;  
-{////#endif /* GL_ARB_program_interface_query */ }
-{////#ifndef GL_ARB_provoking_vertex }
   GL_ARB_provoking_vertex = 1;  
-{////#endif /* GL_ARB_provoking_vertex */ }
-{////#ifndef GL_ARB_query_buffer_object }
   GL_ARB_query_buffer_object = 1;  
-{////#endif /* GL_ARB_query_buffer_object */ }
-{////#ifndef GL_ARB_robust_buffer_access_behavior }
   GL_ARB_robust_buffer_access_behavior = 1;  
-{////#endif /* GL_ARB_robust_buffer_access_behavior */ }
-{////#ifndef GL_ARB_robustness }
   GL_ARB_robustness = 1;  
   GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT_ARB = $00000004;  
   GL_LOSE_CONTEXT_ON_RESET_ARB = $8252;  
@@ -4114,27 +2884,6 @@ const
   GL_UNKNOWN_CONTEXT_RESET_ARB = $8255;  
   GL_RESET_NOTIFICATION_STRATEGY_ARB = $8256;  
   GL_NO_RESET_NOTIFICATION_ARB = $8261;  
-{////typedef GLenum (P PFNGLGETGRAPHICSRESETSTATUSARBPROC) (void); }
-{////typedef void (P PFNGLGETNTEXIMAGEARBPROC) (GLenum target, GLint level, GLenum format, GLenum type, GLsizei bufSize, void *img); }
-{////typedef void (P PFNGLREADNPIXELSARBPROC) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, GLsizei bufSize, void *data); }
-{////typedef void (P PFNGLGETNCOMPRESSEDTEXIMAGEARBPROC) (GLenum target, GLint lod, GLsizei bufSize, void *img); }
-{////typedef void (P PFNGLGETNUNIFORMFVARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLfloat *params); }
-{////typedef void (P PFNGLGETNUNIFORMIVARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLint *params); }
-{////typedef void (P PFNGLGETNUNIFORMUIVARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLuint *params); }
-{////typedef void (P PFNGLGETNUNIFORMDVARBPROC) (GLuint program_, GLint location, GLsizei bufSize, GLdouble *params); }
-{////typedef void (P PFNGLGETNMAPDVARBPROC) (GLenum target, GLenum query, GLsizei bufSize, GLdouble *v); }
-{////typedef void (P PFNGLGETNMAPFVARBPROC) (GLenum target, GLenum query, GLsizei bufSize, GLfloat *v); }
-{////typedef void (P PFNGLGETNMAPIVARBPROC) (GLenum target, GLenum query, GLsizei bufSize, GLint *v); }
-{////typedef void (P PFNGLGETNPIXELMAPFVARBPROC) (GLenum map, GLsizei bufSize, GLfloat *values); }
-{////typedef void (P PFNGLGETNPIXELMAPUIVARBPROC) (GLenum map, GLsizei bufSize, GLuint *values); }
-{////typedef void (P PFNGLGETNPIXELMAPUSVARBPROC) (GLenum map, GLsizei bufSize, GLushort *values); }
-{////typedef void (P PFNGLGETNPOLYGONSTIPPLEARBPROC) (GLsizei bufSize, GLubyte *pattern); }
-{////typedef void (P PFNGLGETNCOLORTABLEARBPROC) (GLenum target, GLenum format, GLenum type, GLsizei bufSize, void *table); }
-{////typedef void (P PFNGLGETNCONVOLUTIONFILTERARBPROC) (GLenum target, GLenum format, GLenum type, GLsizei bufSize, void *image); }
-{////typedef void (P PFNGLGETNSEPARABLEFILTERARBPROC) (GLenum target, GLenum format, GLenum type, GLsizei rowBufSize, void *row, GLsizei columnBufSize, void *column, void *span); }
-{////typedef void (P PFNGLGETNHISTOGRAMARBPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void *values); }
-{////typedef void (P PFNGLGETNMINMAXARBPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, GLsizei bufSize, void *values); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGetGraphicsResetStatusARB:TGLenum;cdecl;external;
 procedure glGetnTexImageARB(target:TGLenum; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
@@ -4161,13 +2910,8 @@ procedure glGetnHistogramARB(target:TGLenum; reset:TGLboolean; format:TGLenum; _
             values:pointer);cdecl;external;
 procedure glGetnMinmaxARB(target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
             values:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_robustness */ }
-{////#ifndef GL_ARB_robustness_isolation }
 const
   GL_ARB_robustness_isolation = 1;  
-{////#endif /* GL_ARB_robustness_isolation */ }
-{////#ifndef GL_ARB_sample_locations }
   GL_ARB_sample_locations = 1;  
   GL_SAMPLE_LOCATION_SUBPIXEL_BITS_ARB = $933D;  
   GL_SAMPLE_LOCATION_PIXEL_GRID_WIDTH_ARB = $933E;  
@@ -4177,86 +2921,37 @@ const
   GL_PROGRAMMABLE_SAMPLE_LOCATION_ARB = $9341;  
   GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_ARB = $9342;  
   GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_ARB = $9343;  
-{////typedef void (P PFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC) (GLenum target, GLuint start, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC) (GLuint framebuffer, GLuint start, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLEVALUATEDEPTHVALUESARBPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferSampleLocationsfvARB(target:TGLenum; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glNamedFramebufferSampleLocationsfvARB(framebuffer:TGLuint; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glEvaluateDepthValuesARB;cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_sample_locations */ }
-{////#ifndef GL_ARB_sample_shading }
 const
   GL_ARB_sample_shading = 1;  
   GL_SAMPLE_SHADING_ARB = $8C36;  
   GL_MIN_SAMPLE_SHADING_VALUE_ARB = $8C37;  
-{////typedef void (P PFNGLMINSAMPLESHADINGARBPROC) (GLfloat value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMinSampleShadingARB(value:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_sample_shading */ }
-{////#ifndef GL_ARB_sampler_objects }
 const
   GL_ARB_sampler_objects = 1;  
-{////#endif /* GL_ARB_sampler_objects */ }
-{////#ifndef GL_ARB_seamless_cube_map }
   GL_ARB_seamless_cube_map = 1;  
-{////#endif /* GL_ARB_seamless_cube_map */ }
-{////#ifndef GL_ARB_seamless_cubemap_per_texture }
   GL_ARB_seamless_cubemap_per_texture = 1;  
-{////#endif /* GL_ARB_seamless_cubemap_per_texture */ }
-{////#ifndef GL_ARB_separate_shader_objects }
   GL_ARB_separate_shader_objects = 1;  
-{////#endif /* GL_ARB_separate_shader_objects */ }
-{////#ifndef GL_ARB_shader_atomic_counter_ops }
   GL_ARB_shader_atomic_counter_ops = 1;  
-{////#endif /* GL_ARB_shader_atomic_counter_ops */ }
-{////#ifndef GL_ARB_shader_atomic_counters }
   GL_ARB_shader_atomic_counters = 1;  
-{////#endif /* GL_ARB_shader_atomic_counters */ }
-{////#ifndef GL_ARB_shader_ballot }
   GL_ARB_shader_ballot = 1;  
-{////#endif /* GL_ARB_shader_ballot */ }
-{////#ifndef GL_ARB_shader_bit_encoding }
   GL_ARB_shader_bit_encoding = 1;  
-{////#endif /* GL_ARB_shader_bit_encoding */ }
-{////#ifndef GL_ARB_shader_clock }
   GL_ARB_shader_clock = 1;  
-{////#endif /* GL_ARB_shader_clock */ }
-{////#ifndef GL_ARB_shader_draw_parameters }
   GL_ARB_shader_draw_parameters = 1;  
-{////#endif /* GL_ARB_shader_draw_parameters */ }
-{////#ifndef GL_ARB_shader_group_vote }
   GL_ARB_shader_group_vote = 1;  
-{////#endif /* GL_ARB_shader_group_vote */ }
-{////#ifndef GL_ARB_shader_image_load_store }
   GL_ARB_shader_image_load_store = 1;  
-{////#endif /* GL_ARB_shader_image_load_store */ }
-{////#ifndef GL_ARB_shader_image_size }
   GL_ARB_shader_image_size = 1;  
-{////#endif /* GL_ARB_shader_image_size */ }
-{////#ifndef GL_ARB_shader_objects }
   GL_ARB_shader_objects = 1;  
-{////#ifdef __APPLE__ }
-{////#ifdef BUILDING_MESA }
 { Avoid uint <-> void* warnings  }
 type
   PGLhandleARB = ^TGLhandleARB;
   TGLhandleARB = dword;
-{////#else }
 
-  PGLhandleARB = ^TGLhandleARB;
-  TGLhandleARB = pointer;
-{////#endif }
-{////#else }
-
-  PGLhandleARB = ^TGLhandleARB;
-  TGLhandleARB = dword;
-{////#endif }
-
+  PPGLcharARB = ^PGLcharARB;
   PGLcharARB = ^TGLcharARB;
   TGLcharARB = char;
 
@@ -4295,46 +2990,6 @@ const
   GL_OBJECT_ACTIVE_UNIFORMS_ARB = $8B86;  
   GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB = $8B87;  
   GL_OBJECT_SHADER_SOURCE_LENGTH_ARB = $8B88;  
-{////typedef void (P PFNGLDELETEOBJECTARBPROC) (GLhandleARB obj); }
-{////typedef GLhandleARB (P PFNGLGETHANDLEARBPROC) (GLenum pname); }
-{////typedef void (P PFNGLDETACHOBJECTARBPROC) (GLhandleARB containerObj, GLhandleARB attachedObj); }
-{////typedef GLhandleARB (P PFNGLCREATESHADEROBJECTARBPROC) (GLenum shaderType); }
-{////typedef void (P PFNGLSHADERSOURCEARBPROC) (GLhandleARB shaderObj, GLsizei count,GLcharARB **string,GLint *length); }
-{////typedef void (P PFNGLCOMPILESHADERARBPROC) (GLhandleARB shaderObj); }
-{////typedef GLhandleARB (P PFNGLCREATEPROGRAMOBJECTARBPROC) (void); }
-{////typedef void (P PFNGLATTACHOBJECTARBPROC) (GLhandleARB containerObj, GLhandleARB obj); }
-{////typedef void (P PFNGLLINKPROGRAMARBPROC) (GLhandleARB programObj); }
-{////typedef void (P PFNGLUSEPROGRAMOBJECTARBPROC) (GLhandleARB programObj); }
-{////typedef void (P PFNGLVALIDATEPROGRAMARBPROC) (GLhandleARB programObj); }
-{////typedef void (P PFNGLUNIFORM1FARBPROC) (GLint location, GLfloat v0); }
-{////typedef void (P PFNGLUNIFORM2FARBPROC) (GLint location, GLfloat v0, GLfloat v1); }
-{////typedef void (P PFNGLUNIFORM3FARBPROC) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2); }
-{////typedef void (P PFNGLUNIFORM4FARBPROC) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3); }
-{////typedef void (P PFNGLUNIFORM1IARBPROC) (GLint location, GLint v0); }
-{////typedef void (P PFNGLUNIFORM2IARBPROC) (GLint location, GLint v0, GLint v1); }
-{////typedef void (P PFNGLUNIFORM3IARBPROC) (GLint location, GLint v0, GLint v1, GLint v2); }
-{////typedef void (P PFNGLUNIFORM4IARBPROC) (GLint location, GLint v0, GLint v1, GLint v2, GLint v3); }
-{////typedef void (P PFNGLUNIFORM1FVARBPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM2FVARBPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM3FVARBPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM4FVARBPROC) (GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORM1IVARBPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM2IVARBPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM3IVARBPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORM4IVARBPROC) (GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX2FVARBPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX3FVARBPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLUNIFORMMATRIX4FVARBPROC) (GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLGETOBJECTPARAMETERFVARBPROC) (GLhandleARB obj, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETOBJECTPARAMETERIVARBPROC) (GLhandleARB obj, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETINFOLOGARBPROC) (GLhandleARB obj, GLsizei maxLength, GLsizei *length, GLcharARB *infoLog); }
-{////typedef void (P PFNGLGETATTACHEDOBJECTSARBPROC) (GLhandleARB containerObj, GLsizei maxCount, GLsizei *count, GLhandleARB *obj); }
-{////typedef GLint (P PFNGLGETUNIFORMLOCATIONARBPROC) (GLhandleARB programObj,GLcharARB *name); }
-{////typedef void (P PFNGLGETACTIVEUNIFORMARBPROC) (GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name); }
-{////typedef void (P PFNGLGETUNIFORMFVARBPROC) (GLhandleARB programObj, GLint location, GLfloat *params); }
-{////typedef void (P PFNGLGETUNIFORMIVARBPROC) (GLhandleARB programObj, GLint location, GLint *params); }
-{////typedef void (P PFNGLGETSHADERSOURCEARBPROC) (GLhandleARB obj, GLsizei maxLength, GLsizei *length, GLcharARB *source); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDeleteObjectARB(obj:TGLhandleARB);cdecl;external;
 function glGetHandleARB(pname:TGLenum):TGLhandleARB;cdecl;external;
@@ -4376,49 +3031,21 @@ procedure glGetActiveUniformARB(programObj:TGLhandleARB; index:TGLuint; maxLengt
 procedure glGetUniformfvARB(programObj:TGLhandleARB; location:TGLint; params:PGLfloat);cdecl;external;
 procedure glGetUniformivARB(programObj:TGLhandleARB; location:TGLint; params:PGLint);cdecl;external;
 procedure glGetShaderSourceARB(obj:TGLhandleARB; maxLength:TGLsizei; length:PGLsizei; source:PGLcharARB);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_shader_objects */ }
-{////#ifndef GL_ARB_shader_precision }
 const
   GL_ARB_shader_precision = 1;  
-{////#endif /* GL_ARB_shader_precision */ }
-{////#ifndef GL_ARB_shader_stencil_export }
   GL_ARB_shader_stencil_export = 1;  
-{////#endif /* GL_ARB_shader_stencil_export */ }
-{////#ifndef GL_ARB_shader_storage_buffer_object }
   GL_ARB_shader_storage_buffer_object = 1;  
-{////#endif /* GL_ARB_shader_storage_buffer_object */ }
-{////#ifndef GL_ARB_shader_subroutine }
   GL_ARB_shader_subroutine = 1;  
-{////#endif /* GL_ARB_shader_subroutine */ }
-{////#ifndef GL_ARB_shader_texture_image_samples }
   GL_ARB_shader_texture_image_samples = 1;  
-{////#endif /* GL_ARB_shader_texture_image_samples */ }
-{////#ifndef GL_ARB_shader_texture_lod }
   GL_ARB_shader_texture_lod = 1;  
-{////#endif /* GL_ARB_shader_texture_lod */ }
-{////#ifndef GL_ARB_shader_viewport_layer_array }
   GL_ARB_shader_viewport_layer_array = 1;  
-{////#endif /* GL_ARB_shader_viewport_layer_array */ }
-{////#ifndef GL_ARB_shading_language_100 }
   GL_ARB_shading_language_100 = 1;  
   GL_SHADING_LANGUAGE_VERSION_ARB = $8B8C;  
-{////#endif /* GL_ARB_shading_language_100 */ }
-{////#ifndef GL_ARB_shading_language_420pack }
   GL_ARB_shading_language_420pack = 1;  
-{////#endif /* GL_ARB_shading_language_420pack */ }
-{////#ifndef GL_ARB_shading_language_include }
   GL_ARB_shading_language_include = 1;  
   GL_SHADER_INCLUDE_ARB = $8DAE;  
   GL_NAMED_STRING_LENGTH_ARB = $8DE9;  
   GL_NAMED_STRING_TYPE_ARB = $8DEA;  
-{////typedef void (P PFNGLNAMEDSTRINGARBPROC) (GLenum type, GLint namelen,GLchar *name, GLint stringlen,GLchar *string); }
-{////typedef void (P PFNGLDELETENAMEDSTRINGARBPROC) (GLint namelen,GLchar *name); }
-{////typedef void (P PFNGLCOMPILESHADERINCLUDEARBPROC) (GLuint shader, GLsizei count,GLchar **path,GLint *length); }
-{////typedef GLboolean (P PFNGLISNAMEDSTRINGARBPROC) (GLint namelen,GLchar *name); }
-{////typedef void (P PFNGLGETNAMEDSTRINGARBPROC) (GLint namelen,GLchar *name, GLsizei bufSize, GLint *stringlen, GLchar *string); }
-{////typedef void (P PFNGLGETNAMEDSTRINGIVARBPROC) (GLint namelen,GLchar *name, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glNamedStringARB(_type:TGLenum; namelen:TGLint; name:PGLchar; stringlen:TGLint; _string:PGLchar);cdecl;external;
 procedure glDeleteNamedStringARB(namelen:TGLint; name:PGLchar);cdecl;external;
@@ -4426,37 +3053,21 @@ procedure glCompileShaderIncludeARB(shader:TGLuint; count:TGLsizei; path:PPGLcha
 function glIsNamedStringARB(namelen:TGLint; name:PGLchar):TGLboolean;cdecl;external;
 procedure glGetNamedStringARB(namelen:TGLint; name:PGLchar; bufSize:TGLsizei; stringlen:PGLint; _string:PGLchar);cdecl;external;
 procedure glGetNamedStringivARB(namelen:TGLint; name:PGLchar; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_shading_language_include */ }
-{////#ifndef GL_ARB_shading_language_packing }
 const
   GL_ARB_shading_language_packing = 1;  
-{////#endif /* GL_ARB_shading_language_packing */ }
-{////#ifndef GL_ARB_shadow }
   GL_ARB_shadow = 1;  
   GL_TEXTURE_COMPARE_MODE_ARB = $884C;  
   GL_TEXTURE_COMPARE_FUNC_ARB = $884D;  
   GL_COMPARE_R_TO_TEXTURE_ARB = $884E;  
-{////#endif /* GL_ARB_shadow */ }
-{////#ifndef GL_ARB_shadow_ambient }
   GL_ARB_shadow_ambient = 1;  
   GL_TEXTURE_COMPARE_FAIL_VALUE_ARB = $80BF;  
-{////#endif /* GL_ARB_shadow_ambient */ }
-{////#ifndef GL_ARB_sparse_buffer }
   GL_ARB_sparse_buffer = 1;  
   GL_SPARSE_STORAGE_BIT_ARB = $0400;  
   GL_SPARSE_BUFFER_PAGE_SIZE_ARB = $82F8;  
-{////typedef void (P PFNGLBUFFERPAGECOMMITMENTARBPROC) (GLenum target, GLintptr offset, GLsizeiptr size, GLboolean commit); }
-{////typedef void (P PFNGLNAMEDBUFFERPAGECOMMITMENTEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit); }
-{////typedef void (P PFNGLNAMEDBUFFERPAGECOMMITMENTARBPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, GLboolean commit); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferPageCommitmentARB(target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; commit:TGLboolean);cdecl;external;
 procedure glNamedBufferPageCommitmentEXT(buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; commit:TGLboolean);cdecl;external;
 procedure glNamedBufferPageCommitmentARB(buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; commit:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_sparse_buffer */ }
-{////#ifndef GL_ARB_sparse_texture }
 const
   GL_ARB_sparse_texture = 1;  
   GL_TEXTURE_SPARSE_ARB = $91A6;  
@@ -4470,60 +3081,30 @@ const
   GL_MAX_SPARSE_3D_TEXTURE_SIZE_ARB = $9199;  
   GL_MAX_SPARSE_ARRAY_TEXTURE_LAYERS_ARB = $919A;  
   GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_ARB = $91A9;  
-{////typedef void (P PFNGLTEXPAGECOMMITMENTARBPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexPageCommitmentARB(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             width:TGLsizei; height:TGLsizei; depth:TGLsizei; commit:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_sparse_texture */ }
-{////#ifndef GL_ARB_sparse_texture2 }
 const
   GL_ARB_sparse_texture2 = 1;  
-{////#endif /* GL_ARB_sparse_texture2 */ }
-{////#ifndef GL_ARB_sparse_texture_clamp }
   GL_ARB_sparse_texture_clamp = 1;  
-{////#endif /* GL_ARB_sparse_texture_clamp */ }
-{////#ifndef GL_ARB_spirv_extensions }
   GL_ARB_spirv_extensions = 1;  
-{////#endif /* GL_ARB_spirv_extensions */ }
-{////#ifndef GL_ARB_stencil_texturing }
   GL_ARB_stencil_texturing = 1;  
-{////#endif /* GL_ARB_stencil_texturing */ }
-{////#ifndef GL_ARB_sync }
   GL_ARB_sync = 1;  
-{////#endif /* GL_ARB_sync */ }
-{////#ifndef GL_ARB_tessellation_shader }
   GL_ARB_tessellation_shader = 1;  
-{////#endif /* GL_ARB_tessellation_shader */ }
-{////#ifndef GL_ARB_texture_barrier }
   GL_ARB_texture_barrier = 1;  
-{////#endif /* GL_ARB_texture_barrier */ }
-{////#ifndef GL_ARB_texture_border_clamp }
   GL_ARB_texture_border_clamp = 1;  
   GL_CLAMP_TO_BORDER_ARB = $812D;  
-{////#endif /* GL_ARB_texture_border_clamp */ }
-{////#ifndef GL_ARB_texture_buffer_object }
   GL_ARB_texture_buffer_object = 1;  
   GL_TEXTURE_BUFFER_ARB = $8C2A;  
   GL_MAX_TEXTURE_BUFFER_SIZE_ARB = $8C2B;  
   GL_TEXTURE_BINDING_BUFFER_ARB = $8C2C;  
   GL_TEXTURE_BUFFER_DATA_STORE_BINDING_ARB = $8C2D;  
   GL_TEXTURE_BUFFER_FORMAT_ARB = $8C2E;  
-{////typedef void (P PFNGLTEXBUFFERARBPROC) (GLenum target, GLenum internalformat, GLuint buffer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexBufferARB(target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_texture_buffer_object */ }
-{////#ifndef GL_ARB_texture_buffer_object_rgb32 }
 const
   GL_ARB_texture_buffer_object_rgb32 = 1;  
-{////#endif /* GL_ARB_texture_buffer_object_rgb32 */ }
-{////#ifndef GL_ARB_texture_buffer_range }
   GL_ARB_texture_buffer_range = 1;  
-{////#endif /* GL_ARB_texture_buffer_range */ }
-{////#ifndef GL_ARB_texture_compression }
   GL_ARB_texture_compression = 1;  
   GL_COMPRESSED_ALPHA_ARB = $84E9;  
   GL_COMPRESSED_LUMINANCE_ARB = $84EA;  
@@ -4536,14 +3117,6 @@ const
   GL_TEXTURE_COMPRESSED_ARB = $86A1;  
   GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB = $86A2;  
   GL_COMPRESSED_TEXTURE_FORMATS_ARB = $86A3;  
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE3DARBPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE2DARBPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXIMAGE1DARBPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,void *data); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXIMAGEARBPROC) (GLenum target, GLint level, void *img); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCompressedTexImage3DARB(target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
             depth:TGLsizei; border:TGLint; imageSize:TGLsizei; data:pointer);cdecl;external;
@@ -4559,20 +3132,13 @@ procedure glCompressedTexSubImage2DARB(target:TGLenum; level:TGLint; xoffset:TGL
 procedure glCompressedTexSubImage1DARB(target:TGLenum; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum; 
             imageSize:TGLsizei; data:pointer);cdecl;external;
 procedure glGetCompressedTexImageARB(target:TGLenum; level:TGLint; img:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_texture_compression */ }
-{////#ifndef GL_ARB_texture_compression_bptc }
 const
   GL_ARB_texture_compression_bptc = 1;  
   GL_COMPRESSED_RGBA_BPTC_UNORM_ARB = $8E8C;  
   GL_COMPRESSED_SRGB_ALPHA_BPTC_UNORM_ARB = $8E8D;  
   GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT_ARB = $8E8E;  
   GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_ARB = $8E8F;  
-{////#endif /* GL_ARB_texture_compression_bptc */ }
-{////#ifndef GL_ARB_texture_compression_rgtc }
   GL_ARB_texture_compression_rgtc = 1;  
-{////#endif /* GL_ARB_texture_compression_rgtc */ }
-{////#ifndef GL_ARB_texture_cube_map }
   GL_ARB_texture_cube_map = 1;  
   GL_NORMAL_MAP_ARB = $8511;  
   GL_REFLECTION_MAP_ARB = $8512;  
@@ -4586,8 +3152,6 @@ const
   GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB = $851A;  
   GL_PROXY_TEXTURE_CUBE_MAP_ARB = $851B;  
   GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB = $851C;  
-{////#endif /* GL_ARB_texture_cube_map */ }
-{////#ifndef GL_ARB_texture_cube_map_array }
   GL_ARB_texture_cube_map_array = 1;  
   GL_TEXTURE_CUBE_MAP_ARRAY_ARB = $9009;  
   GL_TEXTURE_BINDING_CUBE_MAP_ARRAY_ARB = $900A;  
@@ -4596,11 +3160,7 @@ const
   GL_SAMPLER_CUBE_MAP_ARRAY_SHADOW_ARB = $900D;  
   GL_INT_SAMPLER_CUBE_MAP_ARRAY_ARB = $900E;  
   GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_ARB = $900F;  
-{////#endif /* GL_ARB_texture_cube_map_array */ }
-{////#ifndef GL_ARB_texture_env_add }
   GL_ARB_texture_env_add = 1;  
-{////#endif /* GL_ARB_texture_env_add */ }
-{////#ifndef GL_ARB_texture_env_combine }
   GL_ARB_texture_env_combine = 1;  
   GL_COMBINE_ARB = $8570;  
   GL_COMBINE_RGB_ARB = $8571;  
@@ -4624,24 +3184,14 @@ const
   GL_CONSTANT_ARB = $8576;  
   GL_PRIMARY_COLOR_ARB = $8577;  
   GL_PREVIOUS_ARB = $8578;  
-{////#endif /* GL_ARB_texture_env_combine */ }
-{////#ifndef GL_ARB_texture_env_crossbar }
   GL_ARB_texture_env_crossbar = 1;  
-{////#endif /* GL_ARB_texture_env_crossbar */ }
-{////#ifndef GL_ARB_texture_env_dot3 }
   GL_ARB_texture_env_dot3 = 1;  
   GL_DOT3_RGB_ARB = $86AE;  
   GL_DOT3_RGBA_ARB = $86AF;  
-{////#endif /* GL_ARB_texture_env_dot3 */ }
-{////#ifndef GL_ARB_texture_filter_anisotropic }
   GL_ARB_texture_filter_anisotropic = 1;  
-{////#endif /* GL_ARB_texture_filter_anisotropic */ }
-{////#ifndef GL_ARB_texture_filter_minmax }
   GL_ARB_texture_filter_minmax = 1;  
   GL_TEXTURE_REDUCTION_MODE_ARB = $9366;  
   GL_WEIGHTED_AVERAGE_ARB = $9367;  
-{////#endif /* GL_ARB_texture_filter_minmax */ }
-{////#ifndef GL_ARB_texture_float }
   GL_ARB_texture_float = 1;  
   GL_TEXTURE_RED_TYPE_ARB = $8C10;  
   GL_TEXTURE_GREEN_TYPE_ARB = $8C11;  
@@ -4663,112 +3213,52 @@ const
   GL_INTENSITY16F_ARB = $881D;  
   GL_LUMINANCE16F_ARB = $881E;  
   GL_LUMINANCE_ALPHA16F_ARB = $881F;  
-{////#endif /* GL_ARB_texture_float */ }
-{////#ifndef GL_ARB_texture_gather }
   GL_ARB_texture_gather = 1;  
   GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET_ARB = $8E5E;  
   GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET_ARB = $8E5F;  
   GL_MAX_PROGRAM_TEXTURE_GATHER_COMPONENTS_ARB = $8F9F;  
-{////#endif /* GL_ARB_texture_gather */ }
-{////#ifndef GL_ARB_texture_mirror_clamp_to_edge }
   GL_ARB_texture_mirror_clamp_to_edge = 1;  
-{////#endif /* GL_ARB_texture_mirror_clamp_to_edge */ }
-{////#ifndef GL_ARB_texture_mirrored_repeat }
   GL_ARB_texture_mirrored_repeat = 1;  
   GL_MIRRORED_REPEAT_ARB = $8370;  
-{////#endif /* GL_ARB_texture_mirrored_repeat */ }
-{////#ifndef GL_ARB_texture_multisample }
   GL_ARB_texture_multisample = 1;  
-{////#endif /* GL_ARB_texture_multisample */ }
-{////#ifndef GL_ARB_texture_non_power_of_two }
   GL_ARB_texture_non_power_of_two = 1;  
-{////#endif /* GL_ARB_texture_non_power_of_two */ }
-{////#ifndef GL_ARB_texture_query_levels }
   GL_ARB_texture_query_levels = 1;  
-{////#endif /* GL_ARB_texture_query_levels */ }
-{////#ifndef GL_ARB_texture_query_lod }
   GL_ARB_texture_query_lod = 1;  
-{////#endif /* GL_ARB_texture_query_lod */ }
-{////#ifndef GL_ARB_texture_rectangle }
   GL_ARB_texture_rectangle = 1;  
   GL_TEXTURE_RECTANGLE_ARB = $84F5;  
   GL_TEXTURE_BINDING_RECTANGLE_ARB = $84F6;  
   GL_PROXY_TEXTURE_RECTANGLE_ARB = $84F7;  
   GL_MAX_RECTANGLE_TEXTURE_SIZE_ARB = $84F8;  
-{////#endif /* GL_ARB_texture_rectangle */ }
-{////#ifndef GL_ARB_texture_rg }
   GL_ARB_texture_rg = 1;  
-{////#endif /* GL_ARB_texture_rg */ }
-{////#ifndef GL_ARB_texture_rgb10_a2ui }
   GL_ARB_texture_rgb10_a2ui = 1;  
-{////#endif /* GL_ARB_texture_rgb10_a2ui */ }
-{////#ifndef GL_ARB_texture_stencil8 }
   GL_ARB_texture_stencil8 = 1;  
-{////#endif /* GL_ARB_texture_stencil8 */ }
-{////#ifndef GL_ARB_texture_storage }
   GL_ARB_texture_storage = 1;  
-{////#endif /* GL_ARB_texture_storage */ }
-{////#ifndef GL_ARB_texture_storage_multisample }
   GL_ARB_texture_storage_multisample = 1;  
-{////#endif /* GL_ARB_texture_storage_multisample */ }
-{////#ifndef GL_ARB_texture_swizzle }
   GL_ARB_texture_swizzle = 1;  
-{////#endif /* GL_ARB_texture_swizzle */ }
-{////#ifndef GL_ARB_texture_view }
   GL_ARB_texture_view = 1;  
-{////#endif /* GL_ARB_texture_view */ }
-{////#ifndef GL_ARB_timer_query }
   GL_ARB_timer_query = 1;  
-{////#endif /* GL_ARB_timer_query */ }
-{////#ifndef GL_ARB_transform_feedback2 }
   GL_ARB_transform_feedback2 = 1;  
-{////#endif /* GL_ARB_transform_feedback2 */ }
-{////#ifndef GL_ARB_transform_feedback3 }
   GL_ARB_transform_feedback3 = 1;  
-{////#endif /* GL_ARB_transform_feedback3 */ }
-{////#ifndef GL_ARB_transform_feedback_instanced }
   GL_ARB_transform_feedback_instanced = 1;  
-{////#endif /* GL_ARB_transform_feedback_instanced */ }
-{////#ifndef GL_ARB_transform_feedback_overflow_query }
   GL_ARB_transform_feedback_overflow_query = 1;  
   GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB = $82EC;  
   GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB = $82ED;  
-{////#endif /* GL_ARB_transform_feedback_overflow_query */ }
-{////#ifndef GL_ARB_transpose_matrix }
   GL_ARB_transpose_matrix = 1;  
   GL_TRANSPOSE_MODELVIEW_MATRIX_ARB = $84E3;  
   GL_TRANSPOSE_PROJECTION_MATRIX_ARB = $84E4;  
   GL_TRANSPOSE_TEXTURE_MATRIX_ARB = $84E5;  
   GL_TRANSPOSE_COLOR_MATRIX_ARB = $84E6;  
-{////typedef void (P PFNGLLOADTRANSPOSEMATRIXFARBPROC) ( GLfloat *m); }
-{////typedef void (P PFNGLLOADTRANSPOSEMATRIXDARBPROC) ( GLdouble *m); }
-{////typedef void (P PFNGLMULTTRANSPOSEMATRIXFARBPROC) ( GLfloat *m); }
-{////typedef void (P PFNGLMULTTRANSPOSEMATRIXDARBPROC) ( GLdouble *m); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glLoadTransposeMatrixfARB(m:PGLfloat);cdecl;external;
 procedure glLoadTransposeMatrixdARB(m:PGLdouble);cdecl;external;
 procedure glMultTransposeMatrixfARB(m:PGLfloat);cdecl;external;
 procedure glMultTransposeMatrixdARB(m:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_transpose_matrix */ }
-{////#ifndef GL_ARB_uniform_buffer_object }
 const
   GL_ARB_uniform_buffer_object = 1;  
-{////#endif /* GL_ARB_uniform_buffer_object */ }
-{////#ifndef GL_ARB_vertex_array_bgra }
   GL_ARB_vertex_array_bgra = 1;  
-{////#endif /* GL_ARB_vertex_array_bgra */ }
-{////#ifndef GL_ARB_vertex_array_object }
   GL_ARB_vertex_array_object = 1;  
-{////#endif /* GL_ARB_vertex_array_object */ }
-{////#ifndef GL_ARB_vertex_attrib_64bit }
   GL_ARB_vertex_attrib_64bit = 1;  
-{////#endif /* GL_ARB_vertex_attrib_64bit */ }
-{////#ifndef GL_ARB_vertex_attrib_binding }
   GL_ARB_vertex_attrib_binding = 1;  
-{////#endif /* GL_ARB_vertex_attrib_binding */ }
-{////#ifndef GL_ARB_vertex_blend }
   GL_ARB_vertex_blend = 1;  
   GL_MAX_VERTEX_UNITS_ARB = $86A4;  
   GL_ACTIVE_VERTEX_UNITS_ARB = $86A5;  
@@ -4812,17 +3302,6 @@ const
   GL_MODELVIEW29_ARB = $873D;  
   GL_MODELVIEW30_ARB = $873E;  
   GL_MODELVIEW31_ARB = $873F;  
-{////typedef void (P PFNGLWEIGHTBVARBPROC) (GLint size,GLbyte *weights); }
-{////typedef void (P PFNGLWEIGHTSVARBPROC) (GLint size,GLshort *weights); }
-{////typedef void (P PFNGLWEIGHTIVARBPROC) (GLint size,GLint *weights); }
-{////typedef void (P PFNGLWEIGHTFVARBPROC) (GLint size,GLfloat *weights); }
-{////typedef void (P PFNGLWEIGHTDVARBPROC) (GLint size,GLdouble *weights); }
-{////typedef void (P PFNGLWEIGHTUBVARBPROC) (GLint size,GLubyte *weights); }
-{////typedef void (P PFNGLWEIGHTUSVARBPROC) (GLint size,GLushort *weights); }
-{////typedef void (P PFNGLWEIGHTUIVARBPROC) (GLint size,GLuint *weights); }
-{////typedef void (P PFNGLWEIGHTPOINTERARBPROC) (GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLVERTEXBLENDARBPROC) (GLint count); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glWeightbvARB(size:TGLint; weights:PGLbyte);cdecl;external;
 procedure glWeightsvARB(size:TGLint; weights:PGLshort);cdecl;external;
@@ -4834,9 +3313,6 @@ procedure glWeightusvARB(size:TGLint; weights:PGLushort);cdecl;external;
 procedure glWeightuivARB(size:TGLint; weights:PGLuint);cdecl;external;
 procedure glWeightPointerARB(size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
 procedure glVertexBlendARB(count:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_vertex_blend */ }
-{////#ifndef GL_ARB_vertex_buffer_object }
 const
   GL_ARB_vertex_buffer_object = 1;  
 type
@@ -4878,18 +3354,6 @@ const
   GL_DYNAMIC_DRAW_ARB = $88E8;  
   GL_DYNAMIC_READ_ARB = $88E9;  
   GL_DYNAMIC_COPY_ARB = $88EA;  
-{////typedef void (P PFNGLBINDBUFFERARBPROC) (GLenum target, GLuint buffer); }
-{////typedef void (P PFNGLDELETEBUFFERSARBPROC) (GLsizei n,GLuint *buffers); }
-{////typedef void (P PFNGLGENBUFFERSARBPROC) (GLsizei n, GLuint *buffers); }
-{////typedef GLboolean (P PFNGLISBUFFERARBPROC) (GLuint buffer); }
-{////typedef void (P PFNGLBUFFERDATAARBPROC) (GLenum target, GLsizeiptrARB size,void *data, GLenum usage); }
-{////typedef void (P PFNGLBUFFERSUBDATAARBPROC) (GLenum target, GLintptrARB offset, GLsizeiptrARB size,void *data); }
-{////typedef void (P PFNGLGETBUFFERSUBDATAARBPROC) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, void *data); }
-{////typedef void *(P PFNGLMAPBUFFERARBPROC) (GLenum target, GLenum access); }
-{////typedef GLboolean (P PFNGLUNMAPBUFFERARBPROC) (GLenum target); }
-{////typedef void (P PFNGLGETBUFFERPARAMETERIVARBPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETBUFFERPOINTERVARBPROC) (GLenum target, GLenum pname, void **params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindBufferARB(target:TGLenum; buffer:TGLuint);cdecl;external;
 procedure glDeleteBuffersARB(n:TGLsizei; buffers:PGLuint);cdecl;external;
@@ -4902,9 +3366,6 @@ function glMapBufferARB(target:TGLenum; access:TGLenum):pointer;cdecl;external;
 function glUnmapBufferARB(target:TGLenum):TGLboolean;cdecl;external;
 procedure glGetBufferParameterivARB(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetBufferPointervARB(target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_vertex_buffer_object */ }
-{////#ifndef GL_ARB_vertex_program }
 const
   GL_ARB_vertex_program = 1;  
   GL_COLOR_SUM_ARB = $8458;  
@@ -4923,50 +3384,6 @@ const
   GL_MAX_PROGRAM_ADDRESS_REGISTERS_ARB = $88B1;  
   GL_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB = $88B2;  
   GL_MAX_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB = $88B3;  
-{////typedef void (P PFNGLVERTEXATTRIB1DARBPROC) (GLuint index, GLdouble x); }
-{////typedef void (P PFNGLVERTEXATTRIB1DVARBPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1FARBPROC) (GLuint index, GLfloat x); }
-{////typedef void (P PFNGLVERTEXATTRIB1FVARBPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1SARBPROC) (GLuint index, GLshort x); }
-{////typedef void (P PFNGLVERTEXATTRIB1SVARBPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2DARBPROC) (GLuint index, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXATTRIB2DVARBPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2FARBPROC) (GLuint index, GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLVERTEXATTRIB2FVARBPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2SARBPROC) (GLuint index, GLshort x, GLshort y); }
-{////typedef void (P PFNGLVERTEXATTRIB2SVARBPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3DARBPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXATTRIB3DVARBPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3FARBPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLVERTEXATTRIB3FVARBPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3SARBPROC) (GLuint index, GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLVERTEXATTRIB3SVARBPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NBVARBPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NIVARBPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NSVARBPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUBARBPROC) (GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUBVARBPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUIVARBPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4NUSVARBPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4BVARBPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4DARBPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXATTRIB4DVARBPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4FARBPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLVERTEXATTRIB4FVARBPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4IVARBPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4SARBPROC) (GLuint index, GLshort x, GLshort y, GLshort z, GLshort w); }
-{////typedef void (P PFNGLVERTEXATTRIB4SVARBPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4UBVARBPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4UIVARBPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4USVARBPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBPOINTERARBPROC) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLENABLEVERTEXATTRIBARRAYARBPROC) (GLuint index); }
-{////typedef void (P PFNGLDISABLEVERTEXATTRIBARRAYARBPROC) (GLuint index); }
-{////typedef void (P PFNGLGETVERTEXATTRIBDVARBPROC) (GLuint index, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBFVARBPROC) (GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIVARBPROC) (GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBPOINTERVARBPROC) (GLuint index, GLenum pname, void **pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttrib1dARB(index:TGLuint; x:TGLdouble);cdecl;external;
 procedure glVertexAttrib1dvARB(index:TGLuint; v:PGLdouble);cdecl;external;
@@ -5012,9 +3429,6 @@ procedure glGetVertexAttribdvARB(index:TGLuint; pname:TGLenum; params:PGLdouble)
 procedure glGetVertexAttribfvARB(index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetVertexAttribivARB(index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetVertexAttribPointervARB(index:TGLuint; pname:TGLenum; pointer:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_vertex_program */ }
-{////#ifndef GL_ARB_vertex_shader }
 const
   GL_ARB_vertex_shader = 1;  
   GL_VERTEX_SHADER_ARB = $8B31;  
@@ -5024,54 +3438,20 @@ const
   GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB = $8B4D;  
   GL_OBJECT_ACTIVE_ATTRIBUTES_ARB = $8B89;  
   GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB = $8B8A;  
-{////typedef void (P PFNGLBINDATTRIBLOCATIONARBPROC) (GLhandleARB programObj, GLuint index,GLcharARB *name); }
-{////typedef void (P PFNGLGETACTIVEATTRIBARBPROC) (GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name); }
-{////typedef GLint (P PFNGLGETATTRIBLOCATIONARBPROC) (GLhandleARB programObj,GLcharARB *name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindAttribLocationARB(programObj:TGLhandleARB; index:TGLuint; name:PGLcharARB);cdecl;external;
 procedure glGetActiveAttribARB(programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint; 
             _type:PGLenum; name:PGLcharARB);cdecl;external;
 function glGetAttribLocationARB(programObj:TGLhandleARB; name:PGLcharARB):TGLint;cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_vertex_shader */ }
-{////#ifndef GL_ARB_vertex_type_10f_11f_11f_rev }
 const
   GL_ARB_vertex_type_10f_11f_11f_rev = 1;  
-{////#endif /* GL_ARB_vertex_type_10f_11f_11f_rev */ }
-{////#ifndef GL_ARB_vertex_type_2_10_10_10_rev }
   GL_ARB_vertex_type_2_10_10_10_rev = 1;  
-{////#endif /* GL_ARB_vertex_type_2_10_10_10_rev */ }
-{////#ifndef GL_ARB_viewport_array }
   GL_ARB_viewport_array = 1;  
-{////typedef void (P PFNGLDEPTHRANGEARRAYDVNVPROC) (GLuint first, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLDEPTHRANGEINDEXEDDNVPROC) (GLuint index, GLdouble n, GLdouble f); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDepthRangeArraydvNV(first:TGLuint; count:TGLsizei; v:PGLdouble);cdecl;external;
 procedure glDepthRangeIndexeddNV(index:TGLuint; n:TGLdouble; f:TGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_viewport_array */ }
-{////#ifndef GL_ARB_window_pos }
 const
   GL_ARB_window_pos = 1;  
-{////typedef void (P PFNGLWINDOWPOS2DARBPROC) (GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLWINDOWPOS2DVARBPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS2FARBPROC) (GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLWINDOWPOS2FVARBPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS2IARBPROC) (GLint x, GLint y); }
-{////typedef void (P PFNGLWINDOWPOS2IVARBPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS2SARBPROC) (GLshort x, GLshort y); }
-{////typedef void (P PFNGLWINDOWPOS2SVARBPROC) ( GLshort *v); }
-{////typedef void (P PFNGLWINDOWPOS3DARBPROC) (GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLWINDOWPOS3DVARBPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS3FARBPROC) (GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLWINDOWPOS3FVARBPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS3IARBPROC) (GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLWINDOWPOS3IVARBPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS3SARBPROC) (GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLWINDOWPOS3SVARBPROC) ( GLshort *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glWindowPos2dARB(x:TGLdouble; y:TGLdouble);cdecl;external;
 procedure glWindowPos2dvARB(v:PGLdouble);cdecl;external;
@@ -5089,9 +3469,6 @@ procedure glWindowPos3iARB(x:TGLint; y:TGLint; z:TGLint);cdecl;external;
 procedure glWindowPos3ivARB(v:PGLint);cdecl;external;
 procedure glWindowPos3sARB(x:TGLshort; y:TGLshort; z:TGLshort);cdecl;external;
 procedure glWindowPos3svARB(v:PGLshort);cdecl;external;
-{////#endif }
-{////#endif /* GL_ARB_window_pos */ }
-{////#ifndef GL_KHR_blend_equation_advanced }
 const
   GL_KHR_blend_equation_advanced = 1;  
   GL_MULTIPLY_KHR = $9294;  
@@ -5109,46 +3486,24 @@ const
   GL_HSL_SATURATION_KHR = $92AE;  
   GL_HSL_COLOR_KHR = $92AF;  
   GL_HSL_LUMINOSITY_KHR = $92B0;  
-{////typedef void (P PFNGLBLENDBARRIERKHRPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendBarrierKHR;cdecl;external;
-{////#endif }
-{////#endif /* GL_KHR_blend_equation_advanced */ }
-{////#ifndef GL_KHR_blend_equation_advanced_coherent }
 const
   GL_KHR_blend_equation_advanced_coherent = 1;  
   GL_BLEND_ADVANCED_COHERENT_KHR = $9285;  
-{////#endif /* GL_KHR_blend_equation_advanced_coherent */ }
-{////#ifndef GL_KHR_context_flush_control }
   GL_KHR_context_flush_control = 1;  
-{////#endif /* GL_KHR_context_flush_control */ }
-{////#ifndef GL_KHR_debug }
   GL_KHR_debug = 1;  
-{////#endif /* GL_KHR_debug */ }
-{////#ifndef GL_KHR_no_error }
   GL_KHR_no_error = 1;  
   GL_CONTEXT_FLAG_NO_ERROR_BIT_KHR = $00000008;  
-{////#endif /* GL_KHR_no_error */ }
-{////#ifndef GL_KHR_parallel_shader_compile }
   GL_KHR_parallel_shader_compile = 1;  
   GL_MAX_SHADER_COMPILER_THREADS_KHR = $91B0;  
   GL_COMPLETION_STATUS_KHR = $91B1;  
-{////typedef void (P PFNGLMAXSHADERCOMPILERTHREADSKHRPROC) (GLuint count); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMaxShaderCompilerThreadsKHR(count:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_KHR_parallel_shader_compile */ }
-{////#ifndef GL_KHR_robust_buffer_access_behavior }
 const
   GL_KHR_robust_buffer_access_behavior = 1;  
-{////#endif /* GL_KHR_robust_buffer_access_behavior */ }
-{////#ifndef GL_KHR_robustness }
   GL_KHR_robustness = 1;  
   GL_CONTEXT_ROBUST_ACCESS = $90F3;  
-{////#endif /* GL_KHR_robustness */ }
-{////#ifndef GL_KHR_shader_subgroup }
   GL_KHR_shader_subgroup = 1;  
   GL_SUBGROUP_SIZE_KHR = $9532;  
   GL_SUBGROUP_SUPPORTED_STAGES_KHR = $9533;  
@@ -5162,8 +3517,6 @@ const
   GL_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT_KHR = $00000020;  
   GL_SUBGROUP_FEATURE_CLUSTERED_BIT_KHR = $00000040;  
   GL_SUBGROUP_FEATURE_QUAD_BIT_KHR = $00000080;  
-{////#endif /* GL_KHR_shader_subgroup */ }
-{////#ifndef GL_KHR_texture_compression_astc_hdr }
   GL_KHR_texture_compression_astc_hdr = 1;  
   GL_COMPRESSED_RGBA_ASTC_4x4_KHR = $93B0;  
   GL_COMPRESSED_RGBA_ASTC_5x4_KHR = $93B1;  
@@ -5193,38 +3546,9 @@ const
   GL_COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR = $93DB;  
   GL_COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR = $93DC;  
   GL_COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR = $93DD;  
-{////#endif /* GL_KHR_texture_compression_astc_hdr */ }
-{////#ifndef GL_KHR_texture_compression_astc_ldr }
   GL_KHR_texture_compression_astc_ldr = 1;  
-{////#endif /* GL_KHR_texture_compression_astc_ldr */ }
-{////#ifndef GL_KHR_texture_compression_astc_sliced_3d }
   GL_KHR_texture_compression_astc_sliced_3d = 1;  
-{////#endif /* GL_KHR_texture_compression_astc_sliced_3d */ }
-{////#ifndef GL_OES_byte_coordinates }
   GL_OES_byte_coordinates = 1;  
-{////typedef void (P PFNGLMULTITEXCOORD1BOESPROC) (GLenum texture, GLbyte s); }
-{////typedef void (P PFNGLMULTITEXCOORD1BVOESPROC) (GLenum texture,GLbyte *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD2BOESPROC) (GLenum texture, GLbyte s, GLbyte t); }
-{////typedef void (P PFNGLMULTITEXCOORD2BVOESPROC) (GLenum texture,GLbyte *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD3BOESPROC) (GLenum texture, GLbyte s, GLbyte t, GLbyte r); }
-{////typedef void (P PFNGLMULTITEXCOORD3BVOESPROC) (GLenum texture,GLbyte *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD4BOESPROC) (GLenum texture, GLbyte s, GLbyte t, GLbyte r, GLbyte q); }
-{////typedef void (P PFNGLMULTITEXCOORD4BVOESPROC) (GLenum texture,GLbyte *coords); }
-{////typedef void (P PFNGLTEXCOORD1BOESPROC) (GLbyte s); }
-{////typedef void (P PFNGLTEXCOORD1BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLTEXCOORD2BOESPROC) (GLbyte s, GLbyte t); }
-{////typedef void (P PFNGLTEXCOORD2BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLTEXCOORD3BOESPROC) (GLbyte s, GLbyte t, GLbyte r); }
-{////typedef void (P PFNGLTEXCOORD3BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLTEXCOORD4BOESPROC) (GLbyte s, GLbyte t, GLbyte r, GLbyte q); }
-{////typedef void (P PFNGLTEXCOORD4BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLVERTEX2BOESPROC) (GLbyte x, GLbyte y); }
-{////typedef void (P PFNGLVERTEX2BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLVERTEX3BOESPROC) (GLbyte x, GLbyte y, GLbyte z); }
-{////typedef void (P PFNGLVERTEX3BVOESPROC) ( GLbyte *coords); }
-{////typedef void (P PFNGLVERTEX4BOESPROC) (GLbyte x, GLbyte y, GLbyte z, GLbyte w); }
-{////typedef void (P PFNGLVERTEX4BVOESPROC) ( GLbyte *coords); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiTexCoord1bOES(texture:TGLenum; s:TGLbyte);cdecl;external;
 procedure glMultiTexCoord1bvOES(texture:TGLenum; coords:PGLbyte);cdecl;external;
@@ -5248,9 +3572,6 @@ procedure glVertex3bOES(x:TGLbyte; y:TGLbyte; z:TGLbyte);cdecl;external;
 procedure glVertex3bvOES(coords:PGLbyte);cdecl;external;
 procedure glVertex4bOES(x:TGLbyte; y:TGLbyte; z:TGLbyte; w:TGLbyte);cdecl;external;
 procedure glVertex4bvOES(coords:PGLbyte);cdecl;external;
-{////#endif }
-{////#endif /* GL_OES_byte_coordinates */ }
-{////#ifndef GL_OES_compressed_paletted_texture }
 const
   GL_OES_compressed_paletted_texture = 1;  
   GL_PALETTE4_RGB8_OES = $8B90;  
@@ -5263,8 +3584,6 @@ const
   GL_PALETTE8_R5_G6_B5_OES = $8B97;  
   GL_PALETTE8_RGBA4_OES = $8B98;  
   GL_PALETTE8_RGB5_A1_OES = $8B99;  
-{////#endif /* GL_OES_compressed_paletted_texture */ }
-{////#ifndef GL_OES_fixed_point }
   GL_OES_fixed_point = 1;  
 type
   PGLfixed = ^TGLfixed;
@@ -5272,110 +3591,6 @@ type
 
 const
   GL_FIXED_OES = $140C;  
-{////typedef void (P PFNGLALPHAFUNCXOESPROC) (GLenum func, GLfixed ref); }
-{////typedef void (P PFNGLCLEARCOLORXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha); }
-{////typedef void (P PFNGLCLEARDEPTHXOESPROC) (GLfixed depth); }
-{////typedef void (P PFNGLCLIPPLANEXOESPROC) (GLenum plane,GLfixed *equation); }
-{////typedef void (P PFNGLCOLOR4XOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha); }
-{////typedef void (P PFNGLDEPTHRANGEXOESPROC) (GLfixed n, GLfixed f); }
-{////typedef void (P PFNGLFOGXOESPROC) (GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLFOGXVOESPROC) (GLenum pname,GLfixed *param); }
-{////typedef void (P PFNGLFRUSTUMXOESPROC) (GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f); }
-{////typedef void (P PFNGLGETCLIPPLANEXOESPROC) (GLenum plane, GLfixed *equation); }
-{////typedef void (P PFNGLGETFIXEDVOESPROC) (GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETTEXENVXVOESPROC) (GLenum target, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETTEXPARAMETERXVOESPROC) (GLenum target, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLLIGHTMODELXOESPROC) (GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLLIGHTMODELXVOESPROC) (GLenum pname,GLfixed *param); }
-{////typedef void (P PFNGLLIGHTXOESPROC) (GLenum light, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLLIGHTXVOESPROC) (GLenum light, GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLLINEWIDTHXOESPROC) (GLfixed width); }
-{////typedef void (P PFNGLLOADMATRIXXOESPROC) ( GLfixed *m); }
-{////typedef void (P PFNGLMATERIALXOESPROC) (GLenum face, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLMATERIALXVOESPROC) (GLenum face, GLenum pname,GLfixed *param); }
-{////typedef void (P PFNGLMULTMATRIXXOESPROC) ( GLfixed *m); }
-{////typedef void (P PFNGLMULTITEXCOORD4XOESPROC) (GLenum texture, GLfixed s, GLfixed t, GLfixed r, GLfixed q); }
-{////typedef void (P PFNGLNORMAL3XOESPROC) (GLfixed nx, GLfixed ny, GLfixed nz); }
-{////typedef void (P PFNGLORTHOXOESPROC) (GLfixed l, GLfixed r, GLfixed b, GLfixed t, GLfixed n, GLfixed f); }
-{////typedef void (P PFNGLPOINTPARAMETERXVOESPROC) (GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLPOINTSIZEXOESPROC) (GLfixed size); }
-{////typedef void (P PFNGLPOLYGONOFFSETXOESPROC) (GLfixed factor, GLfixed units); }
-{////typedef void (P PFNGLROTATEXOESPROC) (GLfixed angle, GLfixed x, GLfixed y, GLfixed z); }
-{////typedef void (P PFNGLSCALEXOESPROC) (GLfixed x, GLfixed y, GLfixed z); }
-{////typedef void (P PFNGLTEXENVXOESPROC) (GLenum target, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLTEXENVXVOESPROC) (GLenum target, GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLTEXPARAMETERXOESPROC) (GLenum target, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLTEXPARAMETERXVOESPROC) (GLenum target, GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLTRANSLATEXOESPROC) (GLfixed x, GLfixed y, GLfixed z); }
-{////typedef void (P PFNGLACCUMXOESPROC) (GLenum op, GLfixed value); }
-{////typedef void (P PFNGLBITMAPXOESPROC) (GLsizei width, GLsizei height, GLfixed xorig, GLfixed yorig, GLfixed xmove, GLfixed ymove,GLubyte *bitmap); }
-{////typedef void (P PFNGLBLENDCOLORXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha); }
-{////typedef void (P PFNGLCLEARACCUMXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha); }
-{////typedef void (P PFNGLCOLOR3XOESPROC) (GLfixed red, GLfixed green, GLfixed blue); }
-{////typedef void (P PFNGLCOLOR3XVOESPROC) ( GLfixed *components); }
-{////typedef void (P PFNGLCOLOR4XVOESPROC) ( GLfixed *components); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERXOESPROC) (GLenum target, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERXVOESPROC) (GLenum target, GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLEVALCOORD1XOESPROC) (GLfixed u); }
-{////typedef void (P PFNGLEVALCOORD1XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLEVALCOORD2XOESPROC) (GLfixed u, GLfixed v); }
-{////typedef void (P PFNGLEVALCOORD2XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLFEEDBACKBUFFERXOESPROC) (GLsizei n, GLenum type,GLfixed *buffer); }
-{////typedef void (P PFNGLGETCONVOLUTIONPARAMETERXVOESPROC) (GLenum target, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETHISTOGRAMPARAMETERXVOESPROC) (GLenum target, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETLIGHTXOESPROC) (GLenum light, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETMAPXVOESPROC) (GLenum target, GLenum query, GLfixed *v); }
-{////typedef void (P PFNGLGETMATERIALXOESPROC) (GLenum face, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLGETPIXELMAPXVPROC) (GLenum map, GLint size, GLfixed *values); }
-{////typedef void (P PFNGLGETTEXGENXVOESPROC) (GLenum coord, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLGETTEXLEVELPARAMETERXVOESPROC) (GLenum target, GLint level, GLenum pname, GLfixed *params); }
-{////typedef void (P PFNGLINDEXXOESPROC) (GLfixed component); }
-{////typedef void (P PFNGLINDEXXVOESPROC) ( GLfixed *component); }
-{////typedef void (P PFNGLLOADTRANSPOSEMATRIXXOESPROC) ( GLfixed *m); }
-{////typedef void (P PFNGLMAP1XOESPROC) (GLenum target, GLfixed u1, GLfixed u2, GLint stride, GLint order, GLfixed points); }
-{////typedef void (P PFNGLMAP2XOESPROC) (GLenum target, GLfixed u1, GLfixed u2, GLint ustride, GLint uorder, GLfixed v1, GLfixed v2, GLint vstride, GLint vorder, GLfixed points); }
-{////typedef void (P PFNGLMAPGRID1XOESPROC) (GLint n, GLfixed u1, GLfixed u2); }
-{////typedef void (P PFNGLMAPGRID2XOESPROC) (GLint n, GLfixed u1, GLfixed u2, GLfixed v1, GLfixed v2); }
-{////typedef void (P PFNGLMULTTRANSPOSEMATRIXXOESPROC) ( GLfixed *m); }
-{////typedef void (P PFNGLMULTITEXCOORD1XOESPROC) (GLenum texture, GLfixed s); }
-{////typedef void (P PFNGLMULTITEXCOORD1XVOESPROC) (GLenum texture,GLfixed *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD2XOESPROC) (GLenum texture, GLfixed s, GLfixed t); }
-{////typedef void (P PFNGLMULTITEXCOORD2XVOESPROC) (GLenum texture,GLfixed *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD3XOESPROC) (GLenum texture, GLfixed s, GLfixed t, GLfixed r); }
-{////typedef void (P PFNGLMULTITEXCOORD3XVOESPROC) (GLenum texture,GLfixed *coords); }
-{////typedef void (P PFNGLMULTITEXCOORD4XVOESPROC) (GLenum texture,GLfixed *coords); }
-{////typedef void (P PFNGLNORMAL3XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLPASSTHROUGHXOESPROC) (GLfixed token); }
-{////typedef void (P PFNGLPIXELMAPXPROC) (GLenum map, GLint size,GLfixed *values); }
-{////typedef void (P PFNGLPIXELSTOREXPROC) (GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLPIXELTRANSFERXOESPROC) (GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLPIXELZOOMXOESPROC) (GLfixed xfactor, GLfixed yfactor); }
-{////typedef void (P PFNGLPRIORITIZETEXTURESXOESPROC) (GLsizei n,GLuint *textures,GLfixed *priorities); }
-{////typedef void (P PFNGLRASTERPOS2XOESPROC) (GLfixed x, GLfixed y); }
-{////typedef void (P PFNGLRASTERPOS2XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLRASTERPOS3XOESPROC) (GLfixed x, GLfixed y, GLfixed z); }
-{////typedef void (P PFNGLRASTERPOS3XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLRASTERPOS4XOESPROC) (GLfixed x, GLfixed y, GLfixed z, GLfixed w); }
-{////typedef void (P PFNGLRASTERPOS4XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLRECTXOESPROC) (GLfixed x1, GLfixed y1, GLfixed x2, GLfixed y2); }
-{////typedef void (P PFNGLRECTXVOESPROC) ( GLfixed *v1,GLfixed *v2); }
-{////typedef void (P PFNGLTEXCOORD1XOESPROC) (GLfixed s); }
-{////typedef void (P PFNGLTEXCOORD1XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLTEXCOORD2XOESPROC) (GLfixed s, GLfixed t); }
-{////typedef void (P PFNGLTEXCOORD2XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLTEXCOORD3XOESPROC) (GLfixed s, GLfixed t, GLfixed r); }
-{////typedef void (P PFNGLTEXCOORD3XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLTEXCOORD4XOESPROC) (GLfixed s, GLfixed t, GLfixed r, GLfixed q); }
-{////typedef void (P PFNGLTEXCOORD4XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLTEXGENXOESPROC) (GLenum coord, GLenum pname, GLfixed param); }
-{////typedef void (P PFNGLTEXGENXVOESPROC) (GLenum coord, GLenum pname,GLfixed *params); }
-{////typedef void (P PFNGLVERTEX2XOESPROC) (GLfixed x); }
-{////typedef void (P PFNGLVERTEX2XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLVERTEX3XOESPROC) (GLfixed x, GLfixed y); }
-{////typedef void (P PFNGLVERTEX3XVOESPROC) ( GLfixed *coords); }
-{////typedef void (P PFNGLVERTEX4XOESPROC) (GLfixed x, GLfixed y, GLfixed z); }
-{////typedef void (P PFNGLVERTEX4XVOESPROC) ( GLfixed *coords); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glAlphaFuncxOES(func:TGLenum; ref:TGLfixed);cdecl;external;
 procedure glClearColorxOES(red:TGLfixed; green:TGLfixed; blue:TGLfixed; alpha:TGLfixed);cdecl;external;
@@ -5485,32 +3700,15 @@ procedure glVertex3xOES(x:TGLfixed; y:TGLfixed);cdecl;external;
 procedure glVertex3xvOES(coords:PGLfixed);cdecl;external;
 procedure glVertex4xOES(x:TGLfixed; y:TGLfixed; z:TGLfixed);cdecl;external;
 procedure glVertex4xvOES(coords:PGLfixed);cdecl;external;
-{////#endif }
-{////#endif /* GL_OES_fixed_point */ }
-{////#ifndef GL_OES_query_matrix }
 const
   GL_OES_query_matrix = 1;  
-{////typedef GLbitfield (P PFNGLQUERYMATRIXXOESPROC) (GLfixed *mantissa, GLint *exponent); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glQueryMatrixxOES(mantissa:PGLfixed; exponent:PGLint):TGLbitfield;cdecl;external;
-{////#endif }
-{////#endif /* GL_OES_query_matrix */ }
-{////#ifndef GL_OES_read_format }
 const
   GL_OES_read_format = 1;  
   GL_IMPLEMENTATION_COLOR_READ_TYPE_OES = $8B9A;  
   GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES = $8B9B;  
-{////#endif /* GL_OES_read_format */ }
-{////#ifndef GL_OES_single_precision }
   GL_OES_single_precision = 1;  
-{////typedef void (P PFNGLCLEARDEPTHFOESPROC) (GLclampf depth); }
-{////typedef void (P PFNGLCLIPPLANEFOESPROC) (GLenum plane,GLfloat *equation); }
-{////typedef void (P PFNGLDEPTHRANGEFOESPROC) (GLclampf n, GLclampf f); }
-{////typedef void (P PFNGLFRUSTUMFOESPROC) (GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f); }
-{////typedef void (P PFNGLGETCLIPPLANEFOESPROC) (GLenum plane, GLfloat *equation); }
-{////typedef void (P PFNGLORTHOFOESPROC) (GLfloat l, GLfloat r, GLfloat b, GLfloat t, GLfloat n, GLfloat f); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glClearDepthfOES(depth:TGLclampf);cdecl;external;
 procedure glClipPlanefOES(plane:TGLenum; equation:PGLfloat);cdecl;external;
@@ -5520,39 +3718,23 @@ procedure glFrustumfOES(l:TGLfloat; r:TGLfloat; b:TGLfloat; t:TGLfloat; n:TGLflo
 procedure glGetClipPlanefOES(plane:TGLenum; equation:PGLfloat);cdecl;external;
 procedure glOrthofOES(l:TGLfloat; r:TGLfloat; b:TGLfloat; t:TGLfloat; n:TGLfloat; 
             f:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_OES_single_precision */ }
-{////#ifndef GL_3DFX_multisample }
 const
   GL_3DFX_multisample = 1;  
   GL_MULTISAMPLE_3DFX = $86B2;  
   GL_SAMPLE_BUFFERS_3DFX = $86B3;  
   GL_SAMPLES_3DFX = $86B4;  
   GL_MULTISAMPLE_BIT_3DFX = $20000000;  
-{////#endif /* GL_3DFX_multisample */ }
-{////#ifndef GL_3DFX_tbuffer }
   GL_3DFX_tbuffer = 1;  
-{////typedef void (P PFNGLTBUFFERMASK3DFXPROC) (GLuint mask); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTbufferMask3DFX(mask:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_3DFX_tbuffer */ }
-{////#ifndef GL_3DFX_texture_compression_FXT1 }
 const
   GL_3DFX_texture_compression_FXT1 = 1;  
   GL_COMPRESSED_RGB_FXT1_3DFX = $86B0;  
   GL_COMPRESSED_RGBA_FXT1_3DFX = $86B1;  
-{////#endif /* GL_3DFX_texture_compression_FXT1 */ }
-{////#ifndef GL_AMD_blend_minmax_factor }
   GL_AMD_blend_minmax_factor = 1;  
   GL_FACTOR_MIN_AMD = $901C;  
   GL_FACTOR_MAX_AMD = $901D;  
-{////#endif /* GL_AMD_blend_minmax_factor */ }
-{////#ifndef GL_AMD_conservative_depth }
   GL_AMD_conservative_depth = 1;  
-{////#endif /* GL_AMD_conservative_depth */ }
-{////#ifndef GL_AMD_debug_output }
   GL_AMD_debug_output = 1;  
 type
 
@@ -5574,40 +3756,22 @@ const
   GL_DEBUG_CATEGORY_SHADER_COMPILER_AMD = $914E;  
   GL_DEBUG_CATEGORY_APPLICATION_AMD = $914F;  
   GL_DEBUG_CATEGORY_OTHER_AMD = $9150;  
-{////typedef void (P PFNGLDEBUGMESSAGEENABLEAMDPROC) (GLenum category, GLenum severity, GLsizei count,GLuint *ids, GLboolean enabled); }
-{////typedef void (P PFNGLDEBUGMESSAGEINSERTAMDPROC) (GLenum category, GLenum severity, GLuint id, GLsizei length,GLchar *buf); }
-{////typedef void (P PFNGLDEBUGMESSAGECALLBACKAMDPROC) (GLDEBUGPROCAMD callback, void *userParam); }
-{////typedef GLuint (P PFNGLGETDEBUGMESSAGELOGAMDPROC) (GLuint count, GLsizei bufSize, GLenum *categories, GLenum *severities, GLuint *ids, GLsizei *lengths, GLchar *message); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDebugMessageEnableAMD(category:TGLenum; severity:TGLenum; count:TGLsizei; ids:PGLuint; enabled:TGLboolean);cdecl;external;
 procedure glDebugMessageInsertAMD(category:TGLenum; severity:TGLenum; id:TGLuint; length:TGLsizei; buf:PGLchar);cdecl;external;
 procedure glDebugMessageCallbackAMD(callback:TGLDEBUGPROCAMD; userParam:pointer);cdecl;external;
 function glGetDebugMessageLogAMD(count:TGLuint; bufSize:TGLsizei; categories:PGLenum; severities:PGLenum; ids:PGLuint; 
            lengths:PGLsizei; message:PGLchar):TGLuint;cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_debug_output */ }
-{////#ifndef GL_AMD_depth_clamp_separate }
 const
   GL_AMD_depth_clamp_separate = 1;  
   GL_DEPTH_CLAMP_NEAR_AMD = $901E;  
   GL_DEPTH_CLAMP_FAR_AMD = $901F;  
-{////#endif /* GL_AMD_depth_clamp_separate */ }
-{////#ifndef GL_AMD_draw_buffers_blend }
   GL_AMD_draw_buffers_blend = 1;  
-{////typedef void (P PFNGLBLENDFUNCINDEXEDAMDPROC) (GLuint buf, GLenum src, GLenum dst); }
-{////typedef void (P PFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC) (GLuint buf, GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha); }
-{////typedef void (P PFNGLBLENDEQUATIONINDEXEDAMDPROC) (GLuint buf, GLenum mode); }
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEINDEXEDAMDPROC) (GLuint buf, GLenum modeRGB, GLenum modeAlpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendFuncIndexedAMD(buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;external;
 procedure glBlendFuncSeparateIndexedAMD(buf:TGLuint; srcRGB:TGLenum; dstRGB:TGLenum; srcAlpha:TGLenum; dstAlpha:TGLenum);cdecl;external;
 procedure glBlendEquationIndexedAMD(buf:TGLuint; mode:TGLenum);cdecl;external;
 procedure glBlendEquationSeparateIndexedAMD(buf:TGLuint; modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_draw_buffers_blend */ }
-{////#ifndef GL_AMD_framebuffer_multisample_advanced }
 const
   GL_AMD_framebuffer_multisample_advanced = 1;  
   GL_RENDERBUFFER_STORAGE_SAMPLES_AMD = $91B2;  
@@ -5616,28 +3780,17 @@ const
   GL_MAX_DEPTH_STENCIL_FRAMEBUFFER_SAMPLES_AMD = $91B5;  
   GL_NUM_SUPPORTED_MULTISAMPLE_MODES_AMD = $91B6;  
   GL_SUPPORTED_MULTISAMPLE_MODES_AMD = $91B7;  
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC) (GLenum target, GLsizei samples, GLsizei storageSamples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC) (GLuint renderbuffer, GLsizei samples, GLsizei storageSamples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glRenderbufferStorageMultisampleAdvancedAMD(target:TGLenum; samples:TGLsizei; storageSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei; 
             height:TGLsizei);cdecl;external;
 procedure glNamedRenderbufferStorageMultisampleAdvancedAMD(renderbuffer:TGLuint; samples:TGLsizei; storageSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei; 
             height:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_framebuffer_multisample_advanced */ }
-{////#ifndef GL_AMD_framebuffer_sample_positions }
 const
   GL_AMD_framebuffer_sample_positions = 1;  
   GL_SUBSAMPLE_DISTANCE_AMD = $883F;  
   GL_PIXELS_PER_SAMPLE_PATTERN_X_AMD = $91AE;  
   GL_PIXELS_PER_SAMPLE_PATTERN_Y_AMD = $91AF;  
   GL_ALL_PIXELS_AMD = $FFFFFFFF;  
-{////typedef void (P PFNGLFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC) (GLenum target, GLuint numsamples, GLuint pixelindex,GLfloat *values); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC) (GLuint framebuffer, GLuint numsamples, GLuint pixelindex,GLfloat *values); }
-{////typedef void (P PFNGLGETFRAMEBUFFERPARAMETERFVAMDPROC) (GLenum target, GLenum pname, GLuint numsamples, GLuint pixelindex, GLsizei size, GLfloat *values); }
-{////typedef void (P PFNGLGETNAMEDFRAMEBUFFERPARAMETERFVAMDPROC) (GLuint framebuffer, GLenum pname, GLuint numsamples, GLuint pixelindex, GLsizei size, GLfloat *values); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferSamplePositionsfvAMD(target:TGLenum; numsamples:TGLuint; pixelindex:TGLuint; values:PGLfloat);cdecl;external;
 procedure glNamedFramebufferSamplePositionsfvAMD(framebuffer:TGLuint; numsamples:TGLuint; pixelindex:TGLuint; values:PGLfloat);cdecl;external;
@@ -5645,13 +3798,8 @@ procedure glGetFramebufferParameterfvAMD(target:TGLenum; pname:TGLenum; numsampl
             values:PGLfloat);cdecl;external;
 procedure glGetNamedFramebufferParameterfvAMD(framebuffer:TGLuint; pname:TGLenum; numsamples:TGLuint; pixelindex:TGLuint; size:TGLsizei; 
             values:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_framebuffer_sample_positions */ }
-{////#ifndef GL_AMD_gcn_shader }
 const
   GL_AMD_gcn_shader = 1;  
-{////#endif /* GL_AMD_gcn_shader */ }
-{////#ifndef GL_AMD_gpu_shader_half_float }
   GL_AMD_gpu_shader_half_float = 1;  
   GL_FLOAT16_NV = $8FF8;  
   GL_FLOAT16_VEC2_NV = $8FF9;  
@@ -5666,11 +3814,7 @@ const
   GL_FLOAT16_MAT3x4_AMD = $91CB;  
   GL_FLOAT16_MAT4x2_AMD = $91CC;  
   GL_FLOAT16_MAT4x3_AMD = $91CD;  
-{////#endif /* GL_AMD_gpu_shader_half_float */ }
-{////#ifndef GL_AMD_gpu_shader_int16 }
   GL_AMD_gpu_shader_int16 = 1;  
-{////#endif /* GL_AMD_gpu_shader_int16 */ }
-{////#ifndef GL_AMD_gpu_shader_int64 }
   GL_AMD_gpu_shader_int64 = 1;  
 type
   PGLint64EXT = ^TGLint64EXT;
@@ -5701,41 +3845,6 @@ const
   GL_UNSIGNED_INT64_VEC2_NV = $8FF5;  
   GL_UNSIGNED_INT64_VEC3_NV = $8FF6;  
   GL_UNSIGNED_INT64_VEC4_NV = $8FF7;  
-{////typedef void (P PFNGLUNIFORM1I64NVPROC) (GLint location, GLint64EXT x); }
-{////typedef void (P PFNGLUNIFORM2I64NVPROC) (GLint location, GLint64EXT x, GLint64EXT y); }
-{////typedef void (P PFNGLUNIFORM3I64NVPROC) (GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z); }
-{////typedef void (P PFNGLUNIFORM4I64NVPROC) (GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w); }
-{////typedef void (P PFNGLUNIFORM1I64VNVPROC) (GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM2I64VNVPROC) (GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM3I64VNVPROC) (GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM4I64VNVPROC) (GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM1UI64NVPROC) (GLint location, GLuint64EXT x); }
-{////typedef void (P PFNGLUNIFORM2UI64NVPROC) (GLint location, GLuint64EXT x, GLuint64EXT y); }
-{////typedef void (P PFNGLUNIFORM3UI64NVPROC) (GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z); }
-{////typedef void (P PFNGLUNIFORM4UI64NVPROC) (GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w); }
-{////typedef void (P PFNGLUNIFORM1UI64VNVPROC) (GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM2UI64VNVPROC) (GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM3UI64VNVPROC) (GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLUNIFORM4UI64VNVPROC) (GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLGETUNIFORMI64VNVPROC) (GLuint program_, GLint location, GLint64EXT *params); }
-{////typedef void (P PFNGLGETUNIFORMUI64VNVPROC) (GLuint program_, GLint location, GLuint64EXT *params); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1I64NVPROC) (GLuint program_, GLint location, GLint64EXT x); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2I64NVPROC) (GLuint program_, GLint location, GLint64EXT x, GLint64EXT y); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3I64NVPROC) (GLuint program_, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4I64NVPROC) (GLuint program_, GLint location, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1I64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2I64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3I64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4I64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UI64NVPROC) (GLuint program_, GLint location, GLuint64EXT x); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UI64NVPROC) (GLuint program_, GLint location, GLuint64EXT x, GLuint64EXT y); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UI64NVPROC) (GLuint program_, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UI64NVPROC) (GLuint program_, GLint location, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64EXT *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUniform1i64NV(location:TGLint; x:TGLint64EXT);cdecl;external;
 procedure glUniform2i64NV(location:TGLint; x:TGLint64EXT; y:TGLint64EXT);cdecl;external;
@@ -5773,31 +3882,17 @@ procedure glProgramUniform1ui64vNV(program_:TGLuint; location:TGLint; count:TGLs
 procedure glProgramUniform2ui64vNV(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;external;
 procedure glProgramUniform3ui64vNV(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;external;
 procedure glProgramUniform4ui64vNV(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_gpu_shader_int64 */ }
-{////#ifndef GL_AMD_interleaved_elements }
 const
   GL_AMD_interleaved_elements = 1;  
   GL_VERTEX_ELEMENT_SWIZZLE_AMD = $91A4;  
   GL_VERTEX_ID_SWIZZLE_AMD = $91A5;  
-{////typedef void (P PFNGLVERTEXATTRIBPARAMETERIAMDPROC) (GLuint index, GLenum pname, GLint param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttribParameteriAMD(index:TGLuint; pname:TGLenum; param:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_interleaved_elements */ }
-{////#ifndef GL_AMD_multi_draw_indirect }
 const
   GL_AMD_multi_draw_indirect = 1;  
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTAMDPROC) (GLenum mode,void *indirect, GLsizei primcount, GLsizei stride); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC) (GLenum mode, GLenum type,void *indirect, GLsizei primcount, GLsizei stride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiDrawArraysIndirectAMD(mode:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;external;
 procedure glMultiDrawElementsIndirectAMD(mode:TGLenum; _type:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_multi_draw_indirect */ }
-{////#ifndef GL_AMD_name_gen_delete }
 const
   GL_AMD_name_gen_delete = 1;  
   GL_DATA_BUFFER_AMD = $9151;  
@@ -5805,17 +3900,10 @@ const
   GL_QUERY_OBJECT_AMD = $9153;  
   GL_VERTEX_ARRAY_OBJECT_AMD = $9154;  
   GL_SAMPLER_OBJECT_AMD = $9155;  
-{////typedef void (P PFNGLGENNAMESAMDPROC) (GLenum identifier, GLuint num, GLuint *names); }
-{////typedef void (P PFNGLDELETENAMESAMDPROC) (GLenum identifier, GLuint num,GLuint *names); }
-{////typedef GLboolean (P PFNGLISNAMEAMDPROC) (GLenum identifier, GLuint name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenNamesAMD(identifier:TGLenum; num:TGLuint; names:PGLuint);cdecl;external;
 procedure glDeleteNamesAMD(identifier:TGLenum; num:TGLuint; names:PGLuint);cdecl;external;
 function glIsNameAMD(identifier:TGLenum; name:TGLuint):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_name_gen_delete */ }
-{////#ifndef GL_AMD_occlusion_query_event }
 const
   GL_AMD_occlusion_query_event = 1;  
   GL_OCCLUSION_QUERY_EVENT_MASK_AMD = $874F;  
@@ -5824,13 +3912,8 @@ const
   GL_QUERY_STENCIL_FAIL_EVENT_BIT_AMD = $00000004;  
   GL_QUERY_DEPTH_BOUNDS_FAIL_EVENT_BIT_AMD = $00000008;  
   GL_QUERY_ALL_EVENT_BITS_AMD = $FFFFFFFF;  
-{////typedef void (P PFNGLQUERYOBJECTPARAMETERUIAMDPROC) (GLenum target, GLuint id, GLenum pname, GLuint param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glQueryObjectParameteruiAMD(target:TGLenum; id:TGLuint; pname:TGLenum; param:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_occlusion_query_event */ }
-{////#ifndef GL_AMD_performance_monitor }
 const
   GL_AMD_performance_monitor = 1;  
   GL_COUNTER_TYPE_AMD = $8BC0;  
@@ -5840,18 +3923,6 @@ const
   GL_PERFMON_RESULT_AVAILABLE_AMD = $8BC4;  
   GL_PERFMON_RESULT_SIZE_AMD = $8BC5;  
   GL_PERFMON_RESULT_AMD = $8BC6;  
-{////typedef void (P PFNGLGETPERFMONITORGROUPSAMDPROC) (GLint *numGroups, GLsizei groupsSize, GLuint *groups); }
-{////typedef void (P PFNGLGETPERFMONITORCOUNTERSAMDPROC) (GLuint group, GLint *numCounters, GLint *maxActiveCounters, GLsizei counterSize, GLuint *counters); }
-{////typedef void (P PFNGLGETPERFMONITORGROUPSTRINGAMDPROC) (GLuint group, GLsizei bufSize, GLsizei *length, GLchar *groupString); }
-{////typedef void (P PFNGLGETPERFMONITORCOUNTERSTRINGAMDPROC) (GLuint group, GLuint counter, GLsizei bufSize, GLsizei *length, GLchar *counterString); }
-{////typedef void (P PFNGLGETPERFMONITORCOUNTERINFOAMDPROC) (GLuint group, GLuint counter, GLenum pname, void *data); }
-{////typedef void (P PFNGLGENPERFMONITORSAMDPROC) (GLsizei n, GLuint *monitors); }
-{////typedef void (P PFNGLDELETEPERFMONITORSAMDPROC) (GLsizei n, GLuint *monitors); }
-{////typedef void (P PFNGLSELECTPERFMONITORCOUNTERSAMDPROC) (GLuint monitor, GLboolean enable, GLuint group, GLint numCounters, GLuint *counterList); }
-{////typedef void (P PFNGLBEGINPERFMONITORAMDPROC) (GLuint monitor); }
-{////typedef void (P PFNGLENDPERFMONITORAMDPROC) (GLuint monitor); }
-{////typedef void (P PFNGLGETPERFMONITORCOUNTERDATAAMDPROC) (GLuint monitor, GLenum pname, GLsizei dataSize, GLuint *data, GLint *bytesWritten); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetPerfMonitorGroupsAMD(numGroups:PGLint; groupsSize:TGLsizei; groups:PGLuint);cdecl;external;
 procedure glGetPerfMonitorCountersAMD(group:TGLuint; numCounters:PGLint; maxActiveCounters:PGLint; counterSize:TGLsizei; counters:PGLuint);cdecl;external;
@@ -5864,53 +3935,25 @@ procedure glSelectPerfMonitorCountersAMD(monitor:TGLuint; enable:TGLboolean; gro
 procedure glBeginPerfMonitorAMD(monitor:TGLuint);cdecl;external;
 procedure glEndPerfMonitorAMD(monitor:TGLuint);cdecl;external;
 procedure glGetPerfMonitorCounterDataAMD(monitor:TGLuint; pname:TGLenum; dataSize:TGLsizei; data:PGLuint; bytesWritten:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_performance_monitor */ }
-{////#ifndef GL_AMD_pinned_memory }
 const
   GL_AMD_pinned_memory = 1;  
   GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD = $9160;  
-{////#endif /* GL_AMD_pinned_memory */ }
-{////#ifndef GL_AMD_query_buffer_object }
   GL_AMD_query_buffer_object = 1;  
   GL_QUERY_BUFFER_AMD = $9192;  
   GL_QUERY_BUFFER_BINDING_AMD = $9193;  
   GL_QUERY_RESULT_NO_WAIT_AMD = $9194;  
-{////#endif /* GL_AMD_query_buffer_object */ }
-{////#ifndef GL_AMD_sample_positions }
   GL_AMD_sample_positions = 1;  
-{////typedef void (P PFNGLSETMULTISAMPLEFVAMDPROC) (GLenum pname, GLuint index,GLfloat *val); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSetMultisamplefvAMD(pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_sample_positions */ }
-{////#ifndef GL_AMD_seamless_cubemap_per_texture }
 const
   GL_AMD_seamless_cubemap_per_texture = 1;  
-{////#endif /* GL_AMD_seamless_cubemap_per_texture */ }
-{////#ifndef GL_AMD_shader_atomic_counter_ops }
   GL_AMD_shader_atomic_counter_ops = 1;  
-{////#endif /* GL_AMD_shader_atomic_counter_ops */ }
-{////#ifndef GL_AMD_shader_ballot }
   GL_AMD_shader_ballot = 1;  
-{////#endif /* GL_AMD_shader_ballot */ }
-{////#ifndef GL_AMD_shader_explicit_vertex_parameter }
   GL_AMD_shader_explicit_vertex_parameter = 1;  
-{////#endif /* GL_AMD_shader_explicit_vertex_parameter */ }
-{////#ifndef GL_AMD_shader_gpu_shader_half_float_fetch }
   GL_AMD_shader_gpu_shader_half_float_fetch = 1;  
-{////#endif /* GL_AMD_shader_gpu_shader_half_float_fetch */ }
-{////#ifndef GL_AMD_shader_image_load_store_lod }
   GL_AMD_shader_image_load_store_lod = 1;  
-{////#endif /* GL_AMD_shader_image_load_store_lod */ }
-{////#ifndef GL_AMD_shader_stencil_export }
   GL_AMD_shader_stencil_export = 1;  
-{////#endif /* GL_AMD_shader_stencil_export */ }
-{////#ifndef GL_AMD_shader_trinary_minmax }
   GL_AMD_shader_trinary_minmax = 1;  
-{////#endif /* GL_AMD_shader_trinary_minmax */ }
-{////#ifndef GL_AMD_sparse_texture }
   GL_AMD_sparse_texture = 1;  
   GL_VIRTUAL_PAGE_SIZE_X_AMD = $9195;  
   GL_VIRTUAL_PAGE_SIZE_Y_AMD = $9196;  
@@ -5921,47 +3964,26 @@ const
   GL_MIN_SPARSE_LEVEL_AMD = $919B;  
   GL_MIN_LOD_WARNING_AMD = $919C;  
   GL_TEXTURE_STORAGE_SPARSE_BIT_AMD = $00000001;  
-{////typedef void (P PFNGLTEXSTORAGESPARSEAMDPROC) (GLenum target, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLsizei layers, GLbitfield flags); }
-{////typedef void (P PFNGLTEXTURESTORAGESPARSEAMDPROC) (GLuint texture, GLenum target, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLsizei layers, GLbitfield flags); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexStorageSparseAMD(target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; depth:TGLsizei; 
             layers:TGLsizei; flags:TGLbitfield);cdecl;external;
 procedure glTextureStorageSparseAMD(texture:TGLuint; target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; 
             depth:TGLsizei; layers:TGLsizei; flags:TGLbitfield);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_sparse_texture */ }
-{////#ifndef GL_AMD_stencil_operation_extended }
 const
   GL_AMD_stencil_operation_extended = 1;  
   GL_SET_AMD = $874A;  
   GL_REPLACE_VALUE_AMD = $874B;  
   GL_STENCIL_OP_VALUE_AMD = $874C;  
   GL_STENCIL_BACK_OP_VALUE_AMD = $874D;  
-{////typedef void (P PFNGLSTENCILOPVALUEAMDPROC) (GLenum face, GLuint value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glStencilOpValueAMD(face:TGLenum; value:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_stencil_operation_extended */ }
-{////#ifndef GL_AMD_texture_gather_bias_lod }
 const
   GL_AMD_texture_gather_bias_lod = 1;  
-{////#endif /* GL_AMD_texture_gather_bias_lod */ }
-{////#ifndef GL_AMD_texture_texture4 }
   GL_AMD_texture_texture4 = 1;  
-{////#endif /* GL_AMD_texture_texture4 */ }
-{////#ifndef GL_AMD_transform_feedback3_lines_triangles }
   GL_AMD_transform_feedback3_lines_triangles = 1;  
-{////#endif /* GL_AMD_transform_feedback3_lines_triangles */ }
-{////#ifndef GL_AMD_transform_feedback4 }
   GL_AMD_transform_feedback4 = 1;  
   GL_STREAM_RASTERIZATION_AMD = $91A0;  
-{////#endif /* GL_AMD_transform_feedback4 */ }
-{////#ifndef GL_AMD_vertex_shader_layer }
   GL_AMD_vertex_shader_layer = 1;  
-{////#endif /* GL_AMD_vertex_shader_layer */ }
-{////#ifndef GL_AMD_vertex_shader_tessellator }
   GL_AMD_vertex_shader_tessellator = 1;  
   GL_SAMPLER_BUFFER_AMD = $9001;  
   GL_INT_SAMPLER_BUFFER_AMD = $9002;  
@@ -5970,37 +3992,19 @@ const
   GL_TESSELLATION_FACTOR_AMD = $9005;  
   GL_DISCRETE_AMD = $9006;  
   GL_CONTINUOUS_AMD = $9007;  
-{////typedef void (P PFNGLTESSELLATIONFACTORAMDPROC) (GLfloat factor); }
-{////typedef void (P PFNGLTESSELLATIONMODEAMDPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTessellationFactorAMD(factor:TGLfloat);cdecl;external;
 procedure glTessellationModeAMD(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_AMD_vertex_shader_tessellator */ }
-{////#ifndef GL_AMD_vertex_shader_viewport_index }
 const
   GL_AMD_vertex_shader_viewport_index = 1;  
-{////#endif /* GL_AMD_vertex_shader_viewport_index */ }
-{////#ifndef GL_APPLE_aux_depth_stencil }
   GL_APPLE_aux_depth_stencil = 1;  
   GL_AUX_DEPTH_STENCIL_APPLE = $8A14;  
-{////#endif /* GL_APPLE_aux_depth_stencil */ }
-{////#ifndef GL_APPLE_client_storage }
   GL_APPLE_client_storage = 1;  
   GL_UNPACK_CLIENT_STORAGE_APPLE = $85B2;  
-{////#endif /* GL_APPLE_client_storage */ }
-{////#ifndef GL_APPLE_element_array }
   GL_APPLE_element_array = 1;  
   GL_ELEMENT_ARRAY_APPLE = $8A0C;  
   GL_ELEMENT_ARRAY_TYPE_APPLE = $8A0D;  
   GL_ELEMENT_ARRAY_POINTER_APPLE = $8A0E;  
-{////typedef void (P PFNGLELEMENTPOINTERAPPLEPROC) (GLenum type,void *pointer); }
-{////typedef void (P PFNGLDRAWELEMENTARRAYAPPLEPROC) (GLenum mode, GLint first, GLsizei count); }
-{////typedef void (P PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC) (GLenum mode, GLuint start, GLuint end_, GLint first, GLsizei count); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC) (GLenum mode,GLint *first,GLsizei *count, GLsizei primcount); }
-{////typedef void (P PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC) (GLenum mode, GLuint start, GLuint end_,GLint *first,GLsizei *count, GLsizei primcount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glElementPointerAPPLE(_type:TGLenum; pointer:pointer);cdecl;external;
 procedure glDrawElementArrayAPPLE(mode:TGLenum; first:TGLint; count:TGLsizei);cdecl;external;
@@ -6008,22 +4012,10 @@ procedure glDrawRangeElementArrayAPPLE(mode:TGLenum; start:TGLuint; end_:TGLuint
 procedure glMultiDrawElementArrayAPPLE(mode:TGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei);cdecl;external;
 procedure glMultiDrawRangeElementArrayAPPLE(mode:TGLenum; start:TGLuint; end_:TGLuint; first:PGLint; count:PGLsizei; 
             primcount:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_element_array */ }
-{////#ifndef GL_APPLE_fence }
 const
   GL_APPLE_fence = 1;  
   GL_DRAW_PIXELS_APPLE = $8A0A;  
   GL_FENCE_APPLE = $8A0B;  
-{////typedef void (P PFNGLGENFENCESAPPLEPROC) (GLsizei n, GLuint *fences); }
-{////typedef void (P PFNGLDELETEFENCESAPPLEPROC) (GLsizei n,GLuint *fences); }
-{////typedef void (P PFNGLSETFENCEAPPLEPROC) (GLuint fence); }
-{////typedef GLboolean (P PFNGLISFENCEAPPLEPROC) (GLuint fence); }
-{////typedef GLboolean (P PFNGLTESTFENCEAPPLEPROC) (GLuint fence); }
-{////typedef void (P PFNGLFINISHFENCEAPPLEPROC) (GLuint fence); }
-{////typedef GLboolean (P PFNGLTESTOBJECTAPPLEPROC) (GLenum object_, GLuint name); }
-{////typedef void (P PFNGLFINISHOBJECTAPPLEPROC) (GLenum object_, GLint name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenFencesAPPLE(n:TGLsizei; fences:PGLuint);cdecl;external;
 procedure glDeleteFencesAPPLE(n:TGLsizei; fences:PGLuint);cdecl;external;
@@ -6033,9 +4025,6 @@ function glTestFenceAPPLE(fence:TGLuint):TGLboolean;cdecl;external;
 procedure glFinishFenceAPPLE(fence:TGLuint);cdecl;external;
 function glTestObjectAPPLE(object_:TGLenum; name:TGLuint):TGLboolean;cdecl;external;
 procedure glFinishObjectAPPLE(object_:TGLenum; name:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_fence */ }
-{////#ifndef GL_APPLE_float_pixels }
 const
   GL_APPLE_float_pixels = 1;  
   GL_HALF_APPLE = $140B;  
@@ -6052,20 +4041,12 @@ const
   GL_LUMINANCE_FLOAT16_APPLE = $881E;  
   GL_LUMINANCE_ALPHA_FLOAT16_APPLE = $881F;  
   GL_COLOR_FLOAT_APPLE = $8A0F;  
-{////#endif /* GL_APPLE_float_pixels */ }
-{////#ifndef GL_APPLE_flush_buffer_range }
   GL_APPLE_flush_buffer_range = 1;  
   GL_BUFFER_SERIALIZED_MODIFY_APPLE = $8A12;  
   GL_BUFFER_FLUSHING_UNMAP_APPLE = $8A13;  
-{////typedef void (P PFNGLBUFFERPARAMETERIAPPLEPROC) (GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC) (GLenum target, GLintptr offset, GLsizeiptr size); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferParameteriAPPLE(target:TGLenum; pname:TGLenum; param:TGLint);cdecl;external;
 procedure glFlushMappedBufferRangeAPPLE(target:TGLenum; offset:TGLintptr; size:TGLsizeiptr);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_flush_buffer_range */ }
-{////#ifndef GL_APPLE_object_purgeable }
 const
   GL_APPLE_object_purgeable = 1;  
   GL_BUFFER_OBJECT_APPLE = $85B3;  
@@ -6074,34 +4055,21 @@ const
   GL_RETAINED_APPLE = $8A1B;  
   GL_UNDEFINED_APPLE = $8A1C;  
   GL_PURGEABLE_APPLE = $8A1D;  
-{////typedef GLenum (P PFNGLOBJECTPURGEABLEAPPLEPROC) (GLenum objectType, GLuint name, GLenum option); }
-{////typedef GLenum (P PFNGLOBJECTUNPURGEABLEAPPLEPROC) (GLenum objectType, GLuint name, GLenum option); }
-{////typedef void (P PFNGLGETOBJECTPARAMETERIVAPPLEPROC) (GLenum objectType, GLuint name, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glObjectPurgeableAPPLE(objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;external;
 function glObjectUnpurgeableAPPLE(objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;external;
 procedure glGetObjectParameterivAPPLE(objectType:TGLenum; name:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_object_purgeable */ }
-{////#ifndef GL_APPLE_rgb_422 }
 const
   GL_APPLE_rgb_422 = 1;  
   GL_RGB_422_APPLE = $8A1F;  
   GL_UNSIGNED_SHORT_8_8_APPLE = $85BA;  
   GL_UNSIGNED_SHORT_8_8_REV_APPLE = $85BB;  
   GL_RGB_RAW_422_APPLE = $8A51;  
-{////#endif /* GL_APPLE_rgb_422 */ }
-{////#ifndef GL_APPLE_row_bytes }
   GL_APPLE_row_bytes = 1;  
   GL_PACK_ROW_BYTES_APPLE = $8A15;  
   GL_UNPACK_ROW_BYTES_APPLE = $8A16;  
-{////#endif /* GL_APPLE_row_bytes */ }
-{////#ifndef GL_APPLE_specular_vector }
   GL_APPLE_specular_vector = 1;  
   GL_LIGHT_MODEL_SPECULAR_VECTOR_APPLE = $85B0;  
-{////#endif /* GL_APPLE_specular_vector */ }
-{////#ifndef GL_APPLE_texture_range }
   GL_APPLE_texture_range = 1;  
   GL_TEXTURE_RANGE_LENGTH_APPLE = $85B7;  
   GL_TEXTURE_RANGE_POINTER_APPLE = $85B8;  
@@ -6109,35 +4077,19 @@ const
   GL_STORAGE_PRIVATE_APPLE = $85BD;  
   GL_STORAGE_CACHED_APPLE = $85BE;  
   GL_STORAGE_SHARED_APPLE = $85BF;  
-{////typedef void (P PFNGLTEXTURERANGEAPPLEPROC) (GLenum target, GLsizei length,void *pointer); }
-{////typedef void (P PFNGLGETTEXPARAMETERPOINTERVAPPLEPROC) (GLenum target, GLenum pname, void **params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTextureRangeAPPLE(target:TGLenum; length:TGLsizei; pointer:pointer);cdecl;external;
 procedure glGetTexParameterPointervAPPLE(target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_texture_range */ }
-{////#ifndef GL_APPLE_transform_hint }
 const
   GL_APPLE_transform_hint = 1;  
   GL_TRANSFORM_HINT_APPLE = $85B1;  
-{////#endif /* GL_APPLE_transform_hint */ }
-{////#ifndef GL_APPLE_vertex_array_object }
   GL_APPLE_vertex_array_object = 1;  
   GL_VERTEX_ARRAY_BINDING_APPLE = $85B5;  
-{////typedef void (P PFNGLBINDVERTEXARRAYAPPLEPROC) (GLuint array_); }
-{////typedef void (P PFNGLDELETEVERTEXARRAYSAPPLEPROC) (GLsizei n,GLuint *arrays); }
-{////typedef void (P PFNGLGENVERTEXARRAYSAPPLEPROC) (GLsizei n, GLuint *arrays); }
-{////typedef GLboolean (P PFNGLISVERTEXARRAYAPPLEPROC) (GLuint array_); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindVertexArrayAPPLE(array_:TGLuint);cdecl;external;
 procedure glDeleteVertexArraysAPPLE(n:TGLsizei; arrays:PGLuint);cdecl;external;
 procedure glGenVertexArraysAPPLE(n:TGLsizei; arrays:PGLuint);cdecl;external;
 function glIsVertexArrayAPPLE(array_:TGLuint):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_vertex_array_object */ }
-{////#ifndef GL_APPLE_vertex_array_range }
 const
   GL_APPLE_vertex_array_range = 1;  
   GL_VERTEX_ARRAY_RANGE_APPLE = $851D;  
@@ -6145,17 +4097,10 @@ const
   GL_VERTEX_ARRAY_STORAGE_HINT_APPLE = $851F;  
   GL_VERTEX_ARRAY_RANGE_POINTER_APPLE = $8521;  
   GL_STORAGE_CLIENT_APPLE = $85B4;  
-{////typedef void (P PFNGLVERTEXARRAYRANGEAPPLEPROC) (GLsizei length, void *pointer); }
-{////typedef void (P PFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC) (GLsizei length, void *pointer); }
-{////typedef void (P PFNGLVERTEXARRAYPARAMETERIAPPLEPROC) (GLenum pname, GLint param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexArrayRangeAPPLE(length:TGLsizei; pointer:pointer);cdecl;external;
 procedure glFlushVertexArrayRangeAPPLE(length:TGLsizei; pointer:pointer);cdecl;external;
 procedure glVertexArrayParameteriAPPLE(pname:TGLenum; param:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_vertex_array_range */ }
-{////#ifndef GL_APPLE_vertex_program_evaluators }
 const
   GL_APPLE_vertex_program_evaluators = 1;  
   GL_VERTEX_ATTRIB_MAP1_APPLE = $8A00;  
@@ -6168,14 +4113,6 @@ const
   GL_VERTEX_ATTRIB_MAP2_COEFF_APPLE = $8A07;  
   GL_VERTEX_ATTRIB_MAP2_ORDER_APPLE = $8A08;  
   GL_VERTEX_ATTRIB_MAP2_DOMAIN_APPLE = $8A09;  
-{////typedef void (P PFNGLENABLEVERTEXATTRIBAPPLEPROC) (GLuint index, GLenum pname); }
-{////typedef void (P PFNGLDISABLEVERTEXATTRIBAPPLEPROC) (GLuint index, GLenum pname); }
-{////typedef GLboolean (P PFNGLISVERTEXATTRIBENABLEDAPPLEPROC) (GLuint index, GLenum pname); }
-{////typedef void (P PFNGLMAPVERTEXATTRIB1DAPPLEPROC) (GLuint index, GLuint size, GLdouble u1, GLdouble u2, GLint stride, GLint order,GLdouble *points); }
-{////typedef void (P PFNGLMAPVERTEXATTRIB1FAPPLEPROC) (GLuint index, GLuint size, GLfloat u1, GLfloat u2, GLint stride, GLint order,GLfloat *points); }
-{////typedef void (P PFNGLMAPVERTEXATTRIB2DAPPLEPROC) (GLuint index, GLuint size, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder,GLdouble *points); }
-{////typedef void (P PFNGLMAPVERTEXATTRIB2FAPPLEPROC) (GLuint index, GLuint size, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder,GLfloat *points); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glEnableVertexAttribAPPLE(index:TGLuint; pname:TGLenum);cdecl;external;
 procedure glDisableVertexAttribAPPLE(index:TGLuint; pname:TGLenum);cdecl;external;
@@ -6190,14 +4127,9 @@ procedure glMapVertexAttrib2dAPPLE(index:TGLuint; size:TGLuint; u1:TGLdouble; u2
 procedure glMapVertexAttrib2fAPPLE(index:TGLuint; size:TGLuint; u1:TGLfloat; u2:TGLfloat; ustride:TGLint; 
             uorder:TGLint; v1:TGLfloat; v2:TGLfloat; vstride:TGLint; vorder:TGLint; 
             points:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_APPLE_vertex_program_evaluators */ }
-{////#ifndef GL_APPLE_ycbcr_422 }
 const
   GL_APPLE_ycbcr_422 = 1;  
   GL_YCBCR_422_APPLE = $85B9;  
-{////#endif /* GL_APPLE_ycbcr_422 */ }
-{////#ifndef GL_ATI_draw_buffers }
   GL_ATI_draw_buffers = 1;  
   GL_MAX_DRAW_BUFFERS_ATI = $8824;  
   GL_DRAW_BUFFER0_ATI = $8825;  
@@ -6216,29 +4148,17 @@ const
   GL_DRAW_BUFFER13_ATI = $8832;  
   GL_DRAW_BUFFER14_ATI = $8833;  
   GL_DRAW_BUFFER15_ATI = $8834;  
-{////typedef void (P PFNGLDRAWBUFFERSATIPROC) (GLsizei n,GLenum *bufs); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawBuffersATI(n:TGLsizei; bufs:PGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_draw_buffers */ }
-{////#ifndef GL_ATI_element_array }
 const
   GL_ATI_element_array = 1;  
   GL_ELEMENT_ARRAY_ATI = $8768;  
   GL_ELEMENT_ARRAY_TYPE_ATI = $8769;  
   GL_ELEMENT_ARRAY_POINTER_ATI = $876A;  
-{////typedef void (P PFNGLELEMENTPOINTERATIPROC) (GLenum type,void *pointer); }
-{////typedef void (P PFNGLDRAWELEMENTARRAYATIPROC) (GLenum mode, GLsizei count); }
-{////typedef void (P PFNGLDRAWRANGEELEMENTARRAYATIPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glElementPointerATI(_type:TGLenum; pointer:pointer);cdecl;external;
 procedure glDrawElementArrayATI(mode:TGLenum; count:TGLsizei);cdecl;external;
 procedure glDrawRangeElementArrayATI(mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_element_array */ }
-{////#ifndef GL_ATI_envmap_bumpmap }
 const
   GL_ATI_envmap_bumpmap = 1;  
   GL_BUMP_ROT_MATRIX_ATI = $8775;  
@@ -6249,19 +4169,11 @@ const
   GL_DU8DV8_ATI = $877A;  
   GL_BUMP_ENVMAP_ATI = $877B;  
   GL_BUMP_TARGET_ATI = $877C;  
-{////typedef void (P PFNGLTEXBUMPPARAMETERIVATIPROC) (GLenum pname,GLint *param); }
-{////typedef void (P PFNGLTEXBUMPPARAMETERFVATIPROC) (GLenum pname,GLfloat *param); }
-{////typedef void (P PFNGLGETTEXBUMPPARAMETERIVATIPROC) (GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETTEXBUMPPARAMETERFVATIPROC) (GLenum pname, GLfloat *param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexBumpParameterivATI(pname:TGLenum; param:PGLint);cdecl;external;
 procedure glTexBumpParameterfvATI(pname:TGLenum; param:PGLfloat);cdecl;external;
 procedure glGetTexBumpParameterivATI(pname:TGLenum; param:PGLint);cdecl;external;
 procedure glGetTexBumpParameterfvATI(pname:TGLenum; param:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_envmap_bumpmap */ }
-{////#ifndef GL_ATI_fragment_shader }
 const
   GL_ATI_fragment_shader = 1;  
   GL_FRAGMENT_SHADER_ATI = $8920;  
@@ -6368,21 +4280,6 @@ const
   GL_COMP_BIT_ATI = $00000002;  
   GL_NEGATE_BIT_ATI = $00000004;  
   GL_BIAS_BIT_ATI = $00000008;  
-{////typedef GLuint (P PFNGLGENFRAGMENTSHADERSATIPROC) (GLuint range); }
-{////typedef void (P PFNGLBINDFRAGMENTSHADERATIPROC) (GLuint id); }
-{////typedef void (P PFNGLDELETEFRAGMENTSHADERATIPROC) (GLuint id); }
-{////typedef void (P PFNGLBEGINFRAGMENTSHADERATIPROC) (void); }
-{////typedef void (P PFNGLENDFRAGMENTSHADERATIPROC) (void); }
-{////typedef void (P PFNGLPASSTEXCOORDATIPROC) (GLuint dst, GLuint coord, GLenum swizzle); }
-{////typedef void (P PFNGLSAMPLEMAPATIPROC) (GLuint dst, GLuint interp, GLenum swizzle); }
-{////typedef void (P PFNGLCOLORFRAGMENTOP1ATIPROC) (GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod); }
-{////typedef void (P PFNGLCOLORFRAGMENTOP2ATIPROC) (GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod); }
-{////typedef void (P PFNGLCOLORFRAGMENTOP3ATIPROC) (GLenum op, GLuint dst, GLuint dstMask, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod, GLuint arg3, GLuint arg3Rep, GLuint arg3Mod); }
-{////typedef void (P PFNGLALPHAFRAGMENTOP1ATIPROC) (GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod); }
-{////typedef void (P PFNGLALPHAFRAGMENTOP2ATIPROC) (GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod); }
-{////typedef void (P PFNGLALPHAFRAGMENTOP3ATIPROC) (GLenum op, GLuint dst, GLuint dstMod, GLuint arg1, GLuint arg1Rep, GLuint arg1Mod, GLuint arg2, GLuint arg2Rep, GLuint arg2Mod, GLuint arg3, GLuint arg3Rep, GLuint arg3Mod); }
-{////typedef void (P PFNGLSETFRAGMENTSHADERCONSTANTATIPROC) (GLuint dst,GLfloat *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGenFragmentShadersATI(range:TGLuint):TGLuint;cdecl;external;
 procedure glBindFragmentShaderATI(id:TGLuint);cdecl;external;
@@ -6406,32 +4303,19 @@ procedure glAlphaFragmentOp3ATI(op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TG
             arg1Mod:TGLuint; arg2:TGLuint; arg2Rep:TGLuint; arg2Mod:TGLuint; arg3:TGLuint; 
             arg3Rep:TGLuint; arg3Mod:TGLuint);cdecl;external;
 procedure glSetFragmentShaderConstantATI(dst:TGLuint; value:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_fragment_shader */ }
-{////#ifndef GL_ATI_map_object_buffer }
 const
   GL_ATI_map_object_buffer = 1;  
-{////typedef void *(P PFNGLMAPOBJECTBUFFERATIPROC) (GLuint buffer); }
-{////typedef void (P PFNGLUNMAPOBJECTBUFFERATIPROC) (GLuint buffer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glMapObjectBufferATI(buffer:TGLuint):pointer;cdecl;external;
 procedure glUnmapObjectBufferATI(buffer:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_map_object_buffer */ }
-{////#ifndef GL_ATI_meminfo }
 const
   GL_ATI_meminfo = 1;  
   GL_VBO_FREE_MEMORY_ATI = $87FB;  
   GL_TEXTURE_FREE_MEMORY_ATI = $87FC;  
   GL_RENDERBUFFER_FREE_MEMORY_ATI = $87FD;  
-{////#endif /* GL_ATI_meminfo */ }
-{////#ifndef GL_ATI_pixel_format_float }
   GL_ATI_pixel_format_float = 1;  
   GL_RGBA_FLOAT_MODE_ATI = $8820;  
   GL_COLOR_CLEAR_UNCLAMPED_VALUE_ATI = $8835;  
-{////#endif /* GL_ATI_pixel_format_float */ }
-{////#ifndef GL_ATI_pn_triangles }
   GL_ATI_pn_triangles = 1;  
   GL_PN_TRIANGLES_ATI = $87F0;  
   GL_MAX_PN_TRIANGLES_TESSELATION_LEVEL_ATI = $87F1;  
@@ -6442,41 +4326,25 @@ const
   GL_PN_TRIANGLES_POINT_MODE_CUBIC_ATI = $87F6;  
   GL_PN_TRIANGLES_NORMAL_MODE_LINEAR_ATI = $87F7;  
   GL_PN_TRIANGLES_NORMAL_MODE_QUADRATIC_ATI = $87F8;  
-{////typedef void (P PFNGLPNTRIANGLESIATIPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLPNTRIANGLESFATIPROC) (GLenum pname, GLfloat param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPNTrianglesiATI(pname:TGLenum; param:TGLint);cdecl;external;
 procedure glPNTrianglesfATI(pname:TGLenum; param:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_pn_triangles */ }
-{////#ifndef GL_ATI_separate_stencil }
 const
   GL_ATI_separate_stencil = 1;  
   GL_STENCIL_BACK_FUNC_ATI = $8800;  
   GL_STENCIL_BACK_FAIL_ATI = $8801;  
   GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI = $8802;  
   GL_STENCIL_BACK_PASS_DEPTH_PASS_ATI = $8803;  
-{////typedef void (P PFNGLSTENCILOPSEPARATEATIPROC) (GLenum face, GLenum sfail, GLenum dpfail, GLenum dppass); }
-{////typedef void (P PFNGLSTENCILFUNCSEPARATEATIPROC) (GLenum frontfunc, GLenum backfunc, GLint ref, GLuint mask); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glStencilOpSeparateATI(face:TGLenum; sfail:TGLenum; dpfail:TGLenum; dppass:TGLenum);cdecl;external;
 procedure glStencilFuncSeparateATI(frontfunc:TGLenum; backfunc:TGLenum; ref:TGLint; mask:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_separate_stencil */ }
-{////#ifndef GL_ATI_text_fragment_shader }
 const
   GL_ATI_text_fragment_shader = 1;  
   GL_TEXT_FRAGMENT_SHADER_ATI = $8200;  
-{////#endif /* GL_ATI_text_fragment_shader */ }
-{////#ifndef GL_ATI_texture_env_combine3 }
   GL_ATI_texture_env_combine3 = 1;  
   GL_MODULATE_ADD_ATI = $8744;  
   GL_MODULATE_SIGNED_ADD_ATI = $8745;  
   GL_MODULATE_SUBTRACT_ATI = $8746;  
-{////#endif /* GL_ATI_texture_env_combine3 */ }
-{////#ifndef GL_ATI_texture_float }
   GL_ATI_texture_float = 1;  
   GL_RGBA_FLOAT32_ATI = $8814;  
   GL_RGB_FLOAT32_ATI = $8815;  
@@ -6490,13 +4358,9 @@ const
   GL_INTENSITY_FLOAT16_ATI = $881D;  
   GL_LUMINANCE_FLOAT16_ATI = $881E;  
   GL_LUMINANCE_ALPHA_FLOAT16_ATI = $881F;  
-{////#endif /* GL_ATI_texture_float */ }
-{////#ifndef GL_ATI_texture_mirror_once }
   GL_ATI_texture_mirror_once = 1;  
   GL_MIRROR_CLAMP_ATI = $8742;  
   GL_MIRROR_CLAMP_TO_EDGE_ATI = $8743;  
-{////#endif /* GL_ATI_texture_mirror_once */ }
-{////#ifndef GL_ATI_vertex_array_object }
   GL_ATI_vertex_array_object = 1;  
   GL_STATIC_ATI = $8760;  
   GL_DYNAMIC_ATI = $8761;  
@@ -6506,19 +4370,6 @@ const
   GL_OBJECT_BUFFER_USAGE_ATI = $8765;  
   GL_ARRAY_OBJECT_BUFFER_ATI = $8766;  
   GL_ARRAY_OBJECT_OFFSET_ATI = $8767;  
-{////typedef GLuint (P PFNGLNEWOBJECTBUFFERATIPROC) (GLsizei size,void *pointer, GLenum usage); }
-{////typedef GLboolean (P PFNGLISOBJECTBUFFERATIPROC) (GLuint buffer); }
-{////typedef void (P PFNGLUPDATEOBJECTBUFFERATIPROC) (GLuint buffer, GLuint offset, GLsizei size,void *pointer, GLenum preserve); }
-{////typedef void (P PFNGLGETOBJECTBUFFERFVATIPROC) (GLuint buffer, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETOBJECTBUFFERIVATIPROC) (GLuint buffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLFREEOBJECTBUFFERATIPROC) (GLuint buffer); }
-{////typedef void (P PFNGLARRAYOBJECTATIPROC) (GLenum array_, GLint size, GLenum type, GLsizei stride, GLuint buffer, GLuint offset); }
-{////typedef void (P PFNGLGETARRAYOBJECTFVATIPROC) (GLenum array_, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETARRAYOBJECTIVATIPROC) (GLenum array_, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLVARIANTARRAYOBJECTATIPROC) (GLuint id, GLenum type, GLsizei stride, GLuint buffer, GLuint offset); }
-{////typedef void (P PFNGLGETVARIANTARRAYOBJECTFVATIPROC) (GLuint id, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVARIANTARRAYOBJECTIVATIPROC) (GLuint id, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glNewObjectBufferATI(size:TGLsizei; pointer:pointer; usage:TGLenum):TGLuint;cdecl;external;
 function glIsObjectBufferATI(buffer:TGLuint):TGLboolean;cdecl;external;
@@ -6533,23 +4384,13 @@ procedure glGetArrayObjectivATI(array_:TGLenum; pname:TGLenum; params:PGLint);cd
 procedure glVariantArrayObjectATI(id:TGLuint; _type:TGLenum; stride:TGLsizei; buffer:TGLuint; offset:TGLuint);cdecl;external;
 procedure glGetVariantArrayObjectfvATI(id:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetVariantArrayObjectivATI(id:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_vertex_array_object */ }
-{////#ifndef GL_ATI_vertex_attrib_array_object }
 const
   GL_ATI_vertex_attrib_array_object = 1;  
-{////typedef void (P PFNGLVERTEXATTRIBARRAYOBJECTATIPROC) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLuint buffer, GLuint offset); }
-{////typedef void (P PFNGLGETVERTEXATTRIBARRAYOBJECTFVATIPROC) (GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC) (GLuint index, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttribArrayObjectATI(index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei; 
             buffer:TGLuint; offset:TGLuint);cdecl;external;
 procedure glGetVertexAttribArrayObjectfvATI(index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetVertexAttribArrayObjectivATI(index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_vertex_attrib_array_object */ }
-{////#ifndef GL_ATI_vertex_streams }
 const
   GL_ATI_vertex_streams = 1;  
   GL_MAX_VERTEX_STREAMS_ATI = $876B;  
@@ -6562,52 +4403,6 @@ const
   GL_VERTEX_STREAM6_ATI = $8772;  
   GL_VERTEX_STREAM7_ATI = $8773;  
   GL_VERTEX_SOURCE_ATI = $8774;  
-{////typedef void (P PFNGLVERTEXSTREAM1SATIPROC) (GLenum stream, GLshort x); }
-{////typedef void (P PFNGLVERTEXSTREAM1SVATIPROC) (GLenum stream,GLshort *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM1IATIPROC) (GLenum stream, GLint x); }
-{////typedef void (P PFNGLVERTEXSTREAM1IVATIPROC) (GLenum stream,GLint *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM1FATIPROC) (GLenum stream, GLfloat x); }
-{////typedef void (P PFNGLVERTEXSTREAM1FVATIPROC) (GLenum stream,GLfloat *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM1DATIPROC) (GLenum stream, GLdouble x); }
-{////typedef void (P PFNGLVERTEXSTREAM1DVATIPROC) (GLenum stream,GLdouble *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM2SATIPROC) (GLenum stream, GLshort x, GLshort y); }
-{////typedef void (P PFNGLVERTEXSTREAM2SVATIPROC) (GLenum stream,GLshort *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM2IATIPROC) (GLenum stream, GLint x, GLint y); }
-{////typedef void (P PFNGLVERTEXSTREAM2IVATIPROC) (GLenum stream,GLint *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM2FATIPROC) (GLenum stream, GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLVERTEXSTREAM2FVATIPROC) (GLenum stream,GLfloat *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM2DATIPROC) (GLenum stream, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXSTREAM2DVATIPROC) (GLenum stream,GLdouble *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM3SATIPROC) (GLenum stream, GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLVERTEXSTREAM3SVATIPROC) (GLenum stream,GLshort *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM3IATIPROC) (GLenum stream, GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLVERTEXSTREAM3IVATIPROC) (GLenum stream,GLint *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM3FATIPROC) (GLenum stream, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLVERTEXSTREAM3FVATIPROC) (GLenum stream,GLfloat *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM3DATIPROC) (GLenum stream, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXSTREAM3DVATIPROC) (GLenum stream,GLdouble *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM4SATIPROC) (GLenum stream, GLshort x, GLshort y, GLshort z, GLshort w); }
-{////typedef void (P PFNGLVERTEXSTREAM4SVATIPROC) (GLenum stream,GLshort *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM4IATIPROC) (GLenum stream, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLVERTEXSTREAM4IVATIPROC) (GLenum stream,GLint *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM4FATIPROC) (GLenum stream, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLVERTEXSTREAM4FVATIPROC) (GLenum stream,GLfloat *coords); }
-{////typedef void (P PFNGLVERTEXSTREAM4DATIPROC) (GLenum stream, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXSTREAM4DVATIPROC) (GLenum stream,GLdouble *coords); }
-{////typedef void (P PFNGLNORMALSTREAM3BATIPROC) (GLenum stream, GLbyte nx, GLbyte ny, GLbyte nz); }
-{////typedef void (P PFNGLNORMALSTREAM3BVATIPROC) (GLenum stream,GLbyte *coords); }
-{////typedef void (P PFNGLNORMALSTREAM3SATIPROC) (GLenum stream, GLshort nx, GLshort ny, GLshort nz); }
-{////typedef void (P PFNGLNORMALSTREAM3SVATIPROC) (GLenum stream,GLshort *coords); }
-{////typedef void (P PFNGLNORMALSTREAM3IATIPROC) (GLenum stream, GLint nx, GLint ny, GLint nz); }
-{////typedef void (P PFNGLNORMALSTREAM3IVATIPROC) (GLenum stream,GLint *coords); }
-{////typedef void (P PFNGLNORMALSTREAM3FATIPROC) (GLenum stream, GLfloat nx, GLfloat ny, GLfloat nz); }
-{////typedef void (P PFNGLNORMALSTREAM3FVATIPROC) (GLenum stream,GLfloat *coords); }
-{////typedef void (P PFNGLNORMALSTREAM3DATIPROC) (GLenum stream, GLdouble nx, GLdouble ny, GLdouble nz); }
-{////typedef void (P PFNGLNORMALSTREAM3DVATIPROC) (GLenum stream,GLdouble *coords); }
-{////typedef void (P PFNGLCLIENTACTIVEVERTEXSTREAMATIPROC) (GLenum stream); }
-{////typedef void (P PFNGLVERTEXBLENDENVIATIPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLVERTEXBLENDENVFATIPROC) (GLenum pname, GLfloat param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexStream1sATI(stream:TGLenum; x:TGLshort);cdecl;external;
 procedure glVertexStream1svATI(stream:TGLenum; coords:PGLshort);cdecl;external;
@@ -6654,43 +4449,26 @@ procedure glNormalStream3dvATI(stream:TGLenum; coords:PGLdouble);cdecl;external;
 procedure glClientActiveVertexStreamATI(stream:TGLenum);cdecl;external;
 procedure glVertexBlendEnviATI(pname:TGLenum; param:TGLint);cdecl;external;
 procedure glVertexBlendEnvfATI(pname:TGLenum; param:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_ATI_vertex_streams */ }
-{////#ifndef GL_EXT_422_pixels }
 const
   GL_EXT_422_pixels = 1;  
   GL_422_EXT = $80CC;  
   GL_422_REV_EXT = $80CD;  
   GL_422_AVERAGE_EXT = $80CE;  
   GL_422_REV_AVERAGE_EXT = $80CF;  
-{////#endif /* GL_EXT_422_pixels */ }
-{////#ifndef GL_EXT_EGL_image_storage }
   GL_EXT_EGL_image_storage = 1;  
 type
   PGLeglImageOES = ^TGLeglImageOES;
   TGLeglImageOES = pointer;
-{////typedef void (P PFNGLEGLIMAGETARGETTEXSTORAGEEXTPROC) (GLenum target, GLeglImageOES image,GLint* attrib_list); }
-{////typedef void (P PFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC) (GLuint texture, GLeglImageOES image,GLint* attrib_list); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glEGLImageTargetTexStorageEXT(target:TGLenum; image:TGLeglImageOES; attrib_list:PGLint);cdecl;external;
 procedure glEGLImageTargetTextureStorageEXT(texture:TGLuint; image:TGLeglImageOES; attrib_list:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_EGL_image_storage */ }
-{////#ifndef GL_EXT_EGL_sync }
 const
   GL_EXT_EGL_sync = 1;  
-{////#endif /* GL_EXT_EGL_sync */ }
-{////#ifndef GL_EXT_abgr }
   GL_EXT_abgr = 1;  
   GL_ABGR_EXT = $8000;  
-{////#endif /* GL_EXT_abgr */ }
-{////#ifndef GL_EXT_bgra }
   GL_EXT_bgra = 1;  
   GL_BGR_EXT = $80E0;  
   GL_BGRA_EXT = $80E1;  
-{////#endif /* GL_EXT_bgra */ }
-{////#ifndef GL_EXT_bindable_uniform }
   GL_EXT_bindable_uniform = 1;  
   GL_MAX_VERTEX_BINDABLE_UNIFORMS_EXT = $8DE2;  
   GL_MAX_FRAGMENT_BINDABLE_UNIFORMS_EXT = $8DE3;  
@@ -6698,17 +4476,10 @@ const
   GL_MAX_BINDABLE_UNIFORM_SIZE_EXT = $8DED;  
   GL_UNIFORM_BUFFER_EXT = $8DEE;  
   GL_UNIFORM_BUFFER_BINDING_EXT = $8DEF;  
-{////typedef void (P PFNGLUNIFORMBUFFEREXTPROC) (GLuint program_, GLint location, GLuint buffer); }
-{////typedef GLint (P PFNGLGETUNIFORMBUFFERSIZEEXTPROC) (GLuint program_, GLint location); }
-{////typedef GLintptr (P PFNGLGETUNIFORMOFFSETEXTPROC) (GLuint program_, GLint location); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUniformBufferEXT(program_:TGLuint; location:TGLint; buffer:TGLuint);cdecl;external;
 function glGetUniformBufferSizeEXT(program_:TGLuint; location:TGLint):TGLint;cdecl;external;
 function glGetUniformOffsetEXT(program_:TGLuint; location:TGLint):TGLintptr;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_bindable_uniform */ }
-{////#ifndef GL_EXT_blend_color }
 const
   GL_EXT_blend_color = 1;  
   GL_CONSTANT_COLOR_EXT = $8001;  
@@ -6716,94 +4487,54 @@ const
   GL_CONSTANT_ALPHA_EXT = $8003;  
   GL_ONE_MINUS_CONSTANT_ALPHA_EXT = $8004;  
   GL_BLEND_COLOR_EXT = $8005;  
-{////typedef void (P PFNGLBLENDCOLOREXTPROC) (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendColorEXT(red:TGLfloat; green:TGLfloat; blue:TGLfloat; alpha:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_blend_color */ }
-{////#ifndef GL_EXT_blend_equation_separate }
 const
   GL_EXT_blend_equation_separate = 1;  
   GL_BLEND_EQUATION_RGB_EXT = $8009;  
   GL_BLEND_EQUATION_ALPHA_EXT = $883D;  
-{////typedef void (P PFNGLBLENDEQUATIONSEPARATEEXTPROC) (GLenum modeRGB, GLenum modeAlpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendEquationSeparateEXT(modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_blend_equation_separate */ }
-{////#ifndef GL_EXT_blend_func_separate }
 const
   GL_EXT_blend_func_separate = 1;  
   GL_BLEND_DST_RGB_EXT = $80C8;  
   GL_BLEND_SRC_RGB_EXT = $80C9;  
   GL_BLEND_DST_ALPHA_EXT = $80CA;  
   GL_BLEND_SRC_ALPHA_EXT = $80CB;  
-{////typedef void (P PFNGLBLENDFUNCSEPARATEEXTPROC) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendFuncSeparateEXT(sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_blend_func_separate */ }
-{////#ifndef GL_EXT_blend_logic_op }
 const
   GL_EXT_blend_logic_op = 1;  
-{////#endif /* GL_EXT_blend_logic_op */ }
-{////#ifndef GL_EXT_blend_minmax }
   GL_EXT_blend_minmax = 1;  
   GL_MIN_EXT = $8007;  
   GL_MAX_EXT = $8008;  
   GL_FUNC_ADD_EXT = $8006;  
   GL_BLEND_EQUATION_EXT = $8009;  
-{////typedef void (P PFNGLBLENDEQUATIONEXTPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendEquationEXT(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_blend_minmax */ }
-{////#ifndef GL_EXT_blend_subtract }
 const
   GL_EXT_blend_subtract = 1;  
   GL_FUNC_SUBTRACT_EXT = $800A;  
   GL_FUNC_REVERSE_SUBTRACT_EXT = $800B;  
-{////#endif /* GL_EXT_blend_subtract */ }
-{////#ifndef GL_EXT_clip_volume_hint }
   GL_EXT_clip_volume_hint = 1;  
   GL_CLIP_VOLUME_CLIPPING_HINT_EXT = $80F0;  
-{////#endif /* GL_EXT_clip_volume_hint */ }
-{////#ifndef GL_EXT_cmyka }
   GL_EXT_cmyka = 1;  
   GL_CMYK_EXT = $800C;  
   GL_CMYKA_EXT = $800D;  
   GL_PACK_CMYK_HINT_EXT = $800E;  
   GL_UNPACK_CMYK_HINT_EXT = $800F;  
-{////#endif /* GL_EXT_cmyka */ }
-{////#ifndef GL_EXT_color_subtable }
   GL_EXT_color_subtable = 1;  
-{////typedef void (P PFNGLCOLORSUBTABLEEXTPROC) (GLenum target, GLsizei start, GLsizei count, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCOPYCOLORSUBTABLEEXTPROC) (GLenum target, GLsizei start, GLint x, GLint y, GLsizei width); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorSubTableEXT(target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum; 
             data:pointer);cdecl;external;
 procedure glCopyColorSubTableEXT(target:TGLenum; start:TGLsizei; x:TGLint; y:TGLint; width:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_color_subtable */ }
-{////#ifndef GL_EXT_compiled_vertex_array }
 const
   GL_EXT_compiled_vertex_array = 1;  
   GL_ARRAY_ELEMENT_LOCK_FIRST_EXT = $81A8;  
   GL_ARRAY_ELEMENT_LOCK_COUNT_EXT = $81A9;  
-{////typedef void (P PFNGLLOCKARRAYSEXTPROC) (GLint first, GLsizei count); }
-{////typedef void (P PFNGLUNLOCKARRAYSEXTPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glLockArraysEXT(first:TGLint; count:TGLsizei);cdecl;external;
 procedure glUnlockArraysEXT;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_compiled_vertex_array */ }
-{////#ifndef GL_EXT_convolution }
 const
   GL_EXT_convolution = 1;  
   GL_CONVOLUTION_1D_EXT = $8010;  
@@ -6826,20 +4557,6 @@ const
   GL_POST_CONVOLUTION_GREEN_BIAS_EXT = $8021;  
   GL_POST_CONVOLUTION_BLUE_BIAS_EXT = $8022;  
   GL_POST_CONVOLUTION_ALPHA_BIAS_EXT = $8023;  
-{////typedef void (P PFNGLCONVOLUTIONFILTER1DEXTPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type,void *image); }
-{////typedef void (P PFNGLCONVOLUTIONFILTER2DEXTPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type,void *image); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERFEXTPROC) (GLenum target, GLenum pname, GLfloat params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERFVEXTPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERIEXTPROC) (GLenum target, GLenum pname, GLint params); }
-{////typedef void (P PFNGLCONVOLUTIONPARAMETERIVEXTPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLCOPYCONVOLUTIONFILTER1DEXTPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYCONVOLUTIONFILTER2DEXTPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETCONVOLUTIONFILTEREXTPROC) (GLenum target, GLenum format, GLenum type, void *image); }
-{////typedef void (P PFNGLGETCONVOLUTIONPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCONVOLUTIONPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETSEPARABLEFILTEREXTPROC) (GLenum target, GLenum format, GLenum type, void *row, void *column, void *span); }
-{////typedef void (P PFNGLSEPARABLEFILTER2DEXTPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height, GLenum format, GLenum type,void *row,void *column); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glConvolutionFilter1DEXT(target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
             image:pointer);cdecl;external;
@@ -6859,9 +4576,6 @@ procedure glGetSeparableFilterEXT(target:TGLenum; format:TGLenum; _type:TGLenum;
             span:pointer);cdecl;external;
 procedure glSeparableFilter2DEXT(target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
             _type:TGLenum; row:pointer; column:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_convolution */ }
-{////#ifndef GL_EXT_coordinate_frame }
 const
   GL_EXT_coordinate_frame = 1;  
   GL_TANGENT_ARRAY_EXT = $8439;  
@@ -6878,29 +4592,6 @@ const
   GL_MAP2_TANGENT_EXT = $8445;  
   GL_MAP1_BINORMAL_EXT = $8446;  
   GL_MAP2_BINORMAL_EXT = $8447;  
-{////typedef void (P PFNGLTANGENT3BEXTPROC) (GLbyte tx, GLbyte ty, GLbyte tz); }
-{////typedef void (P PFNGLTANGENT3BVEXTPROC) ( GLbyte *v); }
-{////typedef void (P PFNGLTANGENT3DEXTPROC) (GLdouble tx, GLdouble ty, GLdouble tz); }
-{////typedef void (P PFNGLTANGENT3DVEXTPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLTANGENT3FEXTPROC) (GLfloat tx, GLfloat ty, GLfloat tz); }
-{////typedef void (P PFNGLTANGENT3FVEXTPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLTANGENT3IEXTPROC) (GLint tx, GLint ty, GLint tz); }
-{////typedef void (P PFNGLTANGENT3IVEXTPROC) ( GLint *v); }
-{////typedef void (P PFNGLTANGENT3SEXTPROC) (GLshort tx, GLshort ty, GLshort tz); }
-{////typedef void (P PFNGLTANGENT3SVEXTPROC) ( GLshort *v); }
-{////typedef void (P PFNGLBINORMAL3BEXTPROC) (GLbyte bx, GLbyte by, GLbyte bz); }
-{////typedef void (P PFNGLBINORMAL3BVEXTPROC) ( GLbyte *v); }
-{////typedef void (P PFNGLBINORMAL3DEXTPROC) (GLdouble bx, GLdouble by, GLdouble bz); }
-{////typedef void (P PFNGLBINORMAL3DVEXTPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLBINORMAL3FEXTPROC) (GLfloat bx, GLfloat by, GLfloat bz); }
-{////typedef void (P PFNGLBINORMAL3FVEXTPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLBINORMAL3IEXTPROC) (GLint bx, GLint by, GLint bz); }
-{////typedef void (P PFNGLBINORMAL3IVEXTPROC) ( GLint *v); }
-{////typedef void (P PFNGLBINORMAL3SEXTPROC) (GLshort bx, GLshort by, GLshort bz); }
-{////typedef void (P PFNGLBINORMAL3SVEXTPROC) ( GLshort *v); }
-{////typedef void (P PFNGLTANGENTPOINTEREXTPROC) (GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLBINORMALPOINTEREXTPROC) (GLenum type, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTangent3bEXT(tx:TGLbyte; ty:TGLbyte; tz:TGLbyte);cdecl;external;
 procedure glTangent3bvEXT(v:PGLbyte);cdecl;external;
@@ -6924,17 +4615,8 @@ procedure glBinormal3sEXT(bx:TGLshort; by:TGLshort; bz:TGLshort);cdecl;external;
 procedure glBinormal3svEXT(v:PGLshort);cdecl;external;
 procedure glTangentPointerEXT(_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
 procedure glBinormalPointerEXT(_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_coordinate_frame */ }
-{////#ifndef GL_EXT_copy_texture }
 const
   GL_EXT_copy_texture = 1;  
-{////typedef void (P PFNGLCOPYTEXIMAGE1DEXTPROC) (GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border); }
-{////typedef void (P PFNGLCOPYTEXIMAGE2DEXTPROC) (GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border); }
-{////typedef void (P PFNGLCOPYTEXSUBIMAGE1DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYTEXSUBIMAGE2DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLCOPYTEXSUBIMAGE3DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCopyTexImage1DEXT(target:TGLenum; level:TGLint; internalformat:TGLenum; x:TGLint; y:TGLint; 
             width:TGLsizei; border:TGLint);cdecl;external;
@@ -6946,23 +4628,14 @@ procedure glCopyTexSubImage2DEXT(target:TGLenum; level:TGLint; xoffset:TGLint; y
             y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;external;
 procedure glCopyTexSubImage3DEXT(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_copy_texture */ }
-{////#ifndef GL_EXT_cull_vertex }
 const
   GL_EXT_cull_vertex = 1;  
   GL_CULL_VERTEX_EXT = $81AA;  
   GL_CULL_VERTEX_EYE_POSITION_EXT = $81AB;  
   GL_CULL_VERTEX_OBJECT_POSITION_EXT = $81AC;  
-{////typedef void (P PFNGLCULLPARAMETERDVEXTPROC) (GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLCULLPARAMETERFVEXTPROC) (GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCullParameterdvEXT(pname:TGLenum; params:PGLdouble);cdecl;external;
 procedure glCullParameterfvEXT(pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_cull_vertex */ }
-{////#ifndef GL_EXT_debug_label }
 const
   GL_EXT_debug_label = 1;  
   GL_PROGRAM_PIPELINE_OBJECT_EXT = $8A4F;  
@@ -6971,300 +4644,26 @@ const
   GL_BUFFER_OBJECT_EXT = $9151;  
   GL_QUERY_OBJECT_EXT = $9153;  
   GL_VERTEX_ARRAY_OBJECT_EXT = $9154;  
-{////typedef void (P PFNGLLABELOBJECTEXTPROC) (GLenum type, GLuint object_, GLsizei length,GLchar *label); }
-{////typedef void (P PFNGLGETOBJECTLABELEXTPROC) (GLenum type, GLuint object_, GLsizei bufSize, GLsizei *length, GLchar *label); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glLabelObjectEXT(_type:TGLenum; object_:TGLuint; length:TGLsizei; _label:PGLchar);cdecl;external;
 procedure glGetObjectLabelEXT(_type:TGLenum; object_:TGLuint; bufSize:TGLsizei; length:PGLsizei; _label:PGLchar);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_debug_label */ }
-{////#ifndef GL_EXT_debug_marker }
 const
   GL_EXT_debug_marker = 1;  
-{////typedef void (P PFNGLINSERTEVENTMARKEREXTPROC) (GLsizei length,GLchar *marker); }
-{////typedef void (P PFNGLPUSHGROUPMARKEREXTPROC) (GLsizei length,GLchar *marker); }
-{////typedef void (P PFNGLPOPGROUPMARKEREXTPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glInsertEventMarkerEXT(length:TGLsizei; marker:PGLchar);cdecl;external;
 procedure glPushGroupMarkerEXT(length:TGLsizei; marker:PGLchar);cdecl;external;
 procedure glPopGroupMarkerEXT;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_debug_marker */ }
-{////#ifndef GL_EXT_depth_bounds_test }
 const
   GL_EXT_depth_bounds_test = 1;  
   GL_DEPTH_BOUNDS_TEST_EXT = $8890;  
   GL_DEPTH_BOUNDS_EXT = $8891;  
-{////typedef void (P PFNGLDEPTHBOUNDSEXTPROC) (GLclampd zmin, GLclampd zmax); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDepthBoundsEXT(zmin:TGLclampd; zmax:TGLclampd);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_depth_bounds_test */ }
-{////#ifndef GL_EXT_direct_state_access }
 const
   GL_EXT_direct_state_access = 1;  
   GL_PROGRAM_MATRIX_EXT = $8E2D;  
   GL_TRANSPOSE_PROGRAM_MATRIX_EXT = $8E2E;  
   GL_PROGRAM_MATRIX_STACK_DEPTH_EXT = $8E2F;  
-{////typedef void (P PFNGLMATRIXLOADFEXTPROC) (GLenum mode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXLOADDEXTPROC) (GLenum mode,GLdouble *m); }
-{////typedef void (P PFNGLMATRIXMULTFEXTPROC) (GLenum mode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXMULTDEXTPROC) (GLenum mode,GLdouble *m); }
-{////typedef void (P PFNGLMATRIXLOADIDENTITYEXTPROC) (GLenum mode); }
-{////typedef void (P PFNGLMATRIXROTATEFEXTPROC) (GLenum mode, GLfloat angle, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLMATRIXROTATEDEXTPROC) (GLenum mode, GLdouble angle, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLMATRIXSCALEFEXTPROC) (GLenum mode, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLMATRIXSCALEDEXTPROC) (GLenum mode, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLMATRIXTRANSLATEFEXTPROC) (GLenum mode, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLMATRIXTRANSLATEDEXTPROC) (GLenum mode, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLMATRIXFRUSTUMEXTPROC) (GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar); }
-{////typedef void (P PFNGLMATRIXORTHOEXTPROC) (GLenum mode, GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar); }
-{////typedef void (P PFNGLMATRIXPOPEXTPROC) (GLenum mode); }
-{////typedef void (P PFNGLMATRIXPUSHEXTPROC) (GLenum mode); }
-{////typedef void (P PFNGLCLIENTATTRIBDEFAULTEXTPROC) (GLbitfield mask); }
-{////typedef void (P PFNGLPUSHCLIENTATTRIBDEFAULTEXTPROC) (GLbitfield mask); }
-{////typedef void (P PFNGLTEXTUREPARAMETERFEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLTEXTUREPARAMETERFVEXTPROC) (GLuint texture, GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIVEXTPROC) (GLuint texture, GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLTEXTUREIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTUREIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOPYTEXTUREIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border); }
-{////typedef void (P PFNGLCOPYTEXTUREIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETTEXTUREIMAGEEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum format, GLenum type, void *pixels); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERFVEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIVEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXTURELEVELPARAMETERFVEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETTEXTURELEVELPARAMETERIVEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLTEXTUREIMAGE3DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXTURESUBIMAGE3DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOPYTEXTURESUBIMAGE3DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLBINDMULTITEXTUREEXTPROC) (GLenum texunit, GLenum target, GLuint texture); }
-{////typedef void (P PFNGLMULTITEXCOORDPOINTEREXTPROC) (GLenum texunit, GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLMULTITEXENVFEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLMULTITEXENVFVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLMULTITEXENVIEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLMULTITEXENVIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLMULTITEXGENDEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLdouble param); }
-{////typedef void (P PFNGLMULTITEXGENDVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname,GLdouble *params); }
-{////typedef void (P PFNGLMULTITEXGENFEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLMULTITEXGENFVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLMULTITEXGENIEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLint param); }
-{////typedef void (P PFNGLMULTITEXGENIVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLGETMULTITEXENVFVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMULTITEXENVIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMULTITEXGENDVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLGETMULTITEXGENFVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMULTITEXGENIVEXTPROC) (GLenum texunit, GLenum coord, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLMULTITEXPARAMETERIEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLMULTITEXPARAMETERIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLMULTITEXPARAMETERFEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLMULTITEXPARAMETERFVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLMULTITEXIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLMULTITEXIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLMULTITEXSUBIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLMULTITEXSUBIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOPYMULTITEXIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLint border); }
-{////typedef void (P PFNGLCOPYMULTITEXIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border); }
-{////typedef void (P PFNGLCOPYMULTITEXSUBIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLCOPYMULTITEXSUBIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETMULTITEXIMAGEEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum format, GLenum type, void *pixels); }
-{////typedef void (P PFNGLGETMULTITEXPARAMETERFVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMULTITEXPARAMETERIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMULTITEXLEVELPARAMETERFVEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMULTITEXLEVELPARAMETERIVEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLMULTITEXIMAGE3DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLMULTITEXSUBIMAGE3DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLENABLECLIENTSTATEINDEXEDEXTPROC) (GLenum array_, GLuint index); }
-{////typedef void (P PFNGLDISABLECLIENTSTATEINDEXEDEXTPROC) (GLenum array_, GLuint index); }
-{////typedef void (P PFNGLGETFLOATINDEXEDVEXTPROC) (GLenum target, GLuint index, GLfloat *data); }
-{////typedef void (P PFNGLGETDOUBLEINDEXEDVEXTPROC) (GLenum target, GLuint index, GLdouble *data); }
-{////typedef void (P PFNGLGETPOINTERINDEXEDVEXTPROC) (GLenum target, GLuint index, void **data); }
-{////typedef void (P PFNGLENABLEINDEXEDEXTPROC) (GLenum target, GLuint index); }
-{////typedef void (P PFNGLDISABLEINDEXEDEXTPROC) (GLenum target, GLuint index); }
-{////typedef GLboolean (P PFNGLISENABLEDINDEXEDEXTPROC) (GLenum target, GLuint index); }
-{////typedef void (P PFNGLGETINTEGERINDEXEDVEXTPROC) (GLenum target, GLuint index, GLint *data); }
-{////typedef void (P PFNGLGETBOOLEANINDEXEDVEXTPROC) (GLenum target, GLuint index, GLboolean *data); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC) (GLuint texture, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC) (GLuint texture, GLenum target, GLint lod, void *img); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC) (GLenum texunit, GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize,void *bits); }
-{////typedef void (P PFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC) (GLenum texunit, GLenum target, GLint lod, void *img); }
-{////typedef void (P PFNGLMATRIXLOADTRANSPOSEFEXTPROC) (GLenum mode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXLOADTRANSPOSEDEXTPROC) (GLenum mode,GLdouble *m); }
-{////typedef void (P PFNGLMATRIXMULTTRANSPOSEFEXTPROC) (GLenum mode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXMULTTRANSPOSEDEXTPROC) (GLenum mode,GLdouble *m); }
-{////typedef void (P PFNGLNAMEDBUFFERDATAEXTPROC) (GLuint buffer, GLsizeiptr size,void *data, GLenum usage); }
-{////typedef void (P PFNGLNAMEDBUFFERSUBDATAEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size,void *data); }
-{////typedef void *(P PFNGLMAPNAMEDBUFFEREXTPROC) (GLuint buffer, GLenum access); }
-{////typedef GLboolean (P PFNGLUNMAPNAMEDBUFFEREXTPROC) (GLuint buffer); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC) (GLuint buffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPOINTERVEXTPROC) (GLuint buffer, GLenum pname, void **params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERSUBDATAEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, void *data); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1FEXTPROC) (GLuint program_, GLint location, GLfloat v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2FEXTPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3FEXTPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1, GLfloat v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4FEXTPROC) (GLuint program_, GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1IEXTPROC) (GLuint program_, GLint location, GLint v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2IEXTPROC) (GLuint program_, GLint location, GLint v0, GLint v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3IEXTPROC) (GLuint program_, GLint location, GLint v0, GLint v1, GLint v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4IEXTPROC) (GLuint program_, GLint location, GLint v0, GLint v1, GLint v2, GLint v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1FVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2FVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3FVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4FVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1IVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2IVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3IVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4IVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLfloat *value); }
-{////typedef void (P PFNGLTEXTUREBUFFEREXTPROC) (GLuint texture, GLenum target, GLenum internalformat, GLuint buffer); }
-{////typedef void (P PFNGLMULTITEXBUFFEREXTPROC) (GLenum texunit, GLenum target, GLenum internalformat, GLuint buffer); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIIVEXTPROC) (GLuint texture, GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLTEXTUREPARAMETERIUIVEXTPROC) (GLuint texture, GLenum target, GLenum pname,GLuint *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIIVEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXTUREPARAMETERIUIVEXTPROC) (GLuint texture, GLenum target, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLMULTITEXPARAMETERIIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLMULTITEXPARAMETERIUIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname,GLuint *params); }
-{////typedef void (P PFNGLGETMULTITEXPARAMETERIIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMULTITEXPARAMETERIUIVEXTPROC) (GLenum texunit, GLenum target, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UIEXTPROC) (GLuint program_, GLint location, GLuint v0); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UIEXTPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UIEXTPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1, GLuint v2); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UIEXTPROC) (GLuint program_, GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1UIVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2UIVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3UIVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4UIVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLsizei count,GLfloat *params); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC) (GLuint program_, GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC) (GLuint program_, GLenum target, GLuint index,GLint *params); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLsizei count,GLint *params); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC) (GLuint program_, GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC) (GLuint program_, GLenum target, GLuint index,GLuint *params); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLsizei count,GLuint *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLint *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLuint *params); }
-{////typedef void (P PFNGLENABLECLIENTSTATEIEXTPROC) (GLenum array_, GLuint index); }
-{////typedef void (P PFNGLDISABLECLIENTSTATEIEXTPROC) (GLenum array_, GLuint index); }
-{////typedef void (P PFNGLGETFLOATI_VEXTPROC) (GLenum pname, GLuint index, GLfloat *params); }
-{////typedef void (P PFNGLGETDOUBLEI_VEXTPROC) (GLenum pname, GLuint index, GLdouble *params); }
-{////typedef void (P PFNGLGETPOINTERI_VEXTPROC) (GLenum pname, GLuint index, void **params); }
-{////typedef void (P PFNGLNAMEDPROGRAMSTRINGEXTPROC) (GLuint program_, GLenum target, GLenum format, GLsizei len,void *string); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC) (GLuint program_, GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC) (GLuint program_, GLenum target, GLuint index,GLdouble *params); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC) (GLuint program_, GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC) (GLuint program_, GLenum target, GLuint index,GLfloat *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLdouble *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC) (GLuint program_, GLenum target, GLuint index, GLfloat *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMIVEXTPROC) (GLuint program_, GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETNAMEDPROGRAMSTRINGEXTPROC) (GLuint program_, GLenum target, GLenum pname, void *string); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC) (GLuint renderbuffer, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC) (GLuint renderbuffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC) (GLuint renderbuffer, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC) (GLuint renderbuffer, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef GLenum (P PFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC) (GLuint framebuffer, GLenum target); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC) (GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC) (GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC) (GLuint framebuffer, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC) (GLuint framebuffer, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer); }
-{////typedef void (P PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC) (GLuint framebuffer, GLenum attachment, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGENERATETEXTUREMIPMAPEXTPROC) (GLuint texture, GLenum target); }
-{////typedef void (P PFNGLGENERATEMULTITEXMIPMAPEXTPROC) (GLenum texunit, GLenum target); }
-{////typedef void (P PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC) (GLuint framebuffer, GLenum mode); }
-{////typedef void (P PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC) (GLuint framebuffer, GLsizei n,GLenum *bufs); }
-{////typedef void (P PFNGLFRAMEBUFFERREADBUFFEREXTPROC) (GLuint framebuffer, GLenum mode); }
-{////typedef void (P PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC) (GLuint framebuffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC) (GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC) (GLuint framebuffer, GLenum attachment, GLuint texture, GLint level); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC) (GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLint layer); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC) (GLuint framebuffer, GLenum attachment, GLuint texture, GLint level, GLenum face); }
-{////typedef void (P PFNGLTEXTURERENDERBUFFEREXTPROC) (GLuint texture, GLenum target, GLuint renderbuffer); }
-{////typedef void (P PFNGLMULTITEXRENDERBUFFEREXTPROC) (GLenum texunit, GLenum target, GLuint renderbuffer); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYCOLOROFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYINDEXOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYNORMALOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLenum texunit, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLENABLEVERTEXARRAYEXTPROC) (GLuint vaobj, GLenum array_); }
-{////typedef void (P PFNGLDISABLEVERTEXARRAYEXTPROC) (GLuint vaobj, GLenum array_); }
-{////typedef void (P PFNGLENABLEVERTEXARRAYATTRIBEXTPROC) (GLuint vaobj, GLuint index); }
-{////typedef void (P PFNGLDISABLEVERTEXARRAYATTRIBEXTPROC) (GLuint vaobj, GLuint index); }
-{////typedef void (P PFNGLGETVERTEXARRAYINTEGERVEXTPROC) (GLuint vaobj, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETVERTEXARRAYPOINTERVEXTPROC) (GLuint vaobj, GLenum pname, void **param); }
-{////typedef void (P PFNGLGETVERTEXARRAYINTEGERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, GLint *param); }
-{////typedef void (P PFNGLGETVERTEXARRAYPOINTERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, void **param); }
-{////typedef void *(P PFNGLMAPNAMEDBUFFERRANGEEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr length, GLbitfield access); }
-{////typedef void (P PFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr length); }
-{////typedef void (P PFNGLNAMEDBUFFERSTORAGEEXTPROC) (GLuint buffer, GLsizeiptr size,void *data, GLbitfield flags); }
-{////typedef void (P PFNGLCLEARNAMEDBUFFERDATAEXTPROC) (GLuint buffer, GLenum internalformat, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC) (GLuint buffer, GLenum internalformat, GLsizeiptr offset, GLsizeiptr size, GLenum format, GLenum type,void *data); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC) (GLuint framebuffer, GLenum pname, GLint param); }
-{////typedef void (P PFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC) (GLuint framebuffer, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1DEXTPROC) (GLuint program_, GLint location, GLdouble x); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2DEXTPROC) (GLuint program_, GLint location, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3DEXTPROC) (GLuint program_, GLint location, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4DEXTPROC) (GLuint program_, GLint location, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLPROGRAMUNIFORM1DVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM2DVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM3DVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORM4DVEXTPROC) (GLuint program_, GLint location, GLsizei count,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X3DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX2X4DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X2DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX3X4DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X2DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMMATRIX4X3DVEXTPROC) (GLuint program_, GLint location, GLsizei count, GLboolean transpose,GLdouble *value); }
-{////typedef void (P PFNGLTEXTUREBUFFERRANGEEXTPROC) (GLuint texture, GLenum target, GLenum internalformat, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLTEXTURESTORAGE1DEXTPROC) (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width); }
-{////typedef void (P PFNGLTEXTURESTORAGE2DEXTPROC) (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLTEXTURESTORAGE3DEXTPROC) (GLuint texture, GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth); }
-{////typedef void (P PFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC) (GLuint texture, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC) (GLuint texture, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedsamplelocations); }
-{////typedef void (P PFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC) (GLuint vaobj, GLuint bindingindex, GLuint buffer, GLintptr offset, GLsizei stride); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLboolean normalized, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC) (GLuint vaobj, GLuint attribindex, GLint size, GLenum type, GLuint relativeoffset); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC) (GLuint vaobj, GLuint attribindex, GLuint bindingindex); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC) (GLuint vaobj, GLuint bindingindex, GLuint divisor); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC) (GLuint vaobj, GLuint buffer, GLuint index, GLint size, GLenum type, GLsizei stride, GLintptr offset); }
-{////typedef void (P PFNGLTEXTUREPAGECOMMITMENTEXTPROC) (GLuint texture, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLboolean commit); }
-{////typedef void (P PFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC) (GLuint vaobj, GLuint index, GLuint divisor); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMatrixLoadfEXT(mode:TGLenum; m:PGLfloat);cdecl;external;
 procedure glMatrixLoaddEXT(mode:TGLenum; m:PGLdouble);cdecl;external;
@@ -7591,55 +4990,30 @@ procedure glVertexArrayVertexAttribLOffsetEXT(vaobj:TGLuint; buffer:TGLuint; ind
 procedure glTexturePageCommitmentEXT(texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             width:TGLsizei; height:TGLsizei; depth:TGLsizei; commit:TGLboolean);cdecl;external;
 procedure glVertexArrayVertexAttribDivisorEXT(vaobj:TGLuint; index:TGLuint; divisor:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_direct_state_access */ }
-{////#ifndef GL_EXT_draw_buffers2 }
 const
   GL_EXT_draw_buffers2 = 1;  
-{////typedef void (P PFNGLCOLORMASKINDEXEDEXTPROC) (GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorMaskIndexedEXT(index:TGLuint; r:TGLboolean; g:TGLboolean; b:TGLboolean; a:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_draw_buffers2 */ }
-{////#ifndef GL_EXT_draw_instanced }
 const
   GL_EXT_draw_instanced = 1;  
-{////typedef void (P PFNGLDRAWARRAYSINSTANCEDEXTPROC) (GLenum mode, GLint start, GLsizei count, GLsizei primcount); }
-{////typedef void (P PFNGLDRAWELEMENTSINSTANCEDEXTPROC) (GLenum mode, GLsizei count, GLenum type,void *indices, GLsizei primcount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawArraysInstancedEXT(mode:TGLenum; start:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;external;
 procedure glDrawElementsInstancedEXT(mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_draw_instanced */ }
-{////#ifndef GL_EXT_draw_range_elements }
 const
   GL_EXT_draw_range_elements = 1;  
   GL_MAX_ELEMENTS_VERTICES_EXT = $80E8;  
   GL_MAX_ELEMENTS_INDICES_EXT = $80E9;  
-{////typedef void (P PFNGLDRAWRANGEELEMENTSEXTPROC) (GLenum mode, GLuint start, GLuint end_, GLsizei count, GLenum type,void *indices); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawRangeElementsEXT(mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum; 
             indices:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_draw_range_elements */ }
-{////#ifndef GL_EXT_external_buffer }
 const
   GL_EXT_external_buffer = 1;  
 type
   PGLeglClientBufferEXT = ^TGLeglClientBufferEXT;
   TGLeglClientBufferEXT = pointer;
-{////typedef void (P PFNGLBUFFERSTORAGEEXTERNALEXTPROC) (GLenum target, GLintptr offset, GLsizeiptr size, GLeglClientBufferEXT clientBuffer, GLbitfield flags); }
-{////typedef void (P PFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, GLeglClientBufferEXT clientBuffer, GLbitfield flags); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferStorageExternalEXT(target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; clientBuffer:TGLeglClientBufferEXT; flags:TGLbitfield);cdecl;external;
 procedure glNamedBufferStorageExternalEXT(buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; clientBuffer:TGLeglClientBufferEXT; flags:TGLbitfield);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_external_buffer */ }
-{////#ifndef GL_EXT_fog_coord }
 const
   GL_EXT_fog_coord = 1;  
   GL_FOG_COORDINATE_SOURCE_EXT = $8450;  
@@ -7650,67 +5024,40 @@ const
   GL_FOG_COORDINATE_ARRAY_STRIDE_EXT = $8455;  
   GL_FOG_COORDINATE_ARRAY_POINTER_EXT = $8456;  
   GL_FOG_COORDINATE_ARRAY_EXT = $8457;  
-{////typedef void (P PFNGLFOGCOORDFEXTPROC) (GLfloat coord); }
-{////typedef void (P PFNGLFOGCOORDFVEXTPROC) ( GLfloat *coord); }
-{////typedef void (P PFNGLFOGCOORDDEXTPROC) (GLdouble coord); }
-{////typedef void (P PFNGLFOGCOORDDVEXTPROC) ( GLdouble *coord); }
-{////typedef void (P PFNGLFOGCOORDPOINTEREXTPROC) (GLenum type, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFogCoordfEXT(coord:TGLfloat);cdecl;external;
 procedure glFogCoordfvEXT(coord:PGLfloat);cdecl;external;
 procedure glFogCoorddEXT(coord:TGLdouble);cdecl;external;
 procedure glFogCoorddvEXT(coord:PGLdouble);cdecl;external;
 procedure glFogCoordPointerEXT(_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_fog_coord */ }
-{////#ifndef GL_EXT_framebuffer_blit }
 const
   GL_EXT_framebuffer_blit = 1;  
   GL_READ_FRAMEBUFFER_EXT = $8CA8;  
   GL_DRAW_FRAMEBUFFER_EXT = $8CA9;  
   GL_DRAW_FRAMEBUFFER_BINDING_EXT = $8CA6;  
   GL_READ_FRAMEBUFFER_BINDING_EXT = $8CAA;  
-{////typedef void (P PFNGLBLITFRAMEBUFFEREXTPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlitFramebufferEXT(srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint; 
             dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_framebuffer_blit */ }
-{////#ifndef GL_EXT_framebuffer_blit_layers }
 const
   GL_EXT_framebuffer_blit_layers = 1;  
-{////typedef void (P PFNGLBLITFRAMEBUFFERLAYERSEXTPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter); }
-{////typedef void (P PFNGLBLITFRAMEBUFFERLAYEREXTPROC) (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint srcLayer, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLint dstLayer, GLbitfield mask, GLenum filter); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlitFramebufferLayersEXT(srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint; 
             dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;external;
 procedure glBlitFramebufferLayerEXT(srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; srcLayer:TGLint; 
             dstX0:TGLint; dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; dstLayer:TGLint; 
             mask:TGLbitfield; filter:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_framebuffer_blit_layers */ }
-{////#ifndef GL_EXT_framebuffer_multisample }
 const
   GL_EXT_framebuffer_multisample = 1;  
   GL_RENDERBUFFER_SAMPLES_EXT = $8CAB;  
   GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT = $8D56;  
   GL_MAX_SAMPLES_EXT = $8D57;  
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC) (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glRenderbufferStorageMultisampleEXT(target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_framebuffer_multisample */ }
-{////#ifndef GL_EXT_framebuffer_multisample_blit_scaled }
 const
   GL_EXT_framebuffer_multisample_blit_scaled = 1;  
   GL_SCALED_RESOLVE_FASTEST_EXT = $90BA;  
   GL_SCALED_RESOLVE_NICEST_EXT = $90BB;  
-{////#endif /* GL_EXT_framebuffer_multisample_blit_scaled */ }
-{////#ifndef GL_EXT_framebuffer_object }
   GL_EXT_framebuffer_object = 1;  
   GL_INVALID_FRAMEBUFFER_OPERATION_EXT = $0506;  
   GL_MAX_RENDERBUFFER_SIZE_EXT = $84E8;  
@@ -7763,24 +5110,6 @@ const
   GL_RENDERBUFFER_ALPHA_SIZE_EXT = $8D53;  
   GL_RENDERBUFFER_DEPTH_SIZE_EXT = $8D54;  
   GL_RENDERBUFFER_STENCIL_SIZE_EXT = $8D55;  
-{////typedef GLboolean (P PFNGLISRENDERBUFFEREXTPROC) (GLuint renderbuffer); }
-{////typedef void (P PFNGLBINDRENDERBUFFEREXTPROC) (GLenum target, GLuint renderbuffer); }
-{////typedef void (P PFNGLDELETERENDERBUFFERSEXTPROC) (GLsizei n,GLuint *renderbuffers); }
-{////typedef void (P PFNGLGENRENDERBUFFERSEXTPROC) (GLsizei n, GLuint *renderbuffers); }
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEEXTPROC) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef GLboolean (P PFNGLISFRAMEBUFFEREXTPROC) (GLuint framebuffer); }
-{////typedef void (P PFNGLBINDFRAMEBUFFEREXTPROC) (GLenum target, GLuint framebuffer); }
-{////typedef void (P PFNGLDELETEFRAMEBUFFERSEXTPROC) (GLsizei n,GLuint *framebuffers); }
-{////typedef void (P PFNGLGENFRAMEBUFFERSEXTPROC) (GLsizei n, GLuint *framebuffers); }
-{////typedef GLenum (P PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC) (GLenum target); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE1DEXTPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE2DEXTPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURE3DEXTPROC) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level, GLint zoffset); }
-{////typedef void (P PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC) (GLenum target, GLenum attachment, GLenum renderbuffertarget, GLuint renderbuffer); }
-{////typedef void (P PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC) (GLenum target, GLenum attachment, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGENERATEMIPMAPEXTPROC) (GLenum target); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glIsRenderbufferEXT(renderbuffer:TGLuint):TGLboolean;cdecl;external;
 procedure glBindRenderbufferEXT(target:TGLenum; renderbuffer:TGLuint);cdecl;external;
@@ -7800,15 +5129,10 @@ procedure glFramebufferTexture3DEXT(target:TGLenum; attachment:TGLenum; textarge
 procedure glFramebufferRenderbufferEXT(target:TGLenum; attachment:TGLenum; renderbuffertarget:TGLenum; renderbuffer:TGLuint);cdecl;external;
 procedure glGetFramebufferAttachmentParameterivEXT(target:TGLenum; attachment:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGenerateMipmapEXT(target:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_framebuffer_object */ }
-{////#ifndef GL_EXT_framebuffer_sRGB }
 const
   GL_EXT_framebuffer_sRGB = 1;  
   GL_FRAMEBUFFER_SRGB_EXT = $8DB9;  
   GL_FRAMEBUFFER_SRGB_CAPABLE_EXT = $8DBA;  
-{////#endif /* GL_EXT_framebuffer_sRGB */ }
-{////#ifndef GL_EXT_geometry_shader4 }
   GL_EXT_geometry_shader4 = 1;  
   GL_GEOMETRY_SHADER_EXT = $8DD9;  
   GL_GEOMETRY_VERTICES_OUT_EXT = $8DDA;  
@@ -7830,24 +5154,13 @@ const
   GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT = $8DA7;  
   GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT = $8CD4;  
   GL_PROGRAM_POINT_SIZE_EXT = $8642;  
-{////typedef void (P PFNGLPROGRAMPARAMETERIEXTPROC) (GLuint program_, GLenum pname, GLint value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramParameteriEXT(program_:TGLuint; pname:TGLenum; value:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_geometry_shader4 */ }
-{////#ifndef GL_EXT_gpu_program_parameters }
 const
   GL_EXT_gpu_program_parameters = 1;  
-{////typedef void (P PFNGLPROGRAMENVPARAMETERS4FVEXTPROC) (GLenum target, GLuint index, GLsizei count,GLfloat *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC) (GLenum target, GLuint index, GLsizei count,GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramEnvParameters4fvEXT(target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;external;
 procedure glProgramLocalParameters4fvEXT(target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_gpu_program_parameters */ }
-{////#ifndef GL_EXT_gpu_shader4 }
 const
   GL_EXT_gpu_shader4 = 1;  
   GL_SAMPLER_1D_ARRAY_EXT = $8DC0;  
@@ -7878,41 +5191,6 @@ const
   GL_MIN_PROGRAM_TEXEL_OFFSET_EXT = $8904;  
   GL_MAX_PROGRAM_TEXEL_OFFSET_EXT = $8905;  
   GL_VERTEX_ATTRIB_ARRAY_INTEGER_EXT = $88FD;  
-{////typedef void (P PFNGLGETUNIFORMUIVEXTPROC) (GLuint program_, GLint location, GLuint *params); }
-{////typedef void (P PFNGLBINDFRAGDATALOCATIONEXTPROC) (GLuint program_, GLuint color,GLchar *name); }
-{////typedef GLint (P PFNGLGETFRAGDATALOCATIONEXTPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLUNIFORM1UIEXTPROC) (GLint location, GLuint v0); }
-{////typedef void (P PFNGLUNIFORM2UIEXTPROC) (GLint location, GLuint v0, GLuint v1); }
-{////typedef void (P PFNGLUNIFORM3UIEXTPROC) (GLint location, GLuint v0, GLuint v1, GLuint v2); }
-{////typedef void (P PFNGLUNIFORM4UIEXTPROC) (GLint location, GLuint v0, GLuint v1, GLuint v2, GLuint v3); }
-{////typedef void (P PFNGLUNIFORM1UIVEXTPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM2UIVEXTPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM3UIVEXTPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLUNIFORM4UIVEXTPROC) (GLint location, GLsizei count,GLuint *value); }
-{////typedef void (P PFNGLVERTEXATTRIBI1IEXTPROC) (GLuint index, GLint x); }
-{////typedef void (P PFNGLVERTEXATTRIBI2IEXTPROC) (GLuint index, GLint x, GLint y); }
-{////typedef void (P PFNGLVERTEXATTRIBI3IEXTPROC) (GLuint index, GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLVERTEXATTRIBI4IEXTPROC) (GLuint index, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLVERTEXATTRIBI1UIEXTPROC) (GLuint index, GLuint x); }
-{////typedef void (P PFNGLVERTEXATTRIBI2UIEXTPROC) (GLuint index, GLuint x, GLuint y); }
-{////typedef void (P PFNGLVERTEXATTRIBI3UIEXTPROC) (GLuint index, GLuint x, GLuint y, GLuint z); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UIEXTPROC) (GLuint index, GLuint x, GLuint y, GLuint z, GLuint w); }
-{////typedef void (P PFNGLVERTEXATTRIBI1IVEXTPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI2IVEXTPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI3IVEXTPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4IVEXTPROC) (GLuint index,GLint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI1UIVEXTPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI2UIVEXTPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI3UIVEXTPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UIVEXTPROC) (GLuint index,GLuint *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4BVEXTPROC) (GLuint index,GLbyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4SVEXTPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4UBVEXTPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIBI4USVEXTPROC) (GLuint index,GLushort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBIPOINTEREXTPROC) (GLuint index, GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIIVEXTPROC) (GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIUIVEXTPROC) (GLuint index, GLenum pname, GLuint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetUniformuivEXT(program_:TGLuint; location:TGLint; params:PGLuint);cdecl;external;
 procedure glBindFragDataLocationEXT(program_:TGLuint; color:TGLuint; name:PGLchar);cdecl;external;
@@ -7948,9 +5226,6 @@ procedure glVertexAttribI4usvEXT(index:TGLuint; v:PGLushort);cdecl;external;
 procedure glVertexAttribIPointerEXT(index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
 procedure glGetVertexAttribIivEXT(index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetVertexAttribIuivEXT(index:TGLuint; pname:TGLenum; params:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_gpu_shader4 */ }
-{////#ifndef GL_EXT_histogram }
 const
   GL_EXT_histogram = 1;  
   GL_HISTOGRAM_EXT = $8024;  
@@ -7967,17 +5242,6 @@ const
   GL_MINMAX_FORMAT_EXT = $802F;  
   GL_MINMAX_SINK_EXT = $8030;  
   GL_TABLE_TOO_LARGE_EXT = $8031;  
-{////typedef void (P PFNGLGETHISTOGRAMEXTPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, void *values); }
-{////typedef void (P PFNGLGETHISTOGRAMPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETHISTOGRAMPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMINMAXEXTPROC) (GLenum target, GLboolean reset, GLenum format, GLenum type, void *values); }
-{////typedef void (P PFNGLGETMINMAXPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMINMAXPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLHISTOGRAMEXTPROC) (GLenum target, GLsizei width, GLenum internalformat, GLboolean sink); }
-{////typedef void (P PFNGLMINMAXEXTPROC) (GLenum target, GLenum internalformat, GLboolean sink); }
-{////typedef void (P PFNGLRESETHISTOGRAMEXTPROC) (GLenum target); }
-{////typedef void (P PFNGLRESETMINMAXEXTPROC) (GLenum target); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetHistogramEXT(target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; values:pointer);cdecl;external;
 procedure glGetHistogramParameterfvEXT(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
@@ -7989,9 +5253,6 @@ procedure glHistogramEXT(target:TGLenum; width:TGLsizei; internalformat:TGLenum;
 procedure glMinmaxEXT(target:TGLenum; internalformat:TGLenum; sink:TGLboolean);cdecl;external;
 procedure glResetHistogramEXT(target:TGLenum);cdecl;external;
 procedure glResetMinmaxEXT(target:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_histogram */ }
-{////#ifndef GL_EXT_index_array_formats }
 const
   GL_EXT_index_array_formats = 1;  
   GL_IUI_V2F_EXT = $81AD;  
@@ -8002,35 +5263,21 @@ const
   GL_T2F_IUI_V3F_EXT = $81B2;  
   GL_T2F_IUI_N3F_V2F_EXT = $81B3;  
   GL_T2F_IUI_N3F_V3F_EXT = $81B4;  
-{////#endif /* GL_EXT_index_array_formats */ }
-{////#ifndef GL_EXT_index_func }
   GL_EXT_index_func = 1;  
   GL_INDEX_TEST_EXT = $81B5;  
   GL_INDEX_TEST_FUNC_EXT = $81B6;  
   GL_INDEX_TEST_REF_EXT = $81B7;  
-{////typedef void (P PFNGLINDEXFUNCEXTPROC) (GLenum func, GLclampf ref); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glIndexFuncEXT(func:TGLenum; ref:TGLclampf);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_index_func */ }
-{////#ifndef GL_EXT_index_material }
 const
   GL_EXT_index_material = 1;  
   GL_INDEX_MATERIAL_EXT = $81B8;  
   GL_INDEX_MATERIAL_PARAMETER_EXT = $81B9;  
   GL_INDEX_MATERIAL_FACE_EXT = $81BA;  
-{////typedef void (P PFNGLINDEXMATERIALEXTPROC) (GLenum face, GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glIndexMaterialEXT(face:TGLenum; mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_index_material */ }
-{////#ifndef GL_EXT_index_texture }
 const
   GL_EXT_index_texture = 1;  
-{////#endif /* GL_EXT_index_texture */ }
-{////#ifndef GL_EXT_light_texture }
   GL_EXT_light_texture = 1;  
   GL_FRAGMENT_MATERIAL_EXT = $8349;  
   GL_FRAGMENT_NORMAL_EXT = $834A;  
@@ -8041,17 +5288,10 @@ const
   GL_TEXTURE_LIGHT_EXT = $8350;  
   GL_TEXTURE_MATERIAL_FACE_EXT = $8351;  
   GL_TEXTURE_MATERIAL_PARAMETER_EXT = $8352;  
-{////typedef void (P PFNGLAPPLYTEXTUREEXTPROC) (GLenum mode); }
-{////typedef void (P PFNGLTEXTURELIGHTEXTPROC) (GLenum pname); }
-{////typedef void (P PFNGLTEXTUREMATERIALEXTPROC) (GLenum face, GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glApplyTextureEXT(mode:TGLenum);cdecl;external;
 procedure glTextureLightEXT(pname:TGLenum);cdecl;external;
 procedure glTextureMaterialEXT(face:TGLenum; mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_light_texture */ }
-{////#ifndef GL_EXT_memory_object }
 const
   GL_EXT_memory_object = 1;  
   GL_TEXTURE_TILING_EXT = $9580;  
@@ -8065,26 +5305,6 @@ const
   GL_DEVICE_UUID_EXT = $9597;  
   GL_DRIVER_UUID_EXT = $9598;  
   GL_UUID_SIZE_EXT = 16;  
-{////typedef void (P PFNGLGETUNSIGNEDBYTEVEXTPROC) (GLenum pname, GLubyte *data); }
-{////typedef void (P PFNGLGETUNSIGNEDBYTEI_VEXTPROC) (GLenum target, GLuint index, GLubyte *data); }
-{////typedef void (P PFNGLDELETEMEMORYOBJECTSEXTPROC) (GLsizei n,GLuint *memoryObjects); }
-{////typedef GLboolean (P PFNGLISMEMORYOBJECTEXTPROC) (GLuint memoryObject); }
-{////typedef void (P PFNGLCREATEMEMORYOBJECTSEXTPROC) (GLsizei n, GLuint *memoryObjects); }
-{////typedef void (P PFNGLMEMORYOBJECTPARAMETERIVEXTPROC) (GLuint memoryObject, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC) (GLuint memoryObject, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLTEXSTORAGEMEM2DEXTPROC) (GLenum target, GLsizei levels, GLenum internalFormat, GLsizei width, GLsizei height, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC) (GLenum target, GLsizei samples, GLenum internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXSTORAGEMEM3DEXTPROC) (GLenum target, GLsizei levels, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC) (GLenum target, GLsizei samples, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLBUFFERSTORAGEMEMEXTPROC) (GLenum target, GLsizeiptr size, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTURESTORAGEMEM2DEXTPROC) (GLuint texture, GLsizei levels, GLenum internalFormat, GLsizei width, GLsizei height, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC) (GLuint texture, GLsizei samples, GLenum internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTURESTORAGEMEM3DEXTPROC) (GLuint texture, GLsizei levels, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC) (GLuint texture, GLsizei samples, GLenum internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLNAMEDBUFFERSTORAGEMEMEXTPROC) (GLuint buffer, GLsizeiptr size, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXSTORAGEMEM1DEXTPROC) (GLenum target, GLsizei levels, GLenum internalFormat, GLsizei width, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTURESTORAGEMEM1DEXTPROC) (GLuint texture, GLsizei levels, GLenum internalFormat, GLsizei width, GLuint memory, GLuint64 offset); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetUnsignedBytevEXT(pname:TGLenum; data:PGLubyte);cdecl;external;
 procedure glGetUnsignedBytei_vEXT(target:TGLenum; index:TGLuint; data:PGLubyte);cdecl;external;
@@ -8115,19 +5335,11 @@ procedure glTexStorageMem1DEXT(target:TGLenum; levels:TGLsizei; internalFormat:T
             offset:TGLuint64);cdecl;external;
 procedure glTextureStorageMem1DEXT(texture:TGLuint; levels:TGLsizei; internalFormat:TGLenum; width:TGLsizei; memory:TGLuint; 
             offset:TGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_memory_object */ }
-{////#ifndef GL_EXT_memory_object_fd }
 const
   GL_EXT_memory_object_fd = 1;  
   GL_HANDLE_TYPE_OPAQUE_FD_EXT = $9586;  
-{////typedef void (P PFNGLIMPORTMEMORYFDEXTPROC) (GLuint memory, GLuint64 size, GLenum handleType, GLint fd); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glImportMemoryFdEXT(memory:TGLuint; size:TGLuint64; handleType:TGLenum; fd:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_memory_object_fd */ }
-{////#ifndef GL_EXT_memory_object_win32 }
 const
   GL_EXT_memory_object_win32 = 1;  
   GL_HANDLE_TYPE_OPAQUE_WIN32_EXT = $9587;  
@@ -8139,29 +5351,15 @@ const
   GL_HANDLE_TYPE_D3D12_RESOURCE_EXT = $958A;  
   GL_HANDLE_TYPE_D3D11_IMAGE_EXT = $958B;  
   GL_HANDLE_TYPE_D3D11_IMAGE_KMT_EXT = $958C;  
-{////typedef void (P PFNGLIMPORTMEMORYWIN32HANDLEEXTPROC) (GLuint memory, GLuint64 size, GLenum handleType, void *handle); }
-{////typedef void (P PFNGLIMPORTMEMORYWIN32NAMEEXTPROC) (GLuint memory, GLuint64 size, GLenum handleType,void *name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glImportMemoryWin32HandleEXT(memory:TGLuint; size:TGLuint64; handleType:TGLenum; handle:pointer);cdecl;external;
 procedure glImportMemoryWin32NameEXT(memory:TGLuint; size:TGLuint64; handleType:TGLenum; name:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_memory_object_win32 */ }
-{////#ifndef GL_EXT_misc_attribute }
 const
   GL_EXT_misc_attribute = 1;  
-{////#endif /* GL_EXT_misc_attribute */ }
-{////#ifndef GL_EXT_multi_draw_arrays }
   GL_EXT_multi_draw_arrays = 1;  
-{////typedef void (P PFNGLMULTIDRAWARRAYSEXTPROC) (GLenum mode,GLint *first,GLsizei *count, GLsizei primcount); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSEXTPROC) (GLenum mode,GLsizei *count, GLenum type,void **indices, GLsizei primcount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiDrawArraysEXT(mode:TGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei);cdecl;external;
 procedure glMultiDrawElementsEXT(mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; primcount:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_multi_draw_arrays */ }
-{////#ifndef GL_EXT_multisample }
 const
   GL_EXT_multisample = 1;  
   GL_MULTISAMPLE_EXT = $809D;  
@@ -8181,46 +5379,28 @@ const
   GL_SAMPLE_MASK_INVERT_EXT = $80AB;  
   GL_SAMPLE_PATTERN_EXT = $80AC;  
   GL_MULTISAMPLE_BIT_EXT = $20000000;  
-{////typedef void (P PFNGLSAMPLEMASKEXTPROC) (GLclampf value, GLboolean invert); }
-{////typedef void (P PFNGLSAMPLEPATTERNEXTPROC) (GLenum pattern); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSampleMaskEXT(value:TGLclampf; invert:TGLboolean);cdecl;external;
 procedure glSamplePatternEXT(pattern:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_multisample */ }
-{////#ifndef GL_EXT_multiview_tessellation_geometry_shader }
 const
   GL_EXT_multiview_tessellation_geometry_shader = 1;  
-{////#endif /* GL_EXT_multiview_tessellation_geometry_shader */ }
-{////#ifndef GL_EXT_multiview_texture_multisample }
   GL_EXT_multiview_texture_multisample = 1;  
-{////#endif /* GL_EXT_multiview_texture_multisample */ }
-{////#ifndef GL_EXT_multiview_timer_query }
   GL_EXT_multiview_timer_query = 1;  
-{////#endif /* GL_EXT_multiview_timer_query */ }
-{////#ifndef GL_EXT_packed_depth_stencil }
   GL_EXT_packed_depth_stencil = 1;  
   GL_DEPTH_STENCIL_EXT = $84F9;  
   GL_UNSIGNED_INT_24_8_EXT = $84FA;  
   GL_DEPTH24_STENCIL8_EXT = $88F0;  
   GL_TEXTURE_STENCIL_SIZE_EXT = $88F1;  
-{////#endif /* GL_EXT_packed_depth_stencil */ }
-{////#ifndef GL_EXT_packed_float }
   GL_EXT_packed_float = 1;  
   GL_R11F_G11F_B10F_EXT = $8C3A;  
   GL_UNSIGNED_INT_10F_11F_11F_REV_EXT = $8C3B;  
   GL_RGBA_SIGNED_COMPONENTS_EXT = $8C3C;  
-{////#endif /* GL_EXT_packed_float */ }
-{////#ifndef GL_EXT_packed_pixels }
   GL_EXT_packed_pixels = 1;  
   GL_UNSIGNED_BYTE_3_3_2_EXT = $8032;  
   GL_UNSIGNED_SHORT_4_4_4_4_EXT = $8033;  
   GL_UNSIGNED_SHORT_5_5_5_1_EXT = $8034;  
   GL_UNSIGNED_INT_8_8_8_8_EXT = $8035;  
   GL_UNSIGNED_INT_10_10_10_2_EXT = $8036;  
-{////#endif /* GL_EXT_packed_pixels */ }
-{////#ifndef GL_EXT_paletted_texture }
   GL_EXT_paletted_texture = 1;  
   GL_COLOR_INDEX1_EXT = $80E2;  
   GL_COLOR_INDEX2_EXT = $80E3;  
@@ -8229,28 +5409,18 @@ const
   GL_COLOR_INDEX12_EXT = $80E6;  
   GL_COLOR_INDEX16_EXT = $80E7;  
   GL_TEXTURE_INDEX_SIZE_EXT = $80ED;  
-{////typedef void (P PFNGLCOLORTABLEEXTPROC) (GLenum target, GLenum internalFormat, GLsizei width, GLenum format, GLenum type,void *table); }
-{////typedef void (P PFNGLGETCOLORTABLEEXTPROC) (GLenum target, GLenum format, GLenum type, void *data); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorTableEXT(target:TGLenum; internalFormat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
             table:pointer);cdecl;external;
 procedure glGetColorTableEXT(target:TGLenum; format:TGLenum; _type:TGLenum; data:pointer);cdecl;external;
 procedure glGetColorTableParameterivEXT(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetColorTableParameterfvEXT(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_paletted_texture */ }
-{////#ifndef GL_EXT_pixel_buffer_object }
 const
   GL_EXT_pixel_buffer_object = 1;  
   GL_PIXEL_PACK_BUFFER_EXT = $88EB;  
   GL_PIXEL_UNPACK_BUFFER_EXT = $88EC;  
   GL_PIXEL_PACK_BUFFER_BINDING_EXT = $88ED;  
   GL_PIXEL_UNPACK_BUFFER_BINDING_EXT = $88EF;  
-{////#endif /* GL_EXT_pixel_buffer_object */ }
-{////#ifndef GL_EXT_pixel_transform }
   GL_EXT_pixel_transform = 1;  
   GL_PIXEL_TRANSFORM_2D_EXT = $8330;  
   GL_PIXEL_MAG_FILTER_EXT = $8331;  
@@ -8261,13 +5431,6 @@ const
   GL_PIXEL_TRANSFORM_2D_STACK_DEPTH_EXT = $8336;  
   GL_MAX_PIXEL_TRANSFORM_2D_STACK_DEPTH_EXT = $8337;  
   GL_PIXEL_TRANSFORM_2D_MATRIX_EXT = $8338;  
-{////typedef void (P PFNGLPIXELTRANSFORMPARAMETERIEXTPROC) (GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLPIXELTRANSFORMPARAMETERFEXTPROC) (GLenum target, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPIXELTRANSFORMPARAMETERIVEXTPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLPIXELTRANSFORMPARAMETERFVEXTPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPixelTransformParameteriEXT(target:TGLenum; pname:TGLenum; param:TGLint);cdecl;external;
 procedure glPixelTransformParameterfEXT(target:TGLenum; pname:TGLenum; param:TGLfloat);cdecl;external;
@@ -8275,65 +5438,37 @@ procedure glPixelTransformParameterivEXT(target:TGLenum; pname:TGLenum; params:P
 procedure glPixelTransformParameterfvEXT(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetPixelTransformParameterivEXT(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetPixelTransformParameterfvEXT(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_pixel_transform */ }
-{////#ifndef GL_EXT_pixel_transform_color_table }
 const
   GL_EXT_pixel_transform_color_table = 1;  
-{////#endif /* GL_EXT_pixel_transform_color_table */ }
-{////#ifndef GL_EXT_point_parameters }
   GL_EXT_point_parameters = 1;  
   GL_POINT_SIZE_MIN_EXT = $8126;  
   GL_POINT_SIZE_MAX_EXT = $8127;  
   GL_POINT_FADE_THRESHOLD_SIZE_EXT = $8128;  
   GL_DISTANCE_ATTENUATION_EXT = $8129;  
-{////typedef void (P PFNGLPOINTPARAMETERFEXTPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPOINTPARAMETERFVEXTPROC) (GLenum pname,GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPointParameterfEXT(pname:TGLenum; param:TGLfloat);cdecl;external;
 procedure glPointParameterfvEXT(pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_point_parameters */ }
-{////#ifndef GL_EXT_polygon_offset }
 const
   GL_EXT_polygon_offset = 1;  
   GL_POLYGON_OFFSET_EXT = $8037;  
   GL_POLYGON_OFFSET_FACTOR_EXT = $8038;  
   GL_POLYGON_OFFSET_BIAS_EXT = $8039;  
-{////typedef void (P PFNGLPOLYGONOFFSETEXTPROC) (GLfloat factor, GLfloat bias); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPolygonOffsetEXT(factor:TGLfloat; bias:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_polygon_offset */ }
-{////#ifndef GL_EXT_polygon_offset_clamp }
 const
   GL_EXT_polygon_offset_clamp = 1;  
   GL_POLYGON_OFFSET_CLAMP_EXT = $8E1B;  
-{////typedef void (P PFNGLPOLYGONOFFSETCLAMPEXTPROC) (GLfloat factor, GLfloat units, GLfloat clamp); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPolygonOffsetClampEXT(factor:TGLfloat; units:TGLfloat; clamp:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_polygon_offset_clamp */ }
-{////#ifndef GL_EXT_post_depth_coverage }
 const
   GL_EXT_post_depth_coverage = 1;  
-{////#endif /* GL_EXT_post_depth_coverage */ }
-{////#ifndef GL_EXT_provoking_vertex }
   GL_EXT_provoking_vertex = 1;  
   GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION_EXT = $8E4C;  
   GL_FIRST_VERTEX_CONVENTION_EXT = $8E4D;  
   GL_LAST_VERTEX_CONVENTION_EXT = $8E4E;  
   GL_PROVOKING_VERTEX_EXT = $8E4F;  
-{////typedef void (P PFNGLPROVOKINGVERTEXEXTPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProvokingVertexEXT(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_provoking_vertex */ }
-{////#ifndef GL_EXT_raster_multisample }
 const
   GL_EXT_raster_multisample = 1;  
   GL_RASTER_MULTISAMPLE_EXT = $9327;  
@@ -8342,18 +5477,11 @@ const
   GL_RASTER_FIXED_SAMPLE_LOCATIONS_EXT = $932A;  
   GL_MULTISAMPLE_RASTERIZATION_ALLOWED_EXT = $932B;  
   GL_EFFECTIVE_RASTER_SAMPLES_EXT = $932C;  
-{////typedef void (P PFNGLRASTERSAMPLESEXTPROC) (GLuint samples, GLboolean fixedsamplelocations); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glRasterSamplesEXT(samples:TGLuint; fixedsamplelocations:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_raster_multisample */ }
-{////#ifndef GL_EXT_rescale_normal }
 const
   GL_EXT_rescale_normal = 1;  
   GL_RESCALE_NORMAL_EXT = $803A;  
-{////#endif /* GL_EXT_rescale_normal */ }
-{////#ifndef GL_EXT_secondary_color }
   GL_EXT_secondary_color = 1;  
   GL_COLOR_SUM_EXT = $8458;  
   GL_CURRENT_SECONDARY_COLOR_EXT = $8459;  
@@ -8362,24 +5490,6 @@ const
   GL_SECONDARY_COLOR_ARRAY_STRIDE_EXT = $845C;  
   GL_SECONDARY_COLOR_ARRAY_POINTER_EXT = $845D;  
   GL_SECONDARY_COLOR_ARRAY_EXT = $845E;  
-{////typedef void (P PFNGLSECONDARYCOLOR3BEXTPROC) (GLbyte red, GLbyte green, GLbyte blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3BVEXTPROC) ( GLbyte *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3DEXTPROC) (GLdouble red, GLdouble green, GLdouble blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3DVEXTPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3FEXTPROC) (GLfloat red, GLfloat green, GLfloat blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3FVEXTPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3IEXTPROC) (GLint red, GLint green, GLint blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3IVEXTPROC) ( GLint *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3SEXTPROC) (GLshort red, GLshort green, GLshort blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3SVEXTPROC) ( GLshort *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UBEXTPROC) (GLubyte red, GLubyte green, GLubyte blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UBVEXTPROC) ( GLubyte *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UIEXTPROC) (GLuint red, GLuint green, GLuint blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3UIVEXTPROC) ( GLuint *v); }
-{////typedef void (P PFNGLSECONDARYCOLOR3USEXTPROC) (GLushort red, GLushort green, GLushort blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3USVEXTPROC) ( GLushort *v); }
-{////typedef void (P PFNGLSECONDARYCOLORPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSecondaryColor3bEXT(red:TGLbyte; green:TGLbyte; blue:TGLbyte);cdecl;external;
 procedure glSecondaryColor3bvEXT(v:PGLbyte);cdecl;external;
@@ -8398,9 +5508,6 @@ procedure glSecondaryColor3uivEXT(v:PGLuint);cdecl;external;
 procedure glSecondaryColor3usEXT(red:TGLushort; green:TGLushort; blue:TGLushort);cdecl;external;
 procedure glSecondaryColor3usvEXT(v:PGLushort);cdecl;external;
 procedure glSecondaryColorPointerEXT(size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_secondary_color */ }
-{////#ifndef GL_EXT_semaphore }
 const
   GL_EXT_semaphore = 1;  
   GL_LAYOUT_GENERAL_EXT = $958D;  
@@ -8412,14 +5519,6 @@ const
   GL_LAYOUT_TRANSFER_DST_EXT = $9593;  
   GL_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_EXT = $9530;  
   GL_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_EXT = $9531;  
-{////typedef void (P PFNGLGENSEMAPHORESEXTPROC) (GLsizei n, GLuint *semaphores); }
-{////typedef void (P PFNGLDELETESEMAPHORESEXTPROC) (GLsizei n,GLuint *semaphores); }
-{////typedef GLboolean (P PFNGLISSEMAPHOREEXTPROC) (GLuint semaphore); }
-{////typedef void (P PFNGLSEMAPHOREPARAMETERUI64VEXTPROC) (GLuint semaphore, GLenum pname,GLuint64 *params); }
-{////typedef void (P PFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC) (GLuint semaphore, GLenum pname, GLuint64 *params); }
-{////typedef void (P PFNGLWAITSEMAPHOREEXTPROC) (GLuint semaphore, GLuint numBufferBarriers,GLuint *buffers, GLuint numTextureBarriers,GLuint *textures,GLenum *srcLayouts); }
-{////typedef void (P PFNGLSIGNALSEMAPHOREEXTPROC) (GLuint semaphore, GLuint numBufferBarriers,GLuint *buffers, GLuint numTextureBarriers,GLuint *textures,GLenum *dstLayouts); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenSemaphoresEXT(n:TGLsizei; semaphores:PGLuint);cdecl;external;
 procedure glDeleteSemaphoresEXT(n:TGLsizei; semaphores:PGLuint);cdecl;external;
@@ -8430,68 +5529,36 @@ procedure glWaitSemaphoreEXT(semaphore:TGLuint; numBufferBarriers:TGLuint; buffe
             srcLayouts:PGLenum);cdecl;external;
 procedure glSignalSemaphoreEXT(semaphore:TGLuint; numBufferBarriers:TGLuint; buffers:PGLuint; numTextureBarriers:TGLuint; textures:PGLuint; 
             dstLayouts:PGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_semaphore */ }
-{////#ifndef GL_EXT_semaphore_fd }
 const
   GL_EXT_semaphore_fd = 1;  
-{////typedef void (P PFNGLIMPORTSEMAPHOREFDEXTPROC) (GLuint semaphore, GLenum handleType, GLint fd); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glImportSemaphoreFdEXT(semaphore:TGLuint; handleType:TGLenum; fd:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_semaphore_fd */ }
-{////#ifndef GL_EXT_semaphore_win32 }
 const
   GL_EXT_semaphore_win32 = 1;  
   GL_HANDLE_TYPE_D3D12_FENCE_EXT = $9594;  
   GL_D3D12_FENCE_VALUE_EXT = $9595;  
-{////typedef void (P PFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC) (GLuint semaphore, GLenum handleType, void *handle); }
-{////typedef void (P PFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC) (GLuint semaphore, GLenum handleType,void *name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glImportSemaphoreWin32HandleEXT(semaphore:TGLuint; handleType:TGLenum; handle:pointer);cdecl;external;
 procedure glImportSemaphoreWin32NameEXT(semaphore:TGLuint; handleType:TGLenum; name:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_semaphore_win32 */ }
-{////#ifndef GL_EXT_separate_shader_objects }
 const
   GL_EXT_separate_shader_objects = 1;  
   GL_ACTIVE_PROGRAM_EXT = $8B8D;  
-{////typedef void (P PFNGLUSESHADERPROGRAMEXTPROC) (GLenum type, GLuint program_); }
-{////typedef void (P PFNGLACTIVEPROGRAMEXTPROC) (GLuint program_); }
-{////typedef GLuint (P PFNGLCREATESHADERPROGRAMEXTPROC) (GLenum type,GLchar *string); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUseShaderProgramEXT(_type:TGLenum; program_:TGLuint);cdecl;external;
 procedure glActiveProgramEXT(program_:TGLuint);cdecl;external;
 function glCreateShaderProgramEXT(_type:TGLenum; _string:PGLchar):TGLuint;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_separate_shader_objects */ }
-{////#ifndef GL_EXT_separate_specular_color }
 const
   GL_EXT_separate_specular_color = 1;  
   GL_LIGHT_MODEL_COLOR_CONTROL_EXT = $81F8;  
   GL_SINGLE_COLOR_EXT = $81F9;  
   GL_SEPARATE_SPECULAR_COLOR_EXT = $81FA;  
-{////#endif /* GL_EXT_separate_specular_color */ }
-{////#ifndef GL_EXT_shader_framebuffer_fetch }
   GL_EXT_shader_framebuffer_fetch = 1;  
   GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT = $8A52;  
-{////#endif /* GL_EXT_shader_framebuffer_fetch */ }
-{////#ifndef GL_EXT_shader_framebuffer_fetch_non_coherent }
   GL_EXT_shader_framebuffer_fetch_non_coherent = 1;  
-{////typedef void (P PFNGLFRAMEBUFFERFETCHBARRIEREXTPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferFetchBarrierEXT;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_shader_framebuffer_fetch_non_coherent */ }
-{////#ifndef GL_EXT_shader_image_load_formatted }
 const
   GL_EXT_shader_image_load_formatted = 1;  
-{////#endif /* GL_EXT_shader_image_load_formatted */ }
-{////#ifndef GL_EXT_shader_image_load_store }
   GL_EXT_shader_image_load_store = 1;  
   GL_MAX_IMAGE_UNITS_EXT = $8F38;  
   GL_MAX_COMBINED_IMAGE_UNITS_AND_FRAGMENT_OUTPUTS_EXT = $8F39;  
@@ -8548,72 +5615,38 @@ const
   GL_TRANSFORM_FEEDBACK_BARRIER_BIT_EXT = $00000800;  
   GL_ATOMIC_COUNTER_BARRIER_BIT_EXT = $00001000;  
   GL_ALL_BARRIER_BITS_EXT = $FFFFFFFF;  
-{////typedef void (P PFNGLBINDIMAGETEXTUREEXTPROC) (GLuint index, GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum access, GLint format); }
-{////typedef void (P PFNGLMEMORYBARRIEREXTPROC) (GLbitfield barriers); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindImageTextureEXT(index:TGLuint; texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint; 
             access:TGLenum; format:TGLint);cdecl;external;
 procedure glMemoryBarrierEXT(barriers:TGLbitfield);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_shader_image_load_store */ }
-{////#ifndef GL_EXT_shader_integer_mix }
 const
   GL_EXT_shader_integer_mix = 1;  
-{////#endif /* GL_EXT_shader_integer_mix */ }
-{////#ifndef GL_EXT_shader_samples_identical }
   GL_EXT_shader_samples_identical = 1;  
-{////#endif /* GL_EXT_shader_samples_identical */ }
-{////#ifndef GL_EXT_shadow_funcs }
   GL_EXT_shadow_funcs = 1;  
-{////#endif /* GL_EXT_shadow_funcs */ }
-{////#ifndef GL_EXT_shared_texture_palette }
   GL_EXT_shared_texture_palette = 1;  
   GL_SHARED_TEXTURE_PALETTE_EXT = $81FB;  
-{////#endif /* GL_EXT_shared_texture_palette */ }
-{////#ifndef GL_EXT_sparse_texture2 }
   GL_EXT_sparse_texture2 = 1;  
-{////#endif /* GL_EXT_sparse_texture2 */ }
-{////#ifndef GL_EXT_stencil_clear_tag }
   GL_EXT_stencil_clear_tag = 1;  
   GL_STENCIL_TAG_BITS_EXT = $88F2;  
   GL_STENCIL_CLEAR_TAG_VALUE_EXT = $88F3;  
-{////typedef void (P PFNGLSTENCILCLEARTAGEXTPROC) (GLsizei stencilTagBits, GLuint stencilClearTag); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glStencilClearTagEXT(stencilTagBits:TGLsizei; stencilClearTag:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_stencil_clear_tag */ }
-{////#ifndef GL_EXT_stencil_two_side }
 const
   GL_EXT_stencil_two_side = 1;  
   GL_STENCIL_TEST_TWO_SIDE_EXT = $8910;  
   GL_ACTIVE_STENCIL_FACE_EXT = $8911;  
-{////typedef void (P PFNGLACTIVESTENCILFACEEXTPROC) (GLenum face); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glActiveStencilFaceEXT(face:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_stencil_two_side */ }
-{////#ifndef GL_EXT_stencil_wrap }
 const
   GL_EXT_stencil_wrap = 1;  
   GL_INCR_WRAP_EXT = $8507;  
   GL_DECR_WRAP_EXT = $8508;  
-{////#endif /* GL_EXT_stencil_wrap */ }
-{////#ifndef GL_EXT_subtexture }
   GL_EXT_subtexture = 1;  
-{////typedef void (P PFNGLTEXSUBIMAGE1DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXSUBIMAGE2DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type,void *pixels); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexSubImage1DEXT(target:TGLenum; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum; 
             _type:TGLenum; pixels:pointer);cdecl;external;
 procedure glTexSubImage2DEXT(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei; 
             height:TGLsizei; format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_subtexture */ }
-{////#ifndef GL_EXT_texture }
 const
   GL_EXT_texture = 1;  
   GL_ALPHA4_EXT = $803B;  
@@ -8659,8 +5692,6 @@ const
   GL_PROXY_TEXTURE_1D_EXT = $8063;  
   GL_PROXY_TEXTURE_2D_EXT = $8064;  
   GL_TEXTURE_TOO_LARGE_EXT = $8065;  
-{////#endif /* GL_EXT_texture */ }
-{////#ifndef GL_EXT_texture3D }
   GL_EXT_texture3D = 1;  
   GL_PACK_SKIP_IMAGES_EXT = $806B;  
   GL_PACK_IMAGE_HEIGHT_EXT = $806C;  
@@ -8671,18 +5702,12 @@ const
   GL_TEXTURE_DEPTH_EXT = $8071;  
   GL_TEXTURE_WRAP_R_EXT = $8072;  
   GL_MAX_3D_TEXTURE_SIZE_EXT = $8073;  
-{////typedef void (P PFNGLTEXIMAGE3DEXTPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXSUBIMAGE3DEXTPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type,void *pixels); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexImage3DEXT(target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
             depth:TGLsizei; border:TGLint; format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;external;
 procedure glTexSubImage3DEXT(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
             pixels:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture3D */ }
-{////#ifndef GL_EXT_texture_array }
 const
   GL_EXT_texture_array = 1;  
   GL_TEXTURE_1D_ARRAY_EXT = $8C18;  
@@ -8693,13 +5718,8 @@ const
   GL_TEXTURE_BINDING_2D_ARRAY_EXT = $8C1D;  
   GL_MAX_ARRAY_TEXTURE_LAYERS_EXT = $88FF;  
   GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT = $884E;  
-{////typedef void (P PFNGLFRAMEBUFFERTEXTURELAYEREXTPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferTextureLayerEXT(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_array */ }
-{////#ifndef GL_EXT_texture_buffer_object }
 const
   GL_EXT_texture_buffer_object = 1;  
   GL_TEXTURE_BUFFER_EXT = $8C2A;  
@@ -8707,35 +5727,24 @@ const
   GL_TEXTURE_BINDING_BUFFER_EXT = $8C2C;  
   GL_TEXTURE_BUFFER_DATA_STORE_BINDING_EXT = $8C2D;  
   GL_TEXTURE_BUFFER_FORMAT_EXT = $8C2E;  
-{////typedef void (P PFNGLTEXBUFFEREXTPROC) (GLenum target, GLenum internalformat, GLuint buffer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexBufferEXT(target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_buffer_object */ }
-{////#ifndef GL_EXT_texture_compression_latc }
 const
   GL_EXT_texture_compression_latc = 1;  
   GL_COMPRESSED_LUMINANCE_LATC1_EXT = $8C70;  
   GL_COMPRESSED_SIGNED_LUMINANCE_LATC1_EXT = $8C71;  
   GL_COMPRESSED_LUMINANCE_ALPHA_LATC2_EXT = $8C72;  
   GL_COMPRESSED_SIGNED_LUMINANCE_ALPHA_LATC2_EXT = $8C73;  
-{////#endif /* GL_EXT_texture_compression_latc */ }
-{////#ifndef GL_EXT_texture_compression_rgtc }
   GL_EXT_texture_compression_rgtc = 1;  
   GL_COMPRESSED_RED_RGTC1_EXT = $8DBB;  
   GL_COMPRESSED_SIGNED_RED_RGTC1_EXT = $8DBC;  
   GL_COMPRESSED_RED_GREEN_RGTC2_EXT = $8DBD;  
   GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT = $8DBE;  
-{////#endif /* GL_EXT_texture_compression_rgtc */ }
-{////#ifndef GL_EXT_texture_compression_s3tc }
   GL_EXT_texture_compression_s3tc = 1;  
   GL_COMPRESSED_RGB_S3TC_DXT1_EXT = $83F0;  
   GL_COMPRESSED_RGBA_S3TC_DXT1_EXT = $83F1;  
   GL_COMPRESSED_RGBA_S3TC_DXT3_EXT = $83F2;  
   GL_COMPRESSED_RGBA_S3TC_DXT5_EXT = $83F3;  
-{////#endif /* GL_EXT_texture_compression_s3tc */ }
-{////#ifndef GL_EXT_texture_cube_map }
   GL_EXT_texture_cube_map = 1;  
   GL_NORMAL_MAP_EXT = $8511;  
   GL_REFLECTION_MAP_EXT = $8512;  
@@ -8749,11 +5758,7 @@ const
   GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_EXT = $851A;  
   GL_PROXY_TEXTURE_CUBE_MAP_EXT = $851B;  
   GL_MAX_CUBE_MAP_TEXTURE_SIZE_EXT = $851C;  
-{////#endif /* GL_EXT_texture_cube_map */ }
-{////#ifndef GL_EXT_texture_env_add }
   GL_EXT_texture_env_add = 1;  
-{////#endif /* GL_EXT_texture_env_add */ }
-{////#ifndef GL_EXT_texture_env_combine }
   GL_EXT_texture_env_combine = 1;  
   GL_COMBINE_EXT = $8570;  
   GL_COMBINE_RGB_EXT = $8571;  
@@ -8776,23 +5781,15 @@ const
   GL_OPERAND0_ALPHA_EXT = $8598;  
   GL_OPERAND1_ALPHA_EXT = $8599;  
   GL_OPERAND2_ALPHA_EXT = $859A;  
-{////#endif /* GL_EXT_texture_env_combine */ }
-{////#ifndef GL_EXT_texture_env_dot3 }
   GL_EXT_texture_env_dot3 = 1;  
   GL_DOT3_RGB_EXT = $8740;  
   GL_DOT3_RGBA_EXT = $8741;  
-{////#endif /* GL_EXT_texture_env_dot3 */ }
-{////#ifndef GL_EXT_texture_filter_anisotropic }
   GL_EXT_texture_filter_anisotropic = 1;  
   GL_TEXTURE_MAX_ANISOTROPY_EXT = $84FE;  
   GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT = $84FF;  
-{////#endif /* GL_EXT_texture_filter_anisotropic */ }
-{////#ifndef GL_EXT_texture_filter_minmax }
   GL_EXT_texture_filter_minmax = 1;  
   GL_TEXTURE_REDUCTION_MODE_EXT = $9366;  
   GL_WEIGHTED_AVERAGE_EXT = $9367;  
-{////#endif /* GL_EXT_texture_filter_minmax */ }
-{////#ifndef GL_EXT_texture_integer }
   GL_EXT_texture_integer = 1;  
   GL_RGBA32UI_EXT = $8D70;  
   GL_RGB32UI_EXT = $8D71;  
@@ -8841,13 +5838,6 @@ const
   GL_LUMINANCE_INTEGER_EXT = $8D9C;  
   GL_LUMINANCE_ALPHA_INTEGER_EXT = $8D9D;  
   GL_RGBA_INTEGER_MODE_EXT = $8D9E;  
-{////typedef void (P PFNGLTEXPARAMETERIIVEXTPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLTEXPARAMETERIUIVEXTPROC) (GLenum target, GLenum pname,GLuint *params); }
-{////typedef void (P PFNGLGETTEXPARAMETERIIVEXTPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETTEXPARAMETERIUIVEXTPROC) (GLenum target, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLCLEARCOLORIIEXTPROC) (GLint red, GLint green, GLint blue, GLint alpha); }
-{////typedef void (P PFNGLCLEARCOLORIUIEXTPROC) (GLuint red, GLuint green, GLuint blue, GLuint alpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexParameterIivEXT(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glTexParameterIuivEXT(target:TGLenum; pname:TGLenum; params:PGLuint);cdecl;external;
@@ -8855,35 +5845,21 @@ procedure glGetTexParameterIivEXT(target:TGLenum; pname:TGLenum; params:PGLint);
 procedure glGetTexParameterIuivEXT(target:TGLenum; pname:TGLenum; params:PGLuint);cdecl;external;
 procedure glClearColorIiEXT(red:TGLint; green:TGLint; blue:TGLint; alpha:TGLint);cdecl;external;
 procedure glClearColorIuiEXT(red:TGLuint; green:TGLuint; blue:TGLuint; alpha:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_integer */ }
-{////#ifndef GL_EXT_texture_lod_bias }
 const
   GL_EXT_texture_lod_bias = 1;  
   GL_MAX_TEXTURE_LOD_BIAS_EXT = $84FD;  
   GL_TEXTURE_FILTER_CONTROL_EXT = $8500;  
   GL_TEXTURE_LOD_BIAS_EXT = $8501;  
-{////#endif /* GL_EXT_texture_lod_bias */ }
-{////#ifndef GL_EXT_texture_mirror_clamp }
   GL_EXT_texture_mirror_clamp = 1;  
   GL_MIRROR_CLAMP_EXT = $8742;  
   GL_MIRROR_CLAMP_TO_EDGE_EXT = $8743;  
   GL_MIRROR_CLAMP_TO_BORDER_EXT = $8912;  
-{////#endif /* GL_EXT_texture_mirror_clamp */ }
-{////#ifndef GL_EXT_texture_object }
   GL_EXT_texture_object = 1;  
   GL_TEXTURE_PRIORITY_EXT = $8066;  
   GL_TEXTURE_RESIDENT_EXT = $8067;  
   GL_TEXTURE_1D_BINDING_EXT = $8068;  
   GL_TEXTURE_2D_BINDING_EXT = $8069;  
   GL_TEXTURE_3D_BINDING_EXT = $806A;  
-{////typedef GLboolean (P PFNGLARETEXTURESRESIDENTEXTPROC) (GLsizei n,GLuint *textures, GLboolean *residences); }
-{////typedef void (P PFNGLBINDTEXTUREEXTPROC) (GLenum target, GLuint texture); }
-{////typedef void (P PFNGLDELETETEXTURESEXTPROC) (GLsizei n,GLuint *textures); }
-{////typedef void (P PFNGLGENTEXTURESEXTPROC) (GLsizei n, GLuint *textures); }
-{////typedef GLboolean (P PFNGLISTEXTUREEXTPROC) (GLuint texture); }
-{////typedef void (P PFNGLPRIORITIZETEXTURESEXTPROC) (GLsizei n,GLuint *textures,GLclampf *priorities); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glAreTexturesResidentEXT(n:TGLsizei; textures:PGLuint; residences:PGLboolean):TGLboolean;cdecl;external;
 procedure glBindTextureEXT(target:TGLenum; texture:TGLuint);cdecl;external;
@@ -8891,20 +5867,12 @@ procedure glDeleteTexturesEXT(n:TGLsizei; textures:PGLuint);cdecl;external;
 procedure glGenTexturesEXT(n:TGLsizei; textures:PGLuint);cdecl;external;
 function glIsTextureEXT(texture:TGLuint):TGLboolean;cdecl;external;
 procedure glPrioritizeTexturesEXT(n:TGLsizei; textures:PGLuint; priorities:PGLclampf);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_object */ }
-{////#ifndef GL_EXT_texture_perturb_normal }
 const
   GL_EXT_texture_perturb_normal = 1;  
   GL_PERTURB_EXT = $85AE;  
   GL_TEXTURE_NORMAL_EXT = $85AF;  
-{////typedef void (P PFNGLTEXTURENORMALEXTPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTextureNormalEXT(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_perturb_normal */ }
-{////#ifndef GL_EXT_texture_sRGB }
 const
   GL_EXT_texture_sRGB = 1;  
   GL_SRGB_EXT = $8C40;  
@@ -8923,31 +5891,19 @@ const
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT = $8C4D;  
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT = $8C4E;  
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT = $8C4F;  
-{////#endif /* GL_EXT_texture_sRGB */ }
-{////#ifndef GL_EXT_texture_sRGB_R8 }
   GL_EXT_texture_sRGB_R8 = 1;  
   GL_SR8_EXT = $8FBD;  
-{////#endif /* GL_EXT_texture_sRGB_R8 */ }
-{////#ifndef GL_EXT_texture_sRGB_RG8 }
   GL_EXT_texture_sRGB_RG8 = 1;  
   GL_SRG8_EXT = $8FBE;  
-{////#endif /* GL_EXT_texture_sRGB_RG8 */ }
-{////#ifndef GL_EXT_texture_sRGB_decode }
   GL_EXT_texture_sRGB_decode = 1;  
   GL_TEXTURE_SRGB_DECODE_EXT = $8A48;  
   GL_DECODE_EXT = $8A49;  
   GL_SKIP_DECODE_EXT = $8A4A;  
-{////#endif /* GL_EXT_texture_sRGB_decode */ }
-{////#ifndef GL_EXT_texture_shadow_lod }
   GL_EXT_texture_shadow_lod = 1;  
-{////#endif /* GL_EXT_texture_shadow_lod */ }
-{////#ifndef GL_EXT_texture_shared_exponent }
   GL_EXT_texture_shared_exponent = 1;  
   GL_RGB9_E5_EXT = $8C3D;  
   GL_UNSIGNED_INT_5_9_9_9_REV_EXT = $8C3E;  
   GL_TEXTURE_SHARED_SIZE_EXT = $8C3F;  
-{////#endif /* GL_EXT_texture_shared_exponent */ }
-{////#ifndef GL_EXT_texture_snorm }
   GL_EXT_texture_snorm = 1;  
   GL_ALPHA_SNORM = $9010;  
   GL_LUMINANCE_SNORM = $9011;  
@@ -8965,8 +5921,6 @@ const
   GL_RG_SNORM = $8F91;  
   GL_RGB_SNORM = $8F92;  
   GL_RGBA_SNORM = $8F93;  
-{////#endif /* GL_EXT_texture_snorm */ }
-{////#ifndef GL_EXT_texture_storage }
   GL_EXT_texture_storage = 1;  
   GL_TEXTURE_IMMUTABLE_FORMAT_EXT = $912F;  
   GL_RGBA32F_EXT = $8814;  
@@ -8986,18 +5940,11 @@ const
   GL_RG32F_EXT = $8230;  
   GL_R16F_EXT = $822D;  
   GL_RG16F_EXT = $822F;  
-{////typedef void (P PFNGLTEXSTORAGE1DEXTPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width); }
-{////typedef void (P PFNGLTEXSTORAGE2DEXTPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLTEXSTORAGE3DEXTPROC) (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexStorage1DEXT(target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei);cdecl;external;
 procedure glTexStorage2DEXT(target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;external;
 procedure glTexStorage3DEXT(target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
             depth:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_texture_storage */ }
-{////#ifndef GL_EXT_texture_swizzle }
 const
   GL_EXT_texture_swizzle = 1;  
   GL_TEXTURE_SWIZZLE_R_EXT = $8E42;  
@@ -9005,19 +5952,11 @@ const
   GL_TEXTURE_SWIZZLE_B_EXT = $8E44;  
   GL_TEXTURE_SWIZZLE_A_EXT = $8E45;  
   GL_TEXTURE_SWIZZLE_RGBA_EXT = $8E46;  
-{////#endif /* GL_EXT_texture_swizzle */ }
-{////#ifndef GL_EXT_timer_query }
   GL_EXT_timer_query = 1;  
   GL_TIME_ELAPSED_EXT = $88BF;  
-{////typedef void (P PFNGLGETQUERYOBJECTI64VEXTPROC) (GLuint id, GLenum pname, GLint64 *params); }
-{////typedef void (P PFNGLGETQUERYOBJECTUI64VEXTPROC) (GLuint id, GLenum pname, GLuint64 *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetQueryObjecti64vEXT(id:TGLuint; pname:TGLenum; params:PGLint64);cdecl;external;
 procedure glGetQueryObjectui64vEXT(id:TGLuint; pname:TGLenum; params:PGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_timer_query */ }
-{////#ifndef GL_EXT_transform_feedback }
 const
   GL_EXT_transform_feedback = 1;  
   GL_TRANSFORM_FEEDBACK_BUFFER_EXT = $8C8E;  
@@ -9035,14 +5974,6 @@ const
   GL_TRANSFORM_FEEDBACK_VARYINGS_EXT = $8C83;  
   GL_TRANSFORM_FEEDBACK_BUFFER_MODE_EXT = $8C7F;  
   GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH_EXT = $8C76;  
-{////typedef void (P PFNGLBEGINTRANSFORMFEEDBACKEXTPROC) (GLenum primitiveMode); }
-{////typedef void (P PFNGLENDTRANSFORMFEEDBACKEXTPROC) (void); }
-{////typedef void (P PFNGLBINDBUFFERRANGEEXTPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLBINDBUFFEROFFSETEXTPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset); }
-{////typedef void (P PFNGLBINDBUFFERBASEEXTPROC) (GLenum target, GLuint index, GLuint buffer); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC) (GLuint program_, GLsizei count,GLchar **varyings, GLenum bufferMode); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC) (GLuint program_, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginTransformFeedbackEXT(primitiveMode:TGLenum);cdecl;external;
 procedure glEndTransformFeedbackEXT;cdecl;external;
@@ -9052,9 +5983,6 @@ procedure glBindBufferBaseEXT(target:TGLenum; index:TGLuint; buffer:TGLuint);cde
 procedure glTransformFeedbackVaryingsEXT(program_:TGLuint; count:TGLsizei; varyings:PPGLchar; bufferMode:TGLenum);cdecl;external;
 procedure glGetTransformFeedbackVaryingEXT(program_:TGLuint; index:TGLuint; bufSize:TGLsizei; length:PGLsizei; size:PGLsizei; 
             _type:PGLenum; name:PGLchar);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_transform_feedback */ }
-{////#ifndef GL_EXT_vertex_array }
 const
   GL_EXT_vertex_array = 1;  
   GL_VERTEX_ARRAY_EXT = $8074;  
@@ -9089,16 +6017,6 @@ const
   GL_INDEX_ARRAY_POINTER_EXT = $8091;  
   GL_TEXTURE_COORD_ARRAY_POINTER_EXT = $8092;  
   GL_EDGE_FLAG_ARRAY_POINTER_EXT = $8093;  
-{////typedef void (P PFNGLARRAYELEMENTEXTPROC) (GLint i); }
-{////typedef void (P PFNGLCOLORPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride, GLsizei count,void *pointer); }
-{////typedef void (P PFNGLDRAWARRAYSEXTPROC) (GLenum mode, GLint first, GLsizei count); }
-{////typedef void (P PFNGLEDGEFLAGPOINTEREXTPROC) (GLsizei stride, GLsizei count,GLboolean *pointer); }
-{////typedef void (P PFNGLGETPOINTERVEXTPROC) (GLenum pname, void **params); }
-{////typedef void (P PFNGLINDEXPOINTEREXTPROC) (GLenum type, GLsizei stride, GLsizei count,void *pointer); }
-{////typedef void (P PFNGLNORMALPOINTEREXTPROC) (GLenum type, GLsizei stride, GLsizei count,void *pointer); }
-{////typedef void (P PFNGLTEXCOORDPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride, GLsizei count,void *pointer); }
-{////typedef void (P PFNGLVERTEXPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride, GLsizei count,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glArrayElementEXT(i:TGLint);cdecl;external;
 procedure glColorPointerEXT(size:TGLint; _type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;external;
@@ -9109,13 +6027,8 @@ procedure glIndexPointerEXT(_type:TGLenum; stride:TGLsizei; count:TGLsizei; poin
 procedure glNormalPointerEXT(_type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;external;
 procedure glTexCoordPointerEXT(size:TGLint; _type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;external;
 procedure glVertexPointerEXT(size:TGLint; _type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_vertex_array */ }
-{////#ifndef GL_EXT_vertex_array_bgra }
 const
   GL_EXT_vertex_array_bgra = 1;  
-{////#endif /* GL_EXT_vertex_array_bgra */ }
-{////#ifndef GL_EXT_vertex_attrib_64bit }
   GL_EXT_vertex_attrib_64bit = 1;  
   GL_DOUBLE_VEC2_EXT = $8FFC;  
   GL_DOUBLE_VEC3_EXT = $8FFD;  
@@ -9129,17 +6042,6 @@ const
   GL_DOUBLE_MAT3x4_EXT = $8F4C;  
   GL_DOUBLE_MAT4x2_EXT = $8F4D;  
   GL_DOUBLE_MAT4x3_EXT = $8F4E;  
-{////typedef void (P PFNGLVERTEXATTRIBL1DEXTPROC) (GLuint index, GLdouble x); }
-{////typedef void (P PFNGLVERTEXATTRIBL2DEXTPROC) (GLuint index, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXATTRIBL3DEXTPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXATTRIBL4DEXTPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXATTRIBL1DVEXTPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL2DVEXTPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL3DVEXTPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL4DVEXTPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBLPOINTEREXTPROC) (GLuint index, GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLGETVERTEXATTRIBLDVEXTPROC) (GLuint index, GLenum pname, GLdouble *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttribL1dEXT(index:TGLuint; x:TGLdouble);cdecl;external;
 procedure glVertexAttribL2dEXT(index:TGLuint; x:TGLdouble; y:TGLdouble);cdecl;external;
@@ -9151,9 +6053,6 @@ procedure glVertexAttribL3dvEXT(index:TGLuint; v:PGLdouble);cdecl;external;
 procedure glVertexAttribL4dvEXT(index:TGLuint; v:PGLdouble);cdecl;external;
 procedure glVertexAttribLPointerEXT(index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
 procedure glGetVertexAttribLdvEXT(index:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_vertex_attrib_64bit */ }
-{////#ifndef GL_EXT_vertex_shader }
 const
   GL_EXT_vertex_shader = 1;  
   GL_VERTEX_SHADER_EXT = $8780;  
@@ -9266,49 +6165,6 @@ const
   GL_INVARIANT_DATATYPE_EXT = $87EB;  
   GL_LOCAL_CONSTANT_VALUE_EXT = $87EC;  
   GL_LOCAL_CONSTANT_DATATYPE_EXT = $87ED;  
-{////typedef void (P PFNGLBEGINVERTEXSHADEREXTPROC) (void); }
-{////typedef void (P PFNGLENDVERTEXSHADEREXTPROC) (void); }
-{////typedef void (P PFNGLBINDVERTEXSHADEREXTPROC) (GLuint id); }
-{////typedef GLuint (P PFNGLGENVERTEXSHADERSEXTPROC) (GLuint range); }
-{////typedef void (P PFNGLDELETEVERTEXSHADEREXTPROC) (GLuint id); }
-{////typedef void (P PFNGLSHADEROP1EXTPROC) (GLenum op, GLuint res, GLuint arg1); }
-{////typedef void (P PFNGLSHADEROP2EXTPROC) (GLenum op, GLuint res, GLuint arg1, GLuint arg2); }
-{////typedef void (P PFNGLSHADEROP3EXTPROC) (GLenum op, GLuint res, GLuint arg1, GLuint arg2, GLuint arg3); }
-{////typedef void (P PFNGLSWIZZLEEXTPROC) (GLuint res, GLuint in_, GLenum outX, GLenum outY, GLenum outZ, GLenum outW); }
-{////typedef void (P PFNGLWRITEMASKEXTPROC) (GLuint res, GLuint in_, GLenum outX, GLenum outY, GLenum outZ, GLenum outW); }
-{////typedef void (P PFNGLINSERTCOMPONENTEXTPROC) (GLuint res, GLuint src, GLuint num); }
-{////typedef void (P PFNGLEXTRACTCOMPONENTEXTPROC) (GLuint res, GLuint src, GLuint num); }
-{////typedef GLuint (P PFNGLGENSYMBOLSEXTPROC) (GLenum datatype, GLenum storagetype, GLenum range, GLuint components); }
-{////typedef void (P PFNGLSETINVARIANTEXTPROC) (GLuint id, GLenum type,void *addr); }
-{////typedef void (P PFNGLSETLOCALCONSTANTEXTPROC) (GLuint id, GLenum type,void *addr); }
-{////typedef void (P PFNGLVARIANTBVEXTPROC) (GLuint id,GLbyte *addr); }
-{////typedef void (P PFNGLVARIANTSVEXTPROC) (GLuint id,GLshort *addr); }
-{////typedef void (P PFNGLVARIANTIVEXTPROC) (GLuint id,GLint *addr); }
-{////typedef void (P PFNGLVARIANTFVEXTPROC) (GLuint id,GLfloat *addr); }
-{////typedef void (P PFNGLVARIANTDVEXTPROC) (GLuint id,GLdouble *addr); }
-{////typedef void (P PFNGLVARIANTUBVEXTPROC) (GLuint id,GLubyte *addr); }
-{////typedef void (P PFNGLVARIANTUSVEXTPROC) (GLuint id,GLushort *addr); }
-{////typedef void (P PFNGLVARIANTUIVEXTPROC) (GLuint id,GLuint *addr); }
-{////typedef void (P PFNGLVARIANTPOINTEREXTPROC) (GLuint id, GLenum type, GLuint stride,void *addr); }
-{////typedef void (P PFNGLENABLEVARIANTCLIENTSTATEEXTPROC) (GLuint id); }
-{////typedef void (P PFNGLDISABLEVARIANTCLIENTSTATEEXTPROC) (GLuint id); }
-{////typedef GLuint (P PFNGLBINDLIGHTPARAMETEREXTPROC) (GLenum light, GLenum value); }
-{////typedef GLuint (P PFNGLBINDMATERIALPARAMETEREXTPROC) (GLenum face, GLenum value); }
-{////typedef GLuint (P PFNGLBINDTEXGENPARAMETEREXTPROC) (GLenum unit_, GLenum coord, GLenum value); }
-{////typedef GLuint (P PFNGLBINDTEXTUREUNITPARAMETEREXTPROC) (GLenum unit_, GLenum value); }
-{////typedef GLuint (P PFNGLBINDPARAMETEREXTPROC) (GLenum value); }
-{////typedef GLboolean (P PFNGLISVARIANTENABLEDEXTPROC) (GLuint id, GLenum cap); }
-{////typedef void (P PFNGLGETVARIANTBOOLEANVEXTPROC) (GLuint id, GLenum value, GLboolean *data); }
-{////typedef void (P PFNGLGETVARIANTINTEGERVEXTPROC) (GLuint id, GLenum value, GLint *data); }
-{////typedef void (P PFNGLGETVARIANTFLOATVEXTPROC) (GLuint id, GLenum value, GLfloat *data); }
-{////typedef void (P PFNGLGETVARIANTPOINTERVEXTPROC) (GLuint id, GLenum value, void **data); }
-{////typedef void (P PFNGLGETINVARIANTBOOLEANVEXTPROC) (GLuint id, GLenum value, GLboolean *data); }
-{////typedef void (P PFNGLGETINVARIANTINTEGERVEXTPROC) (GLuint id, GLenum value, GLint *data); }
-{////typedef void (P PFNGLGETINVARIANTFLOATVEXTPROC) (GLuint id, GLenum value, GLfloat *data); }
-{////typedef void (P PFNGLGETLOCALCONSTANTBOOLEANVEXTPROC) (GLuint id, GLenum value, GLboolean *data); }
-{////typedef void (P PFNGLGETLOCALCONSTANTINTEGERVEXTPROC) (GLuint id, GLenum value, GLint *data); }
-{////typedef void (P PFNGLGETLOCALCONSTANTFLOATVEXTPROC) (GLuint id, GLenum value, GLfloat *data); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginVertexShaderEXT;cdecl;external;
 procedure glEndVertexShaderEXT;cdecl;external;
@@ -9354,9 +6210,6 @@ procedure glGetInvariantFloatvEXT(id:TGLuint; value:TGLenum; data:PGLfloat);cdec
 procedure glGetLocalConstantBooleanvEXT(id:TGLuint; value:TGLenum; data:PGLboolean);cdecl;external;
 procedure glGetLocalConstantIntegervEXT(id:TGLuint; value:TGLenum; data:PGLint);cdecl;external;
 procedure glGetLocalConstantFloatvEXT(id:TGLuint; value:TGLenum; data:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_vertex_shader */ }
-{////#ifndef GL_EXT_vertex_weighting }
 const
   GL_EXT_vertex_weighting = 1;  
   GL_MODELVIEW0_STACK_DEPTH_EXT = $0BA3;  
@@ -9372,28 +6225,15 @@ const
   GL_VERTEX_WEIGHT_ARRAY_TYPE_EXT = $850E;  
   GL_VERTEX_WEIGHT_ARRAY_STRIDE_EXT = $850F;  
   GL_VERTEX_WEIGHT_ARRAY_POINTER_EXT = $8510;  
-{////typedef void (P PFNGLVERTEXWEIGHTFEXTPROC) (GLfloat weight); }
-{////typedef void (P PFNGLVERTEXWEIGHTFVEXTPROC) ( GLfloat *weight); }
-{////typedef void (P PFNGLVERTEXWEIGHTPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexWeightfEXT(weight:TGLfloat);cdecl;external;
 procedure glVertexWeightfvEXT(weight:PGLfloat);cdecl;external;
 procedure glVertexWeightPointerEXT(size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_vertex_weighting */ }
-{////#ifndef GL_EXT_win32_keyed_mutex }
 const
   GL_EXT_win32_keyed_mutex = 1;  
-{////typedef GLboolean (P PFNGLACQUIREKEYEDMUTEXWIN32EXTPROC) (GLuint memory, GLuint64 key, GLuint timeout); }
-{////typedef GLboolean (P PFNGLRELEASEKEYEDMUTEXWIN32EXTPROC) (GLuint memory, GLuint64 key); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glAcquireKeyedMutexWin32EXT(memory:TGLuint; key:TGLuint64; timeout:TGLuint):TGLboolean;cdecl;external;
 function glReleaseKeyedMutexWin32EXT(memory:TGLuint; key:TGLuint64):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_win32_keyed_mutex */ }
-{////#ifndef GL_EXT_window_rectangles }
 const
   GL_EXT_window_rectangles = 1;  
   GL_INCLUSIVE_EXT = $8F10;  
@@ -9402,49 +6242,27 @@ const
   GL_WINDOW_RECTANGLE_MODE_EXT = $8F13;  
   GL_MAX_WINDOW_RECTANGLES_EXT = $8F14;  
   GL_NUM_WINDOW_RECTANGLES_EXT = $8F15;  
-{////typedef void (P PFNGLWINDOWRECTANGLESEXTPROC) (GLenum mode, GLsizei count,GLint *box); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glWindowRectanglesEXT(mode:TGLenum; count:TGLsizei; box:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_window_rectangles */ }
-{////#ifndef GL_EXT_x11_sync_object }
 const
   GL_EXT_x11_sync_object = 1;  
   GL_SYNC_X11_FENCE_EXT = $90E1;  
-{////typedef GLsync (P PFNGLIMPORTSYNCEXTPROC) (GLenum external_sync_type, GLintptr external_sync, GLbitfield flags); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glImportSyncEXT(external_sync_type:TGLenum; external_sync:TGLintptr; flags:TGLbitfield):TGLsync;cdecl;external;
-{////#endif }
-{////#endif /* GL_EXT_x11_sync_object */ }
-{////#ifndef GL_GREMEDY_frame_terminator }
 const
   GL_GREMEDY_frame_terminator = 1;  
-{////typedef void (P PFNGLFRAMETERMINATORGREMEDYPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFrameTerminatorGREMEDY;cdecl;external;
-{////#endif }
-{////#endif /* GL_GREMEDY_frame_terminator */ }
-{////#ifndef GL_GREMEDY_string_marker }
 const
   GL_GREMEDY_string_marker = 1;  
-{////typedef void (P PFNGLSTRINGMARKERGREMEDYPROC) (GLsizei len,void *string); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glStringMarkerGREMEDY(len:TGLsizei; _string:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_GREMEDY_string_marker */ }
-{////#ifndef GL_HP_convolution_border_modes }
 const
   GL_HP_convolution_border_modes = 1;  
   GL_IGNORE_BORDER_HP = $8150;  
   GL_CONSTANT_BORDER_HP = $8151;  
   GL_REPLICATE_BORDER_HP = $8153;  
   GL_CONVOLUTION_BORDER_COLOR_HP = $8154;  
-{////#endif /* GL_HP_convolution_border_modes */ }
-{////#ifndef GL_HP_image_transform }
   GL_HP_image_transform = 1;  
   GL_IMAGE_SCALE_X_HP = $8155;  
   GL_IMAGE_SCALE_Y_HP = $8156;  
@@ -9461,13 +6279,6 @@ const
   GL_IMAGE_TRANSFORM_2D_HP = $8161;  
   GL_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = $8162;  
   GL_PROXY_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = $8163;  
-{////typedef void (P PFNGLIMAGETRANSFORMPARAMETERIHPPROC) (GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLIMAGETRANSFORMPARAMETERFHPPROC) (GLenum target, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLIMAGETRANSFORMPARAMETERIVHPPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLIMAGETRANSFORMPARAMETERFVHPPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLGETIMAGETRANSFORMPARAMETERIVHPPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETIMAGETRANSFORMPARAMETERFVHPPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glImageTransformParameteriHP(target:TGLenum; pname:TGLenum; param:TGLint);cdecl;external;
 procedure glImageTransformParameterfHP(target:TGLenum; pname:TGLenum; param:TGLfloat);cdecl;external;
@@ -9475,56 +6286,32 @@ procedure glImageTransformParameterivHP(target:TGLenum; pname:TGLenum; params:PG
 procedure glImageTransformParameterfvHP(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetImageTransformParameterivHP(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetImageTransformParameterfvHP(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_HP_image_transform */ }
-{////#ifndef GL_HP_occlusion_test }
 const
   GL_HP_occlusion_test = 1;  
   GL_OCCLUSION_TEST_HP = $8165;  
   GL_OCCLUSION_TEST_RESULT_HP = $8166;  
-{////#endif /* GL_HP_occlusion_test */ }
-{////#ifndef GL_HP_texture_lighting }
   GL_HP_texture_lighting = 1;  
   GL_TEXTURE_LIGHTING_MODE_HP = $8167;  
   GL_TEXTURE_POST_SPECULAR_HP = $8168;  
   GL_TEXTURE_PRE_SPECULAR_HP = $8169;  
-{////#endif /* GL_HP_texture_lighting */ }
-{////#ifndef GL_IBM_cull_vertex }
   GL_IBM_cull_vertex = 1;  
   GL_CULL_VERTEX_IBM = 103050;  
-{////#endif /* GL_IBM_cull_vertex */ }
-{////#ifndef GL_IBM_multimode_draw_arrays }
   GL_IBM_multimode_draw_arrays = 1;  
-{////typedef void (P PFNGLMULTIMODEDRAWARRAYSIBMPROC) ( GLenum *mode,GLint *first,GLsizei *count, GLsizei primcount, GLint modestride); }
-{////typedef void (P PFNGLMULTIMODEDRAWELEMENTSIBMPROC) ( GLenum *mode,GLsizei *count, GLenum type,void **indices, GLsizei primcount, GLint modestride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiModeDrawArraysIBM(mode:PGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei; modestride:TGLint);cdecl;external;
 procedure glMultiModeDrawElementsIBM(mode:PGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; primcount:TGLsizei; 
             modestride:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_IBM_multimode_draw_arrays */ }
-{////#ifndef GL_IBM_rasterpos_clip }
 const
   GL_IBM_rasterpos_clip = 1;  
   GL_RASTER_POSITION_UNCLIPPED_IBM = $19262;  
-{////#endif /* GL_IBM_rasterpos_clip */ }
-{////#ifndef GL_IBM_static_data }
   GL_IBM_static_data = 1;  
   GL_ALL_STATIC_DATA_IBM = 103060;  
   GL_STATIC_VERTEX_ARRAY_IBM = 103061;  
-{////typedef void (P PFNGLFLUSHSTATICDATAIBMPROC) (GLenum target); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFlushStaticDataIBM(target:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_IBM_static_data */ }
-{////#ifndef GL_IBM_texture_mirrored_repeat }
 const
   GL_IBM_texture_mirrored_repeat = 1;  
   GL_MIRRORED_REPEAT_IBM = $8370;  
-{////#endif /* GL_IBM_texture_mirrored_repeat */ }
-{////#ifndef GL_IBM_vertex_array_lists }
   GL_IBM_vertex_array_lists = 1;  
   GL_VERTEX_ARRAY_LIST_IBM = 103070;  
   GL_NORMAL_ARRAY_LIST_IBM = 103071;  
@@ -9542,15 +6329,6 @@ const
   GL_EDGE_FLAG_ARRAY_LIST_STRIDE_IBM = 103085;  
   GL_FOG_COORDINATE_ARRAY_LIST_STRIDE_IBM = 103086;  
   GL_SECONDARY_COLOR_ARRAY_LIST_STRIDE_IBM = 103087;  
-{////typedef void (P PFNGLCOLORPOINTERLISTIBMPROC) (GLint size, GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLSECONDARYCOLORPOINTERLISTIBMPROC) (GLint size, GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLEDGEFLAGPOINTERLISTIBMPROC) (GLint stride,GLboolean **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLFOGCOORDPOINTERLISTIBMPROC) (GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLINDEXPOINTERLISTIBMPROC) (GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLNORMALPOINTERLISTIBMPROC) (GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLTEXCOORDPOINTERLISTIBMPROC) (GLint size, GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////typedef void (P PFNGLVERTEXPOINTERLISTIBMPROC) (GLint size, GLenum type, GLint stride,void **pointer, GLint ptrstride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorPointerListIBM(size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;external;
 procedure glSecondaryColorPointerListIBM(size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;external;
@@ -9560,18 +6338,10 @@ procedure glIndexPointerListIBM(_type:TGLenum; stride:TGLint; pointer:Ppointer; 
 procedure glNormalPointerListIBM(_type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;external;
 procedure glTexCoordPointerListIBM(size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;external;
 procedure glVertexPointerListIBM(size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_IBM_vertex_array_lists */ }
-{////#ifndef GL_INGR_blend_func_separate }
 const
   GL_INGR_blend_func_separate = 1;  
-{////typedef void (P PFNGLBLENDFUNCSEPARATEINGRPROC) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendFuncSeparateINGR(sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_INGR_blend_func_separate */ }
-{////#ifndef GL_INGR_color_clamp }
 const
   GL_INGR_color_clamp = 1;  
   GL_RED_MIN_CLAMP_INGR = $8560;  
@@ -9582,48 +6352,26 @@ const
   GL_GREEN_MAX_CLAMP_INGR = $8565;  
   GL_BLUE_MAX_CLAMP_INGR = $8566;  
   GL_ALPHA_MAX_CLAMP_INGR = $8567;  
-{////#endif /* GL_INGR_color_clamp */ }
-{////#ifndef GL_INGR_interlace_read }
   GL_INGR_interlace_read = 1;  
   GL_INTERLACE_READ_INGR = $8568;  
-{////#endif /* GL_INGR_interlace_read */ }
-{////#ifndef GL_INTEL_blackhole_render }
   GL_INTEL_blackhole_render = 1;  
   GL_BLACKHOLE_RENDER_INTEL = $83FC;  
-{////#endif /* GL_INTEL_blackhole_render */ }
-{////#ifndef GL_INTEL_conservative_rasterization }
   GL_INTEL_conservative_rasterization = 1;  
   GL_CONSERVATIVE_RASTERIZATION_INTEL = $83FE;  
-{////#endif /* GL_INTEL_conservative_rasterization */ }
-{////#ifndef GL_INTEL_fragment_shader_ordering }
   GL_INTEL_fragment_shader_ordering = 1;  
-{////#endif /* GL_INTEL_fragment_shader_ordering */ }
-{////#ifndef GL_INTEL_framebuffer_CMAA }
   GL_INTEL_framebuffer_CMAA = 1;  
-{////typedef void (P PFNGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTELPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glApplyFramebufferAttachmentCMAAINTEL;cdecl;external;
-{////#endif }
-{////#endif /* GL_INTEL_framebuffer_CMAA */ }
-{////#ifndef GL_INTEL_map_texture }
 const
   GL_INTEL_map_texture = 1;  
   GL_TEXTURE_MEMORY_LAYOUT_INTEL = $83FF;  
   GL_LAYOUT_DEFAULT_INTEL = 0;  
   GL_LAYOUT_LINEAR_INTEL = 1;  
   GL_LAYOUT_LINEAR_CPU_CACHED_INTEL = 2;  
-{////typedef void (P PFNGLSYNCTEXTUREINTELPROC) (GLuint texture); }
-{////typedef void (P PFNGLUNMAPTEXTURE2DINTELPROC) (GLuint texture, GLint level); }
-{////typedef void *(P PFNGLMAPTEXTURE2DINTELPROC) (GLuint texture, GLint level, GLbitfield access, GLint *stride, GLenum *layout); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSyncTextureINTEL(texture:TGLuint);cdecl;external;
 procedure glUnmapTexture2DINTEL(texture:TGLuint; level:TGLint);cdecl;external;
 function glMapTexture2DINTEL(texture:TGLuint; level:TGLint; access:TGLbitfield; stride:PGLint; layout:PGLenum):pointer;cdecl;external;
-{////#endif }
-{////#endif /* GL_INTEL_map_texture */ }
-{////#ifndef GL_INTEL_parallel_arrays }
 const
   GL_INTEL_parallel_arrays = 1;  
   GL_PARALLEL_ARRAYS_INTEL = $83F4;  
@@ -9631,19 +6379,11 @@ const
   GL_NORMAL_ARRAY_PARALLEL_POINTERS_INTEL = $83F6;  
   GL_COLOR_ARRAY_PARALLEL_POINTERS_INTEL = $83F7;  
   GL_TEXTURE_COORD_ARRAY_PARALLEL_POINTERS_INTEL = $83F8;  
-{////typedef void (P PFNGLVERTEXPOINTERVINTELPROC) (GLint size, GLenum type,void **pointer); }
-{////typedef void (P PFNGLNORMALPOINTERVINTELPROC) (GLenum type,void **pointer); }
-{////typedef void (P PFNGLCOLORPOINTERVINTELPROC) (GLint size, GLenum type,void **pointer); }
-{////typedef void (P PFNGLTEXCOORDPOINTERVINTELPROC) (GLint size, GLenum type,void **pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexPointervINTEL(size:TGLint; _type:TGLenum; pointer:Ppointer);cdecl;external;
 procedure glNormalPointervINTEL(_type:TGLenum; pointer:Ppointer);cdecl;external;
 procedure glColorPointervINTEL(size:TGLint; _type:TGLenum; pointer:Ppointer);cdecl;external;
 procedure glTexCoordPointervINTEL(size:TGLint; _type:TGLenum; pointer:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_INTEL_parallel_arrays */ }
-{////#ifndef GL_INTEL_performance_query }
 const
   GL_INTEL_performance_query = 1;  
   GL_PERFQUERY_SINGLE_CONTEXT_INTEL = $00000000;  
@@ -9666,17 +6406,6 @@ const
   GL_PERFQUERY_COUNTER_NAME_LENGTH_MAX_INTEL = $94FE;  
   GL_PERFQUERY_COUNTER_DESC_LENGTH_MAX_INTEL = $94FF;  
   GL_PERFQUERY_GPA_EXTENDED_COUNTERS_INTEL = $9500;  
-{////typedef void (P PFNGLBEGINPERFQUERYINTELPROC) (GLuint queryHandle); }
-{////typedef void (P PFNGLCREATEPERFQUERYINTELPROC) (GLuint queryId, GLuint *queryHandle); }
-{////typedef void (P PFNGLDELETEPERFQUERYINTELPROC) (GLuint queryHandle); }
-{////typedef void (P PFNGLENDPERFQUERYINTELPROC) (GLuint queryHandle); }
-{////typedef void (P PFNGLGETFIRSTPERFQUERYIDINTELPROC) (GLuint *queryId); }
-{////typedef void (P PFNGLGETNEXTPERFQUERYIDINTELPROC) (GLuint queryId, GLuint *nextQueryId); }
-{////typedef void (P PFNGLGETPERFCOUNTERINFOINTELPROC) (GLuint queryId, GLuint counterId, GLuint counterNameLength, GLchar *counterName, GLuint counterDescLength, GLchar *counterDesc, GLuint *counterOffset, GLuint *counterDataSize, GLuint *counterTypeEnum, GLuint *counterDataTypeEnum, GLuint64 *rawCounterMaxValue); }
-{////typedef void (P PFNGLGETPERFQUERYDATAINTELPROC) (GLuint queryHandle, GLuint flags, GLsizei dataSize, void *data, GLuint *bytesWritten); }
-{////typedef void (P PFNGLGETPERFQUERYIDBYNAMEINTELPROC) (GLchar *queryName, GLuint *queryId); }
-{////typedef void (P PFNGLGETPERFQUERYINFOINTELPROC) (GLuint queryId, GLuint queryNameLength, GLchar *queryName, GLuint *dataSize, GLuint *noCounters, GLuint *noInstances, GLuint *capsMask); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginPerfQueryINTEL(queryHandle:TGLuint);cdecl;external;
 procedure glCreatePerfQueryINTEL(queryId:TGLuint; queryHandle:PGLuint);cdecl;external;
@@ -9691,9 +6420,6 @@ procedure glGetPerfQueryDataINTEL(queryHandle:TGLuint; flags:TGLuint; dataSize:T
 procedure glGetPerfQueryIdByNameINTEL(queryName:PGLchar; queryId:PGLuint);cdecl;external;
 procedure glGetPerfQueryInfoINTEL(queryId:TGLuint; queryNameLength:TGLuint; queryName:PGLchar; dataSize:PGLuint; noCounters:PGLuint; 
             noInstances:PGLuint; capsMask:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_INTEL_performance_query */ }
-{////#ifndef GL_MESAX_texture_stack }
 const
   GL_MESAX_texture_stack = 1;  
   GL_TEXTURE_1D_STACK_MESAX = $8759;  
@@ -9702,80 +6428,30 @@ const
   GL_PROXY_TEXTURE_2D_STACK_MESAX = $875C;  
   GL_TEXTURE_1D_STACK_BINDING_MESAX = $875D;  
   GL_TEXTURE_2D_STACK_BINDING_MESAX = $875E;  
-{////#endif /* GL_MESAX_texture_stack */ }
-{////#ifndef GL_MESA_framebuffer_flip_x }
   GL_MESA_framebuffer_flip_x = 1;  
   GL_FRAMEBUFFER_FLIP_X_MESA = $8BBC;  
-{////#endif /* GL_MESA_framebuffer_flip_x */ }
-{////#ifndef GL_MESA_framebuffer_flip_y }
   GL_MESA_framebuffer_flip_y = 1;  
   GL_FRAMEBUFFER_FLIP_Y_MESA = $8BBB;  
-{////typedef void (P PFNGLFRAMEBUFFERPARAMETERIMESAPROC) (GLenum target, GLenum pname, GLint param); }
-{////typedef void (P PFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC) (GLenum target, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferParameteriMESA(target:TGLenum; pname:TGLenum; param:TGLint);cdecl;external;
 procedure glGetFramebufferParameterivMESA(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_MESA_framebuffer_flip_y */ }
-{////#ifndef GL_MESA_framebuffer_swap_xy }
 const
   GL_MESA_framebuffer_swap_xy = 1;  
   GL_FRAMEBUFFER_SWAP_XY_MESA = $8BBD;  
-{////#endif /* GL_MESA_framebuffer_swap_xy */ }
-{////#ifndef GL_MESA_pack_invert }
   GL_MESA_pack_invert = 1;  
   GL_PACK_INVERT_MESA = $8758;  
-{////#endif /* GL_MESA_pack_invert */ }
-{////#ifndef GL_MESA_program_binary_formats }
   GL_MESA_program_binary_formats = 1;  
   GL_PROGRAM_BINARY_FORMAT_MESA = $875F;  
-{////#endif /* GL_MESA_program_binary_formats */ }
-{////#ifndef GL_MESA_resize_buffers }
   GL_MESA_resize_buffers = 1;  
-{////typedef void (P PFNGLRESIZEBUFFERSMESAPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glResizeBuffersMESA;cdecl;external;
-{////#endif }
-{////#endif /* GL_MESA_resize_buffers */ }
-{////#ifndef GL_MESA_shader_integer_functions }
 const
   GL_MESA_shader_integer_functions = 1;  
-{////#endif /* GL_MESA_shader_integer_functions */ }
-{////#ifndef GL_MESA_tile_raster_order }
   GL_MESA_tile_raster_order = 1;  
   GL_TILE_RASTER_ORDER_FIXED_MESA = $8BB8;  
   GL_TILE_RASTER_ORDER_INCREASING_X_MESA = $8BB9;  
   GL_TILE_RASTER_ORDER_INCREASING_Y_MESA = $8BBA;  
-{////#endif /* GL_MESA_tile_raster_order */ }
-{////#ifndef GL_MESA_window_pos }
   GL_MESA_window_pos = 1;  
-{////typedef void (P PFNGLWINDOWPOS2DMESAPROC) (GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLWINDOWPOS2DVMESAPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS2FMESAPROC) (GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLWINDOWPOS2FVMESAPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS2IMESAPROC) (GLint x, GLint y); }
-{////typedef void (P PFNGLWINDOWPOS2IVMESAPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS2SMESAPROC) (GLshort x, GLshort y); }
-{////typedef void (P PFNGLWINDOWPOS2SVMESAPROC) ( GLshort *v); }
-{////typedef void (P PFNGLWINDOWPOS3DMESAPROC) (GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLWINDOWPOS3DVMESAPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS3FMESAPROC) (GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLWINDOWPOS3FVMESAPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS3IMESAPROC) (GLint x, GLint y, GLint z); }
-{////typedef void (P PFNGLWINDOWPOS3IVMESAPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS3SMESAPROC) (GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLWINDOWPOS3SVMESAPROC) ( GLshort *v); }
-{////typedef void (P PFNGLWINDOWPOS4DMESAPROC) (GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLWINDOWPOS4DVMESAPROC) ( GLdouble *v); }
-{////typedef void (P PFNGLWINDOWPOS4FMESAPROC) (GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLWINDOWPOS4FVMESAPROC) ( GLfloat *v); }
-{////typedef void (P PFNGLWINDOWPOS4IMESAPROC) (GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLWINDOWPOS4IVMESAPROC) ( GLint *v); }
-{////typedef void (P PFNGLWINDOWPOS4SMESAPROC) (GLshort x, GLshort y, GLshort z, GLshort w); }
-{////typedef void (P PFNGLWINDOWPOS4SVMESAPROC) ( GLshort *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glWindowPos2dMESA(x:TGLdouble; y:TGLdouble);cdecl;external;
 procedure glWindowPos2dvMESA(v:PGLdouble);cdecl;external;
@@ -9801,29 +6477,16 @@ procedure glWindowPos4iMESA(x:TGLint; y:TGLint; z:TGLint; w:TGLint);cdecl;extern
 procedure glWindowPos4ivMESA(v:PGLint);cdecl;external;
 procedure glWindowPos4sMESA(x:TGLshort; y:TGLshort; z:TGLshort; w:TGLshort);cdecl;external;
 procedure glWindowPos4svMESA(v:PGLshort);cdecl;external;
-{////#endif }
-{////#endif /* GL_MESA_window_pos */ }
-{////#ifndef GL_MESA_ycbcr_texture }
 const
   GL_MESA_ycbcr_texture = 1;  
   GL_UNSIGNED_SHORT_8_8_MESA = $85BA;  
   GL_UNSIGNED_SHORT_8_8_REV_MESA = $85BB;  
   GL_YCBCR_MESA = $8757;  
-{////#endif /* GL_MESA_ycbcr_texture */ }
-{////#ifndef GL_NVX_blend_equation_advanced_multi_draw_buffers }
   GL_NVX_blend_equation_advanced_multi_draw_buffers = 1;  
-{////#endif /* GL_NVX_blend_equation_advanced_multi_draw_buffers */ }
-{////#ifndef GL_NVX_conditional_render }
   GL_NVX_conditional_render = 1;  
-{////typedef void (P PFNGLBEGINCONDITIONALRENDERNVXPROC) (GLuint id); }
-{////typedef void (P PFNGLENDCONDITIONALRENDERNVXPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginConditionalRenderNVX(id:TGLuint);cdecl;external;
 procedure glEndConditionalRenderNVX;cdecl;external;
-{////#endif }
-{////#endif /* GL_NVX_conditional_render */ }
-{////#ifndef GL_NVX_gpu_memory_info }
 const
   GL_NVX_gpu_memory_info = 1;  
   GL_GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX = $9047;  
@@ -9831,17 +6494,8 @@ const
   GL_GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX = $9049;  
   GL_GPU_MEMORY_INFO_EVICTION_COUNT_NVX = $904A;  
   GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX = $904B;  
-{////#endif /* GL_NVX_gpu_memory_info */ }
-{////#ifndef GL_NVX_gpu_multicast2 }
   GL_NVX_gpu_multicast2 = 1;  
   GL_UPLOAD_GPU_MASK_NVX = $954A;  
-{////typedef void (P PFNGLUPLOADGPUMASKNVXPROC) (GLbitfield mask); }
-{////typedef void (P PFNGLMULTICASTVIEWPORTARRAYVNVXPROC) (GLuint gpu, GLuint first, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC) (GLuint gpu, GLuint index, GLfloat xcoeff, GLfloat ycoeff); }
-{////typedef void (P PFNGLMULTICASTSCISSORARRAYVNVXPROC) (GLuint gpu, GLuint first, GLsizei count,GLint *v); }
-{////typedef GLuint (P PFNGLASYNCCOPYBUFFERSUBDATANVXPROC) (GLsizei waitSemaphoreCount,GLuint *waitSemaphoreArray,GLuint64 *fenceValueArray, GLuint readGpu, GLbitfield writeGpuMask, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size, GLsizei signalSemaphoreCount,GLuint *signalSemaphoreArray,GLuint64 *signalValueArray); }
-{////typedef GLuint (P PFNGLASYNCCOPYIMAGESUBDATANVXPROC) (GLsizei waitSemaphoreCount,GLuint *waitSemaphoreArray,GLuint64 *waitValueArray, GLuint srcGpu, GLbitfield dstGpuMask, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth, GLsizei signalSemaphoreCount,GLuint *signalSemaphoreArray,GLuint64 *signalValueArray); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glUploadGpuMaskNVX(mask:TGLbitfield);cdecl;external;
 procedure glMulticastViewportArrayvNVX(gpu:TGLuint; first:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
@@ -9855,17 +6509,10 @@ function glAsyncCopyImageSubDataNVX(waitSemaphoreCount:TGLsizei; waitSemaphoreAr
            srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
            dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei; 
            signalSemaphoreCount:TGLsizei; signalSemaphoreArray:PGLuint; signalValueArray:PGLuint64):TGLuint;cdecl;external;
-{////#endif }
-{////#endif /* GL_NVX_gpu_multicast2 */ }
-{////#ifndef GL_NVX_linked_gpu_multicast }
 const
   GL_NVX_linked_gpu_multicast = 1;  
   GL_LGPU_SEPARATE_STORAGE_BIT_NVX = $0800;  
   GL_MAX_LGPU_GPUS_NVX = $92BA;  
-{////typedef void (P PFNGLLGPUNAMEDBUFFERSUBDATANVXPROC) (GLbitfield gpuMask, GLuint buffer, GLintptr offset, GLsizeiptr size,void *data); }
-{////typedef void (P PFNGLLGPUCOPYIMAGESUBDATANVXPROC) (GLuint sourceGpu, GLbitfield destinationGpuMask, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srxY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth); }
-{////typedef void (P PFNGLLGPUINTERLOCKNVXPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glLGPUNamedBufferSubDataNVX(gpuMask:TGLbitfield; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; data:pointer);cdecl;external;
 procedure glLGPUCopyImageSubDataNVX(sourceGpu:TGLuint; destinationGpuMask:TGLbitfield; srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; 
@@ -9873,78 +6520,36 @@ procedure glLGPUCopyImageSubDataNVX(sourceGpu:TGLuint; destinationGpuMask:TGLbit
             dstLevel:TGLint; dstX:TGLint; dstY:TGLint; dstZ:TGLint; width:TGLsizei; 
             height:TGLsizei; depth:TGLsizei);cdecl;external;
 procedure glLGPUInterlockNVX;cdecl;external;
-{////#endif }
-{////#endif /* GL_NVX_linked_gpu_multicast */ }
-{////#ifndef GL_NVX_progress_fence }
 const
   GL_NVX_progress_fence = 1;  
-{////typedef GLuint (P PFNGLCREATEPROGRESSFENCENVXPROC) (void); }
-{////typedef void (P PFNGLSIGNALSEMAPHOREUI64NVXPROC) (GLuint signalGpu, GLsizei fenceObjectCount,GLuint *semaphoreArray,GLuint64 *fenceValueArray); }
-{////typedef void (P PFNGLWAITSEMAPHOREUI64NVXPROC) (GLuint waitGpu, GLsizei fenceObjectCount,GLuint *semaphoreArray,GLuint64 *fenceValueArray); }
-{////typedef void (P PFNGLCLIENTWAITSEMAPHOREUI64NVXPROC) (GLsizei fenceObjectCount,GLuint *semaphoreArray,GLuint64 *fenceValueArray); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glCreateProgressFenceNVX:TGLuint;cdecl;external;
 procedure glSignalSemaphoreui64NVX(signalGpu:TGLuint; fenceObjectCount:TGLsizei; semaphoreArray:PGLuint; fenceValueArray:PGLuint64);cdecl;external;
 procedure glWaitSemaphoreui64NVX(waitGpu:TGLuint; fenceObjectCount:TGLsizei; semaphoreArray:PGLuint; fenceValueArray:PGLuint64);cdecl;external;
 procedure glClientWaitSemaphoreui64NVX(fenceObjectCount:TGLsizei; semaphoreArray:PGLuint; fenceValueArray:PGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_NVX_progress_fence */ }
-{////#ifndef GL_NV_alpha_to_coverage_dither_control }
 const
   GL_NV_alpha_to_coverage_dither_control = 1;  
   GL_ALPHA_TO_COVERAGE_DITHER_DEFAULT_NV = $934D;  
   GL_ALPHA_TO_COVERAGE_DITHER_ENABLE_NV = $934E;  
   GL_ALPHA_TO_COVERAGE_DITHER_DISABLE_NV = $934F;  
   GL_ALPHA_TO_COVERAGE_DITHER_MODE_NV = $92BF;  
-{////typedef void (P PFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glAlphaToCoverageDitherControlNV(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_alpha_to_coverage_dither_control */ }
-{////#ifndef GL_NV_bindless_multi_draw_indirect }
 const
   GL_NV_bindless_multi_draw_indirect = 1;  
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC) (GLenum mode,void *indirect, GLsizei drawCount, GLsizei stride, GLint vertexBufferCount); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC) (GLenum mode, GLenum type,void *indirect, GLsizei drawCount, GLsizei stride, GLint vertexBufferCount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiDrawArraysIndirectBindlessNV(mode:TGLenum; indirect:pointer; drawCount:TGLsizei; stride:TGLsizei; vertexBufferCount:TGLint);cdecl;external;
 procedure glMultiDrawElementsIndirectBindlessNV(mode:TGLenum; _type:TGLenum; indirect:pointer; drawCount:TGLsizei; stride:TGLsizei; 
             vertexBufferCount:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_bindless_multi_draw_indirect */ }
-{////#ifndef GL_NV_bindless_multi_draw_indirect_count }
 const
   GL_NV_bindless_multi_draw_indirect_count = 1;  
-{////typedef void (P PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC) (GLenum mode,void *indirect, GLsizei drawCount, GLsizei maxDrawCount, GLsizei stride, GLint vertexBufferCount); }
-{////typedef void (P PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC) (GLenum mode, GLenum type,void *indirect, GLsizei drawCount, GLsizei maxDrawCount, GLsizei stride, GLint vertexBufferCount); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMultiDrawArraysIndirectBindlessCountNV(mode:TGLenum; indirect:pointer; drawCount:TGLsizei; maxDrawCount:TGLsizei; stride:TGLsizei; 
             vertexBufferCount:TGLint);cdecl;external;
 procedure glMultiDrawElementsIndirectBindlessCountNV(mode:TGLenum; _type:TGLenum; indirect:pointer; drawCount:TGLsizei; maxDrawCount:TGLsizei; 
             stride:TGLsizei; vertexBufferCount:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_bindless_multi_draw_indirect_count */ }
-{////#ifndef GL_NV_bindless_texture }
 const
   GL_NV_bindless_texture = 1;  
-{////typedef GLuint64 (P PFNGLGETTEXTUREHANDLENVPROC) (GLuint texture); }
-{////typedef GLuint64 (P PFNGLGETTEXTURESAMPLERHANDLENVPROC) (GLuint texture, GLuint sampler); }
-{////typedef void (P PFNGLMAKETEXTUREHANDLERESIDENTNVPROC) (GLuint64 handle); }
-{////typedef void (P PFNGLMAKETEXTUREHANDLENONRESIDENTNVPROC) (GLuint64 handle); }
-{////typedef GLuint64 (P PFNGLGETIMAGEHANDLENVPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format); }
-{////typedef void (P PFNGLMAKEIMAGEHANDLERESIDENTNVPROC) (GLuint64 handle, GLenum access); }
-{////typedef void (P PFNGLMAKEIMAGEHANDLENONRESIDENTNVPROC) (GLuint64 handle); }
-{////typedef void (P PFNGLUNIFORMHANDLEUI64NVPROC) (GLint location, GLuint64 value); }
-{////typedef void (P PFNGLUNIFORMHANDLEUI64VNVPROC) (GLint location, GLsizei count,GLuint64 *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMHANDLEUI64NVPROC) (GLuint program_, GLint location, GLuint64 value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64 *values); }
-{////typedef GLboolean (P PFNGLISTEXTUREHANDLERESIDENTNVPROC) (GLuint64 handle); }
-{////typedef GLboolean (P PFNGLISIMAGEHANDLERESIDENTNVPROC) (GLuint64 handle); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGetTextureHandleNV(texture:TGLuint):TGLuint64;cdecl;external;
 function glGetTextureSamplerHandleNV(texture:TGLuint; sampler:TGLuint):TGLuint64;cdecl;external;
@@ -9959,9 +6564,6 @@ procedure glProgramUniformHandleui64NV(program_:TGLuint; location:TGLint; value:
 procedure glProgramUniformHandleui64vNV(program_:TGLuint; location:TGLint; count:TGLsizei; values:PGLuint64);cdecl;external;
 function glIsTextureHandleResidentNV(handle:TGLuint64):TGLboolean;cdecl;external;
 function glIsImageHandleResidentNV(handle:TGLuint64):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_bindless_texture */ }
-{////#ifndef GL_NV_blend_equation_advanced }
 const
   GL_NV_blend_equation_advanced = 1;  
   GL_BLEND_OVERLAP_NV = $9281;  
@@ -10013,37 +6615,20 @@ const
   GL_UNCORRELATED_NV = $9282;  
   GL_VIVIDLIGHT_NV = $92A6;  
   GL_XOR_NV = $1506;  
-{////typedef void (P PFNGLBLENDPARAMETERINVPROC) (GLenum pname, GLint value); }
-{////typedef void (P PFNGLBLENDBARRIERNVPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBlendParameteriNV(pname:TGLenum; value:TGLint);cdecl;external;
 procedure glBlendBarrierNV;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_blend_equation_advanced */ }
-{////#ifndef GL_NV_blend_equation_advanced_coherent }
 const
   GL_NV_blend_equation_advanced_coherent = 1;  
   GL_BLEND_ADVANCED_COHERENT_NV = $9285;  
-{////#endif /* GL_NV_blend_equation_advanced_coherent */ }
-{////#ifndef GL_NV_blend_minmax_factor }
   GL_NV_blend_minmax_factor = 1;  
-{////#endif /* GL_NV_blend_minmax_factor */ }
-{////#ifndef GL_NV_blend_square }
   GL_NV_blend_square = 1;  
-{////#endif /* GL_NV_blend_square */ }
-{////#ifndef GL_NV_clip_space_w_scaling }
   GL_NV_clip_space_w_scaling = 1;  
   GL_VIEWPORT_POSITION_W_SCALE_NV = $937C;  
   GL_VIEWPORT_POSITION_W_SCALE_X_COEFF_NV = $937D;  
   GL_VIEWPORT_POSITION_W_SCALE_Y_COEFF_NV = $937E;  
-{////typedef void (P PFNGLVIEWPORTPOSITIONWSCALENVPROC) (GLuint index, GLfloat xcoeff, GLfloat ycoeff); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glViewportPositionWScaleNV(index:TGLuint; xcoeff:TGLfloat; ycoeff:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_clip_space_w_scaling */ }
-{////#ifndef GL_NV_command_list }
 const
   GL_NV_command_list = 1;  
   GL_TERMINATE_SEQUENCE_COMMAND_NV = $0000;  
@@ -10065,24 +6650,6 @@ const
   GL_VIEWPORT_COMMAND_NV = $0010;  
   GL_SCISSOR_COMMAND_NV = $0011;  
   GL_FRONT_FACE_COMMAND_NV = $0012;  
-{////typedef void (P PFNGLCREATESTATESNVPROC) (GLsizei n, GLuint *states); }
-{////typedef void (P PFNGLDELETESTATESNVPROC) (GLsizei n,GLuint *states); }
-{////typedef GLboolean (P PFNGLISSTATENVPROC) (GLuint state); }
-{////typedef void (P PFNGLSTATECAPTURENVPROC) (GLuint state, GLenum mode); }
-{////typedef GLuint (P PFNGLGETCOMMANDHEADERNVPROC) (GLenum tokenID, GLuint size); }
-{////typedef GLushort (P PFNGLGETSTAGEINDEXNVPROC) (GLenum shadertype); }
-{////typedef void (P PFNGLDRAWCOMMANDSNVPROC) (GLenum primitiveMode, GLuint buffer,GLintptr *indirects,GLsizei *sizes, GLuint count); }
-{////typedef void (P PFNGLDRAWCOMMANDSADDRESSNVPROC) (GLenum primitiveMode,GLuint64 *indirects,GLsizei *sizes, GLuint count); }
-{////typedef void (P PFNGLDRAWCOMMANDSSTATESNVPROC) (GLuint buffer,GLintptr *indirects,GLsizei *sizes,GLuint *states,GLuint *fbos, GLuint count); }
-{////typedef void (P PFNGLDRAWCOMMANDSSTATESADDRESSNVPROC) ( GLuint64 *indirects,GLsizei *sizes,GLuint *states,GLuint *fbos, GLuint count); }
-{////typedef void (P PFNGLCREATECOMMANDLISTSNVPROC) (GLsizei n, GLuint *lists); }
-{////typedef void (P PFNGLDELETECOMMANDLISTSNVPROC) (GLsizei n,GLuint *lists); }
-{////typedef GLboolean (P PFNGLISCOMMANDLISTNVPROC) (GLuint list); }
-{////typedef void (P PFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC) (GLuint list, GLuint segment,void **indirects,GLsizei *sizes,GLuint *states,GLuint *fbos, GLuint count); }
-{////typedef void (P PFNGLCOMMANDLISTSEGMENTSNVPROC) (GLuint list, GLuint segments); }
-{////typedef void (P PFNGLCOMPILECOMMANDLISTNVPROC) (GLuint list); }
-{////typedef void (P PFNGLCALLCOMMANDLISTNVPROC) (GLuint list); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCreateStatesNV(n:TGLsizei; states:PGLuint);cdecl;external;
 procedure glDeleteStatesNV(n:TGLsizei; states:PGLuint);cdecl;external;
@@ -10103,140 +6670,79 @@ procedure glListDrawCommandsStatesClientNV(list:TGLuint; segment:TGLuint; indire
 procedure glCommandListSegmentsNV(list:TGLuint; segments:TGLuint);cdecl;external;
 procedure glCompileCommandListNV(list:TGLuint);cdecl;external;
 procedure glCallCommandListNV(list:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_command_list */ }
-{////#ifndef GL_NV_compute_program5 }
 const
   GL_NV_compute_program5 = 1;  
   GL_COMPUTE_PROGRAM_NV = $90FB;  
   GL_COMPUTE_PROGRAM_PARAMETER_BUFFER_NV = $90FC;  
-{////#endif /* GL_NV_compute_program5 */ }
-{////#ifndef GL_NV_compute_shader_derivatives }
   GL_NV_compute_shader_derivatives = 1;  
-{////#endif /* GL_NV_compute_shader_derivatives */ }
-{////#ifndef GL_NV_conditional_render }
   GL_NV_conditional_render = 1;  
   GL_QUERY_WAIT_NV = $8E13;  
   GL_QUERY_NO_WAIT_NV = $8E14;  
   GL_QUERY_BY_REGION_WAIT_NV = $8E15;  
   GL_QUERY_BY_REGION_NO_WAIT_NV = $8E16;  
-{////typedef void (P PFNGLBEGINCONDITIONALRENDERNVPROC) (GLuint id, GLenum mode); }
-{////typedef void (P PFNGLENDCONDITIONALRENDERNVPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginConditionalRenderNV(id:TGLuint; mode:TGLenum);cdecl;external;
 procedure glEndConditionalRenderNV;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_conditional_render */ }
-{////#ifndef GL_NV_conservative_raster }
 const
   GL_NV_conservative_raster = 1;  
   GL_CONSERVATIVE_RASTERIZATION_NV = $9346;  
   GL_SUBPIXEL_PRECISION_BIAS_X_BITS_NV = $9347;  
   GL_SUBPIXEL_PRECISION_BIAS_Y_BITS_NV = $9348;  
   GL_MAX_SUBPIXEL_PRECISION_BIAS_BITS_NV = $9349;  
-{////typedef void (P PFNGLSUBPIXELPRECISIONBIASNVPROC) (GLuint xbits, GLuint ybits); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSubpixelPrecisionBiasNV(xbits:TGLuint; ybits:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_conservative_raster */ }
-{////#ifndef GL_NV_conservative_raster_dilate }
 const
   GL_NV_conservative_raster_dilate = 1;  
   GL_CONSERVATIVE_RASTER_DILATE_NV = $9379;  
   GL_CONSERVATIVE_RASTER_DILATE_RANGE_NV = $937A;  
   GL_CONSERVATIVE_RASTER_DILATE_GRANULARITY_NV = $937B;  
-{////typedef void (P PFNGLCONSERVATIVERASTERPARAMETERFNVPROC) (GLenum pname, GLfloat value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glConservativeRasterParameterfNV(pname:TGLenum; value:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_conservative_raster_dilate */ }
-{////#ifndef GL_NV_conservative_raster_pre_snap }
 const
   GL_NV_conservative_raster_pre_snap = 1;  
   GL_CONSERVATIVE_RASTER_MODE_PRE_SNAP_NV = $9550;  
-{////#endif /* GL_NV_conservative_raster_pre_snap */ }
-{////#ifndef GL_NV_conservative_raster_pre_snap_triangles }
   GL_NV_conservative_raster_pre_snap_triangles = 1;  
   GL_CONSERVATIVE_RASTER_MODE_NV = $954D;  
   GL_CONSERVATIVE_RASTER_MODE_POST_SNAP_NV = $954E;  
   GL_CONSERVATIVE_RASTER_MODE_PRE_SNAP_TRIANGLES_NV = $954F;  
-{////typedef void (P PFNGLCONSERVATIVERASTERPARAMETERINVPROC) (GLenum pname, GLint param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glConservativeRasterParameteriNV(pname:TGLenum; param:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_conservative_raster_pre_snap_triangles */ }
-{////#ifndef GL_NV_conservative_raster_underestimation }
 const
   GL_NV_conservative_raster_underestimation = 1;  
-{////#endif /* GL_NV_conservative_raster_underestimation */ }
-{////#ifndef GL_NV_copy_depth_to_color }
   GL_NV_copy_depth_to_color = 1;  
   GL_DEPTH_STENCIL_TO_RGBA_NV = $886E;  
   GL_DEPTH_STENCIL_TO_BGRA_NV = $886F;  
-{////#endif /* GL_NV_copy_depth_to_color */ }
-{////#ifndef GL_NV_copy_image }
   GL_NV_copy_image = 1;  
-{////typedef void (P PFNGLCOPYIMAGESUBDATANVPROC) (GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei width, GLsizei height, GLsizei depth); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCopyImageSubDataNV(srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint; 
             srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
             dstY:TGLint; dstZ:TGLint; width:TGLsizei; height:TGLsizei; depth:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_copy_image */ }
-{////#ifndef GL_NV_deep_texture3D }
 const
   GL_NV_deep_texture3D = 1;  
   GL_MAX_DEEP_3D_TEXTURE_WIDTH_HEIGHT_NV = $90D0;  
   GL_MAX_DEEP_3D_TEXTURE_DEPTH_NV = $90D1;  
-{////#endif /* GL_NV_deep_texture3D */ }
-{////#ifndef GL_NV_depth_buffer_float }
   GL_NV_depth_buffer_float = 1;  
   GL_DEPTH_COMPONENT32F_NV = $8DAB;  
   GL_DEPTH32F_STENCIL8_NV = $8DAC;  
   GL_FLOAT_32_UNSIGNED_INT_24_8_REV_NV = $8DAD;  
   GL_DEPTH_BUFFER_FLOAT_MODE_NV = $8DAF;  
-{////typedef void (P PFNGLDEPTHRANGEDNVPROC) (GLdouble zNear, GLdouble zFar); }
-{////typedef void (P PFNGLCLEARDEPTHDNVPROC) (GLdouble depth); }
-{////typedef void (P PFNGLDEPTHBOUNDSDNVPROC) (GLdouble zmin, GLdouble zmax); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDepthRangedNV(zNear:TGLdouble; zFar:TGLdouble);cdecl;external;
 procedure glClearDepthdNV(depth:TGLdouble);cdecl;external;
 procedure glDepthBoundsdNV(zmin:TGLdouble; zmax:TGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_depth_buffer_float */ }
-{////#ifndef GL_NV_depth_clamp }
 const
   GL_NV_depth_clamp = 1;  
   GL_DEPTH_CLAMP_NV = $864F;  
-{////#endif /* GL_NV_depth_clamp */ }
-{////#ifndef GL_NV_draw_texture }
   GL_NV_draw_texture = 1;  
-{////typedef void (P PFNGLDRAWTEXTURENVPROC) (GLuint texture, GLuint sampler, GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat z, GLfloat s0, GLfloat t0, GLfloat s1, GLfloat t1); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawTextureNV(texture:TGLuint; sampler:TGLuint; x0:TGLfloat; y0:TGLfloat; x1:TGLfloat; 
             y1:TGLfloat; z:TGLfloat; s0:TGLfloat; t0:TGLfloat; s1:TGLfloat; 
             t1:TGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_draw_texture */ }
-{////#ifndef GL_NV_draw_vulkan_image }
 const
   GL_NV_draw_vulkan_image = 1;  
 type
 
   TGLVULKANPROCNV = procedure (para1:pointer);cdecl;
-{////typedef void (P PFNGLDRAWVKIMAGENVPROC) (GLuint64 vkImage, GLuint sampler, GLfloat x0, GLfloat y0, GLfloat x1, GLfloat y1, GLfloat z, GLfloat s0, GLfloat t0, GLfloat s1, GLfloat t1); }
-{////typedef GLVULKANPROCNV (P PFNGLGETVKPROCADDRNVPROC) ( GLchar *name); }
-{////typedef void (P PFNGLWAITVKSEMAPHORENVPROC) (GLuint64 vkSemaphore); }
-{////typedef void (P PFNGLSIGNALVKSEMAPHORENVPROC) (GLuint64 vkSemaphore); }
-{////typedef void (P PFNGLSIGNALVKFENCENVPROC) (GLuint64 vkFence); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawVkImageNV(vkImage:TGLuint64; sampler:TGLuint; x0:TGLfloat; y0:TGLfloat; x1:TGLfloat; 
             y1:TGLfloat; z:TGLfloat; s0:TGLfloat; t0:TGLfloat; s1:TGLfloat; 
@@ -10245,9 +6751,6 @@ function glGetVkProcAddrNV(name:PGLchar):TGLVULKANPROCNV;cdecl;external;
 procedure glWaitVkSemaphoreNV(vkSemaphore:TGLuint64);cdecl;external;
 procedure glSignalVkSemaphoreNV(vkSemaphore:TGLuint64);cdecl;external;
 procedure glSignalVkFenceNV(vkFence:TGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_draw_vulkan_image */ }
-{////#ifndef GL_NV_evaluators }
 const
   GL_NV_evaluators = 1;  
   GL_EVAL_2D_NV = $86C0;  
@@ -10274,16 +6777,6 @@ const
   GL_EVAL_VERTEX_ATTRIB15_NV = $86D5;  
   GL_MAX_MAP_TESSELLATION_NV = $86D6;  
   GL_MAX_RATIONAL_EVAL_ORDER_NV = $86D7;  
-{////typedef void (P PFNGLMAPCONTROLPOINTSNVPROC) (GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLint uorder, GLint vorder, GLboolean packed_,void *points); }
-{////typedef void (P PFNGLMAPPARAMETERIVNVPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLMAPPARAMETERFVNVPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLGETMAPCONTROLPOINTSNVPROC) (GLenum target, GLuint index, GLenum type, GLsizei ustride, GLsizei vstride, GLboolean packed_, void *points); }
-{////typedef void (P PFNGLGETMAPPARAMETERIVNVPROC) (GLenum target, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMAPPARAMETERFVNVPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETMAPATTRIBPARAMETERIVNVPROC) (GLenum target, GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETMAPATTRIBPARAMETERFVNVPROC) (GLenum target, GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLEVALMAPSNVPROC) (GLenum target, GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMapControlPointsNV(target:TGLenum; index:TGLuint; _type:TGLenum; ustride:TGLsizei; vstride:TGLsizei; 
             uorder:TGLint; vorder:TGLint; packed_:TGLboolean; points:pointer);cdecl;external;
@@ -10296,9 +6789,6 @@ procedure glGetMapParameterfvNV(target:TGLenum; pname:TGLenum; params:PGLfloat);
 procedure glGetMapAttribParameterivNV(target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetMapAttribParameterfvNV(target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glEvalMapsNV(target:TGLenum; mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_evaluators */ }
-{////#ifndef GL_NV_explicit_multisample }
 const
   GL_NV_explicit_multisample = 1;  
   GL_SAMPLE_POSITION_NV = $8E50;  
@@ -10311,30 +6801,15 @@ const
   GL_INT_SAMPLER_RENDERBUFFER_NV = $8E57;  
   GL_UNSIGNED_INT_SAMPLER_RENDERBUFFER_NV = $8E58;  
   GL_MAX_SAMPLE_MASK_WORDS_NV = $8E59;  
-{////typedef void (P PFNGLGETMULTISAMPLEFVNVPROC) (GLenum pname, GLuint index, GLfloat *val); }
-{////typedef void (P PFNGLSAMPLEMASKINDEXEDNVPROC) (GLuint index, GLbitfield mask); }
-{////typedef void (P PFNGLTEXRENDERBUFFERNVPROC) (GLenum target, GLuint renderbuffer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetMultisamplefvNV(pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;external;
 procedure glSampleMaskIndexedNV(index:TGLuint; mask:TGLbitfield);cdecl;external;
 procedure glTexRenderbufferNV(target:TGLenum; renderbuffer:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_explicit_multisample */ }
-{////#ifndef GL_NV_fence }
 const
   GL_NV_fence = 1;  
   GL_ALL_COMPLETED_NV = $84F2;  
   GL_FENCE_STATUS_NV = $84F3;  
   GL_FENCE_CONDITION_NV = $84F4;  
-{////typedef void (P PFNGLDELETEFENCESNVPROC) (GLsizei n,GLuint *fences); }
-{////typedef void (P PFNGLGENFENCESNVPROC) (GLsizei n, GLuint *fences); }
-{////typedef GLboolean (P PFNGLISFENCENVPROC) (GLuint fence); }
-{////typedef GLboolean (P PFNGLTESTFENCENVPROC) (GLuint fence); }
-{////typedef void (P PFNGLGETFENCEIVNVPROC) (GLuint fence, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLFINISHFENCENVPROC) (GLuint fence); }
-{////typedef void (P PFNGLSETFENCENVPROC) (GLuint fence, GLenum condition); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDeleteFencesNV(n:TGLsizei; fences:PGLuint);cdecl;external;
 procedure glGenFencesNV(n:TGLsizei; fences:PGLuint);cdecl;external;
@@ -10343,14 +6818,9 @@ function glTestFenceNV(fence:TGLuint):TGLboolean;cdecl;external;
 procedure glGetFenceivNV(fence:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glFinishFenceNV(fence:TGLuint);cdecl;external;
 procedure glSetFenceNV(fence:TGLuint; condition:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_fence */ }
-{////#ifndef GL_NV_fill_rectangle }
 const
   GL_NV_fill_rectangle = 1;  
   GL_FILL_RECTANGLE_NV = $933C;  
-{////#endif /* GL_NV_fill_rectangle */ }
-{////#ifndef GL_NV_float_buffer }
   GL_NV_float_buffer = 1;  
   GL_FLOAT_R_NV = $8880;  
   GL_FLOAT_RG_NV = $8881;  
@@ -10367,24 +6837,15 @@ const
   GL_TEXTURE_FLOAT_COMPONENTS_NV = $888C;  
   GL_FLOAT_CLEAR_COLOR_VALUE_NV = $888D;  
   GL_FLOAT_RGBA_MODE_NV = $888E;  
-{////#endif /* GL_NV_float_buffer */ }
-{////#ifndef GL_NV_fog_distance }
   GL_NV_fog_distance = 1;  
   GL_FOG_DISTANCE_MODE_NV = $855A;  
   GL_EYE_RADIAL_NV = $855B;  
   GL_EYE_PLANE_ABSOLUTE_NV = $855C;  
-{////#endif /* GL_NV_fog_distance */ }
-{////#ifndef GL_NV_fragment_coverage_to_color }
   GL_NV_fragment_coverage_to_color = 1;  
   GL_FRAGMENT_COVERAGE_TO_COLOR_NV = $92DD;  
   GL_FRAGMENT_COVERAGE_COLOR_NV = $92DE;  
-{////typedef void (P PFNGLFRAGMENTCOVERAGECOLORNVPROC) (GLuint color); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFragmentCoverageColorNV(color:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_fragment_coverage_to_color */ }
-{////#ifndef GL_NV_fragment_program }
 const
   GL_NV_fragment_program = 1;  
   GL_MAX_FRAGMENT_PROGRAM_LOCAL_PARAMETERS_NV = $8868;  
@@ -10393,13 +6854,6 @@ const
   GL_MAX_TEXTURE_IMAGE_UNITS_NV = $8872;  
   GL_FRAGMENT_PROGRAM_BINDING_NV = $8873;  
   GL_PROGRAM_ERROR_STRING_NV = $8874;  
-{////typedef void (P PFNGLPROGRAMNAMEDPARAMETER4FNVPROC) (GLuint id, GLsizei len,GLubyte *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLPROGRAMNAMEDPARAMETER4FVNVPROC) (GLuint id, GLsizei len,GLubyte *name,GLfloat *v); }
-{////typedef void (P PFNGLPROGRAMNAMEDPARAMETER4DNVPROC) (GLuint id, GLsizei len,GLubyte *name, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLPROGRAMNAMEDPARAMETER4DVNVPROC) (GLuint id, GLsizei len,GLubyte *name,GLdouble *v); }
-{////typedef void (P PFNGLGETPROGRAMNAMEDPARAMETERFVNVPROC) (GLuint id, GLsizei len,GLubyte *name, GLfloat *params); }
-{////typedef void (P PFNGLGETPROGRAMNAMEDPARAMETERDVNVPROC) (GLuint id, GLsizei len,GLubyte *name, GLdouble *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramNamedParameter4fNV(id:TGLuint; len:TGLsizei; name:PGLubyte; x:TGLfloat; y:TGLfloat; 
             z:TGLfloat; w:TGLfloat);cdecl;external;
@@ -10409,9 +6863,6 @@ procedure glProgramNamedParameter4dNV(id:TGLuint; len:TGLsizei; name:PGLubyte; x
 procedure glProgramNamedParameter4dvNV(id:TGLuint; len:TGLsizei; name:PGLubyte; v:PGLdouble);cdecl;external;
 procedure glGetProgramNamedParameterfvNV(id:TGLuint; len:TGLsizei; name:PGLubyte; params:PGLfloat);cdecl;external;
 procedure glGetProgramNamedParameterdvNV(id:TGLuint; len:TGLsizei; name:PGLubyte; params:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_fragment_program */ }
-{////#ifndef GL_NV_fragment_program2 }
 const
   GL_NV_fragment_program2 = 1;  
   GL_MAX_PROGRAM_EXEC_INSTRUCTIONS_NV = $88F4;  
@@ -10419,20 +6870,10 @@ const
   GL_MAX_PROGRAM_IF_DEPTH_NV = $88F6;  
   GL_MAX_PROGRAM_LOOP_DEPTH_NV = $88F7;  
   GL_MAX_PROGRAM_LOOP_COUNT_NV = $88F8;  
-{////#endif /* GL_NV_fragment_program2 */ }
-{////#ifndef GL_NV_fragment_program4 }
   GL_NV_fragment_program4 = 1;  
-{////#endif /* GL_NV_fragment_program4 */ }
-{////#ifndef GL_NV_fragment_program_option }
   GL_NV_fragment_program_option = 1;  
-{////#endif /* GL_NV_fragment_program_option */ }
-{////#ifndef GL_NV_fragment_shader_barycentric }
   GL_NV_fragment_shader_barycentric = 1;  
-{////#endif /* GL_NV_fragment_shader_barycentric */ }
-{////#ifndef GL_NV_fragment_shader_interlock }
   GL_NV_fragment_shader_interlock = 1;  
-{////#endif /* GL_NV_fragment_shader_interlock */ }
-{////#ifndef GL_NV_framebuffer_mixed_samples }
   GL_NV_framebuffer_mixed_samples = 1;  
   GL_COVERAGE_MODULATION_TABLE_NV = $9331;  
   GL_COLOR_SAMPLES_NV = $8E20;  
@@ -10442,73 +6883,37 @@ const
   GL_MIXED_STENCIL_SAMPLES_SUPPORTED_NV = $9330;  
   GL_COVERAGE_MODULATION_NV = $9332;  
   GL_COVERAGE_MODULATION_TABLE_SIZE_NV = $9333;  
-{////typedef void (P PFNGLCOVERAGEMODULATIONTABLENVPROC) (GLsizei n,GLfloat *v); }
-{////typedef void (P PFNGLGETCOVERAGEMODULATIONTABLENVPROC) (GLsizei bufSize, GLfloat *v); }
-{////typedef void (P PFNGLCOVERAGEMODULATIONNVPROC) (GLenum components); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCoverageModulationTableNV(n:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glGetCoverageModulationTableNV(bufSize:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glCoverageModulationNV(components:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_framebuffer_mixed_samples */ }
-{////#ifndef GL_NV_framebuffer_multisample_coverage }
 const
   GL_NV_framebuffer_multisample_coverage = 1;  
   GL_RENDERBUFFER_COVERAGE_SAMPLES_NV = $8CAB;  
   GL_RENDERBUFFER_COLOR_SAMPLES_NV = $8E10;  
   GL_MAX_MULTISAMPLE_COVERAGE_MODES_NV = $8E11;  
   GL_MULTISAMPLE_COVERAGE_MODES_NV = $8E12;  
-{////typedef void (P PFNGLRENDERBUFFERSTORAGEMULTISAMPLECOVERAGENVPROC) (GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLenum internalformat, GLsizei width, GLsizei height); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glRenderbufferStorageMultisampleCoverageNV(target:TGLenum; coverageSamples:TGLsizei; colorSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei; 
             height:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_framebuffer_multisample_coverage */ }
-{////#ifndef GL_NV_geometry_program4 }
 const
   GL_NV_geometry_program4 = 1;  
   GL_GEOMETRY_PROGRAM_NV = $8C26;  
   GL_MAX_PROGRAM_OUTPUT_VERTICES_NV = $8C27;  
   GL_MAX_PROGRAM_TOTAL_OUTPUT_COMPONENTS_NV = $8C28;  
-{////typedef void (P PFNGLPROGRAMVERTEXLIMITNVPROC) (GLenum target, GLint limit); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREEXTPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level); }
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREFACEEXTPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLenum face); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramVertexLimitNV(target:TGLenum; limit:TGLint);cdecl;external;
 procedure glFramebufferTextureEXT(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint);cdecl;external;
 procedure glFramebufferTextureFaceEXT(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; face:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_geometry_program4 */ }
-{////#ifndef GL_NV_geometry_shader4 }
 const
   GL_NV_geometry_shader4 = 1;  
-{////#endif /* GL_NV_geometry_shader4 */ }
-{////#ifndef GL_NV_geometry_shader_passthrough }
   GL_NV_geometry_shader_passthrough = 1;  
-{////#endif /* GL_NV_geometry_shader_passthrough */ }
-{////#ifndef GL_NV_gpu_multicast }
   GL_NV_gpu_multicast = 1;  
   GL_PER_GPU_STORAGE_BIT_NV = $0800;  
   GL_MULTICAST_GPUS_NV = $92BA;  
   GL_RENDER_GPU_MASK_NV = $9558;  
   GL_PER_GPU_STORAGE_NV = $9548;  
   GL_MULTICAST_PROGRAMMABLE_SAMPLE_LOCATION_NV = $9549;  
-{////typedef void (P PFNGLRENDERGPUMASKNVPROC) (GLbitfield mask); }
-{////typedef void (P PFNGLMULTICASTBUFFERSUBDATANVPROC) (GLbitfield gpuMask, GLuint buffer, GLintptr offset, GLsizeiptr size,void *data); }
-{////typedef void (P PFNGLMULTICASTCOPYBUFFERSUBDATANVPROC) (GLuint readGpu, GLbitfield writeGpuMask, GLuint readBuffer, GLuint writeBuffer, GLintptr readOffset, GLintptr writeOffset, GLsizeiptr size); }
-{////typedef void (P PFNGLMULTICASTCOPYIMAGESUBDATANVPROC) (GLuint srcGpu, GLbitfield dstGpuMask, GLuint srcName, GLenum srcTarget, GLint srcLevel, GLint srcX, GLint srcY, GLint srcZ, GLuint dstName, GLenum dstTarget, GLint dstLevel, GLint dstX, GLint dstY, GLint dstZ, GLsizei srcWidth, GLsizei srcHeight, GLsizei srcDepth); }
-{////typedef void (P PFNGLMULTICASTBLITFRAMEBUFFERNVPROC) (GLuint srcGpu, GLuint dstGpu, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter); }
-{////typedef void (P PFNGLMULTICASTFRAMEBUFFERSAMPLELOCATIONSFVNVPROC) (GLuint gpu, GLuint framebuffer, GLuint start, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLMULTICASTBARRIERNVPROC) (void); }
-{////typedef void (P PFNGLMULTICASTWAITSYNCNVPROC) (GLuint signalGpu, GLbitfield waitGpuMask); }
-{////typedef void (P PFNGLMULTICASTGETQUERYOBJECTIVNVPROC) (GLuint gpu, GLuint id, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLMULTICASTGETQUERYOBJECTUIVNVPROC) (GLuint gpu, GLuint id, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLMULTICASTGETQUERYOBJECTI64VNVPROC) (GLuint gpu, GLuint id, GLenum pname, GLint64 *params); }
-{////typedef void (P PFNGLMULTICASTGETQUERYOBJECTUI64VNVPROC) (GLuint gpu, GLuint id, GLenum pname, GLuint64 *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glRenderGpuMaskNV(mask:TGLbitfield);cdecl;external;
 procedure glMulticastBufferSubDataNV(gpuMask:TGLbitfield; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; data:pointer);cdecl;external;
@@ -10528,9 +6933,6 @@ procedure glMulticastGetQueryObjectivNV(gpu:TGLuint; id:TGLuint; pname:TGLenum; 
 procedure glMulticastGetQueryObjectuivNV(gpu:TGLuint; id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;external;
 procedure glMulticastGetQueryObjecti64vNV(gpu:TGLuint; id:TGLuint; pname:TGLenum; params:PGLint64);cdecl;external;
 procedure glMulticastGetQueryObjectui64vNV(gpu:TGLuint; id:TGLuint; pname:TGLenum; params:PGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_gpu_multicast */ }
-{////#ifndef GL_NV_gpu_program4 }
 const
   GL_NV_gpu_program4 = 1;  
   GL_MIN_PROGRAM_TEXEL_OFFSET_NV = $8904;  
@@ -10541,23 +6943,6 @@ const
   GL_MAX_PROGRAM_RESULT_COMPONENTS_NV = $8909;  
   GL_MAX_PROGRAM_GENERIC_ATTRIBS_NV = $8DA5;  
   GL_MAX_PROGRAM_GENERIC_RESULTS_NV = $8DA6;  
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERI4INVPROC) (GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERI4IVNVPROC) (GLenum target, GLuint index,GLint *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERSI4IVNVPROC) (GLenum target, GLuint index, GLsizei count,GLint *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERI4UINVPROC) (GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERI4UIVNVPROC) (GLenum target, GLuint index,GLuint *params); }
-{////typedef void (P PFNGLPROGRAMLOCALPARAMETERSI4UIVNVPROC) (GLenum target, GLuint index, GLsizei count,GLuint *params); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERI4INVPROC) (GLenum target, GLuint index, GLint x, GLint y, GLint z, GLint w); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERI4IVNVPROC) (GLenum target, GLuint index,GLint *params); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERSI4IVNVPROC) (GLenum target, GLuint index, GLsizei count,GLint *params); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERI4UINVPROC) (GLenum target, GLuint index, GLuint x, GLuint y, GLuint z, GLuint w); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERI4UIVNVPROC) (GLenum target, GLuint index,GLuint *params); }
-{////typedef void (P PFNGLPROGRAMENVPARAMETERSI4UIVNVPROC) (GLenum target, GLuint index, GLsizei count,GLuint *params); }
-{////typedef void (P PFNGLGETPROGRAMLOCALPARAMETERIIVNVPROC) (GLenum target, GLuint index, GLint *params); }
-{////typedef void (P PFNGLGETPROGRAMLOCALPARAMETERIUIVNVPROC) (GLenum target, GLuint index, GLuint *params); }
-{////typedef void (P PFNGLGETPROGRAMENVPARAMETERIIVNVPROC) (GLenum target, GLuint index, GLint *params); }
-{////typedef void (P PFNGLGETPROGRAMENVPARAMETERIUIVNVPROC) (GLenum target, GLuint index, GLuint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramLocalParameterI4iNV(target:TGLenum; index:TGLuint; x:TGLint; y:TGLint; z:TGLint; 
             w:TGLint);cdecl;external;
@@ -10579,9 +6964,6 @@ procedure glGetProgramLocalParameterIivNV(target:TGLenum; index:TGLuint; params:
 procedure glGetProgramLocalParameterIuivNV(target:TGLenum; index:TGLuint; params:PGLuint);cdecl;external;
 procedure glGetProgramEnvParameterIivNV(target:TGLenum; index:TGLuint; params:PGLint);cdecl;external;
 procedure glGetProgramEnvParameterIuivNV(target:TGLenum; index:TGLuint; params:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_gpu_program4 */ }
-{////#ifndef GL_NV_gpu_program5 }
 const
   GL_NV_gpu_program5 = 1;  
   GL_MAX_GEOMETRY_PROGRAM_INVOCATIONS_NV = $8E5A;  
@@ -10592,22 +6974,12 @@ const
   GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET_NV = $8E5F;  
   GL_MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV = $8F44;  
   GL_MAX_PROGRAM_SUBROUTINE_NUM_NV = $8F45;  
-{////typedef void (P PFNGLPROGRAMSUBROUTINEPARAMETERSUIVNVPROC) (GLenum target, GLsizei count,GLuint *params); }
-{////typedef void (P PFNGLGETPROGRAMSUBROUTINEPARAMETERUIVNVPROC) (GLenum target, GLuint index, GLuint *param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramSubroutineParametersuivNV(target:TGLenum; count:TGLsizei; params:PGLuint);cdecl;external;
 procedure glGetProgramSubroutineParameteruivNV(target:TGLenum; index:TGLuint; param:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_gpu_program5 */ }
-{////#ifndef GL_NV_gpu_program5_mem_extended }
 const
   GL_NV_gpu_program5_mem_extended = 1;  
-{////#endif /* GL_NV_gpu_program5_mem_extended */ }
-{////#ifndef GL_NV_gpu_shader5 }
   GL_NV_gpu_shader5 = 1;  
-{////#endif /* GL_NV_gpu_shader5 */ }
-{////#ifndef GL_NV_half_float }
   GL_NV_half_float = 1;  
 type
   PGLhalfNV = ^TGLhalfNV;
@@ -10615,53 +6987,6 @@ type
 
 const
   GL_HALF_FLOAT_NV = $140B;  
-{////typedef void (P PFNGLVERTEX2HNVPROC) (GLhalfNV x, GLhalfNV y); }
-{////typedef void (P PFNGLVERTEX2HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEX3HNVPROC) (GLhalfNV x, GLhalfNV y, GLhalfNV z); }
-{////typedef void (P PFNGLVERTEX3HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEX4HNVPROC) (GLhalfNV x, GLhalfNV y, GLhalfNV z, GLhalfNV w); }
-{////typedef void (P PFNGLVERTEX4HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLNORMAL3HNVPROC) (GLhalfNV nx, GLhalfNV ny, GLhalfNV nz); }
-{////typedef void (P PFNGLNORMAL3HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLCOLOR3HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue); }
-{////typedef void (P PFNGLCOLOR3HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLCOLOR4HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue, GLhalfNV alpha); }
-{////typedef void (P PFNGLCOLOR4HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLTEXCOORD1HNVPROC) (GLhalfNV s); }
-{////typedef void (P PFNGLTEXCOORD1HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLTEXCOORD2HNVPROC) (GLhalfNV s, GLhalfNV t); }
-{////typedef void (P PFNGLTEXCOORD2HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLTEXCOORD3HNVPROC) (GLhalfNV s, GLhalfNV t, GLhalfNV r); }
-{////typedef void (P PFNGLTEXCOORD3HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLTEXCOORD4HNVPROC) (GLhalfNV s, GLhalfNV t, GLhalfNV r, GLhalfNV q); }
-{////typedef void (P PFNGLTEXCOORD4HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLMULTITEXCOORD1HNVPROC) (GLenum target, GLhalfNV s); }
-{////typedef void (P PFNGLMULTITEXCOORD1HVNVPROC) (GLenum target,GLhalfNV *v); }
-{////typedef void (P PFNGLMULTITEXCOORD2HNVPROC) (GLenum target, GLhalfNV s, GLhalfNV t); }
-{////typedef void (P PFNGLMULTITEXCOORD2HVNVPROC) (GLenum target,GLhalfNV *v); }
-{////typedef void (P PFNGLMULTITEXCOORD3HNVPROC) (GLenum target, GLhalfNV s, GLhalfNV t, GLhalfNV r); }
-{////typedef void (P PFNGLMULTITEXCOORD3HVNVPROC) (GLenum target,GLhalfNV *v); }
-{////typedef void (P PFNGLMULTITEXCOORD4HNVPROC) (GLenum target, GLhalfNV s, GLhalfNV t, GLhalfNV r, GLhalfNV q); }
-{////typedef void (P PFNGLMULTITEXCOORD4HVNVPROC) (GLenum target,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1HNVPROC) (GLuint index, GLhalfNV x); }
-{////typedef void (P PFNGLVERTEXATTRIB1HVNVPROC) (GLuint index,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2HNVPROC) (GLuint index, GLhalfNV x, GLhalfNV y); }
-{////typedef void (P PFNGLVERTEXATTRIB2HVNVPROC) (GLuint index,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3HNVPROC) (GLuint index, GLhalfNV x, GLhalfNV y, GLhalfNV z); }
-{////typedef void (P PFNGLVERTEXATTRIB3HVNVPROC) (GLuint index,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4HNVPROC) (GLuint index, GLhalfNV x, GLhalfNV y, GLhalfNV z, GLhalfNV w); }
-{////typedef void (P PFNGLVERTEXATTRIB4HVNVPROC) (GLuint index,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS1HVNVPROC) (GLuint index, GLsizei n,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS2HVNVPROC) (GLuint index, GLsizei n,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS3HVNVPROC) (GLuint index, GLsizei n,GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS4HVNVPROC) (GLuint index, GLsizei n,GLhalfNV *v); }
-{////typedef void (P PFNGLFOGCOORDHNVPROC) (GLhalfNV fog); }
-{////typedef void (P PFNGLFOGCOORDHVNVPROC) ( GLhalfNV *fog); }
-{////typedef void (P PFNGLSECONDARYCOLOR3HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue); }
-{////typedef void (P PFNGLSECONDARYCOLOR3HVNVPROC) ( GLhalfNV *v); }
-{////typedef void (P PFNGLVERTEXWEIGHTHNVPROC) (GLhalfNV weight); }
-{////typedef void (P PFNGLVERTEXWEIGHTHVNVPROC) ( GLhalfNV *weight); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertex2hNV(x:TGLhalfNV; y:TGLhalfNV);cdecl;external;
 procedure glVertex2hvNV(v:PGLhalfNV);cdecl;external;
@@ -10709,29 +7034,19 @@ procedure glSecondaryColor3hNV(red:TGLhalfNV; green:TGLhalfNV; blue:TGLhalfNV);c
 procedure glSecondaryColor3hvNV(v:PGLhalfNV);cdecl;external;
 procedure glVertexWeighthNV(weight:TGLhalfNV);cdecl;external;
 procedure glVertexWeighthvNV(weight:PGLhalfNV);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_half_float */ }
-{////#ifndef GL_NV_internalformat_sample_query }
 const
   GL_NV_internalformat_sample_query = 1;  
   GL_MULTISAMPLES_NV = $9371;  
   GL_SUPERSAMPLE_SCALE_X_NV = $9372;  
   GL_SUPERSAMPLE_SCALE_Y_NV = $9373;  
   GL_CONFORMANT_NV = $9374;  
-{////typedef void (P PFNGLGETINTERNALFORMATSAMPLEIVNVPROC) (GLenum target, GLenum internalformat, GLsizei samples, GLenum pname, GLsizei count, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetInternalformatSampleivNV(target:TGLenum; internalformat:TGLenum; samples:TGLsizei; pname:TGLenum; count:TGLsizei; 
             params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_internalformat_sample_query */ }
-{////#ifndef GL_NV_light_max_exponent }
 const
   GL_NV_light_max_exponent = 1;  
   GL_MAX_SHININESS_NV = $8504;  
   GL_MAX_SPOT_EXPONENT_NV = $8505;  
-{////#endif /* GL_NV_light_max_exponent */ }
-{////#ifndef GL_NV_memory_attachment }
   GL_NV_memory_attachment = 1;  
   GL_ATTACHED_MEMORY_OBJECT_NV = $95A4;  
   GL_ATTACHED_MEMORY_OFFSET_NV = $95A5;  
@@ -10743,13 +7058,6 @@ const
   GL_DETACHED_BUFFERS_NV = $95AB;  
   GL_MAX_DETACHED_TEXTURES_NV = $95AC;  
   GL_MAX_DETACHED_BUFFERS_NV = $95AD;  
-{////typedef void (P PFNGLGETMEMORYOBJECTDETACHEDRESOURCESUIVNVPROC) (GLuint memory, GLenum pname, GLint first, GLsizei count, GLuint *params); }
-{////typedef void (P PFNGLRESETMEMORYOBJECTPARAMETERNVPROC) (GLuint memory, GLenum pname); }
-{////typedef void (P PFNGLTEXATTACHMEMORYNVPROC) (GLenum target, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLBUFFERATTACHMEMORYNVPROC) (GLenum target, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLTEXTUREATTACHMEMORYNVPROC) (GLuint texture, GLuint memory, GLuint64 offset); }
-{////typedef void (P PFNGLNAMEDBUFFERATTACHMEMORYNVPROC) (GLuint buffer, GLuint memory, GLuint64 offset); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetMemoryObjectDetachedResourcesuivNV(memory:TGLuint; pname:TGLenum; first:TGLint; count:TGLsizei; params:PGLuint);cdecl;external;
 procedure glResetMemoryObjectParameterNV(memory:TGLuint; pname:TGLenum);cdecl;external;
@@ -10757,16 +7065,8 @@ procedure glTexAttachMemoryNV(target:TGLenum; memory:TGLuint; offset:TGLuint64);
 procedure glBufferAttachMemoryNV(target:TGLenum; memory:TGLuint; offset:TGLuint64);cdecl;external;
 procedure glTextureAttachMemoryNV(texture:TGLuint; memory:TGLuint; offset:TGLuint64);cdecl;external;
 procedure glNamedBufferAttachMemoryNV(buffer:TGLuint; memory:TGLuint; offset:TGLuint64);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_memory_attachment */ }
-{////#ifndef GL_NV_memory_object_sparse }
 const
   GL_NV_memory_object_sparse = 1;  
-{////typedef void (P PFNGLBUFFERPAGECOMMITMENTMEMNVPROC) (GLenum target, GLintptr offset, GLsizeiptr size, GLuint memory, GLuint64 memOffset, GLboolean commit); }
-{////typedef void (P PFNGLTEXPAGECOMMITMENTMEMNVPROC) (GLenum target, GLint layer, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset, GLboolean commit); }
-{////typedef void (P PFNGLNAMEDBUFFERPAGECOMMITMENTMEMNVPROC) (GLuint buffer, GLintptr offset, GLsizeiptr size, GLuint memory, GLuint64 memOffset, GLboolean commit); }
-{////typedef void (P PFNGLTEXTUREPAGECOMMITMENTMEMNVPROC) (GLuint texture, GLint layer, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLuint memory, GLuint64 offset, GLboolean commit); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferPageCommitmentMemNV(target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; memory:TGLuint; memOffset:TGLuint64; 
             commit:TGLboolean);cdecl;external;
@@ -10778,9 +7078,6 @@ procedure glNamedBufferPageCommitmentMemNV(buffer:TGLuint; offset:TGLintptr; siz
 procedure glTexturePageCommitmentMemNV(texture:TGLuint; layer:TGLint; level:TGLint; xoffset:TGLint; yoffset:TGLint; 
             zoffset:TGLint; width:TGLsizei; height:TGLsizei; depth:TGLsizei; memory:TGLuint; 
             offset:TGLuint64; commit:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_memory_object_sparse */ }
-{////#ifndef GL_NV_mesh_shader }
 const
   GL_NV_mesh_shader = 1;  
   GL_MESH_SHADER_NV = $9559;  
@@ -10831,40 +7128,20 @@ const
   GL_TASK_SUBROUTINE_UNIFORM_NV = $957F;  
   GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_NV = $959E;  
   GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_NV = $959F;  
-{////typedef void (P PFNGLDRAWMESHTASKSNVPROC) (GLuint first, GLuint count); }
-{////typedef void (P PFNGLDRAWMESHTASKSINDIRECTNVPROC) (GLintptr indirect); }
-{////typedef void (P PFNGLMULTIDRAWMESHTASKSINDIRECTNVPROC) (GLintptr indirect, GLsizei drawcount, GLsizei stride); }
-{////typedef void (P PFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC) (GLintptr indirect, GLintptr drawcount, GLsizei maxdrawcount, GLsizei stride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawMeshTasksNV(first:TGLuint; count:TGLuint);cdecl;external;
 procedure glDrawMeshTasksIndirectNV(indirect:TGLintptr);cdecl;external;
 procedure glMultiDrawMeshTasksIndirectNV(indirect:TGLintptr; drawcount:TGLsizei; stride:TGLsizei);cdecl;external;
 procedure glMultiDrawMeshTasksIndirectCountNV(indirect:TGLintptr; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_mesh_shader */ }
-{////#ifndef GL_NV_multisample_coverage }
 const
   GL_NV_multisample_coverage = 1;  
-{////#endif /* GL_NV_multisample_coverage */ }
-{////#ifndef GL_NV_multisample_filter_hint }
   GL_NV_multisample_filter_hint = 1;  
   GL_MULTISAMPLE_FILTER_HINT_NV = $8534;  
-{////#endif /* GL_NV_multisample_filter_hint */ }
-{////#ifndef GL_NV_occlusion_query }
   GL_NV_occlusion_query = 1;  
   GL_PIXEL_COUNTER_BITS_NV = $8864;  
   GL_CURRENT_OCCLUSION_QUERY_ID_NV = $8865;  
   GL_PIXEL_COUNT_NV = $8866;  
   GL_PIXEL_COUNT_AVAILABLE_NV = $8867;  
-{////typedef void (P PFNGLGENOCCLUSIONQUERIESNVPROC) (GLsizei n, GLuint *ids); }
-{////typedef void (P PFNGLDELETEOCCLUSIONQUERIESNVPROC) (GLsizei n,GLuint *ids); }
-{////typedef GLboolean (P PFNGLISOCCLUSIONQUERYNVPROC) (GLuint id); }
-{////typedef void (P PFNGLBEGINOCCLUSIONQUERYNVPROC) (GLuint id); }
-{////typedef void (P PFNGLENDOCCLUSIONQUERYNVPROC) (void); }
-{////typedef void (P PFNGLGETOCCLUSIONQUERYIVNVPROC) (GLuint id, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETOCCLUSIONQUERYUIVNVPROC) (GLuint id, GLenum pname, GLuint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenOcclusionQueriesNV(n:TGLsizei; ids:PGLuint);cdecl;external;
 procedure glDeleteOcclusionQueriesNV(n:TGLsizei; ids:PGLuint);cdecl;external;
@@ -10873,36 +7150,22 @@ procedure glBeginOcclusionQueryNV(id:TGLuint);cdecl;external;
 procedure glEndOcclusionQueryNV;cdecl;external;
 procedure glGetOcclusionQueryivNV(id:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetOcclusionQueryuivNV(id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_occlusion_query */ }
-{////#ifndef GL_NV_packed_depth_stencil }
 const
   GL_NV_packed_depth_stencil = 1;  
   GL_DEPTH_STENCIL_NV = $84F9;  
   GL_UNSIGNED_INT_24_8_NV = $84FA;  
-{////#endif /* GL_NV_packed_depth_stencil */ }
-{////#ifndef GL_NV_parameter_buffer_object }
   GL_NV_parameter_buffer_object = 1;  
   GL_MAX_PROGRAM_PARAMETER_BUFFER_BINDINGS_NV = $8DA0;  
   GL_MAX_PROGRAM_PARAMETER_BUFFER_SIZE_NV = $8DA1;  
   GL_VERTEX_PROGRAM_PARAMETER_BUFFER_NV = $8DA2;  
   GL_GEOMETRY_PROGRAM_PARAMETER_BUFFER_NV = $8DA3;  
   GL_FRAGMENT_PROGRAM_PARAMETER_BUFFER_NV = $8DA4;  
-{////typedef void (P PFNGLPROGRAMBUFFERPARAMETERSFVNVPROC) (GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count,GLfloat *params); }
-{////typedef void (P PFNGLPROGRAMBUFFERPARAMETERSIIVNVPROC) (GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count,GLint *params); }
-{////typedef void (P PFNGLPROGRAMBUFFERPARAMETERSIUIVNVPROC) (GLenum target, GLuint bindingIndex, GLuint wordIndex, GLsizei count,GLuint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glProgramBufferParametersfvNV(target:TGLenum; bindingIndex:TGLuint; wordIndex:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;external;
 procedure glProgramBufferParametersIivNV(target:TGLenum; bindingIndex:TGLuint; wordIndex:TGLuint; count:TGLsizei; params:PGLint);cdecl;external;
 procedure glProgramBufferParametersIuivNV(target:TGLenum; bindingIndex:TGLuint; wordIndex:TGLuint; count:TGLsizei; params:PGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_parameter_buffer_object */ }
-{////#ifndef GL_NV_parameter_buffer_object2 }
 const
   GL_NV_parameter_buffer_object2 = 1;  
-{////#endif /* GL_NV_parameter_buffer_object2 */ }
-{////#ifndef GL_NV_path_rendering }
   GL_NV_path_rendering = 1;  
   GL_PATH_FORMAT_SVG_NV = $9070;  
   GL_PATH_FORMAT_PS_NV = $9071;  
@@ -11067,71 +7330,6 @@ const
   GL_PATH_MAX_PROJECTION_STACK_DEPTH_NV = $0D38;  
   GL_PATH_TRANSPOSE_PROJECTION_MATRIX_NV = $84E4;  
   GL_FRAGMENT_INPUT_NV = $936D;  
-{////typedef GLuint (P PFNGLGENPATHSNVPROC) (GLsizei range); }
-{////typedef void (P PFNGLDELETEPATHSNVPROC) (GLuint path, GLsizei range); }
-{////typedef GLboolean (P PFNGLISPATHNVPROC) (GLuint path); }
-{////typedef void (P PFNGLPATHCOMMANDSNVPROC) (GLuint path, GLsizei numCommands,GLubyte *commands, GLsizei numCoords, GLenum coordType,void *coords); }
-{////typedef void (P PFNGLPATHCOORDSNVPROC) (GLuint path, GLsizei numCoords, GLenum coordType,void *coords); }
-{////typedef void (P PFNGLPATHSUBCOMMANDSNVPROC) (GLuint path, GLsizei commandStart, GLsizei commandsToDelete, GLsizei numCommands,GLubyte *commands, GLsizei numCoords, GLenum coordType,void *coords); }
-{////typedef void (P PFNGLPATHSUBCOORDSNVPROC) (GLuint path, GLsizei coordStart, GLsizei numCoords, GLenum coordType,void *coords); }
-{////typedef void (P PFNGLPATHSTRINGNVPROC) (GLuint path, GLenum format, GLsizei length,void *pathString); }
-{////typedef void (P PFNGLPATHGLYPHSNVPROC) (GLuint firstPathName, GLenum fontTarget,void *fontName, GLbitfield fontStyle, GLsizei numGlyphs, GLenum type,void *charcodes, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale); }
-{////typedef void (P PFNGLPATHGLYPHRANGENVPROC) (GLuint firstPathName, GLenum fontTarget,void *fontName, GLbitfield fontStyle, GLuint firstGlyph, GLsizei numGlyphs, GLenum handleMissingGlyphs, GLuint pathParameterTemplate, GLfloat emScale); }
-{////typedef void (P PFNGLWEIGHTPATHSNVPROC) (GLuint resultPath, GLsizei numPaths,GLuint *paths,GLfloat *weights); }
-{////typedef void (P PFNGLCOPYPATHNVPROC) (GLuint resultPath, GLuint srcPath); }
-{////typedef void (P PFNGLINTERPOLATEPATHSNVPROC) (GLuint resultPath, GLuint pathA, GLuint pathB, GLfloat weight); }
-{////typedef void (P PFNGLTRANSFORMPATHNVPROC) (GLuint resultPath, GLuint srcPath, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLPATHPARAMETERIVNVPROC) (GLuint path, GLenum pname,GLint *value); }
-{////typedef void (P PFNGLPATHPARAMETERINVPROC) (GLuint path, GLenum pname, GLint value); }
-{////typedef void (P PFNGLPATHPARAMETERFVNVPROC) (GLuint path, GLenum pname,GLfloat *value); }
-{////typedef void (P PFNGLPATHPARAMETERFNVPROC) (GLuint path, GLenum pname, GLfloat value); }
-{////typedef void (P PFNGLPATHDASHARRAYNVPROC) (GLuint path, GLsizei dashCount,GLfloat *dashArray); }
-{////typedef void (P PFNGLPATHSTENCILFUNCNVPROC) (GLenum func, GLint ref, GLuint mask); }
-{////typedef void (P PFNGLPATHSTENCILDEPTHOFFSETNVPROC) (GLfloat factor, GLfloat units); }
-{////typedef void (P PFNGLSTENCILFILLPATHNVPROC) (GLuint path, GLenum fillMode, GLuint mask); }
-{////typedef void (P PFNGLSTENCILSTROKEPATHNVPROC) (GLuint path, GLint reference, GLuint mask); }
-{////typedef void (P PFNGLSTENCILFILLPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLSTENCILSTROKEPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLint reference, GLuint mask, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLPATHCOVERDEPTHFUNCNVPROC) (GLenum func); }
-{////typedef void (P PFNGLCOVERFILLPATHNVPROC) (GLuint path, GLenum coverMode); }
-{////typedef void (P PFNGLCOVERSTROKEPATHNVPROC) (GLuint path, GLenum coverMode); }
-{////typedef void (P PFNGLCOVERFILLPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLenum coverMode, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLCOVERSTROKEPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLenum coverMode, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLGETPATHPARAMETERIVNVPROC) (GLuint path, GLenum pname, GLint *value); }
-{////typedef void (P PFNGLGETPATHPARAMETERFVNVPROC) (GLuint path, GLenum pname, GLfloat *value); }
-{////typedef void (P PFNGLGETPATHCOMMANDSNVPROC) (GLuint path, GLubyte *commands); }
-{////typedef void (P PFNGLGETPATHCOORDSNVPROC) (GLuint path, GLfloat *coords); }
-{////typedef void (P PFNGLGETPATHDASHARRAYNVPROC) (GLuint path, GLfloat *dashArray); }
-{////typedef void (P PFNGLGETPATHMETRICSNVPROC) (GLbitfield metricQueryMask, GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLsizei stride, GLfloat *metrics); }
-{////typedef void (P PFNGLGETPATHMETRICRANGENVPROC) (GLbitfield metricQueryMask, GLuint firstPathName, GLsizei numPaths, GLsizei stride, GLfloat *metrics); }
-{////typedef void (P PFNGLGETPATHSPACINGNVPROC) (GLenum pathListMode, GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLfloat advanceScale, GLfloat kerningScale, GLenum transformType, GLfloat *returnedSpacing); }
-{////typedef GLboolean (P PFNGLISPOINTINFILLPATHNVPROC) (GLuint path, GLuint mask, GLfloat x, GLfloat y); }
-{////typedef GLboolean (P PFNGLISPOINTINSTROKEPATHNVPROC) (GLuint path, GLfloat x, GLfloat y); }
-{////typedef GLfloat (P PFNGLGETPATHLENGTHNVPROC) (GLuint path, GLsizei startSegment, GLsizei numSegments); }
-{////typedef GLboolean (P PFNGLPOINTALONGPATHNVPROC) (GLuint path, GLsizei startSegment, GLsizei numSegments, GLfloat distance, GLfloat *x, GLfloat *y, GLfloat *tangentX, GLfloat *tangentY); }
-{////typedef void (P PFNGLMATRIXLOAD3X2FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXLOAD3X3FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXLOADTRANSPOSE3X3FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXMULT3X2FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXMULT3X3FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLMATRIXMULTTRANSPOSE3X3FNVPROC) (GLenum matrixMode,GLfloat *m); }
-{////typedef void (P PFNGLSTENCILTHENCOVERFILLPATHNVPROC) (GLuint path, GLenum fillMode, GLuint mask, GLenum coverMode); }
-{////typedef void (P PFNGLSTENCILTHENCOVERSTROKEPATHNVPROC) (GLuint path, GLint reference, GLuint mask, GLenum coverMode); }
-{////typedef void (P PFNGLSTENCILTHENCOVERFILLPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLenum fillMode, GLuint mask, GLenum coverMode, GLenum transformType,GLfloat *transformValues); }
-{////typedef void (P PFNGLSTENCILTHENCOVERSTROKEPATHINSTANCEDNVPROC) (GLsizei numPaths, GLenum pathNameType,void *paths, GLuint pathBase, GLint reference, GLuint mask, GLenum coverMode, GLenum transformType,GLfloat *transformValues); }
-{////typedef GLenum (P PFNGLPATHGLYPHINDEXRANGENVPROC) (GLenum fontTarget,void *fontName, GLbitfield fontStyle, GLuint pathParameterTemplate, GLfloat emScale, GLuint *baseAndCount); }
-{////typedef GLenum (P PFNGLPATHGLYPHINDEXARRAYNVPROC) (GLuint firstPathName, GLenum fontTarget,void *fontName, GLbitfield fontStyle, GLuint firstGlyphIndex, GLsizei numGlyphs, GLuint pathParameterTemplate, GLfloat emScale); }
-{////typedef GLenum (P PFNGLPATHMEMORYGLYPHINDEXARRAYNVPROC) (GLuint firstPathName, GLenum fontTarget, GLsizeiptr fontSize,void *fontData, GLsizei faceIndex, GLuint firstGlyphIndex, GLsizei numGlyphs, GLuint pathParameterTemplate, GLfloat emScale); }
-{////typedef void (P PFNGLPROGRAMPATHFRAGMENTINPUTGENNVPROC) (GLuint program_, GLint location, GLenum genMode, GLint components,GLfloat *coeffs); }
-{////typedef void (P PFNGLGETPROGRAMRESOURCEFVNVPROC) (GLuint program_, GLenum programInterface, GLuint index, GLsizei propCount,GLenum *props, GLsizei count, GLsizei *length, GLfloat *params); }
-{////typedef void (P PFNGLPATHCOLORGENNVPROC) (GLenum color, GLenum genMode, GLenum colorFormat,GLfloat *coeffs); }
-{////typedef void (P PFNGLPATHTEXGENNVPROC) (GLenum texCoordSet, GLenum genMode, GLint components,GLfloat *coeffs); }
-{////typedef void (P PFNGLPATHFOGGENNVPROC) (GLenum genMode); }
-{////typedef void (P PFNGLGETPATHCOLORGENIVNVPROC) (GLenum color, GLenum pname, GLint *value); }
-{////typedef void (P PFNGLGETPATHCOLORGENFVNVPROC) (GLenum color, GLenum pname, GLfloat *value); }
-{////typedef void (P PFNGLGETPATHTEXGENIVNVPROC) (GLenum texCoordSet, GLenum pname, GLint *value); }
-{////typedef void (P PFNGLGETPATHTEXGENFVNVPROC) (GLenum texCoordSet, GLenum pname, GLfloat *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGenPathsNV(range:TGLsizei):TGLuint;cdecl;external;
 procedure glDeletePathsNV(path:TGLuint; range:TGLsizei);cdecl;external;
@@ -11214,14 +7412,9 @@ procedure glGetPathColorGenivNV(color:TGLenum; pname:TGLenum; value:PGLint);cdec
 procedure glGetPathColorGenfvNV(color:TGLenum; pname:TGLenum; value:PGLfloat);cdecl;external;
 procedure glGetPathTexGenivNV(texCoordSet:TGLenum; pname:TGLenum; value:PGLint);cdecl;external;
 procedure glGetPathTexGenfvNV(texCoordSet:TGLenum; pname:TGLenum; value:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_path_rendering */ }
-{////#ifndef GL_NV_path_rendering_shared_edge }
 const
   GL_NV_path_rendering_shared_edge = 1;  
   GL_SHARED_EDGE_NV = $C0;  
-{////#endif /* GL_NV_path_rendering_shared_edge */ }
-{////#ifndef GL_NV_pixel_data_range }
   GL_NV_pixel_data_range = 1;  
   GL_WRITE_PIXEL_DATA_RANGE_NV = $8878;  
   GL_READ_PIXEL_DATA_RANGE_NV = $8879;  
@@ -11229,29 +7422,17 @@ const
   GL_READ_PIXEL_DATA_RANGE_LENGTH_NV = $887B;  
   GL_WRITE_PIXEL_DATA_RANGE_POINTER_NV = $887C;  
   GL_READ_PIXEL_DATA_RANGE_POINTER_NV = $887D;  
-{////typedef void (P PFNGLPIXELDATARANGENVPROC) (GLenum target, GLsizei length,void *pointer); }
-{////typedef void (P PFNGLFLUSHPIXELDATARANGENVPROC) (GLenum target); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPixelDataRangeNV(target:TGLenum; length:TGLsizei; pointer:pointer);cdecl;external;
 procedure glFlushPixelDataRangeNV(target:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_pixel_data_range */ }
-{////#ifndef GL_NV_point_sprite }
 const
   GL_NV_point_sprite = 1;  
   GL_POINT_SPRITE_NV = $8861;  
   GL_COORD_REPLACE_NV = $8862;  
   GL_POINT_SPRITE_R_MODE_NV = $8863;  
-{////typedef void (P PFNGLPOINTPARAMETERINVPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLPOINTPARAMETERIVNVPROC) (GLenum pname,GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPointParameteriNV(pname:TGLenum; param:TGLint);cdecl;external;
 procedure glPointParameterivNV(pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_point_sprite */ }
-{////#ifndef GL_NV_present_video }
 const
   GL_NV_present_video = 1;  
   GL_FRAME_NV = $8E26;  
@@ -11260,13 +7441,6 @@ const
   GL_NUM_FILL_STREAMS_NV = $8E29;  
   GL_PRESENT_TIME_NV = $8E2A;  
   GL_PRESENT_DURATION_NV = $8E2B;  
-{////typedef void (P PFNGLPRESENTFRAMEKEYEDNVPROC) (GLuint video_slot, GLuint64EXT minPresentTime, GLuint beginPresentTimeId, GLuint presentDurationId, GLenum type, GLenum target0, GLuint fill0, GLuint key0, GLenum target1, GLuint fill1, GLuint key1); }
-{////typedef void (P PFNGLPRESENTFRAMEDUALFILLNVPROC) (GLuint video_slot, GLuint64EXT minPresentTime, GLuint beginPresentTimeId, GLuint presentDurationId, GLenum type, GLenum target0, GLuint fill0, GLenum target1, GLuint fill1, GLenum target2, GLuint fill2, GLenum target3, GLuint fill3); }
-{////typedef void (P PFNGLGETVIDEOIVNVPROC) (GLuint video_slot, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVIDEOUIVNVPROC) (GLuint video_slot, GLenum pname, GLuint *params); }
-{////typedef void (P PFNGLGETVIDEOI64VNVPROC) (GLuint video_slot, GLenum pname, GLint64EXT *params); }
-{////typedef void (P PFNGLGETVIDEOUI64VNVPROC) (GLuint video_slot, GLenum pname, GLuint64EXT *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPresentFrameKeyedNV(video_slot:TGLuint; minPresentTime:TGLuint64EXT; beginPresentTimeId:TGLuint; presentDurationId:TGLuint; _type:TGLenum; 
             target0:TGLenum; fill0:TGLuint; key0:TGLuint; target1:TGLenum; fill1:TGLuint; 
@@ -11278,28 +7452,17 @@ procedure glGetVideoivNV(video_slot:TGLuint; pname:TGLenum; params:PGLint);cdecl
 procedure glGetVideouivNV(video_slot:TGLuint; pname:TGLenum; params:PGLuint);cdecl;external;
 procedure glGetVideoi64vNV(video_slot:TGLuint; pname:TGLenum; params:PGLint64EXT);cdecl;external;
 procedure glGetVideoui64vNV(video_slot:TGLuint; pname:TGLenum; params:PGLuint64EXT);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_present_video */ }
-{////#ifndef GL_NV_primitive_restart }
 const
   GL_NV_primitive_restart = 1;  
   GL_PRIMITIVE_RESTART_NV = $8558;  
   GL_PRIMITIVE_RESTART_INDEX_NV = $8559;  
-{////typedef void (P PFNGLPRIMITIVERESTARTNVPROC) (void); }
-{////typedef void (P PFNGLPRIMITIVERESTARTINDEXNVPROC) (GLuint index); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPrimitiveRestartNV;cdecl;external;
 procedure glPrimitiveRestartIndexNV(index:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_primitive_restart */ }
-{////#ifndef GL_NV_primitive_shading_rate }
 const
   GL_NV_primitive_shading_rate = 1;  
   GL_SHADING_RATE_IMAGE_PER_PRIMITIVE_NV = $95B1;  
   GL_SHADING_RATE_IMAGE_PALETTE_COUNT_NV = $95B2;  
-{////#endif /* GL_NV_primitive_shading_rate */ }
-{////#ifndef GL_NV_query_resource }
   GL_NV_query_resource = 1;  
   GL_QUERY_RESOURCE_TYPE_VIDMEM_ALLOC_NV = $9540;  
   GL_QUERY_RESOURCE_MEMTYPE_VIDMEM_NV = $9542;  
@@ -11307,26 +7470,14 @@ const
   GL_QUERY_RESOURCE_TEXTURE_NV = $9545;  
   GL_QUERY_RESOURCE_RENDERBUFFER_NV = $9546;  
   GL_QUERY_RESOURCE_BUFFEROBJECT_NV = $9547;  
-{////typedef GLint (P PFNGLQUERYRESOURCENVPROC) (GLenum queryType, GLint tagId, GLuint count, GLint *buffer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glQueryResourceNV(queryType:TGLenum; tagId:TGLint; count:TGLuint; buffer:PGLint):TGLint;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_query_resource */ }
-{////#ifndef GL_NV_query_resource_tag }
 const
   GL_NV_query_resource_tag = 1;  
-{////typedef void (P PFNGLGENQUERYRESOURCETAGNVPROC) (GLsizei n, GLint *tagIds); }
-{////typedef void (P PFNGLDELETEQUERYRESOURCETAGNVPROC) (GLsizei n,GLint *tagIds); }
-{////typedef void (P PFNGLQUERYRESOURCETAGNVPROC) (GLint tagId,GLchar *tagString); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGenQueryResourceTagNV(n:TGLsizei; tagIds:PGLint);cdecl;external;
 procedure glDeleteQueryResourceTagNV(n:TGLsizei; tagIds:PGLint);cdecl;external;
 procedure glQueryResourceTagNV(tagId:TGLint; tagString:PGLchar);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_query_resource_tag */ }
-{////#ifndef GL_NV_register_combiners }
 const
   GL_NV_register_combiners = 1;  
   GL_REGISTER_COMBINERS_NV = $8522;  
@@ -11378,20 +7529,6 @@ const
   GL_COMBINER5_NV = $8555;  
   GL_COMBINER6_NV = $8556;  
   GL_COMBINER7_NV = $8557;  
-{////typedef void (P PFNGLCOMBINERPARAMETERFVNVPROC) (GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLCOMBINERPARAMETERFNVPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLCOMBINERPARAMETERIVNVPROC) (GLenum pname,GLint *params); }
-{////typedef void (P PFNGLCOMBINERPARAMETERINVPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLCOMBINERINPUTNVPROC) (GLenum stage, GLenum portion, GLenum variable, GLenum input, GLenum mapping, GLenum componentUsage); }
-{////typedef void (P PFNGLCOMBINEROUTPUTNVPROC) (GLenum stage, GLenum portion, GLenum abOutput, GLenum cdOutput, GLenum sumOutput, GLenum scale, GLenum bias, GLboolean abDotProduct, GLboolean cdDotProduct, GLboolean muxSum); }
-{////typedef void (P PFNGLFINALCOMBINERINPUTNVPROC) (GLenum variable, GLenum input, GLenum mapping, GLenum componentUsage); }
-{////typedef void (P PFNGLGETCOMBINERINPUTPARAMETERFVNVPROC) (GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCOMBINERINPUTPARAMETERIVNVPROC) (GLenum stage, GLenum portion, GLenum variable, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC) (GLenum stage, GLenum portion, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC) (GLenum stage, GLenum portion, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC) (GLenum variable, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC) (GLenum variable, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCombinerParameterfvNV(pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glCombinerParameterfNV(pname:TGLenum; param:TGLfloat);cdecl;external;
@@ -11408,30 +7545,17 @@ procedure glGetCombinerOutputParameterfvNV(stage:TGLenum; portion:TGLenum; pname
 procedure glGetCombinerOutputParameterivNV(stage:TGLenum; portion:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetFinalCombinerInputParameterfvNV(variable:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetFinalCombinerInputParameterivNV(variable:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_register_combiners */ }
-{////#ifndef GL_NV_register_combiners2 }
 const
   GL_NV_register_combiners2 = 1;  
   GL_PER_STAGE_CONSTANTS_NV = $8535;  
-{////typedef void (P PFNGLCOMBINERSTAGEPARAMETERFVNVPROC) (GLenum stage, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC) (GLenum stage, GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCombinerStageParameterfvNV(stage:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetCombinerStageParameterfvNV(stage:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_register_combiners2 */ }
-{////#ifndef GL_NV_representative_fragment_test }
 const
   GL_NV_representative_fragment_test = 1;  
   GL_REPRESENTATIVE_FRAGMENT_TEST_NV = $937F;  
-{////#endif /* GL_NV_representative_fragment_test */ }
-{////#ifndef GL_NV_robustness_video_memory_purge }
   GL_NV_robustness_video_memory_purge = 1;  
   GL_PURGED_CONTEXT_RESET_NV = $92BB;  
-{////#endif /* GL_NV_robustness_video_memory_purge */ }
-{////#ifndef GL_NV_sample_locations }
   GL_NV_sample_locations = 1;  
   GL_SAMPLE_LOCATION_SUBPIXEL_BITS_NV = $933D;  
   GL_SAMPLE_LOCATION_PIXEL_GRID_WIDTH_NV = $933E;  
@@ -11441,67 +7565,28 @@ const
   GL_PROGRAMMABLE_SAMPLE_LOCATION_NV = $9341;  
   GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_NV = $9342;  
   GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_NV = $9343;  
-{////typedef void (P PFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC) (GLenum target, GLuint start, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC) (GLuint framebuffer, GLuint start, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLRESOLVEDEPTHVALUESNVPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferSampleLocationsfvNV(target:TGLenum; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glNamedFramebufferSampleLocationsfvNV(framebuffer:TGLuint; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glResolveDepthValuesNV;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_sample_locations */ }
-{////#ifndef GL_NV_sample_mask_override_coverage }
 const
   GL_NV_sample_mask_override_coverage = 1;  
-{////#endif /* GL_NV_sample_mask_override_coverage */ }
-{////#ifndef GL_NV_scissor_exclusive }
   GL_NV_scissor_exclusive = 1;  
   GL_SCISSOR_TEST_EXCLUSIVE_NV = $9555;  
   GL_SCISSOR_BOX_EXCLUSIVE_NV = $9556;  
-{////typedef void (P PFNGLSCISSOREXCLUSIVENVPROC) (GLint x, GLint y, GLsizei width, GLsizei height); }
-{////typedef void (P PFNGLSCISSOREXCLUSIVEARRAYVNVPROC) (GLuint first, GLsizei count,GLint *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glScissorExclusiveNV(x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;external;
 procedure glScissorExclusiveArrayvNV(first:TGLuint; count:TGLsizei; v:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_scissor_exclusive */ }
-{////#ifndef GL_NV_shader_atomic_counters }
 const
   GL_NV_shader_atomic_counters = 1;  
-{////#endif /* GL_NV_shader_atomic_counters */ }
-{////#ifndef GL_NV_shader_atomic_float }
   GL_NV_shader_atomic_float = 1;  
-{////#endif /* GL_NV_shader_atomic_float */ }
-{////#ifndef GL_NV_shader_atomic_float64 }
   GL_NV_shader_atomic_float64 = 1;  
-{////#endif /* GL_NV_shader_atomic_float64 */ }
-{////#ifndef GL_NV_shader_atomic_fp16_vector }
   GL_NV_shader_atomic_fp16_vector = 1;  
-{////#endif /* GL_NV_shader_atomic_fp16_vector */ }
-{////#ifndef GL_NV_shader_atomic_int64 }
   GL_NV_shader_atomic_int64 = 1;  
-{////#endif /* GL_NV_shader_atomic_int64 */ }
-{////#ifndef GL_NV_shader_buffer_load }
   GL_NV_shader_buffer_load = 1;  
   GL_BUFFER_GPU_ADDRESS_NV = $8F1D;  
   GL_GPU_ADDRESS_NV = $8F34;  
   GL_MAX_SHADER_BUFFER_ADDRESS_NV = $8F35;  
-{////typedef void (P PFNGLMAKEBUFFERRESIDENTNVPROC) (GLenum target, GLenum access); }
-{////typedef void (P PFNGLMAKEBUFFERNONRESIDENTNVPROC) (GLenum target); }
-{////typedef GLboolean (P PFNGLISBUFFERRESIDENTNVPROC) (GLenum target); }
-{////typedef void (P PFNGLMAKENAMEDBUFFERRESIDENTNVPROC) (GLuint buffer, GLenum access); }
-{////typedef void (P PFNGLMAKENAMEDBUFFERNONRESIDENTNVPROC) (GLuint buffer); }
-{////typedef GLboolean (P PFNGLISNAMEDBUFFERRESIDENTNVPROC) (GLuint buffer); }
-{////typedef void (P PFNGLGETBUFFERPARAMETERUI64VNVPROC) (GLenum target, GLenum pname, GLuint64EXT *params); }
-{////typedef void (P PFNGLGETNAMEDBUFFERPARAMETERUI64VNVPROC) (GLuint buffer, GLenum pname, GLuint64EXT *params); }
-{////typedef void (P PFNGLGETINTEGERUI64VNVPROC) (GLenum value, GLuint64EXT *result); }
-{////typedef void (P PFNGLUNIFORMUI64NVPROC) (GLint location, GLuint64EXT value); }
-{////typedef void (P PFNGLUNIFORMUI64VNVPROC) (GLint location, GLsizei count,GLuint64EXT *value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMUI64NVPROC) (GLuint program_, GLint location, GLuint64EXT value); }
-{////typedef void (P PFNGLPROGRAMUNIFORMUI64VNVPROC) (GLuint program_, GLint location, GLsizei count,GLuint64EXT *value); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glMakeBufferResidentNV(target:TGLenum; access:TGLenum);cdecl;external;
 procedure glMakeBufferNonResidentNV(target:TGLenum);cdecl;external;
@@ -11516,33 +7601,18 @@ procedure glUniformui64NV(location:TGLint; value:TGLuint64EXT);cdecl;external;
 procedure glUniformui64vNV(location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;external;
 procedure glProgramUniformui64NV(program_:TGLuint; location:TGLint; value:TGLuint64EXT);cdecl;external;
 procedure glProgramUniformui64vNV(program_:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_shader_buffer_load */ }
-{////#ifndef GL_NV_shader_buffer_store }
 const
   GL_NV_shader_buffer_store = 1;  
   GL_SHADER_GLOBAL_ACCESS_BARRIER_BIT_NV = $00000010;  
-{////#endif /* GL_NV_shader_buffer_store */ }
-{////#ifndef GL_NV_shader_storage_buffer_object }
   GL_NV_shader_storage_buffer_object = 1;  
-{////#endif /* GL_NV_shader_storage_buffer_object */ }
-{////#ifndef GL_NV_shader_subgroup_partitioned }
   GL_NV_shader_subgroup_partitioned = 1;  
   GL_SUBGROUP_FEATURE_PARTITIONED_BIT_NV = $00000100;  
-{////#endif /* GL_NV_shader_subgroup_partitioned */ }
-{////#ifndef GL_NV_shader_texture_footprint }
   GL_NV_shader_texture_footprint = 1;  
-{////#endif /* GL_NV_shader_texture_footprint */ }
-{////#ifndef GL_NV_shader_thread_group }
   GL_NV_shader_thread_group = 1;  
   GL_WARP_SIZE_NV = $9339;  
   GL_WARPS_PER_SM_NV = $933A;  
   GL_SM_COUNT_NV = $933B;  
-{////#endif /* GL_NV_shader_thread_group */ }
-{////#ifndef GL_NV_shader_thread_shuffle }
   GL_NV_shader_thread_shuffle = 1;  
-{////#endif /* GL_NV_shader_thread_shuffle */ }
-{////#ifndef GL_NV_shading_rate_image }
   GL_NV_shading_rate_image = 1;  
   GL_SHADING_RATE_IMAGE_NV = $9563;  
   GL_SHADING_RATE_NO_INVOCATIONS_NV = $9564;  
@@ -11565,14 +7635,6 @@ const
   GL_SHADING_RATE_SAMPLE_ORDER_DEFAULT_NV = $95AE;  
   GL_SHADING_RATE_SAMPLE_ORDER_PIXEL_MAJOR_NV = $95AF;  
   GL_SHADING_RATE_SAMPLE_ORDER_SAMPLE_MAJOR_NV = $95B0;  
-{////typedef void (P PFNGLBINDSHADINGRATEIMAGENVPROC) (GLuint texture); }
-{////typedef void (P PFNGLGETSHADINGRATEIMAGEPALETTENVPROC) (GLuint viewport, GLuint entry, GLenum *rate); }
-{////typedef void (P PFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC) (GLenum rate, GLuint samples, GLuint index, GLint *location); }
-{////typedef void (P PFNGLSHADINGRATEIMAGEBARRIERNVPROC) (GLboolean synchronize); }
-{////typedef void (P PFNGLSHADINGRATEIMAGEPALETTENVPROC) (GLuint viewport, GLuint first, GLsizei count,GLenum *rates); }
-{////typedef void (P PFNGLSHADINGRATESAMPLEORDERNVPROC) (GLenum order); }
-{////typedef void (P PFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC) (GLenum rate, GLuint samples,GLint *locations); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindShadingRateImageNV(texture:TGLuint);cdecl;external;
 procedure glGetShadingRateImagePaletteNV(viewport:TGLuint; entry:TGLuint; rate:PGLenum);cdecl;external;
@@ -11581,66 +7643,37 @@ procedure glShadingRateImageBarrierNV(synchronize:TGLboolean);cdecl;external;
 procedure glShadingRateImagePaletteNV(viewport:TGLuint; first:TGLuint; count:TGLsizei; rates:PGLenum);cdecl;external;
 procedure glShadingRateSampleOrderNV(order:TGLenum);cdecl;external;
 procedure glShadingRateSampleOrderCustomNV(rate:TGLenum; samples:TGLuint; locations:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_shading_rate_image */ }
-{////#ifndef GL_NV_stereo_view_rendering }
 const
   GL_NV_stereo_view_rendering = 1;  
-{////#endif /* GL_NV_stereo_view_rendering */ }
-{////#ifndef GL_NV_tessellation_program5 }
   GL_NV_tessellation_program5 = 1;  
   GL_MAX_PROGRAM_PATCH_ATTRIBS_NV = $86D8;  
   GL_TESS_CONTROL_PROGRAM_NV = $891E;  
   GL_TESS_EVALUATION_PROGRAM_NV = $891F;  
   GL_TESS_CONTROL_PROGRAM_PARAMETER_BUFFER_NV = $8C74;  
   GL_TESS_EVALUATION_PROGRAM_PARAMETER_BUFFER_NV = $8C75;  
-{////#endif /* GL_NV_tessellation_program5 */ }
-{////#ifndef GL_NV_texgen_emboss }
   GL_NV_texgen_emboss = 1;  
   GL_EMBOSS_LIGHT_NV = $855D;  
   GL_EMBOSS_CONSTANT_NV = $855E;  
   GL_EMBOSS_MAP_NV = $855F;  
-{////#endif /* GL_NV_texgen_emboss */ }
-{////#ifndef GL_NV_texgen_reflection }
   GL_NV_texgen_reflection = 1;  
   GL_NORMAL_MAP_NV = $8511;  
   GL_REFLECTION_MAP_NV = $8512;  
-{////#endif /* GL_NV_texgen_reflection */ }
-{////#ifndef GL_NV_texture_barrier }
   GL_NV_texture_barrier = 1;  
-{////typedef void (P PFNGLTEXTUREBARRIERNVPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTextureBarrierNV;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_texture_barrier */ }
-{////#ifndef GL_NV_texture_compression_vtc }
 const
   GL_NV_texture_compression_vtc = 1;  
-{////#endif /* GL_NV_texture_compression_vtc */ }
-{////#ifndef GL_NV_texture_env_combine4 }
   GL_NV_texture_env_combine4 = 1;  
   GL_COMBINE4_NV = $8503;  
   GL_SOURCE3_RGB_NV = $8583;  
   GL_SOURCE3_ALPHA_NV = $858B;  
   GL_OPERAND3_RGB_NV = $8593;  
   GL_OPERAND3_ALPHA_NV = $859B;  
-{////#endif /* GL_NV_texture_env_combine4 */ }
-{////#ifndef GL_NV_texture_expand_normal }
   GL_NV_texture_expand_normal = 1;  
   GL_TEXTURE_UNSIGNED_REMAP_MODE_NV = $888F;  
-{////#endif /* GL_NV_texture_expand_normal */ }
-{////#ifndef GL_NV_texture_multisample }
   GL_NV_texture_multisample = 1;  
   GL_TEXTURE_COVERAGE_SAMPLES_NV = $9045;  
   GL_TEXTURE_COLOR_SAMPLES_NV = $9046;  
-{////typedef void (P PFNGLTEXIMAGE2DMULTISAMPLECOVERAGENVPROC) (GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations); }
-{////typedef void (P PFNGLTEXIMAGE3DMULTISAMPLECOVERAGENVPROC) (GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations); }
-{////typedef void (P PFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC) (GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations); }
-{////typedef void (P PFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC) (GLuint texture, GLenum target, GLsizei samples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations); }
-{////typedef void (P PFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC) (GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLboolean fixedSampleLocations); }
-{////typedef void (P PFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC) (GLuint texture, GLenum target, GLsizei coverageSamples, GLsizei colorSamples, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLboolean fixedSampleLocations); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexImage2DMultisampleCoverageNV(target:TGLenum; coverageSamples:TGLsizei; colorSamples:TGLsizei; internalFormat:TGLint; width:TGLsizei; 
             height:TGLsizei; fixedSampleLocations:TGLboolean);cdecl;external;
@@ -11654,20 +7687,13 @@ procedure glTextureImage2DMultisampleCoverageNV(texture:TGLuint; target:TGLenum;
             width:TGLsizei; height:TGLsizei; fixedSampleLocations:TGLboolean);cdecl;external;
 procedure glTextureImage3DMultisampleCoverageNV(texture:TGLuint; target:TGLenum; coverageSamples:TGLsizei; colorSamples:TGLsizei; internalFormat:TGLint; 
             width:TGLsizei; height:TGLsizei; depth:TGLsizei; fixedSampleLocations:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_texture_multisample */ }
-{////#ifndef GL_NV_texture_rectangle }
 const
   GL_NV_texture_rectangle = 1;  
   GL_TEXTURE_RECTANGLE_NV = $84F5;  
   GL_TEXTURE_BINDING_RECTANGLE_NV = $84F6;  
   GL_PROXY_TEXTURE_RECTANGLE_NV = $84F7;  
   GL_MAX_RECTANGLE_TEXTURE_SIZE_NV = $84F8;  
-{////#endif /* GL_NV_texture_rectangle */ }
-{////#ifndef GL_NV_texture_rectangle_compressed }
   GL_NV_texture_rectangle_compressed = 1;  
-{////#endif /* GL_NV_texture_rectangle_compressed */ }
-{////#ifndef GL_NV_texture_shader }
   GL_NV_texture_shader = 1;  
   GL_OFFSET_TEXTURE_RECTANGLE_NV = $864C;  
   GL_OFFSET_TEXTURE_RECTANGLE_SCALE_NV = $864D;  
@@ -11742,12 +7768,8 @@ const
   GL_TEXTURE_DS_SIZE_NV = $871D;  
   GL_TEXTURE_DT_SIZE_NV = $871E;  
   GL_TEXTURE_MAG_SIZE_NV = $871F;  
-{////#endif /* GL_NV_texture_shader */ }
-{////#ifndef GL_NV_texture_shader2 }
   GL_NV_texture_shader2 = 1;  
   GL_DOT_PRODUCT_TEXTURE_3D_NV = $86EF;  
-{////#endif /* GL_NV_texture_shader2 */ }
-{////#ifndef GL_NV_texture_shader3 }
   GL_NV_texture_shader3 = 1;  
   GL_OFFSET_PROJECTIVE_TEXTURE_2D_NV = $8850;  
   GL_OFFSET_PROJECTIVE_TEXTURE_2D_SCALE_NV = $8851;  
@@ -11766,25 +7788,16 @@ const
   GL_HILO8_NV = $885E;  
   GL_SIGNED_HILO8_NV = $885F;  
   GL_FORCE_BLUE_TO_ONE_NV = $8860;  
-{////#endif /* GL_NV_texture_shader3 */ }
-{////#ifndef GL_NV_timeline_semaphore }
   GL_NV_timeline_semaphore = 1;  
   GL_TIMELINE_SEMAPHORE_VALUE_NV = $9595;  
   GL_SEMAPHORE_TYPE_NV = $95B3;  
   GL_SEMAPHORE_TYPE_BINARY_NV = $95B4;  
   GL_SEMAPHORE_TYPE_TIMELINE_NV = $95B5;  
   GL_MAX_TIMELINE_SEMAPHORE_VALUE_DIFFERENCE_NV = $95B6;  
-{////typedef void (P PFNGLCREATESEMAPHORESNVPROC) (GLsizei n, GLuint *semaphores); }
-{////typedef void (P PFNGLSEMAPHOREPARAMETERIVNVPROC) (GLuint semaphore, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLGETSEMAPHOREPARAMETERIVNVPROC) (GLuint semaphore, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glCreateSemaphoresNV(n:TGLsizei; semaphores:PGLuint);cdecl;external;
 procedure glSemaphoreParameterivNV(semaphore:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetSemaphoreParameterivNV(semaphore:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_timeline_semaphore */ }
-{////#ifndef GL_NV_transform_feedback }
 const
   GL_NV_transform_feedback = 1;  
   GL_BACK_PRIMARY_COLOR_NV = $8C77;  
@@ -11818,19 +7831,6 @@ const
   GL_SKIP_COMPONENTS3_NV = -(4);  
   GL_SKIP_COMPONENTS2_NV = -(5);  
   GL_SKIP_COMPONENTS1_NV = -(6);  
-{////typedef void (P PFNGLBEGINTRANSFORMFEEDBACKNVPROC) (GLenum primitiveMode); }
-{////typedef void (P PFNGLENDTRANSFORMFEEDBACKNVPROC) (void); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKATTRIBSNVPROC) (GLsizei count,GLint *attribs, GLenum bufferMode); }
-{////typedef void (P PFNGLBINDBUFFERRANGENVPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size); }
-{////typedef void (P PFNGLBINDBUFFEROFFSETNVPROC) (GLenum target, GLuint index, GLuint buffer, GLintptr offset); }
-{////typedef void (P PFNGLBINDBUFFERBASENVPROC) (GLenum target, GLuint index, GLuint buffer); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKVARYINGSNVPROC) (GLuint program_, GLsizei count,GLint *locations, GLenum bufferMode); }
-{////typedef void (P PFNGLACTIVEVARYINGNVPROC) (GLuint program_,GLchar *name); }
-{////typedef GLint (P PFNGLGETVARYINGLOCATIONNVPROC) (GLuint program_,GLchar *name); }
-{////typedef void (P PFNGLGETACTIVEVARYINGNVPROC) (GLuint program_, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name); }
-{////typedef void (P PFNGLGETTRANSFORMFEEDBACKVARYINGNVPROC) (GLuint program_, GLuint index, GLint *location); }
-{////typedef void (P PFNGLTRANSFORMFEEDBACKSTREAMATTRIBSNVPROC) (GLsizei count,GLint *attribs, GLsizei nbuffers,GLint *bufstreams, GLenum bufferMode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginTransformFeedbackNV(primitiveMode:TGLenum);cdecl;external;
 procedure glEndTransformFeedbackNV;cdecl;external;
@@ -11845,23 +7845,12 @@ procedure glGetActiveVaryingNV(program_:TGLuint; index:TGLuint; bufSize:TGLsizei
             _type:PGLenum; name:PGLchar);cdecl;external;
 procedure glGetTransformFeedbackVaryingNV(program_:TGLuint; index:TGLuint; location:PGLint);cdecl;external;
 procedure glTransformFeedbackStreamAttribsNV(count:TGLsizei; attribs:PGLint; nbuffers:TGLsizei; bufstreams:PGLint; bufferMode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_transform_feedback */ }
-{////#ifndef GL_NV_transform_feedback2 }
 const
   GL_NV_transform_feedback2 = 1;  
   GL_TRANSFORM_FEEDBACK_NV = $8E22;  
   GL_TRANSFORM_FEEDBACK_BUFFER_PAUSED_NV = $8E23;  
   GL_TRANSFORM_FEEDBACK_BUFFER_ACTIVE_NV = $8E24;  
   GL_TRANSFORM_FEEDBACK_BINDING_NV = $8E25;  
-{////typedef void (P PFNGLBINDTRANSFORMFEEDBACKNVPROC) (GLenum target, GLuint id); }
-{////typedef void (P PFNGLDELETETRANSFORMFEEDBACKSNVPROC) (GLsizei n,GLuint *ids); }
-{////typedef void (P PFNGLGENTRANSFORMFEEDBACKSNVPROC) (GLsizei n, GLuint *ids); }
-{////typedef GLboolean (P PFNGLISTRANSFORMFEEDBACKNVPROC) (GLuint id); }
-{////typedef void (P PFNGLPAUSETRANSFORMFEEDBACKNVPROC) (void); }
-{////typedef void (P PFNGLRESUMETRANSFORMFEEDBACKNVPROC) (void); }
-{////typedef void (P PFNGLDRAWTRANSFORMFEEDBACKNVPROC) (GLenum mode, GLuint id); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBindTransformFeedbackNV(target:TGLenum; id:TGLuint);cdecl;external;
 procedure glDeleteTransformFeedbacksNV(n:TGLsizei; ids:PGLuint);cdecl;external;
@@ -11870,16 +7859,11 @@ function glIsTransformFeedbackNV(id:TGLuint):TGLboolean;cdecl;external;
 procedure glPauseTransformFeedbackNV;cdecl;external;
 procedure glResumeTransformFeedbackNV;cdecl;external;
 procedure glDrawTransformFeedbackNV(mode:TGLenum; id:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_transform_feedback2 */ }
-{////#ifndef GL_NV_uniform_buffer_unified_memory }
 const
   GL_NV_uniform_buffer_unified_memory = 1;  
   GL_UNIFORM_BUFFER_UNIFIED_NV = $936E;  
   GL_UNIFORM_BUFFER_ADDRESS_NV = $936F;  
   GL_UNIFORM_BUFFER_LENGTH_NV = $9370;  
-{////#endif /* GL_NV_uniform_buffer_unified_memory */ }
-{////#ifndef GL_NV_vdpau_interop }
   GL_NV_vdpau_interop = 1;  
 type
   PGLvdpauSurfaceNV = ^TGLvdpauSurfaceNV;
@@ -11890,17 +7874,6 @@ const
   GL_SURFACE_REGISTERED_NV = $86FD;  
   GL_SURFACE_MAPPED_NV = $8700;  
   GL_WRITE_DISCARD_NV = $88BE;  
-{////typedef void (P PFNGLVDPAUINITNVPROC) ( void *vdpDevice,void *getProcAddress); }
-{////typedef void (P PFNGLVDPAUFININVPROC) (void); }
-{////typedef GLvdpauSurfaceNV (P PFNGLVDPAUREGISTERVIDEOSURFACENVPROC) ( void *vdpSurface, GLenum target, GLsizei numTextureNames,GLuint *textureNames); }
-{////typedef GLvdpauSurfaceNV (P PFNGLVDPAUREGISTEROUTPUTSURFACENVPROC) ( void *vdpSurface, GLenum target, GLsizei numTextureNames,GLuint *textureNames); }
-{////typedef GLboolean (P PFNGLVDPAUISSURFACENVPROC) (GLvdpauSurfaceNV surface); }
-{////typedef void (P PFNGLVDPAUUNREGISTERSURFACENVPROC) (GLvdpauSurfaceNV surface); }
-{////typedef void (P PFNGLVDPAUGETSURFACEIVNVPROC) (GLvdpauSurfaceNV surface, GLenum pname, GLsizei count, GLsizei *length, GLint *values); }
-{////typedef void (P PFNGLVDPAUSURFACEACCESSNVPROC) (GLvdpauSurfaceNV surface, GLenum access); }
-{////typedef void (P PFNGLVDPAUMAPSURFACESNVPROC) (GLsizei numSurfaces,GLvdpauSurfaceNV *surfaces); }
-{////typedef void (P PFNGLVDPAUUNMAPSURFACESNVPROC) (GLsizei numSurface,GLvdpauSurfaceNV *surfaces); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVDPAUInitNV(vdpDevice:pointer; getProcAddress:pointer);cdecl;external;
 procedure glVDPAUFiniNV;cdecl;external;
@@ -11912,18 +7885,10 @@ procedure glVDPAUGetSurfaceivNV(surface:TGLvdpauSurfaceNV; pname:TGLenum; count:
 procedure glVDPAUSurfaceAccessNV(surface:TGLvdpauSurfaceNV; access:TGLenum);cdecl;external;
 procedure glVDPAUMapSurfacesNV(numSurfaces:TGLsizei; surfaces:PGLvdpauSurfaceNV);cdecl;external;
 procedure glVDPAUUnmapSurfacesNV(numSurface:TGLsizei; surfaces:PGLvdpauSurfaceNV);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vdpau_interop */ }
-{////#ifndef GL_NV_vdpau_interop2 }
 const
   GL_NV_vdpau_interop2 = 1;  
-{////typedef GLvdpauSurfaceNV (P PFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC) ( void *vdpSurface, GLenum target, GLsizei numTextureNames,GLuint *textureNames, GLboolean isFrameStructure); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glVDPAURegisterVideoSurfaceWithPictureStructureNV(vdpSurface:pointer; target:TGLenum; numTextureNames:TGLsizei; textureNames:PGLuint; isFrameStructure:TGLboolean):TGLvdpauSurfaceNV;cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vdpau_interop2 */ }
-{////#ifndef GL_NV_vertex_array_range }
 const
   GL_NV_vertex_array_range = 1;  
   GL_VERTEX_ARRAY_RANGE_NV = $851D;  
@@ -11931,41 +7896,13 @@ const
   GL_VERTEX_ARRAY_RANGE_VALID_NV = $851F;  
   GL_MAX_VERTEX_ARRAY_RANGE_ELEMENT_NV = $8520;  
   GL_VERTEX_ARRAY_RANGE_POINTER_NV = $8521;  
-{////typedef void (P PFNGLFLUSHVERTEXARRAYRANGENVPROC) (void); }
-{////typedef void (P PFNGLVERTEXARRAYRANGENVPROC) (GLsizei length,void *pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFlushVertexArrayRangeNV;cdecl;external;
 procedure glVertexArrayRangeNV(length:TGLsizei; pointer:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vertex_array_range */ }
-{////#ifndef GL_NV_vertex_array_range2 }
 const
   GL_NV_vertex_array_range2 = 1;  
   GL_VERTEX_ARRAY_RANGE_WITHOUT_FLUSH_NV = $8533;  
-{////#endif /* GL_NV_vertex_array_range2 */ }
-{////#ifndef GL_NV_vertex_attrib_integer_64bit }
   GL_NV_vertex_attrib_integer_64bit = 1;  
-{////typedef void (P PFNGLVERTEXATTRIBL1I64NVPROC) (GLuint index, GLint64EXT x); }
-{////typedef void (P PFNGLVERTEXATTRIBL2I64NVPROC) (GLuint index, GLint64EXT x, GLint64EXT y); }
-{////typedef void (P PFNGLVERTEXATTRIBL3I64NVPROC) (GLuint index, GLint64EXT x, GLint64EXT y, GLint64EXT z); }
-{////typedef void (P PFNGLVERTEXATTRIBL4I64NVPROC) (GLuint index, GLint64EXT x, GLint64EXT y, GLint64EXT z, GLint64EXT w); }
-{////typedef void (P PFNGLVERTEXATTRIBL1I64VNVPROC) (GLuint index,GLint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL2I64VNVPROC) (GLuint index,GLint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL3I64VNVPROC) (GLuint index,GLint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL4I64VNVPROC) (GLuint index,GLint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL1UI64NVPROC) (GLuint index, GLuint64EXT x); }
-{////typedef void (P PFNGLVERTEXATTRIBL2UI64NVPROC) (GLuint index, GLuint64EXT x, GLuint64EXT y); }
-{////typedef void (P PFNGLVERTEXATTRIBL3UI64NVPROC) (GLuint index, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z); }
-{////typedef void (P PFNGLVERTEXATTRIBL4UI64NVPROC) (GLuint index, GLuint64EXT x, GLuint64EXT y, GLuint64EXT z, GLuint64EXT w); }
-{////typedef void (P PFNGLVERTEXATTRIBL1UI64VNVPROC) (GLuint index,GLuint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL2UI64VNVPROC) (GLuint index,GLuint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL3UI64VNVPROC) (GLuint index,GLuint64EXT *v); }
-{////typedef void (P PFNGLVERTEXATTRIBL4UI64VNVPROC) (GLuint index,GLuint64EXT *v); }
-{////typedef void (P PFNGLGETVERTEXATTRIBLI64VNVPROC) (GLuint index, GLenum pname, GLint64EXT *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBLUI64VNVPROC) (GLuint index, GLenum pname, GLuint64EXT *params); }
-{////typedef void (P PFNGLVERTEXATTRIBLFORMATNVPROC) (GLuint index, GLint size, GLenum type, GLsizei stride); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glVertexAttribL1i64NV(index:TGLuint; x:TGLint64EXT);cdecl;external;
 procedure glVertexAttribL2i64NV(index:TGLuint; x:TGLint64EXT; y:TGLint64EXT);cdecl;external;
@@ -11986,9 +7923,6 @@ procedure glVertexAttribL4ui64vNV(index:TGLuint; v:PGLuint64EXT);cdecl;external;
 procedure glGetVertexAttribLi64vNV(index:TGLuint; pname:TGLenum; params:PGLint64EXT);cdecl;external;
 procedure glGetVertexAttribLui64vNV(index:TGLuint; pname:TGLenum; params:PGLuint64EXT);cdecl;external;
 procedure glVertexAttribLFormatNV(index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vertex_attrib_integer_64bit */ }
-{////#ifndef GL_NV_vertex_buffer_unified_memory }
 const
   GL_NV_vertex_buffer_unified_memory = 1;  
   GL_VERTEX_ATTRIB_ARRAY_UNIFIED_NV = $8F1E;  
@@ -12016,19 +7950,6 @@ const
   GL_DRAW_INDIRECT_UNIFIED_NV = $8F40;  
   GL_DRAW_INDIRECT_ADDRESS_NV = $8F41;  
   GL_DRAW_INDIRECT_LENGTH_NV = $8F42;  
-{////typedef void (P PFNGLBUFFERADDRESSRANGENVPROC) (GLenum pname, GLuint index, GLuint64EXT address, GLsizeiptr length); }
-{////typedef void (P PFNGLVERTEXFORMATNVPROC) (GLint size, GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLNORMALFORMATNVPROC) (GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLCOLORFORMATNVPROC) (GLint size, GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLINDEXFORMATNVPROC) (GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLTEXCOORDFORMATNVPROC) (GLint size, GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLEDGEFLAGFORMATNVPROC) (GLsizei stride); }
-{////typedef void (P PFNGLSECONDARYCOLORFORMATNVPROC) (GLint size, GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLFOGCOORDFORMATNVPROC) (GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLVERTEXATTRIBFORMATNVPROC) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride); }
-{////typedef void (P PFNGLVERTEXATTRIBIFORMATNVPROC) (GLuint index, GLint size, GLenum type, GLsizei stride); }
-{////typedef void (P PFNGLGETINTEGERUI64I_VNVPROC) (GLenum value, GLuint index, GLuint64EXT *result); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBufferAddressRangeNV(pname:TGLenum; index:TGLuint; address:TGLuint64EXT; length:TGLsizeiptr);cdecl;external;
 procedure glVertexFormatNV(size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;external;
@@ -12042,9 +7963,6 @@ procedure glFogCoordFormatNV(_type:TGLenum; stride:TGLsizei);cdecl;external;
 procedure glVertexAttribFormatNV(index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei);cdecl;external;
 procedure glVertexAttribIFormatNV(index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;external;
 procedure glGetIntegerui64i_vNV(value:TGLenum; index:TGLuint; result:PGLuint64EXT);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vertex_buffer_unified_memory */ }
-{////#ifndef GL_NV_vertex_program }
 const
   GL_NV_vertex_program = 1;  
   GL_VERTEX_PROGRAM_NV = $8620;  
@@ -12130,71 +8048,6 @@ const
   GL_MAP2_VERTEX_ATTRIB13_4_NV = $867D;  
   GL_MAP2_VERTEX_ATTRIB14_4_NV = $867E;  
   GL_MAP2_VERTEX_ATTRIB15_4_NV = $867F;  
-{////typedef GLboolean (P PFNGLAREPROGRAMSRESIDENTNVPROC) (GLsizei n,GLuint *programs, GLboolean *residences); }
-{////typedef void (P PFNGLBINDPROGRAMNVPROC) (GLenum target, GLuint id); }
-{////typedef void (P PFNGLDELETEPROGRAMSNVPROC) (GLsizei n,GLuint *programs); }
-{////typedef void (P PFNGLEXECUTEPROGRAMNVPROC) (GLenum target, GLuint id,GLfloat *params); }
-{////typedef void (P PFNGLGENPROGRAMSNVPROC) (GLsizei n, GLuint *programs); }
-{////typedef void (P PFNGLGETPROGRAMPARAMETERDVNVPROC) (GLenum target, GLuint index, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLGETPROGRAMPARAMETERFVNVPROC) (GLenum target, GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETPROGRAMIVNVPROC) (GLuint id, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETPROGRAMSTRINGNVPROC) (GLuint id, GLenum pname, GLubyte *program); }
-{////typedef void (P PFNGLGETTRACKMATRIXIVNVPROC) (GLenum target, GLuint address, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBDVNVPROC) (GLuint index, GLenum pname, GLdouble *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBFVNVPROC) (GLuint index, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBIVNVPROC) (GLuint index, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVERTEXATTRIBPOINTERVNVPROC) (GLuint index, GLenum pname, void **pointer); }
-{////typedef GLboolean (P PFNGLISPROGRAMNVPROC) (GLuint id); }
-{////typedef void (P PFNGLLOADPROGRAMNVPROC) (GLenum target, GLuint id, GLsizei len,GLubyte *program); }
-{////typedef void (P PFNGLPROGRAMPARAMETER4DNVPROC) (GLenum target, GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLPROGRAMPARAMETER4DVNVPROC) (GLenum target, GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLPROGRAMPARAMETER4FNVPROC) (GLenum target, GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLPROGRAMPARAMETER4FVNVPROC) (GLenum target, GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLPROGRAMPARAMETERS4DVNVPROC) (GLenum target, GLuint index, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLPROGRAMPARAMETERS4FVNVPROC) (GLenum target, GLuint index, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLREQUESTRESIDENTPROGRAMSNVPROC) (GLsizei n,GLuint *programs); }
-{////typedef void (P PFNGLTRACKMATRIXNVPROC) (GLenum target, GLuint address, GLenum matrix, GLenum transform); }
-{////typedef void (P PFNGLVERTEXATTRIBPOINTERNVPROC) (GLuint index, GLint fsize, GLenum type, GLsizei stride,void *pointer); }
-{////typedef void (P PFNGLVERTEXATTRIB1DNVPROC) (GLuint index, GLdouble x); }
-{////typedef void (P PFNGLVERTEXATTRIB1DVNVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1FNVPROC) (GLuint index, GLfloat x); }
-{////typedef void (P PFNGLVERTEXATTRIB1FVNVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB1SNVPROC) (GLuint index, GLshort x); }
-{////typedef void (P PFNGLVERTEXATTRIB1SVNVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2DNVPROC) (GLuint index, GLdouble x, GLdouble y); }
-{////typedef void (P PFNGLVERTEXATTRIB2DVNVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2FNVPROC) (GLuint index, GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLVERTEXATTRIB2FVNVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB2SNVPROC) (GLuint index, GLshort x, GLshort y); }
-{////typedef void (P PFNGLVERTEXATTRIB2SVNVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3DNVPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z); }
-{////typedef void (P PFNGLVERTEXATTRIB3DVNVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3FNVPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLVERTEXATTRIB3FVNVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB3SNVPROC) (GLuint index, GLshort x, GLshort y, GLshort z); }
-{////typedef void (P PFNGLVERTEXATTRIB3SVNVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4DNVPROC) (GLuint index, GLdouble x, GLdouble y, GLdouble z, GLdouble w); }
-{////typedef void (P PFNGLVERTEXATTRIB4DVNVPROC) (GLuint index,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4FNVPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLVERTEXATTRIB4FVNVPROC) (GLuint index,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4SNVPROC) (GLuint index, GLshort x, GLshort y, GLshort z, GLshort w); }
-{////typedef void (P PFNGLVERTEXATTRIB4SVNVPROC) (GLuint index,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIB4UBNVPROC) (GLuint index, GLubyte x, GLubyte y, GLubyte z, GLubyte w); }
-{////typedef void (P PFNGLVERTEXATTRIB4UBVNVPROC) (GLuint index,GLubyte *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS1DVNVPROC) (GLuint index, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS1FVNVPROC) (GLuint index, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS1SVNVPROC) (GLuint index, GLsizei count,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS2DVNVPROC) (GLuint index, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS2FVNVPROC) (GLuint index, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS2SVNVPROC) (GLuint index, GLsizei count,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS3DVNVPROC) (GLuint index, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS3FVNVPROC) (GLuint index, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS3SVNVPROC) (GLuint index, GLsizei count,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS4DVNVPROC) (GLuint index, GLsizei count,GLdouble *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS4FVNVPROC) (GLuint index, GLsizei count,GLfloat *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS4SVNVPROC) (GLuint index, GLsizei count,GLshort *v); }
-{////typedef void (P PFNGLVERTEXATTRIBS4UBVNVPROC) (GLuint index, GLsizei count,GLubyte *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glAreProgramsResidentNV(n:TGLsizei; programs:PGLuint; residences:PGLboolean):TGLboolean;cdecl;external;
 procedure glBindProgramNV(target:TGLenum; id:TGLuint);cdecl;external;
@@ -12204,14 +8057,14 @@ procedure glGenProgramsNV(n:TGLsizei; programs:PGLuint);cdecl;external;
 procedure glGetProgramParameterdvNV(target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;external;
 procedure glGetProgramParameterfvNV(target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetProgramivNV(id:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-procedure glGetProgramStringNV(id:TGLuint; pname:TGLenum; program:PGLubyte);cdecl;external;
+procedure glGetProgramStringNV(id:TGLuint; pname:TGLenum; program_:PGLubyte);cdecl;external;
 procedure glGetTrackMatrixivNV(target:TGLenum; address:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetVertexAttribdvNV(index:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;external;
 procedure glGetVertexAttribfvNV(index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetVertexAttribivNV(index:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetVertexAttribPointervNV(index:TGLuint; pname:TGLenum; pointer:Ppointer);cdecl;external;
 function glIsProgramNV(id:TGLuint):TGLboolean;cdecl;external;
-procedure glLoadProgramNV(target:TGLenum; id:TGLuint; len:TGLsizei; program:PGLubyte);cdecl;external;
+procedure glLoadProgramNV(target:TGLenum; id:TGLuint; len:TGLsizei; program_:PGLubyte);cdecl;external;
 procedure glProgramParameter4dNV(target:TGLenum; index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble; 
             w:TGLdouble);cdecl;external;
 procedure glProgramParameter4dvNV(target:TGLenum; index:TGLuint; v:PGLdouble);cdecl;external;
@@ -12262,26 +8115,13 @@ procedure glVertexAttribs4dvNV(index:TGLuint; count:TGLsizei; v:PGLdouble);cdecl
 procedure glVertexAttribs4fvNV(index:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;external;
 procedure glVertexAttribs4svNV(index:TGLuint; count:TGLsizei; v:PGLshort);cdecl;external;
 procedure glVertexAttribs4ubvNV(index:TGLuint; count:TGLsizei; v:PGLubyte);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_vertex_program */ }
-{////#ifndef GL_NV_vertex_program1_1 }
 const
   GL_NV_vertex_program1_1 = 1;  
-{////#endif /* GL_NV_vertex_program1_1 */ }
-{////#ifndef GL_NV_vertex_program2 }
   GL_NV_vertex_program2 = 1;  
-{////#endif /* GL_NV_vertex_program2 */ }
-{////#ifndef GL_NV_vertex_program2_option }
   GL_NV_vertex_program2_option = 1;  
-{////#endif /* GL_NV_vertex_program2_option */ }
-{////#ifndef GL_NV_vertex_program3 }
   GL_NV_vertex_program3 = 1;  
-{////#endif /* GL_NV_vertex_program3 */ }
-{////#ifndef GL_NV_vertex_program4 }
   GL_NV_vertex_program4 = 1;  
   GL_VERTEX_ATTRIB_ARRAY_INTEGER_NV = $88FD;  
-{////#endif /* GL_NV_vertex_program4 */ }
-{////#ifndef GL_NV_video_capture }
   GL_NV_video_capture = 1;  
   GL_VIDEO_BUFFER_NV = $9020;  
   GL_VIDEO_BUFFER_BINDING_NV = $9021;  
@@ -12312,19 +8152,6 @@ const
   GL_VIDEO_CAPTURE_FIELD_UPPER_HEIGHT_NV = $903A;  
   GL_VIDEO_CAPTURE_FIELD_LOWER_HEIGHT_NV = $903B;  
   GL_VIDEO_CAPTURE_SURFACE_ORIGIN_NV = $903C;  
-{////typedef void (P PFNGLBEGINVIDEOCAPTURENVPROC) (GLuint video_capture_slot); }
-{////typedef void (P PFNGLBINDVIDEOCAPTURESTREAMBUFFERNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum frame_region, GLintptrARB offset); }
-{////typedef void (P PFNGLBINDVIDEOCAPTURESTREAMTEXTURENVPROC) (GLuint video_capture_slot, GLuint stream, GLenum frame_region, GLenum target, GLuint texture); }
-{////typedef void (P PFNGLENDVIDEOCAPTURENVPROC) (GLuint video_capture_slot); }
-{////typedef void (P PFNGLGETVIDEOCAPTUREIVNVPROC) (GLuint video_capture_slot, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVIDEOCAPTURESTREAMIVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETVIDEOCAPTURESTREAMFVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETVIDEOCAPTURESTREAMDVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname, GLdouble *params); }
-{////typedef GLenum (P PFNGLVIDEOCAPTURENVPROC) (GLuint video_capture_slot, GLuint *sequence_num, GLuint64EXT *capture_time); }
-{////typedef void (P PFNGLVIDEOCAPTURESTREAMPARAMETERIVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLVIDEOCAPTURESTREAMPARAMETERFVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLVIDEOCAPTURESTREAMPARAMETERDVNVPROC) (GLuint video_capture_slot, GLuint stream, GLenum pname,GLdouble *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glBeginVideoCaptureNV(video_capture_slot:TGLuint);cdecl;external;
 procedure glBindVideoCaptureStreamBufferNV(video_capture_slot:TGLuint; stream:TGLuint; frame_region:TGLenum; offset:TGLintptrARB);cdecl;external;
@@ -12338,13 +8165,8 @@ function glVideoCaptureNV(video_capture_slot:TGLuint; sequence_num:PGLuint; capt
 procedure glVideoCaptureStreamParameterivNV(video_capture_slot:TGLuint; stream:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glVideoCaptureStreamParameterfvNV(video_capture_slot:TGLuint; stream:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glVideoCaptureStreamParameterdvNV(video_capture_slot:TGLuint; stream:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_video_capture */ }
-{////#ifndef GL_NV_viewport_array2 }
 const
   GL_NV_viewport_array2 = 1;  
-{////#endif /* GL_NV_viewport_array2 */ }
-{////#ifndef GL_NV_viewport_swizzle }
   GL_NV_viewport_swizzle = 1;  
   GL_VIEWPORT_SWIZZLE_POSITIVE_X_NV = $9350;  
   GL_VIEWPORT_SWIZZLE_NEGATIVE_X_NV = $9351;  
@@ -12358,19 +8180,12 @@ const
   GL_VIEWPORT_SWIZZLE_Y_NV = $9359;  
   GL_VIEWPORT_SWIZZLE_Z_NV = $935A;  
   GL_VIEWPORT_SWIZZLE_W_NV = $935B;  
-{////typedef void (P PFNGLVIEWPORTSWIZZLENVPROC) (GLuint index, GLenum swizzlex, GLenum swizzley, GLenum swizzlez, GLenum swizzlew); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glViewportSwizzleNV(index:TGLuint; swizzlex:TGLenum; swizzley:TGLenum; swizzlez:TGLenum; swizzlew:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_NV_viewport_swizzle */ }
-{////#ifndef GL_OML_interlace }
 const
   GL_OML_interlace = 1;  
   GL_INTERLACE_OML = $8980;  
   GL_INTERLACE_READ_OML = $8981;  
-{////#endif /* GL_OML_interlace */ }
-{////#ifndef GL_OML_resample }
   GL_OML_resample = 1;  
   GL_PACK_RESAMPLE_OML = $8984;  
   GL_UNPACK_RESAMPLE_OML = $8985;  
@@ -12378,30 +8193,19 @@ const
   GL_RESAMPLE_ZERO_FILL_OML = $8987;  
   GL_RESAMPLE_AVERAGE_OML = $8988;  
   GL_RESAMPLE_DECIMATE_OML = $8989;  
-{////#endif /* GL_OML_resample */ }
-{////#ifndef GL_OML_subsample }
   GL_OML_subsample = 1;  
   GL_FORMAT_SUBSAMPLE_24_24_OML = $8982;  
   GL_FORMAT_SUBSAMPLE_244_244_OML = $8983;  
-{////#endif /* GL_OML_subsample */ }
-{////#ifndef GL_OVR_multiview }
   GL_OVR_multiview = 1;  
   GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = $9630;  
   GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR = $9632;  
   GL_MAX_VIEWS_OVR = $9631;  
   GL_FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = $9633;  
-{////typedef void (P PFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC) (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint baseViewIndex, GLsizei numViews); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFramebufferTextureMultiviewOVR(target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; baseViewIndex:TGLint; 
             numViews:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_OVR_multiview */ }
-{////#ifndef GL_OVR_multiview2 }
 const
   GL_OVR_multiview2 = 1;  
-{////#endif /* GL_OVR_multiview2 */ }
-{////#ifndef GL_PGI_misc_hints }
   GL_PGI_misc_hints = 1;  
   GL_PREFER_DOUBLEBUFFER_HINT_PGI = $1A1F8;  
   GL_CONSERVE_MEMORY_HINT_PGI = $1A1FD;  
@@ -12423,13 +8227,8 @@ const
   GL_CLIP_FAR_HINT_PGI = $1A221;  
   GL_WIDE_LINE_HINT_PGI = $1A222;  
   GL_BACK_NORMALS_HINT_PGI = $1A223;  
-{////typedef void (P PFNGLHINTPGIPROC) (GLenum target, GLint mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glHintPGI(target:TGLenum; mode:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_PGI_misc_hints */ }
-{////#ifndef GL_PGI_vertex_hints }
 const
   GL_PGI_vertex_hints = 1;  
   GL_VERTEX_DATA_HINT_PGI = $1A22A;  
@@ -12454,13 +8253,9 @@ const
   GL_TEXCOORD4_BIT_PGI = $80000000;  
   GL_VERTEX23_BIT_PGI = $00000004;  
   GL_VERTEX4_BIT_PGI = $00000008;  
-{////#endif /* GL_PGI_vertex_hints */ }
-{////#ifndef GL_REND_screen_coordinates }
   GL_REND_screen_coordinates = 1;  
   GL_SCREEN_COORDINATES_REND = $8490;  
   GL_INVERTED_SCREEN_W_REND = $8491;  
-{////#endif /* GL_REND_screen_coordinates */ }
-{////#ifndef GL_S3_s3tc }
   GL_S3_s3tc = 1;  
   GL_RGB_S3TC = $83A0;  
   GL_RGB4_S3TC = $83A1;  
@@ -12468,8 +8263,6 @@ const
   GL_RGBA4_S3TC = $83A3;  
   GL_RGBA_DXT5_S3TC = $83A4;  
   GL_RGBA4_DXT5_S3TC = $83A5;  
-{////#endif /* GL_S3_s3tc */ }
-{////#ifndef GL_SGIS_detail_texture }
   GL_SGIS_detail_texture = 1;  
   GL_DETAIL_TEXTURE_2D_SGIS = $8095;  
   GL_DETAIL_TEXTURE_2D_BINDING_SGIS = $8096;  
@@ -12479,35 +8272,21 @@ const
   GL_DETAIL_TEXTURE_LEVEL_SGIS = $809A;  
   GL_DETAIL_TEXTURE_MODE_SGIS = $809B;  
   GL_DETAIL_TEXTURE_FUNC_POINTS_SGIS = $809C;  
-{////typedef void (P PFNGLDETAILTEXFUNCSGISPROC) (GLenum target, GLsizei n,GLfloat *points); }
-{////typedef void (P PFNGLGETDETAILTEXFUNCSGISPROC) (GLenum target, GLfloat *points); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDetailTexFuncSGIS(target:TGLenum; n:TGLsizei; points:PGLfloat);cdecl;external;
 procedure glGetDetailTexFuncSGIS(target:TGLenum; points:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_detail_texture */ }
-{////#ifndef GL_SGIS_fog_function }
 const
   GL_SGIS_fog_function = 1;  
   GL_FOG_FUNC_SGIS = $812A;  
   GL_FOG_FUNC_POINTS_SGIS = $812B;  
   GL_MAX_FOG_FUNC_POINTS_SGIS = $812C;  
-{////typedef void (P PFNGLFOGFUNCSGISPROC) (GLsizei n,GLfloat *points); }
-{////typedef void (P PFNGLGETFOGFUNCSGISPROC) (GLfloat *points); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFogFuncSGIS(n:TGLsizei; points:PGLfloat);cdecl;external;
 procedure glGetFogFuncSGIS(points:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_fog_function */ }
-{////#ifndef GL_SGIS_generate_mipmap }
 const
   GL_SGIS_generate_mipmap = 1;  
   GL_GENERATE_MIPMAP_SGIS = $8191;  
   GL_GENERATE_MIPMAP_HINT_SGIS = $8192;  
-{////#endif /* GL_SGIS_generate_mipmap */ }
-{////#ifndef GL_SGIS_multisample }
   GL_SGIS_multisample = 1;  
   GL_MULTISAMPLE_SGIS = $809D;  
   GL_SAMPLE_ALPHA_TO_MASK_SGIS = $809E;  
@@ -12525,28 +8304,15 @@ const
   GL_SAMPLE_MASK_VALUE_SGIS = $80AA;  
   GL_SAMPLE_MASK_INVERT_SGIS = $80AB;  
   GL_SAMPLE_PATTERN_SGIS = $80AC;  
-{////typedef void (P PFNGLSAMPLEMASKSGISPROC) (GLclampf value, GLboolean invert); }
-{////typedef void (P PFNGLSAMPLEPATTERNSGISPROC) (GLenum pattern); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSampleMaskSGIS(value:TGLclampf; invert:TGLboolean);cdecl;external;
 procedure glSamplePatternSGIS(pattern:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_multisample */ }
-{////#ifndef GL_SGIS_pixel_texture }
 const
   GL_SGIS_pixel_texture = 1;  
   GL_PIXEL_TEXTURE_SGIS = $8353;  
   GL_PIXEL_FRAGMENT_RGB_SOURCE_SGIS = $8354;  
   GL_PIXEL_FRAGMENT_ALPHA_SOURCE_SGIS = $8355;  
   GL_PIXEL_GROUP_COLOR_SGIS = $8356;  
-{////typedef void (P PFNGLPIXELTEXGENPARAMETERISGISPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLPIXELTEXGENPARAMETERIVSGISPROC) (GLenum pname,GLint *params); }
-{////typedef void (P PFNGLPIXELTEXGENPARAMETERFSGISPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPIXELTEXGENPARAMETERFVSGISPROC) (GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLGETPIXELTEXGENPARAMETERIVSGISPROC) (GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETPIXELTEXGENPARAMETERFVSGISPROC) (GLenum pname, GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPixelTexGenParameteriSGIS(pname:TGLenum; param:TGLint);cdecl;external;
 procedure glPixelTexGenParameterivSGIS(pname:TGLenum; params:PGLint);cdecl;external;
@@ -12554,9 +8320,6 @@ procedure glPixelTexGenParameterfSGIS(pname:TGLenum; param:TGLfloat);cdecl;exter
 procedure glPixelTexGenParameterfvSGIS(pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetPixelTexGenParameterivSGIS(pname:TGLenum; params:PGLint);cdecl;external;
 procedure glGetPixelTexGenParameterfvSGIS(pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_pixel_texture */ }
-{////#ifndef GL_SGIS_point_line_texgen }
 const
   GL_SGIS_point_line_texgen = 1;  
   GL_EYE_DISTANCE_TO_POINT_SGIS = $81F0;  
@@ -12567,37 +8330,23 @@ const
   GL_OBJECT_POINT_SGIS = $81F5;  
   GL_EYE_LINE_SGIS = $81F6;  
   GL_OBJECT_LINE_SGIS = $81F7;  
-{////#endif /* GL_SGIS_point_line_texgen */ }
-{////#ifndef GL_SGIS_point_parameters }
   GL_SGIS_point_parameters = 1;  
   GL_POINT_SIZE_MIN_SGIS = $8126;  
   GL_POINT_SIZE_MAX_SGIS = $8127;  
   GL_POINT_FADE_THRESHOLD_SIZE_SGIS = $8128;  
   GL_DISTANCE_ATTENUATION_SGIS = $8129;  
-{////typedef void (P PFNGLPOINTPARAMETERFSGISPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLPOINTPARAMETERFVSGISPROC) (GLenum pname,GLfloat *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPointParameterfSGIS(pname:TGLenum; param:TGLfloat);cdecl;external;
 procedure glPointParameterfvSGIS(pname:TGLenum; params:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_point_parameters */ }
-{////#ifndef GL_SGIS_sharpen_texture }
 const
   GL_SGIS_sharpen_texture = 1;  
   GL_LINEAR_SHARPEN_SGIS = $80AD;  
   GL_LINEAR_SHARPEN_ALPHA_SGIS = $80AE;  
   GL_LINEAR_SHARPEN_COLOR_SGIS = $80AF;  
   GL_SHARPEN_TEXTURE_FUNC_POINTS_SGIS = $80B0;  
-{////typedef void (P PFNGLSHARPENTEXFUNCSGISPROC) (GLenum target, GLsizei n,GLfloat *points); }
-{////typedef void (P PFNGLGETSHARPENTEXFUNCSGISPROC) (GLenum target, GLfloat *points); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSharpenTexFuncSGIS(target:TGLenum; n:TGLsizei; points:PGLfloat);cdecl;external;
 procedure glGetSharpenTexFuncSGIS(target:TGLenum; points:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_sharpen_texture */ }
-{////#ifndef GL_SGIS_texture4D }
 const
   GL_SGIS_texture4D = 1;  
   GL_PACK_SKIP_VOLUMES_SGIS = $8130;  
@@ -12610,9 +8359,6 @@ const
   GL_TEXTURE_WRAP_Q_SGIS = $8137;  
   GL_MAX_4D_TEXTURE_SIZE_SGIS = $8138;  
   GL_TEXTURE_4D_BINDING_SGIS = $814F;  
-{////typedef void (P PFNGLTEXIMAGE4DSGISPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLint border, GLenum format, GLenum type,void *pixels); }
-{////typedef void (P PFNGLTEXSUBIMAGE4DSGISPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint woffset, GLsizei width, GLsizei height, GLsizei depth, GLsizei size4d, GLenum format, GLenum type,void *pixels); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTexImage4DSGIS(target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
             depth:TGLsizei; size4d:TGLsizei; border:TGLint; format:TGLenum; _type:TGLenum; 
@@ -12620,48 +8366,28 @@ procedure glTexImage4DSGIS(target:TGLenum; level:TGLint; internalformat:TGLenum;
 procedure glTexSubImage4DSGIS(target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
             woffset:TGLint; width:TGLsizei; height:TGLsizei; depth:TGLsizei; size4d:TGLsizei; 
             format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_texture4D */ }
-{////#ifndef GL_SGIS_texture_border_clamp }
 const
   GL_SGIS_texture_border_clamp = 1;  
   GL_CLAMP_TO_BORDER_SGIS = $812D;  
-{////#endif /* GL_SGIS_texture_border_clamp */ }
-{////#ifndef GL_SGIS_texture_color_mask }
   GL_SGIS_texture_color_mask = 1;  
   GL_TEXTURE_COLOR_WRITEMASK_SGIS = $81EF;  
-{////typedef void (P PFNGLTEXTURECOLORMASKSGISPROC) (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTextureColorMaskSGIS(red:TGLboolean; green:TGLboolean; blue:TGLboolean; alpha:TGLboolean);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_texture_color_mask */ }
-{////#ifndef GL_SGIS_texture_edge_clamp }
 const
   GL_SGIS_texture_edge_clamp = 1;  
   GL_CLAMP_TO_EDGE_SGIS = $812F;  
-{////#endif /* GL_SGIS_texture_edge_clamp */ }
-{////#ifndef GL_SGIS_texture_filter4 }
   GL_SGIS_texture_filter4 = 1;  
   GL_FILTER4_SGIS = $8146;  
   GL_TEXTURE_FILTER4_SIZE_SGIS = $8147;  
-{////typedef void (P PFNGLGETTEXFILTERFUNCSGISPROC) (GLenum target, GLenum filter, GLfloat *weights); }
-{////typedef void (P PFNGLTEXFILTERFUNCSGISPROC) (GLenum target, GLenum filter, GLsizei n,GLfloat *weights); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetTexFilterFuncSGIS(target:TGLenum; filter:TGLenum; weights:PGLfloat);cdecl;external;
 procedure glTexFilterFuncSGIS(target:TGLenum; filter:TGLenum; n:TGLsizei; weights:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIS_texture_filter4 */ }
-{////#ifndef GL_SGIS_texture_lod }
 const
   GL_SGIS_texture_lod = 1;  
   GL_TEXTURE_MIN_LOD_SGIS = $813A;  
   GL_TEXTURE_MAX_LOD_SGIS = $813B;  
   GL_TEXTURE_BASE_LEVEL_SGIS = $813C;  
   GL_TEXTURE_MAX_LEVEL_SGIS = $813D;  
-{////#endif /* GL_SGIS_texture_lod */ }
-{////#ifndef GL_SGIS_texture_select }
   GL_SGIS_texture_select = 1;  
   GL_DUAL_ALPHA4_SGIS = $8110;  
   GL_DUAL_ALPHA8_SGIS = $8111;  
@@ -12685,17 +8411,8 @@ const
   GL_QUAD_INTENSITY8_SGIS = $8123;  
   GL_DUAL_TEXTURE_SELECT_SGIS = $8124;  
   GL_QUAD_TEXTURE_SELECT_SGIS = $8125;  
-{////#endif /* GL_SGIS_texture_select */ }
-{////#ifndef GL_SGIX_async }
   GL_SGIX_async = 1;  
   GL_ASYNC_MARKER_SGIX = $8329;  
-{////typedef void (P PFNGLASYNCMARKERSGIXPROC) (GLuint marker); }
-{////typedef GLint (P PFNGLFINISHASYNCSGIXPROC) (GLuint *markerp); }
-{////typedef GLint (P PFNGLPOLLASYNCSGIXPROC) (GLuint *markerp); }
-{////typedef GLuint (P PFNGLGENASYNCMARKERSSGIXPROC) (GLsizei range); }
-{////typedef void (P PFNGLDELETEASYNCMARKERSSGIXPROC) (GLuint marker, GLsizei range); }
-{////typedef GLboolean (P PFNGLISASYNCMARKERSGIXPROC) (GLuint marker); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glAsyncMarkerSGIX(marker:TGLuint);cdecl;external;
 function glFinishAsyncSGIX(markerp:PGLuint):TGLint;cdecl;external;
@@ -12703,15 +8420,10 @@ function glPollAsyncSGIX(markerp:PGLuint):TGLint;cdecl;external;
 function glGenAsyncMarkersSGIX(range:TGLsizei):TGLuint;cdecl;external;
 procedure glDeleteAsyncMarkersSGIX(marker:TGLuint; range:TGLsizei);cdecl;external;
 function glIsAsyncMarkerSGIX(marker:TGLuint):TGLboolean;cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_async */ }
-{////#ifndef GL_SGIX_async_histogram }
 const
   GL_SGIX_async_histogram = 1;  
   GL_ASYNC_HISTOGRAM_SGIX = $832C;  
   GL_MAX_ASYNC_HISTOGRAM_SGIX = $832D;  
-{////#endif /* GL_SGIX_async_histogram */ }
-{////#ifndef GL_SGIX_async_pixel }
   GL_SGIX_async_pixel = 1;  
   GL_ASYNC_TEX_IMAGE_SGIX = $835C;  
   GL_ASYNC_DRAW_PIXELS_SGIX = $835D;  
@@ -12719,17 +8431,11 @@ const
   GL_MAX_ASYNC_TEX_IMAGE_SGIX = $835F;  
   GL_MAX_ASYNC_DRAW_PIXELS_SGIX = $8360;  
   GL_MAX_ASYNC_READ_PIXELS_SGIX = $8361;  
-{////#endif /* GL_SGIX_async_pixel */ }
-{////#ifndef GL_SGIX_blend_alpha_minmax }
   GL_SGIX_blend_alpha_minmax = 1;  
   GL_ALPHA_MIN_SGIX = $8320;  
   GL_ALPHA_MAX_SGIX = $8321;  
-{////#endif /* GL_SGIX_blend_alpha_minmax */ }
-{////#ifndef GL_SGIX_calligraphic_fragment }
   GL_SGIX_calligraphic_fragment = 1;  
   GL_CALLIGRAPHIC_FRAGMENT_SGIX = $8183;  
-{////#endif /* GL_SGIX_calligraphic_fragment */ }
-{////#ifndef GL_SGIX_clipmap }
   GL_SGIX_clipmap = 1;  
   GL_LINEAR_CLIPMAP_LINEAR_SGIX = $8170;  
   GL_TEXTURE_CLIPMAP_CENTER_SGIX = $8171;  
@@ -12743,35 +8449,20 @@ const
   GL_NEAREST_CLIPMAP_NEAREST_SGIX = $844D;  
   GL_NEAREST_CLIPMAP_LINEAR_SGIX = $844E;  
   GL_LINEAR_CLIPMAP_NEAREST_SGIX = $844F;  
-{////#endif /* GL_SGIX_clipmap */ }
-{////#ifndef GL_SGIX_convolution_accuracy }
   GL_SGIX_convolution_accuracy = 1;  
   GL_CONVOLUTION_HINT_SGIX = $8316;  
-{////#endif /* GL_SGIX_convolution_accuracy */ }
-{////#ifndef GL_SGIX_depth_pass_instrument }
   GL_SGIX_depth_pass_instrument = 1;  
-{////#endif /* GL_SGIX_depth_pass_instrument */ }
-{////#ifndef GL_SGIX_depth_texture }
   GL_SGIX_depth_texture = 1;  
   GL_DEPTH_COMPONENT16_SGIX = $81A5;  
   GL_DEPTH_COMPONENT24_SGIX = $81A6;  
   GL_DEPTH_COMPONENT32_SGIX = $81A7;  
-{////#endif /* GL_SGIX_depth_texture */ }
-{////#ifndef GL_SGIX_flush_raster }
   GL_SGIX_flush_raster = 1;  
-{////typedef void (P PFNGLFLUSHRASTERSGIXPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFlushRasterSGIX;cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_flush_raster */ }
-{////#ifndef GL_SGIX_fog_offset }
 const
   GL_SGIX_fog_offset = 1;  
   GL_FOG_OFFSET_SGIX = $8198;  
   GL_FOG_OFFSET_VALUE_SGIX = $8199;  
-{////#endif /* GL_SGIX_fog_offset */ }
-{////#ifndef GL_SGIX_fragment_lighting }
   GL_SGIX_fragment_lighting = 1;  
   GL_FRAGMENT_LIGHTING_SGIX = $8400;  
   GL_FRAGMENT_COLOR_MATERIAL_SGIX = $8401;  
@@ -12793,25 +8484,6 @@ const
   GL_FRAGMENT_LIGHT5_SGIX = $8411;  
   GL_FRAGMENT_LIGHT6_SGIX = $8412;  
   GL_FRAGMENT_LIGHT7_SGIX = $8413;  
-{////typedef void (P PFNGLFRAGMENTCOLORMATERIALSGIXPROC) (GLenum face, GLenum mode); }
-{////typedef void (P PFNGLFRAGMENTLIGHTFSGIXPROC) (GLenum light, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLFRAGMENTLIGHTFVSGIXPROC) (GLenum light, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLFRAGMENTLIGHTISGIXPROC) (GLenum light, GLenum pname, GLint param); }
-{////typedef void (P PFNGLFRAGMENTLIGHTIVSGIXPROC) (GLenum light, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLFRAGMENTLIGHTMODELFSGIXPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLFRAGMENTLIGHTMODELFVSGIXPROC) (GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLFRAGMENTLIGHTMODELISGIXPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLFRAGMENTLIGHTMODELIVSGIXPROC) (GLenum pname,GLint *params); }
-{////typedef void (P PFNGLFRAGMENTMATERIALFSGIXPROC) (GLenum face, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLFRAGMENTMATERIALFVSGIXPROC) (GLenum face, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLFRAGMENTMATERIALISGIXPROC) (GLenum face, GLenum pname, GLint param); }
-{////typedef void (P PFNGLFRAGMENTMATERIALIVSGIXPROC) (GLenum face, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLGETFRAGMENTLIGHTFVSGIXPROC) (GLenum light, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETFRAGMENTLIGHTIVSGIXPROC) (GLenum light, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLGETFRAGMENTMATERIALFVSGIXPROC) (GLenum face, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETFRAGMENTMATERIALIVSGIXPROC) (GLenum face, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLLIGHTENVISGIXPROC) (GLenum pname, GLint param); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFragmentColorMaterialSGIX(face:TGLenum; mode:TGLenum);cdecl;external;
 procedure glFragmentLightfSGIX(light:TGLenum; pname:TGLenum; param:TGLfloat);cdecl;external;
@@ -12831,41 +8503,21 @@ procedure glGetFragmentLightivSGIX(light:TGLenum; pname:TGLenum; params:PGLint);
 procedure glGetFragmentMaterialfvSGIX(face:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetFragmentMaterialivSGIX(face:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
 procedure glLightEnviSGIX(pname:TGLenum; param:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_fragment_lighting */ }
-{////#ifndef GL_SGIX_framezoom }
 const
   GL_SGIX_framezoom = 1;  
   GL_FRAMEZOOM_SGIX = $818B;  
   GL_FRAMEZOOM_FACTOR_SGIX = $818C;  
   GL_MAX_FRAMEZOOM_FACTOR_SGIX = $818D;  
-{////typedef void (P PFNGLFRAMEZOOMSGIXPROC) (GLint factor); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFrameZoomSGIX(factor:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_framezoom */ }
-{////#ifndef GL_SGIX_igloo_interface }
 const
   GL_SGIX_igloo_interface = 1;  
-{////typedef void (P PFNGLIGLOOINTERFACESGIXPROC) (GLenum pname,void *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glIglooInterfaceSGIX(pname:TGLenum; params:pointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_igloo_interface */ }
-{////#ifndef GL_SGIX_instruments }
 const
   GL_SGIX_instruments = 1;  
   GL_INSTRUMENT_BUFFER_POINTER_SGIX = $8180;  
   GL_INSTRUMENT_MEASUREMENTS_SGIX = $8181;  
-{////typedef GLint (P PFNGLGETINSTRUMENTSSGIXPROC) (void); }
-{////typedef void (P PFNGLINSTRUMENTSBUFFERSGIXPROC) (GLsizei size, GLint *buffer); }
-{////typedef GLint (P PFNGLPOLLINSTRUMENTSSGIXPROC) (GLint *marker_p); }
-{////typedef void (P PFNGLREADINSTRUMENTSSGIXPROC) (GLint marker); }
-{////typedef void (P PFNGLSTARTINSTRUMENTSSGIXPROC) (void); }
-{////typedef void (P PFNGLSTOPINSTRUMENTSSGIXPROC) (GLint marker); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 function glGetInstrumentsSGIX:TGLint;cdecl;external;
 procedure glInstrumentsBufferSGIX(size:TGLsizei; buffer:PGLint);cdecl;external;
@@ -12873,27 +8525,13 @@ function glPollInstrumentsSGIX(marker_p:PGLint):TGLint;cdecl;external;
 procedure glReadInstrumentsSGIX(marker:TGLint);cdecl;external;
 procedure glStartInstrumentsSGIX;cdecl;external;
 procedure glStopInstrumentsSGIX(marker:TGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_instruments */ }
-{////#ifndef GL_SGIX_interlace }
 const
   GL_SGIX_interlace = 1;  
   GL_INTERLACE_SGIX = $8094;  
-{////#endif /* GL_SGIX_interlace */ }
-{////#ifndef GL_SGIX_ir_instrument1 }
   GL_SGIX_ir_instrument1 = 1;  
   GL_IR_INSTRUMENT1_SGIX = $817F;  
-{////#endif /* GL_SGIX_ir_instrument1 */ }
-{////#ifndef GL_SGIX_list_priority }
   GL_SGIX_list_priority = 1;  
   GL_LIST_PRIORITY_SGIX = $8182;  
-{////typedef void (P PFNGLGETLISTPARAMETERFVSGIXPROC) (GLuint list, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETLISTPARAMETERIVSGIXPROC) (GLuint list, GLenum pname, GLint *params); }
-{////typedef void (P PFNGLLISTPARAMETERFSGIXPROC) (GLuint list, GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLLISTPARAMETERFVSGIXPROC) (GLuint list, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLLISTPARAMETERISGIXPROC) (GLuint list, GLenum pname, GLint param); }
-{////typedef void (P PFNGLLISTPARAMETERIVSGIXPROC) (GLuint list, GLenum pname,GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGetListParameterfvSGIX(list:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetListParameterivSGIX(list:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
@@ -12901,20 +8539,12 @@ procedure glListParameterfSGIX(list:TGLuint; pname:TGLenum; param:TGLfloat);cdec
 procedure glListParameterfvSGIX(list:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glListParameteriSGIX(list:TGLuint; pname:TGLenum; param:TGLint);cdecl;external;
 procedure glListParameterivSGIX(list:TGLuint; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_list_priority */ }
-{////#ifndef GL_SGIX_pixel_texture }
 const
   GL_SGIX_pixel_texture = 1;  
   GL_PIXEL_TEX_GEN_SGIX = $8139;  
   GL_PIXEL_TEX_GEN_MODE_SGIX = $832B;  
-{////typedef void (P PFNGLPIXELTEXGENSGIXPROC) (GLenum mode); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glPixelTexGenSGIX(mode:TGLenum);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_pixel_texture */ }
-{////#ifndef GL_SGIX_pixel_tiles }
 const
   GL_SGIX_pixel_tiles = 1;  
   GL_PIXEL_TILE_BEST_ALIGNMENT_SGIX = $813E;  
@@ -12925,8 +8555,6 @@ const
   GL_PIXEL_TILE_GRID_HEIGHT_SGIX = $8143;  
   GL_PIXEL_TILE_GRID_DEPTH_SGIX = $8144;  
   GL_PIXEL_TILE_CACHE_SIZE_SGIX = $8145;  
-{////#endif /* GL_SGIX_pixel_tiles */ }
-{////#ifndef GL_SGIX_polynomial_ffd }
   GL_SGIX_polynomial_ffd = 1;  
   GL_TEXTURE_DEFORMATION_BIT_SGIX = $00000001;  
   GL_GEOMETRY_DEFORMATION_BIT_SGIX = $00000002;  
@@ -12934,11 +8562,6 @@ const
   GL_TEXTURE_DEFORMATION_SGIX = $8195;  
   GL_DEFORMATIONS_MASK_SGIX = $8196;  
   GL_MAX_DEFORMATION_ORDER_SGIX = $8197;  
-{////typedef void (P PFNGLDEFORMATIONMAP3DSGIXPROC) (GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, GLdouble w1, GLdouble w2, GLint wstride, GLint worder,GLdouble *points); }
-{////typedef void (P PFNGLDEFORMATIONMAP3FSGIXPROC) (GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, GLfloat w1, GLfloat w2, GLint wstride, GLint worder,GLfloat *points); }
-{////typedef void (P PFNGLDEFORMSGIXPROC) (GLbitfield mask); }
-{////typedef void (P PFNGLLOADIDENTITYDEFORMATIONMAPSGIXPROC) (GLbitfield mask); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDeformationMap3dSGIX(target:TGLenum; u1:TGLdouble; u2:TGLdouble; ustride:TGLint; uorder:TGLint; 
             v1:TGLdouble; v2:TGLdouble; vstride:TGLint; vorder:TGLint; w1:TGLdouble; 
@@ -12948,20 +8571,12 @@ procedure glDeformationMap3fSGIX(target:TGLenum; u1:TGLfloat; u2:TGLfloat; ustri
             w2:TGLfloat; wstride:TGLint; worder:TGLint; points:PGLfloat);cdecl;external;
 procedure glDeformSGIX(mask:TGLbitfield);cdecl;external;
 procedure glLoadIdentityDeformationMapSGIX(mask:TGLbitfield);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_polynomial_ffd */ }
-{////#ifndef GL_SGIX_reference_plane }
 const
   GL_SGIX_reference_plane = 1;  
   GL_REFERENCE_PLANE_SGIX = $817D;  
   GL_REFERENCE_PLANE_EQUATION_SGIX = $817E;  
-{////typedef void (P PFNGLREFERENCEPLANESGIXPROC) ( GLdouble *equation); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glReferencePlaneSGIX(equation:PGLdouble);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_reference_plane */ }
-{////#ifndef GL_SGIX_resample }
 const
   GL_SGIX_resample = 1;  
   GL_PACK_RESAMPLE_SGIX = $842E;  
@@ -12969,23 +8584,15 @@ const
   GL_RESAMPLE_REPLICATE_SGIX = $8433;  
   GL_RESAMPLE_ZERO_FILL_SGIX = $8434;  
   GL_RESAMPLE_DECIMATE_SGIX = $8430;  
-{////#endif /* GL_SGIX_resample */ }
-{////#ifndef GL_SGIX_scalebias_hint }
   GL_SGIX_scalebias_hint = 1;  
   GL_SCALEBIAS_HINT_SGIX = $8322;  
-{////#endif /* GL_SGIX_scalebias_hint */ }
-{////#ifndef GL_SGIX_shadow }
   GL_SGIX_shadow = 1;  
   GL_TEXTURE_COMPARE_SGIX = $819A;  
   GL_TEXTURE_COMPARE_OPERATOR_SGIX = $819B;  
   GL_TEXTURE_LEQUAL_R_SGIX = $819C;  
   GL_TEXTURE_GEQUAL_R_SGIX = $819D;  
-{////#endif /* GL_SGIX_shadow */ }
-{////#ifndef GL_SGIX_shadow_ambient }
   GL_SGIX_shadow_ambient = 1;  
   GL_SHADOW_AMBIENT_SGIX = $80BF;  
-{////#endif /* GL_SGIX_shadow_ambient */ }
-{////#ifndef GL_SGIX_sprite }
   GL_SGIX_sprite = 1;  
   GL_SPRITE_SGIX = $8148;  
   GL_SPRITE_MODE_SGIX = $8149;  
@@ -12994,19 +8601,11 @@ const
   GL_SPRITE_AXIAL_SGIX = $814C;  
   GL_SPRITE_OBJECT_ALIGNED_SGIX = $814D;  
   GL_SPRITE_EYE_ALIGNED_SGIX = $814E;  
-{////typedef void (P PFNGLSPRITEPARAMETERFSGIXPROC) (GLenum pname, GLfloat param); }
-{////typedef void (P PFNGLSPRITEPARAMETERFVSGIXPROC) (GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLSPRITEPARAMETERISGIXPROC) (GLenum pname, GLint param); }
-{////typedef void (P PFNGLSPRITEPARAMETERIVSGIXPROC) (GLenum pname,GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glSpriteParameterfSGIX(pname:TGLenum; param:TGLfloat);cdecl;external;
 procedure glSpriteParameterfvSGIX(pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glSpriteParameteriSGIX(pname:TGLenum; param:TGLint);cdecl;external;
 procedure glSpriteParameterivSGIX(pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_sprite */ }
-{////#ifndef GL_SGIX_subsample }
 const
   GL_SGIX_subsample = 1;  
   GL_PACK_SUBSAMPLE_RATE_SGIX = $85A0;  
@@ -13014,62 +8613,37 @@ const
   GL_PIXEL_SUBSAMPLE_4444_SGIX = $85A2;  
   GL_PIXEL_SUBSAMPLE_2424_SGIX = $85A3;  
   GL_PIXEL_SUBSAMPLE_4242_SGIX = $85A4;  
-{////#endif /* GL_SGIX_subsample */ }
-{////#ifndef GL_SGIX_tag_sample_buffer }
   GL_SGIX_tag_sample_buffer = 1;  
-{////typedef void (P PFNGLTAGSAMPLEBUFFERSGIXPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glTagSampleBufferSGIX;cdecl;external;
-{////#endif }
-{////#endif /* GL_SGIX_tag_sample_buffer */ }
-{////#ifndef GL_SGIX_texture_add_env }
 const
   GL_SGIX_texture_add_env = 1;  
   GL_TEXTURE_ENV_BIAS_SGIX = $80BE;  
-{////#endif /* GL_SGIX_texture_add_env */ }
-{////#ifndef GL_SGIX_texture_coordinate_clamp }
   GL_SGIX_texture_coordinate_clamp = 1;  
   GL_TEXTURE_MAX_CLAMP_S_SGIX = $8369;  
   GL_TEXTURE_MAX_CLAMP_T_SGIX = $836A;  
   GL_TEXTURE_MAX_CLAMP_R_SGIX = $836B;  
-{////#endif /* GL_SGIX_texture_coordinate_clamp */ }
-{////#ifndef GL_SGIX_texture_lod_bias }
   GL_SGIX_texture_lod_bias = 1;  
   GL_TEXTURE_LOD_BIAS_S_SGIX = $818E;  
   GL_TEXTURE_LOD_BIAS_T_SGIX = $818F;  
   GL_TEXTURE_LOD_BIAS_R_SGIX = $8190;  
-{////#endif /* GL_SGIX_texture_lod_bias */ }
-{////#ifndef GL_SGIX_texture_multi_buffer }
   GL_SGIX_texture_multi_buffer = 1;  
   GL_TEXTURE_MULTI_BUFFER_HINT_SGIX = $812E;  
-{////#endif /* GL_SGIX_texture_multi_buffer */ }
-{////#ifndef GL_SGIX_texture_scale_bias }
   GL_SGIX_texture_scale_bias = 1;  
   GL_POST_TEXTURE_FILTER_BIAS_SGIX = $8179;  
   GL_POST_TEXTURE_FILTER_SCALE_SGIX = $817A;  
   GL_POST_TEXTURE_FILTER_BIAS_RANGE_SGIX = $817B;  
   GL_POST_TEXTURE_FILTER_SCALE_RANGE_SGIX = $817C;  
-{////#endif /* GL_SGIX_texture_scale_bias */ }
-{////#ifndef GL_SGIX_vertex_preclip }
   GL_SGIX_vertex_preclip = 1;  
   GL_VERTEX_PRECLIP_SGIX = $83EE;  
   GL_VERTEX_PRECLIP_HINT_SGIX = $83EF;  
-{////#endif /* GL_SGIX_vertex_preclip */ }
-{////#ifndef GL_SGIX_ycrcb }
   GL_SGIX_ycrcb = 1;  
   GL_YCRCB_422_SGIX = $81BB;  
   GL_YCRCB_444_SGIX = $81BC;  
-{////#endif /* GL_SGIX_ycrcb */ }
-{////#ifndef GL_SGIX_ycrcb_subsample }
   GL_SGIX_ycrcb_subsample = 1;  
-{////#endif /* GL_SGIX_ycrcb_subsample */ }
-{////#ifndef GL_SGIX_ycrcba }
   GL_SGIX_ycrcba = 1;  
   GL_YCRCB_SGIX = $8318;  
   GL_YCRCBA_SGIX = $8319;  
-{////#endif /* GL_SGIX_ycrcba */ }
-{////#ifndef GL_SGI_color_matrix }
   GL_SGI_color_matrix = 1;  
   GL_COLOR_MATRIX_SGI = $80B1;  
   GL_COLOR_MATRIX_STACK_DEPTH_SGI = $80B2;  
@@ -13082,8 +8656,6 @@ const
   GL_POST_COLOR_MATRIX_GREEN_BIAS_SGI = $80B9;  
   GL_POST_COLOR_MATRIX_BLUE_BIAS_SGI = $80BA;  
   GL_POST_COLOR_MATRIX_ALPHA_BIAS_SGI = $80BB;  
-{////#endif /* GL_SGI_color_matrix */ }
-{////#ifndef GL_SGI_color_table }
   GL_SGI_color_table = 1;  
   GL_COLOR_TABLE_SGI = $80D0;  
   GL_POST_CONVOLUTION_COLOR_TABLE_SGI = $80D1;  
@@ -13101,14 +8673,6 @@ const
   GL_COLOR_TABLE_ALPHA_SIZE_SGI = $80DD;  
   GL_COLOR_TABLE_LUMINANCE_SIZE_SGI = $80DE;  
   GL_COLOR_TABLE_INTENSITY_SIZE_SGI = $80DF;  
-{////typedef void (P PFNGLCOLORTABLESGIPROC) (GLenum target, GLenum internalformat, GLsizei width, GLenum format, GLenum type,void *table); }
-{////typedef void (P PFNGLCOLORTABLEPARAMETERFVSGIPROC) (GLenum target, GLenum pname,GLfloat *params); }
-{////typedef void (P PFNGLCOLORTABLEPARAMETERIVSGIPROC) (GLenum target, GLenum pname,GLint *params); }
-{////typedef void (P PFNGLCOPYCOLORTABLESGIPROC) (GLenum target, GLenum internalformat, GLint x, GLint y, GLsizei width); }
-{////typedef void (P PFNGLGETCOLORTABLESGIPROC) (GLenum target, GLenum format, GLenum type, void *table); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERFVSGIPROC) (GLenum target, GLenum pname, GLfloat *params); }
-{////typedef void (P PFNGLGETCOLORTABLEPARAMETERIVSGIPROC) (GLenum target, GLenum pname, GLint *params); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColorTableSGI(target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
             table:pointer);cdecl;external;
@@ -13118,42 +8682,21 @@ procedure glCopyColorTableSGI(target:TGLenum; internalformat:TGLenum; x:TGLint; 
 procedure glGetColorTableSGI(target:TGLenum; format:TGLenum; _type:TGLenum; table:pointer);cdecl;external;
 procedure glGetColorTableParameterfvSGI(target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;external;
 procedure glGetColorTableParameterivSGI(target:TGLenum; pname:TGLenum; params:PGLint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SGI_color_table */ }
-{////#ifndef GL_SGI_texture_color_table }
 const
   GL_SGI_texture_color_table = 1;  
   GL_TEXTURE_COLOR_TABLE_SGI = $80BC;  
   GL_PROXY_TEXTURE_COLOR_TABLE_SGI = $80BD;  
-{////#endif /* GL_SGI_texture_color_table */ }
-{////#ifndef GL_SUNX_constant_data }
   GL_SUNX_constant_data = 1;  
   GL_UNPACK_CONSTANT_DATA_SUNX = $81D5;  
   GL_TEXTURE_CONSTANT_DATA_SUNX = $81D6;  
-{////typedef void (P PFNGLFINISHTEXTURESUNXPROC) (void); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glFinishTextureSUNX;cdecl;external;
-{////#endif }
-{////#endif /* GL_SUNX_constant_data */ }
-{////#ifndef GL_SUN_convolution_border_modes }
 const
   GL_SUN_convolution_border_modes = 1;  
   GL_WRAP_BORDER_SUN = $81D4;  
-{////#endif /* GL_SUN_convolution_border_modes */ }
-{////#ifndef GL_SUN_global_alpha }
   GL_SUN_global_alpha = 1;  
   GL_GLOBAL_ALPHA_SUN = $81D9;  
   GL_GLOBAL_ALPHA_FACTOR_SUN = $81DA;  
-{////typedef void (P PFNGLGLOBALALPHAFACTORBSUNPROC) (GLbyte factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORSSUNPROC) (GLshort factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORISUNPROC) (GLint factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORFSUNPROC) (GLfloat factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORDSUNPROC) (GLdouble factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORUBSUNPROC) (GLubyte factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORUSSUNPROC) (GLushort factor); }
-{////typedef void (P PFNGLGLOBALALPHAFACTORUISUNPROC) (GLuint factor); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glGlobalAlphaFactorbSUN(factor:TGLbyte);cdecl;external;
 procedure glGlobalAlphaFactorsSUN(factor:TGLshort);cdecl;external;
@@ -13163,25 +8706,15 @@ procedure glGlobalAlphaFactordSUN(factor:TGLdouble);cdecl;external;
 procedure glGlobalAlphaFactorubSUN(factor:TGLubyte);cdecl;external;
 procedure glGlobalAlphaFactorusSUN(factor:TGLushort);cdecl;external;
 procedure glGlobalAlphaFactoruiSUN(factor:TGLuint);cdecl;external;
-{////#endif }
-{////#endif /* GL_SUN_global_alpha */ }
-{////#ifndef GL_SUN_mesh_array }
 const
   GL_SUN_mesh_array = 1;  
   GL_QUAD_MESH_SUN = $8614;  
   GL_TRIANGLE_MESH_SUN = $8615;  
-{////typedef void (P PFNGLDRAWMESHARRAYSSUNPROC) (GLenum mode, GLint first, GLsizei count, GLsizei width); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glDrawMeshArraysSUN(mode:TGLenum; first:TGLint; count:TGLsizei; width:TGLsizei);cdecl;external;
-{////#endif }
-{////#endif /* GL_SUN_mesh_array */ }
-{////#ifndef GL_SUN_slice_accum }
 const
   GL_SUN_slice_accum = 1;  
   GL_SLICE_ACCUM_SUN = $85CC;  
-{////#endif /* GL_SUN_slice_accum */ }
-{////#ifndef GL_SUN_triangle_list }
   GL_SUN_triangle_list = 1;  
   GL_RESTART_SUN = $0001;  
   GL_REPLACE_MIDDLE_SUN = $0002;  
@@ -13200,14 +8733,6 @@ const
   GL_R1UI_T2F_V3F_SUN = $85C9;  
   GL_R1UI_T2F_N3F_V3F_SUN = $85CA;  
   GL_R1UI_T2F_C4F_N3F_V3F_SUN = $85CB;  
-{////typedef void (P PFNGLREPLACEMENTCODEUISUNPROC) (GLuint code); }
-{////typedef void (P PFNGLREPLACEMENTCODEUSSUNPROC) (GLushort code); }
-{////typedef void (P PFNGLREPLACEMENTCODEUBSUNPROC) (GLubyte code); }
-{////typedef void (P PFNGLREPLACEMENTCODEUIVSUNPROC) ( GLuint *code); }
-{////typedef void (P PFNGLREPLACEMENTCODEUSVSUNPROC) ( GLushort *code); }
-{////typedef void (P PFNGLREPLACEMENTCODEUBVSUNPROC) ( GLubyte *code); }
-{////typedef void (P PFNGLREPLACEMENTCODEPOINTERSUNPROC) (GLenum type, GLsizei stride,void **pointer); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glReplacementCodeuiSUN(code:TGLuint);cdecl;external;
 procedure glReplacementCodeusSUN(code:TGLushort);cdecl;external;
@@ -13216,52 +8741,8 @@ procedure glReplacementCodeuivSUN(code:PGLuint);cdecl;external;
 procedure glReplacementCodeusvSUN(code:PGLushort);cdecl;external;
 procedure glReplacementCodeubvSUN(code:PGLubyte);cdecl;external;
 procedure glReplacementCodePointerSUN(_type:TGLenum; stride:TGLsizei; pointer:Ppointer);cdecl;external;
-{////#endif }
-{////#endif /* GL_SUN_triangle_list */ }
-{////#ifndef GL_SUN_vertex }
 const
   GL_SUN_vertex = 1;  
-{////typedef void (P PFNGLCOLOR4UBVERTEX2FSUNPROC) (GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y); }
-{////typedef void (P PFNGLCOLOR4UBVERTEX2FVSUNPROC) ( GLubyte *c,GLfloat *v); }
-{////typedef void (P PFNGLCOLOR4UBVERTEX3FSUNPROC) (GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLCOLOR4UBVERTEX3FVSUNPROC) ( GLubyte *c,GLfloat *v); }
-{////typedef void (P PFNGLCOLOR3FVERTEX3FSUNPROC) (GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLCOLOR3FVERTEX3FVSUNPROC) ( GLfloat *c,GLfloat *v); }
-{////typedef void (P PFNGLNORMAL3FVERTEX3FSUNPROC) (GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLNORMAL3FVERTEX3FVSUNPROC) ( GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLCOLOR4FNORMAL3FVERTEX3FSUNPROC) (GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLCOLOR4FNORMAL3FVERTEX3FVSUNPROC) ( GLfloat *c,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD2FVERTEX3FSUNPROC) (GLfloat s, GLfloat t, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLTEXCOORD2FVERTEX3FVSUNPROC) ( GLfloat *tc,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD4FVERTEX4FSUNPROC) (GLfloat s, GLfloat t, GLfloat p, GLfloat q, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLTEXCOORD4FVERTEX4FVSUNPROC) ( GLfloat *tc,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR4UBVERTEX3FSUNPROC) (GLfloat s, GLfloat t, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR4UBVERTEX3FVSUNPROC) ( GLfloat *tc,GLubyte *c,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR3FVERTEX3FSUNPROC) (GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR3FVERTEX3FVSUNPROC) ( GLfloat *tc,GLfloat *c,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD2FNORMAL3FVERTEX3FSUNPROC) (GLfloat s, GLfloat t, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLTEXCOORD2FNORMAL3FVERTEX3FVSUNPROC) ( GLfloat *tc,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC) (GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC) ( GLfloat *tc,GLfloat *c,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC) (GLfloat s, GLfloat t, GLfloat p, GLfloat q, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z, GLfloat w); }
-{////typedef void (P PFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC) ( GLfloat *tc,GLfloat *c,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUIVERTEX3FSUNPROC) (GLuint rc, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUIVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FSUNPROC) (GLuint rc, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FVSUNPROC) ( GLuint *rc,GLubyte *c,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FSUNPROC) (GLuint rc, GLfloat r, GLfloat g, GLfloat b, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *c,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FSUNPROC) (GLuint rc, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FSUNPROC) (GLuint rc, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *c,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FSUNPROC) (GLuint rc, GLfloat s, GLfloat t, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *tc,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC) (GLuint rc, GLfloat s, GLfloat t, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *tc,GLfloat *n,GLfloat *v); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC) (GLuint rc, GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z); }
-{////typedef void (P PFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC) ( GLuint *rc,GLfloat *tc,GLfloat *c,GLfloat *n,GLfloat *v); }
-{////#ifdef GL_GLEXT_PROTOTYPES }
 
 procedure glColor4ubVertex2fSUN(r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; x:TGLfloat; 
             y:TGLfloat);cdecl;external;
@@ -13325,26 +8806,14 @@ procedure glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc:TGLuint; s:
             b:TGLfloat; a:TGLfloat; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; 
             x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;external;
 procedure glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc:PGLuint; tc:PGLfloat; c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;external;
-{////#endif }
-{////#endif /* GL_SUN_vertex */ }
-{////#ifndef GL_WIN_phong_shading }
 const
   GL_WIN_phong_shading = 1;  
   GL_PHONG_WIN = $80EA;  
   GL_PHONG_HINT_WIN = $80EB;  
-{////#endif /* GL_WIN_phong_shading */ }
-{////#ifndef GL_WIN_specular_fog }
   GL_WIN_specular_fog = 1;  
   GL_FOG_SPECULAR_TEXTURE_WIN = $80EC;  
-{////#endif /* GL_WIN_specular_fog */ }
-{////#ifndef GL_MESA_texture_const_bandwidth }
   GL_MESA_texture_const_bandwidth = 1;  
   GL_CONST_BW_TILING_MESA = $8BBE;  
-{////#endif }
-{////#ifdef __cplusplus }
-{//// }
-{////#endif }
-{////#endif }
 
 implementation
 
