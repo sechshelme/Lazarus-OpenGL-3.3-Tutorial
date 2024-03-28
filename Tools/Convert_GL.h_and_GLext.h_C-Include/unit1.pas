@@ -19,7 +19,24 @@ uses
 {$LinkLib 'GL'}
 
 type
-  PPGLvoid = ^PGLvoid;
+ GLenum = TGLenum;
+ GLboolean = TGLboolean;
+ GLbitfield = TGLbitfield;
+ GLvoid = TGLvoid;
+ GLbyte = TGLbyte;
+ GLshort = TGLshort;
+ GLint = TGLint;
+ GLubyte = TGLubyte;
+ GLushort = TGLushort;
+ GLuint = TGLuint;
+ GLsizei = TGLsizei;
+ GLfloat = TGLfloat;
+ GLclampf = TGLclampf;
+ GLdouble = TGLdouble;
+ GLclampd = TGLclampd;
+
+ PPGLboolean = ^PGLboolean;
+ PPGLvoid = ^PGLvoid;
 
 // === Eigene Typen  oglGLext.pas
 type
@@ -31,6 +48,29 @@ type
   Tkhronos_uint64_t = uint64;
   Tkhronos_int64_t = int16;
   Tkhronos_int32_t = int32;
+
+  // unten   ????
+  GLsizeiptr = TGLsizeiptr;
+  GLintptr = TGLintptr;
+  GLchar = TGLchar;
+  GLhalf = TGLhalf;
+  GLsync = TGLsync;
+  GLuint64 = TGLuint64;
+  GLint64 = TGLint64;
+  GLuint64EXT = TGLuint64EXT;
+  GLhalfARB = TGLhalfARB;
+  GLhandleARB = TGLhandleARB;
+  GLcharARB = TGLcharARB;
+  GLsizeiptrARB = TGLsizeiptrARB;
+  GLintptrARB = TGLintptrARB;
+  GLfixed = TGLfixed;
+  GLint64EXT = TGLint64EXT;
+
+
+
+
+
+
 *)
 
 type
