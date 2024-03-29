@@ -8,7 +8,6 @@ unit Unit1;
 interface
 
 uses
-  //    SDL_pixels,
   //      gl,GLext,
     oglGL,
     oglGLext,
@@ -16,7 +15,18 @@ uses
 
 (*
 // === Eigene Typen  oglGL.pas
-{$LinkLib 'GL'}
+
+{$IFDEF UNIX}
+const
+  glLib='GL';
+//{$LinkLib 'GL'}
+{$ENDIF}
+
+{$IFDEF WINDOWS}
+const
+  glLib='opengl32.dll';
+//  {$LinkLib 'opengl32.dll'}
+{$ENDIF}
 
 type
  GLenum = TGLenum;

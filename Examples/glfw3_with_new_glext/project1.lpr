@@ -74,6 +74,8 @@ const
       Halt(1);
     end;
 
+    glBegin(0);
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
@@ -148,6 +150,8 @@ const
   end;
 
 begin
+//  WriteLn('OpenGL Demo');
+  exit;
   main;
   WriteLn('io');
 end.

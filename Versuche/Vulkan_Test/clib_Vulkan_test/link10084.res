@@ -6,6 +6,8 @@ SEARCH_DIR("/usr/lib64/")
 SEARCH_DIR("/usr/lib/")
 SEARCH_DIR("/usr/lib/gcc/x86_64-linux-gnu/11/")
 SEARCH_DIR("./")
+SEARCH_DIR("/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/SDL-2/SDL_Packages/units/lib/x86_64-linux/")
+SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/lazarus/packager/units/x86_64-linux/")
 SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/httpd22/")
 SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/")
 SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/gdbint/")
@@ -142,37 +144,36 @@ SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/fcl-sound/")
 SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/")
 SEARCH_DIR("/home/tux/fpcupdeluxe_trunk/fpc/bin/x86_64-linux/")
 INPUT(
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/si_prc.o
+/lib/x86_64-linux-gnu/crti.o
+/usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o
+/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/si_c.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/abitag.o
-/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/glfw3_with_new_glext/lib/x86_64-linux/project1.o
+/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Versuche/Vulkan_Test/clib_Vulkan_test/lib/x86_64-linux/project1.o
+main.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/system.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/lnfodwrf.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/exeinfo.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/strings.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/objpas.o
-/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/glfw3_with_new_glext/lib/x86_64-linux/oglgl.o
-/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/glfw3_with_new_glext/lib/x86_64-linux/oglglext.o
-/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/glfw3_with_new_glext/lib/x86_64-linux/glfw3.o
-/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/glfw3_with_new_glext/lib/x86_64-linux/oglshader.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/ctypes.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/unixtype.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/classes.o
+/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/math.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/sysutils.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/types.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/typinfo.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/rtlconsts.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/sortbase.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/linux.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/baseunix.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/unix.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/errors.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/sysconst.o
+/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/unixtype.o
 /home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/unixutil.o
-/home/tux/fpcupdeluxe_trunk/fpc/units/x86_64-linux/rtl/math.o
 )
 INPUT(
--lSDL3
+-lstdc++
+-lgcc_eh
 -lglfw
+-lvulkan
+)
+GROUP(
+-lc
+)
+INPUT(
+/usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o
+/lib/x86_64-linux-gnu/crtn.o
 )
 SECTIONS
 {
@@ -180,6 +181,7 @@ SECTIONS
   {
     KEEP (*(.fpc .fpc.n_version .fpc.n_links))
   }
+  /DISCARD/ : {*(.debug_frame)}
   .threadvar : { *(.threadvar .threadvar.* .gnu.linkonce.tv.*) }
 }
 INSERT AFTER .data;

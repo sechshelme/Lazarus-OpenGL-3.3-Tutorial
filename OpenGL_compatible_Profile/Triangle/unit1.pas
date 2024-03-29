@@ -42,7 +42,7 @@ begin
 
   // Modelmatrix
   glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
+//  glLoadIdentity();
   glRotatef(5.0, 0.0, 0.0, 1.0); // Winkel ist in Grad.
 
   glBegin(GL_TRIANGLES);

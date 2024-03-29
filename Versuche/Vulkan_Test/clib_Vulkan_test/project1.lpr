@@ -1,5 +1,6 @@
 program project1;
 uses
+cthreads,
 Math;
 
 {$linklib stdc++}
