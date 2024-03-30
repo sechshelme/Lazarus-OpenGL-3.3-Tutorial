@@ -86,14 +86,14 @@ const
   GL_ALIASED_POINT_SIZE_RANGE = $846D;
 
 procedure glDrawRangeElements(mode: TGLenum; start: TGLuint; end_: TGLuint; Count: TGLsizei; _type: TGLenum;
-  indices: pointer); cdecl; external glLib;
+  indices: pointer); stdcall; external glLib;
 procedure glTexImage3D(target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTexSubImage3D(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 procedure glCopyTexSubImage3D(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 
 const
   GL_VERSION_1_3 = 1;
@@ -194,59 +194,59 @@ const
   GL_DOT3_RGB = $86AE;
   GL_DOT3_RGBA = $86AF;
 
-procedure glActiveTexture(texture: TGLenum); cdecl; external glLib;
-procedure glSampleCoverage(Value: TGLfloat; invert: TGLboolean); cdecl; external glLib;
+procedure glActiveTexture(texture: TGLenum); stdcall; external glLib;
+procedure glSampleCoverage(Value: TGLfloat; invert: TGLboolean); stdcall; external glLib;
 procedure glCompressedTexImage3D(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; border: TGLint; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  depth: TGLsizei; border: TGLint; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexImage2D(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  border: TGLint; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  border: TGLint; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexImage1D(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; border: TGLint;
-  imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage3D(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; imageSize: TGLsizei;
-  Data: pointer); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage2D(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; Width: TGLsizei;
-  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage1D(target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei; format: TGLenum;
-  imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
-procedure glGetCompressedTexImage(target: TGLenum; level: TGLint; img: pointer); cdecl; external glLib;
-procedure glClientActiveTexture(texture: TGLenum); cdecl; external glLib;
-procedure glMultiTexCoord1d(target: TGLenum; s: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord1dv(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord1f(target: TGLenum; s: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord1fv(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord1i(target: TGLenum; s: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord1iv(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord1s(target: TGLenum; s: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord1sv(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord2d(target: TGLenum; s: TGLdouble; t: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord2dv(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord2f(target: TGLenum; s: TGLfloat; t: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord2fv(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord2i(target: TGLenum; s: TGLint; t: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord2iv(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord2s(target: TGLenum; s: TGLshort; t: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord2sv(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord3d(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord3dv(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord3f(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord3fv(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord3i(target: TGLenum; s: TGLint; t: TGLint; r: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord3iv(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord3s(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord3sv(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord4d(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble; q: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord4dv(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord4f(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat; q: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord4fv(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord4i(target: TGLenum; s: TGLint; t: TGLint; r: TGLint; q: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord4iv(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord4s(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort; q: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord4sv(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glLoadTransposeMatrixf(m: PGLfloat); cdecl; external glLib;
-procedure glLoadTransposeMatrixd(m: PGLdouble); cdecl; external glLib;
-procedure glMultTransposeMatrixf(m: PGLfloat); cdecl; external glLib;
-procedure glMultTransposeMatrixd(m: PGLdouble); cdecl; external glLib;
+  imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
+procedure glGetCompressedTexImage(target: TGLenum; level: TGLint; img: pointer); stdcall; external glLib;
+procedure glClientActiveTexture(texture: TGLenum); stdcall; external glLib;
+procedure glMultiTexCoord1d(target: TGLenum; s: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord1dv(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord1f(target: TGLenum; s: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord1fv(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord1i(target: TGLenum; s: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord1iv(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord1s(target: TGLenum; s: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord1sv(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord2d(target: TGLenum; s: TGLdouble; t: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord2dv(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord2f(target: TGLenum; s: TGLfloat; t: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord2fv(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord2i(target: TGLenum; s: TGLint; t: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord2iv(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord2s(target: TGLenum; s: TGLshort; t: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord2sv(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord3d(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord3dv(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord3f(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord3fv(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord3i(target: TGLenum; s: TGLint; t: TGLint; r: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord3iv(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord3s(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord3sv(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord4d(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble; q: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord4dv(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord4f(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat; q: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord4fv(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord4i(target: TGLenum; s: TGLint; t: TGLint; r: TGLint; q: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord4iv(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord4s(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort; q: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord4sv(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glLoadTransposeMatrixf(m: PGLfloat); stdcall; external glLib;
+procedure glLoadTransposeMatrixd(m: PGLdouble); stdcall; external glLib;
+procedure glMultTransposeMatrixf(m: PGLfloat); stdcall; external glLib;
+procedure glMultTransposeMatrixd(m: PGLdouble); stdcall; external glLib;
 
 const
   GL_VERSION_1_4 = 1;
@@ -301,53 +301,53 @@ const
   GL_MIN = $8007;
   GL_MAX = $8008;
 
-procedure glBlendFuncSeparate(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); cdecl; external glLib;
-procedure glMultiDrawArrays(mode: TGLenum; First: PGLint; Count: PGLsizei; drawcount: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawElements(mode: TGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; drawcount: TGLsizei); cdecl; external glLib;
-procedure glPointParameterf(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPointParameterfv(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glPointParameteri(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glPointParameteriv(pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glFogCoordf(coord: TGLfloat); cdecl; external glLib;
-procedure glFogCoordfv(coord: PGLfloat); cdecl; external glLib;
-procedure glFogCoordd(coord: TGLdouble); cdecl; external glLib;
-procedure glFogCoorddv(coord: PGLdouble); cdecl; external glLib;
-procedure glFogCoordPointer(_type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glSecondaryColor3b(red: TGLbyte; green: TGLbyte; blue: TGLbyte); cdecl; external glLib;
-procedure glSecondaryColor3bv(v: PGLbyte); cdecl; external glLib;
-procedure glSecondaryColor3d(red: TGLdouble; green: TGLdouble; blue: TGLdouble); cdecl; external glLib;
-procedure glSecondaryColor3dv(v: PGLdouble); cdecl; external glLib;
-procedure glSecondaryColor3f(red: TGLfloat; green: TGLfloat; blue: TGLfloat); cdecl; external glLib;
-procedure glSecondaryColor3fv(v: PGLfloat); cdecl; external glLib;
-procedure glSecondaryColor3i(red: TGLint; green: TGLint; blue: TGLint); cdecl; external glLib;
-procedure glSecondaryColor3iv(v: PGLint); cdecl; external glLib;
-procedure glSecondaryColor3s(red: TGLshort; green: TGLshort; blue: TGLshort); cdecl; external glLib;
-procedure glSecondaryColor3sv(v: PGLshort); cdecl; external glLib;
-procedure glSecondaryColor3ub(red: TGLubyte; green: TGLubyte; blue: TGLubyte); cdecl; external glLib;
-procedure glSecondaryColor3ubv(v: PGLubyte); cdecl; external glLib;
-procedure glSecondaryColor3ui(red: TGLuint; green: TGLuint; blue: TGLuint); cdecl; external glLib;
-procedure glSecondaryColor3uiv(v: PGLuint); cdecl; external glLib;
-procedure glSecondaryColor3us(red: TGLushort; green: TGLushort; blue: TGLushort); cdecl; external glLib;
-procedure glSecondaryColor3usv(v: PGLushort); cdecl; external glLib;
-procedure glSecondaryColorPointer(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glWindowPos2d(x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glWindowPos2dv(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos2f(x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glWindowPos2fv(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos2i(x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glWindowPos2iv(v: PGLint); cdecl; external glLib;
-procedure glWindowPos2s(x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glWindowPos2sv(v: PGLshort); cdecl; external glLib;
-procedure glWindowPos3d(x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glWindowPos3dv(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos3f(x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glWindowPos3fv(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos3i(x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glWindowPos3iv(v: PGLint); cdecl; external glLib;
-procedure glWindowPos3s(x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glWindowPos3sv(v: PGLshort); cdecl; external glLib;
-procedure glBlendColor(red: TGLfloat; green: TGLfloat; blue: TGLfloat; alpha: TGLfloat); cdecl; external glLib;
-procedure glBlendEquation(mode: TGLenum); cdecl; external glLib;
+procedure glBlendFuncSeparate(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); stdcall; external glLib;
+procedure glMultiDrawArrays(mode: TGLenum; First: PGLint; Count: PGLsizei; drawcount: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawElements(mode: TGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; drawcount: TGLsizei); stdcall; external glLib;
+procedure glPointParameterf(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPointParameterfv(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glPointParameteri(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glPointParameteriv(pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glFogCoordf(coord: TGLfloat); stdcall; external glLib;
+procedure glFogCoordfv(coord: PGLfloat); stdcall; external glLib;
+procedure glFogCoordd(coord: TGLdouble); stdcall; external glLib;
+procedure glFogCoorddv(coord: PGLdouble); stdcall; external glLib;
+procedure glFogCoordPointer(_type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glSecondaryColor3b(red: TGLbyte; green: TGLbyte; blue: TGLbyte); stdcall; external glLib;
+procedure glSecondaryColor3bv(v: PGLbyte); stdcall; external glLib;
+procedure glSecondaryColor3d(red: TGLdouble; green: TGLdouble; blue: TGLdouble); stdcall; external glLib;
+procedure glSecondaryColor3dv(v: PGLdouble); stdcall; external glLib;
+procedure glSecondaryColor3f(red: TGLfloat; green: TGLfloat; blue: TGLfloat); stdcall; external glLib;
+procedure glSecondaryColor3fv(v: PGLfloat); stdcall; external glLib;
+procedure glSecondaryColor3i(red: TGLint; green: TGLint; blue: TGLint); stdcall; external glLib;
+procedure glSecondaryColor3iv(v: PGLint); stdcall; external glLib;
+procedure glSecondaryColor3s(red: TGLshort; green: TGLshort; blue: TGLshort); stdcall; external glLib;
+procedure glSecondaryColor3sv(v: PGLshort); stdcall; external glLib;
+procedure glSecondaryColor3ub(red: TGLubyte; green: TGLubyte; blue: TGLubyte); stdcall; external glLib;
+procedure glSecondaryColor3ubv(v: PGLubyte); stdcall; external glLib;
+procedure glSecondaryColor3ui(red: TGLuint; green: TGLuint; blue: TGLuint); stdcall; external glLib;
+procedure glSecondaryColor3uiv(v: PGLuint); stdcall; external glLib;
+procedure glSecondaryColor3us(red: TGLushort; green: TGLushort; blue: TGLushort); stdcall; external glLib;
+procedure glSecondaryColor3usv(v: PGLushort); stdcall; external glLib;
+procedure glSecondaryColorPointer(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glWindowPos2d(x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glWindowPos2dv(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos2f(x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glWindowPos2fv(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos2i(x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glWindowPos2iv(v: PGLint); stdcall; external glLib;
+procedure glWindowPos2s(x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glWindowPos2sv(v: PGLshort); stdcall; external glLib;
+procedure glWindowPos3d(x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glWindowPos3dv(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos3f(x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glWindowPos3fv(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos3i(x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glWindowPos3iv(v: PGLint); stdcall; external glLib;
+procedure glWindowPos3s(x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glWindowPos3sv(v: PGLshort); stdcall; external glLib;
+procedure glBlendColor(red: TGLfloat; green: TGLfloat; blue: TGLfloat; alpha: TGLfloat); stdcall; external glLib;
+procedure glBlendEquation(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_VERSION_1_5 = 1;
@@ -411,25 +411,25 @@ const
   GL_SRC0_ALPHA = $8588;
   GL_SRC2_ALPHA = $858A;
 
-procedure glGenQueries(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glDeleteQueries(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-function glIsQuery(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBeginQuery(target: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glEndQuery(target: TGLenum); cdecl; external glLib;
-procedure glGetQueryiv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetQueryObjectiv(id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetQueryObjectuiv(id: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glBindBuffer(target: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glDeleteBuffers(n: TGLsizei; buffers: PGLuint); cdecl; external glLib;
-procedure glGenBuffers(n: TGLsizei; buffers: PGLuint); cdecl; external glLib;
-function glIsBuffer(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBufferData(target: TGLenum; size: TGLsizeiptr; Data: pointer; usage: TGLenum); cdecl; external glLib;
-procedure glBufferSubData(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-procedure glGetBufferSubData(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-function glMapBuffer(target: TGLenum; access: TGLenum): pointer; cdecl; external glLib;
-function glUnmapBuffer(target: TGLenum): TGLboolean; cdecl; external glLib;
-procedure glGetBufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetBufferPointerv(target: TGLenum; pname: TGLenum; params: Ppointer); cdecl; external glLib;
+procedure glGenQueries(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glDeleteQueries(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+function glIsQuery(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBeginQuery(target: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glEndQuery(target: TGLenum); stdcall; external glLib;
+procedure glGetQueryiv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetQueryObjectiv(id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetQueryObjectuiv(id: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glBindBuffer(target: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glDeleteBuffers(n: TGLsizei; buffers: PGLuint); stdcall; external glLib;
+procedure glGenBuffers(n: TGLsizei; buffers: PGLuint); stdcall; external glLib;
+function glIsBuffer(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBufferData(target: TGLenum; size: TGLsizeiptr; Data: pointer; usage: TGLenum); stdcall; external glLib;
+procedure glBufferSubData(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+procedure glGetBufferSubData(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+function glMapBuffer(target: TGLenum; access: TGLenum): pointer; stdcall; external glLib;
+function glUnmapBuffer(target: TGLenum): TGLboolean; stdcall; external glLib;
+procedure glGetBufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetBufferPointerv(target: TGLenum; pname: TGLenum; params: Ppointer); stdcall; external glLib;
 
 const
   GL_VERSION_2_0 = 1;
@@ -525,102 +525,102 @@ const
   GL_COORD_REPLACE = $8862;
   GL_MAX_TEXTURE_COORDS = $8871;
 
-procedure glBlendEquationSeparate(modeRGB: TGLenum; modeAlpha: TGLenum); cdecl; external glLib;
-procedure glDrawBuffers(n: TGLsizei; bufs: PGLenum); cdecl; external glLib;
-procedure glStencilOpSeparate(face: TGLenum; sfail: TGLenum; dpfail: TGLenum; dppass: TGLenum); cdecl; external glLib;
-procedure glStencilFuncSeparate(face: TGLenum; func: TGLenum; ref: TGLint; mask: TGLuint); cdecl; external glLib;
-procedure glStencilMaskSeparate(face: TGLenum; mask: TGLuint); cdecl; external glLib;
-procedure glAttachShader(program_: TGLuint; shader: TGLuint); cdecl; external glLib;
-procedure glBindAttribLocation(program_: TGLuint; index: TGLuint; Name: PGLchar); cdecl; external glLib;
-procedure glCompileShader(shader: TGLuint); cdecl; external glLib;
-function glCreateProgram: TGLuint; cdecl; external glLib;
-function glCreateShader(_type: TGLenum): TGLuint; cdecl; external glLib;
-procedure glDeleteProgram(program_: TGLuint); cdecl; external glLib;
-procedure glDeleteShader(shader: TGLuint); cdecl; external glLib;
-procedure glDetachShader(program_: TGLuint; shader: TGLuint); cdecl; external glLib;
-procedure glDisableVertexAttribArray(index: TGLuint); cdecl; external glLib;
-procedure glEnableVertexAttribArray(index: TGLuint); cdecl; external glLib;
+procedure glBlendEquationSeparate(modeRGB: TGLenum; modeAlpha: TGLenum); stdcall; external glLib;
+procedure glDrawBuffers(n: TGLsizei; bufs: PGLenum); stdcall; external glLib;
+procedure glStencilOpSeparate(face: TGLenum; sfail: TGLenum; dpfail: TGLenum; dppass: TGLenum); stdcall; external glLib;
+procedure glStencilFuncSeparate(face: TGLenum; func: TGLenum; ref: TGLint; mask: TGLuint); stdcall; external glLib;
+procedure glStencilMaskSeparate(face: TGLenum; mask: TGLuint); stdcall; external glLib;
+procedure glAttachShader(program_: TGLuint; shader: TGLuint); stdcall; external glLib;
+procedure glBindAttribLocation(program_: TGLuint; index: TGLuint; Name: PGLchar); stdcall; external glLib;
+procedure glCompileShader(shader: TGLuint); stdcall; external glLib;
+function glCreateProgram: TGLuint; stdcall; external glLib;
+function glCreateShader(_type: TGLenum): TGLuint; stdcall; external glLib;
+procedure glDeleteProgram(program_: TGLuint); stdcall; external glLib;
+procedure glDeleteShader(shader: TGLuint); stdcall; external glLib;
+procedure glDetachShader(program_: TGLuint; shader: TGLuint); stdcall; external glLib;
+procedure glDisableVertexAttribArray(index: TGLuint); stdcall; external glLib;
+procedure glEnableVertexAttribArray(index: TGLuint); stdcall; external glLib;
 procedure glGetActiveAttrib(program_: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLint;
-  _type: PGLenum; Name: PGLchar); cdecl; external glLib;
+  _type: PGLenum; Name: PGLchar); stdcall; external glLib;
 procedure glGetActiveUniform(program_: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLint;
-  _type: PGLenum; Name: PGLchar); cdecl; external glLib;
-procedure glGetAttachedShaders(program_: TGLuint; maxCount: TGLsizei; Count: PGLsizei; shaders: PGLuint); cdecl; external glLib;
-function glGetAttribLocation(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glGetProgramiv(program_: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetProgramInfoLog(program_: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); cdecl; external glLib;
-procedure glGetShaderiv(shader: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetShaderInfoLog(shader: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); cdecl; external glLib;
-procedure glGetShaderSource(shader: TGLuint; bufSize: TGLsizei; length: PGLsizei; Source: PGLchar); cdecl; external glLib;
-function glGetUniformLocation(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glGetUniformfv(program_: TGLuint; location: TGLint; params: PGLfloat); cdecl; external glLib;
-procedure glGetUniformiv(program_: TGLuint; location: TGLint; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribdv(index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glGetVertexAttribfv(index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVertexAttribiv(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribPointerv(index: TGLuint; pname: TGLenum; pointer: Ppointer); cdecl; external glLib;
-function glIsProgram(program_: TGLuint): TGLboolean; cdecl; external glLib;
-function glIsShader(shader: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glLinkProgram(program_: TGLuint); cdecl; external glLib;
-procedure glShaderSource(shader: TGLuint; Count: TGLsizei; _string: PPGLchar; length: PGLint); cdecl; external glLib;
-procedure glUseProgram(program_: TGLuint); cdecl; external glLib;
-procedure glUniform1f(location: TGLint; v0: TGLfloat); cdecl; external glLib;
-procedure glUniform2f(location: TGLint; v0: TGLfloat; v1: TGLfloat); cdecl; external glLib;
-procedure glUniform3f(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); cdecl; external glLib;
-procedure glUniform4f(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat; v3: TGLfloat); cdecl; external glLib;
-procedure glUniform1i(location: TGLint; v0: TGLint); cdecl; external glLib;
-procedure glUniform2i(location: TGLint; v0: TGLint; v1: TGLint); cdecl; external glLib;
-procedure glUniform3i(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); cdecl; external glLib;
-procedure glUniform4i(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint; v3: TGLint); cdecl; external glLib;
-procedure glUniform1fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform2fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform3fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform4fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform1iv(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform2iv(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform3iv(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform4iv(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniformMatrix2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glValidateProgram(program_: TGLuint); cdecl; external glLib;
-procedure glVertexAttrib1d(index: TGLuint; x: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1f(index: TGLuint; x: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1fv(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1s(index: TGLuint; x: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib1sv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib2d(index: TGLuint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2f(index: TGLuint; x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2fv(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2s(index: TGLuint; x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib2sv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib3d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3f(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3fv(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3s(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib3sv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4Nbv(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttrib4Niv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttrib4Nsv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4Nub(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4Nubv(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4Nuiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttrib4Nusv(index: TGLuint; v: PGLushort); cdecl; external glLib;
-procedure glVertexAttrib4bv(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttrib4d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4f(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4fv(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4iv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttrib4s(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib4sv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4ubv(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4uiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttrib4usv(index: TGLuint; v: PGLushort); cdecl; external glLib;
+  _type: PGLenum; Name: PGLchar); stdcall; external glLib;
+procedure glGetAttachedShaders(program_: TGLuint; maxCount: TGLsizei; Count: PGLsizei; shaders: PGLuint); stdcall; external glLib;
+function glGetAttribLocation(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glGetProgramiv(program_: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetProgramInfoLog(program_: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); stdcall; external glLib;
+procedure glGetShaderiv(shader: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetShaderInfoLog(shader: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); stdcall; external glLib;
+procedure glGetShaderSource(shader: TGLuint; bufSize: TGLsizei; length: PGLsizei; Source: PGLchar); stdcall; external glLib;
+function glGetUniformLocation(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glGetUniformfv(program_: TGLuint; location: TGLint; params: PGLfloat); stdcall; external glLib;
+procedure glGetUniformiv(program_: TGLuint; location: TGLint; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribdv(index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glGetVertexAttribfv(index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVertexAttribiv(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribPointerv(index: TGLuint; pname: TGLenum; pointer: Ppointer); stdcall; external glLib;
+function glIsProgram(program_: TGLuint): TGLboolean; stdcall; external glLib;
+function glIsShader(shader: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glLinkProgram(program_: TGLuint); stdcall; external glLib;
+procedure glShaderSource(shader: TGLuint; Count: TGLsizei; _string: PPGLchar; length: PGLint); stdcall; external glLib;
+procedure glUseProgram(program_: TGLuint); stdcall; external glLib;
+procedure glUniform1f(location: TGLint; v0: TGLfloat); stdcall; external glLib;
+procedure glUniform2f(location: TGLint; v0: TGLfloat; v1: TGLfloat); stdcall; external glLib;
+procedure glUniform3f(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); stdcall; external glLib;
+procedure glUniform4f(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat; v3: TGLfloat); stdcall; external glLib;
+procedure glUniform1i(location: TGLint; v0: TGLint); stdcall; external glLib;
+procedure glUniform2i(location: TGLint; v0: TGLint; v1: TGLint); stdcall; external glLib;
+procedure glUniform3i(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); stdcall; external glLib;
+procedure glUniform4i(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint; v3: TGLint); stdcall; external glLib;
+procedure glUniform1fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform2fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform3fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform4fv(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform1iv(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform2iv(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform3iv(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform4iv(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniformMatrix2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glValidateProgram(program_: TGLuint); stdcall; external glLib;
+procedure glVertexAttrib1d(index: TGLuint; x: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1f(index: TGLuint; x: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1fv(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1s(index: TGLuint; x: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib1sv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib2d(index: TGLuint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2f(index: TGLuint; x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2fv(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2s(index: TGLuint; x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib2sv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib3d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3f(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3fv(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3s(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib3sv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4Nbv(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttrib4Niv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttrib4Nsv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4Nub(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4Nubv(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4Nuiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttrib4Nusv(index: TGLuint; v: PGLushort); stdcall; external glLib;
+procedure glVertexAttrib4bv(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttrib4d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4f(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4fv(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4iv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttrib4s(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib4sv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4ubv(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4uiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttrib4usv(index: TGLuint; v: PGLushort); stdcall; external glLib;
 procedure glVertexAttribPointer(index: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; stride: TGLsizei;
-  pointer: pointer); cdecl; external glLib;
+  pointer: pointer); stdcall; external glLib;
 
 const
   GL_VERSION_2_1 = 1;
@@ -648,12 +648,12 @@ const
   GL_COMPRESSED_SLUMINANCE = $8C4A;
   GL_COMPRESSED_SLUMINANCE_ALPHA = $8C4B;
 
-procedure glUniformMatrix2x3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix3x2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix2x4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix4x2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix3x4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix4x3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
+procedure glUniformMatrix2x3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix3x2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix2x4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix4x2fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix3x4fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix4x3fv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
 
 const
   GL_VERSION_3_0 = 1;
@@ -901,93 +901,93 @@ const
   GL_CLAMP_FRAGMENT_COLOR = $891B;
   GL_ALPHA_INTEGER = $8D97;
 
-procedure glColorMaski(index: TGLuint; r: TGLboolean; g: TGLboolean; b: TGLboolean; a: TGLboolean); cdecl; external glLib;
-procedure glGetBooleani_v(target: TGLenum; index: TGLuint; Data: PGLboolean); cdecl; external glLib;
-procedure glGetIntegeri_v(target: TGLenum; index: TGLuint; Data: PGLint); cdecl; external glLib;
-procedure glEnablei(target: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glDisablei(target: TGLenum; index: TGLuint); cdecl; external glLib;
-function glIsEnabledi(target: TGLenum; index: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBeginTransformFeedback(primitiveMode: TGLenum); cdecl; external glLib;
-procedure glEndTransformFeedback; cdecl; external glLib;
-procedure glBindBufferRange(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glBindBufferBase(target: TGLenum; index: TGLuint; buffer: TGLuint); cdecl; external glLib;
-procedure glTransformFeedbackVaryings(program_: TGLuint; Count: TGLsizei; varyings: PPGLchar; bufferMode: TGLenum); cdecl; external glLib;
+procedure glColorMaski(index: TGLuint; r: TGLboolean; g: TGLboolean; b: TGLboolean; a: TGLboolean); stdcall; external glLib;
+procedure glGetBooleani_v(target: TGLenum; index: TGLuint; Data: PGLboolean); stdcall; external glLib;
+procedure glGetIntegeri_v(target: TGLenum; index: TGLuint; Data: PGLint); stdcall; external glLib;
+procedure glEnablei(target: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glDisablei(target: TGLenum; index: TGLuint); stdcall; external glLib;
+function glIsEnabledi(target: TGLenum; index: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBeginTransformFeedback(primitiveMode: TGLenum); stdcall; external glLib;
+procedure glEndTransformFeedback; stdcall; external glLib;
+procedure glBindBufferRange(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glBindBufferBase(target: TGLenum; index: TGLuint; buffer: TGLuint); stdcall; external glLib;
+procedure glTransformFeedbackVaryings(program_: TGLuint; Count: TGLsizei; varyings: PPGLchar; bufferMode: TGLenum); stdcall; external glLib;
 procedure glGetTransformFeedbackVarying(program_: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLsizei;
-  _type: PGLenum; Name: PGLchar); cdecl; external glLib;
-procedure glClampColor(target: TGLenum; clamp: TGLenum); cdecl; external glLib;
-procedure glBeginConditionalRender(id: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glEndConditionalRender; cdecl; external glLib;
-procedure glVertexAttribIPointer(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glGetVertexAttribIiv(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribIuiv(index: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI1i(index: TGLuint; x: TGLint); cdecl; external glLib;
-procedure glVertexAttribI2i(index: TGLuint; x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glVertexAttribI3i(index: TGLuint; x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glVertexAttribI4i(index: TGLuint; x: TGLint; y: TGLint; z: TGLint; w: TGLint); cdecl; external glLib;
-procedure glVertexAttribI1ui(index: TGLuint; x: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI2ui(index: TGLuint; x: TGLuint; y: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI3ui(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI4ui(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint; w: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI1iv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI2iv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI3iv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI4iv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI1uiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI2uiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI3uiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI4uiv(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI4bv(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttribI4sv(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribI4ubv(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttribI4usv(index: TGLuint; v: PGLushort); cdecl; external glLib;
-procedure glGetUniformuiv(program_: TGLuint; location: TGLint; params: PGLuint); cdecl; external glLib;
-procedure glBindFragDataLocation(program_: TGLuint; color: TGLuint; Name: PGLchar); cdecl; external glLib;
-function glGetFragDataLocation(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glUniform1ui(location: TGLint; v0: TGLuint); cdecl; external glLib;
-procedure glUniform2ui(location: TGLint; v0: TGLuint; v1: TGLuint); cdecl; external glLib;
-procedure glUniform3ui(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); cdecl; external glLib;
-procedure glUniform4ui(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint; v3: TGLuint); cdecl; external glLib;
-procedure glUniform1uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform2uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform3uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform4uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glTexParameterIiv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glTexParameterIuiv(target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetTexParameterIiv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTexParameterIuiv(target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glClearBufferiv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLint); cdecl; external glLib;
-procedure glClearBufferuiv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLuint); cdecl; external glLib;
-procedure glClearBufferfv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLfloat); cdecl; external glLib;
-procedure glClearBufferfi(buffer: TGLenum; drawbuffer: TGLint; depth: TGLfloat; stencil: TGLint); cdecl; external glLib;
-function glGetStringi(Name: TGLenum; index: TGLuint): PGLubyte; cdecl; external glLib;
-function glIsRenderbuffer(renderbuffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBindRenderbuffer(target: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glDeleteRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); cdecl; external glLib;
-procedure glGenRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); cdecl; external glLib;
-procedure glRenderbufferStorage(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glGetRenderbufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-function glIsFramebuffer(framebuffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBindFramebuffer(target: TGLenum; framebuffer: TGLuint); cdecl; external glLib;
-procedure glDeleteFramebuffers(n: TGLsizei; framebuffers: PGLuint); cdecl; external glLib;
-procedure glGenFramebuffers(n: TGLsizei; framebuffers: PGLuint); cdecl; external glLib;
-function glCheckFramebufferStatus(target: TGLenum): TGLenum; cdecl; external glLib;
-procedure glFramebufferTexture1D(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glFramebufferTexture2D(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
+  _type: PGLenum; Name: PGLchar); stdcall; external glLib;
+procedure glClampColor(target: TGLenum; clamp: TGLenum); stdcall; external glLib;
+procedure glBeginConditionalRender(id: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glEndConditionalRender; stdcall; external glLib;
+procedure glVertexAttribIPointer(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glGetVertexAttribIiv(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribIuiv(index: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI1i(index: TGLuint; x: TGLint); stdcall; external glLib;
+procedure glVertexAttribI2i(index: TGLuint; x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glVertexAttribI3i(index: TGLuint; x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glVertexAttribI4i(index: TGLuint; x: TGLint; y: TGLint; z: TGLint; w: TGLint); stdcall; external glLib;
+procedure glVertexAttribI1ui(index: TGLuint; x: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI2ui(index: TGLuint; x: TGLuint; y: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI3ui(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI4ui(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint; w: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI1iv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI2iv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI3iv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI4iv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI1uiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI2uiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI3uiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI4uiv(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI4bv(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttribI4sv(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribI4ubv(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttribI4usv(index: TGLuint; v: PGLushort); stdcall; external glLib;
+procedure glGetUniformuiv(program_: TGLuint; location: TGLint; params: PGLuint); stdcall; external glLib;
+procedure glBindFragDataLocation(program_: TGLuint; color: TGLuint; Name: PGLchar); stdcall; external glLib;
+function glGetFragDataLocation(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glUniform1ui(location: TGLint; v0: TGLuint); stdcall; external glLib;
+procedure glUniform2ui(location: TGLint; v0: TGLuint; v1: TGLuint); stdcall; external glLib;
+procedure glUniform3ui(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); stdcall; external glLib;
+procedure glUniform4ui(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint; v3: TGLuint); stdcall; external glLib;
+procedure glUniform1uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform2uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform3uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform4uiv(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glTexParameterIiv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glTexParameterIuiv(target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetTexParameterIiv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTexParameterIuiv(target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glClearBufferiv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLint); stdcall; external glLib;
+procedure glClearBufferuiv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLuint); stdcall; external glLib;
+procedure glClearBufferfv(buffer: TGLenum; drawbuffer: TGLint; Value: PGLfloat); stdcall; external glLib;
+procedure glClearBufferfi(buffer: TGLenum; drawbuffer: TGLint; depth: TGLfloat; stencil: TGLint); stdcall; external glLib;
+function glGetStringi(Name: TGLenum; index: TGLuint): PGLubyte; stdcall; external glLib;
+function glIsRenderbuffer(renderbuffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBindRenderbuffer(target: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glDeleteRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); stdcall; external glLib;
+procedure glGenRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); stdcall; external glLib;
+procedure glRenderbufferStorage(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glGetRenderbufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+function glIsFramebuffer(framebuffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBindFramebuffer(target: TGLenum; framebuffer: TGLuint); stdcall; external glLib;
+procedure glDeleteFramebuffers(n: TGLsizei; framebuffers: PGLuint); stdcall; external glLib;
+procedure glGenFramebuffers(n: TGLsizei; framebuffers: PGLuint); stdcall; external glLib;
+function glCheckFramebufferStatus(target: TGLenum): TGLenum; stdcall; external glLib;
+procedure glFramebufferTexture1D(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glFramebufferTexture2D(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
 procedure glFramebufferTexture3D(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint;
-  zoffset: TGLint); cdecl; external glLib;
-procedure glFramebufferRenderbuffer(target: TGLenum; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glGetFramebufferAttachmentParameteriv(target: TGLenum; attachment: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGenerateMipmap(target: TGLenum); cdecl; external glLib;
+  zoffset: TGLint); stdcall; external glLib;
+procedure glFramebufferRenderbuffer(target: TGLenum; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glGetFramebufferAttachmentParameteriv(target: TGLenum; attachment: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGenerateMipmap(target: TGLenum); stdcall; external glLib;
 procedure glBlitFramebuffer(srcX0: TGLint; srcY0: TGLint; srcX1: TGLint; srcY1: TGLint; dstX0: TGLint;
-  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
-procedure glRenderbufferStorageMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glFramebufferTextureLayer(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); cdecl; external glLib;
-function glMapBufferRange(target: TGLenum; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; cdecl; external glLib;
-procedure glFlushMappedBufferRange(target: TGLenum; offset: TGLintptr; length: TGLsizeiptr); cdecl; external glLib;
-procedure glBindVertexArray(array_: TGLuint); cdecl; external glLib;
-procedure glDeleteVertexArrays(n: TGLsizei; arrays: PGLuint); cdecl; external glLib;
-procedure glGenVertexArrays(n: TGLsizei; arrays: PGLuint); cdecl; external glLib;
-function glIsVertexArray(array_: TGLuint): TGLboolean; cdecl; external glLib;
+  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
+procedure glRenderbufferStorageMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glFramebufferTextureLayer(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); stdcall; external glLib;
+function glMapBufferRange(target: TGLenum; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; stdcall; external glLib;
+procedure glFlushMappedBufferRange(target: TGLenum; offset: TGLintptr; length: TGLsizeiptr); stdcall; external glLib;
+procedure glBindVertexArray(array_: TGLuint); stdcall; external glLib;
+procedure glDeleteVertexArrays(n: TGLsizei; arrays: PGLuint); stdcall; external glLib;
+procedure glGenVertexArrays(n: TGLsizei; arrays: PGLuint); stdcall; external glLib;
+function glIsVertexArray(array_: TGLuint): TGLboolean; stdcall; external glLib;
 
 const
   GL_VERSION_3_1 = 1;
@@ -1053,18 +1053,18 @@ const
   GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = $8A46;
   GL_INVALID_INDEX = $FFFFFFFF;
 
-procedure glDrawArraysInstanced(mode: TGLenum; First: TGLint; Count: TGLsizei; instancecount: TGLsizei); cdecl; external glLib;
-procedure glDrawElementsInstanced(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; instancecount: TGLsizei); cdecl; external glLib;
-procedure glTexBuffer(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glPrimitiveRestartIndex(index: TGLuint); cdecl; external glLib;
-procedure glCopyBufferSubData(readTarget: TGLenum; writeTarget: TGLenum; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glGetUniformIndices(program_: TGLuint; uniformCount: TGLsizei; uniformNames: PPGLchar; uniformIndices: PGLuint); cdecl; external glLib;
-procedure glGetActiveUniformsiv(program_: TGLuint; uniformCount: TGLsizei; uniformIndices: PGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetActiveUniformName(program_: TGLuint; uniformIndex: TGLuint; bufSize: TGLsizei; length: PGLsizei; uniformName: PGLchar); cdecl; external glLib;
-function glGetUniformBlockIndex(program_: TGLuint; uniformBlockName: PGLchar): TGLuint; cdecl; external glLib;
-procedure glGetActiveUniformBlockiv(program_: TGLuint; uniformBlockIndex: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetActiveUniformBlockName(program_: TGLuint; uniformBlockIndex: TGLuint; bufSize: TGLsizei; length: PGLsizei; uniformBlockName: PGLchar); cdecl; external glLib;
-procedure glUniformBlockBinding(program_: TGLuint; uniformBlockIndex: TGLuint; uniformBlockBinding: TGLuint); cdecl; external glLib;
+procedure glDrawArraysInstanced(mode: TGLenum; First: TGLint; Count: TGLsizei; instancecount: TGLsizei); stdcall; external glLib;
+procedure glDrawElementsInstanced(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; instancecount: TGLsizei); stdcall; external glLib;
+procedure glTexBuffer(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glPrimitiveRestartIndex(index: TGLuint); stdcall; external glLib;
+procedure glCopyBufferSubData(readTarget: TGLenum; writeTarget: TGLenum; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glGetUniformIndices(program_: TGLuint; uniformCount: TGLsizei; uniformNames: PPGLchar; uniformIndices: PGLuint); stdcall; external glLib;
+procedure glGetActiveUniformsiv(program_: TGLuint; uniformCount: TGLsizei; uniformIndices: PGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetActiveUniformName(program_: TGLuint; uniformIndex: TGLuint; bufSize: TGLsizei; length: PGLsizei; uniformName: PGLchar); stdcall; external glLib;
+function glGetUniformBlockIndex(program_: TGLuint; uniformBlockName: PGLchar): TGLuint; stdcall; external glLib;
+procedure glGetActiveUniformBlockiv(program_: TGLuint; uniformBlockIndex: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetActiveUniformBlockName(program_: TGLuint; uniformBlockIndex: TGLuint; bufSize: TGLsizei; length: PGLsizei; uniformBlockName: PGLchar); stdcall; external glLib;
+procedure glUniformBlockBinding(program_: TGLuint; uniformBlockIndex: TGLuint; uniformBlockBinding: TGLuint); stdcall; external glLib;
 
 const
   GL_VERSION_3_2 = 1;
@@ -1145,30 +1145,30 @@ const
   GL_MAX_DEPTH_TEXTURE_SAMPLES = $910F;
   GL_MAX_INTEGER_SAMPLES = $9110;
 
-procedure glDrawElementsBaseVertex(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; basevertex: TGLint); cdecl; external glLib;
+procedure glDrawElementsBaseVertex(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; basevertex: TGLint); stdcall; external glLib;
 procedure glDrawRangeElementsBaseVertex(mode: TGLenum; start: TGLuint; end_: TGLuint; Count: TGLsizei; _type: TGLenum;
-  indices: pointer; basevertex: TGLint); cdecl; external glLib;
+  indices: pointer; basevertex: TGLint); stdcall; external glLib;
 procedure glDrawElementsInstancedBaseVertex(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; instancecount: TGLsizei;
-  basevertex: TGLint); cdecl; external glLib;
+  basevertex: TGLint); stdcall; external glLib;
 procedure glMultiDrawElementsBaseVertex(mode: TGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; drawcount: TGLsizei;
-  basevertex: PGLint); cdecl; external glLib;
-procedure glProvokingVertex(mode: TGLenum); cdecl; external glLib;
-function glFenceSync(condition: TGLenum; flags: TGLbitfield): TGLsync; cdecl; external glLib;
-function glIsSync(sync: TGLsync): TGLboolean; cdecl; external glLib;
-procedure glDeleteSync(sync: TGLsync); cdecl; external glLib;
-function glClientWaitSync(sync: TGLsync; flags: TGLbitfield; timeout: TGLuint64): TGLenum; cdecl; external glLib;
-procedure glWaitSync(sync: TGLsync; flags: TGLbitfield; timeout: TGLuint64); cdecl; external glLib;
-procedure glGetInteger64v(pname: TGLenum; Data: PGLint64); cdecl; external glLib;
-procedure glGetSynciv(sync: TGLsync; pname: TGLenum; Count: TGLsizei; length: PGLsizei; values: PGLint); cdecl; external glLib;
-procedure glGetInteger64i_v(target: TGLenum; index: TGLuint; Data: PGLint64); cdecl; external glLib;
-procedure glGetBufferParameteri64v(target: TGLenum; pname: TGLenum; params: PGLint64); cdecl; external glLib;
-procedure glFramebufferTexture(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
+  basevertex: PGLint); stdcall; external glLib;
+procedure glProvokingVertex(mode: TGLenum); stdcall; external glLib;
+function glFenceSync(condition: TGLenum; flags: TGLbitfield): TGLsync; stdcall; external glLib;
+function glIsSync(sync: TGLsync): TGLboolean; stdcall; external glLib;
+procedure glDeleteSync(sync: TGLsync); stdcall; external glLib;
+function glClientWaitSync(sync: TGLsync; flags: TGLbitfield; timeout: TGLuint64): TGLenum; stdcall; external glLib;
+procedure glWaitSync(sync: TGLsync; flags: TGLbitfield; timeout: TGLuint64); stdcall; external glLib;
+procedure glGetInteger64v(pname: TGLenum; Data: PGLint64); stdcall; external glLib;
+procedure glGetSynciv(sync: TGLsync; pname: TGLenum; Count: TGLsizei; length: PGLsizei; values: PGLint); stdcall; external glLib;
+procedure glGetInteger64i_v(target: TGLenum; index: TGLuint; Data: PGLint64); stdcall; external glLib;
+procedure glGetBufferParameteri64v(target: TGLenum; pname: TGLenum; params: PGLint64); stdcall; external glLib;
+procedure glFramebufferTexture(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
 procedure glTexImage2DMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTexImage3DMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; fixedsamplelocations: TGLboolean); cdecl; external glLib;
-procedure glGetMultisamplefv(pname: TGLenum; index: TGLuint; val: PGLfloat); cdecl; external glLib;
-procedure glSampleMaski(maskNumber: TGLuint; mask: TGLbitfield); cdecl; external glLib;
+  depth: TGLsizei; fixedsamplelocations: TGLboolean); stdcall; external glLib;
+procedure glGetMultisamplefv(pname: TGLenum; index: TGLuint; val: PGLfloat); stdcall; external glLib;
+procedure glSampleMaski(maskNumber: TGLuint; mask: TGLbitfield); stdcall; external glLib;
 
 const
   GL_VERSION_3_3 = 1;
@@ -1189,64 +1189,64 @@ const
   GL_TIMESTAMP = $8E28;
   GL_INT_2_10_10_10_REV = $8D9F;
 
-procedure glBindFragDataLocationIndexed(program_: TGLuint; colorNumber: TGLuint; index: TGLuint; Name: PGLchar); cdecl; external glLib;
-function glGetFragDataIndex(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glGenSamplers(Count: TGLsizei; samplers: PGLuint); cdecl; external glLib;
-procedure glDeleteSamplers(Count: TGLsizei; samplers: PGLuint); cdecl; external glLib;
-function glIsSampler(sampler: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBindSampler(unit_: TGLuint; sampler: TGLuint); cdecl; external glLib;
-procedure glSamplerParameteri(sampler: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glSamplerParameteriv(sampler: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glSamplerParameterf(sampler: TGLuint; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glSamplerParameterfv(sampler: TGLuint; pname: TGLenum; param: PGLfloat); cdecl; external glLib;
-procedure glSamplerParameterIiv(sampler: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glSamplerParameterIuiv(sampler: TGLuint; pname: TGLenum; param: PGLuint); cdecl; external glLib;
-procedure glGetSamplerParameteriv(sampler: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetSamplerParameterIiv(sampler: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetSamplerParameterfv(sampler: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetSamplerParameterIuiv(sampler: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glQueryCounter(id: TGLuint; target: TGLenum); cdecl; external glLib;
-procedure glGetQueryObjecti64v(id: TGLuint; pname: TGLenum; params: PGLint64); cdecl; external glLib;
-procedure glGetQueryObjectui64v(id: TGLuint; pname: TGLenum; params: PGLuint64); cdecl; external glLib;
-procedure glVertexAttribDivisor(index: TGLuint; divisor: TGLuint); cdecl; external glLib;
-procedure glVertexAttribP1ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); cdecl; external glLib;
-procedure glVertexAttribP1uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); cdecl; external glLib;
-procedure glVertexAttribP2ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); cdecl; external glLib;
-procedure glVertexAttribP2uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); cdecl; external glLib;
-procedure glVertexAttribP3ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); cdecl; external glLib;
-procedure glVertexAttribP3uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); cdecl; external glLib;
-procedure glVertexAttribP4ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); cdecl; external glLib;
-procedure glVertexAttribP4uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); cdecl; external glLib;
-procedure glVertexP2ui(_type: TGLenum; Value: TGLuint); cdecl; external glLib;
-procedure glVertexP2uiv(_type: TGLenum; Value: PGLuint); cdecl; external glLib;
-procedure glVertexP3ui(_type: TGLenum; Value: TGLuint); cdecl; external glLib;
-procedure glVertexP3uiv(_type: TGLenum; Value: PGLuint); cdecl; external glLib;
-procedure glVertexP4ui(_type: TGLenum; Value: TGLuint); cdecl; external glLib;
-procedure glVertexP4uiv(_type: TGLenum; Value: PGLuint); cdecl; external glLib;
-procedure glTexCoordP1ui(_type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glTexCoordP1uiv(_type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glTexCoordP2ui(_type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glTexCoordP2uiv(_type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glTexCoordP3ui(_type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glTexCoordP3uiv(_type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glTexCoordP4ui(_type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glTexCoordP4uiv(_type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP1ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP1uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP2ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP2uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP3ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP3uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP4ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glMultiTexCoordP4uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glNormalP3ui(_type: TGLenum; coords: TGLuint); cdecl; external glLib;
-procedure glNormalP3uiv(_type: TGLenum; coords: PGLuint); cdecl; external glLib;
-procedure glColorP3ui(_type: TGLenum; color: TGLuint); cdecl; external glLib;
-procedure glColorP3uiv(_type: TGLenum; color: PGLuint); cdecl; external glLib;
-procedure glColorP4ui(_type: TGLenum; color: TGLuint); cdecl; external glLib;
-procedure glColorP4uiv(_type: TGLenum; color: PGLuint); cdecl; external glLib;
-procedure glSecondaryColorP3ui(_type: TGLenum; color: TGLuint); cdecl; external glLib;
-procedure glSecondaryColorP3uiv(_type: TGLenum; color: PGLuint); cdecl; external glLib;
+procedure glBindFragDataLocationIndexed(program_: TGLuint; colorNumber: TGLuint; index: TGLuint; Name: PGLchar); stdcall; external glLib;
+function glGetFragDataIndex(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glGenSamplers(Count: TGLsizei; samplers: PGLuint); stdcall; external glLib;
+procedure glDeleteSamplers(Count: TGLsizei; samplers: PGLuint); stdcall; external glLib;
+function glIsSampler(sampler: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBindSampler(unit_: TGLuint; sampler: TGLuint); stdcall; external glLib;
+procedure glSamplerParameteri(sampler: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glSamplerParameteriv(sampler: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glSamplerParameterf(sampler: TGLuint; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glSamplerParameterfv(sampler: TGLuint; pname: TGLenum; param: PGLfloat); stdcall; external glLib;
+procedure glSamplerParameterIiv(sampler: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glSamplerParameterIuiv(sampler: TGLuint; pname: TGLenum; param: PGLuint); stdcall; external glLib;
+procedure glGetSamplerParameteriv(sampler: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetSamplerParameterIiv(sampler: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetSamplerParameterfv(sampler: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetSamplerParameterIuiv(sampler: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glQueryCounter(id: TGLuint; target: TGLenum); stdcall; external glLib;
+procedure glGetQueryObjecti64v(id: TGLuint; pname: TGLenum; params: PGLint64); stdcall; external glLib;
+procedure glGetQueryObjectui64v(id: TGLuint; pname: TGLenum; params: PGLuint64); stdcall; external glLib;
+procedure glVertexAttribDivisor(index: TGLuint; divisor: TGLuint); stdcall; external glLib;
+procedure glVertexAttribP1ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); stdcall; external glLib;
+procedure glVertexAttribP1uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); stdcall; external glLib;
+procedure glVertexAttribP2ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); stdcall; external glLib;
+procedure glVertexAttribP2uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); stdcall; external glLib;
+procedure glVertexAttribP3ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); stdcall; external glLib;
+procedure glVertexAttribP3uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); stdcall; external glLib;
+procedure glVertexAttribP4ui(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: TGLuint); stdcall; external glLib;
+procedure glVertexAttribP4uiv(index: TGLuint; _type: TGLenum; normalized: TGLboolean; Value: PGLuint); stdcall; external glLib;
+procedure glVertexP2ui(_type: TGLenum; Value: TGLuint); stdcall; external glLib;
+procedure glVertexP2uiv(_type: TGLenum; Value: PGLuint); stdcall; external glLib;
+procedure glVertexP3ui(_type: TGLenum; Value: TGLuint); stdcall; external glLib;
+procedure glVertexP3uiv(_type: TGLenum; Value: PGLuint); stdcall; external glLib;
+procedure glVertexP4ui(_type: TGLenum; Value: TGLuint); stdcall; external glLib;
+procedure glVertexP4uiv(_type: TGLenum; Value: PGLuint); stdcall; external glLib;
+procedure glTexCoordP1ui(_type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glTexCoordP1uiv(_type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glTexCoordP2ui(_type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glTexCoordP2uiv(_type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glTexCoordP3ui(_type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glTexCoordP3uiv(_type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glTexCoordP4ui(_type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glTexCoordP4uiv(_type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP1ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP1uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP2ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP2uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP3ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP3uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP4ui(texture: TGLenum; _type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glMultiTexCoordP4uiv(texture: TGLenum; _type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glNormalP3ui(_type: TGLenum; coords: TGLuint); stdcall; external glLib;
+procedure glNormalP3uiv(_type: TGLenum; coords: PGLuint); stdcall; external glLib;
+procedure glColorP3ui(_type: TGLenum; color: TGLuint); stdcall; external glLib;
+procedure glColorP3uiv(_type: TGLenum; color: PGLuint); stdcall; external glLib;
+procedure glColorP4ui(_type: TGLenum; color: TGLuint); stdcall; external glLib;
+procedure glColorP4uiv(_type: TGLenum; color: PGLuint); stdcall; external glLib;
+procedure glSecondaryColorP3ui(_type: TGLenum; color: TGLuint); stdcall; external glLib;
+procedure glSecondaryColorP3uiv(_type: TGLenum; color: PGLuint); stdcall; external glLib;
 
 const
   GL_VERSION_4_0 = 1;
@@ -1328,54 +1328,54 @@ const
   GL_TRANSFORM_FEEDBACK_BINDING = $8E25;
   GL_MAX_TRANSFORM_FEEDBACK_BUFFERS = $8E70;
 
-procedure glMinSampleShading(Value: TGLfloat); cdecl; external glLib;
-procedure glBlendEquationi(buf: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glBlendEquationSeparatei(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); cdecl; external glLib;
-procedure glBlendFunci(buf: TGLuint; src: TGLenum; dst: TGLenum); cdecl; external glLib;
-procedure glBlendFuncSeparatei(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); cdecl; external glLib;
-procedure glDrawArraysIndirect(mode: TGLenum; indirect: pointer); cdecl; external glLib;
-procedure glDrawElementsIndirect(mode: TGLenum; _type: TGLenum; indirect: pointer); cdecl; external glLib;
-procedure glUniform1d(location: TGLint; x: TGLdouble); cdecl; external glLib;
-procedure glUniform2d(location: TGLint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glUniform3d(location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glUniform4d(location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glUniform1dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glUniform2dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glUniform3dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glUniform4dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix2x3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix2x4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix3x2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix3x4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix4x2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glUniformMatrix4x3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glGetUniformdv(program_: TGLuint; location: TGLint; params: PGLdouble); cdecl; external glLib;
-function glGetSubroutineUniformLocation(program_: TGLuint; shadertype: TGLenum; Name: PGLchar): TGLint; cdecl; external glLib;
-function glGetSubroutineIndex(program_: TGLuint; shadertype: TGLenum; Name: PGLchar): TGLuint; cdecl; external glLib;
-procedure glGetActiveSubroutineUniformiv(program_: TGLuint; shadertype: TGLenum; index: TGLuint; pname: TGLenum; values: PGLint); cdecl; external glLib;
+procedure glMinSampleShading(Value: TGLfloat); stdcall; external glLib;
+procedure glBlendEquationi(buf: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glBlendEquationSeparatei(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); stdcall; external glLib;
+procedure glBlendFunci(buf: TGLuint; src: TGLenum; dst: TGLenum); stdcall; external glLib;
+procedure glBlendFuncSeparatei(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); stdcall; external glLib;
+procedure glDrawArraysIndirect(mode: TGLenum; indirect: pointer); stdcall; external glLib;
+procedure glDrawElementsIndirect(mode: TGLenum; _type: TGLenum; indirect: pointer); stdcall; external glLib;
+procedure glUniform1d(location: TGLint; x: TGLdouble); stdcall; external glLib;
+procedure glUniform2d(location: TGLint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glUniform3d(location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glUniform4d(location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glUniform1dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glUniform2dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glUniform3dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glUniform4dv(location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix2x3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix2x4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix3x2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix3x4dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix4x2dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glUniformMatrix4x3dv(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glGetUniformdv(program_: TGLuint; location: TGLint; params: PGLdouble); stdcall; external glLib;
+function glGetSubroutineUniformLocation(program_: TGLuint; shadertype: TGLenum; Name: PGLchar): TGLint; stdcall; external glLib;
+function glGetSubroutineIndex(program_: TGLuint; shadertype: TGLenum; Name: PGLchar): TGLuint; stdcall; external glLib;
+procedure glGetActiveSubroutineUniformiv(program_: TGLuint; shadertype: TGLenum; index: TGLuint; pname: TGLenum; values: PGLint); stdcall; external glLib;
 procedure glGetActiveSubroutineUniformName(program_: TGLuint; shadertype: TGLenum; index: TGLuint; bufSize: TGLsizei; length: PGLsizei;
-  Name: PGLchar); cdecl; external glLib;
+  Name: PGLchar); stdcall; external glLib;
 procedure glGetActiveSubroutineName(program_: TGLuint; shadertype: TGLenum; index: TGLuint; bufSize: TGLsizei; length: PGLsizei;
-  Name: PGLchar); cdecl; external glLib;
-procedure glUniformSubroutinesuiv(shadertype: TGLenum; Count: TGLsizei; indices: PGLuint); cdecl; external glLib;
-procedure glGetUniformSubroutineuiv(shadertype: TGLenum; location: TGLint; params: PGLuint); cdecl; external glLib;
-procedure glGetProgramStageiv(program_: TGLuint; shadertype: TGLenum; pname: TGLenum; values: PGLint); cdecl; external glLib;
-procedure glPatchParameteri(pname: TGLenum; Value: TGLint); cdecl; external glLib;
-procedure glPatchParameterfv(pname: TGLenum; values: PGLfloat); cdecl; external glLib;
-procedure glBindTransformFeedback(target: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glDeleteTransformFeedbacks(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glGenTransformFeedbacks(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-function glIsTransformFeedback(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glPauseTransformFeedback; cdecl; external glLib;
-procedure glResumeTransformFeedback; cdecl; external glLib;
-procedure glDrawTransformFeedback(mode: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glDrawTransformFeedbackStream(mode: TGLenum; id: TGLuint; stream: TGLuint); cdecl; external glLib;
-procedure glBeginQueryIndexed(target: TGLenum; index: TGLuint; id: TGLuint); cdecl; external glLib;
-procedure glEndQueryIndexed(target: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glGetQueryIndexediv(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  Name: PGLchar); stdcall; external glLib;
+procedure glUniformSubroutinesuiv(shadertype: TGLenum; Count: TGLsizei; indices: PGLuint); stdcall; external glLib;
+procedure glGetUniformSubroutineuiv(shadertype: TGLenum; location: TGLint; params: PGLuint); stdcall; external glLib;
+procedure glGetProgramStageiv(program_: TGLuint; shadertype: TGLenum; pname: TGLenum; values: PGLint); stdcall; external glLib;
+procedure glPatchParameteri(pname: TGLenum; Value: TGLint); stdcall; external glLib;
+procedure glPatchParameterfv(pname: TGLenum; values: PGLfloat); stdcall; external glLib;
+procedure glBindTransformFeedback(target: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glDeleteTransformFeedbacks(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glGenTransformFeedbacks(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+function glIsTransformFeedback(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glPauseTransformFeedback; stdcall; external glLib;
+procedure glResumeTransformFeedback; stdcall; external glLib;
+procedure glDrawTransformFeedback(mode: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glDrawTransformFeedbackStream(mode: TGLenum; id: TGLuint; stream: TGLuint); stdcall; external glLib;
+procedure glBeginQueryIndexed(target: TGLenum; index: TGLuint; id: TGLuint); stdcall; external glLib;
+procedure glEndQueryIndexed(target: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glGetQueryIndexediv(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_VERSION_4_1 = 1;
@@ -1415,98 +1415,98 @@ const
   GL_VIEWPORT_INDEX_PROVOKING_VERTEX = $825F;
   GL_UNDEFINED_VERTEX = $8260;
 
-procedure glReleaseShaderCompiler; cdecl; external glLib;
-procedure glShaderBinary(Count: TGLsizei; shaders: PGLuint; binaryFormat: TGLenum; binary: pointer; length: TGLsizei); cdecl; external glLib;
-procedure glGetShaderPrecisionFormat(shadertype: TGLenum; precisiontype: TGLenum; range: PGLint; precision: PGLint); cdecl; external glLib;
-procedure glDepthRangef(n: TGLfloat; f: TGLfloat); cdecl; external glLib;
-procedure glClearDepthf(d: TGLfloat); cdecl; external glLib;
-procedure glGetProgramBinary(program_: TGLuint; bufSize: TGLsizei; length: PGLsizei; binaryFormat: PGLenum; binary: pointer); cdecl; external glLib;
-procedure glProgramBinary(program_: TGLuint; binaryFormat: TGLenum; binary: pointer; length: TGLsizei); cdecl; external glLib;
-procedure glProgramParameteri(program_: TGLuint; pname: TGLenum; Value: TGLint); cdecl; external glLib;
-procedure glUseProgramStages(pipeline: TGLuint; stages: TGLbitfield; program_: TGLuint); cdecl; external glLib;
-procedure glActiveShaderProgram(pipeline: TGLuint; program_: TGLuint); cdecl; external glLib;
-function glCreateShaderProgramv(_type: TGLenum; Count: TGLsizei; strings: PPGLchar): TGLuint; cdecl; external glLib;
-procedure glBindProgramPipeline(pipeline: TGLuint); cdecl; external glLib;
-procedure glDeleteProgramPipelines(n: TGLsizei; pipelines: PGLuint); cdecl; external glLib;
-procedure glGenProgramPipelines(n: TGLsizei; pipelines: PGLuint); cdecl; external glLib;
-function glIsProgramPipeline(pipeline: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glGetProgramPipelineiv(pipeline: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glProgramUniform1i(program_: TGLuint; location: TGLint; v0: TGLint); cdecl; external glLib;
-procedure glProgramUniform1iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform1f(program_: TGLuint; location: TGLint; v0: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform1fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform1d(program_: TGLuint; location: TGLint; v0: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform1dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform1ui(program_: TGLuint; location: TGLint; v0: TGLuint); cdecl; external glLib;
-procedure glProgramUniform1uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniform2i(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint); cdecl; external glLib;
-procedure glProgramUniform2iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform2f(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform2d(program_: TGLuint; location: TGLint; v0: TGLdouble; v1: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform2ui(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint); cdecl; external glLib;
-procedure glProgramUniform2uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniform3i(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); cdecl; external glLib;
-procedure glProgramUniform3iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform3f(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform3d(program_: TGLuint; location: TGLint; v0: TGLdouble; v1: TGLdouble; v2: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform3ui(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); cdecl; external glLib;
-procedure glProgramUniform3uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
+procedure glReleaseShaderCompiler; stdcall; external glLib;
+procedure glShaderBinary(Count: TGLsizei; shaders: PGLuint; binaryFormat: TGLenum; binary: pointer; length: TGLsizei); stdcall; external glLib;
+procedure glGetShaderPrecisionFormat(shadertype: TGLenum; precisiontype: TGLenum; range: PGLint; precision: PGLint); stdcall; external glLib;
+procedure glDepthRangef(n: TGLfloat; f: TGLfloat); stdcall; external glLib;
+procedure glClearDepthf(d: TGLfloat); stdcall; external glLib;
+procedure glGetProgramBinary(program_: TGLuint; bufSize: TGLsizei; length: PGLsizei; binaryFormat: PGLenum; binary: pointer); stdcall; external glLib;
+procedure glProgramBinary(program_: TGLuint; binaryFormat: TGLenum; binary: pointer; length: TGLsizei); stdcall; external glLib;
+procedure glProgramParameteri(program_: TGLuint; pname: TGLenum; Value: TGLint); stdcall; external glLib;
+procedure glUseProgramStages(pipeline: TGLuint; stages: TGLbitfield; program_: TGLuint); stdcall; external glLib;
+procedure glActiveShaderProgram(pipeline: TGLuint; program_: TGLuint); stdcall; external glLib;
+function glCreateShaderProgramv(_type: TGLenum; Count: TGLsizei; strings: PPGLchar): TGLuint; stdcall; external glLib;
+procedure glBindProgramPipeline(pipeline: TGLuint); stdcall; external glLib;
+procedure glDeleteProgramPipelines(n: TGLsizei; pipelines: PGLuint); stdcall; external glLib;
+procedure glGenProgramPipelines(n: TGLsizei; pipelines: PGLuint); stdcall; external glLib;
+function glIsProgramPipeline(pipeline: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glGetProgramPipelineiv(pipeline: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glProgramUniform1i(program_: TGLuint; location: TGLint; v0: TGLint); stdcall; external glLib;
+procedure glProgramUniform1iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform1f(program_: TGLuint; location: TGLint; v0: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform1fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform1d(program_: TGLuint; location: TGLint; v0: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform1dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform1ui(program_: TGLuint; location: TGLint; v0: TGLuint); stdcall; external glLib;
+procedure glProgramUniform1uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniform2i(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint); stdcall; external glLib;
+procedure glProgramUniform2iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform2f(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform2d(program_: TGLuint; location: TGLint; v0: TGLdouble; v1: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform2ui(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint); stdcall; external glLib;
+procedure glProgramUniform2uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniform3i(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); stdcall; external glLib;
+procedure glProgramUniform3iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform3f(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform3d(program_: TGLuint; location: TGLint; v0: TGLdouble; v1: TGLdouble; v2: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform3ui(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); stdcall; external glLib;
+procedure glProgramUniform3uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
 procedure glProgramUniform4i(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint;
-  v3: TGLint); cdecl; external glLib;
-procedure glProgramUniform4iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
+  v3: TGLint); stdcall; external glLib;
+procedure glProgramUniform4iv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
 procedure glProgramUniform4f(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat;
-  v3: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
+  v3: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
 procedure glProgramUniform4d(program_: TGLuint; location: TGLint; v0: TGLdouble; v1: TGLdouble; v2: TGLdouble;
-  v3: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
+  v3: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
 procedure glProgramUniform4ui(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint;
-  v3: TGLuint); cdecl; external glLib;
-procedure glProgramUniform4uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniformMatrix2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix2x3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3x2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix2x4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4x2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3x4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4x3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix2x3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3x2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix2x4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4x2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3x4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4x3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glValidateProgramPipeline(pipeline: TGLuint); cdecl; external glLib;
-procedure glGetProgramPipelineInfoLog(pipeline: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); cdecl; external glLib;
-procedure glVertexAttribL1d(index: TGLuint; x: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL2d(index: TGLuint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL3d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL4d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL1dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL2dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL3dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL4dv(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribLPointer(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glGetVertexAttribLdv(index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glViewportArrayv(First: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glViewportIndexedf(index: TGLuint; x: TGLfloat; y: TGLfloat; w: TGLfloat; h: TGLfloat); cdecl; external glLib;
-procedure glViewportIndexedfv(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glScissorArrayv(First: TGLuint; Count: TGLsizei; v: PGLint); cdecl; external glLib;
-procedure glScissorIndexed(index: TGLuint; left: TGLint; bottom: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glScissorIndexedv(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glDepthRangeArrayv(First: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glDepthRangeIndexed(index: TGLuint; n: TGLdouble; f: TGLdouble); cdecl; external glLib;
-procedure glGetFloati_v(target: TGLenum; index: TGLuint; Data: PGLfloat); cdecl; external glLib;
-procedure glGetDoublei_v(target: TGLenum; index: TGLuint; Data: PGLdouble); cdecl; external glLib;
+  v3: TGLuint); stdcall; external glLib;
+procedure glProgramUniform4uiv(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniformMatrix2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix2x3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3x2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix2x4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4x2fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3x4fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4x3fv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix2x3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3x2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix2x4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4x2dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3x4dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4x3dv(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glValidateProgramPipeline(pipeline: TGLuint); stdcall; external glLib;
+procedure glGetProgramPipelineInfoLog(pipeline: TGLuint; bufSize: TGLsizei; length: PGLsizei; infoLog: PGLchar); stdcall; external glLib;
+procedure glVertexAttribL1d(index: TGLuint; x: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL2d(index: TGLuint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL3d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL4d(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL1dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL2dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL3dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL4dv(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribLPointer(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glGetVertexAttribLdv(index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glViewportArrayv(First: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glViewportIndexedf(index: TGLuint; x: TGLfloat; y: TGLfloat; w: TGLfloat; h: TGLfloat); stdcall; external glLib;
+procedure glViewportIndexedfv(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glScissorArrayv(First: TGLuint; Count: TGLsizei; v: PGLint); stdcall; external glLib;
+procedure glScissorIndexed(index: TGLuint; left: TGLint; bottom: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glScissorIndexedv(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glDepthRangeArrayv(First: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glDepthRangeIndexed(index: TGLuint; n: TGLdouble; f: TGLdouble); stdcall; external glLib;
+procedure glGetFloati_v(target: TGLenum; index: TGLuint; Data: PGLfloat); stdcall; external glLib;
+procedure glGetDoublei_v(target: TGLenum; index: TGLuint; Data: PGLdouble); stdcall; external glLib;
 
 const
   GL_VERSION_4_2 = 1;
@@ -1623,22 +1623,22 @@ const
   GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT = $8E8F;
   GL_TEXTURE_IMMUTABLE_FORMAT = $912F;
 
-procedure glDrawArraysInstancedBaseInstance(mode: TGLenum; First: TGLint; Count: TGLsizei; instancecount: TGLsizei; baseinstance: TGLuint); cdecl; external glLib;
+procedure glDrawArraysInstancedBaseInstance(mode: TGLenum; First: TGLint; Count: TGLsizei; instancecount: TGLsizei; baseinstance: TGLuint); stdcall; external glLib;
 procedure glDrawElementsInstancedBaseInstance(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; instancecount: TGLsizei;
-  baseinstance: TGLuint); cdecl; external glLib;
+  baseinstance: TGLuint); stdcall; external glLib;
 procedure glDrawElementsInstancedBaseVertexBaseInstance(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; instancecount: TGLsizei;
-  basevertex: TGLint; baseinstance: TGLuint); cdecl; external glLib;
-procedure glGetInternalformativ(target: TGLenum; internalformat: TGLenum; pname: TGLenum; Count: TGLsizei; params: PGLint); cdecl; external glLib;
-procedure glGetActiveAtomicCounterBufferiv(program_: TGLuint; bufferIndex: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  basevertex: TGLint; baseinstance: TGLuint); stdcall; external glLib;
+procedure glGetInternalformativ(target: TGLenum; internalformat: TGLenum; pname: TGLenum; Count: TGLsizei; params: PGLint); stdcall; external glLib;
+procedure glGetActiveAtomicCounterBufferiv(program_: TGLuint; bufferIndex: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glBindImageTexture(unit_: TGLuint; texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint;
-  access: TGLenum; format: TGLenum); cdecl; external glLib;
-procedure glMemoryBarrier(barriers: TGLbitfield); cdecl; external glLib;
-procedure glTexStorage1D(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); cdecl; external glLib;
-procedure glTexStorage2D(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  access: TGLenum; format: TGLenum); stdcall; external glLib;
+procedure glMemoryBarrier(barriers: TGLbitfield); stdcall; external glLib;
+procedure glTexStorage1D(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); stdcall; external glLib;
+procedure glTexStorage2D(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glTexStorage3D(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei); cdecl; external glLib;
-procedure glDrawTransformFeedbackInstanced(mode: TGLenum; id: TGLuint; instancecount: TGLsizei); cdecl; external glLib;
-procedure glDrawTransformFeedbackStreamInstanced(mode: TGLenum; id: TGLuint; stream: TGLuint; instancecount: TGLsizei); cdecl; external glLib;
+  depth: TGLsizei); stdcall; external glLib;
+procedure glDrawTransformFeedbackInstanced(mode: TGLenum; id: TGLuint; instancecount: TGLsizei); stdcall; external glLib;
+procedure glDrawTransformFeedbackStreamInstanced(mode: TGLenum; id: TGLuint; stream: TGLuint; instancecount: TGLsizei); stdcall; external glLib;
 
 const
   GL_VERSION_4_3 = 1;
@@ -1646,7 +1646,7 @@ const
 type
 
   TGLDEBUGPROC = procedure(Source: TGLenum; _type: TGLenum; id: TGLuint; severity: TGLenum; length: TGLsizei;
-    message: PGLchar; userParam: pointer); cdecl;
+    message: PGLchar; userParam: pointer); stdcall;
 
 const
   GL_NUM_SHADING_LANGUAGE_VERSIONS = $82E9;
@@ -1909,62 +1909,62 @@ const
   GL_VERTEX_BINDING_BUFFER = $8F4F;
   GL_DISPLAY_LIST = $82E7;
 
-procedure glClearBufferData(target: TGLenum; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); cdecl; external glLib;
+procedure glClearBufferData(target: TGLenum; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); stdcall; external glLib;
 procedure glClearBufferSubData(target: TGLenum; internalformat: TGLenum; offset: TGLintptr; size: TGLsizeiptr; format: TGLenum;
-  _type: TGLenum; Data: pointer); cdecl; external glLib;
-procedure glDispatchCompute(num_groups_x: TGLuint; num_groups_y: TGLuint; num_groups_z: TGLuint); cdecl; external glLib;
-procedure glDispatchComputeIndirect(indirect: TGLintptr); cdecl; external glLib;
+  _type: TGLenum; Data: pointer); stdcall; external glLib;
+procedure glDispatchCompute(num_groups_x: TGLuint; num_groups_y: TGLuint; num_groups_z: TGLuint); stdcall; external glLib;
+procedure glDispatchComputeIndirect(indirect: TGLintptr); stdcall; external glLib;
 procedure glCopyImageSubData(srcName: TGLuint; srcTarget: TGLenum; srcLevel: TGLint; srcX: TGLint; srcY: TGLint;
   srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum; dstLevel: TGLint; dstX: TGLint;
-  dstY: TGLint; dstZ: TGLint; srcWidth: TGLsizei; srcHeight: TGLsizei; srcDepth: TGLsizei); cdecl; external glLib;
-procedure glFramebufferParameteri(target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glGetFramebufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetInternalformati64v(target: TGLenum; internalformat: TGLenum; pname: TGLenum; Count: TGLsizei; params: PGLint64); cdecl; external glLib;
+  dstY: TGLint; dstZ: TGLint; srcWidth: TGLsizei; srcHeight: TGLsizei; srcDepth: TGLsizei); stdcall; external glLib;
+procedure glFramebufferParameteri(target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glGetFramebufferParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetInternalformati64v(target: TGLenum; internalformat: TGLenum; pname: TGLenum; Count: TGLsizei; params: PGLint64); stdcall; external glLib;
 procedure glInvalidateTexSubImage(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei); cdecl; external glLib;
-procedure glInvalidateTexImage(texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glInvalidateBufferSubData(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); cdecl; external glLib;
-procedure glInvalidateBufferData(buffer: TGLuint); cdecl; external glLib;
-procedure glInvalidateFramebuffer(target: TGLenum; numAttachments: TGLsizei; attachments: PGLenum); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei); stdcall; external glLib;
+procedure glInvalidateTexImage(texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glInvalidateBufferSubData(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); stdcall; external glLib;
+procedure glInvalidateBufferData(buffer: TGLuint); stdcall; external glLib;
+procedure glInvalidateFramebuffer(target: TGLenum; numAttachments: TGLsizei; attachments: PGLenum); stdcall; external glLib;
 procedure glInvalidateSubFramebuffer(target: TGLenum; numAttachments: TGLsizei; attachments: PGLenum; x: TGLint; y: TGLint;
-  Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawArraysIndirect(mode: TGLenum; indirect: pointer; drawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawElementsIndirect(mode: TGLenum; _type: TGLenum; indirect: pointer; drawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
-procedure glGetProgramInterfaceiv(program_: TGLuint; programInterface: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-function glGetProgramResourceIndex(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLuint; cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawArraysIndirect(mode: TGLenum; indirect: pointer; drawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawElementsIndirect(mode: TGLenum; _type: TGLenum; indirect: pointer; drawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
+procedure glGetProgramInterfaceiv(program_: TGLuint; programInterface: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+function glGetProgramResourceIndex(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLuint; stdcall; external glLib;
 procedure glGetProgramResourceName(program_: TGLuint; programInterface: TGLenum; index: TGLuint; bufSize: TGLsizei; length: PGLsizei;
-  Name: PGLchar); cdecl; external glLib;
+  Name: PGLchar); stdcall; external glLib;
 procedure glGetProgramResourceiv(program_: TGLuint; programInterface: TGLenum; index: TGLuint; propCount: TGLsizei; props: PGLenum;
-  Count: TGLsizei; length: PGLsizei; params: PGLint); cdecl; external glLib;
-function glGetProgramResourceLocation(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLint; cdecl; external glLib;
-function glGetProgramResourceLocationIndex(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glShaderStorageBlockBinding(program_: TGLuint; storageBlockIndex: TGLuint; storageBlockBinding: TGLuint); cdecl; external glLib;
-procedure glTexBufferRange(target: TGLenum; internalformat: TGLenum; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
+  Count: TGLsizei; length: PGLsizei; params: PGLint); stdcall; external glLib;
+function glGetProgramResourceLocation(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLint; stdcall; external glLib;
+function glGetProgramResourceLocationIndex(program_: TGLuint; programInterface: TGLenum; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glShaderStorageBlockBinding(program_: TGLuint; storageBlockIndex: TGLuint; storageBlockBinding: TGLuint); stdcall; external glLib;
+procedure glTexBufferRange(target: TGLenum; internalformat: TGLenum; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
 procedure glTexStorage2DMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTexStorage3DMultisample(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  depth: TGLsizei; fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTextureView(texture: TGLuint; target: TGLenum; origtexture: TGLuint; internalformat: TGLenum; minlevel: TGLuint;
-  numlevels: TGLuint; minlayer: TGLuint; numlayers: TGLuint); cdecl; external glLib;
-procedure glBindVertexBuffer(bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); cdecl; external glLib;
-procedure glVertexAttribFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexAttribIFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexAttribLFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexAttribBinding(attribindex: TGLuint; bindingindex: TGLuint); cdecl; external glLib;
-procedure glVertexBindingDivisor(bindingindex: TGLuint; divisor: TGLuint); cdecl; external glLib;
+  numlevels: TGLuint; minlayer: TGLuint; numlayers: TGLuint); stdcall; external glLib;
+procedure glBindVertexBuffer(bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); stdcall; external glLib;
+procedure glVertexAttribFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexAttribIFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexAttribLFormat(attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexAttribBinding(attribindex: TGLuint; bindingindex: TGLuint); stdcall; external glLib;
+procedure glVertexBindingDivisor(bindingindex: TGLuint; divisor: TGLuint); stdcall; external glLib;
 procedure glDebugMessageControl(Source: TGLenum; _type: TGLenum; severity: TGLenum; Count: TGLsizei; ids: PGLuint;
-  Enabled: TGLboolean); cdecl; external glLib;
+  Enabled: TGLboolean); stdcall; external glLib;
 procedure glDebugMessageInsert(Source: TGLenum; _type: TGLenum; id: TGLuint; severity: TGLenum; length: TGLsizei;
-  buf: PGLchar); cdecl; external glLib;
-procedure glDebugMessageCallback(callback: TGLDEBUGPROC; userParam: pointer); cdecl; external glLib;
+  buf: PGLchar); stdcall; external glLib;
+procedure glDebugMessageCallback(callback: TGLDEBUGPROC; userParam: pointer); stdcall; external glLib;
 function glGetDebugMessageLog(Count: TGLuint; bufSize: TGLsizei; sources: PGLenum; types: PGLenum; ids: PGLuint;
-  severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): TGLuint; cdecl; external glLib;
-procedure glPushDebugGroup(Source: TGLenum; id: TGLuint; length: TGLsizei; message: PGLchar); cdecl; external glLib;
-procedure glPopDebugGroup; cdecl; external glLib;
-procedure glObjectLabel(identifier: TGLenum; Name: TGLuint; length: TGLsizei; _label: PGLchar); cdecl; external glLib;
-procedure glGetObjectLabel(identifier: TGLenum; Name: TGLuint; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); cdecl; external glLib;
-procedure glObjectPtrLabel(ptr: pointer; length: TGLsizei; _label: PGLchar); cdecl; external glLib;
-procedure glGetObjectPtrLabel(ptr: pointer; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); cdecl; external glLib;
+  severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): TGLuint; stdcall; external glLib;
+procedure glPushDebugGroup(Source: TGLenum; id: TGLuint; length: TGLsizei; message: PGLchar); stdcall; external glLib;
+procedure glPopDebugGroup; stdcall; external glLib;
+procedure glObjectLabel(identifier: TGLenum; Name: TGLuint; length: TGLsizei; _label: PGLchar); stdcall; external glLib;
+procedure glGetObjectLabel(identifier: TGLenum; Name: TGLuint; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); stdcall; external glLib;
+procedure glObjectPtrLabel(ptr: pointer; length: TGLsizei; _label: PGLchar); stdcall; external glLib;
+procedure glGetObjectPtrLabel(ptr: pointer; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); stdcall; external glLib;
 
 const
   GL_VERSION_4_4 = 1;
@@ -1988,18 +1988,18 @@ const
   GL_QUERY_RESULT_NO_WAIT = $9194;
   GL_MIRROR_CLAMP_TO_EDGE = $8743;
 
-procedure glBufferStorage(target: TGLenum; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); cdecl; external glLib;
-procedure glClearTexImage(texture: TGLuint; level: TGLint; format: TGLenum; _type: TGLenum; Data: pointer); cdecl; external glLib;
+procedure glBufferStorage(target: TGLenum; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); stdcall; external glLib;
+procedure glClearTexImage(texture: TGLuint; level: TGLint; format: TGLenum; _type: TGLenum; Data: pointer); stdcall; external glLib;
 procedure glClearTexSubImage(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; _type: TGLenum;
-  Data: pointer); cdecl; external glLib;
-procedure glBindBuffersBase(target: TGLenum; First: TGLuint; Count: TGLsizei; buffers: PGLuint); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
+procedure glBindBuffersBase(target: TGLenum; First: TGLuint; Count: TGLsizei; buffers: PGLuint); stdcall; external glLib;
 procedure glBindBuffersRange(target: TGLenum; First: TGLuint; Count: TGLsizei; buffers: PGLuint; offsets: PGLintptr;
-  sizes: PGLsizeiptr); cdecl; external glLib;
-procedure glBindTextures(First: TGLuint; Count: TGLsizei; textures: PGLuint); cdecl; external glLib;
-procedure glBindSamplers(First: TGLuint; Count: TGLsizei; samplers: PGLuint); cdecl; external glLib;
-procedure glBindImageTextures(First: TGLuint; Count: TGLsizei; textures: PGLuint); cdecl; external glLib;
-procedure glBindVertexBuffers(First: TGLuint; Count: TGLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); cdecl; external glLib;
+  sizes: PGLsizeiptr); stdcall; external glLib;
+procedure glBindTextures(First: TGLuint; Count: TGLsizei; textures: PGLuint); stdcall; external glLib;
+procedure glBindSamplers(First: TGLuint; Count: TGLsizei; samplers: PGLuint); stdcall; external glLib;
+procedure glBindImageTextures(First: TGLuint; Count: TGLsizei; textures: PGLuint); stdcall; external glLib;
+procedure glBindVertexBuffers(First: TGLuint; Count: TGLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); stdcall; external glLib;
 
 const
   GL_VERSION_4_5 = 1;
@@ -2038,157 +2038,157 @@ const
   GL_CONTEXT_RELEASE_BEHAVIOR = $82FB;
   GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = $82FC;
 
-procedure glClipControl(origin: TGLenum; depth: TGLenum); cdecl; external glLib;
-procedure glCreateTransformFeedbacks(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glTransformFeedbackBufferBase(xfb: TGLuint; index: TGLuint; buffer: TGLuint); cdecl; external glLib;
-procedure glTransformFeedbackBufferRange(xfb: TGLuint; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glGetTransformFeedbackiv(xfb: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetTransformFeedbacki_v(xfb: TGLuint; pname: TGLenum; index: TGLuint; param: PGLint); cdecl; external glLib;
-procedure glGetTransformFeedbacki64_v(xfb: TGLuint; pname: TGLenum; index: TGLuint; param: PGLint64); cdecl; external glLib;
-procedure glCreateBuffers(n: TGLsizei; buffers: PGLuint); cdecl; external glLib;
-procedure glNamedBufferStorage(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); cdecl; external glLib;
-procedure glNamedBufferData(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; usage: TGLenum); cdecl; external glLib;
-procedure glNamedBufferSubData(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-procedure glCopyNamedBufferSubData(readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glClearNamedBufferData(buffer: TGLuint; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); cdecl; external glLib;
+procedure glClipControl(origin: TGLenum; depth: TGLenum); stdcall; external glLib;
+procedure glCreateTransformFeedbacks(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glTransformFeedbackBufferBase(xfb: TGLuint; index: TGLuint; buffer: TGLuint); stdcall; external glLib;
+procedure glTransformFeedbackBufferRange(xfb: TGLuint; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glGetTransformFeedbackiv(xfb: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetTransformFeedbacki_v(xfb: TGLuint; pname: TGLenum; index: TGLuint; param: PGLint); stdcall; external glLib;
+procedure glGetTransformFeedbacki64_v(xfb: TGLuint; pname: TGLenum; index: TGLuint; param: PGLint64); stdcall; external glLib;
+procedure glCreateBuffers(n: TGLsizei; buffers: PGLuint); stdcall; external glLib;
+procedure glNamedBufferStorage(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); stdcall; external glLib;
+procedure glNamedBufferData(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; usage: TGLenum); stdcall; external glLib;
+procedure glNamedBufferSubData(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+procedure glCopyNamedBufferSubData(readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glClearNamedBufferData(buffer: TGLuint; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); stdcall; external glLib;
 procedure glClearNamedBufferSubData(buffer: TGLuint; internalformat: TGLenum; offset: TGLintptr; size: TGLsizeiptr; format: TGLenum;
-  _type: TGLenum; Data: pointer); cdecl; external glLib;
-function glMapNamedBuffer(buffer: TGLuint; access: TGLenum): pointer; cdecl; external glLib;
-function glMapNamedBufferRange(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; cdecl; external glLib;
-function glUnmapNamedBuffer(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glFlushMappedNamedBufferRange(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); cdecl; external glLib;
-procedure glGetNamedBufferParameteriv(buffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetNamedBufferParameteri64v(buffer: TGLuint; pname: TGLenum; params: PGLint64); cdecl; external glLib;
-procedure glGetNamedBufferPointerv(buffer: TGLuint; pname: TGLenum; params: Ppointer); cdecl; external glLib;
-procedure glGetNamedBufferSubData(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-procedure glCreateFramebuffers(n: TGLsizei; framebuffers: PGLuint); cdecl; external glLib;
-procedure glNamedFramebufferRenderbuffer(framebuffer: TGLuint; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glNamedFramebufferParameteri(framebuffer: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferTexture(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferTextureLayer(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferDrawBuffer(framebuffer: TGLuint; buf: TGLenum); cdecl; external glLib;
-procedure glNamedFramebufferDrawBuffers(framebuffer: TGLuint; n: TGLsizei; bufs: PGLenum); cdecl; external glLib;
-procedure glNamedFramebufferReadBuffer(framebuffer: TGLuint; src: TGLenum); cdecl; external glLib;
-procedure glInvalidateNamedFramebufferData(framebuffer: TGLuint; numAttachments: TGLsizei; attachments: PGLenum); cdecl; external glLib;
+  _type: TGLenum; Data: pointer); stdcall; external glLib;
+function glMapNamedBuffer(buffer: TGLuint; access: TGLenum): pointer; stdcall; external glLib;
+function glMapNamedBufferRange(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; stdcall; external glLib;
+function glUnmapNamedBuffer(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glFlushMappedNamedBufferRange(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); stdcall; external glLib;
+procedure glGetNamedBufferParameteriv(buffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetNamedBufferParameteri64v(buffer: TGLuint; pname: TGLenum; params: PGLint64); stdcall; external glLib;
+procedure glGetNamedBufferPointerv(buffer: TGLuint; pname: TGLenum; params: Ppointer); stdcall; external glLib;
+procedure glGetNamedBufferSubData(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+procedure glCreateFramebuffers(n: TGLsizei; framebuffers: PGLuint); stdcall; external glLib;
+procedure glNamedFramebufferRenderbuffer(framebuffer: TGLuint; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glNamedFramebufferParameteri(framebuffer: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferTexture(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferTextureLayer(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferDrawBuffer(framebuffer: TGLuint; buf: TGLenum); stdcall; external glLib;
+procedure glNamedFramebufferDrawBuffers(framebuffer: TGLuint; n: TGLsizei; bufs: PGLenum); stdcall; external glLib;
+procedure glNamedFramebufferReadBuffer(framebuffer: TGLuint; src: TGLenum); stdcall; external glLib;
+procedure glInvalidateNamedFramebufferData(framebuffer: TGLuint; numAttachments: TGLsizei; attachments: PGLenum); stdcall; external glLib;
 procedure glInvalidateNamedFramebufferSubData(framebuffer: TGLuint; numAttachments: TGLsizei; attachments: PGLenum; x: TGLint; y: TGLint;
-  Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glClearNamedFramebufferiv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLint); cdecl; external glLib;
-procedure glClearNamedFramebufferuiv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLuint); cdecl; external glLib;
-procedure glClearNamedFramebufferfv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLfloat); cdecl; external glLib;
-procedure glClearNamedFramebufferfi(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; depth: TGLfloat; stencil: TGLint); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glClearNamedFramebufferiv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLint); stdcall; external glLib;
+procedure glClearNamedFramebufferuiv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLuint); stdcall; external glLib;
+procedure glClearNamedFramebufferfv(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; Value: PGLfloat); stdcall; external glLib;
+procedure glClearNamedFramebufferfi(framebuffer: TGLuint; buffer: TGLenum; drawbuffer: TGLint; depth: TGLfloat; stencil: TGLint); stdcall; external glLib;
 procedure glBlitNamedFramebuffer(readFramebuffer: TGLuint; drawFramebuffer: TGLuint; srcX0: TGLint; srcY0: TGLint; srcX1: TGLint;
   srcY1: TGLint; dstX0: TGLint; dstY0: TGLint; dstX1: TGLint; dstY1: TGLint;
-  mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
-function glCheckNamedFramebufferStatus(framebuffer: TGLuint; target: TGLenum): TGLenum; cdecl; external glLib;
-procedure glGetNamedFramebufferParameteriv(framebuffer: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetNamedFramebufferAttachmentParameteriv(framebuffer: TGLuint; attachment: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCreateRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); cdecl; external glLib;
-procedure glNamedRenderbufferStorage(renderbuffer: TGLuint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glNamedRenderbufferStorageMultisample(renderbuffer: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glGetNamedRenderbufferParameteriv(renderbuffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCreateTextures(target: TGLenum; n: TGLsizei; textures: PGLuint); cdecl; external glLib;
-procedure glTextureBuffer(texture: TGLuint; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glTextureBufferRange(texture: TGLuint; internalformat: TGLenum; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glTextureStorage1D(texture: TGLuint; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); cdecl; external glLib;
-procedure glTextureStorage2D(texture: TGLuint; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
+function glCheckNamedFramebufferStatus(framebuffer: TGLuint; target: TGLenum): TGLenum; stdcall; external glLib;
+procedure glGetNamedFramebufferParameteriv(framebuffer: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetNamedFramebufferAttachmentParameteriv(framebuffer: TGLuint; attachment: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCreateRenderbuffers(n: TGLsizei; renderbuffers: PGLuint); stdcall; external glLib;
+procedure glNamedRenderbufferStorage(renderbuffer: TGLuint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glNamedRenderbufferStorageMultisample(renderbuffer: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glGetNamedRenderbufferParameteriv(renderbuffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCreateTextures(target: TGLenum; n: TGLsizei; textures: PGLuint); stdcall; external glLib;
+procedure glTextureBuffer(texture: TGLuint; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glTextureBufferRange(texture: TGLuint; internalformat: TGLenum; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glTextureStorage1D(texture: TGLuint; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); stdcall; external glLib;
+procedure glTextureStorage2D(texture: TGLuint; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glTextureStorage3D(texture: TGLuint; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei); cdecl; external glLib;
+  depth: TGLsizei); stdcall; external glLib;
 procedure glTextureStorage2DMultisample(texture: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTextureStorage3DMultisample(texture: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  depth: TGLsizei; fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTextureSubImage1D(texture: TGLuint; level: TGLint; xoffset: TGLint; Width: TGLsizei; format: TGLenum;
-  _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTextureSubImage2D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; Width: TGLsizei;
-  Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTextureSubImage3D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage1D(texture: TGLuint; level: TGLint; xoffset: TGLint; Width: TGLsizei; format: TGLenum;
-  imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage2D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; Width: TGLsizei;
-  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage3D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; imageSize: TGLsizei;
-  Data: pointer); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
 procedure glCopyTextureSubImage1D(texture: TGLuint; level: TGLint; xoffset: TGLint; x: TGLint; y: TGLint;
-  Width: TGLsizei); cdecl; external glLib;
+  Width: TGLsizei); stdcall; external glLib;
 procedure glCopyTextureSubImage2D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; x: TGLint;
-  y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glCopyTextureSubImage3D(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glTextureParameterf(texture: TGLuint; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glTextureParameterfv(texture: TGLuint; pname: TGLenum; param: PGLfloat); cdecl; external glLib;
-procedure glTextureParameteri(texture: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glTextureParameterIiv(texture: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glTextureParameterIuiv(texture: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glTextureParameteriv(texture: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGenerateTextureMipmap(texture: TGLuint); cdecl; external glLib;
-procedure glBindTextureUnit(unit_: TGLuint; texture: TGLuint); cdecl; external glLib;
+  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glTextureParameterf(texture: TGLuint; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glTextureParameterfv(texture: TGLuint; pname: TGLenum; param: PGLfloat); stdcall; external glLib;
+procedure glTextureParameteri(texture: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glTextureParameterIiv(texture: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glTextureParameterIuiv(texture: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glTextureParameteriv(texture: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGenerateTextureMipmap(texture: TGLuint); stdcall; external glLib;
+procedure glBindTextureUnit(unit_: TGLuint; texture: TGLuint); stdcall; external glLib;
 procedure glGetTextureImage(texture: TGLuint; level: TGLint; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  pixels: pointer); cdecl; external glLib;
-procedure glGetCompressedTextureImage(texture: TGLuint; level: TGLint; bufSize: TGLsizei; pixels: pointer); cdecl; external glLib;
-procedure glGetTextureLevelParameterfv(texture: TGLuint; level: TGLint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetTextureLevelParameteriv(texture: TGLuint; level: TGLint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTextureParameterfv(texture: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetTextureParameterIiv(texture: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTextureParameterIuiv(texture: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetTextureParameteriv(texture: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCreateVertexArrays(n: TGLsizei; arrays: PGLuint); cdecl; external glLib;
-procedure glDisableVertexArrayAttrib(vaobj: TGLuint; index: TGLuint); cdecl; external glLib;
-procedure glEnableVertexArrayAttrib(vaobj: TGLuint; index: TGLuint); cdecl; external glLib;
-procedure glVertexArrayElementBuffer(vaobj: TGLuint; buffer: TGLuint); cdecl; external glLib;
-procedure glVertexArrayVertexBuffer(vaobj: TGLuint; bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
+procedure glGetCompressedTextureImage(texture: TGLuint; level: TGLint; bufSize: TGLsizei; pixels: pointer); stdcall; external glLib;
+procedure glGetTextureLevelParameterfv(texture: TGLuint; level: TGLint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetTextureLevelParameteriv(texture: TGLuint; level: TGLint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTextureParameterfv(texture: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetTextureParameterIiv(texture: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTextureParameterIuiv(texture: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetTextureParameteriv(texture: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCreateVertexArrays(n: TGLsizei; arrays: PGLuint); stdcall; external glLib;
+procedure glDisableVertexArrayAttrib(vaobj: TGLuint; index: TGLuint); stdcall; external glLib;
+procedure glEnableVertexArrayAttrib(vaobj: TGLuint; index: TGLuint); stdcall; external glLib;
+procedure glVertexArrayElementBuffer(vaobj: TGLuint; buffer: TGLuint); stdcall; external glLib;
+procedure glVertexArrayVertexBuffer(vaobj: TGLuint; bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); stdcall; external glLib;
 procedure glVertexArrayVertexBuffers(vaobj: TGLuint; First: TGLuint; Count: TGLsizei; buffers: PGLuint; offsets: PGLintptr;
-  strides: PGLsizei); cdecl; external glLib;
-procedure glVertexArrayAttribBinding(vaobj: TGLuint; attribindex: TGLuint; bindingindex: TGLuint); cdecl; external glLib;
+  strides: PGLsizei); stdcall; external glLib;
+procedure glVertexArrayAttribBinding(vaobj: TGLuint; attribindex: TGLuint; bindingindex: TGLuint); stdcall; external glLib;
 procedure glVertexArrayAttribFormat(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean;
-  relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayAttribIFormat(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayAttribLFormat(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayBindingDivisor(vaobj: TGLuint; bindingindex: TGLuint; divisor: TGLuint); cdecl; external glLib;
-procedure glGetVertexArrayiv(vaobj: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetVertexArrayIndexediv(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetVertexArrayIndexed64iv(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint64); cdecl; external glLib;
-procedure glCreateSamplers(n: TGLsizei; samplers: PGLuint); cdecl; external glLib;
-procedure glCreateProgramPipelines(n: TGLsizei; pipelines: PGLuint); cdecl; external glLib;
-procedure glCreateQueries(target: TGLenum; n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glGetQueryBufferObjecti64v(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); cdecl; external glLib;
-procedure glGetQueryBufferObjectiv(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); cdecl; external glLib;
-procedure glGetQueryBufferObjectui64v(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); cdecl; external glLib;
-procedure glGetQueryBufferObjectuiv(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); cdecl; external glLib;
-procedure glMemoryBarrierByRegion(barriers: TGLbitfield); cdecl; external glLib;
+  relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayAttribIFormat(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayAttribLFormat(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayBindingDivisor(vaobj: TGLuint; bindingindex: TGLuint; divisor: TGLuint); stdcall; external glLib;
+procedure glGetVertexArrayiv(vaobj: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetVertexArrayIndexediv(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetVertexArrayIndexed64iv(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint64); stdcall; external glLib;
+procedure glCreateSamplers(n: TGLsizei; samplers: PGLuint); stdcall; external glLib;
+procedure glCreateProgramPipelines(n: TGLsizei; pipelines: PGLuint); stdcall; external glLib;
+procedure glCreateQueries(target: TGLenum; n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glGetQueryBufferObjecti64v(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); stdcall; external glLib;
+procedure glGetQueryBufferObjectiv(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); stdcall; external glLib;
+procedure glGetQueryBufferObjectui64v(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); stdcall; external glLib;
+procedure glGetQueryBufferObjectuiv(id: TGLuint; buffer: TGLuint; pname: TGLenum; offset: TGLintptr); stdcall; external glLib;
+procedure glMemoryBarrierByRegion(barriers: TGLbitfield); stdcall; external glLib;
 procedure glGetTextureSubImage(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; _type: TGLenum;
-  bufSize: TGLsizei; pixels: pointer); cdecl; external glLib;
+  bufSize: TGLsizei; pixels: pointer); stdcall; external glLib;
 procedure glGetCompressedTextureSubImage(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; bufSize: TGLsizei; pixels: pointer); cdecl; external glLib;
-function glGetGraphicsResetStatus: TGLenum; cdecl; external glLib;
-procedure glGetnCompressedTexImage(target: TGLenum; lod: TGLint; bufSize: TGLsizei; pixels: pointer); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; bufSize: TGLsizei; pixels: pointer); stdcall; external glLib;
+function glGetGraphicsResetStatus: TGLenum; stdcall; external glLib;
+procedure glGetnCompressedTexImage(target: TGLenum; lod: TGLint; bufSize: TGLsizei; pixels: pointer); stdcall; external glLib;
 procedure glGetnTexImage(target: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  pixels: pointer); cdecl; external glLib;
-procedure glGetnUniformdv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLdouble); cdecl; external glLib;
-procedure glGetnUniformfv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLfloat); cdecl; external glLib;
-procedure glGetnUniformiv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint); cdecl; external glLib;
-procedure glGetnUniformuiv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
+procedure glGetnUniformdv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLdouble); stdcall; external glLib;
+procedure glGetnUniformfv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLfloat); stdcall; external glLib;
+procedure glGetnUniformiv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint); stdcall; external glLib;
+procedure glGetnUniformuiv(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint); stdcall; external glLib;
 procedure glReadnPixels(x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; bufSize: TGLsizei; Data: pointer); cdecl; external glLib;
-procedure glGetnMapdv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glGetnMapfv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glGetnMapiv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLint); cdecl; external glLib;
-procedure glGetnPixelMapfv(map: TGLenum; bufSize: TGLsizei; values: PGLfloat); cdecl; external glLib;
-procedure glGetnPixelMapuiv(map: TGLenum; bufSize: TGLsizei; values: PGLuint); cdecl; external glLib;
-procedure glGetnPixelMapusv(map: TGLenum; bufSize: TGLsizei; values: PGLushort); cdecl; external glLib;
-procedure glGetnPolygonStipple(bufSize: TGLsizei; pattern: PGLubyte); cdecl; external glLib;
-procedure glGetnColorTable(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; table: pointer); cdecl; external glLib;
-procedure glGetnConvolutionFilter(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; image: pointer); cdecl; external glLib;
+  _type: TGLenum; bufSize: TGLsizei; Data: pointer); stdcall; external glLib;
+procedure glGetnMapdv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glGetnMapfv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glGetnMapiv(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLint); stdcall; external glLib;
+procedure glGetnPixelMapfv(map: TGLenum; bufSize: TGLsizei; values: PGLfloat); stdcall; external glLib;
+procedure glGetnPixelMapuiv(map: TGLenum; bufSize: TGLsizei; values: PGLuint); stdcall; external glLib;
+procedure glGetnPixelMapusv(map: TGLenum; bufSize: TGLsizei; values: PGLushort); stdcall; external glLib;
+procedure glGetnPolygonStipple(bufSize: TGLsizei; pattern: PGLubyte); stdcall; external glLib;
+procedure glGetnColorTable(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; table: pointer); stdcall; external glLib;
+procedure glGetnConvolutionFilter(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; image: pointer); stdcall; external glLib;
 procedure glGetnSeparableFilter(target: TGLenum; format: TGLenum; _type: TGLenum; rowBufSize: TGLsizei; row: pointer;
-  columnBufSize: TGLsizei; column: pointer; span: pointer); cdecl; external glLib;
+  columnBufSize: TGLsizei; column: pointer; span: pointer); stdcall; external glLib;
 procedure glGetnHistogram(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  values: pointer); cdecl; external glLib;
+  values: pointer); stdcall; external glLib;
 procedure glGetnMinmax(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  values: pointer); cdecl; external glLib;
-procedure glTextureBarrier; cdecl; external glLib;
+  values: pointer); stdcall; external glLib;
+procedure glTextureBarrier; stdcall; external glLib;
 
 const
   GL_VERSION_4_6 = 1;
@@ -2215,11 +2215,11 @@ const
   GL_TRANSFORM_FEEDBACK_OVERFLOW = $82EC;
   GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW = $82ED;
 
-procedure glSpecializeShader(shader: TGLuint; pEntryPoint: PGLchar; numSpecializationConstants: TGLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); cdecl; external glLib;
-procedure glMultiDrawArraysIndirectCount(mode: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
+procedure glSpecializeShader(shader: TGLuint; pEntryPoint: PGLchar; numSpecializationConstants: TGLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); stdcall; external glLib;
+procedure glMultiDrawArraysIndirectCount(mode: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
 procedure glMultiDrawElementsIndirectCount(mode: TGLenum; _type: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei;
-  stride: TGLsizei); cdecl; external glLib;
-procedure glPolygonOffsetClamp(factor: TGLfloat; units: TGLfloat; clamp: TGLfloat); cdecl; external glLib;
+  stride: TGLsizei); stdcall; external glLib;
+procedure glPolygonOffsetClamp(factor: TGLfloat; units: TGLfloat; clamp: TGLfloat); stdcall; external glLib;
 
 const
   GL_ARB_ES2_compatibility = 1;
@@ -2230,7 +2230,7 @@ const
   GL_MULTISAMPLE_LINE_WIDTH_GRANULARITY_ARB = $9382;
 
 procedure glPrimitiveBoundingBoxARB(minX: TGLfloat; minY: TGLfloat; minZ: TGLfloat; minW: TGLfloat; maxX: TGLfloat;
-  maxY: TGLfloat; maxZ: TGLfloat; maxW: TGLfloat); cdecl; external glLib;
+  maxY: TGLfloat; maxZ: TGLfloat; maxW: TGLfloat); stdcall; external glLib;
 
 const
   GL_ARB_ES3_compatibility = 1;
@@ -2245,22 +2245,22 @@ type
 const
   GL_UNSIGNED_INT64_ARB = $140F;
 
-function glGetTextureHandleARB(texture: TGLuint): TGLuint64; cdecl; external glLib;
-function glGetTextureSamplerHandleARB(texture: TGLuint; sampler: TGLuint): TGLuint64; cdecl; external glLib;
-procedure glMakeTextureHandleResidentARB(handle: TGLuint64); cdecl; external glLib;
-procedure glMakeTextureHandleNonResidentARB(handle: TGLuint64); cdecl; external glLib;
-function glGetImageHandleARB(texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint; format: TGLenum): TGLuint64; cdecl; external glLib;
-procedure glMakeImageHandleResidentARB(handle: TGLuint64; access: TGLenum); cdecl; external glLib;
-procedure glMakeImageHandleNonResidentARB(handle: TGLuint64); cdecl; external glLib;
-procedure glUniformHandleui64ARB(location: TGLint; Value: TGLuint64); cdecl; external glLib;
-procedure glUniformHandleui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glProgramUniformHandleui64ARB(program_: TGLuint; location: TGLint; Value: TGLuint64); cdecl; external glLib;
-procedure glProgramUniformHandleui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; values: PGLuint64); cdecl; external glLib;
-function glIsTextureHandleResidentARB(handle: TGLuint64): TGLboolean; cdecl; external glLib;
-function glIsImageHandleResidentARB(handle: TGLuint64): TGLboolean; cdecl; external glLib;
-procedure glVertexAttribL1ui64ARB(index: TGLuint; x: TGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL1ui64vARB(index: TGLuint; v: PGLuint64EXT); cdecl; external glLib;
-procedure glGetVertexAttribLui64vARB(index: TGLuint; pname: TGLenum; params: PGLuint64EXT); cdecl; external glLib;
+function glGetTextureHandleARB(texture: TGLuint): TGLuint64; stdcall; external glLib;
+function glGetTextureSamplerHandleARB(texture: TGLuint; sampler: TGLuint): TGLuint64; stdcall; external glLib;
+procedure glMakeTextureHandleResidentARB(handle: TGLuint64); stdcall; external glLib;
+procedure glMakeTextureHandleNonResidentARB(handle: TGLuint64); stdcall; external glLib;
+function glGetImageHandleARB(texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint; format: TGLenum): TGLuint64; stdcall; external glLib;
+procedure glMakeImageHandleResidentARB(handle: TGLuint64; access: TGLenum); stdcall; external glLib;
+procedure glMakeImageHandleNonResidentARB(handle: TGLuint64); stdcall; external glLib;
+procedure glUniformHandleui64ARB(location: TGLint; Value: TGLuint64); stdcall; external glLib;
+procedure glUniformHandleui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glProgramUniformHandleui64ARB(program_: TGLuint; location: TGLint; Value: TGLuint64); stdcall; external glLib;
+procedure glProgramUniformHandleui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; values: PGLuint64); stdcall; external glLib;
+function glIsTextureHandleResidentARB(handle: TGLuint64): TGLboolean; stdcall; external glLib;
+function glIsImageHandleResidentARB(handle: TGLuint64): TGLboolean; stdcall; external glLib;
+procedure glVertexAttribL1ui64ARB(index: TGLuint; x: TGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL1ui64vARB(index: TGLuint; v: PGLuint64EXT); stdcall; external glLib;
+procedure glGetVertexAttribLui64vARB(index: TGLuint; pname: TGLenum; params: PGLuint64EXT); stdcall; external glLib;
 
 const
   GL_ARB_blend_func_extended = 1;
@@ -2283,7 +2283,7 @@ const
   GL_SYNC_CL_EVENT_ARB = $8240;
   GL_SYNC_CL_EVENT_COMPLETE_ARB = $8241;
 
-function glCreateSyncFromCLeventARB(context: Pcl_context; event: Pcl_event; flags: TGLbitfield): TGLsync; cdecl; external glLib;
+function glCreateSyncFromCLeventARB(context: Pcl_context; event: Pcl_event; flags: TGLbitfield): TGLsync; stdcall; external glLib;
 
 const
   GL_ARB_clear_buffer_object = 1;
@@ -2296,7 +2296,7 @@ const
   GL_CLAMP_READ_COLOR_ARB = $891C;
   GL_FIXED_ONLY_ARB = $891D;
 
-procedure glClampColorARB(target: TGLenum; clamp: TGLenum); cdecl; external glLib;
+procedure glClampColorARB(target: TGLenum; clamp: TGLenum); stdcall; external glLib;
 
 const
   GL_ARB_compatibility = 1;
@@ -2309,7 +2309,7 @@ const
   GL_MAX_COMPUTE_FIXED_GROUP_SIZE_ARB = $91BF;
 
 procedure glDispatchComputeGroupSizeARB(num_groups_x: TGLuint; num_groups_y: TGLuint; num_groups_z: TGLuint; group_size_x: TGLuint; group_size_y: TGLuint;
-  group_size_z: TGLuint); cdecl; external glLib;
+  group_size_z: TGLuint); stdcall; external glLib;
 
 const
   GL_ARB_conditional_render_inverted = 1;
@@ -2322,7 +2322,7 @@ const
 type
 
   TGLDEBUGPROCARB = procedure(Source: TGLenum; _type: TGLenum; id: TGLuint; severity: TGLenum; length: TGLsizei;
-    message: PGLchar; userParam: pointer); cdecl;
+    message: PGLchar; userParam: pointer); stdcall;
 
 const
   GL_DEBUG_OUTPUT_SYNCHRONOUS_ARB = $8242;
@@ -2349,12 +2349,12 @@ const
   GL_DEBUG_SEVERITY_LOW_ARB = $9148;
 
 procedure glDebugMessageControlARB(Source: TGLenum; _type: TGLenum; severity: TGLenum; Count: TGLsizei; ids: PGLuint;
-  Enabled: TGLboolean); cdecl; external glLib;
+  Enabled: TGLboolean); stdcall; external glLib;
 procedure glDebugMessageInsertARB(Source: TGLenum; _type: TGLenum; id: TGLuint; severity: TGLenum; length: TGLsizei;
-  buf: PGLchar); cdecl; external glLib;
-procedure glDebugMessageCallbackARB(callback: TGLDEBUGPROCARB; userParam: pointer); cdecl; external glLib;
+  buf: PGLchar); stdcall; external glLib;
+procedure glDebugMessageCallbackARB(callback: TGLDEBUGPROCARB; userParam: pointer); stdcall; external glLib;
 function glGetDebugMessageLogARB(Count: TGLuint; bufSize: TGLsizei; sources: PGLenum; types: PGLenum; ids: PGLuint;
-  severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): TGLuint; cdecl; external glLib;
+  severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): TGLuint; stdcall; external glLib;
 
 const
   GL_ARB_depth_buffer_float = 1;
@@ -2386,23 +2386,23 @@ const
   GL_DRAW_BUFFER14_ARB = $8833;
   GL_DRAW_BUFFER15_ARB = $8834;
 
-procedure glDrawBuffersARB(n: TGLsizei; bufs: PGLenum); cdecl; external glLib;
+procedure glDrawBuffersARB(n: TGLsizei; bufs: PGLenum); stdcall; external glLib;
 
 const
   GL_ARB_draw_buffers_blend = 1;
 
-procedure glBlendEquationiARB(buf: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glBlendEquationSeparateiARB(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); cdecl; external glLib;
-procedure glBlendFunciARB(buf: TGLuint; src: TGLenum; dst: TGLenum); cdecl; external glLib;
-procedure glBlendFuncSeparateiARB(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); cdecl; external glLib;
+procedure glBlendEquationiARB(buf: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glBlendEquationSeparateiARB(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); stdcall; external glLib;
+procedure glBlendFunciARB(buf: TGLuint; src: TGLenum; dst: TGLenum); stdcall; external glLib;
+procedure glBlendFuncSeparateiARB(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); stdcall; external glLib;
 
 const
   GL_ARB_draw_elements_base_vertex = 1;
   GL_ARB_draw_indirect = 1;
   GL_ARB_draw_instanced = 1;
 
-procedure glDrawArraysInstancedARB(mode: TGLenum; First: TGLint; Count: TGLsizei; primcount: TGLsizei); cdecl; external glLib;
-procedure glDrawElementsInstancedARB(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; primcount: TGLsizei); cdecl; external glLib;
+procedure glDrawArraysInstancedARB(mode: TGLenum; First: TGLint; Count: TGLsizei; primcount: TGLsizei); stdcall; external glLib;
+procedure glDrawElementsInstancedARB(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; primcount: TGLsizei); stdcall; external glLib;
 
 const
   GL_ARB_enhanced_layouts = 1;
@@ -2490,29 +2490,29 @@ const
   GL_MATRIX30_ARB = $88DE;
   GL_MATRIX31_ARB = $88DF;
 
-procedure glProgramStringARB(target: TGLenum; format: TGLenum; len: TGLsizei; _string: pointer); cdecl; external glLib;
-procedure glBindProgramARB(target: TGLenum; program_: TGLuint); cdecl; external glLib;
-procedure glDeleteProgramsARB(n: TGLsizei; programs: PGLuint); cdecl; external glLib;
-procedure glGenProgramsARB(n: TGLsizei; programs: PGLuint); cdecl; external glLib;
+procedure glProgramStringARB(target: TGLenum; format: TGLenum; len: TGLsizei; _string: pointer); stdcall; external glLib;
+procedure glBindProgramARB(target: TGLenum; program_: TGLuint); stdcall; external glLib;
+procedure glDeleteProgramsARB(n: TGLsizei; programs: PGLuint); stdcall; external glLib;
+procedure glGenProgramsARB(n: TGLsizei; programs: PGLuint); stdcall; external glLib;
 procedure glProgramEnvParameter4dARB(target: TGLenum; index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble;
-  w: TGLdouble); cdecl; external glLib;
-procedure glProgramEnvParameter4dvARB(target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
+  w: TGLdouble); stdcall; external glLib;
+procedure glProgramEnvParameter4dvARB(target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
 procedure glProgramEnvParameter4fARB(target: TGLenum; index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat;
-  w: TGLfloat); cdecl; external glLib;
-procedure glProgramEnvParameter4fvARB(target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
+  w: TGLfloat); stdcall; external glLib;
+procedure glProgramEnvParameter4fvARB(target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
 procedure glProgramLocalParameter4dARB(target: TGLenum; index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble;
-  w: TGLdouble); cdecl; external glLib;
-procedure glProgramLocalParameter4dvARB(target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
+  w: TGLdouble); stdcall; external glLib;
+procedure glProgramLocalParameter4dvARB(target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
 procedure glProgramLocalParameter4fARB(target: TGLenum; index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat;
-  w: TGLfloat); cdecl; external glLib;
-procedure glProgramLocalParameter4fvARB(target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetProgramEnvParameterdvARB(target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
-procedure glGetProgramEnvParameterfvARB(target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetProgramLocalParameterdvARB(target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
-procedure glGetProgramLocalParameterfvARB(target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetProgramivARB(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetProgramStringARB(target: TGLenum; pname: TGLenum; _string: pointer); cdecl; external glLib;
-function glIsProgramARB(program_: TGLuint): TGLboolean; cdecl; external glLib;
+  w: TGLfloat); stdcall; external glLib;
+procedure glProgramLocalParameter4fvARB(target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetProgramEnvParameterdvARB(target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
+procedure glGetProgramEnvParameterfvARB(target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetProgramLocalParameterdvARB(target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
+procedure glGetProgramLocalParameterfvARB(target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetProgramivARB(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetProgramStringARB(target: TGLenum; pname: TGLenum; _string: pointer); stdcall; external glLib;
+function glIsProgramARB(program_: TGLuint): TGLboolean; stdcall; external glLib;
 
 const
   GL_ARB_fragment_program_shadow = 1;
@@ -2544,10 +2544,10 @@ const
   GL_MAX_GEOMETRY_OUTPUT_VERTICES_ARB = $8DE0;
   GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_ARB = $8DE1;
 
-procedure glProgramParameteriARB(program_: TGLuint; pname: TGLenum; Value: TGLint); cdecl; external glLib;
-procedure glFramebufferTextureARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glFramebufferTextureLayerARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); cdecl; external glLib;
-procedure glFramebufferTextureFaceARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); cdecl; external glLib;
+procedure glProgramParameteriARB(program_: TGLuint; pname: TGLenum; Value: TGLint); stdcall; external glLib;
+procedure glFramebufferTextureARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glFramebufferTextureLayerARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); stdcall; external glLib;
+procedure glFramebufferTextureFaceARB(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); stdcall; external glLib;
 
 const
   GL_ARB_get_program_binary = 1;
@@ -2556,7 +2556,7 @@ const
   GL_SHADER_BINARY_FORMAT_SPIR_V_ARB = $9551;
   GL_SPIR_V_BINARY_ARB = $9552;
 
-procedure glSpecializeShaderARB(shader: TGLuint; pEntryPoint: PGLchar; numSpecializationConstants: TGLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); cdecl; external glLib;
+procedure glSpecializeShaderARB(shader: TGLuint; pEntryPoint: PGLchar; numSpecializationConstants: TGLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); stdcall; external glLib;
 
 const
   GL_ARB_gpu_shader5 = 1;
@@ -2570,44 +2570,44 @@ const
   GL_UNSIGNED_INT64_VEC3_ARB = $8FF6;
   GL_UNSIGNED_INT64_VEC4_ARB = $8FF7;
 
-procedure glUniform1i64ARB(location: TGLint; x: TGLint64); cdecl; external glLib;
-procedure glUniform2i64ARB(location: TGLint; x: TGLint64; y: TGLint64); cdecl; external glLib;
-procedure glUniform3i64ARB(location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64); cdecl; external glLib;
-procedure glUniform4i64ARB(location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64; w: TGLint64); cdecl; external glLib;
-procedure glUniform1i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glUniform2i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glUniform3i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glUniform4i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glUniform1ui64ARB(location: TGLint; x: TGLuint64); cdecl; external glLib;
-procedure glUniform2ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64); cdecl; external glLib;
-procedure glUniform3ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64); cdecl; external glLib;
-procedure glUniform4ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64; w: TGLuint64); cdecl; external glLib;
-procedure glUniform1ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glUniform2ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glUniform3ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glUniform4ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glGetUniformi64vARB(program_: TGLuint; location: TGLint; params: PGLint64); cdecl; external glLib;
-procedure glGetUniformui64vARB(program_: TGLuint; location: TGLint; params: PGLuint64); cdecl; external glLib;
-procedure glGetnUniformi64vARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint64); cdecl; external glLib;
-procedure glGetnUniformui64vARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint64); cdecl; external glLib;
-procedure glProgramUniform1i64ARB(program_: TGLuint; location: TGLint; x: TGLint64); cdecl; external glLib;
-procedure glProgramUniform2i64ARB(program_: TGLuint; location: TGLint; x: TGLint64; y: TGLint64); cdecl; external glLib;
-procedure glProgramUniform3i64ARB(program_: TGLuint; location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64); cdecl; external glLib;
+procedure glUniform1i64ARB(location: TGLint; x: TGLint64); stdcall; external glLib;
+procedure glUniform2i64ARB(location: TGLint; x: TGLint64; y: TGLint64); stdcall; external glLib;
+procedure glUniform3i64ARB(location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64); stdcall; external glLib;
+procedure glUniform4i64ARB(location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64; w: TGLint64); stdcall; external glLib;
+procedure glUniform1i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glUniform2i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glUniform3i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glUniform4i64vARB(location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glUniform1ui64ARB(location: TGLint; x: TGLuint64); stdcall; external glLib;
+procedure glUniform2ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64); stdcall; external glLib;
+procedure glUniform3ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64); stdcall; external glLib;
+procedure glUniform4ui64ARB(location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64; w: TGLuint64); stdcall; external glLib;
+procedure glUniform1ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glUniform2ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glUniform3ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glUniform4ui64vARB(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glGetUniformi64vARB(program_: TGLuint; location: TGLint; params: PGLint64); stdcall; external glLib;
+procedure glGetUniformui64vARB(program_: TGLuint; location: TGLint; params: PGLuint64); stdcall; external glLib;
+procedure glGetnUniformi64vARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint64); stdcall; external glLib;
+procedure glGetnUniformui64vARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint64); stdcall; external glLib;
+procedure glProgramUniform1i64ARB(program_: TGLuint; location: TGLint; x: TGLint64); stdcall; external glLib;
+procedure glProgramUniform2i64ARB(program_: TGLuint; location: TGLint; x: TGLint64; y: TGLint64); stdcall; external glLib;
+procedure glProgramUniform3i64ARB(program_: TGLuint; location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64); stdcall; external glLib;
 procedure glProgramUniform4i64ARB(program_: TGLuint; location: TGLint; x: TGLint64; y: TGLint64; z: TGLint64;
-  w: TGLint64); cdecl; external glLib;
-procedure glProgramUniform1i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glProgramUniform2i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glProgramUniform3i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glProgramUniform4i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); cdecl; external glLib;
-procedure glProgramUniform1ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64); cdecl; external glLib;
-procedure glProgramUniform2ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64; y: TGLuint64); cdecl; external glLib;
-procedure glProgramUniform3ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64); cdecl; external glLib;
+  w: TGLint64); stdcall; external glLib;
+procedure glProgramUniform1i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glProgramUniform2i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glProgramUniform3i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glProgramUniform4i64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64); stdcall; external glLib;
+procedure glProgramUniform1ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64); stdcall; external glLib;
+procedure glProgramUniform2ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64; y: TGLuint64); stdcall; external glLib;
+procedure glProgramUniform3ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64); stdcall; external glLib;
 procedure glProgramUniform4ui64ARB(program_: TGLuint; location: TGLint; x: TGLuint64; y: TGLuint64; z: TGLuint64;
-  w: TGLuint64); cdecl; external glLib;
-procedure glProgramUniform1ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glProgramUniform2ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glProgramUniform3ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glProgramUniform4ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
+  w: TGLuint64); stdcall; external glLib;
+procedure glProgramUniform1ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glProgramUniform2ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glProgramUniform3ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glProgramUniform4ui64vARB(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
 
 const
   GL_ARB_half_float_pixel = 1;
@@ -2674,59 +2674,59 @@ const
   GL_CONVOLUTION_BORDER_COLOR = $8154;
 
 procedure glColorTable(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; format: TGLenum; _type: TGLenum;
-  table: pointer); cdecl; external glLib;
-procedure glColorTableParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glColorTableParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCopyColorTable(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
-procedure glGetColorTable(target: TGLenum; format: TGLenum; _type: TGLenum; table: pointer); cdecl; external glLib;
-procedure glGetColorTableParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetColorTableParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  table: pointer); stdcall; external glLib;
+procedure glColorTableParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glColorTableParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCopyColorTable(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
+procedure glGetColorTable(target: TGLenum; format: TGLenum; _type: TGLenum; table: pointer); stdcall; external glLib;
+procedure glGetColorTableParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetColorTableParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glColorSubTable(target: TGLenum; start: TGLsizei; Count: TGLsizei; format: TGLenum; _type: TGLenum;
-  Data: pointer); cdecl; external glLib;
-procedure glCopyColorSubTable(target: TGLenum; start: TGLsizei; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
+procedure glCopyColorSubTable(target: TGLenum; start: TGLsizei; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
 procedure glConvolutionFilter1D(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; format: TGLenum; _type: TGLenum;
-  image: pointer); cdecl; external glLib;
+  image: pointer); stdcall; external glLib;
 procedure glConvolutionFilter2D(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; image: pointer); cdecl; external glLib;
-procedure glConvolutionParameterf(target: TGLenum; pname: TGLenum; params: TGLfloat); cdecl; external glLib;
-procedure glConvolutionParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glConvolutionParameteri(target: TGLenum; pname: TGLenum; params: TGLint); cdecl; external glLib;
-procedure glConvolutionParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCopyConvolutionFilter1D(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  _type: TGLenum; image: pointer); stdcall; external glLib;
+procedure glConvolutionParameterf(target: TGLenum; pname: TGLenum; params: TGLfloat); stdcall; external glLib;
+procedure glConvolutionParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glConvolutionParameteri(target: TGLenum; pname: TGLenum; params: TGLint); stdcall; external glLib;
+procedure glConvolutionParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCopyConvolutionFilter1D(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
 procedure glCopyConvolutionFilter2D(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
-procedure glGetConvolutionFilter(target: TGLenum; format: TGLenum; _type: TGLenum; image: pointer); cdecl; external glLib;
-procedure glGetConvolutionParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetConvolutionParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
+procedure glGetConvolutionFilter(target: TGLenum; format: TGLenum; _type: TGLenum; image: pointer); stdcall; external glLib;
+procedure glGetConvolutionParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetConvolutionParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glGetSeparableFilter(target: TGLenum; format: TGLenum; _type: TGLenum; row: pointer; column: pointer;
-  span: pointer); cdecl; external glLib;
+  span: pointer); stdcall; external glLib;
 procedure glSeparableFilter2D(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; row: pointer; column: pointer); cdecl; external glLib;
-procedure glGetHistogram(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); cdecl; external glLib;
-procedure glGetHistogramParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetHistogramParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMinmax(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); cdecl; external glLib;
-procedure glGetMinmaxParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMinmaxParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glHistogram(target: TGLenum; Width: TGLsizei; internalformat: TGLenum; sink: TGLboolean); cdecl; external glLib;
-procedure glMinmax(target: TGLenum; internalformat: TGLenum; sink: TGLboolean); cdecl; external glLib;
-procedure glResetHistogram(target: TGLenum); cdecl; external glLib;
-procedure glResetMinmax(target: TGLenum); cdecl; external glLib;
+  _type: TGLenum; row: pointer; column: pointer); stdcall; external glLib;
+procedure glGetHistogram(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); stdcall; external glLib;
+procedure glGetHistogramParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetHistogramParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMinmax(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); stdcall; external glLib;
+procedure glGetMinmaxParameterfv(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMinmaxParameteriv(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glHistogram(target: TGLenum; Width: TGLsizei; internalformat: TGLenum; sink: TGLboolean); stdcall; external glLib;
+procedure glMinmax(target: TGLenum; internalformat: TGLenum; sink: TGLboolean); stdcall; external glLib;
+procedure glResetHistogram(target: TGLenum); stdcall; external glLib;
+procedure glResetMinmax(target: TGLenum); stdcall; external glLib;
 
 const
   GL_ARB_indirect_parameters = 1;
   GL_PARAMETER_BUFFER_ARB = $80EE;
   GL_PARAMETER_BUFFER_BINDING_ARB = $80EF;
 
-procedure glMultiDrawArraysIndirectCountARB(mode: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
+procedure glMultiDrawArraysIndirectCountARB(mode: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
 procedure glMultiDrawElementsIndirectCountARB(mode: TGLenum; _type: TGLenum; indirect: pointer; drawcount: TGLintptr; maxdrawcount: TGLsizei;
-  stride: TGLsizei); cdecl; external glLib;
+  stride: TGLsizei); stdcall; external glLib;
 
 const
   GL_ARB_instanced_arrays = 1;
   GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ARB = $88FE;
 
-procedure glVertexAttribDivisorARB(index: TGLuint; divisor: TGLuint); cdecl; external glLib;
+procedure glVertexAttribDivisorARB(index: TGLuint; divisor: TGLuint); stdcall; external glLib;
 
 const
   GL_ARB_internalformat_query = 1;
@@ -2766,11 +2766,11 @@ const
   GL_MATRIX_INDEX_ARRAY_STRIDE_ARB = $8848;
   GL_MATRIX_INDEX_ARRAY_POINTER_ARB = $8849;
 
-procedure glCurrentPaletteMatrixARB(index: TGLint); cdecl; external glLib;
-procedure glMatrixIndexubvARB(size: TGLint; indices: PGLubyte); cdecl; external glLib;
-procedure glMatrixIndexusvARB(size: TGLint; indices: PGLushort); cdecl; external glLib;
-procedure glMatrixIndexuivARB(size: TGLint; indices: PGLuint); cdecl; external glLib;
-procedure glMatrixIndexPointerARB(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glCurrentPaletteMatrixARB(index: TGLint); stdcall; external glLib;
+procedure glMatrixIndexubvARB(size: TGLint; indices: PGLubyte); stdcall; external glLib;
+procedure glMatrixIndexusvARB(size: TGLint; indices: PGLushort); stdcall; external glLib;
+procedure glMatrixIndexuivARB(size: TGLint; indices: PGLuint); stdcall; external glLib;
+procedure glMatrixIndexPointerARB(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_ARB_multi_bind = 1;
@@ -2786,7 +2786,7 @@ const
   GL_SAMPLE_COVERAGE_INVERT_ARB = $80AB;
   GL_MULTISAMPLE_BIT_ARB = $20000000;
 
-procedure glSampleCoverageARB(Value: TGLfloat; invert: TGLboolean); cdecl; external glLib;
+procedure glSampleCoverageARB(Value: TGLfloat; invert: TGLboolean); stdcall; external glLib;
 
 const
   GL_ARB_multitexture = 1;
@@ -2826,40 +2826,40 @@ const
   GL_CLIENT_ACTIVE_TEXTURE_ARB = $84E1;
   GL_MAX_TEXTURE_UNITS_ARB = $84E2;
 
-procedure glActiveTextureARB(texture: TGLenum); cdecl; external glLib;
-procedure glClientActiveTextureARB(texture: TGLenum); cdecl; external glLib;
-procedure glMultiTexCoord1dARB(target: TGLenum; s: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord1dvARB(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord1fARB(target: TGLenum; s: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord1fvARB(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord1iARB(target: TGLenum; s: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord1ivARB(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord1sARB(target: TGLenum; s: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord1svARB(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord2dARB(target: TGLenum; s: TGLdouble; t: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord2dvARB(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord2fARB(target: TGLenum; s: TGLfloat; t: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord2fvARB(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord2iARB(target: TGLenum; s: TGLint; t: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord2ivARB(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord2sARB(target: TGLenum; s: TGLshort; t: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord2svARB(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord3dARB(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord3dvARB(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord3fARB(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord3fvARB(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord3iARB(target: TGLenum; s: TGLint; t: TGLint; r: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord3ivARB(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord3sARB(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord3svARB(target: TGLenum; v: PGLshort); cdecl; external glLib;
-procedure glMultiTexCoord4dARB(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble; q: TGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord4dvARB(target: TGLenum; v: PGLdouble); cdecl; external glLib;
-procedure glMultiTexCoord4fARB(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat; q: TGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord4fvARB(target: TGLenum; v: PGLfloat); cdecl; external glLib;
-procedure glMultiTexCoord4iARB(target: TGLenum; s: TGLint; t: TGLint; r: TGLint; q: TGLint); cdecl; external glLib;
-procedure glMultiTexCoord4ivARB(target: TGLenum; v: PGLint); cdecl; external glLib;
-procedure glMultiTexCoord4sARB(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort; q: TGLshort); cdecl; external glLib;
-procedure glMultiTexCoord4svARB(target: TGLenum; v: PGLshort); cdecl; external glLib;
+procedure glActiveTextureARB(texture: TGLenum); stdcall; external glLib;
+procedure glClientActiveTextureARB(texture: TGLenum); stdcall; external glLib;
+procedure glMultiTexCoord1dARB(target: TGLenum; s: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord1dvARB(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord1fARB(target: TGLenum; s: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord1fvARB(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord1iARB(target: TGLenum; s: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord1ivARB(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord1sARB(target: TGLenum; s: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord1svARB(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord2dARB(target: TGLenum; s: TGLdouble; t: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord2dvARB(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord2fARB(target: TGLenum; s: TGLfloat; t: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord2fvARB(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord2iARB(target: TGLenum; s: TGLint; t: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord2ivARB(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord2sARB(target: TGLenum; s: TGLshort; t: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord2svARB(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord3dARB(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord3dvARB(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord3fARB(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord3fvARB(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord3iARB(target: TGLenum; s: TGLint; t: TGLint; r: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord3ivARB(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord3sARB(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord3svARB(target: TGLenum; v: PGLshort); stdcall; external glLib;
+procedure glMultiTexCoord4dARB(target: TGLenum; s: TGLdouble; t: TGLdouble; r: TGLdouble; q: TGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord4dvARB(target: TGLenum; v: PGLdouble); stdcall; external glLib;
+procedure glMultiTexCoord4fARB(target: TGLenum; s: TGLfloat; t: TGLfloat; r: TGLfloat; q: TGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord4fvARB(target: TGLenum; v: PGLfloat); stdcall; external glLib;
+procedure glMultiTexCoord4iARB(target: TGLenum; s: TGLint; t: TGLint; r: TGLint; q: TGLint); stdcall; external glLib;
+procedure glMultiTexCoord4ivARB(target: TGLenum; v: PGLint); stdcall; external glLib;
+procedure glMultiTexCoord4sARB(target: TGLenum; s: TGLshort; t: TGLshort; r: TGLshort; q: TGLshort); stdcall; external glLib;
+procedure glMultiTexCoord4svARB(target: TGLenum; v: PGLshort); stdcall; external glLib;
 
 const
   GL_ARB_occlusion_query = 1;
@@ -2869,14 +2869,14 @@ const
   GL_QUERY_RESULT_AVAILABLE_ARB = $8867;
   GL_SAMPLES_PASSED_ARB = $8914;
 
-procedure glGenQueriesARB(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glDeleteQueriesARB(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-function glIsQueryARB(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBeginQueryARB(target: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glEndQueryARB(target: TGLenum); cdecl; external glLib;
-procedure glGetQueryivARB(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetQueryObjectivARB(id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetQueryObjectuivARB(id: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
+procedure glGenQueriesARB(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glDeleteQueriesARB(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+function glIsQueryARB(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBeginQueryARB(target: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glEndQueryARB(target: TGLenum); stdcall; external glLib;
+procedure glGetQueryivARB(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetQueryObjectivARB(id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetQueryObjectuivARB(id: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
 
 const
   GL_ARB_occlusion_query2 = 1;
@@ -2884,7 +2884,7 @@ const
   GL_MAX_SHADER_COMPILER_THREADS_ARB = $91B0;
   GL_COMPLETION_STATUS_ARB = $91B1;
 
-procedure glMaxShaderCompilerThreadsARB(Count: TGLuint); cdecl; external glLib;
+procedure glMaxShaderCompilerThreadsARB(Count: TGLuint); stdcall; external glLib;
 
 const
   GL_ARB_pipeline_statistics_query = 1;
@@ -2909,8 +2909,8 @@ const
   GL_POINT_FADE_THRESHOLD_SIZE_ARB = $8128;
   GL_POINT_DISTANCE_ATTENUATION_ARB = $8129;
 
-procedure glPointParameterfARB(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPointParameterfvARB(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glPointParameterfARB(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPointParameterfvARB(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_ARB_point_sprite = 1;
@@ -2931,31 +2931,31 @@ const
   GL_RESET_NOTIFICATION_STRATEGY_ARB = $8256;
   GL_NO_RESET_NOTIFICATION_ARB = $8261;
 
-function glGetGraphicsResetStatusARB: TGLenum; cdecl; external glLib;
+function glGetGraphicsResetStatusARB: TGLenum; stdcall; external glLib;
 procedure glGetnTexImageARB(target: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  img: pointer); cdecl; external glLib;
+  img: pointer); stdcall; external glLib;
 procedure glReadnPixelsARB(x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; bufSize: TGLsizei; Data: pointer); cdecl; external glLib;
-procedure glGetnCompressedTexImageARB(target: TGLenum; lod: TGLint; bufSize: TGLsizei; img: pointer); cdecl; external glLib;
-procedure glGetnUniformfvARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLfloat); cdecl; external glLib;
-procedure glGetnUniformivARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint); cdecl; external glLib;
-procedure glGetnUniformuivARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint); cdecl; external glLib;
-procedure glGetnUniformdvARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLdouble); cdecl; external glLib;
-procedure glGetnMapdvARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glGetnMapfvARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glGetnMapivARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLint); cdecl; external glLib;
-procedure glGetnPixelMapfvARB(map: TGLenum; bufSize: TGLsizei; values: PGLfloat); cdecl; external glLib;
-procedure glGetnPixelMapuivARB(map: TGLenum; bufSize: TGLsizei; values: PGLuint); cdecl; external glLib;
-procedure glGetnPixelMapusvARB(map: TGLenum; bufSize: TGLsizei; values: PGLushort); cdecl; external glLib;
-procedure glGetnPolygonStippleARB(bufSize: TGLsizei; pattern: PGLubyte); cdecl; external glLib;
-procedure glGetnColorTableARB(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; table: pointer); cdecl; external glLib;
-procedure glGetnConvolutionFilterARB(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; image: pointer); cdecl; external glLib;
+  _type: TGLenum; bufSize: TGLsizei; Data: pointer); stdcall; external glLib;
+procedure glGetnCompressedTexImageARB(target: TGLenum; lod: TGLint; bufSize: TGLsizei; img: pointer); stdcall; external glLib;
+procedure glGetnUniformfvARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLfloat); stdcall; external glLib;
+procedure glGetnUniformivARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLint); stdcall; external glLib;
+procedure glGetnUniformuivARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLuint); stdcall; external glLib;
+procedure glGetnUniformdvARB(program_: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLdouble); stdcall; external glLib;
+procedure glGetnMapdvARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glGetnMapfvARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glGetnMapivARB(target: TGLenum; query: TGLenum; bufSize: TGLsizei; v: PGLint); stdcall; external glLib;
+procedure glGetnPixelMapfvARB(map: TGLenum; bufSize: TGLsizei; values: PGLfloat); stdcall; external glLib;
+procedure glGetnPixelMapuivARB(map: TGLenum; bufSize: TGLsizei; values: PGLuint); stdcall; external glLib;
+procedure glGetnPixelMapusvARB(map: TGLenum; bufSize: TGLsizei; values: PGLushort); stdcall; external glLib;
+procedure glGetnPolygonStippleARB(bufSize: TGLsizei; pattern: PGLubyte); stdcall; external glLib;
+procedure glGetnColorTableARB(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; table: pointer); stdcall; external glLib;
+procedure glGetnConvolutionFilterARB(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; image: pointer); stdcall; external glLib;
 procedure glGetnSeparableFilterARB(target: TGLenum; format: TGLenum; _type: TGLenum; rowBufSize: TGLsizei; row: pointer;
-  columnBufSize: TGLsizei; column: pointer; span: pointer); cdecl; external glLib;
+  columnBufSize: TGLsizei; column: pointer; span: pointer); stdcall; external glLib;
 procedure glGetnHistogramARB(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  values: pointer); cdecl; external glLib;
+  values: pointer); stdcall; external glLib;
 procedure glGetnMinmaxARB(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; bufSize: TGLsizei;
-  values: pointer); cdecl; external glLib;
+  values: pointer); stdcall; external glLib;
 
 const
   GL_ARB_robustness_isolation = 1;
@@ -2969,16 +2969,16 @@ const
   GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_ARB = $9342;
   GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_ARB = $9343;
 
-procedure glFramebufferSampleLocationsfvARB(target: TGLenum; start: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glNamedFramebufferSampleLocationsfvARB(framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glEvaluateDepthValuesARB; cdecl; external glLib;
+procedure glFramebufferSampleLocationsfvARB(target: TGLenum; start: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glNamedFramebufferSampleLocationsfvARB(framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glEvaluateDepthValuesARB; stdcall; external glLib;
 
 const
   GL_ARB_sample_shading = 1;
   GL_SAMPLE_SHADING_ARB = $8C36;
   GL_MIN_SAMPLE_SHADING_VALUE_ARB = $8C37;
 
-procedure glMinSampleShadingARB(Value: TGLfloat); cdecl; external glLib;
+procedure glMinSampleShadingARB(Value: TGLfloat); stdcall; external glLib;
 
 const
   GL_ARB_sampler_objects = 1;
@@ -3040,46 +3040,46 @@ const
   GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB = $8B87;
   GL_OBJECT_SHADER_SOURCE_LENGTH_ARB = $8B88;
 
-procedure glDeleteObjectARB(obj: TGLhandleARB); cdecl; external glLib;
-function glGetHandleARB(pname: TGLenum): TGLhandleARB; cdecl; external glLib;
-procedure glDetachObjectARB(containerObj: TGLhandleARB; attachedObj: TGLhandleARB); cdecl; external glLib;
-function glCreateShaderObjectARB(shaderType: TGLenum): TGLhandleARB; cdecl; external glLib;
-procedure glShaderSourceARB(shaderObj: TGLhandleARB; Count: TGLsizei; _string: PPGLcharARB; length: PGLint); cdecl; external glLib;
-procedure glCompileShaderARB(shaderObj: TGLhandleARB); cdecl; external glLib;
-function glCreateProgramObjectARB: TGLhandleARB; cdecl; external glLib;
-procedure glAttachObjectARB(containerObj: TGLhandleARB; obj: TGLhandleARB); cdecl; external glLib;
-procedure glLinkProgramARB(programObj: TGLhandleARB); cdecl; external glLib;
-procedure glUseProgramObjectARB(programObj: TGLhandleARB); cdecl; external glLib;
-procedure glValidateProgramARB(programObj: TGLhandleARB); cdecl; external glLib;
-procedure glUniform1fARB(location: TGLint; v0: TGLfloat); cdecl; external glLib;
-procedure glUniform2fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat); cdecl; external glLib;
-procedure glUniform3fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); cdecl; external glLib;
-procedure glUniform4fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat; v3: TGLfloat); cdecl; external glLib;
-procedure glUniform1iARB(location: TGLint; v0: TGLint); cdecl; external glLib;
-procedure glUniform2iARB(location: TGLint; v0: TGLint; v1: TGLint); cdecl; external glLib;
-procedure glUniform3iARB(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); cdecl; external glLib;
-procedure glUniform4iARB(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint; v3: TGLint); cdecl; external glLib;
-procedure glUniform1fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform2fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform3fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform4fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glUniform1ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform2ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform3ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniform4ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glUniformMatrix2fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix3fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glUniformMatrix4fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glGetObjectParameterfvARB(obj: TGLhandleARB; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetObjectParameterivARB(obj: TGLhandleARB; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetInfoLogARB(obj: TGLhandleARB; maxLength: TGLsizei; length: PGLsizei; infoLog: PGLcharARB); cdecl; external glLib;
-procedure glGetAttachedObjectsARB(containerObj: TGLhandleARB; maxCount: TGLsizei; Count: PGLsizei; obj: PGLhandleARB); cdecl; external glLib;
-function glGetUniformLocationARB(programObj: TGLhandleARB; Name: PGLcharARB): TGLint; cdecl; external glLib;
+procedure glDeleteObjectARB(obj: TGLhandleARB); stdcall; external glLib;
+function glGetHandleARB(pname: TGLenum): TGLhandleARB; stdcall; external glLib;
+procedure glDetachObjectARB(containerObj: TGLhandleARB; attachedObj: TGLhandleARB); stdcall; external glLib;
+function glCreateShaderObjectARB(shaderType: TGLenum): TGLhandleARB; stdcall; external glLib;
+procedure glShaderSourceARB(shaderObj: TGLhandleARB; Count: TGLsizei; _string: PPGLcharARB; length: PGLint); stdcall; external glLib;
+procedure glCompileShaderARB(shaderObj: TGLhandleARB); stdcall; external glLib;
+function glCreateProgramObjectARB: TGLhandleARB; stdcall; external glLib;
+procedure glAttachObjectARB(containerObj: TGLhandleARB; obj: TGLhandleARB); stdcall; external glLib;
+procedure glLinkProgramARB(programObj: TGLhandleARB); stdcall; external glLib;
+procedure glUseProgramObjectARB(programObj: TGLhandleARB); stdcall; external glLib;
+procedure glValidateProgramARB(programObj: TGLhandleARB); stdcall; external glLib;
+procedure glUniform1fARB(location: TGLint; v0: TGLfloat); stdcall; external glLib;
+procedure glUniform2fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat); stdcall; external glLib;
+procedure glUniform3fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); stdcall; external glLib;
+procedure glUniform4fARB(location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat; v3: TGLfloat); stdcall; external glLib;
+procedure glUniform1iARB(location: TGLint; v0: TGLint); stdcall; external glLib;
+procedure glUniform2iARB(location: TGLint; v0: TGLint; v1: TGLint); stdcall; external glLib;
+procedure glUniform3iARB(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); stdcall; external glLib;
+procedure glUniform4iARB(location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint; v3: TGLint); stdcall; external glLib;
+procedure glUniform1fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform2fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform3fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform4fvARB(location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glUniform1ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform2ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform3ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniform4ivARB(location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glUniformMatrix2fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix3fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glUniformMatrix4fvARB(location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glGetObjectParameterfvARB(obj: TGLhandleARB; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetObjectParameterivARB(obj: TGLhandleARB; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetInfoLogARB(obj: TGLhandleARB; maxLength: TGLsizei; length: PGLsizei; infoLog: PGLcharARB); stdcall; external glLib;
+procedure glGetAttachedObjectsARB(containerObj: TGLhandleARB; maxCount: TGLsizei; Count: PGLsizei; obj: PGLhandleARB); stdcall; external glLib;
+function glGetUniformLocationARB(programObj: TGLhandleARB; Name: PGLcharARB): TGLint; stdcall; external glLib;
 procedure glGetActiveUniformARB(programObj: TGLhandleARB; index: TGLuint; maxLength: TGLsizei; length: PGLsizei; size: PGLint;
-  _type: PGLenum; Name: PGLcharARB); cdecl; external glLib;
-procedure glGetUniformfvARB(programObj: TGLhandleARB; location: TGLint; params: PGLfloat); cdecl; external glLib;
-procedure glGetUniformivARB(programObj: TGLhandleARB; location: TGLint; params: PGLint); cdecl; external glLib;
-procedure glGetShaderSourceARB(obj: TGLhandleARB; maxLength: TGLsizei; length: PGLsizei; Source: PGLcharARB); cdecl; external glLib;
+  _type: PGLenum; Name: PGLcharARB); stdcall; external glLib;
+procedure glGetUniformfvARB(programObj: TGLhandleARB; location: TGLint; params: PGLfloat); stdcall; external glLib;
+procedure glGetUniformivARB(programObj: TGLhandleARB; location: TGLint; params: PGLint); stdcall; external glLib;
+procedure glGetShaderSourceARB(obj: TGLhandleARB; maxLength: TGLsizei; length: PGLsizei; Source: PGLcharARB); stdcall; external glLib;
 
 const
   GL_ARB_shader_precision = 1;
@@ -3097,12 +3097,12 @@ const
   GL_NAMED_STRING_LENGTH_ARB = $8DE9;
   GL_NAMED_STRING_TYPE_ARB = $8DEA;
 
-procedure glNamedStringARB(_type: TGLenum; namelen: TGLint; Name: PGLchar; stringlen: TGLint; _string: PGLchar); cdecl; external glLib;
-procedure glDeleteNamedStringARB(namelen: TGLint; Name: PGLchar); cdecl; external glLib;
-procedure glCompileShaderIncludeARB(shader: TGLuint; Count: TGLsizei; path: PPGLchar; length: PGLint); cdecl; external glLib;
-function glIsNamedStringARB(namelen: TGLint; Name: PGLchar): TGLboolean; cdecl; external glLib;
-procedure glGetNamedStringARB(namelen: TGLint; Name: PGLchar; bufSize: TGLsizei; stringlen: PGLint; _string: PGLchar); cdecl; external glLib;
-procedure glGetNamedStringivARB(namelen: TGLint; Name: PGLchar; pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glNamedStringARB(_type: TGLenum; namelen: TGLint; Name: PGLchar; stringlen: TGLint; _string: PGLchar); stdcall; external glLib;
+procedure glDeleteNamedStringARB(namelen: TGLint; Name: PGLchar); stdcall; external glLib;
+procedure glCompileShaderIncludeARB(shader: TGLuint; Count: TGLsizei; path: PPGLchar; length: PGLint); stdcall; external glLib;
+function glIsNamedStringARB(namelen: TGLint; Name: PGLchar): TGLboolean; stdcall; external glLib;
+procedure glGetNamedStringARB(namelen: TGLint; Name: PGLchar; bufSize: TGLsizei; stringlen: PGLint; _string: PGLchar); stdcall; external glLib;
+procedure glGetNamedStringivARB(namelen: TGLint; Name: PGLchar; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_ARB_shading_language_packing = 1;
@@ -3116,9 +3116,9 @@ const
   GL_SPARSE_STORAGE_BIT_ARB = $0400;
   GL_SPARSE_BUFFER_PAGE_SIZE_ARB = $82F8;
 
-procedure glBufferPageCommitmentARB(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); cdecl; external glLib;
-procedure glNamedBufferPageCommitmentEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); cdecl; external glLib;
-procedure glNamedBufferPageCommitmentARB(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); cdecl; external glLib;
+procedure glBufferPageCommitmentARB(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); stdcall; external glLib;
+procedure glNamedBufferPageCommitmentEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); stdcall; external glLib;
+procedure glNamedBufferPageCommitmentARB(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; commit: TGLboolean); stdcall; external glLib;
 
 const
   GL_ARB_sparse_texture = 1;
@@ -3135,7 +3135,7 @@ const
   GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_ARB = $91A9;
 
 procedure glTexPageCommitmentARB(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; commit: TGLboolean); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; commit: TGLboolean); stdcall; external glLib;
 
 const
   GL_ARB_sparse_texture2 = 1;
@@ -3154,7 +3154,7 @@ const
   GL_TEXTURE_BUFFER_DATA_STORE_BINDING_ARB = $8C2D;
   GL_TEXTURE_BUFFER_FORMAT_ARB = $8C2E;
 
-procedure glTexBufferARB(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
+procedure glTexBufferARB(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
 
 const
   GL_ARB_texture_buffer_object_rgb32 = 1;
@@ -3173,19 +3173,19 @@ const
   GL_COMPRESSED_TEXTURE_FORMATS_ARB = $86A3;
 
 procedure glCompressedTexImage3DARB(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; border: TGLint; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  depth: TGLsizei; border: TGLint; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexImage2DARB(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  border: TGLint; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  border: TGLint; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexImage1DARB(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; border: TGLint;
-  imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage3DARB(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; imageSize: TGLsizei;
-  Data: pointer); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage2DARB(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; Width: TGLsizei;
-  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
+  Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
 procedure glCompressedTexSubImage1DARB(target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei; format: TGLenum;
-  imageSize: TGLsizei; Data: pointer); cdecl; external glLib;
-procedure glGetCompressedTexImageARB(target: TGLenum; level: TGLint; img: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; Data: pointer); stdcall; external glLib;
+procedure glGetCompressedTexImageARB(target: TGLenum; level: TGLint; img: pointer); stdcall; external glLib;
 
 const
   GL_ARB_texture_compression_bptc = 1;
@@ -3304,10 +3304,10 @@ const
   GL_TRANSPOSE_TEXTURE_MATRIX_ARB = $84E5;
   GL_TRANSPOSE_COLOR_MATRIX_ARB = $84E6;
 
-procedure glLoadTransposeMatrixfARB(m: PGLfloat); cdecl; external glLib;
-procedure glLoadTransposeMatrixdARB(m: PGLdouble); cdecl; external glLib;
-procedure glMultTransposeMatrixfARB(m: PGLfloat); cdecl; external glLib;
-procedure glMultTransposeMatrixdARB(m: PGLdouble); cdecl; external glLib;
+procedure glLoadTransposeMatrixfARB(m: PGLfloat); stdcall; external glLib;
+procedure glLoadTransposeMatrixdARB(m: PGLdouble); stdcall; external glLib;
+procedure glMultTransposeMatrixfARB(m: PGLfloat); stdcall; external glLib;
+procedure glMultTransposeMatrixdARB(m: PGLdouble); stdcall; external glLib;
 
 const
   GL_ARB_uniform_buffer_object = 1;
@@ -3359,16 +3359,16 @@ const
   GL_MODELVIEW30_ARB = $873E;
   GL_MODELVIEW31_ARB = $873F;
 
-procedure glWeightbvARB(size: TGLint; weights: PGLbyte); cdecl; external glLib;
-procedure glWeightsvARB(size: TGLint; weights: PGLshort); cdecl; external glLib;
-procedure glWeightivARB(size: TGLint; weights: PGLint); cdecl; external glLib;
-procedure glWeightfvARB(size: TGLint; weights: PGLfloat); cdecl; external glLib;
-procedure glWeightdvARB(size: TGLint; weights: PGLdouble); cdecl; external glLib;
-procedure glWeightubvARB(size: TGLint; weights: PGLubyte); cdecl; external glLib;
-procedure glWeightusvARB(size: TGLint; weights: PGLushort); cdecl; external glLib;
-procedure glWeightuivARB(size: TGLint; weights: PGLuint); cdecl; external glLib;
-procedure glWeightPointerARB(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glVertexBlendARB(Count: TGLint); cdecl; external glLib;
+procedure glWeightbvARB(size: TGLint; weights: PGLbyte); stdcall; external glLib;
+procedure glWeightsvARB(size: TGLint; weights: PGLshort); stdcall; external glLib;
+procedure glWeightivARB(size: TGLint; weights: PGLint); stdcall; external glLib;
+procedure glWeightfvARB(size: TGLint; weights: PGLfloat); stdcall; external glLib;
+procedure glWeightdvARB(size: TGLint; weights: PGLdouble); stdcall; external glLib;
+procedure glWeightubvARB(size: TGLint; weights: PGLubyte); stdcall; external glLib;
+procedure glWeightusvARB(size: TGLint; weights: PGLushort); stdcall; external glLib;
+procedure glWeightuivARB(size: TGLint; weights: PGLuint); stdcall; external glLib;
+procedure glWeightPointerARB(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glVertexBlendARB(Count: TGLint); stdcall; external glLib;
 
 const
   GL_ARB_vertex_buffer_object = 1;
@@ -3413,17 +3413,17 @@ const
   GL_DYNAMIC_READ_ARB = $88E9;
   GL_DYNAMIC_COPY_ARB = $88EA;
 
-procedure glBindBufferARB(target: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glDeleteBuffersARB(n: TGLsizei; buffers: PGLuint); cdecl; external glLib;
-procedure glGenBuffersARB(n: TGLsizei; buffers: PGLuint); cdecl; external glLib;
-function glIsBufferARB(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBufferDataARB(target: TGLenum; size: TGLsizeiptrARB; Data: pointer; usage: TGLenum); cdecl; external glLib;
-procedure glBufferSubDataARB(target: TGLenum; offset: TGLintptrARB; size: TGLsizeiptrARB; Data: pointer); cdecl; external glLib;
-procedure glGetBufferSubDataARB(target: TGLenum; offset: TGLintptrARB; size: TGLsizeiptrARB; Data: pointer); cdecl; external glLib;
-function glMapBufferARB(target: TGLenum; access: TGLenum): pointer; cdecl; external glLib;
-function glUnmapBufferARB(target: TGLenum): TGLboolean; cdecl; external glLib;
-procedure glGetBufferParameterivARB(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetBufferPointervARB(target: TGLenum; pname: TGLenum; params: Ppointer); cdecl; external glLib;
+procedure glBindBufferARB(target: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glDeleteBuffersARB(n: TGLsizei; buffers: PGLuint); stdcall; external glLib;
+procedure glGenBuffersARB(n: TGLsizei; buffers: PGLuint); stdcall; external glLib;
+function glIsBufferARB(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBufferDataARB(target: TGLenum; size: TGLsizeiptrARB; Data: pointer; usage: TGLenum); stdcall; external glLib;
+procedure glBufferSubDataARB(target: TGLenum; offset: TGLintptrARB; size: TGLsizeiptrARB; Data: pointer); stdcall; external glLib;
+procedure glGetBufferSubDataARB(target: TGLenum; offset: TGLintptrARB; size: TGLsizeiptrARB; Data: pointer); stdcall; external glLib;
+function glMapBufferARB(target: TGLenum; access: TGLenum): pointer; stdcall; external glLib;
+function glUnmapBufferARB(target: TGLenum): TGLboolean; stdcall; external glLib;
+procedure glGetBufferParameterivARB(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetBufferPointervARB(target: TGLenum; pname: TGLenum; params: Ppointer); stdcall; external glLib;
 
 const
   GL_ARB_vertex_program = 1;
@@ -3444,50 +3444,50 @@ const
   GL_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB = $88B2;
   GL_MAX_PROGRAM_NATIVE_ADDRESS_REGISTERS_ARB = $88B3;
 
-procedure glVertexAttrib1dARB(index: TGLuint; x: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1dvARB(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1fARB(index: TGLuint; x: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1fvARB(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1sARB(index: TGLuint; x: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib1svARB(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib2dARB(index: TGLuint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2dvARB(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2fARB(index: TGLuint; x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2fvARB(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2sARB(index: TGLuint; x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib2svARB(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib3dARB(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3dvARB(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3fARB(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3fvARB(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3sARB(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib3svARB(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4NbvARB(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttrib4NivARB(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttrib4NsvARB(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4NubARB(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4NubvARB(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4NuivARB(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttrib4NusvARB(index: TGLuint; v: PGLushort); cdecl; external glLib;
-procedure glVertexAttrib4bvARB(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttrib4dARB(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4dvARB(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4fARB(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4fvARB(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4ivARB(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttrib4sARB(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib4svARB(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4ubvARB(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4uivARB(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttrib4usvARB(index: TGLuint; v: PGLushort); cdecl; external glLib;
+procedure glVertexAttrib1dARB(index: TGLuint; x: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1dvARB(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1fARB(index: TGLuint; x: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1fvARB(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1sARB(index: TGLuint; x: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib1svARB(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib2dARB(index: TGLuint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2dvARB(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2fARB(index: TGLuint; x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2fvARB(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2sARB(index: TGLuint; x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib2svARB(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib3dARB(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3dvARB(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3fARB(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3fvARB(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3sARB(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib3svARB(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4NbvARB(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttrib4NivARB(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttrib4NsvARB(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4NubARB(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4NubvARB(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4NuivARB(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttrib4NusvARB(index: TGLuint; v: PGLushort); stdcall; external glLib;
+procedure glVertexAttrib4bvARB(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttrib4dARB(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4dvARB(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4fARB(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4fvARB(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4ivARB(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttrib4sARB(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib4svARB(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4ubvARB(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4uivARB(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttrib4usvARB(index: TGLuint; v: PGLushort); stdcall; external glLib;
 procedure glVertexAttribPointerARB(index: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; stride: TGLsizei;
-  pointer: pointer); cdecl; external glLib;
-procedure glEnableVertexAttribArrayARB(index: TGLuint); cdecl; external glLib;
-procedure glDisableVertexAttribArrayARB(index: TGLuint); cdecl; external glLib;
-procedure glGetVertexAttribdvARB(index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glGetVertexAttribfvARB(index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVertexAttribivARB(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribPointervARB(index: TGLuint; pname: TGLenum; pointer: Ppointer); cdecl; external glLib;
+  pointer: pointer); stdcall; external glLib;
+procedure glEnableVertexAttribArrayARB(index: TGLuint); stdcall; external glLib;
+procedure glDisableVertexAttribArrayARB(index: TGLuint); stdcall; external glLib;
+procedure glGetVertexAttribdvARB(index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glGetVertexAttribfvARB(index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVertexAttribivARB(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribPointervARB(index: TGLuint; pname: TGLenum; pointer: Ppointer); stdcall; external glLib;
 
 const
   GL_ARB_vertex_shader = 1;
@@ -3499,38 +3499,38 @@ const
   GL_OBJECT_ACTIVE_ATTRIBUTES_ARB = $8B89;
   GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB = $8B8A;
 
-procedure glBindAttribLocationARB(programObj: TGLhandleARB; index: TGLuint; Name: PGLcharARB); cdecl; external glLib;
+procedure glBindAttribLocationARB(programObj: TGLhandleARB; index: TGLuint; Name: PGLcharARB); stdcall; external glLib;
 procedure glGetActiveAttribARB(programObj: TGLhandleARB; index: TGLuint; maxLength: TGLsizei; length: PGLsizei; size: PGLint;
-  _type: PGLenum; Name: PGLcharARB); cdecl; external glLib;
-function glGetAttribLocationARB(programObj: TGLhandleARB; Name: PGLcharARB): TGLint; cdecl; external glLib;
+  _type: PGLenum; Name: PGLcharARB); stdcall; external glLib;
+function glGetAttribLocationARB(programObj: TGLhandleARB; Name: PGLcharARB): TGLint; stdcall; external glLib;
 
 const
   GL_ARB_vertex_type_10f_11f_11f_rev = 1;
   GL_ARB_vertex_type_2_10_10_10_rev = 1;
   GL_ARB_viewport_array = 1;
 
-procedure glDepthRangeArraydvNV(First: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glDepthRangeIndexeddNV(index: TGLuint; n: TGLdouble; f: TGLdouble); cdecl; external glLib;
+procedure glDepthRangeArraydvNV(First: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glDepthRangeIndexeddNV(index: TGLuint; n: TGLdouble; f: TGLdouble); stdcall; external glLib;
 
 const
   GL_ARB_window_pos = 1;
 
-procedure glWindowPos2dARB(x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glWindowPos2dvARB(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos2fARB(x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glWindowPos2fvARB(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos2iARB(x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glWindowPos2ivARB(v: PGLint); cdecl; external glLib;
-procedure glWindowPos2sARB(x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glWindowPos2svARB(v: PGLshort); cdecl; external glLib;
-procedure glWindowPos3dARB(x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glWindowPos3dvARB(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos3fARB(x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glWindowPos3fvARB(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos3iARB(x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glWindowPos3ivARB(v: PGLint); cdecl; external glLib;
-procedure glWindowPos3sARB(x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glWindowPos3svARB(v: PGLshort); cdecl; external glLib;
+procedure glWindowPos2dARB(x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glWindowPos2dvARB(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos2fARB(x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glWindowPos2fvARB(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos2iARB(x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glWindowPos2ivARB(v: PGLint); stdcall; external glLib;
+procedure glWindowPos2sARB(x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glWindowPos2svARB(v: PGLshort); stdcall; external glLib;
+procedure glWindowPos3dARB(x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glWindowPos3dvARB(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos3fARB(x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glWindowPos3fvARB(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos3iARB(x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glWindowPos3ivARB(v: PGLint); stdcall; external glLib;
+procedure glWindowPos3sARB(x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glWindowPos3svARB(v: PGLshort); stdcall; external glLib;
 
 const
   GL_KHR_blend_equation_advanced = 1;
@@ -3550,7 +3550,7 @@ const
   GL_HSL_COLOR_KHR = $92AF;
   GL_HSL_LUMINOSITY_KHR = $92B0;
 
-procedure glBlendBarrierKHR; cdecl; external glLib;
+procedure glBlendBarrierKHR; stdcall; external glLib;
 
 const
   GL_KHR_blend_equation_advanced_coherent = 1;
@@ -3563,7 +3563,7 @@ const
   GL_MAX_SHADER_COMPILER_THREADS_KHR = $91B0;
   GL_COMPLETION_STATUS_KHR = $91B1;
 
-procedure glMaxShaderCompilerThreadsKHR(Count: TGLuint); cdecl; external glLib;
+procedure glMaxShaderCompilerThreadsKHR(Count: TGLuint); stdcall; external glLib;
 
 const
   GL_KHR_robust_buffer_access_behavior = 1;
@@ -3615,28 +3615,28 @@ const
   GL_KHR_texture_compression_astc_sliced_3d = 1;
   GL_OES_byte_coordinates = 1;
 
-procedure glMultiTexCoord1bOES(texture: TGLenum; s: TGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord1bvOES(texture: TGLenum; coords: PGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord2bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord2bvOES(texture: TGLenum; coords: PGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord3bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte; r: TGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord3bvOES(texture: TGLenum; coords: PGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord4bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte; r: TGLbyte; q: TGLbyte); cdecl; external glLib;
-procedure glMultiTexCoord4bvOES(texture: TGLenum; coords: PGLbyte); cdecl; external glLib;
-procedure glTexCoord1bOES(s: TGLbyte); cdecl; external glLib;
-procedure glTexCoord1bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glTexCoord2bOES(s: TGLbyte; t: TGLbyte); cdecl; external glLib;
-procedure glTexCoord2bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glTexCoord3bOES(s: TGLbyte; t: TGLbyte; r: TGLbyte); cdecl; external glLib;
-procedure glTexCoord3bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glTexCoord4bOES(s: TGLbyte; t: TGLbyte; r: TGLbyte; q: TGLbyte); cdecl; external glLib;
-procedure glTexCoord4bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glVertex2bOES(x: TGLbyte; y: TGLbyte); cdecl; external glLib;
-procedure glVertex2bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glVertex3bOES(x: TGLbyte; y: TGLbyte; z: TGLbyte); cdecl; external glLib;
-procedure glVertex3bvOES(coords: PGLbyte); cdecl; external glLib;
-procedure glVertex4bOES(x: TGLbyte; y: TGLbyte; z: TGLbyte; w: TGLbyte); cdecl; external glLib;
-procedure glVertex4bvOES(coords: PGLbyte); cdecl; external glLib;
+procedure glMultiTexCoord1bOES(texture: TGLenum; s: TGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord1bvOES(texture: TGLenum; coords: PGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord2bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord2bvOES(texture: TGLenum; coords: PGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord3bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte; r: TGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord3bvOES(texture: TGLenum; coords: PGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord4bOES(texture: TGLenum; s: TGLbyte; t: TGLbyte; r: TGLbyte; q: TGLbyte); stdcall; external glLib;
+procedure glMultiTexCoord4bvOES(texture: TGLenum; coords: PGLbyte); stdcall; external glLib;
+procedure glTexCoord1bOES(s: TGLbyte); stdcall; external glLib;
+procedure glTexCoord1bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glTexCoord2bOES(s: TGLbyte; t: TGLbyte); stdcall; external glLib;
+procedure glTexCoord2bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glTexCoord3bOES(s: TGLbyte; t: TGLbyte; r: TGLbyte); stdcall; external glLib;
+procedure glTexCoord3bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glTexCoord4bOES(s: TGLbyte; t: TGLbyte; r: TGLbyte; q: TGLbyte); stdcall; external glLib;
+procedure glTexCoord4bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glVertex2bOES(x: TGLbyte; y: TGLbyte); stdcall; external glLib;
+procedure glVertex2bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glVertex3bOES(x: TGLbyte; y: TGLbyte; z: TGLbyte); stdcall; external glLib;
+procedure glVertex3bvOES(coords: PGLbyte); stdcall; external glLib;
+procedure glVertex4bOES(x: TGLbyte; y: TGLbyte; z: TGLbyte; w: TGLbyte); stdcall; external glLib;
+procedure glVertex4bvOES(coords: PGLbyte); stdcall; external glLib;
 
 const
   GL_OES_compressed_paletted_texture = 1;
@@ -3659,119 +3659,119 @@ type
 const
   GL_FIXED_OES = $140C;
 
-procedure glAlphaFuncxOES(func: TGLenum; ref: TGLfixed); cdecl; external glLib;
-procedure glClearColorxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); cdecl; external glLib;
-procedure glClearDepthxOES(depth: TGLfixed); cdecl; external glLib;
-procedure glClipPlanexOES(plane: TGLenum; equation: PGLfixed); cdecl; external glLib;
-procedure glColor4xOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); cdecl; external glLib;
-procedure glDepthRangexOES(n: TGLfixed; f: TGLfixed); cdecl; external glLib;
-procedure glFogxOES(pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glFogxvOES(pname: TGLenum; param: PGLfixed); cdecl; external glLib;
+procedure glAlphaFuncxOES(func: TGLenum; ref: TGLfixed); stdcall; external glLib;
+procedure glClearColorxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); stdcall; external glLib;
+procedure glClearDepthxOES(depth: TGLfixed); stdcall; external glLib;
+procedure glClipPlanexOES(plane: TGLenum; equation: PGLfixed); stdcall; external glLib;
+procedure glColor4xOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); stdcall; external glLib;
+procedure glDepthRangexOES(n: TGLfixed; f: TGLfixed); stdcall; external glLib;
+procedure glFogxOES(pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glFogxvOES(pname: TGLenum; param: PGLfixed); stdcall; external glLib;
 procedure glFrustumxOES(l: TGLfixed; r: TGLfixed; b: TGLfixed; t: TGLfixed; n: TGLfixed;
-  f: TGLfixed); cdecl; external glLib;
-procedure glGetClipPlanexOES(plane: TGLenum; equation: PGLfixed); cdecl; external glLib;
-procedure glGetFixedvOES(pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetTexEnvxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetTexParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glLightModelxOES(pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glLightModelxvOES(pname: TGLenum; param: PGLfixed); cdecl; external glLib;
-procedure glLightxOES(light: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glLightxvOES(light: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glLineWidthxOES(Width: TGLfixed); cdecl; external glLib;
-procedure glLoadMatrixxOES(m: PGLfixed); cdecl; external glLib;
-procedure glMaterialxOES(face: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glMaterialxvOES(face: TGLenum; pname: TGLenum; param: PGLfixed); cdecl; external glLib;
-procedure glMultMatrixxOES(m: PGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord4xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed; r: TGLfixed; q: TGLfixed); cdecl; external glLib;
-procedure glNormal3xOES(nx: TGLfixed; ny: TGLfixed; nz: TGLfixed); cdecl; external glLib;
+  f: TGLfixed); stdcall; external glLib;
+procedure glGetClipPlanexOES(plane: TGLenum; equation: PGLfixed); stdcall; external glLib;
+procedure glGetFixedvOES(pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetTexEnvxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetTexParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glLightModelxOES(pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glLightModelxvOES(pname: TGLenum; param: PGLfixed); stdcall; external glLib;
+procedure glLightxOES(light: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glLightxvOES(light: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glLineWidthxOES(Width: TGLfixed); stdcall; external glLib;
+procedure glLoadMatrixxOES(m: PGLfixed); stdcall; external glLib;
+procedure glMaterialxOES(face: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glMaterialxvOES(face: TGLenum; pname: TGLenum; param: PGLfixed); stdcall; external glLib;
+procedure glMultMatrixxOES(m: PGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord4xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed; r: TGLfixed; q: TGLfixed); stdcall; external glLib;
+procedure glNormal3xOES(nx: TGLfixed; ny: TGLfixed; nz: TGLfixed); stdcall; external glLib;
 procedure glOrthoxOES(l: TGLfixed; r: TGLfixed; b: TGLfixed; t: TGLfixed; n: TGLfixed;
-  f: TGLfixed); cdecl; external glLib;
-procedure glPointParameterxvOES(pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glPointSizexOES(size: TGLfixed); cdecl; external glLib;
-procedure glPolygonOffsetxOES(factor: TGLfixed; units: TGLfixed); cdecl; external glLib;
-procedure glRotatexOES(angle: TGLfixed; x: TGLfixed; y: TGLfixed; z: TGLfixed); cdecl; external glLib;
-procedure glScalexOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); cdecl; external glLib;
-procedure glTexEnvxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glTexEnvxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glTexParameterxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glTexParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glTranslatexOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); cdecl; external glLib;
-procedure glAccumxOES(op: TGLenum; Value: TGLfixed); cdecl; external glLib;
+  f: TGLfixed); stdcall; external glLib;
+procedure glPointParameterxvOES(pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glPointSizexOES(size: TGLfixed); stdcall; external glLib;
+procedure glPolygonOffsetxOES(factor: TGLfixed; units: TGLfixed); stdcall; external glLib;
+procedure glRotatexOES(angle: TGLfixed; x: TGLfixed; y: TGLfixed; z: TGLfixed); stdcall; external glLib;
+procedure glScalexOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); stdcall; external glLib;
+procedure glTexEnvxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glTexEnvxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glTexParameterxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glTexParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glTranslatexOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); stdcall; external glLib;
+procedure glAccumxOES(op: TGLenum; Value: TGLfixed); stdcall; external glLib;
 procedure glBitmapxOES(Width: TGLsizei; Height: TGLsizei; xorig: TGLfixed; yorig: TGLfixed; xmove: TGLfixed;
-  ymove: TGLfixed; bitmap: PGLubyte); cdecl; external glLib;
-procedure glBlendColorxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); cdecl; external glLib;
-procedure glClearAccumxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); cdecl; external glLib;
-procedure glColor3xOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed); cdecl; external glLib;
-procedure glColor3xvOES(Components: PGLfixed); cdecl; external glLib;
-procedure glColor4xvOES(Components: PGLfixed); cdecl; external glLib;
-procedure glConvolutionParameterxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glConvolutionParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glEvalCoord1xOES(u: TGLfixed); cdecl; external glLib;
-procedure glEvalCoord1xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glEvalCoord2xOES(u: TGLfixed; v: TGLfixed); cdecl; external glLib;
-procedure glEvalCoord2xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glFeedbackBufferxOES(n: TGLsizei; _type: TGLenum; buffer: PGLfixed); cdecl; external glLib;
-procedure glGetConvolutionParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetHistogramParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetLightxOES(light: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetMapxvOES(target: TGLenum; query: TGLenum; v: PGLfixed); cdecl; external glLib;
-procedure glGetMaterialxOES(face: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glGetPixelMapxv(map: TGLenum; size: TGLint; values: PGLfixed); cdecl; external glLib;
-procedure glGetTexGenxvOES(coord: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glGetTexLevelParameterxvOES(target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glIndexxOES(component: TGLfixed); cdecl; external glLib;
-procedure glIndexxvOES(component: PGLfixed); cdecl; external glLib;
-procedure glLoadTransposeMatrixxOES(m: PGLfixed); cdecl; external glLib;
+  ymove: TGLfixed; bitmap: PGLubyte); stdcall; external glLib;
+procedure glBlendColorxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); stdcall; external glLib;
+procedure glClearAccumxOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed; alpha: TGLfixed); stdcall; external glLib;
+procedure glColor3xOES(red: TGLfixed; green: TGLfixed; blue: TGLfixed); stdcall; external glLib;
+procedure glColor3xvOES(Components: PGLfixed); stdcall; external glLib;
+procedure glColor4xvOES(Components: PGLfixed); stdcall; external glLib;
+procedure glConvolutionParameterxOES(target: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glConvolutionParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glEvalCoord1xOES(u: TGLfixed); stdcall; external glLib;
+procedure glEvalCoord1xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glEvalCoord2xOES(u: TGLfixed; v: TGLfixed); stdcall; external glLib;
+procedure glEvalCoord2xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glFeedbackBufferxOES(n: TGLsizei; _type: TGLenum; buffer: PGLfixed); stdcall; external glLib;
+procedure glGetConvolutionParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetHistogramParameterxvOES(target: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetLightxOES(light: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetMapxvOES(target: TGLenum; query: TGLenum; v: PGLfixed); stdcall; external glLib;
+procedure glGetMaterialxOES(face: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glGetPixelMapxv(map: TGLenum; size: TGLint; values: PGLfixed); stdcall; external glLib;
+procedure glGetTexGenxvOES(coord: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glGetTexLevelParameterxvOES(target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glIndexxOES(component: TGLfixed); stdcall; external glLib;
+procedure glIndexxvOES(component: PGLfixed); stdcall; external glLib;
+procedure glLoadTransposeMatrixxOES(m: PGLfixed); stdcall; external glLib;
 procedure glMap1xOES(target: TGLenum; u1: TGLfixed; u2: TGLfixed; stride: TGLint; order: TGLint;
-  points: TGLfixed); cdecl; external glLib;
+  points: TGLfixed); stdcall; external glLib;
 procedure glMap2xOES(target: TGLenum; u1: TGLfixed; u2: TGLfixed; ustride: TGLint; uorder: TGLint;
-  v1: TGLfixed; v2: TGLfixed; vstride: TGLint; vorder: TGLint; points: TGLfixed); cdecl; external glLib;
-procedure glMapGrid1xOES(n: TGLint; u1: TGLfixed; u2: TGLfixed); cdecl; external glLib;
-procedure glMapGrid2xOES(n: TGLint; u1: TGLfixed; u2: TGLfixed; v1: TGLfixed; v2: TGLfixed); cdecl; external glLib;
-procedure glMultTransposeMatrixxOES(m: PGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord1xOES(texture: TGLenum; s: TGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord1xvOES(texture: TGLenum; coords: PGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord2xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord2xvOES(texture: TGLenum; coords: PGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord3xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed; r: TGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord3xvOES(texture: TGLenum; coords: PGLfixed); cdecl; external glLib;
-procedure glMultiTexCoord4xvOES(texture: TGLenum; coords: PGLfixed); cdecl; external glLib;
-procedure glNormal3xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glPassThroughxOES(token: TGLfixed); cdecl; external glLib;
-procedure glPixelMapx(map: TGLenum; size: TGLint; values: PGLfixed); cdecl; external glLib;
-procedure glPixelStorex(pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glPixelTransferxOES(pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glPixelZoomxOES(xfactor: TGLfixed; yfactor: TGLfixed); cdecl; external glLib;
-procedure glPrioritizeTexturesxOES(n: TGLsizei; textures: PGLuint; priorities: PGLfixed); cdecl; external glLib;
-procedure glRasterPos2xOES(x: TGLfixed; y: TGLfixed); cdecl; external glLib;
-procedure glRasterPos2xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glRasterPos3xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); cdecl; external glLib;
-procedure glRasterPos3xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glRasterPos4xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed; w: TGLfixed); cdecl; external glLib;
-procedure glRasterPos4xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glRectxOES(x1: TGLfixed; y1: TGLfixed; x2: TGLfixed; y2: TGLfixed); cdecl; external glLib;
-procedure glRectxvOES(v1: PGLfixed; v2: PGLfixed); cdecl; external glLib;
-procedure glTexCoord1xOES(s: TGLfixed); cdecl; external glLib;
-procedure glTexCoord1xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glTexCoord2xOES(s: TGLfixed; t: TGLfixed); cdecl; external glLib;
-procedure glTexCoord2xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glTexCoord3xOES(s: TGLfixed; t: TGLfixed; r: TGLfixed); cdecl; external glLib;
-procedure glTexCoord3xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glTexCoord4xOES(s: TGLfixed; t: TGLfixed; r: TGLfixed; q: TGLfixed); cdecl; external glLib;
-procedure glTexCoord4xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glTexGenxOES(coord: TGLenum; pname: TGLenum; param: TGLfixed); cdecl; external glLib;
-procedure glTexGenxvOES(coord: TGLenum; pname: TGLenum; params: PGLfixed); cdecl; external glLib;
-procedure glVertex2xOES(x: TGLfixed); cdecl; external glLib;
-procedure glVertex2xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glVertex3xOES(x: TGLfixed; y: TGLfixed); cdecl; external glLib;
-procedure glVertex3xvOES(coords: PGLfixed); cdecl; external glLib;
-procedure glVertex4xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); cdecl; external glLib;
-procedure glVertex4xvOES(coords: PGLfixed); cdecl; external glLib;
+  v1: TGLfixed; v2: TGLfixed; vstride: TGLint; vorder: TGLint; points: TGLfixed); stdcall; external glLib;
+procedure glMapGrid1xOES(n: TGLint; u1: TGLfixed; u2: TGLfixed); stdcall; external glLib;
+procedure glMapGrid2xOES(n: TGLint; u1: TGLfixed; u2: TGLfixed; v1: TGLfixed; v2: TGLfixed); stdcall; external glLib;
+procedure glMultTransposeMatrixxOES(m: PGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord1xOES(texture: TGLenum; s: TGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord1xvOES(texture: TGLenum; coords: PGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord2xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord2xvOES(texture: TGLenum; coords: PGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord3xOES(texture: TGLenum; s: TGLfixed; t: TGLfixed; r: TGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord3xvOES(texture: TGLenum; coords: PGLfixed); stdcall; external glLib;
+procedure glMultiTexCoord4xvOES(texture: TGLenum; coords: PGLfixed); stdcall; external glLib;
+procedure glNormal3xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glPassThroughxOES(token: TGLfixed); stdcall; external glLib;
+procedure glPixelMapx(map: TGLenum; size: TGLint; values: PGLfixed); stdcall; external glLib;
+procedure glPixelStorex(pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glPixelTransferxOES(pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glPixelZoomxOES(xfactor: TGLfixed; yfactor: TGLfixed); stdcall; external glLib;
+procedure glPrioritizeTexturesxOES(n: TGLsizei; textures: PGLuint; priorities: PGLfixed); stdcall; external glLib;
+procedure glRasterPos2xOES(x: TGLfixed; y: TGLfixed); stdcall; external glLib;
+procedure glRasterPos2xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glRasterPos3xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); stdcall; external glLib;
+procedure glRasterPos3xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glRasterPos4xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed; w: TGLfixed); stdcall; external glLib;
+procedure glRasterPos4xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glRectxOES(x1: TGLfixed; y1: TGLfixed; x2: TGLfixed; y2: TGLfixed); stdcall; external glLib;
+procedure glRectxvOES(v1: PGLfixed; v2: PGLfixed); stdcall; external glLib;
+procedure glTexCoord1xOES(s: TGLfixed); stdcall; external glLib;
+procedure glTexCoord1xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glTexCoord2xOES(s: TGLfixed; t: TGLfixed); stdcall; external glLib;
+procedure glTexCoord2xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glTexCoord3xOES(s: TGLfixed; t: TGLfixed; r: TGLfixed); stdcall; external glLib;
+procedure glTexCoord3xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glTexCoord4xOES(s: TGLfixed; t: TGLfixed; r: TGLfixed; q: TGLfixed); stdcall; external glLib;
+procedure glTexCoord4xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glTexGenxOES(coord: TGLenum; pname: TGLenum; param: TGLfixed); stdcall; external glLib;
+procedure glTexGenxvOES(coord: TGLenum; pname: TGLenum; params: PGLfixed); stdcall; external glLib;
+procedure glVertex2xOES(x: TGLfixed); stdcall; external glLib;
+procedure glVertex2xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glVertex3xOES(x: TGLfixed; y: TGLfixed); stdcall; external glLib;
+procedure glVertex3xvOES(coords: PGLfixed); stdcall; external glLib;
+procedure glVertex4xOES(x: TGLfixed; y: TGLfixed; z: TGLfixed); stdcall; external glLib;
+procedure glVertex4xvOES(coords: PGLfixed); stdcall; external glLib;
 
 const
   GL_OES_query_matrix = 1;
 
-function glQueryMatrixxOES(mantissa: PGLfixed; exponent: PGLint): TGLbitfield; cdecl; external glLib;
+function glQueryMatrixxOES(mantissa: PGLfixed; exponent: PGLint): TGLbitfield; stdcall; external glLib;
 
 const
   GL_OES_read_format = 1;
@@ -3779,14 +3779,14 @@ const
   GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES = $8B9B;
   GL_OES_single_precision = 1;
 
-procedure glClearDepthfOES(depth: TGLclampf); cdecl; external glLib;
-procedure glClipPlanefOES(plane: TGLenum; equation: PGLfloat); cdecl; external glLib;
-procedure glDepthRangefOES(n: TGLclampf; f: TGLclampf); cdecl; external glLib;
+procedure glClearDepthfOES(depth: TGLclampf); stdcall; external glLib;
+procedure glClipPlanefOES(plane: TGLenum; equation: PGLfloat); stdcall; external glLib;
+procedure glDepthRangefOES(n: TGLclampf; f: TGLclampf); stdcall; external glLib;
 procedure glFrustumfOES(l: TGLfloat; r: TGLfloat; b: TGLfloat; t: TGLfloat; n: TGLfloat;
-  f: TGLfloat); cdecl; external glLib;
-procedure glGetClipPlanefOES(plane: TGLenum; equation: PGLfloat); cdecl; external glLib;
+  f: TGLfloat); stdcall; external glLib;
+procedure glGetClipPlanefOES(plane: TGLenum; equation: PGLfloat); stdcall; external glLib;
 procedure glOrthofOES(l: TGLfloat; r: TGLfloat; b: TGLfloat; t: TGLfloat; n: TGLfloat;
-  f: TGLfloat); cdecl; external glLib;
+  f: TGLfloat); stdcall; external glLib;
 
 const
   GL_3DFX_multisample = 1;
@@ -3796,7 +3796,7 @@ const
   GL_MULTISAMPLE_BIT_3DFX = $20000000;
   GL_3DFX_tbuffer = 1;
 
-procedure glTbufferMask3DFX(mask: TGLuint); cdecl; external glLib;
+procedure glTbufferMask3DFX(mask: TGLuint); stdcall; external glLib;
 
 const
   GL_3DFX_texture_compression_FXT1 = 1;
@@ -3811,7 +3811,7 @@ const
 type
 
   TGLDEBUGPROCAMD = procedure(id: TGLuint; category: TGLenum; severity: TGLenum; length: TGLsizei; message: PGLchar;
-    userParam: pointer); cdecl;
+    userParam: pointer); stdcall;
 
 const
   GL_MAX_DEBUG_MESSAGE_LENGTH_AMD = $9143;
@@ -3829,11 +3829,11 @@ const
   GL_DEBUG_CATEGORY_APPLICATION_AMD = $914F;
   GL_DEBUG_CATEGORY_OTHER_AMD = $9150;
 
-procedure glDebugMessageEnableAMD(category: TGLenum; severity: TGLenum; Count: TGLsizei; ids: PGLuint; Enabled: TGLboolean); cdecl; external glLib;
-procedure glDebugMessageInsertAMD(category: TGLenum; severity: TGLenum; id: TGLuint; length: TGLsizei; buf: PGLchar); cdecl; external glLib;
-procedure glDebugMessageCallbackAMD(callback: TGLDEBUGPROCAMD; userParam: pointer); cdecl; external glLib;
+procedure glDebugMessageEnableAMD(category: TGLenum; severity: TGLenum; Count: TGLsizei; ids: PGLuint; Enabled: TGLboolean); stdcall; external glLib;
+procedure glDebugMessageInsertAMD(category: TGLenum; severity: TGLenum; id: TGLuint; length: TGLsizei; buf: PGLchar); stdcall; external glLib;
+procedure glDebugMessageCallbackAMD(callback: TGLDEBUGPROCAMD; userParam: pointer); stdcall; external glLib;
 function glGetDebugMessageLogAMD(Count: TGLuint; bufSize: TGLsizei; categories: PGLenum; severities: PGLenum; ids: PGLuint;
-  lengths: PGLsizei; message: PGLchar): TGLuint; cdecl; external glLib;
+  lengths: PGLsizei; message: PGLchar): TGLuint; stdcall; external glLib;
 
 const
   GL_AMD_depth_clamp_separate = 1;
@@ -3841,10 +3841,10 @@ const
   GL_DEPTH_CLAMP_FAR_AMD = $901F;
   GL_AMD_draw_buffers_blend = 1;
 
-procedure glBlendFuncIndexedAMD(buf: TGLuint; src: TGLenum; dst: TGLenum); cdecl; external glLib;
-procedure glBlendFuncSeparateIndexedAMD(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); cdecl; external glLib;
-procedure glBlendEquationIndexedAMD(buf: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glBlendEquationSeparateIndexedAMD(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); cdecl; external glLib;
+procedure glBlendFuncIndexedAMD(buf: TGLuint; src: TGLenum; dst: TGLenum); stdcall; external glLib;
+procedure glBlendFuncSeparateIndexedAMD(buf: TGLuint; srcRGB: TGLenum; dstRGB: TGLenum; srcAlpha: TGLenum; dstAlpha: TGLenum); stdcall; external glLib;
+procedure glBlendEquationIndexedAMD(buf: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glBlendEquationSeparateIndexedAMD(buf: TGLuint; modeRGB: TGLenum; modeAlpha: TGLenum); stdcall; external glLib;
 
 const
   GL_AMD_framebuffer_multisample_advanced = 1;
@@ -3856,9 +3856,9 @@ const
   GL_SUPPORTED_MULTISAMPLE_MODES_AMD = $91B7;
 
 procedure glRenderbufferStorageMultisampleAdvancedAMD(target: TGLenum; samples: TGLsizei; storageSamples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
 procedure glNamedRenderbufferStorageMultisampleAdvancedAMD(renderbuffer: TGLuint; samples: TGLsizei; storageSamples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
 
 const
   GL_AMD_framebuffer_sample_positions = 1;
@@ -3867,12 +3867,12 @@ const
   GL_PIXELS_PER_SAMPLE_PATTERN_Y_AMD = $91AF;
   GL_ALL_PIXELS_AMD = $FFFFFFFF;
 
-procedure glFramebufferSamplePositionsfvAMD(target: TGLenum; numsamples: TGLuint; pixelindex: TGLuint; values: PGLfloat); cdecl; external glLib;
-procedure glNamedFramebufferSamplePositionsfvAMD(framebuffer: TGLuint; numsamples: TGLuint; pixelindex: TGLuint; values: PGLfloat); cdecl; external glLib;
+procedure glFramebufferSamplePositionsfvAMD(target: TGLenum; numsamples: TGLuint; pixelindex: TGLuint; values: PGLfloat); stdcall; external glLib;
+procedure glNamedFramebufferSamplePositionsfvAMD(framebuffer: TGLuint; numsamples: TGLuint; pixelindex: TGLuint; values: PGLfloat); stdcall; external glLib;
 procedure glGetFramebufferParameterfvAMD(target: TGLenum; pname: TGLenum; numsamples: TGLuint; pixelindex: TGLuint; size: TGLsizei;
-  values: PGLfloat); cdecl; external glLib;
+  values: PGLfloat); stdcall; external glLib;
 procedure glGetNamedFramebufferParameterfvAMD(framebuffer: TGLuint; pname: TGLenum; numsamples: TGLuint; pixelindex: TGLuint; size: TGLsizei;
-  values: PGLfloat); cdecl; external glLib;
+  values: PGLfloat); stdcall; external glLib;
 
 const
   GL_AMD_gcn_shader = 1;
@@ -3923,55 +3923,55 @@ const
   GL_UNSIGNED_INT64_VEC3_NV = $8FF6;
   GL_UNSIGNED_INT64_VEC4_NV = $8FF7;
 
-procedure glUniform1i64NV(location: TGLint; x: TGLint64EXT); cdecl; external glLib;
-procedure glUniform2i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT); cdecl; external glLib;
-procedure glUniform3i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); cdecl; external glLib;
-procedure glUniform4i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT; w: TGLint64EXT); cdecl; external glLib;
-procedure glUniform1i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glUniform2i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glUniform3i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glUniform4i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glUniform1ui64NV(location: TGLint; x: TGLuint64EXT); cdecl; external glLib;
-procedure glUniform2ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT); cdecl; external glLib;
-procedure glUniform3ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); cdecl; external glLib;
-procedure glUniform4ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT; w: TGLuint64EXT); cdecl; external glLib;
-procedure glUniform1ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glUniform2ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glUniform3ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glUniform4ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glGetUniformi64vNV(program_: TGLuint; location: TGLint; params: PGLint64EXT); cdecl; external glLib;
-procedure glGetUniformui64vNV(program_: TGLuint; location: TGLint; params: PGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform1i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform2i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT; y: TGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform3i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); cdecl; external glLib;
+procedure glUniform1i64NV(location: TGLint; x: TGLint64EXT); stdcall; external glLib;
+procedure glUniform2i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT); stdcall; external glLib;
+procedure glUniform3i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); stdcall; external glLib;
+procedure glUniform4i64NV(location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT; w: TGLint64EXT); stdcall; external glLib;
+procedure glUniform1i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glUniform2i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glUniform3i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glUniform4i64vNV(location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glUniform1ui64NV(location: TGLint; x: TGLuint64EXT); stdcall; external glLib;
+procedure glUniform2ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT); stdcall; external glLib;
+procedure glUniform3ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); stdcall; external glLib;
+procedure glUniform4ui64NV(location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT; w: TGLuint64EXT); stdcall; external glLib;
+procedure glUniform1ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glUniform2ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glUniform3ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glUniform4ui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glGetUniformi64vNV(program_: TGLuint; location: TGLint; params: PGLint64EXT); stdcall; external glLib;
+procedure glGetUniformui64vNV(program_: TGLuint; location: TGLint; params: PGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform1i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform2i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT; y: TGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform3i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); stdcall; external glLib;
 procedure glProgramUniform4i64NV(program_: TGLuint; location: TGLint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT;
-  w: TGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform1i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform2i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform3i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform4i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); cdecl; external glLib;
-procedure glProgramUniform1ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform2ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform3ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); cdecl; external glLib;
+  w: TGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform1i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform2i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform3i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform4i64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint64EXT); stdcall; external glLib;
+procedure glProgramUniform1ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform2ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform3ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); stdcall; external glLib;
 procedure glProgramUniform4ui64NV(program_: TGLuint; location: TGLint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT;
-  w: TGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform1ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform2ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform3ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniform4ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
+  w: TGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform1ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform2ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform3ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniform4ui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
 
 const
   GL_AMD_interleaved_elements = 1;
   GL_VERTEX_ELEMENT_SWIZZLE_AMD = $91A4;
   GL_VERTEX_ID_SWIZZLE_AMD = $91A5;
 
-procedure glVertexAttribParameteriAMD(index: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
+procedure glVertexAttribParameteriAMD(index: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
 
 const
   GL_AMD_multi_draw_indirect = 1;
 
-procedure glMultiDrawArraysIndirectAMD(mode: TGLenum; indirect: pointer; primcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawElementsIndirectAMD(mode: TGLenum; _type: TGLenum; indirect: pointer; primcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
+procedure glMultiDrawArraysIndirectAMD(mode: TGLenum; indirect: pointer; primcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawElementsIndirectAMD(mode: TGLenum; _type: TGLenum; indirect: pointer; primcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
 
 const
   GL_AMD_name_gen_delete = 1;
@@ -3981,9 +3981,9 @@ const
   GL_VERTEX_ARRAY_OBJECT_AMD = $9154;
   GL_SAMPLER_OBJECT_AMD = $9155;
 
-procedure glGenNamesAMD(identifier: TGLenum; num: TGLuint; names: PGLuint); cdecl; external glLib;
-procedure glDeleteNamesAMD(identifier: TGLenum; num: TGLuint; names: PGLuint); cdecl; external glLib;
-function glIsNameAMD(identifier: TGLenum; Name: TGLuint): TGLboolean; cdecl; external glLib;
+procedure glGenNamesAMD(identifier: TGLenum; num: TGLuint; names: PGLuint); stdcall; external glLib;
+procedure glDeleteNamesAMD(identifier: TGLenum; num: TGLuint; names: PGLuint); stdcall; external glLib;
+function glIsNameAMD(identifier: TGLenum; Name: TGLuint): TGLboolean; stdcall; external glLib;
 
 const
   GL_AMD_occlusion_query_event = 1;
@@ -3994,7 +3994,7 @@ const
   GL_QUERY_DEPTH_BOUNDS_FAIL_EVENT_BIT_AMD = $00000008;
   GL_QUERY_ALL_EVENT_BITS_AMD = $FFFFFFFF;
 
-procedure glQueryObjectParameteruiAMD(target: TGLenum; id: TGLuint; pname: TGLenum; param: TGLuint); cdecl; external glLib;
+procedure glQueryObjectParameteruiAMD(target: TGLenum; id: TGLuint; pname: TGLenum; param: TGLuint); stdcall; external glLib;
 
 const
   GL_AMD_performance_monitor = 1;
@@ -4006,17 +4006,17 @@ const
   GL_PERFMON_RESULT_SIZE_AMD = $8BC5;
   GL_PERFMON_RESULT_AMD = $8BC6;
 
-procedure glGetPerfMonitorGroupsAMD(numGroups: PGLint; groupsSize: TGLsizei; groups: PGLuint); cdecl; external glLib;
-procedure glGetPerfMonitorCountersAMD(group: TGLuint; numCounters: PGLint; maxActiveCounters: PGLint; counterSize: TGLsizei; counters: PGLuint); cdecl; external glLib;
-procedure glGetPerfMonitorGroupStringAMD(group: TGLuint; bufSize: TGLsizei; length: PGLsizei; groupString: PGLchar); cdecl; external glLib;
-procedure glGetPerfMonitorCounterStringAMD(group: TGLuint; counter: TGLuint; bufSize: TGLsizei; length: PGLsizei; counterString: PGLchar); cdecl; external glLib;
-procedure glGetPerfMonitorCounterInfoAMD(group: TGLuint; counter: TGLuint; pname: TGLenum; Data: pointer); cdecl; external glLib;
-procedure glGenPerfMonitorsAMD(n: TGLsizei; monitors: PGLuint); cdecl; external glLib;
-procedure glDeletePerfMonitorsAMD(n: TGLsizei; monitors: PGLuint); cdecl; external glLib;
-procedure glSelectPerfMonitorCountersAMD(monitor: TGLuint; enable: TGLboolean; group: TGLuint; numCounters: TGLint; counterList: PGLuint); cdecl; external glLib;
-procedure glBeginPerfMonitorAMD(monitor: TGLuint); cdecl; external glLib;
-procedure glEndPerfMonitorAMD(monitor: TGLuint); cdecl; external glLib;
-procedure glGetPerfMonitorCounterDataAMD(monitor: TGLuint; pname: TGLenum; dataSize: TGLsizei; Data: PGLuint; bytesWritten: PGLint); cdecl; external glLib;
+procedure glGetPerfMonitorGroupsAMD(numGroups: PGLint; groupsSize: TGLsizei; groups: PGLuint); stdcall; external glLib;
+procedure glGetPerfMonitorCountersAMD(group: TGLuint; numCounters: PGLint; maxActiveCounters: PGLint; counterSize: TGLsizei; counters: PGLuint); stdcall; external glLib;
+procedure glGetPerfMonitorGroupStringAMD(group: TGLuint; bufSize: TGLsizei; length: PGLsizei; groupString: PGLchar); stdcall; external glLib;
+procedure glGetPerfMonitorCounterStringAMD(group: TGLuint; counter: TGLuint; bufSize: TGLsizei; length: PGLsizei; counterString: PGLchar); stdcall; external glLib;
+procedure glGetPerfMonitorCounterInfoAMD(group: TGLuint; counter: TGLuint; pname: TGLenum; Data: pointer); stdcall; external glLib;
+procedure glGenPerfMonitorsAMD(n: TGLsizei; monitors: PGLuint); stdcall; external glLib;
+procedure glDeletePerfMonitorsAMD(n: TGLsizei; monitors: PGLuint); stdcall; external glLib;
+procedure glSelectPerfMonitorCountersAMD(monitor: TGLuint; enable: TGLboolean; group: TGLuint; numCounters: TGLint; counterList: PGLuint); stdcall; external glLib;
+procedure glBeginPerfMonitorAMD(monitor: TGLuint); stdcall; external glLib;
+procedure glEndPerfMonitorAMD(monitor: TGLuint); stdcall; external glLib;
+procedure glGetPerfMonitorCounterDataAMD(monitor: TGLuint; pname: TGLenum; dataSize: TGLsizei; Data: PGLuint; bytesWritten: PGLint); stdcall; external glLib;
 
 const
   GL_AMD_pinned_memory = 1;
@@ -4027,7 +4027,7 @@ const
   GL_QUERY_RESULT_NO_WAIT_AMD = $9194;
   GL_AMD_sample_positions = 1;
 
-procedure glSetMultisamplefvAMD(pname: TGLenum; index: TGLuint; val: PGLfloat); cdecl; external glLib;
+procedure glSetMultisamplefvAMD(pname: TGLenum; index: TGLuint; val: PGLfloat); stdcall; external glLib;
 
 const
   GL_AMD_seamless_cubemap_per_texture = 1;
@@ -4050,9 +4050,9 @@ const
   GL_TEXTURE_STORAGE_SPARSE_BIT_AMD = $00000001;
 
 procedure glTexStorageSparseAMD(target: TGLenum; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei;
-  layers: TGLsizei; flags: TGLbitfield); cdecl; external glLib;
+  layers: TGLsizei; flags: TGLbitfield); stdcall; external glLib;
 procedure glTextureStorageSparseAMD(texture: TGLuint; target: TGLenum; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; layers: TGLsizei; flags: TGLbitfield); cdecl; external glLib;
+  depth: TGLsizei; layers: TGLsizei; flags: TGLbitfield); stdcall; external glLib;
 
 const
   GL_AMD_stencil_operation_extended = 1;
@@ -4061,7 +4061,7 @@ const
   GL_STENCIL_OP_VALUE_AMD = $874C;
   GL_STENCIL_BACK_OP_VALUE_AMD = $874D;
 
-procedure glStencilOpValueAMD(face: TGLenum; Value: TGLuint); cdecl; external glLib;
+procedure glStencilOpValueAMD(face: TGLenum; Value: TGLuint); stdcall; external glLib;
 
 const
   GL_AMD_texture_gather_bias_lod = 1;
@@ -4079,8 +4079,8 @@ const
   GL_DISCRETE_AMD = $9006;
   GL_CONTINUOUS_AMD = $9007;
 
-procedure glTessellationFactorAMD(factor: TGLfloat); cdecl; external glLib;
-procedure glTessellationModeAMD(mode: TGLenum); cdecl; external glLib;
+procedure glTessellationFactorAMD(factor: TGLfloat); stdcall; external glLib;
+procedure glTessellationModeAMD(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_AMD_vertex_shader_viewport_index = 1;
@@ -4093,26 +4093,26 @@ const
   GL_ELEMENT_ARRAY_TYPE_APPLE = $8A0D;
   GL_ELEMENT_ARRAY_POINTER_APPLE = $8A0E;
 
-procedure glElementPointerAPPLE(_type: TGLenum; pointer: pointer); cdecl; external glLib;
-procedure glDrawElementArrayAPPLE(mode: TGLenum; First: TGLint; Count: TGLsizei); cdecl; external glLib;
-procedure glDrawRangeElementArrayAPPLE(mode: TGLenum; start: TGLuint; end_: TGLuint; First: TGLint; Count: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawElementArrayAPPLE(mode: TGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei); cdecl; external glLib;
+procedure glElementPointerAPPLE(_type: TGLenum; pointer: pointer); stdcall; external glLib;
+procedure glDrawElementArrayAPPLE(mode: TGLenum; First: TGLint; Count: TGLsizei); stdcall; external glLib;
+procedure glDrawRangeElementArrayAPPLE(mode: TGLenum; start: TGLuint; end_: TGLuint; First: TGLint; Count: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawElementArrayAPPLE(mode: TGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei); stdcall; external glLib;
 procedure glMultiDrawRangeElementArrayAPPLE(mode: TGLenum; start: TGLuint; end_: TGLuint; First: PGLint; Count: PGLsizei;
-  primcount: TGLsizei); cdecl; external glLib;
+  primcount: TGLsizei); stdcall; external glLib;
 
 const
   GL_APPLE_fence = 1;
   GL_DRAW_PIXELS_APPLE = $8A0A;
   GL_FENCE_APPLE = $8A0B;
 
-procedure glGenFencesAPPLE(n: TGLsizei; fences: PGLuint); cdecl; external glLib;
-procedure glDeleteFencesAPPLE(n: TGLsizei; fences: PGLuint); cdecl; external glLib;
-procedure glSetFenceAPPLE(fence: TGLuint); cdecl; external glLib;
-function glIsFenceAPPLE(fence: TGLuint): TGLboolean; cdecl; external glLib;
-function glTestFenceAPPLE(fence: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glFinishFenceAPPLE(fence: TGLuint); cdecl; external glLib;
-function glTestObjectAPPLE(object_: TGLenum; Name: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glFinishObjectAPPLE(object_: TGLenum; Name: TGLint); cdecl; external glLib;
+procedure glGenFencesAPPLE(n: TGLsizei; fences: PGLuint); stdcall; external glLib;
+procedure glDeleteFencesAPPLE(n: TGLsizei; fences: PGLuint); stdcall; external glLib;
+procedure glSetFenceAPPLE(fence: TGLuint); stdcall; external glLib;
+function glIsFenceAPPLE(fence: TGLuint): TGLboolean; stdcall; external glLib;
+function glTestFenceAPPLE(fence: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glFinishFenceAPPLE(fence: TGLuint); stdcall; external glLib;
+function glTestObjectAPPLE(object_: TGLenum; Name: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glFinishObjectAPPLE(object_: TGLenum; Name: TGLint); stdcall; external glLib;
 
 const
   GL_APPLE_float_pixels = 1;
@@ -4134,8 +4134,8 @@ const
   GL_BUFFER_SERIALIZED_MODIFY_APPLE = $8A12;
   GL_BUFFER_FLUSHING_UNMAP_APPLE = $8A13;
 
-procedure glBufferParameteriAPPLE(target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glFlushMappedBufferRangeAPPLE(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
+procedure glBufferParameteriAPPLE(target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glFlushMappedBufferRangeAPPLE(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
 
 const
   GL_APPLE_object_purgeable = 1;
@@ -4146,9 +4146,9 @@ const
   GL_UNDEFINED_APPLE = $8A1C;
   GL_PURGEABLE_APPLE = $8A1D;
 
-function glObjectPurgeableAPPLE(objectType: TGLenum; Name: TGLuint; option: TGLenum): TGLenum; cdecl; external glLib;
-function glObjectUnpurgeableAPPLE(objectType: TGLenum; Name: TGLuint; option: TGLenum): TGLenum; cdecl; external glLib;
-procedure glGetObjectParameterivAPPLE(objectType: TGLenum; Name: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+function glObjectPurgeableAPPLE(objectType: TGLenum; Name: TGLuint; option: TGLenum): TGLenum; stdcall; external glLib;
+function glObjectUnpurgeableAPPLE(objectType: TGLenum; Name: TGLuint; option: TGLenum): TGLenum; stdcall; external glLib;
+procedure glGetObjectParameterivAPPLE(objectType: TGLenum; Name: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_APPLE_rgb_422 = 1;
@@ -4169,8 +4169,8 @@ const
   GL_STORAGE_CACHED_APPLE = $85BE;
   GL_STORAGE_SHARED_APPLE = $85BF;
 
-procedure glTextureRangeAPPLE(target: TGLenum; length: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glGetTexParameterPointervAPPLE(target: TGLenum; pname: TGLenum; params: Ppointer); cdecl; external glLib;
+procedure glTextureRangeAPPLE(target: TGLenum; length: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glGetTexParameterPointervAPPLE(target: TGLenum; pname: TGLenum; params: Ppointer); stdcall; external glLib;
 
 const
   GL_APPLE_transform_hint = 1;
@@ -4178,10 +4178,10 @@ const
   GL_APPLE_vertex_array_object = 1;
   GL_VERTEX_ARRAY_BINDING_APPLE = $85B5;
 
-procedure glBindVertexArrayAPPLE(array_: TGLuint); cdecl; external glLib;
-procedure glDeleteVertexArraysAPPLE(n: TGLsizei; arrays: PGLuint); cdecl; external glLib;
-procedure glGenVertexArraysAPPLE(n: TGLsizei; arrays: PGLuint); cdecl; external glLib;
-function glIsVertexArrayAPPLE(array_: TGLuint): TGLboolean; cdecl; external glLib;
+procedure glBindVertexArrayAPPLE(array_: TGLuint); stdcall; external glLib;
+procedure glDeleteVertexArraysAPPLE(n: TGLsizei; arrays: PGLuint); stdcall; external glLib;
+procedure glGenVertexArraysAPPLE(n: TGLsizei; arrays: PGLuint); stdcall; external glLib;
+function glIsVertexArrayAPPLE(array_: TGLuint): TGLboolean; stdcall; external glLib;
 
 const
   GL_APPLE_vertex_array_range = 1;
@@ -4191,9 +4191,9 @@ const
   GL_VERTEX_ARRAY_RANGE_POINTER_APPLE = $8521;
   GL_STORAGE_CLIENT_APPLE = $85B4;
 
-procedure glVertexArrayRangeAPPLE(length: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glFlushVertexArrayRangeAPPLE(length: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glVertexArrayParameteriAPPLE(pname: TGLenum; param: TGLint); cdecl; external glLib;
+procedure glVertexArrayRangeAPPLE(length: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glFlushVertexArrayRangeAPPLE(length: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glVertexArrayParameteriAPPLE(pname: TGLenum; param: TGLint); stdcall; external glLib;
 
 const
   GL_APPLE_vertex_program_evaluators = 1;
@@ -4208,19 +4208,19 @@ const
   GL_VERTEX_ATTRIB_MAP2_ORDER_APPLE = $8A08;
   GL_VERTEX_ATTRIB_MAP2_DOMAIN_APPLE = $8A09;
 
-procedure glEnableVertexAttribAPPLE(index: TGLuint; pname: TGLenum); cdecl; external glLib;
-procedure glDisableVertexAttribAPPLE(index: TGLuint; pname: TGLenum); cdecl; external glLib;
-function glIsVertexAttribEnabledAPPLE(index: TGLuint; pname: TGLenum): TGLboolean; cdecl; external glLib;
+procedure glEnableVertexAttribAPPLE(index: TGLuint; pname: TGLenum); stdcall; external glLib;
+procedure glDisableVertexAttribAPPLE(index: TGLuint; pname: TGLenum); stdcall; external glLib;
+function glIsVertexAttribEnabledAPPLE(index: TGLuint; pname: TGLenum): TGLboolean; stdcall; external glLib;
 procedure glMapVertexAttrib1dAPPLE(index: TGLuint; size: TGLuint; u1: TGLdouble; u2: TGLdouble; stride: TGLint;
-  order: TGLint; points: PGLdouble); cdecl; external glLib;
+  order: TGLint; points: PGLdouble); stdcall; external glLib;
 procedure glMapVertexAttrib1fAPPLE(index: TGLuint; size: TGLuint; u1: TGLfloat; u2: TGLfloat; stride: TGLint;
-  order: TGLint; points: PGLfloat); cdecl; external glLib;
+  order: TGLint; points: PGLfloat); stdcall; external glLib;
 procedure glMapVertexAttrib2dAPPLE(index: TGLuint; size: TGLuint; u1: TGLdouble; u2: TGLdouble; ustride: TGLint;
   uorder: TGLint; v1: TGLdouble; v2: TGLdouble; vstride: TGLint; vorder: TGLint;
-  points: PGLdouble); cdecl; external glLib;
+  points: PGLdouble); stdcall; external glLib;
 procedure glMapVertexAttrib2fAPPLE(index: TGLuint; size: TGLuint; u1: TGLfloat; u2: TGLfloat; ustride: TGLint;
   uorder: TGLint; v1: TGLfloat; v2: TGLfloat; vstride: TGLint; vorder: TGLint;
-  points: PGLfloat); cdecl; external glLib;
+  points: PGLfloat); stdcall; external glLib;
 
 const
   GL_APPLE_ycbcr_422 = 1;
@@ -4244,7 +4244,7 @@ const
   GL_DRAW_BUFFER14_ATI = $8833;
   GL_DRAW_BUFFER15_ATI = $8834;
 
-procedure glDrawBuffersATI(n: TGLsizei; bufs: PGLenum); cdecl; external glLib;
+procedure glDrawBuffersATI(n: TGLsizei; bufs: PGLenum); stdcall; external glLib;
 
 const
   GL_ATI_element_array = 1;
@@ -4252,9 +4252,9 @@ const
   GL_ELEMENT_ARRAY_TYPE_ATI = $8769;
   GL_ELEMENT_ARRAY_POINTER_ATI = $876A;
 
-procedure glElementPointerATI(_type: TGLenum; pointer: pointer); cdecl; external glLib;
-procedure glDrawElementArrayATI(mode: TGLenum; Count: TGLsizei); cdecl; external glLib;
-procedure glDrawRangeElementArrayATI(mode: TGLenum; start: TGLuint; end_: TGLuint; Count: TGLsizei); cdecl; external glLib;
+procedure glElementPointerATI(_type: TGLenum; pointer: pointer); stdcall; external glLib;
+procedure glDrawElementArrayATI(mode: TGLenum; Count: TGLsizei); stdcall; external glLib;
+procedure glDrawRangeElementArrayATI(mode: TGLenum; start: TGLuint; end_: TGLuint; Count: TGLsizei); stdcall; external glLib;
 
 const
   GL_ATI_envmap_bumpmap = 1;
@@ -4267,10 +4267,10 @@ const
   GL_BUMP_ENVMAP_ATI = $877B;
   GL_BUMP_TARGET_ATI = $877C;
 
-procedure glTexBumpParameterivATI(pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glTexBumpParameterfvATI(pname: TGLenum; param: PGLfloat); cdecl; external glLib;
-procedure glGetTexBumpParameterivATI(pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetTexBumpParameterfvATI(pname: TGLenum; param: PGLfloat); cdecl; external glLib;
+procedure glTexBumpParameterivATI(pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glTexBumpParameterfvATI(pname: TGLenum; param: PGLfloat); stdcall; external glLib;
+procedure glGetTexBumpParameterivATI(pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetTexBumpParameterfvATI(pname: TGLenum; param: PGLfloat); stdcall; external glLib;
 
 const
   GL_ATI_fragment_shader = 1;
@@ -4379,34 +4379,34 @@ const
   GL_NEGATE_BIT_ATI = $00000004;
   GL_BIAS_BIT_ATI = $00000008;
 
-function glGenFragmentShadersATI(range: TGLuint): TGLuint; cdecl; external glLib;
-procedure glBindFragmentShaderATI(id: TGLuint); cdecl; external glLib;
-procedure glDeleteFragmentShaderATI(id: TGLuint); cdecl; external glLib;
-procedure glBeginFragmentShaderATI; cdecl; external glLib;
-procedure glEndFragmentShaderATI; cdecl; external glLib;
-procedure glPassTexCoordATI(dst: TGLuint; coord: TGLuint; swizzle: TGLenum); cdecl; external glLib;
-procedure glSampleMapATI(dst: TGLuint; interp: TGLuint; swizzle: TGLenum); cdecl; external glLib;
+function glGenFragmentShadersATI(range: TGLuint): TGLuint; stdcall; external glLib;
+procedure glBindFragmentShaderATI(id: TGLuint); stdcall; external glLib;
+procedure glDeleteFragmentShaderATI(id: TGLuint); stdcall; external glLib;
+procedure glBeginFragmentShaderATI; stdcall; external glLib;
+procedure glEndFragmentShaderATI; stdcall; external glLib;
+procedure glPassTexCoordATI(dst: TGLuint; coord: TGLuint; swizzle: TGLenum); stdcall; external glLib;
+procedure glSampleMapATI(dst: TGLuint; interp: TGLuint; swizzle: TGLenum); stdcall; external glLib;
 procedure glColorFragmentOp1ATI(op: TGLenum; dst: TGLuint; dstMask: TGLuint; dstMod: TGLuint; arg1: TGLuint;
-  arg1Rep: TGLuint; arg1Mod: TGLuint); cdecl; external glLib;
+  arg1Rep: TGLuint; arg1Mod: TGLuint); stdcall; external glLib;
 procedure glColorFragmentOp2ATI(op: TGLenum; dst: TGLuint; dstMask: TGLuint; dstMod: TGLuint; arg1: TGLuint;
-  arg1Rep: TGLuint; arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint); cdecl; external glLib;
+  arg1Rep: TGLuint; arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint); stdcall; external glLib;
 procedure glColorFragmentOp3ATI(op: TGLenum; dst: TGLuint; dstMask: TGLuint; dstMod: TGLuint; arg1: TGLuint;
   arg1Rep: TGLuint; arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint;
-  arg3: TGLuint; arg3Rep: TGLuint; arg3Mod: TGLuint); cdecl; external glLib;
+  arg3: TGLuint; arg3Rep: TGLuint; arg3Mod: TGLuint); stdcall; external glLib;
 procedure glAlphaFragmentOp1ATI(op: TGLenum; dst: TGLuint; dstMod: TGLuint; arg1: TGLuint; arg1Rep: TGLuint;
-  arg1Mod: TGLuint); cdecl; external glLib;
+  arg1Mod: TGLuint); stdcall; external glLib;
 procedure glAlphaFragmentOp2ATI(op: TGLenum; dst: TGLuint; dstMod: TGLuint; arg1: TGLuint; arg1Rep: TGLuint;
-  arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint); cdecl; external glLib;
+  arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint); stdcall; external glLib;
 procedure glAlphaFragmentOp3ATI(op: TGLenum; dst: TGLuint; dstMod: TGLuint; arg1: TGLuint; arg1Rep: TGLuint;
   arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint; arg3: TGLuint;
-  arg3Rep: TGLuint; arg3Mod: TGLuint); cdecl; external glLib;
-procedure glSetFragmentShaderConstantATI(dst: TGLuint; Value: PGLfloat); cdecl; external glLib;
+  arg3Rep: TGLuint; arg3Mod: TGLuint); stdcall; external glLib;
+procedure glSetFragmentShaderConstantATI(dst: TGLuint; Value: PGLfloat); stdcall; external glLib;
 
 const
   GL_ATI_map_object_buffer = 1;
 
-function glMapObjectBufferATI(buffer: TGLuint): pointer; cdecl; external glLib;
-procedure glUnmapObjectBufferATI(buffer: TGLuint); cdecl; external glLib;
+function glMapObjectBufferATI(buffer: TGLuint): pointer; stdcall; external glLib;
+procedure glUnmapObjectBufferATI(buffer: TGLuint); stdcall; external glLib;
 
 const
   GL_ATI_meminfo = 1;
@@ -4427,8 +4427,8 @@ const
   GL_PN_TRIANGLES_NORMAL_MODE_LINEAR_ATI = $87F7;
   GL_PN_TRIANGLES_NORMAL_MODE_QUADRATIC_ATI = $87F8;
 
-procedure glPNTrianglesiATI(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glPNTrianglesfATI(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
+procedure glPNTrianglesiATI(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glPNTrianglesfATI(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
 
 const
   GL_ATI_separate_stencil = 1;
@@ -4437,8 +4437,8 @@ const
   GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI = $8802;
   GL_STENCIL_BACK_PASS_DEPTH_PASS_ATI = $8803;
 
-procedure glStencilOpSeparateATI(face: TGLenum; sfail: TGLenum; dpfail: TGLenum; dppass: TGLenum); cdecl; external glLib;
-procedure glStencilFuncSeparateATI(frontfunc: TGLenum; backfunc: TGLenum; ref: TGLint; mask: TGLuint); cdecl; external glLib;
+procedure glStencilOpSeparateATI(face: TGLenum; sfail: TGLenum; dpfail: TGLenum; dppass: TGLenum); stdcall; external glLib;
+procedure glStencilFuncSeparateATI(frontfunc: TGLenum; backfunc: TGLenum; ref: TGLint; mask: TGLuint); stdcall; external glLib;
 
 const
   GL_ATI_text_fragment_shader = 1;
@@ -4473,27 +4473,27 @@ const
   GL_ARRAY_OBJECT_BUFFER_ATI = $8766;
   GL_ARRAY_OBJECT_OFFSET_ATI = $8767;
 
-function glNewObjectBufferATI(size: TGLsizei; pointer: pointer; usage: TGLenum): TGLuint; cdecl; external glLib;
-function glIsObjectBufferATI(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glUpdateObjectBufferATI(buffer: TGLuint; offset: TGLuint; size: TGLsizei; pointer: pointer; preserve: TGLenum); cdecl; external glLib;
-procedure glGetObjectBufferfvATI(buffer: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetObjectBufferivATI(buffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glFreeObjectBufferATI(buffer: TGLuint); cdecl; external glLib;
+function glNewObjectBufferATI(size: TGLsizei; pointer: pointer; usage: TGLenum): TGLuint; stdcall; external glLib;
+function glIsObjectBufferATI(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glUpdateObjectBufferATI(buffer: TGLuint; offset: TGLuint; size: TGLsizei; pointer: pointer; preserve: TGLenum); stdcall; external glLib;
+procedure glGetObjectBufferfvATI(buffer: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetObjectBufferivATI(buffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glFreeObjectBufferATI(buffer: TGLuint); stdcall; external glLib;
 procedure glArrayObjectATI(array_: TGLenum; size: TGLint; _type: TGLenum; stride: TGLsizei; buffer: TGLuint;
-  offset: TGLuint); cdecl; external glLib;
-procedure glGetArrayObjectfvATI(array_: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetArrayObjectivATI(array_: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glVariantArrayObjectATI(id: TGLuint; _type: TGLenum; stride: TGLsizei; buffer: TGLuint; offset: TGLuint); cdecl; external glLib;
-procedure glGetVariantArrayObjectfvATI(id: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVariantArrayObjectivATI(id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  offset: TGLuint); stdcall; external glLib;
+procedure glGetArrayObjectfvATI(array_: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetArrayObjectivATI(array_: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glVariantArrayObjectATI(id: TGLuint; _type: TGLenum; stride: TGLsizei; buffer: TGLuint; offset: TGLuint); stdcall; external glLib;
+procedure glGetVariantArrayObjectfvATI(id: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVariantArrayObjectivATI(id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_ATI_vertex_attrib_array_object = 1;
 
 procedure glVertexAttribArrayObjectATI(index: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; stride: TGLsizei;
-  buffer: TGLuint; offset: TGLuint); cdecl; external glLib;
-procedure glGetVertexAttribArrayObjectfvATI(index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVertexAttribArrayObjectivATI(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  buffer: TGLuint; offset: TGLuint); stdcall; external glLib;
+procedure glGetVertexAttribArrayObjectfvATI(index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVertexAttribArrayObjectivATI(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_ATI_vertex_streams = 1;
@@ -4508,51 +4508,51 @@ const
   GL_VERTEX_STREAM7_ATI = $8773;
   GL_VERTEX_SOURCE_ATI = $8774;
 
-procedure glVertexStream1sATI(stream: TGLenum; x: TGLshort); cdecl; external glLib;
-procedure glVertexStream1svATI(stream: TGLenum; coords: PGLshort); cdecl; external glLib;
-procedure glVertexStream1iATI(stream: TGLenum; x: TGLint); cdecl; external glLib;
-procedure glVertexStream1ivATI(stream: TGLenum; coords: PGLint); cdecl; external glLib;
-procedure glVertexStream1fATI(stream: TGLenum; x: TGLfloat); cdecl; external glLib;
-procedure glVertexStream1fvATI(stream: TGLenum; coords: PGLfloat); cdecl; external glLib;
-procedure glVertexStream1dATI(stream: TGLenum; x: TGLdouble); cdecl; external glLib;
-procedure glVertexStream1dvATI(stream: TGLenum; coords: PGLdouble); cdecl; external glLib;
-procedure glVertexStream2sATI(stream: TGLenum; x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glVertexStream2svATI(stream: TGLenum; coords: PGLshort); cdecl; external glLib;
-procedure glVertexStream2iATI(stream: TGLenum; x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glVertexStream2ivATI(stream: TGLenum; coords: PGLint); cdecl; external glLib;
-procedure glVertexStream2fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glVertexStream2fvATI(stream: TGLenum; coords: PGLfloat); cdecl; external glLib;
-procedure glVertexStream2dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexStream2dvATI(stream: TGLenum; coords: PGLdouble); cdecl; external glLib;
-procedure glVertexStream3sATI(stream: TGLenum; x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glVertexStream3svATI(stream: TGLenum; coords: PGLshort); cdecl; external glLib;
-procedure glVertexStream3iATI(stream: TGLenum; x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glVertexStream3ivATI(stream: TGLenum; coords: PGLint); cdecl; external glLib;
-procedure glVertexStream3fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glVertexStream3fvATI(stream: TGLenum; coords: PGLfloat); cdecl; external glLib;
-procedure glVertexStream3dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexStream3dvATI(stream: TGLenum; coords: PGLdouble); cdecl; external glLib;
-procedure glVertexStream4sATI(stream: TGLenum; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); cdecl; external glLib;
-procedure glVertexStream4svATI(stream: TGLenum; coords: PGLshort); cdecl; external glLib;
-procedure glVertexStream4iATI(stream: TGLenum; x: TGLint; y: TGLint; z: TGLint; w: TGLint); cdecl; external glLib;
-procedure glVertexStream4ivATI(stream: TGLenum; coords: PGLint); cdecl; external glLib;
-procedure glVertexStream4fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glVertexStream4fvATI(stream: TGLenum; coords: PGLfloat); cdecl; external glLib;
-procedure glVertexStream4dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexStream4dvATI(stream: TGLenum; coords: PGLdouble); cdecl; external glLib;
-procedure glNormalStream3bATI(stream: TGLenum; nx: TGLbyte; ny: TGLbyte; nz: TGLbyte); cdecl; external glLib;
-procedure glNormalStream3bvATI(stream: TGLenum; coords: PGLbyte); cdecl; external glLib;
-procedure glNormalStream3sATI(stream: TGLenum; nx: TGLshort; ny: TGLshort; nz: TGLshort); cdecl; external glLib;
-procedure glNormalStream3svATI(stream: TGLenum; coords: PGLshort); cdecl; external glLib;
-procedure glNormalStream3iATI(stream: TGLenum; nx: TGLint; ny: TGLint; nz: TGLint); cdecl; external glLib;
-procedure glNormalStream3ivATI(stream: TGLenum; coords: PGLint); cdecl; external glLib;
-procedure glNormalStream3fATI(stream: TGLenum; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat); cdecl; external glLib;
-procedure glNormalStream3fvATI(stream: TGLenum; coords: PGLfloat); cdecl; external glLib;
-procedure glNormalStream3dATI(stream: TGLenum; nx: TGLdouble; ny: TGLdouble; nz: TGLdouble); cdecl; external glLib;
-procedure glNormalStream3dvATI(stream: TGLenum; coords: PGLdouble); cdecl; external glLib;
-procedure glClientActiveVertexStreamATI(stream: TGLenum); cdecl; external glLib;
-procedure glVertexBlendEnviATI(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glVertexBlendEnvfATI(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
+procedure glVertexStream1sATI(stream: TGLenum; x: TGLshort); stdcall; external glLib;
+procedure glVertexStream1svATI(stream: TGLenum; coords: PGLshort); stdcall; external glLib;
+procedure glVertexStream1iATI(stream: TGLenum; x: TGLint); stdcall; external glLib;
+procedure glVertexStream1ivATI(stream: TGLenum; coords: PGLint); stdcall; external glLib;
+procedure glVertexStream1fATI(stream: TGLenum; x: TGLfloat); stdcall; external glLib;
+procedure glVertexStream1fvATI(stream: TGLenum; coords: PGLfloat); stdcall; external glLib;
+procedure glVertexStream1dATI(stream: TGLenum; x: TGLdouble); stdcall; external glLib;
+procedure glVertexStream1dvATI(stream: TGLenum; coords: PGLdouble); stdcall; external glLib;
+procedure glVertexStream2sATI(stream: TGLenum; x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glVertexStream2svATI(stream: TGLenum; coords: PGLshort); stdcall; external glLib;
+procedure glVertexStream2iATI(stream: TGLenum; x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glVertexStream2ivATI(stream: TGLenum; coords: PGLint); stdcall; external glLib;
+procedure glVertexStream2fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glVertexStream2fvATI(stream: TGLenum; coords: PGLfloat); stdcall; external glLib;
+procedure glVertexStream2dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexStream2dvATI(stream: TGLenum; coords: PGLdouble); stdcall; external glLib;
+procedure glVertexStream3sATI(stream: TGLenum; x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glVertexStream3svATI(stream: TGLenum; coords: PGLshort); stdcall; external glLib;
+procedure glVertexStream3iATI(stream: TGLenum; x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glVertexStream3ivATI(stream: TGLenum; coords: PGLint); stdcall; external glLib;
+procedure glVertexStream3fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glVertexStream3fvATI(stream: TGLenum; coords: PGLfloat); stdcall; external glLib;
+procedure glVertexStream3dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexStream3dvATI(stream: TGLenum; coords: PGLdouble); stdcall; external glLib;
+procedure glVertexStream4sATI(stream: TGLenum; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); stdcall; external glLib;
+procedure glVertexStream4svATI(stream: TGLenum; coords: PGLshort); stdcall; external glLib;
+procedure glVertexStream4iATI(stream: TGLenum; x: TGLint; y: TGLint; z: TGLint; w: TGLint); stdcall; external glLib;
+procedure glVertexStream4ivATI(stream: TGLenum; coords: PGLint); stdcall; external glLib;
+procedure glVertexStream4fATI(stream: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glVertexStream4fvATI(stream: TGLenum; coords: PGLfloat); stdcall; external glLib;
+procedure glVertexStream4dATI(stream: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexStream4dvATI(stream: TGLenum; coords: PGLdouble); stdcall; external glLib;
+procedure glNormalStream3bATI(stream: TGLenum; nx: TGLbyte; ny: TGLbyte; nz: TGLbyte); stdcall; external glLib;
+procedure glNormalStream3bvATI(stream: TGLenum; coords: PGLbyte); stdcall; external glLib;
+procedure glNormalStream3sATI(stream: TGLenum; nx: TGLshort; ny: TGLshort; nz: TGLshort); stdcall; external glLib;
+procedure glNormalStream3svATI(stream: TGLenum; coords: PGLshort); stdcall; external glLib;
+procedure glNormalStream3iATI(stream: TGLenum; nx: TGLint; ny: TGLint; nz: TGLint); stdcall; external glLib;
+procedure glNormalStream3ivATI(stream: TGLenum; coords: PGLint); stdcall; external glLib;
+procedure glNormalStream3fATI(stream: TGLenum; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat); stdcall; external glLib;
+procedure glNormalStream3fvATI(stream: TGLenum; coords: PGLfloat); stdcall; external glLib;
+procedure glNormalStream3dATI(stream: TGLenum; nx: TGLdouble; ny: TGLdouble; nz: TGLdouble); stdcall; external glLib;
+procedure glNormalStream3dvATI(stream: TGLenum; coords: PGLdouble); stdcall; external glLib;
+procedure glClientActiveVertexStreamATI(stream: TGLenum); stdcall; external glLib;
+procedure glVertexBlendEnviATI(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glVertexBlendEnvfATI(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_422_pixels = 1;
@@ -4566,8 +4566,8 @@ type
   PGLeglImageOES = ^TGLeglImageOES;
   TGLeglImageOES = pointer;
 
-procedure glEGLImageTargetTexStorageEXT(target: TGLenum; image: TGLeglImageOES; attrib_list: PGLint); cdecl; external glLib;
-procedure glEGLImageTargetTextureStorageEXT(texture: TGLuint; image: TGLeglImageOES; attrib_list: PGLint); cdecl; external glLib;
+procedure glEGLImageTargetTexStorageEXT(target: TGLenum; image: TGLeglImageOES; attrib_list: PGLint); stdcall; external glLib;
+procedure glEGLImageTargetTextureStorageEXT(texture: TGLuint; image: TGLeglImageOES; attrib_list: PGLint); stdcall; external glLib;
 
 const
   GL_EXT_EGL_sync = 1;
@@ -4584,9 +4584,9 @@ const
   GL_UNIFORM_BUFFER_EXT = $8DEE;
   GL_UNIFORM_BUFFER_BINDING_EXT = $8DEF;
 
-procedure glUniformBufferEXT(program_: TGLuint; location: TGLint; buffer: TGLuint); cdecl; external glLib;
-function glGetUniformBufferSizeEXT(program_: TGLuint; location: TGLint): TGLint; cdecl; external glLib;
-function glGetUniformOffsetEXT(program_: TGLuint; location: TGLint): TGLintptr; cdecl; external glLib;
+procedure glUniformBufferEXT(program_: TGLuint; location: TGLint; buffer: TGLuint); stdcall; external glLib;
+function glGetUniformBufferSizeEXT(program_: TGLuint; location: TGLint): TGLint; stdcall; external glLib;
+function glGetUniformOffsetEXT(program_: TGLuint; location: TGLint): TGLintptr; stdcall; external glLib;
 
 const
   GL_EXT_blend_color = 1;
@@ -4596,14 +4596,14 @@ const
   GL_ONE_MINUS_CONSTANT_ALPHA_EXT = $8004;
   GL_BLEND_COLOR_EXT = $8005;
 
-procedure glBlendColorEXT(red: TGLfloat; green: TGLfloat; blue: TGLfloat; alpha: TGLfloat); cdecl; external glLib;
+procedure glBlendColorEXT(red: TGLfloat; green: TGLfloat; blue: TGLfloat; alpha: TGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_blend_equation_separate = 1;
   GL_BLEND_EQUATION_RGB_EXT = $8009;
   GL_BLEND_EQUATION_ALPHA_EXT = $883D;
 
-procedure glBlendEquationSeparateEXT(modeRGB: TGLenum; modeAlpha: TGLenum); cdecl; external glLib;
+procedure glBlendEquationSeparateEXT(modeRGB: TGLenum; modeAlpha: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_blend_func_separate = 1;
@@ -4612,7 +4612,7 @@ const
   GL_BLEND_DST_ALPHA_EXT = $80CA;
   GL_BLEND_SRC_ALPHA_EXT = $80CB;
 
-procedure glBlendFuncSeparateEXT(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); cdecl; external glLib;
+procedure glBlendFuncSeparateEXT(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_blend_logic_op = 1;
@@ -4622,7 +4622,7 @@ const
   GL_FUNC_ADD_EXT = $8006;
   GL_BLEND_EQUATION_EXT = $8009;
 
-procedure glBlendEquationEXT(mode: TGLenum); cdecl; external glLib;
+procedure glBlendEquationEXT(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_blend_subtract = 1;
@@ -4638,16 +4638,16 @@ const
   GL_EXT_color_subtable = 1;
 
 procedure glColorSubTableEXT(target: TGLenum; start: TGLsizei; Count: TGLsizei; format: TGLenum; _type: TGLenum;
-  Data: pointer); cdecl; external glLib;
-procedure glCopyColorSubTableEXT(target: TGLenum; start: TGLsizei; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  Data: pointer); stdcall; external glLib;
+procedure glCopyColorSubTableEXT(target: TGLenum; start: TGLsizei; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_compiled_vertex_array = 1;
   GL_ARRAY_ELEMENT_LOCK_FIRST_EXT = $81A8;
   GL_ARRAY_ELEMENT_LOCK_COUNT_EXT = $81A9;
 
-procedure glLockArraysEXT(First: TGLint; Count: TGLsizei); cdecl; external glLib;
-procedure glUnlockArraysEXT; cdecl; external glLib;
+procedure glLockArraysEXT(First: TGLint; Count: TGLsizei); stdcall; external glLib;
+procedure glUnlockArraysEXT; stdcall; external glLib;
 
 const
   GL_EXT_convolution = 1;
@@ -4673,23 +4673,23 @@ const
   GL_POST_CONVOLUTION_ALPHA_BIAS_EXT = $8023;
 
 procedure glConvolutionFilter1DEXT(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; format: TGLenum; _type: TGLenum;
-  image: pointer); cdecl; external glLib;
+  image: pointer); stdcall; external glLib;
 procedure glConvolutionFilter2DEXT(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; image: pointer); cdecl; external glLib;
-procedure glConvolutionParameterfEXT(target: TGLenum; pname: TGLenum; params: TGLfloat); cdecl; external glLib;
-procedure glConvolutionParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glConvolutionParameteriEXT(target: TGLenum; pname: TGLenum; params: TGLint); cdecl; external glLib;
-procedure glConvolutionParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCopyConvolutionFilter1DEXT(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  _type: TGLenum; image: pointer); stdcall; external glLib;
+procedure glConvolutionParameterfEXT(target: TGLenum; pname: TGLenum; params: TGLfloat); stdcall; external glLib;
+procedure glConvolutionParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glConvolutionParameteriEXT(target: TGLenum; pname: TGLenum; params: TGLint); stdcall; external glLib;
+procedure glConvolutionParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCopyConvolutionFilter1DEXT(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
 procedure glCopyConvolutionFilter2DEXT(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
-procedure glGetConvolutionFilterEXT(target: TGLenum; format: TGLenum; _type: TGLenum; image: pointer); cdecl; external glLib;
-procedure glGetConvolutionParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetConvolutionParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
+procedure glGetConvolutionFilterEXT(target: TGLenum; format: TGLenum; _type: TGLenum; image: pointer); stdcall; external glLib;
+procedure glGetConvolutionParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetConvolutionParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glGetSeparableFilterEXT(target: TGLenum; format: TGLenum; _type: TGLenum; row: pointer; column: pointer;
-  span: pointer); cdecl; external glLib;
+  span: pointer); stdcall; external glLib;
 procedure glSeparableFilter2DEXT(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei; format: TGLenum;
-  _type: TGLenum; row: pointer; column: pointer); cdecl; external glLib;
+  _type: TGLenum; row: pointer; column: pointer); stdcall; external glLib;
 
 const
   GL_EXT_coordinate_frame = 1;
@@ -4708,42 +4708,42 @@ const
   GL_MAP1_BINORMAL_EXT = $8446;
   GL_MAP2_BINORMAL_EXT = $8447;
 
-procedure glTangent3bEXT(tx: TGLbyte; ty: TGLbyte; tz: TGLbyte); cdecl; external glLib;
-procedure glTangent3bvEXT(v: PGLbyte); cdecl; external glLib;
-procedure glTangent3dEXT(tx: TGLdouble; ty: TGLdouble; tz: TGLdouble); cdecl; external glLib;
-procedure glTangent3dvEXT(v: PGLdouble); cdecl; external glLib;
-procedure glTangent3fEXT(tx: TGLfloat; ty: TGLfloat; tz: TGLfloat); cdecl; external glLib;
-procedure glTangent3fvEXT(v: PGLfloat); cdecl; external glLib;
-procedure glTangent3iEXT(tx: TGLint; ty: TGLint; tz: TGLint); cdecl; external glLib;
-procedure glTangent3ivEXT(v: PGLint); cdecl; external glLib;
-procedure glTangent3sEXT(tx: TGLshort; ty: TGLshort; tz: TGLshort); cdecl; external glLib;
-procedure glTangent3svEXT(v: PGLshort); cdecl; external glLib;
-procedure glBinormal3bEXT(bx: TGLbyte; by: TGLbyte; bz: TGLbyte); cdecl; external glLib;
-procedure glBinormal3bvEXT(v: PGLbyte); cdecl; external glLib;
-procedure glBinormal3dEXT(bx: TGLdouble; by: TGLdouble; bz: TGLdouble); cdecl; external glLib;
-procedure glBinormal3dvEXT(v: PGLdouble); cdecl; external glLib;
-procedure glBinormal3fEXT(bx: TGLfloat; by: TGLfloat; bz: TGLfloat); cdecl; external glLib;
-procedure glBinormal3fvEXT(v: PGLfloat); cdecl; external glLib;
-procedure glBinormal3iEXT(bx: TGLint; by: TGLint; bz: TGLint); cdecl; external glLib;
-procedure glBinormal3ivEXT(v: PGLint); cdecl; external glLib;
-procedure glBinormal3sEXT(bx: TGLshort; by: TGLshort; bz: TGLshort); cdecl; external glLib;
-procedure glBinormal3svEXT(v: PGLshort); cdecl; external glLib;
-procedure glTangentPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glBinormalPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glTangent3bEXT(tx: TGLbyte; ty: TGLbyte; tz: TGLbyte); stdcall; external glLib;
+procedure glTangent3bvEXT(v: PGLbyte); stdcall; external glLib;
+procedure glTangent3dEXT(tx: TGLdouble; ty: TGLdouble; tz: TGLdouble); stdcall; external glLib;
+procedure glTangent3dvEXT(v: PGLdouble); stdcall; external glLib;
+procedure glTangent3fEXT(tx: TGLfloat; ty: TGLfloat; tz: TGLfloat); stdcall; external glLib;
+procedure glTangent3fvEXT(v: PGLfloat); stdcall; external glLib;
+procedure glTangent3iEXT(tx: TGLint; ty: TGLint; tz: TGLint); stdcall; external glLib;
+procedure glTangent3ivEXT(v: PGLint); stdcall; external glLib;
+procedure glTangent3sEXT(tx: TGLshort; ty: TGLshort; tz: TGLshort); stdcall; external glLib;
+procedure glTangent3svEXT(v: PGLshort); stdcall; external glLib;
+procedure glBinormal3bEXT(bx: TGLbyte; by: TGLbyte; bz: TGLbyte); stdcall; external glLib;
+procedure glBinormal3bvEXT(v: PGLbyte); stdcall; external glLib;
+procedure glBinormal3dEXT(bx: TGLdouble; by: TGLdouble; bz: TGLdouble); stdcall; external glLib;
+procedure glBinormal3dvEXT(v: PGLdouble); stdcall; external glLib;
+procedure glBinormal3fEXT(bx: TGLfloat; by: TGLfloat; bz: TGLfloat); stdcall; external glLib;
+procedure glBinormal3fvEXT(v: PGLfloat); stdcall; external glLib;
+procedure glBinormal3iEXT(bx: TGLint; by: TGLint; bz: TGLint); stdcall; external glLib;
+procedure glBinormal3ivEXT(v: PGLint); stdcall; external glLib;
+procedure glBinormal3sEXT(bx: TGLshort; by: TGLshort; bz: TGLshort); stdcall; external glLib;
+procedure glBinormal3svEXT(v: PGLshort); stdcall; external glLib;
+procedure glTangentPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glBinormalPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_EXT_copy_texture = 1;
 
 procedure glCopyTexImage1DEXT(target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint; y: TGLint;
-  Width: TGLsizei; border: TGLint); cdecl; external glLib;
+  Width: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyTexImage2DEXT(target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint; y: TGLint;
-  Width: TGLsizei; Height: TGLsizei; border: TGLint); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyTexSubImage1DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; x: TGLint; y: TGLint;
-  Width: TGLsizei); cdecl; external glLib;
+  Width: TGLsizei); stdcall; external glLib;
 procedure glCopyTexSubImage2DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; x: TGLint;
-  y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glCopyTexSubImage3DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_cull_vertex = 1;
@@ -4751,8 +4751,8 @@ const
   GL_CULL_VERTEX_EYE_POSITION_EXT = $81AB;
   GL_CULL_VERTEX_OBJECT_POSITION_EXT = $81AC;
 
-procedure glCullParameterdvEXT(pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glCullParameterfvEXT(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glCullParameterdvEXT(pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glCullParameterfvEXT(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_debug_label = 1;
@@ -4763,22 +4763,22 @@ const
   GL_QUERY_OBJECT_EXT = $9153;
   GL_VERTEX_ARRAY_OBJECT_EXT = $9154;
 
-procedure glLabelObjectEXT(_type: TGLenum; object_: TGLuint; length: TGLsizei; _label: PGLchar); cdecl; external glLib;
-procedure glGetObjectLabelEXT(_type: TGLenum; object_: TGLuint; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); cdecl; external glLib;
+procedure glLabelObjectEXT(_type: TGLenum; object_: TGLuint; length: TGLsizei; _label: PGLchar); stdcall; external glLib;
+procedure glGetObjectLabelEXT(_type: TGLenum; object_: TGLuint; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); stdcall; external glLib;
 
 const
   GL_EXT_debug_marker = 1;
 
-procedure glInsertEventMarkerEXT(length: TGLsizei; marker: PGLchar); cdecl; external glLib;
-procedure glPushGroupMarkerEXT(length: TGLsizei; marker: PGLchar); cdecl; external glLib;
-procedure glPopGroupMarkerEXT; cdecl; external glLib;
+procedure glInsertEventMarkerEXT(length: TGLsizei; marker: PGLchar); stdcall; external glLib;
+procedure glPushGroupMarkerEXT(length: TGLsizei; marker: PGLchar); stdcall; external glLib;
+procedure glPopGroupMarkerEXT; stdcall; external glLib;
 
 const
   GL_EXT_depth_bounds_test = 1;
   GL_DEPTH_BOUNDS_TEST_EXT = $8890;
   GL_DEPTH_BOUNDS_EXT = $8891;
 
-procedure glDepthBoundsEXT(zmin: TGLclampd; zmax: TGLclampd); cdecl; external glLib;
+procedure glDepthBoundsEXT(zmin: TGLclampd; zmax: TGLclampd); stdcall; external glLib;
 
 const
   GL_EXT_direct_state_access = 1;
@@ -4786,342 +4786,342 @@ const
   GL_TRANSPOSE_PROGRAM_MATRIX_EXT = $8E2E;
   GL_PROGRAM_MATRIX_STACK_DEPTH_EXT = $8E2F;
 
-procedure glMatrixLoadfEXT(mode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixLoaddEXT(mode: TGLenum; m: PGLdouble); cdecl; external glLib;
-procedure glMatrixMultfEXT(mode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixMultdEXT(mode: TGLenum; m: PGLdouble); cdecl; external glLib;
-procedure glMatrixLoadIdentityEXT(mode: TGLenum); cdecl; external glLib;
-procedure glMatrixRotatefEXT(mode: TGLenum; angle: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glMatrixRotatedEXT(mode: TGLenum; angle: TGLdouble; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glMatrixScalefEXT(mode: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glMatrixScaledEXT(mode: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glMatrixTranslatefEXT(mode: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glMatrixTranslatedEXT(mode: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
+procedure glMatrixLoadfEXT(mode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixLoaddEXT(mode: TGLenum; m: PGLdouble); stdcall; external glLib;
+procedure glMatrixMultfEXT(mode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixMultdEXT(mode: TGLenum; m: PGLdouble); stdcall; external glLib;
+procedure glMatrixLoadIdentityEXT(mode: TGLenum); stdcall; external glLib;
+procedure glMatrixRotatefEXT(mode: TGLenum; angle: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glMatrixRotatedEXT(mode: TGLenum; angle: TGLdouble; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glMatrixScalefEXT(mode: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glMatrixScaledEXT(mode: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glMatrixTranslatefEXT(mode: TGLenum; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glMatrixTranslatedEXT(mode: TGLenum; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
 procedure glMatrixFrustumEXT(mode: TGLenum; left: TGLdouble; right: TGLdouble; bottom: TGLdouble; top: TGLdouble;
-  zNear: TGLdouble; zFar: TGLdouble); cdecl; external glLib;
+  zNear: TGLdouble; zFar: TGLdouble); stdcall; external glLib;
 procedure glMatrixOrthoEXT(mode: TGLenum; left: TGLdouble; right: TGLdouble; bottom: TGLdouble; top: TGLdouble;
-  zNear: TGLdouble; zFar: TGLdouble); cdecl; external glLib;
-procedure glMatrixPopEXT(mode: TGLenum); cdecl; external glLib;
-procedure glMatrixPushEXT(mode: TGLenum); cdecl; external glLib;
-procedure glClientAttribDefaultEXT(mask: TGLbitfield); cdecl; external glLib;
-procedure glPushClientAttribDefaultEXT(mask: TGLbitfield); cdecl; external glLib;
-procedure glTextureParameterfEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glTextureParameterfvEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glTextureParameteriEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glTextureParameterivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  zNear: TGLdouble; zFar: TGLdouble); stdcall; external glLib;
+procedure glMatrixPopEXT(mode: TGLenum); stdcall; external glLib;
+procedure glMatrixPushEXT(mode: TGLenum); stdcall; external glLib;
+procedure glClientAttribDefaultEXT(mask: TGLbitfield); stdcall; external glLib;
+procedure glPushClientAttribDefaultEXT(mask: TGLbitfield); stdcall; external glLib;
+procedure glTextureParameterfEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glTextureParameterfvEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glTextureParameteriEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glTextureParameterivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glTextureImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
-  border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTextureImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Height: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTextureSubImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei;
-  format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTextureSubImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glCopyTextureImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint;
-  y: TGLint; Width: TGLsizei; border: TGLint); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyTextureImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint;
-  y: TGLint; Width: TGLsizei; Height: TGLsizei; border: TGLint); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; Height: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyTextureSubImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; x: TGLint;
-  y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei); stdcall; external glLib;
 procedure glCopyTextureSubImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glGetTextureImageEXT(texture: TGLuint; target: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
-procedure glGetTextureParameterfvEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetTextureParameterivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTextureLevelParameterfvEXT(texture: TGLuint; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetTextureLevelParameterivEXT(texture: TGLuint; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
+procedure glGetTextureParameterfvEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetTextureParameterivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTextureLevelParameterfvEXT(texture: TGLuint; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetTextureLevelParameterivEXT(texture: TGLuint; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glTextureImage3DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
   Height: TGLsizei; depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 procedure glTextureSubImage3DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum;
-  _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glCopyTextureSubImage3DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  zoffset: TGLint; x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glBindMultiTextureEXT(texunit: TGLenum; target: TGLenum; texture: TGLuint); cdecl; external glLib;
-procedure glMultiTexCoordPointerEXT(texunit: TGLenum; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glMultiTexEnvfEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glMultiTexEnvfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glMultiTexEnviEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glMultiTexEnvivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMultiTexGendEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLdouble); cdecl; external glLib;
-procedure glMultiTexGendvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glMultiTexGenfEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glMultiTexGenfvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glMultiTexGeniEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glMultiTexGenivEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMultiTexEnvfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMultiTexEnvivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMultiTexGendvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glGetMultiTexGenfvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMultiTexGenivEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMultiTexParameteriEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glMultiTexParameterivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMultiTexParameterfEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glMultiTexParameterfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+  zoffset: TGLint; x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glBindMultiTextureEXT(texunit: TGLenum; target: TGLenum; texture: TGLuint); stdcall; external glLib;
+procedure glMultiTexCoordPointerEXT(texunit: TGLenum; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glMultiTexEnvfEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glMultiTexEnvfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glMultiTexEnviEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glMultiTexEnvivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMultiTexGendEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLdouble); stdcall; external glLib;
+procedure glMultiTexGendvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glMultiTexGenfEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glMultiTexGenfvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glMultiTexGeniEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glMultiTexGenivEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMultiTexEnvfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMultiTexEnvivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMultiTexGendvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glGetMultiTexGenfvEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMultiTexGenivEXT(texunit: TGLenum; coord: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMultiTexParameteriEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glMultiTexParameterivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMultiTexParameterfEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glMultiTexParameterfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 procedure glMultiTexImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
-  border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glMultiTexImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Height: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glMultiTexSubImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei;
-  format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glMultiTexSubImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glCopyMultiTexImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint;
-  y: TGLint; Width: TGLsizei; border: TGLint); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyMultiTexImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLenum; x: TGLint;
-  y: TGLint; Width: TGLsizei; Height: TGLsizei; border: TGLint); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei; Height: TGLsizei; border: TGLint); stdcall; external glLib;
 procedure glCopyMultiTexSubImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; x: TGLint;
-  y: TGLint; Width: TGLsizei); cdecl; external glLib;
+  y: TGLint; Width: TGLsizei); stdcall; external glLib;
 procedure glCopyMultiTexSubImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glGetMultiTexImageEXT(texunit: TGLenum; target: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
-procedure glGetMultiTexParameterfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMultiTexParameterivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMultiTexLevelParameterfvEXT(texunit: TGLenum; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMultiTexLevelParameterivEXT(texunit: TGLenum; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
+procedure glGetMultiTexParameterfvEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMultiTexParameterivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMultiTexLevelParameterfvEXT(texunit: TGLenum; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMultiTexLevelParameterivEXT(texunit: TGLenum; target: TGLenum; level: TGLint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glMultiTexImage3DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLint; Width: TGLsizei;
   Height: TGLsizei; depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 procedure glMultiTexSubImage3DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum;
-  _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glCopyMultiTexSubImage3DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  zoffset: TGLint; x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glEnableClientStateIndexedEXT(array_: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glDisableClientStateIndexedEXT(array_: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glGetFloatIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLfloat); cdecl; external glLib;
-procedure glGetDoubleIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLdouble); cdecl; external glLib;
-procedure glGetPointerIndexedvEXT(target: TGLenum; index: TGLuint; Data: Ppointer); cdecl; external glLib;
-procedure glEnableIndexedEXT(target: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glDisableIndexedEXT(target: TGLenum; index: TGLuint); cdecl; external glLib;
-function glIsEnabledIndexedEXT(target: TGLenum; index: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glGetIntegerIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLint); cdecl; external glLib;
-procedure glGetBooleanIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLboolean); cdecl; external glLib;
+  zoffset: TGLint; x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glEnableClientStateIndexedEXT(array_: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glDisableClientStateIndexedEXT(array_: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glGetFloatIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLfloat); stdcall; external glLib;
+procedure glGetDoubleIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLdouble); stdcall; external glLib;
+procedure glGetPointerIndexedvEXT(target: TGLenum; index: TGLuint; Data: Ppointer); stdcall; external glLib;
+procedure glEnableIndexedEXT(target: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glDisableIndexedEXT(target: TGLenum; index: TGLuint); stdcall; external glLib;
+function glIsEnabledIndexedEXT(target: TGLenum; index: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glGetIntegerIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLint); stdcall; external glLib;
+procedure glGetBooleanIndexedvEXT(target: TGLenum; index: TGLuint; Data: PGLboolean); stdcall; external glLib;
 procedure glCompressedTextureImage3DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedTextureImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Height: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedTextureImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage3DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum;
-  imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage2DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedTextureSubImage1DEXT(texture: TGLuint; target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei;
-  format: TGLenum; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
-procedure glGetCompressedTextureImageEXT(texture: TGLuint; target: TGLenum; lod: TGLint; img: pointer); cdecl; external glLib;
+  format: TGLenum; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
+procedure glGetCompressedTextureImageEXT(texture: TGLuint; target: TGLenum; lod: TGLint; img: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexImage3DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Height: TGLsizei; border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei;
-  border: TGLint; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  border: TGLint; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexSubImage3DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum;
-  imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexSubImage2DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; format: TGLenum; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
 procedure glCompressedMultiTexSubImage1DEXT(texunit: TGLenum; target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei;
-  format: TGLenum; imageSize: TGLsizei; bits: pointer); cdecl; external glLib;
-procedure glGetCompressedMultiTexImageEXT(texunit: TGLenum; target: TGLenum; lod: TGLint; img: pointer); cdecl; external glLib;
-procedure glMatrixLoadTransposefEXT(mode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixLoadTransposedEXT(mode: TGLenum; m: PGLdouble); cdecl; external glLib;
-procedure glMatrixMultTransposefEXT(mode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixMultTransposedEXT(mode: TGLenum; m: PGLdouble); cdecl; external glLib;
-procedure glNamedBufferDataEXT(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; usage: TGLenum); cdecl; external glLib;
-procedure glNamedBufferSubDataEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-function glMapNamedBufferEXT(buffer: TGLuint; access: TGLenum): pointer; cdecl; external glLib;
-function glUnmapNamedBufferEXT(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glGetNamedBufferParameterivEXT(buffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetNamedBufferPointervEXT(buffer: TGLuint; pname: TGLenum; params: Ppointer); cdecl; external glLib;
-procedure glGetNamedBufferSubDataEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
-procedure glProgramUniform1fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform2fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform3fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); cdecl; external glLib;
+  format: TGLenum; imageSize: TGLsizei; bits: pointer); stdcall; external glLib;
+procedure glGetCompressedMultiTexImageEXT(texunit: TGLenum; target: TGLenum; lod: TGLint; img: pointer); stdcall; external glLib;
+procedure glMatrixLoadTransposefEXT(mode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixLoadTransposedEXT(mode: TGLenum; m: PGLdouble); stdcall; external glLib;
+procedure glMatrixMultTransposefEXT(mode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixMultTransposedEXT(mode: TGLenum; m: PGLdouble); stdcall; external glLib;
+procedure glNamedBufferDataEXT(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; usage: TGLenum); stdcall; external glLib;
+procedure glNamedBufferSubDataEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+function glMapNamedBufferEXT(buffer: TGLuint; access: TGLenum): pointer; stdcall; external glLib;
+function glUnmapNamedBufferEXT(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glGetNamedBufferParameterivEXT(buffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetNamedBufferPointervEXT(buffer: TGLuint; pname: TGLenum; params: Ppointer); stdcall; external glLib;
+procedure glGetNamedBufferSubDataEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
+procedure glProgramUniform1fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform2fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform3fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat); stdcall; external glLib;
 procedure glProgramUniform4fEXT(program_: TGLuint; location: TGLint; v0: TGLfloat; v1: TGLfloat; v2: TGLfloat;
-  v3: TGLfloat); cdecl; external glLib;
-procedure glProgramUniform1iEXT(program_: TGLuint; location: TGLint; v0: TGLint); cdecl; external glLib;
-procedure glProgramUniform2iEXT(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint); cdecl; external glLib;
-procedure glProgramUniform3iEXT(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); cdecl; external glLib;
+  v3: TGLfloat); stdcall; external glLib;
+procedure glProgramUniform1iEXT(program_: TGLuint; location: TGLint; v0: TGLint); stdcall; external glLib;
+procedure glProgramUniform2iEXT(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint); stdcall; external glLib;
+procedure glProgramUniform3iEXT(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint); stdcall; external glLib;
 procedure glProgramUniform4iEXT(program_: TGLuint; location: TGLint; v0: TGLint; v1: TGLint; v2: TGLint;
-  v3: TGLint); cdecl; external glLib;
-procedure glProgramUniform1fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniform1ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform2ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform3ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniform4ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); cdecl; external glLib;
-procedure glProgramUniformMatrix2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix2x3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3x2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix2x4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4x2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix3x4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glProgramUniformMatrix4x3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); cdecl; external glLib;
-procedure glTextureBufferEXT(texture: TGLuint; target: TGLenum; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glMultiTexBufferEXT(texunit: TGLenum; target: TGLenum; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
-procedure glTextureParameterIivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glTextureParameterIuivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetTextureParameterIivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTextureParameterIuivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glMultiTexParameterIivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMultiTexParameterIuivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetMultiTexParameterIivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMultiTexParameterIuivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glProgramUniform1uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint); cdecl; external glLib;
-procedure glProgramUniform2uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint); cdecl; external glLib;
-procedure glProgramUniform3uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); cdecl; external glLib;
+  v3: TGLint); stdcall; external glLib;
+procedure glProgramUniform1fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniform1ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform2ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform3ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniform4ivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLint); stdcall; external glLib;
+procedure glProgramUniformMatrix2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix2x3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3x2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix2x4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4x2fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix3x4fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glProgramUniformMatrix4x3fvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLfloat); stdcall; external glLib;
+procedure glTextureBufferEXT(texture: TGLuint; target: TGLenum; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glMultiTexBufferEXT(texunit: TGLenum; target: TGLenum; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
+procedure glTextureParameterIivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glTextureParameterIuivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetTextureParameterIivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTextureParameterIuivEXT(texture: TGLuint; target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glMultiTexParameterIivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMultiTexParameterIuivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetMultiTexParameterIivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMultiTexParameterIuivEXT(texunit: TGLenum; target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glProgramUniform1uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint); stdcall; external glLib;
+procedure glProgramUniform2uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint); stdcall; external glLib;
+procedure glProgramUniform3uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); stdcall; external glLib;
 procedure glProgramUniform4uiEXT(program_: TGLuint; location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint;
-  v3: TGLuint); cdecl; external glLib;
-procedure glProgramUniform1uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniform2uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniform3uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glProgramUniform4uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glNamedProgramLocalParameters4fvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); cdecl; external glLib;
+  v3: TGLuint); stdcall; external glLib;
+procedure glProgramUniform1uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniform2uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniform3uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glProgramUniform4uivEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glNamedProgramLocalParameters4fvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); stdcall; external glLib;
 procedure glNamedProgramLocalParameterI4iEXT(program_: TGLuint; target: TGLenum; index: TGLuint; x: TGLint; y: TGLint;
-  z: TGLint; w: TGLint); cdecl; external glLib;
-procedure glNamedProgramLocalParameterI4ivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glNamedProgramLocalParametersI4ivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); cdecl; external glLib;
+  z: TGLint; w: TGLint); stdcall; external glLib;
+procedure glNamedProgramLocalParameterI4ivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glNamedProgramLocalParametersI4ivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); stdcall; external glLib;
 procedure glNamedProgramLocalParameterI4uiEXT(program_: TGLuint; target: TGLenum; index: TGLuint; x: TGLuint; y: TGLuint;
-  z: TGLuint; w: TGLuint); cdecl; external glLib;
-procedure glNamedProgramLocalParameterI4uivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
-procedure glNamedProgramLocalParametersI4uivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
-procedure glGetNamedProgramLocalParameterIivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glGetNamedProgramLocalParameterIuivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
-procedure glEnableClientStateiEXT(array_: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glDisableClientStateiEXT(array_: TGLenum; index: TGLuint); cdecl; external glLib;
-procedure glGetFloati_vEXT(pname: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetDoublei_vEXT(pname: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
-procedure glGetPointeri_vEXT(pname: TGLenum; index: TGLuint; params: Ppointer); cdecl; external glLib;
-procedure glNamedProgramStringEXT(program_: TGLuint; target: TGLenum; format: TGLenum; len: TGLsizei; _string: pointer); cdecl; external glLib;
+  z: TGLuint; w: TGLuint); stdcall; external glLib;
+procedure glNamedProgramLocalParameterI4uivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
+procedure glNamedProgramLocalParametersI4uivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
+procedure glGetNamedProgramLocalParameterIivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glGetNamedProgramLocalParameterIuivEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
+procedure glEnableClientStateiEXT(array_: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glDisableClientStateiEXT(array_: TGLenum; index: TGLuint); stdcall; external glLib;
+procedure glGetFloati_vEXT(pname: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetDoublei_vEXT(pname: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
+procedure glGetPointeri_vEXT(pname: TGLenum; index: TGLuint; params: Ppointer); stdcall; external glLib;
+procedure glNamedProgramStringEXT(program_: TGLuint; target: TGLenum; format: TGLenum; len: TGLsizei; _string: pointer); stdcall; external glLib;
 procedure glNamedProgramLocalParameter4dEXT(program_: TGLuint; target: TGLenum; index: TGLuint; x: TGLdouble; y: TGLdouble;
-  z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glNamedProgramLocalParameter4dvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
+  z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glNamedProgramLocalParameter4dvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
 procedure glNamedProgramLocalParameter4fEXT(program_: TGLuint; target: TGLenum; index: TGLuint; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glNamedProgramLocalParameter4fvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetNamedProgramLocalParameterdvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLdouble); cdecl; external glLib;
-procedure glGetNamedProgramLocalParameterfvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGetNamedProgramivEXT(program_: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetNamedProgramStringEXT(program_: TGLuint; target: TGLenum; pname: TGLenum; _string: pointer); cdecl; external glLib;
-procedure glNamedRenderbufferStorageEXT(renderbuffer: TGLuint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glGetNamedRenderbufferParameterivEXT(renderbuffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glNamedRenderbufferStorageMultisampleEXT(renderbuffer: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+  z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glNamedProgramLocalParameter4fvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetNamedProgramLocalParameterdvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLdouble); stdcall; external glLib;
+procedure glGetNamedProgramLocalParameterfvEXT(program_: TGLuint; target: TGLenum; index: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGetNamedProgramivEXT(program_: TGLuint; target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetNamedProgramStringEXT(program_: TGLuint; target: TGLenum; pname: TGLenum; _string: pointer); stdcall; external glLib;
+procedure glNamedRenderbufferStorageEXT(renderbuffer: TGLuint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glGetNamedRenderbufferParameterivEXT(renderbuffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glNamedRenderbufferStorageMultisampleEXT(renderbuffer: TGLuint; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer: TGLuint; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
-function glCheckNamedFramebufferStatusEXT(framebuffer: TGLuint; target: TGLenum): TGLenum; cdecl; external glLib;
-procedure glNamedFramebufferTexture1DEXT(framebuffer: TGLuint; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferTexture2DEXT(framebuffer: TGLuint; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
+function glCheckNamedFramebufferStatusEXT(framebuffer: TGLuint; target: TGLenum): TGLenum; stdcall; external glLib;
+procedure glNamedFramebufferTexture1DEXT(framebuffer: TGLuint; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferTexture2DEXT(framebuffer: TGLuint; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
 procedure glNamedFramebufferTexture3DEXT(framebuffer: TGLuint; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint;
-  zoffset: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferRenderbufferEXT(framebuffer: TGLuint; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glGetNamedFramebufferAttachmentParameterivEXT(framebuffer: TGLuint; attachment: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGenerateTextureMipmapEXT(texture: TGLuint; target: TGLenum); cdecl; external glLib;
-procedure glGenerateMultiTexMipmapEXT(texunit: TGLenum; target: TGLenum); cdecl; external glLib;
-procedure glFramebufferDrawBufferEXT(framebuffer: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glFramebufferDrawBuffersEXT(framebuffer: TGLuint; n: TGLsizei; bufs: PGLenum); cdecl; external glLib;
-procedure glFramebufferReadBufferEXT(framebuffer: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glGetFramebufferParameterivEXT(framebuffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glNamedCopyBufferSubDataEXT(readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glNamedFramebufferTextureEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferTextureLayerEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); cdecl; external glLib;
-procedure glNamedFramebufferTextureFaceEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); cdecl; external glLib;
-procedure glTextureRenderbufferEXT(texture: TGLuint; target: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glMultiTexRenderbufferEXT(texunit: TGLenum; target: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
+  zoffset: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferRenderbufferEXT(framebuffer: TGLuint; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glGetNamedFramebufferAttachmentParameterivEXT(framebuffer: TGLuint; attachment: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGenerateTextureMipmapEXT(texture: TGLuint; target: TGLenum); stdcall; external glLib;
+procedure glGenerateMultiTexMipmapEXT(texunit: TGLenum; target: TGLenum); stdcall; external glLib;
+procedure glFramebufferDrawBufferEXT(framebuffer: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glFramebufferDrawBuffersEXT(framebuffer: TGLuint; n: TGLsizei; bufs: PGLenum); stdcall; external glLib;
+procedure glFramebufferReadBufferEXT(framebuffer: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glGetFramebufferParameterivEXT(framebuffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glNamedCopyBufferSubDataEXT(readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glNamedFramebufferTextureEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferTextureLayerEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); stdcall; external glLib;
+procedure glNamedFramebufferTextureFaceEXT(framebuffer: TGLuint; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); stdcall; external glLib;
+procedure glTextureRenderbufferEXT(texture: TGLuint; target: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glMultiTexRenderbufferEXT(texunit: TGLenum; target: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
 procedure glVertexArrayVertexOffsetEXT(vaobj: TGLuint; buffer: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei;
-  offset: TGLintptr); cdecl; external glLib;
+  offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArrayColorOffsetEXT(vaobj: TGLuint; buffer: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei;
-  offset: TGLintptr); cdecl; external glLib;
-procedure glVertexArrayEdgeFlagOffsetEXT(vaobj: TGLuint; buffer: TGLuint; stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
-procedure glVertexArrayIndexOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
-procedure glVertexArrayNormalOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
+  offset: TGLintptr); stdcall; external glLib;
+procedure glVertexArrayEdgeFlagOffsetEXT(vaobj: TGLuint; buffer: TGLuint; stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
+procedure glVertexArrayIndexOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
+procedure glVertexArrayNormalOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArrayTexCoordOffsetEXT(vaobj: TGLuint; buffer: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei;
-  offset: TGLintptr); cdecl; external glLib;
+  offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArrayMultiTexCoordOffsetEXT(vaobj: TGLuint; buffer: TGLuint; texunit: TGLenum; size: TGLint; _type: TGLenum;
-  stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
-procedure glVertexArrayFogCoordOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
+  stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
+procedure glVertexArrayFogCoordOffsetEXT(vaobj: TGLuint; buffer: TGLuint; _type: TGLenum; stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArraySecondaryColorOffsetEXT(vaobj: TGLuint; buffer: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei;
-  offset: TGLintptr); cdecl; external glLib;
+  offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArrayVertexAttribOffsetEXT(vaobj: TGLuint; buffer: TGLuint; index: TGLuint; size: TGLint; _type: TGLenum;
-  normalized: TGLboolean; stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
+  normalized: TGLboolean; stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
 procedure glVertexArrayVertexAttribIOffsetEXT(vaobj: TGLuint; buffer: TGLuint; index: TGLuint; size: TGLint; _type: TGLenum;
-  stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
-procedure glEnableVertexArrayEXT(vaobj: TGLuint; array_: TGLenum); cdecl; external glLib;
-procedure glDisableVertexArrayEXT(vaobj: TGLuint; array_: TGLenum); cdecl; external glLib;
-procedure glEnableVertexArrayAttribEXT(vaobj: TGLuint; index: TGLuint); cdecl; external glLib;
-procedure glDisableVertexArrayAttribEXT(vaobj: TGLuint; index: TGLuint); cdecl; external glLib;
-procedure glGetVertexArrayIntegervEXT(vaobj: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetVertexArrayPointervEXT(vaobj: TGLuint; pname: TGLenum; param: Ppointer); cdecl; external glLib;
-procedure glGetVertexArrayIntegeri_vEXT(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint); cdecl; external glLib;
-procedure glGetVertexArrayPointeri_vEXT(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: Ppointer); cdecl; external glLib;
-function glMapNamedBufferRangeEXT(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; cdecl; external glLib;
-procedure glFlushMappedNamedBufferRangeEXT(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); cdecl; external glLib;
-procedure glNamedBufferStorageEXT(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); cdecl; external glLib;
-procedure glClearNamedBufferDataEXT(buffer: TGLuint; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); cdecl; external glLib;
+  stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
+procedure glEnableVertexArrayEXT(vaobj: TGLuint; array_: TGLenum); stdcall; external glLib;
+procedure glDisableVertexArrayEXT(vaobj: TGLuint; array_: TGLenum); stdcall; external glLib;
+procedure glEnableVertexArrayAttribEXT(vaobj: TGLuint; index: TGLuint); stdcall; external glLib;
+procedure glDisableVertexArrayAttribEXT(vaobj: TGLuint; index: TGLuint); stdcall; external glLib;
+procedure glGetVertexArrayIntegervEXT(vaobj: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetVertexArrayPointervEXT(vaobj: TGLuint; pname: TGLenum; param: Ppointer); stdcall; external glLib;
+procedure glGetVertexArrayIntegeri_vEXT(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: PGLint); stdcall; external glLib;
+procedure glGetVertexArrayPointeri_vEXT(vaobj: TGLuint; index: TGLuint; pname: TGLenum; param: Ppointer); stdcall; external glLib;
+function glMapNamedBufferRangeEXT(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr; access: TGLbitfield): pointer; stdcall; external glLib;
+procedure glFlushMappedNamedBufferRangeEXT(buffer: TGLuint; offset: TGLintptr; length: TGLsizeiptr); stdcall; external glLib;
+procedure glNamedBufferStorageEXT(buffer: TGLuint; size: TGLsizeiptr; Data: pointer; flags: TGLbitfield); stdcall; external glLib;
+procedure glClearNamedBufferDataEXT(buffer: TGLuint; internalformat: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); stdcall; external glLib;
 procedure glClearNamedBufferSubDataEXT(buffer: TGLuint; internalformat: TGLenum; offset: TGLsizeiptr; size: TGLsizeiptr; format: TGLenum;
-  _type: TGLenum; Data: pointer); cdecl; external glLib;
-procedure glNamedFramebufferParameteriEXT(framebuffer: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glGetNamedFramebufferParameterivEXT(framebuffer: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glProgramUniform1dEXT(program_: TGLuint; location: TGLint; x: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform2dEXT(program_: TGLuint; location: TGLint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform3dEXT(program_: TGLuint; location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
+  _type: TGLenum; Data: pointer); stdcall; external glLib;
+procedure glNamedFramebufferParameteriEXT(framebuffer: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glGetNamedFramebufferParameterivEXT(framebuffer: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glProgramUniform1dEXT(program_: TGLuint; location: TGLint; x: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform2dEXT(program_: TGLuint; location: TGLint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform3dEXT(program_: TGLuint; location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
 procedure glProgramUniform4dEXT(program_: TGLuint; location: TGLint; x: TGLdouble; y: TGLdouble; z: TGLdouble;
-  w: TGLdouble); cdecl; external glLib;
-procedure glProgramUniform1dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniform4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix2x3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix2x4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3x2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix3x4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4x2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
-procedure glProgramUniformMatrix4x3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); cdecl; external glLib;
+  w: TGLdouble); stdcall; external glLib;
+procedure glProgramUniform1dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniform4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix2x3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix2x4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3x2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix3x4dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4x2dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
+procedure glProgramUniformMatrix4x3dvEXT(program_: TGLuint; location: TGLint; Count: TGLsizei; transpose: TGLboolean; Value: PGLdouble); stdcall; external glLib;
 procedure glTextureBufferRangeEXT(texture: TGLuint; target: TGLenum; internalformat: TGLenum; buffer: TGLuint; offset: TGLintptr;
-  size: TGLsizeiptr); cdecl; external glLib;
-procedure glTextureStorage1DEXT(texture: TGLuint; target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); cdecl; external glLib;
+  size: TGLsizeiptr); stdcall; external glLib;
+procedure glTextureStorage1DEXT(texture: TGLuint; target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); stdcall; external glLib;
 procedure glTextureStorage2DEXT(texture: TGLuint; target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
 procedure glTextureStorage3DEXT(texture: TGLuint; target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei); stdcall; external glLib;
 procedure glTextureStorage2DMultisampleEXT(texture: TGLuint; target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; fixedsamplelocations: TGLboolean); cdecl; external glLib;
+  Height: TGLsizei; fixedsamplelocations: TGLboolean); stdcall; external glLib;
 procedure glTextureStorage3DMultisampleEXT(texture: TGLuint; target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei; fixedsamplelocations: TGLboolean); cdecl; external glLib;
-procedure glVertexArrayBindVertexBufferEXT(vaobj: TGLuint; bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei; fixedsamplelocations: TGLboolean); stdcall; external glLib;
+procedure glVertexArrayBindVertexBufferEXT(vaobj: TGLuint; bindingindex: TGLuint; buffer: TGLuint; offset: TGLintptr; stride: TGLsizei); stdcall; external glLib;
 procedure glVertexArrayVertexAttribFormatEXT(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean;
-  relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayVertexAttribIFormatEXT(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayVertexAttribLFormatEXT(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); cdecl; external glLib;
-procedure glVertexArrayVertexAttribBindingEXT(vaobj: TGLuint; attribindex: TGLuint; bindingindex: TGLuint); cdecl; external glLib;
-procedure glVertexArrayVertexBindingDivisorEXT(vaobj: TGLuint; bindingindex: TGLuint; divisor: TGLuint); cdecl; external glLib;
+  relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayVertexAttribIFormatEXT(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayVertexAttribLFormatEXT(vaobj: TGLuint; attribindex: TGLuint; size: TGLint; _type: TGLenum; relativeoffset: TGLuint); stdcall; external glLib;
+procedure glVertexArrayVertexAttribBindingEXT(vaobj: TGLuint; attribindex: TGLuint; bindingindex: TGLuint); stdcall; external glLib;
+procedure glVertexArrayVertexBindingDivisorEXT(vaobj: TGLuint; bindingindex: TGLuint; divisor: TGLuint); stdcall; external glLib;
 procedure glVertexArrayVertexAttribLOffsetEXT(vaobj: TGLuint; buffer: TGLuint; index: TGLuint; size: TGLint; _type: TGLenum;
-  stride: TGLsizei; offset: TGLintptr); cdecl; external glLib;
+  stride: TGLsizei; offset: TGLintptr); stdcall; external glLib;
 procedure glTexturePageCommitmentEXT(texture: TGLuint; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
-  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; commit: TGLboolean); cdecl; external glLib;
-procedure glVertexArrayVertexAttribDivisorEXT(vaobj: TGLuint; index: TGLuint; divisor: TGLuint); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; commit: TGLboolean); stdcall; external glLib;
+procedure glVertexArrayVertexAttribDivisorEXT(vaobj: TGLuint; index: TGLuint; divisor: TGLuint); stdcall; external glLib;
 
 const
   GL_EXT_draw_buffers2 = 1;
 
-procedure glColorMaskIndexedEXT(index: TGLuint; r: TGLboolean; g: TGLboolean; b: TGLboolean; a: TGLboolean); cdecl; external glLib;
+procedure glColorMaskIndexedEXT(index: TGLuint; r: TGLboolean; g: TGLboolean; b: TGLboolean; a: TGLboolean); stdcall; external glLib;
 
 const
   GL_EXT_draw_instanced = 1;
 
-procedure glDrawArraysInstancedEXT(mode: TGLenum; start: TGLint; Count: TGLsizei; primcount: TGLsizei); cdecl; external glLib;
-procedure glDrawElementsInstancedEXT(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; primcount: TGLsizei); cdecl; external glLib;
+procedure glDrawArraysInstancedEXT(mode: TGLenum; start: TGLint; Count: TGLsizei; primcount: TGLsizei); stdcall; external glLib;
+procedure glDrawElementsInstancedEXT(mode: TGLenum; Count: TGLsizei; _type: TGLenum; indices: pointer; primcount: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_draw_range_elements = 1;
@@ -5129,7 +5129,7 @@ const
   GL_MAX_ELEMENTS_INDICES_EXT = $80E9;
 
 procedure glDrawRangeElementsEXT(mode: TGLenum; start: TGLuint; end_: TGLuint; Count: TGLsizei; _type: TGLenum;
-  indices: pointer); cdecl; external glLib;
+  indices: pointer); stdcall; external glLib;
 
 const
   GL_EXT_external_buffer = 1;
@@ -5138,8 +5138,8 @@ type
   PGLeglClientBufferEXT = ^TGLeglClientBufferEXT;
   TGLeglClientBufferEXT = pointer;
 
-procedure glBufferStorageExternalEXT(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; clientBuffer: TGLeglClientBufferEXT; flags: TGLbitfield); cdecl; external;
-procedure glNamedBufferStorageExternalEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; clientBuffer: TGLeglClientBufferEXT; flags: TGLbitfield); cdecl; external;
+procedure glBufferStorageExternalEXT(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; clientBuffer: TGLeglClientBufferEXT; flags: TGLbitfield); stdcall; external;
+procedure glNamedBufferStorageExternalEXT(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; clientBuffer: TGLeglClientBufferEXT; flags: TGLbitfield); stdcall; external;
 
 const
   GL_EXT_fog_coord = 1;
@@ -5152,11 +5152,11 @@ const
   GL_FOG_COORDINATE_ARRAY_POINTER_EXT = $8456;
   GL_FOG_COORDINATE_ARRAY_EXT = $8457;
 
-procedure glFogCoordfEXT(coord: TGLfloat); cdecl; external glLib;
-procedure glFogCoordfvEXT(coord: PGLfloat); cdecl; external glLib;
-procedure glFogCoorddEXT(coord: TGLdouble); cdecl; external glLib;
-procedure glFogCoorddvEXT(coord: PGLdouble); cdecl; external glLib;
-procedure glFogCoordPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glFogCoordfEXT(coord: TGLfloat); stdcall; external glLib;
+procedure glFogCoordfvEXT(coord: PGLfloat); stdcall; external glLib;
+procedure glFogCoorddEXT(coord: TGLdouble); stdcall; external glLib;
+procedure glFogCoorddvEXT(coord: PGLdouble); stdcall; external glLib;
+procedure glFogCoordPointerEXT(_type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_EXT_framebuffer_blit = 1;
@@ -5166,16 +5166,16 @@ const
   GL_READ_FRAMEBUFFER_BINDING_EXT = $8CAA;
 
 procedure glBlitFramebufferEXT(srcX0: TGLint; srcY0: TGLint; srcX1: TGLint; srcY1: TGLint; dstX0: TGLint;
-  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
+  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_framebuffer_blit_layers = 1;
 
 procedure glBlitFramebufferLayersEXT(srcX0: TGLint; srcY0: TGLint; srcX1: TGLint; srcY1: TGLint; dstX0: TGLint;
-  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
+  dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
 procedure glBlitFramebufferLayerEXT(srcX0: TGLint; srcY0: TGLint; srcX1: TGLint; srcY1: TGLint; srcLayer: TGLint;
   dstX0: TGLint; dstY0: TGLint; dstX1: TGLint; dstY1: TGLint; dstLayer: TGLint;
-  mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
+  mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_framebuffer_multisample = 1;
@@ -5183,7 +5183,7 @@ const
   GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT = $8D56;
   GL_MAX_SAMPLES_EXT = $8D57;
 
-procedure glRenderbufferStorageMultisampleEXT(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+procedure glRenderbufferStorageMultisampleEXT(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_framebuffer_multisample_blit_scaled = 1;
@@ -5242,24 +5242,24 @@ const
   GL_RENDERBUFFER_DEPTH_SIZE_EXT = $8D54;
   GL_RENDERBUFFER_STENCIL_SIZE_EXT = $8D55;
 
-function glIsRenderbufferEXT(renderbuffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBindRenderbufferEXT(target: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glDeleteRenderbuffersEXT(n: TGLsizei; renderbuffers: PGLuint); cdecl; external glLib;
-procedure glGenRenderbuffersEXT(n: TGLsizei; renderbuffers: PGLuint); cdecl; external glLib;
-procedure glRenderbufferStorageEXT(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glGetRenderbufferParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-function glIsFramebufferEXT(framebuffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBindFramebufferEXT(target: TGLenum; framebuffer: TGLuint); cdecl; external glLib;
-procedure glDeleteFramebuffersEXT(n: TGLsizei; framebuffers: PGLuint); cdecl; external glLib;
-procedure glGenFramebuffersEXT(n: TGLsizei; framebuffers: PGLuint); cdecl; external glLib;
-function glCheckFramebufferStatusEXT(target: TGLenum): TGLenum; cdecl; external glLib;
-procedure glFramebufferTexture1DEXT(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glFramebufferTexture2DEXT(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
+function glIsRenderbufferEXT(renderbuffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBindRenderbufferEXT(target: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glDeleteRenderbuffersEXT(n: TGLsizei; renderbuffers: PGLuint); stdcall; external glLib;
+procedure glGenRenderbuffersEXT(n: TGLsizei; renderbuffers: PGLuint); stdcall; external glLib;
+procedure glRenderbufferStorageEXT(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glGetRenderbufferParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+function glIsFramebufferEXT(framebuffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBindFramebufferEXT(target: TGLenum; framebuffer: TGLuint); stdcall; external glLib;
+procedure glDeleteFramebuffersEXT(n: TGLsizei; framebuffers: PGLuint); stdcall; external glLib;
+procedure glGenFramebuffersEXT(n: TGLsizei; framebuffers: PGLuint); stdcall; external glLib;
+function glCheckFramebufferStatusEXT(target: TGLenum): TGLenum; stdcall; external glLib;
+procedure glFramebufferTexture1DEXT(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glFramebufferTexture2DEXT(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
 procedure glFramebufferTexture3DEXT(target: TGLenum; attachment: TGLenum; textarget: TGLenum; texture: TGLuint; level: TGLint;
-  zoffset: TGLint); cdecl; external glLib;
-procedure glFramebufferRenderbufferEXT(target: TGLenum; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
-procedure glGetFramebufferAttachmentParameterivEXT(target: TGLenum; attachment: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGenerateMipmapEXT(target: TGLenum); cdecl; external glLib;
+  zoffset: TGLint); stdcall; external glLib;
+procedure glFramebufferRenderbufferEXT(target: TGLenum; attachment: TGLenum; renderbuffertarget: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
+procedure glGetFramebufferAttachmentParameterivEXT(target: TGLenum; attachment: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGenerateMipmapEXT(target: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_framebuffer_sRGB = 1;
@@ -5287,13 +5287,13 @@ const
   GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT = $8CD4;
   GL_PROGRAM_POINT_SIZE_EXT = $8642;
 
-procedure glProgramParameteriEXT(program_: TGLuint; pname: TGLenum; Value: TGLint); cdecl; external glLib;
+procedure glProgramParameteriEXT(program_: TGLuint; pname: TGLenum; Value: TGLint); stdcall; external glLib;
 
 const
   GL_EXT_gpu_program_parameters = 1;
 
-procedure glProgramEnvParameters4fvEXT(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); cdecl; external glLib;
-procedure glProgramLocalParameters4fvEXT(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); cdecl; external glLib;
+procedure glProgramEnvParameters4fvEXT(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); stdcall; external glLib;
+procedure glProgramLocalParameters4fvEXT(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_gpu_shader4 = 1;
@@ -5326,40 +5326,40 @@ const
   GL_MAX_PROGRAM_TEXEL_OFFSET_EXT = $8905;
   GL_VERTEX_ATTRIB_ARRAY_INTEGER_EXT = $88FD;
 
-procedure glGetUniformuivEXT(program_: TGLuint; location: TGLint; params: PGLuint); cdecl; external glLib;
-procedure glBindFragDataLocationEXT(program_: TGLuint; color: TGLuint; Name: PGLchar); cdecl; external glLib;
-function glGetFragDataLocationEXT(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
-procedure glUniform1uiEXT(location: TGLint; v0: TGLuint); cdecl; external glLib;
-procedure glUniform2uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint); cdecl; external glLib;
-procedure glUniform3uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); cdecl; external glLib;
-procedure glUniform4uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint; v3: TGLuint); cdecl; external glLib;
-procedure glUniform1uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform2uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform3uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glUniform4uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI1iEXT(index: TGLuint; x: TGLint); cdecl; external glLib;
-procedure glVertexAttribI2iEXT(index: TGLuint; x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glVertexAttribI3iEXT(index: TGLuint; x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glVertexAttribI4iEXT(index: TGLuint; x: TGLint; y: TGLint; z: TGLint; w: TGLint); cdecl; external glLib;
-procedure glVertexAttribI1uiEXT(index: TGLuint; x: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI2uiEXT(index: TGLuint; x: TGLuint; y: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI3uiEXT(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI4uiEXT(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint; w: TGLuint); cdecl; external glLib;
-procedure glVertexAttribI1ivEXT(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI2ivEXT(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI3ivEXT(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI4ivEXT(index: TGLuint; v: PGLint); cdecl; external glLib;
-procedure glVertexAttribI1uivEXT(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI2uivEXT(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI3uivEXT(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI4uivEXT(index: TGLuint; v: PGLuint); cdecl; external glLib;
-procedure glVertexAttribI4bvEXT(index: TGLuint; v: PGLbyte); cdecl; external glLib;
-procedure glVertexAttribI4svEXT(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribI4ubvEXT(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttribI4usvEXT(index: TGLuint; v: PGLushort); cdecl; external glLib;
-procedure glVertexAttribIPointerEXT(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glGetVertexAttribIivEXT(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribIuivEXT(index: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
+procedure glGetUniformuivEXT(program_: TGLuint; location: TGLint; params: PGLuint); stdcall; external glLib;
+procedure glBindFragDataLocationEXT(program_: TGLuint; color: TGLuint; Name: PGLchar); stdcall; external glLib;
+function glGetFragDataLocationEXT(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
+procedure glUniform1uiEXT(location: TGLint; v0: TGLuint); stdcall; external glLib;
+procedure glUniform2uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint); stdcall; external glLib;
+procedure glUniform3uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint); stdcall; external glLib;
+procedure glUniform4uiEXT(location: TGLint; v0: TGLuint; v1: TGLuint; v2: TGLuint; v3: TGLuint); stdcall; external glLib;
+procedure glUniform1uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform2uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform3uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glUniform4uivEXT(location: TGLint; Count: TGLsizei; Value: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI1iEXT(index: TGLuint; x: TGLint); stdcall; external glLib;
+procedure glVertexAttribI2iEXT(index: TGLuint; x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glVertexAttribI3iEXT(index: TGLuint; x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glVertexAttribI4iEXT(index: TGLuint; x: TGLint; y: TGLint; z: TGLint; w: TGLint); stdcall; external glLib;
+procedure glVertexAttribI1uiEXT(index: TGLuint; x: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI2uiEXT(index: TGLuint; x: TGLuint; y: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI3uiEXT(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI4uiEXT(index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint; w: TGLuint); stdcall; external glLib;
+procedure glVertexAttribI1ivEXT(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI2ivEXT(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI3ivEXT(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI4ivEXT(index: TGLuint; v: PGLint); stdcall; external glLib;
+procedure glVertexAttribI1uivEXT(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI2uivEXT(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI3uivEXT(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI4uivEXT(index: TGLuint; v: PGLuint); stdcall; external glLib;
+procedure glVertexAttribI4bvEXT(index: TGLuint; v: PGLbyte); stdcall; external glLib;
+procedure glVertexAttribI4svEXT(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribI4ubvEXT(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttribI4usvEXT(index: TGLuint; v: PGLushort); stdcall; external glLib;
+procedure glVertexAttribIPointerEXT(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glGetVertexAttribIivEXT(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribIuivEXT(index: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
 
 const
   GL_EXT_histogram = 1;
@@ -5378,16 +5378,16 @@ const
   GL_MINMAX_SINK_EXT = $8030;
   GL_TABLE_TOO_LARGE_EXT = $8031;
 
-procedure glGetHistogramEXT(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); cdecl; external glLib;
-procedure glGetHistogramParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetHistogramParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMinmaxEXT(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); cdecl; external glLib;
-procedure glGetMinmaxParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMinmaxParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glHistogramEXT(target: TGLenum; Width: TGLsizei; internalformat: TGLenum; sink: TGLboolean); cdecl; external glLib;
-procedure glMinmaxEXT(target: TGLenum; internalformat: TGLenum; sink: TGLboolean); cdecl; external glLib;
-procedure glResetHistogramEXT(target: TGLenum); cdecl; external glLib;
-procedure glResetMinmaxEXT(target: TGLenum); cdecl; external glLib;
+procedure glGetHistogramEXT(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); stdcall; external glLib;
+procedure glGetHistogramParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetHistogramParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMinmaxEXT(target: TGLenum; reset: TGLboolean; format: TGLenum; _type: TGLenum; values: pointer); stdcall; external glLib;
+procedure glGetMinmaxParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMinmaxParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glHistogramEXT(target: TGLenum; Width: TGLsizei; internalformat: TGLenum; sink: TGLboolean); stdcall; external glLib;
+procedure glMinmaxEXT(target: TGLenum; internalformat: TGLenum; sink: TGLboolean); stdcall; external glLib;
+procedure glResetHistogramEXT(target: TGLenum); stdcall; external glLib;
+procedure glResetMinmaxEXT(target: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_index_array_formats = 1;
@@ -5404,7 +5404,7 @@ const
   GL_INDEX_TEST_FUNC_EXT = $81B6;
   GL_INDEX_TEST_REF_EXT = $81B7;
 
-procedure glIndexFuncEXT(func: TGLenum; ref: TGLclampf); cdecl; external glLib;
+procedure glIndexFuncEXT(func: TGLenum; ref: TGLclampf); stdcall; external glLib;
 
 const
   GL_EXT_index_material = 1;
@@ -5412,7 +5412,7 @@ const
   GL_INDEX_MATERIAL_PARAMETER_EXT = $81B9;
   GL_INDEX_MATERIAL_FACE_EXT = $81BA;
 
-procedure glIndexMaterialEXT(face: TGLenum; mode: TGLenum); cdecl; external glLib;
+procedure glIndexMaterialEXT(face: TGLenum; mode: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_index_texture = 1;
@@ -5427,9 +5427,9 @@ const
   GL_TEXTURE_MATERIAL_FACE_EXT = $8351;
   GL_TEXTURE_MATERIAL_PARAMETER_EXT = $8352;
 
-procedure glApplyTextureEXT(mode: TGLenum); cdecl; external glLib;
-procedure glTextureLightEXT(pname: TGLenum); cdecl; external glLib;
-procedure glTextureMaterialEXT(face: TGLenum; mode: TGLenum); cdecl; external glLib;
+procedure glApplyTextureEXT(mode: TGLenum); stdcall; external glLib;
+procedure glTextureLightEXT(pname: TGLenum); stdcall; external glLib;
+procedure glTextureMaterialEXT(face: TGLenum; mode: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_memory_object = 1;
@@ -5445,41 +5445,41 @@ const
   GL_DRIVER_UUID_EXT = $9598;
   GL_UUID_SIZE_EXT = 16;
 
-procedure glGetUnsignedBytevEXT(pname: TGLenum; Data: PGLubyte); cdecl; external glLib;
-procedure glGetUnsignedBytei_vEXT(target: TGLenum; index: TGLuint; Data: PGLubyte); cdecl; external glLib;
-procedure glDeleteMemoryObjectsEXT(n: TGLsizei; memoryObjects: PGLuint); cdecl; external glLib;
-function glIsMemoryObjectEXT(memoryObject: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glCreateMemoryObjectsEXT(n: TGLsizei; memoryObjects: PGLuint); cdecl; external glLib;
-procedure glMemoryObjectParameterivEXT(memoryObject: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMemoryObjectParameterivEXT(memoryObject: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glGetUnsignedBytevEXT(pname: TGLenum; Data: PGLubyte); stdcall; external glLib;
+procedure glGetUnsignedBytei_vEXT(target: TGLenum; index: TGLuint; Data: PGLubyte); stdcall; external glLib;
+procedure glDeleteMemoryObjectsEXT(n: TGLsizei; memoryObjects: PGLuint); stdcall; external glLib;
+function glIsMemoryObjectEXT(memoryObject: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glCreateMemoryObjectsEXT(n: TGLsizei; memoryObjects: PGLuint); stdcall; external glLib;
+procedure glMemoryObjectParameterivEXT(memoryObject: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMemoryObjectParameterivEXT(memoryObject: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 procedure glTexStorageMem2DEXT(target: TGLenum; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTexStorageMem2DMultisampleEXT(target: TGLenum; samples: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTexStorageMem3DEXT(target: TGLenum; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  depth: TGLsizei; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTexStorageMem3DMultisampleEXT(target: TGLenum; samples: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
-procedure glBufferStorageMemEXT(target: TGLenum; size: TGLsizeiptr; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  depth: TGLsizei; fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
+procedure glBufferStorageMemEXT(target: TGLenum; size: TGLsizeiptr; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTextureStorageMem2DEXT(texture: TGLuint; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTextureStorageMem2DMultisampleEXT(texture: TGLuint; samples: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTextureStorageMem3DEXT(texture: TGLuint; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  depth: TGLsizei; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTextureStorageMem3DMultisampleEXT(texture: TGLuint; samples: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
-procedure glNamedBufferStorageMemEXT(buffer: TGLuint; size: TGLsizeiptr; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+  depth: TGLsizei; fixedSampleLocations: TGLboolean; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
+procedure glNamedBufferStorageMemEXT(buffer: TGLuint; size: TGLsizeiptr; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 procedure glTexStorageMem1DEXT(target: TGLenum; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; memory: TGLuint;
-  offset: TGLuint64); cdecl; external glLib;
+  offset: TGLuint64); stdcall; external glLib;
 procedure glTextureStorageMem1DEXT(texture: TGLuint; levels: TGLsizei; internalFormat: TGLenum; Width: TGLsizei; memory: TGLuint;
-  offset: TGLuint64); cdecl; external glLib;
+  offset: TGLuint64); stdcall; external glLib;
 
 const
   GL_EXT_memory_object_fd = 1;
   GL_HANDLE_TYPE_OPAQUE_FD_EXT = $9586;
 
-procedure glImportMemoryFdEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; fd: TGLint); cdecl; external glLib;
+procedure glImportMemoryFdEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; fd: TGLint); stdcall; external glLib;
 
 const
   GL_EXT_memory_object_win32 = 1;
@@ -5493,15 +5493,15 @@ const
   GL_HANDLE_TYPE_D3D11_IMAGE_EXT = $958B;
   GL_HANDLE_TYPE_D3D11_IMAGE_KMT_EXT = $958C;
 
-procedure glImportMemoryWin32HandleEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; handle: pointer); cdecl; external glLib;
-procedure glImportMemoryWin32NameEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; Name: pointer); cdecl; external glLib;
+procedure glImportMemoryWin32HandleEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; handle: pointer); stdcall; external glLib;
+procedure glImportMemoryWin32NameEXT(memory: TGLuint; size: TGLuint64; handleType: TGLenum; Name: pointer); stdcall; external glLib;
 
 const
   GL_EXT_misc_attribute = 1;
   GL_EXT_multi_draw_arrays = 1;
 
-procedure glMultiDrawArraysEXT(mode: TGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawElementsEXT(mode: TGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; primcount: TGLsizei); cdecl; external glLib;
+procedure glMultiDrawArraysEXT(mode: TGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawElementsEXT(mode: TGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; primcount: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_multisample = 1;
@@ -5523,8 +5523,8 @@ const
   GL_SAMPLE_PATTERN_EXT = $80AC;
   GL_MULTISAMPLE_BIT_EXT = $20000000;
 
-procedure glSampleMaskEXT(Value: TGLclampf; invert: TGLboolean); cdecl; external glLib;
-procedure glSamplePatternEXT(pattern: TGLenum); cdecl; external glLib;
+procedure glSampleMaskEXT(Value: TGLclampf; invert: TGLboolean); stdcall; external glLib;
+procedure glSamplePatternEXT(pattern: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_multiview_tessellation_geometry_shader = 1;
@@ -5555,10 +5555,10 @@ const
   GL_TEXTURE_INDEX_SIZE_EXT = $80ED;
 
 procedure glColorTableEXT(target: TGLenum; internalFormat: TGLenum; Width: TGLsizei; format: TGLenum; _type: TGLenum;
-  table: pointer); cdecl; external glLib;
-procedure glGetColorTableEXT(target: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); cdecl; external glLib;
-procedure glGetColorTableParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetColorTableParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+  table: pointer); stdcall; external glLib;
+procedure glGetColorTableEXT(target: TGLenum; format: TGLenum; _type: TGLenum; Data: pointer); stdcall; external glLib;
+procedure glGetColorTableParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetColorTableParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_pixel_buffer_object = 1;
@@ -5577,12 +5577,12 @@ const
   GL_MAX_PIXEL_TRANSFORM_2D_STACK_DEPTH_EXT = $8337;
   GL_PIXEL_TRANSFORM_2D_MATRIX_EXT = $8338;
 
-procedure glPixelTransformParameteriEXT(target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glPixelTransformParameterfEXT(target: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPixelTransformParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glPixelTransformParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetPixelTransformParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetPixelTransformParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glPixelTransformParameteriEXT(target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glPixelTransformParameterfEXT(target: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPixelTransformParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glPixelTransformParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetPixelTransformParameterivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetPixelTransformParameterfvEXT(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_pixel_transform_color_table = 1;
@@ -5592,8 +5592,8 @@ const
   GL_POINT_FADE_THRESHOLD_SIZE_EXT = $8128;
   GL_DISTANCE_ATTENUATION_EXT = $8129;
 
-procedure glPointParameterfEXT(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPointParameterfvEXT(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glPointParameterfEXT(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPointParameterfvEXT(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_polygon_offset = 1;
@@ -5601,13 +5601,13 @@ const
   GL_POLYGON_OFFSET_FACTOR_EXT = $8038;
   GL_POLYGON_OFFSET_BIAS_EXT = $8039;
 
-procedure glPolygonOffsetEXT(factor: TGLfloat; bias: TGLfloat); cdecl; external glLib;
+procedure glPolygonOffsetEXT(factor: TGLfloat; bias: TGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_polygon_offset_clamp = 1;
   GL_POLYGON_OFFSET_CLAMP_EXT = $8E1B;
 
-procedure glPolygonOffsetClampEXT(factor: TGLfloat; units: TGLfloat; clamp: TGLfloat); cdecl; external glLib;
+procedure glPolygonOffsetClampEXT(factor: TGLfloat; units: TGLfloat; clamp: TGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_post_depth_coverage = 1;
@@ -5617,7 +5617,7 @@ const
   GL_LAST_VERTEX_CONVENTION_EXT = $8E4E;
   GL_PROVOKING_VERTEX_EXT = $8E4F;
 
-procedure glProvokingVertexEXT(mode: TGLenum); cdecl; external glLib;
+procedure glProvokingVertexEXT(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_raster_multisample = 1;
@@ -5628,7 +5628,7 @@ const
   GL_MULTISAMPLE_RASTERIZATION_ALLOWED_EXT = $932B;
   GL_EFFECTIVE_RASTER_SAMPLES_EXT = $932C;
 
-procedure glRasterSamplesEXT(samples: TGLuint; fixedsamplelocations: TGLboolean); cdecl; external glLib;
+procedure glRasterSamplesEXT(samples: TGLuint; fixedsamplelocations: TGLboolean); stdcall; external glLib;
 
 const
   GL_EXT_rescale_normal = 1;
@@ -5642,23 +5642,23 @@ const
   GL_SECONDARY_COLOR_ARRAY_POINTER_EXT = $845D;
   GL_SECONDARY_COLOR_ARRAY_EXT = $845E;
 
-procedure glSecondaryColor3bEXT(red: TGLbyte; green: TGLbyte; blue: TGLbyte); cdecl; external glLib;
-procedure glSecondaryColor3bvEXT(v: PGLbyte); cdecl; external glLib;
-procedure glSecondaryColor3dEXT(red: TGLdouble; green: TGLdouble; blue: TGLdouble); cdecl; external glLib;
-procedure glSecondaryColor3dvEXT(v: PGLdouble); cdecl; external glLib;
-procedure glSecondaryColor3fEXT(red: TGLfloat; green: TGLfloat; blue: TGLfloat); cdecl; external glLib;
-procedure glSecondaryColor3fvEXT(v: PGLfloat); cdecl; external glLib;
-procedure glSecondaryColor3iEXT(red: TGLint; green: TGLint; blue: TGLint); cdecl; external glLib;
-procedure glSecondaryColor3ivEXT(v: PGLint); cdecl; external glLib;
-procedure glSecondaryColor3sEXT(red: TGLshort; green: TGLshort; blue: TGLshort); cdecl; external glLib;
-procedure glSecondaryColor3svEXT(v: PGLshort); cdecl; external glLib;
-procedure glSecondaryColor3ubEXT(red: TGLubyte; green: TGLubyte; blue: TGLubyte); cdecl; external glLib;
-procedure glSecondaryColor3ubvEXT(v: PGLubyte); cdecl; external glLib;
-procedure glSecondaryColor3uiEXT(red: TGLuint; green: TGLuint; blue: TGLuint); cdecl; external glLib;
-procedure glSecondaryColor3uivEXT(v: PGLuint); cdecl; external glLib;
-procedure glSecondaryColor3usEXT(red: TGLushort; green: TGLushort; blue: TGLushort); cdecl; external glLib;
-procedure glSecondaryColor3usvEXT(v: PGLushort); cdecl; external glLib;
-procedure glSecondaryColorPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glSecondaryColor3bEXT(red: TGLbyte; green: TGLbyte; blue: TGLbyte); stdcall; external glLib;
+procedure glSecondaryColor3bvEXT(v: PGLbyte); stdcall; external glLib;
+procedure glSecondaryColor3dEXT(red: TGLdouble; green: TGLdouble; blue: TGLdouble); stdcall; external glLib;
+procedure glSecondaryColor3dvEXT(v: PGLdouble); stdcall; external glLib;
+procedure glSecondaryColor3fEXT(red: TGLfloat; green: TGLfloat; blue: TGLfloat); stdcall; external glLib;
+procedure glSecondaryColor3fvEXT(v: PGLfloat); stdcall; external glLib;
+procedure glSecondaryColor3iEXT(red: TGLint; green: TGLint; blue: TGLint); stdcall; external glLib;
+procedure glSecondaryColor3ivEXT(v: PGLint); stdcall; external glLib;
+procedure glSecondaryColor3sEXT(red: TGLshort; green: TGLshort; blue: TGLshort); stdcall; external glLib;
+procedure glSecondaryColor3svEXT(v: PGLshort); stdcall; external glLib;
+procedure glSecondaryColor3ubEXT(red: TGLubyte; green: TGLubyte; blue: TGLubyte); stdcall; external glLib;
+procedure glSecondaryColor3ubvEXT(v: PGLubyte); stdcall; external glLib;
+procedure glSecondaryColor3uiEXT(red: TGLuint; green: TGLuint; blue: TGLuint); stdcall; external glLib;
+procedure glSecondaryColor3uivEXT(v: PGLuint); stdcall; external glLib;
+procedure glSecondaryColor3usEXT(red: TGLushort; green: TGLushort; blue: TGLushort); stdcall; external glLib;
+procedure glSecondaryColor3usvEXT(v: PGLushort); stdcall; external glLib;
+procedure glSecondaryColorPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_EXT_semaphore = 1;
@@ -5672,36 +5672,36 @@ const
   GL_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_EXT = $9530;
   GL_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_EXT = $9531;
 
-procedure glGenSemaphoresEXT(n: TGLsizei; semaphores: PGLuint); cdecl; external glLib;
-procedure glDeleteSemaphoresEXT(n: TGLsizei; semaphores: PGLuint); cdecl; external glLib;
-function glIsSemaphoreEXT(semaphore: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glSemaphoreParameterui64vEXT(semaphore: TGLuint; pname: TGLenum; params: PGLuint64); cdecl; external glLib;
-procedure glGetSemaphoreParameterui64vEXT(semaphore: TGLuint; pname: TGLenum; params: PGLuint64); cdecl; external glLib;
+procedure glGenSemaphoresEXT(n: TGLsizei; semaphores: PGLuint); stdcall; external glLib;
+procedure glDeleteSemaphoresEXT(n: TGLsizei; semaphores: PGLuint); stdcall; external glLib;
+function glIsSemaphoreEXT(semaphore: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glSemaphoreParameterui64vEXT(semaphore: TGLuint; pname: TGLenum; params: PGLuint64); stdcall; external glLib;
+procedure glGetSemaphoreParameterui64vEXT(semaphore: TGLuint; pname: TGLenum; params: PGLuint64); stdcall; external glLib;
 procedure glWaitSemaphoreEXT(semaphore: TGLuint; numBufferBarriers: TGLuint; buffers: PGLuint; numTextureBarriers: TGLuint; textures: PGLuint;
-  srcLayouts: PGLenum); cdecl; external glLib;
+  srcLayouts: PGLenum); stdcall; external glLib;
 procedure glSignalSemaphoreEXT(semaphore: TGLuint; numBufferBarriers: TGLuint; buffers: PGLuint; numTextureBarriers: TGLuint; textures: PGLuint;
-  dstLayouts: PGLenum); cdecl; external glLib;
+  dstLayouts: PGLenum); stdcall; external glLib;
 
 const
   GL_EXT_semaphore_fd = 1;
 
-procedure glImportSemaphoreFdEXT(semaphore: TGLuint; handleType: TGLenum; fd: TGLint); cdecl; external glLib;
+procedure glImportSemaphoreFdEXT(semaphore: TGLuint; handleType: TGLenum; fd: TGLint); stdcall; external glLib;
 
 const
   GL_EXT_semaphore_win32 = 1;
   GL_HANDLE_TYPE_D3D12_FENCE_EXT = $9594;
   GL_D3D12_FENCE_VALUE_EXT = $9595;
 
-procedure glImportSemaphoreWin32HandleEXT(semaphore: TGLuint; handleType: TGLenum; handle: pointer); cdecl; external glLib;
-procedure glImportSemaphoreWin32NameEXT(semaphore: TGLuint; handleType: TGLenum; Name: pointer); cdecl; external glLib;
+procedure glImportSemaphoreWin32HandleEXT(semaphore: TGLuint; handleType: TGLenum; handle: pointer); stdcall; external glLib;
+procedure glImportSemaphoreWin32NameEXT(semaphore: TGLuint; handleType: TGLenum; Name: pointer); stdcall; external glLib;
 
 const
   GL_EXT_separate_shader_objects = 1;
   GL_ACTIVE_PROGRAM_EXT = $8B8D;
 
-procedure glUseShaderProgramEXT(_type: TGLenum; program_: TGLuint); cdecl; external glLib;
-procedure glActiveProgramEXT(program_: TGLuint); cdecl; external glLib;
-function glCreateShaderProgramEXT(_type: TGLenum; _string: PGLchar): TGLuint; cdecl; external glLib;
+procedure glUseShaderProgramEXT(_type: TGLenum; program_: TGLuint); stdcall; external glLib;
+procedure glActiveProgramEXT(program_: TGLuint); stdcall; external glLib;
+function glCreateShaderProgramEXT(_type: TGLenum; _string: PGLchar): TGLuint; stdcall; external glLib;
 
 const
   GL_EXT_separate_specular_color = 1;
@@ -5712,7 +5712,7 @@ const
   GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT = $8A52;
   GL_EXT_shader_framebuffer_fetch_non_coherent = 1;
 
-procedure glFramebufferFetchBarrierEXT; cdecl; external glLib;
+procedure glFramebufferFetchBarrierEXT; stdcall; external glLib;
 
 const
   GL_EXT_shader_image_load_formatted = 1;
@@ -5774,8 +5774,8 @@ const
   GL_ALL_BARRIER_BITS_EXT = $FFFFFFFF;
 
 procedure glBindImageTextureEXT(index: TGLuint; texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint;
-  access: TGLenum; format: TGLint); cdecl; external glLib;
-procedure glMemoryBarrierEXT(barriers: TGLbitfield); cdecl; external glLib;
+  access: TGLenum; format: TGLint); stdcall; external glLib;
+procedure glMemoryBarrierEXT(barriers: TGLbitfield); stdcall; external glLib;
 
 const
   GL_EXT_shader_integer_mix = 1;
@@ -5788,14 +5788,14 @@ const
   GL_STENCIL_TAG_BITS_EXT = $88F2;
   GL_STENCIL_CLEAR_TAG_VALUE_EXT = $88F3;
 
-procedure glStencilClearTagEXT(stencilTagBits: TGLsizei; stencilClearTag: TGLuint); cdecl; external glLib;
+procedure glStencilClearTagEXT(stencilTagBits: TGLsizei; stencilClearTag: TGLuint); stdcall; external glLib;
 
 const
   GL_EXT_stencil_two_side = 1;
   GL_STENCIL_TEST_TWO_SIDE_EXT = $8910;
   GL_ACTIVE_STENCIL_FACE_EXT = $8911;
 
-procedure glActiveStencilFaceEXT(face: TGLenum); cdecl; external glLib;
+procedure glActiveStencilFaceEXT(face: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_stencil_wrap = 1;
@@ -5804,9 +5804,9 @@ const
   GL_EXT_subtexture = 1;
 
 procedure glTexSubImage1DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; Width: TGLsizei; format: TGLenum;
-  _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTexSubImage2DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; Width: TGLsizei;
-  Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  Height: TGLsizei; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 
 const
   GL_EXT_texture = 1;
@@ -5865,10 +5865,10 @@ const
   GL_MAX_3D_TEXTURE_SIZE_EXT = $8073;
 
 procedure glTexImage3DEXT(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  depth: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 procedure glTexSubImage3DEXT(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 
 const
   GL_EXT_texture_array = 1;
@@ -5881,7 +5881,7 @@ const
   GL_MAX_ARRAY_TEXTURE_LAYERS_EXT = $88FF;
   GL_COMPARE_REF_DEPTH_TO_TEXTURE_EXT = $884E;
 
-procedure glFramebufferTextureLayerEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); cdecl; external glLib;
+procedure glFramebufferTextureLayerEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; layer: TGLint); stdcall; external glLib;
 
 const
   GL_EXT_texture_buffer_object = 1;
@@ -5891,7 +5891,7 @@ const
   GL_TEXTURE_BUFFER_DATA_STORE_BINDING_EXT = $8C2D;
   GL_TEXTURE_BUFFER_FORMAT_EXT = $8C2E;
 
-procedure glTexBufferEXT(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); cdecl; external glLib;
+procedure glTexBufferEXT(target: TGLenum; internalformat: TGLenum; buffer: TGLuint); stdcall; external glLib;
 
 const
   GL_EXT_texture_compression_latc = 1;
@@ -6003,12 +6003,12 @@ const
   GL_LUMINANCE_ALPHA_INTEGER_EXT = $8D9D;
   GL_RGBA_INTEGER_MODE_EXT = $8D9E;
 
-procedure glTexParameterIivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glTexParameterIuivEXT(target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetTexParameterIivEXT(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetTexParameterIuivEXT(target: TGLenum; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glClearColorIiEXT(red: TGLint; green: TGLint; blue: TGLint; alpha: TGLint); cdecl; external glLib;
-procedure glClearColorIuiEXT(red: TGLuint; green: TGLuint; blue: TGLuint; alpha: TGLuint); cdecl; external glLib;
+procedure glTexParameterIivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glTexParameterIuivEXT(target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetTexParameterIivEXT(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetTexParameterIuivEXT(target: TGLenum; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glClearColorIiEXT(red: TGLint; green: TGLint; blue: TGLint; alpha: TGLint); stdcall; external glLib;
+procedure glClearColorIuiEXT(red: TGLuint; green: TGLuint; blue: TGLuint; alpha: TGLuint); stdcall; external glLib;
 
 const
   GL_EXT_texture_lod_bias = 1;
@@ -6026,19 +6026,19 @@ const
   GL_TEXTURE_2D_BINDING_EXT = $8069;
   GL_TEXTURE_3D_BINDING_EXT = $806A;
 
-function glAreTexturesResidentEXT(n: TGLsizei; textures: PGLuint; residences: PGLboolean): TGLboolean; cdecl; external glLib;
-procedure glBindTextureEXT(target: TGLenum; texture: TGLuint); cdecl; external glLib;
-procedure glDeleteTexturesEXT(n: TGLsizei; textures: PGLuint); cdecl; external glLib;
-procedure glGenTexturesEXT(n: TGLsizei; textures: PGLuint); cdecl; external glLib;
-function glIsTextureEXT(texture: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glPrioritizeTexturesEXT(n: TGLsizei; textures: PGLuint; priorities: PGLclampf); cdecl; external glLib;
+function glAreTexturesResidentEXT(n: TGLsizei; textures: PGLuint; residences: PGLboolean): TGLboolean; stdcall; external glLib;
+procedure glBindTextureEXT(target: TGLenum; texture: TGLuint); stdcall; external glLib;
+procedure glDeleteTexturesEXT(n: TGLsizei; textures: PGLuint); stdcall; external glLib;
+procedure glGenTexturesEXT(n: TGLsizei; textures: PGLuint); stdcall; external glLib;
+function glIsTextureEXT(texture: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glPrioritizeTexturesEXT(n: TGLsizei; textures: PGLuint; priorities: PGLclampf); stdcall; external glLib;
 
 const
   GL_EXT_texture_perturb_normal = 1;
   GL_PERTURB_EXT = $85AE;
   GL_TEXTURE_NORMAL_EXT = $85AF;
 
-procedure glTextureNormalEXT(mode: TGLenum); cdecl; external glLib;
+procedure glTextureNormalEXT(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_EXT_texture_sRGB = 1;
@@ -6108,10 +6108,10 @@ const
   GL_R16F_EXT = $822D;
   GL_RG16F_EXT = $822F;
 
-procedure glTexStorage1DEXT(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); cdecl; external glLib;
-procedure glTexStorage2DEXT(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
+procedure glTexStorage1DEXT(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei); stdcall; external glLib;
+procedure glTexStorage2DEXT(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
 procedure glTexStorage3DEXT(target: TGLenum; levels: TGLsizei; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
-  depth: TGLsizei); cdecl; external glLib;
+  depth: TGLsizei); stdcall; external glLib;
 
 const
   GL_EXT_texture_swizzle = 1;
@@ -6123,8 +6123,8 @@ const
   GL_EXT_timer_query = 1;
   GL_TIME_ELAPSED_EXT = $88BF;
 
-procedure glGetQueryObjecti64vEXT(id: TGLuint; pname: TGLenum; params: PGLint64); cdecl; external glLib;
-procedure glGetQueryObjectui64vEXT(id: TGLuint; pname: TGLenum; params: PGLuint64); cdecl; external glLib;
+procedure glGetQueryObjecti64vEXT(id: TGLuint; pname: TGLenum; params: PGLint64); stdcall; external glLib;
+procedure glGetQueryObjectui64vEXT(id: TGLuint; pname: TGLenum; params: PGLuint64); stdcall; external glLib;
 
 const
   GL_EXT_transform_feedback = 1;
@@ -6144,14 +6144,14 @@ const
   GL_TRANSFORM_FEEDBACK_BUFFER_MODE_EXT = $8C7F;
   GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH_EXT = $8C76;
 
-procedure glBeginTransformFeedbackEXT(primitiveMode: TGLenum); cdecl; external glLib;
-procedure glEndTransformFeedbackEXT; cdecl; external glLib;
-procedure glBindBufferRangeEXT(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glBindBufferOffsetEXT(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); cdecl; external glLib;
-procedure glBindBufferBaseEXT(target: TGLenum; index: TGLuint; buffer: TGLuint); cdecl; external glLib;
-procedure glTransformFeedbackVaryingsEXT(program_: TGLuint; Count: TGLsizei; varyings: PPGLchar; bufferMode: TGLenum); cdecl; external glLib;
+procedure glBeginTransformFeedbackEXT(primitiveMode: TGLenum); stdcall; external glLib;
+procedure glEndTransformFeedbackEXT; stdcall; external glLib;
+procedure glBindBufferRangeEXT(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glBindBufferOffsetEXT(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); stdcall; external glLib;
+procedure glBindBufferBaseEXT(target: TGLenum; index: TGLuint; buffer: TGLuint); stdcall; external glLib;
+procedure glTransformFeedbackVaryingsEXT(program_: TGLuint; Count: TGLsizei; varyings: PPGLchar; bufferMode: TGLenum); stdcall; external glLib;
 procedure glGetTransformFeedbackVaryingEXT(program_: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLsizei;
-  _type: PGLenum; Name: PGLchar); cdecl; external glLib;
+  _type: PGLenum; Name: PGLchar); stdcall; external glLib;
 
 const
   GL_EXT_vertex_array = 1;
@@ -6188,15 +6188,15 @@ const
   GL_TEXTURE_COORD_ARRAY_POINTER_EXT = $8092;
   GL_EDGE_FLAG_ARRAY_POINTER_EXT = $8093;
 
-procedure glArrayElementEXT(i: TGLint); cdecl; external glLib;
-procedure glColorPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glDrawArraysEXT(mode: TGLenum; First: TGLint; Count: TGLsizei); cdecl; external glLib;
-procedure glEdgeFlagPointerEXT(stride: TGLsizei; Count: TGLsizei; pointer: PGLboolean); cdecl; external glLib;
-procedure glGetPointervEXT(pname: TGLenum; params: Ppointer); cdecl; external glLib;
-procedure glIndexPointerEXT(_type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glNormalPointerEXT(_type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glTexCoordPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glVertexPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glArrayElementEXT(i: TGLint); stdcall; external glLib;
+procedure glColorPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glDrawArraysEXT(mode: TGLenum; First: TGLint; Count: TGLsizei); stdcall; external glLib;
+procedure glEdgeFlagPointerEXT(stride: TGLsizei; Count: TGLsizei; pointer: PGLboolean); stdcall; external glLib;
+procedure glGetPointervEXT(pname: TGLenum; params: Ppointer); stdcall; external glLib;
+procedure glIndexPointerEXT(_type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glNormalPointerEXT(_type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glTexCoordPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glVertexPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; Count: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_EXT_vertex_array_bgra = 1;
@@ -6214,16 +6214,16 @@ const
   GL_DOUBLE_MAT4x2_EXT = $8F4D;
   GL_DOUBLE_MAT4x3_EXT = $8F4E;
 
-procedure glVertexAttribL1dEXT(index: TGLuint; x: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL2dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL3dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL4dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexAttribL1dvEXT(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL2dvEXT(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL3dvEXT(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribL4dvEXT(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribLPointerEXT(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glGetVertexAttribLdvEXT(index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
+procedure glVertexAttribL1dEXT(index: TGLuint; x: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL2dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL3dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL4dEXT(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexAttribL1dvEXT(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL2dvEXT(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL3dvEXT(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribL4dvEXT(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribLPointerEXT(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glGetVertexAttribLdvEXT(index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
 
 const
   GL_EXT_vertex_shader = 1;
@@ -6338,50 +6338,50 @@ const
   GL_LOCAL_CONSTANT_VALUE_EXT = $87EC;
   GL_LOCAL_CONSTANT_DATATYPE_EXT = $87ED;
 
-procedure glBeginVertexShaderEXT; cdecl; external glLib;
-procedure glEndVertexShaderEXT; cdecl; external glLib;
-procedure glBindVertexShaderEXT(id: TGLuint); cdecl; external glLib;
-function glGenVertexShadersEXT(range: TGLuint): TGLuint; cdecl; external glLib;
-procedure glDeleteVertexShaderEXT(id: TGLuint); cdecl; external glLib;
-procedure glShaderOp1EXT(op: TGLenum; res: TGLuint; arg1: TGLuint); cdecl; external glLib;
-procedure glShaderOp2EXT(op: TGLenum; res: TGLuint; arg1: TGLuint; arg2: TGLuint); cdecl; external glLib;
-procedure glShaderOp3EXT(op: TGLenum; res: TGLuint; arg1: TGLuint; arg2: TGLuint; arg3: TGLuint); cdecl; external glLib;
+procedure glBeginVertexShaderEXT; stdcall; external glLib;
+procedure glEndVertexShaderEXT; stdcall; external glLib;
+procedure glBindVertexShaderEXT(id: TGLuint); stdcall; external glLib;
+function glGenVertexShadersEXT(range: TGLuint): TGLuint; stdcall; external glLib;
+procedure glDeleteVertexShaderEXT(id: TGLuint); stdcall; external glLib;
+procedure glShaderOp1EXT(op: TGLenum; res: TGLuint; arg1: TGLuint); stdcall; external glLib;
+procedure glShaderOp2EXT(op: TGLenum; res: TGLuint; arg1: TGLuint; arg2: TGLuint); stdcall; external glLib;
+procedure glShaderOp3EXT(op: TGLenum; res: TGLuint; arg1: TGLuint; arg2: TGLuint; arg3: TGLuint); stdcall; external glLib;
 procedure glSwizzleEXT(res: TGLuint; in_: TGLuint; outX: TGLenum; outY: TGLenum; outZ: TGLenum;
-  outW: TGLenum); cdecl; external glLib;
+  outW: TGLenum); stdcall; external glLib;
 procedure glWriteMaskEXT(res: TGLuint; in_: TGLuint; outX: TGLenum; outY: TGLenum; outZ: TGLenum;
-  outW: TGLenum); cdecl; external glLib;
-procedure glInsertComponentEXT(res: TGLuint; src: TGLuint; num: TGLuint); cdecl; external glLib;
-procedure glExtractComponentEXT(res: TGLuint; src: TGLuint; num: TGLuint); cdecl; external glLib;
-function glGenSymbolsEXT(datatype: TGLenum; storagetype: TGLenum; range: TGLenum; Components: TGLuint): TGLuint; cdecl; external glLib;
-procedure glSetInvariantEXT(id: TGLuint; _type: TGLenum; addr: pointer); cdecl; external glLib;
-procedure glSetLocalConstantEXT(id: TGLuint; _type: TGLenum; addr: pointer); cdecl; external glLib;
-procedure glVariantbvEXT(id: TGLuint; addr: PGLbyte); cdecl; external glLib;
-procedure glVariantsvEXT(id: TGLuint; addr: PGLshort); cdecl; external glLib;
-procedure glVariantivEXT(id: TGLuint; addr: PGLint); cdecl; external glLib;
-procedure glVariantfvEXT(id: TGLuint; addr: PGLfloat); cdecl; external glLib;
-procedure glVariantdvEXT(id: TGLuint; addr: PGLdouble); cdecl; external glLib;
-procedure glVariantubvEXT(id: TGLuint; addr: PGLubyte); cdecl; external glLib;
-procedure glVariantusvEXT(id: TGLuint; addr: PGLushort); cdecl; external glLib;
-procedure glVariantuivEXT(id: TGLuint; addr: PGLuint); cdecl; external glLib;
-procedure glVariantPointerEXT(id: TGLuint; _type: TGLenum; stride: TGLuint; addr: pointer); cdecl; external glLib;
-procedure glEnableVariantClientStateEXT(id: TGLuint); cdecl; external glLib;
-procedure glDisableVariantClientStateEXT(id: TGLuint); cdecl; external glLib;
-function glBindLightParameterEXT(light: TGLenum; Value: TGLenum): TGLuint; cdecl; external glLib;
-function glBindMaterialParameterEXT(face: TGLenum; Value: TGLenum): TGLuint; cdecl; external glLib;
-function glBindTexGenParameterEXT(unit_: TGLenum; coord: TGLenum; Value: TGLenum): TGLuint; cdecl; external glLib;
-function glBindTextureUnitParameterEXT(unit_: TGLenum; Value: TGLenum): TGLuint; cdecl; external glLib;
-function glBindParameterEXT(Value: TGLenum): TGLuint; cdecl; external glLib;
-function glIsVariantEnabledEXT(id: TGLuint; cap: TGLenum): TGLboolean; cdecl; external glLib;
-procedure glGetVariantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); cdecl; external glLib;
-procedure glGetVariantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); cdecl; external glLib;
-procedure glGetVariantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); cdecl; external glLib;
-procedure glGetVariantPointervEXT(id: TGLuint; Value: TGLenum; Data: Ppointer); cdecl; external glLib;
-procedure glGetInvariantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); cdecl; external glLib;
-procedure glGetInvariantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); cdecl; external glLib;
-procedure glGetInvariantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); cdecl; external glLib;
-procedure glGetLocalConstantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); cdecl; external glLib;
-procedure glGetLocalConstantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); cdecl; external glLib;
-procedure glGetLocalConstantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); cdecl; external glLib;
+  outW: TGLenum); stdcall; external glLib;
+procedure glInsertComponentEXT(res: TGLuint; src: TGLuint; num: TGLuint); stdcall; external glLib;
+procedure glExtractComponentEXT(res: TGLuint; src: TGLuint; num: TGLuint); stdcall; external glLib;
+function glGenSymbolsEXT(datatype: TGLenum; storagetype: TGLenum; range: TGLenum; Components: TGLuint): TGLuint; stdcall; external glLib;
+procedure glSetInvariantEXT(id: TGLuint; _type: TGLenum; addr: pointer); stdcall; external glLib;
+procedure glSetLocalConstantEXT(id: TGLuint; _type: TGLenum; addr: pointer); stdcall; external glLib;
+procedure glVariantbvEXT(id: TGLuint; addr: PGLbyte); stdcall; external glLib;
+procedure glVariantsvEXT(id: TGLuint; addr: PGLshort); stdcall; external glLib;
+procedure glVariantivEXT(id: TGLuint; addr: PGLint); stdcall; external glLib;
+procedure glVariantfvEXT(id: TGLuint; addr: PGLfloat); stdcall; external glLib;
+procedure glVariantdvEXT(id: TGLuint; addr: PGLdouble); stdcall; external glLib;
+procedure glVariantubvEXT(id: TGLuint; addr: PGLubyte); stdcall; external glLib;
+procedure glVariantusvEXT(id: TGLuint; addr: PGLushort); stdcall; external glLib;
+procedure glVariantuivEXT(id: TGLuint; addr: PGLuint); stdcall; external glLib;
+procedure glVariantPointerEXT(id: TGLuint; _type: TGLenum; stride: TGLuint; addr: pointer); stdcall; external glLib;
+procedure glEnableVariantClientStateEXT(id: TGLuint); stdcall; external glLib;
+procedure glDisableVariantClientStateEXT(id: TGLuint); stdcall; external glLib;
+function glBindLightParameterEXT(light: TGLenum; Value: TGLenum): TGLuint; stdcall; external glLib;
+function glBindMaterialParameterEXT(face: TGLenum; Value: TGLenum): TGLuint; stdcall; external glLib;
+function glBindTexGenParameterEXT(unit_: TGLenum; coord: TGLenum; Value: TGLenum): TGLuint; stdcall; external glLib;
+function glBindTextureUnitParameterEXT(unit_: TGLenum; Value: TGLenum): TGLuint; stdcall; external glLib;
+function glBindParameterEXT(Value: TGLenum): TGLuint; stdcall; external glLib;
+function glIsVariantEnabledEXT(id: TGLuint; cap: TGLenum): TGLboolean; stdcall; external glLib;
+procedure glGetVariantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); stdcall; external glLib;
+procedure glGetVariantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); stdcall; external glLib;
+procedure glGetVariantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); stdcall; external glLib;
+procedure glGetVariantPointervEXT(id: TGLuint; Value: TGLenum; Data: Ppointer); stdcall; external glLib;
+procedure glGetInvariantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); stdcall; external glLib;
+procedure glGetInvariantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); stdcall; external glLib;
+procedure glGetInvariantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); stdcall; external glLib;
+procedure glGetLocalConstantBooleanvEXT(id: TGLuint; Value: TGLenum; Data: PGLboolean); stdcall; external glLib;
+procedure glGetLocalConstantIntegervEXT(id: TGLuint; Value: TGLenum; Data: PGLint); stdcall; external glLib;
+procedure glGetLocalConstantFloatvEXT(id: TGLuint; Value: TGLenum; Data: PGLfloat); stdcall; external glLib;
 
 const
   GL_EXT_vertex_weighting = 1;
@@ -6399,15 +6399,15 @@ const
   GL_VERTEX_WEIGHT_ARRAY_STRIDE_EXT = $850F;
   GL_VERTEX_WEIGHT_ARRAY_POINTER_EXT = $8510;
 
-procedure glVertexWeightfEXT(weight: TGLfloat); cdecl; external glLib;
-procedure glVertexWeightfvEXT(weight: PGLfloat); cdecl; external glLib;
-procedure glVertexWeightPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glVertexWeightfEXT(weight: TGLfloat); stdcall; external glLib;
+procedure glVertexWeightfvEXT(weight: PGLfloat); stdcall; external glLib;
+procedure glVertexWeightPointerEXT(size: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_EXT_win32_keyed_mutex = 1;
 
-function glAcquireKeyedMutexWin32EXT(memory: TGLuint; key: TGLuint64; timeout: TGLuint): TGLboolean; cdecl; external glLib;
-function glReleaseKeyedMutexWin32EXT(memory: TGLuint; key: TGLuint64): TGLboolean; cdecl; external glLib;
+function glAcquireKeyedMutexWin32EXT(memory: TGLuint; key: TGLuint64; timeout: TGLuint): TGLboolean; stdcall; external glLib;
+function glReleaseKeyedMutexWin32EXT(memory: TGLuint; key: TGLuint64): TGLboolean; stdcall; external glLib;
 
 const
   GL_EXT_window_rectangles = 1;
@@ -6418,23 +6418,23 @@ const
   GL_MAX_WINDOW_RECTANGLES_EXT = $8F14;
   GL_NUM_WINDOW_RECTANGLES_EXT = $8F15;
 
-procedure glWindowRectanglesEXT(mode: TGLenum; Count: TGLsizei; box: PGLint); cdecl; external glLib;
+procedure glWindowRectanglesEXT(mode: TGLenum; Count: TGLsizei; box: PGLint); stdcall; external glLib;
 
 const
   GL_EXT_x11_sync_object = 1;
   GL_SYNC_X11_FENCE_EXT = $90E1;
 
-function glImportSyncEXT(external_sync_type: TGLenum; external_sync: TGLintptr; flags: TGLbitfield): TGLsync; cdecl; external;
+function glImportSyncEXT(external_sync_type: TGLenum; external_sync: TGLintptr; flags: TGLbitfield): TGLsync; stdcall; external;
 
 const
   GL_GREMEDY_frame_terminator = 1;
 
-procedure glFrameTerminatorGREMEDY; cdecl; external glLib;
+procedure glFrameTerminatorGREMEDY; stdcall; external glLib;
 
 const
   GL_GREMEDY_string_marker = 1;
 
-procedure glStringMarkerGREMEDY(len: TGLsizei; _string: pointer); cdecl; external glLib;
+procedure glStringMarkerGREMEDY(len: TGLsizei; _string: pointer); stdcall; external glLib;
 
 const
   GL_HP_convolution_border_modes = 1;
@@ -6459,12 +6459,12 @@ const
   GL_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = $8162;
   GL_PROXY_POST_IMAGE_TRANSFORM_COLOR_TABLE_HP = $8163;
 
-procedure glImageTransformParameteriHP(target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glImageTransformParameterfHP(target: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glImageTransformParameterivHP(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glImageTransformParameterfvHP(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetImageTransformParameterivHP(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetImageTransformParameterfvHP(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glImageTransformParameteriHP(target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glImageTransformParameterfHP(target: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glImageTransformParameterivHP(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glImageTransformParameterfvHP(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetImageTransformParameterivHP(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetImageTransformParameterfvHP(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_HP_occlusion_test = 1;
@@ -6478,9 +6478,9 @@ const
   GL_CULL_VERTEX_IBM = 103050;
   GL_IBM_multimode_draw_arrays = 1;
 
-procedure glMultiModeDrawArraysIBM(mode: PGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei; modestride: TGLint); cdecl; external glLib;
+procedure glMultiModeDrawArraysIBM(mode: PGLenum; First: PGLint; Count: PGLsizei; primcount: TGLsizei; modestride: TGLint); stdcall; external glLib;
 procedure glMultiModeDrawElementsIBM(mode: PGLenum; Count: PGLsizei; _type: TGLenum; indices: Ppointer; primcount: TGLsizei;
-  modestride: TGLint); cdecl; external glLib;
+  modestride: TGLint); stdcall; external glLib;
 
 const
   GL_IBM_rasterpos_clip = 1;
@@ -6489,7 +6489,7 @@ const
   GL_ALL_STATIC_DATA_IBM = 103060;
   GL_STATIC_VERTEX_ARRAY_IBM = 103061;
 
-procedure glFlushStaticDataIBM(target: TGLenum); cdecl; external glLib;
+procedure glFlushStaticDataIBM(target: TGLenum); stdcall; external glLib;
 
 const
   GL_IBM_texture_mirrored_repeat = 1;
@@ -6512,19 +6512,19 @@ const
   GL_FOG_COORDINATE_ARRAY_LIST_STRIDE_IBM = 103086;
   GL_SECONDARY_COLOR_ARRAY_LIST_STRIDE_IBM = 103087;
 
-procedure glColorPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glSecondaryColorPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glEdgeFlagPointerListIBM(stride: TGLint; pointer: PPGLboolean; ptrstride: TGLint); cdecl; external glLib;
-procedure glFogCoordPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glIndexPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glNormalPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glTexCoordPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
-procedure glVertexPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); cdecl; external glLib;
+procedure glColorPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glSecondaryColorPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glEdgeFlagPointerListIBM(stride: TGLint; pointer: PPGLboolean; ptrstride: TGLint); stdcall; external glLib;
+procedure glFogCoordPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glIndexPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glNormalPointerListIBM(_type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glTexCoordPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
+procedure glVertexPointerListIBM(size: TGLint; _type: TGLenum; stride: TGLint; pointer: Ppointer; ptrstride: TGLint); stdcall; external glLib;
 
 const
   GL_INGR_blend_func_separate = 1;
 
-procedure glBlendFuncSeparateINGR(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); cdecl; external glLib;
+procedure glBlendFuncSeparateINGR(sfactorRGB: TGLenum; dfactorRGB: TGLenum; sfactorAlpha: TGLenum; dfactorAlpha: TGLenum); stdcall; external glLib;
 
 const
   GL_INGR_color_clamp = 1;
@@ -6545,7 +6545,7 @@ const
   GL_INTEL_fragment_shader_ordering = 1;
   GL_INTEL_framebuffer_CMAA = 1;
 
-procedure glApplyFramebufferAttachmentCMAAINTEL; cdecl; external glLib;
+procedure glApplyFramebufferAttachmentCMAAINTEL; stdcall; external glLib;
 
 const
   GL_INTEL_map_texture = 1;
@@ -6554,9 +6554,9 @@ const
   GL_LAYOUT_LINEAR_INTEL = 1;
   GL_LAYOUT_LINEAR_CPU_CACHED_INTEL = 2;
 
-procedure glSyncTextureINTEL(texture: TGLuint); cdecl; external glLib;
-procedure glUnmapTexture2DINTEL(texture: TGLuint; level: TGLint); cdecl; external glLib;
-function glMapTexture2DINTEL(texture: TGLuint; level: TGLint; access: TGLbitfield; stride: PGLint; layout: PGLenum): pointer; cdecl; external glLib;
+procedure glSyncTextureINTEL(texture: TGLuint); stdcall; external glLib;
+procedure glUnmapTexture2DINTEL(texture: TGLuint; level: TGLint); stdcall; external glLib;
+function glMapTexture2DINTEL(texture: TGLuint; level: TGLint; access: TGLbitfield; stride: PGLint; layout: PGLenum): pointer; stdcall; external glLib;
 
 const
   GL_INTEL_parallel_arrays = 1;
@@ -6566,10 +6566,10 @@ const
   GL_COLOR_ARRAY_PARALLEL_POINTERS_INTEL = $83F7;
   GL_TEXTURE_COORD_ARRAY_PARALLEL_POINTERS_INTEL = $83F8;
 
-procedure glVertexPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); cdecl; external glLib;
-procedure glNormalPointervINTEL(_type: TGLenum; pointer: Ppointer); cdecl; external glLib;
-procedure glColorPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); cdecl; external glLib;
-procedure glTexCoordPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); cdecl; external glLib;
+procedure glVertexPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); stdcall; external glLib;
+procedure glNormalPointervINTEL(_type: TGLenum; pointer: Ppointer); stdcall; external glLib;
+procedure glColorPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); stdcall; external glLib;
+procedure glTexCoordPointervINTEL(size: TGLint; _type: TGLenum; pointer: Ppointer); stdcall; external glLib;
 
 const
   GL_INTEL_performance_query = 1;
@@ -6594,19 +6594,19 @@ const
   GL_PERFQUERY_COUNTER_DESC_LENGTH_MAX_INTEL = $94FF;
   GL_PERFQUERY_GPA_EXTENDED_COUNTERS_INTEL = $9500;
 
-procedure glBeginPerfQueryINTEL(queryHandle: TGLuint); cdecl; external glLib;
-procedure glCreatePerfQueryINTEL(queryId: TGLuint; queryHandle: PGLuint); cdecl; external glLib;
-procedure glDeletePerfQueryINTEL(queryHandle: TGLuint); cdecl; external glLib;
-procedure glEndPerfQueryINTEL(queryHandle: TGLuint); cdecl; external glLib;
-procedure glGetFirstPerfQueryIdINTEL(queryId: PGLuint); cdecl; external glLib;
-procedure glGetNextPerfQueryIdINTEL(queryId: TGLuint; nextQueryId: PGLuint); cdecl; external glLib;
+procedure glBeginPerfQueryINTEL(queryHandle: TGLuint); stdcall; external glLib;
+procedure glCreatePerfQueryINTEL(queryId: TGLuint; queryHandle: PGLuint); stdcall; external glLib;
+procedure glDeletePerfQueryINTEL(queryHandle: TGLuint); stdcall; external glLib;
+procedure glEndPerfQueryINTEL(queryHandle: TGLuint); stdcall; external glLib;
+procedure glGetFirstPerfQueryIdINTEL(queryId: PGLuint); stdcall; external glLib;
+procedure glGetNextPerfQueryIdINTEL(queryId: TGLuint; nextQueryId: PGLuint); stdcall; external glLib;
 procedure glGetPerfCounterInfoINTEL(queryId: TGLuint; counterId: TGLuint; counterNameLength: TGLuint; counterName: PGLchar; counterDescLength: TGLuint;
   counterDesc: PGLchar; counterOffset: PGLuint; counterDataSize: PGLuint; counterTypeEnum: PGLuint; counterDataTypeEnum: PGLuint;
-  rawCounterMaxValue: PGLuint64); cdecl; external glLib;
-procedure glGetPerfQueryDataINTEL(queryHandle: TGLuint; flags: TGLuint; dataSize: TGLsizei; Data: pointer; bytesWritten: PGLuint); cdecl; external glLib;
-procedure glGetPerfQueryIdByNameINTEL(queryName: PGLchar; queryId: PGLuint); cdecl; external glLib;
+  rawCounterMaxValue: PGLuint64); stdcall; external glLib;
+procedure glGetPerfQueryDataINTEL(queryHandle: TGLuint; flags: TGLuint; dataSize: TGLsizei; Data: pointer; bytesWritten: PGLuint); stdcall; external glLib;
+procedure glGetPerfQueryIdByNameINTEL(queryName: PGLchar; queryId: PGLuint); stdcall; external glLib;
 procedure glGetPerfQueryInfoINTEL(queryId: TGLuint; queryNameLength: TGLuint; queryName: PGLchar; dataSize: PGLuint; noCounters: PGLuint;
-  noInstances: PGLuint; capsMask: PGLuint); cdecl; external glLib;
+  noInstances: PGLuint; capsMask: PGLuint); stdcall; external glLib;
 
 const
   GL_MESAX_texture_stack = 1;
@@ -6621,8 +6621,8 @@ const
   GL_MESA_framebuffer_flip_y = 1;
   GL_FRAMEBUFFER_FLIP_Y_MESA = $8BBB;
 
-procedure glFramebufferParameteriMESA(target: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glGetFramebufferParameterivMESA(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glFramebufferParameteriMESA(target: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glGetFramebufferParameterivMESA(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_MESA_framebuffer_swap_xy = 1;
@@ -6633,7 +6633,7 @@ const
   GL_PROGRAM_BINARY_FORMAT_MESA = $875F;
   GL_MESA_resize_buffers = 1;
 
-procedure glResizeBuffersMESA; cdecl; external glLib;
+procedure glResizeBuffersMESA; stdcall; external glLib;
 
 const
   GL_MESA_shader_integer_functions = 1;
@@ -6643,30 +6643,30 @@ const
   GL_TILE_RASTER_ORDER_INCREASING_Y_MESA = $8BBA;
   GL_MESA_window_pos = 1;
 
-procedure glWindowPos2dMESA(x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glWindowPos2dvMESA(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos2fMESA(x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glWindowPos2fvMESA(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos2iMESA(x: TGLint; y: TGLint); cdecl; external glLib;
-procedure glWindowPos2ivMESA(v: PGLint); cdecl; external glLib;
-procedure glWindowPos2sMESA(x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glWindowPos2svMESA(v: PGLshort); cdecl; external glLib;
-procedure glWindowPos3dMESA(x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glWindowPos3dvMESA(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos3fMESA(x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glWindowPos3fvMESA(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos3iMESA(x: TGLint; y: TGLint; z: TGLint); cdecl; external glLib;
-procedure glWindowPos3ivMESA(v: PGLint); cdecl; external glLib;
-procedure glWindowPos3sMESA(x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glWindowPos3svMESA(v: PGLshort); cdecl; external glLib;
-procedure glWindowPos4dMESA(x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glWindowPos4dvMESA(v: PGLdouble); cdecl; external glLib;
-procedure glWindowPos4fMESA(x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glWindowPos4fvMESA(v: PGLfloat); cdecl; external glLib;
-procedure glWindowPos4iMESA(x: TGLint; y: TGLint; z: TGLint; w: TGLint); cdecl; external glLib;
-procedure glWindowPos4ivMESA(v: PGLint); cdecl; external glLib;
-procedure glWindowPos4sMESA(x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); cdecl; external glLib;
-procedure glWindowPos4svMESA(v: PGLshort); cdecl; external glLib;
+procedure glWindowPos2dMESA(x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glWindowPos2dvMESA(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos2fMESA(x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glWindowPos2fvMESA(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos2iMESA(x: TGLint; y: TGLint); stdcall; external glLib;
+procedure glWindowPos2ivMESA(v: PGLint); stdcall; external glLib;
+procedure glWindowPos2sMESA(x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glWindowPos2svMESA(v: PGLshort); stdcall; external glLib;
+procedure glWindowPos3dMESA(x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glWindowPos3dvMESA(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos3fMESA(x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glWindowPos3fvMESA(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos3iMESA(x: TGLint; y: TGLint; z: TGLint); stdcall; external glLib;
+procedure glWindowPos3ivMESA(v: PGLint); stdcall; external glLib;
+procedure glWindowPos3sMESA(x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glWindowPos3svMESA(v: PGLshort); stdcall; external glLib;
+procedure glWindowPos4dMESA(x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glWindowPos4dvMESA(v: PGLdouble); stdcall; external glLib;
+procedure glWindowPos4fMESA(x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glWindowPos4fvMESA(v: PGLfloat); stdcall; external glLib;
+procedure glWindowPos4iMESA(x: TGLint; y: TGLint; z: TGLint; w: TGLint); stdcall; external glLib;
+procedure glWindowPos4ivMESA(v: PGLint); stdcall; external glLib;
+procedure glWindowPos4sMESA(x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); stdcall; external glLib;
+procedure glWindowPos4svMESA(v: PGLshort); stdcall; external glLib;
 
 const
   GL_MESA_ycbcr_texture = 1;
@@ -6676,8 +6676,8 @@ const
   GL_NVX_blend_equation_advanced_multi_draw_buffers = 1;
   GL_NVX_conditional_render = 1;
 
-procedure glBeginConditionalRenderNVX(id: TGLuint); cdecl; external glLib;
-procedure glEndConditionalRenderNVX; cdecl; external glLib;
+procedure glBeginConditionalRenderNVX(id: TGLuint); stdcall; external glLib;
+procedure glEndConditionalRenderNVX; stdcall; external glLib;
 
 const
   GL_NVX_gpu_memory_info = 1;
@@ -6689,38 +6689,38 @@ const
   GL_NVX_gpu_multicast2 = 1;
   GL_UPLOAD_GPU_MASK_NVX = $954A;
 
-procedure glUploadGpuMaskNVX(mask: TGLbitfield); cdecl; external glLib;
-procedure glMulticastViewportArrayvNVX(gpu: TGLuint; First: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glMulticastViewportPositionWScaleNVX(gpu: TGLuint; index: TGLuint; xcoeff: TGLfloat; ycoeff: TGLfloat); cdecl; external glLib;
-procedure glMulticastScissorArrayvNVX(gpu: TGLuint; First: TGLuint; Count: TGLsizei; v: PGLint); cdecl; external glLib;
+procedure glUploadGpuMaskNVX(mask: TGLbitfield); stdcall; external glLib;
+procedure glMulticastViewportArrayvNVX(gpu: TGLuint; First: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glMulticastViewportPositionWScaleNVX(gpu: TGLuint; index: TGLuint; xcoeff: TGLfloat; ycoeff: TGLfloat); stdcall; external glLib;
+procedure glMulticastScissorArrayvNVX(gpu: TGLuint; First: TGLuint; Count: TGLsizei; v: PGLint); stdcall; external glLib;
 function glAsyncCopyBufferSubDataNVX(waitSemaphoreCount: TGLsizei; waitSemaphoreArray: PGLuint; fenceValueArray: PGLuint64; readGpu: TGLuint; writeGpuMask: TGLbitfield;
   readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr; writeOffset: TGLintptr; size: TGLsizeiptr;
-  signalSemaphoreCount: TGLsizei; signalSemaphoreArray: PGLuint; signalValueArray: PGLuint64): TGLuint; cdecl; external glLib;
+  signalSemaphoreCount: TGLsizei; signalSemaphoreArray: PGLuint; signalValueArray: PGLuint64): TGLuint; stdcall; external glLib;
 function glAsyncCopyImageSubDataNVX(waitSemaphoreCount: TGLsizei; waitSemaphoreArray: PGLuint; waitValueArray: PGLuint64; srcGpu: TGLuint; dstGpuMask: TGLbitfield;
   srcName: TGLuint; srcTarget: TGLenum; srcLevel: TGLint; srcX: TGLint; srcY: TGLint;
   srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum; dstLevel: TGLint; dstX: TGLint;
   dstY: TGLint; dstZ: TGLint; srcWidth: TGLsizei; srcHeight: TGLsizei; srcDepth: TGLsizei;
-  signalSemaphoreCount: TGLsizei; signalSemaphoreArray: PGLuint; signalValueArray: PGLuint64): TGLuint; cdecl; external glLib;
+  signalSemaphoreCount: TGLsizei; signalSemaphoreArray: PGLuint; signalValueArray: PGLuint64): TGLuint; stdcall; external glLib;
 
 const
   GL_NVX_linked_gpu_multicast = 1;
   GL_LGPU_SEPARATE_STORAGE_BIT_NVX = $0800;
   GL_MAX_LGPU_GPUS_NVX = $92BA;
 
-procedure glLGPUNamedBufferSubDataNVX(gpuMask: TGLbitfield; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
+procedure glLGPUNamedBufferSubDataNVX(gpuMask: TGLbitfield; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
 procedure glLGPUCopyImageSubDataNVX(sourceGpu: TGLuint; destinationGpuMask: TGLbitfield; srcName: TGLuint; srcTarget: TGLenum; srcLevel: TGLint;
   srcX: TGLint; srxY: TGLint; srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum;
   dstLevel: TGLint; dstX: TGLint; dstY: TGLint; dstZ: TGLint; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei); cdecl; external glLib;
-procedure glLGPUInterlockNVX; cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei); stdcall; external glLib;
+procedure glLGPUInterlockNVX; stdcall; external glLib;
 
 const
   GL_NVX_progress_fence = 1;
 
-function glCreateProgressFenceNVX: TGLuint; cdecl; external glLib;
-procedure glSignalSemaphoreui64NVX(signalGpu: TGLuint; fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); cdecl; external glLib;
-procedure glWaitSemaphoreui64NVX(waitGpu: TGLuint; fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); cdecl; external glLib;
-procedure glClientWaitSemaphoreui64NVX(fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); cdecl; external glLib;
+function glCreateProgressFenceNVX: TGLuint; stdcall; external glLib;
+procedure glSignalSemaphoreui64NVX(signalGpu: TGLuint; fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); stdcall; external glLib;
+procedure glWaitSemaphoreui64NVX(waitGpu: TGLuint; fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); stdcall; external glLib;
+procedure glClientWaitSemaphoreui64NVX(fenceObjectCount: TGLsizei; semaphoreArray: PGLuint; fenceValueArray: PGLuint64); stdcall; external glLib;
 
 const
   GL_NV_alpha_to_coverage_dither_control = 1;
@@ -6729,39 +6729,39 @@ const
   GL_ALPHA_TO_COVERAGE_DITHER_DISABLE_NV = $934F;
   GL_ALPHA_TO_COVERAGE_DITHER_MODE_NV = $92BF;
 
-procedure glAlphaToCoverageDitherControlNV(mode: TGLenum); cdecl; external glLib;
+procedure glAlphaToCoverageDitherControlNV(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_bindless_multi_draw_indirect = 1;
 
-procedure glMultiDrawArraysIndirectBindlessNV(mode: TGLenum; indirect: pointer; drawCount: TGLsizei; stride: TGLsizei; vertexBufferCount: TGLint); cdecl; external glLib;
+procedure glMultiDrawArraysIndirectBindlessNV(mode: TGLenum; indirect: pointer; drawCount: TGLsizei; stride: TGLsizei; vertexBufferCount: TGLint); stdcall; external glLib;
 procedure glMultiDrawElementsIndirectBindlessNV(mode: TGLenum; _type: TGLenum; indirect: pointer; drawCount: TGLsizei; stride: TGLsizei;
-  vertexBufferCount: TGLint); cdecl; external glLib;
+  vertexBufferCount: TGLint); stdcall; external glLib;
 
 const
   GL_NV_bindless_multi_draw_indirect_count = 1;
 
 procedure glMultiDrawArraysIndirectBindlessCountNV(mode: TGLenum; indirect: pointer; drawCount: TGLsizei; maxDrawCount: TGLsizei; stride: TGLsizei;
-  vertexBufferCount: TGLint); cdecl; external glLib;
+  vertexBufferCount: TGLint); stdcall; external glLib;
 procedure glMultiDrawElementsIndirectBindlessCountNV(mode: TGLenum; _type: TGLenum; indirect: pointer; drawCount: TGLsizei; maxDrawCount: TGLsizei;
-  stride: TGLsizei; vertexBufferCount: TGLint); cdecl; external glLib;
+  stride: TGLsizei; vertexBufferCount: TGLint); stdcall; external glLib;
 
 const
   GL_NV_bindless_texture = 1;
 
-function glGetTextureHandleNV(texture: TGLuint): TGLuint64; cdecl; external glLib;
-function glGetTextureSamplerHandleNV(texture: TGLuint; sampler: TGLuint): TGLuint64; cdecl; external glLib;
-procedure glMakeTextureHandleResidentNV(handle: TGLuint64); cdecl; external glLib;
-procedure glMakeTextureHandleNonResidentNV(handle: TGLuint64); cdecl; external glLib;
-function glGetImageHandleNV(texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint; format: TGLenum): TGLuint64; cdecl; external glLib;
-procedure glMakeImageHandleResidentNV(handle: TGLuint64; access: TGLenum); cdecl; external glLib;
-procedure glMakeImageHandleNonResidentNV(handle: TGLuint64); cdecl; external glLib;
-procedure glUniformHandleui64NV(location: TGLint; Value: TGLuint64); cdecl; external glLib;
-procedure glUniformHandleui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64); cdecl; external glLib;
-procedure glProgramUniformHandleui64NV(program_: TGLuint; location: TGLint; Value: TGLuint64); cdecl; external glLib;
-procedure glProgramUniformHandleui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; values: PGLuint64); cdecl; external glLib;
-function glIsTextureHandleResidentNV(handle: TGLuint64): TGLboolean; cdecl; external glLib;
-function glIsImageHandleResidentNV(handle: TGLuint64): TGLboolean; cdecl; external glLib;
+function glGetTextureHandleNV(texture: TGLuint): TGLuint64; stdcall; external glLib;
+function glGetTextureSamplerHandleNV(texture: TGLuint; sampler: TGLuint): TGLuint64; stdcall; external glLib;
+procedure glMakeTextureHandleResidentNV(handle: TGLuint64); stdcall; external glLib;
+procedure glMakeTextureHandleNonResidentNV(handle: TGLuint64); stdcall; external glLib;
+function glGetImageHandleNV(texture: TGLuint; level: TGLint; layered: TGLboolean; layer: TGLint; format: TGLenum): TGLuint64; stdcall; external glLib;
+procedure glMakeImageHandleResidentNV(handle: TGLuint64; access: TGLenum); stdcall; external glLib;
+procedure glMakeImageHandleNonResidentNV(handle: TGLuint64); stdcall; external glLib;
+procedure glUniformHandleui64NV(location: TGLint; Value: TGLuint64); stdcall; external glLib;
+procedure glUniformHandleui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64); stdcall; external glLib;
+procedure glProgramUniformHandleui64NV(program_: TGLuint; location: TGLint; Value: TGLuint64); stdcall; external glLib;
+procedure glProgramUniformHandleui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; values: PGLuint64); stdcall; external glLib;
+function glIsTextureHandleResidentNV(handle: TGLuint64): TGLboolean; stdcall; external glLib;
+function glIsImageHandleResidentNV(handle: TGLuint64): TGLboolean; stdcall; external glLib;
 
 const
   GL_NV_blend_equation_advanced = 1;
@@ -6815,8 +6815,8 @@ const
   GL_VIVIDLIGHT_NV = $92A6;
   GL_XOR_NV = $1506;
 
-procedure glBlendParameteriNV(pname: TGLenum; Value: TGLint); cdecl; external glLib;
-procedure glBlendBarrierNV; cdecl; external glLib;
+procedure glBlendParameteriNV(pname: TGLenum; Value: TGLint); stdcall; external glLib;
+procedure glBlendBarrierNV; stdcall; external glLib;
 
 const
   GL_NV_blend_equation_advanced_coherent = 1;
@@ -6828,7 +6828,7 @@ const
   GL_VIEWPORT_POSITION_W_SCALE_X_COEFF_NV = $937D;
   GL_VIEWPORT_POSITION_W_SCALE_Y_COEFF_NV = $937E;
 
-procedure glViewportPositionWScaleNV(index: TGLuint; xcoeff: TGLfloat; ycoeff: TGLfloat); cdecl; external glLib;
+procedure glViewportPositionWScaleNV(index: TGLuint; xcoeff: TGLfloat; ycoeff: TGLfloat); stdcall; external glLib;
 
 const
   GL_NV_command_list = 1;
@@ -6852,25 +6852,25 @@ const
   GL_SCISSOR_COMMAND_NV = $0011;
   GL_FRONT_FACE_COMMAND_NV = $0012;
 
-procedure glCreateStatesNV(n: TGLsizei; states: PGLuint); cdecl; external glLib;
-procedure glDeleteStatesNV(n: TGLsizei; states: PGLuint); cdecl; external glLib;
-function glIsStateNV(state: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glStateCaptureNV(state: TGLuint; mode: TGLenum); cdecl; external glLib;
-function glGetCommandHeaderNV(tokenID: TGLenum; size: TGLuint): TGLuint; cdecl; external glLib;
-function glGetStageIndexNV(shadertype: TGLenum): TGLushort; cdecl; external glLib;
-procedure glDrawCommandsNV(primitiveMode: TGLenum; buffer: TGLuint; indirects: PGLintptr; sizes: PGLsizei; Count: TGLuint); cdecl; external glLib;
-procedure glDrawCommandsAddressNV(primitiveMode: TGLenum; indirects: PGLuint64; sizes: PGLsizei; Count: TGLuint); cdecl; external glLib;
+procedure glCreateStatesNV(n: TGLsizei; states: PGLuint); stdcall; external glLib;
+procedure glDeleteStatesNV(n: TGLsizei; states: PGLuint); stdcall; external glLib;
+function glIsStateNV(state: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glStateCaptureNV(state: TGLuint; mode: TGLenum); stdcall; external glLib;
+function glGetCommandHeaderNV(tokenID: TGLenum; size: TGLuint): TGLuint; stdcall; external glLib;
+function glGetStageIndexNV(shadertype: TGLenum): TGLushort; stdcall; external glLib;
+procedure glDrawCommandsNV(primitiveMode: TGLenum; buffer: TGLuint; indirects: PGLintptr; sizes: PGLsizei; Count: TGLuint); stdcall; external glLib;
+procedure glDrawCommandsAddressNV(primitiveMode: TGLenum; indirects: PGLuint64; sizes: PGLsizei; Count: TGLuint); stdcall; external glLib;
 procedure glDrawCommandsStatesNV(buffer: TGLuint; indirects: PGLintptr; sizes: PGLsizei; states: PGLuint; fbos: PGLuint;
-  Count: TGLuint); cdecl; external glLib;
-procedure glDrawCommandsStatesAddressNV(indirects: PGLuint64; sizes: PGLsizei; states: PGLuint; fbos: PGLuint; Count: TGLuint); cdecl; external glLib;
-procedure glCreateCommandListsNV(n: TGLsizei; lists: PGLuint); cdecl; external glLib;
-procedure glDeleteCommandListsNV(n: TGLsizei; lists: PGLuint); cdecl; external glLib;
-function glIsCommandListNV(list: TGLuint): TGLboolean; cdecl; external glLib;
+  Count: TGLuint); stdcall; external glLib;
+procedure glDrawCommandsStatesAddressNV(indirects: PGLuint64; sizes: PGLsizei; states: PGLuint; fbos: PGLuint; Count: TGLuint); stdcall; external glLib;
+procedure glCreateCommandListsNV(n: TGLsizei; lists: PGLuint); stdcall; external glLib;
+procedure glDeleteCommandListsNV(n: TGLsizei; lists: PGLuint); stdcall; external glLib;
+function glIsCommandListNV(list: TGLuint): TGLboolean; stdcall; external glLib;
 procedure glListDrawCommandsStatesClientNV(list: TGLuint; segment: TGLuint; indirects: Ppointer; sizes: PGLsizei; states: PGLuint;
-  fbos: PGLuint; Count: TGLuint); cdecl; external glLib;
-procedure glCommandListSegmentsNV(list: TGLuint; segments: TGLuint); cdecl; external glLib;
-procedure glCompileCommandListNV(list: TGLuint); cdecl; external glLib;
-procedure glCallCommandListNV(list: TGLuint); cdecl; external glLib;
+  fbos: PGLuint; Count: TGLuint); stdcall; external glLib;
+procedure glCommandListSegmentsNV(list: TGLuint; segments: TGLuint); stdcall; external glLib;
+procedure glCompileCommandListNV(list: TGLuint); stdcall; external glLib;
+procedure glCallCommandListNV(list: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_compute_program5 = 1;
@@ -6883,8 +6883,8 @@ const
   GL_QUERY_BY_REGION_WAIT_NV = $8E15;
   GL_QUERY_BY_REGION_NO_WAIT_NV = $8E16;
 
-procedure glBeginConditionalRenderNV(id: TGLuint; mode: TGLenum); cdecl; external glLib;
-procedure glEndConditionalRenderNV; cdecl; external glLib;
+procedure glBeginConditionalRenderNV(id: TGLuint; mode: TGLenum); stdcall; external glLib;
+procedure glEndConditionalRenderNV; stdcall; external glLib;
 
 const
   GL_NV_conservative_raster = 1;
@@ -6893,7 +6893,7 @@ const
   GL_SUBPIXEL_PRECISION_BIAS_Y_BITS_NV = $9348;
   GL_MAX_SUBPIXEL_PRECISION_BIAS_BITS_NV = $9349;
 
-procedure glSubpixelPrecisionBiasNV(xbits: TGLuint; ybits: TGLuint); cdecl; external glLib;
+procedure glSubpixelPrecisionBiasNV(xbits: TGLuint; ybits: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_conservative_raster_dilate = 1;
@@ -6901,7 +6901,7 @@ const
   GL_CONSERVATIVE_RASTER_DILATE_RANGE_NV = $937A;
   GL_CONSERVATIVE_RASTER_DILATE_GRANULARITY_NV = $937B;
 
-procedure glConservativeRasterParameterfNV(pname: TGLenum; Value: TGLfloat); cdecl; external glLib;
+procedure glConservativeRasterParameterfNV(pname: TGLenum; Value: TGLfloat); stdcall; external glLib;
 
 const
   GL_NV_conservative_raster_pre_snap = 1;
@@ -6911,7 +6911,7 @@ const
   GL_CONSERVATIVE_RASTER_MODE_POST_SNAP_NV = $954E;
   GL_CONSERVATIVE_RASTER_MODE_PRE_SNAP_TRIANGLES_NV = $954F;
 
-procedure glConservativeRasterParameteriNV(pname: TGLenum; param: TGLint); cdecl; external glLib;
+procedure glConservativeRasterParameteriNV(pname: TGLenum; param: TGLint); stdcall; external glLib;
 
 const
   GL_NV_conservative_raster_underestimation = 1;
@@ -6922,7 +6922,7 @@ const
 
 procedure glCopyImageSubDataNV(srcName: TGLuint; srcTarget: TGLenum; srcLevel: TGLint; srcX: TGLint; srcY: TGLint;
   srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum; dstLevel: TGLint; dstX: TGLint;
-  dstY: TGLint; dstZ: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei); cdecl; external glLib;
+  dstY: TGLint; dstZ: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei); stdcall; external glLib;
 
 const
   GL_NV_deep_texture3D = 1;
@@ -6934,9 +6934,9 @@ const
   GL_FLOAT_32_UNSIGNED_INT_24_8_REV_NV = $8DAD;
   GL_DEPTH_BUFFER_FLOAT_MODE_NV = $8DAF;
 
-procedure glDepthRangedNV(zNear: TGLdouble; zFar: TGLdouble); cdecl; external glLib;
-procedure glClearDepthdNV(depth: TGLdouble); cdecl; external glLib;
-procedure glDepthBoundsdNV(zmin: TGLdouble; zmax: TGLdouble); cdecl; external glLib;
+procedure glDepthRangedNV(zNear: TGLdouble; zFar: TGLdouble); stdcall; external glLib;
+procedure glClearDepthdNV(depth: TGLdouble); stdcall; external glLib;
+procedure glDepthBoundsdNV(zmin: TGLdouble; zmax: TGLdouble); stdcall; external glLib;
 
 const
   GL_NV_depth_clamp = 1;
@@ -6945,22 +6945,22 @@ const
 
 procedure glDrawTextureNV(texture: TGLuint; sampler: TGLuint; x0: TGLfloat; y0: TGLfloat; x1: TGLfloat;
   y1: TGLfloat; z: TGLfloat; s0: TGLfloat; t0: TGLfloat; s1: TGLfloat;
-  t1: TGLfloat); cdecl; external glLib;
+  t1: TGLfloat); stdcall; external glLib;
 
 const
   GL_NV_draw_vulkan_image = 1;
 
 type
 
-  TGLVULKANPROCNV = procedure(para1: pointer); cdecl;
+  TGLVULKANPROCNV = procedure(para1: pointer); stdcall;
 
 procedure glDrawVkImageNV(vkImage: TGLuint64; sampler: TGLuint; x0: TGLfloat; y0: TGLfloat; x1: TGLfloat;
   y1: TGLfloat; z: TGLfloat; s0: TGLfloat; t0: TGLfloat; s1: TGLfloat;
-  t1: TGLfloat); cdecl; external glLib;
-function glGetVkProcAddrNV(Name: PGLchar): TGLVULKANPROCNV; cdecl; external glLib;
-procedure glWaitVkSemaphoreNV(vkSemaphore: TGLuint64); cdecl; external glLib;
-procedure glSignalVkSemaphoreNV(vkSemaphore: TGLuint64); cdecl; external glLib;
-procedure glSignalVkFenceNV(vkFence: TGLuint64); cdecl; external glLib;
+  t1: TGLfloat); stdcall; external glLib;
+function glGetVkProcAddrNV(Name: PGLchar): TGLVULKANPROCNV; stdcall; external glLib;
+procedure glWaitVkSemaphoreNV(vkSemaphore: TGLuint64); stdcall; external glLib;
+procedure glSignalVkSemaphoreNV(vkSemaphore: TGLuint64); stdcall; external glLib;
+procedure glSignalVkFenceNV(vkFence: TGLuint64); stdcall; external glLib;
 
 const
   GL_NV_evaluators = 1;
@@ -6990,16 +6990,16 @@ const
   GL_MAX_RATIONAL_EVAL_ORDER_NV = $86D7;
 
 procedure glMapControlPointsNV(target: TGLenum; index: TGLuint; _type: TGLenum; ustride: TGLsizei; vstride: TGLsizei;
-  uorder: TGLint; vorder: TGLint; packed_: TGLboolean; points: pointer); cdecl; external glLib;
-procedure glMapParameterivNV(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMapParameterfvNV(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+  uorder: TGLint; vorder: TGLint; packed_: TGLboolean; points: pointer); stdcall; external glLib;
+procedure glMapParameterivNV(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMapParameterfvNV(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 procedure glGetMapControlPointsNV(target: TGLenum; index: TGLuint; _type: TGLenum; ustride: TGLsizei; vstride: TGLsizei;
-  packed_: TGLboolean; points: pointer); cdecl; external glLib;
-procedure glGetMapParameterivNV(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMapParameterfvNV(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetMapAttribParameterivNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetMapAttribParameterfvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glEvalMapsNV(target: TGLenum; mode: TGLenum); cdecl; external glLib;
+  packed_: TGLboolean; points: pointer); stdcall; external glLib;
+procedure glGetMapParameterivNV(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMapParameterfvNV(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetMapAttribParameterivNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetMapAttribParameterfvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glEvalMapsNV(target: TGLenum; mode: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_explicit_multisample = 1;
@@ -7014,9 +7014,9 @@ const
   GL_UNSIGNED_INT_SAMPLER_RENDERBUFFER_NV = $8E58;
   GL_MAX_SAMPLE_MASK_WORDS_NV = $8E59;
 
-procedure glGetMultisamplefvNV(pname: TGLenum; index: TGLuint; val: PGLfloat); cdecl; external glLib;
-procedure glSampleMaskIndexedNV(index: TGLuint; mask: TGLbitfield); cdecl; external glLib;
-procedure glTexRenderbufferNV(target: TGLenum; renderbuffer: TGLuint); cdecl; external glLib;
+procedure glGetMultisamplefvNV(pname: TGLenum; index: TGLuint; val: PGLfloat); stdcall; external glLib;
+procedure glSampleMaskIndexedNV(index: TGLuint; mask: TGLbitfield); stdcall; external glLib;
+procedure glTexRenderbufferNV(target: TGLenum; renderbuffer: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_fence = 1;
@@ -7024,13 +7024,13 @@ const
   GL_FENCE_STATUS_NV = $84F3;
   GL_FENCE_CONDITION_NV = $84F4;
 
-procedure glDeleteFencesNV(n: TGLsizei; fences: PGLuint); cdecl; external glLib;
-procedure glGenFencesNV(n: TGLsizei; fences: PGLuint); cdecl; external glLib;
-function glIsFenceNV(fence: TGLuint): TGLboolean; cdecl; external glLib;
-function glTestFenceNV(fence: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glGetFenceivNV(fence: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glFinishFenceNV(fence: TGLuint); cdecl; external glLib;
-procedure glSetFenceNV(fence: TGLuint; condition: TGLenum); cdecl; external glLib;
+procedure glDeleteFencesNV(n: TGLsizei; fences: PGLuint); stdcall; external glLib;
+procedure glGenFencesNV(n: TGLsizei; fences: PGLuint); stdcall; external glLib;
+function glIsFenceNV(fence: TGLuint): TGLboolean; stdcall; external glLib;
+function glTestFenceNV(fence: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glGetFenceivNV(fence: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glFinishFenceNV(fence: TGLuint); stdcall; external glLib;
+procedure glSetFenceNV(fence: TGLuint; condition: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_fill_rectangle = 1;
@@ -7059,7 +7059,7 @@ const
   GL_FRAGMENT_COVERAGE_TO_COLOR_NV = $92DD;
   GL_FRAGMENT_COVERAGE_COLOR_NV = $92DE;
 
-procedure glFragmentCoverageColorNV(color: TGLuint); cdecl; external glLib;
+procedure glFragmentCoverageColorNV(color: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_fragment_program = 1;
@@ -7071,13 +7071,13 @@ const
   GL_PROGRAM_ERROR_STRING_NV = $8874;
 
 procedure glProgramNamedParameter4fNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glProgramNamedParameter4fvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; v: PGLfloat); cdecl; external glLib;
+  z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glProgramNamedParameter4fvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; v: PGLfloat); stdcall; external glLib;
 procedure glProgramNamedParameter4dNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; x: TGLdouble; y: TGLdouble;
-  z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glProgramNamedParameter4dvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; v: PGLdouble); cdecl; external glLib;
-procedure glGetProgramNamedParameterfvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; params: PGLfloat); cdecl; external glLib;
-procedure glGetProgramNamedParameterdvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; params: PGLdouble); cdecl; external glLib;
+  z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glProgramNamedParameter4dvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; v: PGLdouble); stdcall; external glLib;
+procedure glGetProgramNamedParameterfvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; params: PGLfloat); stdcall; external glLib;
+procedure glGetProgramNamedParameterdvNV(id: TGLuint; len: TGLsizei; Name: PGLubyte; params: PGLdouble); stdcall; external glLib;
 
 const
   GL_NV_fragment_program2 = 1;
@@ -7100,9 +7100,9 @@ const
   GL_COVERAGE_MODULATION_NV = $9332;
   GL_COVERAGE_MODULATION_TABLE_SIZE_NV = $9333;
 
-procedure glCoverageModulationTableNV(n: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glGetCoverageModulationTableNV(bufSize: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glCoverageModulationNV(Components: TGLenum); cdecl; external glLib;
+procedure glCoverageModulationTableNV(n: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glGetCoverageModulationTableNV(bufSize: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glCoverageModulationNV(Components: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_framebuffer_multisample_coverage = 1;
@@ -7112,7 +7112,7 @@ const
   GL_MULTISAMPLE_COVERAGE_MODES_NV = $8E12;
 
 procedure glRenderbufferStorageMultisampleCoverageNV(target: TGLenum; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalformat: TGLenum; Width: TGLsizei;
-  Height: TGLsizei); cdecl; external glLib;
+  Height: TGLsizei); stdcall; external glLib;
 
 const
   GL_NV_geometry_program4 = 1;
@@ -7120,9 +7120,9 @@ const
   GL_MAX_PROGRAM_OUTPUT_VERTICES_NV = $8C27;
   GL_MAX_PROGRAM_TOTAL_OUTPUT_COMPONENTS_NV = $8C28;
 
-procedure glProgramVertexLimitNV(target: TGLenum; limit: TGLint); cdecl; external glLib;
-procedure glFramebufferTextureEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); cdecl; external glLib;
-procedure glFramebufferTextureFaceEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); cdecl; external glLib;
+procedure glProgramVertexLimitNV(target: TGLenum; limit: TGLint); stdcall; external glLib;
+procedure glFramebufferTextureEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint); stdcall; external glLib;
+procedure glFramebufferTextureFaceEXT(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; face: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_geometry_shader4 = 1;
@@ -7134,24 +7134,24 @@ const
   GL_PER_GPU_STORAGE_NV = $9548;
   GL_MULTICAST_PROGRAMMABLE_SAMPLE_LOCATION_NV = $9549;
 
-procedure glRenderGpuMaskNV(mask: TGLbitfield); cdecl; external glLib;
-procedure glMulticastBufferSubDataNV(gpuMask: TGLbitfield; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); cdecl; external glLib;
+procedure glRenderGpuMaskNV(mask: TGLbitfield); stdcall; external glLib;
+procedure glMulticastBufferSubDataNV(gpuMask: TGLbitfield; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; Data: pointer); stdcall; external glLib;
 procedure glMulticastCopyBufferSubDataNV(readGpu: TGLuint; writeGpuMask: TGLbitfield; readBuffer: TGLuint; writeBuffer: TGLuint; readOffset: TGLintptr;
-  writeOffset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
+  writeOffset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
 procedure glMulticastCopyImageSubDataNV(srcGpu: TGLuint; dstGpuMask: TGLbitfield; srcName: TGLuint; srcTarget: TGLenum; srcLevel: TGLint;
   srcX: TGLint; srcY: TGLint; srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum;
   dstLevel: TGLint; dstX: TGLint; dstY: TGLint; dstZ: TGLint; srcWidth: TGLsizei;
-  srcHeight: TGLsizei; srcDepth: TGLsizei); cdecl; external glLib;
+  srcHeight: TGLsizei; srcDepth: TGLsizei); stdcall; external glLib;
 procedure glMulticastBlitFramebufferNV(srcGpu: TGLuint; dstGpu: TGLuint; srcX0: TGLint; srcY0: TGLint; srcX1: TGLint;
   srcY1: TGLint; dstX0: TGLint; dstY0: TGLint; dstX1: TGLint; dstY1: TGLint;
-  mask: TGLbitfield; filter: TGLenum); cdecl; external glLib;
-procedure glMulticastFramebufferSampleLocationsfvNV(gpu: TGLuint; framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glMulticastBarrierNV; cdecl; external glLib;
-procedure glMulticastWaitSyncNV(signalGpu: TGLuint; waitGpuMask: TGLbitfield); cdecl; external glLib;
-procedure glMulticastGetQueryObjectivNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glMulticastGetQueryObjectuivNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glMulticastGetQueryObjecti64vNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLint64); cdecl; external glLib;
-procedure glMulticastGetQueryObjectui64vNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLuint64); cdecl; external glLib;
+  mask: TGLbitfield; filter: TGLenum); stdcall; external glLib;
+procedure glMulticastFramebufferSampleLocationsfvNV(gpu: TGLuint; framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glMulticastBarrierNV; stdcall; external glLib;
+procedure glMulticastWaitSyncNV(signalGpu: TGLuint; waitGpuMask: TGLbitfield); stdcall; external glLib;
+procedure glMulticastGetQueryObjectivNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glMulticastGetQueryObjectuivNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glMulticastGetQueryObjecti64vNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLint64); stdcall; external glLib;
+procedure glMulticastGetQueryObjectui64vNV(gpu: TGLuint; id: TGLuint; pname: TGLenum; params: PGLuint64); stdcall; external glLib;
 
 const
   GL_NV_gpu_program4 = 1;
@@ -7165,25 +7165,25 @@ const
   GL_MAX_PROGRAM_GENERIC_RESULTS_NV = $8DA6;
 
 procedure glProgramLocalParameterI4iNV(target: TGLenum; index: TGLuint; x: TGLint; y: TGLint; z: TGLint;
-  w: TGLint); cdecl; external glLib;
-procedure glProgramLocalParameterI4ivNV(target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glProgramLocalParametersI4ivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); cdecl; external glLib;
+  w: TGLint); stdcall; external glLib;
+procedure glProgramLocalParameterI4ivNV(target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glProgramLocalParametersI4ivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); stdcall; external glLib;
 procedure glProgramLocalParameterI4uiNV(target: TGLenum; index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint;
-  w: TGLuint); cdecl; external glLib;
-procedure glProgramLocalParameterI4uivNV(target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
-procedure glProgramLocalParametersI4uivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
+  w: TGLuint); stdcall; external glLib;
+procedure glProgramLocalParameterI4uivNV(target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
+procedure glProgramLocalParametersI4uivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
 procedure glProgramEnvParameterI4iNV(target: TGLenum; index: TGLuint; x: TGLint; y: TGLint; z: TGLint;
-  w: TGLint); cdecl; external glLib;
-procedure glProgramEnvParameterI4ivNV(target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glProgramEnvParametersI4ivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); cdecl; external glLib;
+  w: TGLint); stdcall; external glLib;
+procedure glProgramEnvParameterI4ivNV(target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glProgramEnvParametersI4ivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLint); stdcall; external glLib;
 procedure glProgramEnvParameterI4uiNV(target: TGLenum; index: TGLuint; x: TGLuint; y: TGLuint; z: TGLuint;
-  w: TGLuint); cdecl; external glLib;
-procedure glProgramEnvParameterI4uivNV(target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
-procedure glProgramEnvParametersI4uivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
-procedure glGetProgramLocalParameterIivNV(target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glGetProgramLocalParameterIuivNV(target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
-procedure glGetProgramEnvParameterIivNV(target: TGLenum; index: TGLuint; params: PGLint); cdecl; external glLib;
-procedure glGetProgramEnvParameterIuivNV(target: TGLenum; index: TGLuint; params: PGLuint); cdecl; external glLib;
+  w: TGLuint); stdcall; external glLib;
+procedure glProgramEnvParameterI4uivNV(target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
+procedure glProgramEnvParametersI4uivNV(target: TGLenum; index: TGLuint; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
+procedure glGetProgramLocalParameterIivNV(target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glGetProgramLocalParameterIuivNV(target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
+procedure glGetProgramEnvParameterIivNV(target: TGLenum; index: TGLuint; params: PGLint); stdcall; external glLib;
+procedure glGetProgramEnvParameterIuivNV(target: TGLenum; index: TGLuint; params: PGLuint); stdcall; external glLib;
 
 const
   GL_NV_gpu_program5 = 1;
@@ -7196,8 +7196,8 @@ const
   GL_MAX_PROGRAM_SUBROUTINE_PARAMETERS_NV = $8F44;
   GL_MAX_PROGRAM_SUBROUTINE_NUM_NV = $8F45;
 
-procedure glProgramSubroutineParametersuivNV(target: TGLenum; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
-procedure glGetProgramSubroutineParameteruivNV(target: TGLenum; index: TGLuint; param: PGLuint); cdecl; external glLib;
+procedure glProgramSubroutineParametersuivNV(target: TGLenum; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
+procedure glGetProgramSubroutineParameteruivNV(target: TGLenum; index: TGLuint; param: PGLuint); stdcall; external glLib;
 
 const
   GL_NV_gpu_program5_mem_extended = 1;
@@ -7211,52 +7211,52 @@ type
 const
   GL_HALF_FLOAT_NV = $140B;
 
-procedure glVertex2hNV(x: TGLhalfNV; y: TGLhalfNV); cdecl; external glLib;
-procedure glVertex2hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glVertex3hNV(x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV); cdecl; external glLib;
-procedure glVertex3hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glVertex4hNV(x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV; w: TGLhalfNV); cdecl; external glLib;
-procedure glVertex4hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glNormal3hNV(nx: TGLhalfNV; ny: TGLhalfNV; nz: TGLhalfNV); cdecl; external glLib;
-procedure glNormal3hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glColor3hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV); cdecl; external glLib;
-procedure glColor3hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glColor4hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV; alpha: TGLhalfNV); cdecl; external glLib;
-procedure glColor4hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glTexCoord1hNV(s: TGLhalfNV); cdecl; external glLib;
-procedure glTexCoord1hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glTexCoord2hNV(s: TGLhalfNV; t: TGLhalfNV); cdecl; external glLib;
-procedure glTexCoord2hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glTexCoord3hNV(s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV); cdecl; external glLib;
-procedure glTexCoord3hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glTexCoord4hNV(s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV; q: TGLhalfNV); cdecl; external glLib;
-procedure glTexCoord4hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord1hNV(target: TGLenum; s: TGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord1hvNV(target: TGLenum; v: PGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord2hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord2hvNV(target: TGLenum; v: PGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord3hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord3hvNV(target: TGLenum; v: PGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord4hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV; q: TGLhalfNV); cdecl; external glLib;
-procedure glMultiTexCoord4hvNV(target: TGLenum; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib1hNV(index: TGLuint; x: TGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib1hvNV(index: TGLuint; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib2hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib2hvNV(index: TGLuint; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib3hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib3hvNV(index: TGLuint; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib4hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV; w: TGLhalfNV); cdecl; external glLib;
-procedure glVertexAttrib4hvNV(index: TGLuint; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttribs1hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttribs2hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttribs3hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexAttribs4hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); cdecl; external glLib;
-procedure glFogCoordhNV(fog: TGLhalfNV); cdecl; external glLib;
-procedure glFogCoordhvNV(fog: PGLhalfNV); cdecl; external glLib;
-procedure glSecondaryColor3hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV); cdecl; external glLib;
-procedure glSecondaryColor3hvNV(v: PGLhalfNV); cdecl; external glLib;
-procedure glVertexWeighthNV(weight: TGLhalfNV); cdecl; external glLib;
-procedure glVertexWeighthvNV(weight: PGLhalfNV); cdecl; external glLib;
+procedure glVertex2hNV(x: TGLhalfNV; y: TGLhalfNV); stdcall; external glLib;
+procedure glVertex2hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glVertex3hNV(x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV); stdcall; external glLib;
+procedure glVertex3hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glVertex4hNV(x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV; w: TGLhalfNV); stdcall; external glLib;
+procedure glVertex4hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glNormal3hNV(nx: TGLhalfNV; ny: TGLhalfNV; nz: TGLhalfNV); stdcall; external glLib;
+procedure glNormal3hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glColor3hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV); stdcall; external glLib;
+procedure glColor3hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glColor4hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV; alpha: TGLhalfNV); stdcall; external glLib;
+procedure glColor4hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glTexCoord1hNV(s: TGLhalfNV); stdcall; external glLib;
+procedure glTexCoord1hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glTexCoord2hNV(s: TGLhalfNV; t: TGLhalfNV); stdcall; external glLib;
+procedure glTexCoord2hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glTexCoord3hNV(s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV); stdcall; external glLib;
+procedure glTexCoord3hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glTexCoord4hNV(s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV; q: TGLhalfNV); stdcall; external glLib;
+procedure glTexCoord4hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord1hNV(target: TGLenum; s: TGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord1hvNV(target: TGLenum; v: PGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord2hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord2hvNV(target: TGLenum; v: PGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord3hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord3hvNV(target: TGLenum; v: PGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord4hNV(target: TGLenum; s: TGLhalfNV; t: TGLhalfNV; r: TGLhalfNV; q: TGLhalfNV); stdcall; external glLib;
+procedure glMultiTexCoord4hvNV(target: TGLenum; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib1hNV(index: TGLuint; x: TGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib1hvNV(index: TGLuint; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib2hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib2hvNV(index: TGLuint; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib3hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib3hvNV(index: TGLuint; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib4hNV(index: TGLuint; x: TGLhalfNV; y: TGLhalfNV; z: TGLhalfNV; w: TGLhalfNV); stdcall; external glLib;
+procedure glVertexAttrib4hvNV(index: TGLuint; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttribs1hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttribs2hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttribs3hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexAttribs4hvNV(index: TGLuint; n: TGLsizei; v: PGLhalfNV); stdcall; external glLib;
+procedure glFogCoordhNV(fog: TGLhalfNV); stdcall; external glLib;
+procedure glFogCoordhvNV(fog: PGLhalfNV); stdcall; external glLib;
+procedure glSecondaryColor3hNV(red: TGLhalfNV; green: TGLhalfNV; blue: TGLhalfNV); stdcall; external glLib;
+procedure glSecondaryColor3hvNV(v: PGLhalfNV); stdcall; external glLib;
+procedure glVertexWeighthNV(weight: TGLhalfNV); stdcall; external glLib;
+procedure glVertexWeighthvNV(weight: PGLhalfNV); stdcall; external glLib;
 
 const
   GL_NV_internalformat_sample_query = 1;
@@ -7266,7 +7266,7 @@ const
   GL_CONFORMANT_NV = $9374;
 
 procedure glGetInternalformatSampleivNV(target: TGLenum; internalformat: TGLenum; samples: TGLsizei; pname: TGLenum; Count: TGLsizei;
-  params: PGLint); cdecl; external glLib;
+  params: PGLint); stdcall; external glLib;
 
 const
   GL_NV_light_max_exponent = 1;
@@ -7284,26 +7284,26 @@ const
   GL_MAX_DETACHED_TEXTURES_NV = $95AC;
   GL_MAX_DETACHED_BUFFERS_NV = $95AD;
 
-procedure glGetMemoryObjectDetachedResourcesuivNV(memory: TGLuint; pname: TGLenum; First: TGLint; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
-procedure glResetMemoryObjectParameterNV(memory: TGLuint; pname: TGLenum); cdecl; external glLib;
-procedure glTexAttachMemoryNV(target: TGLenum; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
-procedure glBufferAttachMemoryNV(target: TGLenum; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
-procedure glTextureAttachMemoryNV(texture: TGLuint; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
-procedure glNamedBufferAttachMemoryNV(buffer: TGLuint; memory: TGLuint; offset: TGLuint64); cdecl; external glLib;
+procedure glGetMemoryObjectDetachedResourcesuivNV(memory: TGLuint; pname: TGLenum; First: TGLint; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
+procedure glResetMemoryObjectParameterNV(memory: TGLuint; pname: TGLenum); stdcall; external glLib;
+procedure glTexAttachMemoryNV(target: TGLenum; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
+procedure glBufferAttachMemoryNV(target: TGLenum; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
+procedure glTextureAttachMemoryNV(texture: TGLuint; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
+procedure glNamedBufferAttachMemoryNV(buffer: TGLuint; memory: TGLuint; offset: TGLuint64); stdcall; external glLib;
 
 const
   GL_NV_memory_object_sparse = 1;
 
 procedure glBufferPageCommitmentMemNV(target: TGLenum; offset: TGLintptr; size: TGLsizeiptr; memory: TGLuint; memOffset: TGLuint64;
-  commit: TGLboolean); cdecl; external glLib;
+  commit: TGLboolean); stdcall; external glLib;
 procedure glTexPageCommitmentMemNV(target: TGLenum; layer: TGLint; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; memory: TGLuint;
-  offset: TGLuint64; commit: TGLboolean); cdecl; external glLib;
+  offset: TGLuint64; commit: TGLboolean); stdcall; external glLib;
 procedure glNamedBufferPageCommitmentMemNV(buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; memory: TGLuint; memOffset: TGLuint64;
-  commit: TGLboolean); cdecl; external glLib;
+  commit: TGLboolean); stdcall; external glLib;
 procedure glTexturePageCommitmentMemNV(texture: TGLuint; layer: TGLint; level: TGLint; xoffset: TGLint; yoffset: TGLint;
   zoffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; memory: TGLuint;
-  offset: TGLuint64; commit: TGLboolean); cdecl; external glLib;
+  offset: TGLuint64; commit: TGLboolean); stdcall; external glLib;
 
 const
   GL_NV_mesh_shader = 1;
@@ -7356,10 +7356,10 @@ const
   GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_MESH_SHADER_NV = $959E;
   GL_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_TASK_SHADER_NV = $959F;
 
-procedure glDrawMeshTasksNV(First: TGLuint; Count: TGLuint); cdecl; external glLib;
-procedure glDrawMeshTasksIndirectNV(indirect: TGLintptr); cdecl; external glLib;
-procedure glMultiDrawMeshTasksIndirectNV(indirect: TGLintptr; drawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
-procedure glMultiDrawMeshTasksIndirectCountNV(indirect: TGLintptr; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); cdecl; external glLib;
+procedure glDrawMeshTasksNV(First: TGLuint; Count: TGLuint); stdcall; external glLib;
+procedure glDrawMeshTasksIndirectNV(indirect: TGLintptr); stdcall; external glLib;
+procedure glMultiDrawMeshTasksIndirectNV(indirect: TGLintptr; drawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
+procedure glMultiDrawMeshTasksIndirectCountNV(indirect: TGLintptr; drawcount: TGLintptr; maxdrawcount: TGLsizei; stride: TGLsizei); stdcall; external glLib;
 
 const
   GL_NV_multisample_coverage = 1;
@@ -7371,13 +7371,13 @@ const
   GL_PIXEL_COUNT_NV = $8866;
   GL_PIXEL_COUNT_AVAILABLE_NV = $8867;
 
-procedure glGenOcclusionQueriesNV(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glDeleteOcclusionQueriesNV(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-function glIsOcclusionQueryNV(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glBeginOcclusionQueryNV(id: TGLuint); cdecl; external glLib;
-procedure glEndOcclusionQueryNV; cdecl; external glLib;
-procedure glGetOcclusionQueryivNV(id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetOcclusionQueryuivNV(id: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
+procedure glGenOcclusionQueriesNV(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glDeleteOcclusionQueriesNV(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+function glIsOcclusionQueryNV(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glBeginOcclusionQueryNV(id: TGLuint); stdcall; external glLib;
+procedure glEndOcclusionQueryNV; stdcall; external glLib;
+procedure glGetOcclusionQueryivNV(id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetOcclusionQueryuivNV(id: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
 
 const
   GL_NV_packed_depth_stencil = 1;
@@ -7390,9 +7390,9 @@ const
   GL_GEOMETRY_PROGRAM_PARAMETER_BUFFER_NV = $8DA3;
   GL_FRAGMENT_PROGRAM_PARAMETER_BUFFER_NV = $8DA4;
 
-procedure glProgramBufferParametersfvNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLfloat); cdecl; external glLib;
-procedure glProgramBufferParametersIivNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLint); cdecl; external glLib;
-procedure glProgramBufferParametersIuivNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLuint); cdecl; external glLib;
+procedure glProgramBufferParametersfvNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLfloat); stdcall; external glLib;
+procedure glProgramBufferParametersIivNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLint); stdcall; external glLib;
+procedure glProgramBufferParametersIuivNV(target: TGLenum; bindingIndex: TGLuint; wordIndex: TGLuint; Count: TGLsizei; params: PGLuint); stdcall; external glLib;
 
 const
   GL_NV_parameter_buffer_object2 = 1;
@@ -7561,87 +7561,87 @@ const
   GL_PATH_TRANSPOSE_PROJECTION_MATRIX_NV = $84E4;
   GL_FRAGMENT_INPUT_NV = $936D;
 
-function glGenPathsNV(range: TGLsizei): TGLuint; cdecl; external glLib;
-procedure glDeletePathsNV(path: TGLuint; range: TGLsizei); cdecl; external glLib;
-function glIsPathNV(path: TGLuint): TGLboolean; cdecl; external glLib;
+function glGenPathsNV(range: TGLsizei): TGLuint; stdcall; external glLib;
+procedure glDeletePathsNV(path: TGLuint; range: TGLsizei); stdcall; external glLib;
+function glIsPathNV(path: TGLuint): TGLboolean; stdcall; external glLib;
 procedure glPathCommandsNV(path: TGLuint; numCommands: TGLsizei; commands: PGLubyte; numCoords: TGLsizei; coordType: TGLenum;
-  coords: pointer); cdecl; external glLib;
-procedure glPathCoordsNV(path: TGLuint; numCoords: TGLsizei; coordType: TGLenum; coords: pointer); cdecl; external glLib;
+  coords: pointer); stdcall; external glLib;
+procedure glPathCoordsNV(path: TGLuint; numCoords: TGLsizei; coordType: TGLenum; coords: pointer); stdcall; external glLib;
 procedure glPathSubCommandsNV(path: TGLuint; commandStart: TGLsizei; commandsToDelete: TGLsizei; numCommands: TGLsizei; commands: PGLubyte;
-  numCoords: TGLsizei; coordType: TGLenum; coords: pointer); cdecl; external glLib;
-procedure glPathSubCoordsNV(path: TGLuint; coordStart: TGLsizei; numCoords: TGLsizei; coordType: TGLenum; coords: pointer); cdecl; external glLib;
-procedure glPathStringNV(path: TGLuint; format: TGLenum; length: TGLsizei; pathString: pointer); cdecl; external glLib;
+  numCoords: TGLsizei; coordType: TGLenum; coords: pointer); stdcall; external glLib;
+procedure glPathSubCoordsNV(path: TGLuint; coordStart: TGLsizei; numCoords: TGLsizei; coordType: TGLenum; coords: pointer); stdcall; external glLib;
+procedure glPathStringNV(path: TGLuint; format: TGLenum; length: TGLsizei; pathString: pointer); stdcall; external glLib;
 procedure glPathGlyphsNV(firstPathName: TGLuint; fontTarget: TGLenum; fontName: pointer; fontStyle: TGLbitfield; numGlyphs: TGLsizei;
-  _type: TGLenum; charcodes: pointer; handleMissingGlyphs: TGLenum; pathParameterTemplate: TGLuint; emScale: TGLfloat); cdecl; external glLib;
+  _type: TGLenum; charcodes: pointer; handleMissingGlyphs: TGLenum; pathParameterTemplate: TGLuint; emScale: TGLfloat); stdcall; external glLib;
 procedure glPathGlyphRangeNV(firstPathName: TGLuint; fontTarget: TGLenum; fontName: pointer; fontStyle: TGLbitfield; firstGlyph: TGLuint;
-  numGlyphs: TGLsizei; handleMissingGlyphs: TGLenum; pathParameterTemplate: TGLuint; emScale: TGLfloat); cdecl; external glLib;
-procedure glWeightPathsNV(resultPath: TGLuint; numPaths: TGLsizei; paths: PGLuint; weights: PGLfloat); cdecl; external glLib;
-procedure glCopyPathNV(resultPath: TGLuint; srcPath: TGLuint); cdecl; external glLib;
-procedure glInterpolatePathsNV(resultPath: TGLuint; pathA: TGLuint; pathB: TGLuint; weight: TGLfloat); cdecl; external glLib;
-procedure glTransformPathNV(resultPath: TGLuint; srcPath: TGLuint; transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
-procedure glPathParameterivNV(path: TGLuint; pname: TGLenum; Value: PGLint); cdecl; external glLib;
-procedure glPathParameteriNV(path: TGLuint; pname: TGLenum; Value: TGLint); cdecl; external glLib;
-procedure glPathParameterfvNV(path: TGLuint; pname: TGLenum; Value: PGLfloat); cdecl; external glLib;
-procedure glPathParameterfNV(path: TGLuint; pname: TGLenum; Value: TGLfloat); cdecl; external glLib;
-procedure glPathDashArrayNV(path: TGLuint; dashCount: TGLsizei; dashArray: PGLfloat); cdecl; external glLib;
-procedure glPathStencilFuncNV(func: TGLenum; ref: TGLint; mask: TGLuint); cdecl; external glLib;
-procedure glPathStencilDepthOffsetNV(factor: TGLfloat; units: TGLfloat); cdecl; external glLib;
-procedure glStencilFillPathNV(path: TGLuint; fillMode: TGLenum; mask: TGLuint); cdecl; external glLib;
-procedure glStencilStrokePathNV(path: TGLuint; reference: TGLint; mask: TGLuint); cdecl; external glLib;
+  numGlyphs: TGLsizei; handleMissingGlyphs: TGLenum; pathParameterTemplate: TGLuint; emScale: TGLfloat); stdcall; external glLib;
+procedure glWeightPathsNV(resultPath: TGLuint; numPaths: TGLsizei; paths: PGLuint; weights: PGLfloat); stdcall; external glLib;
+procedure glCopyPathNV(resultPath: TGLuint; srcPath: TGLuint); stdcall; external glLib;
+procedure glInterpolatePathsNV(resultPath: TGLuint; pathA: TGLuint; pathB: TGLuint; weight: TGLfloat); stdcall; external glLib;
+procedure glTransformPathNV(resultPath: TGLuint; srcPath: TGLuint; transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
+procedure glPathParameterivNV(path: TGLuint; pname: TGLenum; Value: PGLint); stdcall; external glLib;
+procedure glPathParameteriNV(path: TGLuint; pname: TGLenum; Value: TGLint); stdcall; external glLib;
+procedure glPathParameterfvNV(path: TGLuint; pname: TGLenum; Value: PGLfloat); stdcall; external glLib;
+procedure glPathParameterfNV(path: TGLuint; pname: TGLenum; Value: TGLfloat); stdcall; external glLib;
+procedure glPathDashArrayNV(path: TGLuint; dashCount: TGLsizei; dashArray: PGLfloat); stdcall; external glLib;
+procedure glPathStencilFuncNV(func: TGLenum; ref: TGLint; mask: TGLuint); stdcall; external glLib;
+procedure glPathStencilDepthOffsetNV(factor: TGLfloat; units: TGLfloat); stdcall; external glLib;
+procedure glStencilFillPathNV(path: TGLuint; fillMode: TGLenum; mask: TGLuint); stdcall; external glLib;
+procedure glStencilStrokePathNV(path: TGLuint; reference: TGLint; mask: TGLuint); stdcall; external glLib;
 procedure glStencilFillPathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; fillMode: TGLenum;
-  mask: TGLuint; transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
+  mask: TGLuint; transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
 procedure glStencilStrokePathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; reference: TGLint;
-  mask: TGLuint; transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
-procedure glPathCoverDepthFuncNV(func: TGLenum); cdecl; external glLib;
-procedure glCoverFillPathNV(path: TGLuint; coverMode: TGLenum); cdecl; external glLib;
-procedure glCoverStrokePathNV(path: TGLuint; coverMode: TGLenum); cdecl; external glLib;
+  mask: TGLuint; transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
+procedure glPathCoverDepthFuncNV(func: TGLenum); stdcall; external glLib;
+procedure glCoverFillPathNV(path: TGLuint; coverMode: TGLenum); stdcall; external glLib;
+procedure glCoverStrokePathNV(path: TGLuint; coverMode: TGLenum); stdcall; external glLib;
 procedure glCoverFillPathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; coverMode: TGLenum;
-  transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
+  transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
 procedure glCoverStrokePathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; coverMode: TGLenum;
-  transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
-procedure glGetPathParameterivNV(path: TGLuint; pname: TGLenum; Value: PGLint); cdecl; external glLib;
-procedure glGetPathParameterfvNV(path: TGLuint; pname: TGLenum; Value: PGLfloat); cdecl; external glLib;
-procedure glGetPathCommandsNV(path: TGLuint; commands: PGLubyte); cdecl; external glLib;
-procedure glGetPathCoordsNV(path: TGLuint; coords: PGLfloat); cdecl; external glLib;
-procedure glGetPathDashArrayNV(path: TGLuint; dashArray: PGLfloat); cdecl; external glLib;
+  transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
+procedure glGetPathParameterivNV(path: TGLuint; pname: TGLenum; Value: PGLint); stdcall; external glLib;
+procedure glGetPathParameterfvNV(path: TGLuint; pname: TGLenum; Value: PGLfloat); stdcall; external glLib;
+procedure glGetPathCommandsNV(path: TGLuint; commands: PGLubyte); stdcall; external glLib;
+procedure glGetPathCoordsNV(path: TGLuint; coords: PGLfloat); stdcall; external glLib;
+procedure glGetPathDashArrayNV(path: TGLuint; dashArray: PGLfloat); stdcall; external glLib;
 procedure glGetPathMetricsNV(metricQueryMask: TGLbitfield; numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint;
-  stride: TGLsizei; metrics: PGLfloat); cdecl; external glLib;
-procedure glGetPathMetricRangeNV(metricQueryMask: TGLbitfield; firstPathName: TGLuint; numPaths: TGLsizei; stride: TGLsizei; metrics: PGLfloat); cdecl; external glLib;
+  stride: TGLsizei; metrics: PGLfloat); stdcall; external glLib;
+procedure glGetPathMetricRangeNV(metricQueryMask: TGLbitfield; firstPathName: TGLuint; numPaths: TGLsizei; stride: TGLsizei; metrics: PGLfloat); stdcall; external glLib;
 procedure glGetPathSpacingNV(pathListMode: TGLenum; numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint;
-  advanceScale: TGLfloat; kerningScale: TGLfloat; transformType: TGLenum; returnedSpacing: PGLfloat); cdecl; external glLib;
-function glIsPointInFillPathNV(path: TGLuint; mask: TGLuint; x: TGLfloat; y: TGLfloat): TGLboolean; cdecl; external glLib;
-function glIsPointInStrokePathNV(path: TGLuint; x: TGLfloat; y: TGLfloat): TGLboolean; cdecl; external glLib;
-function glGetPathLengthNV(path: TGLuint; startSegment: TGLsizei; numSegments: TGLsizei): TGLfloat; cdecl; external glLib;
+  advanceScale: TGLfloat; kerningScale: TGLfloat; transformType: TGLenum; returnedSpacing: PGLfloat); stdcall; external glLib;
+function glIsPointInFillPathNV(path: TGLuint; mask: TGLuint; x: TGLfloat; y: TGLfloat): TGLboolean; stdcall; external glLib;
+function glIsPointInStrokePathNV(path: TGLuint; x: TGLfloat; y: TGLfloat): TGLboolean; stdcall; external glLib;
+function glGetPathLengthNV(path: TGLuint; startSegment: TGLsizei; numSegments: TGLsizei): TGLfloat; stdcall; external glLib;
 function glPointAlongPathNV(path: TGLuint; startSegment: TGLsizei; numSegments: TGLsizei; distance: TGLfloat; x: PGLfloat;
-  y: PGLfloat; tangentX: PGLfloat; tangentY: PGLfloat): TGLboolean; cdecl; external glLib;
-procedure glMatrixLoad3x2fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixLoad3x3fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixLoadTranspose3x3fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixMult3x2fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixMult3x3fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glMatrixMultTranspose3x3fNV(matrixMode: TGLenum; m: PGLfloat); cdecl; external glLib;
-procedure glStencilThenCoverFillPathNV(path: TGLuint; fillMode: TGLenum; mask: TGLuint; coverMode: TGLenum); cdecl; external glLib;
-procedure glStencilThenCoverStrokePathNV(path: TGLuint; reference: TGLint; mask: TGLuint; coverMode: TGLenum); cdecl; external glLib;
+  y: PGLfloat; tangentX: PGLfloat; tangentY: PGLfloat): TGLboolean; stdcall; external glLib;
+procedure glMatrixLoad3x2fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixLoad3x3fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixLoadTranspose3x3fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixMult3x2fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixMult3x3fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glMatrixMultTranspose3x3fNV(matrixMode: TGLenum; m: PGLfloat); stdcall; external glLib;
+procedure glStencilThenCoverFillPathNV(path: TGLuint; fillMode: TGLenum; mask: TGLuint; coverMode: TGLenum); stdcall; external glLib;
+procedure glStencilThenCoverStrokePathNV(path: TGLuint; reference: TGLint; mask: TGLuint; coverMode: TGLenum); stdcall; external glLib;
 procedure glStencilThenCoverFillPathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; fillMode: TGLenum;
-  mask: TGLuint; coverMode: TGLenum; transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
+  mask: TGLuint; coverMode: TGLenum; transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
 procedure glStencilThenCoverStrokePathInstancedNV(numPaths: TGLsizei; pathNameType: TGLenum; paths: pointer; pathBase: TGLuint; reference: TGLint;
-  mask: TGLuint; coverMode: TGLenum; transformType: TGLenum; transformValues: PGLfloat); cdecl; external glLib;
+  mask: TGLuint; coverMode: TGLenum; transformType: TGLenum; transformValues: PGLfloat); stdcall; external glLib;
 function glPathGlyphIndexRangeNV(fontTarget: TGLenum; fontName: pointer; fontStyle: TGLbitfield; pathParameterTemplate: TGLuint; emScale: TGLfloat;
-  baseAndCount: PGLuint): TGLenum; cdecl; external glLib;
+  baseAndCount: PGLuint): TGLenum; stdcall; external glLib;
 function glPathGlyphIndexArrayNV(firstPathName: TGLuint; fontTarget: TGLenum; fontName: pointer; fontStyle: TGLbitfield; firstGlyphIndex: TGLuint;
-  numGlyphs: TGLsizei; pathParameterTemplate: TGLuint; emScale: TGLfloat): TGLenum; cdecl; external glLib;
+  numGlyphs: TGLsizei; pathParameterTemplate: TGLuint; emScale: TGLfloat): TGLenum; stdcall; external glLib;
 function glPathMemoryGlyphIndexArrayNV(firstPathName: TGLuint; fontTarget: TGLenum; fontSize: TGLsizeiptr; fontData: pointer; faceIndex: TGLsizei;
-  firstGlyphIndex: TGLuint; numGlyphs: TGLsizei; pathParameterTemplate: TGLuint; emScale: TGLfloat): TGLenum; cdecl; external glLib;
-procedure glProgramPathFragmentInputGenNV(program_: TGLuint; location: TGLint; genMode: TGLenum; Components: TGLint; coeffs: PGLfloat); cdecl; external glLib;
+  firstGlyphIndex: TGLuint; numGlyphs: TGLsizei; pathParameterTemplate: TGLuint; emScale: TGLfloat): TGLenum; stdcall; external glLib;
+procedure glProgramPathFragmentInputGenNV(program_: TGLuint; location: TGLint; genMode: TGLenum; Components: TGLint; coeffs: PGLfloat); stdcall; external glLib;
 procedure glGetProgramResourcefvNV(program_: TGLuint; programInterface: TGLenum; index: TGLuint; propCount: TGLsizei; props: PGLenum;
-  Count: TGLsizei; length: PGLsizei; params: PGLfloat); cdecl; external glLib;
-procedure glPathColorGenNV(color: TGLenum; genMode: TGLenum; colorFormat: TGLenum; coeffs: PGLfloat); cdecl; external glLib;
-procedure glPathTexGenNV(texCoordSet: TGLenum; genMode: TGLenum; Components: TGLint; coeffs: PGLfloat); cdecl; external glLib;
-procedure glPathFogGenNV(genMode: TGLenum); cdecl; external glLib;
-procedure glGetPathColorGenivNV(color: TGLenum; pname: TGLenum; Value: PGLint); cdecl; external glLib;
-procedure glGetPathColorGenfvNV(color: TGLenum; pname: TGLenum; Value: PGLfloat); cdecl; external glLib;
-procedure glGetPathTexGenivNV(texCoordSet: TGLenum; pname: TGLenum; Value: PGLint); cdecl; external glLib;
-procedure glGetPathTexGenfvNV(texCoordSet: TGLenum; pname: TGLenum; Value: PGLfloat); cdecl; external glLib;
+  Count: TGLsizei; length: PGLsizei; params: PGLfloat); stdcall; external glLib;
+procedure glPathColorGenNV(color: TGLenum; genMode: TGLenum; colorFormat: TGLenum; coeffs: PGLfloat); stdcall; external glLib;
+procedure glPathTexGenNV(texCoordSet: TGLenum; genMode: TGLenum; Components: TGLint; coeffs: PGLfloat); stdcall; external glLib;
+procedure glPathFogGenNV(genMode: TGLenum); stdcall; external glLib;
+procedure glGetPathColorGenivNV(color: TGLenum; pname: TGLenum; Value: PGLint); stdcall; external glLib;
+procedure glGetPathColorGenfvNV(color: TGLenum; pname: TGLenum; Value: PGLfloat); stdcall; external glLib;
+procedure glGetPathTexGenivNV(texCoordSet: TGLenum; pname: TGLenum; Value: PGLint); stdcall; external glLib;
+procedure glGetPathTexGenfvNV(texCoordSet: TGLenum; pname: TGLenum; Value: PGLfloat); stdcall; external glLib;
 
 const
   GL_NV_path_rendering_shared_edge = 1;
@@ -7654,8 +7654,8 @@ const
   GL_WRITE_PIXEL_DATA_RANGE_POINTER_NV = $887C;
   GL_READ_PIXEL_DATA_RANGE_POINTER_NV = $887D;
 
-procedure glPixelDataRangeNV(target: TGLenum; length: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glFlushPixelDataRangeNV(target: TGLenum); cdecl; external glLib;
+procedure glPixelDataRangeNV(target: TGLenum; length: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glFlushPixelDataRangeNV(target: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_point_sprite = 1;
@@ -7663,8 +7663,8 @@ const
   GL_COORD_REPLACE_NV = $8862;
   GL_POINT_SPRITE_R_MODE_NV = $8863;
 
-procedure glPointParameteriNV(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glPointParameterivNV(pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glPointParameteriNV(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glPointParameterivNV(pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_NV_present_video = 1;
@@ -7677,22 +7677,22 @@ const
 
 procedure glPresentFrameKeyedNV(video_slot: TGLuint; minPresentTime: TGLuint64EXT; beginPresentTimeId: TGLuint; presentDurationId: TGLuint; _type: TGLenum;
   target0: TGLenum; fill0: TGLuint; key0: TGLuint; target1: TGLenum; fill1: TGLuint;
-  key1: TGLuint); cdecl; external glLib;
+  key1: TGLuint); stdcall; external glLib;
 procedure glPresentFrameDualFillNV(video_slot: TGLuint; minPresentTime: TGLuint64EXT; beginPresentTimeId: TGLuint; presentDurationId: TGLuint; _type: TGLenum;
   target0: TGLenum; fill0: TGLuint; target1: TGLenum; fill1: TGLuint; target2: TGLenum;
-  fill2: TGLuint; target3: TGLenum; fill3: TGLuint); cdecl; external glLib;
-procedure glGetVideoivNV(video_slot: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVideouivNV(video_slot: TGLuint; pname: TGLenum; params: PGLuint); cdecl; external glLib;
-procedure glGetVideoi64vNV(video_slot: TGLuint; pname: TGLenum; params: PGLint64EXT); cdecl; external glLib;
-procedure glGetVideoui64vNV(video_slot: TGLuint; pname: TGLenum; params: PGLuint64EXT); cdecl; external glLib;
+  fill2: TGLuint; target3: TGLenum; fill3: TGLuint); stdcall; external glLib;
+procedure glGetVideoivNV(video_slot: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVideouivNV(video_slot: TGLuint; pname: TGLenum; params: PGLuint); stdcall; external glLib;
+procedure glGetVideoi64vNV(video_slot: TGLuint; pname: TGLenum; params: PGLint64EXT); stdcall; external glLib;
+procedure glGetVideoui64vNV(video_slot: TGLuint; pname: TGLenum; params: PGLuint64EXT); stdcall; external glLib;
 
 const
   GL_NV_primitive_restart = 1;
   GL_PRIMITIVE_RESTART_NV = $8558;
   GL_PRIMITIVE_RESTART_INDEX_NV = $8559;
 
-procedure glPrimitiveRestartNV; cdecl; external glLib;
-procedure glPrimitiveRestartIndexNV(index: TGLuint); cdecl; external glLib;
+procedure glPrimitiveRestartNV; stdcall; external glLib;
+procedure glPrimitiveRestartIndexNV(index: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_primitive_shading_rate = 1;
@@ -7706,14 +7706,14 @@ const
   GL_QUERY_RESOURCE_RENDERBUFFER_NV = $9546;
   GL_QUERY_RESOURCE_BUFFEROBJECT_NV = $9547;
 
-function glQueryResourceNV(queryType: TGLenum; tagId: TGLint; Count: TGLuint; buffer: PGLint): TGLint; cdecl; external glLib;
+function glQueryResourceNV(queryType: TGLenum; tagId: TGLint; Count: TGLuint; buffer: PGLint): TGLint; stdcall; external glLib;
 
 const
   GL_NV_query_resource_tag = 1;
 
-procedure glGenQueryResourceTagNV(n: TGLsizei; tagIds: PGLint); cdecl; external glLib;
-procedure glDeleteQueryResourceTagNV(n: TGLsizei; tagIds: PGLint); cdecl; external glLib;
-procedure glQueryResourceTagNV(tagId: TGLint; tagString: PGLchar); cdecl; external glLib;
+procedure glGenQueryResourceTagNV(n: TGLsizei; tagIds: PGLint); stdcall; external glLib;
+procedure glDeleteQueryResourceTagNV(n: TGLsizei; tagIds: PGLint); stdcall; external glLib;
+procedure glQueryResourceTagNV(tagId: TGLint; tagString: PGLchar); stdcall; external glLib;
 
 const
   GL_NV_register_combiners = 1;
@@ -7767,28 +7767,28 @@ const
   GL_COMBINER6_NV = $8556;
   GL_COMBINER7_NV = $8557;
 
-procedure glCombinerParameterfvNV(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glCombinerParameterfNV(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glCombinerParameterivNV(pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCombinerParameteriNV(pname: TGLenum; param: TGLint); cdecl; external glLib;
+procedure glCombinerParameterfvNV(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glCombinerParameterfNV(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glCombinerParameterivNV(pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCombinerParameteriNV(pname: TGLenum; param: TGLint); stdcall; external glLib;
 procedure glCombinerInputNV(stage: TGLenum; portion: TGLenum; variable: TGLenum; input: TGLenum; mapping: TGLenum;
-  componentUsage: TGLenum); cdecl; external glLib;
+  componentUsage: TGLenum); stdcall; external glLib;
 procedure glCombinerOutputNV(stage: TGLenum; portion: TGLenum; abOutput: TGLenum; cdOutput: TGLenum; sumOutput: TGLenum;
-  scale: TGLenum; bias: TGLenum; abDotProduct: TGLboolean; cdDotProduct: TGLboolean; muxSum: TGLboolean); cdecl; external glLib;
-procedure glFinalCombinerInputNV(variable: TGLenum; input: TGLenum; mapping: TGLenum; componentUsage: TGLenum); cdecl; external glLib;
-procedure glGetCombinerInputParameterfvNV(stage: TGLenum; portion: TGLenum; variable: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetCombinerInputParameterivNV(stage: TGLenum; portion: TGLenum; variable: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetCombinerOutputParameterfvNV(stage: TGLenum; portion: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetCombinerOutputParameterivNV(stage: TGLenum; portion: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetFinalCombinerInputParameterfvNV(variable: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetFinalCombinerInputParameterivNV(variable: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  scale: TGLenum; bias: TGLenum; abDotProduct: TGLboolean; cdDotProduct: TGLboolean; muxSum: TGLboolean); stdcall; external glLib;
+procedure glFinalCombinerInputNV(variable: TGLenum; input: TGLenum; mapping: TGLenum; componentUsage: TGLenum); stdcall; external glLib;
+procedure glGetCombinerInputParameterfvNV(stage: TGLenum; portion: TGLenum; variable: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetCombinerInputParameterivNV(stage: TGLenum; portion: TGLenum; variable: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetCombinerOutputParameterfvNV(stage: TGLenum; portion: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetCombinerOutputParameterivNV(stage: TGLenum; portion: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetFinalCombinerInputParameterfvNV(variable: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetFinalCombinerInputParameterivNV(variable: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_NV_register_combiners2 = 1;
   GL_PER_STAGE_CONSTANTS_NV = $8535;
 
-procedure glCombinerStageParameterfvNV(stage: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetCombinerStageParameterfvNV(stage: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glCombinerStageParameterfvNV(stage: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetCombinerStageParameterfvNV(stage: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_NV_representative_fragment_test = 1;
@@ -7805,9 +7805,9 @@ const
   GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_NV = $9342;
   GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_NV = $9343;
 
-procedure glFramebufferSampleLocationsfvNV(target: TGLenum; start: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glNamedFramebufferSampleLocationsfvNV(framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glResolveDepthValuesNV; cdecl; external glLib;
+procedure glFramebufferSampleLocationsfvNV(target: TGLenum; start: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glNamedFramebufferSampleLocationsfvNV(framebuffer: TGLuint; start: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glResolveDepthValuesNV; stdcall; external glLib;
 
 const
   GL_NV_sample_mask_override_coverage = 1;
@@ -7815,8 +7815,8 @@ const
   GL_SCISSOR_TEST_EXCLUSIVE_NV = $9555;
   GL_SCISSOR_BOX_EXCLUSIVE_NV = $9556;
 
-procedure glScissorExclusiveNV(x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); cdecl; external glLib;
-procedure glScissorExclusiveArrayvNV(First: TGLuint; Count: TGLsizei; v: PGLint); cdecl; external glLib;
+procedure glScissorExclusiveNV(x: TGLint; y: TGLint; Width: TGLsizei; Height: TGLsizei); stdcall; external glLib;
+procedure glScissorExclusiveArrayvNV(First: TGLuint; Count: TGLsizei; v: PGLint); stdcall; external glLib;
 
 const
   GL_NV_shader_atomic_counters = 1;
@@ -7829,19 +7829,19 @@ const
   GL_GPU_ADDRESS_NV = $8F34;
   GL_MAX_SHADER_BUFFER_ADDRESS_NV = $8F35;
 
-procedure glMakeBufferResidentNV(target: TGLenum; access: TGLenum); cdecl; external glLib;
-procedure glMakeBufferNonResidentNV(target: TGLenum); cdecl; external glLib;
-function glIsBufferResidentNV(target: TGLenum): TGLboolean; cdecl; external glLib;
-procedure glMakeNamedBufferResidentNV(buffer: TGLuint; access: TGLenum); cdecl; external glLib;
-procedure glMakeNamedBufferNonResidentNV(buffer: TGLuint); cdecl; external glLib;
-function glIsNamedBufferResidentNV(buffer: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glGetBufferParameterui64vNV(target: TGLenum; pname: TGLenum; params: PGLuint64EXT); cdecl; external glLib;
-procedure glGetNamedBufferParameterui64vNV(buffer: TGLuint; pname: TGLenum; params: PGLuint64EXT); cdecl; external glLib;
-procedure glGetIntegerui64vNV(Value: TGLenum; Result: PGLuint64EXT); cdecl; external glLib;
-procedure glUniformui64NV(location: TGLint; Value: TGLuint64EXT); cdecl; external glLib;
-procedure glUniformui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniformui64NV(program_: TGLuint; location: TGLint; Value: TGLuint64EXT); cdecl; external glLib;
-procedure glProgramUniformui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); cdecl; external glLib;
+procedure glMakeBufferResidentNV(target: TGLenum; access: TGLenum); stdcall; external glLib;
+procedure glMakeBufferNonResidentNV(target: TGLenum); stdcall; external glLib;
+function glIsBufferResidentNV(target: TGLenum): TGLboolean; stdcall; external glLib;
+procedure glMakeNamedBufferResidentNV(buffer: TGLuint; access: TGLenum); stdcall; external glLib;
+procedure glMakeNamedBufferNonResidentNV(buffer: TGLuint); stdcall; external glLib;
+function glIsNamedBufferResidentNV(buffer: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glGetBufferParameterui64vNV(target: TGLenum; pname: TGLenum; params: PGLuint64EXT); stdcall; external glLib;
+procedure glGetNamedBufferParameterui64vNV(buffer: TGLuint; pname: TGLenum; params: PGLuint64EXT); stdcall; external glLib;
+procedure glGetIntegerui64vNV(Value: TGLenum; Result: PGLuint64EXT); stdcall; external glLib;
+procedure glUniformui64NV(location: TGLint; Value: TGLuint64EXT); stdcall; external glLib;
+procedure glUniformui64vNV(location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniformui64NV(program_: TGLuint; location: TGLint; Value: TGLuint64EXT); stdcall; external glLib;
+procedure glProgramUniformui64vNV(program_: TGLuint; location: TGLint; Count: TGLsizei; Value: PGLuint64EXT); stdcall; external glLib;
 
 const
   GL_NV_shader_buffer_store = 1;
@@ -7878,13 +7878,13 @@ const
   GL_SHADING_RATE_SAMPLE_ORDER_PIXEL_MAJOR_NV = $95AF;
   GL_SHADING_RATE_SAMPLE_ORDER_SAMPLE_MAJOR_NV = $95B0;
 
-procedure glBindShadingRateImageNV(texture: TGLuint); cdecl; external glLib;
-procedure glGetShadingRateImagePaletteNV(viewport: TGLuint; entry: TGLuint; rate: PGLenum); cdecl; external glLib;
-procedure glGetShadingRateSampleLocationivNV(rate: TGLenum; samples: TGLuint; index: TGLuint; location: PGLint); cdecl; external glLib;
-procedure glShadingRateImageBarrierNV(synchronize: TGLboolean); cdecl; external glLib;
-procedure glShadingRateImagePaletteNV(viewport: TGLuint; First: TGLuint; Count: TGLsizei; rates: PGLenum); cdecl; external glLib;
-procedure glShadingRateSampleOrderNV(order: TGLenum); cdecl; external glLib;
-procedure glShadingRateSampleOrderCustomNV(rate: TGLenum; samples: TGLuint; locations: PGLint); cdecl; external glLib;
+procedure glBindShadingRateImageNV(texture: TGLuint); stdcall; external glLib;
+procedure glGetShadingRateImagePaletteNV(viewport: TGLuint; entry: TGLuint; rate: PGLenum); stdcall; external glLib;
+procedure glGetShadingRateSampleLocationivNV(rate: TGLenum; samples: TGLuint; index: TGLuint; location: PGLint); stdcall; external glLib;
+procedure glShadingRateImageBarrierNV(synchronize: TGLboolean); stdcall; external glLib;
+procedure glShadingRateImagePaletteNV(viewport: TGLuint; First: TGLuint; Count: TGLsizei; rates: PGLenum); stdcall; external glLib;
+procedure glShadingRateSampleOrderNV(order: TGLenum); stdcall; external glLib;
+procedure glShadingRateSampleOrderCustomNV(rate: TGLenum; samples: TGLuint; locations: PGLint); stdcall; external glLib;
 
 const
   GL_NV_stereo_view_rendering = 1;
@@ -7903,7 +7903,7 @@ const
   GL_REFLECTION_MAP_NV = $8512;
   GL_NV_texture_barrier = 1;
 
-procedure glTextureBarrierNV; cdecl; external glLib;
+procedure glTextureBarrierNV; stdcall; external glLib;
 
 const
   GL_NV_texture_compression_vtc = 1;
@@ -7920,17 +7920,17 @@ const
   GL_TEXTURE_COLOR_SAMPLES_NV = $9046;
 
 procedure glTexImage2DMultisampleCoverageNV(target: TGLenum; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalFormat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Height: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 procedure glTexImage3DMultisampleCoverageNV(target: TGLenum; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalFormat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 procedure glTextureImage2DMultisampleNV(texture: TGLuint; target: TGLenum; samples: TGLsizei; internalFormat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Height: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 procedure glTextureImage3DMultisampleNV(texture: TGLuint; target: TGLenum; samples: TGLsizei; internalFormat: TGLint; Width: TGLsizei;
-  Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 procedure glTextureImage2DMultisampleCoverageNV(texture: TGLuint; target: TGLenum; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalFormat: TGLint;
-  Width: TGLsizei; Height: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 procedure glTextureImage3DMultisampleCoverageNV(texture: TGLuint; target: TGLenum; coverageSamples: TGLsizei; colorSamples: TGLsizei; internalFormat: TGLint;
-  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); cdecl; external glLib;
+  Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; fixedSampleLocations: TGLboolean); stdcall; external glLib;
 
 const
   GL_NV_texture_rectangle = 1;
@@ -8040,9 +8040,9 @@ const
   GL_SEMAPHORE_TYPE_TIMELINE_NV = $95B5;
   GL_MAX_TIMELINE_SEMAPHORE_VALUE_DIFFERENCE_NV = $95B6;
 
-procedure glCreateSemaphoresNV(n: TGLsizei; semaphores: PGLuint); cdecl; external glLib;
-procedure glSemaphoreParameterivNV(semaphore: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetSemaphoreParameterivNV(semaphore: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glCreateSemaphoresNV(n: TGLsizei; semaphores: PGLuint); stdcall; external glLib;
+procedure glSemaphoreParameterivNV(semaphore: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetSemaphoreParameterivNV(semaphore: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_NV_transform_feedback = 1;
@@ -8078,19 +8078,19 @@ const
   GL_SKIP_COMPONENTS2_NV = -(5);
   GL_SKIP_COMPONENTS1_NV = -(6);
 
-procedure glBeginTransformFeedbackNV(primitiveMode: TGLenum); cdecl; external glLib;
-procedure glEndTransformFeedbackNV; cdecl; external glLib;
-procedure glTransformFeedbackAttribsNV(Count: TGLsizei; attribs: PGLint; bufferMode: TGLenum); cdecl; external glLib;
-procedure glBindBufferRangeNV(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl; external glLib;
-procedure glBindBufferOffsetNV(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); cdecl; external glLib;
-procedure glBindBufferBaseNV(target: TGLenum; index: TGLuint; buffer: TGLuint); cdecl; external glLib;
-procedure glTransformFeedbackVaryingsNV(program_: TGLuint; Count: TGLsizei; locations: PGLint; bufferMode: TGLenum); cdecl; external glLib;
-procedure glActiveVaryingNV(program_: TGLuint; Name: PGLchar); cdecl; external glLib;
-function glGetVaryingLocationNV(program_: TGLuint; Name: PGLchar): TGLint; cdecl; external glLib;
+procedure glBeginTransformFeedbackNV(primitiveMode: TGLenum); stdcall; external glLib;
+procedure glEndTransformFeedbackNV; stdcall; external glLib;
+procedure glTransformFeedbackAttribsNV(Count: TGLsizei; attribs: PGLint; bufferMode: TGLenum); stdcall; external glLib;
+procedure glBindBufferRangeNV(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); stdcall; external glLib;
+procedure glBindBufferOffsetNV(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); stdcall; external glLib;
+procedure glBindBufferBaseNV(target: TGLenum; index: TGLuint; buffer: TGLuint); stdcall; external glLib;
+procedure glTransformFeedbackVaryingsNV(program_: TGLuint; Count: TGLsizei; locations: PGLint; bufferMode: TGLenum); stdcall; external glLib;
+procedure glActiveVaryingNV(program_: TGLuint; Name: PGLchar); stdcall; external glLib;
+function glGetVaryingLocationNV(program_: TGLuint; Name: PGLchar): TGLint; stdcall; external glLib;
 procedure glGetActiveVaryingNV(program_: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLsizei;
-  _type: PGLenum; Name: PGLchar); cdecl; external glLib;
-procedure glGetTransformFeedbackVaryingNV(program_: TGLuint; index: TGLuint; location: PGLint); cdecl; external glLib;
-procedure glTransformFeedbackStreamAttribsNV(Count: TGLsizei; attribs: PGLint; nbuffers: TGLsizei; bufstreams: PGLint; bufferMode: TGLenum); cdecl; external glLib;
+  _type: PGLenum; Name: PGLchar); stdcall; external glLib;
+procedure glGetTransformFeedbackVaryingNV(program_: TGLuint; index: TGLuint; location: PGLint); stdcall; external glLib;
+procedure glTransformFeedbackStreamAttribsNV(Count: TGLsizei; attribs: PGLint; nbuffers: TGLsizei; bufstreams: PGLint; bufferMode: TGLenum); stdcall; external glLib;
 
 const
   GL_NV_transform_feedback2 = 1;
@@ -8099,13 +8099,13 @@ const
   GL_TRANSFORM_FEEDBACK_BUFFER_ACTIVE_NV = $8E24;
   GL_TRANSFORM_FEEDBACK_BINDING_NV = $8E25;
 
-procedure glBindTransformFeedbackNV(target: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glDeleteTransformFeedbacksNV(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-procedure glGenTransformFeedbacksNV(n: TGLsizei; ids: PGLuint); cdecl; external glLib;
-function glIsTransformFeedbackNV(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glPauseTransformFeedbackNV; cdecl; external glLib;
-procedure glResumeTransformFeedbackNV; cdecl; external glLib;
-procedure glDrawTransformFeedbackNV(mode: TGLenum; id: TGLuint); cdecl; external glLib;
+procedure glBindTransformFeedbackNV(target: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glDeleteTransformFeedbacksNV(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+procedure glGenTransformFeedbacksNV(n: TGLsizei; ids: PGLuint); stdcall; external glLib;
+function glIsTransformFeedbackNV(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glPauseTransformFeedbackNV; stdcall; external glLib;
+procedure glResumeTransformFeedbackNV; stdcall; external glLib;
+procedure glDrawTransformFeedbackNV(mode: TGLenum; id: TGLuint); stdcall; external glLib;
 
 const
   GL_NV_uniform_buffer_unified_memory = 1;
@@ -8124,21 +8124,21 @@ const
   GL_SURFACE_MAPPED_NV = $8700;
   GL_WRITE_DISCARD_NV = $88BE;
 
-procedure glVDPAUInitNV(vdpDevice: pointer; getProcAddress: pointer); cdecl; external glLib;
-procedure glVDPAUFiniNV; cdecl; external glLib;
-function glVDPAURegisterVideoSurfaceNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint): TGLvdpauSurfaceNV; cdecl; external glLib;
-function glVDPAURegisterOutputSurfaceNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint): TGLvdpauSurfaceNV; cdecl; external glLib;
-function glVDPAUIsSurfaceNV(surface: TGLvdpauSurfaceNV): TGLboolean; cdecl; external glLib;
-procedure glVDPAUUnregisterSurfaceNV(surface: TGLvdpauSurfaceNV); cdecl; external glLib;
-procedure glVDPAUGetSurfaceivNV(surface: TGLvdpauSurfaceNV; pname: TGLenum; Count: TGLsizei; length: PGLsizei; values: PGLint); cdecl; external glLib;
-procedure glVDPAUSurfaceAccessNV(surface: TGLvdpauSurfaceNV; access: TGLenum); cdecl; external glLib;
-procedure glVDPAUMapSurfacesNV(numSurfaces: TGLsizei; surfaces: PGLvdpauSurfaceNV); cdecl; external glLib;
-procedure glVDPAUUnmapSurfacesNV(numSurface: TGLsizei; surfaces: PGLvdpauSurfaceNV); cdecl; external glLib;
+procedure glVDPAUInitNV(vdpDevice: pointer; getProcAddress: pointer); stdcall; external glLib;
+procedure glVDPAUFiniNV; stdcall; external glLib;
+function glVDPAURegisterVideoSurfaceNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint): TGLvdpauSurfaceNV; stdcall; external glLib;
+function glVDPAURegisterOutputSurfaceNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint): TGLvdpauSurfaceNV; stdcall; external glLib;
+function glVDPAUIsSurfaceNV(surface: TGLvdpauSurfaceNV): TGLboolean; stdcall; external glLib;
+procedure glVDPAUUnregisterSurfaceNV(surface: TGLvdpauSurfaceNV); stdcall; external glLib;
+procedure glVDPAUGetSurfaceivNV(surface: TGLvdpauSurfaceNV; pname: TGLenum; Count: TGLsizei; length: PGLsizei; values: PGLint); stdcall; external glLib;
+procedure glVDPAUSurfaceAccessNV(surface: TGLvdpauSurfaceNV; access: TGLenum); stdcall; external glLib;
+procedure glVDPAUMapSurfacesNV(numSurfaces: TGLsizei; surfaces: PGLvdpauSurfaceNV); stdcall; external glLib;
+procedure glVDPAUUnmapSurfacesNV(numSurface: TGLsizei; surfaces: PGLvdpauSurfaceNV); stdcall; external glLib;
 
 const
   GL_NV_vdpau_interop2 = 1;
 
-function glVDPAURegisterVideoSurfaceWithPictureStructureNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint; isFrameStructure: TGLboolean): TGLvdpauSurfaceNV; cdecl; external glLib;
+function glVDPAURegisterVideoSurfaceWithPictureStructureNV(vdpSurface: pointer; target: TGLenum; numTextureNames: TGLsizei; textureNames: PGLuint; isFrameStructure: TGLboolean): TGLvdpauSurfaceNV; stdcall; external glLib;
 
 const
   GL_NV_vertex_array_range = 1;
@@ -8148,33 +8148,33 @@ const
   GL_MAX_VERTEX_ARRAY_RANGE_ELEMENT_NV = $8520;
   GL_VERTEX_ARRAY_RANGE_POINTER_NV = $8521;
 
-procedure glFlushVertexArrayRangeNV; cdecl; external glLib;
-procedure glVertexArrayRangeNV(length: TGLsizei; pointer: pointer); cdecl; external glLib;
+procedure glFlushVertexArrayRangeNV; stdcall; external glLib;
+procedure glVertexArrayRangeNV(length: TGLsizei; pointer: pointer); stdcall; external glLib;
 
 const
   GL_NV_vertex_array_range2 = 1;
   GL_VERTEX_ARRAY_RANGE_WITHOUT_FLUSH_NV = $8533;
   GL_NV_vertex_attrib_integer_64bit = 1;
 
-procedure glVertexAttribL1i64NV(index: TGLuint; x: TGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL2i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL3i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL4i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT; w: TGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL1i64vNV(index: TGLuint; v: PGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL2i64vNV(index: TGLuint; v: PGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL3i64vNV(index: TGLuint; v: PGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL4i64vNV(index: TGLuint; v: PGLint64EXT); cdecl; external glLib;
-procedure glVertexAttribL1ui64NV(index: TGLuint; x: TGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL2ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL3ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL4ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT; w: TGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL1ui64vNV(index: TGLuint; v: PGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL2ui64vNV(index: TGLuint; v: PGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL3ui64vNV(index: TGLuint; v: PGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribL4ui64vNV(index: TGLuint; v: PGLuint64EXT); cdecl; external glLib;
-procedure glGetVertexAttribLi64vNV(index: TGLuint; pname: TGLenum; params: PGLint64EXT); cdecl; external glLib;
-procedure glGetVertexAttribLui64vNV(index: TGLuint; pname: TGLenum; params: PGLuint64EXT); cdecl; external glLib;
-procedure glVertexAttribLFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
+procedure glVertexAttribL1i64NV(index: TGLuint; x: TGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL2i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL3i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL4i64NV(index: TGLuint; x: TGLint64EXT; y: TGLint64EXT; z: TGLint64EXT; w: TGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL1i64vNV(index: TGLuint; v: PGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL2i64vNV(index: TGLuint; v: PGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL3i64vNV(index: TGLuint; v: PGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL4i64vNV(index: TGLuint; v: PGLint64EXT); stdcall; external glLib;
+procedure glVertexAttribL1ui64NV(index: TGLuint; x: TGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL2ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL3ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL4ui64NV(index: TGLuint; x: TGLuint64EXT; y: TGLuint64EXT; z: TGLuint64EXT; w: TGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL1ui64vNV(index: TGLuint; v: PGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL2ui64vNV(index: TGLuint; v: PGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL3ui64vNV(index: TGLuint; v: PGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribL4ui64vNV(index: TGLuint; v: PGLuint64EXT); stdcall; external glLib;
+procedure glGetVertexAttribLi64vNV(index: TGLuint; pname: TGLenum; params: PGLint64EXT); stdcall; external glLib;
+procedure glGetVertexAttribLui64vNV(index: TGLuint; pname: TGLenum; params: PGLuint64EXT); stdcall; external glLib;
+procedure glVertexAttribLFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
 
 const
   GL_NV_vertex_buffer_unified_memory = 1;
@@ -8204,18 +8204,18 @@ const
   GL_DRAW_INDIRECT_ADDRESS_NV = $8F41;
   GL_DRAW_INDIRECT_LENGTH_NV = $8F42;
 
-procedure glBufferAddressRangeNV(pname: TGLenum; index: TGLuint; address: TGLuint64EXT; length: TGLsizeiptr); cdecl; external glLib;
-procedure glVertexFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glNormalFormatNV(_type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glColorFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glIndexFormatNV(_type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glTexCoordFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glEdgeFlagFormatNV(stride: TGLsizei); cdecl; external glLib;
-procedure glSecondaryColorFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glFogCoordFormatNV(_type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glVertexAttribFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; stride: TGLsizei); cdecl; external glLib;
-procedure glVertexAttribIFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei); cdecl; external glLib;
-procedure glGetIntegerui64i_vNV(Value: TGLenum; index: TGLuint; Result: PGLuint64EXT); cdecl; external glLib;
+procedure glBufferAddressRangeNV(pname: TGLenum; index: TGLuint; address: TGLuint64EXT; length: TGLsizeiptr); stdcall; external glLib;
+procedure glVertexFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glNormalFormatNV(_type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glColorFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glIndexFormatNV(_type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glTexCoordFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glEdgeFlagFormatNV(stride: TGLsizei); stdcall; external glLib;
+procedure glSecondaryColorFormatNV(size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glFogCoordFormatNV(_type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glVertexAttribFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; normalized: TGLboolean; stride: TGLsizei); stdcall; external glLib;
+procedure glVertexAttribIFormatNV(index: TGLuint; size: TGLint; _type: TGLenum; stride: TGLsizei); stdcall; external glLib;
+procedure glGetIntegerui64i_vNV(Value: TGLenum; index: TGLuint; Result: PGLuint64EXT); stdcall; external glLib;
 
 const
   GL_NV_vertex_program = 1;
@@ -8303,72 +8303,72 @@ const
   GL_MAP2_VERTEX_ATTRIB14_4_NV = $867E;
   GL_MAP2_VERTEX_ATTRIB15_4_NV = $867F;
 
-function glAreProgramsResidentNV(n: TGLsizei; programs: PGLuint; residences: PGLboolean): TGLboolean; cdecl; external glLib;
-procedure glBindProgramNV(target: TGLenum; id: TGLuint); cdecl; external glLib;
-procedure glDeleteProgramsNV(n: TGLsizei; programs: PGLuint); cdecl; external glLib;
-procedure glExecuteProgramNV(target: TGLenum; id: TGLuint; params: PGLfloat); cdecl; external glLib;
-procedure glGenProgramsNV(n: TGLsizei; programs: PGLuint); cdecl; external glLib;
-procedure glGetProgramParameterdvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glGetProgramParameterfvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetProgramivNV(id: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetProgramStringNV(id: TGLuint; pname: TGLenum; program_: PGLubyte); cdecl; external glLib;
-procedure glGetTrackMatrixivNV(target: TGLenum; address: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribdvNV(index: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-procedure glGetVertexAttribfvNV(index: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVertexAttribivNV(index: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVertexAttribPointervNV(index: TGLuint; pname: TGLenum; pointer: Ppointer); cdecl; external glLib;
-function glIsProgramNV(id: TGLuint): TGLboolean; cdecl; external glLib;
-procedure glLoadProgramNV(target: TGLenum; id: TGLuint; len: TGLsizei; program_: PGLubyte); cdecl; external glLib;
+function glAreProgramsResidentNV(n: TGLsizei; programs: PGLuint; residences: PGLboolean): TGLboolean; stdcall; external glLib;
+procedure glBindProgramNV(target: TGLenum; id: TGLuint); stdcall; external glLib;
+procedure glDeleteProgramsNV(n: TGLsizei; programs: PGLuint); stdcall; external glLib;
+procedure glExecuteProgramNV(target: TGLenum; id: TGLuint; params: PGLfloat); stdcall; external glLib;
+procedure glGenProgramsNV(n: TGLsizei; programs: PGLuint); stdcall; external glLib;
+procedure glGetProgramParameterdvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glGetProgramParameterfvNV(target: TGLenum; index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetProgramivNV(id: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetProgramStringNV(id: TGLuint; pname: TGLenum; program_: PGLubyte); stdcall; external glLib;
+procedure glGetTrackMatrixivNV(target: TGLenum; address: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribdvNV(index: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+procedure glGetVertexAttribfvNV(index: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVertexAttribivNV(index: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVertexAttribPointervNV(index: TGLuint; pname: TGLenum; pointer: Ppointer); stdcall; external glLib;
+function glIsProgramNV(id: TGLuint): TGLboolean; stdcall; external glLib;
+procedure glLoadProgramNV(target: TGLenum; id: TGLuint; len: TGLsizei; program_: PGLubyte); stdcall; external glLib;
 procedure glProgramParameter4dNV(target: TGLenum; index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble;
-  w: TGLdouble); cdecl; external glLib;
-procedure glProgramParameter4dvNV(target: TGLenum; index: TGLuint; v: PGLdouble); cdecl; external glLib;
+  w: TGLdouble); stdcall; external glLib;
+procedure glProgramParameter4dvNV(target: TGLenum; index: TGLuint; v: PGLdouble); stdcall; external glLib;
 procedure glProgramParameter4fNV(target: TGLenum; index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat;
-  w: TGLfloat); cdecl; external glLib;
-procedure glProgramParameter4fvNV(target: TGLenum; index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glProgramParameters4dvNV(target: TGLenum; index: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glProgramParameters4fvNV(target: TGLenum; index: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glRequestResidentProgramsNV(n: TGLsizei; programs: PGLuint); cdecl; external glLib;
-procedure glTrackMatrixNV(target: TGLenum; address: TGLuint; matrix: TGLenum; transform: TGLenum); cdecl; external glLib;
-procedure glVertexAttribPointerNV(index: TGLuint; fsize: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); cdecl; external glLib;
-procedure glVertexAttrib1dNV(index: TGLuint; x: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1dvNV(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib1fNV(index: TGLuint; x: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1fvNV(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib1sNV(index: TGLuint; x: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib1svNV(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib2dNV(index: TGLuint; x: TGLdouble; y: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2dvNV(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib2fNV(index: TGLuint; x: TGLfloat; y: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2fvNV(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib2sNV(index: TGLuint; x: TGLshort; y: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib2svNV(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib3dNV(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3dvNV(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib3fNV(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3fvNV(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib3sNV(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib3svNV(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4dNV(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4dvNV(index: TGLuint; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttrib4fNV(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4fvNV(index: TGLuint; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttrib4sNV(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); cdecl; external glLib;
-procedure glVertexAttrib4svNV(index: TGLuint; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttrib4ubNV(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); cdecl; external glLib;
-procedure glVertexAttrib4ubvNV(index: TGLuint; v: PGLubyte); cdecl; external glLib;
-procedure glVertexAttribs1dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribs1fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttribs1svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribs2dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribs2fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttribs2svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribs3dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribs3fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttribs3svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribs4dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); cdecl; external glLib;
-procedure glVertexAttribs4fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); cdecl; external glLib;
-procedure glVertexAttribs4svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); cdecl; external glLib;
-procedure glVertexAttribs4ubvNV(index: TGLuint; Count: TGLsizei; v: PGLubyte); cdecl; external glLib;
+  w: TGLfloat); stdcall; external glLib;
+procedure glProgramParameter4fvNV(target: TGLenum; index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glProgramParameters4dvNV(target: TGLenum; index: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glProgramParameters4fvNV(target: TGLenum; index: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glRequestResidentProgramsNV(n: TGLsizei; programs: PGLuint); stdcall; external glLib;
+procedure glTrackMatrixNV(target: TGLenum; address: TGLuint; matrix: TGLenum; transform: TGLenum); stdcall; external glLib;
+procedure glVertexAttribPointerNV(index: TGLuint; fsize: TGLint; _type: TGLenum; stride: TGLsizei; pointer: pointer); stdcall; external glLib;
+procedure glVertexAttrib1dNV(index: TGLuint; x: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1dvNV(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib1fNV(index: TGLuint; x: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1fvNV(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib1sNV(index: TGLuint; x: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib1svNV(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib2dNV(index: TGLuint; x: TGLdouble; y: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2dvNV(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib2fNV(index: TGLuint; x: TGLfloat; y: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2fvNV(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib2sNV(index: TGLuint; x: TGLshort; y: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib2svNV(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib3dNV(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3dvNV(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib3fNV(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3fvNV(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib3sNV(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib3svNV(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4dNV(index: TGLuint; x: TGLdouble; y: TGLdouble; z: TGLdouble; w: TGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4dvNV(index: TGLuint; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttrib4fNV(index: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4fvNV(index: TGLuint; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttrib4sNV(index: TGLuint; x: TGLshort; y: TGLshort; z: TGLshort; w: TGLshort); stdcall; external glLib;
+procedure glVertexAttrib4svNV(index: TGLuint; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttrib4ubNV(index: TGLuint; x: TGLubyte; y: TGLubyte; z: TGLubyte; w: TGLubyte); stdcall; external glLib;
+procedure glVertexAttrib4ubvNV(index: TGLuint; v: PGLubyte); stdcall; external glLib;
+procedure glVertexAttribs1dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribs1fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttribs1svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribs2dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribs2fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttribs2svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribs3dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribs3fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttribs3svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribs4dvNV(index: TGLuint; Count: TGLsizei; v: PGLdouble); stdcall; external glLib;
+procedure glVertexAttribs4fvNV(index: TGLuint; Count: TGLsizei; v: PGLfloat); stdcall; external glLib;
+procedure glVertexAttribs4svNV(index: TGLuint; Count: TGLsizei; v: PGLshort); stdcall; external glLib;
+procedure glVertexAttribs4ubvNV(index: TGLuint; Count: TGLsizei; v: PGLubyte); stdcall; external glLib;
 
 const
   GL_NV_vertex_program1_1 = 1;
@@ -8408,18 +8408,18 @@ const
   GL_VIDEO_CAPTURE_FIELD_LOWER_HEIGHT_NV = $903B;
   GL_VIDEO_CAPTURE_SURFACE_ORIGIN_NV = $903C;
 
-procedure glBeginVideoCaptureNV(video_capture_slot: TGLuint); cdecl; external glLib;
-procedure glBindVideoCaptureStreamBufferNV(video_capture_slot: TGLuint; stream: TGLuint; frame_region: TGLenum; offset: TGLintptrARB); cdecl; external glLib;
-procedure glBindVideoCaptureStreamTextureNV(video_capture_slot: TGLuint; stream: TGLuint; frame_region: TGLenum; target: TGLenum; texture: TGLuint); cdecl; external glLib;
-procedure glEndVideoCaptureNV(video_capture_slot: TGLuint); cdecl; external glLib;
-procedure glGetVideoCaptureivNV(video_capture_slot: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVideoCaptureStreamivNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetVideoCaptureStreamfvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetVideoCaptureStreamdvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
-function glVideoCaptureNV(video_capture_slot: TGLuint; sequence_num: PGLuint; capture_time: PGLuint64EXT): TGLenum; cdecl; external glLib;
-procedure glVideoCaptureStreamParameterivNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glVideoCaptureStreamParameterfvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glVideoCaptureStreamParameterdvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLdouble); cdecl; external glLib;
+procedure glBeginVideoCaptureNV(video_capture_slot: TGLuint); stdcall; external glLib;
+procedure glBindVideoCaptureStreamBufferNV(video_capture_slot: TGLuint; stream: TGLuint; frame_region: TGLenum; offset: TGLintptrARB); stdcall; external glLib;
+procedure glBindVideoCaptureStreamTextureNV(video_capture_slot: TGLuint; stream: TGLuint; frame_region: TGLenum; target: TGLenum; texture: TGLuint); stdcall; external glLib;
+procedure glEndVideoCaptureNV(video_capture_slot: TGLuint); stdcall; external glLib;
+procedure glGetVideoCaptureivNV(video_capture_slot: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVideoCaptureStreamivNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetVideoCaptureStreamfvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetVideoCaptureStreamdvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
+function glVideoCaptureNV(video_capture_slot: TGLuint; sequence_num: PGLuint; capture_time: PGLuint64EXT): TGLenum; stdcall; external glLib;
+procedure glVideoCaptureStreamParameterivNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glVideoCaptureStreamParameterfvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glVideoCaptureStreamParameterdvNV(video_capture_slot: TGLuint; stream: TGLuint; pname: TGLenum; params: PGLdouble); stdcall; external glLib;
 
 const
   GL_NV_viewport_array2 = 1;
@@ -8437,7 +8437,7 @@ const
   GL_VIEWPORT_SWIZZLE_Z_NV = $935A;
   GL_VIEWPORT_SWIZZLE_W_NV = $935B;
 
-procedure glViewportSwizzleNV(index: TGLuint; swizzlex: TGLenum; swizzley: TGLenum; swizzlez: TGLenum; swizzlew: TGLenum); cdecl; external glLib;
+procedure glViewportSwizzleNV(index: TGLuint; swizzlex: TGLenum; swizzley: TGLenum; swizzlez: TGLenum; swizzlew: TGLenum); stdcall; external glLib;
 
 const
   GL_OML_interlace = 1;
@@ -8460,7 +8460,7 @@ const
   GL_FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = $9633;
 
 procedure glFramebufferTextureMultiviewOVR(target: TGLenum; attachment: TGLenum; texture: TGLuint; level: TGLint; baseViewIndex: TGLint;
-  numViews: TGLsizei); cdecl; external glLib;
+  numViews: TGLsizei); stdcall; external glLib;
 
 const
   GL_OVR_multiview2 = 1;
@@ -8486,7 +8486,7 @@ const
   GL_WIDE_LINE_HINT_PGI = $1A222;
   GL_BACK_NORMALS_HINT_PGI = $1A223;
 
-procedure glHintPGI(target: TGLenum; mode: TGLint); cdecl; external glLib;
+procedure glHintPGI(target: TGLenum; mode: TGLint); stdcall; external glLib;
 
 const
   GL_PGI_vertex_hints = 1;
@@ -8532,8 +8532,8 @@ const
   GL_DETAIL_TEXTURE_MODE_SGIS = $809B;
   GL_DETAIL_TEXTURE_FUNC_POINTS_SGIS = $809C;
 
-procedure glDetailTexFuncSGIS(target: TGLenum; n: TGLsizei; points: PGLfloat); cdecl; external glLib;
-procedure glGetDetailTexFuncSGIS(target: TGLenum; points: PGLfloat); cdecl; external glLib;
+procedure glDetailTexFuncSGIS(target: TGLenum; n: TGLsizei; points: PGLfloat); stdcall; external glLib;
+procedure glGetDetailTexFuncSGIS(target: TGLenum; points: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_fog_function = 1;
@@ -8541,8 +8541,8 @@ const
   GL_FOG_FUNC_POINTS_SGIS = $812B;
   GL_MAX_FOG_FUNC_POINTS_SGIS = $812C;
 
-procedure glFogFuncSGIS(n: TGLsizei; points: PGLfloat); cdecl; external glLib;
-procedure glGetFogFuncSGIS(points: PGLfloat); cdecl; external glLib;
+procedure glFogFuncSGIS(n: TGLsizei; points: PGLfloat); stdcall; external glLib;
+procedure glGetFogFuncSGIS(points: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_generate_mipmap = 1;
@@ -8566,8 +8566,8 @@ const
   GL_SAMPLE_MASK_INVERT_SGIS = $80AB;
   GL_SAMPLE_PATTERN_SGIS = $80AC;
 
-procedure glSampleMaskSGIS(Value: TGLclampf; invert: TGLboolean); cdecl; external glLib;
-procedure glSamplePatternSGIS(pattern: TGLenum); cdecl; external glLib;
+procedure glSampleMaskSGIS(Value: TGLclampf; invert: TGLboolean); stdcall; external glLib;
+procedure glSamplePatternSGIS(pattern: TGLenum); stdcall; external glLib;
 
 const
   GL_SGIS_pixel_texture = 1;
@@ -8576,12 +8576,12 @@ const
   GL_PIXEL_FRAGMENT_ALPHA_SOURCE_SGIS = $8355;
   GL_PIXEL_GROUP_COLOR_SGIS = $8356;
 
-procedure glPixelTexGenParameteriSGIS(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glPixelTexGenParameterivSGIS(pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glPixelTexGenParameterfSGIS(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPixelTexGenParameterfvSGIS(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetPixelTexGenParameterivSGIS(pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetPixelTexGenParameterfvSGIS(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glPixelTexGenParameteriSGIS(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glPixelTexGenParameterivSGIS(pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glPixelTexGenParameterfSGIS(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPixelTexGenParameterfvSGIS(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetPixelTexGenParameterivSGIS(pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetPixelTexGenParameterfvSGIS(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_point_line_texgen = 1;
@@ -8599,8 +8599,8 @@ const
   GL_POINT_FADE_THRESHOLD_SIZE_SGIS = $8128;
   GL_DISTANCE_ATTENUATION_SGIS = $8129;
 
-procedure glPointParameterfSGIS(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glPointParameterfvSGIS(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
+procedure glPointParameterfSGIS(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glPointParameterfvSGIS(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_sharpen_texture = 1;
@@ -8609,8 +8609,8 @@ const
   GL_LINEAR_SHARPEN_COLOR_SGIS = $80AF;
   GL_SHARPEN_TEXTURE_FUNC_POINTS_SGIS = $80B0;
 
-procedure glSharpenTexFuncSGIS(target: TGLenum; n: TGLsizei; points: PGLfloat); cdecl; external glLib;
-procedure glGetSharpenTexFuncSGIS(target: TGLenum; points: PGLfloat); cdecl; external glLib;
+procedure glSharpenTexFuncSGIS(target: TGLenum; n: TGLsizei; points: PGLfloat); stdcall; external glLib;
+procedure glGetSharpenTexFuncSGIS(target: TGLenum; points: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_texture4D = 1;
@@ -8627,10 +8627,10 @@ const
 
 procedure glTexImage4DSGIS(target: TGLenum; level: TGLint; internalformat: TGLenum; Width: TGLsizei; Height: TGLsizei;
   depth: TGLsizei; size4d: TGLsizei; border: TGLint; format: TGLenum; _type: TGLenum;
-  pixels: pointer); cdecl; external glLib;
+  pixels: pointer); stdcall; external glLib;
 procedure glTexSubImage4DSGIS(target: TGLenum; level: TGLint; xoffset: TGLint; yoffset: TGLint; zoffset: TGLint;
   woffset: TGLint; Width: TGLsizei; Height: TGLsizei; depth: TGLsizei; size4d: TGLsizei;
-  format: TGLenum; _type: TGLenum; pixels: pointer); cdecl; external glLib;
+  format: TGLenum; _type: TGLenum; pixels: pointer); stdcall; external glLib;
 
 const
   GL_SGIS_texture_border_clamp = 1;
@@ -8638,7 +8638,7 @@ const
   GL_SGIS_texture_color_mask = 1;
   GL_TEXTURE_COLOR_WRITEMASK_SGIS = $81EF;
 
-procedure glTextureColorMaskSGIS(red: TGLboolean; green: TGLboolean; blue: TGLboolean; alpha: TGLboolean); cdecl; external glLib;
+procedure glTextureColorMaskSGIS(red: TGLboolean; green: TGLboolean; blue: TGLboolean; alpha: TGLboolean); stdcall; external glLib;
 
 const
   GL_SGIS_texture_edge_clamp = 1;
@@ -8647,8 +8647,8 @@ const
   GL_FILTER4_SGIS = $8146;
   GL_TEXTURE_FILTER4_SIZE_SGIS = $8147;
 
-procedure glGetTexFilterFuncSGIS(target: TGLenum; filter: TGLenum; weights: PGLfloat); cdecl; external glLib;
-procedure glTexFilterFuncSGIS(target: TGLenum; filter: TGLenum; n: TGLsizei; weights: PGLfloat); cdecl; external glLib;
+procedure glGetTexFilterFuncSGIS(target: TGLenum; filter: TGLenum; weights: PGLfloat); stdcall; external glLib;
+procedure glTexFilterFuncSGIS(target: TGLenum; filter: TGLenum; n: TGLsizei; weights: PGLfloat); stdcall; external glLib;
 
 const
   GL_SGIS_texture_lod = 1;
@@ -8682,12 +8682,12 @@ const
   GL_SGIX_async = 1;
   GL_ASYNC_MARKER_SGIX = $8329;
 
-procedure glAsyncMarkerSGIX(marker: TGLuint); cdecl; external glLib;
-function glFinishAsyncSGIX(markerp: PGLuint): TGLint; cdecl; external glLib;
-function glPollAsyncSGIX(markerp: PGLuint): TGLint; cdecl; external glLib;
-function glGenAsyncMarkersSGIX(range: TGLsizei): TGLuint; cdecl; external glLib;
-procedure glDeleteAsyncMarkersSGIX(marker: TGLuint; range: TGLsizei); cdecl; external glLib;
-function glIsAsyncMarkerSGIX(marker: TGLuint): TGLboolean; cdecl; external glLib;
+procedure glAsyncMarkerSGIX(marker: TGLuint); stdcall; external glLib;
+function glFinishAsyncSGIX(markerp: PGLuint): TGLint; stdcall; external glLib;
+function glPollAsyncSGIX(markerp: PGLuint): TGLint; stdcall; external glLib;
+function glGenAsyncMarkersSGIX(range: TGLsizei): TGLuint; stdcall; external glLib;
+procedure glDeleteAsyncMarkersSGIX(marker: TGLuint; range: TGLsizei); stdcall; external glLib;
+function glIsAsyncMarkerSGIX(marker: TGLuint): TGLboolean; stdcall; external glLib;
 
 const
   GL_SGIX_async_histogram = 1;
@@ -8727,7 +8727,7 @@ const
   GL_DEPTH_COMPONENT32_SGIX = $81A7;
   GL_SGIX_flush_raster = 1;
 
-procedure glFlushRasterSGIX; cdecl; external glLib;
+procedure glFlushRasterSGIX; stdcall; external glLib;
 
 const
   GL_SGIX_fog_offset = 1;
@@ -8755,24 +8755,24 @@ const
   GL_FRAGMENT_LIGHT6_SGIX = $8412;
   GL_FRAGMENT_LIGHT7_SGIX = $8413;
 
-procedure glFragmentColorMaterialSGIX(face: TGLenum; mode: TGLenum); cdecl; external glLib;
-procedure glFragmentLightfSGIX(light: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glFragmentLightfvSGIX(light: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glFragmentLightiSGIX(light: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glFragmentLightivSGIX(light: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glFragmentLightModelfSGIX(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glFragmentLightModelfvSGIX(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glFragmentLightModeliSGIX(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glFragmentLightModelivSGIX(pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glFragmentMaterialfSGIX(face: TGLenum; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glFragmentMaterialfvSGIX(face: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glFragmentMaterialiSGIX(face: TGLenum; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glFragmentMaterialivSGIX(face: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetFragmentLightfvSGIX(light: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetFragmentLightivSGIX(light: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glGetFragmentMaterialfvSGIX(face: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetFragmentMaterialivSGIX(face: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glLightEnviSGIX(pname: TGLenum; param: TGLint); cdecl; external glLib;
+procedure glFragmentColorMaterialSGIX(face: TGLenum; mode: TGLenum); stdcall; external glLib;
+procedure glFragmentLightfSGIX(light: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glFragmentLightfvSGIX(light: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glFragmentLightiSGIX(light: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glFragmentLightivSGIX(light: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glFragmentLightModelfSGIX(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glFragmentLightModelfvSGIX(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glFragmentLightModeliSGIX(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glFragmentLightModelivSGIX(pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glFragmentMaterialfSGIX(face: TGLenum; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glFragmentMaterialfvSGIX(face: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glFragmentMaterialiSGIX(face: TGLenum; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glFragmentMaterialivSGIX(face: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetFragmentLightfvSGIX(light: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetFragmentLightivSGIX(light: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glGetFragmentMaterialfvSGIX(face: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetFragmentMaterialivSGIX(face: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glLightEnviSGIX(pname: TGLenum; param: TGLint); stdcall; external glLib;
 
 const
   GL_SGIX_framezoom = 1;
@@ -8780,24 +8780,24 @@ const
   GL_FRAMEZOOM_FACTOR_SGIX = $818C;
   GL_MAX_FRAMEZOOM_FACTOR_SGIX = $818D;
 
-procedure glFrameZoomSGIX(factor: TGLint); cdecl; external glLib;
+procedure glFrameZoomSGIX(factor: TGLint); stdcall; external glLib;
 
 const
   GL_SGIX_igloo_interface = 1;
 
-procedure glIglooInterfaceSGIX(pname: TGLenum; params: pointer); cdecl; external glLib;
+procedure glIglooInterfaceSGIX(pname: TGLenum; params: pointer); stdcall; external glLib;
 
 const
   GL_SGIX_instruments = 1;
   GL_INSTRUMENT_BUFFER_POINTER_SGIX = $8180;
   GL_INSTRUMENT_MEASUREMENTS_SGIX = $8181;
 
-function glGetInstrumentsSGIX: TGLint; cdecl; external glLib;
-procedure glInstrumentsBufferSGIX(size: TGLsizei; buffer: PGLint); cdecl; external glLib;
-function glPollInstrumentsSGIX(marker_p: PGLint): TGLint; cdecl; external glLib;
-procedure glReadInstrumentsSGIX(marker: TGLint); cdecl; external glLib;
-procedure glStartInstrumentsSGIX; cdecl; external glLib;
-procedure glStopInstrumentsSGIX(marker: TGLint); cdecl; external glLib;
+function glGetInstrumentsSGIX: TGLint; stdcall; external glLib;
+procedure glInstrumentsBufferSGIX(size: TGLsizei; buffer: PGLint); stdcall; external glLib;
+function glPollInstrumentsSGIX(marker_p: PGLint): TGLint; stdcall; external glLib;
+procedure glReadInstrumentsSGIX(marker: TGLint); stdcall; external glLib;
+procedure glStartInstrumentsSGIX; stdcall; external glLib;
+procedure glStopInstrumentsSGIX(marker: TGLint); stdcall; external glLib;
 
 const
   GL_SGIX_interlace = 1;
@@ -8807,19 +8807,19 @@ const
   GL_SGIX_list_priority = 1;
   GL_LIST_PRIORITY_SGIX = $8182;
 
-procedure glGetListParameterfvSGIX(list: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetListParameterivSGIX(list: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glListParameterfSGIX(list: TGLuint; pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glListParameterfvSGIX(list: TGLuint; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glListParameteriSGIX(list: TGLuint; pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glListParameterivSGIX(list: TGLuint; pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glGetListParameterfvSGIX(list: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetListParameterivSGIX(list: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glListParameterfSGIX(list: TGLuint; pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glListParameterfvSGIX(list: TGLuint; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glListParameteriSGIX(list: TGLuint; pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glListParameterivSGIX(list: TGLuint; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_SGIX_pixel_texture = 1;
   GL_PIXEL_TEX_GEN_SGIX = $8139;
   GL_PIXEL_TEX_GEN_MODE_SGIX = $832B;
 
-procedure glPixelTexGenSGIX(mode: TGLenum); cdecl; external glLib;
+procedure glPixelTexGenSGIX(mode: TGLenum); stdcall; external glLib;
 
 const
   GL_SGIX_pixel_tiles = 1;
@@ -8841,19 +8841,19 @@ const
 
 procedure glDeformationMap3dSGIX(target: TGLenum; u1: TGLdouble; u2: TGLdouble; ustride: TGLint; uorder: TGLint;
   v1: TGLdouble; v2: TGLdouble; vstride: TGLint; vorder: TGLint; w1: TGLdouble;
-  w2: TGLdouble; wstride: TGLint; worder: TGLint; points: PGLdouble); cdecl; external glLib;
+  w2: TGLdouble; wstride: TGLint; worder: TGLint; points: PGLdouble); stdcall; external glLib;
 procedure glDeformationMap3fSGIX(target: TGLenum; u1: TGLfloat; u2: TGLfloat; ustride: TGLint; uorder: TGLint;
   v1: TGLfloat; v2: TGLfloat; vstride: TGLint; vorder: TGLint; w1: TGLfloat;
-  w2: TGLfloat; wstride: TGLint; worder: TGLint; points: PGLfloat); cdecl; external glLib;
-procedure glDeformSGIX(mask: TGLbitfield); cdecl; external glLib;
-procedure glLoadIdentityDeformationMapSGIX(mask: TGLbitfield); cdecl; external glLib;
+  w2: TGLfloat; wstride: TGLint; worder: TGLint; points: PGLfloat); stdcall; external glLib;
+procedure glDeformSGIX(mask: TGLbitfield); stdcall; external glLib;
+procedure glLoadIdentityDeformationMapSGIX(mask: TGLbitfield); stdcall; external glLib;
 
 const
   GL_SGIX_reference_plane = 1;
   GL_REFERENCE_PLANE_SGIX = $817D;
   GL_REFERENCE_PLANE_EQUATION_SGIX = $817E;
 
-procedure glReferencePlaneSGIX(equation: PGLdouble); cdecl; external glLib;
+procedure glReferencePlaneSGIX(equation: PGLdouble); stdcall; external glLib;
 
 const
   GL_SGIX_resample = 1;
@@ -8880,10 +8880,10 @@ const
   GL_SPRITE_OBJECT_ALIGNED_SGIX = $814D;
   GL_SPRITE_EYE_ALIGNED_SGIX = $814E;
 
-procedure glSpriteParameterfSGIX(pname: TGLenum; param: TGLfloat); cdecl; external glLib;
-procedure glSpriteParameterfvSGIX(pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glSpriteParameteriSGIX(pname: TGLenum; param: TGLint); cdecl; external glLib;
-procedure glSpriteParameterivSGIX(pname: TGLenum; params: PGLint); cdecl; external glLib;
+procedure glSpriteParameterfSGIX(pname: TGLenum; param: TGLfloat); stdcall; external glLib;
+procedure glSpriteParameterfvSGIX(pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glSpriteParameteriSGIX(pname: TGLenum; param: TGLint); stdcall; external glLib;
+procedure glSpriteParameterivSGIX(pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_SGIX_subsample = 1;
@@ -8894,7 +8894,7 @@ const
   GL_PIXEL_SUBSAMPLE_4242_SGIX = $85A4;
   GL_SGIX_tag_sample_buffer = 1;
 
-procedure glTagSampleBufferSGIX; cdecl; external glLib;
+procedure glTagSampleBufferSGIX; stdcall; external glLib;
 
 const
   GL_SGIX_texture_add_env = 1;
@@ -8955,13 +8955,13 @@ const
   GL_COLOR_TABLE_INTENSITY_SIZE_SGI = $80DF;
 
 procedure glColorTableSGI(target: TGLenum; internalformat: TGLenum; Width: TGLsizei; format: TGLenum; _type: TGLenum;
-  table: pointer); cdecl; external glLib;
-procedure glColorTableParameterfvSGI(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glColorTableParameterivSGI(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
-procedure glCopyColorTableSGI(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); cdecl; external glLib;
-procedure glGetColorTableSGI(target: TGLenum; format: TGLenum; _type: TGLenum; table: pointer); cdecl; external glLib;
-procedure glGetColorTableParameterfvSGI(target: TGLenum; pname: TGLenum; params: PGLfloat); cdecl; external glLib;
-procedure glGetColorTableParameterivSGI(target: TGLenum; pname: TGLenum; params: PGLint); cdecl; external glLib;
+  table: pointer); stdcall; external glLib;
+procedure glColorTableParameterfvSGI(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glColorTableParameterivSGI(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
+procedure glCopyColorTableSGI(target: TGLenum; internalformat: TGLenum; x: TGLint; y: TGLint; Width: TGLsizei); stdcall; external glLib;
+procedure glGetColorTableSGI(target: TGLenum; format: TGLenum; _type: TGLenum; table: pointer); stdcall; external glLib;
+procedure glGetColorTableParameterfvSGI(target: TGLenum; pname: TGLenum; params: PGLfloat); stdcall; external glLib;
+procedure glGetColorTableParameterivSGI(target: TGLenum; pname: TGLenum; params: PGLint); stdcall; external glLib;
 
 const
   GL_SGI_texture_color_table = 1;
@@ -8971,7 +8971,7 @@ const
   GL_UNPACK_CONSTANT_DATA_SUNX = $81D5;
   GL_TEXTURE_CONSTANT_DATA_SUNX = $81D6;
 
-procedure glFinishTextureSUNX; cdecl; external glLib;
+procedure glFinishTextureSUNX; stdcall; external glLib;
 
 const
   GL_SUN_convolution_border_modes = 1;
@@ -8980,21 +8980,21 @@ const
   GL_GLOBAL_ALPHA_SUN = $81D9;
   GL_GLOBAL_ALPHA_FACTOR_SUN = $81DA;
 
-procedure glGlobalAlphaFactorbSUN(factor: TGLbyte); cdecl; external glLib;
-procedure glGlobalAlphaFactorsSUN(factor: TGLshort); cdecl; external glLib;
-procedure glGlobalAlphaFactoriSUN(factor: TGLint); cdecl; external glLib;
-procedure glGlobalAlphaFactorfSUN(factor: TGLfloat); cdecl; external glLib;
-procedure glGlobalAlphaFactordSUN(factor: TGLdouble); cdecl; external glLib;
-procedure glGlobalAlphaFactorubSUN(factor: TGLubyte); cdecl; external glLib;
-procedure glGlobalAlphaFactorusSUN(factor: TGLushort); cdecl; external glLib;
-procedure glGlobalAlphaFactoruiSUN(factor: TGLuint); cdecl; external glLib;
+procedure glGlobalAlphaFactorbSUN(factor: TGLbyte); stdcall; external glLib;
+procedure glGlobalAlphaFactorsSUN(factor: TGLshort); stdcall; external glLib;
+procedure glGlobalAlphaFactoriSUN(factor: TGLint); stdcall; external glLib;
+procedure glGlobalAlphaFactorfSUN(factor: TGLfloat); stdcall; external glLib;
+procedure glGlobalAlphaFactordSUN(factor: TGLdouble); stdcall; external glLib;
+procedure glGlobalAlphaFactorubSUN(factor: TGLubyte); stdcall; external glLib;
+procedure glGlobalAlphaFactorusSUN(factor: TGLushort); stdcall; external glLib;
+procedure glGlobalAlphaFactoruiSUN(factor: TGLuint); stdcall; external glLib;
 
 const
   GL_SUN_mesh_array = 1;
   GL_QUAD_MESH_SUN = $8614;
   GL_TRIANGLE_MESH_SUN = $8615;
 
-procedure glDrawMeshArraysSUN(mode: TGLenum; First: TGLint; Count: TGLsizei; Width: TGLsizei); cdecl; external glLib;
+procedure glDrawMeshArraysSUN(mode: TGLenum; First: TGLint; Count: TGLsizei; Width: TGLsizei); stdcall; external glLib;
 
 const
   GL_SUN_slice_accum = 1;
@@ -9018,79 +9018,79 @@ const
   GL_R1UI_T2F_N3F_V3F_SUN = $85CA;
   GL_R1UI_T2F_C4F_N3F_V3F_SUN = $85CB;
 
-procedure glReplacementCodeuiSUN(code: TGLuint); cdecl; external glLib;
-procedure glReplacementCodeusSUN(code: TGLushort); cdecl; external glLib;
-procedure glReplacementCodeubSUN(code: TGLubyte); cdecl; external glLib;
-procedure glReplacementCodeuivSUN(code: PGLuint); cdecl; external glLib;
-procedure glReplacementCodeusvSUN(code: PGLushort); cdecl; external glLib;
-procedure glReplacementCodeubvSUN(code: PGLubyte); cdecl; external glLib;
-procedure glReplacementCodePointerSUN(_type: TGLenum; stride: TGLsizei; pointer: Ppointer); cdecl; external glLib;
+procedure glReplacementCodeuiSUN(code: TGLuint); stdcall; external glLib;
+procedure glReplacementCodeusSUN(code: TGLushort); stdcall; external glLib;
+procedure glReplacementCodeubSUN(code: TGLubyte); stdcall; external glLib;
+procedure glReplacementCodeuivSUN(code: PGLuint); stdcall; external glLib;
+procedure glReplacementCodeusvSUN(code: PGLushort); stdcall; external glLib;
+procedure glReplacementCodeubvSUN(code: PGLubyte); stdcall; external glLib;
+procedure glReplacementCodePointerSUN(_type: TGLenum; stride: TGLsizei; pointer: Ppointer); stdcall; external glLib;
 
 const
   GL_SUN_vertex = 1;
 
 procedure glColor4ubVertex2fSUN(r: TGLubyte; g: TGLubyte; b: TGLubyte; a: TGLubyte; x: TGLfloat;
-  y: TGLfloat); cdecl; external glLib;
-procedure glColor4ubVertex2fvSUN(c: PGLubyte; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat); stdcall; external glLib;
+procedure glColor4ubVertex2fvSUN(c: PGLubyte; v: PGLfloat); stdcall; external glLib;
 procedure glColor4ubVertex3fSUN(r: TGLubyte; g: TGLubyte; b: TGLubyte; a: TGLubyte; x: TGLfloat;
-  y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glColor4ubVertex3fvSUN(c: PGLubyte; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glColor4ubVertex3fvSUN(c: PGLubyte; v: PGLfloat); stdcall; external glLib;
 procedure glColor3fVertex3fSUN(r: TGLfloat; g: TGLfloat; b: TGLfloat; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat); cdecl; external glLib;
-procedure glColor3fVertex3fvSUN(c: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  z: TGLfloat); stdcall; external glLib;
+procedure glColor3fVertex3fvSUN(c: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glNormal3fVertex3fSUN(nx: TGLfloat; ny: TGLfloat; nz: TGLfloat; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat); cdecl; external glLib;
-procedure glNormal3fVertex3fvSUN(n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  z: TGLfloat); stdcall; external glLib;
+procedure glNormal3fVertex3fvSUN(n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glColor4fNormal3fVertex3fSUN(r: TGLfloat; g: TGLfloat; b: TGLfloat; a: TGLfloat; nx: TGLfloat;
-  ny: TGLfloat; nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glColor4fNormal3fVertex3fvSUN(c: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
-procedure glTexCoord2fVertex3fSUN(s: TGLfloat; t: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glTexCoord2fVertex3fvSUN(tc: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  ny: TGLfloat; nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glColor4fNormal3fVertex3fvSUN(c: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
+procedure glTexCoord2fVertex3fSUN(s: TGLfloat; t: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glTexCoord2fVertex3fvSUN(tc: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord4fVertex4fSUN(s: TGLfloat; t: TGLfloat; p: TGLfloat; q: TGLfloat; x: TGLfloat;
-  y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glTexCoord4fVertex4fvSUN(tc: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glTexCoord4fVertex4fvSUN(tc: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord2fColor4ubVertex3fSUN(s: TGLfloat; t: TGLfloat; r: TGLubyte; g: TGLubyte; b: TGLubyte;
-  a: TGLubyte; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glTexCoord2fColor4ubVertex3fvSUN(tc: PGLfloat; c: PGLubyte; v: PGLfloat); cdecl; external glLib;
+  a: TGLubyte; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glTexCoord2fColor4ubVertex3fvSUN(tc: PGLfloat; c: PGLubyte; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord2fColor3fVertex3fSUN(s: TGLfloat; t: TGLfloat; r: TGLfloat; g: TGLfloat; b: TGLfloat;
-  x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glTexCoord2fColor3fVertex3fvSUN(tc: PGLfloat; c: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glTexCoord2fColor3fVertex3fvSUN(tc: PGLfloat; c: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord2fNormal3fVertex3fSUN(s: TGLfloat; t: TGLfloat; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat;
-  x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glTexCoord2fNormal3fVertex3fvSUN(tc: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glTexCoord2fNormal3fVertex3fvSUN(tc: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord2fColor4fNormal3fVertex3fSUN(s: TGLfloat; t: TGLfloat; r: TGLfloat; g: TGLfloat; b: TGLfloat;
   a: TGLfloat; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat; x: TGLfloat;
-  y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glTexCoord2fColor4fNormal3fVertex3fvSUN(tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glTexCoord2fColor4fNormal3fVertex3fvSUN(tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glTexCoord4fColor4fNormal3fVertex4fSUN(s: TGLfloat; t: TGLfloat; p: TGLfloat; q: TGLfloat; r: TGLfloat;
   g: TGLfloat; b: TGLfloat; a: TGLfloat; nx: TGLfloat; ny: TGLfloat;
-  nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); cdecl; external glLib;
-procedure glTexCoord4fColor4fNormal3fVertex4fvSUN(tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiVertex3fSUN(rc: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiVertex3fvSUN(rc: PGLuint; v: PGLfloat); cdecl; external glLib;
+  nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat; w: TGLfloat); stdcall; external glLib;
+procedure glTexCoord4fColor4fNormal3fVertex4fvSUN(tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiVertex3fSUN(rc: TGLuint; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiVertex3fvSUN(rc: PGLuint; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiColor4ubVertex3fSUN(rc: TGLuint; r: TGLubyte; g: TGLubyte; b: TGLubyte; a: TGLubyte;
-  x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiColor4ubVertex3fvSUN(rc: PGLuint; c: PGLubyte; v: PGLfloat); cdecl; external glLib;
+  x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiColor4ubVertex3fvSUN(rc: PGLuint; c: PGLubyte; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiColor3fVertex3fSUN(rc: TGLuint; r: TGLfloat; g: TGLfloat; b: TGLfloat; x: TGLfloat;
-  y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiColor3fVertex3fvSUN(rc: PGLuint; c: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiColor3fVertex3fvSUN(rc: PGLuint; c: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiNormal3fVertex3fSUN(rc: TGLuint; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat; x: TGLfloat;
-  y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiNormal3fVertex3fvSUN(rc: PGLuint; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiNormal3fVertex3fvSUN(rc: PGLuint; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiColor4fNormal3fVertex3fSUN(rc: TGLuint; r: TGLfloat; g: TGLfloat; b: TGLfloat; a: TGLfloat;
   nx: TGLfloat; ny: TGLfloat; nz: TGLfloat; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc: PGLuint; c: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc: PGLuint; c: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiTexCoord2fVertex3fSUN(rc: TGLuint; s: TGLfloat; t: TGLfloat; x: TGLfloat; y: TGLfloat;
-  z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiTexCoord2fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiTexCoord2fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(rc: TGLuint; s: TGLfloat; t: TGLfloat; nx: TGLfloat; ny: TGLfloat;
-  nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  nz: TGLfloat; x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 procedure glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc: TGLuint; s: TGLfloat; t: TGLfloat; r: TGLfloat; g: TGLfloat;
   b: TGLfloat; a: TGLfloat; nx: TGLfloat; ny: TGLfloat; nz: TGLfloat;
-  x: TGLfloat; y: TGLfloat; z: TGLfloat); cdecl; external glLib;
-procedure glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); cdecl; external glLib;
+  x: TGLfloat; y: TGLfloat; z: TGLfloat); stdcall; external glLib;
+procedure glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc: PGLuint; tc: PGLfloat; c: PGLfloat; n: PGLfloat; v: PGLfloat); stdcall; external glLib;
 
 const
   GL_WIN_phong_shading = 1;

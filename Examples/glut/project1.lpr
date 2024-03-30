@@ -2,8 +2,8 @@ program project1;
 
 // https://www.glfw.org/docs/3.3/quick.html
 
-{$MACRO ON}
-{$DEFINE extdecl := stdcall}
+//{$MACRO ON}
+//{$DEFINE extdecl := stdcall}
 
 
 uses
@@ -18,7 +18,8 @@ uses
 
   SysUtils;
 
-//  procedure glClearColor(red: single; green: single; blue: single; alpha: single); extdecl; external 'opengl32.dll';
+//  procedure glClearColor(red: single; green: single; blue: single; alpha: single); cdecl; external 'opengl32.dll';
+//  procedure glClearColor(red: single; green: single; blue: single; alpha: single);  external 'GL';
 //  procedure glClear(mask: DWord); extdecl; external 'opengl32.dll';
 
 

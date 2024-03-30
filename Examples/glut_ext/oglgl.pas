@@ -11,7 +11,8 @@ const
 
 {$IFDEF WINDOWS}
 const
-  glLib='opengl32.dll';
+//  glLib='opengl32.dll';
+  glLib='OpenGL32.dll';
 //  {$LinkLib 'opengl32.dll'}
 {$ENDIF}
 
