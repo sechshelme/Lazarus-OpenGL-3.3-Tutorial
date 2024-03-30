@@ -151,7 +151,7 @@ const
 
 begin
 //  WriteLn('OpenGL Demo');
-  exit;
+
   main;
   WriteLn('io');
 end.
