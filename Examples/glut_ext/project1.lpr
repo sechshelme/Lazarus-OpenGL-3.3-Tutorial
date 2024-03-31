@@ -8,7 +8,7 @@ program project1;
 
 uses
    dglOpenGL,
-  freeglut_std,
+  freeglut_std,      freeglut_ext,
     oglGL,   oglGLext,
 //    gl,  glext,
     glut,
@@ -164,22 +164,10 @@ var          Shader: TShader;
         Shader.LoadShaderObject(GL_FRAGMENT_SHADER, fragment_shader_text);
         Shader.LinkProgram;
         Shader.UseProgram;
-    //
-    //    while glfwWindowShouldClose(window) = 0 do begin
-
-    //    end;
-    //
-    //    glDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    //    glDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
-    //
-    //    glfwDestroyWindow(window);
-    //    glfwTerminate;
 
     glutMainLoop(); // Run the event loop!  This function does not return.
     // Program ends when user closes the window.
     WriteLn('ende');
-
-
   end;
 
 begin
