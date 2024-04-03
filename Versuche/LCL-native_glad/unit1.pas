@@ -185,10 +185,9 @@ begin
   OpenGLControl1.OpenGLMajorVersion := 3;
   OpenGLControl1.OpenGLMinorVersion := 3;
   OpenGLControl1.Align := alClient;
-  OpenGLControl1.MakeCurrent;
   OpenGLControl1.OnPaint := @ogcDrawScene;
 
-//  ShowMessage('shader 0');
+  OpenGLControl1.MakeCurrent;
   Load_GLADE;
 //  Test_Show;
 

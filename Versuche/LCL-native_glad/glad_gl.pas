@@ -3238,15 +3238,17 @@ function wglGetProcAddress(proc: pansichar): Pointer; cdecl external 'OpenGL32.d
 
 function LoadProc(proc: pansichar): TLoadProc;
 begin
-  WriteLn('');
   Result := GetProcAddress(LibGL, proc);
   {$IFDEF Windows}
+  {$push}
+  {$i-}
+//  WriteLn('');
+  {$pop}
   if @Result = nil then  begin
     Result := wglGetProcAddress(proc);
   end;
   {$ENDIF}
 end;
-
 
 procedure Load_GLADE;
 begin
