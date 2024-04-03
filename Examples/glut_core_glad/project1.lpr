@@ -1,8 +1,9 @@
 program project1;
 
 uses
-  gl,
-  glext,
+  glad_gl,
+//  gl,
+//  glext,
   glut,
   oglShader;
 
@@ -39,8 +40,8 @@ const
 
 type
   TVB = record
-    VAOs: array [(vaMesh)] of TGLuint;
-    Mesh_Buffers: array [(mbVBOVektor)] of TGLuint;
+    VAOs: array [(vaMesh)] of GLuint;
+    Mesh_Buffers: array [(mbVBOVektor)] of GLuint;
   end;
 
 var
@@ -77,7 +78,8 @@ var
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(100, 100);
     glutCreateWindow('GL RGB Triangle');
-    Load_GL_VERSION_3_3();
+    Load_GLADE;
+//    Load_GL_VERSION_3_3();
     glutDisplayFunc(@display);
     glutKeyboardFunc(@key_press);
 

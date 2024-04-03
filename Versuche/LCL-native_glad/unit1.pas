@@ -47,7 +47,7 @@ In diesem Beispiel wird ein sehr einfacher Shader verwendet. Dieser macht nichts
 //lineal
 
 type
-  TVertex3f = array[0..2] of GLfloat;
+  TVertex3f = array[0..2] of TGLfloat;
   TFace = array[0..2] of TVertex3f;
 
 const
@@ -60,7 +60,7 @@ const
 type
   TVB = record
     VAO,
-    VBO: GLuint;
+    VBO: TGLuint;
   end;
 
 var
@@ -71,7 +71,7 @@ Die ID, welche auf den Shader zeigt.
 *)
   //code+
 var
-  ProgramID: GLuint;
+  ProgramID: TGLuint;
   //code-
 
 (*
@@ -81,7 +81,7 @@ Natürlich kann man diese auch direkt als String-Konstante im Quellcode deklarie
 *)
 
 //code+
-function Initshader(VertexDatei, FragmentDatei: string): GLuint;
+function Initshader(VertexDatei, FragmentDatei: string): TGLuint;
 var
   sl: TStringList;
   s: string;
@@ -177,9 +177,6 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Width := 340;
   Height := 240;
-
-  //  ShowMessage(PtrUInt(glGenVertexArrays).ToString);
-
 
   OpenGLControl1.AutoResizeViewport := True;
   OpenGLControl1.OpenGLMajorVersion := 3;

@@ -29,6 +29,44 @@ uses
 
 procedure Load_GLADE;
 
+type
+  TGLVULKANPROCNV = pointer;
+  TGLbitfield = uint32;
+  TGLboolean = byte;
+  TGLbyte = int8;
+  TGLchar = char;
+  TGLcharARB = byte;
+  TGLclampd = double;
+  TGLclampf = single;
+  TGLclampx = int32;
+  TGLdouble = double;
+  TGLeglClientBufferEXT = pointer;
+  TGLeglImageOES = pointer;
+  TGLenum = uint32;
+  TGLfixed = int32;
+  TGLfloat = single;
+  TGLhalf = uint16;
+  TGLhalfARB = uint16;
+  TGLhalfNV = uint16;
+  TGLhandleARB = uint32;
+  TGLint = int32;
+  TGLint64 = int64;
+  TGLint64EXT = int64;
+  TGLintptr = int32;
+  TGLintptrARB = int32;
+  TGLshort = int16;
+  TGLsizei = int32;
+  TGLsizeiptr = int32;
+  TGLsizeiptrARB = int32;
+  TGLsync = pointer;
+  TGLubyte = uint8;
+  TGLuint = uint32;
+  TGLuint64 = uint64;
+  TGLuint64EXT = uint64;
+  TGLushort = uint16;
+  TGLvdpauSurfaceNV = int32;
+  TGLvoid = pointer;
+
 
 var
   glVersionMajor, glVersionMinor: integer;
@@ -3237,12 +3275,17 @@ function wglGetProcAddress(proc: pansichar): Pointer; cdecl external 'OpenGL32.d
 {$ENDIF}
 
 function LoadProc(proc: pansichar): TLoadProc;
+const
+  first: Boolean = True;
 begin
   Result := GetProcAddress(LibGL, proc);
   {$IFDEF Windows}
   {$push}
   {$i-}
-//  WriteLn('');
+  if first  then begin
+    WriteLn('');
+    first := False;
+  end;
   {$pop}
   if @Result = nil then  begin
     Result := wglGetProcAddress(proc);
