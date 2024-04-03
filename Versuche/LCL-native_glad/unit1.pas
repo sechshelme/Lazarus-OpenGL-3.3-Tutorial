@@ -158,6 +158,20 @@ end;
 
 { TForm1 }
 
+procedure Test_Show;
+var
+  p1, p2: Pointer;
+  s:String;
+begin
+    p1 := GetProcAddress(LibGL, 'glClear');
+  p2 := GetProcAddress(LibGL, 'glBindBuffer');
+  WriteStr(s, 'GetProcAddress:'#10'glClear: ', PtrUInt(p1), '       glBindBuffer: ', PtrUInt(p2));
+
+  p1 := wglGetProcAddress('glClear');
+  p2 := wglGetProcAddress('glBindBuffer');
+  WriteStr(s, s, #10#10'wglGetProcAddress:'#10'glClear: ', PtrUInt(p1), '       glBindBuffer: ', PtrUInt(p2));
+  ShowMessage(s);
+end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -176,6 +190,9 @@ begin
 
 //  ShowMessage('shader 0');
   Load_GLADE;
+//  Test_Show;
+
+
 
 
     //Load_GL_version_4_3_CORE();

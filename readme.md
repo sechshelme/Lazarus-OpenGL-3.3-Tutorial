@@ -54,6 +54,10 @@ https://ogldev.org/index.html
 https://docs.gl
 https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 
+## Header Generator
+[glad](https://glad.dav1d.de/)
+[glad2](https://gen.glad.sh//) (Kein Pascal)
+
 
 ## Schlagwörter: 
 Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
