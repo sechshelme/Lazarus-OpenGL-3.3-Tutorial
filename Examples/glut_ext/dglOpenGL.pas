@@ -13,7 +13,7 @@
        All Rights Reserved
 
        Obtained through:
-       Bitbucket source repository - https://bitbucket.org/saschawillems/dglopengl
+       Bitbucket source repository - https://bitbucket.org/saschawillems/oglglad_gl
        Delphi OpenGL Community(DGL) - www.delphigl.com
 
        Converted and maintained by DGL's OpenGL-Portteam :
@@ -63,7 +63,7 @@
      > Read_GL_ARB_multitexture;
 
   2. You are able to load only the functions you exactly need. In this case you are able
-     to use the variables of the dglOpenGL.pas. So you only need to load the functions
+     to use the variables of the oglglad_gl.pas. So you only need to load the functions
      and you can use the header like before.
      To do this you have to created and activated an opengl context and than you can load
      the needed functions.
@@ -76,13 +76,13 @@
 
   Please notice that the extension variables won't be loaded if this define is active. But
   you can call dglCheckExtension to check if any extension exists. You can assign them to
-  the variables of the dglOpenGL.pas so all code they use this will find them.
+  the variables of the oglglad_gl.pas so all code they use this will find them.
 
   > GL_ARB_shading_language_100 := dglCheckExtension('GL_ARB_shading_language_100');
 }
 
 
-unit dglOpenGL;
+unit oglglad_gl;
 
 interface
 

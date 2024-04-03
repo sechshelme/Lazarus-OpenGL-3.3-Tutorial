@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader;
 
 //image image.png
@@ -134,11 +134,11 @@ begin
 
   // Vektor
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 24, nil);  // nil = Pointer(0)
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 24, nil);  // nil = Pointer(0)
 
   // Farbe
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 24, Pointer(12));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 24, Pointer(12));
 
   // --- Daten für Quadrat 1
   glBindVertexArray(VBQuad1.VAO);
@@ -147,11 +147,11 @@ begin
 
   // Vektor
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 12, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 12, nil);
 
   // Farbe
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 12, Pointer(72));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 12, Pointer(72));
 end;
 //code-
 

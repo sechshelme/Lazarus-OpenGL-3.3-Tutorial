@@ -7,7 +7,7 @@ interface
 uses
   Classes, Graphics, SysUtils, Controls, Dialogs, Forms,
   OpenGLContext,
-  dglOpenGL,
+  oglglad_gl,
   oglVector, oglMatrix, oglTextur,
   oglCamera, oglVAO, oglSteuerung;
 
@@ -191,10 +191,12 @@ begin
     OnMouseWheel := @MyMouseWheel;
     OnMouseMove := @MyMouseMove;
 
-    InitOpenGL;
+
+//    InitOpenGL;
     MakeCurrent;
-    ReadExtensions;
-    ReadImplementationProperties;
+    Load_GLADE;
+//    ReadExtensions;
+//    ReadImplementationProperties;
   end;
 
   TCameraSteuerung.Camera := Camera;
@@ -220,10 +222,10 @@ end;
 function TOpenGL.GetVersion: string;
 begin
   Result :=
-    'GL_VENDOR: ' + glGetString(GL_VENDOR) + #13#10#13#10 +
-    'GL_RENDERER: ' + glGetString(GL_RENDERER) + #13#10#13#10 +
-    'GL_VERSION: ' + glGetString(GL_VERSION) + #13#10#13#10 +
-    'GL_SHADING_LANGUAGE_VERSION: ' + glGetString(GL_SHADING_LANGUAGE_VERSION) + #13#10#13#10;
+    'GL_VENDOR: ' +PChar( glGetString(GL_VENDOR)) + #13#10#13#10 +
+    'GL_RENDERER: ' +PChar( glGetString(GL_RENDERER)) + #13#10#13#10 +
+    'GL_VERSION: ' + PChar(glGetString(GL_VERSION)) + #13#10#13#10 +
+    'GL_SHADING_LANGUAGE_VERSION: ' +PChar( glGetString(GL_SHADING_LANGUAGE_VERSION)) + #13#10#13#10;
   //    'GL_EXTENSIONS: ' + glGetString(GL_EXTENSIONS);
 end;
 

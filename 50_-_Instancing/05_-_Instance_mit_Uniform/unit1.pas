@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglVector, oglMatrix,
+  oglglad_gl, oglVector, oglMatrix,
   oglContext, oglShader;
 
 type
@@ -140,7 +140,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 (*
@@ -158,7 +158,7 @@ begin
   glBindVertexArray(VBQuad.VAO);
 
   glUniform1fv(Size_ID, InstanceCount, @Data.Size);
-  glUniformMatrix4fv(Matrix_ID, InstanceCount, False, @Data.Matrix);
+  glUniformMatrix4fv(Matrix_ID, InstanceCount, GL_FALSE, @Data.Matrix);
   glUniform3fv(Color_ID, InstanceCount, @Data.Color);
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(Quad) * 3, InstanceCount);
 

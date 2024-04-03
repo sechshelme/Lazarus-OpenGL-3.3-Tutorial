@@ -9,7 +9,7 @@ uses
   Dialogs, ExtCtrls,
     oglgl,oglglext;
 //  gl,glext;
-//  dglOpenGL;
+//  oglglad_gl;
 
 type
 

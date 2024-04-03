@@ -8,7 +8,7 @@ unit oglVectors;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL, oglvector;
+  Classes, SysUtils, oglglad_gl, oglvector;
 
 
 type

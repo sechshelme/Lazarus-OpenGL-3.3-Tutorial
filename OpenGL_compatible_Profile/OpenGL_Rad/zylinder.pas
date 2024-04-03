@@ -5,7 +5,7 @@ unit Zylinder;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL;
+  Classes, SysUtils, oglglad_gl;
 
 type
 

@@ -11,7 +11,7 @@ uses
   SysUtils,
   Buttons,
   OpenGLContext,
-  dglOpenGL,
+  oglglad_gl,
   oglUnit,
  oglVector, oglMatrix,
   oglVAO, oglKoerper,

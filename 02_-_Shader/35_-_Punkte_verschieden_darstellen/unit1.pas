@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
 oglVector,oglMatrix,  oglContext, oglShader;
 
 type
@@ -130,11 +130,11 @@ begin
 
   // Daten für Punkt Position
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, SizeOf(TPoint), nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, SizeOf(TPoint), nil);
 
   // Daten für Punkt Grösse
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, SizeOf(TPoint), Pointer(8));
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, SizeOf(TPoint), Pointer(8));
 end;
 
 //code-

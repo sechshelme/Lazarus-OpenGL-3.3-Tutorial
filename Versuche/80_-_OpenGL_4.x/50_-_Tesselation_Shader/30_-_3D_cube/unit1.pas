@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
   //image image.png
@@ -200,13 +200,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat4x3) * Length(CubeVertex), Pmat4x3(CubeVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Texturkoordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex_Col);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Tmat4x2) * Length(CubeTextureVertex), Pmat4x2(CubeTextureVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

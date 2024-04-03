@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader;
 
   //image image.png
@@ -110,12 +110,12 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVertex), @TriangleVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.Color);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleColor), @TriangleColor, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -123,12 +123,12 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Color);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

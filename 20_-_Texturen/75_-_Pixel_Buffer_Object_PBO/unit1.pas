@@ -14,7 +14,7 @@ Pixel Buffer Object (PBO)
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglDebug,
+  oglglad_gl, oglDebug,
   oglContext, oglShader, oglVector, oglMatrix;
 
 const
@@ -123,12 +123,12 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureVertex), @TextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // === Texture 0
   glGenBuffers(1, @VBQuad.PBO0);

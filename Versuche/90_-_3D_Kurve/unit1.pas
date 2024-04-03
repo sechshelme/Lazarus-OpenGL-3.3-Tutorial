@@ -8,7 +8,7 @@ uses
   Math,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
   //image image.png
@@ -197,7 +197,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
   glBufferData(GL_ARRAY_BUFFER, RectangleVertex.Size, RectangleVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
 end;
 

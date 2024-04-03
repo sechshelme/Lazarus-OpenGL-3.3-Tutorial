@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglVector, oglMatrix, oglContext, oglShader, oglLightingShader;
 
 type
@@ -167,32 +167,32 @@ begin
 
   // Daten für Punkt Position
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
   Inc(ofs, SizeOf(TPoint.vec));
 
   // Daten für Punkt Grösse
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
   Inc(ofs, SizeOf(TPoint.PointSize));
 
   // Daten für ambient
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
   Inc(ofs, SizeOf(TPoint.Mambient));
 
   // Daten für diffuse
   glEnableVertexAttribArray(3);
-  glVertexAttribPointer(3, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
   Inc(ofs, SizeOf(TPoint.Mdiffuse));
 
   // Daten für specular
   glEnableVertexAttribArray(4);
-  glVertexAttribPointer(4, 3, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
   Inc(ofs, SizeOf(TPoint.Mspecular));
 
   // Daten für shininess
   glEnableVertexAttribArray(5);
-  glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TPoint), ofs);
+  glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, SizeOf(TPoint), ofs);
 
   Timer1.Enabled := True;
 end;

@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix;
 
 type
@@ -112,7 +112,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBOVektor);
   glBufferData(GL_ARRAY_BUFFER, QuadVertex.Size, QuadVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

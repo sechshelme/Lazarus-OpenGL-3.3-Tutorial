@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils,
-  dglOpenGL,
-  oglShader, oglMatrix, oglVBO, oglVAO;
+  oglglad_gl,
+  oglShader,oglVector, oglMatrix, oglVBO, oglVAO;
 
 type
 

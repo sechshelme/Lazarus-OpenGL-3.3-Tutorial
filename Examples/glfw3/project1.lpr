@@ -3,8 +3,8 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
-  GL,
-  GLext,
+//  oglglad_gl,
+  GL,  GLext,
   glfw3,
   oglShader;
 
@@ -86,6 +86,8 @@ const
     glfwSetKeyCallback(window, @key_callback);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+
+//    Load_GLADE;
 
     Load_GL_VERSION_3_3();
 

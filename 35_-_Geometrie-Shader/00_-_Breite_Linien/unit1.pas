@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
 type
@@ -156,17 +156,17 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Linies) * SizeOf(TVector2f), Pointer(Linies), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBO.Prev);
   glBufferData(GL_ARRAY_BUFFER, Length(Linies) * SizeOf(TVector2f), Pointer(Linies_Prev), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBO.Next);
   glBufferData(GL_ARRAY_BUFFER, Length(Linies) * SizeOf(TVector2f), Pointer(Linies_Next), GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 //code-

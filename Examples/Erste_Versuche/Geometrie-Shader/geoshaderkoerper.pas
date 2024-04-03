@@ -5,7 +5,7 @@ unit Geoshaderkoerper;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL, oglShader, oglVector, oglMatrix, oglVBO, oglTextur, oglVAO;
+  Classes, SysUtils, oglglad_gl, oglShader, oglVector, oglMatrix, oglVBO, oglTextur, oglVAO;
 
 type  { TGeoShaderKoerper }
 

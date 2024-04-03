@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, Menus, OpenGLContext, dglOpenGL;
+  ExtCtrls, Menus, OpenGLContext, oglglad_gl;
 
 type
 

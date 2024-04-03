@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, StdCtrls, ComCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix;
 
 type
@@ -213,13 +213,13 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVertex), @QuadVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Farben
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOTex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(QuadColor), @QuadColor, GL_STATIC_DRAW);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
   end;
 
   // --- Würfel
@@ -230,13 +230,13 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOVertex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertex), @CubeVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Texturkoordinaten
     glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOTex);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CubeTextureVertex), @CubeTextureVertex, GL_STATIC_DRAW);
     glEnableVertexAttribArray(10);
-    glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
   end;
   //code-
 (*

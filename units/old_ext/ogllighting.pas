@@ -7,7 +7,7 @@ interface
 uses
   LCL, LCLType, SysUtils, Controls,
   Forms, StdCtrls, ExtCtrls, Buttons,
-  dglOpenGL,
+  oglglad_gl,
   oglVector, oglMatrix, oglVAO;
 
 type

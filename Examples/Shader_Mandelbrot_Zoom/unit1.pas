@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglContext, oglShader, oglMatrix;
+  oglglad_gl, oglContext, oglShader, oglMatrix;
 
 type
   TForm1 = class(TForm)

@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs,
   OpenGLContext,
-  dglOpenGL;
+  oglglad_gl;
 
 //image image.png
 

@@ -6,7 +6,7 @@ unit CubeJoints;
 interface
 
 uses
-  dglOpenGL, oglVectors;
+  oglglad_gl, oglVectors;
 
 type
 

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglVector, oglMatrix,
   oglContext, oglShader;
 
@@ -123,14 +123,14 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.Pos);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glVertexAttribDivisor(0, 0);
 
   // Instance Color
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBO.iColor);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Instance_Color), @Instance_Color, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glVertexAttribDivisor(1, 4); // Wert 4x verwenden.
 
   // Instance Matrix
@@ -138,7 +138,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, SizeOf(TMatrix) * Length(Instance_Matrix), nil, GL_STATIC_DRAW);
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TMatrix), Pointer(i * 16));
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, GL_FALSE, SizeOf(TMatrix), Pointer(i * 16));
     glVertexAttribDivisor(i + 2, 1); // Wert 1x verwenden.
   end;
 end;

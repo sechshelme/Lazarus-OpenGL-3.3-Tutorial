@@ -5,7 +5,7 @@ unit oglColorKoerper;
 interface
 
 uses
-  Dialogs, oglVAO, oglMatrix, dglOpenGL, oglShader,oglLightingShader, oglVBO;
+  Dialogs, oglVAO, oglMatrix, oglglad_gl, oglShader,oglLightingShader, oglVBO;
 
 type
 

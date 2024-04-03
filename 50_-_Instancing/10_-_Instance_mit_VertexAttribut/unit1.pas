@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglVector, oglMatrix,
+  oglglad_gl, oglVector, oglMatrix,
   oglContext, oglShader;
 
 type
@@ -137,7 +137,7 @@ Dabei werden auch 4 Attribut-Indexe gebraucht.
 Eine <b>glVertexAttribPointer(2, 16,...</b> geht leider nicht. Im Shader kann man es direkt als Matrix deklarieren.
 So was geht leider nicht:
 //code+
-  glVertexAttribPointer(2, 16, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(2, 16, GL_FLOAT, GL_FALSE, 0, nil);
 //code-
 Mit <b>glVertexAttribDivisor(...</b> teilt man mit das es sich um ein Instance-Attribut handelt.
 Der erste Parameter bestimmt, um welches Vertex-Attribut es sich handelt.
@@ -159,14 +159,14 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- Instancen
   // Instance Size
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Size);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Scale), @Data.Scale, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, nil);
   glVertexAttribDivisor(1, 1);
 
   // Instance Matrix
@@ -174,7 +174,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Matrix), nil, GL_STATIC_DRAW); // Nur Speicher reservieren
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TMatrix), Pointer(i * 16));
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, GL_FALSE, SizeOf(TMatrix), Pointer(i * 16));
     glVertexAttribDivisor(i + 2, 1);
   end;
 
@@ -182,7 +182,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.I_Color);
   glBufferData(GL_ARRAY_BUFFER, SizeOf(Data.Color), @Data.Color, GL_STATIC_DRAW);
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, 0, nil);
   glVertexAttribDivisor(6, 1);
 end;
 

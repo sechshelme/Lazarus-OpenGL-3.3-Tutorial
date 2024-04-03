@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix;
 
 
@@ -154,13 +154,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBAmeise.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(AmeiseVertex), @AmeiseVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // TexturVertex
   glBindBuffer(GL_ARRAY_BUFFER, VBAmeise.VBO.Tex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(AmeiseTextureVertex), @AmeiseTextureVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
 
   // --- Instance
@@ -170,19 +170,19 @@ begin
 
   // Layer
   glEnableVertexAttribArray(5);
-  glVertexAttribPointer(5, 1, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
+  glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, SizeOf(TInstance), Pointer(ofs));
   glVertexAttribDivisor(5, 1);
   Inc(ofs, SizeOf(GLfloat));
 
   // Angele
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 1, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
+  glVertexAttribPointer(6, 1, GL_FLOAT, GL_FALSE, SizeOf(TInstance), Pointer(ofs));
   glVertexAttribDivisor(6, 1);
   Inc(ofs, SizeOf(GLfloat));
 
   // Translate
   glEnableVertexAttribArray(7);
-  glVertexAttribPointer(7, 2, GL_FLOAT, False, SizeOf(TInstance), Pointer(ofs));
+  glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, SizeOf(TInstance), Pointer(ofs));
   glVertexAttribDivisor(7, 1);
 
 

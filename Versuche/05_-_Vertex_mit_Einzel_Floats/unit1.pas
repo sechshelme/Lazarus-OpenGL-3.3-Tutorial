@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, ogldebug;
 
   //image image.png
@@ -121,22 +121,22 @@ begin
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor0), @QuadVektor0, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 1, GL_FLOAT, False, 24, Pointer(0));
+  glVertexAttribPointer(10, 1, GL_FLOAT, GL_FALSE, 24, Pointer(0));
 
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 24, Pointer(4));
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, 24, Pointer(4));
 
   glEnableVertexAttribArray(12);
-  glVertexAttribPointer(12, 1, GL_FLOAT, False, 24, Pointer(8));
+  glVertexAttribPointer(12, 1, GL_FLOAT, GL_FALSE, 24, Pointer(8));
 
   glEnableVertexAttribArray(13);
-  glVertexAttribPointer(13, 1, GL_FLOAT, False, 24, Pointer(12));
+  glVertexAttribPointer(13, 1, GL_FLOAT, GL_FALSE, 24, Pointer(12));
 
   glEnableVertexAttribArray(14);
-  glVertexAttribPointer(14, 1, GL_FLOAT, False, 24, Pointer(16));
+  glVertexAttribPointer(14, 1, GL_FLOAT, GL_FALSE, 24, Pointer(16));
 
   glEnableVertexAttribArray(15);
-  glVertexAttribPointer(15, 1, GL_FLOAT, False, 24, Pointer(20));
+  glVertexAttribPointer(15, 1, GL_FLOAT, GL_FALSE, 24, Pointer(20));
 
   // --- Daten für Quadrat 1
   glBindVertexArray(VBQuad1.VAO);
@@ -144,22 +144,22 @@ begin
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVektor1), @QuadVektor1, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 1, GL_FLOAT, False, 4, Pointer(0));
+  glVertexAttribPointer(10, 1, GL_FLOAT, GL_FALSE, 4, Pointer(0));
 
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 1, GL_FLOAT, False, 4, Pointer(24));
+  glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, 4, Pointer(24));
 
   glEnableVertexAttribArray(12);
-  glVertexAttribPointer(12, 1, GL_FLOAT, False, 4, Pointer(48));
+  glVertexAttribPointer(12, 1, GL_FLOAT, GL_FALSE, 4, Pointer(48));
 
   glEnableVertexAttribArray(13);
-  glVertexAttribPointer(13, 1, GL_FLOAT, False, 4, Pointer(72));
+  glVertexAttribPointer(13, 1, GL_FLOAT, GL_FALSE, 4, Pointer(72));
 
   glEnableVertexAttribArray(14);
-  glVertexAttribPointer(14, 1, GL_FLOAT, False, 4, Pointer(96));
+  glVertexAttribPointer(14, 1, GL_FLOAT, GL_FALSE, 4, Pointer(96));
 
   glEnableVertexAttribArray(15);
-  glVertexAttribPointer(15, 1, GL_FLOAT, False, 4, Pointer(120));
+  glVertexAttribPointer(15, 1, GL_FLOAT, GL_FALSE, 4, Pointer(120));
 end;
 
 //code-

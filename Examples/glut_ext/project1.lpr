@@ -7,7 +7,7 @@ program project1;
 
 
 uses
-   dglOpenGL,
+   oglglad_gl,
   freeglut_std,      freeglut_ext,
     oglGL,   oglGLext,
 //    gl,  glext,

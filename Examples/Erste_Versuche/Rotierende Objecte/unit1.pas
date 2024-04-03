@@ -9,7 +9,7 @@ uses
   Forms,
   ExtCtrls,
   Buttons, ComCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglUnit, oglShader,
   oglVector, oglMatrix,
   oglColorKoerper, oglLighting,

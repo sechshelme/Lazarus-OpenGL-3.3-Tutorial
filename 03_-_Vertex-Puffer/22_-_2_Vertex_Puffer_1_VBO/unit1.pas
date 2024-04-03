@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader,oglVector,oglMatrix;
 
 //image image.png
@@ -109,12 +109,12 @@ begin
   // Vektor
   glBufferSubData(GL_ARRAY_BUFFER, 0, Length(TriangleVector) * sizeof(TFace), PFace(TriangleVector));
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBufferSubData(GL_ARRAY_BUFFER, Length(TriangleVector) * sizeof(TFace), Length(TriangleColor) * sizeof(TFace), PFace(TriangleColor));
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, Pointer(Length(TriangleVector) * sizeof(TFace)));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, Pointer(Length(TriangleVector) * sizeof(TFace)));
 
   // --- Daten für Quadrat
   glBindVertexArray(VBQuad.VAO);
@@ -125,12 +125,12 @@ begin
   // Vektor
   glBufferSubData(GL_ARRAY_BUFFER, 0, Length(QuadVector) * sizeof(TFace), PFace(QuadVector));
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBufferSubData(GL_ARRAY_BUFFER, Length(QuadVector) * sizeof(TFace), Length(QuadColor) * sizeof(TFace), PFace(QuadColor));
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, Pointer(Length(QuadVector) * sizeof(TFace)));
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, Pointer(Length(QuadVector) * sizeof(TFace)));
 end;
 //code-
 

@@ -9,7 +9,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglVector, oglMatrix, oglContext, oglShader;
+  oglglad_gl, oglVector, oglMatrix, oglContext, oglShader;
 
 type
 

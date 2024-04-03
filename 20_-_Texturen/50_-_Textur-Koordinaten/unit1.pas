@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
 type
@@ -184,24 +184,24 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 28, Pointer(0));
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, Pointer(0));
 
   glBindBuffer(GL_ARRAY_BUFFER, VBRingL.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 28, Pointer(12));
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 28, Pointer(12));
 
   // Ring Rechts
   glBindVertexArray(VBRingR.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBRingR.VBOVertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 28, Pointer(0));
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, Pointer(0));
 
   glBindBuffer(GL_ARRAY_BUFFER, VBRingR.VBOTex);
   glBufferData(GL_ARRAY_BUFFER, Length(Disc) * SizeOf(TDiscVector), Pointer(Disc), GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 28, Pointer(20));
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 28, Pointer(20));
 end;
 //code-
 

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader;
 
   //image image.png
@@ -107,7 +107,7 @@ glVertexAttribIPointer(11, 1, GL_INT, 0, nil);
 //code-
 anstelle
 //code+
-glVertexAttribPointer(11, 1, GL_FLOAT, False, 0, nil);
+glVertexAttribPointer(11, 1, GL_FLOAT, GL_FALSE, 0, nil);
 //code-
 verwendet werden !
 Mehr Infos: https://stackoverflow.com/questions/28014864/why-do-different-variations-of-glvertexattribpointer-exist
@@ -124,7 +124,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TriangleVector), @TriangleVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.VBOcolIndex);
@@ -139,7 +139,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, sizeof(QuadVector), @QuadVector, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Farbe
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOcolIndex);

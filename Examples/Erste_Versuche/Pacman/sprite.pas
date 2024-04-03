@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, Types, Graphics,
-  dglOpenGL,
+  oglglad_gl,
   oglMatrix, oglShader, oglColorKoerper, oglUnit,
   oglSteuerung, oglTextur, oglTexturKoerper, oglKoerper, oglBackGround;
 

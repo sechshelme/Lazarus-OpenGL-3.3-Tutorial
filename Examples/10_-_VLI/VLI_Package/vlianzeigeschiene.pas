@@ -44,7 +44,7 @@ var
   i: integer;
 
 const
-  achse = 2.0;
+  achse :single= 2.0;
   posz = 0.0;
   tiefe = 10.0;
 begin

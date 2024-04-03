@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  dglOpenGL, oglShader, oglVector, oglMatrix, oglUBO;
+  oglglad_gl, oglShader, oglVector, oglMatrix, oglUBO;
 
 type
   TMatrial = record

@@ -13,7 +13,7 @@
        All Rights Reserved
 
        Obtained through:
-       Bitbucket source repository - https://bitbucket.org/saschawillems/dglopengl
+       Bitbucket source repository - https://bitbucket.org/saschawillems/oglglad_gl
        Delphi OpenGL Community(DGL) - www.delphigl.com
 
        Converted and maintained by DGL's OpenGL-Portteam :

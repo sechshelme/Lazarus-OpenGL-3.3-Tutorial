@@ -6,7 +6,7 @@ interface
 
 uses
   SysUtils, Dialogs,
-  dglOpenGL,
+  oglglad_gl,
   oglVector, oglMatrix,
   oglShader, oglLightingShader,
   oglCamera, oglVBO;

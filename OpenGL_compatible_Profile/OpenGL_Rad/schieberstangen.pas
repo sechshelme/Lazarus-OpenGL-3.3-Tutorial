@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Types,
-  dglOpenGL,
+  oglglad_gl,  oglVector,
   MyMath, Mesh, Stange;
 
 type
@@ -23,10 +23,10 @@ type
 
     fSchiebeZylinderTop, fm: single;
 
-    fcol: TGLVector3f;
+    fcol: TVector3f;
   public
     constructor Create(SchiebeZylinderTop, Voreil_L, LenkS_L, m: single;
-      col: TGLVectorf3);
+      col: TVector3f);
     destructor Destroy; override;
 
     procedure CalcAndDraw(KK, KKopfSchieber: single; IsVirtual: boolean);
@@ -39,7 +39,7 @@ implementation
 
 { TSchieberstangen }
 
-constructor TSchieberstangen.Create(SchiebeZylinderTop, Voreil_L, LenkS_L, m: single; col: TGLVectorf3);
+constructor TSchieberstangen.Create(SchiebeZylinderTop, Voreil_L, LenkS_L, m: single; col: TVector3f);
 begin
   inherited Create;
 

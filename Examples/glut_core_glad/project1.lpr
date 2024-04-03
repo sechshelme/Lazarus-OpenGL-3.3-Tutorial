@@ -1,7 +1,7 @@
 program project1;
 
 uses
-  glad_gl,
+  oglglad_gl,
 //  gl,
 //  glext,
   glut,

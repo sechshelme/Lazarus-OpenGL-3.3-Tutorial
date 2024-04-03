@@ -10,7 +10,7 @@ uses
   Graphics, IntfGraphics, GraphType,
   Dialogs,
   oglVAO,
-  dglOpenGL, BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
+  oglglad_gl, BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
   oglShader, oglLightingShader,
   oglMatrix, oglVBO, oglTextur;
 

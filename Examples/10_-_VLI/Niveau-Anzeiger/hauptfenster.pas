@@ -7,7 +7,7 @@ interface
 uses
   SysUtils,  Classes,  Forms,  ExtCtrls,  Dialogs,  Menus, StdCtrls,  types, Graphics,
   LCLVersion, Controls, Buttons,
-  dglOpenGL,
+  oglglad_gl,
   oglUnit,  oglTextur, oglTexturVAO, oglTexturKoerper,  oglVector, oglMatrix,
   oglLighting,  oglSteuerung,  oglBackground, oglDarstellung, oglVAO,
   VLIAnzeigeschiene,  VLIFluegeli,  VLIStandRohr,  VLIArmaflex,  VLIBasis,

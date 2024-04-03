@@ -7,7 +7,7 @@ interface
 uses
   Math, ctypes, GraphType,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, dglOpenGL, oglVector, oglMatrix;
+  ExtCtrls, oglglad_gl, oglVector, oglMatrix;
 
 type
   TForm1 = class(TForm)

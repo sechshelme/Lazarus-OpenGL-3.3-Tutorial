@@ -2,7 +2,7 @@ unit oglDebug;
 
 interface
 
-uses SysUtils, dglOpenGL;
+uses SysUtils, oglglad_gl;
 
 type
 
@@ -50,11 +50,13 @@ implementation
 
   // --- Debugger ---
 
-{$IFDEF MSWINDOWS}
-procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); stdcall;
-{$ELSE}
-procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); cdecl;
-{$ENDIF}
+//{$IFDEF MSWINDOWS}
+//procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); stdcall;
+procedure GLDebugCallBack1(Source: GLenum; typ: GLenum; id: GLuint;  severity: GLenum; length: GLsizei; message: PGLchar; userParam: pointer);  stdcall;
+
+//{$ELSE}
+//procedure GLDebugCallBack(Source: GLEnum; type_: GLEnum; id: GLUInt; severity: GLUInt; length: GLsizei; const message_: PGLCHar; userParam: PGLvoid); cdecl;
+//{$ENDIF}
 
 var
   MsgSource: string = '';
@@ -85,7 +87,7 @@ begin
   end;
 
   // Type of this message
-  case type_ of
+  case typ of
     GL_DEBUG_TYPE_ERROR: begin
       MsgType := 'ERROR';
     end;
@@ -119,14 +121,14 @@ begin
     end;
   end;
 
-  LogForm.Add('DEBUG: ' + MsgSource + '  ' + MsgType + '  ' + MsgSeverity + '  ' + message_);
+  LogForm.Add('DEBUG: ' + MsgSource + '  ' + MsgType + '  ' + MsgSeverity + '  ' + message);
 end;
 
 procedure InitOpenGLDebug;
 begin
   glEnable(GL_DEBUG_OUTPUT);
-  glDebugMessageCallback(@GLDebugCallBack, nil);
-  glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nil, True);
+  glDebugMessageCallback(@GLDebugCallBack1, nil);
+  glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nil, GL_TRUE);
 end;
 
 // --- Debuger Ende ---

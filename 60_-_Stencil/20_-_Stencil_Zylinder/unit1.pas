@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix,
   oglTextur;
 
@@ -229,7 +229,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, ReflectVerts.Size, ReflectVerts.Ptr, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // Normale
   //glGenBuffers(1, @VBReflect.VBOnorm);
@@ -237,7 +237,7 @@ begin
   //glBufferData(GL_ARRAY_BUFFER, ReflectVerts.Size, ReflectVerts.Ptr, GL_STATIC_DRAW);
   //
   //glEnableVertexAttribArray(1);
-  //glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+  //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // TexturCoord
   glGenBuffers(1, @VBReflect.VBOtex);
@@ -245,7 +245,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, ReflectTexCoords.Size, ReflectTexCoords.Ptr, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, SizeOf(TVector2f), nil);
 
   // --- Cube
   glGenVertexArrays(1, @VBCube.VAO);
@@ -256,21 +256,21 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12*100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // Normale
   glGenBuffers(1, @VBCube.VBOnorm);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOnorm);
   glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12*100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, SizeOf(TVector3f), nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // TexturCoord
   glGenBuffers(1, @VBCube.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
   glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector2f) * 12*100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, False, SizeOf(TVector2f), nil);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, SizeOf(TVector2f), nil);
 
   UpdateCube;
 

@@ -11,7 +11,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix,
   BlumeDonut;
 
@@ -195,13 +195,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOVektor]);
   glBufferData(GL_ARRAY_BUFFER, ArcVertex.Size, ArcVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
   glBufferData(GL_ARRAY_BUFFER, ArcNormal.Size, ArcNormal.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- Vertex-Daten für Ring
   glBindVertexArray(VAOs[VAORing]);
@@ -210,13 +210,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBORingVektor]);
   glBufferData(GL_ARRAY_BUFFER, RingVertex.Size, RingVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBORingNormal]);
   glBufferData(GL_ARRAY_BUFFER, RingNormal.Size, RingNormal.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
 end;
 

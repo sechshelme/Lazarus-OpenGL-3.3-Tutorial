@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
 type
@@ -134,19 +134,19 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TrapezeVertex), @TrapezeVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Unkorrigierte Textur-Koordinaten
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[0]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TextureNormalVertex), @TextureNormalVertex, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Perspektivenkorrigiert Variante
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Trapeze.VBO.Textur[1]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(TexturePerspVertex1), @TexturePerspVertex1, GL_STATIC_DRAW);
   glEnableVertexAttribArray(11);
-  glVertexAttribPointer(11, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(11, 3, GL_FLOAT, GL_FALSE, 0, nil);
   //code-
 
   pic := TPicture.Create;                     // Textur laden.

@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader;
 
 type
@@ -148,21 +148,21 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangles.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangles), @Triangles, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Daten für GL_TRIANGLE_STRIP
   glBindVertexArray(VBTriangle_Strip.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Strip.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Strip), @Triangle_Strip, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Daten für GL_TRIANGLE_FAN
   glBindVertexArray(VBTriangle_Fan.VAO);
   glBindBuffer(GL_ARRAY_BUFFER, VBTriangle_Fan.VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle_Fan), @Triangle_Fan, GL_STATIC_DRAW);
   glEnableVertexAttribArray(10);
-  glVertexAttribPointer(10, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(10, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 //code-
 

@@ -5,7 +5,7 @@ unit oglContext;
 interface
 
 uses
-  Classes, SysUtils, Controls, dglOpenGL, OpenGLContext;
+  Classes, SysUtils, Controls, oglglad_gl, OpenGLContext;
 
 type
 //  TContext = class(TCustomOpenGLControl)
@@ -27,12 +27,14 @@ begin
   //  MultiSampling:=4;
   Parent := TheOwner;
 
-  InitOpenGL;
   MakeCurrent;
+  Load_GLADE;
 
-  ReadExtensions;
-  ReadOpenGLCore;
-  ReadImplementationProperties;
+  //InitOpenGL;
+  //
+  //ReadExtensions;
+  //ReadOpenGLCore;
+  //ReadImplementationProperties;
 end;
 
 end.

@@ -9,7 +9,7 @@ uses
   SysUtils,
   FileUtil,
   LResources,
-  dglOpenGL,
+  oglglad_gl,
   oglDebug;
 
 type
@@ -184,7 +184,7 @@ var
   pc: array of char = nil;
   l: GLint;
 
-  ErrorStatus: boolean;
+  ErrorStatus: TGLboolean;
   InfoLogLength: GLsizei;
 begin
   ShaderObject := glCreateShader(shaderType);
@@ -217,7 +217,7 @@ var
   ShaderObject: TGLint;
   pc: array of char = nil;
 
-  ErrorStatus: boolean;
+  ErrorStatus: TGLboolean;
   InfoLogLength: GLsizei;
 begin
   ShaderObject := glCreateShader(shaderType);
@@ -247,7 +247,7 @@ end;
 procedure TShader.LinkProgram;
 var
   pc: array of char = nil;
-  ErrorStatus: boolean;
+  ErrorStatus: TGLboolean;
   InfoLogLength: GLsizei;
 begin
   glLinkProgram(FProgramObject);
@@ -304,7 +304,7 @@ end;
 
 function TShader.ShaderVersion: string;
 begin
-  Result := 'Shader Version: ' + glGetString(GL_SHADING_LANGUAGE_VERSION);
+  Result := 'Shader Version: ' + PChar( glGetString(GL_SHADING_LANGUAGE_VERSION));
 end;
 
 end.

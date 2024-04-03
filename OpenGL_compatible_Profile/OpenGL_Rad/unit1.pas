@@ -9,9 +9,9 @@ uses
   ExtCtrls, OpenGLContext, LCLType, StdCtrls, ComCtrls, Types, Math,
 
   {$ifdef arm}
-  dglOpenGLSE,
+  oglglad_glSE,
   {$else}
-  dglOpenGL,
+  oglglad_gl,
   {$endif}
 
   Mesh, MyMath, Rad,
@@ -156,11 +156,13 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   caption:=paramstr(0);
-  InitOpenGL;
-  ReadExtensions;
+//  InitOpenGL;
+//  ReadExtensions;
 //  ReadOpenGLCore;
-  ReadImplementationProperties;
+//  ReadImplementationProperties;
   OpenGLControl1.MakeCurrent;
+
+  Load_GLADE;
 
   with BildPara do begin
     zoom := 0.0007;

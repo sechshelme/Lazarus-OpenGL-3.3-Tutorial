@@ -12,7 +12,7 @@ uses
   IntfGraphics,
   GraphType,
   Dialogs,
-  dglOpenGL;
+  oglglad_gl;
 //  MyLogForms;
 
 type
@@ -76,6 +76,8 @@ type
   end;
 
 const
+    GL_LUMINANCE = $1909;
+
   FORMAT_LUT: array[0..5] of TLookUpTableEntry = (
 
     // 32Bit mit Alpha

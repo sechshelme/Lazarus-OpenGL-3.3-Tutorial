@@ -5,7 +5,7 @@ unit oglBackground;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL,
+  Classes, SysUtils, oglglad_gl,
   oglVector, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
 
 type

@@ -5,7 +5,7 @@ unit oglVector;
 interface
 
 uses
-  dglOpenGL;
+  oglglad_gl;
 
 type
   TVector2b = array[0..1] of TGLboolean;

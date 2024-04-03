@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix;
 
 type
@@ -126,19 +126,19 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, Length(Vertex) * sizeof(TFace3D), Pointer(Vertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Normal
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Normal);
   glBufferData(GL_ARRAY_BUFFER, Length(Normal) * sizeof(TFace3D), Pointer(Normal), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // TexturVertex
   glBindBuffer(GL_ARRAY_BUFFER, VBZylinder.VBO.Tex);
   glBufferData(GL_ARRAY_BUFFER, Length(TextureVertex) * sizeof(TFace3D), Pointer(TextureVertex), GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
 end;
 

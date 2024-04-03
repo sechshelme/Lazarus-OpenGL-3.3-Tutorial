@@ -7,7 +7,7 @@ unit oglMatrix;
 interface
 
 uses
-  SysUtils, dglOpenGL, oglDebug, oglVector;
+  SysUtils, oglglad_gl, oglDebug, oglVector;
 
 type
   Tmat2x2 = array[0..1] of TVector2f;
@@ -210,7 +210,7 @@ end;
 
 procedure Tmat2x2Helper.Uniform(ShaderID: GLint); inline;
 begin
-  glUniformMatrix2fv(ShaderID, 1, False, @Self);
+  glUniformMatrix2fv(ShaderID, 1, GL_FALSE, @Self);
 end;
 
 procedure Tmat2x2Helper.WriteMatrix;
@@ -304,7 +304,7 @@ end;
 
 procedure Tmat3x3Helper.Uniform(ShaderID: GLint); inline;
 begin
-  glUniformMatrix3fv(ShaderID, 1, False, @Self);
+  glUniformMatrix3fv(ShaderID, 1, GL_FALSE, @Self);
 end;
 
 procedure Tmat3x3Helper.WriteMatrix;
@@ -618,7 +618,7 @@ end;
 
 procedure Tmat4x4Helper.Uniform(ID: GLint); inline;
 begin
-  glUniformMatrix4fv(ID, 1, False, @Self);
+  glUniformMatrix4fv(ID, 1, GL_FALSE, @Self);
 end;
 
 

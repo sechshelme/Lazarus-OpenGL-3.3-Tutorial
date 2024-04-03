@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls,
-  dglOpenGL, oglDebug,
+  oglglad_gl, oglDebug,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix,
   CubeJoints;
 
@@ -195,7 +195,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO);
   glBufferData(GL_ARRAY_BUFFER, cube.Size, cube.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Color
   glGenBuffers(1, @VBQuad.VBOColor);
@@ -203,7 +203,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOColor);
   glBufferData(GL_ARRAY_BUFFER, cubeColor.Size, cubeColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Joints
   glGenBuffers(1, @VBQuad.VBOJoint);

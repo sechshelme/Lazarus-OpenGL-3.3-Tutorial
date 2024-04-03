@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-  dglOpenGL, oglShader,  oglContext;
+  oglglad_gl, oglShader,  oglContext;
 
 type
 
@@ -110,7 +110,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), PGLvoid(Data), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.OutputScene;

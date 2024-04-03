@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls, StdCtrls,
-  dglOpenGL, oglDebug,
+  oglglad_gl, oglDebug,
   oglContext, oglShader, oglVector, oglMatrix;
 
   //image image.png
@@ -169,13 +169,13 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOvert);
   glBufferData(GL_ARRAY_BUFFER, Length(Quad) * sizeof(TVector3f), PGLvoid(Quad), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   glGenBuffers(1, @VBQuad.VBOarea);
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBOarea);
   glBufferData(GL_ARRAY_BUFFER, Length(Area) * sizeof(TGLint), PGLvoid(Area), GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);

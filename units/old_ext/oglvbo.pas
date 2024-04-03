@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  dglOpenGL, oglVector, oglVectors, oglMatrix;
+  oglglad_gl, oglVector, oglVectors, oglMatrix;
 
 type
   TModif = set of (CW, neg, normalize);
@@ -99,7 +99,7 @@ begin
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, SizeOf(GLfloat) * Length(GLfloatArray), Pointer(GLfloatArray), GL_STATIC_DRAW);
     glEnableVertexAttribArray(Shader_Attriut_ID);
-    glVertexAttribPointer(Shader_Attriut_ID, VertexSize, GL_FLOAT, False, 0, nil);
+    glVertexAttribPointer(Shader_Attriut_ID, VertexSize, GL_FLOAT, GL_FALSE, 0, nil);
   end;
 
   Result := Length(GLfloatArray) div VertexSize;   // Wird bei Draw gebraucht.

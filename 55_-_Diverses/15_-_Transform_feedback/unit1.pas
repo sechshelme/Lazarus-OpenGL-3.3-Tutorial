@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls,
-  dglOpenGL, oglContext, oglDebug, oglShader, oglVector, oglMatrix;
+  oglglad_gl, oglContext, oglDebug, oglShader, oglVector, oglMatrix;
 
 type
 
@@ -117,7 +117,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), PGLvoid(Data), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- TBO für den Output
   SetLength(feedbacks, DataLength);
@@ -198,7 +198,7 @@ begin
   glBufferData(GL_ARRAY_BUFFER, Length(Data) * SizeOf(TGLfloat), PGLvoid(Data), GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 1, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- TBO für den Output
   SetLength(SqrtFeedbacks, DataLength);

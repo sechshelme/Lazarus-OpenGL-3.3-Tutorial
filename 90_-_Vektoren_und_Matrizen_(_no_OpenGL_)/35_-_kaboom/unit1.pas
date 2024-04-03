@@ -8,7 +8,7 @@ uses
   Math, ctypes, GraphType,
   MTProcs,
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, Menus, dglOpenGL, oglVector, oglMatrix;
+  ExtCtrls, Menus, oglglad_gl, oglVector, oglMatrix;
 
 type
 

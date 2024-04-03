@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, ComCtrls,
-  dglOpenGL, oglDebug,
+  oglglad_gl, oglDebug,
   oglContext, oglShader, oglVector, oglVectors, oglMatrix,
   CubeJoints;
 
@@ -105,10 +105,10 @@ begin
       angelem := angeleu * 2;
 
       UBOBuffer.JointMatrix[ofs] := globalMatrix;
-      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, transSize);
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace([0.0, 0.0, transSize]);
       UBOBuffer.JointMatrix[ofs].RotateB(angeleu);
 
-      globalMatrix.TranslateLocalspace(0.0, 0.0, transSize);
+      globalMatrix.TranslateLocalspace([0.0, 0.0, transSize]);
       globalMatrix.RotateB(angelem);
       if is3Darm then  begin
         UBOBuffer.JointMatrix[ofs].RotateA(angeleu * 1.2);
@@ -116,13 +116,13 @@ begin
       end;
 
       sc := 1 / cos(angeleu);
-      UBOBuffer.JointMatrix[ofs].Scale(sc, sc, sc);
-      UBOBuffer.JointMatrix[ofs].TranslateLocalspace(0.0, 0.0, -transSize);
+      UBOBuffer.JointMatrix[ofs].Scale(sc);
+      UBOBuffer.JointMatrix[ofs].TranslateLocalspace([0.0, 0.0, -transSize]);
       //      UBOBuffer.JointMatrix[ofs].Scale(0.95);
       //      UBOBuffer.JointMatrix[ofs].Scale(0.5,0.5,1.0);
       UBOBuffer.JointMatrix[ofs] := rotMatrix[j] * UBOBuffer.JointMatrix[ofs];
 
-      globalMatrix.TranslateLocalspace(0.0, 0.0, -transSize);
+      globalMatrix.TranslateLocalspace([0.0, 0.0, -transSize]);
 
     end;
   end;
@@ -205,19 +205,19 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBO]);
   glBufferData(GL_ARRAY_BUFFER, cubeVertex.Size, cubeVertex.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Color
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOColor]);
   glBufferData(GL_ARRAY_BUFFER, cubeColor.Size, cubeColor.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Normale
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBONormal]);
   glBufferData(GL_ARRAY_BUFFER, cubeNormale.Size, cubeNormale.Ptr, GL_STATIC_DRAW);
   glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 3, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
   // Joints
   glBindBuffer(GL_ARRAY_BUFFER, Mesh_Buffers[mbVBOJoint]);

@@ -12,7 +12,7 @@ uses
   Dialogs,
   Menus, StdCtrls,
   types, Graphics,
-  dglOpenGL,
+  oglglad_gl,
   oglUnit,
   oglTextur,
   oglMatrix, oglVector, oglShader, oglCamera,

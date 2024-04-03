@@ -7,11 +7,12 @@ interface
 uses       gl,      GLext,
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
+  ogloglglad_gl;
 //    oglgl,oglglext;
-  glad_gl;
+//  oglglad_gl;
 //  gl,glext;
 
-//  dglOpenGL;
+//  oglglad_gl;
 
 type
 

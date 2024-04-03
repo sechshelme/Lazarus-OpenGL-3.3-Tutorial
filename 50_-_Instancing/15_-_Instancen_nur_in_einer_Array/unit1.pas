@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL, oglVector, oglMatrix,
+  oglglad_gl, oglVector, oglMatrix,
   oglContext, oglShader;
 
 type
@@ -131,7 +131,7 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad.VBO.Vertex);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Quad), @Quad, GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, False, 0, nil);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, nil);
 
   // --- Instancen
   ofs := 0;
@@ -140,21 +140,21 @@ begin
 
   // Instance Size
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 1, GL_FLOAT, False, SizeOf(TData), nil);
+  glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, SizeOf(TData), nil);
   glVertexAttribDivisor(1, 1);
   Inc(ofs, SizeOf(GLfloat));
 
   // Instance Matrix
   for i := 0 to 3 do begin
     glEnableVertexAttribArray(i + 2);
-    glVertexAttribPointer(i + 2, 4, GL_FLOAT, False, SizeOf(TData),PGLvoid(ofs));
+    glVertexAttribPointer(i + 2, 4, GL_FLOAT, GL_FALSE, SizeOf(TData),PGLvoid(ofs));
     glVertexAttribDivisor(i + 2, 1);
     Inc(ofs, SizeOf(TVector4f));
   end;
 
   // Instance Color
   glEnableVertexAttribArray(6);
-  glVertexAttribPointer(6, 3, GL_FLOAT, False, SizeOf(TData), PGLvoid(ofs));
+  glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, SizeOf(TData), PGLvoid(ofs));
   glVertexAttribDivisor(6, 1);
 end;
 //code-

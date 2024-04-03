@@ -11,7 +11,7 @@ uses
   ExtCtrls,
   Buttons, StdCtrls, Graphics, ComCtrls,
   OpenGLContext,
-  dglOpenGL, BGRABitmap, BGRABitmapTypes,
+  oglglad_gl, BGRABitmap, BGRABitmapTypes,
   oglUnit,
   oglVector, oglMatrix, oglShader,
   oglColorKoerper,

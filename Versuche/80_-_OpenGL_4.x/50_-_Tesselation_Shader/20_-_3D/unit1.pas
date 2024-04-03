@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
-  dglOpenGL,
+  oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix, oglTextur;
 
   //image image.png
@@ -185,9 +185,9 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad0.VBO);
   glBufferData(GL_ARRAY_BUFFER, Length(Quad0) * sizeof(TVector5f), PVector5f(Quad0), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 20, nil);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 20, Pointer(12));
 
   glPatchParameterfv(GL_PATCH_DEFAULT_OUTER_LEVEL, PGLfloat(outer_levels));
   glPatchParameterfv(GL_PATCH_DEFAULT_INNER_LEVEL, PGLfloat(inner_levels));
@@ -200,9 +200,9 @@ begin
   glBindBuffer(GL_ARRAY_BUFFER, VBQuad1.VBO);
   glBufferData(GL_ARRAY_BUFFER, Length(Quad1) * sizeof(TVector5f), PVector5f(Quad1), GL_STATIC_DRAW);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, False, 20, nil);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 20, nil);
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, False, 20, Pointer(12));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 20, Pointer(12));
 
 end;
 

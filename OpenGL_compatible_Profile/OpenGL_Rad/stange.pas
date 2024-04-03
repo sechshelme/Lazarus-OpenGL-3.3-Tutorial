@@ -5,7 +5,9 @@ unit Stange;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL, MyMath, Mesh, Zylinder;
+  Classes, SysUtils,
+  oglglad_gl,oglVector,
+  MyMath, Mesh, Zylinder;
 
 type
 
@@ -15,12 +17,12 @@ type
   private
     Mesh: TMesh;
     fLaenge, fd: single;
-    fcol: TGLVector3f;
+    fcol: TVector3f;
   public
     property L: single read fLaenge;
-    constructor Create(d, ALaenge: single; col: TGLVector3f);
+    constructor Create(d, ALaenge: single; col: TVector3f);
     destructor Destroy; override;
-    procedure Draw(col: TGLVector3f);
+    procedure Draw(col: TVector3f);
     procedure Draw;
   end;
 
@@ -29,7 +31,7 @@ implementation
 
 { TStange }
 
-constructor TStange.Create(d, ALaenge: single; col: TGLVector3f);
+constructor TStange.Create(d, ALaenge: single; col: TVector3f);
 begin
   inherited Create;
   fd := d;
@@ -43,10 +45,10 @@ begin
   inherited Destroy;
 end;
 
-procedure TStange.Draw(col: TGLVector3f);
+procedure TStange.Draw(col: TVector3f);
 var
   d2: single;
-  c1, c2: TGLVectorf3;
+  c1, c2: TVector3f;
   i: integer;
 begin
   glPushMatrix;

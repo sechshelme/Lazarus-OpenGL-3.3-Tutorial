@@ -12,7 +12,7 @@ uses
   SysUtils, FileUtil,  LConvEncoding,
   LCLType, Dialogs, Buttons,
   Baum,
-  dglOpenGL, BGRABitmapTypes,
+  oglglad_gl, BGRABitmapTypes,
   oglVector, oglMatrix, oglShader, oglLighting,
   oglUnit, oglKoerper,
   oglTexturKoerper, oglTextur,

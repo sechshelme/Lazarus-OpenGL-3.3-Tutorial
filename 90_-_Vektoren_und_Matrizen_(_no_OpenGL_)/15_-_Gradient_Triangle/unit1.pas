@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  dglOpenGL, oglVector, oglMatrix;
+  oglglad_gl, oglVector, oglMatrix;
 
 type
 

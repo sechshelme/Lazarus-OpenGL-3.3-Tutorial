@@ -5,7 +5,7 @@ unit TreibGestaenge;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL, MyMath, Mesh, Stange,Zylinder;
+  Classes, SysUtils, oglglad_gl, MyMath, Mesh, Stange,Zylinder;
 
 type
 

@@ -7,6 +7,7 @@ interface
 uses
   Classes,
   SysUtils,
+//  oglglad_gl;
   gl, glext;
 
 type

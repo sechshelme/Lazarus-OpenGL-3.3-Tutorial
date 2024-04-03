@@ -5,7 +5,7 @@ unit Mesh;
 interface
 
 uses
-  Classes, SysUtils, dglOpenGL;
+  Classes, SysUtils, oglglad_gl, oglVector;
 
 type
 
@@ -13,13 +13,13 @@ type
 
   TMesh = class(TObject)
   private
-    Fcol1: TGLVectorf3;
-    Fcol2: TGLVectorf3;
+    Fcol1: TVector3f;
+    Fcol2: TVector3f;
     FSektoren: cardinal;
     procedure SetSektoren(AValue: cardinal);
   public
-    property col1: TGLVectorf3 write Fcol1;
-    property col2: TGLVectorf3 write Fcol2;
+    property col1: TVector3f write Fcol1;
+    property col2: TVector3f write Fcol2;
     property Sektoren: cardinal read FSektoren write SetSektoren;
     constructor Create;
     procedure Disk(ri, ra: single);
@@ -28,11 +28,11 @@ type
     procedure Arc2(ri, ra, wa, we: single);
   end;
 
-function vec3(v0, v1, v2: GLfloat): TGLVectorf3;
+function vec3(v0, v1, v2: GLfloat): TVector3f;
 
 implementation
 
-function vec3(v0, v1, v2: GLfloat): TGLVectorf3;
+function vec3(v0, v1, v2: GLfloat): TVector3f;
 begin
   Result[0] := v0;
   Result[1] := v1;
