@@ -56,12 +56,12 @@ const
   // --- Farben
   QuadColor: array[0..1] of Tmat3x3 =
     (((0.0, 2.0, 0.5), (0.0, 0.0, 0.5), (2.0, 0.0, 0.5)), ((0.0, 2.0, 0.5), (2.0, 0.0, 0.5), (2.0, 2.0, 0.5)));
-//code-
+  //code-
 (*
 Koordinanten des Würfels, auf dem die Texturen abgebidet werden, auf dem ein drehendes Rechteck abgebildet ist.
 Der Würfel braucht Texturkoordinaten.
 *)
-//code+
+  //code+
 const
 
   // --- Vectoren
@@ -83,20 +83,20 @@ const
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)),
     ((0.0, 1.0), (0.0, 0.0), (1.0, 0.0)), ((0.0, 1.0), (1.0, 0.0), (1.0, 1.0)));
-//code-
+  //code-
 (*
 Grösse der Textur, auf welcher das Quadrat gerendert wird.
 *)
-//code+
+  //code+
 const
   TexturSize = 2048;
-//code-
+  //code-
 
 (*
 Das es 2 Scenen und Meshes gibt, werden die Vectorbuffer und die Matrix für die Bewegung doppelt gebraucht.
 Beim Quadrat wird der 2. VBO für die Farben gebraucht, beim Würfel für die Texturkoordinaten.
 *)
-//code+
+  //code+
 type
   TVB = record
     VAO,
@@ -111,33 +111,33 @@ var
   Quad_Shader: record
     Shader: TShader;
     WorldMatrix_id: GLint;
-  end;
+      end;
 
   // Puffer für Würfel.
   Cube_Shader: record
     Shader: TShader;
     WorldMatrix_id: GLint;
-  end;
+      end;
 
   // Je eine Matrix für das Rechteck und den Würfel.
   QuadWorldMatrix, CubeWorldMatrix: TMatrix;
-// code-
+  // code-
 
 (*
 Das wichtigste, die ID der Textur, in welche das Quadrat gerendert wird.
 Und den Renderbuffer, welche mit der Textur gekoppelt ist.
 Alles was in diesen Puffer gerendert wird, ist dann auch in der Textur vorhanden.
 *)
-//code+
+  //code+
 var
   // ID der Textur.
   textureID: GLuint;
 
   // Renderpuffer
   FramebufferName, depthrenderbuffer: GLuint;
-//code-
+  //code-
 
-{ TForm1 }
+  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -300,7 +300,7 @@ begin
 
     // FramePuffer aktivieren.
     glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
-    glColorMaski(FramebufferName,true,false,false,true);
+    glColorMaski(FramebufferName, GL_TRUE, GL_FALSE, GL_FALSE, GL_TRUE);
 
     glClearColor(0.3, 0.3, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);

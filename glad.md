@@ -12,14 +12,15 @@ Folgende Einstellungen vornehmen:
 * [GENERATE]
 
 ## Folgende Änderungen in der Unit vornehmen:
-Bei Zeile 30 folgendes hinzufügen:
+Bei Zeile 25 folgendes hinzufügen.
+Wichtig, die unit **dynlibs** muss eingebunden werden !
 
 ```pascal
 ...
 interface
 
 uses
-  SysUtils, StrUtils;
+  SysUtils, StrUtils, dynlibs;
 
 procedure Load_GLADE;  // Neu
 

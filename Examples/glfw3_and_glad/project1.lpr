@@ -3,8 +3,7 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
-  oglGL,
-  oglGLext,
+  oglglad_gl,
   glfw3,
   oglShader;
 
@@ -74,8 +73,6 @@ const
       Halt(1);
     end;
 
-    glBegin(0);
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
@@ -89,7 +86,7 @@ const
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-//    Load_GL_VERSION_3_3();
+    Load_GLADE;
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 

@@ -2,8 +2,6 @@ program project1;
 
 uses
   oglglad_gl,
-//  gl,
-//  glext,
   glut,
   oglShader;
 

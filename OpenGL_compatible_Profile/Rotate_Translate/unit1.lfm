@@ -6,8 +6,8 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 316
   ClientWidth = 369
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
-  LCLVersion = '1.7'
   object OpenGLControl1: TOpenGLControl
     Left = 0
     Height = 316
@@ -19,7 +19,7 @@ object Form1: TForm1
   object Timer1: TTimer
     Interval = 10
     OnTimer = Timer1Timer
-    left = 134
-    top = 124
+    Left = 134
+    Top = 124
   end
 end

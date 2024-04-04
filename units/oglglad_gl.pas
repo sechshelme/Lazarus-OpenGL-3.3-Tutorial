@@ -25,7 +25,7 @@ unit oglglad_gl;
 interface
 
 uses
-  SysUtils, StrUtils;
+  SysUtils, StrUtils,   dynlibs;
 
 procedure Load_GLADE;  // Neu
 

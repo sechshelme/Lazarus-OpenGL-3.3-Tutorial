@@ -82,10 +82,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  InitOpenGL;
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
+  Load_GLADE;
 end;
 
 initialization

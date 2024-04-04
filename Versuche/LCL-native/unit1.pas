@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, OpenGLContext, Forms, Controls, Graphics,
   Dialogs, ExtCtrls,
-    oglgl,oglglext;
-//  gl,glext;
+//    oglgl,oglglext;
+  gl,glext;
 //  oglglad_gl;
 
 type
@@ -161,28 +161,14 @@ begin
   Width := 340;
   Height := 240;
 
-  //  ShowMessage(PtrUInt(glGenVertexArrays).ToString);
-
-
   OpenGLControl1.AutoResizeViewport := True;
-//  OpenGLControl1.OpenGLMajorVersion := 3;
-//  OpenGLControl1.OpenGLMinorVersion := 3;
+  OpenGLControl1.OpenGLMajorVersion := 3;
+  OpenGLControl1.OpenGLMinorVersion := 3;
   OpenGLControl1.Align := alClient;
-
-
   OpenGLControl1.MakeCurrent;
-
-
   OpenGLControl1.OnPaint := @ogcDrawScene;
 
-//    Load_GL_version_4_3_CORE();
-  //  InitOpenGL;
-  //ReadExtensions;
-  //ReadOpenGLCore;
-  //ReadImplementationProperties;
-//  ShowMessage(PtrUInt(glBindBuffer).ToString);
-
-
+    Load_GL_version_3_3_CORE();
 
   CreateScene;
   InitScene;
@@ -200,9 +186,7 @@ Näheres im Kapitel Shader.
 //code+
 procedure TForm1.CreateScene;
 begin
-  ShowMessage('start');
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  ShowMessage('Binbuffer');
 
   glGenVertexArrays(1, @VBTriangle.VAO);
   glGenVertexArrays(1, @VBQuad.VAO);
@@ -213,9 +197,7 @@ begin
 
   ProgramID := InitShader('Vertexshader.glsl', 'Fragmentshader.glsl');
   glUseProgram(programID);
-  ShowMessage('shader');
   //code-
-
 end;
 
 procedure TForm1.InitScene;

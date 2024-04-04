@@ -191,10 +191,8 @@ begin
   OpenGLControl1.Align := alClient;
   OpenGLControl1.AutoResizeViewport := True;
   OpenGLControl1.Parent := Self;
-  InitOpenGL;
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
+  Load_GLADE;
 end;
 
 initialization
