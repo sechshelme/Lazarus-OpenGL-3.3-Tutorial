@@ -5,6 +5,7 @@ program project1;
 uses
   oglglad_gl,
   glfw3,
+  oglDebug,
   oglShader;
 
 type
@@ -16,8 +17,9 @@ type
     WriteLn('ErrorCallback: (', error_code, ')  ', description);
   end;
 
-  procedure key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
+  procedure Key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
   begin
+    WriteLn('press Key');
     if (key = GLFW_KEY_ESCAPE) and (action = GLFW_PRESS) then begin
       glfwSetWindowShouldClose(window, GLFW_TRUE);
     end;
@@ -49,6 +51,11 @@ const
     '{' + #10 +
     '  fColor = vec4(0.5, 0.4, 0.8, 1.0);' + #10 +
     '}';
+
+  procedure Char_callBack(window: PGLFWwindow; codepoint: dword); cdecl;
+  begin
+    WriteLn('press Char');
+  end;
 
   procedure main;
   var
@@ -82,7 +89,8 @@ const
       Halt(1);
     end;
 
-    glfwSetKeyCallback(window, @key_callback);
+    glfwSetKeyCallback(window, @Key_callback);
+    glfwSetCharCallback(window,@Char_callBack);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 

@@ -23,17 +23,19 @@ procedure checkError(command: string);
 {$push,}{$J-}
 const
   clNormal = '0';
+
   clBlack = '30';
   clRed = '31';
   clGreen = '32';
   clYellow = '33';
-  clBlurw = '34';
+  clBlue = '34';
   clMagenta = '35';
   clCyan = '36';
   clWhite = '37';
+
   clBrightBlack = '90';
   clBrightRed = '91';
-  clBrightGree = '92';
+  clBrightGreen = '92';
   clBrightYellow = '93';
   clBrightBlue = '94';
   clBrightMagenta = '95';
@@ -42,8 +44,22 @@ const
 
 const
   StrNormal = #27'[' + clNormal + 'm';
-  StrBrightRed = #27'[' + clBrightRed + 'm';
+
+  StrBlack = #27'[' + clBlack + 'm';
+  StrRed = #27'[' + clRed + 'm';
   StrGreen = #27'[' + clGreen + 'm';
+  StrYellow = #27'[' + clYellow + 'm';
+  StrBlue = #27'[' + clBlue + 'm';
+  StrCyan = #27'[' + clCyan + 'm';
+  StrWhite = #27'[' + clWhite + 'm';
+
+  StrBrightBlack = #27'[' + clBrightBlack + 'm';
+  StrBrightRed = #27'[' + clBrightRed + 'm';
+  StrBrightGreen = #27'[' + clBrightGreen + 'm';
+  StrBrightYellow = #27'[' + clBrightYellow + 'm';
+  StrBrightBlue = #27'[' + clBrightBlue + 'm';
+  StrBrightCyan = #27'[' + clBrightCyan + 'm';
+  StrBrightWhite = #27'[' + clBrightWhite + 'm';
   {$J+}{$pop}
 
 implementation

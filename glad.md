@@ -11,10 +11,10 @@ Folgende Einstellungen vornehmen:
 * Profile -> Core
 * [GENERATE]
 
-## Folgende Änderungen in der Unit vornehmen:
-Bei Zeile 25 folgendes hinzufügen.
-Wichtig, die unit **dynlibs** muss eingebunden werden !
-
+## Folgende Änderungen in der Unit glad_gl.pa vornehmen:
+* Wichtig, die unit **dynlibs** muss eingebunden werden !
+* Der **TGLboolean** und **GLboolean** auf **Boolean8** setzen.
+* Bei Zeile 25 folgendes hinzufügen:
 ```pascal
 ...
 interface
@@ -27,7 +27,7 @@ procedure Load_GLADE;  // Neu
 type
   TGLVULKANPROCNV = pointer;
   TGLbitfield = uint32;
-  TGLboolean = byte;
+  TGLboolean = Boolean8;
   TGLbyte = int8;
   TGLchar = char;
   TGLcharARB = byte;
@@ -118,8 +118,8 @@ end.  // Unit Ende
 ## Einbinden der unit
 ### LCL
 Unter Windows muss zwingend zuerst den OpenGL Context erzweugt werden.
-Anschliessend kann "Load_GLADE;" verwendet werden.
-Erst nach Aufruf von "Load_GLADE;" dürfen OpenGL Befehle verwendet werden.
+Anschliessend kann `Load_GLADE;` verwendet werden.
+Erst nach Aufruf von `Load_GLADE;` dürfen OpenGL Befehle verwendet werden.
 ```pascal
   OpenGLControl1.MakeCurrent;
   Load_GLADE;

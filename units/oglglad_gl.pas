@@ -25,14 +25,14 @@ unit oglglad_gl;
 interface
 
 uses
-  SysUtils, StrUtils,   dynlibs;
+  SysUtils, StrUtils, dynlibs;
 
 procedure Load_GLADE;  // Neu
 
 type
   TGLVULKANPROCNV = pointer;
   TGLbitfield = uint32;
-  TGLboolean = byte;
+  TGLboolean = Boolean8;
   TGLbyte = int8;
   TGLchar = char;
   TGLcharARB = byte;
@@ -65,14 +65,16 @@ type
   TGLuint64EXT = uint64;
   TGLushort = uint16;
   TGLvdpauSurfaceNV = int32;
-  TGLvoid = pointer;var
+  TGLvoid = pointer;
+
+var
   glVersionMajor, glVersionMinor: integer;
 
-(* Types *)
+  (* Types *)
 type
   GLVULKANPROCNV = pointer;
   GLbitfield = uint32;
-  GLboolean = byte;
+  GLboolean = Boolean8;
   GLbyte = int8;
   GLchar = char;
   GLcharARB = byte;
@@ -151,8 +153,8 @@ type
   PPGLcharARB = ^PGLcharARB;
   PPGLboolean = ^PGLboolean;
 
-  GLdebugProc = procedure (
-    source: GLenum;
+  GLdebugProc = procedure(
+    Source: GLenum;
     typ: GLenum;
     id: GLuint;
     severity: GLenum;
@@ -162,7 +164,7 @@ type
   GLdebugProcArb = GLdebugProc;
   GLdebugProcKhr = GLdebugProc;
 
-  GLdebugProcAmd = procedure (
+  GLdebugProcAmd = procedure(
     id: GLuint;
     category: GLenum;
     severity: GLenum;
@@ -171,9 +173,9 @@ type
     userParam: pointer); stdcall;
 
 
-(* Enums *)
+  (* Enums *)
 const
-  GL_FALSE = 0;
+  GL_FALSE = False;
   GL_INVALID_INDEX = uint32($FFFFFFFF);
   GL_NONE = 0;
   GL_NONE_OES = 0;
@@ -181,7 +183,7 @@ const
   GL_ONE = 1;
   GL_TIMEOUT_IGNORED = uint64($FFFFFFFFFFFFFFFF);
   GL_TIMEOUT_IGNORED_APPLE = uint64($FFFFFFFFFFFFFFFF);
-  GL_TRUE = 1;
+  GL_TRUE = True;
   GL_VERSION_ES_CL_1_0 = 1;
   GL_VERSION_ES_CL_1_1 = 1;
   GL_VERSION_ES_CM_1_1 = 1;
@@ -1988,7 +1990,7 @@ const
   GL_TRANSFORM_FEEDBACK_OVERFLOW = $82EC;
   GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW = $82ED;
 
-(* Functions *)
+  (* Functions *)
 var
   GLAD_GL_VERSION_1_0: boolean;
   GLAD_GL_VERSION_1_1: boolean;
@@ -2011,1101 +2013,1108 @@ var
   GLAD_GL_VERSION_4_6: boolean;
 
 var
-  glCullFace: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFrontFace: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glHint: procedure (target: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLineWidth: procedure (width: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPointSize: procedure (size: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPolygonMode: procedure (face: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScissor: procedure (x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameterf: procedure (target: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameterfv: procedure (target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameteri: procedure (target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameteriv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexImage1D: procedure (target: GLenum; level: GLint; internalformat: GLint; width: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexImage2D: procedure (target: GLenum; level: GLint; internalformat: GLint; width: GLsizei; height: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawBuffer: procedure (buf: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClear: procedure (mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearColor: procedure (red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearStencil: procedure (s: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearDepth: procedure (depth: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilMask: procedure (mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorMask: procedure (red: GLboolean; green: GLboolean; blue: GLboolean; alpha: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthMask: procedure (flag: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDisable: procedure (cap: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnable: procedure (cap: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFinish: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFlush: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendFunc: procedure (sfactor: GLenum; dfactor: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLogicOp: procedure (opcode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilFunc: procedure (func: GLenum; ref: GLint; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilOp: procedure (fail: GLenum; zfail: GLenum; zpass: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthFunc: procedure (func: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelStoref: procedure (pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelStorei: procedure (pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glReadBuffer: procedure (src: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glReadPixels: procedure (x: GLint; y: GLint; width: GLsizei; height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBooleanv: procedure (pname: GLenum; data: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetDoublev: procedure (pname: GLenum; data: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetError: function (): GLenum; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFloatv: procedure (pname: GLenum; data: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetIntegerv: procedure (pname: GLenum; data: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetString: function (name: GLenum): PGLubyte; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexImage: procedure (target: GLenum; level: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexParameterfv: procedure (target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexParameteriv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexLevelParameterfv: procedure (target: GLenum; level: GLint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexLevelParameteriv: procedure (target: GLenum; level: GLint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsEnabled: function (cap: GLenum): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthRange: procedure (n: GLdouble; f: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glViewport: procedure (x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNewList: procedure (list: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEndList: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCallList: procedure (list: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCallLists: procedure (n: GLsizei; type_: GLenum; lists: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteLists: procedure (list: GLuint; range: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenLists: function (range: GLsizei): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glListBase: procedure (base: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBegin: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBitmap: procedure (width: GLsizei; height: GLsizei; xorig: GLfloat; yorig: GLfloat; xmove: GLfloat; ymove: GLfloat; bitmap: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3b: procedure (red: GLbyte; green: GLbyte; blue: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3bv: procedure (v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3d: procedure (red: GLdouble; green: GLdouble; blue: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3f: procedure (red: GLfloat; green: GLfloat; blue: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3i: procedure (red: GLint; green: GLint; blue: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3s: procedure (red: GLshort; green: GLshort; blue: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3ub: procedure (red: GLubyte; green: GLubyte; blue: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3ubv: procedure (v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3ui: procedure (red: GLuint; green: GLuint; blue: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3uiv: procedure (v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3us: procedure (red: GLushort; green: GLushort; blue: GLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor3usv: procedure (v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4b: procedure (red: GLbyte; green: GLbyte; blue: GLbyte; alpha: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4bv: procedure (v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4d: procedure (red: GLdouble; green: GLdouble; blue: GLdouble; alpha: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4f: procedure (red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4i: procedure (red: GLint; green: GLint; blue: GLint; alpha: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4s: procedure (red: GLshort; green: GLshort; blue: GLshort; alpha: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4ub: procedure (red: GLubyte; green: GLubyte; blue: GLubyte; alpha: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4ubv: procedure (v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4ui: procedure (red: GLuint; green: GLuint; blue: GLuint; alpha: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4uiv: procedure (v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4us: procedure (red: GLushort; green: GLushort; blue: GLushort; alpha: GLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColor4usv: procedure (v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEdgeFlag: procedure (flag: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEdgeFlagv: procedure (flag: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnd: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexd: procedure (c: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexdv: procedure (c: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexf: procedure (c: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexfv: procedure (c: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexi: procedure (c: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexiv: procedure (c: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexs: procedure (c: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexsv: procedure (c: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3b: procedure (nx: GLbyte; ny: GLbyte; nz: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3bv: procedure (v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3d: procedure (nx: GLdouble; ny: GLdouble; nz: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3f: procedure (nx: GLfloat; ny: GLfloat; nz: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3i: procedure (nx: GLint; ny: GLint; nz: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3s: procedure (nx: GLshort; ny: GLshort; nz: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormal3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2d: procedure (x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2f: procedure (x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2i: procedure (x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2s: procedure (x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos2sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3d: procedure (x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3f: procedure (x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3i: procedure (x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3s: procedure (x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4d: procedure (x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4f: procedure (x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4i: procedure (x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4s: procedure (x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRasterPos4sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectd: procedure (x1: GLdouble; y1: GLdouble; x2: GLdouble; y2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectdv: procedure (v1: PGLdouble; v2: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectf: procedure (x1: GLfloat; y1: GLfloat; x2: GLfloat; y2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectfv: procedure (v1: PGLfloat; v2: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRecti: procedure (x1: GLint; y1: GLint; x2: GLint; y2: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectiv: procedure (v1: PGLint; v2: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRects: procedure (x1: GLshort; y1: GLshort; x2: GLshort; y2: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRectsv: procedure (v1: PGLshort; v2: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1d: procedure (s: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1f: procedure (s: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1i: procedure (s: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1s: procedure (s: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord1sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2d: procedure (s: GLdouble; t: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2f: procedure (s: GLfloat; t: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2i: procedure (s: GLint; t: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2s: procedure (s: GLshort; t: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord2sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3d: procedure (s: GLdouble; t: GLdouble; r: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3f: procedure (s: GLfloat; t: GLfloat; r: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3i: procedure (s: GLint; t: GLint; r: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3s: procedure (s: GLshort; t: GLshort; r: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4d: procedure (s: GLdouble; t: GLdouble; r: GLdouble; q: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4f: procedure (s: GLfloat; t: GLfloat; r: GLfloat; q: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4i: procedure (s: GLint; t: GLint; r: GLint; q: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4s: procedure (s: GLshort; t: GLshort; r: GLshort; q: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoord4sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2d: procedure (x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2f: procedure (x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2i: procedure (x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2s: procedure (x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex2sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3d: procedure (x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3f: procedure (x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3i: procedure (x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3s: procedure (x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4d: procedure (x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4f: procedure (x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4i: procedure (x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4s: procedure (x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertex4sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClipPlane: procedure (plane: GLenum; equation: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorMaterial: procedure (face: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogf: procedure (pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogfv: procedure (pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogi: procedure (pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogiv: procedure (pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightf: procedure (light: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightfv: procedure (light: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLighti: procedure (light: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightiv: procedure (light: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightModelf: procedure (pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightModelfv: procedure (pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightModeli: procedure (pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLightModeliv: procedure (pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLineStipple: procedure (factor: GLint; pattern: GLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMaterialf: procedure (face: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMaterialfv: procedure (face: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMateriali: procedure (face: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMaterialiv: procedure (face: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPolygonStipple: procedure (mask: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glShadeModel: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexEnvf: procedure (target: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexEnvfv: procedure (target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexEnvi: procedure (target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexEnviv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGend: procedure (coord: GLenum; pname: GLenum; param: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGendv: procedure (coord: GLenum; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGenf: procedure (coord: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGenfv: procedure (coord: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGeni: procedure (coord: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexGeniv: procedure (coord: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFeedbackBuffer: procedure (size: GLsizei; type_: GLenum; buffer: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSelectBuffer: procedure (size: GLsizei; buffer: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRenderMode: function (mode: GLenum): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInitNames: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadName: procedure (name: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPassThrough: procedure (token: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPopName: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPushName: procedure (name: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearAccum: procedure (red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearIndex: procedure (c: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexMask: procedure (mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glAccum: procedure (op: GLenum; value: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPopAttrib: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPushAttrib: procedure (mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMap1d: procedure (target: GLenum; u1: GLdouble; u2: GLdouble; stride: GLint; order: GLint; points: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMap1f: procedure (target: GLenum; u1: GLfloat; u2: GLfloat; stride: GLint; order: GLint; points: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMap2d: procedure (target: GLenum; u1: GLdouble; u2: GLdouble; ustride: GLint; uorder: GLint; v1: GLdouble; v2: GLdouble; vstride: GLint; vorder: GLint; points: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMap2f: procedure (target: GLenum; u1: GLfloat; u2: GLfloat; ustride: GLint; uorder: GLint; v1: GLfloat; v2: GLfloat; vstride: GLint; vorder: GLint; points: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapGrid1d: procedure (un: GLint; u1: GLdouble; u2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapGrid1f: procedure (un: GLint; u1: GLfloat; u2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapGrid2d: procedure (un: GLint; u1: GLdouble; u2: GLdouble; vn: GLint; v1: GLdouble; v2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapGrid2f: procedure (un: GLint; u1: GLfloat; u2: GLfloat; vn: GLint; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord1d: procedure (u: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord1dv: procedure (u: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord1f: procedure (u: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord1fv: procedure (u: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord2d: procedure (u: GLdouble; v: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord2dv: procedure (u: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord2f: procedure (u: GLfloat; v: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalCoord2fv: procedure (u: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalMesh1: procedure (mode: GLenum; i1: GLint; i2: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalPoint1: procedure (i: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalMesh2: procedure (mode: GLenum; i1: GLint; i2: GLint; j1: GLint; j2: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEvalPoint2: procedure (i: GLint; j: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glAlphaFunc: procedure (func: GLenum; ref: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelZoom: procedure (xfactor: GLfloat; yfactor: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelTransferf: procedure (pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelTransferi: procedure (pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelMapfv: procedure (map: GLenum; mapsize: GLsizei; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelMapuiv: procedure (map: GLenum; mapsize: GLsizei; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPixelMapusv: procedure (map: GLenum; mapsize: GLsizei; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyPixels: procedure (x: GLint; y: GLint; width: GLsizei; height: GLsizei; type_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawPixels: procedure (width: GLsizei; height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetClipPlane: procedure (plane: GLenum; equation: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetLightfv: procedure (light: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetLightiv: procedure (light: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMapdv: procedure (target: GLenum; query: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMapfv: procedure (target: GLenum; query: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMapiv: procedure (target: GLenum; query: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMaterialfv: procedure (face: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMaterialiv: procedure (face: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetPixelMapfv: procedure (map: GLenum; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetPixelMapuiv: procedure (map: GLenum; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetPixelMapusv: procedure (map: GLenum; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetPolygonStipple: procedure (mask: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexEnvfv: procedure (target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexEnviv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexGendv: procedure (coord: GLenum; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexGenfv: procedure (coord: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexGeniv: procedure (coord: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsList: function (list: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFrustum: procedure (left: GLdouble; right: GLdouble; bottom: GLdouble; top: GLdouble; zNear: GLdouble; zFar: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadIdentity: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadMatrixf: procedure (m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadMatrixd: procedure (m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMatrixMode: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultMatrixf: procedure (m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultMatrixd: procedure (m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glOrtho: procedure (left: GLdouble; right: GLdouble; bottom: GLdouble; top: GLdouble; zNear: GLdouble; zFar: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPopMatrix: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPushMatrix: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRotated: procedure (angle: GLdouble; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRotatef: procedure (angle: GLfloat; x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScaled: procedure (x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScalef: procedure (x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTranslated: procedure (x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTranslatef: procedure (x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawArrays: procedure (mode: GLenum; first: GLint; count: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElements: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetPointerv: procedure (pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPolygonOffset: procedure (factor: GLfloat; units: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTexImage1D: procedure (target: GLenum; level: GLint; internalformat: GLenum; x: GLint; y: GLint; width: GLsizei; border: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTexImage2D: procedure (target: GLenum; level: GLint; internalformat: GLenum; x: GLint; y: GLint; width: GLsizei; height: GLsizei; border: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTexSubImage1D: procedure (target: GLenum; level: GLint; xoffset: GLint; x: GLint; y: GLint; width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTexSubImage2D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexSubImage1D: procedure (target: GLenum; level: GLint; xoffset: GLint; width: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexSubImage2D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; width: GLsizei; height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindTexture: procedure (target: GLenum; texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteTextures: procedure (n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenTextures: procedure (n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsTexture: function (texture: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glArrayElement: procedure (i: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorPointer: procedure (size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDisableClientState: procedure (array_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEdgeFlagPointer: procedure (stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnableClientState: procedure (array_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexPointer: procedure (type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInterleavedArrays: procedure (format: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormalPointer: procedure (type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordPointer: procedure (size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexPointer: procedure (size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glAreTexturesResident: function (n: GLsizei; textures: PGLuint; residences: PGLboolean): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPrioritizeTextures: procedure (n: GLsizei; textures: PGLuint; priorities: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexub: procedure (c: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIndexubv: procedure (c: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPopClientAttrib: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPushClientAttrib: procedure (mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawRangeElements: procedure (mode: GLenum; start: GLuint; end_: GLuint; count: GLsizei; type_: GLenum; indices: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexImage3D: procedure (target: GLenum; level: GLint; internalformat: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexSubImage3D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTexSubImage3D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glActiveTexture: procedure (texture: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSampleCoverage: procedure (value: GLfloat; invert: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexImage3D: procedure (target: GLenum; level: GLint; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei; border: GLint; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexImage2D: procedure (target: GLenum; level: GLint; internalformat: GLenum; width: GLsizei; height: GLsizei; border: GLint; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexImage1D: procedure (target: GLenum; level: GLint; internalformat: GLenum; width: GLsizei; border: GLint; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexSubImage3D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexSubImage2D: procedure (target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; width: GLsizei; height: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTexSubImage1D: procedure (target: GLenum; level: GLint; xoffset: GLint; width: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetCompressedTexImage: procedure (target: GLenum; level: GLint; img: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClientActiveTexture: procedure (texture: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1d: procedure (target: GLenum; s: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1dv: procedure (target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1f: procedure (target: GLenum; s: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1fv: procedure (target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1i: procedure (target: GLenum; s: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1iv: procedure (target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1s: procedure (target: GLenum; s: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord1sv: procedure (target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2d: procedure (target: GLenum; s: GLdouble; t: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2dv: procedure (target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2f: procedure (target: GLenum; s: GLfloat; t: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2fv: procedure (target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2i: procedure (target: GLenum; s: GLint; t: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2iv: procedure (target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2s: procedure (target: GLenum; s: GLshort; t: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord2sv: procedure (target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3d: procedure (target: GLenum; s: GLdouble; t: GLdouble; r: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3dv: procedure (target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3f: procedure (target: GLenum; s: GLfloat; t: GLfloat; r: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3fv: procedure (target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3i: procedure (target: GLenum; s: GLint; t: GLint; r: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3iv: procedure (target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3s: procedure (target: GLenum; s: GLshort; t: GLshort; r: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord3sv: procedure (target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4d: procedure (target: GLenum; s: GLdouble; t: GLdouble; r: GLdouble; q: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4dv: procedure (target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4f: procedure (target: GLenum; s: GLfloat; t: GLfloat; r: GLfloat; q: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4fv: procedure (target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4i: procedure (target: GLenum; s: GLint; t: GLint; r: GLint; q: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4iv: procedure (target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4s: procedure (target: GLenum; s: GLshort; t: GLshort; r: GLshort; q: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoord4sv: procedure (target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadTransposeMatrixf: procedure (m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLoadTransposeMatrixd: procedure (m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultTransposeMatrixf: procedure (m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultTransposeMatrixd: procedure (m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendFuncSeparate: procedure (sfactorRGB: GLenum; dfactorRGB: GLenum; sfactorAlpha: GLenum; dfactorAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawArrays: procedure (mode: GLenum; first: PGLint; count: PGLsizei; drawcount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawElements: procedure (mode: GLenum; count: PGLsizei; type_: GLenum; indices: PPointer; drawcount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPointParameterf: procedure (pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPointParameterfv: procedure (pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPointParameteri: procedure (pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPointParameteriv: procedure (pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogCoordf: procedure (coord: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogCoordfv: procedure (coord: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogCoordd: procedure (coord: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogCoorddv: procedure (coord: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFogCoordPointer: procedure (type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3b: procedure (red: GLbyte; green: GLbyte; blue: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3bv: procedure (v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3d: procedure (red: GLdouble; green: GLdouble; blue: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3f: procedure (red: GLfloat; green: GLfloat; blue: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3i: procedure (red: GLint; green: GLint; blue: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3s: procedure (red: GLshort; green: GLshort; blue: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3ub: procedure (red: GLubyte; green: GLubyte; blue: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3ubv: procedure (v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3ui: procedure (red: GLuint; green: GLuint; blue: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3uiv: procedure (v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3us: procedure (red: GLushort; green: GLushort; blue: GLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColor3usv: procedure (v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColorPointer: procedure (size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2d: procedure (x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2f: procedure (x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2i: procedure (x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2s: procedure (x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos2sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3d: procedure (x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3dv: procedure (v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3f: procedure (x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3fv: procedure (v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3i: procedure (x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3iv: procedure (v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3s: procedure (x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWindowPos3sv: procedure (v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendColor: procedure (red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendEquation: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenQueries: procedure (n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteQueries: procedure (n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsQuery: function (id: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBeginQuery: procedure (target: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEndQuery: procedure (target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryiv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryObjectiv: procedure (id: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryObjectuiv: procedure (id: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindBuffer: procedure (target: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteBuffers: procedure (n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenBuffers: procedure (n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsBuffer: function (buffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBufferData: procedure (target: GLenum; size: GLsizeiptr; data: Pointer; usage: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBufferSubData: procedure (target: GLenum; offset: GLintptr; size: GLsizeiptr; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBufferSubData: procedure (target: GLenum; offset: GLintptr; size: GLsizeiptr; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapBuffer: function (target: GLenum; access: GLenum): Pointer; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUnmapBuffer: function (target: GLenum): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBufferParameteriv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBufferPointerv: procedure (target: GLenum; pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendEquationSeparate: procedure (modeRGB: GLenum; modeAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawBuffers: procedure (n: GLsizei; bufs: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilOpSeparate: procedure (face: GLenum; sfail: GLenum; dpfail: GLenum; dppass: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilFuncSeparate: procedure (face: GLenum; func: GLenum; ref: GLint; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glStencilMaskSeparate: procedure (face: GLenum; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glAttachShader: procedure (program_: GLuint; shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindAttribLocation: procedure (program_: GLuint; index: GLuint; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompileShader: procedure (shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateProgram: function (): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateShader: function (type_: GLenum): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteProgram: procedure (program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteShader: procedure (shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDetachShader: procedure (program_: GLuint; shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDisableVertexAttribArray: procedure (index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnableVertexAttribArray: procedure (index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveAttrib: procedure (program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLint; type_: PGLenum; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveUniform: procedure (program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLint; type_: PGLenum; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetAttachedShaders: procedure (program_: GLuint; maxCount: GLsizei; count: PGLsizei; shaders: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetAttribLocation: function (program_: GLuint; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramiv: procedure (program_: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramInfoLog: procedure (program_: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetShaderiv: procedure (shader: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetShaderInfoLog: procedure (shader: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetShaderSource: procedure (shader: GLuint; bufSize: GLsizei; length: PGLsizei; source: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformLocation: function (program_: GLuint; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformfv: procedure (program_: GLuint; location: GLint; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformiv: procedure (program_: GLuint; location: GLint; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribdv: procedure (index: GLuint; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribfv: procedure (index: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribiv: procedure (index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribPointerv: procedure (index: GLuint; pname: GLenum; pointer: PPointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsProgram: function (program_: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsShader: function (shader: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glLinkProgram: procedure (program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glShaderSource: procedure (shader: GLuint; count: GLsizei; string_: PPGLchar; length: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUseProgram: procedure (program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1f: procedure (location: GLint; v0: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2f: procedure (location: GLint; v0: GLfloat; v1: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3f: procedure (location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4f: procedure (location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat; v3: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1i: procedure (location: GLint; v0: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2i: procedure (location: GLint; v0: GLint; v1: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3i: procedure (location: GLint; v0: GLint; v1: GLint; v2: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4i: procedure (location: GLint; v0: GLint; v1: GLint; v2: GLint; v3: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1fv: procedure (location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2fv: procedure (location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3fv: procedure (location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4fv: procedure (location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1iv: procedure (location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2iv: procedure (location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3iv: procedure (location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4iv: procedure (location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glValidateProgram: procedure (program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1d: procedure (index: GLuint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1f: procedure (index: GLuint; x: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1fv: procedure (index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1s: procedure (index: GLuint; x: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib1sv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2d: procedure (index: GLuint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2f: procedure (index: GLuint; x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2fv: procedure (index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2s: procedure (index: GLuint; x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib2sv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3d: procedure (index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3f: procedure (index: GLuint; x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3fv: procedure (index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3s: procedure (index: GLuint; x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib3sv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nbv: procedure (index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Niv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nsv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nub: procedure (index: GLuint; x: GLubyte; y: GLubyte; z: GLubyte; w: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nubv: procedure (index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nuiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4Nusv: procedure (index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4bv: procedure (index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4d: procedure (index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4f: procedure (index: GLuint; x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4fv: procedure (index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4iv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4s: procedure (index: GLuint; x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4sv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4ubv: procedure (index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4uiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttrib4usv: procedure (index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribPointer: procedure (index: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2x3fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3x2fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2x4fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4x2fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3x4fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4x3fv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorMaski: procedure (index: GLuint; r: GLboolean; g: GLboolean; b: GLboolean; a: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBooleani_v: procedure (target: GLenum; index: GLuint; data: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetIntegeri_v: procedure (target: GLenum; index: GLuint; data: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnablei: procedure (target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDisablei: procedure (target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsEnabledi: function (target: GLenum; index: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBeginTransformFeedback: procedure (primitiveMode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEndTransformFeedback: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindBufferRange: procedure (target: GLenum; index: GLuint; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindBufferBase: procedure (target: GLenum; index: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTransformFeedbackVaryings: procedure (program_: GLuint; count: GLsizei; varyings: PPGLchar; bufferMode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTransformFeedbackVarying: procedure (program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLsizei; type_: PGLenum; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClampColor: procedure (target: GLenum; clamp: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBeginConditionalRender: procedure (id: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEndConditionalRender: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribIPointer: procedure (index: GLuint; size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribIiv: procedure (index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribIuiv: procedure (index: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI1i: procedure (index: GLuint; x: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI2i: procedure (index: GLuint; x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI3i: procedure (index: GLuint; x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4i: procedure (index: GLuint; x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI1ui: procedure (index: GLuint; x: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI2ui: procedure (index: GLuint; x: GLuint; y: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI3ui: procedure (index: GLuint; x: GLuint; y: GLuint; z: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4ui: procedure (index: GLuint; x: GLuint; y: GLuint; z: GLuint; w: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI1iv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI2iv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI3iv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4iv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI1uiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI2uiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI3uiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4uiv: procedure (index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4bv: procedure (index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4sv: procedure (index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4ubv: procedure (index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribI4usv: procedure (index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformuiv: procedure (program_: GLuint; location: GLint; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindFragDataLocation: procedure (program_: GLuint; color: GLuint; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFragDataLocation: function (program_: GLuint; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1ui: procedure (location: GLint; v0: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2ui: procedure (location: GLint; v0: GLuint; v1: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3ui: procedure (location: GLint; v0: GLuint; v1: GLuint; v2: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4ui: procedure (location: GLint; v0: GLuint; v1: GLuint; v2: GLuint; v3: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1uiv: procedure (location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2uiv: procedure (location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3uiv: procedure (location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4uiv: procedure (location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameterIiv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexParameterIuiv: procedure (target: GLenum; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexParameterIiv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTexParameterIuiv: procedure (target: GLenum; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferiv: procedure (buffer: GLenum; drawbuffer: GLint; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferuiv: procedure (buffer: GLenum; drawbuffer: GLint; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferfv: procedure (buffer: GLenum; drawbuffer: GLint; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferfi: procedure (buffer: GLenum; drawbuffer: GLint; depth: GLfloat; stencil: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetStringi: function (name: GLenum; index: GLuint): PGLubyte; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsRenderbuffer: function (renderbuffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindRenderbuffer: procedure (target: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteRenderbuffers: procedure (n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenRenderbuffers: procedure (n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRenderbufferStorage: procedure (target: GLenum; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetRenderbufferParameteriv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsFramebuffer: function (framebuffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindFramebuffer: procedure (target: GLenum; framebuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteFramebuffers: procedure (n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenFramebuffers: procedure (n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCheckFramebufferStatus: function (target: GLenum): GLenum; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferTexture1D: procedure (target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferTexture2D: procedure (target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferTexture3D: procedure (target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint; zoffset: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferRenderbuffer: procedure (target: GLenum; attachment: GLenum; renderbuffertarget: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFramebufferAttachmentParameteriv: procedure (target: GLenum; attachment: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenerateMipmap: procedure (target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlitFramebuffer: procedure (srcX0: GLint; srcY0: GLint; srcX1: GLint; srcY1: GLint; dstX0: GLint; dstY0: GLint; dstX1: GLint; dstY1: GLint; mask: GLbitfield; filter: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glRenderbufferStorageMultisample: procedure (target: GLenum; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferTextureLayer: procedure (target: GLenum; attachment: GLenum; texture: GLuint; level: GLint; layer: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapBufferRange: function (target: GLenum; offset: GLintptr; length: GLsizeiptr; access: GLbitfield): Pointer; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFlushMappedBufferRange: procedure (target: GLenum; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindVertexArray: procedure (array_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteVertexArrays: procedure (n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenVertexArrays: procedure (n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsVertexArray: function (array_: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawArraysInstanced: procedure (mode: GLenum; first: GLint; count: GLsizei; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsInstanced: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexBuffer: procedure (target: GLenum; internalformat: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPrimitiveRestartIndex: procedure (index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyBufferSubData: procedure (readTarget: GLenum; writeTarget: GLenum; readOffset: GLintptr; writeOffset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformIndices: procedure (program_: GLuint; uniformCount: GLsizei; uniformNames: PPGLchar; uniformIndices: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveUniformsiv: procedure (program_: GLuint; uniformCount: GLsizei; uniformIndices: PGLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveUniformName: procedure (program_: GLuint; uniformIndex: GLuint; bufSize: GLsizei; length: PGLsizei; uniformName: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformBlockIndex: function (program_: GLuint; uniformBlockName: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveUniformBlockiv: procedure (program_: GLuint; uniformBlockIndex: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveUniformBlockName: procedure (program_: GLuint; uniformBlockIndex: GLuint; bufSize: GLsizei; length: PGLsizei; uniformBlockName: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformBlockBinding: procedure (program_: GLuint; uniformBlockIndex: GLuint; uniformBlockBinding: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsBaseVertex: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawRangeElementsBaseVertex: procedure (mode: GLenum; start: GLuint; end_: GLuint; count: GLsizei; type_: GLenum; indices: Pointer; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsInstancedBaseVertex: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawElementsBaseVertex: procedure (mode: GLenum; count: PGLsizei; type_: GLenum; indices: PPointer; drawcount: GLsizei; basevertex: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProvokingVertex: procedure (mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFenceSync: function (condition: GLenum; flags: GLbitfield): GLsync; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsSync: function (sync: GLsync): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteSync: procedure (sync: GLsync); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClientWaitSync: function (sync: GLsync; flags: GLbitfield; timeout: GLuint64): GLenum; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glWaitSync: procedure (sync: GLsync; flags: GLbitfield; timeout: GLuint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetInteger64v: procedure (pname: GLenum; data: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSynciv: procedure (sync: GLsync; pname: GLenum; count: GLsizei; length: PGLsizei; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetInteger64i_v: procedure (target: GLenum; index: GLuint; data: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetBufferParameteri64v: procedure (target: GLenum; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferTexture: procedure (target: GLenum; attachment: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexImage2DMultisample: procedure (target: GLenum; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexImage3DMultisample: procedure (target: GLenum; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetMultisamplefv: procedure (pname: GLenum; index: GLuint; val: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSampleMaski: procedure (maskNumber: GLuint; mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindFragDataLocationIndexed: procedure (program_: GLuint; colorNumber: GLuint; index: GLuint; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFragDataIndex: function (program_: GLuint; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenSamplers: procedure (count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteSamplers: procedure (count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsSampler: function (sampler: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindSampler: procedure (unit_: GLuint; sampler: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameteri: procedure (sampler: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameteriv: procedure (sampler: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameterf: procedure (sampler: GLuint; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameterfv: procedure (sampler: GLuint; pname: GLenum; param: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameterIiv: procedure (sampler: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSamplerParameterIuiv: procedure (sampler: GLuint; pname: GLenum; param: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSamplerParameteriv: procedure (sampler: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSamplerParameterIiv: procedure (sampler: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSamplerParameterfv: procedure (sampler: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSamplerParameterIuiv: procedure (sampler: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glQueryCounter: procedure (id: GLuint; target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryObjecti64v: procedure (id: GLuint; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryObjectui64v: procedure (id: GLuint; pname: GLenum; params: PGLuint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribDivisor: procedure (index: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP1ui: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP1uiv: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP2ui: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP2uiv: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP3ui: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP3uiv: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP4ui: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribP4uiv: procedure (index: GLuint; type_: GLenum; normalized: GLboolean; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP2ui: procedure (type_: GLenum; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP2uiv: procedure (type_: GLenum; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP3ui: procedure (type_: GLenum; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP3uiv: procedure (type_: GLenum; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP4ui: procedure (type_: GLenum; value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexP4uiv: procedure (type_: GLenum; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP1ui: procedure (type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP1uiv: procedure (type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP2ui: procedure (type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP2uiv: procedure (type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP3ui: procedure (type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP3uiv: procedure (type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP4ui: procedure (type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexCoordP4uiv: procedure (type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP1ui: procedure (texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP1uiv: procedure (texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP2ui: procedure (texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP2uiv: procedure (texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP3ui: procedure (texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP3uiv: procedure (texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP4ui: procedure (texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiTexCoordP4uiv: procedure (texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormalP3ui: procedure (type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNormalP3uiv: procedure (type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorP3ui: procedure (type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorP3uiv: procedure (type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorP4ui: procedure (type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glColorP4uiv: procedure (type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColorP3ui: procedure (type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSecondaryColorP3uiv: procedure (type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMinSampleShading: procedure (value: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendEquationi: procedure (buf: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendEquationSeparatei: procedure (buf: GLuint; modeRGB: GLenum; modeAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendFunci: procedure (buf: GLuint; src: GLenum; dst: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlendFuncSeparatei: procedure (buf: GLuint; srcRGB: GLenum; dstRGB: GLenum; srcAlpha: GLenum; dstAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawArraysIndirect: procedure (mode: GLenum; indirect: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsIndirect: procedure (mode: GLenum; type_: GLenum; indirect: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1d: procedure (location: GLint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2d: procedure (location: GLint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3d: procedure (location: GLint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4d: procedure (location: GLint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform1dv: procedure (location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform2dv: procedure (location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform3dv: procedure (location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniform4dv: procedure (location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2x3dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix2x4dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3x2dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix3x4dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4x2dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformMatrix4x3dv: procedure (location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformdv: procedure (program_: GLuint; location: GLint; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSubroutineUniformLocation: function (program_: GLuint; shadertype: GLenum; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetSubroutineIndex: function (program_: GLuint; shadertype: GLenum; name: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveSubroutineUniformiv: procedure (program_: GLuint; shadertype: GLenum; index: GLuint; pname: GLenum; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveSubroutineUniformName: procedure (program_: GLuint; shadertype: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveSubroutineName: procedure (program_: GLuint; shadertype: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUniformSubroutinesuiv: procedure (shadertype: GLenum; count: GLsizei; indices: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetUniformSubroutineuiv: procedure (shadertype: GLenum; location: GLint; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramStageiv: procedure (program_: GLuint; shadertype: GLenum; pname: GLenum; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPatchParameteri: procedure (pname: GLenum; value: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPatchParameterfv: procedure (pname: GLenum; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindTransformFeedback: procedure (target: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteTransformFeedbacks: procedure (n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenTransformFeedbacks: procedure (n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsTransformFeedback: function (id: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPauseTransformFeedback: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glResumeTransformFeedback: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawTransformFeedback: procedure (mode: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawTransformFeedbackStream: procedure (mode: GLenum; id: GLuint; stream: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBeginQueryIndexed: procedure (target: GLenum; index: GLuint; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEndQueryIndexed: procedure (target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryIndexediv: procedure (target: GLenum; index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glReleaseShaderCompiler: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glShaderBinary: procedure (count: GLsizei; shaders: PGLuint; binaryFormat: GLenum; binary: Pointer; length: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetShaderPrecisionFormat: procedure (shadertype: GLenum; precisiontype: GLenum; range: PGLint; precision: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthRangef: procedure (n: GLfloat; f: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearDepthf: procedure (d: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramBinary: procedure (program_: GLuint; bufSize: GLsizei; length: PGLsizei; binaryFormat: PGLenum; binary: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramBinary: procedure (program_: GLuint; binaryFormat: GLenum; binary: Pointer; length: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramParameteri: procedure (program_: GLuint; pname: GLenum; value: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUseProgramStages: procedure (pipeline: GLuint; stages: GLbitfield; program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glActiveShaderProgram: procedure (pipeline: GLuint; program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateShaderProgramv: function (type_: GLenum; count: GLsizei; strings: PPGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindProgramPipeline: procedure (pipeline: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDeleteProgramPipelines: procedure (n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenProgramPipelines: procedure (n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glIsProgramPipeline: function (pipeline: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramPipelineiv: procedure (pipeline: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1i: procedure (program_: GLuint; location: GLint; v0: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1iv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1f: procedure (program_: GLuint; location: GLint; v0: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1fv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1d: procedure (program_: GLuint; location: GLint; v0: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1dv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1ui: procedure (program_: GLuint; location: GLint; v0: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform1uiv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2i: procedure (program_: GLuint; location: GLint; v0: GLint; v1: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2iv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2f: procedure (program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2fv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2d: procedure (program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2dv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2ui: procedure (program_: GLuint; location: GLint; v0: GLuint; v1: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform2uiv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3i: procedure (program_: GLuint; location: GLint; v0: GLint; v1: GLint; v2: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3iv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3f: procedure (program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3fv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3d: procedure (program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble; v2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3dv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3ui: procedure (program_: GLuint; location: GLint; v0: GLuint; v1: GLuint; v2: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform3uiv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4i: procedure (program_: GLuint; location: GLint; v0: GLint; v1: GLint; v2: GLint; v3: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4iv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4f: procedure (program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat; v3: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4fv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4d: procedure (program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble; v2: GLdouble; v3: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4dv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4ui: procedure (program_: GLuint; location: GLint; v0: GLuint; v1: GLuint; v2: GLuint; v3: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniform4uiv: procedure (program_: GLuint; location: GLint; count: GLsizei; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2x3fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3x2fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2x4fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4x2fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3x4fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4x3fv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2x3dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3x2dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix2x4dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4x2dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix3x4dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glProgramUniformMatrix4x3dv: procedure (program_: GLuint; location: GLint; count: GLsizei; transpose: GLboolean; value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glValidateProgramPipeline: procedure (pipeline: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramPipelineInfoLog: procedure (pipeline: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL1d: procedure (index: GLuint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL2d: procedure (index: GLuint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL3d: procedure (index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL4d: procedure (index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL1dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL2dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL3dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribL4dv: procedure (index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribLPointer: procedure (index: GLuint; size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexAttribLdv: procedure (index: GLuint; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glViewportArrayv: procedure (first: GLuint; count: GLsizei; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glViewportIndexedf: procedure (index: GLuint; x: GLfloat; y: GLfloat; w: GLfloat; h: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glViewportIndexedfv: procedure (index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScissorArrayv: procedure (first: GLuint; count: GLsizei; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScissorIndexed: procedure (index: GLuint; left: GLint; bottom: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glScissorIndexedv: procedure (index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthRangeArrayv: procedure (first: GLuint; count: GLsizei; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDepthRangeIndexed: procedure (index: GLuint; n: GLdouble; f: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFloati_v: procedure (target: GLenum; index: GLuint; data: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetDoublei_v: procedure (target: GLenum; index: GLuint; data: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawArraysInstancedBaseInstance: procedure (mode: GLenum; first: GLint; count: GLsizei; instancecount: GLsizei; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsInstancedBaseInstance: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawElementsInstancedBaseVertexBaseInstance: procedure (mode: GLenum; count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; basevertex: GLint; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetInternalformativ: procedure (target: GLenum; internalformat: GLenum; pname: GLenum; count: GLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetActiveAtomicCounterBufferiv: procedure (program_: GLuint; bufferIndex: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindImageTexture: procedure (unit_: GLuint; texture: GLuint; level: GLint; layered: GLboolean; layer: GLint; access: GLenum; format: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMemoryBarrier: procedure (barriers: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexStorage1D: procedure (target: GLenum; levels: GLsizei; internalformat: GLenum; width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexStorage2D: procedure (target: GLenum; levels: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexStorage3D: procedure (target: GLenum; levels: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawTransformFeedbackInstanced: procedure (mode: GLenum; id: GLuint; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDrawTransformFeedbackStreamInstanced: procedure (mode: GLenum; id: GLuint; stream: GLuint; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferData: procedure (target: GLenum; internalformat: GLenum; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearBufferSubData: procedure (target: GLenum; internalformat: GLenum; offset: GLintptr; size: GLsizeiptr; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDispatchCompute: procedure (num_groups_x: GLuint; num_groups_y: GLuint; num_groups_z: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDispatchComputeIndirect: procedure (indirect: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyImageSubData: procedure (srcName: GLuint; srcTarget: GLenum; srcLevel: GLint; srcX: GLint; srcY: GLint; srcZ: GLint; dstName: GLuint; dstTarget: GLenum; dstLevel: GLint; dstX: GLint; dstY: GLint; dstZ: GLint; srcWidth: GLsizei; srcHeight: GLsizei; srcDepth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFramebufferParameteri: procedure (target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetFramebufferParameteriv: procedure (target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetInternalformati64v: procedure (target: GLenum; internalformat: GLenum; pname: GLenum; count: GLsizei; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateTexSubImage: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateTexImage: procedure (texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateBufferSubData: procedure (buffer: GLuint; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateBufferData: procedure (buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateFramebuffer: procedure (target: GLenum; numAttachments: GLsizei; attachments: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateSubFramebuffer: procedure (target: GLenum; numAttachments: GLsizei; attachments: PGLenum; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawArraysIndirect: procedure (mode: GLenum; indirect: Pointer; drawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawElementsIndirect: procedure (mode: GLenum; type_: GLenum; indirect: Pointer; drawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramInterfaceiv: procedure (program_: GLuint; programInterface: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramResourceIndex: function (program_: GLuint; programInterface: GLenum; name: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramResourceName: procedure (program_: GLuint; programInterface: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramResourceiv: procedure (program_: GLuint; programInterface: GLenum; index: GLuint; propCount: GLsizei; props: PGLenum; count: GLsizei; length: PGLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramResourceLocation: function (program_: GLuint; programInterface: GLenum; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetProgramResourceLocationIndex: function (program_: GLuint; programInterface: GLenum; name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glShaderStorageBlockBinding: procedure (program_: GLuint; storageBlockIndex: GLuint; storageBlockBinding: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexBufferRange: procedure (target: GLenum; internalformat: GLenum; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexStorage2DMultisample: procedure (target: GLenum; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTexStorage3DMultisample: procedure (target: GLenum; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureView: procedure (texture: GLuint; target: GLenum; origtexture: GLuint; internalformat: GLenum; minlevel: GLuint; numlevels: GLuint; minlayer: GLuint; numlayers: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindVertexBuffer: procedure (bindingindex: GLuint; buffer: GLuint; offset: GLintptr; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribFormat: procedure (attribindex: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribIFormat: procedure (attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribLFormat: procedure (attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexAttribBinding: procedure (attribindex: GLuint; bindingindex: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexBindingDivisor: procedure (bindingindex: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDebugMessageControl: procedure (source: GLenum; type_: GLenum; severity: GLenum; count: GLsizei; ids: PGLuint; enabled: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDebugMessageInsert: procedure (source: GLenum; type_: GLenum; id: GLuint; severity: GLenum; length: GLsizei; buf: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDebugMessageCallback: procedure (callback: GLDEBUGPROC; userParam: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetDebugMessageLog: function (count: GLuint; bufSize: GLsizei; sources: PGLenum; types: PGLenum; ids: PGLuint; severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPushDebugGroup: procedure (source: GLenum; id: GLuint; length: GLsizei; message: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPopDebugGroup: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glObjectLabel: procedure (identifier: GLenum; name: GLuint; length: GLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetObjectLabel: procedure (identifier: GLenum; name: GLuint; bufSize: GLsizei; length: PGLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glObjectPtrLabel: procedure (ptr: Pointer; length: GLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetObjectPtrLabel: procedure (ptr: Pointer; bufSize: GLsizei; length: PGLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBufferStorage: procedure (target: GLenum; size: GLsizeiptr; data: Pointer; flags: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearTexImage: procedure (texture: GLuint; level: GLint; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearTexSubImage: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindBuffersBase: procedure (target: GLenum; first: GLuint; count: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindBuffersRange: procedure (target: GLenum; first: GLuint; count: GLsizei; buffers: PGLuint; offsets: PGLintptr; sizes: PGLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindTextures: procedure (first: GLuint; count: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindSamplers: procedure (first: GLuint; count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindImageTextures: procedure (first: GLuint; count: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindVertexBuffers: procedure (first: GLuint; count: GLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClipControl: procedure (origin: GLenum; depth: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateTransformFeedbacks: procedure (n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTransformFeedbackBufferBase: procedure (xfb: GLuint; index: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTransformFeedbackBufferRange: procedure (xfb: GLuint; index: GLuint; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTransformFeedbackiv: procedure (xfb: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTransformFeedbacki_v: procedure (xfb: GLuint; pname: GLenum; index: GLuint; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTransformFeedbacki64_v: procedure (xfb: GLuint; pname: GLenum; index: GLuint; param: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateBuffers: procedure (n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedBufferStorage: procedure (buffer: GLuint; size: GLsizeiptr; data: Pointer; flags: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedBufferData: procedure (buffer: GLuint; size: GLsizeiptr; data: Pointer; usage: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedBufferSubData: procedure (buffer: GLuint; offset: GLintptr; size: GLsizeiptr; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyNamedBufferSubData: procedure (readBuffer: GLuint; writeBuffer: GLuint; readOffset: GLintptr; writeOffset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedBufferData: procedure (buffer: GLuint; internalformat: GLenum; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedBufferSubData: procedure (buffer: GLuint; internalformat: GLenum; offset: GLintptr; size: GLsizeiptr; format: GLenum; type_: GLenum; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapNamedBuffer: function (buffer: GLuint; access: GLenum): Pointer; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMapNamedBufferRange: function (buffer: GLuint; offset: GLintptr; length: GLsizeiptr; access: GLbitfield): Pointer; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glUnmapNamedBuffer: function (buffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glFlushMappedNamedBufferRange: procedure (buffer: GLuint; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedBufferParameteriv: procedure (buffer: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedBufferParameteri64v: procedure (buffer: GLuint; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedBufferPointerv: procedure (buffer: GLuint; pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedBufferSubData: procedure (buffer: GLuint; offset: GLintptr; size: GLsizeiptr; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateFramebuffers: procedure (n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferRenderbuffer: procedure (framebuffer: GLuint; attachment: GLenum; renderbuffertarget: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferParameteri: procedure (framebuffer: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferTexture: procedure (framebuffer: GLuint; attachment: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferTextureLayer: procedure (framebuffer: GLuint; attachment: GLenum; texture: GLuint; level: GLint; layer: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferDrawBuffer: procedure (framebuffer: GLuint; buf: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferDrawBuffers: procedure (framebuffer: GLuint; n: GLsizei; bufs: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedFramebufferReadBuffer: procedure (framebuffer: GLuint; src: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateNamedFramebufferData: procedure (framebuffer: GLuint; numAttachments: GLsizei; attachments: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glInvalidateNamedFramebufferSubData: procedure (framebuffer: GLuint; numAttachments: GLsizei; attachments: PGLenum; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedFramebufferiv: procedure (framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedFramebufferuiv: procedure (framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedFramebufferfv: procedure (framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glClearNamedFramebufferfi: procedure (framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; depth: GLfloat; stencil: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBlitNamedFramebuffer: procedure (readFramebuffer: GLuint; drawFramebuffer: GLuint; srcX0: GLint; srcY0: GLint; srcX1: GLint; srcY1: GLint; dstX0: GLint; dstY0: GLint; dstX1: GLint; dstY1: GLint; mask: GLbitfield; filter: GLenum); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCheckNamedFramebufferStatus: function (framebuffer: GLuint; target: GLenum): GLenum; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedFramebufferParameteriv: procedure (framebuffer: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedFramebufferAttachmentParameteriv: procedure (framebuffer: GLuint; attachment: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateRenderbuffers: procedure (n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedRenderbufferStorage: procedure (renderbuffer: GLuint; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glNamedRenderbufferStorageMultisample: procedure (renderbuffer: GLuint; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetNamedRenderbufferParameteriv: procedure (renderbuffer: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateTextures: procedure (target: GLenum; n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureBuffer: procedure (texture: GLuint; internalformat: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureBufferRange: procedure (texture: GLuint; internalformat: GLenum; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureStorage1D: procedure (texture: GLuint; levels: GLsizei; internalformat: GLenum; width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureStorage2D: procedure (texture: GLuint; levels: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureStorage3D: procedure (texture: GLuint; levels: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureStorage2DMultisample: procedure (texture: GLuint; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureStorage3DMultisample: procedure (texture: GLuint; samples: GLsizei; internalformat: GLenum; width: GLsizei; height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureSubImage1D: procedure (texture: GLuint; level: GLint; xoffset: GLint; width: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureSubImage2D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; width: GLsizei; height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureSubImage3D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTextureSubImage1D: procedure (texture: GLuint; level: GLint; xoffset: GLint; width: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTextureSubImage2D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; width: GLsizei; height: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCompressedTextureSubImage3D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; imageSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTextureSubImage1D: procedure (texture: GLuint; level: GLint; xoffset: GLint; x: GLint; y: GLint; width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTextureSubImage2D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCopyTextureSubImage3D: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; x: GLint; y: GLint; width: GLsizei; height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameterf: procedure (texture: GLuint; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameterfv: procedure (texture: GLuint; pname: GLenum; param: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameteri: procedure (texture: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameterIiv: procedure (texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameterIuiv: procedure (texture: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureParameteriv: procedure (texture: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGenerateTextureMipmap: procedure (texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glBindTextureUnit: procedure (unit_: GLuint; texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureImage: procedure (texture: GLuint; level: GLint; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetCompressedTextureImage: procedure (texture: GLuint; level: GLint; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureLevelParameterfv: procedure (texture: GLuint; level: GLint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureLevelParameteriv: procedure (texture: GLuint; level: GLint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureParameterfv: procedure (texture: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureParameterIiv: procedure (texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureParameterIuiv: procedure (texture: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureParameteriv: procedure (texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateVertexArrays: procedure (n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glDisableVertexArrayAttrib: procedure (vaobj: GLuint; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glEnableVertexArrayAttrib: procedure (vaobj: GLuint; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayElementBuffer: procedure (vaobj: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayVertexBuffer: procedure (vaobj: GLuint; bindingindex: GLuint; buffer: GLuint; offset: GLintptr; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayVertexBuffers: procedure (vaobj: GLuint; first: GLuint; count: GLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayAttribBinding: procedure (vaobj: GLuint; attribindex: GLuint; bindingindex: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayAttribFormat: procedure (vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayAttribIFormat: procedure (vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayAttribLFormat: procedure (vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glVertexArrayBindingDivisor: procedure (vaobj: GLuint; bindingindex: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexArrayiv: procedure (vaobj: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexArrayIndexediv: procedure (vaobj: GLuint; index: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetVertexArrayIndexed64iv: procedure (vaobj: GLuint; index: GLuint; pname: GLenum; param: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateSamplers: procedure (n: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateProgramPipelines: procedure (n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glCreateQueries: procedure (target: GLenum; n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryBufferObjecti64v: procedure (id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryBufferObjectiv: procedure (id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryBufferObjectui64v: procedure (id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetQueryBufferObjectuiv: procedure (id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMemoryBarrierByRegion: procedure (barriers: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetTextureSubImage: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetCompressedTextureSubImage: procedure (texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; width: GLsizei; height: GLsizei; depth: GLsizei; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetGraphicsResetStatus: function (): GLenum; {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnCompressedTexImage: procedure (target: GLenum; lod: GLint; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnTexImage: procedure (target: GLenum; level: GLint; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnUniformdv: procedure (program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnUniformfv: procedure (program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnUniformiv: procedure (program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnUniformuiv: procedure (program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glReadnPixels: procedure (x: GLint; y: GLint; width: GLsizei; height: GLsizei; format: GLenum; type_: GLenum; bufSize: GLsizei; data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnMapdv: procedure (target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnMapfv: procedure (target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnMapiv: procedure (target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnPixelMapfv: procedure (map: GLenum; bufSize: GLsizei; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnPixelMapuiv: procedure (map: GLenum; bufSize: GLsizei; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnPixelMapusv: procedure (map: GLenum; bufSize: GLsizei; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnPolygonStipple: procedure (bufSize: GLsizei; pattern: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnColorTable: procedure (target: GLenum; format: GLenum; type_: GLenum; bufSize: GLsizei; table: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnConvolutionFilter: procedure (target: GLenum; format: GLenum; type_: GLenum; bufSize: GLsizei; image: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnSeparableFilter: procedure (target: GLenum; format: GLenum; type_: GLenum; rowBufSize: GLsizei; row: Pointer; columnBufSize: GLsizei; column: Pointer; span: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnHistogram: procedure (target: GLenum; reset: GLboolean; format: GLenum; type_: GLenum; bufSize: GLsizei; values: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glGetnMinmax: procedure (target: GLenum; reset: GLboolean; format: GLenum; type_: GLenum; bufSize: GLsizei; values: Pointer); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glTextureBarrier: procedure (); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glSpecializeShader: procedure (shader: GLuint; pEntryPoint: PGLchar; numSpecializationConstants: GLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawArraysIndirectCount: procedure (mode: GLenum; indirect: Pointer; drawcount: GLintptr; maxdrawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glMultiDrawElementsIndirectCount: procedure (mode: GLenum; type_: GLenum; indirect: Pointer; drawcount: GLintptr; maxdrawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
-  glPolygonOffsetClamp: procedure (factor: GLfloat; units: GLfloat; clamp: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)}stdcall;{$ELSE}cdecl;{$ENDIF}
+  glCullFace: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFrontFace: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glHint: procedure(target: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLineWidth: procedure(Width: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPointSize: procedure(size: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPolygonMode: procedure(face: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScissor: procedure(x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameterf: procedure(target: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameterfv: procedure(target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameteri: procedure(target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexImage1D: procedure(target: GLenum; level: GLint; internalformat: GLint; Width: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexImage2D: procedure(target: GLenum; level: GLint; internalformat: GLint; Width: GLsizei; Height: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawBuffer: procedure(buf: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClear: procedure(mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearColor: procedure(red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearStencil: procedure(s: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearDepth: procedure(depth: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilMask: procedure(mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorMask: procedure(red: GLboolean; green: GLboolean; blue: GLboolean; alpha: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthMask: procedure(flag: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDisable: procedure(cap: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnable: procedure(cap: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFinish: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFlush: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendFunc: procedure(sfactor: GLenum; dfactor: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLogicOp: procedure(opcode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilFunc: procedure(func: GLenum; ref: GLint; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilOp: procedure(fail: GLenum; zfail: GLenum; zpass: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthFunc: procedure(func: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelStoref: procedure(pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelStorei: procedure(pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glReadBuffer: procedure(src: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glReadPixels: procedure(x: GLint; y: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBooleanv: procedure(pname: GLenum; Data: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetDoublev: procedure(pname: GLenum; Data: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetError: function(): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFloatv: procedure(pname: GLenum; Data: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetIntegerv: procedure(pname: GLenum; Data: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetString: function(Name: GLenum): PGLubyte; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexImage: procedure(target: GLenum; level: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexParameterfv: procedure(target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexLevelParameterfv: procedure(target: GLenum; level: GLint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexLevelParameteriv: procedure(target: GLenum; level: GLint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsEnabled: function(cap: GLenum): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthRange: procedure(n: GLdouble; f: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glViewport: procedure(x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNewList: procedure(list: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEndList: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCallList: procedure(list: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCallLists: procedure(n: GLsizei; type_: GLenum; lists: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteLists: procedure(list: GLuint; range: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenLists: function(range: GLsizei): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glListBase: procedure(base: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBegin: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBitmap: procedure(Width: GLsizei; Height: GLsizei; xorig: GLfloat; yorig: GLfloat; xmove: GLfloat; ymove: GLfloat; bitmap: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3b: procedure(red: GLbyte; green: GLbyte; blue: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3bv: procedure(v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3d: procedure(red: GLdouble; green: GLdouble; blue: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3f: procedure(red: GLfloat; green: GLfloat; blue: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3i: procedure(red: GLint; green: GLint; blue: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3s: procedure(red: GLshort; green: GLshort; blue: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3ub: procedure(red: GLubyte; green: GLubyte; blue: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3ubv: procedure(v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3ui: procedure(red: GLuint; green: GLuint; blue: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3uiv: procedure(v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3us: procedure(red: GLushort; green: GLushort; blue: GLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor3usv: procedure(v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4b: procedure(red: GLbyte; green: GLbyte; blue: GLbyte; alpha: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4bv: procedure(v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4d: procedure(red: GLdouble; green: GLdouble; blue: GLdouble; alpha: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4f: procedure(red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4i: procedure(red: GLint; green: GLint; blue: GLint; alpha: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4s: procedure(red: GLshort; green: GLshort; blue: GLshort; alpha: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4ub: procedure(red: GLubyte; green: GLubyte; blue: GLubyte; alpha: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4ubv: procedure(v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4ui: procedure(red: GLuint; green: GLuint; blue: GLuint; alpha: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4uiv: procedure(v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4us: procedure(red: GLushort; green: GLushort; blue: GLushort; alpha: GLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColor4usv: procedure(v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEdgeFlag: procedure(flag: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEdgeFlagv: procedure(flag: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnd: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexd: procedure(c: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexdv: procedure(c: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexf: procedure(c: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexfv: procedure(c: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexi: procedure(c: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexiv: procedure(c: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexs: procedure(c: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexsv: procedure(c: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3b: procedure(nx: GLbyte; ny: GLbyte; nz: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3bv: procedure(v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3d: procedure(nx: GLdouble; ny: GLdouble; nz: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3f: procedure(nx: GLfloat; ny: GLfloat; nz: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3i: procedure(nx: GLint; ny: GLint; nz: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3s: procedure(nx: GLshort; ny: GLshort; nz: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormal3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2d: procedure(x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2f: procedure(x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2i: procedure(x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2s: procedure(x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos2sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3d: procedure(x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3f: procedure(x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3i: procedure(x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3s: procedure(x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4d: procedure(x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4f: procedure(x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4i: procedure(x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4s: procedure(x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRasterPos4sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectd: procedure(x1: GLdouble; y1: GLdouble; x2: GLdouble; y2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectdv: procedure(v1: PGLdouble; v2: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectf: procedure(x1: GLfloat; y1: GLfloat; x2: GLfloat; y2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectfv: procedure(v1: PGLfloat; v2: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRecti: procedure(x1: GLint; y1: GLint; x2: GLint; y2: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectiv: procedure(v1: PGLint; v2: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRects: procedure(x1: GLshort; y1: GLshort; x2: GLshort; y2: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRectsv: procedure(v1: PGLshort; v2: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1d: procedure(s: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1f: procedure(s: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1i: procedure(s: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1s: procedure(s: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord1sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2d: procedure(s: GLdouble; t: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2f: procedure(s: GLfloat; t: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2i: procedure(s: GLint; t: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2s: procedure(s: GLshort; t: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord2sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3d: procedure(s: GLdouble; t: GLdouble; r: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3f: procedure(s: GLfloat; t: GLfloat; r: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3i: procedure(s: GLint; t: GLint; r: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3s: procedure(s: GLshort; t: GLshort; r: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4d: procedure(s: GLdouble; t: GLdouble; r: GLdouble; q: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4f: procedure(s: GLfloat; t: GLfloat; r: GLfloat; q: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4i: procedure(s: GLint; t: GLint; r: GLint; q: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4s: procedure(s: GLshort; t: GLshort; r: GLshort; q: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoord4sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2d: procedure(x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2f: procedure(x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2i: procedure(x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2s: procedure(x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex2sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3d: procedure(x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3f: procedure(x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3i: procedure(x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3s: procedure(x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4d: procedure(x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4f: procedure(x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4i: procedure(x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4s: procedure(x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertex4sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClipPlane: procedure(plane: GLenum; equation: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorMaterial: procedure(face: GLenum; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogf: procedure(pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogfv: procedure(pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogi: procedure(pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogiv: procedure(pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightf: procedure(light: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightfv: procedure(light: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLighti: procedure(light: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightiv: procedure(light: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightModelf: procedure(pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightModelfv: procedure(pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightModeli: procedure(pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLightModeliv: procedure(pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLineStipple: procedure(factor: GLint; pattern: GLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMaterialf: procedure(face: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMaterialfv: procedure(face: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMateriali: procedure(face: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMaterialiv: procedure(face: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPolygonStipple: procedure(mask: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glShadeModel: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexEnvf: procedure(target: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexEnvfv: procedure(target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexEnvi: procedure(target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexEnviv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGend: procedure(coord: GLenum; pname: GLenum; param: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGendv: procedure(coord: GLenum; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGenf: procedure(coord: GLenum; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGenfv: procedure(coord: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGeni: procedure(coord: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexGeniv: procedure(coord: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFeedbackBuffer: procedure(size: GLsizei; type_: GLenum; buffer: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSelectBuffer: procedure(size: GLsizei; buffer: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRenderMode: function(mode: GLenum): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInitNames: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadName: procedure(Name: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPassThrough: procedure(token: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPopName: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPushName: procedure(Name: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearAccum: procedure(red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearIndex: procedure(c: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexMask: procedure(mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glAccum: procedure(op: GLenum; Value: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPopAttrib: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPushAttrib: procedure(mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMap1d: procedure(target: GLenum; u1: GLdouble; u2: GLdouble; stride: GLint; order: GLint; points: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMap1f: procedure(target: GLenum; u1: GLfloat; u2: GLfloat; stride: GLint; order: GLint; points: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMap2d: procedure(target: GLenum; u1: GLdouble; u2: GLdouble; ustride: GLint; uorder: GLint; v1: GLdouble; v2: GLdouble; vstride: GLint; vorder: GLint; points: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMap2f: procedure(target: GLenum; u1: GLfloat; u2: GLfloat; ustride: GLint; uorder: GLint; v1: GLfloat; v2: GLfloat; vstride: GLint; vorder: GLint; points: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapGrid1d: procedure(un: GLint; u1: GLdouble; u2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapGrid1f: procedure(un: GLint; u1: GLfloat; u2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapGrid2d: procedure(un: GLint; u1: GLdouble; u2: GLdouble; vn: GLint; v1: GLdouble; v2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapGrid2f: procedure(un: GLint; u1: GLfloat; u2: GLfloat; vn: GLint; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord1d: procedure(u: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord1dv: procedure(u: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord1f: procedure(u: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord1fv: procedure(u: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord2d: procedure(u: GLdouble; v: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord2dv: procedure(u: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord2f: procedure(u: GLfloat; v: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalCoord2fv: procedure(u: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalMesh1: procedure(mode: GLenum; i1: GLint; i2: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalPoint1: procedure(i: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalMesh2: procedure(mode: GLenum; i1: GLint; i2: GLint; j1: GLint; j2: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEvalPoint2: procedure(i: GLint; j: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glAlphaFunc: procedure(func: GLenum; ref: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelZoom: procedure(xfactor: GLfloat; yfactor: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelTransferf: procedure(pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelTransferi: procedure(pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelMapfv: procedure(map: GLenum; mapsize: GLsizei; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelMapuiv: procedure(map: GLenum; mapsize: GLsizei; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPixelMapusv: procedure(map: GLenum; mapsize: GLsizei; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyPixels: procedure(x: GLint; y: GLint; Width: GLsizei; Height: GLsizei; type_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawPixels: procedure(Width: GLsizei; Height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetClipPlane: procedure(plane: GLenum; equation: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetLightfv: procedure(light: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetLightiv: procedure(light: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMapdv: procedure(target: GLenum; query: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMapfv: procedure(target: GLenum; query: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMapiv: procedure(target: GLenum; query: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMaterialfv: procedure(face: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMaterialiv: procedure(face: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetPixelMapfv: procedure(map: GLenum; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetPixelMapuiv: procedure(map: GLenum; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetPixelMapusv: procedure(map: GLenum; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetPolygonStipple: procedure(mask: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexEnvfv: procedure(target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexEnviv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexGendv: procedure(coord: GLenum; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexGenfv: procedure(coord: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexGeniv: procedure(coord: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsList: function(list: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFrustum: procedure(left: GLdouble; right: GLdouble; bottom: GLdouble; top: GLdouble; zNear: GLdouble; zFar: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadIdentity: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadMatrixf: procedure(m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadMatrixd: procedure(m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMatrixMode: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultMatrixf: procedure(m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultMatrixd: procedure(m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glOrtho: procedure(left: GLdouble; right: GLdouble; bottom: GLdouble; top: GLdouble; zNear: GLdouble; zFar: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPopMatrix: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPushMatrix: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRotated: procedure(angle: GLdouble; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRotatef: procedure(angle: GLfloat; x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScaled: procedure(x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScalef: procedure(x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTranslated: procedure(x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTranslatef: procedure(x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawArrays: procedure(mode: GLenum; First: GLint; Count: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElements: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetPointerv: procedure(pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPolygonOffset: procedure(factor: GLfloat; units: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTexImage1D: procedure(target: GLenum; level: GLint; internalformat: GLenum; x: GLint; y: GLint; Width: GLsizei; border: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTexImage2D: procedure(target: GLenum; level: GLint; internalformat: GLenum; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei; border: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTexSubImage1D: procedure(target: GLenum; level: GLint; xoffset: GLint; x: GLint; y: GLint; Width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTexSubImage2D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexSubImage1D: procedure(target: GLenum; level: GLint; xoffset: GLint; Width: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexSubImage2D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindTexture: procedure(target: GLenum; texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteTextures: procedure(n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenTextures: procedure(n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsTexture: function(texture: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glArrayElement: procedure(i: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorPointer: procedure(size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDisableClientState: procedure(array_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEdgeFlagPointer: procedure(stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnableClientState: procedure(array_: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexPointer: procedure(type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInterleavedArrays: procedure(format: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormalPointer: procedure(type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordPointer: procedure(size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexPointer: procedure(size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glAreTexturesResident: function(n: GLsizei; textures: PGLuint; residences: PGLboolean): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPrioritizeTextures: procedure(n: GLsizei; textures: PGLuint; priorities: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexub: procedure(c: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIndexubv: procedure(c: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPopClientAttrib: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPushClientAttrib: procedure(mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawRangeElements: procedure(mode: GLenum; start: GLuint; end_: GLuint; Count: GLsizei; type_: GLenum; indices: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexImage3D: procedure(target: GLenum; level: GLint; internalformat: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; border: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexSubImage3D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTexSubImage3D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glActiveTexture: procedure(texture: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSampleCoverage: procedure(Value: GLfloat; invert: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexImage3D: procedure(target: GLenum; level: GLint; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei; border: GLint; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexImage2D: procedure(target: GLenum; level: GLint; internalformat: GLenum; Width: GLsizei; Height: GLsizei; border: GLint; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexImage1D: procedure(target: GLenum; level: GLint; internalformat: GLenum; Width: GLsizei; border: GLint; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexSubImage3D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexSubImage2D: procedure(target: GLenum; level: GLint; xoffset: GLint; yoffset: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTexSubImage1D: procedure(target: GLenum; level: GLint; xoffset: GLint; Width: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetCompressedTexImage: procedure(target: GLenum; level: GLint; img: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClientActiveTexture: procedure(texture: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1d: procedure(target: GLenum; s: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1dv: procedure(target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1f: procedure(target: GLenum; s: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1fv: procedure(target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1i: procedure(target: GLenum; s: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1iv: procedure(target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1s: procedure(target: GLenum; s: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord1sv: procedure(target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2d: procedure(target: GLenum; s: GLdouble; t: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2dv: procedure(target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2f: procedure(target: GLenum; s: GLfloat; t: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2fv: procedure(target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2i: procedure(target: GLenum; s: GLint; t: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2iv: procedure(target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2s: procedure(target: GLenum; s: GLshort; t: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord2sv: procedure(target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3d: procedure(target: GLenum; s: GLdouble; t: GLdouble; r: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3dv: procedure(target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3f: procedure(target: GLenum; s: GLfloat; t: GLfloat; r: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3fv: procedure(target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3i: procedure(target: GLenum; s: GLint; t: GLint; r: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3iv: procedure(target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3s: procedure(target: GLenum; s: GLshort; t: GLshort; r: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord3sv: procedure(target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4d: procedure(target: GLenum; s: GLdouble; t: GLdouble; r: GLdouble; q: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4dv: procedure(target: GLenum; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4f: procedure(target: GLenum; s: GLfloat; t: GLfloat; r: GLfloat; q: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4fv: procedure(target: GLenum; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4i: procedure(target: GLenum; s: GLint; t: GLint; r: GLint; q: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4iv: procedure(target: GLenum; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4s: procedure(target: GLenum; s: GLshort; t: GLshort; r: GLshort; q: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoord4sv: procedure(target: GLenum; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadTransposeMatrixf: procedure(m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLoadTransposeMatrixd: procedure(m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultTransposeMatrixf: procedure(m: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultTransposeMatrixd: procedure(m: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendFuncSeparate: procedure(sfactorRGB: GLenum; dfactorRGB: GLenum; sfactorAlpha: GLenum; dfactorAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawArrays: procedure(mode: GLenum; First: PGLint; Count: PGLsizei; drawcount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawElements: procedure(mode: GLenum; Count: PGLsizei; type_: GLenum; indices: PPointer; drawcount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPointParameterf: procedure(pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPointParameterfv: procedure(pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPointParameteri: procedure(pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPointParameteriv: procedure(pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogCoordf: procedure(coord: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogCoordfv: procedure(coord: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogCoordd: procedure(coord: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogCoorddv: procedure(coord: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFogCoordPointer: procedure(type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3b: procedure(red: GLbyte; green: GLbyte; blue: GLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3bv: procedure(v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3d: procedure(red: GLdouble; green: GLdouble; blue: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3f: procedure(red: GLfloat; green: GLfloat; blue: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3i: procedure(red: GLint; green: GLint; blue: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3s: procedure(red: GLshort; green: GLshort; blue: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3ub: procedure(red: GLubyte; green: GLubyte; blue: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3ubv: procedure(v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3ui: procedure(red: GLuint; green: GLuint; blue: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3uiv: procedure(v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3us: procedure(red: GLushort; green: GLushort; blue: GLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColor3usv: procedure(v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColorPointer: procedure(size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2d: procedure(x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2f: procedure(x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2i: procedure(x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2s: procedure(x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos2sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3d: procedure(x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3dv: procedure(v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3f: procedure(x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3fv: procedure(v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3i: procedure(x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3iv: procedure(v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3s: procedure(x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWindowPos3sv: procedure(v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendColor: procedure(red: GLfloat; green: GLfloat; blue: GLfloat; alpha: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendEquation: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenQueries: procedure(n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteQueries: procedure(n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsQuery: function(id: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBeginQuery: procedure(target: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEndQuery: procedure(target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryiv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryObjectiv: procedure(id: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryObjectuiv: procedure(id: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindBuffer: procedure(target: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteBuffers: procedure(n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenBuffers: procedure(n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsBuffer: function(buffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBufferData: procedure(target: GLenum; size: GLsizeiptr; Data: Pointer; usage: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBufferSubData: procedure(target: GLenum; offset: GLintptr; size: GLsizeiptr; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBufferSubData: procedure(target: GLenum; offset: GLintptr; size: GLsizeiptr; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapBuffer: function(target: GLenum; access: GLenum): Pointer; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUnmapBuffer: function(target: GLenum): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBufferParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBufferPointerv: procedure(target: GLenum; pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendEquationSeparate: procedure(modeRGB: GLenum; modeAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawBuffers: procedure(n: GLsizei; bufs: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilOpSeparate: procedure(face: GLenum; sfail: GLenum; dpfail: GLenum; dppass: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilFuncSeparate: procedure(face: GLenum; func: GLenum; ref: GLint; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glStencilMaskSeparate: procedure(face: GLenum; mask: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glAttachShader: procedure(program_: GLuint; shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindAttribLocation: procedure(program_: GLuint; index: GLuint; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompileShader: procedure(shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateProgram: function(): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateShader: function(type_: GLenum): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteProgram: procedure(program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteShader: procedure(shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDetachShader: procedure(program_: GLuint; shader: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDisableVertexAttribArray: procedure(index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnableVertexAttribArray: procedure(index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveAttrib: procedure(program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLint; type_: PGLenum; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveUniform: procedure(program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLint; type_: PGLenum; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetAttachedShaders: procedure(program_: GLuint; maxCount: GLsizei; Count: PGLsizei; shaders: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetAttribLocation: function(program_: GLuint; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramiv: procedure(program_: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramInfoLog: procedure(program_: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetShaderiv: procedure(shader: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetShaderInfoLog: procedure(shader: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetShaderSource: procedure(shader: GLuint; bufSize: GLsizei; length: PGLsizei; Source: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformLocation: function(program_: GLuint; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformfv: procedure(program_: GLuint; location: GLint; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformiv: procedure(program_: GLuint; location: GLint; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribdv: procedure(index: GLuint; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribfv: procedure(index: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribiv: procedure(index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribPointerv: procedure(index: GLuint; pname: GLenum; pointer: PPointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsProgram: function(program_: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsShader: function(shader: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glLinkProgram: procedure(program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glShaderSource: procedure(shader: GLuint; Count: GLsizei; string_: PPGLchar; length: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUseProgram: procedure(program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1f: procedure(location: GLint; v0: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2f: procedure(location: GLint; v0: GLfloat; v1: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3f: procedure(location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4f: procedure(location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat; v3: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1i: procedure(location: GLint; v0: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2i: procedure(location: GLint; v0: GLint; v1: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3i: procedure(location: GLint; v0: GLint; v1: GLint; v2: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4i: procedure(location: GLint; v0: GLint; v1: GLint; v2: GLint; v3: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1fv: procedure(location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2fv: procedure(location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3fv: procedure(location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4fv: procedure(location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1iv: procedure(location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2iv: procedure(location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3iv: procedure(location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4iv: procedure(location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glValidateProgram: procedure(program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1d: procedure(index: GLuint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1f: procedure(index: GLuint; x: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1fv: procedure(index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1s: procedure(index: GLuint; x: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib1sv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2d: procedure(index: GLuint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2f: procedure(index: GLuint; x: GLfloat; y: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2fv: procedure(index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2s: procedure(index: GLuint; x: GLshort; y: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib2sv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3d: procedure(index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3f: procedure(index: GLuint; x: GLfloat; y: GLfloat; z: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3fv: procedure(index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3s: procedure(index: GLuint; x: GLshort; y: GLshort; z: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib3sv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nbv: procedure(index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Niv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nsv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nub: procedure(index: GLuint; x: GLubyte; y: GLubyte; z: GLubyte; w: GLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nubv: procedure(index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nuiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4Nusv: procedure(index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4bv: procedure(index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4d: procedure(index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4f: procedure(index: GLuint; x: GLfloat; y: GLfloat; z: GLfloat; w: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4fv: procedure(index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4iv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4s: procedure(index: GLuint; x: GLshort; y: GLshort; z: GLshort; w: GLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4sv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4ubv: procedure(index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4uiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttrib4usv: procedure(index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribPointer: procedure(index: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2x3fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3x2fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2x4fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4x2fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3x4fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4x3fv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorMaski: procedure(index: GLuint; r: GLboolean; g: GLboolean; b: GLboolean; a: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBooleani_v: procedure(target: GLenum; index: GLuint; Data: PGLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetIntegeri_v: procedure(target: GLenum; index: GLuint; Data: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnablei: procedure(target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDisablei: procedure(target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsEnabledi: function(target: GLenum; index: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBeginTransformFeedback: procedure(primitiveMode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEndTransformFeedback: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindBufferRange: procedure(target: GLenum; index: GLuint; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindBufferBase: procedure(target: GLenum; index: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTransformFeedbackVaryings: procedure(program_: GLuint; Count: GLsizei; varyings: PPGLchar; bufferMode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTransformFeedbackVarying: procedure(program_: GLuint; index: GLuint; bufSize: GLsizei; length: PGLsizei; size: PGLsizei; type_: PGLenum; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClampColor: procedure(target: GLenum; clamp: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBeginConditionalRender: procedure(id: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEndConditionalRender: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribIPointer: procedure(index: GLuint; size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribIiv: procedure(index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribIuiv: procedure(index: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI1i: procedure(index: GLuint; x: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI2i: procedure(index: GLuint; x: GLint; y: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI3i: procedure(index: GLuint; x: GLint; y: GLint; z: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4i: procedure(index: GLuint; x: GLint; y: GLint; z: GLint; w: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI1ui: procedure(index: GLuint; x: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI2ui: procedure(index: GLuint; x: GLuint; y: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI3ui: procedure(index: GLuint; x: GLuint; y: GLuint; z: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4ui: procedure(index: GLuint; x: GLuint; y: GLuint; z: GLuint; w: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI1iv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI2iv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI3iv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4iv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI1uiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI2uiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI3uiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4uiv: procedure(index: GLuint; v: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4bv: procedure(index: GLuint; v: PGLbyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4sv: procedure(index: GLuint; v: PGLshort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4ubv: procedure(index: GLuint; v: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribI4usv: procedure(index: GLuint; v: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformuiv: procedure(program_: GLuint; location: GLint; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindFragDataLocation: procedure(program_: GLuint; color: GLuint; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFragDataLocation: function(program_: GLuint; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1ui: procedure(location: GLint; v0: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2ui: procedure(location: GLint; v0: GLuint; v1: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3ui: procedure(location: GLint; v0: GLuint; v1: GLuint; v2: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4ui: procedure(location: GLint; v0: GLuint; v1: GLuint; v2: GLuint; v3: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1uiv: procedure(location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2uiv: procedure(location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3uiv: procedure(location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4uiv: procedure(location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameterIiv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexParameterIuiv: procedure(target: GLenum; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexParameterIiv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTexParameterIuiv: procedure(target: GLenum; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferiv: procedure(buffer: GLenum; drawbuffer: GLint; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferuiv: procedure(buffer: GLenum; drawbuffer: GLint; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferfv: procedure(buffer: GLenum; drawbuffer: GLint; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferfi: procedure(buffer: GLenum; drawbuffer: GLint; depth: GLfloat; stencil: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetStringi: function(Name: GLenum; index: GLuint): PGLubyte; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsRenderbuffer: function(renderbuffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindRenderbuffer: procedure(target: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteRenderbuffers: procedure(n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenRenderbuffers: procedure(n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRenderbufferStorage: procedure(target: GLenum; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetRenderbufferParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsFramebuffer: function(framebuffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindFramebuffer: procedure(target: GLenum; framebuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteFramebuffers: procedure(n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenFramebuffers: procedure(n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCheckFramebufferStatus: function(target: GLenum): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferTexture1D: procedure(target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferTexture2D: procedure(target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferTexture3D: procedure(target: GLenum; attachment: GLenum; textarget: GLenum; texture: GLuint; level: GLint; zoffset: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferRenderbuffer: procedure(target: GLenum; attachment: GLenum; renderbuffertarget: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFramebufferAttachmentParameteriv: procedure(target: GLenum; attachment: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenerateMipmap: procedure(target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlitFramebuffer: procedure(srcX0: GLint; srcY0: GLint; srcX1: GLint; srcY1: GLint; dstX0: GLint; dstY0: GLint; dstX1: GLint; dstY1: GLint; mask: GLbitfield; filter: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glRenderbufferStorageMultisample: procedure(target: GLenum; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferTextureLayer: procedure(target: GLenum; attachment: GLenum; texture: GLuint; level: GLint; layer: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapBufferRange: function(target: GLenum; offset: GLintptr; length: GLsizeiptr; access: GLbitfield): Pointer; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFlushMappedBufferRange: procedure(target: GLenum; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindVertexArray: procedure(array_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteVertexArrays: procedure(n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenVertexArrays: procedure(n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsVertexArray: function(array_: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawArraysInstanced: procedure(mode: GLenum; First: GLint; Count: GLsizei; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsInstanced: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexBuffer: procedure(target: GLenum; internalformat: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPrimitiveRestartIndex: procedure(index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyBufferSubData: procedure(readTarget: GLenum; writeTarget: GLenum; readOffset: GLintptr; writeOffset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformIndices: procedure(program_: GLuint; uniformCount: GLsizei; uniformNames: PPGLchar; uniformIndices: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveUniformsiv: procedure(program_: GLuint; uniformCount: GLsizei; uniformIndices: PGLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveUniformName: procedure(program_: GLuint; uniformIndex: GLuint; bufSize: GLsizei; length: PGLsizei; uniformName: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformBlockIndex: function(program_: GLuint; uniformBlockName: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveUniformBlockiv: procedure(program_: GLuint; uniformBlockIndex: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveUniformBlockName: procedure(program_: GLuint; uniformBlockIndex: GLuint; bufSize: GLsizei; length: PGLsizei; uniformBlockName: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformBlockBinding: procedure(program_: GLuint; uniformBlockIndex: GLuint; uniformBlockBinding: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsBaseVertex: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawRangeElementsBaseVertex: procedure(mode: GLenum; start: GLuint; end_: GLuint; Count: GLsizei; type_: GLenum; indices: Pointer; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsInstancedBaseVertex: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; basevertex: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawElementsBaseVertex: procedure(mode: GLenum; Count: PGLsizei; type_: GLenum; indices: PPointer; drawcount: GLsizei; basevertex: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProvokingVertex: procedure(mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFenceSync: function(condition: GLenum; flags: GLbitfield): GLsync; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsSync: function(sync: GLsync): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteSync: procedure(sync: GLsync); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClientWaitSync: function(sync: GLsync; flags: GLbitfield; timeout: GLuint64): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glWaitSync: procedure(sync: GLsync; flags: GLbitfield; timeout: GLuint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetInteger64v: procedure(pname: GLenum; Data: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSynciv: procedure(sync: GLsync; pname: GLenum; Count: GLsizei; length: PGLsizei; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetInteger64i_v: procedure(target: GLenum; index: GLuint; Data: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetBufferParameteri64v: procedure(target: GLenum; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferTexture: procedure(target: GLenum; attachment: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexImage2DMultisample: procedure(target: GLenum; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexImage3DMultisample: procedure(target: GLenum; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetMultisamplefv: procedure(pname: GLenum; index: GLuint; val: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSampleMaski: procedure(maskNumber: GLuint; mask: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindFragDataLocationIndexed: procedure(program_: GLuint; colorNumber: GLuint; index: GLuint; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFragDataIndex: function(program_: GLuint; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenSamplers: procedure(Count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteSamplers: procedure(Count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsSampler: function(sampler: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindSampler: procedure(unit_: GLuint; sampler: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameteri: procedure(sampler: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameteriv: procedure(sampler: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameterf: procedure(sampler: GLuint; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameterfv: procedure(sampler: GLuint; pname: GLenum; param: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameterIiv: procedure(sampler: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSamplerParameterIuiv: procedure(sampler: GLuint; pname: GLenum; param: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSamplerParameteriv: procedure(sampler: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSamplerParameterIiv: procedure(sampler: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSamplerParameterfv: procedure(sampler: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSamplerParameterIuiv: procedure(sampler: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glQueryCounter: procedure(id: GLuint; target: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryObjecti64v: procedure(id: GLuint; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryObjectui64v: procedure(id: GLuint; pname: GLenum; params: PGLuint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribDivisor: procedure(index: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP1ui: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP1uiv: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP2ui: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP2uiv: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP3ui: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP3uiv: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP4ui: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribP4uiv: procedure(index: GLuint; type_: GLenum; normalized: GLboolean; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP2ui: procedure(type_: GLenum; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP2uiv: procedure(type_: GLenum; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP3ui: procedure(type_: GLenum; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP3uiv: procedure(type_: GLenum; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP4ui: procedure(type_: GLenum; Value: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexP4uiv: procedure(type_: GLenum; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP1ui: procedure(type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP1uiv: procedure(type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP2ui: procedure(type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP2uiv: procedure(type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP3ui: procedure(type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP3uiv: procedure(type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP4ui: procedure(type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexCoordP4uiv: procedure(type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP1ui: procedure(texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP1uiv: procedure(texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP2ui: procedure(texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP2uiv: procedure(texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP3ui: procedure(texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP3uiv: procedure(texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP4ui: procedure(texture: GLenum; type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiTexCoordP4uiv: procedure(texture: GLenum; type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormalP3ui: procedure(type_: GLenum; coords: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNormalP3uiv: procedure(type_: GLenum; coords: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorP3ui: procedure(type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorP3uiv: procedure(type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorP4ui: procedure(type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glColorP4uiv: procedure(type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColorP3ui: procedure(type_: GLenum; color: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSecondaryColorP3uiv: procedure(type_: GLenum; color: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMinSampleShading: procedure(Value: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendEquationi: procedure(buf: GLuint; mode: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendEquationSeparatei: procedure(buf: GLuint; modeRGB: GLenum; modeAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendFunci: procedure(buf: GLuint; src: GLenum; dst: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlendFuncSeparatei: procedure(buf: GLuint; srcRGB: GLenum; dstRGB: GLenum; srcAlpha: GLenum; dstAlpha: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawArraysIndirect: procedure(mode: GLenum; indirect: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsIndirect: procedure(mode: GLenum; type_: GLenum; indirect: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1d: procedure(location: GLint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2d: procedure(location: GLint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3d: procedure(location: GLint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4d: procedure(location: GLint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform1dv: procedure(location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform2dv: procedure(location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform3dv: procedure(location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniform4dv: procedure(location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2x3dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix2x4dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3x2dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix3x4dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4x2dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformMatrix4x3dv: procedure(location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformdv: procedure(program_: GLuint; location: GLint; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSubroutineUniformLocation: function(program_: GLuint; shadertype: GLenum; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetSubroutineIndex: function(program_: GLuint; shadertype: GLenum; Name: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveSubroutineUniformiv: procedure(program_: GLuint; shadertype: GLenum; index: GLuint; pname: GLenum; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveSubroutineUniformName: procedure(program_: GLuint; shadertype: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveSubroutineName: procedure(program_: GLuint; shadertype: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUniformSubroutinesuiv: procedure(shadertype: GLenum; Count: GLsizei; indices: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetUniformSubroutineuiv: procedure(shadertype: GLenum; location: GLint; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramStageiv: procedure(program_: GLuint; shadertype: GLenum; pname: GLenum; values: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPatchParameteri: procedure(pname: GLenum; Value: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPatchParameterfv: procedure(pname: GLenum; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindTransformFeedback: procedure(target: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteTransformFeedbacks: procedure(n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenTransformFeedbacks: procedure(n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsTransformFeedback: function(id: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPauseTransformFeedback: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glResumeTransformFeedback: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawTransformFeedback: procedure(mode: GLenum; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawTransformFeedbackStream: procedure(mode: GLenum; id: GLuint; stream: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBeginQueryIndexed: procedure(target: GLenum; index: GLuint; id: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEndQueryIndexed: procedure(target: GLenum; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryIndexediv: procedure(target: GLenum; index: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glReleaseShaderCompiler: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glShaderBinary: procedure(Count: GLsizei; shaders: PGLuint; binaryFormat: GLenum; binary: Pointer; length: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetShaderPrecisionFormat: procedure(shadertype: GLenum; precisiontype: GLenum; range: PGLint; precision: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthRangef: procedure(n: GLfloat; f: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearDepthf: procedure(d: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramBinary: procedure(program_: GLuint; bufSize: GLsizei; length: PGLsizei; binaryFormat: PGLenum; binary: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramBinary: procedure(program_: GLuint; binaryFormat: GLenum; binary: Pointer; length: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramParameteri: procedure(program_: GLuint; pname: GLenum; Value: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUseProgramStages: procedure(pipeline: GLuint; stages: GLbitfield; program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glActiveShaderProgram: procedure(pipeline: GLuint; program_: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateShaderProgramv: function(type_: GLenum; Count: GLsizei; strings: PPGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindProgramPipeline: procedure(pipeline: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDeleteProgramPipelines: procedure(n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenProgramPipelines: procedure(n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glIsProgramPipeline: function(pipeline: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramPipelineiv: procedure(pipeline: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1i: procedure(program_: GLuint; location: GLint; v0: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1iv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1f: procedure(program_: GLuint; location: GLint; v0: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1d: procedure(program_: GLuint; location: GLint; v0: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1ui: procedure(program_: GLuint; location: GLint; v0: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform1uiv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2i: procedure(program_: GLuint; location: GLint; v0: GLint; v1: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2iv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2f: procedure(program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2d: procedure(program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2ui: procedure(program_: GLuint; location: GLint; v0: GLuint; v1: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform2uiv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3i: procedure(program_: GLuint; location: GLint; v0: GLint; v1: GLint; v2: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3iv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3f: procedure(program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3d: procedure(program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble; v2: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3ui: procedure(program_: GLuint; location: GLint; v0: GLuint; v1: GLuint; v2: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform3uiv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4i: procedure(program_: GLuint; location: GLint; v0: GLint; v1: GLint; v2: GLint; v3: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4iv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4f: procedure(program_: GLuint; location: GLint; v0: GLfloat; v1: GLfloat; v2: GLfloat; v3: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4d: procedure(program_: GLuint; location: GLint; v0: GLdouble; v1: GLdouble; v2: GLdouble; v3: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4ui: procedure(program_: GLuint; location: GLint; v0: GLuint; v1: GLuint; v2: GLuint; v3: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniform4uiv: procedure(program_: GLuint; location: GLint; Count: GLsizei; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2x3fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3x2fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2x4fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4x2fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3x4fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4x3fv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2x3dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3x2dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix2x4dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4x2dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix3x4dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glProgramUniformMatrix4x3dv: procedure(program_: GLuint; location: GLint; Count: GLsizei; transpose: GLboolean; Value: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glValidateProgramPipeline: procedure(pipeline: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramPipelineInfoLog: procedure(pipeline: GLuint; bufSize: GLsizei; length: PGLsizei; infoLog: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL1d: procedure(index: GLuint; x: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL2d: procedure(index: GLuint; x: GLdouble; y: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL3d: procedure(index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL4d: procedure(index: GLuint; x: GLdouble; y: GLdouble; z: GLdouble; w: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL1dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL2dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL3dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribL4dv: procedure(index: GLuint; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribLPointer: procedure(index: GLuint; size: GLint; type_: GLenum; stride: GLsizei; pointer: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexAttribLdv: procedure(index: GLuint; pname: GLenum; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glViewportArrayv: procedure(First: GLuint; Count: GLsizei; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glViewportIndexedf: procedure(index: GLuint; x: GLfloat; y: GLfloat; w: GLfloat; h: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glViewportIndexedfv: procedure(index: GLuint; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScissorArrayv: procedure(First: GLuint; Count: GLsizei; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScissorIndexed: procedure(index: GLuint; left: GLint; bottom: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glScissorIndexedv: procedure(index: GLuint; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthRangeArrayv: procedure(First: GLuint; Count: GLsizei; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDepthRangeIndexed: procedure(index: GLuint; n: GLdouble; f: GLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFloati_v: procedure(target: GLenum; index: GLuint; Data: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetDoublei_v: procedure(target: GLenum; index: GLuint; Data: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawArraysInstancedBaseInstance: procedure(mode: GLenum; First: GLint; Count: GLsizei; instancecount: GLsizei; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsInstancedBaseInstance: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawElementsInstancedBaseVertexBaseInstance: procedure(mode: GLenum; Count: GLsizei; type_: GLenum; indices: Pointer; instancecount: GLsizei; basevertex: GLint; baseinstance: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetInternalformativ: procedure(target: GLenum; internalformat: GLenum; pname: GLenum; Count: GLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetActiveAtomicCounterBufferiv: procedure(program_: GLuint; bufferIndex: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindImageTexture: procedure(unit_: GLuint; texture: GLuint; level: GLint; layered: GLboolean; layer: GLint; access: GLenum; format: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMemoryBarrier: procedure(barriers: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexStorage1D: procedure(target: GLenum; levels: GLsizei; internalformat: GLenum; Width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexStorage2D: procedure(target: GLenum; levels: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexStorage3D: procedure(target: GLenum; levels: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawTransformFeedbackInstanced: procedure(mode: GLenum; id: GLuint; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDrawTransformFeedbackStreamInstanced: procedure(mode: GLenum; id: GLuint; stream: GLuint; instancecount: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferData: procedure(target: GLenum; internalformat: GLenum; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearBufferSubData: procedure(target: GLenum; internalformat: GLenum; offset: GLintptr; size: GLsizeiptr; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDispatchCompute: procedure(num_groups_x: GLuint; num_groups_y: GLuint; num_groups_z: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDispatchComputeIndirect: procedure(indirect: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyImageSubData: procedure(srcName: GLuint; srcTarget: GLenum; srcLevel: GLint; srcX: GLint; srcY: GLint; srcZ: GLint; dstName: GLuint; dstTarget: GLenum; dstLevel: GLint; dstX: GLint; dstY: GLint; dstZ: GLint; srcWidth: GLsizei;
+  srcHeight: GLsizei; srcDepth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFramebufferParameteri: procedure(target: GLenum; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetFramebufferParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetInternalformati64v: procedure(target: GLenum; internalformat: GLenum; pname: GLenum; Count: GLsizei; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateTexSubImage: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateTexImage: procedure(texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateBufferSubData: procedure(buffer: GLuint; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateBufferData: procedure(buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateFramebuffer: procedure(target: GLenum; numAttachments: GLsizei; attachments: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateSubFramebuffer: procedure(target: GLenum; numAttachments: GLsizei; attachments: PGLenum; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawArraysIndirect: procedure(mode: GLenum; indirect: Pointer; drawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawElementsIndirect: procedure(mode: GLenum; type_: GLenum; indirect: Pointer; drawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramInterfaceiv: procedure(program_: GLuint; programInterface: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramResourceIndex: function(program_: GLuint; programInterface: GLenum; Name: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramResourceName: procedure(program_: GLuint; programInterface: GLenum; index: GLuint; bufSize: GLsizei; length: PGLsizei; Name: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramResourceiv: procedure(program_: GLuint; programInterface: GLenum; index: GLuint; propCount: GLsizei; props: PGLenum; Count: GLsizei; length: PGLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramResourceLocation: function(program_: GLuint; programInterface: GLenum; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetProgramResourceLocationIndex: function(program_: GLuint; programInterface: GLenum; Name: PGLchar): GLint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glShaderStorageBlockBinding: procedure(program_: GLuint; storageBlockIndex: GLuint; storageBlockBinding: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexBufferRange: procedure(target: GLenum; internalformat: GLenum; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexStorage2DMultisample: procedure(target: GLenum; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTexStorage3DMultisample: procedure(target: GLenum; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureView: procedure(texture: GLuint; target: GLenum; origtexture: GLuint; internalformat: GLenum; minlevel: GLuint; numlevels: GLuint; minlayer: GLuint; numlayers: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindVertexBuffer: procedure(bindingindex: GLuint; buffer: GLuint; offset: GLintptr; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribFormat: procedure(attribindex: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribIFormat: procedure(attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribLFormat: procedure(attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexAttribBinding: procedure(attribindex: GLuint; bindingindex: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexBindingDivisor: procedure(bindingindex: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDebugMessageControl: procedure(Source: GLenum; type_: GLenum; severity: GLenum; Count: GLsizei; ids: PGLuint; Enabled: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDebugMessageInsert: procedure(Source: GLenum; type_: GLenum; id: GLuint; severity: GLenum; length: GLsizei; buf: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDebugMessageCallback: procedure(callback: GLDEBUGPROC; userParam: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetDebugMessageLog: function(Count: GLuint; bufSize: GLsizei; sources: PGLenum; types: PGLenum; ids: PGLuint; severities: PGLenum; lengths: PGLsizei; messageLog: PGLchar): GLuint; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPushDebugGroup: procedure(Source: GLenum; id: GLuint; length: GLsizei; message: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPopDebugGroup: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glObjectLabel: procedure(identifier: GLenum; Name: GLuint; length: GLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetObjectLabel: procedure(identifier: GLenum; Name: GLuint; bufSize: GLsizei; length: PGLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glObjectPtrLabel: procedure(ptr: Pointer; length: GLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetObjectPtrLabel: procedure(ptr: Pointer; bufSize: GLsizei; length: PGLsizei; label_: PGLchar); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBufferStorage: procedure(target: GLenum; size: GLsizeiptr; Data: Pointer; flags: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearTexImage: procedure(texture: GLuint; level: GLint; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearTexSubImage: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindBuffersBase: procedure(target: GLenum; First: GLuint; Count: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindBuffersRange: procedure(target: GLenum; First: GLuint; Count: GLsizei; buffers: PGLuint; offsets: PGLintptr; sizes: PGLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindTextures: procedure(First: GLuint; Count: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindSamplers: procedure(First: GLuint; Count: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindImageTextures: procedure(First: GLuint; Count: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindVertexBuffers: procedure(First: GLuint; Count: GLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClipControl: procedure(origin: GLenum; depth: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateTransformFeedbacks: procedure(n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTransformFeedbackBufferBase: procedure(xfb: GLuint; index: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTransformFeedbackBufferRange: procedure(xfb: GLuint; index: GLuint; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTransformFeedbackiv: procedure(xfb: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTransformFeedbacki_v: procedure(xfb: GLuint; pname: GLenum; index: GLuint; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTransformFeedbacki64_v: procedure(xfb: GLuint; pname: GLenum; index: GLuint; param: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateBuffers: procedure(n: GLsizei; buffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedBufferStorage: procedure(buffer: GLuint; size: GLsizeiptr; Data: Pointer; flags: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedBufferData: procedure(buffer: GLuint; size: GLsizeiptr; Data: Pointer; usage: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedBufferSubData: procedure(buffer: GLuint; offset: GLintptr; size: GLsizeiptr; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyNamedBufferSubData: procedure(readBuffer: GLuint; writeBuffer: GLuint; readOffset: GLintptr; writeOffset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedBufferData: procedure(buffer: GLuint; internalformat: GLenum; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedBufferSubData: procedure(buffer: GLuint; internalformat: GLenum; offset: GLintptr; size: GLsizeiptr; format: GLenum; type_: GLenum; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapNamedBuffer: function(buffer: GLuint; access: GLenum): Pointer; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMapNamedBufferRange: function(buffer: GLuint; offset: GLintptr; length: GLsizeiptr; access: GLbitfield): Pointer; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glUnmapNamedBuffer: function(buffer: GLuint): GLboolean; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glFlushMappedNamedBufferRange: procedure(buffer: GLuint; offset: GLintptr; length: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedBufferParameteriv: procedure(buffer: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedBufferParameteri64v: procedure(buffer: GLuint; pname: GLenum; params: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedBufferPointerv: procedure(buffer: GLuint; pname: GLenum; params: PPointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedBufferSubData: procedure(buffer: GLuint; offset: GLintptr; size: GLsizeiptr; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateFramebuffers: procedure(n: GLsizei; framebuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferRenderbuffer: procedure(framebuffer: GLuint; attachment: GLenum; renderbuffertarget: GLenum; renderbuffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferParameteri: procedure(framebuffer: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferTexture: procedure(framebuffer: GLuint; attachment: GLenum; texture: GLuint; level: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferTextureLayer: procedure(framebuffer: GLuint; attachment: GLenum; texture: GLuint; level: GLint; layer: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferDrawBuffer: procedure(framebuffer: GLuint; buf: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferDrawBuffers: procedure(framebuffer: GLuint; n: GLsizei; bufs: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedFramebufferReadBuffer: procedure(framebuffer: GLuint; src: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateNamedFramebufferData: procedure(framebuffer: GLuint; numAttachments: GLsizei; attachments: PGLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glInvalidateNamedFramebufferSubData: procedure(framebuffer: GLuint; numAttachments: GLsizei; attachments: PGLenum; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedFramebufferiv: procedure(framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; Value: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedFramebufferuiv: procedure(framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; Value: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedFramebufferfv: procedure(framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; Value: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glClearNamedFramebufferfi: procedure(framebuffer: GLuint; buffer: GLenum; drawbuffer: GLint; depth: GLfloat; stencil: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBlitNamedFramebuffer: procedure(readFramebuffer: GLuint; drawFramebuffer: GLuint; srcX0: GLint; srcY0: GLint; srcX1: GLint; srcY1: GLint; dstX0: GLint; dstY0: GLint; dstX1: GLint; dstY1: GLint; mask: GLbitfield; filter: GLenum); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCheckNamedFramebufferStatus: function(framebuffer: GLuint; target: GLenum): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedFramebufferParameteriv: procedure(framebuffer: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedFramebufferAttachmentParameteriv: procedure(framebuffer: GLuint; attachment: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateRenderbuffers: procedure(n: GLsizei; renderbuffers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedRenderbufferStorage: procedure(renderbuffer: GLuint; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glNamedRenderbufferStorageMultisample: procedure(renderbuffer: GLuint; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetNamedRenderbufferParameteriv: procedure(renderbuffer: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateTextures: procedure(target: GLenum; n: GLsizei; textures: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureBuffer: procedure(texture: GLuint; internalformat: GLenum; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureBufferRange: procedure(texture: GLuint; internalformat: GLenum; buffer: GLuint; offset: GLintptr; size: GLsizeiptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureStorage1D: procedure(texture: GLuint; levels: GLsizei; internalformat: GLenum; Width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureStorage2D: procedure(texture: GLuint; levels: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureStorage3D: procedure(texture: GLuint; levels: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureStorage2DMultisample: procedure(texture: GLuint; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureStorage3DMultisample: procedure(texture: GLuint; samples: GLsizei; internalformat: GLenum; Width: GLsizei; Height: GLsizei; depth: GLsizei; fixedsamplelocations: GLboolean); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureSubImage1D: procedure(texture: GLuint; level: GLint; xoffset: GLint; Width: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureSubImage2D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureSubImage3D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTextureSubImage1D: procedure(texture: GLuint; level: GLint; xoffset: GLint; Width: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTextureSubImage2D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCompressedTextureSubImage3D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; imageSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTextureSubImage1D: procedure(texture: GLuint; level: GLint; xoffset: GLint; x: GLint; y: GLint; Width: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTextureSubImage2D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCopyTextureSubImage3D: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; x: GLint; y: GLint; Width: GLsizei; Height: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameterf: procedure(texture: GLuint; pname: GLenum; param: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameterfv: procedure(texture: GLuint; pname: GLenum; param: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameteri: procedure(texture: GLuint; pname: GLenum; param: GLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameterIiv: procedure(texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameterIuiv: procedure(texture: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureParameteriv: procedure(texture: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGenerateTextureMipmap: procedure(texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glBindTextureUnit: procedure(unit_: GLuint; texture: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureImage: procedure(texture: GLuint; level: GLint; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetCompressedTextureImage: procedure(texture: GLuint; level: GLint; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureLevelParameterfv: procedure(texture: GLuint; level: GLint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureLevelParameteriv: procedure(texture: GLuint; level: GLint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureParameterfv: procedure(texture: GLuint; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureParameterIiv: procedure(texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureParameterIuiv: procedure(texture: GLuint; pname: GLenum; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureParameteriv: procedure(texture: GLuint; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateVertexArrays: procedure(n: GLsizei; arrays: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glDisableVertexArrayAttrib: procedure(vaobj: GLuint; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glEnableVertexArrayAttrib: procedure(vaobj: GLuint; index: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayElementBuffer: procedure(vaobj: GLuint; buffer: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayVertexBuffer: procedure(vaobj: GLuint; bindingindex: GLuint; buffer: GLuint; offset: GLintptr; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayVertexBuffers: procedure(vaobj: GLuint; First: GLuint; Count: GLsizei; buffers: PGLuint; offsets: PGLintptr; strides: PGLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayAttribBinding: procedure(vaobj: GLuint; attribindex: GLuint; bindingindex: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayAttribFormat: procedure(vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; normalized: GLboolean; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayAttribIFormat: procedure(vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayAttribLFormat: procedure(vaobj: GLuint; attribindex: GLuint; size: GLint; type_: GLenum; relativeoffset: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glVertexArrayBindingDivisor: procedure(vaobj: GLuint; bindingindex: GLuint; divisor: GLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexArrayiv: procedure(vaobj: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexArrayIndexediv: procedure(vaobj: GLuint; index: GLuint; pname: GLenum; param: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetVertexArrayIndexed64iv: procedure(vaobj: GLuint; index: GLuint; pname: GLenum; param: PGLint64); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateSamplers: procedure(n: GLsizei; samplers: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateProgramPipelines: procedure(n: GLsizei; pipelines: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glCreateQueries: procedure(target: GLenum; n: GLsizei; ids: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryBufferObjecti64v: procedure(id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryBufferObjectiv: procedure(id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryBufferObjectui64v: procedure(id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetQueryBufferObjectuiv: procedure(id: GLuint; buffer: GLuint; pname: GLenum; offset: GLintptr); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMemoryBarrierByRegion: procedure(barriers: GLbitfield); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetTextureSubImage: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetCompressedTextureSubImage: procedure(texture: GLuint; level: GLint; xoffset: GLint; yoffset: GLint; zoffset: GLint; Width: GLsizei; Height: GLsizei; depth: GLsizei; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetGraphicsResetStatus: function(): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnCompressedTexImage: procedure(target: GLenum; lod: GLint; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnTexImage: procedure(target: GLenum; level: GLint; format: GLenum; type_: GLenum; bufSize: GLsizei; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnUniformdv: procedure(program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnUniformfv: procedure(program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnUniformiv: procedure(program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnUniformuiv: procedure(program_: GLuint; location: GLint; bufSize: GLsizei; params: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glReadnPixels: procedure(x: GLint; y: GLint; Width: GLsizei; Height: GLsizei; format: GLenum; type_: GLenum; bufSize: GLsizei; Data: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnMapdv: procedure(target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLdouble); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnMapfv: procedure(target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnMapiv: procedure(target: GLenum; query: GLenum; bufSize: GLsizei; v: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnPixelMapfv: procedure(map: GLenum; bufSize: GLsizei; values: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnPixelMapuiv: procedure(map: GLenum; bufSize: GLsizei; values: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnPixelMapusv: procedure(map: GLenum; bufSize: GLsizei; values: PGLushort); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnPolygonStipple: procedure(bufSize: GLsizei; pattern: PGLubyte); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnColorTable: procedure(target: GLenum; format: GLenum; type_: GLenum; bufSize: GLsizei; table: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnConvolutionFilter: procedure(target: GLenum; format: GLenum; type_: GLenum; bufSize: GLsizei; image: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnSeparableFilter: procedure(target: GLenum; format: GLenum; type_: GLenum; rowBufSize: GLsizei; row: Pointer; columnBufSize: GLsizei; column: Pointer; span: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnHistogram: procedure(target: GLenum; reset: GLboolean; format: GLenum; type_: GLenum; bufSize: GLsizei; values: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetnMinmax: procedure(target: GLenum; reset: GLboolean; format: GLenum; type_: GLenum; bufSize: GLsizei; values: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glTextureBarrier: procedure(); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glSpecializeShader: procedure(shader: GLuint; pEntryPoint: PGLchar; numSpecializationConstants: GLuint; pConstantIndex: PGLuint; pConstantValue: PGLuint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawArraysIndirectCount: procedure(mode: GLenum; indirect: Pointer; drawcount: GLintptr; maxdrawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glMultiDrawElementsIndirectCount: procedure(mode: GLenum; type_: GLenum; indirect: Pointer; drawcount: GLintptr; maxdrawcount: GLsizei; stride: GLsizei); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glPolygonOffsetClamp: procedure(factor: GLfloat; units: GLfloat; clamp: GLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
 
 
 type
-  TLoadProc = function(proc: PAnsiChar): Pointer;
+  TLoadProc = function(proc: pansichar): Pointer;
 
 function gladLoadGL(load: TLoadProc): boolean;
 
 
 implementation
 
-{$DEFINE HAS_GL_NUM_EXTENSIONS}function hasExt(const extname: string): Boolean;
+{$DEFINE HAS_GL_NUM_EXTENSIONS}function hasExt(const extname: string): boolean;
 var
   extensions: PChar;
-  loc, terminator: Pchar;
-{$IFDEF HAS_GL_NUM_EXTENSIONS}
+  loc, terminator: PChar;
+  {$IFDEF HAS_GL_NUM_EXTENSIONS}
   num_extensions, i: integer;
-  ext: pchar;
-{$ENDIF}
+  ext: PChar;
+  {$ENDIF}
 begin
-  result := false;
-{$IFDEF HAS_GL_NUM_EXTENSIONS}
+  Result := False;
+  {$IFDEF HAS_GL_NUM_EXTENSIONS}
   if glVersionMajor >= 3 then begin
-      glGetIntegerv(GL_NUM_EXTENSIONS, @num_extensions);
-      for i := 0 to num_extensions - 1 do begin
-          ext := PChar( glGetStringi(GL_EXTENSIONS, i) );
-          if strcomp(ext, PChar(extname)) = 0 then
-              exit(true);
+    glGetIntegerv(GL_NUM_EXTENSIONS, @num_extensions);
+    for i := 0 to num_extensions - 1 do begin
+      ext := PChar(glGetStringi(GL_EXTENSIONS, i));
+      if strcomp(ext, PChar(extname)) = 0 then begin
+        exit(True);
       end;
+    end;
+    exit;
+  end;
+  {$ENDIF}
+  extensions := PChar(glGetString(GL_EXTENSIONS));
+  while True do begin
+    loc := strpos(extensions, PChar(extname));
+    if loc = nil then begin
       exit;
+    end;
+    terminator := loc + length(extname);
+    if (loc = extensions) or (loc[-1] = ' ') then begin
+      if (terminator[0] = ' ') or (terminator[0] = #0) then begin
+        exit(True);
+      end;
+    end;
+    extensions := terminator;
   end;
-{$ENDIF}
-  extensions := PChar( glGetString(GL_EXTENSIONS) );
-  while true do begin
-      loc := strpos(extensions, PChar(extname));
-      if loc = nil then
-          exit;
-      terminator := loc + length(extname);
-      if (loc = extensions) or (loc[-1] = ' ') then
-          if (terminator[0] = ' ') or (terminator[0] = #0) then
-              exit(true);
-      extensions := terminator;
-  end;
-end;  
+end;
 
 procedure load_GL_VERSION_1_0(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_0 then exit;
+  if not GLAD_GL_VERSION_1_0 then begin
+    exit;
+  end;
   glCullFace := load('glCullFace');
   glFrontFace := load('glFrontFace');
   glHint := load('glHint');
@@ -3416,7 +3425,9 @@ end;
 
 procedure load_GL_VERSION_1_1(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_1 then exit;
+  if not GLAD_GL_VERSION_1_1 then begin
+    exit;
+  end;
   glDrawArrays := load('glDrawArrays');
   glDrawElements := load('glDrawElements');
   glGetPointerv := load('glGetPointerv');
@@ -3451,7 +3462,9 @@ end;
 
 procedure load_GL_VERSION_1_2(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_2 then exit;
+  if not GLAD_GL_VERSION_1_2 then begin
+    exit;
+  end;
   glDrawRangeElements := load('glDrawRangeElements');
   glTexImage3D := load('glTexImage3D');
   glTexSubImage3D := load('glTexSubImage3D');
@@ -3460,7 +3473,9 @@ end;
 
 procedure load_GL_VERSION_1_3(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_3 then exit;
+  if not GLAD_GL_VERSION_1_3 then begin
+    exit;
+  end;
   glActiveTexture := load('glActiveTexture');
   glSampleCoverage := load('glSampleCoverage');
   glCompressedTexImage3D := load('glCompressedTexImage3D');
@@ -3511,7 +3526,9 @@ end;
 
 procedure load_GL_VERSION_1_4(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_4 then exit;
+  if not GLAD_GL_VERSION_1_4 then begin
+    exit;
+  end;
   glBlendFuncSeparate := load('glBlendFuncSeparate');
   glMultiDrawArrays := load('glMultiDrawArrays');
   glMultiDrawElements := load('glMultiDrawElements');
@@ -3563,7 +3580,9 @@ end;
 
 procedure load_GL_VERSION_1_5(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_1_5 then exit;
+  if not GLAD_GL_VERSION_1_5 then begin
+    exit;
+  end;
   glGenQueries := load('glGenQueries');
   glDeleteQueries := load('glDeleteQueries');
   glIsQuery := load('glIsQuery');
@@ -3587,7 +3606,9 @@ end;
 
 procedure load_GL_VERSION_2_0(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_2_0 then exit;
+  if not GLAD_GL_VERSION_2_0 then begin
+    exit;
+  end;
   glBlendEquationSeparate := load('glBlendEquationSeparate');
   glDrawBuffers := load('glDrawBuffers');
   glStencilOpSeparate := load('glStencilOpSeparate');
@@ -3685,7 +3706,9 @@ end;
 
 procedure load_GL_VERSION_2_1(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_2_1 then exit;
+  if not GLAD_GL_VERSION_2_1 then begin
+    exit;
+  end;
   glUniformMatrix2x3fv := load('glUniformMatrix2x3fv');
   glUniformMatrix3x2fv := load('glUniformMatrix3x2fv');
   glUniformMatrix2x4fv := load('glUniformMatrix2x4fv');
@@ -3696,7 +3719,9 @@ end;
 
 procedure load_GL_VERSION_3_0(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_3_0 then exit;
+  if not GLAD_GL_VERSION_3_0 then begin
+    exit;
+  end;
   glColorMaski := load('glColorMaski');
   glGetBooleani_v := load('glGetBooleani_v');
   glGetIntegeri_v := load('glGetIntegeri_v');
@@ -3785,7 +3810,9 @@ end;
 
 procedure load_GL_VERSION_3_1(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_3_1 then exit;
+  if not GLAD_GL_VERSION_3_1 then begin
+    exit;
+  end;
   glDrawArraysInstanced := load('glDrawArraysInstanced');
   glDrawElementsInstanced := load('glDrawElementsInstanced');
   glTexBuffer := load('glTexBuffer');
@@ -3805,7 +3832,9 @@ end;
 
 procedure load_GL_VERSION_3_2(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_3_2 then exit;
+  if not GLAD_GL_VERSION_3_2 then begin
+    exit;
+  end;
   glDrawElementsBaseVertex := load('glDrawElementsBaseVertex');
   glDrawRangeElementsBaseVertex := load('glDrawRangeElementsBaseVertex');
   glDrawElementsInstancedBaseVertex := load('glDrawElementsInstancedBaseVertex');
@@ -3829,7 +3858,9 @@ end;
 
 procedure load_GL_VERSION_3_3(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_3_3 then exit;
+  if not GLAD_GL_VERSION_3_3 then begin
+    exit;
+  end;
   glBindFragDataLocationIndexed := load('glBindFragDataLocationIndexed');
   glGetFragDataIndex := load('glGetFragDataIndex');
   glGenSamplers := load('glGenSamplers');
@@ -3892,7 +3923,9 @@ end;
 
 procedure load_GL_VERSION_4_0(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_0 then exit;
+  if not GLAD_GL_VERSION_4_0 then begin
+    exit;
+  end;
   glMinSampleShading := load('glMinSampleShading');
   glBlendEquationi := load('glBlendEquationi');
   glBlendEquationSeparatei := load('glBlendEquationSeparatei');
@@ -3943,7 +3976,9 @@ end;
 
 procedure load_GL_VERSION_4_1(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_1 then exit;
+  if not GLAD_GL_VERSION_4_1 then begin
+    exit;
+  end;
   glReleaseShaderCompiler := load('glReleaseShaderCompiler');
   glShaderBinary := load('glShaderBinary');
   glGetShaderPrecisionFormat := load('glGetShaderPrecisionFormat');
@@ -4037,7 +4072,9 @@ end;
 
 procedure load_GL_VERSION_4_2(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_2 then exit;
+  if not GLAD_GL_VERSION_4_2 then begin
+    exit;
+  end;
   glDrawArraysInstancedBaseInstance := load('glDrawArraysInstancedBaseInstance');
   glDrawElementsInstancedBaseInstance := load('glDrawElementsInstancedBaseInstance');
   glDrawElementsInstancedBaseVertexBaseInstance := load('glDrawElementsInstancedBaseVertexBaseInstance');
@@ -4054,7 +4091,9 @@ end;
 
 procedure load_GL_VERSION_4_3(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_3 then exit;
+  if not GLAD_GL_VERSION_4_3 then begin
+    exit;
+  end;
   glClearBufferData := load('glClearBufferData');
   glClearBufferSubData := load('glClearBufferSubData');
   glDispatchCompute := load('glDispatchCompute');
@@ -4103,7 +4142,9 @@ end;
 
 procedure load_GL_VERSION_4_4(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_4 then exit;
+  if not GLAD_GL_VERSION_4_4 then begin
+    exit;
+  end;
   glBufferStorage := load('glBufferStorage');
   glClearTexImage := load('glClearTexImage');
   glClearTexSubImage := load('glClearTexSubImage');
@@ -4117,7 +4158,9 @@ end;
 
 procedure load_GL_VERSION_4_5(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_5 then exit;
+  if not GLAD_GL_VERSION_4_5 then begin
+    exit;
+  end;
   glClipControl := load('glClipControl');
   glCreateTransformFeedbacks := load('glCreateTransformFeedbacks');
   glTransformFeedbackBufferBase := load('glTransformFeedbackBufferBase');
@@ -4244,7 +4287,9 @@ end;
 
 procedure load_GL_VERSION_4_6(load: TLoadProc);
 begin
-  if not GLAD_GL_VERSION_4_6 then exit;
+  if not GLAD_GL_VERSION_4_6 then begin
+    exit;
+  end;
   glSpecializeShader := load('glSpecializeShader');
   glMultiDrawArraysIndirectCount := load('glMultiDrawArraysIndirectCount');
   glMultiDrawElementsIndirectCount := load('glMultiDrawElementsIndirectCount');
@@ -4266,14 +4311,15 @@ var
   major, minor: integer;
 begin
   version := glVersion;
-  for p in prefixes do
+  for p in prefixes do begin
     if LeftStr(version, length(p)) = p then begin
       version := StringReplace(version, p, '', [rfReplaceAll]);
       break;
     end;
+  end;
 
-  major := ord(version[1]) - ord('0');
-  minor := ord(version[3]) - ord('0');
+  major := Ord(version[1]) - Ord('0');
+  minor := Ord(version[3]) - Ord('0');
 
   glVersionMajor := major;
   glVersionMinor := minor;
@@ -4301,12 +4347,16 @@ end;
 
 function gladLoadGL(load: TLoadProc): boolean;
 var
-  glVersion: PAnsiChar;
+  glVersion: pansichar;
 begin
-  glGetString := load('glGetString');  
-  if not Assigned(glGetString) then exit(false);
-  glVersion := PAnsiChar( glGetString(GL_VERSION) );
-  if glVersion = nil then exit(false);
+  glGetString := load('glGetString');
+  if not Assigned(glGetString) then begin
+    exit(False);
+  end;
+  glVersion := pansichar(glGetString(GL_VERSION));
+  if glVersion = nil then begin
+    exit(False);
+  end;
 
   findCoreGL(glVersion);
   load_GL_VERSION_1_0(load);
@@ -4331,7 +4381,7 @@ begin
 
   findExtensionsGL();
 
-  result := (glVersionMajor <> 0) or (glVersionMinor <> 0);
+  Result := (glVersionMajor <> 0) or (glVersionMinor <> 0);
 end;
 
 // === Eigenes
@@ -4352,15 +4402,15 @@ function wglGetProcAddress(proc: pansichar): Pointer; cdecl external 'OpenGL32.d
 
 function LoadProc(proc: pansichar): TLoadProc;
 const
-  first: Boolean = True;
+  First: boolean = True;
 begin
   Result := GetProcAddress(LibGL, proc);
   {$IFDEF Windows}
   {$push}
   {$i-}
-  if first  then begin
+  if First then begin
     WriteLn('');
-    first := False;
+    First := False;
   end;
   {$pop}
   if @Result = nil then  begin
