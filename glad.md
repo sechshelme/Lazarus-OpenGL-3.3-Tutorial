@@ -27,7 +27,7 @@ procedure Load_GLADE;  // Neu
 type
   TGLVULKANPROCNV = pointer;
   TGLbitfield = uint32;
-  TGLboolean = Boolean8;
+  TGLboolean = Boolean8; // Byte -> Boolean8
   TGLbyte = int8;
   TGLchar = char;
   TGLcharARB = byte;

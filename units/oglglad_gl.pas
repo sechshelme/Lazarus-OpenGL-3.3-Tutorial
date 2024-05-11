@@ -4401,21 +4401,20 @@ function wglGetProcAddress(proc: pansichar): Pointer; cdecl external 'OpenGL32.d
 {$ENDIF}
 
 function LoadProc(proc: pansichar): TLoadProc;
-const
-  First: boolean = True;
 begin
   Result := GetProcAddress(LibGL, proc);
   {$IFDEF Windows}
-  {$push}
-  {$i-}
-  if First then begin
-    WriteLn('');
-    First := False;
-  end;
-  {$pop}
   if @Result = nil then  begin
     Result := wglGetProcAddress(proc);
+    if @Result = nil then begin
+//      WriteLn('nil       ', proc);
+    end else begin
+//      WriteLn('wglGetProc           ', proc);
+    end;
+  end else begin
+//    WriteLn('GetProc           ', proc);
   end;
+
   {$ENDIF}
 end;
 
