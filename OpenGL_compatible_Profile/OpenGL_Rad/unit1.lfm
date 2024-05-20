@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 12
-  Height = 513
-  Top = 50
-  Width = 1469
+  Left = 57
+  Height = 514
+  Top = 116
+  Width = 1479
   Caption = 'Form1'
-  ClientHeight = 513
-  ClientWidth = 1469
+  ClientHeight = 514
+  ClientWidth = 1479
   LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -13,10 +13,10 @@ object Form1: TForm1
     Left = 0
     Height = 40
     Top = 34
-    Width = 1469
+    Width = 1479
     Align = alTop
     ClientHeight = 40
-    ClientWidth = 1469
+    ClientWidth = 1479
     TabOrder = 0
     object Button1: TButton
       Left = 8
@@ -60,7 +60,7 @@ object Form1: TForm1
     Left = 0
     Height = 34
     Top = 0
-    Width = 1469
+    Width = 1479
     AutoSize = True
     Bands = <    
       item
@@ -125,9 +125,9 @@ object Form1: TForm1
   end
   object OpenGLControl1: TOpenGLControl
     Left = 0
-    Height = 439
+    Height = 440
     Top = 74
-    Width = 1469
+    Width = 1479
     Align = alClient
     OnMouseMove = OpenGLControl1MouseMove
     OnMouseWheelDown = OpenGLControl1MouseWheelDown

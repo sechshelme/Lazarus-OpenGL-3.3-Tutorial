@@ -5,7 +5,7 @@ unit Schwinge;
 interface
 
 uses
-  Classes, SysUtils, Types, oglglad_gl, MyMath,
+  Classes, SysUtils, Types, gl, MyMath,
   Mesh, Stange, Rad;
 
 type

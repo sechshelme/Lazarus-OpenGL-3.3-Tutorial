@@ -8,12 +8,14 @@ uses
   Classes,
   SysUtils,
   TypInfo,
+  {$IFDEF LCL}
   Graphics,
   IntfGraphics,
   GraphType,
   Dialogs,
+  {$ENDIF}
   oglglad_gl;
-//  MyLogForms;
+  //  MyLogForms;
 
 type
 
@@ -30,7 +32,7 @@ type
     Data: array of record
       pname: GLenum;
       params: GLint;
-    end;
+      end;
   public
     procedure Add(pname: GLenum; params: GLint);
     procedure Clear;
@@ -49,8 +51,10 @@ type
     property ID: GLuint read FID;
     constructor Create;
     destructor Destroy; override;
+    {$IFDEF LCL}
     procedure LoadTextures(RawImage: TRawImage); overload;
     procedure LoadTextures(Datei: string); overload;
+    {$ENDIF}
     procedure LoadTextures(w, h: integer; const Dat: array of GLenum); overload;
     procedure LoadTextures8Bit(w, h: integer; const Dat: array of GLbyte); overload;
     procedure LoadTextures(w, h: integer; Clear: boolean = False); overload;
@@ -58,10 +62,13 @@ type
     procedure ActiveAndBind;
   end;
 
+{$IFDEF LCL}
 function getGLTexturFormat(RawImage: TRawImage): TGLTextureFormat;
+{$ENDIF}
 
 implementation
 
+{$IFDEF LCL}
 function getGLTexturFormat(RawImage: TRawImage): TGLTextureFormat;
 type
   TLookUpTableEntry = packed record
@@ -71,12 +78,12 @@ type
       GPrec, GShift,
       BPrec, BShift,
       APrec, AShift: byte;
-    end;
+      end;
     GLformat: TGLTextureFormat;
   end;
 
 const
-    GL_LUMINANCE = $1909;
+  GL_LUMINANCE = $1909;
 
   FORMAT_LUT: array[0..5] of TLookUpTableEntry = (
 
@@ -148,6 +155,7 @@ begin
     end;
   end;
 end;
+{$ENDIF}
 
 
 { TTexParameter }
@@ -201,6 +209,7 @@ begin
   inherited Destroy;
 end;
 
+{$IFDEF LCL}
 procedure TTexturBuffer.LoadTextures(Datei: string);
 var
   Picture: TPicture;
@@ -225,6 +234,31 @@ begin
   end;
   Picture.Free;
 end;
+
+procedure TTexturBuffer.LoadTextures(RawImage: TRawImage);
+var
+  GLformat: TGLTextureFormat;
+begin
+  GLformat := getGLTexturFormat(RawImage);
+
+  if GLformat.Format <> 0 then begin
+    glBindTexture(GL_TEXTURE_2D, FID);
+
+    with RawImage.Description, GLformat do begin
+      glTexImage2D(GL_TEXTURE_2D, 0, InternalFormat, Width, Height, 0, Format, DataFormat, RawImage.Data);
+    end;
+
+    TexParameter.SetParameter;
+    if FIsMipMap then begin
+      glGenerateMipmap(GL_TEXTURE_2D);
+    end;
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+  end else begin
+    FID := 0;
+  end;
+end;
+{$ENDIF}
 
 procedure TTexturBuffer.LoadTextures(w, h: integer; const Dat: array of GLenum);
 begin
@@ -267,30 +301,6 @@ begin
     glGenerateMipmap(GL_TEXTURE_2D);
   end;
   glBindTexture(GL_TEXTURE_2D, 0);
-end;
-
-procedure TTexturBuffer.LoadTextures(RawImage: TRawImage);
-var
-  GLformat: TGLTextureFormat;
-begin
-  GLformat := getGLTexturFormat(RawImage);
-
-  if GLformat.Format <> 0 then begin
-    glBindTexture(GL_TEXTURE_2D, FID);
-
-    with RawImage.Description, GLformat do begin
-      glTexImage2D(GL_TEXTURE_2D, 0, InternalFormat, Width, Height, 0, Format, DataFormat, RawImage.Data);
-    end;
-
-    TexParameter.SetParameter;
-    if FIsMipMap then begin
-      glGenerateMipmap(GL_TEXTURE_2D);
-    end;
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-  end else begin
-    FID := 0;
-  end;
 end;
 
 procedure TTexturBuffer.ActiveAndBind(Nr: integer);

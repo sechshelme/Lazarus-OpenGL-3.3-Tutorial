@@ -72,7 +72,6 @@ begin
   end;
   OpenGLControl.MakeCurrent;
 
-  //  Load_GLADE();
   glClearColor(0, 0, 0, 0);
   glShadeModel(GL_FLAT);
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

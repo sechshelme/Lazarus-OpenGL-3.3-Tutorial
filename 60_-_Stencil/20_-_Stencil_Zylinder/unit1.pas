@@ -130,22 +130,16 @@ begin
       for x := 0 to Length(CubeArr[z, y]) - 1 do begin
         if CubeArr[z, y, x] then begin
           tmpCube := nil;
-//          tmpCube.AddCube;
           tmpCube.AddZylinder;
           tmpCube.Translate([x - si div 2, y - si div 2, z - si / 2 + 0.5]);
           CubeVerts.Add(tmpCube);
 
           CubeNormals.AddZylinderNormale;
-//          CubeNormals.AddCubeNormale;
-CubeTexCoords.AddZylinderTexCoords;
-//CubeTexCoords.AddCubeTexCoords;
+          CubeTexCoords.AddZylinderTexCoords;
         end;
       end;
     end;
   end;
-
-  WriteLn(Length(CubeVerts));
-  WriteLn(Length(CubeNormals));
 
   CubeVerts.Scale([scale * 1.5, scale * 1.5, scale]);
   //  CubeVerts.Scale(scale * 1.5);
@@ -200,7 +194,7 @@ begin
   // --- UBO
   UBOBuffer.ModelMatrix.Identity;
   UBOBuffer.ViewMatrix.Identity;
-  UBOBuffer.ViewMatrix.Translate(0, 0.3, -4);
+  UBOBuffer.ViewMatrix.Translate([0, 0.3, -4]);
   UBOBuffer.ViewMatrix.RotateA(2.0 + pi);
   UBOBuffer.ProjMatrix.Identity;
   UBOBuffer.ProjMatrix.Perspective(45, ClientWidth / ClientHeight, 0.1, 100.0);
@@ -254,21 +248,21 @@ begin
   // Vertex
   glGenBuffers(1, @VBCube.VBOvert);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOvert);
-  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12*100, nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12 * 100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // Normale
   glGenBuffers(1, @VBCube.VBOnorm);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOnorm);
-  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12*100, nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector3f) * 12 * 100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, SizeOf(TVector3f), nil);
 
   // TexturCoord
   glGenBuffers(1, @VBCube.VBOtex);
   glBindBuffer(GL_ARRAY_BUFFER, VBCube.VBOtex);
-  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector2f) * 12*100, nil, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, si * si * si * SizeOf(TVector2f) * 12 * 100, nil, GL_DYNAMIC_DRAW);
   glEnableVertexAttribArray(2);
   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, SizeOf(TVector2f), nil);
 

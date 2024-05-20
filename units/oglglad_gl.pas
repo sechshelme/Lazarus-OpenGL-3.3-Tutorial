@@ -2052,7 +2052,7 @@ var
   glGetError: function(): GLenum; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
   glGetFloatv: procedure(pname: GLenum; Data: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
   glGetIntegerv: procedure(pname: GLenum; Data: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
-  glGetString: function(Name: GLenum): PGLubyte; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
+  glGetString: function(Name: GLenum): PChar; {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
   glGetTexImage: procedure(target: GLenum; level: GLint; format: GLenum; type_: GLenum; pixels: Pointer); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
   glGetTexParameterfv: procedure(target: GLenum; pname: GLenum; params: PGLfloat); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}
   glGetTexParameteriv: procedure(target: GLenum; pname: GLenum; params: PGLint); {$IF Defined(Windows) or Defined(MSWindows)} stdcall;{$ELSE} cdecl;{$ENDIF}

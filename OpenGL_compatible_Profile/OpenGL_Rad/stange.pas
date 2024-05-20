@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils,
-  oglglad_gl,oglVector,
+  gl,
   MyMath, Mesh, Zylinder;
 
 type

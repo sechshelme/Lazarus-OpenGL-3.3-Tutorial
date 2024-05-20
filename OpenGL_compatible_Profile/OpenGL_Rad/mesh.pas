@@ -5,10 +5,10 @@ unit Mesh;
 interface
 
 uses
-  Classes, SysUtils, oglglad_gl, oglVector;
+  Classes, SysUtils, gl;
 
 type
-
+  TVector3f = array[0..2] of GLfloat;
   { TMesh }
 
   TMesh = class(TObject)

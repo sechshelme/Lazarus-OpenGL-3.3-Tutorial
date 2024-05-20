@@ -34,19 +34,13 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="BGRABitmapPack"/>
+        <PackageName Value="LazOpenGLContext"/>
       </Item1>
       <Item2>
-        <PackageName Value="ogl_Package"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="LazOpenGLContext"/>
-      </Item3>
-      <Item4>
         <PackageName Value="LCL"/>
-      </Item4>
+      </Item2>
     </RequiredPackages>
     <Units Count="11">
       <Unit0>

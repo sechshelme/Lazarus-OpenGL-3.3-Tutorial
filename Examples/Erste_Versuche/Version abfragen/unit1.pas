@@ -6,7 +6,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, oglglad_gl, Clipbrd, Menus, OpenGLContext;
+  ExtCtrls, StdCtrls, gl,
+  GLext,
+  Clipbrd, Menus, OpenGLContext;
 
 type
 
@@ -37,17 +39,16 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   units: GLint;
 begin
-  InitOpenGL;
   OpenGLControl1 := TOpenGLControl.Create(Self);
-  OpenGLControl1.OpenGLMajorVersion := 3;  // evtl. auf 0 setzen
-  OpenGLControl1.OpenGLMinorVersion := 3;  // evtl. auf 0 setzen
+//  OpenGLControl1.OpenGLMajorVersion := 3;  // evtl. auf 0 setzen
+//  OpenGLControl1.OpenGLMinorVersion := 3;  // evtl. auf 0 setzen
   OpenGLControl1.Parent := Self;
   OpenGLControl1.Visible := False;
   OpenGLControl1.Align := alClient;
   OpenGLControl1.MakeCurrent;
 
-  ReadExtensions;
-  ReadImplementationProperties;
+//  Load_GL_VERSION_3_3;
+//  Load_GLADE;
 
   Memo1.Text :=
     'GL_VENDOR: ' + glGetString(GL_VENDOR) + #13#10#13#10 + 'GL_RENDERER: ' +
@@ -56,7 +57,7 @@ begin
     glGetString(GL_SHADING_LANGUAGE_VERSION) + #13#10#13#10 + 'GL_EXTENSIONS: ' +
     glGetString(GL_EXTENSIONS);
 
-  glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, @units);
+//  glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, @units);
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);

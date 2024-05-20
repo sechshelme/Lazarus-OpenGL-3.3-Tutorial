@@ -7,13 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, OpenGLContext, LCLType, StdCtrls, ComCtrls, Types, Math,
-
-  {$ifdef arm}
-  oglglad_glSE,
-  {$else}
-  oglglad_gl,
-  {$endif}
-
+  gl,
   Mesh, MyMath, Rad,
   Zylinder, Stange, Schwinge, TreibGestaenge, SchieberStangen, HaengeGestaenge;
 
@@ -156,13 +150,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   caption:=paramstr(0);
-//  InitOpenGL;
-//  ReadExtensions;
-//  ReadOpenGLCore;
-//  ReadImplementationProperties;
   OpenGLControl1.MakeCurrent;
-
-  Load_GLADE;
 
   with BildPara do begin
     zoom := 0.0007;

@@ -7,8 +7,9 @@ interface
 uses
   Classes,
   SysUtils,
-  FileUtil,
+  {$IFDEF LCL}
   LResources,
+  {$ENDIF}
   oglglad_gl,
   oglDebug;
 
@@ -29,7 +30,6 @@ type
     procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LinkProgram;
     procedure UseProgram;
-
     function UniformLocation(ch: PGLChar): GLint;
     function UniformBlockIndex(ch: PGLChar): GLuint;
     function AttribLocation(ch: PGLChar): GLint;
@@ -39,12 +39,30 @@ type
 
   // ---- Hilfsfunktionen ----
 
+function FileToStr(const path: string): ansistring;
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
-function FileToStr(Datei: string): ansistring;
 function ResourceToStr(Resource: string): ansistring;
 
 
 implementation
+
+function FileToStr(const path: string): ansistring;
+var
+  f: file of byte;
+  size: int64;
+begin
+  Result := '';
+  if FileExists(path) then begin
+    Assign(f, path);
+    Reset(f);
+    size := FileSize(f);
+    SetLength(Result, size);
+    BlockRead(f, Result[1], size);
+    Close(f);
+  end else begin
+    LogForm.Add('FEHLER: Kann Datei ' + path + ' nicht finden');
+  end;
+end;
 
 procedure StrToFile(s: ansistring; Datei: string = 'test_str.txt');
 var
@@ -54,21 +72,6 @@ begin
   Rewrite(f);
   WriteLn(f, s);
   CloseFile(f);
-end;
-
-function FileToStr(Datei: string): ansistring;
-var
-  SrcHandle: THandle;
-begin
-  if FileExists(Datei) then begin
-    SetLength(Result, FileSize(Datei));
-    SrcHandle := FileOpen(Datei, fmOpenRead or fmShareDenyWrite);
-    FileRead(SrcHandle, Result[1], Length(Result));
-    FileClose(SrcHandle);
-  end else begin
-    LogForm.Add('FEHLER: Kann Datei ' + Datei + ' nicht finden');
-    Result := '';
-  end;
 end;
 
 function ResourceToStr(Resource: string): ansistring;
@@ -115,6 +118,7 @@ var
   spos: array[0..3] of integer;
   i: integer;
 begin
+  Result := nil;
   for i := 0 to Length(Key) - 1 do begin
     spos[i] := Pos(Key[i], AShader);
   end;
@@ -304,7 +308,7 @@ end;
 
 function TShader.ShaderVersion: string;
 begin
-  Result := 'Shader Version: ' + PChar( glGetString(GL_SHADING_LANGUAGE_VERSION));
+  Result := 'Shader Version: ' + PChar(glGetString(GL_SHADING_LANGUAGE_VERSION));
 end;
 
 end.

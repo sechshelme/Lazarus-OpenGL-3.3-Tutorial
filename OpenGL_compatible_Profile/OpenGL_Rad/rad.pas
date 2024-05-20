@@ -5,7 +5,7 @@ unit Rad;
 interface
 
 uses
-  Classes, SysUtils, oglglad_gl, Mesh;
+  Classes, SysUtils, gl, Mesh;
 
 type
 
