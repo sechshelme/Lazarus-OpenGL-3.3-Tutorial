@@ -22,17 +22,17 @@ Tutorial direkt auf GitHub:
 
 | Datum | Änderungen 
 | :---: | ---
-| 20.05.2024 | Neu Package **ogl_package_nolcl** hinzugefügt
-| 20.08.2023 | Neue Beispiele bei Geometrie-Shader
+| 20.05.2024 | Neu Package **ogl_package_nolcl** hinzugefügt.
+| 20.04.2024 | **dglopengl.pas** durch **oglglad_gl.pas** ersetzt.
+| 20.08.2023 | Neue Beispiele bei Geometrie-Shader.
 | 05.06.2022 | Diese readme.me optisch gestaltet.
 | 11.04.2022 | Tutorial direkt bei den Sourcen intergriert, anhand einzelner "readme.md" Dateien in den einzelnen Ordner.
-| 04.12.2021 | Tippfehler korrigiert.
 | 02.05.2020 | readme.me in jedem Unterverzeichniss mit Images eingefügt.
-| 28.10.2018 | Bug behoben bei "Normalize"
-| 30.07.2018 | Fehler bei Verwendung von "Nur einer Array" wurde behoben, es wurden versehentlicht zweimal die Daten in den Vertex-Buffer geschrieben.
+| 28.10.2018 | Bug behoben bei **Normalize**.
+| 30.07.2018 | Fehler bei Verwendung von **Nur einer Array** wurde behoben, es wurden versehentlicht zweimal die Daten in den Vertex-Buffer geschrieben.
 | 27.07.2018 | Verwendung von Instancen.
-| 14.07.2018 | Funktionen in oglVektor und oglMatrix optimiert.
-| 20.06.2018 | Matrix.Multiply wurde aus oglMatrix entfernt, dafür ist es möglich Matrizen direkt zu multiplizieren.<br>Matrix := Matrix * Matrix
+| 14.07.2018 | Funktionen in **oglVektor** und **oglMatrix** optimiert.
+| 20.06.2018 | **Matrix.Multiply** wurde aus oglMatrix **entfernt**, dafür ist es möglich Matrizen direkt zu multiplizieren.<br>**Matrix := Matrix * Matrix**
 | 08.05.2018 | Textur-Array
 | 28.04.2018 | Objekte mit Alpha-Blending sortieren, so das man die unschönen Überlappungen verhindern kann.
 | 08.04.2018 | Bump-Mapping

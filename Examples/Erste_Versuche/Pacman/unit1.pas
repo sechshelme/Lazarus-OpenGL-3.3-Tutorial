@@ -9,7 +9,8 @@ uses
   Buttons, StdCtrls, OpenGLContext,
   oglglad_gl,
   oglVector, oglMatrix, oglShader, oglColorKoerper, oglUnit, oglSteuerung, oglTextur,
-  oglTexturKoerper, oglKoerper, oglBackGround, Sprite;
+  oglTexturKoerper, oglKoerper, oglBackGround,
+  Sprite;
 
 type
 
