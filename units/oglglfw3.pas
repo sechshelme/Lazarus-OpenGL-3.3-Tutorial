@@ -1,4 +1,4 @@
-unit glfw3;
+unit oglGLFW3;
 
 interface
 

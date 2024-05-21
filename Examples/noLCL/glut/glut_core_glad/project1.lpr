@@ -77,16 +77,13 @@ var
     glutInitWindowPosition(100, 100);
     glutCreateWindow('GL RGB Triangle');
     Load_GLADE;
-//    Load_GL_VERSION_3_3();
     glutDisplayFunc(@display);
     glutKeyboardFunc(@key_press);
-
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
     // Daten für Dreieck
     glGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    Write('xxxxxxx');
     glGenBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
 
     glBindVertexArray(VBTriangle.VAOs[vaMesh]);

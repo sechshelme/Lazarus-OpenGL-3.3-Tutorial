@@ -38,6 +38,10 @@
         <Filename Value="oglvectors.pas"/>
         <UnitName Value="oglVectors"/>
       </Item>
+      <Item>
+        <Filename Value="oglglfw3.pas"/>
+        <UnitName Value="oglGLFW3"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

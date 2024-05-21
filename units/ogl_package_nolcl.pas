@@ -8,8 +8,8 @@ unit ogl_package_noLCL;
 interface
 
 uses
-  oglDebug, oglglad_gl, oglMatrix, oglShader, oglTextur, oglVector, 
-  oglVectors, LazarusPackageIntf;
+  oglDebug, oglglad_GL, oglMatrix, oglShader, oglTextur, oglVector, 
+  oglVectors, oglGLFW3, LazarusPackageIntf;
 
 implementation
 

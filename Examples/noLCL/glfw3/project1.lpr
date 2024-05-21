@@ -4,7 +4,7 @@ program project1;
 
 uses
   oglglad_gl,
-  glfw3,
+  oglGLFW3,
   oglDebug,
   oglShader;
 
