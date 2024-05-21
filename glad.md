@@ -64,6 +64,14 @@ type
 ...
 ```
 
+GLBoolean ersetzen.
+```pascal
+  GLboolean = Boolean8; //  GLboolean = byte;
+  GL_FALSE = False;     //  GL_FALSE = 0;
+  GL_TRUE = True;       //  GL_TRUE = 1;
+```
+
+
 Folgendes zu unterst ergänzen.
 ```pascal
 // === Eigenes

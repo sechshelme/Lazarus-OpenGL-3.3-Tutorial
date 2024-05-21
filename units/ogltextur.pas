@@ -57,7 +57,6 @@ type
     {$ENDIF}
     procedure LoadTextures(w, h: integer; const Dat: array of GLenum); overload;
     procedure LoadTextures(w, h: integer; const Data: Pointer; format:GLenum=GL_RGBA; typ:GLenum=GL_UNSIGNED_BYTE); overload;
-    procedure LoadTextures8Bit(w, h: integer; const Dat: array of GLbyte); overload;
     procedure LoadTextures(w, h: integer; Clear: boolean = False); overload;
     procedure ActiveAndBind(Nr: integer);
     procedure ActiveAndBind;
@@ -276,17 +275,6 @@ procedure TTexturBuffer.LoadTextures(w, h: integer; const Data: Pointer;  format
 begin
   glBindTexture(GL_TEXTURE_2D, FID);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, format, typ, Data);
-  TexParameter.SetParameter;
-  if FIsMipMap then begin
-    glGenerateMipmap(GL_TEXTURE_2D);
-  end;
-  glBindTexture(GL_TEXTURE_2D, 0);
-end;
-
-procedure TTexturBuffer.LoadTextures8Bit(w, h: integer; const Dat: array of GLbyte);
-begin
-  glBindTexture(GL_TEXTURE_2D, FID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE_3_3_2, @Dat);
   TexParameter.SetParameter;
   if FIsMipMap then begin
     glGenerateMipmap(GL_TEXTURE_2D);
