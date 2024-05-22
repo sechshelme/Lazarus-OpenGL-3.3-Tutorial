@@ -7,7 +7,11 @@ interface
 uses
   LCL, LCLType, SysUtils, Controls,
   Forms, StdCtrls, ExtCtrls, Buttons,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
   oglglad_gl,
+  {$endif}
   oglVector, oglMatrix, oglVAO;
 
 type

@@ -5,7 +5,11 @@ unit oglVector;
 interface
 
 uses
+  {$ifdef GLES32}
+  oglglad_GLES32;
+  {$else}
   oglglad_gl;
+  {$endif}
 
 type
   TVector2b = array[0..1] of TGLboolean;

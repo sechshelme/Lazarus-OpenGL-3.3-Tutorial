@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="ogl_package_GLES32"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <IncludeFiles Value="old_ext"/>
+        <OtherUnitFiles Value="old_ext"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CustomOptions Value="-dGLES32"/>
+      </Other>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="old_ext/oglbackground.pas"/>
+        <UnitName Value="oglBackground"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglcamera.pas"/>
+        <UnitName Value="oglCamera"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglcolorkoerper.pas"/>
+        <UnitName Value="oglColorKoerper"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogldarstellung.pas"/>
+        <UnitName Value="oglDarstellung"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglfonttextur.pas"/>
+        <UnitName Value="oglFontTextur"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglkoerper.pas"/>
+        <UnitName Value="oglKoerper"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogllighting.pas"/>
+        <UnitName Value="oglLighting"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogllightingshader.pas"/>
+        <UnitName Value="oglLightingShader"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogllinesvao.pas"/>
+        <UnitName Value="oglLinesVAO"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglsteuerung.lfm"/>
+        <Type Value="LFM"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglsteuerung.pas"/>
+        <UnitName Value="oglSteuerung"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogltexturkoerper.pas"/>
+        <UnitName Value="oglTexturKoerper"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/ogltexturvao.pas"/>
+        <UnitName Value="oglTexturVAO"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglubo.pas"/>
+        <UnitName Value="oglUBO"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglunit.pas"/>
+        <UnitName Value="oglUnit"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglvao.pas"/>
+        <UnitName Value="oglVAO"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglvbo.pas"/>
+        <UnitName Value="oglVBO"/>
+      </Item>
+      <Item>
+        <Filename Value="old_ext/oglwavefrontobj.pas"/>
+        <UnitName Value="oglWaveFrontOBJ"/>
+      </Item>
+      <Item>
+        <Filename Value="oglcontext.pas"/>
+        <UnitName Value="oglContext"/>
+      </Item>
+      <Item>
+        <Filename Value="ogldebug.pas"/>
+        <UnitName Value="oglDebug"/>
+      </Item>
+      <Item>
+        <Filename Value="oglglad_gles32.pas"/>
+        <UnitName Value="oglglad_GLES32"/>
+      </Item>
+      <Item>
+        <Filename Value="oglmatrix.pas"/>
+        <UnitName Value="oglMatrix"/>
+      </Item>
+      <Item>
+        <Filename Value="oglshader.pas"/>
+        <UnitName Value="oglShader"/>
+      </Item>
+      <Item>
+        <Filename Value="ogltextur.pas"/>
+        <UnitName Value="oglTextur"/>
+      </Item>
+      <Item>
+        <Filename Value="oglvector.pas"/>
+        <UnitName Value="oglVector"/>
+      </Item>
+      <Item>
+        <Filename Value="oglvectors.pas"/>
+        <UnitName Value="oglVectors"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="BGRABitmapPack"/>
+      </Item>
+      <Item>
+        <PackageName Value="LazOpenGLContext"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

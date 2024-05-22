@@ -10,7 +10,12 @@ uses
   Graphics, IntfGraphics, GraphType,
   Dialogs,
   oglVAO,
-  oglglad_gl, BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  BGRABitmap, BGRABitmapTypes, BGRAGradientScanner,
   oglShader, oglLightingShader,
   oglMatrix, oglVBO, oglTextur;
 

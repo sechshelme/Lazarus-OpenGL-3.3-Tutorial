@@ -8,7 +8,13 @@ unit oglVectors;
 interface
 
 uses
-  Classes, SysUtils, oglglad_gl, oglvector;
+  Classes, SysUtils,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  oglvector;
 
 
 type

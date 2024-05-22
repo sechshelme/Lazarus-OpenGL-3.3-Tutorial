@@ -7,7 +7,11 @@ interface
 uses
   Classes, Graphics, SysUtils, Controls, Dialogs, Forms,
   OpenGLContext,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
   oglglad_gl,
+  {$endif}
   oglVector, oglMatrix, oglTextur,
   oglCamera, oglVAO, oglSteuerung;
 
@@ -129,7 +133,11 @@ begin
   // Legt die Tiefenvergleichsfunktion fest
   glDepthFunc(GL_LESS);
 
+  {$ifdef GLES32}
+  {$warning 'Wird nicht unterstützt !'}
+  {$else}
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  {$endif GLES32}
 
   FrontFace := True;
   glEnable(GL_CULL_FACE);

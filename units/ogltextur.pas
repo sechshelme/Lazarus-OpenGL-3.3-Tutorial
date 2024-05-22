@@ -14,7 +14,11 @@ uses
   GraphType,
   Dialogs,
   {$ENDIF}
+  {$ifdef GLES32}
+  oglglad_GLES32;
+  {$else}
   oglglad_gl;
+  {$endif}
   //  MyLogForms;
 
 type
@@ -85,39 +89,41 @@ type
 const
   GL_LUMINANCE = $1909;
 
-  FORMAT_LUT: array[0..5] of TLookUpTableEntry = (
+  FORMAT_LUT: array of TLookUpTableEntry = (
 
-    // 32Bit mit Alpha
-    (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 8; AShift: 24);
-    GLformat: (InternalFormat: GL_RGBA8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
+      {$ifndef GLES32}
+      // 32Bit ohne Alpha
+      (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
+      GLformat: (InternalFormat: GL_RGB8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
 
-    // 32Bit mit Alpha ( Linux / Unit BGRABitmap )
-    (Description: (Bits: 32; RPrec: 8; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 16; APrec: 8; AShift: 24);
-    GLformat: (InternalFormat: GL_RGBA8; Format: GL_RGBA; DataFormat: GL_UNSIGNED_BYTE)),
+      // 32Bit ohne Alpha ( Linux JPG )
+      (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 0);
+      GLformat: (InternalFormat: GL_RGB8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
 
-    // 32Bit ohne Alpha
-    (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
-    GLformat: (InternalFormat: GL_RGB8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
+      // 32Bit mit Alpha
+      (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 8; AShift: 24);
+      GLformat: (InternalFormat: GL_RGBA8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
 
-    // 32Bit ohne Alpha ( Linux JPG )
-    (Description: (Bits: 32; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 0);
-    GLformat: (InternalFormat: GL_RGB8; Format: GL_BGRA; DataFormat: GL_UNSIGNED_BYTE)),
+      // 24Bit
+      (Description: (Bits: 24; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 0);
+      GLformat: (InternalFormat: GL_RGB8; Format: GL_BGR; DataFormat: GL_UNSIGNED_BYTE)),
+      {$endif}
 
-    // 8Bit 256 Graustufen
-    (Description: (Bits: 8; RPrec: 8; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
-    GLformat: (InternalFormat: GL_Luminance; Format: GL_Luminance; DataFormat: GL_UNSIGNED_BYTE)),
+      //// 1Bit Monochrom      geht nicht
+      //(Description: (Bits: 1; RPrec: 1; RShift: 0; GPrec: 1; GShift: 0; BPrec: 1; BShift: 0; APrec: 0; AShift: 0);
+      //GLformat: (InternalFormat: GL_RGB; Format: GL_COLOR_INDEX; DataFormat: GL_BITMAP)),
 
-    //// 1Bit Monochrom      geht nicht
-    //(Description: (Bits: 1; RPrec: 1; RShift: 0; GPrec: 1; GShift: 0; BPrec: 1; BShift: 0; APrec: 0; AShift: 0);
-    //GLformat: (InternalFormat: GL_RGB; Format: GL_COLOR_INDEX; DataFormat: GL_BITMAP)),
+      //// 1Bit Monochrom PNG   geht nicht
+      //(Description: (Bits: 1; RPrec: 1; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
+      //GLformat: (InternalFormat: GL_RGB; Format: GL_COLOR_INDEX; DataFormat: GL_BITMAP)),
 
-    //// 1Bit Monochrom PNG   geht nicht
-    //(Description: (Bits: 1; RPrec: 1; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
-    //GLformat: (InternalFormat: GL_RGB; Format: GL_COLOR_INDEX; DataFormat: GL_BITMAP)),
+      // 32Bit mit Alpha ( Linux / Unit BGRABitmap )
+     (Description: (Bits: 32; RPrec: 8; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 16; APrec: 8; AShift: 24);
+     GLformat: (InternalFormat: GL_RGBA8; Format: GL_RGBA; DataFormat: GL_UNSIGNED_BYTE)),
 
-    // 24Bit
-    (Description: (Bits: 24; RPrec: 8; RShift: 16; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 0);
-    GLformat: (InternalFormat: GL_RGB8; Format: GL_BGR; DataFormat: GL_UNSIGNED_BYTE)));
+      // 8Bit 256 Graustufen
+      (Description: (Bits: 8; RPrec: 8; RShift: 0; GPrec: 8; GShift: 8; BPrec: 8; BShift: 0; APrec: 0; AShift: 24);
+      GLformat: (InternalFormat: GL_Luminance; Format: GL_Luminance; DataFormat: GL_UNSIGNED_BYTE)));
 
 var
   TabNr, i: integer;

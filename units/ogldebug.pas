@@ -2,7 +2,12 @@ unit oglDebug;
 
 interface
 
-uses SysUtils, oglglad_gl;
+uses SysUtils,
+{$ifdef GLES32}
+oglglad_GLES32;
+{$else}
+oglglad_gl;
+{$endif}
 
 type
 

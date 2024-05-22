@@ -5,7 +5,13 @@ unit oglContext;
 interface
 
 uses
-  Classes, SysUtils, Controls, oglglad_gl, OpenGLContext;
+  Classes, SysUtils, Controls,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  OpenGLContext;
 
 type
 //  TContext = class(TCustomOpenGLControl)

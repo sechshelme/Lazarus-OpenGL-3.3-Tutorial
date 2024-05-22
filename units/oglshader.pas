@@ -10,7 +10,11 @@ uses
   {$IFDEF LCL}
   LResources,
   {$ENDIF}
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
   oglglad_gl,
+  {$endif}
   oglDebug;
 
 type
@@ -224,6 +228,7 @@ var
   ErrorStatus: TGLboolean;
   InfoLogLength: GLsizei;
 begin
+  {$ifndef GLES32}
   ShaderObject := glCreateShader(shaderType);
 
   glShaderBinary(1, @ShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(AShader), Length(AShader));
@@ -241,6 +246,7 @@ begin
   end;
 
   glDeleteShader(ShaderObject);
+  {$endif}
 end;
 
 procedure TShader.LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);

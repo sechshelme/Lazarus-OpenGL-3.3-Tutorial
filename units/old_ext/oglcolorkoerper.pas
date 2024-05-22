@@ -5,7 +5,13 @@ unit oglColorKoerper;
 interface
 
 uses
-  Dialogs, oglVAO, oglMatrix, oglglad_gl, oglShader,oglLightingShader, oglVBO;
+  Dialogs, oglVAO, oglMatrix,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  oglShader,oglLightingShader, oglVBO;
 
 type
 

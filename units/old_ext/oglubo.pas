@@ -6,7 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  oglglad_gl, oglShader;
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  oglShader;
 
 type
 

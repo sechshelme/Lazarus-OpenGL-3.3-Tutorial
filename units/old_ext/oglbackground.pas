@@ -5,7 +5,12 @@ unit oglBackground;
 interface
 
 uses
-  Classes, SysUtils, oglglad_gl,
+  Classes, SysUtils,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
   oglVector, oglMatrix, oglVBO, oglTextur,oglTexturVAO;
 
 type

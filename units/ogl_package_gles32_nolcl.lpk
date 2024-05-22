@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="ogl_package_GLES32_noLCL"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="ogldebug.pas"/>
+        <UnitName Value="oglDebug"/>
+      </Item>
+      <Item>
+        <Filename Value="oglglad_gles32.pas"/>
+        <UnitName Value="oglglad_GLES32"/>
+      </Item>
+      <Item>
+        <Filename Value="oglglfw3.pas"/>
+        <UnitName Value="oglGLFW3"/>
+      </Item>
+      <Item>
+        <Filename Value="oglmatrix.pas"/>
+        <UnitName Value="oglMatrix"/>
+      </Item>
+      <Item>
+        <Filename Value="oglshader.pas"/>
+        <UnitName Value="oglShader"/>
+      </Item>
+      <Item>
+        <Filename Value="ogltextur.pas"/>
+        <UnitName Value="oglTextur"/>
+      </Item>
+      <Item>
+        <Filename Value="oglvector.pas"/>
+        <UnitName Value="oglVector"/>
+      </Item>
+      <Item>
+        <Filename Value="oglvectors.pas"/>
+        <UnitName Value="oglVectors"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

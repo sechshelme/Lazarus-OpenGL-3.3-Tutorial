@@ -7,7 +7,12 @@ interface
 
 uses
   Classes, SysUtils, Dialogs,
-  oglglad_gl, oglVector, oglVectors, oglMatrix;
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  oglVector, oglVectors, oglMatrix;
 
 type
   TModif = set of (CW, neg, normalize);
@@ -115,8 +120,11 @@ begin
 
   glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, @len);
   SetLength(Data, len);
+  {$ifdef GLES32}
+  {$warning  'Gint es bei GLES nicht !'}
+  {$else}
   glGetBufferSubData(GL_ARRAY_BUFFER, 0, len, Pointer(Data));
-
+  {$endif}
   stream.Write(len, SizeOf(len));
 
   stream.Write(Pointer(Data)^, len);

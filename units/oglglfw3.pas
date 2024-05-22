@@ -7,13 +7,11 @@ uses ctypes;
   {$IFDEF UNIX}
 const
   glfwLib = 'glfw';
-//  {$LinkLib 'glfw'}
   {$ENDIF}
 
   {$IFDEF WINDOWS}
 const
   glfwLib = 'glfw3.dll';
-//  {$LinkLib 'glfw3.dll'}
   {$ENDIF}
 
   {$IFDEF FPC}

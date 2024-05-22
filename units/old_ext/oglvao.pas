@@ -6,7 +6,11 @@ interface
 
 uses
   SysUtils, Dialogs,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
   oglglad_gl,
+  {$endif}
   oglVector, oglMatrix,
   oglShader, oglLightingShader,
   oglCamera, oglVBO;

@@ -6,7 +6,12 @@ interface
 
 uses
   Classes, SysUtils, Forms, Dialogs,
-  oglglad_gl, oglVector, oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  oglVector, oglMatrix, oglVAO, oglTextur, oglTexturVAO, oglLighting;
 
 type
 
