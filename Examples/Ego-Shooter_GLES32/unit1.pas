@@ -12,7 +12,12 @@ uses
   SysUtils, FileUtil,  LConvEncoding,
   LCLType, Dialogs, Buttons,
   Baum,
-  oglglad_gl, BGRABitmapTypes,
+  {$ifdef GLES32}
+  oglglad_GLES32,
+  {$else}
+  oglglad_gl,
+  {$endif}
+  BGRABitmapTypes,
   oglVector, oglMatrix, oglShader, oglLighting,
   oglUnit, oglKoerper,
   oglTexturKoerper, oglTextur,

@@ -60,6 +60,9 @@ https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 [glad2](https://gen.glad.sh//) (Kein Pascal)
 [Infos zu glad](glad.md)
 
+## GLFW Libs bauen
+[Anleitung]()Create_GLFW_Libs.md)
+
 
 ## Schlagwörter: 
 Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
