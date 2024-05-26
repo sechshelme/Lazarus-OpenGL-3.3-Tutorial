@@ -31,6 +31,7 @@ type
     procedure CreateScene;
     procedure CalcCubePos;
     procedure ogcDrawScene(Sender: TObject);
+    procedure ogcKeyPress(Sender: TObject; var Key: char);
     procedure ogcMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: integer);
     procedure ogcResize(Sender: TObject);
@@ -90,6 +91,7 @@ begin
   ogc.OnPaint := @ogcDrawScene;
   ogc.OnResize := @ogcResize;
   ogc.OnMouseDown := @ogcMouseDown;
+  ogc.OnKeyPress := @ogcKeyPress;
 
   CreateScene;
 end;
@@ -174,7 +176,7 @@ begin
   CalcCubePos;
 
   WorldMatrix.Identity;
-  WorldMatrix.Translate(0, 0, -300.0);
+  WorldMatrix.Translate([0, 0, -300.0]);
   WorldMatrix.Scale(3.5);
 
   ModelMatrix.Identity;
@@ -277,6 +279,24 @@ begin
   ogc.SwapBuffers;
 end;
 
+procedure TForm1.ogcKeyPress(Sender: TObject; var Key: char);
+var
+  buf: array of Word;
+  i: integer;
+begin
+  case key of
+    #32: begin
+      SetLength(buf, ogc.Width * ogc.Height);
+      glBindFramebuffer(GL_FRAMEBUFFER, 0); // Screen
+//      glReadPixels(0, 0, ogc.Width, ogc.Height, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4_REV, Pointer(buf));
+      glReadPixels(0, 0, ogc.Width, ogc.Height, GL_STENCIL_INDEX, GL_UNSIGNED_BYTE, Pointer(buf));
+      for i := 0 to Length(buf) - 1 do begin
+        Write(buf[i], ' ');
+      end;
+    end;
+  end;
+end;
+
 procedure TForm1.ogcMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
 var
   index: TGLint;
@@ -316,12 +336,12 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 var
   i: integer;
 begin
-  //ModelMatrix.RotateA(0.011);
-  //ModelMatrix.RotateB(0.013);
-  //for i := 0 to Length(CubePos) - 1 do begin
-  //  CubePos[i].mat.RotateA(0.005 * i);
-  //  CubePos[i].mat.RotateB(0.005 * (CubeCount - i));
-  //end;
+//  ModelMatrix.RotateA(0.011);
+//  ModelMatrix.RotateB(0.013);
+  for i := 0 to Length(CubePos) - 1 do begin
+    CubePos[i].mat.RotateC(0.005 * i);
+//    CubePos[i].mat.RotateB(0.005 * (CubeCount - i));
+  end;
   ogc.Invalidate;
 end;
 
