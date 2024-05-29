@@ -63,6 +63,19 @@ https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 ## GLFW Libs bauen
 [Anleitung]()Create_GLFW_Libs.md)
 
+## Verwandtes mit OpenGL
+
+### WebGL
+https://www.khronos.org/webgl/
+
+### WebGPU
+https://www.w3.org/TR/webgpu/
+https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
+https://developer.chrome.com/blog/webgpu-release?hl=de
+https://developer.chrome.com/blog/webgpu-release?hl=en
+
+Aktivieren unter Chrome:
+https://askubuntu.com/questions/299345/how-to-enable-webgl-in-chrome-on-ubuntu
 
 ## Schlagwörter: 
 Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
