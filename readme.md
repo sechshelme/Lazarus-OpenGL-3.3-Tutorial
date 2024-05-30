@@ -44,21 +44,21 @@ Tutorial direkt auf GitHub:
 
 ## Fremde Tutorial
 
-https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
-https://open.gl/geometry
-https://paroj.github.io/gltut/index.html
-https://www.songho.ca/opengl/index.html
-https://ogldev.org/index.html
+- https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
+- https://open.gl/geometry
+- https://paroj.github.io/gltut/index.html
+- https://www.songho.ca/opengl/index.html
+- https://ogldev.org/index.html
 
 ## Info-Seiten zu OpenGL
 
-https://docs.gl
-https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
+- https://docs.gl
+- https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 
 ## Header Generator
-[glad](https://glad.dav1d.de/)  
-[glad2](https://gen.glad.sh//) (Kein Pascal)
-[Infos zu glad](glad.md)
+- [glad](https://glad.dav1d.de/)  
+- [glad2](https://gen.glad.sh//) (Kein Pascal)
+- [Infos zu glad](glad.md)
 
 ## GLFW Libs bauen
 [Anleitung]()Create_GLFW_Libs.md)
@@ -70,9 +70,8 @@ https://www.khronos.org/webgl/
 
 ### WebGPU
 https://www.w3.org/TR/webgpu/
-https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
-https://developer.chrome.com/blog/webgpu-release?hl=de
-https://developer.chrome.com/blog/webgpu-release?hl=en
+- Sampler:
+- - https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
 
 #### Installation Linux
 Download: https://www.google.com/intl/de/chrome/dev/
@@ -82,6 +81,8 @@ google-chrome-unstable --enable-unsafe-webgpu --enable-features=Vulkan
 Mehr Infos: 
 - https://stackoverflow.com/questions/72294876/i-enable-webgpu-in-chrome-dev-and-it-still-doesnt-work
 - https://askubuntu.com/questions/299345/how-to-enable-webgl-in-chrome-on-ubuntu
+- https://developer.chrome.com/blog/webgpu-release?hl=de
+- https://developer.chrome.com/blog/webgpu-release?hl=en
 
 #### Installation Windows
 Chrome läuft auf Anhieb
