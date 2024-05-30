@@ -66,13 +66,13 @@ Tutorial direkt auf GitHub:
 ### WebGL
 - https://www.khronos.org/webgl/
 - Sampler
-- - https://webglsamples.org/
+ - https://webglsamples.org/
 
 
 ### WebGPU
 - https://www.w3.org/TR/webgpu/
 - Sampler:
-- - https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
+ - https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
 
 #### Installation Linux
 Download: https://www.google.com/intl/de/chrome/dev/
