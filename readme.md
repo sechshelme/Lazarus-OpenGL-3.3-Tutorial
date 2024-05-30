@@ -74,8 +74,17 @@ https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
 https://developer.chrome.com/blog/webgpu-release?hl=de
 https://developer.chrome.com/blog/webgpu-release?hl=en
 
-Aktivieren unter Chrome:
-https://askubuntu.com/questions/299345/how-to-enable-webgl-in-chrome-on-ubuntu
+#### Installation Linux
+Download: https://www.google.com/intl/de/chrome/dev/
+```bash
+google-chrome-unstable --enable-unsafe-webgpu --enable-features=Vulkan
+```
+Mehr Infos: 
+- https://stackoverflow.com/questions/72294876/i-enable-webgpu-in-chrome-dev-and-it-still-doesnt-work
+- https://askubuntu.com/questions/299345/how-to-enable-webgl-in-chrome-on-ubuntu
+
+#### Installation Windows
+Chrome läuft auf Anhieb
 
 ## Schlagwörter: 
 Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
