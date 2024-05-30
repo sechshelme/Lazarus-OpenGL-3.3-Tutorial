@@ -70,7 +70,7 @@ Tutorial direkt auf GitHub:
   - https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
 
 #### Installation Linux
-Download: https://www.google.com/intl/de/chrome/dev/
+- Download: https://www.google.com/intl/de/chrome/dev/
 ```bash
 $ google-chrome-unstable --enable-unsafe-webgpu --enable-features=Vulkan
 ```
@@ -81,7 +81,7 @@ Mehr Infos:
 - https://developer.chrome.com/blog/webgpu-release?hl=en
 
 #### Installation Windows
-Chrome läuft auf Anhieb
+- Chrome läuft auf Anhieb
 
 ## Schlagwörter: 
 Tutorial Lazarus FPC Pascal Delphi OpenGL 3.3 Core Vector Vektor Vertex Matrix 3D
