@@ -64,7 +64,10 @@ Tutorial direkt auf GitHub:
 ## Verwandtes mit OpenGL
 
 ### WebGL
-https://www.khronos.org/webgl/
+- https://www.khronos.org/webgl/
+- Sampler
+- - https://webglsamples.org/
+
 
 ### WebGPU
 - https://www.w3.org/TR/webgpu/
