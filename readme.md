@@ -43,7 +43,6 @@ Tutorial direkt auf GitHub:
 | 10.04.2017 | Tutorial das erste mal veröffentlicht.
 
 ## Fremde Tutorial
-
 - https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
 - https://open.gl/geometry
 - https://paroj.github.io/gltut/index.html
@@ -51,7 +50,6 @@ Tutorial direkt auf GitHub:
 - https://ogldev.org/index.html
 
 ## Info-Seiten zu OpenGL
-
 - https://docs.gl
 - https://registry.khronos.org/OpenGL/specs/gl/glspec33.compatibility.pdf
 
@@ -61,7 +59,7 @@ Tutorial direkt auf GitHub:
 - [Infos zu glad](glad.md)
 
 ## GLFW Libs bauen
-[Anleitung]()Create_GLFW_Libs.md)
+- [Anleitung](Create_GLFW_Libs.md)
 
 ## Verwandtes mit OpenGL
 
@@ -71,12 +69,12 @@ https://www.khronos.org/webgl/
 ### WebGPU
 https://www.w3.org/TR/webgpu/
 - Sampler:
-- - https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
+-- https://webgpu.github.io/webgpu-samples/?sample=helloTriangle
 
 #### Installation Linux
 Download: https://www.google.com/intl/de/chrome/dev/
 ```bash
-google-chrome-unstable --enable-unsafe-webgpu --enable-features=Vulkan
+$ google-chrome-unstable --enable-unsafe-webgpu --enable-features=Vulkan
 ```
 Mehr Infos: 
 - https://stackoverflow.com/questions/72294876/i-enable-webgpu-in-chrome-dev-and-it-still-doesnt-work
