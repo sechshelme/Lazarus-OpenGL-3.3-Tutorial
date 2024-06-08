@@ -119,7 +119,7 @@ begin
 
   Result.Canvas.Font.Color := clRed;
   Result.Canvas.Font.Name := 'monospace';
-  Result.Canvas.Font.Height:=size div 2;
+  Result.Canvas.Font.Height := size div 2;
   for i := 0 to FontCount - 1 do begin
     Result.Canvas.TextOut(I * size, 0, char(i + 32));
   end;
@@ -153,19 +153,20 @@ end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
-    s:String= 'Hello!';
-    counter:Integer=0;
+  s: string = 'Hello!';
+  counter: integer = 0;
 var
   ci: array of TGLint = nil;
   len: SizeInt;
-  i: integer;     s2:string;
+  i: integer;
+  s2: string;
 begin
-  WriteStr(s2, s,' ',counter);
+  WriteStr(s2, s, ' ', counter);
   WriteLn(s2);
   len := Length(s2);
   SetLength(ci, len);
   for i := 0 to len - 1 do begin
-    ci[i] := uint32(s2[i+1]);
+    ci[i] := uint32(s2[i + 1]);
   end;
   Inc(counter);
 
