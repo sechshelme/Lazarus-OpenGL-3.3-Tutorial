@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, ComCtrls, OpenGLContext, gl, GLext;
+  ExtCtrls, ComCtrls, OpenGLContext, gl;
 
 type
   TForm1 = class(TForm)
@@ -79,6 +79,8 @@ begin
 
   OpenGLControl1.SwapBuffers;
 end;
+
+// https://www.khronos.org/opengl/wiki/Array_Texture
 
 
 procedure TForm1.FormCreate(Sender: TObject);

@@ -27,6 +27,7 @@ type
     procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
     function CreateFontBitmap: TBitmap;
+    procedure OutText(s:String);
   public
   end;
 
@@ -40,9 +41,6 @@ implementation
 //image image.png
 
 (*
-Texturen werden erst richtig interessant, wen noch der Alpha-Kanal verwendet wird.
-Wie hier im Beispiel ein Baum.
-<b>Hinweis:</b> Das Z-Bufferproblem, wie bei einfachen Alphablending muss bei Alphatexturen auch beachtet werden. Siehe [[Lazarus_-_OpenGL_3.3_Tutorial#Alpha_Blending|Alphablending]].
 *)
 //lineal
 
@@ -52,8 +50,8 @@ const
     (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
 
   TextureVertex: array[0..5] of TVector2f =
-    ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
-    (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
+    ((1.0, 1.0), (0.0, 0.0), (1.0, 0.0),
+    (1.0, 1.0), (0.0, 1.0), (0.0, 0.0));
 
 type
   TVB = record
@@ -114,15 +112,15 @@ var
   i: integer;
 begin
   Result := TBitmap.Create;
-  Result.Width := size * FontCount;
-  Result.Height := size;
+Result.SetSize(size div 2,size * FontCount);
 
   Result.Canvas.Font.Color := clRed;
   Result.Canvas.Font.Name := 'monospace';
   Result.Canvas.Font.Height := size div 2;
   for i := 0 to FontCount - 1 do begin
-    Result.Canvas.TextOut(I * size, 0, char(i + 32));
+    Result.Canvas.TextOut(0, i * size, char(i + 32));
   end;
+//  Result.SaveToFile('test.bmp');
 end;
 
 procedure TForm1.InitScene;
@@ -133,8 +131,8 @@ begin
   Textur.LoadTextures(bit.RawImage);
   bit.Free;
 
-  glEnable(GL_BLEND);                                  // Alphablending an
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);   // Sortierung der Primitiven von hinten nach vorne.
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   //code-
 
   glClearColor(0.6, 0.6, 0.4, 1.0);
@@ -151,40 +149,48 @@ begin
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
+procedure TForm1.OutText(s: String);
+var
+  ci: array of TGLint = nil;
+  len: SizeInt;
+  i: integer;
+begin
+  len := Length(s);
+  SetLength(ci, len);
+  for i := 0 to len - 1 do begin
+    ci[i] := uint32(s[i + 1]);
+  end;
+  glUniform1iv(Chars_ID, Length(ci), PGLint(ci));
+
+  glBindVertexArray(VBQuad.VAO);
+  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(ci));
+
+end;
+
 procedure TForm1.ogcDrawScene(Sender: TObject);
 const
   s: string = 'Hello!';
   counter: integer = 0;
 var
-  ci: array of TGLint = nil;
-  len: SizeInt;
-  i: integer;
-  s2: string;
+  s2:String;
+  m:Tmat4x4;
 begin
-  WriteStr(s2, s, ' ', counter);
-  WriteLn(s2);
-  len := Length(s2);
-  SetLength(ci, len);
-  for i := 0 to len - 1 do begin
-    ci[i] := uint32(s2[i + 1]);
-  end;
-  Inc(counter);
-
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-
-  Textur.ActiveAndBind; // Textur binden
-
+  Textur.ActiveAndBind;
   Shader.UseProgram;
 
-
-  ProdMatrix := ScaleMatrix * RotMatrix;
+  m.Identity;
+  ProdMatrix := ScaleMatrix * RotMatrix * m;
   ProdMatrix.Uniform(Matrix_ID);
+  OutText('Hello World !');
+  Inc(counter);
 
-  glUniform1iv(Chars_ID, Length(s2), PGLint(ci));
-
-  // Zeichne Quadrat
-  glBindVertexArray(VBQuad.VAO);
-  glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(s2));
+  m.Translate([0, 2, 0]);
+  ProdMatrix := ScaleMatrix * RotMatrix * m;
+  ProdMatrix.Uniform(Matrix_ID);
+  WriteStr(s2, s, ' ', counter);
+  OutText(s2);
+  Inc(counter);
 
   ogc.SwapBuffers;
 end;
