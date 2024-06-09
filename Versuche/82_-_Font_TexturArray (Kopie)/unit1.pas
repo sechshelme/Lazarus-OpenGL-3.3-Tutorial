@@ -8,13 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   oglglad_gl,
-  oglContext, oglShader, oglVector, oglMatrix,
-  oglTextur; // Unit für Texturen
+  oglContext, oglShader, oglVector, oglMatrix;
 
 type
-
-  { TForm1 }
-
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -25,7 +21,7 @@ type
     Shader: TShader;
     procedure CreateScene;
     procedure ogcDrawScene(Sender: TObject);
-    function CreateFontBitmap: TTexturBuffer;
+    function CreateFontTexture: GLuint;
     procedure OutText(s: string);
   public
   end;
@@ -55,18 +51,15 @@ const
 type
   TVB = record
     VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
+    VBOVertex,
+    VBOTex: GLuint;
   end;
 
 var
-  Textur: TTexturBuffer;
-
+      textureID : GLuint =0;
   VBQuad: TVB;
   RotMatrix, ScaleMatrix, ProdMatrix: TMatrix;
   Chars_ID, Matrix_ID: GLint;
-
-  { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -83,7 +76,7 @@ end;
 
 // https://www.khronos.org/opengl/wiki/Array_Texture
 
-function TForm1.CreateFontBitmap: TTexturBuffer;
+function TForm1.CreateFontTexture: GLuint;
 const
   size = 32;
   FontCount = 94;
@@ -102,8 +95,13 @@ begin
   end;
   //  bit.SaveToFile('test.bmp');
 
-  Result := TTexturBuffer.Create;
-  Result.LoadTextures(bit.RawImage);
+  glGenTextures(1,@Result);
+  glBindTexture(GL_TEXTURE_2D, Result);
+
+//  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, bit.Width, bit.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bit.RawImage.Data);
+  glGenerateMipmap(GL_TEXTURE_2D);
 
   bit.Free;
 end;
@@ -126,7 +124,7 @@ begin
   ScaleMatrix.Scale(0.1);
   ProdMatrix.Identity;
 
-  Textur := CreateFontBitmap;
+  textureID := CreateFontTexture;
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -152,6 +150,7 @@ var
   len: SizeInt;
   i: integer;
 begin
+  glBindTexture(GL_TEXTURE_2D, textureID);
   len := Length(s);
   SetLength(ci, len);
   for i := 0 to len - 1 do begin
@@ -161,7 +160,6 @@ begin
 
   glBindVertexArray(VBQuad.VAO);
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(ci));
-
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -173,7 +171,7 @@ var
   m: Tmat4x4;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-  Textur.ActiveAndBind;
+
   Shader.UseProgram;
 
   m.Identity;
@@ -194,10 +192,9 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  Textur.Free;
-
   Timer1.Enabled := False;
 
+  glDeleteTextures(1, @textureID);
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);

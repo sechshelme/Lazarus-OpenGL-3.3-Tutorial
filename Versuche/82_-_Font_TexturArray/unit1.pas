@@ -8,13 +8,9 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
   oglglad_gl,
-  oglContext, oglShader, oglVector, oglMatrix,
-  oglTextur; // Unit für Texturen
+  oglContext, oglShader, oglVector, oglMatrix;
 
 type
-
-  { TForm1 }
-
   TForm1 = class(TForm)
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -22,12 +18,11 @@ type
     procedure Timer1Timer(Sender: TObject);
   private
     ogc: TContext;
-    Shader: TShader; // Shader Klasse
+    Shader: TShader;
     procedure CreateScene;
-    procedure InitScene;
     procedure ogcDrawScene(Sender: TObject);
-    function CreateFontBitmap: TBitmap;
-    procedure OutText(s:String);
+    function CreateFontTexture: GLuint;
+    procedure OutText(s: string);
   public
   end;
 
@@ -50,24 +45,23 @@ const
     (-0.8, -0.8, 0.0), (0.8, -0.8, 0.0), (0.8, 0.8, 0.0));
 
   TextureVertex: array[0..5] of TVector2f =
-    ((1.0, 1.0), (0.0, 0.0), (1.0, 0.0),
-    (1.0, 1.0), (0.0, 1.0), (0.0, 0.0));
+    ((0.0, 1.0), (1.0, 0.0), (0.0, 0.0),
+    (0.0, 1.0), (1.0, 1.0), (1.0, 0.0));
 
 type
   TVB = record
     VAO,
-    VBOVertex,        // Vertex-Koordinaten
-    VBOTex: GLuint;   // Textur-Koordianten
+    VBOVertex,
+    VBOTex: GLuint;
   end;
 
 var
-  Textur: TTexturBuffer;
-
+  textureID: GLuint = 0;
   VBQuad: TVB;
-  RotMatrix, ScaleMatrix, ProdMatrix: TMatrix;
-  Chars_ID, Matrix_ID: GLint;
-
-  { TForm1 }
+  RotMatrix, ScaleMatrix, ProdMatrix: Tmat4x4;
+  UniformID:record
+  Chars, Matrix: GLint;
+  end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
@@ -79,14 +73,45 @@ begin
   ogc.OnPaint := @ogcDrawScene;
 
   CreateScene;
-  InitScene;
   Timer1.Enabled := True;
+end;
+
+// https://www.khronos.org/opengl/wiki/Array_Texture
+// https://www.reddit.com/r/opengl/comments/ercdsq/only_getting_first_image_in_sampler2darray/
+
+function TForm1.CreateFontTexture: GLuint;
+const
+  size = 32;
+  FontCount = 94;
+var
+  i: integer;
+  bit: TBitmap;
+begin
+  bit := TBitmap.Create;
+  bit.SetSize(size div 2, size * FontCount);
+
+  bit.Canvas.Font.Color := clRed;
+  bit.Canvas.Font.Name := 'monospace';
+  bit.Canvas.Font.Height := size div 2;
+  for i := 0 to FontCount - 1 do begin
+    bit.Canvas.TextOut(0, i * size, char(i + 32));
+  end;
+
+  glGenTextures(1, @Result);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D_ARRAY, Result);
+  glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, bit.Width, bit.Height div FontCount, FontCount, 0, GL_BGRA, GL_UNSIGNED_BYTE, bit.RawImage.Data);
+
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+  bit.Free;
 end;
 
 procedure TForm1.CreateScene;
 begin
-  Textur := TTexturBuffer.Create;
-
   glGenVertexArrays(1, @VBQuad.VAO);
   glGenBuffers(1, @VBQuad.VBOVertex);
   glGenBuffers(1, @VBQuad.VBOTex);
@@ -94,42 +119,16 @@ begin
   Shader := TShader.Create([FileToStr('Vertexshader.glsl'), FileToStr('Fragmentshader.glsl')]);
   with Shader do begin
     UseProgram;
-    Matrix_ID := UniformLocation('mat');
-    Chars_ID := UniformLocation('chars');
+   UniformID.Matrix := UniformLocation('mat');
+    UniformID.Chars := UniformLocation('chars');
     glUniform1i(UniformLocation('Sampler'), 0);  // Dem Sampler 0 zuweisen.
   end;
   RotMatrix.Identity;
   ScaleMatrix.Identity;
   ScaleMatrix.Scale(0.1);
   ProdMatrix.Identity;
-end;
 
-function TForm1.CreateFontBitmap: TBitmap;
-const
-  size = 32;
-  FontCount = 94;
-var
-  i: integer;
-begin
-  Result := TBitmap.Create;
-Result.SetSize(size div 2,size * FontCount);
-
-  Result.Canvas.Font.Color := clRed;
-  Result.Canvas.Font.Name := 'monospace';
-  Result.Canvas.Font.Height := size div 2;
-  for i := 0 to FontCount - 1 do begin
-    Result.Canvas.TextOut(0, i * size, char(i + 32));
-  end;
-//  Result.SaveToFile('test.bmp');
-end;
-
-procedure TForm1.InitScene;
-var
-  bit: TBitmap;
-begin
-  bit := CreateFontBitmap;
-  Textur.LoadTextures(bit.RawImage);
-  bit.Free;
+  textureID := CreateFontTexture;
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -149,22 +148,22 @@ begin
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nil);
 end;
 
-procedure TForm1.OutText(s: String);
+procedure TForm1.OutText(s: string);
 var
   ci: array of TGLint = nil;
   len: SizeInt;
   i: integer;
 begin
+  glBindTexture(GL_TEXTURE_2D_ARRAY, textureID);
   len := Length(s);
   SetLength(ci, len);
   for i := 0 to len - 1 do begin
     ci[i] := uint32(s[i + 1]);
   end;
-  glUniform1iv(Chars_ID, Length(ci), PGLint(ci));
+  glUniform1iv(UniformID.Chars, Length(ci), PGLint(ci));
 
   glBindVertexArray(VBQuad.VAO);
   glDrawArraysInstanced(GL_TRIANGLES, 0, Length(QuadVertex), Length(ci));
-
 end;
 
 procedure TForm1.ogcDrawScene(Sender: TObject);
@@ -172,22 +171,22 @@ const
   s: string = 'Hello!';
   counter: integer = 0;
 var
-  s2:String;
-  m:Tmat4x4;
+  s2: string;
+  m: Tmat4x4;
 begin
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
-  Textur.ActiveAndBind;
+
   Shader.UseProgram;
 
   m.Identity;
   ProdMatrix := ScaleMatrix * RotMatrix * m;
-  ProdMatrix.Uniform(Matrix_ID);
+  ProdMatrix.Uniform(UniformID.Matrix);
   OutText('Hello World !');
   Inc(counter);
 
   m.Translate([0, 2, 0]);
   ProdMatrix := ScaleMatrix * RotMatrix * m;
-  ProdMatrix.Uniform(Matrix_ID);
+  ProdMatrix.Uniform(UniformID.Matrix);
   WriteStr(s2, s, ' ', counter);
   OutText(s2);
   Inc(counter);
@@ -197,10 +196,9 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  Textur.Free;
-
   Timer1.Enabled := False;
 
+  glDeleteTextures(1, @textureID);
   glDeleteVertexArrays(1, @VBQuad.VAO);
   glDeleteBuffers(1, @VBQuad.VBOVertex);
   glDeleteBuffers(1, @VBQuad.VBOTex);
