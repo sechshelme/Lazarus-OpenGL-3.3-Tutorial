@@ -99,7 +99,6 @@ begin
   {$push}
   {$i-}
   if first  then begin
-    WriteLn('');
     first := False;
   end;
   {$pop}
