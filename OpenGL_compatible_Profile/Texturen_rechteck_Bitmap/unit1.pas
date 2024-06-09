@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, oglglad_gl;
+  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, gl;
 
 type
 
@@ -124,11 +124,7 @@ begin
   OpenGLControl1.Align := alClient;
   OpenGLControl1.AutoResizeViewport := True;
 
-  InitOpenGL;
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
-
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -144,7 +140,7 @@ begin
     glGenTextures(1, @textureID0);
     glBindTexture(GL_TEXTURE_2D, textureID0);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_BGRA, GL_UNSIGNED_BYTE, RawImage.Data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, RawImage.Data);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

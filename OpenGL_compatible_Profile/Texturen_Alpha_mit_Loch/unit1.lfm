@@ -4,13 +4,13 @@ object Form1: TForm1
   Top = 35
   Width = 992
   Caption = 'Form1'
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.0.6'
   object Timer1: TTimer
     Interval = 10
     OnTimer = Timer1Timer
-    left = 134
-    top = 124
+    Left = 134
+    Top = 124
   end
 end

@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, oglglad_gl;
+  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, gl, GLext;
 
 type
 
@@ -22,7 +22,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
-    textureID0, textureID1: GLuint;
+  textureID1: GLuint;
 
     // Render Bufffer
     FramebufferName, depthrenderbuffer: GLuint;
@@ -98,24 +98,7 @@ begin
 end;
 
 procedure TForm1.initScene;
-var
-  pic: TPicture;
 begin
-  // ------------ Texturen 0 laden --------------
-
-  pic := TPicture.Create;
-  pic.LoadFromFile('project1.ico');     // Es gehen auch jpg/bmp/ico
-  with pic.Bitmap do begin
-    glGenTextures(1, @textureID0);
-    glBindTexture(GL_TEXTURE_2D, textureID0);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_BGRA, GL_UNSIGNED_BYTE, RawImage.Data);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  end;
-  pic.Free;
-
   // Leere Textur erzeugen
 
   glGenTextures(1, @textureID1);
@@ -147,10 +130,10 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Timer1.Enabled := False;
   Timer1.Interval := 10;
-  InitOpenGL;
+
+  Load_GL_VERSION_3_3();
+
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
 
   initScene;
 end;
@@ -168,7 +151,7 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   glDeleteFramebuffers(1, @FramebufferName);
   glDeleteRenderbuffers(1, @depthrenderbuffer);
-  glDeleteTextures(1, @textureID0);
+  glDeleteTextures(1, @textureID1);
 end;
 
 initialization

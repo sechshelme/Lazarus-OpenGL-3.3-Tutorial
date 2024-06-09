@@ -6,9 +6,9 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 354
   ClientWidth = 348
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.8.0.5'
   object ToolBar1: TToolBar
     Left = 0
     Height = 26
@@ -29,7 +29,7 @@ object Form1: TForm1
     Enabled = False
     Interval = 40
     OnTimer = Timer1Timer
-    left = 134
-    top = 124
+    Left = 134
+    Top = 124
   end
 end

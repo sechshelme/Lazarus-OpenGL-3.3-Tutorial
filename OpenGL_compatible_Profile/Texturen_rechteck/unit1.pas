@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, oglglad_gl;
+  ExtCtrls, StdCtrls, ComCtrls, OpenGLContext, gl;
 
 type
 
@@ -102,11 +102,7 @@ begin
   OpenGLControl1.Align := alClient;
   OpenGLControl1.AutoResizeViewport := True;
 
-  InitOpenGL;
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
-
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
