@@ -3233,7 +3233,7 @@ begin
   {$push}
   {$i-}
   if first  then begin
-    WriteLn('');
+//    WriteLn('');
     first := False;
   end;
   {$pop}
