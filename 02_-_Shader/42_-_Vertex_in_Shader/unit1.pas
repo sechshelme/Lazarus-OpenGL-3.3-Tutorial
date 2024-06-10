@@ -71,7 +71,7 @@ begin
 
   glClearColor(0.6, 0.6, 0.4, 1.0);
   glGenVertexArrays(1, @VBTriangle.VAO);
-  glBindVertexArray(VBTriangle.VAO);
+  glBindVertexArray(0);
 end;
 
 //code+
