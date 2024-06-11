@@ -166,9 +166,10 @@ end;
 
 procedure TLogForm.Add(s: string);
 begin
-  {$I-}// Wegen Windows
+  {$push} // Wegen Windows
+  {$I-}
   WriteLn(s);
-  {$I+}
+  {$pop}
 end;
 
 procedure TLogForm.AddAndTitle(Title, Comment: string);
