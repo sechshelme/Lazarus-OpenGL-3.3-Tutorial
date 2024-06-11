@@ -21,7 +21,6 @@ void main(void)
 {
   vec2 p2 = QuadVertex[gl_VertexID];
   vec4 p  = vec4(p2, 0.0, 1.0);
-//  p.x += float(gl_InstanceID)*0.7;
   p.x += charsOfs[ gl_InstanceID];
 
   gl_Position = mat * p;
