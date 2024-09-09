@@ -1,18 +1,18 @@
 object Form1: TForm1
   Left = 1281
-  Height = 632
+  Height = 608
   Top = 1
   Width = 716
   Caption = 'Form1'
-  ClientHeight = 609
+  ClientHeight = 608
   ClientWidth = 716
   Color = clYellow
   Menu = MainMenu1
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress
   OnResize = FormResize
-  LCLVersion = '1.8.4.0'
   object Image1: TImage
     Left = 240
     Height = 90
@@ -506,17 +506,17 @@ object Form1: TForm1
     Enabled = False
     Interval = 40
     OnTimer = Timer1Timer
-    left = 96
-    top = 47
+    Left = 96
+    Top = 47
   end
   object OpenDialog1: TOpenDialog
     Filter = 'Wavefront|*.obj'
-    left = 447
-    top = 54
+    Left = 447
+    Top = 54
   end
   object MainMenu1: TMainMenu
-    left = 378
-    top = 385
+    Left = 378
+    Top = 385
     object MenuItem1: TMenuItem
       Caption = '&Datei'
       object MenuItem3: TMenuItem

@@ -23,9 +23,6 @@
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default"/>
-      </Modes>
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
@@ -71,24 +68,16 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="\tmp"/>
     </SearchPaths>
-    <Parsing>
-      <SyntaxOptions>
-        <IncludeAssertionCode Value="True"/>
-      </SyntaxOptions>
-    </Parsing>
     <CodeGeneration>
-      <Checks>
-        <IOChecks Value="True"/>
-        <RangeChecks Value="True"/>
-        <OverflowChecks Value="True"/>
-        <StackChecks Value="True"/>
-      </Checks>
+      <TargetOS Value="win64"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
@@ -109,7 +98,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="3">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -119,12 +108,6 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
-      <Item4>
-        <Name Value="EInOutError"/>
-      </Item4>
-      <Item5>
-        <Name Value="EConvertError"/>
-      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

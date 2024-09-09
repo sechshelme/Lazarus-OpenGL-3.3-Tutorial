@@ -11,7 +11,6 @@
       <Title Value="project1"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
-      <Icon Value="0"/>
     </General>
     <i18n>
       <EnableI18N LFM="False"/>
@@ -85,9 +84,6 @@
       </Options>
     </Linking>
     <Other>
-      <ConfigFile>
-        <WriteConfigFilePath Value="$(ProjOutDir)\fpclaz.cfg"/>
-      </ConfigFile>
       <ExecuteBefore>
         <Command Value="V:\DATEN\Programmierung\Lazarus\Units\OpenGL\Shader\Shader.bat"/>
         <CompileReasons Compile="False" Build="False" Run="False"/>

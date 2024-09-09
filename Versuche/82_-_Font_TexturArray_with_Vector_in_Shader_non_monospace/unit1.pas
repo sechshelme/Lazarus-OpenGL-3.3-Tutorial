@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics,        GraphType,
   Dialogs, ExtCtrls, Menus,
   oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix;
@@ -68,6 +68,34 @@ end;
 // https://www.khronos.org/opengl/wiki/Array_Texture
 // https://www.reddit.com/r/opengl/comments/ercdsq/only_getting_first_image_in_sampler2darray/
 
+// https://github.com/turborium/Dither3/blob/main/BitmapPixels.pas
+
+function CreateBitmap(w, h:Integer):TBitmap;
+var
+  ra:TRawImage;
+  i: Integer;
+begin
+  ra.Init;
+  ra.Description.Init_BPP32_R8G8B8A8_BIO_TTB(w,h);
+  ra.DataSize:=w*h*4;
+  ra.CreateData(False);
+//  ra.Description.Init_BPP32_B8G8R8A8_BIO_TTB(w,h);
+//  ra.Description.LineOrder:=riloBottomToTop;
+
+
+  Result:=TBitmap.Create;
+//  Result.RawImage.Description.Init_BPP32_R8G8B8A8_BIO_TTB(w,h);
+//  Result.RawImage.Description.Init_BPP32_B8G8R8A8_BIO_TTB(w,h);
+    Result.SetSize(w,h);
+
+//  Result.LoadFromRawImage(ra,True);
+//  Result.Transparent:=True;
+
+WriteLn('w: ',Result.Width,'   h: ',Result.Height);
+
+//for i:= 0 to w  * h  do Result.RawImage.Data[i]:=$55;
+end;
+
 function TForm1.CreateFontTexture: GLuint;
 const
   size = 128;
@@ -76,19 +104,16 @@ var
   i: integer;
   bit: TBitmap;
 begin
-  bit := TBitmap.Create;
-  bit.Transparent := True;
-
-  bit.SetSize(size div 2, size * FontCount);
+  bit:=CreateBitmap(size div 2, size * FontCount);
 
   bit.Canvas.Pen.Color := clRed;
-  //  bit.Canvas.Brush.Color := clGreen;
+    bit.Canvas.Brush.Color := clGreen;
   bit.Canvas.Brush.Style := bsClear;
   bit.Canvas.Font.Color := clYellow;
   //  bit.Canvas.Font.Name := 'monospace';
   bit.Canvas.Font.Height := size div 2;
   for i := 0 to FontCount - 1 do begin
-    //    bit.Canvas.Rectangle(0, i * size, size div 2, i * size + size);
+//        bit.Canvas.Rectangle(0, i * size, size div 2, i * size + size);
     bit.Canvas.TextOut(0, i * size, char(i + 32));
   end;
 

@@ -76,6 +76,7 @@ const
 
   var
     VBTriangle, VBQuad: TVB;
+    s: String;
 
   begin
     glfwSetErrorCallback(@error_callback);
@@ -87,8 +88,11 @@ const
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//    glfwWindowHint(GLFW_ACCUM_RED_BITS, 3909);
 
-    window := glfwCreateWindow(640, 480, 'GLFW-Demo', nil, nil);
+    s:=  {$I %FPCTARGETOS%};
+
+    window := glfwCreateWindow(640, 480, PChar('GLFW-Demo   ( ' +s+' )') , nil, nil);
     if window = nil then begin
       WriteLn('glfwCreateWindow Error !');
       Halt(1);
@@ -131,6 +135,7 @@ const
     Shader.LoadShaderObject(GL_FRAGMENT_SHADER, fragment_shader_text);
     Shader.LinkProgram;
     Shader.UseProgram;
+
 
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);

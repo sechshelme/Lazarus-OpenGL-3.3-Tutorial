@@ -76,7 +76,7 @@ var
     glutInitDisplayMode(GLUT_DOUBLE);
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow('GL RGB Triangle');
+    glutCreateWindow('GL Triangle');
     Load_GL_VERSION_3_3();
     glutDisplayFunc(@display);
     glutKeyboardFunc(@key_press);
@@ -86,7 +86,6 @@ var
 
     // Daten für Dreieck
     glGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    Write('xxxxxxx');
     glGenBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
 
     glBindVertexArray(VBTriangle.VAOs[vaMesh]);

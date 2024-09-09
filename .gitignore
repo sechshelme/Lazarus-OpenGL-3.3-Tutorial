@@ -3,7 +3,7 @@
 project1
 Project1
 *.exe
-*.dll
+# *.dll
 *.so
 *.dylib
 *.lrs

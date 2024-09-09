@@ -15,8 +15,7 @@ uses
   oglglad_GLES32, BGRABitmapTypes,
   oglVector, oglMatrix, oglShader, oglLighting,
   oglUnit, oglKoerper,
-  oglTexturKoerper, oglTe
-  xtur,
+  oglTexturKoerper, oglTextur,
   oglBackGround, oglFontTextur;
 
 type
