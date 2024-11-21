@@ -28,8 +28,8 @@ Dort sind fertige Shader und Units für Matrizen, Texturen, Vertex-Puffer, etc. 
 //lineal
 (*
 <b>Voraussetzung:</b><br>
-* FPC 3.0.2 oder höher.
-* Lazarus 1.6.4 oder höher.
+* FPC <b>3.3.0</b> oder höher. 
+* Lazarus <b>3.4</b> oder höher.
 * Mindestens OpenGL 3.3 fähige Grafikkarte.
 * Grundkenntnisse mit FPC und Lazarus.
 * Grundkenntnisse C/C++ für die Shader-Programmierung.

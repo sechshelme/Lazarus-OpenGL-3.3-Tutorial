@@ -17,6 +17,7 @@ Tutorial direkt auf GitHub:
 
 | Datum | Änderungen 
 | :---: | ---
+| 21.11.2024 | Mindesanforderung von FPC/Lazarus angepasst.
 | 20.05.2024 | Neu Package **ogl_package_nolcl** hinzugefügt.
 | 20.04.2024 | **dglopengl.pas** durch **oglglad_gl.pas** ersetzt.
 | 20.08.2023 | Neue Beispiele bei Geometrie-Shader.

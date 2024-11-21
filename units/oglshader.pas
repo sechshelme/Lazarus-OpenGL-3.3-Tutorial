@@ -5,6 +5,9 @@ unit oglShader;
 interface
 
 uses
+  {$IFDEF MSWINDOWS}
+  Windows,
+  {$ENDIF}
   Classes,
   SysUtils,
   {$IFDEF LCL}
@@ -81,9 +84,11 @@ end;
 function ResourceToStr(Resource: string): ansistring;
 var
   rs: TResourceStream;
-  pc10: PChar = nil;
+//  pc10: PChar = nil;
 begin
-  rs := TResourceStream.Create(HINSTANCE, Resource, pc10);
+  Result := '';
+  rs := TResourceStream.Create(HINSTANCE, Resource, RT_RCDATA);
+//  rs := TResourceStream.Create(HINSTANCE, Resource, pc10);
   SetLength(Result, rs.Size);
   rs.Read(PChar(Result)^, rs.Size);
   rs.Free;
