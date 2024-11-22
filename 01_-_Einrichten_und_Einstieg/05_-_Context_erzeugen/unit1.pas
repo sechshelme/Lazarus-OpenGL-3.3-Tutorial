@@ -61,11 +61,8 @@ begin
     OpenGLMajorVersion := 3;          // Dies ist wichtig, dass der Context 3.3 verwendet wird.
     OpenGLMinorVersion := 3;
     OnPaint := @DrawScene;
-//    InitOpenGL;
     MakeCurrent;
     Load_GLADE;
-//    ReadExtensions;
-//    ReadImplementationProperties;
   end;
   InitScene;                          // Rendert die Szene
 end;

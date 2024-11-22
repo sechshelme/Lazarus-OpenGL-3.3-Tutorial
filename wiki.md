@@ -137,10 +137,12 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Textur-Koordinaten](20_-_Texturen/50_-_Textur-Koordinaten/readme.md) | <img src="20_-_Texturen/50_-_Textur-Koordinaten/image.png" height="100px">
 | [Texturen Perspektiven-Korrektur](20_-_Texturen/55_-_Texturen_Perspektiven-Korrektur/readme.md) | <img src="20_-_Texturen/55_-_Texturen_Perspektiven-Korrektur/image.png" height="100px">
 | [1D Textur](20_-_Texturen/60_-_1D_Textur/readme.md) | <img src="20_-_Texturen/60_-_1D_Textur/image.png" height="100px">
+| [3D Textur](20_-_Texturen/62_-_3D_Textur/readme.md) | <img src="20_-_Texturen/62_-_3D_Textur/image.png" height="100px">
 | [Textur Array](20_-_Texturen/65_-_Textur_Array/readme.md) | <img src="20_-_Texturen/65_-_Textur_Array/image.png" height="100px">
 | [Textur Array einzel Bitmap](20_-_Texturen/70_-_Textur_Array_einzel_Bitmap/readme.md) | <img src="20_-_Texturen/70_-_Textur_Array_einzel_Bitmap/image.png" height="100px">
 | [Pixel Buffer Object PBO](20_-_Texturen/75_-_Pixel_Buffer_Object_PBO/readme.md) | <img src="20_-_Texturen/75_-_Pixel_Buffer_Object_PBO/image.png" height="100px">
 | [Texture Buffer (TBO)](20_-_Texturen/80_-_Texture_Buffer_(TBO)/readme.md) | <img src="20_-_Texturen/80_-_Texture_Buffer_(TBO)/image.png" height="100px">
+| [Float Textur](20_-_Texturen/85_-_Float_Textur/readme.md) | <img src="20_-_Texturen/85_-_Float_Textur/image.png" height="100px">
 ### Cubemap Texturen
 | Link | Beschreibung
 | :---: | ---
@@ -180,6 +182,7 @@ Auch befinden sich Beispiele auf GitHub, welche im Wiki nicht dokumentiert sind.
 | [Stencil einfach](60_-_Stencil/05_-_Stencil_einfach/readme.md) | <img src="60_-_Stencil/05_-_Stencil_einfach/image.png" height="100px">
 | [Stencil Spielgelung](60_-_Stencil/10_-_Stencil_Spielgelung/readme.md) | <img src="60_-_Stencil/10_-_Stencil_Spielgelung/image.png" height="100px">
 | [Stencil](60_-_Stencil/15_-_Stencil/readme.md) | <img src="60_-_Stencil/15_-_Stencil/image.png" height="100px">
+| [Stencil Zylinder](60_-_Stencil/20_-_Stencil_Zylinder/readme.md) | <img src="60_-_Stencil/20_-_Stencil_Zylinder/image.png" height="100px">
 ### Vektoren und Matrizen ( no OpenGL )
 | Link | Beschreibung
 | :---: | ---
