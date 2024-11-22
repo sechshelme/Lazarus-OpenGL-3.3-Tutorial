@@ -20,7 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <CursorPos X="7" Y="10"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="67"/>
+        <CursorPos X="44" Y="96"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -80,10 +82,10 @@
       </Unit7>
       <Unit8>
         <Filename Value="../../units/oglglad_gl.pas"/>
-        <IsVisibleTab Value="True"/>
+        <UnitName Value="oglglad_GL"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="4383"/>
-        <CursorPos X="81" Y="4415"/>
+        <TopLine Value="3211"/>
+        <CursorPos X="81" Y="3257"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -215,12 +217,10 @@
       <Modes ActiveMode="default"/>
     </RunParams>
     <HistoryLists Count="3">
-      <List0 Name="WorkingDirectory" Type="File" Count="1"/>
-      <List1 Name="LaunchingApplication" Type="File" Count="2">
+      <List0 Name="LaunchingApplication" Type="File" Count="2">
         <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
         <Item2 Value="/usr/bin/gnome-terminal -t &apos;Lazarus Run Output&apos; -e &apos;$(LazarusDir)/tools/runwait.sh $(TargetCmdLine)&apos;"/>
-      </List1>
-      <List2 Name="CommandLineParameters" Count="1"/>
+      </List0>
     </HistoryLists>
   </ProjectSession>
 </CONFIG>

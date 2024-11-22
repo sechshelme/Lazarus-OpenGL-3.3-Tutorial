@@ -20,7 +20,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <CursorPos X="6" Y="10"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="10"/>
+        <CursorPos X="97" Y="30"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -51,22 +53,20 @@
       <Unit5>
         <Filename Value="../../units/oglcontext.pas"/>
         <UnitName Value="oglContext"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <CursorPos X="132" Y="12"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="../../units/dglOpenGL.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="14793"/>
         <CursorPos X="29" Y="14820"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit6>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="unit1.pas"/>
         <Caret Line="18" Column="3"/>
@@ -183,10 +183,6 @@
         <Filename Value="../../units/oglcontext.pas"/>
         <Caret Line="12" Column="141"/>
       </Position29>
-      <Position30>
-        <Filename Value="../../units/dglOpenGL.pas"/>
-        <Caret Line="20356" Column="101" TopLine="20346"/>
-      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

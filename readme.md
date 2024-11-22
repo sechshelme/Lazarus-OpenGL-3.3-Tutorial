@@ -17,6 +17,7 @@ Tutorial direkt auf GitHub:
 
 | Datum | Änderungen 
 | :---: | ---
+| 22.11.2024 | Bug im Beispiel"xx_-_Einrichten_und_Einstieg/xx_-_Context_erzeugen" behoben.
 | 21.11.2024 | Mindesanforderung von FPC/Lazarus angepasst.
 | 20.05.2024 | Neu Package **ogl_package_nolcl** hinzugefügt.
 | 20.04.2024 | **dglopengl.pas** durch **oglglad_gl.pas** ersetzt.

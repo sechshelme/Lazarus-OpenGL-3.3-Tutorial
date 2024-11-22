@@ -57,8 +57,10 @@ end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   Memo1.Clear;
-  Create_Readme('/n4800/DATEN/Programmierung/Lazarus/Tutorials/FreeVision');
-  Create_Readme('/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3');
+//  Create_Readme('/n4800/DATEN/Programmierung/Lazarus/Tutorials/FreeVision');
+//  Create_Readme('/n4800/DATEN/Programmierung/Lazarus/Tutorials/OpenGL_3.3');
+  Create_Readme('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/FreeVision');
+  Create_Readme('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3');
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

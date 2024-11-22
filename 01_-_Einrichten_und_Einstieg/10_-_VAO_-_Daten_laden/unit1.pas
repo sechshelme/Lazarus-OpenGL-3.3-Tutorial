@@ -36,7 +36,9 @@ implementation
 
 (*
 Hier werden zum ersten Mal Vertex-Daten ins VRAM geladen.
-<b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man keine Ausgabe sieht, weil noch kein Shader geladen ist. Mehr dazu im nächsten Tutorial.
+<b>Hinweis:</b> Je nach Grafiktreiber kann es sein, dass man <b>KEINE</b> Ausgabe sieht, weil noch kein Shader geladen ist.
+Es kann sogar sein, das OpenGL ein durcheinader bekommt, und das OpenGL gar nicht mehr geht, bis man den Rechner neu startet.
+Mehr dazu im nächsten Tutorial.
 Mit dem original NVidia- und Intel-Treiber sollten die Mesh unter Linux und Windows sichtbar sein.
 Mit dem Mesa-Treiber unter Linux mit einer NVidia-Karte ist nichts sichtbar.
 *) 
