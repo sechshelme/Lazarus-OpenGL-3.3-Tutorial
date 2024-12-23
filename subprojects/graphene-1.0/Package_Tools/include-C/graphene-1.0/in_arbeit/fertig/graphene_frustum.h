@@ -47,7 +47,7 @@
 struct _graphene_frustum_t
 {
   /*< private >*/
-  GRAPHENE_PRIVATE_FIELD (graphene_plane_t, planes[6]);
+  graphene_plane_t planes[6];
 };
 
 extern

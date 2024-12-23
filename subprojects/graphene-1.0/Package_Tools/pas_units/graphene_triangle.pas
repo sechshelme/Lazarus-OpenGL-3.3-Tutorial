@@ -3,7 +3,7 @@ unit graphene_triangle;
 interface
 
 uses
-  ctypes, graphene, graphene_point3d, graphene_plane;
+  ctypes, graphene, graphene_types, graphene_point3d, graphene_plane;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

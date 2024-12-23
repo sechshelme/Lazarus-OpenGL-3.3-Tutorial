@@ -3,7 +3,7 @@ unit graphene_matrix;
 interface
 
 uses
-  ctypes, graphene, graphene_point3d, graphene_point, graphene_rect, graphene_quad, graphene_ray, graphene_euler;
+  ctypes, graphene, graphene_types, graphene_point3d, graphene_point, graphene_rect, graphene_quad, graphene_ray, graphene_euler;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

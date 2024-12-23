@@ -37,5 +37,5 @@ w = graphene_simd4f_get_w(result);
     printf("Ergebnis: %d\n", sizeof(x));
 
     return 0;
-
+graphene_simd4x4f_t
 }

@@ -3,7 +3,7 @@ unit graphene_rect;
 interface
 
 uses
-  ctypes, graphene, graphene_size, graphene_point;
+  ctypes, graphene, graphene_types, graphene_size, graphene_point;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

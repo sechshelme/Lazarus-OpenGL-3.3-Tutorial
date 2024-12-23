@@ -28,7 +28,6 @@
 #include <glib-object.h>
 #include <graphene.h>
 
-G_BEGIN_DECLS
 
 #define GRAPHENE_TYPE_POINT             (graphene_point_get_type ())
 
@@ -115,4 +114,4 @@ GType graphene_euler_get_type (void);
 extern
 GType graphene_ray_get_type (void);
 
-G_END_DECLS
+

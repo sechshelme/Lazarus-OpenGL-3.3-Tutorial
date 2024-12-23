@@ -3,7 +3,7 @@ unit graphene_vec3;
 interface
 
 uses
-  ctypes, graphene;
+  ctypes, graphene, graphene_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

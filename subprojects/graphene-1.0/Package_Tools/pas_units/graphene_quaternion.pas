@@ -3,7 +3,7 @@ unit graphene_quaternion;
 interface
 
 uses
-  ctypes, graphene, graphene_euler;
+  ctypes, graphene, graphene_types, graphene_euler;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

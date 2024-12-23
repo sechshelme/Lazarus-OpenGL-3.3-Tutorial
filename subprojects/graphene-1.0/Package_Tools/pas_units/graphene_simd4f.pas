@@ -3,7 +3,7 @@ unit graphene_simd4f;
 interface
 
 uses
-  ctypes, graphene;
+  ctypes, graphene, graphene_types;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
