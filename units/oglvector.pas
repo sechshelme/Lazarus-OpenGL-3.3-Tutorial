@@ -467,7 +467,6 @@ begin
   if l = 0.0 then begin
     l := 1.0;
   end;
-  //Self /= l;
   Self *= 1 / l;
 end;
 
