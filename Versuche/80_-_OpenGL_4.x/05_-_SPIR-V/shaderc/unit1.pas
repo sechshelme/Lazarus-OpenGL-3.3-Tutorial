@@ -82,46 +82,59 @@ const
     '  outColor = vec4(1.0, 1.0, 0.0, 1.0);'#10 +
     '}';
 
-function glsl_to_spriv(source: pchar; shader_kind: Tshaderc_shader_kind; out_size: PSizeInt): pchar;
+
+
+function glsl_to_spriv(source: pchar; shader_kind: Tshaderc_shader_kind): TAnsiCharArray;
 var
   compiler: Pshaderc_compiler;
   res: Pshaderc_compilation_result;
   len: Tsize_t;
-  spirv: pchar;
+  spirv: PAnsiChar;
+  i: integer;
+  options: Pshaderc_compile_options;
+  msg: pchar;
 begin
   compiler := shaderc_compiler_initialize();
   if compiler = nil then begin
     WriteLn('compiler=nil');
     Exit(nil);
   end;
+  options := shaderc_compile_options_initialize();
+  if options = nil then begin
+    WriteLn('Options Fehler');
+    Exit(nil);
+  end;
+  shaderc_compile_options_set_target_env(options, shaderc_target_env_opengl, 0);
 
   res := shaderc_compile_into_spv(
     compiler, source, Length(source),
     shader_kind, 'shader.glsl', 'main', nil);
 
   if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
+    msg := shaderc_result_get_error_message(res);
+    WriteLn('Status Fehler:', msg);
+
     shaderc_result_release(res);
     shaderc_compiler_release(compiler);
-    WriteLn('status Fehler');
     Exit(nil);
   end;
 
   len := shaderc_result_get_length(res);
-  spirv := malloc(len);
-  if spirv <> nil then begin
-    memcpy(spirv, shaderc_result_get_bytes(res), len);
-    if out_size <> nil then begin
-      out_size^ := len;
-    end;
+//  WriteLn('len: ', len);
+  spirv := shaderc_result_get_bytes(res);
+
+  SetLength(Result, len);
+  for i := 0 to len - 1 do begin
+//    Write(byte(spirv[i]),  ' - ');
+    Result[i] := spirv[i];
   end;
+//  WriteLn(#10);
 
   shaderc_result_release(res);
   shaderc_compiler_release(compiler);
 
-  WriteLn('len: ',len);
-  WriteLn(Length(spirv));
-
-  Exit(spirv);
+//  WriteLn('len: ', len);
+  WriteLn(Length(Result));
 end;
 
 type
@@ -162,15 +175,15 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  spri: PChar;
+  spri: TAnsiCharArray;
 begin
   Shader := TShader.Create;
 
-  spri:=glsl_to_spriv(vertex_shader, shaderc_vertex_shader, nil);
-  Shader.LoadSPRIVShaderObject(GL_VERTEX_SHADER, spri);
+  spri := glsl_to_spriv(vertex_shader, shaderc_vertex_shader);
+  Shader.LoadSPRIVShaderObjectAnsiChar(GL_VERTEX_SHADER, spri);
 
-  spri:=glsl_to_spriv(fragment_shader, shaderc_fragment_shader, nil);
-  Shader.LoadSPRIVShaderObject(GL_FRAGMENT_SHADER, spri);
+  spri := glsl_to_spriv(fragment_shader, shaderc_fragment_shader);
+  Shader.LoadSPRIVShaderObjectAnsiChar(GL_FRAGMENT_SHADER, spri);
 
 
   //  Shader.LoadSPRIVShaderObjectFromFile(GL_VERTEX_SHADER, 'vert.spv');

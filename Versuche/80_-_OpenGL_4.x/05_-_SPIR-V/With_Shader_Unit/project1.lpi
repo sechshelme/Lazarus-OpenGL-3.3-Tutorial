@@ -76,11 +76,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <ExecuteBefore>
-        <Command Value="/bin/bash compile_shader.sh"/>
-      </ExecuteBefore>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">
