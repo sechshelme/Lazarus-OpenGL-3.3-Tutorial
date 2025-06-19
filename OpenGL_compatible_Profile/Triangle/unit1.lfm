@@ -4,7 +4,7 @@ object Form1: TForm1
   Top = 543
   Width = 883
   Caption = 'Form1'
-  LCLVersion = '3.99.0.0'
+  LCLVersion = '4.99.0.0'
   OnCreate = FormCreate
   object Timer1: TTimer
     Interval = 41

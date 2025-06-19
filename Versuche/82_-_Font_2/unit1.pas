@@ -89,8 +89,14 @@ const
   FontCount = 94;
 var
   i: integer;
+
   bit: TBitmap;
+  picture: TPicture;
 begin
+  picture:=TPicture.Create;
+  picture.LoadFromFile('t.fnt.png');
+
+
   bit := TBitmap.Create;
   bit.SetSize(size div 2, size * FontCount);
 
@@ -100,12 +106,15 @@ begin
   for i := 0 to FontCount - 1 do begin
     bit.Canvas.TextOut(0, i * size, char(i + 32));
   end;
-  //  bit.SaveToFile('test.bmp');
+//    bit.SaveToFile('test.bmp');
 
   Result := TTexturBuffer.Create;
-  Result.LoadTextures(bit.RawImage);
+//  Result.LoadTextures(bit.RawImage);
+  Result.LoadTextures(picture.Bitmap.RawImage);
 
   bit.Free;
+
+  picture.Free;
 end;
 
 procedure TForm1.CreateScene;
@@ -187,6 +196,7 @@ begin
   WriteStr(s2, s, ' ', counter);
   OutText(s2);
   Inc(counter);
+  counter:=1234;
 
   ogc.SwapBuffers;
 end;
@@ -208,7 +218,7 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   step: GLfloat = 0.01;
 begin
-  RotMatrix.RotateC(step);
+//  RotMatrix.RotateC(step);
   ogcDrawScene(Sender);
 end;
 

@@ -54,7 +54,6 @@
         <CursorPos X="61" Y="8"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
@@ -62,7 +61,6 @@
         <CursorPos X="122" Y="9"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -76,14 +74,12 @@
         <Filename Value="Vertexshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit8>
       <Unit9>
         <Filename Value="Fragmentshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="7"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit9>
       <Unit10>
         <Filename Value="/usr/share/fpcsrc/3.1.1/rtl/inc/objpash.inc"/>

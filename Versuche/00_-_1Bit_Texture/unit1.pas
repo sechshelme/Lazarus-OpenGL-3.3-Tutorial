@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, Menus,
+  gl,
   oglglad_gl,
   oglContext, oglShader, oglVector, oglMatrix;
 
@@ -46,12 +47,11 @@ const
     ((0.0, 0.0), (1.0, 1.0), (0.0, 1.0),
     (0.0, 0.0), (1.0, 0.0), (1.0, 1.0));
 
-(*
-Da es zwei Texturn hat, ist noch eine zweite Textur-Konstante dazu gekommen.
-*)
   //code+
 const
-  Textur32_0: packed array[0..1, 0..1, 0..3] of byte = ((($FF, $00, $00, $FF), ($00, $FF, $00, $FF)), (($00, $00, $FF, $FF), ($FF, $00, $00, $FF)));
+  //  Textur32_0: packed array[0..1, 0..1, 0..3] of byte = ((($FF, $00, $00, $FF), ($00, $FF, $00, $FF)), (($00, $00, $FF, $FF), ($FF, $00, $00, $FF)));
+  Textur8bit: packed array[0..1, 0..1] of byte = (
+    (%11100000, %00011100), (%00000011, %11111100));
   //code-
 
   smiley: array of byte = (
@@ -141,7 +141,7 @@ begin
 
   // Textur 1 laden.
   glBindTexture(GL_TEXTURE_2D, textureID[1]);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32_0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_R3_G3_B2, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE_3_3_2, @Textur8bit);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
   glBindTexture(GL_TEXTURE_2D, 0);

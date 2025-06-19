@@ -25,8 +25,6 @@ var
 
 implementation
 
-//function glClearColor(red, green, blue, alpha: GLclampf):Integer; cdecl;external 'GL';
-
 { TForm1 }
 
 procedure TForm1.Timer1Timer(Sender: TObject);

@@ -29,6 +29,8 @@ implementation
 
 { TForm1 }
 
+{$I-}
+
 procedure TForm1.Button1Click(Sender: TObject);
 const
   ofs = 10;
@@ -48,10 +50,11 @@ begin
       s := sl[ofs + i * size + y];
       for x := 0 to 7 do begin
         if s[x + 2] = '.' then begin
+          Canvas.Pixels[i * 8 + x, y] := clWhite;
           Write(' ');
         end else begin
           Write('X');
-          Canvas.Pixels[i * 8 + x, y] := 0;
+          Canvas.Pixels[i * 8 + x, y] := clBlack;
           Bit.Canvas.Pixels[i * 8 + x, y] := $FFFFFF;
         end;
       end;

@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="146"/>
-        <CursorPos Y="166"/>
+        <TopLine Value="97"/>
+        <CursorPos X="72" Y="174"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -56,7 +56,6 @@
         <CursorPos X="78" Y="6"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit5>
       <Unit6>
         <Filename Value="Fragmentshader.glsl"/>
@@ -64,7 +63,6 @@
         <CursorPos X="57" Y="9"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit6>
       <Unit7>
         <Filename Value="../../units/shader.pas"/>
@@ -78,14 +76,12 @@
         <Filename Value="Vertexshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit8>
       <Unit9>
         <Filename Value="Fragmentshader1.glsl"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="7"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
       </Unit9>
       <Unit10>
         <Filename Value="../../units/dglOpenGL.pas"/>
