@@ -88,13 +88,13 @@ end;
 function ResourceToStr(Resource: string): ansistring;
 var
   rs: TResourceStream;
-//  pc10: PChar = nil;
+  //  pc10: PChar = nil;
 begin
   Result := '';
   rs := TResourceStream.Create(HINSTANCE, Resource, RT_RCDATA);
-//  rs := TResourceStream.Create(HINSTANCE, Resource, pc10);
+  //  rs := TResourceStream.Create(HINSTANCE, Resource, pc10);
   SetLength(Result, rs.Size);
-  rs.Read(PChar(Result)^, rs.Size);
+  rs.Read(pchar(Result)^, rs.Size);
   rs.Free;
 end;
 
@@ -215,10 +215,10 @@ begin
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
   SetLength(pc, InfoLogLength + 1);
-  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
 
   if ErrorStatus = GL_FALSE then begin
-    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', AShader + LineEnding + PChar(pc) + LineEnding);
+    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', AShader + LineEnding + pchar(pc) + LineEnding);
   end;
 
   glDeleteShader(ShaderObject);
@@ -248,10 +248,10 @@ begin
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
   SetLength(pc, InfoLogLength + 1);
-  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
 
   if ErrorStatus = GL_FALSE then begin
-    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', PChar(pc) + LineEnding);
+    LogForm.AddAndTitle('FEHLER in ' + ShadercodeToStr(shaderType) + '!', pchar(pc) + LineEnding);
   end;
 
   glDeleteShader(ShaderObject);
@@ -265,36 +265,35 @@ var
   pc: array of char = nil;
   ErrorStatus: TGLboolean;
   InfoLogLength: GLsizei;
-  i: Integer;
+  i: integer;
 begin
   {$ifndef GLES32}
   WriteLn('-----------');
-  for i := 0 to Length(AShader) - 1 do Write(' - ', Byte(AShader[i]));
+  for i := 0 to Length(AShader) - 1 do begin
+    Write(byte(AShader[i]),' - ' );
+  end;
   WriteLn(#10'-----------');
 
   ShaderObject := glCreateShader(shaderType);
-  if ShaderObject = 0 then
-  begin
+  if ShaderObject = 0 then begin
     LogForm.AddAndTitle('FEHLER: glCreateShader gibt 0 zurück!', '');
     exit;
   end;
 
   // SPIR-V laden
-  glShaderBinary(1, @ShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(@AShader[0]), Length(AShader));
+  glShaderBinary(1, @ShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(AShader), Length(AShader));
 
   // Nach glShaderBinary Status prüfen
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  if ErrorStatus = GL_FALSE then
-  begin
+  if ErrorStatus = GL_FALSE then begin
     glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    if InfoLogLength > 0 then
-    begin
+    if InfoLogLength > 0 then begin
       SetLength(pc, InfoLogLength + 1);
-      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
-      LogForm.AddAndTitle('FEHLER beim Laden von SPIR-V (glShaderBinary) in ' + ShadercodeToStr(shaderType) + '!', PChar(pc) + LineEnding);
-    end
-    else
+      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
+      LogForm.AddAndTitle('FEHLER beim Laden von SPIR-V (glShaderBinary) in ' + ShadercodeToStr(shaderType) + '!', pchar(pc) + LineEnding);
+    end else begin
       LogForm.AddAndTitle('FEHLER beim Laden von SPIR-V (glShaderBinary): Kein InfoLog vorhanden!', '');
+    end;
     glDeleteShader(ShaderObject);
     exit;
   end;
@@ -304,17 +303,15 @@ begin
 
   // Nach glSpecializeShader erneut Status prüfen
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  if ErrorStatus = GL_FALSE then
-  begin
+  if ErrorStatus = GL_FALSE then begin
     glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    if InfoLogLength > 0 then
-    begin
+    if InfoLogLength > 0 then begin
       SetLength(pc, InfoLogLength + 1);
-      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, PChar(pc));
-      LogForm.AddAndTitle('FEHLER bei glSpecializeShader in ' + ShadercodeToStr(shaderType) + '!', PChar(pc) + LineEnding);
-    end
-    else
+      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
+      LogForm.AddAndTitle('FEHLER bei glSpecializeShader in ' + ShadercodeToStr(shaderType) + '!', pchar(pc) + LineEnding);
+    end else begin
       LogForm.AddAndTitle('FEHLER bei glSpecializeShader: Kein InfoLog vorhanden!', '');
+    end;
     glDeleteShader(ShaderObject);
     exit;
   end;
@@ -347,8 +344,8 @@ begin
   if ErrorStatus = GL_FALSE then begin
     glGetProgramiv(FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
     SetLength(pc, InfoLogLength + 1);
-    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, PChar(pc));
-    LogForm.AddAndTitle('SHADER LINK:', PChar(pc));
+    glGetProgramInfoLog(FProgramObject, InfoLogLength, nil, pchar(pc));
+    LogForm.AddAndTitle('SHADER LINK:', pchar(pc));
   end;
 end;
 
@@ -393,7 +390,7 @@ end;
 
 function TShader.ShaderVersion: string;
 begin
-  Result := 'Shader Version: ' + PChar(glGetString(GL_SHADING_LANGUAGE_VERSION));
+  Result := 'Shader Version: ' + pchar(glGetString(GL_SHADING_LANGUAGE_VERSION));
 end;
 
 end.

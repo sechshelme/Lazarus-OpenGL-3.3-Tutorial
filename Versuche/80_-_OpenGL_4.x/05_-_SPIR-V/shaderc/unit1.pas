@@ -63,7 +63,7 @@ implementation
 
 const
   vertex_shader =
-    '#version 330'#10 +
+    '#version 460 core'#10 +
     ''#10 +
     'layout (location = 0) in vec3 inPos;'#10 +
     ''#10 +
@@ -73,7 +73,7 @@ const
     '}';
 
   fragment_shader =
-    '#version 330'#10 +
+    '#version 460 core'#10 +
     ''#10 +
     'layout (location = 0) out vec4 outColor;'#10 +
     ''#10 +
@@ -84,14 +84,14 @@ const
 
 
 
-function glsl_to_spriv(source: pchar; shader_kind: Tshaderc_shader_kind): TAnsiCharArray;
+function glsl_to_spriv(src: pchar; kind: Tshaderc_shader_kind): TAnsiCharArray;
 var
   compiler: Pshaderc_compiler;
   res: Pshaderc_compilation_result;
   len: Tsize_t;
-  spirv: PAnsiChar;
+  spirv: pansichar;
   i: integer;
-  options: Pshaderc_compile_options;
+//  options: Pshaderc_compile_options;
   msg: pchar;
 begin
   compiler := shaderc_compiler_initialize();
@@ -99,17 +99,14 @@ begin
     WriteLn('compiler=nil');
     Exit(nil);
   end;
-  options := shaderc_compile_options_initialize();
-  if options = nil then begin
-    WriteLn('Options Fehler');
-    Exit(nil);
-  end;
-  shaderc_compile_options_set_target_env(options, shaderc_target_env_opengl, 0);
+  //options := shaderc_compile_options_initialize();
+  //if options = nil then begin
+  //  WriteLn('Options Fehler');
+  //  Exit(nil);
+  //end;
+  //shaderc_compile_options_set_target_env(options, shaderc_target_env_opengl, 0);
 
-  res := shaderc_compile_into_spv(
-    compiler, source, Length(source),
-    shader_kind, 'shader.glsl', 'main', nil);
-
+  res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
   if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
     msg := shaderc_result_get_error_message(res);
     WriteLn('Status Fehler:', msg);
@@ -120,20 +117,19 @@ begin
   end;
 
   len := shaderc_result_get_length(res);
-//  WriteLn('len: ', len);
   spirv := shaderc_result_get_bytes(res);
 
   SetLength(Result, len);
   for i := 0 to len - 1 do begin
-//    Write(byte(spirv[i]),  ' - ');
+    //    Write(byte(spirv[i]),  ' - ');
     Result[i] := spirv[i];
   end;
-//  WriteLn(#10);
+  //  WriteLn(#10);
 
   shaderc_result_release(res);
   shaderc_compiler_release(compiler);
 
-//  WriteLn('len: ', len);
+  //  WriteLn('len: ', len);
   WriteLn(Length(Result));
 end;
 
