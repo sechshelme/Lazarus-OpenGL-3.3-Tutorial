@@ -81,46 +81,34 @@ const
 
 
 
-function glsl_to_spriv(src: pchar; kind: Tshaderc_shader_kind): TAnsiCharArray;
+function StrToSpriV(src: pchar; kind: Tshaderc_shader_kind): TAnsiCharArray;
 var
   compiler: Pshaderc_compiler;
   res: Pshaderc_compilation_result;
-  len: Tsize_t;
-  spirv: pansichar;
-  i: integer;
+  spirv_size: Tsize_t;
+  spirv_data: pansichar;
   msg: pchar;
 begin
   compiler := shaderc_compiler_initialize();
-  if compiler = nil then begin
-    WriteLn('compiler=nil');
-    Exit(nil);
-  end;
 
+  compiler := shaderc_compiler_initialize;
   res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
   if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
     msg := shaderc_result_get_error_message(res);
     WriteLn('Status Fehler:', msg);
-
     shaderc_result_release(res);
     shaderc_compiler_release(compiler);
-    Exit(nil);
+    exit(nil);
   end;
 
-  len := shaderc_result_get_length(res);
-  spirv := shaderc_result_get_bytes(res);
+  spirv_size := shaderc_result_get_length(res);
+  spirv_data := shaderc_result_get_bytes(res);
 
-  SetLength(Result, len);
-  for i := 0 to len - 1 do begin
-    //    Write(byte(spirv[i]),  ' - ');
-    Result[i] := spirv[i];
-  end;
-  //  WriteLn(#10);
+  SetLength(Result, spirv_size);
+  Move(spirv_data[0], Result[0], spirv_size);
 
   shaderc_result_release(res);
   shaderc_compiler_release(compiler);
-
-  //  WriteLn('len: ', len);
-  WriteLn(Length(Result));
 end;
 
 type
@@ -161,15 +149,15 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  spri: TAnsiCharArray;
+  a: TAnsiCharArray;
 begin
   Shader := TShader.Create;
 
-  spri := glsl_to_spriv(vertex_shader, shaderc_vertex_shader);
-  Shader.LoadSPRIVShaderObjectAnsiChar(GL_VERTEX_SHADER, spri);
+  a := StrToSpriV(vertex_shader, shaderc_vertex_shader);
+  Shader.LoadSPRIVShaderObjectAnsiChar(GL_VERTEX_SHADER, a);
 
-  spri := glsl_to_spriv(fragment_shader, shaderc_fragment_shader);
-  Shader.LoadSPRIVShaderObjectAnsiChar(GL_FRAGMENT_SHADER, spri);
+  a := StrToSpriV(fragment_shader, shaderc_fragment_shader);
+  Shader.LoadSPRIVShaderObjectAnsiChar(GL_FRAGMENT_SHADER, a);
 
 
   //  Shader.LoadSPRIVShaderObjectFromFile(GL_VERTEX_SHADER, 'vert.spv');
