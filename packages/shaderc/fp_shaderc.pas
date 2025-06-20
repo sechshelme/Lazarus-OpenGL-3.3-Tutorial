@@ -1,4 +1,4 @@
-unit shaderc;
+unit fp_shaderc;
 
 interface
 
@@ -16,8 +16,65 @@ type
   Tsize_t = SizeInt;
   Tbool = boolean;
 
-  // ============================
 
+  // ================ env.h =============================
+
+type
+  Pshaderc_target_env = ^Tshaderc_target_env;
+  Tshaderc_target_env = longint;
+
+const
+  shaderc_target_env_vulkan = 0;
+  shaderc_target_env_opengl = 1;
+  shaderc_target_env_opengl_compat = 2;
+  shaderc_target_env_webgpu = 3;
+  shaderc_target_env_default = shaderc_target_env_vulkan;
+
+type
+  Pshaderc_env_version = ^Tshaderc_env_version;
+  Tshaderc_env_version = longint;
+
+const
+  shaderc_env_version_vulkan_1_0 = 1 shl 22;
+  shaderc_env_version_vulkan_1_1 = (1 shl 22) or (1 shl 12);
+  shaderc_env_version_vulkan_1_2 = (1 shl 22) or (2 shl 12);
+  shaderc_env_version_vulkan_1_3 = (1 shl 22) or (3 shl 12);
+  shaderc_env_version_opengl_4_5 = 450;
+  shaderc_env_version_webgpu = 451;
+
+type
+  Pshaderc_spirv_version = ^Tshaderc_spirv_version;
+  Tshaderc_spirv_version = longint;
+
+const
+  shaderc_spirv_version_1_0 = $010000;
+  shaderc_spirv_version_1_1 = $010100;
+  shaderc_spirv_version_1_2 = $010200;
+  shaderc_spirv_version_1_3 = $010300;
+  shaderc_spirv_version_1_4 = $010400;
+  shaderc_spirv_version_1_5 = $010500;
+  shaderc_spirv_version_1_6 = $010600;
+
+
+  // ================== status.h ===============
+
+type
+  Pshaderc_compilation_status = ^Tshaderc_compilation_status;
+  Tshaderc_compilation_status = longint;
+
+const
+  shaderc_compilation_status_success = 0;
+  shaderc_compilation_status_invalid_stage = 1;
+  shaderc_compilation_status_compilation_error = 2;
+  shaderc_compilation_status_internal_error = 3;
+  shaderc_compilation_status_null_result_object = 4;
+  shaderc_compilation_status_invalid_assembly = 5;
+  shaderc_compilation_status_validation_error = 6;
+  shaderc_compilation_status_transformation_error = 7;
+  shaderc_compilation_status_configuration_error = 8;
+
+
+  // =========== shaderc.h ========================
 
 type
   Pshaderc_source_language = ^Tshaderc_source_language;
@@ -232,7 +289,7 @@ type
 function shaderc_compile_options_initialize: Pshaderc_compile_options; cdecl; external libshaderc;
 function shaderc_compile_options_clone(options: Pshaderc_compile_options): Pshaderc_compile_options; cdecl; external libshaderc;
 procedure shaderc_compile_options_release(options: Pshaderc_compile_options); cdecl; external libshaderc;
-procedure shaderc_compile_options_add_macro_definition(options: Pshaderc_compile_options; name: pchar; name_length: Tsize_t; value: pchar; value_length: Tsize_t); cdecl; external libshaderc;
+procedure shaderc_compile_options_add_macro_definition(options: Pshaderc_compile_options; name: PAnsiChar; name_length: Tsize_t; value: PAnsiChar; value_length: Tsize_t); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_source_language(options: Pshaderc_compile_options; lang: Tshaderc_source_language); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_generate_debug_info(options: Pshaderc_compile_options); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_optimization_level(options: Pshaderc_compile_options; level: Tshaderc_optimization_level); cdecl; external libshaderc;
@@ -240,9 +297,9 @@ procedure shaderc_compile_options_set_forced_version_profile(options: Pshaderc_c
 
 type
   Tshaderc_include_result = record
-    source_name: pchar;
+    source_name: PAnsiChar;
     source_name_length: Tsize_t;
-    content: pchar;
+    content: PAnsiChar;
     content_length: Tsize_t;
     user_data: pointer;
   end;
@@ -256,7 +313,7 @@ const
   shaderc_include_type_standard = 1;
 
 type
-  Tshaderc_include_resolve_fn = function(user_data: pointer; requested_source: pchar; _type: longint; requesting_source: pchar; include_depth: Tsize_t): Pshaderc_include_result; cdecl;
+  Tshaderc_include_resolve_fn = function(user_data: pointer; requested_source: PAnsiChar; _type: longint; requesting_source: PAnsiChar; include_depth: Tsize_t): Pshaderc_include_result; cdecl;
   Tshaderc_include_result_release_fn = procedure(user_data: pointer; include_result: Pshaderc_include_result); cdecl;
 
 procedure shaderc_compile_options_set_include_callbacks(options: Pshaderc_compile_options; resolver: Tshaderc_include_resolve_fn; result_releaser: Tshaderc_include_result_release_fn; user_data: pointer); cdecl; external libshaderc;
@@ -273,8 +330,8 @@ procedure shaderc_compile_options_set_binding_base(options: Pshaderc_compile_opt
 procedure shaderc_compile_options_set_binding_base_for_stage(options: Pshaderc_compile_options; shader_kind: Tshaderc_shader_kind; kind: Tshaderc_uniform_kind; base: uint32); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_preserve_bindings(options: Pshaderc_compile_options; preserve_bindings: Tbool); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_auto_map_locations(options: Pshaderc_compile_options; auto_map: Tbool); cdecl; external libshaderc;
-procedure shaderc_compile_options_set_hlsl_register_set_and_binding_for_stage(options: Pshaderc_compile_options; shader_kind: Tshaderc_shader_kind; reg: pchar; set_: pchar; binding: pchar); cdecl; external libshaderc;
-procedure shaderc_compile_options_set_hlsl_register_set_and_binding(options: Pshaderc_compile_options; reg: pchar; set_: pchar; binding: pchar); cdecl; external libshaderc;
+procedure shaderc_compile_options_set_hlsl_register_set_and_binding_for_stage(options: Pshaderc_compile_options; shader_kind: Tshaderc_shader_kind; reg: PAnsiChar; set_: PAnsiChar; binding: PAnsiChar); cdecl; external libshaderc;
+procedure shaderc_compile_options_set_hlsl_register_set_and_binding(options: Pshaderc_compile_options; reg: PAnsiChar; set_: PAnsiChar; binding: PAnsiChar); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_hlsl_functionality1(options: Pshaderc_compile_options; enable: Tbool); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_hlsl_16bit_types(options: Pshaderc_compile_options; enable: Tbool); cdecl; external libshaderc;
 procedure shaderc_compile_options_set_vulkan_rules_relaxed(options: Pshaderc_compile_options; enable: Tbool); cdecl; external libshaderc;
@@ -286,22 +343,22 @@ type
   end;
   Pshaderc_compilation_result = ^Tshaderc_compilation_result;
 
-function shaderc_compile_into_spv(compiler: Pshaderc_compiler; source_text: pchar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: pchar;
-  entry_point_name: pchar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
-function shaderc_compile_into_spv_assembly(compiler: Pshaderc_compiler; source_text: pchar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: pchar;
-  entry_point_name: pchar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
-function shaderc_compile_into_preprocessed_text(compiler: Pshaderc_compiler; source_text: pchar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: pchar;
-  entry_point_name: pchar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
-function shaderc_assemble_into_spv(compiler: Pshaderc_compiler; source_assembly: pchar; source_assembly_size: Tsize_t; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
+function shaderc_compile_into_spv(compiler: Pshaderc_compiler; source_text: PAnsiChar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: PAnsiChar;
+  entry_point_name: PAnsiChar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
+function shaderc_compile_into_spv_assembly(compiler: Pshaderc_compiler; source_text: PAnsiChar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: PAnsiChar;
+  entry_point_name: PAnsiChar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
+function shaderc_compile_into_preprocessed_text(compiler: Pshaderc_compiler; source_text: PAnsiChar; source_text_size: Tsize_t; shader_kind: Tshaderc_shader_kind; input_file_name: PAnsiChar;
+  entry_point_name: PAnsiChar; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
+function shaderc_assemble_into_spv(compiler: Pshaderc_compiler; source_assembly: PAnsiChar; source_assembly_size: Tsize_t; additional_options: Pshaderc_compile_options): Pshaderc_compilation_result; cdecl; external libshaderc;
 procedure shaderc_result_release(res: Pshaderc_compilation_result); cdecl; external libshaderc;
 function shaderc_result_get_length(result: Pshaderc_compilation_result): Tsize_t; cdecl; external libshaderc;
 function shaderc_result_get_num_warnings(result: Pshaderc_compilation_result): Tsize_t; cdecl; external libshaderc;
 function shaderc_result_get_num_errors(result: Pshaderc_compilation_result): Tsize_t; cdecl; external libshaderc;
 function shaderc_result_get_compilation_status(para1: Pshaderc_compilation_result): Tshaderc_compilation_status; cdecl; external libshaderc;
-function shaderc_result_get_bytes(result: Pshaderc_compilation_result): pchar; cdecl; external libshaderc;
-function shaderc_result_get_error_message(result: Pshaderc_compilation_result): pchar; cdecl; external libshaderc;
+function shaderc_result_get_bytes(result: Pshaderc_compilation_result): PAnsiChar; cdecl; external libshaderc;
+function shaderc_result_get_error_message(result: Pshaderc_compilation_result): PAnsiChar; cdecl; external libshaderc;
 procedure shaderc_get_spv_version(version: Pdword; revision: Pdword); cdecl; external libshaderc;
-function shaderc_parse_version_profile(str: pchar; version: Plongint; profile: Pshaderc_profile): Tbool; cdecl; external libshaderc;
+function shaderc_parse_version_profile(str: PAnsiChar; version: Plongint; profile: Pshaderc_profile): Tbool; cdecl; external libshaderc;
 
 // === Konventiert am: 19-6-25 14:35:38 ===
 

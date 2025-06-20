@@ -9,10 +9,7 @@ uses
   Dialogs, ExtCtrls,
   oglglad_gl, oglDebug, oglShader,
 
-  shaderc,
-  env,
-  status,
-
+  fp_shaderc,
 
   oglContext;
 
@@ -91,7 +88,6 @@ var
   len: Tsize_t;
   spirv: pansichar;
   i: integer;
-//  options: Pshaderc_compile_options;
   msg: pchar;
 begin
   compiler := shaderc_compiler_initialize();
@@ -99,12 +95,6 @@ begin
     WriteLn('compiler=nil');
     Exit(nil);
   end;
-  //options := shaderc_compile_options_initialize();
-  //if options = nil then begin
-  //  WriteLn('Options Fehler');
-  //  Exit(nil);
-  //end;
-  //shaderc_compile_options_set_target_env(options, shaderc_target_env_opengl, 0);
 
   res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
   if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
