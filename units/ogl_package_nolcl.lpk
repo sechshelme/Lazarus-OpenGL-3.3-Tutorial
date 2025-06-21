@@ -16,7 +16,7 @@
       </Item>
       <Item>
         <Filename Value="oglglad_gl.pas"/>
-        <UnitName Value="oglglad_gl"/>
+        <UnitName Value="oglglad_GL"/>
       </Item>
       <Item>
         <Filename Value="oglmatrix.pas"/>
@@ -37,10 +37,6 @@
       <Item>
         <Filename Value="oglvectors.pas"/>
         <UnitName Value="oglVectors"/>
-      </Item>
-      <Item>
-        <Filename Value="oglglfw3.pas"/>
-        <UnitName Value="oglGLFW3"/>
       </Item>
     </Files>
     <RequiredPkgs>

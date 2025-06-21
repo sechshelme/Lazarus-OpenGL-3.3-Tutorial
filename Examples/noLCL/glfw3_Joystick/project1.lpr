@@ -3,8 +3,8 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
+  fp_glfw3,
   oglglad_gl,
-  glfw3,
   oglDebug,
   oglShader;
 
@@ -130,8 +130,6 @@ const
 
     Load_GLADE;
 
-
-
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
     // Daten für Dreieck
@@ -162,8 +160,11 @@ const
     Shader.LinkProgram;
     Shader.UseProgram;
 
+
+
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);
+
 
       PrintJoyState;
 

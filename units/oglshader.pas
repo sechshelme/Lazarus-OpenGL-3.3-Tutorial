@@ -37,7 +37,6 @@ type
     procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
     procedure LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
-    procedure LoadSPRIVShaderObjectAnsiChar(shaderType: GLenum; const AShader: TAnsiCharArray);
     procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LinkProgram;
     procedure UseProgram;
@@ -257,73 +256,6 @@ begin
   glDeleteShader(ShaderObject);
   {$endif}
 end;
-
-// --------- Muss getestet werden
-procedure TShader.LoadSPRIVShaderObjectAnsiChar(shaderType: GLenum; const AShader: TAnsiCharArray);
-var
-  ShaderObject: TGLint;
-  pc: array of char = nil;
-  ErrorStatus: TGLboolean;
-  InfoLogLength: GLsizei;
-  i: integer;
-begin
-  {$ifndef GLES32}
-  WriteLn('-----------');
-  for i := 0 to Length(AShader) - 1 do begin
-    Write(byte(AShader[i]),' - ' );
-  end;
-  WriteLn(#10'-----------');
-
-  ShaderObject := glCreateShader(shaderType);
-  if ShaderObject = 0 then begin
-    LogForm.AddAndTitle('FEHLER: glCreateShader gibt 0 zurück!', '');
-    exit;
-  end;
-
-  // SPIR-V laden
-  glShaderBinary(1, @ShaderObject, GL_SHADER_BINARY_FORMAT_SPIR_V, PGLvoid(AShader), Length(AShader));
-
-  // Nach glShaderBinary Status prüfen
-  glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  if ErrorStatus = GL_FALSE then begin
-    glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    if InfoLogLength > 0 then begin
-      SetLength(pc, InfoLogLength + 1);
-      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
-      LogForm.AddAndTitle('FEHLER beim Laden von SPIR-V (glShaderBinary) in ' + ShadercodeToStr(shaderType) + '!', pchar(pc) + LineEnding);
-    end else begin
-      LogForm.AddAndTitle('FEHLER beim Laden von SPIR-V (glShaderBinary): Kein InfoLog vorhanden!', '');
-    end;
-    glDeleteShader(ShaderObject);
-    exit;
-  end;
-
-  // Shader spezialisieren
-  glSpecializeShader(ShaderObject, 'main', 0, nil, nil);
-
-  // Nach glSpecializeShader erneut Status prüfen
-  glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
-  if ErrorStatus = GL_FALSE then begin
-    glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    if InfoLogLength > 0 then begin
-      SetLength(pc, InfoLogLength + 1);
-      glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
-      LogForm.AddAndTitle('FEHLER bei glSpecializeShader in ' + ShadercodeToStr(shaderType) + '!', pchar(pc) + LineEnding);
-    end else begin
-      LogForm.AddAndTitle('FEHLER bei glSpecializeShader: Kein InfoLog vorhanden!', '');
-    end;
-    glDeleteShader(ShaderObject);
-    exit;
-  end;
-
-  // Shader anhängen
-  glAttachShader(FProgramObject, ShaderObject);
-
-  // Shader löschen (wird nach Link automatisch entfernt)
-  glDeleteShader(ShaderObject);
-  {$endif}
-end;
-// ---------------------------
 
 procedure TShader.LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
 begin

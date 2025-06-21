@@ -3,8 +3,8 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
+  fp_glfw3,
   oglglad_GLES32,
-  oglGLFW3,
   oglDebug,
   oglShader;
 

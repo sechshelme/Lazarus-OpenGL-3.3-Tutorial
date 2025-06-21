@@ -81,35 +81,62 @@ const
 
 
 
-function StrToSpriV(src: pchar; kind: Tshaderc_shader_kind): TAnsiCharArray;
+//function StrToSpriV(src: pchar; kind: Tshaderc_shader_kind): TAnsiCharArray;
+//var
+//  compiler: Pshaderc_compiler;
+//  res: Pshaderc_compilation_result;
+//  spirv_size: Tsize_t;
+//  spirv_data: pansichar;
+//  msg: pchar;
+//begin
+//  compiler := shaderc_compiler_initialize();
+//
+//  compiler := shaderc_compiler_initialize;
+//  res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
+//  if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
+//    msg := shaderc_result_get_error_message(res);
+//    WriteLn('Status Fehler:', msg);
+//    shaderc_result_release(res);
+//    shaderc_compiler_release(compiler);
+//    exit(nil);
+//  end;
+//
+//  spirv_size := shaderc_result_get_length(res);
+//  spirv_data := shaderc_result_get_bytes(res);
+//
+//  SetLength(Result, spirv_size);
+//  Move(spirv_data[0], Result[0], spirv_size);
+//
+//  shaderc_result_release(res);
+//  shaderc_compiler_release(compiler);
+//end;
+
+function StrToSpriV(kind: Tshaderc_shader_kind; src: pchar): AnsiString;
 var
   compiler: Pshaderc_compiler;
   res: Pshaderc_compilation_result;
   spirv_size: Tsize_t;
   spirv_data: pansichar;
-  msg: pchar;
 begin
-  compiler := shaderc_compiler_initialize();
-
   compiler := shaderc_compiler_initialize;
   res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
   if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
-    msg := shaderc_result_get_error_message(res);
-    WriteLn('Status Fehler:', msg);
+    WriteLn('Shaderc error: %s'#10, shaderc_result_get_error_message(res));
     shaderc_result_release(res);
     shaderc_compiler_release(compiler);
-    exit(nil);
+    exit('');
   end;
 
   spirv_size := shaderc_result_get_length(res);
   spirv_data := shaderc_result_get_bytes(res);
 
   SetLength(Result, spirv_size);
-  Move(spirv_data[0], Result[0], spirv_size);
+  Move(spirv_data[0], Result[1], spirv_size);
 
   shaderc_result_release(res);
   shaderc_compiler_release(compiler);
 end;
+
 
 type
   TVertex3f = array[0..2] of GLfloat;
@@ -149,15 +176,15 @@ end;
 
 procedure TForm1.CreateScene;
 var
-  a: TAnsiCharArray;
+  a: AnsiString;
 begin
   Shader := TShader.Create;
 
-  a := StrToSpriV(vertex_shader, shaderc_vertex_shader);
-  Shader.LoadSPRIVShaderObjectAnsiChar(GL_VERTEX_SHADER, a);
+  a := StrToSpriV( shaderc_vertex_shader,vertex_shader);
+  Shader.LoadSPRIVShaderObject(GL_VERTEX_SHADER, a);
 
-  a := StrToSpriV(fragment_shader, shaderc_fragment_shader);
-  Shader.LoadSPRIVShaderObjectAnsiChar(GL_FRAGMENT_SHADER, a);
+  a := StrToSpriV(shaderc_fragment_shader,fragment_shader );
+  Shader.LoadSPRIVShaderObject(GL_FRAGMENT_SHADER, a);
 
 
   //  Shader.LoadSPRIVShaderObjectFromFile(GL_VERTEX_SHADER, 'vert.spv');

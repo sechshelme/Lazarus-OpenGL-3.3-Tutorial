@@ -2,14 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit ogl_package_noLCL;
+unit fp_glfw3_package;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  oglDebug, oglglad_GL, oglMatrix, oglShader, oglTextur, oglVector, 
-  oglVectors, LazarusPackageIntf;
+  fp_glfw3, fp_glfw3native, LazarusPackageIntf;
 
 implementation
 
@@ -18,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('ogl_package_noLCL', @Register);
+  RegisterPackage('fp_glfw3_package', @Register);
 end.

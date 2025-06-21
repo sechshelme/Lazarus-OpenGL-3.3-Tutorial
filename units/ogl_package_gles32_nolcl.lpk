@@ -22,10 +22,6 @@
         <UnitName Value="oglglad_GLES32"/>
       </Item>
       <Item>
-        <Filename Value="oglglfw3.pas"/>
-        <UnitName Value="oglGLFW3"/>
-      </Item>
-      <Item>
         <Filename Value="oglmatrix.pas"/>
         <UnitName Value="oglMatrix"/>
       </Item>
