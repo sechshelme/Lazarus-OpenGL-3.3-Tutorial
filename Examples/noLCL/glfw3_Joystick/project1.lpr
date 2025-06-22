@@ -4,6 +4,7 @@ program project1;
 
 uses
   fp_glfw3,
+  fp_glfw3native,
   oglglad_gl,
   oglDebug,
   oglShader;
@@ -74,7 +75,6 @@ const
     WriteLn(name);
 
     axes := glfwGetJoystickAxes(GLFW_JOYSTICK_1, @Count);
-//    WriteLn(PtrUInt(name));
     WriteLn('Axis count: ', Count);
     for i := 0 to Count - 1 do begin
       Write(i, ': ', axes[i]: 4: 2, '    ');

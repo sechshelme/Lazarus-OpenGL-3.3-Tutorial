@@ -36,8 +36,8 @@ type
     destructor Destroy; override;
     procedure LoadShaderObject(shaderType: GLenum; const AShader: ansistring);
     procedure LoadShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
-    procedure LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
-    procedure LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+    procedure LoadSPIRVShaderObject(shaderType: GLenum; const AShader: ansistring);
+    procedure LoadSPIRVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
     procedure LinkProgram;
     procedure UseProgram;
     function UniformLocation(ch: PGLChar): GLint;
@@ -87,11 +87,9 @@ end;
 function ResourceToStr(Resource: string): ansistring;
 var
   rs: TResourceStream;
-  //  pc10: PChar = nil;
 begin
   Result := '';
   rs := TResourceStream.Create(HINSTANCE, Resource, RT_RCDATA);
-  //  rs := TResourceStream.Create(HINSTANCE, Resource, pc10);
   SetLength(Result, rs.Size);
   rs.Read(pchar(Result)^, rs.Size);
   rs.Free;
@@ -228,7 +226,7 @@ begin
   LoadShaderObject(shaderType, FileToStr(ShaderFile));
 end;
 
-procedure TShader.LoadSPRIVShaderObject(shaderType: GLenum; const AShader: ansistring);
+procedure TShader.LoadSPIRVShaderObject(shaderType: GLenum; const AShader: ansistring);
 var
   ShaderObject: TGLint;
   pc: array of char = nil;
@@ -257,9 +255,9 @@ begin
   {$endif}
 end;
 
-procedure TShader.LoadSPRIVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
+procedure TShader.LoadSPIRVShaderObjectFromFile(shaderType: GLenum; const ShaderFile: ansistring);
 begin
-  LoadSPRIVShaderObject(shaderType, FileToStr(ShaderFile));
+  LoadSPIRVShaderObject(shaderType, FileToStr(ShaderFile));
 end;
 
 procedure TShader.LinkProgram;

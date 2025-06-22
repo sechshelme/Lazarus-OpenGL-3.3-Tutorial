@@ -23,6 +23,11 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="ogl_package_GLES32"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
@@ -39,10 +44,6 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetCPU Value="i386"/>
-      <TargetOS Value="win32"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf3"/>
@@ -65,6 +66,9 @@
       </Item>
       <Item>
         <Name Value="RunError(216)"/>
+      </Item>
+      <Item>
+        <Name Value="Exception"/>
       </Item>
     </Exceptions>
   </Debugging>
