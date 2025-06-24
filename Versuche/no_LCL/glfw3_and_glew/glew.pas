@@ -108,7 +108,8 @@ type
   TGLeglImageOES = pointer;
 
 // === Eigenes
-  TdMatrix4x4=array[0..15] of TGLdouble;
+TdMatrix4x4=array[0..15] of TGLdouble;
+TfMatrix4x4=array[0..15] of TGLfloat;
   // ==========
 
 
@@ -1185,9 +1186,9 @@ type
                 data:pointer);cdecl;
   TPFNGLGETCOMPRESSEDTEXIMAGEPROC = procedure (target:TGLenum; lod:TGLint; img:pointer);cdecl;
   TPFNGLLOADTRANSPOSEMATRIXDPROC = procedure (m:TdMatrix4x4);cdecl;
-  TPFNGLLOADTRANSPOSEMATRIXFPROC = procedure (m:TdMatrix4x4);cdecl;
+  TPFNGLLOADTRANSPOSEMATRIXFPROC = procedure (m:TfMatrix4x4);cdecl;
   TPFNGLMULTTRANSPOSEMATRIXDPROC = procedure (m:TdMatrix4x4);cdecl;
-  TPFNGLMULTTRANSPOSEMATRIXFPROC = procedure (m:TdMatrix4x4);cdecl;
+  TPFNGLMULTTRANSPOSEMATRIXFPROC = procedure (m:TfMatrix4x4);cdecl;
   TPFNGLMULTITEXCOORD1DPROC = procedure (target:TGLenum; s:TGLdouble);cdecl;
   TPFNGLMULTITEXCOORD1DVPROC = procedure (target:TGLenum; v:PGLdouble);cdecl;
   TPFNGLMULTITEXCOORD1FPROC = procedure (target:TGLenum; s:TGLfloat);cdecl;
@@ -3017,20 +3018,18 @@ const
 function GLEW_AMD_gpu_shader_int64 : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_interleaved_elements ----------------------  }
-ddd
 const
   GL_AMD_interleaved_elements = 1;  
-  GL_RED = $1903;  
-  GL_GREEN = $1904;  
-  GL_BLUE = $1905;  
-  GL_ALPHA = $1906;  
+//  GL_RED = $1903;   Doppelt
+//  GL_GREEN = $1904; Doppelt 
+//  GL_BLUE = $1905;  Doppelt
+//  GL_ALPHA = $1906; Doppelt 
   GL_RG8UI = $8238;  
   GL_RG16UI = $823A;  
-  GL_RGBA8UI = $8D7C;  
+//  GL_RGBA8UI = $8D7C; Doppelt 
   GL_VERTEX_ELEMENT_SWIZZLE_AMD = $91A4;  
   GL_VERTEX_ID_SWIZZLE_AMD = $91A5;  
 type
-
   TPFNGLVERTEXATTRIBPARAMETERIAMDPROC = procedure (index:TGLuint; pname:TGLenum; param:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -3039,17 +3038,12 @@ function glVertexAttribParameteriAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_interleaved_elements : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_interleaved_elements  }
 { ----------------------- GL_AMD_multi_draw_indirect ----------------------  }
-{$ifndef GL_AMD_multi_draw_indirect}
 
 const
   GL_AMD_multi_draw_indirect = 1;  
 type
-
   TPFNGLMULTIDRAWARRAYSINDIRECTAMDPROC = procedure (mode:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
-
   TPFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -3061,10 +3055,7 @@ function glMultiDrawElementsIndirectAMD : longint; { return type might be wrong 
 { was #define dname def_expr }
 function GLEW_AMD_multi_draw_indirect : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_multi_draw_indirect  }
 { ------------------------- GL_AMD_name_gen_delete ------------------------  }
-{$ifndef GL_AMD_name_gen_delete}
 
 const
   GL_AMD_name_gen_delete = 1;  
@@ -3074,11 +3065,8 @@ const
   GL_VERTEX_ARRAY_OBJECT_AMD = $9154;  
   GL_SAMPLER_OBJECT_AMD = $9155;  
 type
-
   TPFNGLDELETENAMESAMDPROC = procedure (identifier:TGLenum; num:TGLuint; names:PGLuint);cdecl;
-
   TPFNGLGENNAMESAMDPROC = procedure (identifier:TGLenum; num:TGLuint; names:PGLuint);cdecl;
-
   TPFNGLISNAMEAMDPROC = function (identifier:TGLenum; name:TGLuint):TGLboolean;cdecl;
 
 { was #define dname def_expr }
@@ -3093,10 +3081,7 @@ function glIsNameAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_name_gen_delete : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_name_gen_delete  }
 { ---------------------- GL_AMD_occlusion_query_event ---------------------  }
-{$ifndef GL_AMD_occlusion_query_event}
 
 const
   GL_AMD_occlusion_query_event = 1;  
@@ -3107,7 +3092,6 @@ const
   GL_OCCLUSION_QUERY_EVENT_MASK_AMD = $874F;  
   GL_QUERY_ALL_EVENT_BITS_AMD = $FFFFFFFF;  
 type
-
   TPFNGLQUERYOBJECTPARAMETERUIAMDPROC = procedure (target:TGLenum; id:TGLuint; pname:TGLenum; param:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -3116,10 +3100,7 @@ function glQueryObjectParameteruiAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_occlusion_query_event : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_occlusion_query_event  }
 { ----------------------- GL_AMD_performance_monitor ----------------------  }
-{$ifndef GL_AMD_performance_monitor}
 
 const
   GL_AMD_performance_monitor = 1;  
@@ -3131,27 +3112,16 @@ const
   GL_PERFMON_RESULT_SIZE_AMD = $8BC5;  
   GL_PERFMON_RESULT_AMD = $8BC6;  
 type
-
   TPFNGLBEGINPERFMONITORAMDPROC = procedure (monitor:TGLuint);cdecl;
-
   TPFNGLDELETEPERFMONITORSAMDPROC = procedure (n:TGLsizei; monitors:PGLuint);cdecl;
-
   TPFNGLENDPERFMONITORAMDPROC = procedure (monitor:TGLuint);cdecl;
-
   TPFNGLGENPERFMONITORSAMDPROC = procedure (n:TGLsizei; monitors:PGLuint);cdecl;
-
   TPFNGLGETPERFMONITORCOUNTERDATAAMDPROC = procedure (monitor:TGLuint; pname:TGLenum; dataSize:TGLsizei; data:PGLuint; bytesWritten:PGLint);cdecl;
-
   TPFNGLGETPERFMONITORCOUNTERINFOAMDPROC = procedure (group:TGLuint; counter:TGLuint; pname:TGLenum; data:pointer);cdecl;
-
   TPFNGLGETPERFMONITORCOUNTERSTRINGAMDPROC = procedure (group:TGLuint; counter:TGLuint; bufSize:TGLsizei; length:PGLsizei; counterString:PGLchar);cdecl;
-
   TPFNGLGETPERFMONITORCOUNTERSAMDPROC = procedure (group:TGLuint; numCounters:PGLint; maxActiveCounters:PGLint; countersSize:TGLsizei; counters:PGLuint);cdecl;
-
   TPFNGLGETPERFMONITORGROUPSTRINGAMDPROC = procedure (group:TGLuint; bufSize:TGLsizei; length:PGLsizei; groupString:PGLchar);cdecl;
-
   TPFNGLGETPERFMONITORGROUPSAMDPROC = procedure (numGroups:PGLint; groupsSize:TGLsizei; groups:PGLuint);cdecl;
-
   TPFNGLSELECTPERFMONITORCOUNTERSAMDPROC = procedure (monitor:TGLuint; enable:TGLboolean; group:TGLuint; numCounters:TGLint; counterList:PGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -3190,10 +3160,7 @@ function glSelectPerfMonitorCountersAMD : longint; { return type might be wrong 
 { was #define dname def_expr }
 function GLEW_AMD_performance_monitor : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_performance_monitor  }
 { -------------------------- GL_AMD_pinned_memory -------------------------  }
-{$ifndef GL_AMD_pinned_memory}
 
 const
   GL_AMD_pinned_memory = 1;  
@@ -3202,10 +3169,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_pinned_memory : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_pinned_memory  }
 { ----------------------- GL_AMD_program_binary_Z400 ----------------------  }
-{$ifndef GL_AMD_program_binary_Z400}
 
 const
   GL_AMD_program_binary_Z400 = 1;  
@@ -3214,10 +3178,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_program_binary_Z400 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_program_binary_Z400  }
 { ----------------------- GL_AMD_query_buffer_object ----------------------  }
-{$ifndef GL_AMD_query_buffer_object}
 
 const
   GL_AMD_query_buffer_object = 1;  
@@ -3228,14 +3189,11 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_query_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_query_buffer_object  }
 { ------------------------ GL_AMD_sample_positions ------------------------  }
-{$ifndef GL_AMD_sample_positions}
 
 const
   GL_AMD_sample_positions = 1;  
-  GL_SUBSAMPLE_DISTANCE_AMD = $883F;  
+//  GL_SUBSAMPLE_DISTANCE_AMD = $883F;  Doppelt
 type
 
   TPFNGLSETMULTISAMPLEFVAMDPROC = procedure (pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;
@@ -3246,10 +3204,7 @@ function glSetMultisamplefvAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_sample_positions : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_sample_positions  }
 { ------------------ GL_AMD_seamless_cubemap_per_texture ------------------  }
-{$ifndef GL_AMD_seamless_cubemap_per_texture}
 
 const
   GL_AMD_seamless_cubemap_per_texture = 1;  
@@ -3258,10 +3213,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_seamless_cubemap_per_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_seamless_cubemap_per_texture  }
 { -------------------- GL_AMD_shader_atomic_counter_ops -------------------  }
-{$ifndef GL_AMD_shader_atomic_counter_ops}
 
 const
   GL_AMD_shader_atomic_counter_ops = 1;  
@@ -3269,10 +3221,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_atomic_counter_ops : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_atomic_counter_ops  }
 { -------------------------- GL_AMD_shader_ballot -------------------------  }
-{$ifndef GL_AMD_shader_ballot}
 
 const
   GL_AMD_shader_ballot = 1;  
@@ -3280,10 +3229,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_ballot : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_ballot  }
 { ---------------- GL_AMD_shader_explicit_vertex_parameter ----------------  }
-{$ifndef GL_AMD_shader_explicit_vertex_parameter}
 
 const
   GL_AMD_shader_explicit_vertex_parameter = 1;  
@@ -3291,10 +3237,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_explicit_vertex_parameter : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_explicit_vertex_parameter  }
 { ------------------- GL_AMD_shader_image_load_store_lod ------------------  }
-{$ifndef GL_AMD_shader_image_load_store_lod}
 
 const
   GL_AMD_shader_image_load_store_lod = 1;  
@@ -3302,10 +3245,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_image_load_store_lod : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_image_load_store_lod  }
 { ---------------------- GL_AMD_shader_stencil_export ---------------------  }
-{$ifndef GL_AMD_shader_stencil_export}
 
 const
   GL_AMD_shader_stencil_export = 1;  
@@ -3313,10 +3253,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_stencil_export : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_stencil_export  }
 { ------------------- GL_AMD_shader_stencil_value_export ------------------  }
-{$ifndef GL_AMD_shader_stencil_value_export}
 
 const
   GL_AMD_shader_stencil_value_export = 1;  
@@ -3324,10 +3261,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_stencil_value_export : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_stencil_value_export  }
 { ---------------------- GL_AMD_shader_trinary_minmax ---------------------  }
-{$ifndef GL_AMD_shader_trinary_minmax}
 
 const
   GL_AMD_shader_trinary_minmax = 1;  
@@ -3335,10 +3269,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_shader_trinary_minmax : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_shader_trinary_minmax  }
 { ------------------------- GL_AMD_sparse_texture -------------------------  }
-{$ifndef GL_AMD_sparse_texture}
 
 const
   GL_AMD_sparse_texture = 1;  
@@ -3352,12 +3283,8 @@ const
   GL_MIN_SPARSE_LEVEL_AMD = $919B;  
   GL_MIN_LOD_WARNING_AMD = $919C;  
 type
-
-  TPFNGLTEXSTORAGESPARSEAMDPROC = procedure (target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; depth:TGLsizei; 
-                layers:TGLsizei; flags:TGLbitfield);cdecl;
-
-  TPFNGLTEXTURESTORAGESPARSEAMDPROC = procedure (texture:TGLuint; target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; 
-                depth:TGLsizei; layers:TGLsizei; flags:TGLbitfield);cdecl;
+  TPFNGLTEXSTORAGESPARSEAMDPROC = procedure (target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; depth:TGLsizei;                layers:TGLsizei; flags:TGLbitfield);cdecl;
+  TPFNGLTEXTURESTORAGESPARSEAMDPROC = procedure (texture:TGLuint; target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei;                depth:TGLsizei; layers:TGLsizei; flags:TGLbitfield);cdecl;
 
 { was #define dname def_expr }
 function glTexStorageSparseAMD : longint; { return type might be wrong }
@@ -3368,10 +3295,7 @@ function glTextureStorageSparseAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_sparse_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_sparse_texture  }
 { ------------------- GL_AMD_stencil_operation_extended -------------------  }
-{$ifndef GL_AMD_stencil_operation_extended}
 
 const
   GL_AMD_stencil_operation_extended = 1;  
@@ -3389,10 +3313,7 @@ function glStencilOpValueAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_stencil_operation_extended : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_stencil_operation_extended  }
 { --------------------- GL_AMD_texture_gather_bias_lod --------------------  }
-{$ifndef GL_AMD_texture_gather_bias_lod}
 
 const
   GL_AMD_texture_gather_bias_lod = 1;  
@@ -3400,10 +3321,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_texture_gather_bias_lod : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_texture_gather_bias_lod  }
 { ------------------------ GL_AMD_texture_texture4 ------------------------  }
-{$ifndef GL_AMD_texture_texture4}
 
 const
   GL_AMD_texture_texture4 = 1;  
@@ -3411,10 +3329,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_texture_texture4 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_texture_texture4  }
 { --------------- GL_AMD_transform_feedback3_lines_triangles --------------  }
-{$ifndef GL_AMD_transform_feedback3_lines_triangles}
 
 const
   GL_AMD_transform_feedback3_lines_triangles = 1;  
@@ -3422,10 +3337,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_transform_feedback3_lines_triangles : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_transform_feedback3_lines_triangles  }
 { ----------------------- GL_AMD_transform_feedback4 ----------------------  }
-{$ifndef GL_AMD_transform_feedback4}
 
 const
   GL_AMD_transform_feedback4 = 1;  
@@ -3434,10 +3346,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_transform_feedback4 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_transform_feedback4  }
 { ----------------------- GL_AMD_vertex_shader_layer ----------------------  }
-{$ifndef GL_AMD_vertex_shader_layer}
 
 const
   GL_AMD_vertex_shader_layer = 1;  
@@ -3445,10 +3354,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_vertex_shader_layer : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_vertex_shader_layer  }
 { -------------------- GL_AMD_vertex_shader_tessellator -------------------  }
-{$ifndef GL_AMD_vertex_shader_tessellator}
 
 const
   GL_AMD_vertex_shader_tessellator = 1;  
@@ -3460,9 +3366,7 @@ const
   GL_DISCRETE_AMD = $9006;  
   GL_CONTINUOUS_AMD = $9007;  
 type
-
   TPFNGLTESSELLATIONFACTORAMDPROC = procedure (factor:TGLfloat);cdecl;
-
   TPFNGLTESSELLATIONMODEAMDPROC = procedure (mode:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -3474,10 +3378,7 @@ function glTessellationModeAMD : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_AMD_vertex_shader_tessellator : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_vertex_shader_tessellator  }
 { ------------------ GL_AMD_vertex_shader_viewport_index ------------------  }
-{$ifndef GL_AMD_vertex_shader_viewport_index}
 
 const
   GL_AMD_vertex_shader_viewport_index = 1;  
@@ -3485,10 +3386,7 @@ const
 { was #define dname def_expr }
 function GLEW_AMD_vertex_shader_viewport_index : longint; { return type might be wrong }
 
-{$endif}
-{ GL_AMD_vertex_shader_viewport_index  }
 { -------------------- GL_ANDROID_extension_pack_es31a --------------------  }
-{$ifndef GL_ANDROID_extension_pack_es31a}
 
 const
   GL_ANDROID_extension_pack_es31a = 1;  
@@ -3496,10 +3394,7 @@ const
 { was #define dname def_expr }
 function GLEW_ANDROID_extension_pack_es31a : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANDROID_extension_pack_es31a  }
 { ------------------------- GL_ANGLE_depth_texture ------------------------  }
-{$ifndef GL_ANGLE_depth_texture}
 
 const
   GL_ANGLE_depth_texture = 1;  
@@ -3507,10 +3402,7 @@ const
 { was #define dname def_expr }
 function GLEW_ANGLE_depth_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_depth_texture  }
 { ----------------------- GL_ANGLE_framebuffer_blit -----------------------  }
-{$ifndef GL_ANGLE_framebuffer_blit}
 
 const
   GL_ANGLE_framebuffer_blit = 1;  
@@ -3519,8 +3411,7 @@ const
   GL_DRAW_FRAMEBUFFER_ANGLE = $8CA9;  
   GL_READ_FRAMEBUFFER_BINDING_ANGLE = $8CAA;  
 type
-
-  TPFNGLBLITFRAMEBUFFERANGLEPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint; 
+  TPFNGLBLITFRAMEBUFFERANGLEPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint;
                 dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -3529,10 +3420,7 @@ function glBlitFramebufferANGLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ANGLE_framebuffer_blit : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_framebuffer_blit  }
 { -------------------- GL_ANGLE_framebuffer_multisample -------------------  }
-{$ifndef GL_ANGLE_framebuffer_multisample}
 
 const
   GL_ANGLE_framebuffer_multisample = 1;  
@@ -3540,7 +3428,6 @@ const
   GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_ANGLE = $8D56;  
   GL_MAX_SAMPLES_ANGLE = $8D57;  
 type
-
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEANGLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -3549,20 +3436,14 @@ function glRenderbufferStorageMultisampleANGLE : longint; { return type might be
 { was #define dname def_expr }
 function GLEW_ANGLE_framebuffer_multisample : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_framebuffer_multisample  }
 { ----------------------- GL_ANGLE_instanced_arrays -----------------------  }
-{$ifndef GL_ANGLE_instanced_arrays}
 
 const
   GL_ANGLE_instanced_arrays = 1;  
   GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE = $88FE;  
 type
-
   TPFNGLDRAWARRAYSINSTANCEDANGLEPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;
-
   TPFNGLDRAWELEMENTSINSTANCEDANGLEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
-
   TPFNGLVERTEXATTRIBDIVISORANGLEPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -3577,10 +3458,7 @@ function glVertexAttribDivisorANGLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ANGLE_instanced_arrays : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_instanced_arrays  }
 { -------------------- GL_ANGLE_pack_reverse_row_order --------------------  }
-{$ifndef GL_ANGLE_pack_reverse_row_order}
 
 const
   GL_ANGLE_pack_reverse_row_order = 1;  
@@ -3589,10 +3467,7 @@ const
 { was #define dname def_expr }
 function GLEW_ANGLE_pack_reverse_row_order : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_pack_reverse_row_order  }
 { ------------------------ GL_ANGLE_program_binary ------------------------  }
-{$ifndef GL_ANGLE_program_binary}
 
 const
   GL_ANGLE_program_binary = 1;  
@@ -3601,10 +3476,7 @@ const
 { was #define dname def_expr }
 function GLEW_ANGLE_program_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_program_binary  }
 { ------------------- GL_ANGLE_texture_compression_dxt1 -------------------  }
-{$ifndef GL_ANGLE_texture_compression_dxt1}
 
 const
   GL_ANGLE_texture_compression_dxt1 = 1;  
@@ -3616,40 +3488,31 @@ const
 { was #define dname def_expr }
 function GLEW_ANGLE_texture_compression_dxt1 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_texture_compression_dxt1  }
 { ------------------- GL_ANGLE_texture_compression_dxt3 -------------------  }
-{$ifndef GL_ANGLE_texture_compression_dxt3}
 
 const
   GL_ANGLE_texture_compression_dxt3 = 1;  
-  GL_COMPRESSED_RGB_S3TC_DXT1_ANGLE = $83F0;  
-  GL_COMPRESSED_RGBA_S3TC_DXT1_ANGLE = $83F1;  
-  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
-  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
+//  GL_COMPRESSED_RGB_S3TC_DXT1_ANGLE = $83F0;   Doppelt
+//  GL_COMPRESSED_RGBA_S3TC_DXT1_ANGLE = $83F1;  
+//  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
+//  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
 
 { was #define dname def_expr }
 function GLEW_ANGLE_texture_compression_dxt3 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_texture_compression_dxt3  }
 { ------------------- GL_ANGLE_texture_compression_dxt5 -------------------  }
-{$ifndef GL_ANGLE_texture_compression_dxt5}
 
 const
   GL_ANGLE_texture_compression_dxt5 = 1;  
-  GL_COMPRESSED_RGB_S3TC_DXT1_ANGLE = $83F0;  
-  GL_COMPRESSED_RGBA_S3TC_DXT1_ANGLE = $83F1;  
-  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
-  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
+//  GL_COMPRESSED_RGB_S3TC_DXT1_ANGLE = $83F0; Doppelt
+//  GL_COMPRESSED_RGBA_S3TC_DXT1_ANGLE = $83F1;  
+//  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
+//  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
 
 { was #define dname def_expr }
 function GLEW_ANGLE_texture_compression_dxt5 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_texture_compression_dxt5  }
 { ------------------------- GL_ANGLE_texture_usage ------------------------  }
-{$ifndef GL_ANGLE_texture_usage}
 
 const
   GL_ANGLE_texture_usage = 1;  
@@ -3659,10 +3522,7 @@ const
 { was #define dname def_expr }
 function GLEW_ANGLE_texture_usage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_texture_usage  }
 { -------------------------- GL_ANGLE_timer_query -------------------------  }
-{$ifndef GL_ANGLE_timer_query}
 
 const
   GL_ANGLE_timer_query = 1;  
@@ -3673,27 +3533,16 @@ const
   GL_TIME_ELAPSED_ANGLE = $88BF;  
   GL_TIMESTAMP_ANGLE = $8E28;  
 type
-
   TPFNGLBEGINQUERYANGLEPROC = procedure (target:TGLenum; id:TGLuint);cdecl;
-
   TPFNGLDELETEQUERIESANGLEPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLENDQUERYANGLEPROC = procedure (target:TGLenum);cdecl;
-
   TPFNGLGENQUERIESANGLEPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLGETQUERYOBJECTI64VANGLEPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint64);cdecl;
-
   TPFNGLGETQUERYOBJECTIVANGLEPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETQUERYOBJECTUI64VANGLEPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint64);cdecl;
-
   TPFNGLGETQUERYOBJECTUIVANGLEPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLGETQUERYIVANGLEPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISQUERYANGLEPROC = function (id:TGLuint):TGLboolean;cdecl;
-
   TPFNGLQUERYCOUNTERANGLEPROC = procedure (id:TGLuint; target:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -3732,16 +3581,12 @@ function glQueryCounterANGLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ANGLE_timer_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_timer_query  }
 { ------------------- GL_ANGLE_translated_shader_source -------------------  }
-{$ifndef GL_ANGLE_translated_shader_source}
 
 const
   GL_ANGLE_translated_shader_source = 1;  
   GL_TRANSLATED_SHADER_SOURCE_LENGTH_ANGLE = $93A0;  
 type
-
   TPFNGLGETTRANSLATEDSHADERSOURCEANGLEPROC = procedure (shader:TGLuint; bufsize:TGLsizei; length:PGLsizei; source:PGLchar);cdecl;
 
 { was #define dname def_expr }
@@ -3750,10 +3595,7 @@ function glGetTranslatedShaderSourceANGLE : longint; { return type might be wron
 { was #define dname def_expr }
 function GLEW_ANGLE_translated_shader_source : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ANGLE_translated_shader_source  }
 { ----------------------- GL_APPLE_aux_depth_stencil ----------------------  }
-{$ifndef GL_APPLE_aux_depth_stencil}
 
 const
   GL_APPLE_aux_depth_stencil = 1;  
@@ -3762,10 +3604,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_aux_depth_stencil : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_aux_depth_stencil  }
 { ------------------------ GL_APPLE_client_storage ------------------------  }
-{$ifndef GL_APPLE_client_storage}
 
 const
   GL_APPLE_client_storage = 1;  
@@ -3774,10 +3613,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_client_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_client_storage  }
 { ------------------------- GL_APPLE_clip_distance ------------------------  }
-{$ifndef GL_APPLE_clip_distance}
 
 const
   GL_APPLE_clip_distance = 1;  
@@ -3794,10 +3630,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_clip_distance : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_clip_distance  }
 { ------------------- GL_APPLE_color_buffer_packed_float ------------------  }
-{$ifndef GL_APPLE_color_buffer_packed_float}
 
 const
   GL_APPLE_color_buffer_packed_float = 1;  
@@ -3805,15 +3638,11 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_color_buffer_packed_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_color_buffer_packed_float  }
 { ---------------------- GL_APPLE_copy_texture_levels ---------------------  }
-{$ifndef GL_APPLE_copy_texture_levels}
 
 const
   GL_APPLE_copy_texture_levels = 1;  
 type
-
   TPFNGLCOPYTEXTURELEVELSAPPLEPROC = procedure (destinationTexture:TGLuint; sourceTexture:TGLuint; sourceBaseLevel:TGLint; sourceLevelCount:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -3822,10 +3651,7 @@ function glCopyTextureLevelsAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_copy_texture_levels : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_copy_texture_levels  }
 { ------------------------- GL_APPLE_element_array ------------------------  }
-{$ifndef GL_APPLE_element_array}
 
 const
   GL_APPLE_element_array = 1;  
@@ -3833,17 +3659,11 @@ const
   GL_ELEMENT_ARRAY_TYPE_APPLE = $8A0D;  
   GL_ELEMENT_ARRAY_POINTER_APPLE = $8A0E;  
 type
-
   TPFNGLDRAWELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei);cdecl;
-
-  TPFNGLDRAWRANGEELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; start:TGLuint; end:TGLuint; first:TGLint; count:TGLsizei);cdecl;
-
+  TPFNGLDRAWRANGEELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; first:TGLint; count:TGLsizei);cdecl;
   TPFNGLELEMENTPOINTERAPPLEPROC = procedure (_type:TGLenum; pointer:pointer);cdecl;
-
   TPFNGLMULTIDRAWELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei);cdecl;
-
-  TPFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; start:TGLuint; end:TGLuint; first:PGLint; count:PGLsizei; 
-                primcount:TGLsizei);cdecl;
+  TPFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; first:PGLint; count:PGLsizei;                primcount:TGLsizei);cdecl;
 
 { was #define dname def_expr }
 function glDrawElementArrayAPPLE : longint; { return type might be wrong }
@@ -3863,32 +3683,21 @@ function glMultiDrawRangeElementArrayAPPLE : longint; { return type might be wro
 { was #define dname def_expr }
 function GLEW_APPLE_element_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_element_array  }
 { ----------------------------- GL_APPLE_fence ----------------------------  }
-{$ifndef GL_APPLE_fence}
 
 const
   GL_APPLE_fence = 1;  
   GL_DRAW_PIXELS_APPLE = $8A0A;  
   GL_FENCE_APPLE = $8A0B;  
 type
-
   TPFNGLDELETEFENCESAPPLEPROC = procedure (n:TGLsizei; fences:PGLuint);cdecl;
-
   TPFNGLFINISHFENCEAPPLEPROC = procedure (fence:TGLuint);cdecl;
-
-  TPFNGLFINISHOBJECTAPPLEPROC = procedure (object:TGLenum; name:TGLint);cdecl;
-
+  TPFNGLFINISHOBJECTAPPLEPROC = procedure (obj:TGLenum; name:TGLint);cdecl;
   TPFNGLGENFENCESAPPLEPROC = procedure (n:TGLsizei; fences:PGLuint);cdecl;
-
   TPFNGLISFENCEAPPLEPROC = function (fence:TGLuint):TGLboolean;cdecl;
-
   TPFNGLSETFENCEAPPLEPROC = procedure (fence:TGLuint);cdecl;
-
   TPFNGLTESTFENCEAPPLEPROC = function (fence:TGLuint):TGLboolean;cdecl;
-
-  TPFNGLTESTOBJECTAPPLEPROC = function (object:TGLenum; name:TGLuint):TGLboolean;cdecl;
+  TPFNGLTESTOBJECTAPPLEPROC = function (obj:TGLenum; name:TGLuint):TGLboolean;cdecl;
 
 { was #define dname def_expr }
 function glDeleteFencesAPPLE : longint; { return type might be wrong }
@@ -3917,10 +3726,7 @@ function glTestObjectAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_fence : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_fence  }
 { ------------------------- GL_APPLE_float_pixels -------------------------  }
-{$ifndef GL_APPLE_float_pixels}
 
 const
   GL_APPLE_float_pixels = 1;  
@@ -3942,19 +3748,14 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_float_pixels : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_float_pixels  }
 { ---------------------- GL_APPLE_flush_buffer_range ----------------------  }
-{$ifndef GL_APPLE_flush_buffer_range}
 
 const
   GL_APPLE_flush_buffer_range = 1;  
   GL_BUFFER_SERIALIZED_MODIFY_APPLE = $8A12;  
   GL_BUFFER_FLUSHING_UNMAP_APPLE = $8A13;  
 type
-
   TPFNGLBUFFERPARAMETERIAPPLEPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC = procedure (target:TGLenum; offset:TGLintptr; size:TGLsizeiptr);cdecl;
 
 { was #define dname def_expr }
@@ -3966,10 +3767,7 @@ function glFlushMappedBufferRangeAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_flush_buffer_range : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_flush_buffer_range  }
 { -------------------- GL_APPLE_framebuffer_multisample -------------------  }
-{$ifndef GL_APPLE_framebuffer_multisample}
 
 const
   GL_APPLE_framebuffer_multisample = 1;  
@@ -3981,9 +3779,7 @@ const
   GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_APPLE = $8D56;  
   GL_MAX_SAMPLES_APPLE = $8D57;  
 type
-
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC = procedure (para1:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -3995,10 +3791,7 @@ function glResolveMultisampleFramebufferAPPLE : longint; { return type might be 
 { was #define dname def_expr }
 function GLEW_APPLE_framebuffer_multisample : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_framebuffer_multisample  }
 { ----------------------- GL_APPLE_object_purgeable -----------------------  }
-{$ifndef GL_APPLE_object_purgeable}
 
 const
   GL_APPLE_object_purgeable = 1;  
@@ -4009,11 +3802,8 @@ const
   GL_UNDEFINED_APPLE = $8A1C;  
   GL_PURGEABLE_APPLE = $8A1D;  
 type
-
   TPFNGLGETOBJECTPARAMETERIVAPPLEPROC = procedure (objectType:TGLenum; name:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLOBJECTPURGEABLEAPPLEPROC = function (objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;
-
   TPFNGLOBJECTUNPURGEABLEAPPLEPROC = function (objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;
 
 { was #define dname def_expr }
@@ -4028,10 +3818,7 @@ function glObjectUnpurgeableAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_object_purgeable : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_object_purgeable  }
 { ------------------------- GL_APPLE_pixel_buffer -------------------------  }
-{$ifndef GL_APPLE_pixel_buffer}
 
 const
   GL_APPLE_pixel_buffer = 1;  
@@ -4040,10 +3827,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_pixel_buffer : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_pixel_buffer  }
 { ---------------------------- GL_APPLE_rgb_422 ---------------------------  }
-{$ifndef GL_APPLE_rgb_422}
 
 const
   GL_APPLE_rgb_422 = 1;  
@@ -4055,10 +3839,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_rgb_422 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_rgb_422  }
 { --------------------------- GL_APPLE_row_bytes --------------------------  }
-{$ifndef GL_APPLE_row_bytes}
 
 const
   GL_APPLE_row_bytes = 1;  
@@ -4068,10 +3849,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_row_bytes : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_row_bytes  }
 { ------------------------ GL_APPLE_specular_vector -----------------------  }
-{$ifndef GL_APPLE_specular_vector}
 
 const
   GL_APPLE_specular_vector = 1;  
@@ -4080,10 +3858,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_specular_vector : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_specular_vector  }
 { ----------------------------- GL_APPLE_sync -----------------------------  }
-{$ifndef GL_APPLE_sync}
 
 const
   GL_APPLE_sync = 1;  
@@ -4104,19 +3879,12 @@ const
   GL_WAIT_FAILED_APPLE = $911D;  
   GL_TIMEOUT_IGNORED_APPLE = $FFFFFFFFFFFFFFFF;  
 type
-
   TPFNGLCLIENTWAITSYNCAPPLEPROC = function (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64):TGLenum;cdecl;
-
   TPFNGLDELETESYNCAPPLEPROC = procedure (GLsync:TGLsync);cdecl;
-
   TPFNGLFENCESYNCAPPLEPROC = function (condition:TGLenum; flags:TGLbitfield):TGLsync;cdecl;
-
   TPFNGLGETINTEGER64VAPPLEPROC = procedure (pname:TGLenum; params:PGLint64);cdecl;
-
   TPFNGLGETSYNCIVAPPLEPROC = procedure (GLsync:TGLsync; pname:TGLenum; bufSize:TGLsizei; length:PGLsizei; values:PGLint);cdecl;
-
   TPFNGLISSYNCAPPLEPROC = function (GLsync:TGLsync):TGLboolean;cdecl;
-
   TPFNGLWAITSYNCAPPLEPROC = procedure (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64);cdecl;
 
 { was #define dname def_expr }
@@ -4143,10 +3911,7 @@ function glWaitSyncAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_sync : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_sync  }
 { -------------------- GL_APPLE_texture_2D_limited_npot -------------------  }
-{$ifndef GL_APPLE_texture_2D_limited_npot}
 
 const
   GL_APPLE_texture_2D_limited_npot = 1;  
@@ -4154,10 +3919,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_texture_2D_limited_npot : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_texture_2D_limited_npot  }
 { -------------------- GL_APPLE_texture_format_BGRA8888 -------------------  }
-{$ifndef GL_APPLE_texture_format_BGRA8888}
 
 const
   GL_APPLE_texture_format_BGRA8888 = 1;  
@@ -4167,10 +3929,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_texture_format_BGRA8888 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_texture_format_BGRA8888  }
 { ----------------------- GL_APPLE_texture_max_level ----------------------  }
-{$ifndef GL_APPLE_texture_max_level}
 
 const
   GL_APPLE_texture_max_level = 1;  
@@ -4179,10 +3938,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_texture_max_level : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_texture_max_level  }
 { --------------------- GL_APPLE_texture_packed_float ---------------------  }
-{$ifndef GL_APPLE_texture_packed_float}
 
 const
   GL_APPLE_texture_packed_float = 1;  
@@ -4194,10 +3950,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_texture_packed_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_texture_packed_float  }
 { ------------------------- GL_APPLE_texture_range ------------------------  }
-{$ifndef GL_APPLE_texture_range}
 
 const
   GL_APPLE_texture_range = 1;  
@@ -4208,9 +3961,7 @@ const
   GL_STORAGE_CACHED_APPLE = $85BE;  
   GL_STORAGE_SHARED_APPLE = $85BF;  
 type
-
   TPFNGLGETTEXPARAMETERPOINTERVAPPLEPROC = procedure (target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;
-
   TPFNGLTEXTURERANGEAPPLEPROC = procedure (target:TGLenum; length:TGLsizei; pointer:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -4222,10 +3973,7 @@ function glTextureRangeAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_texture_range : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_texture_range  }
 { ------------------------ GL_APPLE_transform_hint ------------------------  }
-{$ifndef GL_APPLE_transform_hint}
 
 const
   GL_APPLE_transform_hint = 1;  
@@ -4234,23 +3982,16 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_transform_hint : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_transform_hint  }
 { ---------------------- GL_APPLE_vertex_array_object ---------------------  }
-{$ifndef GL_APPLE_vertex_array_object}
 
 const
   GL_APPLE_vertex_array_object = 1;  
   GL_VERTEX_ARRAY_BINDING_APPLE = $85B5;  
 type
-
-  TPFNGLBINDVERTEXARRAYAPPLEPROC = procedure (array:TGLuint);cdecl;
-
+  TPFNGLBINDVERTEXARRAYAPPLEPROC = procedure (arr:TGLuint);cdecl;
   TPFNGLDELETEVERTEXARRAYSAPPLEPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
-
   TPFNGLGENVERTEXARRAYSAPPLEPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
-
-  TPFNGLISVERTEXARRAYAPPLEPROC = function (array:TGLuint):TGLboolean;cdecl;
+  TPFNGLISVERTEXARRAYAPPLEPROC = function (arr:TGLuint):TGLboolean;cdecl;
 
 { was #define dname def_expr }
 function glBindVertexArrayAPPLE : longint; { return type might be wrong }
@@ -4267,10 +4008,7 @@ function glIsVertexArrayAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_vertex_array_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_vertex_array_object  }
 { ---------------------- GL_APPLE_vertex_array_range ----------------------  }
-{$ifndef GL_APPLE_vertex_array_range}
 
 const
   GL_APPLE_vertex_array_range = 1;  
@@ -4280,14 +4018,11 @@ const
   GL_MAX_VERTEX_ARRAY_RANGE_ELEMENT_APPLE = $8520;  
   GL_VERTEX_ARRAY_RANGE_POINTER_APPLE = $8521;  
   GL_STORAGE_CLIENT_APPLE = $85B4;  
-  GL_STORAGE_CACHED_APPLE = $85BE;  
-  GL_STORAGE_SHARED_APPLE = $85BF;  
+//  GL_STORAGE_CACHED_APPLE = $85BE;  Doppelt
+//  GL_STORAGE_SHARED_APPLE = $85BF;  
 type
-
   TPFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC = procedure (length:TGLsizei; pointer:pointer);cdecl;
-
   TPFNGLVERTEXARRAYPARAMETERIAPPLEPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLVERTEXARRAYRANGEAPPLEPROC = procedure (length:TGLsizei; pointer:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -4302,10 +4037,7 @@ function glVertexArrayRangeAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_vertex_array_range : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_vertex_array_range  }
 { ------------------- GL_APPLE_vertex_program_evaluators ------------------  }
-{$ifndef GL_APPLE_vertex_program_evaluators}
 
 const
   GL_APPLE_vertex_program_evaluators = 1;  
@@ -4320,24 +4052,17 @@ const
   GL_VERTEX_ATTRIB_MAP2_ORDER_APPLE = $8A08;  
   GL_VERTEX_ATTRIB_MAP2_DOMAIN_APPLE = $8A09;  
 type
-
   TPFNGLDISABLEVERTEXATTRIBAPPLEPROC = procedure (index:TGLuint; pname:TGLenum);cdecl;
-
   TPFNGLENABLEVERTEXATTRIBAPPLEPROC = procedure (index:TGLuint; pname:TGLenum);cdecl;
-
   TPFNGLISVERTEXATTRIBENABLEDAPPLEPROC = function (index:TGLuint; pname:TGLenum):TGLboolean;cdecl;
-
-  TPFNGLMAPVERTEXATTRIB1DAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLdouble; u2:TGLdouble; stride:TGLint; 
+  TPFNGLMAPVERTEXATTRIB1DAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLdouble; u2:TGLdouble; stride:TGLint;
                 order:TGLint; points:PGLdouble);cdecl;
-
-  TPFNGLMAPVERTEXATTRIB1FAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLfloat; u2:TGLfloat; stride:TGLint; 
+  TPFNGLMAPVERTEXATTRIB1FAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLfloat; u2:TGLfloat; stride:TGLint;
                 order:TGLint; points:PGLfloat);cdecl;
-
-  TPFNGLMAPVERTEXATTRIB2DAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLdouble; u2:TGLdouble; ustride:TGLint; 
+  TPFNGLMAPVERTEXATTRIB2DAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLdouble; u2:TGLdouble; ustride:TGLint;
                 uorder:TGLint; v1:TGLdouble; v2:TGLdouble; vstride:TGLint; vorder:TGLint; 
                 points:PGLdouble);cdecl;
-
-  TPFNGLMAPVERTEXATTRIB2FAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLfloat; u2:TGLfloat; ustride:TGLint; 
+  TPFNGLMAPVERTEXATTRIB2FAPPLEPROC = procedure (index:TGLuint; size:TGLuint; u1:TGLfloat; u2:TGLfloat; ustride:TGLint;
                 uorder:TGLint; v1:TGLfloat; v2:TGLfloat; vstride:TGLint; vorder:TGLint; 
                 points:PGLfloat);cdecl;
 
@@ -4365,10 +4090,7 @@ function glMapVertexAttrib2fAPPLE : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_APPLE_vertex_program_evaluators : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_vertex_program_evaluators  }
 { --------------------------- GL_APPLE_ycbcr_422 --------------------------  }
-{$ifndef GL_APPLE_ycbcr_422}
 
 const
   GL_APPLE_ycbcr_422 = 1;  
@@ -4377,10 +4099,7 @@ const
 { was #define dname def_expr }
 function GLEW_APPLE_ycbcr_422 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_APPLE_ycbcr_422  }
 { ------------------------ GL_ARB_ES2_compatibility -----------------------  }
-{$ifndef GL_ARB_ES2_compatibility}
 
 const
   GL_ARB_ES2_compatibility = 1;  
@@ -4405,13 +4124,9 @@ type
   TGLfixed = longint;
 
   TPFNGLCLEARDEPTHFPROC = procedure (d:TGLclampf);cdecl;
-
   TPFNGLDEPTHRANGEFPROC = procedure (n:TGLclampf; f:TGLclampf);cdecl;
-
   TPFNGLGETSHADERPRECISIONFORMATPROC = procedure (shadertype:TGLenum; precisiontype:TGLenum; range:PGLint; precision:PGLint);cdecl;
-
   TPFNGLRELEASESHADERCOMPILERPROC = procedure (para1:pointer);cdecl;
-
   TPFNGLSHADERBINARYPROC = procedure (count:TGLsizei; shaders:PGLuint; binaryformat:TGLenum; binary:pointer; length:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -4432,15 +4147,11 @@ function glShaderBinary : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_ES2_compatibility : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_ES2_compatibility  }
 { ----------------------- GL_ARB_ES3_1_compatibility ----------------------  }
-{$ifndef GL_ARB_ES3_1_compatibility}
 
 const
   GL_ARB_ES3_1_compatibility = 1;  
 type
-
   TPFNGLMEMORYBARRIERBYREGIONPROC = procedure (barriers:TGLbitfield);cdecl;
 
 { was #define dname def_expr }
@@ -4449,10 +4160,7 @@ function glMemoryBarrierByRegion : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_ES3_1_compatibility : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_ES3_1_compatibility  }
 { ----------------------- GL_ARB_ES3_2_compatibility ----------------------  }
-{$ifndef GL_ARB_ES3_2_compatibility}
 
 const
   GL_ARB_ES3_2_compatibility = 1;  
@@ -4470,10 +4178,7 @@ function glPrimitiveBoundingBoxARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_ES3_2_compatibility : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_ES3_2_compatibility  }
 { ------------------------ GL_ARB_ES3_compatibility -----------------------  }
-{$ifndef GL_ARB_ES3_compatibility}
 
 const
   GL_ARB_ES3_compatibility = 1;  
@@ -4495,10 +4200,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_ES3_compatibility : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_ES3_compatibility  }
 { ------------------------ GL_ARB_arrays_of_arrays ------------------------  }
-{$ifndef GL_ARB_arrays_of_arrays}
 
 const
   GL_ARB_arrays_of_arrays = 1;  
@@ -4506,21 +4208,15 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_arrays_of_arrays : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_arrays_of_arrays  }
 { -------------------------- GL_ARB_base_instance -------------------------  }
-{$ifndef GL_ARB_base_instance}
 
 const
   GL_ARB_base_instance = 1;  
 type
-
-  TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei; baseinstance:TGLuint);cdecl;
-
-  TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei; 
+ TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei; baseinstance:TGLuint);cdecl;
+  TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei;
                 baseinstance:TGLuint);cdecl;
-
-  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei; 
+  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei;
                 basevertex:TGLint; baseinstance:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -4535,46 +4231,27 @@ function glDrawElementsInstancedBaseVertexBaseInstance : longint; { return type 
 { was #define dname def_expr }
 function GLEW_ARB_base_instance : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_base_instance  }
 { ------------------------ GL_ARB_bindless_texture ------------------------  }
-{$ifndef GL_ARB_bindless_texture}
 
 const
   GL_ARB_bindless_texture = 1;  
   GL_UNSIGNED_INT64_ARB = $140F;  
 type
-
   TPFNGLGETIMAGEHANDLEARBPROC = function (texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint; format:TGLenum):TGLuint64;cdecl;
-
   TPFNGLGETTEXTUREHANDLEARBPROC = function (texture:TGLuint):TGLuint64;cdecl;
-
   TPFNGLGETTEXTURESAMPLERHANDLEARBPROC = function (texture:TGLuint; sampler:TGLuint):TGLuint64;cdecl;
-
   TPFNGLGETVERTEXATTRIBLUI64VARBPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLuint64EXT);cdecl;
-
   TPFNGLISIMAGEHANDLERESIDENTARBPROC = function (handle:TGLuint64):TGLboolean;cdecl;
-
   TPFNGLISTEXTUREHANDLERESIDENTARBPROC = function (handle:TGLuint64):TGLboolean;cdecl;
-
   TPFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC = procedure (handle:TGLuint64);cdecl;
-
   TPFNGLMAKEIMAGEHANDLERESIDENTARBPROC = procedure (handle:TGLuint64; access:TGLenum);cdecl;
-
   TPFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC = procedure (handle:TGLuint64);cdecl;
-
   TPFNGLMAKETEXTUREHANDLERESIDENTARBPROC = procedure (handle:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC = procedure (prog:TGLuint; location:TGLint; value:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; values:PGLuint64);cdecl;
-
   TPFNGLUNIFORMHANDLEUI64ARBPROC = procedure (location:TGLint; value:TGLuint64);cdecl;
-
   TPFNGLUNIFORMHANDLEUI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLVERTEXATTRIBL1UI64ARBPROC = procedure (index:TGLuint; x:TGLuint64EXT);cdecl;
-
   TPFNGLVERTEXATTRIBL1UI64VARBPROC = procedure (index:TGLuint; v:PGLuint64EXT);cdecl;
 
 { was #define dname def_expr }
@@ -4628,10 +4305,7 @@ function glVertexAttribL1ui64vARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_bindless_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_bindless_texture  }
 { ----------------------- GL_ARB_blend_func_extended ----------------------  }
-{$ifndef GL_ARB_blend_func_extended}
 
 const
   GL_ARB_blend_func_extended = 1;  
@@ -4640,9 +4314,7 @@ const
   GL_ONE_MINUS_SRC1_ALPHA = $88FB;  
   GL_MAX_DUAL_SOURCE_DRAW_BUFFERS = $88FC;  
 type
-
   TPFNGLBINDFRAGDATALOCATIONINDEXEDPROC = procedure (prog:TGLuint; colorNumber:TGLuint; index:TGLuint; name:PGLchar);cdecl;
-
   TPFNGLGETFRAGDATAINDEXPROC = function (prog:TGLuint; name:PGLchar):TGLint;cdecl;
 
 { was #define dname def_expr }
@@ -4654,10 +4326,7 @@ function glGetFragDataIndex : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_blend_func_extended : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_blend_func_extended  }
 { ------------------------- GL_ARB_buffer_storage -------------------------  }
-{$ifndef GL_ARB_buffer_storage}
 
 const
   GL_ARB_buffer_storage = 1;  
@@ -4671,7 +4340,6 @@ const
   GL_BUFFER_IMMUTABLE_STORAGE = $821F;  
   GL_BUFFER_STORAGE_FLAGS = $8220;  
 type
-
   TPFNGLBUFFERSTORAGEPROC = procedure (target:TGLenum; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
 
 { was #define dname def_expr }
@@ -4680,10 +4348,7 @@ function glBufferStorage : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_buffer_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_buffer_storage  }
 { ---------------------------- GL_ARB_cl_event ----------------------------  }
-{$ifndef GL_ARB_cl_event}
 
 const
   GL_ARB_cl_event = 1;  
@@ -4704,23 +4369,16 @@ function glCreateSyncFromCLeventARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_cl_event : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_cl_event  }
 { ----------------------- GL_ARB_clear_buffer_object ----------------------  }
-{$ifndef GL_ARB_clear_buffer_object}
 
 const
   GL_ARB_clear_buffer_object = 1;  
 type
-
   TPFNGLCLEARBUFFERDATAPROC = procedure (target:TGLenum; internalformat:TGLenum; format:TGLenum; _type:TGLenum; data:pointer);cdecl;
-
-  TPFNGLCLEARBUFFERSUBDATAPROC = procedure (target:TGLenum; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum; 
+  TPFNGLCLEARBUFFERSUBDATAPROC = procedure (target:TGLenum; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum;
                 _type:TGLenum; data:pointer);cdecl;
-
   TPFNGLCLEARNAMEDBUFFERDATAEXTPROC = procedure (buffer:TGLuint; internalformat:TGLenum; format:TGLenum; _type:TGLenum; data:pointer);cdecl;
-
-  TPFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC = procedure (buffer:TGLuint; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum; 
+  TPFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC = procedure (buffer:TGLuint; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum;
                 _type:TGLenum; data:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -4738,19 +4396,14 @@ function glClearNamedBufferSubDataEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_clear_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_clear_buffer_object  }
 { -------------------------- GL_ARB_clear_texture -------------------------  }
-{$ifndef GL_ARB_clear_texture}
 
 const
   GL_ARB_clear_texture = 1;  
   GL_CLEAR_TEXTURE = $9365;  
 type
-
   TPFNGLCLEARTEXIMAGEPROC = procedure (texture:TGLuint; level:TGLint; format:TGLenum; _type:TGLenum; data:pointer);cdecl;
-
-  TPFNGLCLEARTEXSUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLCLEARTEXSUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 data:pointer);cdecl;
 
@@ -4763,21 +4416,17 @@ function glClearTexSubImage : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_clear_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_clear_texture  }
 { -------------------------- GL_ARB_clip_control --------------------------  }
-{$ifndef GL_ARB_clip_control}
 
 const
   GL_ARB_clip_control = 1;  
-  GL_LOWER_LEFT = $8CA1;  
-  GL_UPPER_LEFT = $8CA2;  
+//  GL_LOWER_LEFT = $8CA1;   Doppelt
+//  GL_UPPER_LEFT = $8CA2;  
   GL_CLIP_ORIGIN = $935C;  
   GL_CLIP_DEPTH_MODE = $935D;  
   GL_NEGATIVE_ONE_TO_ONE = $935E;  
   GL_ZERO_TO_ONE = $935F;  
 type
-
   TPFNGLCLIPCONTROLPROC = procedure (origin:TGLenum; depth:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -4786,10 +4435,7 @@ function glClipControl : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_clip_control : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_clip_control  }
 { ----------------------- GL_ARB_color_buffer_float -----------------------  }
-{$ifndef GL_ARB_color_buffer_float}
 
 const
   GL_ARB_color_buffer_float = 1;  
@@ -4799,7 +4445,6 @@ const
   GL_CLAMP_READ_COLOR_ARB = $891C;  
   GL_FIXED_ONLY_ARB = $891D;  
 type
-
   TPFNGLCLAMPCOLORARBPROC = procedure (target:TGLenum; clamp:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -4808,10 +4453,7 @@ function glClampColorARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_color_buffer_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_color_buffer_float  }
 { -------------------------- GL_ARB_compatibility -------------------------  }
-{$ifndef GL_ARB_compatibility}
 
 const
   GL_ARB_compatibility = 1;  
@@ -4819,10 +4461,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_compatibility : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_compatibility  }
 { ---------------- GL_ARB_compressed_texture_pixel_storage ----------------  }
-{$ifndef GL_ARB_compressed_texture_pixel_storage}
 
 const
   GL_ARB_compressed_texture_pixel_storage = 1;  
@@ -4838,10 +4477,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_compressed_texture_pixel_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_compressed_texture_pixel_storage  }
 { ------------------------- GL_ARB_compute_shader -------------------------  }
-{$ifndef GL_ARB_compute_shader}
 
 const
   GL_ARB_compute_shader = 1;  
@@ -4864,9 +4500,7 @@ const
   GL_MAX_COMPUTE_WORK_GROUP_COUNT = $91BE;  
   GL_MAX_COMPUTE_WORK_GROUP_SIZE = $91BF;  
 type
-
   TPFNGLDISPATCHCOMPUTEPROC = procedure (num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint);cdecl;
-
   TPFNGLDISPATCHCOMPUTEINDIRECTPROC = procedure (indirect:TGLintptr);cdecl;
 
 { was #define dname def_expr }
@@ -4878,10 +4512,7 @@ function glDispatchComputeIndirect : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_compute_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_compute_shader  }
 { ------------------- GL_ARB_compute_variable_group_size ------------------  }
-{$ifndef GL_ARB_compute_variable_group_size}
 
 const
   GL_ARB_compute_variable_group_size = 1;  
@@ -4890,8 +4521,7 @@ const
   GL_MAX_COMPUTE_VARIABLE_GROUP_INVOCATIONS_ARB = $9344;  
   GL_MAX_COMPUTE_VARIABLE_GROUP_SIZE_ARB = $9345;  
 type
-
-  TPFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC = procedure (num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint; group_size_x:TGLuint; group_size_y:TGLuint; 
+  TPFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC = procedure (num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint; group_size_x:TGLuint; group_size_y:TGLuint;
                 group_size_z:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -4900,10 +4530,7 @@ function glDispatchComputeGroupSizeARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_compute_variable_group_size : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_compute_variable_group_size  }
 { ------------------- GL_ARB_conditional_render_inverted ------------------  }
-{$ifndef GL_ARB_conditional_render_inverted}
 
 const
   GL_ARB_conditional_render_inverted = 1;  
@@ -4915,10 +4542,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_conditional_render_inverted : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_conditional_render_inverted  }
 { ----------------------- GL_ARB_conservative_depth -----------------------  }
-{$ifndef GL_ARB_conservative_depth}
 
 const
   GL_ARB_conservative_depth = 1;  
@@ -4926,17 +4550,13 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_conservative_depth : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_conservative_depth  }
 { --------------------------- GL_ARB_copy_buffer --------------------------  }
-{$ifndef GL_ARB_copy_buffer}
 
 const
   GL_ARB_copy_buffer = 1;  
   GL_COPY_READ_BUFFER = $8F36;  
   GL_COPY_WRITE_BUFFER = $8F37;  
 type
-
   TPFNGLCOPYBUFFERSUBDATAPROC = procedure (readtarget:TGLenum; writetarget:TGLenum; readoffset:TGLintptr; writeoffset:TGLintptr; size:TGLsizeiptr);cdecl;
 
 { was #define dname def_expr }
@@ -4945,16 +4565,12 @@ function glCopyBufferSubData : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_copy_buffer : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_copy_buffer  }
 { --------------------------- GL_ARB_copy_image ---------------------------  }
-{$ifndef GL_ARB_copy_image}
 
 const
   GL_ARB_copy_image = 1;  
 type
-
-  TPFNGLCOPYIMAGESUBDATAPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint; 
+  TPFNGLCOPYIMAGESUBDATAPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint;
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei);cdecl;
 
@@ -4964,10 +4580,7 @@ function glCopyImageSubData : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_copy_image : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_copy_image  }
 { -------------------------- GL_ARB_cull_distance -------------------------  }
-{$ifndef GL_ARB_cull_distance}
 
 const
   GL_ARB_cull_distance = 1;  
@@ -4977,10 +4590,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_cull_distance : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_cull_distance  }
 { -------------------------- GL_ARB_debug_output --------------------------  }
-{$ifndef GL_ARB_debug_output}
 
 const
   GL_ARB_debug_output = 1;  
@@ -5007,19 +4617,14 @@ const
   GL_DEBUG_SEVERITY_MEDIUM_ARB = $9147;  
   GL_DEBUG_SEVERITY_LOW_ARB = $9148;  
 type
-
-  TGLDEBUGPROCARB = procedure (source:TGLenum; _type:TGLenum; id:TGLuint; severity:TGLenum; length:TGLsizei; 
+  TGLDEBUGPROCARB = procedure (source:TGLenum; _type:TGLenum; id:TGLuint; severity:TGLenum; length:TGLsizei;
                 message:PGLchar; userParam:pointer);cdecl;
-
   TPFNGLDEBUGMESSAGECALLBACKARBPROC = procedure (callback:TGLDEBUGPROCARB; userParam:pointer);cdecl;
-
-  TPFNGLDEBUGMESSAGECONTROLARBPROC = procedure (source:TGLenum; _type:TGLenum; severity:TGLenum; count:TGLsizei; ids:PGLuint; 
+  TPFNGLDEBUGMESSAGECONTROLARBPROC = procedure (source:TGLenum; _type:TGLenum; severity:TGLenum; count:TGLsizei; ids:PGLuint;
                 enabled:TGLboolean);cdecl;
-
-  TPFNGLDEBUGMESSAGEINSERTARBPROC = procedure (source:TGLenum; _type:TGLenum; id:TGLuint; severity:TGLenum; length:TGLsizei; 
+  TPFNGLDEBUGMESSAGEINSERTARBPROC = procedure (source:TGLenum; _type:TGLenum; id:TGLuint; severity:TGLenum; length:TGLsizei;
                 buf:PGLchar);cdecl;
-
-  TPFNGLGETDEBUGMESSAGELOGARBPROC = function (count:TGLuint; bufSize:TGLsizei; sources:PGLenum; types:PGLenum; ids:PGLuint; 
+  TPFNGLGETDEBUGMESSAGELOGARBPROC = function (count:TGLuint; bufSize:TGLsizei; sources:PGLenum; types:PGLenum; ids:PGLuint;
                severities:PGLenum; lengths:PGLsizei; messageLog:PGLchar):TGLuint;cdecl;
 
 { was #define dname def_expr }
@@ -5037,10 +4642,7 @@ function glGetDebugMessageLogARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_debug_output : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_debug_output  }
 { ----------------------- GL_ARB_depth_buffer_float -----------------------  }
-{$ifndef GL_ARB_depth_buffer_float}
 
 const
   GL_ARB_depth_buffer_float = 1;  
@@ -5051,10 +4653,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_depth_buffer_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_depth_buffer_float  }
 { --------------------------- GL_ARB_depth_clamp --------------------------  }
-{$ifndef GL_ARB_depth_clamp}
 
 const
   GL_ARB_depth_clamp = 1;  
@@ -5063,10 +4662,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_depth_clamp : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_depth_clamp  }
 { -------------------------- GL_ARB_depth_texture -------------------------  }
-{$ifndef GL_ARB_depth_texture}
 
 const
   GL_ARB_depth_texture = 1;  
@@ -5079,10 +4675,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_depth_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_depth_texture  }
 { ----------------------- GL_ARB_derivative_control -----------------------  }
-{$ifndef GL_ARB_derivative_control}
 
 const
   GL_ARB_derivative_control = 1;  
@@ -5090,233 +4683,128 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_derivative_control : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_derivative_control  }
 { ----------------------- GL_ARB_direct_state_access ----------------------  }
-{$ifndef GL_ARB_direct_state_access}
 
 const
   GL_ARB_direct_state_access = 1;  
   GL_TEXTURE_TARGET = $1006;  
   GL_QUERY_TARGET = $82EA;  
 type
-
-  TPFNGLBINDTEXTUREUNITPROC = procedure (unit:TGLuint; texture:TGLuint);cdecl;
-
-  TPFNGLBLITNAMEDFRAMEBUFFERPROC = procedure (readFramebuffer:TGLuint; drawFramebuffer:TGLuint; srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; 
+  TPFNGLBINDTEXTUREUNITPROC = procedure (unit_:TGLuint; texture:TGLuint);cdecl;
+  TPFNGLBLITNAMEDFRAMEBUFFERPROC = procedure (readFramebuffer:TGLuint; drawFramebuffer:TGLuint; srcX0:TGLint; srcY0:TGLint; srcX1:TGLint;
                 srcY1:TGLint; dstX0:TGLint; dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; 
                 mask:TGLbitfield; filter:TGLenum);cdecl;
-
   TPFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC = function (framebuffer:TGLuint; target:TGLenum):TGLenum;cdecl;
-
   TPFNGLCLEARNAMEDBUFFERDATAPROC = procedure (buffer:TGLuint; internalformat:TGLenum; format:TGLenum; _type:TGLenum; data:pointer);cdecl;
-
-  TPFNGLCLEARNAMEDBUFFERSUBDATAPROC = procedure (buffer:TGLuint; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum; 
+  TPFNGLCLEARNAMEDBUFFERSUBDATAPROC = procedure (buffer:TGLuint; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum;
                 _type:TGLenum; data:pointer);cdecl;
-
   TPFNGLCLEARNAMEDFRAMEBUFFERFIPROC = procedure (framebuffer:TGLuint; buffer:TGLenum; drawbuffer:TGLint; depth:TGLfloat; stencil:TGLint);cdecl;
-
   TPFNGLCLEARNAMEDFRAMEBUFFERFVPROC = procedure (framebuffer:TGLuint; buffer:TGLenum; drawbuffer:TGLint; value:PGLfloat);cdecl;
-
   TPFNGLCLEARNAMEDFRAMEBUFFERIVPROC = procedure (framebuffer:TGLuint; buffer:TGLenum; drawbuffer:TGLint; value:PGLint);cdecl;
-
   TPFNGLCLEARNAMEDFRAMEBUFFERUIVPROC = procedure (framebuffer:TGLuint; buffer:TGLenum; drawbuffer:TGLint; value:PGLuint);cdecl;
-
-  TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum; 
+  TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum;
                 imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei; 
+  TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei;
                 height:TGLsizei; format:TGLenum; imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; imageSize:TGLsizei; 
                 data:pointer);cdecl;
-
   TPFNGLCOPYNAMEDBUFFERSUBDATAPROC = procedure (readBuffer:TGLuint; writeBuffer:TGLuint; readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cdecl;
-
-  TPFNGLCOPYTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; x:TGLint; y:TGLint; 
+  TPFNGLCOPYTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; x:TGLint; y:TGLint;
                 width:TGLsizei);cdecl;
-
-  TPFNGLCOPYTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; x:TGLint; 
+  TPFNGLCOPYTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; x:TGLint;
                 y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
-
-  TPFNGLCOPYTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLCOPYTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLCREATEBUFFERSPROC = procedure (n:TGLsizei; buffers:PGLuint);cdecl;
-
   TPFNGLCREATEFRAMEBUFFERSPROC = procedure (n:TGLsizei; framebuffers:PGLuint);cdecl;
-
   TPFNGLCREATEPROGRAMPIPELINESPROC = procedure (n:TGLsizei; pipelines:PGLuint);cdecl;
-
   TPFNGLCREATEQUERIESPROC = procedure (target:TGLenum; n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLCREATERENDERBUFFERSPROC = procedure (n:TGLsizei; renderbuffers:PGLuint);cdecl;
-
   TPFNGLCREATESAMPLERSPROC = procedure (n:TGLsizei; samplers:PGLuint);cdecl;
-
   TPFNGLCREATETEXTURESPROC = procedure (target:TGLenum; n:TGLsizei; textures:PGLuint);cdecl;
-
   TPFNGLCREATETRANSFORMFEEDBACKSPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLCREATEVERTEXARRAYSPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
-
   TPFNGLDISABLEVERTEXARRAYATTRIBPROC = procedure (vaobj:TGLuint; index:TGLuint);cdecl;
-
   TPFNGLENABLEVERTEXARRAYATTRIBPROC = procedure (vaobj:TGLuint; index:TGLuint);cdecl;
-
   TPFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC = procedure (buffer:TGLuint; offset:TGLintptr; length:TGLsizeiptr);cdecl;
-
   TPFNGLGENERATETEXTUREMIPMAPPROC = procedure (texture:TGLuint);cdecl;
-
   TPFNGLGETCOMPRESSEDTEXTUREIMAGEPROC = procedure (texture:TGLuint; level:TGLint; bufSize:TGLsizei; pixels:pointer);cdecl;
-
   TPFNGLGETNAMEDBUFFERPARAMETERI64VPROC = procedure (buffer:TGLuint; pname:TGLenum; params:PGLint64);cdecl;
-
   TPFNGLGETNAMEDBUFFERPARAMETERIVPROC = procedure (buffer:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETNAMEDBUFFERPOINTERVPROC = procedure (buffer:TGLuint; pname:TGLenum; params:Ppointer);cdecl;
-
   TPFNGLGETNAMEDBUFFERSUBDATAPROC = procedure (buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; data:pointer);cdecl;
-
   TPFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC = procedure (framebuffer:TGLuint; attachment:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC = procedure (framebuffer:TGLuint; pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC = procedure (renderbuffer:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETQUERYBUFFEROBJECTI64VPROC = procedure (id:TGLuint; buffer:TGLuint; pname:TGLenum; offset:TGLintptr);cdecl;
-
   TPFNGLGETQUERYBUFFEROBJECTIVPROC = procedure (id:TGLuint; buffer:TGLuint; pname:TGLenum; offset:TGLintptr);cdecl;
-
   TPFNGLGETQUERYBUFFEROBJECTUI64VPROC = procedure (id:TGLuint; buffer:TGLuint; pname:TGLenum; offset:TGLintptr);cdecl;
-
   TPFNGLGETQUERYBUFFEROBJECTUIVPROC = procedure (id:TGLuint; buffer:TGLuint; pname:TGLenum; offset:TGLintptr);cdecl;
-
-  TPFNGLGETTEXTUREIMAGEPROC = procedure (texture:TGLuint; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
-                pixels:pointer);cdecl;
-
+  TPFNGLGETTEXTUREIMAGEPROC = procedure (texture:TGLuint; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei;                pixels:pointer);cdecl;
   TPFNGLGETTEXTURELEVELPARAMETERFVPROC = procedure (texture:TGLuint; level:TGLint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETTEXTURELEVELPARAMETERIVPROC = procedure (texture:TGLuint; level:TGLint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETTEXTUREPARAMETERIIVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETTEXTUREPARAMETERIUIVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLGETTEXTUREPARAMETERFVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETTEXTUREPARAMETERIVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETTRANSFORMFEEDBACKI64_VPROC = procedure (xfb:TGLuint; pname:TGLenum; index:TGLuint; param:PGLint64);cdecl;
-
   TPFNGLGETTRANSFORMFEEDBACKI_VPROC = procedure (xfb:TGLuint; pname:TGLenum; index:TGLuint; param:PGLint);cdecl;
-
   TPFNGLGETTRANSFORMFEEDBACKIVPROC = procedure (xfb:TGLuint; pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLGETVERTEXARRAYINDEXED64IVPROC = procedure (vaobj:TGLuint; index:TGLuint; pname:TGLenum; param:PGLint64);cdecl;
-
   TPFNGLGETVERTEXARRAYINDEXEDIVPROC = procedure (vaobj:TGLuint; index:TGLuint; pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLGETVERTEXARRAYIVPROC = procedure (vaobj:TGLuint; pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC = procedure (framebuffer:TGLuint; numAttachments:TGLsizei; attachments:PGLenum);cdecl;
-
-  TPFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC = procedure (framebuffer:TGLuint; numAttachments:TGLsizei; attachments:PGLenum; x:TGLint; y:TGLint; 
-                width:TGLsizei; height:TGLsizei);cdecl;
-
-  PPFNGLMAPNAMEDBUFFERPROC = ^TPFNGLMAPNAMEDBUFFERPROC;
+  TPFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC = procedure (framebuffer:TGLuint; numAttachments:TGLsizei; attachments:PGLenum; x:TGLint; y:TGLint;                width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLMAPNAMEDBUFFERPROC = function (buffer:TGLuint; access:TGLenum):pointer;cdecl;
-
-  PPFNGLMAPNAMEDBUFFERRANGEPROC = ^TPFNGLMAPNAMEDBUFFERRANGEPROC;
   TPFNGLMAPNAMEDBUFFERRANGEPROC = function (buffer:TGLuint; offset:TGLintptr; length:TGLsizeiptr; access:TGLbitfield):pointer;cdecl;
-
   TPFNGLNAMEDBUFFERDATAPROC = procedure (buffer:TGLuint; size:TGLsizeiptr; data:pointer; usage:TGLenum);cdecl;
-
   TPFNGLNAMEDBUFFERSTORAGEPROC = procedure (buffer:TGLuint; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
-
   TPFNGLNAMEDBUFFERSUBDATAPROC = procedure (buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; data:pointer);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC = procedure (framebuffer:TGLuint; mode:TGLenum);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC = procedure (framebuffer:TGLuint; n:TGLsizei; bufs:PGLenum);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERPARAMETERIPROC = procedure (framebuffer:TGLuint; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERREADBUFFERPROC = procedure (framebuffer:TGLuint; mode:TGLenum);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC = procedure (framebuffer:TGLuint; attachment:TGLenum; renderbuffertarget:TGLenum; renderbuffer:TGLuint);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERTEXTUREPROC = procedure (framebuffer:TGLuint; attachment:TGLenum; texture:TGLuint; level:TGLint);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC = procedure (framebuffer:TGLuint; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;
-
   TPFNGLNAMEDRENDERBUFFERSTORAGEPROC = procedure (renderbuffer:TGLuint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC = procedure (renderbuffer:TGLuint; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLTEXTUREBUFFERPROC = procedure (texture:TGLuint; internalformat:TGLenum; buffer:TGLuint);cdecl;
-
   TPFNGLTEXTUREBUFFERRANGEPROC = procedure (texture:TGLuint; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr);cdecl;
-
   TPFNGLTEXTUREPARAMETERIIVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLTEXTUREPARAMETERIUIVPROC = procedure (texture:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLTEXTUREPARAMETERFPROC = procedure (texture:TGLuint; pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLTEXTUREPARAMETERFVPROC = procedure (texture:TGLuint; pname:TGLenum; param:PGLfloat);cdecl;
-
   TPFNGLTEXTUREPARAMETERIPROC = procedure (texture:TGLuint; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLTEXTUREPARAMETERIVPROC = procedure (texture:TGLuint; pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLTEXTURESTORAGE1DPROC = procedure (texture:TGLuint; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei);cdecl;
-
   TPFNGLTEXTURESTORAGE2DPROC = procedure (texture:TGLuint; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
-  TPFNGLTEXTURESTORAGE2DMULTISAMPLEPROC = procedure (texture:TGLuint; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXTURESTORAGE2DMULTISAMPLEPROC = procedure (texture:TGLuint; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXTURESTORAGE3DPROC = procedure (texture:TGLuint; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXTURESTORAGE3DPROC = procedure (texture:TGLuint; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei);cdecl;
-
-  TPFNGLTEXTURESTORAGE3DMULTISAMPLEPROC = procedure (texture:TGLuint; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXTURESTORAGE3DMULTISAMPLEPROC = procedure (texture:TGLuint; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum; 
+  TPFNGLTEXTURESUBIMAGE1DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum;
                 _type:TGLenum; pixels:pointer);cdecl;
-
-  TPFNGLTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei; 
+  TPFNGLTEXTURESUBIMAGE2DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei;
                 height:TGLsizei; format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;
-
-  TPFNGLTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLTEXTURESUBIMAGE3DPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 pixels:pointer);cdecl;
-
   TPFNGLTRANSFORMFEEDBACKBUFFERBASEPROC = procedure (xfb:TGLuint; index:TGLuint; buffer:TGLuint);cdecl;
-
   TPFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC = procedure (xfb:TGLuint; index:TGLuint; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr);cdecl;
-
   TPFNGLUNMAPNAMEDBUFFERPROC = function (buffer:TGLuint):TGLboolean;cdecl;
-
   TPFNGLVERTEXARRAYATTRIBBINDINGPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; bindingindex:TGLuint);cdecl;
-
-  TPFNGLVERTEXARRAYATTRIBFORMATPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; 
+  TPFNGLVERTEXARRAYATTRIBFORMATPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean;
                 relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYATTRIBIFORMATPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYATTRIBLFORMATPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYBINDINGDIVISORPROC = procedure (vaobj:TGLuint; bindingindex:TGLuint; divisor:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYELEMENTBUFFERPROC = procedure (vaobj:TGLuint; buffer:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYVERTEXBUFFERPROC = procedure (vaobj:TGLuint; bindingindex:TGLuint; buffer:TGLuint; offset:TGLintptr; stride:TGLsizei);cdecl;
-
-  TPFNGLVERTEXARRAYVERTEXBUFFERSPROC = procedure (vaobj:TGLuint; first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr; 
-                strides:PGLsizei);cdecl;
+  TPFNGLVERTEXARRAYVERTEXBUFFERSPROC = procedure (vaobj:TGLuint; first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr;                strides:PGLsizei);cdecl;
 
 { was #define dname def_expr }
 function glBindTextureUnit : longint; { return type might be wrong }
@@ -5612,10 +5100,7 @@ function glVertexArrayVertexBuffers : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_direct_state_access : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_direct_state_access  }
 { -------------------------- GL_ARB_draw_buffers --------------------------  }
-{$ifndef GL_ARB_draw_buffers}
 
 const
   GL_ARB_draw_buffers = 1;  
@@ -5637,7 +5122,6 @@ const
   GL_DRAW_BUFFER14_ARB = $8833;  
   GL_DRAW_BUFFER15_ARB = $8834;  
 type
-
   TPFNGLDRAWBUFFERSARBPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -5646,21 +5130,14 @@ function glDrawBuffersARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_draw_buffers : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_draw_buffers  }
 { ----------------------- GL_ARB_draw_buffers_blend -----------------------  }
-{$ifndef GL_ARB_draw_buffers_blend}
 
 const
   GL_ARB_draw_buffers_blend = 1;  
 type
-
   TPFNGLBLENDEQUATIONSEPARATEIARBPROC = procedure (buf:TGLuint; modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;
-
   TPFNGLBLENDEQUATIONIARBPROC = procedure (buf:TGLuint; mode:TGLenum);cdecl;
-
   TPFNGLBLENDFUNCSEPARATEIARBPROC = procedure (buf:TGLuint; srcRGB:TGLenum; dstRGB:TGLenum; srcAlpha:TGLenum; dstAlpha:TGLenum);cdecl;
-
   TPFNGLBLENDFUNCIARBPROC = procedure (buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -5678,24 +5155,17 @@ function glBlendFunciARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_draw_buffers_blend : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_draw_buffers_blend  }
 { -------------------- GL_ARB_draw_elements_base_vertex -------------------  }
-{$ifndef GL_ARB_draw_elements_base_vertex}
 
 const
   GL_ARB_draw_elements_base_vertex = 1;  
 type
-
   TPFNGLDRAWELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; basevertex:TGLint);cdecl;
-
-  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei; 
+  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei;
                 basevertex:TGLint);cdecl;
-
-  TPFNGLDRAWRANGEELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; start:TGLuint; end:TGLuint; count:TGLsizei; _type:TGLenum; 
+  TPFNGLDRAWRANGEELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum;
                 indices:pointer; basevertex:TGLint);cdecl;
-
-  TPFNGLMULTIDRAWELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; drawcount:TGLsizei; 
+  TPFNGLMULTIDRAWELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; drawcount:TGLsizei;
                 basevertex:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -5713,19 +5183,14 @@ function glMultiDrawElementsBaseVertex : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_draw_elements_base_vertex : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_draw_elements_base_vertex  }
 { -------------------------- GL_ARB_draw_indirect -------------------------  }
-{$ifndef GL_ARB_draw_indirect}
 
 const
   GL_ARB_draw_indirect = 1;  
   GL_DRAW_INDIRECT_BUFFER = $8F3F;  
   GL_DRAW_INDIRECT_BUFFER_BINDING = $8F43;  
 type
-
   TPFNGLDRAWARRAYSINDIRECTPROC = procedure (mode:TGLenum; indirect:pointer);cdecl;
-
   TPFNGLDRAWELEMENTSINDIRECTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -5737,10 +5202,7 @@ function glDrawElementsIndirect : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_draw_indirect : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_draw_indirect  }
 { ------------------------- GL_ARB_draw_instanced -------------------------  }
-{$ifndef GL_ARB_draw_instanced}
 
 const
   GL_ARB_draw_instanced = 1;  
@@ -5748,10 +5210,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_draw_instanced : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_draw_instanced  }
 { ------------------------ GL_ARB_enhanced_layouts ------------------------  }
-{$ifndef GL_ARB_enhanced_layouts}
 
 const
   GL_ARB_enhanced_layouts = 1;  
@@ -5762,10 +5221,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_enhanced_layouts : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_enhanced_layouts  }
 { -------------------- GL_ARB_explicit_attrib_location --------------------  }
-{$ifndef GL_ARB_explicit_attrib_location}
 
 const
   GL_ARB_explicit_attrib_location = 1;  
@@ -5773,10 +5229,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_explicit_attrib_location : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_explicit_attrib_location  }
 { -------------------- GL_ARB_explicit_uniform_location -------------------  }
-{$ifndef GL_ARB_explicit_uniform_location}
 
 const
   GL_ARB_explicit_uniform_location = 1;  
@@ -5785,10 +5238,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_explicit_uniform_location : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_explicit_uniform_location  }
 { ------------------- GL_ARB_fragment_coord_conventions -------------------  }
-{$ifndef GL_ARB_fragment_coord_conventions}
 
 const
   GL_ARB_fragment_coord_conventions = 1;  
@@ -5796,10 +5246,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_coord_conventions : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_coord_conventions  }
 { --------------------- GL_ARB_fragment_layer_viewport --------------------  }
-{$ifndef GL_ARB_fragment_layer_viewport}
 
 const
   GL_ARB_fragment_layer_viewport = 1;  
@@ -5807,10 +5254,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_layer_viewport : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_layer_viewport  }
 { ------------------------ GL_ARB_fragment_program ------------------------  }
-{$ifndef GL_ARB_fragment_program}
 
 const
   GL_ARB_fragment_program = 1;  
@@ -5833,10 +5277,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_program : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_program  }
 { --------------------- GL_ARB_fragment_program_shadow --------------------  }
-{$ifndef GL_ARB_fragment_program_shadow}
 
 const
   GL_ARB_fragment_program_shadow = 1;  
@@ -5844,10 +5285,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_program_shadow : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_program_shadow  }
 { ------------------------- GL_ARB_fragment_shader ------------------------  }
-{$ifndef GL_ARB_fragment_shader}
 
 const
   GL_ARB_fragment_shader = 1;  
@@ -5858,10 +5296,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_shader  }
 { -------------------- GL_ARB_fragment_shader_interlock -------------------  }
-{$ifndef GL_ARB_fragment_shader_interlock}
 
 const
   GL_ARB_fragment_shader_interlock = 1;  
@@ -5869,10 +5304,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_fragment_shader_interlock : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_fragment_shader_interlock  }
 { ------------------- GL_ARB_framebuffer_no_attachments -------------------  }
-{$ifndef GL_ARB_framebuffer_no_attachments}
 
 const
   GL_ARB_framebuffer_no_attachments = 1;  
@@ -5886,13 +5318,9 @@ const
   GL_MAX_FRAMEBUFFER_LAYERS = $9317;  
   GL_MAX_FRAMEBUFFER_SAMPLES = $9318;  
 type
-
   TPFNGLFRAMEBUFFERPARAMETERIPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLGETFRAMEBUFFERPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC = procedure (framebuffer:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC = procedure (framebuffer:TGLuint; pname:TGLenum; param:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -5910,10 +5338,7 @@ function glNamedFramebufferParameteriEXT : longint; { return type might be wrong
 { was #define dname def_expr }
 function GLEW_ARB_framebuffer_no_attachments : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_framebuffer_no_attachments  }
 { ----------------------- GL_ARB_framebuffer_object -----------------------  }
-{$ifndef GL_ARB_framebuffer_object}
 
 const
   GL_ARB_framebuffer_object = 1;  
@@ -5936,7 +5361,7 @@ const
   GL_DEPTH24_STENCIL8 = $88F0;  
   GL_TEXTURE_STENCIL_SIZE = $88F1;  
   GL_UNSIGNED_NORMALIZED = $8C17;  
-  GL_SRGB = $8C40;  
+//  GL_SRGB = $8C40;  doppelt
   GL_DRAW_FRAMEBUFFER_BINDING = $8CA6;  
   GL_FRAMEBUFFER_BINDING = $8CA6;  
   GL_RENDERBUFFER_BINDING = $8CA7;  
@@ -5992,47 +5417,27 @@ const
   GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = $8D56;  
   GL_MAX_SAMPLES = $8D57;  
 type
-
   TPFNGLBINDFRAMEBUFFERPROC = procedure (target:TGLenum; framebuffer:TGLuint);cdecl;
-
   TPFNGLBINDRENDERBUFFERPROC = procedure (target:TGLenum; renderbuffer:TGLuint);cdecl;
-
-  TPFNGLBLITFRAMEBUFFERPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint; 
+  TPFNGLBLITFRAMEBUFFERPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint;
                 dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;
-
   TPFNGLCHECKFRAMEBUFFERSTATUSPROC = function (target:TGLenum):TGLenum;cdecl;
-
   TPFNGLDELETEFRAMEBUFFERSPROC = procedure (n:TGLsizei; framebuffers:PGLuint);cdecl;
-
   TPFNGLDELETERENDERBUFFERSPROC = procedure (n:TGLsizei; renderbuffers:PGLuint);cdecl;
-
   TPFNGLFRAMEBUFFERRENDERBUFFERPROC = procedure (target:TGLenum; attachment:TGLenum; renderbuffertarget:TGLenum; renderbuffer:TGLuint);cdecl;
-
   TPFNGLFRAMEBUFFERTEXTURE1DPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint);cdecl;
-
   TPFNGLFRAMEBUFFERTEXTURE2DPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint);cdecl;
-
-  TPFNGLFRAMEBUFFERTEXTURE3DPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint; 
+  TPFNGLFRAMEBUFFERTEXTURE3DPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint;
                 layer:TGLint);cdecl;
-
   TPFNGLFRAMEBUFFERTEXTURELAYERPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;
-
   TPFNGLGENFRAMEBUFFERSPROC = procedure (n:TGLsizei; framebuffers:PGLuint);cdecl;
-
   TPFNGLGENRENDERBUFFERSPROC = procedure (n:TGLsizei; renderbuffers:PGLuint);cdecl;
-
   TPFNGLGENERATEMIPMAPPROC = procedure (target:TGLenum);cdecl;
-
   TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC = procedure (target:TGLenum; attachment:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETRENDERBUFFERPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISFRAMEBUFFERPROC = function (framebuffer:TGLuint):TGLboolean;cdecl;
-
   TPFNGLISRENDERBUFFERPROC = function (renderbuffer:TGLuint):TGLboolean;cdecl;
-
   TPFNGLRENDERBUFFERSTORAGEPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -6098,10 +5503,7 @@ function glRenderbufferStorageMultisample : longint; { return type might be wron
 { was #define dname def_expr }
 function GLEW_ARB_framebuffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_framebuffer_object  }
 { ------------------------ GL_ARB_framebuffer_sRGB ------------------------  }
-{$ifndef GL_ARB_framebuffer_sRGB}
 
 const
   GL_ARB_framebuffer_sRGB = 1;  
@@ -6110,10 +5512,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_framebuffer_sRGB : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_framebuffer_sRGB  }
 { ------------------------ GL_ARB_geometry_shader4 ------------------------  }
-{$ifndef GL_ARB_geometry_shader4}
 
 const
   GL_ARB_geometry_shader4 = 1;  
@@ -6123,7 +5522,7 @@ const
   GL_TRIANGLE_STRIP_ADJACENCY_ARB = $D;  
   GL_PROGRAM_POINT_SIZE_ARB = $8642;  
   GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_ARB = $8C29;  
-  GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = $8CD4;  
+//  GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = $8CD4;  doppelt
   GL_FRAMEBUFFER_ATTACHMENT_LAYERED_ARB = $8DA7;  
   GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_ARB = $8DA8;  
   GL_FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_ARB = $8DA9;  
@@ -6137,13 +5536,9 @@ const
   GL_MAX_GEOMETRY_OUTPUT_VERTICES_ARB = $8DE0;  
   GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_ARB = $8DE1;  
 type
-
   TPFNGLFRAMEBUFFERTEXTUREARBPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint);cdecl;
-
   TPFNGLFRAMEBUFFERTEXTUREFACEARBPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; face:TGLenum);cdecl;
-
   TPFNGLFRAMEBUFFERTEXTURELAYERARBPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;
-
   TPFNGLPROGRAMPARAMETERIARBPROC = procedure (prog:TGLuint; pname:TGLenum; value:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -6161,10 +5556,7 @@ function glProgramParameteriARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_geometry_shader4 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_geometry_shader4  }
 { ----------------------- GL_ARB_get_program_binary -----------------------  }
-{$ifndef GL_ARB_get_program_binary}
 
 const
   GL_ARB_get_program_binary = 1;  
@@ -6173,11 +5565,8 @@ const
   GL_NUM_PROGRAM_BINARY_FORMATS = $87FE;  
   GL_PROGRAM_BINARY_FORMATS = $87FF;  
 type
-
   TPFNGLGETPROGRAMBINARYPROC = procedure (prog:TGLuint; bufSize:TGLsizei; length:PGLsizei; binaryFormat:PGLenum; binary:pointer);cdecl;
-
   TPFNGLPROGRAMBINARYPROC = procedure (prog:TGLuint; binaryFormat:TGLenum; binary:pointer; length:TGLsizei);cdecl;
-
   TPFNGLPROGRAMPARAMETERIPROC = procedure (prog:TGLuint; pname:TGLenum; value:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -6192,19 +5581,14 @@ function glProgramParameteri : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_get_program_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_get_program_binary  }
 { ---------------------- GL_ARB_get_texture_sub_image ---------------------  }
-{$ifndef GL_ARB_get_texture_sub_image}
 
 const
   GL_ARB_get_texture_sub_image = 1;  
 type
-
-  TPFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; bufSize:TGLsizei; pixels:pointer);cdecl;
-
-  TPFNGLGETTEXTURESUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLGETTEXTURESUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 bufSize:TGLsizei; pixels:pointer);cdecl;
 
@@ -6217,17 +5601,13 @@ function glGetTextureSubImage : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_get_texture_sub_image : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_get_texture_sub_image  }
 { ---------------------------- GL_ARB_gl_spirv ----------------------------  }
-{$ifndef GL_ARB_gl_spirv}
 
 const
   GL_ARB_gl_spirv = 1;  
   GL_SHADER_BINARY_FORMAT_SPIR_V_ARB = $9551;  
   GL_SPIR_V_BINARY_ARB = $9552;  
 type
-
   TPFNGLSPECIALIZESHADERARBPROC = procedure (shader:TGLuint; pEntryPoint:PGLchar; numSpecializationConstants:TGLuint; pConstantIndex:PGLuint; pConstantValue:PGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -6236,10 +5616,7 @@ function glSpecializeShaderARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_gl_spirv : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_gl_spirv  }
 { --------------------------- GL_ARB_gpu_shader5 --------------------------  }
-{$ifndef GL_ARB_gpu_shader5}
 
 const
   GL_ARB_gpu_shader5 = 1;  
@@ -6253,10 +5630,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_gpu_shader5 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_gpu_shader5  }
 { ------------------------- GL_ARB_gpu_shader_fp64 ------------------------  }
-{$ifndef GL_ARB_gpu_shader_fp64}
 
 const
   GL_ARB_gpu_shader_fp64 = 1;  
@@ -6273,41 +5647,23 @@ const
   GL_DOUBLE_VEC3 = $8FFD;  
   GL_DOUBLE_VEC4 = $8FFE;  
 type
-
   TPFNGLGETUNIFORMDVPROC = procedure (prog:TGLuint; location:TGLint; params:PGLdouble);cdecl;
-
   TPFNGLUNIFORM1DPROC = procedure (location:TGLint; x:TGLdouble);cdecl;
-
   TPFNGLUNIFORM1DVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORM2DPROC = procedure (location:TGLint; x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLUNIFORM2DVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORM3DPROC = procedure (location:TGLint; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLUNIFORM3DVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORM4DPROC = procedure (location:TGLint; x:TGLdouble; y:TGLdouble; z:TGLdouble; w:TGLdouble);cdecl;
-
   TPFNGLUNIFORM4DVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX2DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX2X3DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX2X4DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX3DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX3X2DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX3X4DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX4DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX4X2DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLUNIFORMMATRIX4X3DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
 
 { was #define dname def_expr }
@@ -6367,15 +5723,12 @@ function glUniformMatrix4x3dv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_gpu_shader_fp64 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_gpu_shader_fp64  }
 { ------------------------ GL_ARB_gpu_shader_int64 ------------------------  }
-{$ifndef GL_ARB_gpu_shader_int64}
 
 const
   GL_ARB_gpu_shader_int64 = 1;  
   GL_INT64_ARB = $140E;  
-  GL_UNSIGNED_INT64_ARB = $140F;  
+//  GL_UNSIGNED_INT64_ARB = $140F;  doppelt
   GL_INT64_VEC2_ARB = $8FE9;  
   GL_INT64_VEC3_ARB = $8FEA;  
   GL_INT64_VEC4_ARB = $8FEB;  
@@ -6383,79 +5736,43 @@ const
   GL_UNSIGNED_INT64_VEC3_ARB = $8FF6;  
   GL_UNSIGNED_INT64_VEC4_ARB = $8FF7;  
 type
-
   TPFNGLGETUNIFORMI64VARBPROC = procedure (prog:TGLuint; location:TGLint; params:PGLint64);cdecl;
-
   TPFNGLGETUNIFORMUI64VARBPROC = procedure (prog:TGLuint; location:TGLint; params:PGLuint64);cdecl;
-
   TPFNGLGETNUNIFORMI64VARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLint64);cdecl;
-
   TPFNGLGETNUNIFORMUI64VARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM1I64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM1I64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM1UI64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM1UI64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM2I64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint64; y:TGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM2I64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM2UI64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint64; y:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM2UI64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM3I64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint64; y:TGLint64; z:TGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM3I64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM3UI64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM3UI64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4I64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint64; y:TGLint64; z:TGLint64; 
+  TPFNGLPROGRAMUNIFORM4I64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint64; y:TGLint64; z:TGLint64;
                 w:TGLint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM4I64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4UI64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64; 
+  TPFNGLPROGRAMUNIFORM4UI64ARBPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64;
                 w:TGLuint64);cdecl;
-
   TPFNGLPROGRAMUNIFORM4UI64VARBPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLUNIFORM1I64ARBPROC = procedure (location:TGLint; x:TGLint64);cdecl;
-
   TPFNGLUNIFORM1I64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLUNIFORM1UI64ARBPROC = procedure (location:TGLint; x:TGLuint64);cdecl;
-
   TPFNGLUNIFORM1UI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLUNIFORM2I64ARBPROC = procedure (location:TGLint; x:TGLint64; y:TGLint64);cdecl;
-
   TPFNGLUNIFORM2I64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLUNIFORM2UI64ARBPROC = procedure (location:TGLint; x:TGLuint64; y:TGLuint64);cdecl;
-
   TPFNGLUNIFORM2UI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLUNIFORM3I64ARBPROC = procedure (location:TGLint; x:TGLint64; y:TGLint64; z:TGLint64);cdecl;
-
   TPFNGLUNIFORM3I64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLUNIFORM3UI64ARBPROC = procedure (location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64);cdecl;
-
   TPFNGLUNIFORM3UI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
-
   TPFNGLUNIFORM4I64ARBPROC = procedure (location:TGLint; x:TGLint64; y:TGLint64; z:TGLint64; w:TGLint64);cdecl;
-
   TPFNGLUNIFORM4I64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint64);cdecl;
-
   TPFNGLUNIFORM4UI64ARBPROC = procedure (location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64; w:TGLuint64);cdecl;
-
   TPFNGLUNIFORM4UI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
 
 { was #define dname def_expr }
@@ -6569,10 +5886,7 @@ function glUniform4ui64vARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_gpu_shader_int64 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_gpu_shader_int64  }
 { ------------------------ GL_ARB_half_float_pixel ------------------------  }
-{$ifndef GL_ARB_half_float_pixel}
 
 const
   GL_ARB_half_float_pixel = 1;  
@@ -6581,10 +5895,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_half_float_pixel : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_half_float_pixel  }
 { ------------------------ GL_ARB_half_float_vertex -----------------------  }
-{$ifndef GL_ARB_half_float_vertex}
 
 const
   GL_ARB_half_float_vertex = 1;  
@@ -6593,10 +5904,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_half_float_vertex : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_half_float_vertex  }
 { ----------------------------- GL_ARB_imaging ----------------------------  }
-{$ifndef GL_ARB_imaging}
 
 const
   GL_ARB_imaging = 1;  
@@ -6678,77 +5986,38 @@ const
   GL_REPLICATE_BORDER = $8153;  
   GL_CONVOLUTION_BORDER_COLOR = $8154;  
 type
-
-  TPFNGLCOLORSUBTABLEPROC = procedure (target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum; 
-                data:pointer);cdecl;
-
-  TPFNGLCOLORTABLEPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
-                table:pointer);cdecl;
-
+  TPFNGLCOLORSUBTABLEPROC = procedure (target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum;                data:pointer);cdecl;
+  TPFNGLCOLORTABLEPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum;                table:pointer);cdecl;
   TPFNGLCOLORTABLEPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLCOLORTABLEPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
-  TPFNGLCONVOLUTIONFILTER1DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
-                image:pointer);cdecl;
-
-  TPFNGLCONVOLUTIONFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
-                _type:TGLenum; image:pointer);cdecl;
-
+  TPFNGLCONVOLUTIONFILTER1DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum;                image:pointer);cdecl;
+  TPFNGLCONVOLUTIONFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; image:pointer);cdecl;
   TPFNGLCONVOLUTIONPARAMETERFPROC = procedure (target:TGLenum; pname:TGLenum; params:TGLfloat);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERIPROC = procedure (target:TGLenum; pname:TGLenum; params:TGLint);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLCOPYCOLORSUBTABLEPROC = procedure (target:TGLenum; start:TGLsizei; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
-
   TPFNGLCOPYCOLORTABLEPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
-
   TPFNGLCOPYCONVOLUTIONFILTER1DPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
-
-  TPFNGLCOPYCONVOLUTIONFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei; 
-                height:TGLsizei);cdecl;
-
+  TPFNGLCOPYCONVOLUTIONFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei;                height:TGLsizei);cdecl;
   TPFNGLGETCOLORTABLEPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; table:pointer);cdecl;
-
   TPFNGLGETCOLORTABLEPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETCOLORTABLEPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETCONVOLUTIONFILTERPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; image:pointer);cdecl;
-
   TPFNGLGETCONVOLUTIONPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETCONVOLUTIONPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETHISTOGRAMPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; values:pointer);cdecl;
-
   TPFNGLGETHISTOGRAMPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETHISTOGRAMPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETMINMAXPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; types:TGLenum; values:pointer);cdecl;
-
   TPFNGLGETMINMAXPARAMETERFVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETMINMAXPARAMETERIVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
-  TPFNGLGETSEPARABLEFILTERPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; row:pointer; column:pointer; 
-                span:pointer);cdecl;
-
+  TPFNGLGETSEPARABLEFILTERPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; row:pointer; column:pointer;                span:pointer);cdecl;
   TPFNGLHISTOGRAMPROC = procedure (target:TGLenum; width:TGLsizei; internalformat:TGLenum; sink:TGLboolean);cdecl;
-
   TPFNGLMINMAXPROC = procedure (target:TGLenum; internalformat:TGLenum; sink:TGLboolean);cdecl;
-
   TPFNGLRESETHISTOGRAMPROC = procedure (target:TGLenum);cdecl;
-
   TPFNGLRESETMINMAXPROC = procedure (target:TGLenum);cdecl;
-
-  TPFNGLSEPARABLEFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
-                _type:TGLenum; row:pointer; column:pointer);cdecl;
+  TPFNGLSEPARABLEFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; row:pointer; column:pointer);cdecl;
 
 { was #define dname def_expr }
 function glColorSubTable : longint; { return type might be wrong }
@@ -6849,21 +6118,15 @@ function glSeparableFilter2D : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_imaging : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_imaging  }
 { ----------------------- GL_ARB_indirect_parameters ----------------------  }
-{$ifndef GL_ARB_indirect_parameters}
 
 const
   GL_ARB_indirect_parameters = 1;  
   GL_PARAMETER_BUFFER_ARB = $80EE;  
   GL_PARAMETER_BUFFER_BINDING_ARB = $80EF;  
 type
-
   TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC = procedure (mode:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;
-
-  TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; 
-                stride:TGLsizei);cdecl;
+  TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei;                stride:TGLsizei);cdecl;
 
 { was #define dname def_expr }
 function glMultiDrawArraysIndirectCountARB : longint; { return type might be wrong }
@@ -6874,20 +6137,14 @@ function glMultiDrawElementsIndirectCountARB : longint; { return type might be w
 { was #define dname def_expr }
 function GLEW_ARB_indirect_parameters : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_indirect_parameters  }
 { ------------------------ GL_ARB_instanced_arrays ------------------------  }
-{$ifndef GL_ARB_instanced_arrays}
 
 const
   GL_ARB_instanced_arrays = 1;  
   GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ARB = $88FE;  
 type
-
   TPFNGLDRAWARRAYSINSTANCEDARBPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;
-
   TPFNGLDRAWELEMENTSINSTANCEDARBPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
-
   TPFNGLVERTEXATTRIBDIVISORARBPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -6902,16 +6159,12 @@ function glVertexAttribDivisorARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_instanced_arrays : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_instanced_arrays  }
 { ---------------------- GL_ARB_internalformat_query ----------------------  }
-{$ifndef GL_ARB_internalformat_query}
 
 const
   GL_ARB_internalformat_query = 1;  
   GL_NUM_SAMPLE_COUNTS = $9380;  
 type
-
   TPFNGLGETINTERNALFORMATIVPROC = procedure (target:TGLenum; internalformat:TGLenum; pname:TGLenum; bufSize:TGLsizei; params:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -6920,10 +6173,7 @@ function glGetInternalformativ : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_internalformat_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_internalformat_query  }
 { ---------------------- GL_ARB_internalformat_query2 ---------------------  }
-{$ifndef GL_ARB_internalformat_query2}
 
 const
   GL_ARB_internalformat_query2 = 1;  
@@ -7027,7 +6277,6 @@ const
   GL_VIEW_CLASS_BPTC_UNORM = $82D2;  
   GL_VIEW_CLASS_BPTC_FLOAT = $82D3;  
 type
-
   TPFNGLGETINTERNALFORMATI64VPROC = procedure (target:TGLenum; internalformat:TGLenum; pname:TGLenum; bufSize:TGLsizei; params:PGLint64);cdecl;
 
 { was #define dname def_expr }
@@ -7036,27 +6285,17 @@ function glGetInternalformati64v : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_internalformat_query2 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_internalformat_query2  }
 { ----------------------- GL_ARB_invalidate_subdata -----------------------  }
-{$ifndef GL_ARB_invalidate_subdata}
 
 const
   GL_ARB_invalidate_subdata = 1;  
 type
-
-  TPFNGLINVALIDATEBUFFERDATAPROC = procedure (buffer:TGLuint);cdecl;
-
+ TPFNGLINVALIDATEBUFFERDATAPROC = procedure (buffer:TGLuint);cdecl;
   TPFNGLINVALIDATEBUFFERSUBDATAPROC = procedure (buffer:TGLuint; offset:TGLintptr; length:TGLsizeiptr);cdecl;
-
   TPFNGLINVALIDATEFRAMEBUFFERPROC = procedure (target:TGLenum; numAttachments:TGLsizei; attachments:PGLenum);cdecl;
-
-  TPFNGLINVALIDATESUBFRAMEBUFFERPROC = procedure (target:TGLenum; numAttachments:TGLsizei; attachments:PGLenum; x:TGLint; y:TGLint; 
-                width:TGLsizei; height:TGLsizei);cdecl;
-
+  TPFNGLINVALIDATESUBFRAMEBUFFERPROC = procedure (target:TGLenum; numAttachments:TGLsizei; attachments:PGLenum; x:TGLint; y:TGLint;                width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLINVALIDATETEXIMAGEPROC = procedure (texture:TGLuint; level:TGLint);cdecl;
-
-  TPFNGLINVALIDATETEXSUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLINVALIDATETEXSUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -7080,10 +6319,7 @@ function glInvalidateTexSubImage : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_invalidate_subdata : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_invalidate_subdata  }
 { ---------------------- GL_ARB_map_buffer_alignment ----------------------  }
-{$ifndef GL_ARB_map_buffer_alignment}
 
 const
   GL_ARB_map_buffer_alignment = 1;  
@@ -7092,24 +6328,18 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_map_buffer_alignment : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_map_buffer_alignment  }
 { ------------------------ GL_ARB_map_buffer_range ------------------------  }
-{$ifndef GL_ARB_map_buffer_range}
 
 const
   GL_ARB_map_buffer_range = 1;  
-  GL_MAP_READ_BIT = $0001;  
-  GL_MAP_WRITE_BIT = $0002;  
+//  GL_MAP_READ_BIT = $0001;   doppelt
+//  GL_MAP_WRITE_BIT = $0002;  
   GL_MAP_INVALIDATE_RANGE_BIT = $0004;  
   GL_MAP_INVALIDATE_BUFFER_BIT = $0008;  
   GL_MAP_FLUSH_EXPLICIT_BIT = $0010;  
   GL_MAP_UNSYNCHRONIZED_BIT = $0020;  
 type
-
   TPFNGLFLUSHMAPPEDBUFFERRANGEPROC = procedure (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr);cdecl;
-
-  PPFNGLMAPBUFFERRANGEPROC = ^TPFNGLMAPBUFFERRANGEPROC;
   TPFNGLMAPBUFFERRANGEPROC = function (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr; access:TGLbitfield):pointer;cdecl;
 
 { was #define dname def_expr }
@@ -7121,10 +6351,7 @@ function glMapBufferRange : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_map_buffer_range : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_map_buffer_range  }
 { ------------------------- GL_ARB_matrix_palette -------------------------  }
-{$ifndef GL_ARB_matrix_palette}
 
 const
   GL_ARB_matrix_palette = 1;  
@@ -7139,15 +6366,10 @@ const
   GL_MATRIX_INDEX_ARRAY_STRIDE_ARB = $8848;  
   GL_MATRIX_INDEX_ARRAY_POINTER_ARB = $8849;  
 type
-
   TPFNGLCURRENTPALETTEMATRIXARBPROC = procedure (index:TGLint);cdecl;
-
   TPFNGLMATRIXINDEXPOINTERARBPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
-
   TPFNGLMATRIXINDEXUBVARBPROC = procedure (size:TGLint; indices:PGLubyte);cdecl;
-
   TPFNGLMATRIXINDEXUIVARBPROC = procedure (size:TGLint; indices:PGLuint);cdecl;
-
   TPFNGLMATRIXINDEXUSVARBPROC = procedure (size:TGLint; indices:PGLushort);cdecl;
 
 { was #define dname def_expr }
@@ -7168,26 +6390,16 @@ function glMatrixIndexusvARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_matrix_palette : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_matrix_palette  }
 { --------------------------- GL_ARB_multi_bind ---------------------------  }
-{$ifndef GL_ARB_multi_bind}
 
 const
   GL_ARB_multi_bind = 1;  
 type
-
   TPFNGLBINDBUFFERSBASEPROC = procedure (target:TGLenum; first:TGLuint; count:TGLsizei; buffers:PGLuint);cdecl;
-
-  TPFNGLBINDBUFFERSRANGEPROC = procedure (target:TGLenum; first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr; 
-                sizes:PGLsizeiptr);cdecl;
-
+  TPFNGLBINDBUFFERSRANGEPROC = procedure (target:TGLenum; first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr;                sizes:PGLsizeiptr);cdecl;
   TPFNGLBINDIMAGETEXTURESPROC = procedure (first:TGLuint; count:TGLsizei; textures:PGLuint);cdecl;
-
   TPFNGLBINDSAMPLERSPROC = procedure (first:TGLuint; count:TGLsizei; samplers:PGLuint);cdecl;
-
   TPFNGLBINDTEXTURESPROC = procedure (first:TGLuint; count:TGLsizei; textures:PGLuint);cdecl;
-
   TPFNGLBINDVERTEXBUFFERSPROC = procedure (first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr; strides:PGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -7211,17 +6423,12 @@ function glBindVertexBuffers : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_multi_bind : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_multi_bind  }
 { ----------------------- GL_ARB_multi_draw_indirect ----------------------  }
-{$ifndef GL_ARB_multi_draw_indirect}
 
 const
   GL_ARB_multi_draw_indirect = 1;  
 type
-
   TPFNGLMULTIDRAWARRAYSINDIRECTPROC = procedure (mode:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
-
   TPFNGLMULTIDRAWELEMENTSINDIRECTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -7233,10 +6440,7 @@ function glMultiDrawElementsIndirect : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_multi_draw_indirect : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_multi_draw_indirect  }
 { --------------------------- GL_ARB_multisample --------------------------  }
-{$ifndef GL_ARB_multisample}
 
 const
   GL_ARB_multisample = 1;  
@@ -7259,10 +6463,7 @@ function glSampleCoverageARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_multisample : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_multisample  }
 { -------------------------- GL_ARB_multitexture --------------------------  }
-{$ifndef GL_ARB_multitexture}
 
 const
   GL_ARB_multitexture = 1;  
@@ -7302,73 +6503,39 @@ const
   GL_CLIENT_ACTIVE_TEXTURE_ARB = $84E1;  
   GL_MAX_TEXTURE_UNITS_ARB = $84E2;  
 type
-
   TPFNGLACTIVETEXTUREARBPROC = procedure (texture:TGLenum);cdecl;
-
   TPFNGLCLIENTACTIVETEXTUREARBPROC = procedure (texture:TGLenum);cdecl;
-
   TPFNGLMULTITEXCOORD1DARBPROC = procedure (target:TGLenum; s:TGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD1DVARBPROC = procedure (target:TGLenum; v:PGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD1FARBPROC = procedure (target:TGLenum; s:TGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD1FVARBPROC = procedure (target:TGLenum; v:PGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD1IARBPROC = procedure (target:TGLenum; s:TGLint);cdecl;
-
   TPFNGLMULTITEXCOORD1IVARBPROC = procedure (target:TGLenum; v:PGLint);cdecl;
-
   TPFNGLMULTITEXCOORD1SARBPROC = procedure (target:TGLenum; s:TGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD1SVARBPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD2DARBPROC = procedure (target:TGLenum; s:TGLdouble; t:TGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD2DVARBPROC = procedure (target:TGLenum; v:PGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD2FARBPROC = procedure (target:TGLenum; s:TGLfloat; t:TGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD2FVARBPROC = procedure (target:TGLenum; v:PGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD2IARBPROC = procedure (target:TGLenum; s:TGLint; t:TGLint);cdecl;
-
   TPFNGLMULTITEXCOORD2IVARBPROC = procedure (target:TGLenum; v:PGLint);cdecl;
-
   TPFNGLMULTITEXCOORD2SARBPROC = procedure (target:TGLenum; s:TGLshort; t:TGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD2SVARBPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD3DARBPROC = procedure (target:TGLenum; s:TGLdouble; t:TGLdouble; r:TGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD3DVARBPROC = procedure (target:TGLenum; v:PGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD3FARBPROC = procedure (target:TGLenum; s:TGLfloat; t:TGLfloat; r:TGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD3FVARBPROC = procedure (target:TGLenum; v:PGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD3IARBPROC = procedure (target:TGLenum; s:TGLint; t:TGLint; r:TGLint);cdecl;
-
   TPFNGLMULTITEXCOORD3IVARBPROC = procedure (target:TGLenum; v:PGLint);cdecl;
-
   TPFNGLMULTITEXCOORD3SARBPROC = procedure (target:TGLenum; s:TGLshort; t:TGLshort; r:TGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD3SVARBPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD4DARBPROC = procedure (target:TGLenum; s:TGLdouble; t:TGLdouble; r:TGLdouble; q:TGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD4DVARBPROC = procedure (target:TGLenum; v:PGLdouble);cdecl;
-
   TPFNGLMULTITEXCOORD4FARBPROC = procedure (target:TGLenum; s:TGLfloat; t:TGLfloat; r:TGLfloat; q:TGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD4FVARBPROC = procedure (target:TGLenum; v:PGLfloat);cdecl;
-
   TPFNGLMULTITEXCOORD4IARBPROC = procedure (target:TGLenum; s:TGLint; t:TGLint; r:TGLint; q:TGLint);cdecl;
-
   TPFNGLMULTITEXCOORD4IVARBPROC = procedure (target:TGLenum; v:PGLint);cdecl;
-
   TPFNGLMULTITEXCOORD4SARBPROC = procedure (target:TGLenum; s:TGLshort; t:TGLshort; r:TGLshort; q:TGLshort);cdecl;
-
   TPFNGLMULTITEXCOORD4SVARBPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
 
 { was #define dname def_expr }
@@ -7476,10 +6643,7 @@ function glMultiTexCoord4svARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_multitexture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_multitexture  }
 { ------------------------- GL_ARB_occlusion_query ------------------------  }
-{$ifndef GL_ARB_occlusion_query}
 
 const
   GL_ARB_occlusion_query = 1;  
@@ -7489,21 +6653,13 @@ const
   GL_QUERY_RESULT_AVAILABLE_ARB = $8867;  
   GL_SAMPLES_PASSED_ARB = $8914;  
 type
-
   TPFNGLBEGINQUERYARBPROC = procedure (target:TGLenum; id:TGLuint);cdecl;
-
   TPFNGLDELETEQUERIESARBPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLENDQUERYARBPROC = procedure (target:TGLenum);cdecl;
-
   TPFNGLGENQUERIESARBPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLGETQUERYOBJECTIVARBPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETQUERYOBJECTUIVARBPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLGETQUERYIVARBPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISQUERYARBPROC = function (id:TGLuint):TGLboolean;cdecl;
 
 { was #define dname def_expr }
@@ -7533,10 +6689,7 @@ function glIsQueryARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_occlusion_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_occlusion_query  }
 { ------------------------ GL_ARB_occlusion_query2 ------------------------  }
-{$ifndef GL_ARB_occlusion_query2}
 
 const
   GL_ARB_occlusion_query2 = 1;  
@@ -7545,17 +6698,13 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_occlusion_query2 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_occlusion_query2  }
 { --------------------- GL_ARB_parallel_shader_compile --------------------  }
-{$ifndef GL_ARB_parallel_shader_compile}
 
 const
   GL_ARB_parallel_shader_compile = 1;  
   GL_MAX_SHADER_COMPILER_THREADS_ARB = $91B0;  
   GL_COMPLETION_STATUS_ARB = $91B1;  
 type
-
   TPFNGLMAXSHADERCOMPILERTHREADSARBPROC = procedure (count:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -7564,10 +6713,7 @@ function glMaxShaderCompilerThreadsARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_parallel_shader_compile : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_parallel_shader_compile  }
 { -------------------- GL_ARB_pipeline_statistics_query -------------------  }
-{$ifndef GL_ARB_pipeline_statistics_query}
 
 const
   GL_ARB_pipeline_statistics_query = 1;  
@@ -7581,15 +6727,12 @@ const
   GL_COMPUTE_SHADER_INVOCATIONS_ARB = $82F5;  
   GL_CLIPPING_INPUT_PRIMITIVES_ARB = $82F6;  
   GL_CLIPPING_OUTPUT_PRIMITIVES_ARB = $82F7;  
-  GL_GEOMETRY_SHADER_INVOCATIONS = $887F;  
+//  GL_GEOMETRY_SHADER_INVOCATIONS = $887F; doppelt
 
 { was #define dname def_expr }
 function GLEW_ARB_pipeline_statistics_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_pipeline_statistics_query  }
 { ----------------------- GL_ARB_pixel_buffer_object ----------------------  }
-{$ifndef GL_ARB_pixel_buffer_object}
 
 const
   GL_ARB_pixel_buffer_object = 1;  
@@ -7601,10 +6744,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_pixel_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_pixel_buffer_object  }
 { ------------------------ GL_ARB_point_parameters ------------------------  }
-{$ifndef GL_ARB_point_parameters}
 
 const
   GL_ARB_point_parameters = 1;  
@@ -7613,9 +6753,7 @@ const
   GL_POINT_FADE_THRESHOLD_SIZE_ARB = $8128;  
   GL_POINT_DISTANCE_ATTENUATION_ARB = $8129;  
 type
-
-  TPFNGLPOINTPARAMETERFARBPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
-
+ TPFNGLPOINTPARAMETERFARBPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
   TPFNGLPOINTPARAMETERFVARBPROC = procedure (pname:TGLenum; params:PGLfloat);cdecl;
 
 { was #define dname def_expr }
@@ -7627,10 +6765,7 @@ function glPointParameterfvARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_point_parameters : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_point_parameters  }
 { -------------------------- GL_ARB_point_sprite --------------------------  }
-{$ifndef GL_ARB_point_sprite}
 
 const
   GL_ARB_point_sprite = 1;  
@@ -7640,14 +6775,11 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_point_sprite : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_point_sprite  }
 { ---------------------- GL_ARB_polygon_offset_clamp ----------------------  }
-{$ifndef GL_ARB_polygon_offset_clamp}
 
 const
   GL_ARB_polygon_offset_clamp = 1;  
-  GL_POLYGON_OFFSET_CLAMP = $8E1B;  
+//  GL_POLYGON_OFFSET_CLAMP = $8E1B;   doppelt
 type
 
   TPFNGLPOLYGONOFFSETCLAMPPROC = procedure (factor:TGLfloat; units:TGLfloat; clamp:TGLfloat);cdecl;
@@ -7658,10 +6790,7 @@ function glPolygonOffsetClamp : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_polygon_offset_clamp : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_polygon_offset_clamp  }
 { ----------------------- GL_ARB_post_depth_coverage ----------------------  }
-{$ifndef GL_ARB_post_depth_coverage}
 
 const
   GL_ARB_post_depth_coverage = 1;  
@@ -7669,10 +6798,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_post_depth_coverage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_post_depth_coverage  }
 { --------------------- GL_ARB_program_interface_query --------------------  }
-{$ifndef GL_ARB_program_interface_query}
 
 const
   GL_ARB_program_interface_query = 1;  
@@ -7724,19 +6850,12 @@ const
   GL_LOCATION = $930E;  
   GL_LOCATION_INDEX = $930F;  
 type
-
   TPFNGLGETPROGRAMINTERFACEIVPROC = procedure (prog:TGLuint; programInterface:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETPROGRAMRESOURCEINDEXPROC = function (prog:TGLuint; programInterface:TGLenum; name:PGLchar):TGLuint;cdecl;
-
   TPFNGLGETPROGRAMRESOURCELOCATIONPROC = function (prog:TGLuint; programInterface:TGLenum; name:PGLchar):TGLint;cdecl;
-
   TPFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC = function (prog:TGLuint; programInterface:TGLenum; name:PGLchar):TGLint;cdecl;
-
-  TPFNGLGETPROGRAMRESOURCENAMEPROC = procedure (prog:TGLuint; programInterface:TGLenum; index:TGLuint; bufSize:TGLsizei; length:PGLsizei; 
-                name:PGLchar);cdecl;
-
-  TPFNGLGETPROGRAMRESOURCEIVPROC = procedure (prog:TGLuint; programInterface:TGLenum; index:TGLuint; propCount:TGLsizei; props:PGLenum; 
+  TPFNGLGETPROGRAMRESOURCENAMEPROC = procedure (prog:TGLuint; programInterface:TGLenum; index:TGLuint; bufSize:TGLsizei; length:PGLsizei;               name:PGLchar);cdecl;
+  TPFNGLGETPROGRAMRESOURCEIVPROC = procedure (prog:TGLuint; programInterface:TGLenum; index:TGLuint; propCount:TGLsizei; props:PGLenum;
                 bufSize:TGLsizei; length:PGLsizei; params:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -7760,10 +6879,7 @@ function glGetProgramResourceiv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_program_interface_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_program_interface_query  }
 { ------------------------ GL_ARB_provoking_vertex ------------------------  }
-{$ifndef GL_ARB_provoking_vertex}
 
 const
   GL_ARB_provoking_vertex = 1;  
@@ -7772,7 +6888,6 @@ const
   GL_LAST_VERTEX_CONVENTION = $8E4E;  
   GL_PROVOKING_VERTEX = $8E4F;  
 type
-
   TPFNGLPROVOKINGVERTEXPROC = procedure (mode:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -7781,10 +6896,7 @@ function glProvokingVertex : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_provoking_vertex : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_provoking_vertex  }
 { ----------------------- GL_ARB_query_buffer_object ----------------------  }
-{$ifndef GL_ARB_query_buffer_object}
 
 const
   GL_ARB_query_buffer_object = 1;  
@@ -7796,10 +6908,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_query_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_query_buffer_object  }
 { ------------------ GL_ARB_robust_buffer_access_behavior -----------------  }
-{$ifndef GL_ARB_robust_buffer_access_behavior}
 
 const
   GL_ARB_robust_buffer_access_behavior = 1;  
@@ -7807,10 +6916,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_robust_buffer_access_behavior : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_robust_buffer_access_behavior  }
 { --------------------------- GL_ARB_robustness ---------------------------  }
-{$ifndef GL_ARB_robustness}
 
 const
   GL_ARB_robustness = 1;  
@@ -7822,50 +6928,27 @@ const
   GL_RESET_NOTIFICATION_STRATEGY_ARB = $8256;  
   GL_NO_RESET_NOTIFICATION_ARB = $8261;  
 type
-
   TPFNGLGETGRAPHICSRESETSTATUSARBPROC = function (para1:pointer):TGLenum;cdecl;
-
   TPFNGLGETNCOLORTABLEARBPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; table:pointer);cdecl;
-
   TPFNGLGETNCOMPRESSEDTEXIMAGEARBPROC = procedure (target:TGLenum; lod:TGLint; bufSize:TGLsizei; img:pointer);cdecl;
-
   TPFNGLGETNCONVOLUTIONFILTERARBPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; image:pointer);cdecl;
-
-  TPFNGLGETNHISTOGRAMARBPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
-                values:pointer);cdecl;
-
+  TPFNGLGETNHISTOGRAMARBPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei;                            values:pointer);cdecl;
   TPFNGLGETNMAPDVARBPROC = procedure (target:TGLenum; query:TGLenum; bufSize:TGLsizei; v:PGLdouble);cdecl;
-
   TPFNGLGETNMAPFVARBPROC = procedure (target:TGLenum; query:TGLenum; bufSize:TGLsizei; v:PGLfloat);cdecl;
-
   TPFNGLGETNMAPIVARBPROC = procedure (target:TGLenum; query:TGLenum; bufSize:TGLsizei; v:PGLint);cdecl;
-
-  TPFNGLGETNMINMAXARBPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
-                values:pointer);cdecl;
-
+  TPFNGLGETNMINMAXARBPROC = procedure (target:TGLenum; reset:TGLboolean; format:TGLenum; _type:TGLenum; bufSize:TGLsizei;                values:pointer);cdecl;
   TPFNGLGETNPIXELMAPFVARBPROC = procedure (map:TGLenum; bufSize:TGLsizei; values:PGLfloat);cdecl;
-
   TPFNGLGETNPIXELMAPUIVARBPROC = procedure (map:TGLenum; bufSize:TGLsizei; values:PGLuint);cdecl;
-
   TPFNGLGETNPIXELMAPUSVARBPROC = procedure (map:TGLenum; bufSize:TGLsizei; values:PGLushort);cdecl;
-
   TPFNGLGETNPOLYGONSTIPPLEARBPROC = procedure (bufSize:TGLsizei; pattern:PGLubyte);cdecl;
-
-  TPFNGLGETNSEPARABLEFILTERARBPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; rowBufSize:TGLsizei; row:pointer; 
+  TPFNGLGETNSEPARABLEFILTERARBPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; rowBufSize:TGLsizei; row:pointer;
                 columnBufSize:TGLsizei; column:pointer; span:pointer);cdecl;
-
-  TPFNGLGETNTEXIMAGEARBPROC = procedure (target:TGLenum; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei; 
-                img:pointer);cdecl;
-
+  TPFNGLGETNTEXIMAGEARBPROC = procedure (target:TGLenum; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei;                img:pointer);cdecl;
   TPFNGLGETNUNIFORMDVARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLdouble);cdecl;
-
   TPFNGLGETNUNIFORMFVARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLfloat);cdecl;
-
   TPFNGLGETNUNIFORMIVARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLint);cdecl;
-
   TPFNGLGETNUNIFORMUIVARBPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLuint);cdecl;
-
-  TPFNGLREADNPIXELSARBPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum; 
+  TPFNGLREADNPIXELSARBPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum;
                 _type:TGLenum; bufSize:TGLsizei; data:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -7931,10 +7014,7 @@ function glReadnPixelsARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_robustness : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_robustness  }
 { ---------------- GL_ARB_robustness_application_isolation ----------------  }
-{$ifndef GL_ARB_robustness_application_isolation}
 
 const
   GL_ARB_robustness_application_isolation = 1;  
@@ -7942,10 +7022,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_robustness_application_isolation : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_robustness_application_isolation  }
 { ---------------- GL_ARB_robustness_share_group_isolation ----------------  }
-{$ifndef GL_ARB_robustness_share_group_isolation}
 
 const
   GL_ARB_robustness_share_group_isolation = 1;  
@@ -7953,10 +7030,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_robustness_share_group_isolation : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_robustness_share_group_isolation  }
 { ------------------------ GL_ARB_sample_locations ------------------------  }
-{$ifndef GL_ARB_sample_locations}
 
 const
   GL_ARB_sample_locations = 1;  
@@ -7969,9 +7043,7 @@ const
   GL_FRAMEBUFFER_PROGRAMMABLE_SAMPLE_LOCATIONS_ARB = $9342;  
   GL_FRAMEBUFFER_SAMPLE_LOCATION_PIXEL_GRID_ARB = $9343;  
 type
-
   TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC = procedure (target:TGLenum; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
-
   TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC = procedure (framebuffer:TGLuint; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
 
 { was #define dname def_expr }
@@ -7983,17 +7055,13 @@ function glNamedFramebufferSampleLocationsfvARB : longint; { return type might b
 { was #define dname def_expr }
 function GLEW_ARB_sample_locations : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sample_locations  }
 { ------------------------- GL_ARB_sample_shading -------------------------  }
-{$ifndef GL_ARB_sample_shading}
 
 const
   GL_ARB_sample_shading = 1;  
   GL_SAMPLE_SHADING_ARB = $8C36;  
   GL_MIN_SAMPLE_SHADING_VALUE_ARB = $8C37;  
 type
-
   TPFNGLMINSAMPLESHADINGARBPROC = procedure (value:TGLclampf);cdecl;
 
 { was #define dname def_expr }
@@ -8002,42 +7070,25 @@ function glMinSampleShadingARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_sample_shading : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sample_shading  }
 { ------------------------- GL_ARB_sampler_objects ------------------------  }
-{$ifndef GL_ARB_sampler_objects}
 
 const
   GL_ARB_sampler_objects = 1;  
   GL_SAMPLER_BINDING = $8919;  
 type
-
-  TPFNGLBINDSAMPLERPROC = procedure (unit:TGLuint; sampler:TGLuint);cdecl;
-
+  TPFNGLBINDSAMPLERPROC = procedure (unit_:TGLuint; sampler:TGLuint);cdecl;
   TPFNGLDELETESAMPLERSPROC = procedure (count:TGLsizei; samplers:PGLuint);cdecl;
-
   TPFNGLGENSAMPLERSPROC = procedure (count:TGLsizei; samplers:PGLuint);cdecl;
-
   TPFNGLGETSAMPLERPARAMETERIIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETSAMPLERPARAMETERIUIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLGETSAMPLERPARAMETERFVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETSAMPLERPARAMETERIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISSAMPLERPROC = function (sampler:TGLuint):TGLboolean;cdecl;
-
   TPFNGLSAMPLERPARAMETERIIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLSAMPLERPARAMETERIUIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
-
   TPFNGLSAMPLERPARAMETERFPROC = procedure (sampler:TGLuint; pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLSAMPLERPARAMETERFVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLSAMPLERPARAMETERIPROC = procedure (sampler:TGLuint; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLSAMPLERPARAMETERIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -8085,34 +7136,25 @@ function glSamplerParameteriv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_sampler_objects : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sampler_objects  }
 { ------------------------ GL_ARB_seamless_cube_map -----------------------  }
-{$ifndef GL_ARB_seamless_cube_map}
 
 const
   GL_ARB_seamless_cube_map = 1;  
-  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;  
+//  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;   doppelt
 
 { was #define dname def_expr }
 function GLEW_ARB_seamless_cube_map : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_seamless_cube_map  }
 { ------------------ GL_ARB_seamless_cubemap_per_texture ------------------  }
-{$ifndef GL_ARB_seamless_cubemap_per_texture}
 
 const
   GL_ARB_seamless_cubemap_per_texture = 1;  
-  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;  
+//  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;   doppelt
 
 { was #define dname def_expr }
 function GLEW_ARB_seamless_cubemap_per_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_seamless_cubemap_per_texture  }
 { --------------------- GL_ARB_separate_shader_objects --------------------  }
-{$ifndef GL_ARB_separate_shader_objects}
 
 const
   GL_ARB_separate_shader_objects = 1;  
@@ -8126,129 +7168,65 @@ const
   GL_PROGRAM_PIPELINE_BINDING = $825A;  
   GL_ALL_SHADER_BITS = $FFFFFFFF;  
 type
-
-  TPFNGLACTIVESHADERPROGRAMPROC = procedure (pipeline:TGLuint; program:TGLuint);cdecl;
-
+  TPFNGLACTIVESHADERPROGRAMPROC = procedure (pipeline:TGLuint; prog:TGLuint);cdecl;
   TPFNGLBINDPROGRAMPIPELINEPROC = procedure (pipeline:TGLuint);cdecl;
-
   TPFNGLCREATESHADERPROGRAMVPROC = function (_type:TGLenum; count:TGLsizei; strings:PPGLchar):TGLuint;cdecl;
-
   TPFNGLDELETEPROGRAMPIPELINESPROC = procedure (n:TGLsizei; pipelines:PGLuint);cdecl;
-
   TPFNGLGENPROGRAMPIPELINESPROC = procedure (n:TGLsizei; pipelines:PGLuint);cdecl;
-
   TPFNGLGETPROGRAMPIPELINEINFOLOGPROC = procedure (pipeline:TGLuint; bufSize:TGLsizei; length:PGLsizei; infoLog:PGLchar);cdecl;
-
   TPFNGLGETPROGRAMPIPELINEIVPROC = procedure (pipeline:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISPROGRAMPIPELINEPROC = function (pipeline:TGLuint):TGLboolean;cdecl;
-
   TPFNGLPROGRAMUNIFORM1DPROC = procedure (prog:TGLuint; location:TGLint; x:TGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM1DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM1FPROC = procedure (prog:TGLuint; location:TGLint; x:TGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM1FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM1IPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM1IVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM1UIPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORM1UIVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORM2DPROC = procedure (prog:TGLuint; location:TGLint; x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM2DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM2FPROC = procedure (prog:TGLuint; location:TGLint; x:TGLfloat; y:TGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM2FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM2IPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint; y:TGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM2IVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM2UIPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint; y:TGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORM2UIVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORM3DPROC = procedure (prog:TGLuint; location:TGLint; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM3DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORM3FPROC = procedure (prog:TGLuint; location:TGLint; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM3FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORM3IPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint; y:TGLint; z:TGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM3IVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLPROGRAMUNIFORM3UIPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint; y:TGLuint; z:TGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORM3UIVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4DPROC = procedure (prog:TGLuint; location:TGLint; x:TGLdouble; y:TGLdouble; z:TGLdouble; 
-                w:TGLdouble);cdecl;
-
+  TPFNGLPROGRAMUNIFORM4DPROC = procedure (prog:TGLuint; location:TGLint; x:TGLdouble; y:TGLdouble; z:TGLdouble;                w:TGLdouble);cdecl;
   TPFNGLPROGRAMUNIFORM4DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLdouble);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4FPROC = procedure (prog:TGLuint; location:TGLint; x:TGLfloat; y:TGLfloat; z:TGLfloat; 
-                w:TGLfloat);cdecl;
-
+  TPFNGLPROGRAMUNIFORM4FPROC = procedure (prog:TGLuint; location:TGLint; x:TGLfloat; y:TGLfloat; z:TGLfloat;                w:TGLfloat);cdecl;
   TPFNGLPROGRAMUNIFORM4FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4IPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint; y:TGLint; z:TGLint; 
-                w:TGLint);cdecl;
-
+  TPFNGLPROGRAMUNIFORM4IPROC = procedure (prog:TGLuint; location:TGLint; x:TGLint; y:TGLint; z:TGLint;                w:TGLint);cdecl;
   TPFNGLPROGRAMUNIFORM4IVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
-  TPFNGLPROGRAMUNIFORM4UIPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint; y:TGLuint; z:TGLuint; 
-                w:TGLuint);cdecl;
-
+  TPFNGLPROGRAMUNIFORM4UIPROC = procedure (prog:TGLuint; location:TGLint; x:TGLuint; y:TGLuint; z:TGLuint;                w:TGLuint);cdecl;
   TPFNGLPROGRAMUNIFORM4UIVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; value:PGLuint);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2X3DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2X3FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2X4DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX2X4FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3X2DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3X2FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3X4DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX3X4FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4X2DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4X2FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4X3DVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
-
   TPFNGLPROGRAMUNIFORMMATRIX4X3FVPROC = procedure (prog:TGLuint; location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
-  TPFNGLUSEPROGRAMSTAGESPROC = procedure (pipeline:TGLuint; stages:TGLbitfield; program:TGLuint);cdecl;
-
+  TPFNGLUSEPROGRAMSTAGESPROC = procedure (pipeline:TGLuint; stages:TGLbitfield; prog:TGLuint);cdecl;
   TPFNGLVALIDATEPROGRAMPIPELINEPROC = procedure (pipeline:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -8434,10 +7412,7 @@ function glValidateProgramPipeline : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_separate_shader_objects : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_separate_shader_objects  }
 { -------------------- GL_ARB_shader_atomic_counter_ops -------------------  }
-{$ifndef GL_ARB_shader_atomic_counter_ops}
 
 const
   GL_ARB_shader_atomic_counter_ops = 1;  
@@ -8445,10 +7420,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_atomic_counter_ops : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_atomic_counter_ops  }
 { --------------------- GL_ARB_shader_atomic_counters ---------------------  }
-{$ifndef GL_ARB_shader_atomic_counters}
 
 const
   GL_ARB_shader_atomic_counters = 1;  
@@ -8482,7 +7454,6 @@ const
   GL_UNSIGNED_INT_ATOMIC_COUNTER = $92DB;  
   GL_MAX_ATOMIC_COUNTER_BUFFER_BINDINGS = $92DC;  
 type
-
   TPFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC = procedure (prog:TGLuint; bufferIndex:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -8491,10 +7462,7 @@ function glGetActiveAtomicCounterBufferiv : longint; { return type might be wron
 { was #define dname def_expr }
 function GLEW_ARB_shader_atomic_counters : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_atomic_counters  }
 { -------------------------- GL_ARB_shader_ballot -------------------------  }
-{$ifndef GL_ARB_shader_ballot}
 
 const
   GL_ARB_shader_ballot = 1;  
@@ -8502,10 +7470,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_ballot : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_ballot  }
 { ----------------------- GL_ARB_shader_bit_encoding ----------------------  }
-{$ifndef GL_ARB_shader_bit_encoding}
 
 const
   GL_ARB_shader_bit_encoding = 1;  
@@ -8513,10 +7478,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_bit_encoding : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_bit_encoding  }
 { -------------------------- GL_ARB_shader_clock --------------------------  }
-{$ifndef GL_ARB_shader_clock}
 
 const
   GL_ARB_shader_clock = 1;  
@@ -8524,10 +7486,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_clock : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_clock  }
 { --------------------- GL_ARB_shader_draw_parameters ---------------------  }
-{$ifndef GL_ARB_shader_draw_parameters}
 
 const
   GL_ARB_shader_draw_parameters = 1;  
@@ -8535,10 +7494,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_draw_parameters : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_draw_parameters  }
 { ------------------------ GL_ARB_shader_group_vote -----------------------  }
-{$ifndef GL_ARB_shader_group_vote}
 
 const
   GL_ARB_shader_group_vote = 1;  
@@ -8546,10 +7502,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_group_vote : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_group_vote  }
 { --------------------- GL_ARB_shader_image_load_store --------------------  }
-{$ifndef GL_ARB_shader_image_load_store}
 
 const
   GL_ARB_shader_image_load_store = 1;  
@@ -8618,10 +7571,7 @@ const
   GL_MAX_COMBINED_IMAGE_UNIFORMS = $90CF;  
   GL_ALL_BARRIER_BITS = $FFFFFFFF;  
 type
-
-  TPFNGLBINDIMAGETEXTUREPROC = procedure (unit:TGLuint; texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint; 
-                access:TGLenum; format:TGLenum);cdecl;
-
+  TPFNGLBINDIMAGETEXTUREPROC = procedure (unit_:TGLuint; texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint;                access:TGLenum; format:TGLenum);cdecl;
   TPFNGLMEMORYBARRIERPROC = procedure (barriers:TGLbitfield);cdecl;
 
 { was #define dname def_expr }
@@ -8633,10 +7583,7 @@ function glMemoryBarrier : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_shader_image_load_store : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_image_load_store  }
 { ------------------------ GL_ARB_shader_image_size -----------------------  }
-{$ifndef GL_ARB_shader_image_size}
 
 const
   GL_ARB_shader_image_size = 1;  
@@ -8644,10 +7591,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_image_size : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_image_size  }
 { ------------------------- GL_ARB_shader_objects -------------------------  }
-{$ifndef GL_ARB_shader_objects}
 
 const
   GL_ARB_shader_objects = 1;  
@@ -8686,89 +7630,51 @@ const
   GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB = $8B87;  
   GL_OBJECT_SHADER_SOURCE_LENGTH_ARB = $8B88;  
 type
-  PGLcharARB = ^TGLcharARB;
+PPGLcharARB = ^PGLcharARB;
+PGLcharARB = ^TGLcharARB;
   TGLcharARB = char;
 
   PGLhandleARB = ^TGLhandleARB;
   TGLhandleARB = dword;
-
   TPFNGLATTACHOBJECTARBPROC = procedure (containerObj:TGLhandleARB; obj:TGLhandleARB);cdecl;
-
   TPFNGLCOMPILESHADERARBPROC = procedure (shaderObj:TGLhandleARB);cdecl;
-
   TPFNGLCREATEPROGRAMOBJECTARBPROC = function (para1:pointer):TGLhandleARB;cdecl;
-
   TPFNGLCREATESHADEROBJECTARBPROC = function (shaderType:TGLenum):TGLhandleARB;cdecl;
-
   TPFNGLDELETEOBJECTARBPROC = procedure (obj:TGLhandleARB);cdecl;
-
   TPFNGLDETACHOBJECTARBPROC = procedure (containerObj:TGLhandleARB; attachedObj:TGLhandleARB);cdecl;
-
-  TPFNGLGETACTIVEUNIFORMARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint; 
+  TPFNGLGETACTIVEUNIFORMARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint;
                 _type:PGLenum; name:PGLcharARB);cdecl;
-
   TPFNGLGETATTACHEDOBJECTSARBPROC = procedure (containerObj:TGLhandleARB; maxCount:TGLsizei; count:PGLsizei; obj:PGLhandleARB);cdecl;
-
   TPFNGLGETHANDLEARBPROC = function (pname:TGLenum):TGLhandleARB;cdecl;
-
   TPFNGLGETINFOLOGARBPROC = procedure (obj:TGLhandleARB; maxLength:TGLsizei; length:PGLsizei; infoLog:PGLcharARB);cdecl;
-
   TPFNGLGETOBJECTPARAMETERFVARBPROC = procedure (obj:TGLhandleARB; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETOBJECTPARAMETERIVARBPROC = procedure (obj:TGLhandleARB; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETSHADERSOURCEARBPROC = procedure (obj:TGLhandleARB; maxLength:TGLsizei; length:PGLsizei; source:PGLcharARB);cdecl;
-
   TPFNGLGETUNIFORMLOCATIONARBPROC = function (programObj:TGLhandleARB; name:PGLcharARB):TGLint;cdecl;
-
   TPFNGLGETUNIFORMFVARBPROC = procedure (programObj:TGLhandleARB; location:TGLint; params:PGLfloat);cdecl;
-
   TPFNGLGETUNIFORMIVARBPROC = procedure (programObj:TGLhandleARB; location:TGLint; params:PGLint);cdecl;
-
   TPFNGLLINKPROGRAMARBPROC = procedure (programObj:TGLhandleARB);cdecl;
-
   TPFNGLSHADERSOURCEARBPROC = procedure (shaderObj:TGLhandleARB; count:TGLsizei; _string:PPGLcharARB; length:PGLint);cdecl;
-
   TPFNGLUNIFORM1FARBPROC = procedure (location:TGLint; v0:TGLfloat);cdecl;
-
   TPFNGLUNIFORM1FVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORM1IARBPROC = procedure (location:TGLint; v0:TGLint);cdecl;
-
   TPFNGLUNIFORM1IVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLUNIFORM2FARBPROC = procedure (location:TGLint; v0:TGLfloat; v1:TGLfloat);cdecl;
-
   TPFNGLUNIFORM2FVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORM2IARBPROC = procedure (location:TGLint; v0:TGLint; v1:TGLint);cdecl;
-
   TPFNGLUNIFORM2IVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLUNIFORM3FARBPROC = procedure (location:TGLint; v0:TGLfloat; v1:TGLfloat; v2:TGLfloat);cdecl;
-
   TPFNGLUNIFORM3FVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORM3IARBPROC = procedure (location:TGLint; v0:TGLint; v1:TGLint; v2:TGLint);cdecl;
-
   TPFNGLUNIFORM3IVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLUNIFORM4FARBPROC = procedure (location:TGLint; v0:TGLfloat; v1:TGLfloat; v2:TGLfloat; v3:TGLfloat);cdecl;
-
   TPFNGLUNIFORM4FVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORM4IARBPROC = procedure (location:TGLint; v0:TGLint; v1:TGLint; v2:TGLint; v3:TGLint);cdecl;
-
   TPFNGLUNIFORM4IVARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLint);cdecl;
-
   TPFNGLUNIFORMMATRIX2FVARBPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORMMATRIX3FVARBPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLUNIFORMMATRIX4FVARBPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
-
   TPFNGLUSEPROGRAMOBJECTARBPROC = procedure (programObj:TGLhandleARB);cdecl;
-
   TPFNGLVALIDATEPROGRAMARBPROC = procedure (programObj:TGLhandleARB);cdecl;
 
 { was #define dname def_expr }
@@ -8891,10 +7797,7 @@ function glValidateProgramARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_shader_objects : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_objects  }
 { ------------------------ GL_ARB_shader_precision ------------------------  }
-{$ifndef GL_ARB_shader_precision}
 
 const
   GL_ARB_shader_precision = 1;  
@@ -8902,10 +7805,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_precision : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_precision  }
 { ---------------------- GL_ARB_shader_stencil_export ---------------------  }
-{$ifndef GL_ARB_shader_stencil_export}
 
 const
   GL_ARB_shader_stencil_export = 1;  
@@ -8913,10 +7813,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_stencil_export : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_stencil_export  }
 { ------------------ GL_ARB_shader_storage_buffer_object ------------------  }
-{$ifndef GL_ARB_shader_storage_buffer_object}
 
 const
   GL_ARB_shader_storage_buffer_object = 1;  
@@ -8937,7 +7834,6 @@ const
   GL_MAX_SHADER_STORAGE_BLOCK_SIZE = $90DE;  
   GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT = $90DF;  
 type
-
   TPFNGLSHADERSTORAGEBLOCKBINDINGPROC = procedure (prog:TGLuint; storageBlockIndex:TGLuint; storageBlockBinding:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -8946,10 +7842,7 @@ function glShaderStorageBlockBinding : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_shader_storage_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_storage_buffer_object  }
 { ------------------------ GL_ARB_shader_subroutine -----------------------  }
-{$ifndef GL_ARB_shader_subroutine}
 
 const
   GL_ARB_shader_subroutine = 1;  
@@ -8963,23 +7856,13 @@ const
   GL_NUM_COMPATIBLE_SUBROUTINES = $8E4A;  
   GL_COMPATIBLE_SUBROUTINES = $8E4B;  
 type
-
-  TPFNGLGETACTIVESUBROUTINENAMEPROC = procedure (prog:TGLuint; shadertype:TGLenum; index:TGLuint; bufsize:TGLsizei; length:PGLsizei; 
-                name:PGLchar);cdecl;
-
-  TPFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC = procedure (prog:TGLuint; shadertype:TGLenum; index:TGLuint; bufsize:TGLsizei; length:PGLsizei; 
-                name:PGLchar);cdecl;
-
+  TPFNGLGETACTIVESUBROUTINENAMEPROC = procedure (prog:TGLuint; shadertype:TGLenum; index:TGLuint; bufsize:TGLsizei; length:PGLsizei;                name:PGLchar);cdecl;
+  TPFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC = procedure (prog:TGLuint; shadertype:TGLenum; index:TGLuint; bufsize:TGLsizei; length:PGLsizei;                name:PGLchar);cdecl;
   TPFNGLGETACTIVESUBROUTINEUNIFORMIVPROC = procedure (prog:TGLuint; shadertype:TGLenum; index:TGLuint; pname:TGLenum; values:PGLint);cdecl;
-
   TPFNGLGETPROGRAMSTAGEIVPROC = procedure (prog:TGLuint; shadertype:TGLenum; pname:TGLenum; values:PGLint);cdecl;
-
   TPFNGLGETSUBROUTINEINDEXPROC = function (prog:TGLuint; shadertype:TGLenum; name:PGLchar):TGLuint;cdecl;
-
   TPFNGLGETSUBROUTINEUNIFORMLOCATIONPROC = function (prog:TGLuint; shadertype:TGLenum; name:PGLchar):TGLint;cdecl;
-
   TPFNGLGETUNIFORMSUBROUTINEUIVPROC = procedure (shadertype:TGLenum; location:TGLint; params:PGLuint);cdecl;
-
   TPFNGLUNIFORMSUBROUTINESUIVPROC = procedure (shadertype:TGLenum; count:TGLsizei; indices:PGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -9009,10 +7892,7 @@ function glUniformSubroutinesuiv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_shader_subroutine : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_subroutine  }
 { ------------------ GL_ARB_shader_texture_image_samples ------------------  }
-{$ifndef GL_ARB_shader_texture_image_samples}
 
 const
   GL_ARB_shader_texture_image_samples = 1;  
@@ -9020,10 +7900,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_texture_image_samples : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_texture_image_samples  }
 { ----------------------- GL_ARB_shader_texture_lod -----------------------  }
-{$ifndef GL_ARB_shader_texture_lod}
 
 const
   GL_ARB_shader_texture_lod = 1;  
@@ -9031,10 +7908,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_texture_lod : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_texture_lod  }
 { ------------------- GL_ARB_shader_viewport_layer_array ------------------  }
-{$ifndef GL_ARB_shader_viewport_layer_array}
 
 const
   GL_ARB_shader_viewport_layer_array = 1;  
@@ -9042,10 +7916,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shader_viewport_layer_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shader_viewport_layer_array  }
 { ---------------------- GL_ARB_shading_language_100 ----------------------  }
-{$ifndef GL_ARB_shading_language_100}
 
 const
   GL_ARB_shading_language_100 = 1;  
@@ -9054,10 +7925,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shading_language_100 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shading_language_100  }
 { -------------------- GL_ARB_shading_language_420pack --------------------  }
-{$ifndef GL_ARB_shading_language_420pack}
 
 const
   GL_ARB_shading_language_420pack = 1;  
@@ -9065,10 +7933,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shading_language_420pack : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shading_language_420pack  }
 { -------------------- GL_ARB_shading_language_include --------------------  }
-{$ifndef GL_ARB_shading_language_include}
 
 const
   GL_ARB_shading_language_include = 1;  
@@ -9076,17 +7941,11 @@ const
   GL_NAMED_STRING_LENGTH_ARB = $8DE9;  
   GL_NAMED_STRING_TYPE_ARB = $8DEA;  
 type
-
   TPFNGLCOMPILESHADERINCLUDEARBPROC = procedure (shader:TGLuint; count:TGLsizei; path:PPGLchar; length:PGLint);cdecl;
-
   TPFNGLDELETENAMEDSTRINGARBPROC = procedure (namelen:TGLint; name:PGLchar);cdecl;
-
   TPFNGLGETNAMEDSTRINGARBPROC = procedure (namelen:TGLint; name:PGLchar; bufSize:TGLsizei; stringlen:PGLint; _string:PGLchar);cdecl;
-
   TPFNGLGETNAMEDSTRINGIVARBPROC = procedure (namelen:TGLint; name:PGLchar; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISNAMEDSTRINGARBPROC = function (namelen:TGLint; name:PGLchar):TGLboolean;cdecl;
-
   TPFNGLNAMEDSTRINGARBPROC = procedure (_type:TGLenum; namelen:TGLint; name:PGLchar; stringlen:TGLint; _string:PGLchar);cdecl;
 
 { was #define dname def_expr }
@@ -9110,10 +7969,7 @@ function glNamedStringARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_shading_language_include : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shading_language_include  }
 { -------------------- GL_ARB_shading_language_packing --------------------  }
-{$ifndef GL_ARB_shading_language_packing}
 
 const
   GL_ARB_shading_language_packing = 1;  
@@ -9121,10 +7977,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shading_language_packing : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shading_language_packing  }
 { ----------------------------- GL_ARB_shadow -----------------------------  }
-{$ifndef GL_ARB_shadow}
 
 const
   GL_ARB_shadow = 1;  
@@ -9135,10 +7988,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shadow : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shadow  }
 { ------------------------- GL_ARB_shadow_ambient -------------------------  }
-{$ifndef GL_ARB_shadow_ambient}
 
 const
   GL_ARB_shadow_ambient = 1;  
@@ -9147,17 +7997,13 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_shadow_ambient : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_shadow_ambient  }
 { -------------------------- GL_ARB_sparse_buffer -------------------------  }
-{$ifndef GL_ARB_sparse_buffer}
 
 const
   GL_ARB_sparse_buffer = 1;  
   GL_SPARSE_STORAGE_BIT_ARB = $0400;  
   GL_SPARSE_BUFFER_PAGE_SIZE_ARB = $82F8;  
 type
-
   TPFNGLBUFFERPAGECOMMITMENTARBPROC = procedure (target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; commit:TGLboolean);cdecl;
 
 { was #define dname def_expr }
@@ -9166,10 +8012,7 @@ function glBufferPageCommitmentARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_sparse_buffer : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sparse_buffer  }
 { ------------------------- GL_ARB_sparse_texture -------------------------  }
-{$ifndef GL_ARB_sparse_texture}
 
 const
   GL_ARB_sparse_texture = 1;  
@@ -9185,8 +8028,7 @@ const
   GL_SPARSE_TEXTURE_FULL_ARRAY_CUBE_MIPMAPS_ARB = $91A9;  
   GL_NUM_SPARSE_LEVELS_ARB = $91AA;  
 type
-
-  TPFNGLTEXPAGECOMMITMENTARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLTEXPAGECOMMITMENTARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; commit:TGLboolean);cdecl;
 
 { was #define dname def_expr }
@@ -9195,10 +8037,7 @@ function glTexPageCommitmentARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_sparse_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sparse_texture  }
 { ------------------------- GL_ARB_sparse_texture2 ------------------------  }
-{$ifndef GL_ARB_sparse_texture2}
 
 const
   GL_ARB_sparse_texture2 = 1;  
@@ -9206,10 +8045,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_sparse_texture2 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sparse_texture2  }
 { ---------------------- GL_ARB_sparse_texture_clamp ----------------------  }
-{$ifndef GL_ARB_sparse_texture_clamp}
 
 const
   GL_ARB_sparse_texture_clamp = 1;  
@@ -9217,23 +8053,17 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_sparse_texture_clamp : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sparse_texture_clamp  }
 { ------------------------ GL_ARB_spirv_extensions ------------------------  }
-{$ifndef GL_ARB_spirv_extensions}
 
 const
   GL_ARB_spirv_extensions = 1;  
-  GL_SPIR_V_EXTENSIONS = $9553;  
-  GL_NUM_SPIR_V_EXTENSIONS = $9554;  
+//  GL_SPIR_V_EXTENSIONS = $9553; doppelt
+//  GL_NUM_SPIR_V_EXTENSIONS = $9554;  
 
 { was #define dname def_expr }
 function GLEW_ARB_spirv_extensions : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_spirv_extensions  }
 { ------------------------ GL_ARB_stencil_texturing -----------------------  }
-{$ifndef GL_ARB_stencil_texturing}
 
 const
   GL_ARB_stencil_texturing = 1;  
@@ -9242,10 +8072,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_stencil_texturing : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_stencil_texturing  }
 { ------------------------------ GL_ARB_sync ------------------------------  }
-{$ifndef GL_ARB_sync}
 
 const
   GL_ARB_sync = 1;  
@@ -9265,19 +8092,12 @@ const
   GL_WAIT_FAILED = $911D;  
   GL_TIMEOUT_IGNORED = $FFFFFFFFFFFFFFFF;  
 type
-
   TPFNGLCLIENTWAITSYNCPROC = function (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64):TGLenum;cdecl;
-
   TPFNGLDELETESYNCPROC = procedure (GLsync:TGLsync);cdecl;
-
   TPFNGLFENCESYNCPROC = function (condition:TGLenum; flags:TGLbitfield):TGLsync;cdecl;
-
   TPFNGLGETINTEGER64VPROC = procedure (pname:TGLenum; params:PGLint64);cdecl;
-
   TPFNGLGETSYNCIVPROC = procedure (GLsync:TGLsync; pname:TGLenum; bufSize:TGLsizei; length:PGLsizei; values:PGLint);cdecl;
-
   TPFNGLISSYNCPROC = function (GLsync:TGLsync):TGLboolean;cdecl;
-
   TPFNGLWAITSYNCPROC = procedure (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64);cdecl;
 
 { was #define dname def_expr }
@@ -9304,10 +8124,7 @@ function glWaitSync : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_sync : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_sync  }
 { ----------------------- GL_ARB_tessellation_shader ----------------------  }
-{$ifndef GL_ARB_tessellation_shader}
 
 const
   GL_ARB_tessellation_shader = 1;  
@@ -9344,9 +8161,7 @@ const
   GL_MAX_TESS_CONTROL_UNIFORM_BLOCKS = $8E89;  
   GL_MAX_TESS_EVALUATION_UNIFORM_BLOCKS = $8E8A;  
 type
-
   TPFNGLPATCHPARAMETERFVPROC = procedure (pname:TGLenum; values:PGLfloat);cdecl;
-
   TPFNGLPATCHPARAMETERIPROC = procedure (pname:TGLenum; value:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -9358,15 +8173,11 @@ function glPatchParameteri : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_tessellation_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_tessellation_shader  }
 { ------------------------- GL_ARB_texture_barrier ------------------------  }
-{$ifndef GL_ARB_texture_barrier}
 
 const
   GL_ARB_texture_barrier = 1;  
 type
-
   TPFNGLTEXTUREBARRIERPROC = procedure (para1:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -9375,10 +8186,7 @@ function glTextureBarrier : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_barrier : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_barrier  }
 { ---------------------- GL_ARB_texture_border_clamp ----------------------  }
-{$ifndef GL_ARB_texture_border_clamp}
 
 const
   GL_ARB_texture_border_clamp = 1;  
@@ -9387,10 +8195,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_border_clamp : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_border_clamp  }
 { ---------------------- GL_ARB_texture_buffer_object ---------------------  }
-{$ifndef GL_ARB_texture_buffer_object}
 
 const
   GL_ARB_texture_buffer_object = 1;  
@@ -9400,7 +8205,6 @@ const
   GL_TEXTURE_BUFFER_DATA_STORE_BINDING_ARB = $8C2D;  
   GL_TEXTURE_BUFFER_FORMAT_ARB = $8C2E;  
 type
-
   TPFNGLTEXBUFFERARBPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -9409,10 +8213,7 @@ function glTexBufferARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_buffer_object  }
 { ------------------- GL_ARB_texture_buffer_object_rgb32 ------------------  }
-{$ifndef GL_ARB_texture_buffer_object_rgb32}
 
 const
   GL_ARB_texture_buffer_object_rgb32 = 1;  
@@ -9420,10 +8221,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_buffer_object_rgb32 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_buffer_object_rgb32  }
 { ---------------------- GL_ARB_texture_buffer_range ----------------------  }
-{$ifndef GL_ARB_texture_buffer_range}
 
 const
   GL_ARB_texture_buffer_range = 1;  
@@ -9431,10 +8229,8 @@ const
   GL_TEXTURE_BUFFER_SIZE = $919E;  
   GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT = $919F;  
 type
-
   TPFNGLTEXBUFFERRANGEPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr);cdecl;
-
-  TPFNGLTEXTUREBUFFERRANGEEXTPROC = procedure (texture:TGLuint; target:TGLenum; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr; 
+  TPFNGLTEXTUREBUFFERRANGEEXTPROC = procedure (texture:TGLuint; target:TGLenum; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr;
                 size:TGLsizeiptr);cdecl;
 
 { was #define dname def_expr }
@@ -9446,10 +8242,7 @@ function glTextureBufferRangeEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_buffer_range : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_buffer_range  }
 { ----------------------- GL_ARB_texture_compression ----------------------  }
-{$ifndef GL_ARB_texture_compression}
 
 const
   GL_ARB_texture_compression = 1;  
@@ -9465,26 +8258,19 @@ const
   GL_NUM_COMPRESSED_TEXTURE_FORMATS_ARB = $86A2;  
   GL_COMPRESSED_TEXTURE_FORMATS_ARB = $86A3;  
 type
-
-  TPFNGLCOMPRESSEDTEXIMAGE1DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; border:TGLint; 
+  TPFNGLCOMPRESSEDTEXIMAGE1DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; border:TGLint;
                 imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXIMAGE2DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLCOMPRESSEDTEXIMAGE2DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 border:TGLint; imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXIMAGE3DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+ TPFNGLCOMPRESSEDTEXIMAGE3DARBPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; border:TGLint; imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum; 
+  TPFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; width:TGLsizei; format:TGLenum;
                 imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei; 
+ TPFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; width:TGLsizei;
                 height:TGLsizei; format:TGLenum; imageSize:TGLsizei; data:pointer);cdecl;
-
-  TPFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; imageSize:TGLsizei; 
                 data:pointer);cdecl;
-
   TPFNGLGETCOMPRESSEDTEXIMAGEARBPROC = procedure (target:TGLenum; lod:TGLint; img:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -9511,10 +8297,7 @@ function glGetCompressedTexImageARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_compression : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_compression  }
 { -------------------- GL_ARB_texture_compression_bptc --------------------  }
-{$ifndef GL_ARB_texture_compression_bptc}
 
 const
   GL_ARB_texture_compression_bptc = 1;  
@@ -9526,10 +8309,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_compression_bptc : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_compression_bptc  }
 { -------------------- GL_ARB_texture_compression_rgtc --------------------  }
-{$ifndef GL_ARB_texture_compression_rgtc}
 
 const
   GL_ARB_texture_compression_rgtc = 1;  
@@ -9541,10 +8321,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_compression_rgtc : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_compression_rgtc  }
 { ------------------------ GL_ARB_texture_cube_map ------------------------  }
-{$ifndef GL_ARB_texture_cube_map}
 
 const
   GL_ARB_texture_cube_map = 1;  
@@ -9564,10 +8341,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_cube_map : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_cube_map  }
 { --------------------- GL_ARB_texture_cube_map_array ---------------------  }
-{$ifndef GL_ARB_texture_cube_map_array}
 
 const
   GL_ARB_texture_cube_map_array = 1;  
@@ -9582,10 +8356,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_cube_map_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_cube_map_array  }
 { ------------------------- GL_ARB_texture_env_add ------------------------  }
-{$ifndef GL_ARB_texture_env_add}
 
 const
   GL_ARB_texture_env_add = 1;  
@@ -9593,10 +8364,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_env_add : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_env_add  }
 { ----------------------- GL_ARB_texture_env_combine ----------------------  }
-{$ifndef GL_ARB_texture_env_combine}
 
 const
   GL_ARB_texture_env_combine = 1;  
@@ -9626,10 +8394,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_env_combine : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_env_combine  }
 { ---------------------- GL_ARB_texture_env_crossbar ----------------------  }
-{$ifndef GL_ARB_texture_env_crossbar}
 
 const
   GL_ARB_texture_env_crossbar = 1;  
@@ -9637,10 +8402,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_env_crossbar : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_env_crossbar  }
 { ------------------------ GL_ARB_texture_env_dot3 ------------------------  }
-{$ifndef GL_ARB_texture_env_dot3}
 
 const
   GL_ARB_texture_env_dot3 = 1;  
@@ -9650,23 +8412,17 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_env_dot3 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_env_dot3  }
 { ------------------- GL_ARB_texture_filter_anisotropic -------------------  }
-{$ifndef GL_ARB_texture_filter_anisotropic}
 
 const
   GL_ARB_texture_filter_anisotropic = 1;  
-  GL_TEXTURE_MAX_ANISOTROPY = $84FE;  
-  GL_MAX_TEXTURE_MAX_ANISOTROPY = $84FF;  
+//  GL_TEXTURE_MAX_ANISOTROPY = $84FE;   doppelt
+//  GL_MAX_TEXTURE_MAX_ANISOTROPY = $84FF;  
 
 { was #define dname def_expr }
 function GLEW_ARB_texture_filter_anisotropic : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_filter_anisotropic  }
 { ---------------------- GL_ARB_texture_filter_minmax ---------------------  }
-{$ifndef GL_ARB_texture_filter_minmax}
 
 const
   GL_ARB_texture_filter_minmax = 1;  
@@ -9676,10 +8432,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_filter_minmax : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_filter_minmax  }
 { -------------------------- GL_ARB_texture_float -------------------------  }
-{$ifndef GL_ARB_texture_float}
 
 const
   GL_ARB_texture_float = 1;  
@@ -9707,10 +8460,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_float  }
 { ------------------------- GL_ARB_texture_gather -------------------------  }
-{$ifndef GL_ARB_texture_gather}
 
 const
   GL_ARB_texture_gather = 1;  
@@ -9721,10 +8471,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_gather : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_gather  }
 { ------------------ GL_ARB_texture_mirror_clamp_to_edge ------------------  }
-{$ifndef GL_ARB_texture_mirror_clamp_to_edge}
 
 const
   GL_ARB_texture_mirror_clamp_to_edge = 1;  
@@ -9733,10 +8480,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_mirror_clamp_to_edge : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_mirror_clamp_to_edge  }
 { --------------------- GL_ARB_texture_mirrored_repeat --------------------  }
-{$ifndef GL_ARB_texture_mirrored_repeat}
 
 const
   GL_ARB_texture_mirrored_repeat = 1;  
@@ -9745,10 +8489,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_mirrored_repeat : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_mirrored_repeat  }
 { ----------------------- GL_ARB_texture_multisample ----------------------  }
-{$ifndef GL_ARB_texture_multisample}
 
 const
   GL_ARB_texture_multisample = 1;  
@@ -9774,15 +8515,11 @@ const
   GL_MAX_DEPTH_TEXTURE_SAMPLES = $910F;  
   GL_MAX_INTEGER_SAMPLES = $9110;  
 type
-
   TPFNGLGETMULTISAMPLEFVPROC = procedure (pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;
-
   TPFNGLSAMPLEMASKIPROC = procedure (index:TGLuint; mask:TGLbitfield);cdecl;
-
-  TPFNGLTEXIMAGE2DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXIMAGE2DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXIMAGE3DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXIMAGE3DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
 
 { was #define dname def_expr }
@@ -9800,10 +8537,7 @@ function glTexImage3DMultisample : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_multisample : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_multisample  }
 { -------------------- GL_ARB_texture_non_power_of_two --------------------  }
-{$ifndef GL_ARB_texture_non_power_of_two}
 
 const
   GL_ARB_texture_non_power_of_two = 1;  
@@ -9811,10 +8545,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_non_power_of_two : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_non_power_of_two  }
 { ---------------------- GL_ARB_texture_query_levels ----------------------  }
-{$ifndef GL_ARB_texture_query_levels}
 
 const
   GL_ARB_texture_query_levels = 1;  
@@ -9822,10 +8553,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_query_levels : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_query_levels  }
 { ------------------------ GL_ARB_texture_query_lod -----------------------  }
-{$ifndef GL_ARB_texture_query_lod}
 
 const
   GL_ARB_texture_query_lod = 1;  
@@ -9833,10 +8561,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_query_lod : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_query_lod  }
 { ------------------------ GL_ARB_texture_rectangle -----------------------  }
-{$ifndef GL_ARB_texture_rectangle}
 
 const
   GL_ARB_texture_rectangle = 1;  
@@ -9844,16 +8569,13 @@ const
   GL_TEXTURE_BINDING_RECTANGLE_ARB = $84F6;  
   GL_PROXY_TEXTURE_RECTANGLE_ARB = $84F7;  
   GL_MAX_RECTANGLE_TEXTURE_SIZE_ARB = $84F8;  
-  GL_SAMPLER_2D_RECT_ARB = $8B63;  
-  GL_SAMPLER_2D_RECT_SHADOW_ARB = $8B64;  
+//  GL_SAMPLER_2D_RECT_ARB = $8B63;   doppelt
+//  GL_SAMPLER_2D_RECT_SHADOW_ARB = $8B64;  
 
 { was #define dname def_expr }
 function GLEW_ARB_texture_rectangle : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_rectangle  }
 { --------------------------- GL_ARB_texture_rg ---------------------------  }
-{$ifndef GL_ARB_texture_rg}
 
 const
   GL_ARB_texture_rg = 1;  
@@ -9876,56 +8598,43 @@ const
   GL_R32I = $8235;  
   GL_R32UI = $8236;  
   GL_RG8I = $8237;  
-  GL_RG8UI = $8238;  
+//  GL_RG8UI = $8238;   doppelt
   GL_RG16I = $8239;  
-  GL_RG16UI = $823A;  
+//  GL_RG16UI = $823A;  
   GL_RG32I = $823B;  
   GL_RG32UI = $823C;  
 
 { was #define dname def_expr }
 function GLEW_ARB_texture_rg : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_rg  }
 { ----------------------- GL_ARB_texture_rgb10_a2ui -----------------------  }
-{$ifndef GL_ARB_texture_rgb10_a2ui}
 
 const
   GL_ARB_texture_rgb10_a2ui = 1;  
-  GL_RGB10_A2UI = $906F;  
+//  GL_RGB10_A2UI = $906F;    doppelt
 
 { was #define dname def_expr }
 function GLEW_ARB_texture_rgb10_a2ui : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_rgb10_a2ui  }
 { ------------------------ GL_ARB_texture_stencil8 ------------------------  }
-{$ifndef GL_ARB_texture_stencil8}
 
 const
   GL_ARB_texture_stencil8 = 1;  
-  GL_STENCIL_INDEX = $1901;  
-  GL_STENCIL_INDEX8 = $8D48;  
+//  GL_STENCIL_INDEX = $1901;    doppelt
+//  GL_STENCIL_INDEX8 = $8D48;  
 
 { was #define dname def_expr }
 function GLEW_ARB_texture_stencil8 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_stencil8  }
 { ------------------------- GL_ARB_texture_storage ------------------------  }
-{$ifndef GL_ARB_texture_storage}
 
 const
   GL_ARB_texture_storage = 1;  
   GL_TEXTURE_IMMUTABLE_FORMAT = $912F;  
 type
-
   TPFNGLTEXSTORAGE1DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei);cdecl;
-
   TPFNGLTEXSTORAGE2DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
-
-  TPFNGLTEXSTORAGE3DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
-                depth:TGLsizei);cdecl;
+  TPFNGLTEXSTORAGE3DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;                depth:TGLsizei);cdecl;
 
 { was #define dname def_expr }
 function glTexStorage1D : longint; { return type might be wrong }
@@ -9939,25 +8648,18 @@ function glTexStorage3D : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_storage  }
 { ------------------- GL_ARB_texture_storage_multisample ------------------  }
-{$ifndef GL_ARB_texture_storage_multisample}
 
 const
   GL_ARB_texture_storage_multisample = 1;  
 type
-
-  TPFNGLTEXSTORAGE2DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXSTORAGE2DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXSTORAGE3DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; 
+  TPFNGLTEXSTORAGE3DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; 
+  TPFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei;
                 height:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
-
-  TPFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; 
+  TPFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei;
                 height:TGLsizei; depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
 
 { was #define dname def_expr }
@@ -9975,10 +8677,7 @@ function glTextureStorage3DMultisampleEXT : longint; { return type might be wron
 { was #define dname def_expr }
 function GLEW_ARB_texture_storage_multisample : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_storage_multisample  }
 { ------------------------- GL_ARB_texture_swizzle ------------------------  }
-{$ifndef GL_ARB_texture_swizzle}
 
 const
   GL_ARB_texture_swizzle = 1;  
@@ -9991,10 +8690,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_texture_swizzle : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_swizzle  }
 { -------------------------- GL_ARB_texture_view --------------------------  }
-{$ifndef GL_ARB_texture_view}
 
 const
   GL_ARB_texture_view = 1;  
@@ -10002,10 +8698,9 @@ const
   GL_TEXTURE_VIEW_NUM_LEVELS = $82DC;  
   GL_TEXTURE_VIEW_MIN_LAYER = $82DD;  
   GL_TEXTURE_VIEW_NUM_LAYERS = $82DE;  
-  GL_TEXTURE_IMMUTABLE_LEVELS = $82DF;  
+//   GL_TEXTURE_IMMUTABLE_LEVELS = $82DF; doppelt
 type
-
-  TPFNGLTEXTUREVIEWPROC = procedure (texture:TGLuint; target:TGLenum; origtexture:TGLuint; internalformat:TGLenum; minlevel:TGLuint; 
+  TPFNGLTEXTUREVIEWPROC = procedure (texture:TGLuint; target:TGLenum; origtexture:TGLuint; internalformat:TGLenum; minlevel:TGLuint;
                 numlevels:TGLuint; minlayer:TGLuint; numlayers:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -10014,21 +8709,15 @@ function glTextureView : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_texture_view : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_texture_view  }
 { --------------------------- GL_ARB_timer_query --------------------------  }
-{$ifndef GL_ARB_timer_query}
 
 const
   GL_ARB_timer_query = 1;  
   GL_TIME_ELAPSED = $88BF;  
   GL_TIMESTAMP = $8E28;  
 type
-
   TPFNGLGETQUERYOBJECTI64VPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint64);cdecl;
-
   TPFNGLGETQUERYOBJECTUI64VPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint64);cdecl;
-
   TPFNGLQUERYCOUNTERPROC = procedure (id:TGLuint; target:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -10043,10 +8732,7 @@ function glQueryCounter : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_timer_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_timer_query  }
 { ----------------------- GL_ARB_transform_feedback2 ----------------------  }
-{$ifndef GL_ARB_transform_feedback2}
 
 const
   GL_ARB_transform_feedback2 = 1;  
@@ -10055,19 +8741,12 @@ const
   GL_TRANSFORM_FEEDBACK_BUFFER_ACTIVE = $8E24;  
   GL_TRANSFORM_FEEDBACK_BINDING = $8E25;  
 type
-
   TPFNGLBINDTRANSFORMFEEDBACKPROC = procedure (target:TGLenum; id:TGLuint);cdecl;
-
   TPFNGLDELETETRANSFORMFEEDBACKSPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLDRAWTRANSFORMFEEDBACKPROC = procedure (mode:TGLenum; id:TGLuint);cdecl;
-
   TPFNGLGENTRANSFORMFEEDBACKSPROC = procedure (n:TGLsizei; ids:PGLuint);cdecl;
-
   TPFNGLISTRANSFORMFEEDBACKPROC = function (id:TGLuint):TGLboolean;cdecl;
-
   TPFNGLPAUSETRANSFORMFEEDBACKPROC = procedure (para1:pointer);cdecl;
-
   TPFNGLRESUMETRANSFORMFEEDBACKPROC = procedure (para1:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -10094,23 +8773,16 @@ function glResumeTransformFeedback : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_transform_feedback2 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_transform_feedback2  }
 { ----------------------- GL_ARB_transform_feedback3 ----------------------  }
-{$ifndef GL_ARB_transform_feedback3}
 
 const
   GL_ARB_transform_feedback3 = 1;  
   GL_MAX_TRANSFORM_FEEDBACK_BUFFERS = $8E70;  
-  GL_MAX_VERTEX_STREAMS = $8E71;  
+//   GL_MAX_VERTEX_STREAMS = $8E71; doppelt
 type
-
   TPFNGLBEGINQUERYINDEXEDPROC = procedure (target:TGLenum; index:TGLuint; id:TGLuint);cdecl;
-
   TPFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC = procedure (mode:TGLenum; id:TGLuint; stream:TGLuint);cdecl;
-
   TPFNGLENDQUERYINDEXEDPROC = procedure (target:TGLenum; index:TGLuint);cdecl;
-
   TPFNGLGETQUERYINDEXEDIVPROC = procedure (target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -10128,17 +8800,12 @@ function glGetQueryIndexediv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_transform_feedback3 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_transform_feedback3  }
 { ------------------ GL_ARB_transform_feedback_instanced ------------------  }
-{$ifndef GL_ARB_transform_feedback_instanced}
 
 const
   GL_ARB_transform_feedback_instanced = 1;  
 type
-
   TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC = procedure (mode:TGLenum; id:TGLuint; primcount:TGLsizei);cdecl;
-
   TPFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC = procedure (mode:TGLenum; id:TGLuint; stream:TGLuint; primcount:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -10150,10 +8817,7 @@ function glDrawTransformFeedbackStreamInstanced : longint; { return type might b
 { was #define dname def_expr }
 function GLEW_ARB_transform_feedback_instanced : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_transform_feedback_instanced  }
 { ---------------- GL_ARB_transform_feedback_overflow_query ---------------  }
-{$ifndef GL_ARB_transform_feedback_overflow_query}
 
 const
   GL_ARB_transform_feedback_overflow_query = 1;  
@@ -10163,10 +8827,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_transform_feedback_overflow_query : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_transform_feedback_overflow_query  }
 { ------------------------ GL_ARB_transpose_matrix ------------------------  }
-{$ifndef GL_ARB_transpose_matrix}
 
 const
   GL_ARB_transpose_matrix = 1;  
@@ -10175,15 +8836,10 @@ const
   GL_TRANSPOSE_TEXTURE_MATRIX_ARB = $84E5;  
   GL_TRANSPOSE_COLOR_MATRIX_ARB = $84E6;  
 type
-
-  TPFNGLLOADTRANSPOSEMATRIXDARBPROC = procedure (m:array[0..15] of TGLdouble);cdecl;
-
-  TPFNGLLOADTRANSPOSEMATRIXFARBPROC = procedure (m:array[0..15] of TGLfloat);cdecl;
-
-  TPFNGLMULTTRANSPOSEMATRIXDARBPROC = procedure (m:array[0..15] of TGLdouble);cdecl;
-
-  TPFNGLMULTTRANSPOSEMATRIXFARBPROC = procedure (m:array[0..15] of TGLfloat);cdecl;
-
+  TPFNGLLOADTRANSPOSEMATRIXDARBPROC = procedure (m:TdMatrix4x4);cdecl;
+  TPFNGLLOADTRANSPOSEMATRIXFARBPROC = procedure (m:TfMatrix4x4);cdecl;
+  TPFNGLMULTTRANSPOSEMATRIXDARBPROC = procedure (m:TdMatrix4x4);cdecl;
+  TPFNGLMULTTRANSPOSEMATRIXFARBPROC = procedure (m:TfMatrix4x4);cdecl;
 { was #define dname def_expr }
 function glLoadTransposeMatrixdARB : longint; { return type might be wrong }
 
@@ -10199,10 +8855,7 @@ function glMultTransposeMatrixfARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_transpose_matrix : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_transpose_matrix  }
 { ---------------------- GL_ARB_uniform_buffer_object ---------------------  }
-{$ifndef GL_ARB_uniform_buffer_object}
 
 const
   GL_ARB_uniform_buffer_object = 1;  
@@ -10240,25 +8893,15 @@ const
   GL_UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = $8A46;  
   GL_INVALID_INDEX = $FFFFFFFF;  
 type
-
   TPFNGLBINDBUFFERBASEPROC = procedure (target:TGLenum; index:TGLuint; buffer:TGLuint);cdecl;
-
   TPFNGLBINDBUFFERRANGEPROC = procedure (target:TGLenum; index:TGLuint; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr);cdecl;
-
   TPFNGLGETACTIVEUNIFORMBLOCKNAMEPROC = procedure (prog:TGLuint; uniformBlockIndex:TGLuint; bufSize:TGLsizei; length:PGLsizei; uniformBlockName:PGLchar);cdecl;
-
   TPFNGLGETACTIVEUNIFORMBLOCKIVPROC = procedure (prog:TGLuint; uniformBlockIndex:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETACTIVEUNIFORMNAMEPROC = procedure (prog:TGLuint; uniformIndex:TGLuint; bufSize:TGLsizei; length:PGLsizei; uniformName:PGLchar);cdecl;
-
   TPFNGLGETACTIVEUNIFORMSIVPROC = procedure (prog:TGLuint; uniformCount:TGLsizei; uniformIndices:PGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETINTEGERI_VPROC = procedure (target:TGLenum; index:TGLuint; data:PGLint);cdecl;
-
   TPFNGLGETUNIFORMBLOCKINDEXPROC = function (prog:TGLuint; uniformBlockName:PGLchar):TGLuint;cdecl;
-
   TPFNGLGETUNIFORMINDICESPROC = procedure (prog:TGLuint; uniformCount:TGLsizei; uniformNames:PPGLchar; uniformIndices:PGLuint);cdecl;
-
   TPFNGLUNIFORMBLOCKBINDINGPROC = procedure (prog:TGLuint; uniformBlockIndex:TGLuint; uniformBlockBinding:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -10294,10 +8937,7 @@ function glUniformBlockBinding : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_uniform_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_uniform_buffer_object  }
 { ------------------------ GL_ARB_vertex_array_bgra -----------------------  }
-{$ifndef GL_ARB_vertex_array_bgra}
 
 const
   GL_ARB_vertex_array_bgra = 1;  
@@ -10306,22 +8946,15 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_vertex_array_bgra : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_array_bgra  }
 { ----------------------- GL_ARB_vertex_array_object ----------------------  }
-{$ifndef GL_ARB_vertex_array_object}
 
 const
   GL_ARB_vertex_array_object = 1;  
   GL_VERTEX_ARRAY_BINDING = $85B5;  
 type
-
   TPFNGLBINDVERTEXARRAYPROC = procedure (array:TGLuint);cdecl;
-
   TPFNGLDELETEVERTEXARRAYSPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
-
   TPFNGLGENVERTEXARRAYSPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
-
   TPFNGLISVERTEXARRAYPROC = function (array:TGLuint):TGLboolean;cdecl;
 
 { was #define dname def_expr }
@@ -10339,33 +8972,20 @@ function glIsVertexArray : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_array_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_array_object  }
 { ----------------------- GL_ARB_vertex_attrib_64bit ----------------------  }
-{$ifndef GL_ARB_vertex_attrib_64bit}
 
 const
   GL_ARB_vertex_attrib_64bit = 1;  
 type
-
   TPFNGLGETVERTEXATTRIBLDVPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL1DPROC = procedure (index:TGLuint; x:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL1DVPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL2DPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL2DVPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL3DPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL3DVPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL4DPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble; w:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBL4DVPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIBLPOINTERPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -10401,10 +9021,7 @@ function glVertexAttribLPointer : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_attrib_64bit : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_attrib_64bit  }
 { ---------------------- GL_ARB_vertex_attrib_binding ---------------------  }
-{$ifndef GL_ARB_vertex_attrib_binding}
 
 const
   GL_ARB_vertex_attrib_binding = 1;  
@@ -10417,30 +9034,17 @@ const
   GL_MAX_VERTEX_ATTRIB_BINDINGS = $82DA;  
   GL_VERTEX_BINDING_BUFFER = $8F4F;  
 type
-
   TPFNGLBINDVERTEXBUFFERPROC = procedure (bindingindex:TGLuint; buffer:TGLuint; offset:TGLintptr; stride:TGLsizei);cdecl;
-
   TPFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC = procedure (vaobj:TGLuint; bindingindex:TGLuint; buffer:TGLuint; offset:TGLintptr; stride:TGLsizei);cdecl;
-
   TPFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; bindingindex:TGLuint);cdecl;
-
-  TPFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; 
-                relativeoffset:TGLuint);cdecl;
-
+  TPFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean;                relativeoffset:TGLuint);cdecl;
   TPFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC = procedure (vaobj:TGLuint; attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC = procedure (vaobj:TGLuint; bindingindex:TGLuint; divisor:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBBINDINGPROC = procedure (attribindex:TGLuint; bindingindex:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBFORMATPROC = procedure (attribindex:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBIFORMATPROC = procedure (attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBLFORMATPROC = procedure (attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
-
   TPFNGLVERTEXBINDINGDIVISORPROC = procedure (bindingindex:TGLuint; divisor:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -10482,10 +9086,7 @@ function glVertexBindingDivisor : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_attrib_binding : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_attrib_binding  }
 { -------------------------- GL_ARB_vertex_blend --------------------------  }
-{$ifndef GL_ARB_vertex_blend}
 
 const
   GL_ARB_vertex_blend = 1;  
@@ -10532,25 +9133,15 @@ const
   GL_MODELVIEW30_ARB = $873E;  
   GL_MODELVIEW31_ARB = $873F;  
 type
-
   TPFNGLVERTEXBLENDARBPROC = procedure (count:TGLint);cdecl;
-
   TPFNGLWEIGHTPOINTERARBPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
-
   TPFNGLWEIGHTBVARBPROC = procedure (size:TGLint; weights:PGLbyte);cdecl;
-
   TPFNGLWEIGHTDVARBPROC = procedure (size:TGLint; weights:PGLdouble);cdecl;
-
   TPFNGLWEIGHTFVARBPROC = procedure (size:TGLint; weights:PGLfloat);cdecl;
-
   TPFNGLWEIGHTIVARBPROC = procedure (size:TGLint; weights:PGLint);cdecl;
-
   TPFNGLWEIGHTSVARBPROC = procedure (size:TGLint; weights:PGLshort);cdecl;
-
   TPFNGLWEIGHTUBVARBPROC = procedure (size:TGLint; weights:PGLubyte);cdecl;
-
   TPFNGLWEIGHTUIVARBPROC = procedure (size:TGLint; weights:PGLuint);cdecl;
-
   TPFNGLWEIGHTUSVARBPROC = procedure (size:TGLint; weights:PGLushort);cdecl;
 
 { was #define dname def_expr }
@@ -10586,10 +9177,7 @@ function glWeightusvARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_blend : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_blend  }
 { ---------------------- GL_ARB_vertex_buffer_object ----------------------  }
-{$ifndef GL_ARB_vertex_buffer_object}
 
 const
   GL_ARB_vertex_buffer_object = 1;  
@@ -10632,26 +9220,15 @@ type
   TGLsizeiptrARB = Tptrdiff_t;
 
   TPFNGLBINDBUFFERARBPROC = procedure (target:TGLenum; buffer:TGLuint);cdecl;
-
   TPFNGLBUFFERDATAARBPROC = procedure (target:TGLenum; size:TGLsizeiptrARB; data:pointer; usage:TGLenum);cdecl;
-
   TPFNGLBUFFERSUBDATAARBPROC = procedure (target:TGLenum; offset:TGLintptrARB; size:TGLsizeiptrARB; data:pointer);cdecl;
-
   TPFNGLDELETEBUFFERSARBPROC = procedure (n:TGLsizei; buffers:PGLuint);cdecl;
-
   TPFNGLGENBUFFERSARBPROC = procedure (n:TGLsizei; buffers:PGLuint);cdecl;
-
   TPFNGLGETBUFFERPARAMETERIVARBPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETBUFFERPOINTERVARBPROC = procedure (target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;
-
   TPFNGLGETBUFFERSUBDATAARBPROC = procedure (target:TGLenum; offset:TGLintptrARB; size:TGLsizeiptrARB; data:pointer);cdecl;
-
   TPFNGLISBUFFERARBPROC = function (buffer:TGLuint):TGLboolean;cdecl;
-
-  PPFNGLMAPBUFFERARBPROC = ^TPFNGLMAPBUFFERARBPROC;
   TPFNGLMAPBUFFERARBPROC = function (target:TGLenum; access:TGLenum):pointer;cdecl;
-
   TPFNGLUNMAPBUFFERARBPROC = function (target:TGLenum):TGLboolean;cdecl;
 
 { was #define dname def_expr }
@@ -10690,10 +9267,7 @@ function glUnmapBufferARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_buffer_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_buffer_object  }
 { ------------------------- GL_ARB_vertex_program -------------------------  }
-{$ifndef GL_ARB_vertex_program}
 
 const
   GL_ARB_vertex_program = 1;  
@@ -10777,135 +9351,68 @@ const
   GL_MATRIX30_ARB = $88DE;  
   GL_MATRIX31_ARB = $88DF;  
 type
-
   TPFNGLBINDPROGRAMARBPROC = procedure (target:TGLenum; program:TGLuint);cdecl;
-
   TPFNGLDELETEPROGRAMSARBPROC = procedure (n:TGLsizei; programs:PGLuint);cdecl;
-
   TPFNGLDISABLEVERTEXATTRIBARRAYARBPROC = procedure (index:TGLuint);cdecl;
-
   TPFNGLENABLEVERTEXATTRIBARRAYARBPROC = procedure (index:TGLuint);cdecl;
-
   TPFNGLGENPROGRAMSARBPROC = procedure (n:TGLsizei; programs:PGLuint);cdecl;
-
   TPFNGLGETPROGRAMENVPARAMETERDVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLdouble);cdecl;
-
   TPFNGLGETPROGRAMENVPARAMETERFVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLfloat);cdecl;
-
   TPFNGLGETPROGRAMLOCALPARAMETERDVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLdouble);cdecl;
-
   TPFNGLGETPROGRAMLOCALPARAMETERFVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLfloat);cdecl;
-
   TPFNGLGETPROGRAMSTRINGARBPROC = procedure (target:TGLenum; pname:TGLenum; _string:pointer);cdecl;
-
   TPFNGLGETPROGRAMIVARBPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETVERTEXATTRIBPOINTERVARBPROC = procedure (index:TGLuint; pname:TGLenum; pointer:Ppointer);cdecl;
-
   TPFNGLGETVERTEXATTRIBDVARBPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLdouble);cdecl;
-
   TPFNGLGETVERTEXATTRIBFVARBPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETVERTEXATTRIBIVARBPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISPROGRAMARBPROC = function (prog:TGLuint):TGLboolean;cdecl;
-
-  TPFNGLPROGRAMENVPARAMETER4DARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble; 
-                w:TGLdouble);cdecl;
-
+  TPFNGLPROGRAMENVPARAMETER4DARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble;                w:TGLdouble);cdecl;
   TPFNGLPROGRAMENVPARAMETER4DVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLdouble);cdecl;
-
-  TPFNGLPROGRAMENVPARAMETER4FARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat; 
-                w:TGLfloat);cdecl;
-
+  TPFNGLPROGRAMENVPARAMETER4FARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat;                w:TGLfloat);cdecl;
   TPFNGLPROGRAMENVPARAMETER4FVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLfloat);cdecl;
-
-  TPFNGLPROGRAMLOCALPARAMETER4DARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble; 
-                w:TGLdouble);cdecl;
-
+  TPFNGLPROGRAMLOCALPARAMETER4DARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble;                w:TGLdouble);cdecl;
   TPFNGLPROGRAMLOCALPARAMETER4DVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLdouble);cdecl;
-
-  TPFNGLPROGRAMLOCALPARAMETER4FARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat; 
-                w:TGLfloat);cdecl;
-
+  TPFNGLPROGRAMLOCALPARAMETER4FARBPROC = procedure (target:TGLenum; index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat;                w:TGLfloat);cdecl;
   TPFNGLPROGRAMLOCALPARAMETER4FVARBPROC = procedure (target:TGLenum; index:TGLuint; params:PGLfloat);cdecl;
-
   TPFNGLPROGRAMSTRINGARBPROC = procedure (target:TGLenum; format:TGLenum; len:TGLsizei; _string:pointer);cdecl;
-
   TPFNGLVERTEXATTRIB1DARBPROC = procedure (index:TGLuint; x:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB1DVARBPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB1FARBPROC = procedure (index:TGLuint; x:TGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB1FVARBPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB1SARBPROC = procedure (index:TGLuint; x:TGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB1SVARBPROC = procedure (index:TGLuint; v:PGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB2DARBPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB2DVARBPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB2FARBPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB2FVARBPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB2SARBPROC = procedure (index:TGLuint; x:TGLshort; y:TGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB2SVARBPROC = procedure (index:TGLuint; v:PGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB3DARBPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB3DVARBPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB3FARBPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB3FVARBPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB3SARBPROC = procedure (index:TGLuint; x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB3SVARBPROC = procedure (index:TGLuint; v:PGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB4NBVARBPROC = procedure (index:TGLuint; v:PGLbyte);cdecl;
-
   TPFNGLVERTEXATTRIB4NIVARBPROC = procedure (index:TGLuint; v:PGLint);cdecl;
-
   TPFNGLVERTEXATTRIB4NSVARBPROC = procedure (index:TGLuint; v:PGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB4NUBARBPROC = procedure (index:TGLuint; x:TGLubyte; y:TGLubyte; z:TGLubyte; w:TGLubyte);cdecl;
-
   TPFNGLVERTEXATTRIB4NUBVARBPROC = procedure (index:TGLuint; v:PGLubyte);cdecl;
-
   TPFNGLVERTEXATTRIB4NUIVARBPROC = procedure (index:TGLuint; v:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIB4NUSVARBPROC = procedure (index:TGLuint; v:PGLushort);cdecl;
-
   TPFNGLVERTEXATTRIB4BVARBPROC = procedure (index:TGLuint; v:PGLbyte);cdecl;
-
   TPFNGLVERTEXATTRIB4DARBPROC = procedure (index:TGLuint; x:TGLdouble; y:TGLdouble; z:TGLdouble; w:TGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB4DVARBPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
-
   TPFNGLVERTEXATTRIB4FARBPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat; w:TGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB4FVARBPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
-
   TPFNGLVERTEXATTRIB4IVARBPROC = procedure (index:TGLuint; v:PGLint);cdecl;
-
   TPFNGLVERTEXATTRIB4SARBPROC = procedure (index:TGLuint; x:TGLshort; y:TGLshort; z:TGLshort; w:TGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB4SVARBPROC = procedure (index:TGLuint; v:PGLshort);cdecl;
-
   TPFNGLVERTEXATTRIB4UBVARBPROC = procedure (index:TGLuint; v:PGLubyte);cdecl;
-
   TPFNGLVERTEXATTRIB4UIVARBPROC = procedure (index:TGLuint; v:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIB4USVARBPROC = procedure (index:TGLuint; v:PGLushort);cdecl;
-
-  TPFNGLVERTEXATTRIBPOINTERARBPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei; 
-                pointer:pointer);cdecl;
+  TPFNGLVERTEXATTRIBPOINTERARBPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei;                pointer:pointer);cdecl;
 
 { was #define dname def_expr }
 function glBindProgramARB : longint; { return type might be wrong }
@@ -11096,10 +9603,7 @@ function glVertexAttribPointerARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_program : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_program  }
 { -------------------------- GL_ARB_vertex_shader -------------------------  }
-{$ifndef GL_ARB_vertex_shader}
 
 const
   GL_ARB_vertex_shader = 1;  
@@ -11111,12 +9615,8 @@ const
   GL_OBJECT_ACTIVE_ATTRIBUTES_ARB = $8B89;  
   GL_OBJECT_ACTIVE_ATTRIBUTE_MAX_LENGTH_ARB = $8B8A;  
 type
-
   TPFNGLBINDATTRIBLOCATIONARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; name:PGLcharARB);cdecl;
-
-  TPFNGLGETACTIVEATTRIBARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint; 
-                _type:PGLenum; name:PGLcharARB);cdecl;
-
+  TPFNGLGETACTIVEATTRIBARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint;                _type:PGLenum; name:PGLcharARB);cdecl;
   TPFNGLGETATTRIBLOCATIONARBPROC = function (programObj:TGLhandleARB; name:PGLcharARB):TGLint;cdecl;
 
 { was #define dname def_expr }
@@ -11131,10 +9631,7 @@ function glGetAttribLocationARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_shader  }
 { ------------------- GL_ARB_vertex_type_10f_11f_11f_rev ------------------  }
-{$ifndef GL_ARB_vertex_type_10f_11f_11f_rev}
 
 const
   GL_ARB_vertex_type_10f_11f_11f_rev = 1;  
@@ -11143,91 +9640,50 @@ const
 { was #define dname def_expr }
 function GLEW_ARB_vertex_type_10f_11f_11f_rev : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_type_10f_11f_11f_rev  }
 { ------------------- GL_ARB_vertex_type_2_10_10_10_rev -------------------  }
-{$ifndef GL_ARB_vertex_type_2_10_10_10_rev}
 
 const
   GL_ARB_vertex_type_2_10_10_10_rev = 1;  
   GL_UNSIGNED_INT_2_10_10_10_REV = $8368;  
   GL_INT_2_10_10_10_REV = $8D9F;  
 type
-
   TPFNGLCOLORP3UIPROC = procedure (_type:TGLenum; color:TGLuint);cdecl;
-
   TPFNGLCOLORP3UIVPROC = procedure (_type:TGLenum; color:PGLuint);cdecl;
-
   TPFNGLCOLORP4UIPROC = procedure (_type:TGLenum; color:TGLuint);cdecl;
-
   TPFNGLCOLORP4UIVPROC = procedure (_type:TGLenum; color:PGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP1UIPROC = procedure (texture:TGLenum; _type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP1UIVPROC = procedure (texture:TGLenum; _type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP2UIPROC = procedure (texture:TGLenum; _type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP2UIVPROC = procedure (texture:TGLenum; _type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP3UIPROC = procedure (texture:TGLenum; _type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP3UIVPROC = procedure (texture:TGLenum; _type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP4UIPROC = procedure (texture:TGLenum; _type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLMULTITEXCOORDP4UIVPROC = procedure (texture:TGLenum; _type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLNORMALP3UIPROC = procedure (_type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLNORMALP3UIVPROC = procedure (_type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLSECONDARYCOLORP3UIPROC = procedure (_type:TGLenum; color:TGLuint);cdecl;
-
   TPFNGLSECONDARYCOLORP3UIVPROC = procedure (_type:TGLenum; color:PGLuint);cdecl;
-
   TPFNGLTEXCOORDP1UIPROC = procedure (_type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLTEXCOORDP1UIVPROC = procedure (_type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLTEXCOORDP2UIPROC = procedure (_type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLTEXCOORDP2UIVPROC = procedure (_type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLTEXCOORDP3UIPROC = procedure (_type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLTEXCOORDP3UIVPROC = procedure (_type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLTEXCOORDP4UIPROC = procedure (_type:TGLenum; coords:TGLuint);cdecl;
-
   TPFNGLTEXCOORDP4UIVPROC = procedure (_type:TGLenum; coords:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP1UIPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP1UIVPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP2UIPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP2UIVPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP3UIPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP3UIVPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:PGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP4UIPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:TGLuint);cdecl;
-
   TPFNGLVERTEXATTRIBP4UIVPROC = procedure (index:TGLuint; _type:TGLenum; normalized:TGLboolean; value:PGLuint);cdecl;
-
   TPFNGLVERTEXP2UIPROC = procedure (_type:TGLenum; value:TGLuint);cdecl;
-
   TPFNGLVERTEXP2UIVPROC = procedure (_type:TGLenum; value:PGLuint);cdecl;
-
   TPFNGLVERTEXP3UIPROC = procedure (_type:TGLenum; value:TGLuint);cdecl;
-
   TPFNGLVERTEXP3UIVPROC = procedure (_type:TGLenum; value:PGLuint);cdecl;
-
   TPFNGLVERTEXP4UIPROC = procedure (_type:TGLenum; value:TGLuint);cdecl;
-
   TPFNGLVERTEXP4UIVPROC = procedure (_type:TGLenum; value:PGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -11347,10 +9803,7 @@ function glVertexP4uiv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_vertex_type_2_10_10_10_rev : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_vertex_type_2_10_10_10_rev  }
 { ------------------------- GL_ARB_viewport_array -------------------------  }
-{$ifndef GL_ARB_viewport_array}
 
 const
   GL_ARB_viewport_array = 1;  
@@ -11368,25 +9821,15 @@ const
   GL_LAST_VERTEX_CONVENTION = $8E4E;  
   GL_PROVOKING_VERTEX = $8E4F;  
 type
-
   TPFNGLDEPTHRANGEARRAYVPROC = procedure (first:TGLuint; count:TGLsizei; v:PGLclampd);cdecl;
-
   TPFNGLDEPTHRANGEINDEXEDPROC = procedure (index:TGLuint; n:TGLclampd; f:TGLclampd);cdecl;
-
   TPFNGLGETDOUBLEI_VPROC = procedure (target:TGLenum; index:TGLuint; data:PGLdouble);cdecl;
-
   TPFNGLGETFLOATI_VPROC = procedure (target:TGLenum; index:TGLuint; data:PGLfloat);cdecl;
-
   TPFNGLSCISSORARRAYVPROC = procedure (first:TGLuint; count:TGLsizei; v:PGLint);cdecl;
-
   TPFNGLSCISSORINDEXEDPROC = procedure (index:TGLuint; left:TGLint; bottom:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
-
   TPFNGLSCISSORINDEXEDVPROC = procedure (index:TGLuint; v:PGLint);cdecl;
-
   TPFNGLVIEWPORTARRAYVPROC = procedure (first:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
-
   TPFNGLVIEWPORTINDEXEDFPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat; w:TGLfloat; h:TGLfloat);cdecl;
-
   TPFNGLVIEWPORTINDEXEDFVPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
 
 { was #define dname def_expr }
@@ -11422,45 +9865,26 @@ function glViewportIndexedfv : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_viewport_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_viewport_array  }
 { --------------------------- GL_ARB_window_pos ---------------------------  }
-{$ifndef GL_ARB_window_pos}
 
 const
   GL_ARB_window_pos = 1;  
 type
-
   TPFNGLWINDOWPOS2DARBPROC = procedure (x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLWINDOWPOS2DVARBPROC = procedure (p:PGLdouble);cdecl;
-
   TPFNGLWINDOWPOS2FARBPROC = procedure (x:TGLfloat; y:TGLfloat);cdecl;
-
   TPFNGLWINDOWPOS2FVARBPROC = procedure (p:PGLfloat);cdecl;
-
   TPFNGLWINDOWPOS2IARBPROC = procedure (x:TGLint; y:TGLint);cdecl;
-
   TPFNGLWINDOWPOS2IVARBPROC = procedure (p:PGLint);cdecl;
-
   TPFNGLWINDOWPOS2SARBPROC = procedure (x:TGLshort; y:TGLshort);cdecl;
-
   TPFNGLWINDOWPOS2SVARBPROC = procedure (p:PGLshort);cdecl;
-
   TPFNGLWINDOWPOS3DARBPROC = procedure (x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLWINDOWPOS3DVARBPROC = procedure (p:PGLdouble);cdecl;
-
   TPFNGLWINDOWPOS3FARBPROC = procedure (x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLWINDOWPOS3FVARBPROC = procedure (p:PGLfloat);cdecl;
-
   TPFNGLWINDOWPOS3IARBPROC = procedure (x:TGLint; y:TGLint; z:TGLint);cdecl;
-
   TPFNGLWINDOWPOS3IVARBPROC = procedure (p:PGLint);cdecl;
-
   TPFNGLWINDOWPOS3SARBPROC = procedure (x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
-
   TPFNGLWINDOWPOS3SVARBPROC = procedure (p:PGLshort);cdecl;
 
 { was #define dname def_expr }
@@ -11514,10 +9938,7 @@ function glWindowPos3svARB : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ARB_window_pos : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARB_window_pos  }
 { ----------------------- GL_ARM_mali_program_binary ----------------------  }
-{$ifndef GL_ARM_mali_program_binary}
 
 const
   GL_ARM_mali_program_binary = 1;  
@@ -11526,10 +9947,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_mali_program_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_mali_program_binary  }
 { ----------------------- GL_ARM_mali_shader_binary -----------------------  }
-{$ifndef GL_ARM_mali_shader_binary}
 
 const
   GL_ARM_mali_shader_binary = 1;  
@@ -11538,10 +9956,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_mali_shader_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_mali_shader_binary  }
 { ------------------------------ GL_ARM_rgba8 -----------------------------  }
-{$ifndef GL_ARM_rgba8}
 
 const
   GL_ARM_rgba8 = 1;  
@@ -11550,10 +9965,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_rgba8 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_rgba8  }
 { -------------------- GL_ARM_shader_framebuffer_fetch --------------------  }
-{$ifndef GL_ARM_shader_framebuffer_fetch}
 
 const
   GL_ARM_shader_framebuffer_fetch = 1;  
@@ -11563,10 +9975,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_shader_framebuffer_fetch : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_shader_framebuffer_fetch  }
 { ------------- GL_ARM_shader_framebuffer_fetch_depth_stencil -------------  }
-{$ifndef GL_ARM_shader_framebuffer_fetch_depth_stencil}
 
 const
   GL_ARM_shader_framebuffer_fetch_depth_stencil = 1;  
@@ -11574,10 +9983,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_shader_framebuffer_fetch_depth_stencil : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_shader_framebuffer_fetch_depth_stencil  }
 { ---------------- GL_ARM_texture_unnormalized_coordinates ----------------  }
-{$ifndef GL_ARM_texture_unnormalized_coordinates}
 
 const
   GL_ARM_texture_unnormalized_coordinates = 1;  
@@ -11586,10 +9992,7 @@ const
 { was #define dname def_expr }
 function GLEW_ARM_texture_unnormalized_coordinates : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ARM_texture_unnormalized_coordinates  }
 { ------------------------- GL_ATIX_point_sprites -------------------------  }
-{$ifndef GL_ATIX_point_sprites}
 
 const
   GL_ATIX_point_sprites = 1;  
@@ -11603,10 +10006,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATIX_point_sprites : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATIX_point_sprites  }
 { ---------------------- GL_ATIX_texture_env_combine3 ---------------------  }
-{$ifndef GL_ATIX_texture_env_combine3}
 
 const
   GL_ATIX_texture_env_combine3 = 1;  
@@ -11617,10 +10017,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATIX_texture_env_combine3 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATIX_texture_env_combine3  }
 { ----------------------- GL_ATIX_texture_env_route -----------------------  }
-{$ifndef GL_ATIX_texture_env_route}
 
 const
   GL_ATIX_texture_env_route = 1;  
@@ -11631,10 +10028,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATIX_texture_env_route : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATIX_texture_env_route  }
 { ---------------- GL_ATIX_vertex_shader_output_point_size ----------------  }
-{$ifndef GL_ATIX_vertex_shader_output_point_size}
 
 const
   GL_ATIX_vertex_shader_output_point_size = 1;  
@@ -11643,10 +10037,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATIX_vertex_shader_output_point_size : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATIX_vertex_shader_output_point_size  }
 { -------------------------- GL_ATI_draw_buffers --------------------------  }
-{$ifndef GL_ATI_draw_buffers}
 
 const
   GL_ATI_draw_buffers = 1;  
@@ -11668,7 +10059,6 @@ const
   GL_DRAW_BUFFER14_ATI = $8833;  
   GL_DRAW_BUFFER15_ATI = $8834;  
 type
-
   TPFNGLDRAWBUFFERSATIPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -11677,10 +10067,7 @@ function glDrawBuffersATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_draw_buffers : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_draw_buffers  }
 { -------------------------- GL_ATI_element_array -------------------------  }
-{$ifndef GL_ATI_element_array}
 
 const
   GL_ATI_element_array = 1;  
@@ -11688,11 +10075,8 @@ const
   GL_ELEMENT_ARRAY_TYPE_ATI = $8769;  
   GL_ELEMENT_ARRAY_POINTER_ATI = $876A;  
 type
-
   TPFNGLDRAWELEMENTARRAYATIPROC = procedure (mode:TGLenum; count:TGLsizei);cdecl;
-
   TPFNGLDRAWRANGEELEMENTARRAYATIPROC = procedure (mode:TGLenum; start:TGLuint; end:TGLuint; count:TGLsizei);cdecl;
-
   TPFNGLELEMENTPOINTERATIPROC = procedure (_type:TGLenum; pointer:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -11723,13 +10107,9 @@ const
   GL_BUMP_ENVMAP_ATI = $877B;  
   GL_BUMP_TARGET_ATI = $877C;  
 type
-
   TPFNGLGETTEXBUMPPARAMETERFVATIPROC = procedure (pname:TGLenum; param:PGLfloat);cdecl;
-
   TPFNGLGETTEXBUMPPARAMETERIVATIPROC = procedure (pname:TGLenum; param:PGLint);cdecl;
-
   TPFNGLTEXBUMPPARAMETERFVATIPROC = procedure (pname:TGLenum; param:PGLfloat);cdecl;
-
   TPFNGLTEXBUMPPARAMETERIVATIPROC = procedure (pname:TGLenum; param:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -11747,10 +10127,7 @@ function glTexBumpParameterivATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_envmap_bumpmap : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_envmap_bumpmap  }
 { ------------------------- GL_ATI_fragment_shader ------------------------  }
-{$ifndef GL_ATI_fragment_shader}
 
 const
   GL_ATI_fragment_shader = 1;  
@@ -11809,41 +10186,25 @@ const
   GL_SWIZZLE_STRQ_ATI = $897A;  
   GL_SWIZZLE_STRQ_DQ_ATI = $897B;  
 type
-
-  TPFNGLALPHAFRAGMENTOP1ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint; 
-                arg1Mod:TGLuint);cdecl;
-
-  TPFNGLALPHAFRAGMENTOP2ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint; 
+  TPFNGLALPHAFRAGMENTOP1ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint;                arg1Mod:TGLuint);cdecl;
+  TPFNGLALPHAFRAGMENTOP2ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint;
                 arg1Mod:TGLuint; arg2:TGLuint; arg2Rep:TGLuint; arg2Mod:TGLuint);cdecl;
-
-  TPFNGLALPHAFRAGMENTOP3ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint; 
+  TPFNGLALPHAFRAGMENTOP3ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMod:TGLuint; arg1:TGLuint; arg1Rep:TGLuint;
                 arg1Mod:TGLuint; arg2:TGLuint; arg2Rep:TGLuint; arg2Mod:TGLuint; arg3:TGLuint; 
                 arg3Rep:TGLuint; arg3Mod:TGLuint);cdecl;
-
   TPFNGLBEGINFRAGMENTSHADERATIPROC = procedure (para1:pointer);cdecl;
-
   TPFNGLBINDFRAGMENTSHADERATIPROC = procedure (id:TGLuint);cdecl;
-
-  TPFNGLCOLORFRAGMENTOP1ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint; 
-                arg1Rep:TGLuint; arg1Mod:TGLuint);cdecl;
-
-  TPFNGLCOLORFRAGMENTOP2ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint; 
+  TPFNGLCOLORFRAGMENTOP1ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint;                arg1Rep:TGLuint; arg1Mod:TGLuint);cdecl;
+  TPFNGLCOLORFRAGMENTOP2ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint;
                 arg1Rep:TGLuint; arg1Mod:TGLuint; arg2:TGLuint; arg2Rep:TGLuint; arg2Mod:TGLuint);cdecl;
-
-  TPFNGLCOLORFRAGMENTOP3ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint; 
+  TPFNGLCOLORFRAGMENTOP3ATIPROC = procedure (op:TGLenum; dst:TGLuint; dstMask:TGLuint; dstMod:TGLuint; arg1:TGLuint;
                 arg1Rep:TGLuint; arg1Mod:TGLuint; arg2:TGLuint; arg2Rep:TGLuint; arg2Mod:TGLuint; 
                 arg3:TGLuint; arg3Rep:TGLuint; arg3Mod:TGLuint);cdecl;
-
   TPFNGLDELETEFRAGMENTSHADERATIPROC = procedure (id:TGLuint);cdecl;
-
   TPFNGLENDFRAGMENTSHADERATIPROC = procedure (para1:pointer);cdecl;
-
   TPFNGLGENFRAGMENTSHADERSATIPROC = function (range:TGLuint):TGLuint;cdecl;
-
   TPFNGLPASSTEXCOORDATIPROC = procedure (dst:TGLuint; coord:TGLuint; swizzle:TGLenum);cdecl;
-
   TPFNGLSAMPLEMAPATIPROC = procedure (dst:TGLuint; interp:TGLuint; swizzle:TGLenum);cdecl;
-
   TPFNGLSETFRAGMENTSHADERCONSTANTATIPROC = procedure (dst:TGLuint; value:PGLfloat);cdecl;
 
 { was #define dname def_expr }
@@ -11891,17 +10252,12 @@ function glSetFragmentShaderConstantATI : longint; { return type might be wrong 
 { was #define dname def_expr }
 function GLEW_ATI_fragment_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_fragment_shader  }
 { ------------------------ GL_ATI_map_object_buffer -----------------------  }
-{$ifndef GL_ATI_map_object_buffer}
 
 const
   GL_ATI_map_object_buffer = 1;  
 type
-  PPFNGLMAPOBJECTBUFFERATIPROC = ^TPFNGLMAPOBJECTBUFFERATIPROC;
   TPFNGLMAPOBJECTBUFFERATIPROC = function (buffer:TGLuint):pointer;cdecl;
-
   TPFNGLUNMAPOBJECTBUFFERATIPROC = procedure (buffer:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -11913,10 +10269,7 @@ function glUnmapObjectBufferATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_map_object_buffer : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_map_object_buffer  }
 { ----------------------------- GL_ATI_meminfo ----------------------------  }
-{$ifndef GL_ATI_meminfo}
 
 const
   GL_ATI_meminfo = 1;  
@@ -11927,10 +10280,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_meminfo : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_meminfo  }
 { -------------------------- GL_ATI_pn_triangles --------------------------  }
-{$ifndef GL_ATI_pn_triangles}
 
 const
   GL_ATI_pn_triangles = 1;  
@@ -11944,9 +10294,7 @@ const
   GL_PN_TRIANGLES_NORMAL_MODE_LINEAR_ATI = $87F7;  
   GL_PN_TRIANGLES_NORMAL_MODE_QUADRATIC_ATI = $87F8;  
 type
-
   TPFNGLPNTRIANGLESFATIPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLPNTRIANGLESIATIPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
 
 { was #define dname def_expr }
@@ -11958,10 +10306,7 @@ function glPNTrianglesiATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_pn_triangles : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_pn_triangles  }
 { ------------------------ GL_ATI_separate_stencil ------------------------  }
-{$ifndef GL_ATI_separate_stencil}
 
 const
   GL_ATI_separate_stencil = 1;  
@@ -11970,9 +10315,7 @@ const
   GL_STENCIL_BACK_PASS_DEPTH_FAIL_ATI = $8802;  
   GL_STENCIL_BACK_PASS_DEPTH_PASS_ATI = $8803;  
 type
-
   TPFNGLSTENCILFUNCSEPARATEATIPROC = procedure (frontfunc:TGLenum; backfunc:TGLenum; ref:TGLint; mask:TGLuint);cdecl;
-
   TPFNGLSTENCILOPSEPARATEATIPROC = procedure (face:TGLenum; sfail:TGLenum; dpfail:TGLenum; dppass:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -11984,10 +10327,7 @@ function glStencilOpSeparateATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_separate_stencil : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_separate_stencil  }
 { ----------------------- GL_ATI_shader_texture_lod -----------------------  }
-{$ifndef GL_ATI_shader_texture_lod}
 
 const
   GL_ATI_shader_texture_lod = 1;  
@@ -11995,10 +10335,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_shader_texture_lod : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_shader_texture_lod  }
 { ---------------------- GL_ATI_text_fragment_shader ----------------------  }
-{$ifndef GL_ATI_text_fragment_shader}
 
 const
   GL_ATI_text_fragment_shader = 1;  
@@ -12007,10 +10344,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_text_fragment_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_text_fragment_shader  }
 { --------------------- GL_ATI_texture_compression_3dc --------------------  }
-{$ifndef GL_ATI_texture_compression_3dc}
 
 const
   GL_ATI_texture_compression_3dc = 1;  
@@ -12019,10 +10353,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_texture_compression_3dc : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_texture_compression_3dc  }
 { ---------------------- GL_ATI_texture_env_combine3 ----------------------  }
-{$ifndef GL_ATI_texture_env_combine3}
 
 const
   GL_ATI_texture_env_combine3 = 1;  
@@ -12033,10 +10364,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_texture_env_combine3 : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_texture_env_combine3  }
 { -------------------------- GL_ATI_texture_float -------------------------  }
-{$ifndef GL_ATI_texture_float}
 
 const
   GL_ATI_texture_float = 1;  
@@ -12056,10 +10384,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_texture_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_texture_float  }
 { ----------------------- GL_ATI_texture_mirror_once ----------------------  }
-{$ifndef GL_ATI_texture_mirror_once}
 
 const
   GL_ATI_texture_mirror_once = 1;  
@@ -12069,10 +10394,7 @@ const
 { was #define dname def_expr }
 function GLEW_ATI_texture_mirror_once : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_texture_mirror_once  }
 { ----------------------- GL_ATI_vertex_array_object ----------------------  }
-{$ifndef GL_ATI_vertex_array_object}
 
 const
   GL_ATI_vertex_array_object = 1;  
@@ -12085,30 +10407,17 @@ const
   GL_ARRAY_OBJECT_BUFFER_ATI = $8766;  
   GL_ARRAY_OBJECT_OFFSET_ATI = $8767;  
 type
-
-  TPFNGLARRAYOBJECTATIPROC = procedure (array:TGLenum; size:TGLint; _type:TGLenum; stride:TGLsizei; buffer:TGLuint; 
-                offset:TGLuint);cdecl;
-
+  TPFNGLARRAYOBJECTATIPROC = procedure (array:TGLenum; size:TGLint; _type:TGLenum; stride:TGLsizei; buffer:TGLuint;                offset:TGLuint);cdecl;
   TPFNGLFREEOBJECTBUFFERATIPROC = procedure (buffer:TGLuint);cdecl;
-
   TPFNGLGETARRAYOBJECTFVATIPROC = procedure (array:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETARRAYOBJECTIVATIPROC = procedure (array:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETOBJECTBUFFERFVATIPROC = procedure (buffer:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETOBJECTBUFFERIVATIPROC = procedure (buffer:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLGETVARIANTARRAYOBJECTFVATIPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETVARIANTARRAYOBJECTIVATIPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLISOBJECTBUFFERATIPROC = function (buffer:TGLuint):TGLboolean;cdecl;
-
   TPFNGLNEWOBJECTBUFFERATIPROC = function (size:TGLsizei; pointer:pointer; usage:TGLenum):TGLuint;cdecl;
-
   TPFNGLUPDATEOBJECTBUFFERATIPROC = procedure (buffer:TGLuint; offset:TGLuint; size:TGLsizei; pointer:pointer; preserve:TGLenum);cdecl;
-
   TPFNGLVARIANTARRAYOBJECTATIPROC = procedure (id:TGLuint; _type:TGLenum; stride:TGLsizei; buffer:TGLuint; offset:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -12150,21 +10459,14 @@ function glVariantArrayObjectATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_vertex_array_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_vertex_array_object  }
 { ------------------- GL_ATI_vertex_attrib_array_object -------------------  }
-{$ifndef GL_ATI_vertex_attrib_array_object}
 
 const
   GL_ATI_vertex_attrib_array_object = 1;  
 type
-
   TPFNGLGETVERTEXATTRIBARRAYOBJECTFVATIPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLint);cdecl;
-
-  TPFNGLVERTEXATTRIBARRAYOBJECTATIPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei; 
-                buffer:TGLuint; offset:TGLuint);cdecl;
+  TPFNGLVERTEXATTRIBARRAYOBJECTATIPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei;                buffer:TGLuint; offset:TGLuint);cdecl;
 
 { was #define dname def_expr }
 function glGetVertexAttribArrayObjectfvATI : longint; { return type might be wrong }
@@ -12178,10 +10480,7 @@ function glVertexAttribArrayObjectATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_vertex_attrib_array_object : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_vertex_attrib_array_object  }
 { ------------------------- GL_ATI_vertex_streams -------------------------  }
-{$ifndef GL_ATI_vertex_streams}
 
 const
   GL_ATI_vertex_streams = 1;  
@@ -12196,95 +10495,50 @@ const
   GL_VERTEX_STREAM6_ATI = $8773;  
   GL_VERTEX_STREAM7_ATI = $8774;  
 type
-
   TPFNGLCLIENTACTIVEVERTEXSTREAMATIPROC = procedure (stream:TGLenum);cdecl;
-
   TPFNGLNORMALSTREAM3BATIPROC = procedure (stream:TGLenum; x:TGLbyte; y:TGLbyte; z:TGLbyte);cdecl;
-
   TPFNGLNORMALSTREAM3BVATIPROC = procedure (stream:TGLenum; coords:PGLbyte);cdecl;
-
   TPFNGLNORMALSTREAM3DATIPROC = procedure (stream:TGLenum; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLNORMALSTREAM3DVATIPROC = procedure (stream:TGLenum; coords:PGLdouble);cdecl;
-
   TPFNGLNORMALSTREAM3FATIPROC = procedure (stream:TGLenum; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLNORMALSTREAM3FVATIPROC = procedure (stream:TGLenum; coords:PGLfloat);cdecl;
-
   TPFNGLNORMALSTREAM3IATIPROC = procedure (stream:TGLenum; x:TGLint; y:TGLint; z:TGLint);cdecl;
-
   TPFNGLNORMALSTREAM3IVATIPROC = procedure (stream:TGLenum; coords:PGLint);cdecl;
-
   TPFNGLNORMALSTREAM3SATIPROC = procedure (stream:TGLenum; x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
-
   TPFNGLNORMALSTREAM3SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
-
   TPFNGLVERTEXBLENDENVFATIPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLVERTEXBLENDENVIATIPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLVERTEXSTREAM1DATIPROC = procedure (stream:TGLenum; x:TGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM1DVATIPROC = procedure (stream:TGLenum; coords:PGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM1FATIPROC = procedure (stream:TGLenum; x:TGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM1FVATIPROC = procedure (stream:TGLenum; coords:PGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM1IATIPROC = procedure (stream:TGLenum; x:TGLint);cdecl;
-
   TPFNGLVERTEXSTREAM1IVATIPROC = procedure (stream:TGLenum; coords:PGLint);cdecl;
-
   TPFNGLVERTEXSTREAM1SATIPROC = procedure (stream:TGLenum; x:TGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM1SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM2DATIPROC = procedure (stream:TGLenum; x:TGLdouble; y:TGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM2DVATIPROC = procedure (stream:TGLenum; coords:PGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM2FATIPROC = procedure (stream:TGLenum; x:TGLfloat; y:TGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM2FVATIPROC = procedure (stream:TGLenum; coords:PGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM2IATIPROC = procedure (stream:TGLenum; x:TGLint; y:TGLint);cdecl;
-
   TPFNGLVERTEXSTREAM2IVATIPROC = procedure (stream:TGLenum; coords:PGLint);cdecl;
-
   TPFNGLVERTEXSTREAM2SATIPROC = procedure (stream:TGLenum; x:TGLshort; y:TGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM2SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM3DATIPROC = procedure (stream:TGLenum; x:TGLdouble; y:TGLdouble; z:TGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM3DVATIPROC = procedure (stream:TGLenum; coords:PGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM3FATIPROC = procedure (stream:TGLenum; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM3FVATIPROC = procedure (stream:TGLenum; coords:PGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM3IATIPROC = procedure (stream:TGLenum; x:TGLint; y:TGLint; z:TGLint);cdecl;
-
   TPFNGLVERTEXSTREAM3IVATIPROC = procedure (stream:TGLenum; coords:PGLint);cdecl;
-
   TPFNGLVERTEXSTREAM3SATIPROC = procedure (stream:TGLenum; x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM3SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM4DATIPROC = procedure (stream:TGLenum; x:TGLdouble; y:TGLdouble; z:TGLdouble; w:TGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM4DVATIPROC = procedure (stream:TGLenum; coords:PGLdouble);cdecl;
-
   TPFNGLVERTEXSTREAM4FATIPROC = procedure (stream:TGLenum; x:TGLfloat; y:TGLfloat; z:TGLfloat; w:TGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM4FVATIPROC = procedure (stream:TGLenum; coords:PGLfloat);cdecl;
-
   TPFNGLVERTEXSTREAM4IATIPROC = procedure (stream:TGLenum; x:TGLint; y:TGLint; z:TGLint; w:TGLint);cdecl;
-
   TPFNGLVERTEXSTREAM4IVATIPROC = procedure (stream:TGLenum; coords:PGLint);cdecl;
-
   TPFNGLVERTEXSTREAM4SATIPROC = procedure (stream:TGLenum; x:TGLshort; y:TGLshort; z:TGLshort; w:TGLshort);cdecl;
-
   TPFNGLVERTEXSTREAM4SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
 
 { was #define dname def_expr }
@@ -12425,10 +10679,7 @@ function glVertexStream4svATI : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_ATI_vertex_streams : longint; { return type might be wrong }
 
-{$endif}
-{ GL_ATI_vertex_streams  }
 { ------------------------- GL_DMP_program_binary -------------------------  }
-{$ifndef GL_DMP_program_binary}
 
 const
   GL_DMP_program_binary = 1;  
@@ -12439,10 +10690,7 @@ const
 { was #define dname def_expr }
 function GLEW_DMP_program_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_DMP_program_binary  }
 { -------------------------- GL_DMP_shader_binary -------------------------  }
-{$ifndef GL_DMP_shader_binary}
 
 const
   GL_DMP_shader_binary = 1;  
@@ -12451,10 +10699,7 @@ const
 { was #define dname def_expr }
 function GLEW_DMP_shader_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_DMP_shader_binary  }
 { --------------------------- GL_EXT_422_pixels ---------------------------  }
-{$ifndef GL_EXT_422_pixels}
 
 const
   GL_EXT_422_pixels = 1;  
@@ -12466,10 +10711,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_422_pixels : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_422_pixels  }
 { ---------------------------- GL_EXT_Cg_shader ---------------------------  }
-{$ifndef GL_EXT_Cg_shader}
 
 const
   GL_EXT_Cg_shader = 1;  
@@ -12479,10 +10721,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_Cg_shader : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_Cg_shader  }
 { ------------------------- GL_EXT_EGL_image_array ------------------------  }
-{$ifndef GL_EXT_EGL_image_array}
 
 const
   GL_EXT_EGL_image_array = 1;  
@@ -12490,10 +10729,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_EGL_image_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_EGL_image_array  }
 { ------------------ GL_EXT_EGL_image_external_wrap_modes -----------------  }
-{$ifndef GL_EXT_EGL_image_external_wrap_modes}
 
 const
   GL_EXT_EGL_image_external_wrap_modes = 1;  
@@ -12501,17 +10737,12 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_EGL_image_external_wrap_modes : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_EGL_image_external_wrap_modes  }
 { ------------------------ GL_EXT_EGL_image_storage -----------------------  }
-{$ifndef GL_EXT_EGL_image_storage}
 
 const
   GL_EXT_EGL_image_storage = 1;  
 type
-
   TPFNGLEGLIMAGETARGETTEXSTORAGEEXTPROC = procedure (target:TGLenum; image:TGLeglImageOES; attrib_list:PGLint);cdecl;
-
   TPFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC = procedure (texture:TGLuint; image:TGLeglImageOES; attrib_list:PGLint);cdecl;
 
 { was #define dname def_expr }
@@ -12523,10 +10754,7 @@ function glEGLImageTargetTextureStorageEXT : longint; { return type might be wro
 { was #define dname def_expr }
 function GLEW_EXT_EGL_image_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_EGL_image_storage  }
 { ---------------------------- GL_EXT_EGL_sync ----------------------------  }
-{$ifndef GL_EXT_EGL_sync}
 
 const
   GL_EXT_EGL_sync = 1;  
@@ -12534,10 +10762,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_EGL_sync : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_EGL_sync  }
 { --------------------------- GL_EXT_YUV_target ---------------------------  }
-{$ifndef GL_EXT_YUV_target}
 
 const
   GL_EXT_YUV_target = 1;  
@@ -12546,10 +10771,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_YUV_target : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_YUV_target  }
 { ------------------------------ GL_EXT_abgr ------------------------------  }
-{$ifndef GL_EXT_abgr}
 
 const
   GL_EXT_abgr = 1;  
@@ -12558,22 +10780,14 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_abgr : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_abgr  }
 { -------------------------- GL_EXT_base_instance -------------------------  }
-{$ifndef GL_EXT_base_instance}
 
 const
   GL_EXT_base_instance = 1;  
 type
-
   TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEEXTPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; instancecount:TGLsizei; baseinstance:TGLuint);cdecl;
-
-  TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei; 
-                baseinstance:TGLuint);cdecl;
-
-  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei; 
-                basevertex:TGLint; baseinstance:TGLuint);cdecl;
+  TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei;                baseinstance:TGLuint);cdecl;
+  TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei;                basevertex:TGLint; baseinstance:TGLuint);cdecl;
 
 { was #define dname def_expr }
 function glDrawArraysInstancedBaseInstanceEXT : longint; { return type might be wrong }
@@ -12587,10 +10801,7 @@ function glDrawElementsInstancedBaseVertexBaseInstanceEXT : longint; { return ty
 { was #define dname def_expr }
 function GLEW_EXT_base_instance : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_base_instance  }
 { ------------------------------ GL_EXT_bgra ------------------------------  }
-{$ifndef GL_EXT_bgra}
 
 const
   GL_EXT_bgra = 1;  
@@ -12600,10 +10811,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_bgra : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_bgra  }
 { ------------------------ GL_EXT_bindable_uniform ------------------------  }
-{$ifndef GL_EXT_bindable_uniform}
 
 const
   GL_EXT_bindable_uniform = 1;  
@@ -12614,11 +10822,8 @@ const
   GL_UNIFORM_BUFFER_EXT = $8DEE;  
   GL_UNIFORM_BUFFER_BINDING_EXT = $8DEF;  
 type
-
   TPFNGLGETUNIFORMBUFFERSIZEEXTPROC = function (prog:TGLuint; location:TGLint):TGLint;cdecl;
-
   TPFNGLGETUNIFORMOFFSETEXTPROC = function (prog:TGLuint; location:TGLint):TGLintptr;cdecl;
-
   TPFNGLUNIFORMBUFFEREXTPROC = procedure (prog:TGLuint; location:TGLint; buffer:TGLuint);cdecl;
 
 { was #define dname def_expr }
@@ -12633,10 +10838,7 @@ function glUniformBufferEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_bindable_uniform : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_bindable_uniform  }
 { --------------------------- GL_EXT_blend_color --------------------------  }
-{$ifndef GL_EXT_blend_color}
 
 const
   GL_EXT_blend_color = 1;  
@@ -12646,7 +10848,6 @@ const
   GL_ONE_MINUS_CONSTANT_ALPHA_EXT = $8004;  
   GL_BLEND_COLOR_EXT = $8005;  
 type
-
   TPFNGLBLENDCOLOREXTPROC = procedure (red:TGLclampf; green:TGLclampf; blue:TGLclampf; alpha:TGLclampf);cdecl;
 
 { was #define dname def_expr }
@@ -12655,17 +10856,13 @@ function glBlendColorEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_blend_color : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_color  }
 { --------------------- GL_EXT_blend_equation_separate --------------------  }
-{$ifndef GL_EXT_blend_equation_separate}
 
 const
   GL_EXT_blend_equation_separate = 1;  
   GL_BLEND_EQUATION_RGB_EXT = $8009;  
   GL_BLEND_EQUATION_ALPHA_EXT = $883D;  
 type
-
   TPFNGLBLENDEQUATIONSEPARATEEXTPROC = procedure (modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -12674,10 +10871,7 @@ function glBlendEquationSeparateEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_blend_equation_separate : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_equation_separate  }
 { ----------------------- GL_EXT_blend_func_extended ----------------------  }
-{$ifndef GL_EXT_blend_func_extended}
 
 const
   GL_EXT_blend_func_extended = 1;  
@@ -12689,11 +10883,8 @@ const
   GL_MAX_DUAL_SOURCE_DRAW_BUFFERS_EXT = $88FC;  
   GL_LOCATION_INDEX_EXT = $930F;  
 type
-
   TPFNGLBINDFRAGDATALOCATIONINDEXEDEXTPROC = procedure (prog:TGLuint; colorNumber:TGLuint; index:TGLuint; name:PGLchar);cdecl;
-
   TPFNGLGETFRAGDATAINDEXEXTPROC = function (prog:TGLuint; name:PGLchar):TGLint;cdecl;
-
   TPFNGLGETPROGRAMRESOURCELOCATIONINDEXEXTPROC = function (prog:TGLuint; programInterface:TGLenum; name:PGLchar):TGLint;cdecl;
 
 { was #define dname def_expr }
@@ -12708,10 +10899,7 @@ function glGetProgramResourceLocationIndexEXT : longint; { return type might be 
 { was #define dname def_expr }
 function GLEW_EXT_blend_func_extended : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_func_extended  }
 { ----------------------- GL_EXT_blend_func_separate ----------------------  }
-{$ifndef GL_EXT_blend_func_separate}
 
 const
   GL_EXT_blend_func_separate = 1;  
@@ -12720,7 +10908,6 @@ const
   GL_BLEND_DST_ALPHA_EXT = $80CA;  
   GL_BLEND_SRC_ALPHA_EXT = $80CB;  
 type
-
   TPFNGLBLENDFUNCSEPARATEEXTPROC = procedure (sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -12729,10 +10916,7 @@ function glBlendFuncSeparateEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_blend_func_separate : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_func_separate  }
 { ------------------------- GL_EXT_blend_logic_op -------------------------  }
-{$ifndef GL_EXT_blend_logic_op}
 
 const
   GL_EXT_blend_logic_op = 1;  
@@ -12740,10 +10924,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_blend_logic_op : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_logic_op  }
 { -------------------------- GL_EXT_blend_minmax --------------------------  }
-{$ifndef GL_EXT_blend_minmax}
 
 const
   GL_EXT_blend_minmax = 1;  
@@ -12752,7 +10933,6 @@ const
   GL_MAX_EXT = $8008;  
   GL_BLEND_EQUATION_EXT = $8009;  
 type
-
   TPFNGLBLENDEQUATIONEXTPROC = procedure (mode:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -12761,10 +10941,7 @@ function glBlendEquationEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_blend_minmax : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_minmax  }
 { ------------------------- GL_EXT_blend_subtract -------------------------  }
-{$ifndef GL_EXT_blend_subtract}
 
 const
   GL_EXT_blend_subtract = 1;  
@@ -12774,10 +10951,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_blend_subtract : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_blend_subtract  }
 { ------------------------- GL_EXT_buffer_storage -------------------------  }
-{$ifndef GL_EXT_buffer_storage}
 
 const
   GL_EXT_buffer_storage = 1;  
@@ -12791,9 +10965,7 @@ const
   GL_BUFFER_IMMUTABLE_STORAGE_EXT = $821F;  
   GL_BUFFER_STORAGE_FLAGS_EXT = $8220;  
 type
-
   TPFNGLBUFFERSTORAGEEXTPROC = procedure (target:TGLenum; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
-
   TPFNGLNAMEDBUFFERSTORAGEEXTPROC = procedure (buffer:TGLuint; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
 
 { was #define dname def_expr }
@@ -12805,18 +10977,13 @@ function glNamedBufferStorageEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_buffer_storage : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_buffer_storage  }
 { -------------------------- GL_EXT_clear_texture -------------------------  }
-{$ifndef GL_EXT_clear_texture}
 
 const
   GL_EXT_clear_texture = 1;  
 type
-
   TPFNGLCLEARTEXIMAGEEXTPROC = procedure (texture:TGLuint; level:TGLint; format:TGLenum; _type:TGLenum; data:pointer);cdecl;
-
-  TPFNGLCLEARTEXSUBIMAGEEXTPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint; 
+  TPFNGLCLEARTEXSUBIMAGEEXTPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 data:pointer);cdecl;
 
@@ -12829,10 +10996,7 @@ function glClearTexSubImageEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_clear_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_clear_texture  }
 { -------------------------- GL_EXT_clip_control --------------------------  }
-{$ifndef GL_EXT_clip_control}
 
 const
   GL_EXT_clip_control = 1;  
@@ -12843,7 +11007,6 @@ const
   GL_NEGATIVE_ONE_TO_ONE_EXT = $935E;  
   GL_ZERO_TO_ONE_EXT = $935F;  
 type
-
   TPFNGLCLIPCONTROLEXTPROC = procedure (origin:TGLenum; depth:TGLenum);cdecl;
 
 { was #define dname def_expr }
@@ -12852,10 +11015,7 @@ function glClipControlEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_clip_control : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_clip_control  }
 { ----------------------- GL_EXT_clip_cull_distance -----------------------  }
-{$ifndef GL_EXT_clip_cull_distance}
 
 const
   GL_EXT_clip_cull_distance = 1;  
@@ -12874,10 +11034,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_clip_cull_distance : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_clip_cull_distance  }
 { ------------------------ GL_EXT_clip_volume_hint ------------------------  }
-{$ifndef GL_EXT_clip_volume_hint}
 
 const
   GL_EXT_clip_volume_hint = 1;  
@@ -12886,10 +11043,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_clip_volume_hint : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_clip_volume_hint  }
 { ------------------------------ GL_EXT_cmyka -----------------------------  }
-{$ifndef GL_EXT_cmyka}
 
 const
   GL_EXT_cmyka = 1;  
@@ -12901,10 +11055,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_cmyka : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_cmyka  }
 { ----------------------- GL_EXT_color_buffer_float -----------------------  }
-{$ifndef GL_EXT_color_buffer_float}
 
 const
   GL_EXT_color_buffer_float = 1;  
@@ -12912,10 +11063,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_color_buffer_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_color_buffer_float  }
 { --------------------- GL_EXT_color_buffer_half_float --------------------  }
-{$ifndef GL_EXT_color_buffer_half_float}
 
 const
   GL_EXT_color_buffer_half_float = 1;  
@@ -12929,18 +11077,12 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_color_buffer_half_float : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_color_buffer_half_float  }
 { ------------------------- GL_EXT_color_subtable -------------------------  }
-{$ifndef GL_EXT_color_subtable}
 
 const
   GL_EXT_color_subtable = 1;  
 type
-
-  TPFNGLCOLORSUBTABLEEXTPROC = procedure (target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum; 
-                data:pointer);cdecl;
-
+ TPFNGLCOLORSUBTABLEEXTPROC = procedure (target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum;                data:pointer);cdecl;
   TPFNGLCOPYCOLORSUBTABLEEXTPROC = procedure (target:TGLenum; start:TGLsizei; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
 
 { was #define dname def_expr }
@@ -12952,19 +11094,14 @@ function glCopyColorSubTableEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_color_subtable : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_color_subtable  }
 { ---------------------- GL_EXT_compiled_vertex_array ---------------------  }
-{$ifndef GL_EXT_compiled_vertex_array}
 
 const
   GL_EXT_compiled_vertex_array = 1;  
   GL_ARRAY_ELEMENT_LOCK_FIRST_EXT = $81A8;  
   GL_ARRAY_ELEMENT_LOCK_COUNT_EXT = $81A9;  
 type
-
   TPFNGLLOCKARRAYSEXTPROC = procedure (first:TGLint; count:TGLsizei);cdecl;
-
   TPFNGLUNLOCKARRAYSEXTPROC = procedure (para1:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -12976,10 +11113,7 @@ function glUnlockArraysEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_compiled_vertex_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_compiled_vertex_array  }
 { ---------------- GL_EXT_compressed_ETC1_RGB8_sub_texture ----------------  }
-{$ifndef GL_EXT_compressed_ETC1_RGB8_sub_texture}
 
 const
   GL_EXT_compressed_ETC1_RGB8_sub_texture = 1;  
@@ -12987,10 +11121,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_compressed_ETC1_RGB8_sub_texture : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_compressed_ETC1_RGB8_sub_texture  }
 { ----------------------- GL_EXT_conservative_depth -----------------------  }
-{$ifndef GL_EXT_conservative_depth}
 
 const
   GL_EXT_conservative_depth = 1;  
@@ -12998,10 +11129,7 @@ const
 { was #define dname def_expr }
 function GLEW_EXT_conservative_depth : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_conservative_depth  }
 { --------------------------- GL_EXT_convolution --------------------------  }
-{$ifndef GL_EXT_convolution}
 
 const
   GL_EXT_convolution = 1;  
@@ -13026,37 +11154,19 @@ const
   GL_POST_CONVOLUTION_BLUE_BIAS_EXT = $8022;  
   GL_POST_CONVOLUTION_ALPHA_BIAS_EXT = $8023;  
 type
-
-  TPFNGLCONVOLUTIONFILTER1DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum; 
-                image:pointer);cdecl;
-
-  TPFNGLCONVOLUTIONFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
-                _type:TGLenum; image:pointer);cdecl;
-
+  TPFNGLCONVOLUTIONFILTER1DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; format:TGLenum; _type:TGLenum;                image:pointer);cdecl;
+  TPFNGLCONVOLUTIONFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; image:pointer);cdecl;
   TPFNGLCONVOLUTIONPARAMETERFEXTPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERFVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERIEXTPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLCONVOLUTIONPARAMETERIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLCOPYCONVOLUTIONFILTER1DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
-
-  TPFNGLCOPYCONVOLUTIONFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei; 
-                height:TGLsizei);cdecl;
-
+ TPFNGLCOPYCONVOLUTIONFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; x:TGLint; y:TGLint; width:TGLsizei;                height:TGLsizei);cdecl;
   TPFNGLGETCONVOLUTIONFILTEREXTPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; image:pointer);cdecl;
-
   TPFNGLGETCONVOLUTIONPARAMETERFVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETCONVOLUTIONPARAMETERIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
-  TPFNGLGETSEPARABLEFILTEREXTPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; row:pointer; column:pointer; 
-                span:pointer);cdecl;
-
-  TPFNGLSEPARABLEFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum; 
-                _type:TGLenum; row:pointer; column:pointer);cdecl;
+  TPFNGLGETSEPARABLEFILTEREXTPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; row:pointer; column:pointer;                span:pointer);cdecl;
+  TPFNGLSEPARABLEFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; row:pointer; column:pointer);cdecl;
 
 { was #define dname def_expr }
 function glConvolutionFilter1DEXT : longint; { return type might be wrong }
@@ -13100,10 +11210,7 @@ function glSeparableFilter2DEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_convolution : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_convolution  }
 { ------------------------ GL_EXT_coordinate_frame ------------------------  }
-{$ifndef GL_EXT_coordinate_frame}
 
 const
   GL_EXT_coordinate_frame = 1;  
@@ -13122,9 +11229,7 @@ const
   GL_MAP1_BINORMAL_EXT = $8446;  
   GL_MAP2_BINORMAL_EXT = $8447;  
 type
-
   TPFNGLBINORMALPOINTEREXTPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
-
   TPFNGLTANGENTPOINTEREXTPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
 { was #define dname def_expr }
@@ -13136,16 +11241,12 @@ function glTangentPointerEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_coordinate_frame : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_coordinate_frame  }
 { --------------------------- GL_EXT_copy_image ---------------------------  }
-{$ifndef GL_EXT_copy_image}
 
 const
   GL_EXT_copy_image = 1;  
 type
-
-  TPFNGLCOPYIMAGESUBDATAEXTPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint; 
+  TPFNGLCOPYIMAGESUBDATAEXTPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint;
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei);cdecl;
 
@@ -13155,11 +11256,8 @@ function glCopyImageSubDataEXT : longint; { return type might be wrong }
 { was #define dname def_expr }
 function GLEW_EXT_copy_image : longint; { return type might be wrong }
 
-{$endif}
-{ GL_EXT_copy_image  }
 { -------------------------- GL_EXT_copy_texture --------------------------  }
-{$ifndef GL_EXT_copy_texture}
-
+ddddd
 const
   GL_EXT_copy_texture = 1;  
 type
