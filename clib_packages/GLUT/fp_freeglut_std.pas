@@ -7,7 +7,7 @@ uses
 
 const
   {$ifdef linux}
-  libglut='libglut';
+  libglut = 'libglut';
   {$endif}
 
   {$ifdef windows}
@@ -19,638 +19,390 @@ const
   {$endif}
 
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+
+  // --- Constants ---
 
 const
-  FREEGLUT = 1;  
-  GLUT_API_VERSION = 4;  
-  GLUT_XLIB_IMPLEMENTATION = 13;  
+  FREEGLUT = 1;
+  GLUT_API_VERSION = 4;
+  GLUT_XLIB_IMPLEMENTATION = 13;
   FREEGLUT_VERSION_2_0 = 1;
 
-const
-  GLUT_KEY_F1 = $0001;  
-  GLUT_KEY_F2 = $0002;  
-  GLUT_KEY_F3 = $0003;  
-  GLUT_KEY_F4 = $0004;  
-  GLUT_KEY_F5 = $0005;  
-  GLUT_KEY_F6 = $0006;  
-  GLUT_KEY_F7 = $0007;  
-  GLUT_KEY_F8 = $0008;  
-  GLUT_KEY_F9 = $0009;  
-  GLUT_KEY_F10 = $000A;  
-  GLUT_KEY_F11 = $000B;  
-  GLUT_KEY_F12 = $000C;  
-  GLUT_KEY_LEFT = $0064;  
-  GLUT_KEY_UP = $0065;  
-  GLUT_KEY_RIGHT = $0066;  
-  GLUT_KEY_DOWN = $0067;  
-  GLUT_KEY_PAGE_UP = $0068;  
-  GLUT_KEY_PAGE_DOWN = $0069;  
-  GLUT_KEY_HOME = $006A;  
-  GLUT_KEY_END = $006B;  
-  GLUT_KEY_INSERT = $006C;  
+  GLUT_KEY_F1 = $0001;
+  GLUT_KEY_F2 = $0002;
+  GLUT_KEY_F3 = $0003;
+  GLUT_KEY_F4 = $0004;
+  GLUT_KEY_F5 = $0005;
+  GLUT_KEY_F6 = $0006;
+  GLUT_KEY_F7 = $0007;
+  GLUT_KEY_F8 = $0008;
+  GLUT_KEY_F9 = $0009;
+  GLUT_KEY_F10 = $000A;
+  GLUT_KEY_F11 = $000B;
+  GLUT_KEY_F12 = $000C;
+  GLUT_KEY_LEFT = $0064;
+  GLUT_KEY_UP = $0065;
+  GLUT_KEY_RIGHT = $0066;
+  GLUT_KEY_DOWN = $0067;
+  GLUT_KEY_PAGE_UP = $0068;
+  GLUT_KEY_PAGE_DOWN = $0069;
+  GLUT_KEY_HOME = $006A;
+  GLUT_KEY_END = $006B;
+  GLUT_KEY_INSERT = $006C;
 
-  GLUT_LEFT_BUTTON = $0000;
-  GLUT_MIDDLE_BUTTON = $0001;  
-  GLUT_RIGHT_BUTTON = $0002;  
-  GLUT_DOWN = $0000;  
-  GLUT_UP = $0001;  
-  GLUT_LEFT = $0000;  
-  GLUT_ENTERED = $0001;  
+  GLUT_LEFT_BUTTON = 0;
+  GLUT_MIDDLE_BUTTON = 1;
+  GLUT_RIGHT_BUTTON = 2;
+  GLUT_DOWN = 0;
+  GLUT_UP = 1;
+  GLUT_LEFT = 0;
+  GLUT_ENTERED = 1;
 
-  GLUT_RGB = $0000;
-  GLUT_RGBA = $0000;  
-  GLUT_INDEX = $0001;  
-  GLUT_SINGLE = $0000;  
-  GLUT_DOUBLE = $0002;  
-  GLUT_ACCUM = $0004;  
-  GLUT_ALPHA = $0008;  
-  GLUT_DEPTH = $0010;  
-  GLUT_STENCIL = $0020;  
-  GLUT_MULTISAMPLE = $0080;  
-  GLUT_STEREO = $0100;  
-  GLUT_LUMINANCE = $0200;  
+  GLUT_RGB = 0;
+  GLUT_RGBA = 0;
+  GLUT_INDEX = 1;
+  GLUT_SINGLE = 0;
+  GLUT_DOUBLE = 2;
+  GLUT_ACCUM = 4;
+  GLUT_ALPHA = 8;
+  GLUT_DEPTH = 16;
+  GLUT_STENCIL = 32;
+  GLUT_MULTISAMPLE = 128;
+  GLUT_STEREO = 256;
+  GLUT_LUMINANCE = 512;
 
-  GLUT_MENU_NOT_IN_USE = $0000;
-  GLUT_MENU_IN_USE = $0001;  
-  GLUT_NOT_VISIBLE = $0000;  
-  GLUT_VISIBLE = $0001;  
-  GLUT_HIDDEN = $0000;  
-  GLUT_FULLY_RETAINED = $0001;  
-  GLUT_PARTIALLY_RETAINED = $0002;  
-  GLUT_FULLY_COVERED = $0003;  
-{$ifdef windows}
+  GLUT_MENU_NOT_IN_USE = 0;
+  GLUT_MENU_IN_USE = 1;
+  GLUT_NOT_VISIBLE = 0;
+  GLUT_VISIBLE = 1;
+  GLUT_HIDDEN = 0;
+  GLUT_FULLY_RETAINED = 1;
+  GLUT_PARTIALLY_RETAINED = 2;
+  GLUT_FULLY_COVERED = 3;
 
-{ was #define dname def_expr }
-function GLUT_STROKE_ROMAN : pointer;  
+  GLUT_STROKE_ROMAN = Pointer(0);
+  GLUT_STROKE_MONO_ROMAN = Pointer(1);
+  GLUT_BITMAP_9_BY_15 = Pointer(2);
+  GLUT_BITMAP_8_BY_13 = Pointer(3);
+  GLUT_BITMAP_TIMES_ROMAN_10 = Pointer(4);
+  GLUT_BITMAP_TIMES_ROMAN_24 = Pointer(5);
+  GLUT_BITMAP_HELVETICA_10 = Pointer(6);
+  GLUT_BITMAP_HELVETICA_12 = Pointer(7);
+  GLUT_BITMAP_HELVETICA_18 = Pointer(8);
 
-{ was #define dname def_expr }
-function GLUT_STROKE_MONO_ROMAN : pointer;  
+  GLUT_WINDOW_X = $0064;
+  GLUT_WINDOW_Y = $0065;
+  GLUT_WINDOW_WIDTH = $0066;
+  GLUT_WINDOW_HEIGHT = $0067;
+  GLUT_WINDOW_BUFFER_SIZE = $0068;
+  GLUT_WINDOW_STENCIL_SIZE = $0069;
+  GLUT_WINDOW_DEPTH_SIZE = $006A;
+  GLUT_WINDOW_RED_SIZE = $006B;
+  GLUT_WINDOW_GREEN_SIZE = $006C;
+  GLUT_WINDOW_BLUE_SIZE = $006D;
+  GLUT_WINDOW_ALPHA_SIZE = $006E;
+  GLUT_WINDOW_ACCUM_RED_SIZE = $006F;
+  GLUT_WINDOW_ACCUM_GREEN_SIZE = $0070;
+  GLUT_WINDOW_ACCUM_BLUE_SIZE = $0071;
+  GLUT_WINDOW_ACCUM_ALPHA_SIZE = $0072;
+  GLUT_WINDOW_DOUBLEBUFFER = $0073;
+  GLUT_WINDOW_RGBA = $0074;
+  GLUT_WINDOW_PARENT = $0075;
+  GLUT_WINDOW_NUM_CHILDREN = $0076;
+  GLUT_WINDOW_COLORMAP_SIZE = $0077;
+  GLUT_WINDOW_NUM_SAMPLES = $0078;
+  GLUT_WINDOW_STEREO = $0079;
+  GLUT_WINDOW_CURSOR = $007A;
+  GLUT_WINDOW_FORMAT_ID = $007B;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_9_BY_15 : pointer;  
+  GLUT_SCREEN_WIDTH = $00C8;
+  GLUT_SCREEN_HEIGHT = $00C9;
+  GLUT_SCREEN_WIDTH_MM = $00CA;
+  GLUT_SCREEN_HEIGHT_MM = $00CB;
+  GLUT_MENU_NUM_ITEMS = $012C;
+  GLUT_DISPLAY_MODE_POSSIBLE = $0190;
+  GLUT_INIT_WINDOW_X = $01F4;
+  GLUT_INIT_WINDOW_Y = $01F5;
+  GLUT_INIT_WINDOW_WIDTH = $01F6;
+  GLUT_INIT_WINDOW_HEIGHT = $01F7;
+  GLUT_INIT_DISPLAY_MODE = $01F8;
+  GLUT_ELAPSED_TIME = $02BC;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_8_BY_13 : pointer;  
+  GLUT_HAS_KEYBOARD = $0258;
+  GLUT_HAS_MOUSE = $0259;
+  GLUT_HAS_SPACEBALL = $025A;
+  GLUT_HAS_DIAL_AND_BUTTON_BOX = $025B;
+  GLUT_HAS_TABLET = $025C;
+  GLUT_NUM_MOUSE_BUTTONS = $025D;
+  GLUT_NUM_SPACEBALL_BUTTONS = $025E;
+  GLUT_NUM_BUTTON_BOX_BUTTONS = $025F;
+  GLUT_NUM_DIALS = $0260;
+  GLUT_NUM_TABLET_BUTTONS = $0261;
+  GLUT_DEVICE_IGNORE_KEY_REPEAT = $0262;
+  GLUT_DEVICE_KEY_REPEAT = $0263;
+  GLUT_HAS_JOYSTICK = $0264;
+  GLUT_OWNS_JOYSTICK = $0265;
+  GLUT_JOYSTICK_BUTTONS = $0266;
+  GLUT_JOYSTICK_AXES = $0267;
+  GLUT_JOYSTICK_POLL_RATE = $0268;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_10 : pointer;  
+  GLUT_OVERLAY_POSSIBLE = $0320;
+  GLUT_LAYER_IN_USE = $0321;
+  GLUT_HAS_OVERLAY = $0322;
+  GLUT_TRANSPARENT_INDEX = $0323;
+  GLUT_NORMAL_DAMAGED = $0324;
+  GLUT_OVERLAY_DAMAGED = $0325;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_24 : pointer;  
+  GLUT_VIDEO_RESIZE_POSSIBLE = $0384;
+  GLUT_VIDEO_RESIZE_IN_USE = $0385;
+  GLUT_VIDEO_RESIZE_X_DELTA = $0386;
+  GLUT_VIDEO_RESIZE_Y_DELTA = $0387;
+  GLUT_VIDEO_RESIZE_WIDTH_DELTA = $0388;
+  GLUT_VIDEO_RESIZE_HEIGHT_DELTA = $0389;
+  GLUT_VIDEO_RESIZE_X = $038A;
+  GLUT_VIDEO_RESIZE_Y = $038B;
+  GLUT_VIDEO_RESIZE_WIDTH = $038C;
+  GLUT_VIDEO_RESIZE_HEIGHT = $038D;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_10 : pointer;  
+  GLUT_NORMAL = 0;
+  GLUT_OVERLAY = 1;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_12 : pointer;  
+  GLUT_ACTIVE_SHIFT = 1;
+  GLUT_ACTIVE_CTRL = 2;
+  GLUT_ACTIVE_ALT = 4;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_18 : pointer;  
+  GLUT_CURSOR_RIGHT_ARROW = 0;
+  GLUT_CURSOR_LEFT_ARROW = 1;
+  GLUT_CURSOR_INFO = 2;
+  GLUT_CURSOR_DESTROY = 3;
+  GLUT_CURSOR_HELP = 4;
+  GLUT_CURSOR_CYCLE = 5;
+  GLUT_CURSOR_SPRAY = 6;
+  GLUT_CURSOR_WAIT = 7;
+  GLUT_CURSOR_TEXT = 8;
+  GLUT_CURSOR_CROSSHAIR = 9;
+  GLUT_CURSOR_UP_DOWN = 10;
+  GLUT_CURSOR_LEFT_RIGHT = 11;
+  GLUT_CURSOR_TOP_SIDE = 12;
+  GLUT_CURSOR_BOTTOM_SIDE = 13;
+  GLUT_CURSOR_LEFT_SIDE = 14;
+  GLUT_CURSOR_RIGHT_SIDE = 15;
+  GLUT_CURSOR_TOP_LEFT_CORNER = 16;
+  GLUT_CURSOR_TOP_RIGHT_CORNER = 17;
+  GLUT_CURSOR_BOTTOM_RIGHT_CORNER = 18;
+  GLUT_CURSOR_BOTTOM_LEFT_CORNER = 19;
+  GLUT_CURSOR_INHERIT = 100;
+  GLUT_CURSOR_NONE = 101;
+  GLUT_CURSOR_FULL_CROSSHAIR = 102;
 
-{$else}
-  var
-    glutStrokeRoman : pointer;cvar;external libglut;
-    glutStrokeMonoRoman : pointer;cvar;external libglut;
-    glutBitmap9By15 : pointer;cvar;external libglut;
-    glutBitmap8By13 : pointer;cvar;external libglut;
-    glutBitmapTimesRoman10 : pointer;cvar;external libglut;
-    glutBitmapTimesRoman24 : pointer;cvar;external libglut;
-    glutBitmapHelvetica10 : pointer;cvar;external libglut;
-    glutBitmapHelvetica12 : pointer;cvar;external libglut;
-    glutBitmapHelvetica18 : pointer;cvar;external libglut;
-{
-     * Those pointers will be used by following definitions:
-      }
+  GLUT_RED = 0;
+  GLUT_GREEN = 1;
+  GLUT_BLUE = 2;
 
-{ was #define dname def_expr }
-function GLUT_STROKE_ROMAN : pointer;  
+  GLUT_KEY_REPEAT_OFF = 0;
+  GLUT_KEY_REPEAT_ON = 1;
+  GLUT_KEY_REPEAT_DEFAULT = 2;
 
-{ was #define dname def_expr }
-function GLUT_STROKE_MONO_ROMAN : pointer;  
+  GLUT_JOYSTICK_BUTTON_A = 1;
+  GLUT_JOYSTICK_BUTTON_B = 2;
+  GLUT_JOYSTICK_BUTTON_C = 4;
+  GLUT_JOYSTICK_BUTTON_D = 8;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_9_BY_15 : pointer;  
+  GLUT_GAME_MODE_ACTIVE = 0;
+  GLUT_GAME_MODE_POSSIBLE = 1;
+  GLUT_GAME_MODE_WIDTH = 2;
+  GLUT_GAME_MODE_HEIGHT = 3;
+  GLUT_GAME_MODE_PIXEL_DEPTH = 4;
+  GLUT_GAME_MODE_REFRESH_RATE = 5;
+  GLUT_GAME_MODE_DISPLAY_CHANGED = 6;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_8_BY_13 : pointer;  
+type
+  TglutMenuCallback = procedure(menu: integer); cdecl;
+  TglutTimerFunc = procedure(value: integer); cdecl;
+  TglutIdleFunc = procedure; cdecl;
+  TglutKeyboardFunc = procedure(key: ansichar; x, y: integer); cdecl;
+  TglutSpecialFunc = procedure(key: integer; x, y: integer); cdecl;
+  TglutReshapeFunc = procedure(width, height: integer); cdecl;
+  TglutVisibilityFunc = procedure(state: integer); cdecl;
+  TglutDisplayFunc = procedure; cdecl;
+  TglutMouseFunc = procedure(button, state, x, y: integer); cdecl;
+  TglutMotionFunc = procedure(x, y: integer); cdecl;
+  TglutPassiveMotionFunc = procedure(x, y: integer); cdecl;
+  TglutEntryFunc = procedure(state: integer); cdecl;
+  TglutKeyboardUpFunc = procedure(key: ansichar; x, y: integer); cdecl;
+  TglutSpecialUpFunc = procedure(key: integer; x, y: integer); cdecl;
+  TglutJoystickFunc = procedure(buttonMask: cardinal; x, y, z: integer); cdecl;
+  TglutMenuStateFunc = procedure(state: integer); cdecl;
+  TglutMenuStatusFunc = procedure(status, x, y: integer); cdecl;
+  TglutOverlayDisplayFunc = procedure; cdecl;
+  TglutWindowStatusFunc = procedure(state: integer); cdecl;
+  TglutSpaceballMotionFunc = procedure(x, y, z: integer); cdecl;
+  TglutSpaceballRotateFunc = procedure(x, y, z: integer); cdecl;
+  TglutSpaceballButtonFunc = procedure(button, state: integer); cdecl;
+  TglutButtonBoxFunc = procedure(button, state: integer); cdecl;
+  TglutDialsFunc = procedure(dial, value: integer); cdecl;
+  TglutTabletMotionFunc = procedure(x, y: integer); cdecl;
+  TglutTabletButtonFunc = procedure(button, state, x, y: integer); cdecl;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_10 : pointer;  
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_24 : pointer;  
+  // --- Function Declarations ---
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_10 : pointer;  
+// Initialization functions
+procedure glutInit(pargc: PInteger; argv: PPAnsiChar); cdecl; external libglut;
+procedure glutInitWindowPosition(x, y: integer); cdecl; external libglut;
+procedure glutInitWindowSize(width, height: integer); cdecl; external libglut;
+procedure glutInitDisplayMode(displayMode: cardinal); cdecl; external libglut;
+procedure glutInitDisplayString(displayMode: pansichar); cdecl; external libglut;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_12 : pointer;  
+// Process loop function
+procedure glutMainLoop; cdecl; external libglut;
 
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_18 : pointer;  
+// Window management functions
+function glutCreateWindow(title: pansichar): integer; cdecl; external libglut;
+function glutCreateSubWindow(window, x, y, width, height: integer): integer; cdecl; external libglut;
+procedure glutDestroyWindow(window: integer); cdecl; external libglut;
+procedure glutSetWindow(window: integer); cdecl; external libglut;
+function glutGetWindow: integer; cdecl; external libglut;
+procedure glutSetWindowTitle(title: pansichar); cdecl; external libglut;
+procedure glutSetIconTitle(title: pansichar); cdecl; external libglut;
+procedure glutReshapeWindow(width, height: integer); cdecl; external libglut;
+procedure glutPositionWindow(x, y: integer); cdecl; external libglut;
+procedure glutShowWindow; cdecl; external libglut;
+procedure glutHideWindow; cdecl; external libglut;
+procedure glutIconifyWindow; cdecl; external libglut;
+procedure glutPushWindow; cdecl; external libglut;
+procedure glutPopWindow; cdecl; external libglut;
+procedure glutFullScreen; cdecl; external libglut;
 
-{$endif}
-{
- * GLUT API macro definitions -- the glutGet parameters
-  }
+// Display-related functions
+procedure glutPostWindowRedisplay(window: integer); cdecl; external libglut;
+procedure glutPostRedisplay; cdecl; external libglut;
+procedure glutSwapBuffers; cdecl; external libglut;
 
-const
-  GLUT_WINDOW_X = $0064;  
-  GLUT_WINDOW_Y = $0065;  
-  GLUT_WINDOW_WIDTH = $0066;  
-  GLUT_WINDOW_HEIGHT = $0067;  
-  GLUT_WINDOW_BUFFER_SIZE = $0068;  
-  GLUT_WINDOW_STENCIL_SIZE = $0069;  
-  GLUT_WINDOW_DEPTH_SIZE = $006A;  
-  GLUT_WINDOW_RED_SIZE = $006B;  
-  GLUT_WINDOW_GREEN_SIZE = $006C;  
-  GLUT_WINDOW_BLUE_SIZE = $006D;  
-  GLUT_WINDOW_ALPHA_SIZE = $006E;  
-  GLUT_WINDOW_ACCUM_RED_SIZE = $006F;  
-  GLUT_WINDOW_ACCUM_GREEN_SIZE = $0070;  
-  GLUT_WINDOW_ACCUM_BLUE_SIZE = $0071;  
-  GLUT_WINDOW_ACCUM_ALPHA_SIZE = $0072;  
-  GLUT_WINDOW_DOUBLEBUFFER = $0073;  
-  GLUT_WINDOW_RGBA = $0074;  
-  GLUT_WINDOW_PARENT = $0075;  
-  GLUT_WINDOW_NUM_CHILDREN = $0076;  
-  GLUT_WINDOW_COLORMAP_SIZE = $0077;  
-  GLUT_WINDOW_NUM_SAMPLES = $0078;  
-  GLUT_WINDOW_STEREO = $0079;  
-  GLUT_WINDOW_CURSOR = $007A;  
-  GLUT_SCREEN_WIDTH = $00C8;  
-  GLUT_SCREEN_HEIGHT = $00C9;  
-  GLUT_SCREEN_WIDTH_MM = $00CA;  
-  GLUT_SCREEN_HEIGHT_MM = $00CB;  
-  GLUT_MENU_NUM_ITEMS = $012C;  
-  GLUT_DISPLAY_MODE_POSSIBLE = $0190;  
-  GLUT_INIT_WINDOW_X = $01F4;  
-  GLUT_INIT_WINDOW_Y = $01F5;  
-  GLUT_INIT_WINDOW_WIDTH = $01F6;  
-  GLUT_INIT_WINDOW_HEIGHT = $01F7;  
-  GLUT_INIT_DISPLAY_MODE = $01F8;  
-  GLUT_ELAPSED_TIME = $02BC;  
-  GLUT_WINDOW_FORMAT_ID = $007B;  
-{
- * GLUT API macro definitions -- the glutDeviceGet parameters
-  }
-  GLUT_HAS_KEYBOARD = $0258;  
-  GLUT_HAS_MOUSE = $0259;  
-  GLUT_HAS_SPACEBALL = $025A;  
-  GLUT_HAS_DIAL_AND_BUTTON_BOX = $025B;  
-  GLUT_HAS_TABLET = $025C;  
-  GLUT_NUM_MOUSE_BUTTONS = $025D;  
-  GLUT_NUM_SPACEBALL_BUTTONS = $025E;  
-  GLUT_NUM_BUTTON_BOX_BUTTONS = $025F;  
-  GLUT_NUM_DIALS = $0260;  
-  GLUT_NUM_TABLET_BUTTONS = $0261;  
-  GLUT_DEVICE_IGNORE_KEY_REPEAT = $0262;  
-  GLUT_DEVICE_KEY_REPEAT = $0263;  
-  GLUT_HAS_JOYSTICK = $0264;  
-  GLUT_OWNS_JOYSTICK = $0265;  
-  GLUT_JOYSTICK_BUTTONS = $0266;  
-  GLUT_JOYSTICK_AXES = $0267;  
-  GLUT_JOYSTICK_POLL_RATE = $0268;  
-{
- * GLUT API macro definitions -- the glutLayerGet parameters
-  }
-  GLUT_OVERLAY_POSSIBLE = $0320;  
-  GLUT_LAYER_IN_USE = $0321;  
-  GLUT_HAS_OVERLAY = $0322;  
-  GLUT_TRANSPARENT_INDEX = $0323;  
-  GLUT_NORMAL_DAMAGED = $0324;  
-  GLUT_OVERLAY_DAMAGED = $0325;  
-{
- * GLUT API macro definitions -- the glutVideoResizeGet parameters
-  }
-  GLUT_VIDEO_RESIZE_POSSIBLE = $0384;  
-  GLUT_VIDEO_RESIZE_IN_USE = $0385;  
-  GLUT_VIDEO_RESIZE_X_DELTA = $0386;  
-  GLUT_VIDEO_RESIZE_Y_DELTA = $0387;  
-  GLUT_VIDEO_RESIZE_WIDTH_DELTA = $0388;  
-  GLUT_VIDEO_RESIZE_HEIGHT_DELTA = $0389;  
-  GLUT_VIDEO_RESIZE_X = $038A;  
-  GLUT_VIDEO_RESIZE_Y = $038B;  
-  GLUT_VIDEO_RESIZE_WIDTH = $038C;  
-  GLUT_VIDEO_RESIZE_HEIGHT = $038D;  
-{
- * GLUT API macro definitions -- the glutUseLayer parameters
-  }
-  GLUT_NORMAL = $0000;  
-  GLUT_OVERLAY = $0001;  
-{
- * GLUT API macro definitions -- the glutGetModifiers parameters
-  }
-  GLUT_ACTIVE_SHIFT = $0001;  
-  GLUT_ACTIVE_CTRL = $0002;  
-  GLUT_ACTIVE_ALT = $0004;  
-{
- * GLUT API macro definitions -- the glutSetCursor parameters
-  }
-  GLUT_CURSOR_RIGHT_ARROW = $0000;  
-  GLUT_CURSOR_LEFT_ARROW = $0001;  
-  GLUT_CURSOR_INFO = $0002;  
-  GLUT_CURSOR_DESTROY = $0003;  
-  GLUT_CURSOR_HELP = $0004;  
-  GLUT_CURSOR_CYCLE = $0005;  
-  GLUT_CURSOR_SPRAY = $0006;  
-  GLUT_CURSOR_WAIT = $0007;  
-  GLUT_CURSOR_TEXT = $0008;  
-  GLUT_CURSOR_CROSSHAIR = $0009;  
-  GLUT_CURSOR_UP_DOWN = $000A;  
-  GLUT_CURSOR_LEFT_RIGHT = $000B;  
-  GLUT_CURSOR_TOP_SIDE = $000C;  
-  GLUT_CURSOR_BOTTOM_SIDE = $000D;  
-  GLUT_CURSOR_LEFT_SIDE = $000E;  
-  GLUT_CURSOR_RIGHT_SIDE = $000F;  
-  GLUT_CURSOR_TOP_LEFT_CORNER = $0010;  
-  GLUT_CURSOR_TOP_RIGHT_CORNER = $0011;  
-  GLUT_CURSOR_BOTTOM_RIGHT_CORNER = $0012;  
-  GLUT_CURSOR_BOTTOM_LEFT_CORNER = $0013;  
-  GLUT_CURSOR_INHERIT = $0064;  
-  GLUT_CURSOR_NONE = $0065;  
-  GLUT_CURSOR_FULL_CROSSHAIR = $0066;  
-{
- * GLUT API macro definitions -- RGB color component specification definitions
-  }
-  GLUT_RED = $0000;  
-  GLUT_GREEN = $0001;  
-  GLUT_BLUE = $0002;  
-{
- * GLUT API macro definitions -- additional keyboard and joystick definitions
-  }
-  GLUT_KEY_REPEAT_OFF = $0000;  
-  GLUT_KEY_REPEAT_ON = $0001;  
-  GLUT_KEY_REPEAT_DEFAULT = $0002;  
-  GLUT_JOYSTICK_BUTTON_A = $0001;  
-  GLUT_JOYSTICK_BUTTON_B = $0002;  
-  GLUT_JOYSTICK_BUTTON_C = $0004;  
-  GLUT_JOYSTICK_BUTTON_D = $0008;  
-{
- * GLUT API macro definitions -- game mode definitions
-  }
-  GLUT_GAME_MODE_ACTIVE = $0000;  
-  GLUT_GAME_MODE_POSSIBLE = $0001;  
-  GLUT_GAME_MODE_WIDTH = $0002;  
-  GLUT_GAME_MODE_HEIGHT = $0003;  
-  GLUT_GAME_MODE_PIXEL_DEPTH = $0004;  
-  GLUT_GAME_MODE_REFRESH_RATE = $0005;  
-  GLUT_GAME_MODE_DISPLAY_CHANGED = $0006;  
-{
- * Initialization functions, see fglut_init.c
-  }
+// Mouse cursor functions
+procedure glutWarpPointer(x, y: integer); cdecl; external libglut;
+procedure glutSetCursor(cursor: integer); cdecl; external libglut;
 
-procedure glutInit(pargc:Plongint; argv:PPchar);cdecl;external libglut;
-procedure glutInitWindowPosition(x:longint; y:longint);cdecl;external libglut;
-procedure glutInitWindowSize(width:longint; height:longint);cdecl;external libglut;
-procedure glutInitDisplayMode(displayMode:dword);cdecl;external libglut;
-procedure glutInitDisplayString(displayMode:Pchar);cdecl;external libglut;
-{
- * Process loop function, see fg_main.c
-  }
-procedure glutMainLoop;cdecl;external libglut;
-{
- * Window management functions, see fg_window.c
-  }
-function glutCreateWindow(title:Pchar):longint;cdecl;external libglut;
-function glutCreateSubWindow(window:longint; x:longint; y:longint; width:longint; height:longint):longint;cdecl;external libglut;
-procedure glutDestroyWindow(window:longint);cdecl;external libglut;
-procedure glutSetWindow(window:longint);cdecl;external libglut;
-function glutGetWindow:longint;cdecl;external libglut;
-procedure glutSetWindowTitle(title:Pchar);cdecl;external libglut;
-procedure glutSetIconTitle(title:Pchar);cdecl;external libglut;
-procedure glutReshapeWindow(width:longint; height:longint);cdecl;external libglut;
-procedure glutPositionWindow(x:longint; y:longint);cdecl;external libglut;
-procedure glutShowWindow;cdecl;external libglut;
-procedure glutHideWindow;cdecl;external libglut;
-procedure glutIconifyWindow;cdecl;external libglut;
-procedure glutPushWindow;cdecl;external libglut;
-procedure glutPopWindow;cdecl;external libglut;
-procedure glutFullScreen;cdecl;external libglut;
-{
- * Display-related functions, see fg_display.c
-  }
-procedure glutPostWindowRedisplay(window:longint);cdecl;external libglut;
-procedure glutPostRedisplay;cdecl;external libglut;
-procedure glutSwapBuffers;cdecl;external libglut;
-{
- * Mouse cursor functions, see fg_cursor.c
-  }
-procedure glutWarpPointer(x:longint; y:longint);cdecl;external libglut;
-procedure glutSetCursor(cursor:longint);cdecl;external libglut;
-{
- * Overlay stuff, see fg_overlay.c
-  }
-procedure glutEstablishOverlay;cdecl;external libglut;
-procedure glutRemoveOverlay;cdecl;external libglut;
-procedure glutUseLayer(layer:TGLenum);cdecl;external libglut;
-procedure glutPostOverlayRedisplay;cdecl;external libglut;
-procedure glutPostWindowOverlayRedisplay(window:longint);cdecl;external libglut;
-procedure glutShowOverlay;cdecl;external libglut;
-procedure glutHideOverlay;cdecl;external libglut;
-{
- * Menu stuff, see fg_menu.c
-  }
-function glutCreateMenu(callback:procedure (menu:longint)):longint;cdecl;external libglut;
-procedure glutDestroyMenu(menu:longint);cdecl;external libglut;
-function glutGetMenu:longint;cdecl;external libglut;
-procedure glutSetMenu(menu:longint);cdecl;external libglut;
-procedure glutAddMenuEntry(_label:Pchar; value:longint);cdecl;external libglut;
-procedure glutAddSubMenu(_label:Pchar; subMenu:longint);cdecl;external libglut;
-procedure glutChangeToMenuEntry(item:longint; _label:Pchar; value:longint);cdecl;external libglut;
-procedure glutChangeToSubMenu(item:longint; _label:Pchar; value:longint);cdecl;external libglut;
-procedure glutRemoveMenuItem(item:longint);cdecl;external libglut;
-procedure glutAttachMenu(button:longint);cdecl;external libglut;
-procedure glutDetachMenu(button:longint);cdecl;external libglut;
-{
- * Global callback functions, see fg_callbacks.c
-  }
-procedure glutTimerFunc(time:dword; callback:procedure (para1:longint); value:longint);cdecl;external libglut;
-procedure glutIdleFunc(callback:procedure );cdecl;external libglut;
-{
- * Window-specific callback functions, see fg_callbacks.c
-  }
-procedure glutKeyboardFunc(callback:procedure (para1:byte; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutSpecialFunc(callback:procedure (para1:longint; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutReshapeFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutVisibilityFunc(callback:procedure (para1:longint));cdecl;external libglut;
-procedure glutDisplayFunc(callback:procedure );cdecl;external libglut;
-procedure glutMouseFunc(callback:procedure (para1:longint; para2:longint; para3:longint; para4:longint));cdecl;external libglut;
-procedure glutMotionFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutPassiveMotionFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutEntryFunc(callback:procedure (para1:longint));cdecl;external libglut;
-procedure glutKeyboardUpFunc(callback:procedure (para1:byte; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutSpecialUpFunc(callback:procedure (para1:longint; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutJoystickFunc(callback:procedure (para1:dword; para2:longint; para3:longint; para4:longint); pollInterval:longint);cdecl;external libglut;
-procedure glutMenuStateFunc(callback:procedure (para1:longint));cdecl;external libglut;
-procedure glutMenuStatusFunc(callback:procedure (para1:longint; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutOverlayDisplayFunc(callback:procedure );cdecl;external libglut;
-procedure glutWindowStatusFunc(callback:procedure (para1:longint));cdecl;external libglut;
-procedure glutSpaceballMotionFunc(callback:procedure (para1:longint; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutSpaceballRotateFunc(callback:procedure (para1:longint; para2:longint; para3:longint));cdecl;external libglut;
-procedure glutSpaceballButtonFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutButtonBoxFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutDialsFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutTabletMotionFunc(callback:procedure (para1:longint; para2:longint));cdecl;external libglut;
-procedure glutTabletButtonFunc(callback:procedure (para1:longint; para2:longint; para3:longint; para4:longint));cdecl;external libglut;
-{
- * State setting and retrieval functions, see fg_state.c
-  }
-function glutGet(query:TGLenum):longint;cdecl;external libglut;
-function glutDeviceGet(query:TGLenum):longint;cdecl;external libglut;
-function glutGetModifiers:longint;cdecl;external libglut;
-function glutLayerGet(query:TGLenum):longint;cdecl;external libglut;
-{
- * Font stuff, see fg_font.c
-  }
-procedure glutBitmapCharacter(font:pointer; character:longint);cdecl;external libglut;
-function glutBitmapWidth(font:pointer; character:longint):longint;cdecl;external libglut;
-procedure glutStrokeCharacter(font:pointer; character:longint);cdecl;external libglut;
-function glutStrokeWidth(font:pointer; character:longint):longint;cdecl;external libglut;
-function glutStrokeWidthf(font:pointer; character:longint):TGLfloat;cdecl;external libglut;
-{ GLUT 3.8  }
-function glutBitmapLength(font:pointer; _string:Pbyte):longint;cdecl;external libglut;
-function glutStrokeLength(font:pointer; _string:Pbyte):longint;cdecl;external libglut;
-function glutStrokeLengthf(font:pointer; _string:Pbyte):TGLfloat;cdecl;external libglut;
-{ GLUT 3.8  }
-{
- * Geometry functions, see fg_geometry.c
-  }
-procedure glutWireCube(size:Tdouble);cdecl;external libglut;
-procedure glutSolidCube(size:Tdouble);cdecl;external libglut;
-procedure glutWireSphere(radius:Tdouble; slices:TGLint; stacks:TGLint);cdecl;external libglut;
-procedure glutSolidSphere(radius:Tdouble; slices:TGLint; stacks:TGLint);cdecl;external libglut;
-procedure glutWireCone(base:Tdouble; height:Tdouble; slices:TGLint; stacks:TGLint);cdecl;external libglut;
-procedure glutSolidCone(base:Tdouble; height:Tdouble; slices:TGLint; stacks:TGLint);cdecl;external libglut;
-procedure glutWireTorus(innerRadius:Tdouble; outerRadius:Tdouble; sides:TGLint; rings:TGLint);cdecl;external libglut;
-procedure glutSolidTorus(innerRadius:Tdouble; outerRadius:Tdouble; sides:TGLint; rings:TGLint);cdecl;external libglut;
-procedure glutWireDodecahedron;cdecl;external libglut;
-procedure glutSolidDodecahedron;cdecl;external libglut;
-procedure glutWireOctahedron;cdecl;external libglut;
-procedure glutSolidOctahedron;cdecl;external libglut;
-procedure glutWireTetrahedron;cdecl;external libglut;
-procedure glutSolidTetrahedron;cdecl;external libglut;
-procedure glutWireIcosahedron;cdecl;external libglut;
-procedure glutSolidIcosahedron;cdecl;external libglut;
-{
- * Teapot rendering functions, found in fg_teapot.c
- * NB: front facing polygons have clockwise winding, not counter clockwise
-  }
-procedure glutWireTeapot(size:Tdouble);cdecl;external libglut;
-procedure glutSolidTeapot(size:Tdouble);cdecl;external libglut;
-{
- * Game mode functions, see fg_gamemode.c
-  }
-procedure glutGameModeString(_string:Pchar);cdecl;external libglut;
-function glutEnterGameMode:longint;cdecl;external libglut;
-procedure glutLeaveGameMode;cdecl;external libglut;
-function glutGameModeGet(query:TGLenum):longint;cdecl;external libglut;
-{
- * Video resize functions, see fg_videoresize.c
-  }
-function glutVideoResizeGet(query:TGLenum):longint;cdecl;external libglut;
-procedure glutSetupVideoResizing;cdecl;external libglut;
-procedure glutStopVideoResizing;cdecl;external libglut;
-procedure glutVideoResize(x:longint; y:longint; width:longint; height:longint);cdecl;external libglut;
-procedure glutVideoPan(x:longint; y:longint; width:longint; height:longint);cdecl;external libglut;
-{
- * Colormap functions, see fg_misc.c
-  }
-procedure glutSetColor(color:longint; red:TGLfloat; green:TGLfloat; blue:TGLfloat);cdecl;external libglut;
-function glutGetColor(color:longint; component:longint):TGLfloat;cdecl;external libglut;
-procedure glutCopyColormap(window:longint);cdecl;external libglut;
-{
- * Misc keyboard and joystick functions, see fg_misc.c
-  }
-procedure glutIgnoreKeyRepeat(ignore:longint);cdecl;external libglut;
-procedure glutSetKeyRepeat(repeatMode:longint);cdecl;external libglut;
-procedure glutForceJoystickFunc;cdecl;external libglut;
-{
- * Misc functions, see fg_misc.c
-  }
-function glutExtensionSupported(extension:Pchar):longint;cdecl;external libglut;
-procedure glutReportErrors;cdecl;external libglut;
-{ Comment from glut.h of classic GLUT:
+// Overlay stuff
+procedure glutEstablishOverlay; cdecl; external libglut;
+procedure glutRemoveOverlay; cdecl; external libglut;
+procedure glutUseLayer(layer: GLenum); cdecl; external libglut;
+procedure glutPostOverlayRedisplay; cdecl; external libglut;
+procedure glutPostWindowOverlayRedisplay(window: integer); cdecl; external libglut;
+procedure glutShowOverlay; cdecl; external libglut;
+procedure glutHideOverlay; cdecl; external libglut;
 
-   Win32 has an annoying issue where there are multiple C run-time
-   libraries (CRTs).  If the executable is linked with a different CRT
-   from the GLUT DLL, the GLUT DLL will not share the same CRT static
-   data seen by the executable.  In particular, atexit callbacks registered
-   in the executable will not be called if GLUT calls its (different)
-   exit routine).  GLUT is typically built with the
-   "/MD" option (the CRT with multithreading DLL support), but the Visual
-   C++ linker default is "/ML" (the single threaded CRT).
+// Menu stuff
+function glutCreateMenu(callback: TglutMenuCallback): integer; cdecl; external libglut;
+procedure glutDestroyMenu(menu: integer); cdecl; external libglut;
+function glutGetMenu: integer; cdecl; external libglut;
+procedure glutSetMenu(menu: integer); cdecl; external libglut;
+procedure glutAddMenuEntry(label_: pansichar; value: integer); cdecl; external libglut;
+procedure glutAddSubMenu(label_: pansichar; subMenu: integer); cdecl; external libglut;
+procedure glutChangeToMenuEntry(item: integer; label_: pansichar; value: integer); cdecl; external libglut;
+procedure glutChangeToSubMenu(item: integer; label_: pansichar; value: integer); cdecl; external libglut;
+procedure glutRemoveMenuItem(item: integer); cdecl; external libglut;
+procedure glutAttachMenu(button: integer); cdecl; external libglut;
+procedure glutDetachMenu(button: integer); cdecl; external libglut;
 
-   One workaround to this issue is requiring users to always link with
-   the same CRT as GLUT is compiled with.  That requires users supply a
-   non-standard option.  GLUT 3.7 has its own built-in workaround where
-   the executable's "exit" function pointer is covertly passed to GLUT.
-   GLUT then calls the executable's exit function pointer to ensure that
-   any "atexit" calls registered by the application are called if GLUT
-   needs to exit.
+// Global callback functions
+procedure glutTimerFunc(time: cardinal; callback: TglutTimerFunc; value: integer); cdecl; external libglut;
+procedure glutIdleFunc(callback: TglutIdleFunc); cdecl; external libglut;
 
-   Note that the __glut*WithExit routines should NEVER be called directly.
-   To avoid the atexit workaround, #define GLUT_DISABLE_ATEXIT_HACK.  }
-{ to get the prototype for exit()  }
-{$include <stdlib.h>}
-{$if defined(_WIN32) && !defined(GLUT_DISABLE_ATEXIT_HACK) && !defined(__WATCOMC__)}
+// Window-specific callback functions
+procedure glutKeyboardFunc(callback: TglutKeyboardFunc); cdecl; external libglut;
+procedure glutSpecialFunc(callback: TglutSpecialFunc); cdecl; external libglut;
+procedure glutReshapeFunc(callback: TglutReshapeFunc); cdecl; external libglut;
+procedure glutVisibilityFunc(callback: TglutVisibilityFunc); cdecl; external libglut;
+procedure glutDisplayFunc(callback: TglutDisplayFunc); cdecl; external libglut;
+procedure glutMouseFunc(callback: TglutMouseFunc); cdecl; external libglut;
+procedure glutMotionFunc(callback: TglutMotionFunc); cdecl; external libglut;
+procedure glutPassiveMotionFunc(callback: TglutPassiveMotionFunc); cdecl; external libglut;
+procedure glutEntryFunc(callback: TglutEntryFunc); cdecl; external libglut;
+procedure glutKeyboardUpFunc(callback: TglutKeyboardUpFunc); cdecl; external libglut;
+procedure glutSpecialUpFunc(callback: TglutSpecialUpFunc); cdecl; external libglut;
+procedure glutJoystickFunc(callback: TglutJoystickFunc; pollInterval: integer); cdecl; external libglut;
+procedure glutMenuStateFunc(callback: TglutMenuStateFunc); cdecl; external libglut;
+procedure glutMenuStatusFunc(callback: TglutMenuStatusFunc); cdecl; external libglut;
+procedure glutOverlayDisplayFunc(callback: TglutOverlayDisplayFunc); cdecl; external libglut;
+procedure glutWindowStatusFunc(callback: TglutWindowStatusFunc); cdecl; external libglut;
+procedure glutSpaceballMotionFunc(callback: TglutSpaceballMotionFunc); cdecl; external libglut;
+procedure glutSpaceballRotateFunc(callback: TglutSpaceballRotateFunc); cdecl; external libglut;
+procedure glutSpaceballButtonFunc(callback: TglutSpaceballButtonFunc); cdecl; external libglut;
+procedure glutButtonBoxFunc(callback: TglutButtonBoxFunc); cdecl; external libglut;
+procedure glutDialsFunc(callback: TglutDialsFunc); cdecl; external libglut;
+procedure glutTabletMotionFunc(callback: TglutTabletMotionFunc); cdecl; external libglut;
+procedure glutTabletButtonFunc(callback: TglutTabletButtonFunc); cdecl; external libglut;
 
-procedure __glutInitWithExit(argcp:Plongint; argv:PPchar; exitfunc:procedure (para1:longint));cdecl;external libglut;
-function __glutCreateWindowWithExit(title:Pchar; exitfunc:procedure (para1:longint)):longint;cdecl;external libglut;
-function __glutCreateMenuWithExit(func:procedure (para1:longint); exitfunc:procedure (para1:longint)):longint;cdecl;external libglut;
-{$ifndef FREEGLUT_BUILDING_LIB}
-{$if defined(__GNUC__)}
+// State setting and retrieval functions
+function glutGet(query: GLenum): integer; cdecl; external libglut;
+function glutDeviceGet(query: GLenum): integer; cdecl; external libglut;
+function glutGetModifiers: integer; cdecl; external libglut;
+function glutLayerGet(query: GLenum): integer; cdecl; external libglut;
 
-{ was #define dname def_expr }
-function FGUNUSED : longint; { return type might be wrong }
+// Font stuff
+procedure glutBitmapCharacter(font: Pointer; character: integer); cdecl; external libglut;
+function glutBitmapWidth(font: Pointer; character: integer): integer; cdecl; external libglut;
+procedure glutStrokeCharacter(font: Pointer; character: integer); cdecl; external libglut;
+function glutStrokeWidth(font: Pointer; character: integer): integer; cdecl; external libglut;
+function glutStrokeWidthf(font: Pointer; character: integer): GLfloat; cdecl; external libglut;
+function glutBitmapLength(font: Pointer; str: pansichar): integer; cdecl; external libglut;
+function glutStrokeLength(font: Pointer; str: pansichar): integer; cdecl; external libglut;
+function glutStrokeLengthf(font: Pointer; str: pansichar): GLfloat; cdecl; external libglut;
 
-{$else}
-{$define FGUNUSED}
-{$endif}
-{
+// Geometry functions
+procedure glutWireCube(size: GLdouble); cdecl; external libglut;
+procedure glutSolidCube(size: GLdouble); cdecl; external libglut;
+procedure glutWireSphere(radius: GLdouble; slices, stacks: GLint); cdecl; external libglut;
+procedure glutSolidSphere(radius: GLdouble; slices, stacks: GLint); cdecl; external libglut;
+procedure glutWireCone(base, height: GLdouble; slices, stacks: GLint); cdecl; external libglut;
+procedure glutSolidCone(base, height: GLdouble; slices, stacks: GLint); cdecl; external libglut;
+procedure glutWireTorus(innerRadius, outerRadius: GLdouble; sides, rings: GLint); cdecl; external libglut;
+procedure glutSolidTorus(innerRadius, outerRadius: GLdouble; sides, rings: GLint); cdecl; external libglut;
+procedure glutWireDodecahedron; cdecl; external libglut;
+procedure glutSolidDodecahedron; cdecl; external libglut;
+procedure glutWireOctahedron; cdecl; external libglut;
+procedure glutSolidOctahedron; cdecl; external libglut;
+procedure glutWireTetrahedron; cdecl; external libglut;
+procedure glutSolidTetrahedron; cdecl; external libglut;
+procedure glutWireIcosahedron; cdecl; external libglut;
+procedure glutSolidIcosahedron; cdecl; external libglut;
 
-static void  FGUNUSED glutInit_ATEXIT_HACK(int *argcp, char **argv)  __glutInitWithExit(argcp, argv, exit); 
-#define glutInit glutInit_ATEXIT_HACK
-static int  FGUNUSED glutCreateWindow_ATEXIT_HACK(const char *title)  return __glutCreateWindowWithExit(title, exit); 
-#define glutCreateWindow glutCreateWindow_ATEXIT_HACK
-static int  FGUNUSED glutCreateMenu_ATEXIT_HACK(void (* func)(int))  return __glutCreateMenuWithExit(func, exit); 
-#define glutCreateMenu glutCreateMenu_ATEXIT_HACK
+// Teapot rendering functions
+procedure glutWireTeapot(size: GLdouble); cdecl; external libglut;
+procedure glutSolidTeapot(size: GLdouble); cdecl; external libglut;
 
- }
-{$endif}
-{$endif}
-{** END OF FILE ** }
-{$endif}
-{ __FREEGLUT_STD_H__  }
+// Game mode functions
+procedure glutGameModeString(str: pansichar); cdecl; external libglut;
+function glutEnterGameMode: integer; cdecl; external libglut;
+procedure glutLeaveGameMode; cdecl; external libglut;
+function glutGameModeGet(query: GLenum): integer; cdecl; external libglut;
 
-// === Konventiert am: 22-6-25 19:46:37 ===
+// Video resize functions
+function glutVideoResizeGet(query: GLenum): integer; cdecl; external libglut;
+procedure glutSetupVideoResizing; cdecl; external libglut;
+procedure glutStopVideoResizing; cdecl; external libglut;
+procedure glutVideoResize(x, y, width, height: integer); cdecl; external libglut;
+procedure glutVideoPan(x, y, width, height: integer); cdecl; external libglut;
 
+// Colormap functions
+procedure glutSetColor(color: integer; red, green, blue: GLfloat); cdecl; external libglut;
+function glutGetColor(color, component: integer): GLfloat; cdecl; external libglut;
+procedure glutCopyColormap(window: integer); cdecl; external libglut;
+
+// Misc keyboard and joystick functions
+procedure glutIgnoreKeyRepeat(ignore: integer); cdecl; external libglut;
+procedure glutSetKeyRepeat(repeatMode: integer); cdecl; external libglut;
+procedure glutForceJoystickFunc; cdecl; external libglut;
+
+// Misc functions
+function glutExtensionSupported(extension: pansichar): integer; cdecl; external libglut;
+procedure glutReportErrors; cdecl; external libglut;
 
 implementation
-
-{$ifdef windows}
-
-{ was #define dname def_expr }
-function GLUT_STROKE_ROMAN : pointer;
-  begin
-    GLUT_STROKE_ROMAN:=pointer($0000);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_STROKE_MONO_ROMAN : pointer;
-  begin
-    GLUT_STROKE_MONO_ROMAN:=pointer($0001);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_9_BY_15 : pointer;
-  begin
-    GLUT_BITMAP_9_BY_15:=pointer($0002);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_8_BY_13 : pointer;
-  begin
-    GLUT_BITMAP_8_BY_13:=pointer($0003);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_10 : pointer;
-  begin
-    GLUT_BITMAP_TIMES_ROMAN_10:=pointer($0004);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_24 : pointer;
-  begin
-    GLUT_BITMAP_TIMES_ROMAN_24:=pointer($0005);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_10 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_10:=pointer($0006);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_12 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_12:=pointer($0007);
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_18 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_18:=pointer($0008);
-  end;
-
-  {$else}
-
-{ was #define dname def_expr }
-function GLUT_STROKE_ROMAN : pointer;
-  begin
-    GLUT_STROKE_ROMAN:=pointer(@(glutStrokeRoman));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_STROKE_MONO_ROMAN : pointer;
-  begin
-    GLUT_STROKE_MONO_ROMAN:=pointer(@(glutStrokeMonoRoman));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_9_BY_15 : pointer;
-  begin
-    GLUT_BITMAP_9_BY_15:=pointer(@(glutBitmap9By15));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_8_BY_13 : pointer;
-  begin
-    GLUT_BITMAP_8_BY_13:=pointer(@(glutBitmap8By13));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_10 : pointer;
-  begin
-    GLUT_BITMAP_TIMES_ROMAN_10:=pointer(@(glutBitmapTimesRoman10));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_TIMES_ROMAN_24 : pointer;
-  begin
-    GLUT_BITMAP_TIMES_ROMAN_24:=pointer(@(glutBitmapTimesRoman24));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_10 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_10:=pointer(@(glutBitmapHelvetica10));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_12 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_12:=pointer(@(glutBitmapHelvetica12));
-  end;
-
-{ was #define dname def_expr }
-function GLUT_BITMAP_HELVETICA_18 : pointer;
-  begin
-    GLUT_BITMAP_HELVETICA_18:=pointer(@(glutBitmapHelvetica18));
-  end;
-{$endif}
-
-
-{ was #define dname def_expr }
-function FGUNUSED : longint; { return type might be wrong }
-  begin
-    FGUNUSED:=__attribute__(unused);
-  end;
-
 
 end.

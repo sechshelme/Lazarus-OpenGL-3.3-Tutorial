@@ -25,10 +25,10 @@ uses
     glutSwapBuffers;
   end;
 
-  procedure key_press(c: byte; v1, v2: integer); cdecl;
+  procedure key_press(key: ansichar; x, y: integer); cdecl;
   begin
     WriteLn('press');
-    if c = 27 then begin
+    if key = #27 then begin
       halt;
     end;
   end;
@@ -36,15 +36,14 @@ uses
   procedure main;
   begin
     glutInit(@argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE);    // Use single color buffer and no depth buffer.
-    glutInitWindowSize(500, 500);         // Size of display area, in pixels.
-    glutInitWindowPosition(100, 100);     // Location of window in screen coordinates.
-    glutCreateWindow('GL RGB Triangle'); // Parameter is window title.
-    glutDisplayFunc(@display);            // Called when the window needs to be redrawn.
+    glutInitDisplayMode(GLUT_DOUBLE);
+    glutInitWindowSize(500, 500);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow('GL RGB Triangle');
+    glutDisplayFunc(@display);
     glutKeyboardFunc(@key_press);
 
-    glutMainLoop(); // Run the event loop!  This function does not return.
-    // Program ends when user closes the window.
+    glutMainLoop();
   end;
 
 begin
