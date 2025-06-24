@@ -30,7 +30,6 @@ Tptrdiff_t =SizeUInt;
 
 
 { ----------------------------- GL_VERSION_1_1 ----------------------------  }
-{$ifndef GL_VERSION_1_1}
 
 const
   GL_VERSION_1_1 = 1;  
@@ -52,7 +51,8 @@ type
 
   PPGLboolean = ^PGLboolean;
   PGLboolean = ^TGLboolean;
-  TGLboolean = byte;
+//  TGLboolean = byte;
+  TGLboolean = Boolean;
 
   PGLbyte = ^TGLbyte;
   TGLbyte = char;
@@ -1072,7 +1072,8 @@ type
 { ---------------------------- GL_VERSION_1_2_1 ---------------------------  }
 
 const
-  GL_VERSION_1_2_1 = 1;  
+  GL_VERSION_1_2_1 = 1;
+
 
 { ----------------------------- GL_VERSION_1_3 ----------------------------  }
 
@@ -1229,6 +1230,7 @@ type
   TPFNGLMULTITEXCOORD4SVPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
   TPFNGLSAMPLECOVERAGEPROC = procedure (value:TGLclampf; invert:TGLboolean);cdecl;
 
+
 { ----------------------------- GL_VERSION_1_4 ----------------------------  }
 
 const
@@ -1321,154 +1323,8 @@ type
   TPFNGLWINDOWPOS3SPROC = procedure (x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
   TPFNGLWINDOWPOS3SVPROC = procedure (p:PGLshort);cdecl;
 
-{ was #define dname def_expr }
-function glBlendColor : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glBlendEquation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparate : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordPointer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordd : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoorddv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawArrays : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElements : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3b : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3bv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ub : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3us : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3usv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorPointer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_1_4 : longint; { return type might be wrong }
-
-{$endif}
-{ GL_VERSION_1_4  }
 { ----------------------------- GL_VERSION_1_5 ----------------------------  }
-{$ifndef GL_VERSION_1_5}
 
 const
   GL_VERSION_1_5 = 1;  
@@ -1549,65 +1405,6 @@ type
   TPFNGLMAPBUFFERPROC = function (target:TGLenum; access:TGLenum):pointer;cdecl;
   TPFNGLUNMAPBUFFERPROC = function (target:TGLenum):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBeginQuery : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteQueries : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndQuery : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenQueries : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferPointerv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsQuery : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_1_5 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_2_0 ----------------------------  }
 
@@ -1794,287 +1591,6 @@ type
   TPFNGLVERTEXATTRIB4USVPROC = procedure (index:TGLuint; v:PGLushort);cdecl;
   TPFNGLVERTEXATTRIBPOINTERPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei;                pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glAttachShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindAttribLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationSeparate : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompileShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDetachShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVertexAttribArray : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexAttribArray : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveAttrib : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniform : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetAttachedShaders : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetAttribLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramInfoLog : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShaderInfoLog : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShaderSource : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShaderiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribPointerv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribdv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLinkProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderSource : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilFuncSeparate : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilMaskSeparate : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilOpSeparate : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUseProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glValidateProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nbv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Niv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nsv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nub : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4Nusv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4bv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4s : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4ubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4usv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribPointer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_2_0 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_2_1 ----------------------------  }
 
@@ -2111,26 +1627,6 @@ type
   TPFNGLUNIFORMMATRIX4X2FVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
   TPFNGLUNIFORMMATRIX4X3FVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glUniformMatrix2x3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2x4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_2_1 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_3_0 ----------------------------  }
 
@@ -2299,173 +1795,6 @@ type
   TPFNGLVERTEXATTRIBI4USVPROC = procedure (index:TGLuint; v0:PGLushort);cdecl;
   TPFNGLVERTEXATTRIBIPOINTERPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBeginConditionalRender : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBeginTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindFragDataLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClampColor : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearBufferfi : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearBufferfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearBufferiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearBufferuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorMaski : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisablei : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnablei : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndConditionalRender : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBooleani_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragDataLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetStringi : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbackVarying : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsEnabledi : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackVaryings : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4bv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4sv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4ubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4usv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribIPointer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_3_0 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_3_1 ----------------------------  }
 
@@ -2511,20 +1840,6 @@ type
   TPFNGLPRIMITIVERESTARTINDEXPROC = procedure (buffer:TGLuint);cdecl;
   TPFNGLTEXBUFFERPROC = procedure (target:TGLenum; internalFormat:TGLenum; buffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstanced : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstanced : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPrimitiveRestartIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_3_1 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_3_2 ----------------------------  }
 
@@ -2557,17 +1872,6 @@ type
   TPFNGLGETBUFFERPARAMETERI64VPROC = procedure (target:TGLenum; value:TGLenum; data:PGLint64);cdecl;
   TPFNGLGETINTEGER64I_VPROC = procedure (pname:TGLenum; index:TGLuint; data:PGLint64);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTexture : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferParameteri64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInteger64i_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_3_2 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_3_3 ----------------------------  }
 
@@ -2578,14 +1882,8 @@ const
 type
   TPFNGLVERTEXATTRIBDIVISORPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glVertexAttribDivisor : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_3_3 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_0 ----------------------------  }
-{$ifndef GL_VERSION_4_0}
 
 const
   GL_VERSION_4_0 = 1;  
@@ -2608,31 +1906,12 @@ type
   TPFNGLBLENDFUNCIPROC = procedure (buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;
   TPFNGLMINSAMPLESHADINGPROC = procedure (value:TGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparatei : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationi : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparatei : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFunci : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMinSampleShading : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_4_0 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_1 ----------------------------  }
 
 const
   GL_VERSION_4_1 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_VERSION_4_1 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_2 ----------------------------  }
 
@@ -2647,8 +1926,6 @@ const
   GL_COPY_READ_BUFFER_BINDING = $8F36;  
   GL_COPY_WRITE_BUFFER_BINDING = $8F37;  
 
-{ was #define dname def_expr }
-function GLEW_VERSION_4_2 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_3 ----------------------------  }
 
@@ -2657,8 +1934,6 @@ const
   GL_NUM_SHADING_LANGUAGE_VERSIONS = $82E9;  
   GL_VERTEX_ATTRIB_ARRAY_LONG = $874E;  
 
-{ was #define dname def_expr }
-function GLEW_VERSION_4_3 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_4 ----------------------------  }
 
@@ -2668,8 +1943,6 @@ const
   GL_MAX_VERTEX_ATTRIB_STRIDE = $82E5;  
   GL_TEXTURE_BUFFER_BINDING = $8C2A;  
 
-{ was #define dname def_expr }
-function GLEW_VERSION_4_4 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_5 ----------------------------  }
 
@@ -2682,20 +1955,6 @@ type
   TPFNGLGETNTEXIMAGEPROC = procedure (tex:TGLenum; level:TGLint; format:TGLenum; _type:TGLenum; bufSize:TGLsizei;                pixels:PGLvoid);cdecl;
   TPFNGLGETNUNIFORMDVPROC = procedure (prog:TGLuint; location:TGLint; bufSize:TGLsizei; params:PGLdouble);cdecl;
 
-{ was #define dname def_expr }
-function glGetGraphicsResetStatus : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnCompressedTexImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnTexImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformdv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_4_5 : longint; { return type might be wrong }
 
 { ----------------------------- GL_VERSION_4_6 ----------------------------  }
 
@@ -2728,17 +1987,6 @@ type
   TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:PGLvoid; drawcount:TGLintptr; maxdrawcount:TGLsizei;                stride:TGLsizei);cdecl;
   TPFNGLSPECIALIZESHADERPROC = procedure (shader:TGLuint; pEntryPoint:PGLchar; numSpecializationConstants:TGLuint; pConstantIndex:PGLuint; pConstantValue:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectCount : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectCount : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSpecializeShader : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_VERSION_4_6 : longint; { return type might be wrong }
 
 { -------------------------- GL_3DFX_multisample --------------------------  }
 
@@ -2749,8 +1997,6 @@ const
   GL_SAMPLES_3DFX = $86B4;  
   GL_MULTISAMPLE_BIT_3DFX = $20000000;  
 
-{ was #define dname def_expr }
-function GLEW_3DFX_multisample : longint; { return type might be wrong }
 
 { ---------------------------- GL_3DFX_tbuffer ----------------------------  }
 
@@ -2759,11 +2005,6 @@ const
 type
   TPFNGLTBUFFERMASK3DFXPROC = procedure (mask:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTbufferMask3DFX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_3DFX_tbuffer : longint; { return type might be wrong }
 
 { -------------------- GL_3DFX_texture_compression_FXT1 -------------------  }
 
@@ -2772,8 +2013,6 @@ const
   GL_COMPRESSED_RGB_FXT1_3DFX = $86B0;  
   GL_COMPRESSED_RGBA_FXT1_3DFX = $86B1;  
 
-{ was #define dname def_expr }
-function GLEW_3DFX_texture_compression_FXT1 : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_blend_minmax_factor ----------------------  }
 
@@ -2782,8 +2021,6 @@ const
   GL_FACTOR_MIN_AMD = $901C;  
   GL_FACTOR_MAX_AMD = $901D;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_blend_minmax_factor : longint; { return type might be wrong }
 
 { --------------------- GL_AMD_compressed_3DC_texture ---------------------  }
 
@@ -2792,8 +2029,6 @@ const
   GL_3DC_X_AMD = $87F9;  
   GL_3DC_XY_AMD = $87FA;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_compressed_3DC_texture : longint; { return type might be wrong }
 
 { --------------------- GL_AMD_compressed_ATC_texture ---------------------  }
 
@@ -2803,16 +2038,12 @@ const
   GL_ATC_RGB_AMD = $8C92;  
   GL_ATC_RGBA_EXPLICIT_ALPHA_AMD = $8C93;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_compressed_ATC_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_conservative_depth -----------------------  }
 
 const
   GL_AMD_conservative_depth = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_conservative_depth : longint; { return type might be wrong }
 
 { -------------------------- GL_AMD_debug_output --------------------------  }
 
@@ -2839,20 +2070,6 @@ type
   TPFNGLDEBUGMESSAGEINSERTAMDPROC = procedure (category:TGLenum; severity:TGLenum; id:TGLuint; length:TGLsizei; buf:PGLchar);cdecl;
   TPFNGLGETDEBUGMESSAGELOGAMDPROC = function (count:TGLuint; bufsize:TGLsizei; categories:PGLenum; severities:PGLuint; ids:PGLuint;               lengths:PGLsizei; message:PGLchar):TGLuint;cdecl;
 
-{ was #define dname def_expr }
-function glDebugMessageCallbackAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageEnableAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageInsertAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDebugMessageLogAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_debug_output : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_depth_clamp_separate ----------------------  }
 
@@ -2861,8 +2078,6 @@ const
   GL_DEPTH_CLAMP_NEAR_AMD = $901E;  
   GL_DEPTH_CLAMP_FAR_AMD = $901F;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_depth_clamp_separate : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_draw_buffers_blend -----------------------  }
 
@@ -2874,20 +2089,6 @@ type
   TPFNGLBLENDFUNCINDEXEDAMDPROC = procedure (buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;
   TPFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC = procedure (buf:TGLuint; srcRGB:TGLenum; dstRGB:TGLenum; srcAlpha:TGLenum; dstAlpha:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationIndexedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationSeparateIndexedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncIndexedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparateIndexedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_draw_buffers_blend : longint; { return type might be wrong }
 
 { ---------------- GL_AMD_framebuffer_multisample_advanced ----------------  }
 
@@ -2903,14 +2104,6 @@ type
   TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC = procedure (renderbuffer:TGLuint; samples:TGLsizei; storageSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei;                height:TGLsizei);cdecl;
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC = procedure (target:TGLenum; samples:TGLsizei; storageSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei;                height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glNamedRenderbufferStorageMultisampleAdvancedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleAdvancedAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_framebuffer_multisample_advanced : longint; { return type might be wrong }
 
 { ------------------ GL_AMD_framebuffer_sample_positions ------------------  }
 
@@ -2926,28 +2119,12 @@ type
   TPFNGLGETNAMEDFRAMEBUFFERPARAMETERFVAMDPROC = procedure (framebuffer:TGLuint; pname:TGLenum; numsamples:TGLuint; pixelindex:TGLuint; size:TGLsizei;                values:PGLfloat);cdecl;
   TPFNGLNAMEDFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC = procedure (framebuffer:TGLuint; numsamples:TGLuint; pixelindex:TGLuint; values:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferSamplePositionsfvAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferParameterfvAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedFramebufferParameterfvAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferSamplePositionsfvAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_framebuffer_sample_positions : longint; { return type might be wrong }
 
 { --------------------------- GL_AMD_gcn_shader ---------------------------  }
 
 const
   GL_AMD_gcn_shader = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_gcn_shader : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_gpu_shader_half_float ---------------------  }
 
@@ -2967,8 +2144,6 @@ const
   GL_FLOAT16_MAT4x2_AMD = $91CC;  
   GL_FLOAT16_MAT4x3_AMD = $91CD;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_gpu_shader_half_float : longint; { return type might be wrong }
 
 { ------------------- GL_AMD_gpu_shader_half_float_fetch ------------------  }
 
@@ -3004,24 +2179,18 @@ const
   GL_FLOAT16_IMAGE_2D_MULTISAMPLE_AMD = $91E9;  
   GL_FLOAT16_IMAGE_2D_MULTISAMPLE_ARRAY_AMD = $91EA;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_gpu_shader_half_float_fetch : longint; { return type might be wrong }
 
 { ------------------------ GL_AMD_gpu_shader_int16 ------------------------  }
 
 const
   GL_AMD_gpu_shader_int16 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_gpu_shader_int16 : longint; { return type might be wrong }
 
 { ------------------------ GL_AMD_gpu_shader_int64 ------------------------  }
 
 const
   GL_AMD_gpu_shader_int64 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_gpu_shader_int64 : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_interleaved_elements ----------------------  }
 const
@@ -3038,11 +2207,6 @@ const
 type
   TPFNGLVERTEXATTRIBPARAMETERIAMDPROC = procedure (index:TGLuint; pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glVertexAttribParameteriAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_interleaved_elements : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_multi_draw_indirect ----------------------  }
 
@@ -3052,14 +2216,6 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTAMDPROC = procedure (mode:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_multi_draw_indirect : longint; { return type might be wrong }
 
 { ------------------------- GL_AMD_name_gen_delete ------------------------  }
 
@@ -3075,17 +2231,6 @@ type
   TPFNGLGENNAMESAMDPROC = procedure (identifier:TGLenum; num:TGLuint; names:PGLuint);cdecl;
   TPFNGLISNAMEAMDPROC = function (identifier:TGLenum; name:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glDeleteNamesAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenNamesAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsNameAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_name_gen_delete : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_occlusion_query_event ---------------------  }
 
@@ -3100,11 +2245,6 @@ const
 type
   TPFNGLQUERYOBJECTPARAMETERUIAMDPROC = procedure (target:TGLenum; id:TGLuint; pname:TGLenum; param:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glQueryObjectParameteruiAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_occlusion_query_event : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_performance_monitor ----------------------  }
 
@@ -3130,41 +2270,6 @@ type
   TPFNGLGETPERFMONITORGROUPSAMDPROC = procedure (numGroups:PGLint; groupsSize:TGLsizei; groups:PGLuint);cdecl;
   TPFNGLSELECTPERFMONITORCOUNTERSAMDPROC = procedure (monitor:TGLuint; enable:TGLboolean; group:TGLuint; numCounters:TGLint; counterList:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glBeginPerfMonitorAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeletePerfMonitorsAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndPerfMonitorAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenPerfMonitorsAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorCounterDataAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorCounterInfoAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorCounterStringAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorCountersAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorGroupStringAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfMonitorGroupsAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSelectPerfMonitorCountersAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_performance_monitor : longint; { return type might be wrong }
 
 { -------------------------- GL_AMD_pinned_memory -------------------------  }
 
@@ -3172,8 +2277,6 @@ const
   GL_AMD_pinned_memory = 1;  
   GL_EXTERNAL_VIRTUAL_MEMORY_BUFFER_AMD = $9160;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_pinned_memory : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_program_binary_Z400 ----------------------  }
 
@@ -3181,8 +2284,6 @@ const
   GL_AMD_program_binary_Z400 = 1;  
   GL_Z400_BINARY_AMD = $8740;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_program_binary_Z400 : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_query_buffer_object ----------------------  }
 
@@ -3192,8 +2293,6 @@ const
   GL_QUERY_BUFFER_BINDING_AMD = $9193;  
   GL_QUERY_RESULT_NO_WAIT_AMD = $9194;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_query_buffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_AMD_sample_positions ------------------------  }
 
@@ -3204,11 +2303,6 @@ type
 
   TPFNGLSETMULTISAMPLEFVAMDPROC = procedure (pname:TGLenum; index:TGLuint; val:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glSetMultisamplefvAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_sample_positions : longint; { return type might be wrong }
 
 { ------------------ GL_AMD_seamless_cubemap_per_texture ------------------  }
 
@@ -3216,64 +2310,48 @@ const
   GL_AMD_seamless_cubemap_per_texture = 1;  
   GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_seamless_cubemap_per_texture : longint; { return type might be wrong }
 
 { -------------------- GL_AMD_shader_atomic_counter_ops -------------------  }
 
 const
   GL_AMD_shader_atomic_counter_ops = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_atomic_counter_ops : longint; { return type might be wrong }
 
 { -------------------------- GL_AMD_shader_ballot -------------------------  }
 
 const
   GL_AMD_shader_ballot = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_ballot : longint; { return type might be wrong }
 
 { ---------------- GL_AMD_shader_explicit_vertex_parameter ----------------  }
 
 const
   GL_AMD_shader_explicit_vertex_parameter = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_explicit_vertex_parameter : longint; { return type might be wrong }
 
 { ------------------- GL_AMD_shader_image_load_store_lod ------------------  }
 
 const
   GL_AMD_shader_image_load_store_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_image_load_store_lod : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_shader_stencil_export ---------------------  }
 
 const
   GL_AMD_shader_stencil_export = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_stencil_export : longint; { return type might be wrong }
 
 { ------------------- GL_AMD_shader_stencil_value_export ------------------  }
 
 const
   GL_AMD_shader_stencil_value_export = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_stencil_value_export : longint; { return type might be wrong }
 
 { ---------------------- GL_AMD_shader_trinary_minmax ---------------------  }
 
 const
   GL_AMD_shader_trinary_minmax = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_shader_trinary_minmax : longint; { return type might be wrong }
 
 { ------------------------- GL_AMD_sparse_texture -------------------------  }
 
@@ -3292,14 +2370,6 @@ type
   TPFNGLTEXSTORAGESPARSEAMDPROC = procedure (target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei; depth:TGLsizei;                layers:TGLsizei; flags:TGLbitfield);cdecl;
   TPFNGLTEXTURESTORAGESPARSEAMDPROC = procedure (texture:TGLuint; target:TGLenum; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei;                depth:TGLsizei; layers:TGLsizei; flags:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glTexStorageSparseAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageSparseAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_sparse_texture : longint; { return type might be wrong }
 
 { ------------------- GL_AMD_stencil_operation_extended -------------------  }
 
@@ -3313,35 +2383,24 @@ type
 
   TPFNGLSTENCILOPVALUEAMDPROC = procedure (face:TGLenum; value:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glStencilOpValueAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_stencil_operation_extended : longint; { return type might be wrong }
 
 { --------------------- GL_AMD_texture_gather_bias_lod --------------------  }
 
 const
   GL_AMD_texture_gather_bias_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_texture_gather_bias_lod : longint; { return type might be wrong }
 
 { ------------------------ GL_AMD_texture_texture4 ------------------------  }
 
 const
   GL_AMD_texture_texture4 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_texture_texture4 : longint; { return type might be wrong }
 
 { --------------- GL_AMD_transform_feedback3_lines_triangles --------------  }
 
 const
   GL_AMD_transform_feedback3_lines_triangles = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_transform_feedback3_lines_triangles : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_transform_feedback4 ----------------------  }
 
@@ -3349,16 +2408,12 @@ const
   GL_AMD_transform_feedback4 = 1;  
   GL_STREAM_RASTERIZATION_AMD = $91A0;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_transform_feedback4 : longint; { return type might be wrong }
 
 { ----------------------- GL_AMD_vertex_shader_layer ----------------------  }
 
 const
   GL_AMD_vertex_shader_layer = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_vertex_shader_layer : longint; { return type might be wrong }
 
 { -------------------- GL_AMD_vertex_shader_tessellator -------------------  }
 
@@ -3375,38 +2430,24 @@ type
   TPFNGLTESSELLATIONFACTORAMDPROC = procedure (factor:TGLfloat);cdecl;
   TPFNGLTESSELLATIONMODEAMDPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glTessellationFactorAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTessellationModeAMD : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_AMD_vertex_shader_tessellator : longint; { return type might be wrong }
 
 { ------------------ GL_AMD_vertex_shader_viewport_index ------------------  }
 
 const
   GL_AMD_vertex_shader_viewport_index = 1;  
 
-{ was #define dname def_expr }
-function GLEW_AMD_vertex_shader_viewport_index : longint; { return type might be wrong }
 
 { -------------------- GL_ANDROID_extension_pack_es31a --------------------  }
 
 const
   GL_ANDROID_extension_pack_es31a = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ANDROID_extension_pack_es31a : longint; { return type might be wrong }
 
 { ------------------------- GL_ANGLE_depth_texture ------------------------  }
 
 const
   GL_ANGLE_depth_texture = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_depth_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_ANGLE_framebuffer_blit -----------------------  }
 
@@ -3420,11 +2461,6 @@ type
   TPFNGLBLITFRAMEBUFFERANGLEPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint;
                 dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlitFramebufferANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ANGLE_framebuffer_blit : longint; { return type might be wrong }
 
 { -------------------- GL_ANGLE_framebuffer_multisample -------------------  }
 
@@ -3436,11 +2472,6 @@ const
 type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEANGLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ANGLE_framebuffer_multisample : longint; { return type might be wrong }
 
 { ----------------------- GL_ANGLE_instanced_arrays -----------------------  }
 
@@ -3452,17 +2483,6 @@ type
   TPFNGLDRAWELEMENTSINSTANCEDANGLEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
   TPFNGLVERTEXATTRIBDIVISORANGLEPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribDivisorANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ANGLE_instanced_arrays : longint; { return type might be wrong }
 
 { -------------------- GL_ANGLE_pack_reverse_row_order --------------------  }
 
@@ -3470,8 +2490,6 @@ const
   GL_ANGLE_pack_reverse_row_order = 1;  
   GL_PACK_REVERSE_ROW_ORDER_ANGLE = $93A4;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_pack_reverse_row_order : longint; { return type might be wrong }
 
 { ------------------------ GL_ANGLE_program_binary ------------------------  }
 
@@ -3479,8 +2497,6 @@ const
   GL_ANGLE_program_binary = 1;  
   GL_PROGRAM_BINARY_ANGLE = $93A6;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_program_binary : longint; { return type might be wrong }
 
 { ------------------- GL_ANGLE_texture_compression_dxt1 -------------------  }
 
@@ -3491,8 +2507,6 @@ const
   GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
   GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_texture_compression_dxt1 : longint; { return type might be wrong }
 
 { ------------------- GL_ANGLE_texture_compression_dxt3 -------------------  }
 
@@ -3503,8 +2517,6 @@ const
 //  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
 //  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_texture_compression_dxt3 : longint; { return type might be wrong }
 
 { ------------------- GL_ANGLE_texture_compression_dxt5 -------------------  }
 
@@ -3515,8 +2527,6 @@ const
 //  GL_COMPRESSED_RGBA_S3TC_DXT3_ANGLE = $83F2;  
 //  GL_COMPRESSED_RGBA_S3TC_DXT5_ANGLE = $83F3;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_texture_compression_dxt5 : longint; { return type might be wrong }
 
 { ------------------------- GL_ANGLE_texture_usage ------------------------  }
 
@@ -3525,8 +2535,6 @@ const
   GL_TEXTURE_USAGE_ANGLE = $93A2;  
   GL_FRAMEBUFFER_ATTACHMENT_ANGLE = $93A3;  
 
-{ was #define dname def_expr }
-function GLEW_ANGLE_texture_usage : longint; { return type might be wrong }
 
 { -------------------------- GL_ANGLE_timer_query -------------------------  }
 
@@ -3551,41 +2559,6 @@ type
   TPFNGLISQUERYANGLEPROC = function (id:TGLuint):TGLboolean;cdecl;
   TPFNGLQUERYCOUNTERANGLEPROC = procedure (id:TGLuint; target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBeginQueryANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteQueriesANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndQueryANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenQueriesANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjecti64vANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectivANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectui64vANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectuivANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryivANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsQueryANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glQueryCounterANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ANGLE_timer_query : longint; { return type might be wrong }
 
 { ------------------- GL_ANGLE_translated_shader_source -------------------  }
 
@@ -3595,11 +2568,6 @@ const
 type
   TPFNGLGETTRANSLATEDSHADERSOURCEANGLEPROC = procedure (shader:TGLuint; bufsize:TGLsizei; length:PGLsizei; source:PGLchar);cdecl;
 
-{ was #define dname def_expr }
-function glGetTranslatedShaderSourceANGLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ANGLE_translated_shader_source : longint; { return type might be wrong }
 
 { ----------------------- GL_APPLE_aux_depth_stencil ----------------------  }
 
@@ -3607,8 +2575,6 @@ const
   GL_APPLE_aux_depth_stencil = 1;  
   GL_AUX_DEPTH_STENCIL_APPLE = $8A14;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_aux_depth_stencil : longint; { return type might be wrong }
 
 { ------------------------ GL_APPLE_client_storage ------------------------  }
 
@@ -3616,8 +2582,6 @@ const
   GL_APPLE_client_storage = 1;  
   GL_UNPACK_CLIENT_STORAGE_APPLE = $85B2;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_client_storage : longint; { return type might be wrong }
 
 { ------------------------- GL_APPLE_clip_distance ------------------------  }
 
@@ -3633,16 +2597,12 @@ const
   GL_CLIP_DISTANCE6_APPLE = $3006;  
   GL_CLIP_DISTANCE7_APPLE = $3007;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_clip_distance : longint; { return type might be wrong }
 
 { ------------------- GL_APPLE_color_buffer_packed_float ------------------  }
 
 const
   GL_APPLE_color_buffer_packed_float = 1;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_color_buffer_packed_float : longint; { return type might be wrong }
 
 { ---------------------- GL_APPLE_copy_texture_levels ---------------------  }
 
@@ -3651,11 +2611,6 @@ const
 type
   TPFNGLCOPYTEXTURELEVELSAPPLEPROC = procedure (destinationTexture:TGLuint; sourceTexture:TGLuint; sourceBaseLevel:TGLint; sourceLevelCount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyTextureLevelsAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_copy_texture_levels : longint; { return type might be wrong }
 
 { ------------------------- GL_APPLE_element_array ------------------------  }
 
@@ -3671,23 +2626,6 @@ type
   TPFNGLMULTIDRAWELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei);cdecl;
   TPFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; first:PGLint; count:PGLsizei;                primcount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawElementArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawRangeElementArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glElementPointerAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawRangeElementArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_element_array : longint; { return type might be wrong }
 
 { ----------------------------- GL_APPLE_fence ----------------------------  }
 
@@ -3705,32 +2643,6 @@ type
   TPFNGLTESTFENCEAPPLEPROC = function (fence:TGLuint):TGLboolean;cdecl;
   TPFNGLTESTOBJECTAPPLEPROC = function (obj:TGLenum; name:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glDeleteFencesAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFinishFenceAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFinishObjectAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFencesAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsFenceAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSetFenceAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTestFenceAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTestObjectAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_fence : longint; { return type might be wrong }
 
 { ------------------------- GL_APPLE_float_pixels -------------------------  }
 
@@ -3751,8 +2663,6 @@ const
   GL_LUMINANCE_ALPHA_FLOAT16_APPLE = $881F;  
   GL_COLOR_FLOAT_APPLE = $8A0F;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_float_pixels : longint; { return type might be wrong }
 
 { ---------------------- GL_APPLE_flush_buffer_range ----------------------  }
 
@@ -3764,14 +2674,6 @@ type
   TPFNGLBUFFERPARAMETERIAPPLEPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
   TPFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC = procedure (target:TGLenum; offset:TGLintptr; size:TGLsizeiptr);cdecl;
 
-{ was #define dname def_expr }
-function glBufferParameteriAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFlushMappedBufferRangeAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_flush_buffer_range : longint; { return type might be wrong }
 
 { -------------------- GL_APPLE_framebuffer_multisample -------------------  }
 
@@ -3788,14 +2690,6 @@ type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResolveMultisampleFramebufferAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_framebuffer_multisample : longint; { return type might be wrong }
 
 { ----------------------- GL_APPLE_object_purgeable -----------------------  }
 
@@ -3812,17 +2706,6 @@ type
   TPFNGLOBJECTPURGEABLEAPPLEPROC = function (objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;
   TPFNGLOBJECTUNPURGEABLEAPPLEPROC = function (objectType:TGLenum; name:TGLuint; option:TGLenum):TGLenum;cdecl;
 
-{ was #define dname def_expr }
-function glGetObjectParameterivAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glObjectPurgeableAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glObjectUnpurgeableAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_object_purgeable : longint; { return type might be wrong }
 
 { ------------------------- GL_APPLE_pixel_buffer -------------------------  }
 
@@ -3830,8 +2713,6 @@ const
   GL_APPLE_pixel_buffer = 1;  
   GL_MIN_PBUFFER_VIEWPORT_DIMS_APPLE = $8A10;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_pixel_buffer : longint; { return type might be wrong }
 
 { ---------------------------- GL_APPLE_rgb_422 ---------------------------  }
 
@@ -3842,8 +2723,6 @@ const
   GL_RGB_422_APPLE = $8A1F;  
   GL_RGB_RAW_422_APPLE = $8A51;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_rgb_422 : longint; { return type might be wrong }
 
 { --------------------------- GL_APPLE_row_bytes --------------------------  }
 
@@ -3852,8 +2731,6 @@ const
   GL_PACK_ROW_BYTES_APPLE = $8A15;  
   GL_UNPACK_ROW_BYTES_APPLE = $8A16;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_row_bytes : longint; { return type might be wrong }
 
 { ------------------------ GL_APPLE_specular_vector -----------------------  }
 
@@ -3861,8 +2738,6 @@ const
   GL_APPLE_specular_vector = 1;  
   GL_LIGHT_MODEL_SPECULAR_VECTOR_APPLE = $85B0;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_specular_vector : longint; { return type might be wrong }
 
 { ----------------------------- GL_APPLE_sync -----------------------------  }
 
@@ -3893,37 +2768,12 @@ type
   TPFNGLISSYNCAPPLEPROC = function (GLsync:TGLsync):TGLboolean;cdecl;
   TPFNGLWAITSYNCAPPLEPROC = procedure (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glClientWaitSyncAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteSyncAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFenceSyncAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInteger64vAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSyncivAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsSyncAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWaitSyncAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_sync : longint; { return type might be wrong }
 
 { -------------------- GL_APPLE_texture_2D_limited_npot -------------------  }
 
 const
   GL_APPLE_texture_2D_limited_npot = 1;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_texture_2D_limited_npot : longint; { return type might be wrong }
 
 { -------------------- GL_APPLE_texture_format_BGRA8888 -------------------  }
 
@@ -3932,8 +2782,6 @@ const
   GL_BGRA_EXT = $80E1;  
   GL_BGRA8_EXT = $93A1;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_texture_format_BGRA8888 : longint; { return type might be wrong }
 
 { ----------------------- GL_APPLE_texture_max_level ----------------------  }
 
@@ -3941,8 +2789,6 @@ const
   GL_APPLE_texture_max_level = 1;  
   GL_TEXTURE_MAX_LEVEL_APPLE = $813D;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_texture_max_level : longint; { return type might be wrong }
 
 { --------------------- GL_APPLE_texture_packed_float ---------------------  }
 
@@ -3953,8 +2799,6 @@ const
   GL_RGB9_E5_APPLE = $8C3D;  
   GL_UNSIGNED_INT_5_9_9_9_REV_APPLE = $8C3E;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_texture_packed_float : longint; { return type might be wrong }
 
 { ------------------------- GL_APPLE_texture_range ------------------------  }
 
@@ -3970,14 +2814,6 @@ type
   TPFNGLGETTEXPARAMETERPOINTERVAPPLEPROC = procedure (target:TGLenum; pname:TGLenum; params:Ppointer);cdecl;
   TPFNGLTEXTURERANGEAPPLEPROC = procedure (target:TGLenum; length:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetTexParameterPointervAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureRangeAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_texture_range : longint; { return type might be wrong }
 
 { ------------------------ GL_APPLE_transform_hint ------------------------  }
 
@@ -3985,8 +2821,6 @@ const
   GL_APPLE_transform_hint = 1;  
   GL_TRANSFORM_HINT_APPLE = $85B1;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_transform_hint : longint; { return type might be wrong }
 
 { ---------------------- GL_APPLE_vertex_array_object ---------------------  }
 
@@ -3999,20 +2833,6 @@ type
   TPFNGLGENVERTEXARRAYSAPPLEPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
   TPFNGLISVERTEXARRAYAPPLEPROC = function (arr:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBindVertexArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteVertexArraysAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenVertexArraysAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVertexArrayAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_vertex_array_object : longint; { return type might be wrong }
 
 { ---------------------- GL_APPLE_vertex_array_range ----------------------  }
 
@@ -4031,17 +2851,6 @@ type
   TPFNGLVERTEXARRAYPARAMETERIAPPLEPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
   TPFNGLVERTEXARRAYRANGEAPPLEPROC = procedure (length:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFlushVertexArrayRangeAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayParameteriAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayRangeAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_vertex_array_range : longint; { return type might be wrong }
 
 { ------------------- GL_APPLE_vertex_program_evaluators ------------------  }
 
@@ -4072,29 +2881,6 @@ type
                 uorder:TGLint; v1:TGLfloat; v2:TGLfloat; vstride:TGLint; vorder:TGLint; 
                 points:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glDisableVertexAttribAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexAttribAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVertexAttribEnabledAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapVertexAttrib1dAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapVertexAttrib1fAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapVertexAttrib2dAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapVertexAttrib2fAPPLE : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_APPLE_vertex_program_evaluators : longint; { return type might be wrong }
 
 { --------------------------- GL_APPLE_ycbcr_422 --------------------------  }
 
@@ -4102,8 +2888,6 @@ const
   GL_APPLE_ycbcr_422 = 1;  
   GL_YCBCR_422_APPLE = $85B9;  
 
-{ was #define dname def_expr }
-function GLEW_APPLE_ycbcr_422 : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_ES2_compatibility -----------------------  }
 
@@ -4135,23 +2919,6 @@ type
   TPFNGLRELEASESHADERCOMPILERPROC = procedure (para1:pointer);cdecl;
   TPFNGLSHADERBINARYPROC = procedure (count:TGLsizei; shaders:PGLuint; binaryformat:TGLenum; binary:pointer; length:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glClearDepthf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangef : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShaderPrecisionFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReleaseShaderCompiler : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderBinary : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_ES2_compatibility : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_ES3_1_compatibility ----------------------  }
 
@@ -4160,11 +2927,6 @@ const
 type
   TPFNGLMEMORYBARRIERBYREGIONPROC = procedure (barriers:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glMemoryBarrierByRegion : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_ES3_1_compatibility : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_ES3_2_compatibility ----------------------  }
 
@@ -4178,11 +2940,6 @@ type
   TPFNGLPRIMITIVEBOUNDINGBOXARBPROC = procedure (minX:TGLfloat; minY:TGLfloat; minZ:TGLfloat; minW:TGLfloat; maxX:TGLfloat; 
                 maxY:TGLfloat; maxZ:TGLfloat; maxW:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPrimitiveBoundingBoxARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_ES3_2_compatibility : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_ES3_compatibility -----------------------  }
 
@@ -4203,16 +2960,12 @@ const
   GL_COMPRESSED_RGBA8_ETC2_EAC = $9278;  
   GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = $9279;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_ES3_compatibility : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_arrays_of_arrays ------------------------  }
 
 const
   GL_ARB_arrays_of_arrays = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_arrays_of_arrays : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_base_instance -------------------------  }
 
@@ -4225,17 +2978,6 @@ type
   TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei;
                 basevertex:TGLint; baseinstance:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedBaseInstance : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseInstance : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseVertexBaseInstance : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_base_instance : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_bindless_texture ------------------------  }
 
@@ -4260,56 +3002,6 @@ type
   TPFNGLVERTEXATTRIBL1UI64ARBPROC = procedure (index:TGLuint; x:TGLuint64EXT);cdecl;
   TPFNGLVERTEXATTRIBL1UI64VARBPROC = procedure (index:TGLuint; v:PGLuint64EXT);cdecl;
 
-{ was #define dname def_expr }
-function glGetImageHandleARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureHandleARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureSamplerHandleARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribLui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsImageHandleResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsTextureHandleResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeImageHandleNonResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeImageHandleResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeTextureHandleNonResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeTextureHandleResidentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_bindless_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_blend_func_extended ----------------------  }
 
@@ -4323,14 +3015,6 @@ type
   TPFNGLBINDFRAGDATALOCATIONINDEXEDPROC = procedure (prog:TGLuint; colorNumber:TGLuint; index:TGLuint; name:PGLchar);cdecl;
   TPFNGLGETFRAGDATAINDEXPROC = function (prog:TGLuint; name:PGLchar):TGLint;cdecl;
 
-{ was #define dname def_expr }
-function glBindFragDataLocationIndexed : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragDataIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_blend_func_extended : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_buffer_storage -------------------------  }
 
@@ -4348,11 +3032,6 @@ const
 type
   TPFNGLBUFFERSTORAGEPROC = procedure (target:TGLenum; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glBufferStorage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_buffer_storage : longint; { return type might be wrong }
 
 { ---------------------------- GL_ARB_cl_event ----------------------------  }
 
@@ -4369,11 +3048,6 @@ type
 
   TPFNGLCREATESYNCFROMCLEVENTARBPROC = function (context:Tcl_context; event:Tcl_event; flags:TGLbitfield):TGLsync;cdecl;
 
-{ was #define dname def_expr }
-function glCreateSyncFromCLeventARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_cl_event : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_clear_buffer_object ----------------------  }
 
@@ -4387,20 +3061,6 @@ type
   TPFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC = procedure (buffer:TGLuint; internalformat:TGLenum; offset:TGLintptr; size:TGLsizeiptr; format:TGLenum;
                 _type:TGLenum; data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glClearBufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedBufferDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedBufferSubDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_clear_buffer_object : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_clear_texture -------------------------  }
 
@@ -4413,14 +3073,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glClearTexImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearTexSubImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_clear_texture : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_clip_control --------------------------  }
 
@@ -4435,11 +3087,6 @@ const
 type
   TPFNGLCLIPCONTROLPROC = procedure (origin:TGLenum; depth:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glClipControl : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_clip_control : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_color_buffer_float -----------------------  }
 
@@ -4453,19 +3100,12 @@ const
 type
   TPFNGLCLAMPCOLORARBPROC = procedure (target:TGLenum; clamp:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glClampColorARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_color_buffer_float : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_compatibility -------------------------  }
 
 const
   GL_ARB_compatibility = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_compatibility : longint; { return type might be wrong }
 
 { ---------------- GL_ARB_compressed_texture_pixel_storage ----------------  }
 
@@ -4480,8 +3120,6 @@ const
   GL_PACK_COMPRESSED_BLOCK_DEPTH = $912D;  
   GL_PACK_COMPRESSED_BLOCK_SIZE = $912E;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_compressed_texture_pixel_storage : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_compute_shader -------------------------  }
 
@@ -4509,14 +3147,6 @@ type
   TPFNGLDISPATCHCOMPUTEPROC = procedure (num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint);cdecl;
   TPFNGLDISPATCHCOMPUTEINDIRECTPROC = procedure (indirect:TGLintptr);cdecl;
 
-{ was #define dname def_expr }
-function glDispatchCompute : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDispatchComputeIndirect : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_compute_shader : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_compute_variable_group_size ------------------  }
 
@@ -4530,11 +3160,6 @@ type
   TPFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC = procedure (num_groups_x:TGLuint; num_groups_y:TGLuint; num_groups_z:TGLuint; group_size_x:TGLuint; group_size_y:TGLuint;
                 group_size_z:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDispatchComputeGroupSizeARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_compute_variable_group_size : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_conditional_render_inverted ------------------  }
 
@@ -4545,16 +3170,12 @@ const
   GL_QUERY_BY_REGION_WAIT_INVERTED = $8E19;  
   GL_QUERY_BY_REGION_NO_WAIT_INVERTED = $8E1A;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_conditional_render_inverted : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_conservative_depth -----------------------  }
 
 const
   GL_ARB_conservative_depth = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_conservative_depth : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_copy_buffer --------------------------  }
 
@@ -4565,11 +3186,6 @@ const
 type
   TPFNGLCOPYBUFFERSUBDATAPROC = procedure (readtarget:TGLenum; writetarget:TGLenum; readoffset:TGLintptr; writeoffset:TGLintptr; size:TGLsizeiptr);cdecl;
 
-{ was #define dname def_expr }
-function glCopyBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_copy_buffer : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_copy_image ---------------------------  }
 
@@ -4580,11 +3196,6 @@ type
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyImageSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_copy_image : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_cull_distance -------------------------  }
 
@@ -4593,8 +3204,6 @@ const
   GL_MAX_CULL_DISTANCES = $82F9;  
   GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES = $82FA;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_cull_distance : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_debug_output --------------------------  }
 
@@ -4633,20 +3242,6 @@ type
   TPFNGLGETDEBUGMESSAGELOGARBPROC = function (count:TGLuint; bufSize:TGLsizei; sources:PGLenum; types:PGLenum; ids:PGLuint;
                severities:PGLenum; lengths:PGLsizei; messageLog:PGLchar):TGLuint;cdecl;
 
-{ was #define dname def_expr }
-function glDebugMessageCallbackARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageControlARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageInsertARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDebugMessageLogARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_debug_output : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_depth_buffer_float -----------------------  }
 
@@ -4656,8 +3251,6 @@ const
   GL_DEPTH32F_STENCIL8 = $8CAD;  
   GL_FLOAT_32_UNSIGNED_INT_24_8_REV = $8DAD;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_depth_buffer_float : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_depth_clamp --------------------------  }
 
@@ -4665,8 +3258,6 @@ const
   GL_ARB_depth_clamp = 1;  
   GL_DEPTH_CLAMP = $864F;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_depth_clamp : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_depth_texture -------------------------  }
 
@@ -4678,16 +3269,12 @@ const
   GL_TEXTURE_DEPTH_SIZE_ARB = $884A;  
   GL_DEPTH_TEXTURE_MODE_ARB = $884B;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_depth_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_derivative_control -----------------------  }
 
 const
   GL_ARB_derivative_control = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_derivative_control : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_direct_state_access ----------------------  }
 
@@ -4812,299 +3399,6 @@ type
   TPFNGLVERTEXARRAYVERTEXBUFFERPROC = procedure (vaobj:TGLuint; bindingindex:TGLuint; buffer:TGLuint; offset:TGLintptr; stride:TGLsizei);cdecl;
   TPFNGLVERTEXARRAYVERTEXBUFFERSPROC = procedure (vaobj:TGLuint; first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr;                strides:PGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBindTextureUnit : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlitNamedFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCheckNamedFramebufferStatus : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedBufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedFramebufferfi : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedFramebufferfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedFramebufferiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearNamedFramebufferuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyNamedBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateFramebuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateProgramPipelines : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateQueries : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateRenderbuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateSamplers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateTextures : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateTransformFeedbacks : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateVertexArrays : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVertexArrayAttrib : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexArrayAttrib : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFlushMappedNamedBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateTextureMipmap : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCompressedTextureImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferParameteri64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferPointerv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedFramebufferAttachmentParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedFramebufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedRenderbufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryBufferObjecti64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryBufferObjectiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryBufferObjectui64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryBufferObjectuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureLevelParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureLevelParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbacki64_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbacki_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbackiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayIndexed64iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayIndexediv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateNamedFramebufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateNamedFramebufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapNamedBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapNamedBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferStorage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferDrawBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferDrawBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferReadBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferRenderbuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTexture : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTextureLayer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedRenderbufferStorage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedRenderbufferStorageMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage2DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage3DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackBufferBase : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapNamedBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayAttribBinding : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayAttribFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayAttribIFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayAttribLFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayBindingDivisor : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayElementBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_direct_state_access : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_draw_buffers --------------------------  }
 
@@ -5130,11 +3424,6 @@ const
 type
   TPFNGLDRAWBUFFERSARBPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDrawBuffersARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_draw_buffers : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_draw_buffers_blend -----------------------  }
 
@@ -5146,20 +3435,6 @@ type
   TPFNGLBLENDFUNCSEPARATEIARBPROC = procedure (buf:TGLuint; srcRGB:TGLenum; dstRGB:TGLenum; srcAlpha:TGLenum; dstAlpha:TGLenum);cdecl;
   TPFNGLBLENDFUNCIARBPROC = procedure (buf:TGLuint; src:TGLenum; dst:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparateiARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationiARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparateiARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFunciARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_draw_buffers_blend : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_draw_elements_base_vertex -------------------  }
 
@@ -5174,20 +3449,6 @@ type
   TPFNGLMULTIDRAWELEMENTSBASEVERTEXPROC = procedure (mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; drawcount:TGLsizei;
                 basevertex:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawElementsBaseVertex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseVertex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawRangeElementsBaseVertex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsBaseVertex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_draw_elements_base_vertex : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_draw_indirect -------------------------  }
 
@@ -5199,22 +3460,12 @@ type
   TPFNGLDRAWARRAYSINDIRECTPROC = procedure (mode:TGLenum; indirect:pointer);cdecl;
   TPFNGLDRAWELEMENTSINDIRECTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysIndirect : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsIndirect : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_draw_indirect : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_draw_instanced -------------------------  }
 
 const
   GL_ARB_draw_instanced = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_draw_instanced : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_enhanced_layouts ------------------------  }
 
@@ -5224,16 +3475,12 @@ const
   GL_TRANSFORM_FEEDBACK_BUFFER_INDEX = $934B;  
   GL_TRANSFORM_FEEDBACK_BUFFER_STRIDE = $934C;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_enhanced_layouts : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_explicit_attrib_location --------------------  }
 
 const
   GL_ARB_explicit_attrib_location = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_explicit_attrib_location : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_explicit_uniform_location -------------------  }
 
@@ -5241,24 +3488,18 @@ const
   GL_ARB_explicit_uniform_location = 1;  
   GL_MAX_UNIFORM_LOCATIONS = $826E;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_explicit_uniform_location : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_fragment_coord_conventions -------------------  }
 
 const
   GL_ARB_fragment_coord_conventions = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_coord_conventions : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_fragment_layer_viewport --------------------  }
 
 const
   GL_ARB_fragment_layer_viewport = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_layer_viewport : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_fragment_program ------------------------  }
 
@@ -5280,16 +3521,12 @@ const
   GL_MAX_TEXTURE_COORDS_ARB = $8871;  
   GL_MAX_TEXTURE_IMAGE_UNITS_ARB = $8872;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_program : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_fragment_program_shadow --------------------  }
 
 const
   GL_ARB_fragment_program_shadow = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_program_shadow : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_fragment_shader ------------------------  }
 
@@ -5299,16 +3536,12 @@ const
   GL_MAX_FRAGMENT_UNIFORM_COMPONENTS_ARB = $8B49;  
   GL_FRAGMENT_SHADER_DERIVATIVE_HINT_ARB = $8B8B;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_shader : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_fragment_shader_interlock -------------------  }
 
 const
   GL_ARB_fragment_shader_interlock = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_fragment_shader_interlock : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_framebuffer_no_attachments -------------------  }
 
@@ -5329,20 +3562,6 @@ type
   TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC = procedure (framebuffer:TGLuint; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC = procedure (framebuffer:TGLuint; pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedFramebufferParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_framebuffer_no_attachments : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_framebuffer_object -----------------------  }
 
@@ -5446,68 +3665,6 @@ type
   TPFNGLRENDERBUFFERSTORAGEPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBindFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindRenderbuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlitFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCheckFramebufferStatus : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteFramebuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteRenderbuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferRenderbuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureLayer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFramebuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenRenderbuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateMipmap : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferAttachmentParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetRenderbufferParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsRenderbuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_framebuffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_framebuffer_sRGB ------------------------  }
 
@@ -5515,8 +3672,6 @@ const
   GL_ARB_framebuffer_sRGB = 1;  
   GL_FRAMEBUFFER_SRGB = $8DB9;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_framebuffer_sRGB : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_geometry_shader4 ------------------------  }
 
@@ -5547,20 +3702,6 @@ type
   TPFNGLFRAMEBUFFERTEXTURELAYERARBPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;
   TPFNGLPROGRAMPARAMETERIARBPROC = procedure (prog:TGLuint; pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTextureARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureFaceARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureLayerARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameteriARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_geometry_shader4 : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_get_program_binary -----------------------  }
 
@@ -5575,17 +3716,6 @@ type
   TPFNGLPROGRAMBINARYPROC = procedure (prog:TGLuint; binaryFormat:TGLenum; binary:pointer; length:TGLsizei);cdecl;
   TPFNGLPROGRAMPARAMETERIPROC = procedure (prog:TGLuint; pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetProgramBinary : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramBinary : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_get_program_binary : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_get_texture_sub_image ---------------------  }
 
@@ -5598,14 +3728,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 bufSize:TGLsizei; pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetCompressedTextureSubImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureSubImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_get_texture_sub_image : longint; { return type might be wrong }
 
 { ---------------------------- GL_ARB_gl_spirv ----------------------------  }
 
@@ -5616,11 +3738,6 @@ const
 type
   TPFNGLSPECIALIZESHADERARBPROC = procedure (shader:TGLuint; pEntryPoint:PGLchar; numSpecializationConstants:TGLuint; pConstantIndex:PGLuint; pConstantValue:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glSpecializeShaderARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_gl_spirv : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_gpu_shader5 --------------------------  }
 
@@ -5633,8 +3750,6 @@ const
   GL_FRAGMENT_INTERPOLATION_OFFSET_BITS = $8E5D;  
   GL_MAX_VERTEX_STREAMS = $8E71;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_gpu_shader5 : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_gpu_shader_fp64 ------------------------  }
 
@@ -5672,62 +3787,6 @@ type
   TPFNGLUNIFORMMATRIX4X2DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
   TPFNGLUNIFORMMATRIX4X3DVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLdouble);cdecl;
 
-{ was #define dname def_expr }
-function glGetUniformdv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2x3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2x4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_gpu_shader_fp64 : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_gpu_shader_int64 ------------------------  }
 
@@ -5781,116 +3840,6 @@ type
   TPFNGLUNIFORM4UI64ARBPROC = procedure (location:TGLint; x:TGLuint64; y:TGLuint64; z:TGLuint64; w:TGLuint64);cdecl;
   TPFNGLUNIFORM4UI64VARBPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glGetUniformi64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformi64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4i64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4i64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ui64ARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ui64vARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_gpu_shader_int64 : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_half_float_pixel ------------------------  }
 
@@ -5898,8 +3847,6 @@ const
   GL_ARB_half_float_pixel = 1;  
   GL_HALF_FLOAT_ARB = $140B;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_half_float_pixel : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_half_float_vertex -----------------------  }
 
@@ -5907,8 +3854,6 @@ const
   GL_ARB_half_float_vertex = 1;  
   GL_HALF_FLOAT = $140B;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_half_float_vertex : longint; { return type might be wrong }
 
 { ----------------------------- GL_ARB_imaging ----------------------------  }
 
@@ -6025,104 +3970,6 @@ type
   TPFNGLRESETMINMAXPROC = procedure (target:TGLenum);cdecl;
   TPFNGLSEPARABLEFILTER2DPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; row:pointer; column:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glColorSubTable : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorTable : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorTableParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorTableParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionFilter1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionFilter2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameterf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyColorSubTable : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyColorTable : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyConvolutionFilter1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyConvolutionFilter2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTable : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionFilter : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHistogram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHistogramParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHistogramParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmax : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmaxParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmaxParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSeparableFilter : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glHistogram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMinmax : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResetHistogram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResetMinmax : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSeparableFilter2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_imaging : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_indirect_parameters ----------------------  }
 
@@ -6134,14 +3981,6 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC = procedure (mode:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLintptr; maxdrawcount:TGLsizei;                stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectCountARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectCountARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_indirect_parameters : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_instanced_arrays ------------------------  }
 
@@ -6153,17 +3992,6 @@ type
   TPFNGLDRAWELEMENTSINSTANCEDARBPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
   TPFNGLVERTEXATTRIBDIVISORARBPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribDivisorARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_instanced_arrays : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_internalformat_query ----------------------  }
 
@@ -6173,11 +4001,6 @@ const
 type
   TPFNGLGETINTERNALFORMATIVPROC = procedure (target:TGLenum; internalformat:TGLenum; pname:TGLenum; bufSize:TGLsizei; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetInternalformativ : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_internalformat_query : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_internalformat_query2 ---------------------  }
 
@@ -6285,11 +4108,6 @@ const
 type
   TPFNGLGETINTERNALFORMATI64VPROC = procedure (target:TGLenum; internalformat:TGLenum; pname:TGLenum; bufSize:TGLsizei; params:PGLint64);cdecl;
 
-{ was #define dname def_expr }
-function glGetInternalformati64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_internalformat_query2 : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_invalidate_subdata -----------------------  }
 
@@ -6304,26 +4122,6 @@ type
   TPFNGLINVALIDATETEXSUBIMAGEPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glInvalidateBufferData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateBufferSubData : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateSubFramebuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateTexImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInvalidateTexSubImage : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_invalidate_subdata : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_map_buffer_alignment ----------------------  }
 
@@ -6331,8 +4129,6 @@ const
   GL_ARB_map_buffer_alignment = 1;  
   GL_MIN_MAP_BUFFER_ALIGNMENT = $90BC;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_map_buffer_alignment : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_map_buffer_range ------------------------  }
 
@@ -6348,14 +4144,6 @@ type
   TPFNGLFLUSHMAPPEDBUFFERRANGEPROC = procedure (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr);cdecl;
   TPFNGLMAPBUFFERRANGEPROC = function (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr; access:TGLbitfield):pointer;cdecl;
 
-{ was #define dname def_expr }
-function glFlushMappedBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_map_buffer_range : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_matrix_palette -------------------------  }
 
@@ -6378,23 +4166,6 @@ type
   TPFNGLMATRIXINDEXUIVARBPROC = procedure (size:TGLint; indices:PGLuint);cdecl;
   TPFNGLMATRIXINDEXUSVARBPROC = procedure (size:TGLint; indices:PGLushort);cdecl;
 
-{ was #define dname def_expr }
-function glCurrentPaletteMatrixARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixIndexPointerARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixIndexubvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixIndexuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixIndexusvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_matrix_palette : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_multi_bind ---------------------------  }
 
@@ -6408,26 +4179,6 @@ type
   TPFNGLBINDTEXTURESPROC = procedure (first:TGLuint; count:TGLsizei; textures:PGLuint);cdecl;
   TPFNGLBINDVERTEXBUFFERSPROC = procedure (first:TGLuint; count:TGLsizei; buffers:PGLuint; offsets:PGLintptr; strides:PGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBindBuffersBase : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBuffersRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindImageTextures : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindSamplers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindTextures : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindVertexBuffers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_multi_bind : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_multi_draw_indirect ----------------------  }
 
@@ -6437,14 +4188,6 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTPROC = procedure (mode:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; primcount:TGLsizei; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirect : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirect : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_multi_draw_indirect : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_multisample --------------------------  }
 
@@ -6463,11 +4206,6 @@ type
 
   TPFNGLSAMPLECOVERAGEARBPROC = procedure (value:TGLclampf; invert:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glSampleCoverageARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_multisample : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_multitexture --------------------------  }
 
@@ -6544,110 +4282,6 @@ type
   TPFNGLMULTITEXCOORD4SARBPROC = procedure (target:TGLenum; s:TGLshort; t:TGLshort; r:TGLshort; q:TGLshort);cdecl;
   TPFNGLMULTITEXCOORD4SVARBPROC = procedure (target:TGLenum; v:PGLshort);cdecl;
 
-{ was #define dname def_expr }
-function glActiveTextureARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClientActiveTextureARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_multitexture : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_occlusion_query ------------------------  }
 
@@ -6668,32 +4302,6 @@ type
   TPFNGLGETQUERYIVARBPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLISQUERYARBPROC = function (id:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBeginQueryARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteQueriesARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndQueryARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenQueriesARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsQueryARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_occlusion_query : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_occlusion_query2 ------------------------  }
 
@@ -6701,8 +4309,6 @@ const
   GL_ARB_occlusion_query2 = 1;  
   GL_ANY_SAMPLES_PASSED = $8C2F;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_occlusion_query2 : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_parallel_shader_compile --------------------  }
 
@@ -6713,11 +4319,6 @@ const
 type
   TPFNGLMAXSHADERCOMPILERTHREADSARBPROC = procedure (count:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glMaxShaderCompilerThreadsARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_parallel_shader_compile : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_pipeline_statistics_query -------------------  }
 
@@ -6735,8 +4336,6 @@ const
   GL_CLIPPING_OUTPUT_PRIMITIVES_ARB = $82F7;  
 //  GL_GEOMETRY_SHADER_INVOCATIONS = $887F; doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_pipeline_statistics_query : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_pixel_buffer_object ----------------------  }
 
@@ -6747,8 +4346,6 @@ const
   GL_PIXEL_PACK_BUFFER_BINDING_ARB = $88ED;  
   GL_PIXEL_UNPACK_BUFFER_BINDING_ARB = $88EF;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_pixel_buffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_point_parameters ------------------------  }
 
@@ -6762,14 +4359,6 @@ type
  TPFNGLPOINTPARAMETERFARBPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
   TPFNGLPOINTPARAMETERFVARBPROC = procedure (pname:TGLenum; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPointParameterfARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_point_parameters : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_point_sprite --------------------------  }
 
@@ -6778,8 +4367,6 @@ const
   GL_POINT_SPRITE_ARB = $8861;  
   GL_COORD_REPLACE_ARB = $8862;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_point_sprite : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_polygon_offset_clamp ----------------------  }
 
@@ -6787,22 +4374,14 @@ const
   GL_ARB_polygon_offset_clamp = 1;  
 //  GL_POLYGON_OFFSET_CLAMP = $8E1B;   doppelt
 type
-
   TPFNGLPOLYGONOFFSETCLAMPPROC = procedure (factor:TGLfloat; units:TGLfloat; clamp:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPolygonOffsetClamp : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_polygon_offset_clamp : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_post_depth_coverage ----------------------  }
 
 const
   GL_ARB_post_depth_coverage = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_post_depth_coverage : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_program_interface_query --------------------  }
 
@@ -6864,26 +4443,6 @@ type
   TPFNGLGETPROGRAMRESOURCEIVPROC = procedure (prog:TGLuint; programInterface:TGLenum; index:TGLuint; propCount:TGLsizei; props:PGLenum;
                 bufSize:TGLsizei; length:PGLsizei; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetProgramInterfaceiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceLocationIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceName : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_program_interface_query : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_provoking_vertex ------------------------  }
 
@@ -6896,11 +4455,6 @@ const
 type
   TPFNGLPROVOKINGVERTEXPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glProvokingVertex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_provoking_vertex : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_query_buffer_object ----------------------  }
 
@@ -6911,16 +4465,12 @@ const
   GL_QUERY_BUFFER_BINDING = $9193;  
   GL_QUERY_RESULT_NO_WAIT = $9194;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_query_buffer_object : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_robust_buffer_access_behavior -----------------  }
 
 const
   GL_ARB_robust_buffer_access_behavior = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_robust_buffer_access_behavior : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_robustness ---------------------------  }
 
@@ -6957,84 +4507,18 @@ type
   TPFNGLREADNPIXELSARBPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum;
                 _type:TGLenum; bufSize:TGLsizei; data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetGraphicsResetStatusARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnColorTableARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnCompressedTexImageARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnConvolutionFilterARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnHistogramARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnMapdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnMapfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnMapivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnMinmaxARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnPixelMapfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnPixelMapuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnPixelMapusvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnPolygonStippleARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnSeparableFilterARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnTexImageARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReadnPixelsARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_robustness : longint; { return type might be wrong }
 
 { ---------------- GL_ARB_robustness_application_isolation ----------------  }
 
 const
   GL_ARB_robustness_application_isolation = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_robustness_application_isolation : longint; { return type might be wrong }
 
 { ---------------- GL_ARB_robustness_share_group_isolation ----------------  }
 
 const
   GL_ARB_robustness_share_group_isolation = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_robustness_share_group_isolation : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_sample_locations ------------------------  }
 
@@ -7052,14 +4536,6 @@ type
   TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC = procedure (target:TGLenum; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
   TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC = procedure (framebuffer:TGLuint; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferSampleLocationsfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferSampleLocationsfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sample_locations : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_sample_shading -------------------------  }
 
@@ -7070,11 +4546,6 @@ const
 type
   TPFNGLMINSAMPLESHADINGARBPROC = procedure (value:TGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glMinSampleShadingARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sample_shading : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_sampler_objects ------------------------  }
 
@@ -7097,50 +4568,6 @@ type
   TPFNGLSAMPLERPARAMETERIPROC = procedure (sampler:TGLuint; pname:TGLenum; param:TGLint);cdecl;
   TPFNGLSAMPLERPARAMETERIVPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glBindSampler : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteSamplers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenSamplers : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsSampler : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameteriv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sampler_objects : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_seamless_cube_map -----------------------  }
 
@@ -7148,8 +4575,6 @@ const
   GL_ARB_seamless_cube_map = 1;  
 //  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_seamless_cube_map : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_seamless_cubemap_per_texture ------------------  }
 
@@ -7157,8 +4582,6 @@ const
   GL_ARB_seamless_cubemap_per_texture = 1;  
 //  GL_TEXTURE_CUBE_MAP_SEAMLESS = $884F;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_seamless_cubemap_per_texture : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_separate_shader_objects --------------------  }
 
@@ -7235,196 +4658,12 @@ type
   TPFNGLUSEPROGRAMSTAGESPROC = procedure (pipeline:TGLuint; stages:TGLbitfield; prog:TGLuint);cdecl;
   TPFNGLVALIDATEPROGRAMPIPELINEPROC = procedure (pipeline:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glActiveShaderProgram : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindProgramPipeline : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateShaderProgramv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteProgramPipelines : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenProgramPipelines : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramPipelineInfoLog : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramPipelineiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsProgramPipeline : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4f : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4i : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4iv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x2fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x3fv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUseProgramStages : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glValidateProgramPipeline : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_separate_shader_objects : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_shader_atomic_counter_ops -------------------  }
 
 const
   GL_ARB_shader_atomic_counter_ops = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_atomic_counter_ops : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_shader_atomic_counters ---------------------  }
 
@@ -7462,51 +4701,36 @@ const
 type
   TPFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC = procedure (prog:TGLuint; bufferIndex:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetActiveAtomicCounterBufferiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shader_atomic_counters : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_shader_ballot -------------------------  }
 
 const
   GL_ARB_shader_ballot = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_ballot : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_shader_bit_encoding ----------------------  }
 
 const
   GL_ARB_shader_bit_encoding = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_bit_encoding : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_shader_clock --------------------------  }
 
 const
   GL_ARB_shader_clock = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_clock : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_shader_draw_parameters ---------------------  }
 
 const
   GL_ARB_shader_draw_parameters = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_draw_parameters : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_shader_group_vote -----------------------  }
 
 const
   GL_ARB_shader_group_vote = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_group_vote : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_shader_image_load_store --------------------  }
 
@@ -7580,22 +4804,12 @@ type
   TPFNGLBINDIMAGETEXTUREPROC = procedure (unit_:TGLuint; texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint;                access:TGLenum; format:TGLenum);cdecl;
   TPFNGLMEMORYBARRIERPROC = procedure (barriers:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glBindImageTexture : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMemoryBarrier : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shader_image_load_store : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_shader_image_size -----------------------  }
 
 const
   GL_ARB_shader_image_size = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_image_size : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_shader_objects -------------------------  }
 
@@ -7683,141 +4897,18 @@ PGLcharARB = ^TGLcharARB;
   TPFNGLUSEPROGRAMOBJECTARBPROC = procedure (programObj:TGLhandleARB);cdecl;
   TPFNGLVALIDATEPROGRAMARBPROC = procedure (programObj:TGLhandleARB);cdecl;
 
-{ was #define dname def_expr }
-function glAttachObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompileShaderARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateProgramObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateShaderObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDetachObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniformARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetAttachedObjectsARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHandleARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInfoLogARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectParameterfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectParameterivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShaderSourceARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformLocationARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLinkProgramARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderSourceARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUseProgramObjectARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glValidateProgramARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shader_objects : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_shader_precision ------------------------  }
 
 const
   GL_ARB_shader_precision = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_precision : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_shader_stencil_export ---------------------  }
 
 const
   GL_ARB_shader_stencil_export = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_stencil_export : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_shader_storage_buffer_object ------------------  }
 
@@ -7842,11 +4933,6 @@ const
 type
   TPFNGLSHADERSTORAGEBLOCKBINDINGPROC = procedure (prog:TGLuint; storageBlockIndex:TGLuint; storageBlockBinding:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glShaderStorageBlockBinding : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shader_storage_buffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_shader_subroutine -----------------------  }
 
@@ -7871,56 +4957,24 @@ type
   TPFNGLGETUNIFORMSUBROUTINEUIVPROC = procedure (shadertype:TGLenum; location:TGLint; params:PGLuint);cdecl;
   TPFNGLUNIFORMSUBROUTINESUIVPROC = procedure (shadertype:TGLenum; count:TGLsizei; indices:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetActiveSubroutineName : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveSubroutineUniformName : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveSubroutineUniformiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramStageiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSubroutineIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSubroutineUniformLocation : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformSubroutineuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformSubroutinesuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shader_subroutine : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_shader_texture_image_samples ------------------  }
 
 const
   GL_ARB_shader_texture_image_samples = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_texture_image_samples : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_shader_texture_lod -----------------------  }
 
 const
   GL_ARB_shader_texture_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_texture_lod : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_shader_viewport_layer_array ------------------  }
 
 const
   GL_ARB_shader_viewport_layer_array = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shader_viewport_layer_array : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_shading_language_100 ----------------------  }
 
@@ -7928,16 +4982,12 @@ const
   GL_ARB_shading_language_100 = 1;  
   GL_SHADING_LANGUAGE_VERSION_ARB = $8B8C;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shading_language_100 : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_shading_language_420pack --------------------  }
 
 const
   GL_ARB_shading_language_420pack = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shading_language_420pack : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_shading_language_include --------------------  }
 
@@ -7954,34 +5004,12 @@ type
   TPFNGLISNAMEDSTRINGARBPROC = function (namelen:TGLint; name:PGLchar):TGLboolean;cdecl;
   TPFNGLNAMEDSTRINGARBPROC = procedure (_type:TGLenum; namelen:TGLint; name:PGLchar; stringlen:TGLint; _string:PGLchar);cdecl;
 
-{ was #define dname def_expr }
-function glCompileShaderIncludeARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteNamedStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedStringivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsNamedStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_shading_language_include : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_shading_language_packing --------------------  }
 
 const
   GL_ARB_shading_language_packing = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shading_language_packing : longint; { return type might be wrong }
 
 { ----------------------------- GL_ARB_shadow -----------------------------  }
 
@@ -7991,8 +5019,6 @@ const
   GL_TEXTURE_COMPARE_FUNC_ARB = $884D;  
   GL_COMPARE_R_TO_TEXTURE_ARB = $884E;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shadow : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_shadow_ambient -------------------------  }
 
@@ -8000,8 +5026,6 @@ const
   GL_ARB_shadow_ambient = 1;  
   GL_TEXTURE_COMPARE_FAIL_VALUE_ARB = $80BF;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_shadow_ambient : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_sparse_buffer -------------------------  }
 
@@ -8012,11 +5036,6 @@ const
 type
   TPFNGLBUFFERPAGECOMMITMENTARBPROC = procedure (target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; commit:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glBufferPageCommitmentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sparse_buffer : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_sparse_texture -------------------------  }
 
@@ -8037,27 +5056,18 @@ type
   TPFNGLTEXPAGECOMMITMENTARBPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; commit:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glTexPageCommitmentARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sparse_texture : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_sparse_texture2 ------------------------  }
 
 const
   GL_ARB_sparse_texture2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_sparse_texture2 : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_sparse_texture_clamp ----------------------  }
 
 const
   GL_ARB_sparse_texture_clamp = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_sparse_texture_clamp : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_spirv_extensions ------------------------  }
 
@@ -8066,8 +5076,6 @@ const
 //  GL_SPIR_V_EXTENSIONS = $9553; doppelt
 //  GL_NUM_SPIR_V_EXTENSIONS = $9554;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_spirv_extensions : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_stencil_texturing -----------------------  }
 
@@ -8075,8 +5083,6 @@ const
   GL_ARB_stencil_texturing = 1;  
   GL_DEPTH_STENCIL_TEXTURE_MODE = $90EA;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_stencil_texturing : longint; { return type might be wrong }
 
 { ------------------------------ GL_ARB_sync ------------------------------  }
 
@@ -8106,29 +5112,6 @@ type
   TPFNGLISSYNCPROC = function (GLsync:TGLsync):TGLboolean;cdecl;
   TPFNGLWAITSYNCPROC = procedure (GLsync:TGLsync; flags:TGLbitfield; timeout:TGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glClientWaitSync : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteSync : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFenceSync : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInteger64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSynciv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsSync : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWaitSync : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_sync : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_tessellation_shader ----------------------  }
 
@@ -8170,14 +5153,6 @@ type
   TPFNGLPATCHPARAMETERFVPROC = procedure (pname:TGLenum; values:PGLfloat);cdecl;
   TPFNGLPATCHPARAMETERIPROC = procedure (pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glPatchParameterfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPatchParameteri : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_tessellation_shader : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_texture_barrier ------------------------  }
 
@@ -8186,11 +5161,6 @@ const
 type
   TPFNGLTEXTUREBARRIERPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTextureBarrier : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_barrier : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_border_clamp ----------------------  }
 
@@ -8198,8 +5168,6 @@ const
   GL_ARB_texture_border_clamp = 1;  
   GL_CLAMP_TO_BORDER_ARB = $812D;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_border_clamp : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_buffer_object ---------------------  }
 
@@ -8213,19 +5181,12 @@ const
 type
   TPFNGLTEXBUFFERARBPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTexBufferARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_buffer_object : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_texture_buffer_object_rgb32 ------------------  }
 
 const
   GL_ARB_texture_buffer_object_rgb32 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_buffer_object_rgb32 : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_buffer_range ----------------------  }
 
@@ -8239,14 +5200,6 @@ type
   TPFNGLTEXTUREBUFFERRANGEEXTPROC = procedure (texture:TGLuint; target:TGLenum; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr;
                 size:TGLsizeiptr);cdecl;
 
-{ was #define dname def_expr }
-function glTexBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_buffer_range : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_texture_compression ----------------------  }
 
@@ -8279,29 +5232,6 @@ type
                 data:pointer);cdecl;
   TPFNGLGETCOMPRESSEDTEXIMAGEARBPROC = procedure (target:TGLenum; lod:TGLint; img:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glCompressedTexImage1DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexImage2DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexImage3DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexSubImage1DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexSubImage2DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexSubImage3DARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCompressedTexImageARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_compression : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_texture_compression_bptc --------------------  }
 
@@ -8312,8 +5242,6 @@ const
   GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT_ARB = $8E8E;  
   GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_ARB = $8E8F;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_compression_bptc : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_texture_compression_rgtc --------------------  }
 
@@ -8324,8 +5252,6 @@ const
   GL_COMPRESSED_RG_RGTC2 = $8DBD;  
   GL_COMPRESSED_SIGNED_RG_RGTC2 = $8DBE;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_compression_rgtc : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_texture_cube_map ------------------------  }
 
@@ -8344,8 +5270,6 @@ const
   GL_PROXY_TEXTURE_CUBE_MAP_ARB = $851B;  
   GL_MAX_CUBE_MAP_TEXTURE_SIZE_ARB = $851C;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_cube_map : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_texture_cube_map_array ---------------------  }
 
@@ -8359,16 +5283,12 @@ const
   GL_INT_SAMPLER_CUBE_MAP_ARRAY_ARB = $900E;  
   GL_UNSIGNED_INT_SAMPLER_CUBE_MAP_ARRAY_ARB = $900F;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_cube_map_array : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_texture_env_add ------------------------  }
 
 const
   GL_ARB_texture_env_add = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_env_add : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_texture_env_combine ----------------------  }
 
@@ -8397,16 +5317,12 @@ const
   GL_OPERAND1_ALPHA_ARB = $8599;  
   GL_OPERAND2_ALPHA_ARB = $859A;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_env_combine : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_env_crossbar ----------------------  }
 
 const
   GL_ARB_texture_env_crossbar = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_env_crossbar : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_texture_env_dot3 ------------------------  }
 
@@ -8415,8 +5331,6 @@ const
   GL_DOT3_RGB_ARB = $86AE;  
   GL_DOT3_RGBA_ARB = $86AF;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_env_dot3 : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_texture_filter_anisotropic -------------------  }
 
@@ -8425,8 +5339,6 @@ const
 //  GL_TEXTURE_MAX_ANISOTROPY = $84FE;   doppelt
 //  GL_MAX_TEXTURE_MAX_ANISOTROPY = $84FF;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_filter_anisotropic : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_filter_minmax ---------------------  }
 
@@ -8435,8 +5347,6 @@ const
   GL_TEXTURE_REDUCTION_MODE_ARB = $9366;  
   GL_WEIGHTED_AVERAGE_ARB = $9367;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_filter_minmax : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_texture_float -------------------------  }
 
@@ -8463,8 +5373,6 @@ const
   GL_TEXTURE_DEPTH_TYPE_ARB = $8C16;  
   GL_UNSIGNED_NORMALIZED_ARB = $8C17;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_float : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_texture_gather -------------------------  }
 
@@ -8474,8 +5382,6 @@ const
   GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET_ARB = $8E5F;  
   GL_MAX_PROGRAM_TEXTURE_GATHER_COMPONENTS_ARB = $8F9F;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_gather : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_texture_mirror_clamp_to_edge ------------------  }
 
@@ -8483,8 +5389,6 @@ const
   GL_ARB_texture_mirror_clamp_to_edge = 1;  
   GL_MIRROR_CLAMP_TO_EDGE = $8743;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_mirror_clamp_to_edge : longint; { return type might be wrong }
 
 { --------------------- GL_ARB_texture_mirrored_repeat --------------------  }
 
@@ -8492,8 +5396,6 @@ const
   GL_ARB_texture_mirrored_repeat = 1;  
   GL_MIRRORED_REPEAT_ARB = $8370;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_mirrored_repeat : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_texture_multisample ----------------------  }
 
@@ -8528,44 +5430,24 @@ type
   TPFNGLTEXIMAGE3DMULTISAMPLEPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glGetMultisamplefv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSampleMaski : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexImage2DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexImage3DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_multisample : longint; { return type might be wrong }
 
 { -------------------- GL_ARB_texture_non_power_of_two --------------------  }
 
 const
   GL_ARB_texture_non_power_of_two = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_non_power_of_two : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_texture_query_levels ----------------------  }
 
 const
   GL_ARB_texture_query_levels = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_query_levels : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_texture_query_lod -----------------------  }
 
 const
   GL_ARB_texture_query_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_query_lod : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_texture_rectangle -----------------------  }
 
@@ -8578,8 +5460,6 @@ const
 //  GL_SAMPLER_2D_RECT_ARB = $8B63;   doppelt
 //  GL_SAMPLER_2D_RECT_SHADOW_ARB = $8B64;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_rectangle : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_texture_rg ---------------------------  }
 
@@ -8610,8 +5490,6 @@ const
   GL_RG32I = $823B;  
   GL_RG32UI = $823C;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_rg : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_texture_rgb10_a2ui -----------------------  }
 
@@ -8619,8 +5497,6 @@ const
   GL_ARB_texture_rgb10_a2ui = 1;  
 //  GL_RGB10_A2UI = $906F;    doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_rgb10_a2ui : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_texture_stencil8 ------------------------  }
 
@@ -8629,8 +5505,6 @@ const
 //  GL_STENCIL_INDEX = $1901;    doppelt
 //  GL_STENCIL_INDEX8 = $8D48;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_stencil8 : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_texture_storage ------------------------  }
 
@@ -8642,17 +5516,6 @@ type
   TPFNGLTEXSTORAGE2DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLTEXSTORAGE3DPROC = procedure (target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;                depth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glTexStorage1D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorage2D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorage3D : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_storage : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_texture_storage_multisample ------------------  }
 
@@ -8668,20 +5531,6 @@ type
   TPFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei;
                 height:TGLsizei; depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glTexStorage2DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorage3DMultisample : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage2DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage3DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_storage_multisample : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_texture_swizzle ------------------------  }
 
@@ -8693,8 +5542,6 @@ const
   GL_TEXTURE_SWIZZLE_A = $8E45;  
   GL_TEXTURE_SWIZZLE_RGBA = $8E46;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_texture_swizzle : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_texture_view --------------------------  }
 
@@ -8709,11 +5556,6 @@ type
   TPFNGLTEXTUREVIEWPROC = procedure (texture:TGLuint; target:TGLenum; origtexture:TGLuint; internalformat:TGLenum; minlevel:TGLuint;
                 numlevels:TGLuint; minlayer:TGLuint; numlayers:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTextureView : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_texture_view : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_timer_query --------------------------  }
 
@@ -8726,17 +5568,6 @@ type
   TPFNGLGETQUERYOBJECTUI64VPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint64);cdecl;
   TPFNGLQUERYCOUNTERPROC = procedure (id:TGLuint; target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glGetQueryObjecti64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectui64v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glQueryCounter : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_timer_query : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_transform_feedback2 ----------------------  }
 
@@ -8755,29 +5586,6 @@ type
   TPFNGLPAUSETRANSFORMFEEDBACKPROC = procedure (para1:pointer);cdecl;
   TPFNGLRESUMETRANSFORMFEEDBACKPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBindTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteTransformFeedbacks : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenTransformFeedbacks : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPauseTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResumeTransformFeedback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_transform_feedback2 : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_transform_feedback3 ----------------------  }
 
@@ -8791,20 +5599,6 @@ type
   TPFNGLENDQUERYINDEXEDPROC = procedure (target:TGLenum; index:TGLuint);cdecl;
   TPFNGLGETQUERYINDEXEDIVPROC = procedure (target:TGLenum; index:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glBeginQueryIndexed : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawTransformFeedbackStream : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndQueryIndexed : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryIndexediv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_transform_feedback3 : longint; { return type might be wrong }
 
 { ------------------ GL_ARB_transform_feedback_instanced ------------------  }
 
@@ -8814,14 +5608,6 @@ type
   TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC = procedure (mode:TGLenum; id:TGLuint; primcount:TGLsizei);cdecl;
   TPFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC = procedure (mode:TGLenum; id:TGLuint; stream:TGLuint; primcount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawTransformFeedbackInstanced : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawTransformFeedbackStreamInstanced : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_transform_feedback_instanced : longint; { return type might be wrong }
 
 { ---------------- GL_ARB_transform_feedback_overflow_query ---------------  }
 
@@ -8830,8 +5616,6 @@ const
   GL_TRANSFORM_FEEDBACK_OVERFLOW_ARB = $82EC;  
   GL_TRANSFORM_FEEDBACK_STREAM_OVERFLOW_ARB = $82ED;  
 
-{ was #define dname def_expr }
-function GLEW_ARB_transform_feedback_overflow_query : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_transpose_matrix ------------------------  }
 
@@ -8846,20 +5630,6 @@ type
   TPFNGLLOADTRANSPOSEMATRIXFARBPROC = procedure (m:TfMatrix4x4);cdecl;
   TPFNGLMULTTRANSPOSEMATRIXDARBPROC = procedure (m:TdMatrix4x4);cdecl;
   TPFNGLMULTTRANSPOSEMATRIXFARBPROC = procedure (m:TfMatrix4x4);cdecl;
-{ was #define dname def_expr }
-function glLoadTransposeMatrixdARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLoadTransposeMatrixfARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultTransposeMatrixdARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultTransposeMatrixfARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_transpose_matrix : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_uniform_buffer_object ---------------------  }
 
@@ -8910,38 +5680,6 @@ type
   TPFNGLGETUNIFORMINDICESPROC = procedure (prog:TGLuint; uniformCount:TGLsizei; uniformNames:PPGLchar; uniformIndices:PGLuint);cdecl;
   TPFNGLUNIFORMBLOCKBINDINGPROC = procedure (prog:TGLuint; uniformBlockIndex:TGLuint; uniformBlockBinding:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glBindBufferBase : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferRange : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniformBlockName : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniformBlockiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniformName : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveUniformsiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetIntegeri_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformBlockIndex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformIndices : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformBlockBinding : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_uniform_buffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_ARB_vertex_array_bgra -----------------------  }
 
@@ -8949,8 +5687,6 @@ const
   GL_ARB_vertex_array_bgra = 1;  
 //  GL_BGRA = $80E1;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_array_bgra : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_vertex_array_object ----------------------  }
 
@@ -8963,20 +5699,6 @@ type
   TPFNGLGENVERTEXARRAYSPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
   TPFNGLISVERTEXARRAYPROC = function (arr:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBindVertexArray : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteVertexArrays : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenVertexArrays : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVertexArray : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_array_object : longint; { return type might be wrong }
 
 { ----------------------- GL_ARB_vertex_attrib_64bit ----------------------  }
 
@@ -8994,38 +5716,6 @@ type
   TPFNGLVERTEXATTRIBL4DVPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
   TPFNGLVERTEXATTRIBLPOINTERPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetVertexAttribLdv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4d : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4dv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribLPointer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_attrib_64bit : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_vertex_attrib_binding ---------------------  }
 
@@ -9053,44 +5743,6 @@ type
   TPFNGLVERTEXATTRIBLFORMATPROC = procedure (attribindex:TGLuint; size:TGLint; _type:TGLenum; relativeoffset:TGLuint);cdecl;
   TPFNGLVERTEXBINDINGDIVISORPROC = procedure (bindingindex:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glBindVertexBuffer : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayBindVertexBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribBindingEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribFormatEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribIFormatEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribLFormatEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexBindingDivisorEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribBinding : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribIFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribLFormat : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexBindingDivisor : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_attrib_binding : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_vertex_blend --------------------------  }
 
@@ -9150,38 +5802,6 @@ type
   TPFNGLWEIGHTUIVARBPROC = procedure (size:TGLint; weights:PGLuint);cdecl;
   TPFNGLWEIGHTUSVARBPROC = procedure (size:TGLint; weights:PGLushort);cdecl;
 
-{ was #define dname def_expr }
-function glVertexBlendARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightPointerARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightbvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightsvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightubvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightusvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_blend : longint; { return type might be wrong }
 
 { ---------------------- GL_ARB_vertex_buffer_object ----------------------  }
 
@@ -9237,41 +5857,6 @@ type
   TPFNGLMAPBUFFERARBPROC = function (target:TGLenum; access:TGLenum):pointer;cdecl;
   TPFNGLUNMAPBUFFERARBPROC = function (target:TGLenum):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBindBufferARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBufferDataARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBufferSubDataARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteBuffersARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenBuffersARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferParameterivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferPointervARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBufferSubDataARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsBufferARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapBufferARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapBufferARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_buffer_object : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_vertex_program -------------------------  }
 
@@ -9420,194 +6005,6 @@ type
   TPFNGLVERTEXATTRIB4USVARBPROC = procedure (index:TGLuint; v:PGLushort);cdecl;
   TPFNGLVERTEXATTRIBPOINTERARBPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei;                pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBindProgramARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteProgramsARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVertexAttribArrayARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexAttribArrayARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenProgramsARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramEnvParameterdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramEnvParameterfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramLocalParameterdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramLocalParameterfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribPointervARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribdvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribfvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsProgramARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameter4dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameter4dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameter4fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameter4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameter4dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameter4dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameter4fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameter4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramStringARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NbvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NsvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NubARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NubvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NuivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4NusvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4bvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4ubvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4uivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4usvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribPointerARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_program : longint; { return type might be wrong }
 
 { -------------------------- GL_ARB_vertex_shader -------------------------  }
 
@@ -9625,17 +6022,6 @@ type
   TPFNGLGETACTIVEATTRIBARBPROC = procedure (programObj:TGLhandleARB; index:TGLuint; maxLength:TGLsizei; length:PGLsizei; size:PGLint;                _type:PGLenum; name:PGLcharARB);cdecl;
   TPFNGLGETATTRIBLOCATIONARBPROC = function (programObj:TGLhandleARB; name:PGLcharARB):TGLint;cdecl;
 
-{ was #define dname def_expr }
-function glBindAttribLocationARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveAttribARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetAttribLocationARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_shader : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_vertex_type_10f_11f_11f_rev ------------------  }
 
@@ -9643,8 +6029,6 @@ const
   GL_ARB_vertex_type_10f_11f_11f_rev = 1;  
 //  GL_UNSIGNED_INT_10F_11F_11F_REV = $8C3B;  doppelt
 
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_type_10f_11f_11f_rev : longint; { return type might be wrong }
 
 { ------------------- GL_ARB_vertex_type_2_10_10_10_rev -------------------  }
 
@@ -9692,122 +6076,6 @@ type
   TPFNGLVERTEXP4UIPROC = procedure (_type:TGLenum; value:TGLuint);cdecl;
   TPFNGLVERTEXP4UIVPROC = procedure (_type:TGLenum; value:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glColorP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorP4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorP4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordP4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordP4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP1ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP1uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribP4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP2ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP2uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP3ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP3uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP4ui : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexP4uiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_vertex_type_2_10_10_10_rev : longint; { return type might be wrong }
 
 { ------------------------- GL_ARB_viewport_array -------------------------  }
 
@@ -9838,38 +6106,6 @@ type
   TPFNGLVIEWPORTINDEXEDFPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat; w:TGLfloat; h:TGLfloat);cdecl;
   TPFNGLVIEWPORTINDEXEDFVPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glDepthRangeArrayv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangeIndexed : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDoublei_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFloati_v : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorArrayv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorIndexed : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorIndexedv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportArrayv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportIndexedf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportIndexedfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_viewport_array : longint; { return type might be wrong }
 
 { --------------------------- GL_ARB_window_pos ---------------------------  }
 
@@ -9893,56 +6129,6 @@ type
   TPFNGLWINDOWPOS3SARBPROC = procedure (x:TGLshort; y:TGLshort; z:TGLshort);cdecl;
   TPFNGLWINDOWPOS3SVARBPROC = procedure (p:PGLshort);cdecl;
 
-{ was #define dname def_expr }
-function glWindowPos2dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3dARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3dvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3fARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3fvARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3iARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3ivARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3sARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3svARB : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ARB_window_pos : longint; { return type might be wrong }
 
 { ----------------------- GL_ARM_mali_program_binary ----------------------  }
 
@@ -9950,8 +6136,6 @@ const
   GL_ARM_mali_program_binary = 1;  
   GL_MALI_PROGRAM_BINARY_ARM = $8F61;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_mali_program_binary : longint; { return type might be wrong }
 
 { ----------------------- GL_ARM_mali_shader_binary -----------------------  }
 
@@ -9959,8 +6143,6 @@ const
   GL_ARM_mali_shader_binary = 1;  
   GL_MALI_SHADER_BINARY_ARM = $8F60;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_mali_shader_binary : longint; { return type might be wrong }
 
 { ------------------------------ GL_ARM_rgba8 -----------------------------  }
 
@@ -9968,8 +6150,6 @@ const
   GL_ARM_rgba8 = 1;  
   GL_RGBA8_OES = $8058;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_rgba8 : longint; { return type might be wrong }
 
 { -------------------- GL_ARM_shader_framebuffer_fetch --------------------  }
 
@@ -9978,16 +6158,12 @@ const
   GL_FETCH_PER_SAMPLE_ARM = $8F65;  
   GL_FRAGMENT_SHADER_FRAMEBUFFER_FETCH_MRT_ARM = $8F66;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_shader_framebuffer_fetch : longint; { return type might be wrong }
 
 { ------------- GL_ARM_shader_framebuffer_fetch_depth_stencil -------------  }
 
 const
   GL_ARM_shader_framebuffer_fetch_depth_stencil = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_shader_framebuffer_fetch_depth_stencil : longint; { return type might be wrong }
 
 { ---------------- GL_ARM_texture_unnormalized_coordinates ----------------  }
 
@@ -9995,8 +6171,6 @@ const
   GL_ARM_texture_unnormalized_coordinates = 1;  
   GL_TEXTURE_UNNORMALIZED_COORDINATES_ARM = $8F6A;  
 
-{ was #define dname def_expr }
-function GLEW_ARM_texture_unnormalized_coordinates : longint; { return type might be wrong }
 
 { ------------------------- GL_ATIX_point_sprites -------------------------  }
 
@@ -10009,8 +6183,6 @@ const
   GL_POINT_SPRITE_CULL_CENTER_ATIX = $60B4;  
   GL_POINT_SPRITE_CULL_CLIP_ATIX = $60B5;  
 
-{ was #define dname def_expr }
-function GLEW_ATIX_point_sprites : longint; { return type might be wrong }
 
 { ---------------------- GL_ATIX_texture_env_combine3 ---------------------  }
 
@@ -10020,8 +6192,6 @@ const
   GL_MODULATE_SIGNED_ADD_ATIX = $8745;  
   GL_MODULATE_SUBTRACT_ATIX = $8746;  
 
-{ was #define dname def_expr }
-function GLEW_ATIX_texture_env_combine3 : longint; { return type might be wrong }
 
 { ----------------------- GL_ATIX_texture_env_route -----------------------  }
 
@@ -10031,8 +6201,6 @@ const
   GL_TEXTURE_OUTPUT_RGB_ATIX = $8748;  
   GL_TEXTURE_OUTPUT_ALPHA_ATIX = $8749;  
 
-{ was #define dname def_expr }
-function GLEW_ATIX_texture_env_route : longint; { return type might be wrong }
 
 { ---------------- GL_ATIX_vertex_shader_output_point_size ----------------  }
 
@@ -10040,8 +6208,6 @@ const
   GL_ATIX_vertex_shader_output_point_size = 1;  
   GL_OUTPUT_POINT_SIZE_ATIX = $610E;  
 
-{ was #define dname def_expr }
-function GLEW_ATIX_vertex_shader_output_point_size : longint; { return type might be wrong }
 
 { -------------------------- GL_ATI_draw_buffers --------------------------  }
 
@@ -10067,11 +6233,6 @@ const
 type
   TPFNGLDRAWBUFFERSATIPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDrawBuffersATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_draw_buffers : longint; { return type might be wrong }
 
 { -------------------------- GL_ATI_element_array -------------------------  }
 
@@ -10085,22 +6246,8 @@ type
   TPFNGLDRAWRANGEELEMENTARRAYATIPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei);cdecl;
   TPFNGLELEMENTPOINTERATIPROC = procedure (_type:TGLenum; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glDrawElementArrayATI : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glDrawRangeElementArrayATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glElementPointerATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_element_array : longint; { return type might be wrong }
-
-{$endif}
-{ GL_ATI_element_array  }
 { ------------------------- GL_ATI_envmap_bumpmap -------------------------  }
-{$ifndef GL_ATI_envmap_bumpmap}
 
 const
   GL_ATI_envmap_bumpmap = 1;  
@@ -10118,20 +6265,6 @@ type
   TPFNGLTEXBUMPPARAMETERFVATIPROC = procedure (pname:TGLenum; param:PGLfloat);cdecl;
   TPFNGLTEXBUMPPARAMETERIVATIPROC = procedure (pname:TGLenum; param:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetTexBumpParameterfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexBumpParameterivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexBumpParameterfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexBumpParameterivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_envmap_bumpmap : longint; { return type might be wrong }
 
 { ------------------------- GL_ATI_fragment_shader ------------------------  }
 
@@ -10213,50 +6346,6 @@ type
   TPFNGLSAMPLEMAPATIPROC = procedure (dst:TGLuint; interp:TGLuint; swizzle:TGLenum);cdecl;
   TPFNGLSETFRAGMENTSHADERCONSTANTATIPROC = procedure (dst:TGLuint; value:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glAlphaFragmentOp1ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glAlphaFragmentOp2ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glAlphaFragmentOp3ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBeginFragmentShaderATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindFragmentShaderATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorFragmentOp1ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorFragmentOp2ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorFragmentOp3ATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteFragmentShaderATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndFragmentShaderATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFragmentShadersATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPassTexCoordATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSampleMapATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSetFragmentShaderConstantATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_fragment_shader : longint; { return type might be wrong }
 
 { ------------------------ GL_ATI_map_object_buffer -----------------------  }
 
@@ -10266,14 +6355,6 @@ type
   TPFNGLMAPOBJECTBUFFERATIPROC = function (buffer:TGLuint):pointer;cdecl;
   TPFNGLUNMAPOBJECTBUFFERATIPROC = procedure (buffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glMapObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_map_object_buffer : longint; { return type might be wrong }
 
 { ----------------------------- GL_ATI_meminfo ----------------------------  }
 
@@ -10283,8 +6364,6 @@ const
   GL_TEXTURE_FREE_MEMORY_ATI = $87FC;  
   GL_RENDERBUFFER_FREE_MEMORY_ATI = $87FD;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_meminfo : longint; { return type might be wrong }
 
 { -------------------------- GL_ATI_pn_triangles --------------------------  }
 
@@ -10303,14 +6382,6 @@ type
   TPFNGLPNTRIANGLESFATIPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
   TPFNGLPNTRIANGLESIATIPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glPNTrianglesfATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPNTrianglesiATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_pn_triangles : longint; { return type might be wrong }
 
 { ------------------------ GL_ATI_separate_stencil ------------------------  }
 
@@ -10324,22 +6395,12 @@ type
   TPFNGLSTENCILFUNCSEPARATEATIPROC = procedure (frontfunc:TGLenum; backfunc:TGLenum; ref:TGLint; mask:TGLuint);cdecl;
   TPFNGLSTENCILOPSEPARATEATIPROC = procedure (face:TGLenum; sfail:TGLenum; dpfail:TGLenum; dppass:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glStencilFuncSeparateATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilOpSeparateATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_separate_stencil : longint; { return type might be wrong }
 
 { ----------------------- GL_ATI_shader_texture_lod -----------------------  }
 
 const
   GL_ATI_shader_texture_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_shader_texture_lod : longint; { return type might be wrong }
 
 { ---------------------- GL_ATI_text_fragment_shader ----------------------  }
 
@@ -10347,8 +6408,6 @@ const
   GL_ATI_text_fragment_shader = 1;  
   GL_TEXT_FRAGMENT_SHADER_ATI = $8200;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_text_fragment_shader : longint; { return type might be wrong }
 
 { --------------------- GL_ATI_texture_compression_3dc --------------------  }
 
@@ -10356,8 +6415,6 @@ const
   GL_ATI_texture_compression_3dc = 1;  
   GL_COMPRESSED_LUMINANCE_ALPHA_3DC_ATI = $8837;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_texture_compression_3dc : longint; { return type might be wrong }
 
 { ---------------------- GL_ATI_texture_env_combine3 ----------------------  }
 
@@ -10367,8 +6424,6 @@ const
   GL_MODULATE_SIGNED_ADD_ATI = $8745;  
   GL_MODULATE_SUBTRACT_ATI = $8746;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_texture_env_combine3 : longint; { return type might be wrong }
 
 { -------------------------- GL_ATI_texture_float -------------------------  }
 
@@ -10387,8 +6442,6 @@ const
   GL_LUMINANCE_FLOAT16_ATI = $881E;  
   GL_LUMINANCE_ALPHA_FLOAT16_ATI = $881F;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_texture_float : longint; { return type might be wrong }
 
 { ----------------------- GL_ATI_texture_mirror_once ----------------------  }
 
@@ -10397,8 +6450,6 @@ const
   GL_MIRROR_CLAMP_ATI = $8742;  
   GL_MIRROR_CLAMP_TO_EDGE_ATI = $8743;  
 
-{ was #define dname def_expr }
-function GLEW_ATI_texture_mirror_once : longint; { return type might be wrong }
 
 { ----------------------- GL_ATI_vertex_array_object ----------------------  }
 
@@ -10426,44 +6477,6 @@ type
   TPFNGLUPDATEOBJECTBUFFERATIPROC = procedure (buffer:TGLuint; offset:TGLuint; size:TGLsizei; pointer:pointer; preserve:TGLenum);cdecl;
   TPFNGLVARIANTARRAYOBJECTATIPROC = procedure (id:TGLuint; _type:TGLenum; stride:TGLsizei; buffer:TGLuint; offset:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glArrayObjectATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFreeObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetArrayObjectfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetArrayObjectivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectBufferfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectBufferivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantArrayObjectfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantArrayObjectivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNewObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUpdateObjectBufferATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantArrayObjectATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_vertex_array_object : longint; { return type might be wrong }
 
 { ------------------- GL_ATI_vertex_attrib_array_object -------------------  }
 
@@ -10474,17 +6487,6 @@ type
   TPFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC = procedure (index:TGLuint; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLVERTEXATTRIBARRAYOBJECTATIPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; normalized:TGLboolean; stride:TGLsizei;                buffer:TGLuint; offset:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetVertexAttribArrayObjectfvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribArrayObjectivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribArrayObjectATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_vertex_attrib_array_object : longint; { return type might be wrong }
 
 { ------------------------- GL_ATI_vertex_streams -------------------------  }
 
@@ -10547,143 +6549,6 @@ type
   TPFNGLVERTEXSTREAM4SATIPROC = procedure (stream:TGLenum; x:TGLshort; y:TGLshort; z:TGLshort; w:TGLshort);cdecl;
   TPFNGLVERTEXSTREAM4SVATIPROC = procedure (stream:TGLenum; coords:PGLshort);cdecl;
 
-{ was #define dname def_expr }
-function glClientActiveVertexStreamATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3bATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3bvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3dATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3dvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3fATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3fvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3iATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3ivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3sATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalStream3svATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexBlendEnvfATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexBlendEnviATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1dATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1dvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1fATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1fvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1iATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1ivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1sATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream1svATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2dATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2dvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2fATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2fvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2iATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2ivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2sATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream2svATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3dATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3dvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3fATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3fvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3iATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3ivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3sATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream3svATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4dATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4dvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4fATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4fvATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4iATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4ivATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4sATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexStream4svATI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_ATI_vertex_streams : longint; { return type might be wrong }
 
 { ------------------------- GL_DMP_program_binary -------------------------  }
 
@@ -10693,8 +6558,6 @@ const
   GL_SMAPHS_PROGRAM_BINARY_DMP = $9252;  
   GL_DMP_PROGRAM_BINARY_DMP = $9253;  
 
-{ was #define dname def_expr }
-function GLEW_DMP_program_binary : longint; { return type might be wrong }
 
 { -------------------------- GL_DMP_shader_binary -------------------------  }
 
@@ -10702,8 +6565,6 @@ const
   GL_DMP_shader_binary = 1;  
   GL_SHADER_BINARY_DMP = $9250;  
 
-{ was #define dname def_expr }
-function GLEW_DMP_shader_binary : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_422_pixels ---------------------------  }
 
@@ -10714,8 +6575,6 @@ const
   GL_422_AVERAGE_EXT = $80CE;  
   GL_422_REV_AVERAGE_EXT = $80CF;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_422_pixels : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_Cg_shader ---------------------------  }
 
@@ -10724,24 +6583,18 @@ const
   GL_CG_VERTEX_SHADER_EXT = $890E;  
   GL_CG_FRAGMENT_SHADER_EXT = $890F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_Cg_shader : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_EGL_image_array ------------------------  }
 
 const
   GL_EXT_EGL_image_array = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_EGL_image_array : longint; { return type might be wrong }
 
 { ------------------ GL_EXT_EGL_image_external_wrap_modes -----------------  }
 
 const
   GL_EXT_EGL_image_external_wrap_modes = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_EGL_image_external_wrap_modes : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_EGL_image_storage -----------------------  }
 
@@ -10751,22 +6604,12 @@ type
   TPFNGLEGLIMAGETARGETTEXSTORAGEEXTPROC = procedure (target:TGLenum; image:TGLeglImageOES; attrib_list:PGLint);cdecl;
   TPFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC = procedure (texture:TGLuint; image:TGLeglImageOES; attrib_list:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glEGLImageTargetTexStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEGLImageTargetTextureStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_EGL_image_storage : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_EGL_sync ----------------------------  }
 
 const
   GL_EXT_EGL_sync = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_EGL_sync : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_YUV_target ---------------------------  }
 
@@ -10774,8 +6617,6 @@ const
   GL_EXT_YUV_target = 1;  
   GL_SAMPLER_EXTERNAL_2D_Y2Y_EXT = $8BE7;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_YUV_target : longint; { return type might be wrong }
 
 { ------------------------------ GL_EXT_abgr ------------------------------  }
 
@@ -10783,8 +6624,6 @@ const
   GL_EXT_abgr = 1;  
   GL_ABGR_EXT = $8000;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_abgr : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_base_instance -------------------------  }
 
@@ -10795,17 +6634,6 @@ type
   TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei;                baseinstance:TGLuint);cdecl;
   TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; instancecount:TGLsizei;                basevertex:TGLint; baseinstance:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedBaseInstanceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseInstanceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseVertexBaseInstanceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_base_instance : longint; { return type might be wrong }
 
 { ------------------------------ GL_EXT_bgra ------------------------------  }
 
@@ -10814,8 +6642,6 @@ const
   GL_BGR_EXT = $80E0;  
 //  GL_BGRA_EXT = $80E1;  doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_bgra : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_bindable_uniform ------------------------  }
 
@@ -10832,17 +6658,6 @@ type
   TPFNGLGETUNIFORMOFFSETEXTPROC = function (prog:TGLuint; location:TGLint):TGLintptr;cdecl;
   TPFNGLUNIFORMBUFFEREXTPROC = procedure (prog:TGLuint; location:TGLint; buffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetUniformBufferSizeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_bindable_uniform : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_blend_color --------------------------  }
 
@@ -10856,11 +6671,6 @@ const
 type
   TPFNGLBLENDCOLOREXTPROC = procedure (red:TGLclampf; green:TGLclampf; blue:TGLclampf; alpha:TGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glBlendColorEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_blend_color : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_blend_equation_separate --------------------  }
 
@@ -10871,11 +6681,6 @@ const
 type
   TPFNGLBLENDEQUATIONSEPARATEEXTPROC = procedure (modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparateEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_blend_equation_separate : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_blend_func_extended ----------------------  }
 
@@ -10893,17 +6698,6 @@ type
   TPFNGLGETFRAGDATAINDEXEXTPROC = function (prog:TGLuint; name:PGLchar):TGLint;cdecl;
   TPFNGLGETPROGRAMRESOURCELOCATIONINDEXEXTPROC = function (prog:TGLuint; programInterface:TGLenum; name:PGLchar):TGLint;cdecl;
 
-{ was #define dname def_expr }
-function glBindFragDataLocationIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragDataIndexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourceLocationIndexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_blend_func_extended : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_blend_func_separate ----------------------  }
 
@@ -10916,19 +6710,12 @@ const
 type
   TPFNGLBLENDFUNCSEPARATEEXTPROC = procedure (sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendFuncSeparateEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_blend_func_separate : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_blend_logic_op -------------------------  }
 
 const
   GL_EXT_blend_logic_op = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_blend_logic_op : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_blend_minmax --------------------------  }
 
@@ -10941,11 +6728,6 @@ const
 type
   TPFNGLBLENDEQUATIONEXTPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_blend_minmax : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_blend_subtract -------------------------  }
 
@@ -10954,8 +6736,6 @@ const
   GL_FUNC_SUBTRACT_EXT = $800A;  
   GL_FUNC_REVERSE_SUBTRACT_EXT = $800B;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_blend_subtract : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_buffer_storage -------------------------  }
 
@@ -10974,14 +6754,6 @@ type
   TPFNGLBUFFERSTORAGEEXTPROC = procedure (target:TGLenum; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
   TPFNGLNAMEDBUFFERSTORAGEEXTPROC = procedure (buffer:TGLuint; size:TGLsizeiptr; data:pointer; flags:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glBufferStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_buffer_storage : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_clear_texture -------------------------  }
 
@@ -10993,14 +6765,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glClearTexImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearTexSubImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_clear_texture : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_clip_control --------------------------  }
 
@@ -11015,11 +6779,6 @@ const
 type
   TPFNGLCLIPCONTROLEXTPROC = procedure (origin:TGLenum; depth:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glClipControlEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_clip_control : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_clip_cull_distance -----------------------  }
 
@@ -11037,8 +6796,6 @@ const
   GL_MAX_CULL_DISTANCES_EXT = $82F9;  
   GL_MAX_COMBINED_CLIP_AND_CULL_DISTANCES_EXT = $82FA;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_clip_cull_distance : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_clip_volume_hint ------------------------  }
 
@@ -11046,8 +6803,6 @@ const
   GL_EXT_clip_volume_hint = 1;  
   GL_CLIP_VOLUME_CLIPPING_HINT_EXT = $80F0;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_clip_volume_hint : longint; { return type might be wrong }
 
 { ------------------------------ GL_EXT_cmyka -----------------------------  }
 
@@ -11058,16 +6813,12 @@ const
   GL_PACK_CMYK_HINT_EXT = $800E;  
   GL_UNPACK_CMYK_HINT_EXT = $800F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_cmyka : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_color_buffer_float -----------------------  }
 
 const
   GL_EXT_color_buffer_float = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_color_buffer_float : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_color_buffer_half_float --------------------  }
 
@@ -11080,8 +6831,6 @@ const
   GL_RGB16F_EXT = $881B;  
   GL_UNSIGNED_NORMALIZED_EXT = $8C17;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_color_buffer_half_float : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_color_subtable -------------------------  }
 
@@ -11091,14 +6840,6 @@ type
  TPFNGLCOLORSUBTABLEEXTPROC = procedure (target:TGLenum; start:TGLsizei; count:TGLsizei; format:TGLenum; _type:TGLenum;                data:pointer);cdecl;
   TPFNGLCOPYCOLORSUBTABLEEXTPROC = procedure (target:TGLenum; start:TGLsizei; x:TGLint; y:TGLint; width:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glColorSubTableEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyColorSubTableEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_color_subtable : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_compiled_vertex_array ---------------------  }
 
@@ -11110,30 +6851,18 @@ type
   TPFNGLLOCKARRAYSEXTPROC = procedure (first:TGLint; count:TGLsizei);cdecl;
   TPFNGLUNLOCKARRAYSEXTPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glLockArraysEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnlockArraysEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_compiled_vertex_array : longint; { return type might be wrong }
 
 { ---------------- GL_EXT_compressed_ETC1_RGB8_sub_texture ----------------  }
 
 const
   GL_EXT_compressed_ETC1_RGB8_sub_texture = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_compressed_ETC1_RGB8_sub_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_conservative_depth -----------------------  }
 
 const
   GL_EXT_conservative_depth = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_conservative_depth : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_convolution --------------------------  }
 
@@ -11174,47 +6903,6 @@ type
   TPFNGLGETSEPARABLEFILTEREXTPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; row:pointer; column:pointer;                span:pointer);cdecl;
   TPFNGLSEPARABLEFILTER2DEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei; format:TGLenum;                _type:TGLenum; row:pointer; column:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glConvolutionFilter1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionFilter2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameterfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glConvolutionParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyConvolutionFilter1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyConvolutionFilter2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionFilterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetConvolutionParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSeparableFilterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSeparableFilter2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_convolution : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_coordinate_frame ------------------------  }
 
@@ -11238,14 +6926,6 @@ type
   TPFNGLBINORMALPOINTEREXTPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
   TPFNGLTANGENTPOINTEREXTPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBinormalPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTangentPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_coordinate_frame : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_copy_image ---------------------------  }
 
@@ -11256,11 +6936,6 @@ type
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyImageSubDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_copy_image : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_copy_texture --------------------------  }
 const
@@ -11272,23 +6947,6 @@ type
   TPFNGLCOPYTEXSUBIMAGE2DEXTPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; x:TGLint;                y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
   TPFNGLCOPYTEXSUBIMAGE3DEXTPROC = procedure (target:TGLenum; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;                x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyTexImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_copy_texture : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_cull_vertex --------------------------  }
 
@@ -11301,14 +6959,6 @@ type
   TPFNGLCULLPARAMETERDVEXTPROC = procedure (pname:TGLenum; params:PGLdouble);cdecl;
   TPFNGLCULLPARAMETERFVEXTPROC = procedure (pname:TGLenum; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glCullParameterdvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCullParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_cull_vertex : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_debug_label --------------------------  }
 
@@ -11324,14 +6974,6 @@ type
   TPFNGLGETOBJECTLABELEXTPROC = procedure (_type:TGLenum; obj:TGLuint; bufSize:TGLsizei; length:PGLsizei; _label:PGLchar);cdecl;
   TPFNGLLABELOBJECTEXTPROC = procedure (_type:TGLenum; obj:TGLuint; length:TGLsizei; _label:PGLchar);cdecl;
 
-{ was #define dname def_expr }
-function glGetObjectLabelEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLabelObjectEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_debug_label : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_debug_marker --------------------------  }
 
@@ -11342,17 +6984,6 @@ type
   TPFNGLPOPGROUPMARKEREXTPROC = procedure (para1:pointer);cdecl;
   TPFNGLPUSHGROUPMARKEREXTPROC = procedure (length:TGLsizei; marker:PGLchar);cdecl;
 
-{ was #define dname def_expr }
-function glInsertEventMarkerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPopGroupMarkerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPushGroupMarkerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_debug_marker : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_depth_bounds_test -----------------------  }
 
@@ -11363,11 +6994,6 @@ const
 type
   TPFNGLDEPTHBOUNDSEXTPROC = procedure (zmin:TGLclampd; zmax:TGLclampd);cdecl;
 
-{ was #define dname def_expr }
-function glDepthBoundsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_depth_bounds_test : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_depth_clamp --------------------------  }
 
@@ -11375,8 +7001,6 @@ const
   GL_EXT_depth_clamp = 1;  
   GL_DEPTH_CLAMP_EXT = $864F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_depth_clamp : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_direct_state_access ----------------------  }
 
@@ -11642,650 +7266,6 @@ type
                 normalized:TGLboolean; stride:TGLsizei; offset:TGLintptr);cdecl;
   TPFNGLVERTEXARRAYVERTEXOFFSETEXTPROC = procedure (vaobj:TGLuint; buffer:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei;                offset:TGLintptr);cdecl;
 
-{ was #define dname def_expr }
-function glBindMultiTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCheckNamedFramebufferStatusEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClientAttribDefaultEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedMultiTexSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTextureSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyMultiTexImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyMultiTexImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyMultiTexSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyMultiTexSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyMultiTexSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTextureSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableClientStateIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableClientStateiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVertexArrayAttribEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVertexArrayEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableClientStateIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableClientStateiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexArrayAttribEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVertexArrayEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFlushMappedNamedBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferDrawBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferDrawBuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferReadBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateMultiTexMipmapEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateTextureMipmapEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCompressedMultiTexImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCompressedTextureImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDoubleIndexedvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDoublei_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFloatIndexedvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFloati_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexEnvfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexEnvivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexGendvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexGenfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexGenivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexLevelParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexLevelParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMultiTexParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferPointervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferSubDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedFramebufferAttachmentParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramLocalParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramLocalParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramLocalParameterdvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramLocalParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramStringEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedProgramivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedRenderbufferParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPointerIndexedvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPointeri_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureImageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureLevelParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureLevelParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayIntegeri_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayIntegervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayPointeri_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexArrayPointervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapNamedBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapNamedBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixFrustumEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoadIdentityEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoadTransposedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoadTransposefEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoaddEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoadfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMultTransposedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMultTransposefEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMultdEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMultfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixOrthoEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixPopEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixPushEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixRotatedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixRotatefEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixScaledEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixScalefEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixTranslatedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixTranslatefEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoordPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexEnvfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexEnvfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexEnviEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexEnvivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGendEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGendvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGenfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGenfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGeniEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexGenivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameterfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferSubDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedCopyBufferSubDataEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTexture1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTexture2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTexture3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTextureFaceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTextureLayerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameter4dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameter4dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameter4fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameter4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameterI4iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameterI4ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameterI4uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameterI4uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParameters4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParametersI4ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramLocalParametersI4uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedProgramStringEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedRenderbufferStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedRenderbufferStorageMultisampleCoverageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedRenderbufferStorageMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x3fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix2x4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x2fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix3x4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x2fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformMatrix4x3fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPushClientAttribDefaultEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapNamedBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayColorOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayEdgeFlagOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayFogCoordOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayIndexOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayMultiTexCoordOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayNormalOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArraySecondaryColorOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayTexCoordOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribDivisorEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribIOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_direct_state_access : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_discard_framebuffer ----------------------  }
 
@@ -12297,11 +7277,6 @@ const
 type
   TPFNGLDISCARDFRAMEBUFFEREXTPROC = procedure (target:TGLenum; numAttachments:TGLsizei; attachments:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDiscardFramebufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_discard_framebuffer : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_disjoint_timer_query ----------------------  }
 
@@ -12326,38 +7301,6 @@ type
   TPFNGLISQUERYEXTPROC = function (id:TGLuint):TGLboolean;cdecl;
   TPFNGLQUERYCOUNTEREXTPROC = procedure (id:TGLuint; target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBeginQueryEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteQueriesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndQueryEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenQueriesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInteger64vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsQueryEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glQueryCounterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_disjoint_timer_query : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_draw_buffers --------------------------  }
 
@@ -12400,11 +7343,6 @@ const
 type
   TPFNGLDRAWBUFFERSEXTPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDrawBuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_buffers : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_draw_buffers2 -------------------------  }
 
@@ -12418,26 +7356,6 @@ type
   TPFNGLGETINTEGERINDEXEDVEXTPROC = procedure (value:TGLenum; index:TGLuint; data:PGLint);cdecl;
   TPFNGLISENABLEDINDEXEDEXTPROC = function (target:TGLenum; index:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glColorMaskIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetBooleanIndexedvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetIntegerIndexedvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsEnabledIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_buffers2 : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_draw_buffers_indexed ----------------------  }
 
@@ -12453,32 +7371,6 @@ type
   TPFNGLENABLEIEXTPROC = procedure (target:TGLenum; index:TGLuint);cdecl;
   TPFNGLISENABLEDIEXTPROC = function (target:TGLenum; index:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparateiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparateiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFunciEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorMaskiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsEnablediEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_buffers_indexed : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_draw_elements_base_vertex -------------------  }
 
@@ -12490,20 +7382,6 @@ type
   TPFNGLDRAWRANGEELEMENTSBASEVERTEXEXTPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum;                indices:pointer; basevertex:TGLint);cdecl;
   TPFNGLMULTIDRAWELEMENTSBASEVERTEXEXTPROC = procedure (mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; primcount:TGLsizei;                basevertex:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawElementsBaseVertexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedBaseVertexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawRangeElementsBaseVertexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsBaseVertexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_elements_base_vertex : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_draw_instanced -------------------------  }
 
@@ -12513,14 +7391,6 @@ type
   TPFNGLDRAWARRAYSINSTANCEDEXTPROC = procedure (mode:TGLenum; start:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;
   TPFNGLDRAWELEMENTSINSTANCEDEXTPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_instanced : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_draw_range_elements ----------------------  }
 
@@ -12531,11 +7401,6 @@ const
 type
   TPFNGLDRAWRANGEELEMENTSEXTPROC = procedure (mode:TGLenum; start:TGLuint; end_:TGLuint; count:TGLsizei; _type:TGLenum;                indices:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glDrawRangeElementsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_range_elements : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_draw_transform_feedback --------------------  }
 
@@ -12545,14 +7410,6 @@ type
   TPFNGLDRAWTRANSFORMFEEDBACKEXTPROC = procedure (mode:TGLenum; id:TGLuint);cdecl;
   TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDEXTPROC = procedure (mode:TGLenum; id:TGLuint; instancecount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawTransformFeedbackEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawTransformFeedbackInstancedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_draw_transform_feedback : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_external_buffer ------------------------  }
 
@@ -12565,22 +7422,12 @@ type
   TPFNGLBUFFERSTORAGEEXTERNALEXTPROC = procedure (target:TGLenum; offset:TGLintptr; size:TGLsizeiptr; clientBuffer:TGLeglClientBufferEXT; flags:TGLbitfield);cdecl;
   TPFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC = procedure (buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; clientBuffer:TGLeglClientBufferEXT; flags:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glBufferStorageExternalEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferStorageExternalEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_external_buffer : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_float_blend --------------------------  }
 
 const
   GL_EXT_float_blend = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_float_blend : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_fog_coord ---------------------------  }
 
@@ -12601,31 +7448,12 @@ type
   TPFNGLFOGCOORDFEXTPROC = procedure (coord:TGLfloat);cdecl;
   TPFNGLFOGCOORDFVEXTPROC = procedure (coord:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFogCoordPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoorddEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoorddvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_fog_coord : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_frag_depth ---------------------------  }
 
 const
   GL_EXT_frag_depth = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_frag_depth : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_fragment_lighting -----------------------  }
 
@@ -12665,62 +7493,6 @@ type
   TPFNGLGETFRAGMENTMATERIALIVEXTPROC = procedure (face:TGLenum; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLLIGHTENVIEXTPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFragmentColorMaterialEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModeliEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentLightfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentLightivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentMaterialfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentMaterialivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLightEnviEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_fragment_lighting : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_framebuffer_blit ------------------------  }
 
@@ -12734,11 +7506,6 @@ type
   TPFNGLBLITFRAMEBUFFEREXTPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint;
                 dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlitFramebufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_framebuffer_blit : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_framebuffer_multisample --------------------  }
 
@@ -12750,11 +7517,6 @@ const
 type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_framebuffer_multisample : longint; { return type might be wrong }
 
 { --------------- GL_EXT_framebuffer_multisample_blit_scaled --------------  }
 
@@ -12763,8 +7525,6 @@ const
   GL_SCALED_RESOLVE_FASTEST_EXT = $90BA;  
   GL_SCALED_RESOLVE_NICEST_EXT = $90BB;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_framebuffer_multisample_blit_scaled : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_framebuffer_object -----------------------  }
 
@@ -12840,59 +7600,6 @@ type
   TPFNGLISRENDERBUFFEREXTPROC = function (renderbuffer:TGLuint):TGLboolean;cdecl;
   TPFNGLRENDERBUFFERSTORAGEEXTPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBindFramebufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCheckFramebufferStatusEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteFramebuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteRenderbuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFramebuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenRenderbuffersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateMipmapEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferAttachmentParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetRenderbufferParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsFramebufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsRenderbufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorageEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_framebuffer_object : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_framebuffer_sRGB ------------------------  }
 
@@ -12901,8 +7608,6 @@ const
   GL_FRAMEBUFFER_SRGB_EXT = $8DB9;  
   GL_FRAMEBUFFER_SRGB_CAPABLE_EXT = $8DBA;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_framebuffer_sRGB : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_geometry_point_size ----------------------  }
 
@@ -12942,8 +7647,6 @@ const
   GL_FRAMEBUFFER_DEFAULT_LAYERS_EXT = $9312;  
   GL_MAX_FRAMEBUFFER_LAYERS_EXT = $9317;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_geometry_point_size : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_geometry_shader ------------------------  }
 
@@ -12983,8 +7686,6 @@ const
   //GL_FRAMEBUFFER_DEFAULT_LAYERS_EXT = $9312;  
   //GL_MAX_FRAMEBUFFER_LAYERS_EXT = $9317;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_geometry_shader : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_geometry_shader4 ------------------------  }
 
@@ -13015,17 +7716,6 @@ type
   TPFNGLFRAMEBUFFERTEXTUREFACEEXTPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; face:TGLenum);cdecl;
   TPFNGLPROGRAMPARAMETERIEXTPROC = procedure (prog:TGLuint; pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureFaceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_geometry_shader4 : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_gpu_program_parameters ---------------------  }
 
@@ -13035,14 +7725,6 @@ type
   TPFNGLPROGRAMENVPARAMETERS4FVEXTPROC = procedure (target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;
   TPFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC = procedure (target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glProgramEnvParameters4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameters4fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_gpu_program_parameters : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_gpu_shader4 --------------------------  }
 
@@ -13110,118 +7792,12 @@ type
   TPFNGLVERTEXATTRIBI4USVEXTPROC = procedure (index:TGLuint; v:PGLushort);cdecl;
   TPFNGLVERTEXATTRIBIPOINTEREXTPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBindFragDataLocationEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragDataLocationEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI1uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI2uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI3uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4bvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4svEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4ubvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribI4usvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribIPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_gpu_shader4 : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_gpu_shader5 --------------------------  }
 
 const
   GL_EXT_gpu_shader5 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_gpu_shader5 : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_histogram ---------------------------  }
 
@@ -13252,46 +7828,12 @@ type
   TPFNGLRESETHISTOGRAMEXTPROC = procedure (target:TGLenum);cdecl;
   TPFNGLRESETMINMAXEXTPROC = procedure (target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glGetHistogramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHistogramParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetHistogramParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmaxEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmaxParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMinmaxParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glHistogramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMinmaxEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResetHistogramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResetMinmaxEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_histogram : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_index_array_formats ----------------------  }
 
 const
   GL_EXT_index_array_formats = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_index_array_formats : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_index_func ---------------------------  }
 
@@ -13300,11 +7842,6 @@ const
 type
   TPFNGLINDEXFUNCEXTPROC = procedure (func:TGLenum; ref:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glIndexFuncEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_index_func : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_index_material -------------------------  }
 
@@ -13313,19 +7850,12 @@ const
 type
   TPFNGLINDEXMATERIALEXTPROC = procedure (face:TGLenum; mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glIndexMaterialEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_index_material : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_index_texture -------------------------  }
 
 const
   GL_EXT_index_texture = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_index_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_instanced_arrays ------------------------  }
 
@@ -13335,11 +7865,6 @@ const
 type
  TPFNGLVERTEXATTRIBDIVISOREXTPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glVertexAttribDivisorEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_instanced_arrays : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_light_texture -------------------------  }
 
@@ -13359,17 +7884,6 @@ type
   TPFNGLTEXTURELIGHTEXTPROC = procedure (pname:TGLenum);cdecl;
   TPFNGLTEXTUREMATERIALEXTPROC = procedure (face:TGLenum; mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glApplyTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureLightEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureMaterialEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_light_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_map_buffer_range ------------------------  }
 
@@ -13385,14 +7899,6 @@ type
   TPFNGLFLUSHMAPPEDBUFFERRANGEEXTPROC = procedure (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr);cdecl;
   TPFNGLMAPBUFFERRANGEEXTPROC = function (target:TGLenum; offset:TGLintptr; length:TGLsizeiptr; access:TGLbitfield):pointer;cdecl;
 
-{ was #define dname def_expr }
-function glFlushMappedBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_map_buffer_range : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_memory_object -------------------------  }
 
@@ -13436,65 +7942,6 @@ type
   TPFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC = procedure (texture:TGLuint; samples:TGLsizei; internalFormat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedSampleLocations:TGLboolean; memory:TGLuint; offset:TGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glBufferStorageMemEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateMemoryObjectsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteMemoryObjectsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMemoryObjectParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUnsignedBytei_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUnsignedBytevEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsMemoryObjectEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMemoryObjectParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferStorageMemEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorageMem1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorageMem2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorageMem2DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorageMem3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorageMem3DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageMem1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageMem2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageMem2DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageMem3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorageMem3DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_memory_object : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_memory_object_fd ------------------------  }
 
@@ -13504,11 +7951,6 @@ const
 type
   TPFNGLIMPORTMEMORYFDEXTPROC = procedure (memory:TGLuint; size:TGLuint64; handleType:TGLenum; fd:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glImportMemoryFdEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_memory_object_fd : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_memory_object_win32 ----------------------  }
 
@@ -13529,22 +7971,12 @@ type
   TPFNGLIMPORTMEMORYWIN32HANDLEEXTPROC = procedure (memory:TGLuint; size:TGLuint64; handleType:TGLenum; handle:pointer);cdecl;
   TPFNGLIMPORTMEMORYWIN32NAMEEXTPROC = procedure (memory:TGLuint; size:TGLuint64; handleType:TGLenum; name:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glImportMemoryWin32HandleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImportMemoryWin32NameEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_memory_object_win32 : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_misc_attribute -------------------------  }
 
 const
   GL_EXT_misc_attribute = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_misc_attribute : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_multi_draw_arrays -----------------------  }
 
@@ -13554,14 +7986,6 @@ type
   TPFNGLMULTIDRAWARRAYSEXTPROC = procedure (mode:TGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei);cdecl;
   TPFNGLMULTIDRAWELEMENTSEXTPROC = procedure (mode:TGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; primcount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_multi_draw_arrays : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_multi_draw_indirect ----------------------  }
 
@@ -13571,22 +7995,12 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTEXTPROC = procedure (mode:TGLenum; indirect:pointer; drawcount:TGLsizei; stride:TGLsizei);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTEXTPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawcount:TGLsizei; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_multi_draw_indirect : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_multiple_textures -----------------------  }
 
 const
   GL_EXT_multiple_textures = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multiple_textures : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_multisample --------------------------  }
 
@@ -13613,14 +8027,6 @@ type
   TPFNGLSAMPLEMASKEXTPROC = procedure (value:TGLclampf; invert:TGLboolean);cdecl;
   TPFNGLSAMPLEPATTERNEXTPROC = procedure (pattern:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glSampleMaskEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplePatternEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_multisample : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_multisample_compatibility -------------------  }
 
@@ -13629,8 +8035,6 @@ const
 //  GL_MULTISAMPLE_EXT = $809D;   doppelt
 //  GL_SAMPLE_ALPHA_TO_ONE_EXT = $809F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multisample_compatibility : longint; { return type might be wrong }
 
 { ----------------- GL_EXT_multisampled_render_to_texture -----------------  }
 
@@ -13643,19 +8047,12 @@ const
 type
   TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint;                samples:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTexture2DMultisampleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_multisampled_render_to_texture : longint; { return type might be wrong }
 
 { ----------------- GL_EXT_multisampled_render_to_texture2 ----------------  }
 
 const
   GL_EXT_multisampled_render_to_texture2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multisampled_render_to_texture2 : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_multiview_draw_buffers ---------------------  }
 
@@ -13671,41 +8068,24 @@ type
   TPFNGLGETINTEGERI_VEXTPROC = procedure (target:TGLenum; index:TGLuint; data:PGLint);cdecl;
   TPFNGLREADBUFFERINDEXEDEXTPROC = procedure (src:TGLenum; index:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glDrawBuffersIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetIntegeri_vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReadBufferIndexedEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_multiview_draw_buffers : longint; { return type might be wrong }
 
 { ------------- GL_EXT_multiview_tessellation_geometry_shader -------------  }
 
 const
   GL_EXT_multiview_tessellation_geometry_shader = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multiview_tessellation_geometry_shader : longint; { return type might be wrong }
 
 { ------------------ GL_EXT_multiview_texture_multisample -----------------  }
 
 const
   GL_EXT_multiview_texture_multisample = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multiview_texture_multisample : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_multiview_timer_query ---------------------  }
 
 const
   GL_EXT_multiview_timer_query = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_multiview_timer_query : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_occlusion_query_boolean --------------------  }
 
@@ -13717,8 +8097,6 @@ const
   GL_ANY_SAMPLES_PASSED_EXT = $8C2F;  
   GL_ANY_SAMPLES_PASSED_CONSERVATIVE_EXT = $8D6A;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_occlusion_query_boolean : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_packed_depth_stencil ----------------------  }
 
@@ -13729,8 +8107,6 @@ const
   GL_DEPTH24_STENCIL8_EXT = $88F0;  
   GL_TEXTURE_STENCIL_SIZE_EXT = $88F1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_packed_depth_stencil : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_packed_float --------------------------  }
 
@@ -13740,8 +8116,6 @@ const
   GL_UNSIGNED_INT_10F_11F_11F_REV_EXT = $8C3B;  
   GL_RGBA_SIGNED_COMPONENTS_EXT = $8C3C;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_packed_float : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_packed_pixels -------------------------  }
 
@@ -13753,8 +8127,6 @@ const
   GL_UNSIGNED_INT_8_8_8_8_EXT = $8035;  
   GL_UNSIGNED_INT_10_10_10_2_EXT = $8036;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_packed_pixels : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_paletted_texture ------------------------  }
 
@@ -13787,20 +8159,6 @@ type
   TPFNGLGETCOLORTABLEPARAMETERFVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
   TPFNGLGETCOLORTABLEPARAMETERIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glColorTableEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_paletted_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_pixel_buffer_object ----------------------  }
 
@@ -13811,8 +8169,6 @@ const
   GL_PIXEL_PACK_BUFFER_BINDING_EXT = $88ED;  
   GL_PIXEL_UNPACK_BUFFER_BINDING_EXT = $88EF;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_pixel_buffer_object : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_pixel_transform ------------------------  }
 
@@ -13835,34 +8191,12 @@ type
   TPFNGLPIXELTRANSFORMPARAMETERIEXTPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
   TPFNGLPIXELTRANSFORMPARAMETERIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetPixelTransformParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPixelTransformParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_pixel_transform : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_pixel_transform_color_table ------------------  }
 
 const
   GL_EXT_pixel_transform_color_table = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_pixel_transform_color_table : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_point_parameters ------------------------  }
 
@@ -13876,14 +8210,6 @@ type
   TPFNGLPOINTPARAMETERFEXTPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
   TPFNGLPOINTPARAMETERFVEXTPROC = procedure (pname:TGLenum; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPointParameterfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_point_parameters : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_polygon_offset -------------------------  }
 
@@ -13895,11 +8221,6 @@ const
 type
   TPFNGLPOLYGONOFFSETEXTPROC = procedure (factor:TGLfloat; bias:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPolygonOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_polygon_offset : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_polygon_offset_clamp ----------------------  }
 
@@ -13909,19 +8230,12 @@ const
 type
   TPFNGLPOLYGONOFFSETCLAMPEXTPROC = procedure (factor:TGLfloat; units:TGLfloat; clamp:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPolygonOffsetClampEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_polygon_offset_clamp : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_post_depth_coverage ----------------------  }
 
 const
   GL_EXT_post_depth_coverage = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_post_depth_coverage : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_primitive_bounding_box ---------------------  }
 
@@ -13932,11 +8246,6 @@ type
   TPFNGLPRIMITIVEBOUNDINGBOXEXTPROC = procedure (minX:TGLfloat; minY:TGLfloat; minZ:TGLfloat; minW:TGLfloat; maxX:TGLfloat;
                 maxY:TGLfloat; maxZ:TGLfloat; maxW:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glPrimitiveBoundingBoxEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_primitive_bounding_box : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_protected_textures -----------------------  }
 
@@ -13945,8 +8254,6 @@ const
   GL_CONTEXT_FLAG_PROTECTED_CONTENT_BIT_EXT = $00000010;  
   GL_TEXTURE_PROTECTED_EXT = $8BFA;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_protected_textures : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_provoking_vertex ------------------------  }
 
@@ -13959,11 +8266,6 @@ const
 type
   TPFNGLPROVOKINGVERTEXEXTPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glProvokingVertexEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_provoking_vertex : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_pvrtc_sRGB ---------------------------  }
 
@@ -13974,8 +8276,6 @@ const
   GL_COMPRESSED_SRGB_ALPHA_PVRTC_2BPPV1_EXT = $8A56;  
   GL_COMPRESSED_SRGB_ALPHA_PVRTC_4BPPV1_EXT = $8A57;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_pvrtc_sRGB : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_raster_multisample -----------------------  }
 
@@ -14001,20 +8301,6 @@ type
   TPFNGLGETCOVERAGEMODULATIONTABLENVPROC = procedure (bufsize:TGLsizei; v:PGLfloat);cdecl;
   TPFNGLRASTERSAMPLESEXTPROC = procedure (samples:TGLuint; fixedsamplelocations:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glCoverageModulationNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCoverageModulationTableNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCoverageModulationTableNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRasterSamplesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_raster_multisample : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_read_format_bgra ------------------------  }
 
@@ -14024,8 +8310,6 @@ const
   GL_UNSIGNED_SHORT_4_4_4_4_REV_EXT = $8365;  
   GL_UNSIGNED_SHORT_1_5_5_5_REV_EXT = $8366;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_read_format_bgra : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_render_snorm --------------------------  }
 
@@ -14040,8 +8324,6 @@ const
   GL_RG16_SNORM_EXT = $8F99;  
   GL_RGBA16_SNORM_EXT = $8F9B;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_render_snorm : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_rescale_normal -------------------------  }
 
@@ -14049,8 +8331,6 @@ const
   GL_EXT_rescale_normal = 1;  
   GL_RESCALE_NORMAL_EXT = $803A;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_rescale_normal : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_robustness ---------------------------  }
 
@@ -14069,17 +8349,6 @@ type
   TPFNGLREADNPIXELSEXTPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum;
                 _type:TGLenum; bufSize:TGLsizei; data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetnUniformfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReadnPixelsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_robustness : longint; { return type might be wrong }
 
 { ------------------------------ GL_EXT_sRGB ------------------------------  }
 
@@ -14090,8 +8359,6 @@ const
   GL_SRGB_ALPHA_EXT = $8C42;  
   GL_SRGB8_ALPHA8_EXT = $8C43;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_sRGB : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_sRGB_write_control -----------------------  }
 
@@ -14099,8 +8366,6 @@ const
   GL_EXT_sRGB_write_control = 1;  
 //   GL_FRAMEBUFFER_SRGB_EXT = $8DB9;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_sRGB_write_control : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_scene_marker --------------------------  }
 
@@ -14110,14 +8375,6 @@ type
   TPFNGLBEGINSCENEEXTPROC = procedure (para1:pointer);cdecl;
   TPFNGLENDSCENEEXTPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBeginSceneEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndSceneEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_scene_marker : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_secondary_color ------------------------  }
 
@@ -14149,59 +8406,6 @@ type
   TPFNGLSECONDARYCOLOR3USVEXTPROC = procedure (v:PGLushort);cdecl;
   TPFNGLSECONDARYCOLORPOINTEREXTPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glSecondaryColor3bEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3bvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3fEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3fvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3iEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3sEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3svEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ubEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3ubvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3uiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3uivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3usEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3usvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_secondary_color : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_semaphore ---------------------------  }
 
@@ -14225,29 +8429,6 @@ type
   TPFNGLSIGNALSEMAPHOREEXTPROC = procedure (semaphore:TGLuint; numBufferBarriers:TGLuint; buffers:PGLuint; numTextureBarriers:TGLuint; textures:PGLuint;                dstLayouts:PGLenum);cdecl;
   TPFNGLWAITSEMAPHOREEXTPROC = procedure (semaphore:TGLuint; numBufferBarriers:TGLuint; buffers:PGLuint; numTextureBarriers:TGLuint; textures:PGLuint;                srcLayouts:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDeleteSemaphoresEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenSemaphoresEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSemaphoreParameterui64vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsSemaphoreEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSemaphoreParameterui64vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSignalSemaphoreEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWaitSemaphoreEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_semaphore : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_semaphore_fd --------------------------  }
 
@@ -14256,11 +8437,6 @@ const
 type
   TPFNGLIMPORTSEMAPHOREFDEXTPROC = procedure (semaphore:TGLuint; handleType:TGLenum; fd:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glImportSemaphoreFdEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_semaphore_fd : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_semaphore_win32 ------------------------  }
 
@@ -14270,14 +8446,6 @@ type
   TPFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC = procedure (semaphore:TGLuint; handleType:TGLenum; handle:pointer);cdecl;
   TPFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC = procedure (semaphore:TGLuint; handleType:TGLenum; name:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glImportSemaphoreWin32HandleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImportSemaphoreWin32NameEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_semaphore_win32 : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_separate_shader_objects --------------------  }
 
@@ -14289,17 +8457,6 @@ type
   TPFNGLCREATESHADERPROGRAMEXTPROC = function (_type:TGLenum; _string:PGLchar):TGLuint;cdecl;
   TPFNGLUSESHADERPROGRAMEXTPROC = procedure (_type:TGLenum; prog:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glActiveProgramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateShaderProgramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUseShaderProgramEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_separate_shader_objects : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_separate_specular_color --------------------  }
 
@@ -14309,8 +8466,6 @@ const
   GL_SINGLE_COLOR_EXT = $81F9;  
   GL_SEPARATE_SPECULAR_COLOR_EXT = $81FA;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_separate_specular_color : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_shader_framebuffer_fetch --------------------  }
 
@@ -14320,11 +8475,6 @@ const
 type
   TPFNGLFRAMEBUFFERFETCHBARRIEREXTPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferFetchBarrierEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_shader_framebuffer_fetch : longint; { return type might be wrong }
 
 { -------------- GL_EXT_shader_framebuffer_fetch_non_coherent -------------  }
 
@@ -14332,24 +8482,18 @@ const
   GL_EXT_shader_framebuffer_fetch_non_coherent = 1;  
 //  GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT = $8A52;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_framebuffer_fetch_non_coherent : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_shader_group_vote -----------------------  }
 
 const
   GL_EXT_shader_group_vote = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_group_vote : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_shader_image_load_formatted ------------------  }
 
 const
   GL_EXT_shader_image_load_formatted = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_image_load_formatted : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_shader_image_load_store --------------------  }
 
@@ -14414,46 +8558,30 @@ type
   TPFNGLBINDIMAGETEXTUREEXTPROC = procedure (index:TGLuint; texture:TGLuint; level:TGLint; layered:TGLboolean; layer:TGLint;                access:TGLenum; format:TGLint);cdecl;
   TPFNGLMEMORYBARRIEREXTPROC = procedure (barriers:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glBindImageTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMemoryBarrierEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_shader_image_load_store : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_shader_implicit_conversions ------------------  }
 
 const
   GL_EXT_shader_implicit_conversions = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_implicit_conversions : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_shader_integer_mix -----------------------  }
 
 const
   GL_EXT_shader_integer_mix = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_integer_mix : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_shader_io_blocks ------------------------  }
 
 const
   GL_EXT_shader_io_blocks = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_io_blocks : longint; { return type might be wrong }
 
 { ------------- GL_EXT_shader_non_constant_global_initializers ------------  }
 
 const
   GL_EXT_shader_non_constant_global_initializers = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_non_constant_global_initializers : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_shader_pixel_local_storage -------------------  }
 
@@ -14463,8 +8591,6 @@ const
   GL_SHADER_PIXEL_LOCAL_STORAGE_EXT = $8F64;  
   GL_MAX_SHADER_PIXEL_LOCAL_STORAGE_SIZE_EXT = $8F67;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_pixel_local_storage : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_shader_pixel_local_storage2 ------------------  }
 
@@ -14478,33 +8604,18 @@ type
   TPFNGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC = procedure (target:TGLuint; size:TGLsizei);cdecl;
   TPFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC = function (target:TGLuint):TGLsizei;cdecl;
 
-{ was #define dname def_expr }
-function glClearPixelLocalStorageuiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferPixelLocalStorageSizeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferPixelLocalStorageSizeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_shader_pixel_local_storage2 : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_shader_texture_lod -----------------------  }
 
 const
   GL_EXT_shader_texture_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shader_texture_lod : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_shadow_funcs --------------------------  }
 
 const
   GL_EXT_shadow_funcs = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shadow_funcs : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_shadow_samplers ------------------------  }
 
@@ -14515,8 +8626,6 @@ const
   GL_COMPARE_REF_TO_TEXTURE_EXT = $884E;  
   GL_SAMPLER_2D_SHADOW_EXT = $8B62;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shadow_samplers : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_shared_texture_palette ---------------------  }
 
@@ -14524,8 +8633,6 @@ const
   GL_EXT_shared_texture_palette = 1;  
   GL_SHARED_TEXTURE_PALETTE_EXT = $81FB;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_shared_texture_palette : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_sparse_texture -------------------------  }
 
@@ -14553,30 +8660,18 @@ type
   TPFNGLTEXTUREPAGECOMMITMENTEXTPROC = procedure (texture:TGLuint; level:TGLint; xoffset:TGLint; yoffset:TGLint; zoffset:TGLint;
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; commit:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glTexPageCommitmentEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexturePageCommitmentEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_sparse_texture : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_sparse_texture2 ------------------------  }
 
 const
   GL_EXT_sparse_texture2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_sparse_texture2 : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_static_vertex_array ----------------------  }
 
 const
   GL_EXT_static_vertex_array = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_static_vertex_array : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_stencil_clear_tag -----------------------  }
 
@@ -14585,8 +8680,6 @@ const
   GL_STENCIL_TAG_BITS_EXT = $88F2;  
   GL_STENCIL_CLEAR_TAG_VALUE_EXT = $88F3;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_stencil_clear_tag : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_stencil_two_side ------------------------  }
 
@@ -14597,11 +8690,6 @@ const
 type
   TPFNGLACTIVESTENCILFACEEXTPROC = procedure (face:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glActiveStencilFaceEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_stencil_two_side : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_stencil_wrap --------------------------  }
 
@@ -14610,8 +8698,6 @@ const
   GL_INCR_WRAP_EXT = $8507;  
   GL_DECR_WRAP_EXT = $8508;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_stencil_wrap : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_subtexture ---------------------------  }
 
@@ -14626,17 +8712,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTexSubImage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexSubImage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexSubImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_subtexture : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_tessellation_point_size --------------------  }
 
@@ -14688,11 +8763,6 @@ const
 type
   TPFNGLPATCHPARAMETERIEXTPROC = procedure (pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glPatchParameteriEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_tessellation_point_size : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_tessellation_shader ----------------------  }
 
@@ -14742,8 +8812,6 @@ const
   //GL_REFERENCED_BY_TESS_CONTROL_SHADER_EXT = $9307;  
   //GL_REFERENCED_BY_TESS_EVALUATION_SHADER_EXT = $9308;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_tessellation_shader : longint; { return type might be wrong }
 
 { ----------------------------- GL_EXT_texture ----------------------------  }
 
@@ -14792,8 +8860,6 @@ const
   GL_PROXY_TEXTURE_1D_EXT = $8063;  
   GL_PROXY_TEXTURE_2D_EXT = $8064;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture : longint; { return type might be wrong }
 
 { ---------------------------- GL_EXT_texture3D ---------------------------  }
 
@@ -14812,11 +8878,6 @@ type
   TPFNGLTEXIMAGE3DEXTPROC = procedure (target:TGLenum; level:TGLint; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; border:TGLint; format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTexImage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture3D : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_texture_array -------------------------  }
 
@@ -14833,11 +8894,6 @@ const
 type
   TPFNGLFRAMEBUFFERTEXTURELAYEREXTPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTextureLayerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_array : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_texture_border_clamp ----------------------  }
 
@@ -14851,20 +8907,6 @@ type
   TPFNGLSAMPLERPARAMETERIIVEXTPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLSAMPLERPARAMETERIUIVEXTPROC = procedure (sampler:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetSamplerParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_border_clamp : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_buffer -------------------------  }
 
@@ -14885,8 +8927,6 @@ const
   GL_TEXTURE_BUFFER_SIZE_EXT = $919E;  
   GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT_EXT = $919F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_buffer : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_texture_buffer_object ---------------------  }
 
@@ -14900,11 +8940,6 @@ const
 type
   TPFNGLTEXBUFFEREXTPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTexBufferEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_buffer_object : longint; { return type might be wrong }
 
 { -------------- GL_EXT_texture_compression_astc_decode_mode --------------  }
 
@@ -14912,8 +8947,6 @@ const
   GL_EXT_texture_compression_astc_decode_mode = 1;  
   GL_TEXTURE_ASTC_DECODE_PRECISION_EXT = $8F69;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_astc_decode_mode : longint; { return type might be wrong }
 
 { ----------- GL_EXT_texture_compression_astc_decode_mode_rgb9e5 ----------  }
 
@@ -14921,8 +8954,6 @@ const
   GL_EXT_texture_compression_astc_decode_mode_rgb9e5 = 1;  
 //  GL_TEXTURE_ASTC_DECODE_PRECISION_EXT = $8F69;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_astc_decode_mode_rgb9e5 : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_texture_compression_bptc --------------------  }
 
@@ -14933,16 +8964,12 @@ const
   GL_COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT = $8E8E;  
   GL_COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT = $8E8F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_bptc : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_texture_compression_dxt1 --------------------  }
 
 const
   GL_EXT_texture_compression_dxt1 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_dxt1 : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_texture_compression_latc --------------------  }
 
@@ -14953,8 +8980,6 @@ const
   GL_COMPRESSED_LUMINANCE_ALPHA_LATC2_EXT = $8C72;  
   GL_COMPRESSED_SIGNED_LUMINANCE_ALPHA_LATC2_EXT = $8C73;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_latc : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_texture_compression_rgtc --------------------  }
 
@@ -14965,8 +8990,6 @@ const
   GL_COMPRESSED_RED_GREEN_RGTC2_EXT = $8DBD;  
   GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT = $8DBE;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_rgtc : longint; { return type might be wrong }
 
 { -------------------- GL_EXT_texture_compression_s3tc --------------------  }
 
@@ -14977,8 +9000,6 @@ const
   GL_COMPRESSED_RGBA_S3TC_DXT3_EXT = $83F2;  
   GL_COMPRESSED_RGBA_S3TC_DXT5_EXT = $83F3;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_s3tc : longint; { return type might be wrong }
 
 { ------------------ GL_EXT_texture_compression_s3tc_srgb -----------------  }
 
@@ -14989,8 +9010,6 @@ const
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT = $8C4E;  
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT = $8C4F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_compression_s3tc_srgb : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_cube_map ------------------------  }
 
@@ -15009,8 +9028,6 @@ const
   GL_PROXY_TEXTURE_CUBE_MAP_EXT = $851B;  
   GL_MAX_CUBE_MAP_TEXTURE_SIZE_EXT = $851C;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_cube_map : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_texture_cube_map_array ---------------------  }
 
@@ -15026,8 +9043,6 @@ const
   //GL_INT_IMAGE_CUBE_MAP_ARRAY_EXT = $905F;  
   //GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY_EXT = $906A;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_cube_map_array : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_texture_edge_clamp -----------------------  }
 
@@ -15035,24 +9050,18 @@ const
   GL_EXT_texture_edge_clamp = 1;  
   GL_CLAMP_TO_EDGE_EXT = $812F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_edge_clamp : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_texture_env --------------------------  }
 
 const
   GL_EXT_texture_env = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_env : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_env_add ------------------------  }
 
 const
   GL_EXT_texture_env_add = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_env_add : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_texture_env_combine ----------------------  }
 
@@ -15080,8 +9089,6 @@ const
   GL_OPERAND1_ALPHA_EXT = $8599;  
   GL_OPERAND2_ALPHA_EXT = $859A;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_env_combine : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_env_dot3 ------------------------  }
 
@@ -15090,8 +9097,6 @@ const
   GL_DOT3_RGB_EXT = $8740;  
   GL_DOT3_RGBA_EXT = $8741;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_env_dot3 : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_texture_filter_anisotropic -------------------  }
 
@@ -15100,8 +9105,6 @@ const
   GL_TEXTURE_MAX_ANISOTROPY_EXT = $84FE;  
   GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT = $84FF;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_filter_anisotropic : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_texture_filter_minmax ---------------------  }
 
@@ -15110,8 +9113,6 @@ const
   GL_TEXTURE_REDUCTION_MODE_EXT = $9366;  
   GL_WEIGHTED_AVERAGE_EXT = $9367;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_filter_minmax : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_texture_format_BGRA8888 --------------------  }
 
@@ -15119,8 +9120,6 @@ const
   GL_EXT_texture_format_BGRA8888 = 1;  
 //  GL_BGRA_EXT = $80E1;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_format_BGRA8888 : longint; { return type might be wrong }
 
 { ------------------ GL_EXT_texture_format_sRGB_override ------------------  }
 
@@ -15128,8 +9127,6 @@ const
   GL_EXT_texture_format_sRGB_override = 1;  
   GL_TEXTURE_FORMAT_SRGB_OVERRIDE_EXT = $8FBF;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_format_sRGB_override : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_integer ------------------------  }
 
@@ -15190,26 +9187,6 @@ type
   TPFNGLTEXPARAMETERIIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLTEXPARAMETERIUIVEXTPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glClearColorIiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearColorIuiEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_integer : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_lod_bias ------------------------  }
 
@@ -15219,8 +9196,6 @@ const
   GL_TEXTURE_FILTER_CONTROL_EXT = $8500;  
   GL_TEXTURE_LOD_BIAS_EXT = $8501;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_lod_bias : longint; { return type might be wrong }
 
 { ---------------------- GL_EXT_texture_mirror_clamp ----------------------  }
 
@@ -15230,8 +9205,6 @@ const
   GL_MIRROR_CLAMP_TO_EDGE_EXT = $8743;  
   GL_MIRROR_CLAMP_TO_BORDER_EXT = $8912;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_mirror_clamp : longint; { return type might be wrong }
 
 { ------------------ GL_EXT_texture_mirror_clamp_to_edge ------------------  }
 
@@ -15239,8 +9212,6 @@ const
   GL_EXT_texture_mirror_clamp_to_edge = 1;  
 //  GL_MIRROR_CLAMP_TO_EDGE_EXT = $8743   doppelt;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_mirror_clamp_to_edge : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_norm16 -------------------------  }
 
@@ -15255,8 +9226,6 @@ const
   GL_RGB16_SNORM_EXT = $8F9A;  
 //  GL_RGBA16_SNORM_EXT = $8F9B;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_norm16 : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_object -------------------------  }
 
@@ -15275,26 +9244,6 @@ type
   TPFNGLISTEXTUREEXTPROC = function (texture:TGLuint):TGLboolean;cdecl;
   TPFNGLPRIORITIZETEXTURESEXTPROC = procedure (n:TGLsizei; textures:PGLuint; priorities:PGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glAreTexturesResidentEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteTexturesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenTexturesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsTextureEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPrioritizeTexturesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_object : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_texture_perturb_normal ---------------------  }
 
@@ -15305,19 +9254,12 @@ const
 type
   TPFNGLTEXTURENORMALEXTPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glTextureNormalEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_perturb_normal : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_query_lod -----------------------  }
 
 const
   GL_EXT_texture_query_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_query_lod : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_rectangle -----------------------  }
 
@@ -15328,8 +9270,6 @@ const
   GL_PROXY_TEXTURE_RECTANGLE_EXT = $84F7;  
   GL_MAX_RECTANGLE_TEXTURE_SIZE_EXT = $84F8;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_rectangle : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_texture_rg ---------------------------  }
 
@@ -15340,8 +9280,6 @@ const
   GL_R8_EXT = $8229;  
   GL_RG8_EXT = $822B;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_rg : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_texture_sRGB --------------------------  }
 
@@ -15364,8 +9302,6 @@ const
 //  GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT = $8C4E;  
 //  GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT = $8C4F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_sRGB : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_sRGB_R8 ------------------------  }
 
@@ -15373,8 +9309,6 @@ const
   GL_EXT_texture_sRGB_R8 = 1;  
   GL_SR8_EXT = $8FBD;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_sRGB_R8 : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_texture_sRGB_RG8 ------------------------  }
 
@@ -15382,8 +9316,6 @@ const
   GL_EXT_texture_sRGB_RG8 = 1;  
   GL_SRG8_EXT = $8FBE;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_sRGB_RG8 : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_texture_sRGB_decode ----------------------  }
 
@@ -15393,16 +9325,12 @@ const
   GL_DECODE_EXT = $8A49;  
   GL_SKIP_DECODE_EXT = $8A4A;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_sRGB_decode : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_texture_shadow_lod -----------------------  }
 
 const
   GL_EXT_texture_shadow_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_shadow_lod : longint; { return type might be wrong }
 
 { --------------------- GL_EXT_texture_shared_exponent --------------------  }
 
@@ -15412,8 +9340,6 @@ const
   GL_UNSIGNED_INT_5_9_9_9_REV_EXT = $8C3E;  
   GL_TEXTURE_SHARED_SIZE_EXT = $8C3F;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_shared_exponent : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_texture_snorm -------------------------  }
 
@@ -15445,8 +9371,6 @@ const
   GL_LUMINANCE16_ALPHA16_SNORM = $901A;  
   GL_INTENSITY16_SNORM = $901B;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_snorm : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_storage ------------------------  }
 
@@ -15484,26 +9408,6 @@ type
   TPFNGLTEXTURESTORAGE2DEXTPROC = procedure (texture:TGLuint; target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei;                height:TGLsizei);cdecl;
   TPFNGLTEXTURESTORAGE3DEXTPROC = procedure (texture:TGLuint; target:TGLenum; levels:TGLsizei; internalformat:TGLenum; width:TGLsizei;                height:TGLsizei; depth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glTexStorage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexStorage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage1DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage2DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureStorage3DEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_storage : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_texture_swizzle ------------------------  }
 
@@ -15515,8 +9419,6 @@ const
   GL_TEXTURE_SWIZZLE_A_EXT = $8E45;  
   GL_TEXTURE_SWIZZLE_RGBA_EXT = $8E46;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_swizzle : longint; { return type might be wrong }
 
 { ------------------- GL_EXT_texture_type_2_10_10_10_REV ------------------  }
 
@@ -15524,8 +9426,6 @@ const
   GL_EXT_texture_type_2_10_10_10_REV = 1;  
   GL_UNSIGNED_INT_2_10_10_10_REV_EXT = $8368;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_texture_type_2_10_10_10_REV : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_texture_view --------------------------  }
 
@@ -15540,11 +9440,6 @@ type
   TPFNGLTEXTUREVIEWEXTPROC = procedure (texture:TGLuint; target:TGLenum; origtexture:TGLuint; internalformat:TGLenum; minlevel:TGLuint;
                 numlevels:TGLuint; minlayer:TGLuint; numlayers:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTextureViewEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_texture_view : longint; { return type might be wrong }
 
 { --------------------------- GL_EXT_timer_query --------------------------  }
 
@@ -15555,14 +9450,6 @@ type
   TPFNGLGETQUERYOBJECTI64VEXTPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLint64EXT);cdecl;
   TPFNGLGETQUERYOBJECTUI64VEXTPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint64EXT);cdecl;
 
-{ was #define dname def_expr }
-function glGetQueryObjecti64vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetQueryObjectui64vEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_timer_query : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_transform_feedback -----------------------  }
 
@@ -15592,29 +9479,6 @@ type
   TPFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC = procedure (prog:TGLuint; index:TGLuint; bufSize:TGLsizei; length:PGLsizei; size:PGLsizei;                _type:PGLenum; name:PGLchar);cdecl;
   TPFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC = procedure (prog:TGLuint; count:TGLsizei; varyings:PPGLchar; bufferMode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBeginTransformFeedbackEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferBaseEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferRangeEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndTransformFeedbackEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbackVaryingEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackVaryingsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_transform_feedback : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_unpack_subimage ------------------------  }
 
@@ -15624,8 +9488,6 @@ const
   GL_UNPACK_SKIP_ROWS_EXT = $0CF3;  
   GL_UNPACK_SKIP_PIXELS_EXT = $0CF4;  
 
-{ was #define dname def_expr }
-function GLEW_EXT_unpack_subimage : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_vertex_array --------------------------  }
 
@@ -15674,32 +9536,6 @@ type
   TPFNGLTEXCOORDPOINTEREXTPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;
   TPFNGLVERTEXPOINTEREXTPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; count:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glArrayElementEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawArraysEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEdgeFlagPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIndexPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_array : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_vertex_array_bgra -----------------------  }
 
@@ -15707,8 +9543,6 @@ const
   GL_EXT_vertex_array_bgra = 1;  
 //  GL_BGRA = $80E1;    doppelt
 
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_array_bgra : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_vertex_array_setXXX ----------------------  }
 
@@ -15719,17 +9553,6 @@ type
   TPFNGLCREATEARRAYSETEXTPROC = function :pointer;cdecl;
   TPFNGLDELETEARRAYSETSEXTPROC = procedure (n:TGLsizei; arrayset:Ppointer);cdecl;
 
-{ was #define dname def_expr }
-function glBindArraySetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateArraySetExt : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteArraySetsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_array_setXXX : longint; { return type might be wrong }
 
 { ----------------------- GL_EXT_vertex_attrib_64bit ----------------------  }
 
@@ -15761,41 +9584,6 @@ type
   TPFNGLVERTEXATTRIBL4DVEXTPROC = procedure (index:TGLuint; v:PGLdouble);cdecl;
   TPFNGLVERTEXATTRIBLPOINTEREXTPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetVertexAttribLdvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayVertexAttribLOffsetEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4dEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4dvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribLPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_attrib_64bit : longint; { return type might be wrong }
 
 { -------------------------- GL_EXT_vertex_shader -------------------------  }
 
@@ -15955,134 +9743,6 @@ type
   TPFNGLVARIANTUSVEXTPROC = procedure (id:TGLuint; addr:PGLushort);cdecl;
   TPFNGLWRITEMASKEXTPROC = procedure (res:TGLuint; in_:TGLuint; outX:TGLenum; outY:TGLenum; outZ:TGLenum;                outW:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBeginVertexShaderEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindLightParameterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindMaterialParameterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindParameterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindTexGenParameterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindTextureUnitParameterEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindVertexShaderEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteVertexShaderEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableVariantClientStateEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableVariantClientStateEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndVertexShaderEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtractComponentEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenSymbolsEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenVertexShadersEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInvariantBooleanvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInvariantFloatvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetInvariantIntegervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetLocalConstantBooleanvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetLocalConstantFloatvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetLocalConstantIntegervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantBooleanvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantFloatvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantIntegervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVariantPointervEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInsertComponentEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVariantEnabledEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSetInvariantEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSetLocalConstantEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderOp1EXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderOp2EXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShaderOp3EXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSwizzleEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantbvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantdvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantsvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantubvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantuivEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVariantusvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWriteMaskEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_shader : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_vertex_weighting ------------------------  }
 
@@ -16106,17 +9766,6 @@ type
   TPFNGLVERTEXWEIGHTFEXTPROC = procedure (weight:TGLfloat);cdecl;
   TPFNGLVERTEXWEIGHTFVEXTPROC = procedure (weight:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glVertexWeightPointerEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexWeightfEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexWeightfvEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_vertex_weighting : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_win32_keyed_mutex -----------------------  }
 
@@ -16126,14 +9775,6 @@ type
   TPFNGLACQUIREKEYEDMUTEXWIN32EXTPROC = function (memory:TGLuint; key:TGLuint64; timeout:TGLuint):TGLboolean;cdecl;
   TPFNGLRELEASEKEYEDMUTEXWIN32EXTPROC = function (memory:TGLuint; key:TGLuint64):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glAcquireKeyedMutexWin32EXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReleaseKeyedMutexWin32EXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_win32_keyed_mutex : longint; { return type might be wrong }
 
 { ------------------------ GL_EXT_window_rectangles -----------------------  }
 
@@ -16148,11 +9789,6 @@ const
 type
   TPFNGLWINDOWRECTANGLESEXTPROC = procedure (mode:TGLenum; count:TGLsizei; box:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glWindowRectanglesEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_window_rectangles : longint; { return type might be wrong }
 
 { ------------------------- GL_EXT_x11_sync_object ------------------------  }
 
@@ -16162,11 +9798,6 @@ const
 type
   TPFNGLIMPORTSYNCEXTPROC = function (external_sync_type:TGLenum; external_sync:TGLintptr; flags:TGLbitfield):TGLsync;cdecl;
 
-{ was #define dname def_expr }
-function glImportSyncEXT : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_EXT_x11_sync_object : longint; { return type might be wrong }
 
 { ----------------------- GL_FJ_shader_binary_GCCSO -----------------------  }
 
@@ -16174,8 +9805,6 @@ const
   GL_FJ_shader_binary_GCCSO = 1;  
   GL_GCCSO_SHADER_BINARY_FJ = $9260;  
 
-{ was #define dname def_expr }
-function GLEW_FJ_shader_binary_GCCSO : longint; { return type might be wrong }
 
 { ---------------------- GL_GREMEDY_frame_terminator ----------------------  }
 
@@ -16185,11 +9814,6 @@ type
 
   TPFNGLFRAMETERMINATORGREMEDYPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFrameTerminatorGREMEDY : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_GREMEDY_frame_terminator : longint; { return type might be wrong }
 
 { ------------------------ GL_GREMEDY_string_marker -----------------------  }
 
@@ -16198,19 +9822,12 @@ const
 type
   TPFNGLSTRINGMARKERGREMEDYPROC = procedure (len:TGLsizei; _string:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glStringMarkerGREMEDY : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_GREMEDY_string_marker : longint; { return type might be wrong }
 
 { --------------------- GL_HP_convolution_border_modes --------------------  }
 
 const
   GL_HP_convolution_border_modes = 1;  
 
-{ was #define dname def_expr }
-function GLEW_HP_convolution_border_modes : longint; { return type might be wrong }
 
 { ------------------------- GL_HP_image_transform -------------------------  }
 
@@ -16224,42 +9841,18 @@ type
   TPFNGLIMAGETRANSFORMPARAMETERIHPPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
   TPFNGLIMAGETRANSFORMPARAMETERIVHPPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetImageTransformParameterfvHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetImageTransformParameterivHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImageTransformParameterfHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImageTransformParameterfvHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImageTransformParameteriHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glImageTransformParameterivHP : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_HP_image_transform : longint; { return type might be wrong }
 
 { -------------------------- GL_HP_occlusion_test -------------------------  }
 
 const
   GL_HP_occlusion_test = 1;  
 
-{ was #define dname def_expr }
-function GLEW_HP_occlusion_test : longint; { return type might be wrong }
 
 { ------------------------- GL_HP_texture_lighting ------------------------  }
 
 const
   GL_HP_texture_lighting = 1;  
 
-{ was #define dname def_expr }
-function GLEW_HP_texture_lighting : longint; { return type might be wrong }
 
 { --------------------------- GL_IBM_cull_vertex --------------------------  }
 
@@ -16267,8 +9860,6 @@ const
   GL_IBM_cull_vertex = 1;  
   GL_CULL_VERTEX_IBM = 103050;  
 
-{ was #define dname def_expr }
-function GLEW_IBM_cull_vertex : longint; { return type might be wrong }
 
 { ---------------------- GL_IBM_multimode_draw_arrays ---------------------  }
 
@@ -16278,14 +9869,6 @@ type
   TPFNGLMULTIMODEDRAWARRAYSIBMPROC = procedure (mode:PGLenum; first:PGLint; count:PGLsizei; primcount:TGLsizei; modestride:TGLint);cdecl;
   TPFNGLMULTIMODEDRAWELEMENTSIBMPROC = procedure (mode:PGLenum; count:PGLsizei; _type:TGLenum; indices:Ppointer; primcount:TGLsizei;                modestride:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMultiModeDrawArraysIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiModeDrawElementsIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_IBM_multimode_draw_arrays : longint; { return type might be wrong }
 
 { ------------------------- GL_IBM_rasterpos_clip -------------------------  }
 
@@ -16293,8 +9876,6 @@ const
   GL_IBM_rasterpos_clip = 1;  
   GL_RASTER_POSITION_UNCLIPPED_IBM = 103010;  
 
-{ was #define dname def_expr }
-function GLEW_IBM_rasterpos_clip : longint; { return type might be wrong }
 
 { --------------------------- GL_IBM_static_data --------------------------  }
 
@@ -16303,8 +9884,6 @@ const
   GL_ALL_STATIC_DATA_IBM = 103060;  
   GL_STATIC_VERTEX_ARRAY_IBM = 103061;  
 
-{ was #define dname def_expr }
-function GLEW_IBM_static_data : longint; { return type might be wrong }
 
 { --------------------- GL_IBM_texture_mirrored_repeat --------------------  }
 
@@ -16312,8 +9891,6 @@ const
   GL_IBM_texture_mirrored_repeat = 1;  
   GL_MIRRORED_REPEAT_IBM = $8370;  
 
-{ was #define dname def_expr }
-function GLEW_IBM_texture_mirrored_repeat : longint; { return type might be wrong }
 
 { ----------------------- GL_IBM_vertex_array_lists -----------------------  }
 
@@ -16345,32 +9922,6 @@ type
   TPFNGLTEXCOORDPOINTERLISTIBMPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;
   TPFNGLVERTEXPOINTERLISTIBMPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLint; pointer:Ppointer; ptrstride:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glColorPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEdgeFlagPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIndexPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexPointerListIBM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_IBM_vertex_array_lists : longint; { return type might be wrong }
 
 { ------------------------ GL_IMG_bindless_texture ------------------------  }
 
@@ -16384,26 +9935,6 @@ type
   TPFNGLUNIFORMHANDLEUI64IMGPROC = procedure (location:TGLint; value:TGLuint64);cdecl;
   TPFNGLUNIFORMHANDLEUI64VIMGPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glGetTextureHandleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureSamplerHandleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64IMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64vIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64IMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64vIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_IMG_bindless_texture : longint; { return type might be wrong }
 
 { --------------------- GL_IMG_framebuffer_downsample ---------------------  }
 
@@ -16417,14 +9948,6 @@ type
   TPFNGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMGPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint;                xscale:TGLint; yscale:TGLint);cdecl;
   TPFNGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMGPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; layer:TGLint;                xscale:TGLint; yscale:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTexture2DDownsampleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureLayerDownsampleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_IMG_framebuffer_downsample : longint; { return type might be wrong }
 
 { ----------------- GL_IMG_multisampled_render_to_texture -----------------  }
 
@@ -16438,14 +9961,6 @@ type
   TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMGPROC = procedure (target:TGLenum; attachment:TGLenum; textarget:TGLenum; texture:TGLuint; level:TGLint;                samples:TGLsizei);cdecl;
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTexture2DMultisampleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleIMG : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_IMG_multisampled_render_to_texture : longint; { return type might be wrong }
 
 { ------------------------- GL_IMG_program_binary -------------------------  }
 
@@ -16453,8 +9968,6 @@ const
   GL_IMG_program_binary = 1;  
   GL_SGX_PROGRAM_BINARY_IMG = $9130;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_program_binary : longint; { re  //GL_FLOAT16_NV = $8FF8;
   //GL_FLOAT16_VEC2_NV = $8FF9;
   //GL_FLOAT16_VEC3_NV = $8FFA;
   //GL_FLOAT16_VEC4_NV = $8FFB;  turn type might be wrong }
@@ -16466,8 +9979,6 @@ const
   GL_BGRA_IMG = $80E1;  
   GL_UNSIGNED_SHORT_4_4_4_4_REV_IMG = $8365;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_read_format : longint; { return type might be wrong }
 
 { -------------------------- GL_IMG_shader_binary -------------------------  }
 
@@ -16475,8 +9986,6 @@ const
   GL_IMG_shader_binary = 1;  
   GL_SGX_BINARY_IMG = $8C0A;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_shader_binary : longint; { return type might be wrong }
 
 { -------------------- GL_IMG_texture_compression_pvrtc -------------------  }
 
@@ -16487,8 +9996,6 @@ const
   GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG = $8C02;  
   GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG = $8C03;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_texture_compression_pvrtc : longint; { return type might be wrong }
 
 { ------------------- GL_IMG_texture_compression_pvrtc2 -------------------  }
 
@@ -16497,8 +10004,6 @@ const
   GL_COMPRESSED_RGBA_PVRTC_2BPPV2_IMG = $9137;  
   GL_COMPRESSED_RGBA_PVRTC_4BPPV2_IMG = $9138;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_texture_compression_pvrtc2 : longint; { return type might be wrong }
 
 { --------------- GL_IMG_texture_env_enhanced_fixed_function --------------  }
 
@@ -16512,8 +10017,6 @@ const
   GL_FRAGMENT_ALPHA_MODULATE_IMG = $8C08;  
   GL_ADD_BLEND_IMG = $8C09;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_texture_env_enhanced_fixed_function : longint; { return type might be wrong }
 
 { ---------------------- GL_IMG_texture_filter_cubic ----------------------  }
 
@@ -16523,8 +10026,6 @@ const
   GL_CUBIC_MIPMAP_NEAREST_IMG = $913A;  
   GL_CUBIC_MIPMAP_LINEAR_IMG = $913B;  
 
-{ was #define dname def_expr }
-function GLEW_IMG_texture_filter_cubic : longint; { return type might be wrong }
 
 { -------------------------- GL_INGR_color_clamp --------------------------  }
 
@@ -16539,8 +10040,6 @@ const
   GL_BLUE_MAX_CLAMP_INGR = $8566;  
   GL_ALPHA_MAX_CLAMP_INGR = $8567;  
 
-{ was #define dname def_expr }
-function GLEW_INGR_color_clamp : longint; { return type might be wrong }
 
 { ------------------------- GL_INGR_interlace_read ------------------------  }
 
@@ -16548,8 +10047,6 @@ const
   GL_INGR_interlace_read = 1;  
   GL_INTERLACE_READ_INGR = $8568;  
 
-{ was #define dname def_expr }
-function GLEW_INGR_interlace_read : longint; { return type might be wrong }
 
 { ----------------------- GL_INTEL_blackhole_render -----------------------  }
 
@@ -16557,8 +10054,6 @@ const
   GL_INTEL_blackhole_render = 1;  
   GL_BLACKHOLE_RENDER_INTEL = $83FC;  
 
-{ was #define dname def_expr }
-function GLEW_INTEL_blackhole_render : longint; { return type might be wrong }
 
 { ------------------ GL_INTEL_conservative_rasterization ------------------  }
 
@@ -16566,24 +10061,18 @@ const
   GL_INTEL_conservative_rasterization = 1;  
   GL_CONSERVATIVE_RASTERIZATION_INTEL = $83FE;  
 
-{ was #define dname def_expr }
-function GLEW_INTEL_conservative_rasterization : longint; { return type might be wrong }
 
 { ------------------- GL_INTEL_fragment_shader_ordering -------------------  }
 
 const
   GL_INTEL_fragment_shader_ordering = 1;  
 
-{ was #define dname def_expr }
-function GLEW_INTEL_fragment_shader_ordering : longint; { return type might be wrong }
 
 { ----------------------- GL_INTEL_framebuffer_CMAA -----------------------  }
 
 const
   GL_INTEL_framebuffer_CMAA = 1;  
 
-{ was #define dname def_expr }
-function GLEW_INTEL_framebuffer_CMAA : longint; { return type might be wrong }
 
 { -------------------------- GL_INTEL_map_texture -------------------------  }
 
@@ -16601,17 +10090,6 @@ type
   TPFNGLSYNCTEXTUREINTELPROC = procedure (texture:TGLuint);cdecl;
   TPFNGLUNMAPTEXTURE2DINTELPROC = procedure (texture:TGLuint; level:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMapTexture2DINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSyncTextureINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapTexture2DINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_INTEL_map_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_INTEL_parallel_arrays -----------------------  }
 
@@ -16628,20 +10106,6 @@ type
   TPFNGLTEXCOORDPOINTERVINTELPROC = procedure (size:TGLint; _type:TGLenum; pointer:Ppointer);cdecl;
   TPFNGLVERTEXPOINTERVINTELPROC = procedure (size:TGLint; _type:TGLenum; pointer:Ppointer);cdecl;
 
-{ was #define dname def_expr }
-function glColorPointervINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalPointervINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordPointervINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexPointervINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_INTEL_parallel_arrays : longint; { return type might be wrong }
 
 { ----------------------- GL_INTEL_performance_query ----------------------  }
 
@@ -16682,46 +10146,12 @@ type
   TPFNGLGETPERFQUERYINFOINTELPROC = procedure (queryId:TGLuint; queryNameLength:TGLuint; queryName:PGLchar; dataSize:PGLuint; noCounters:PGLuint;
                 noInstances:PGLuint; capsMask:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glBeginPerfQueryINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreatePerfQueryINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeletePerfQueryINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndPerfQueryINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFirstPerfQueryIdINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNextPerfQueryIdINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfCounterInfoINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfQueryDataINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfQueryIdByNameINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPerfQueryInfoINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_INTEL_performance_query : longint; { return type might be wrong }
 
 { ------------------- GL_INTEL_shader_integer_functions2 ------------------  }
 
 const
   GL_INTEL_shader_integer_functions2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_INTEL_shader_integer_functions2 : longint; { return type might be wrong }
 
 { ------------------------ GL_INTEL_texture_scissor -----------------------  }
 
@@ -16731,14 +10161,6 @@ type
   TPFNGLTEXSCISSORFUNCINTELPROC = procedure (target:TGLenum; lfunc:TGLenum; hfunc:TGLenum);cdecl;
   TPFNGLTEXSCISSORINTELPROC = procedure (target:TGLenum; tlow:TGLclampf; thigh:TGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glTexScissorFuncINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexScissorINTEL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_INTEL_texture_scissor : longint; { return type might be wrong }
 
 { --------------------- GL_KHR_blend_equation_advanced --------------------  }
 
@@ -16763,19 +10185,12 @@ const
 type
   TPFNGLBLENDBARRIERKHRPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBlendBarrierKHR : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_KHR_blend_equation_advanced : longint; { return type might be wrong }
 
 { ---------------- GL_KHR_blend_equation_advanced_coherent ----------------  }
 
 const
   GL_KHR_blend_equation_advanced_coherent = 1;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_blend_equation_advanced_coherent : longint; { return type might be wrong }
 
 { ---------------------- GL_KHR_context_flush_control ---------------------  }
 
@@ -16784,8 +10199,6 @@ const
   GL_CONTEXT_RELEASE_BEHAVIOR = $82FB;  
   GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH = $82FC;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_context_flush_control : longint; { return type might be wrong }
 
 { ------------------------------ GL_KHR_debug -----------------------------  }
 
@@ -16848,38 +10261,6 @@ type
   TPFNGLPOPDEBUGGROUPPROC = procedure (para1:pointer);cdecl;
   TPFNGLPUSHDEBUGGROUPPROC = procedure (source:TGLenum; id:TGLuint; length:TGLsizei; message:PGLchar);cdecl;
 
-{ was #define dname def_expr }
-function glDebugMessageCallback : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageControl : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDebugMessageInsert : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDebugMessageLog : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectLabel : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetObjectPtrLabel : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glObjectLabel : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glObjectPtrLabel : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPopDebugGroup : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPushDebugGroup : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_KHR_debug : longint; { return type might be wrong }
 
 { ---------------------------- GL_KHR_no_error ----------------------------  }
 
@@ -16887,8 +10268,6 @@ const
   GL_KHR_no_error = 1;  
   GL_CONTEXT_FLAG_NO_ERROR_BIT_KHR = $00000008;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_no_error : longint; { return type might be wrong }
 
 { --------------------- GL_KHR_parallel_shader_compile --------------------  }
 
@@ -16899,19 +10278,12 @@ const
 type
   TPFNGLMAXSHADERCOMPILERTHREADSKHRPROC = procedure (count:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glMaxShaderCompilerThreadsKHR : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_KHR_parallel_shader_compile : longint; { return type might be wrong }
 
 { ------------------ GL_KHR_robust_buffer_access_behavior -----------------  }
 
 const
   GL_KHR_robust_buffer_access_behavior = 1;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_robust_buffer_access_behavior : longint; { return type might be wrong }
 
 { --------------------------- GL_KHR_robustness ---------------------------  }
 
@@ -16932,20 +10304,6 @@ type
   TPFNGLREADNPIXELSPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum;
                 _type:TGLenum; bufSize:TGLsizei; data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glGetnUniformfv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetnUniformuiv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReadnPixels : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_KHR_robustness : longint; { return type might be wrong }
 
 { ------------------------- GL_KHR_shader_subgroup ------------------------  }
 
@@ -16964,8 +10322,6 @@ const
   GL_SUBGROUP_SUPPORTED_FEATURES_KHR = $9534;  
   GL_SUBGROUP_QUAD_ALL_STAGES_KHR = $9535;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_shader_subgroup : longint; { return type might be wrong }
 
 { ------------------ GL_KHR_texture_compression_astc_hdr ------------------  }
 
@@ -17020,8 +10376,6 @@ const
   GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES = $93E8;  
   GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES = $93E9;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_texture_compression_astc_hdr : longint; { return type might be wrong }
 
 { ------------------ GL_KHR_texture_compression_astc_ldr ------------------  }
 
@@ -17076,16 +10430,12 @@ const
   //GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES = $93E8;  
   //GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES = $93E9;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_texture_compression_astc_ldr : longint; { return type might be wrong }
 
 { --------------- GL_KHR_texture_compression_astc_sliced_3d ---------------  }
 
 const
   GL_KHR_texture_compression_astc_sliced_3d = 1;  
 
-{ was #define dname def_expr }
-function GLEW_KHR_texture_compression_astc_sliced_3d : longint; { return type might be wrong }
 
 { -------------------------- GL_KTX_buffer_region -------------------------  }
 
@@ -17102,23 +10452,6 @@ type
   TPFNGLNEWBUFFERREGIONPROC = function (region:TGLenum):TGLuint;cdecl;
   TPFNGLREADBUFFERREGIONPROC = procedure (region:TGLuint; x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBufferRegionEnabled : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteBufferRegion : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawBufferRegion : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNewBufferRegion : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReadBufferRegion : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_KTX_buffer_region : longint; { return type might be wrong }
 
 { ------------------------- GL_MESAX_texture_stack ------------------------  }
 
@@ -17131,8 +10464,6 @@ const
   GL_TEXTURE_1D_STACK_BINDING_MESAX = $875D;  
   GL_TEXTURE_2D_STACK_BINDING_MESAX = $875E;  
 
-{ was #define dname def_expr }
-function GLEW_MESAX_texture_stack : longint; { return type might be wrong }
 
 { ----------------------- GL_MESA_framebuffer_flip_y ----------------------  }
 
@@ -17143,14 +10474,6 @@ type
   TPFNGLFRAMEBUFFERPARAMETERIMESAPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
   TPFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferParameteriMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferParameterivMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_MESA_framebuffer_flip_y : longint; { return type might be wrong }
 
 { -------------------------- GL_MESA_pack_invert --------------------------  }
 
@@ -17158,8 +10481,6 @@ const
   GL_MESA_pack_invert = 1;  
   GL_PACK_INVERT_MESA = $8758;  
 
-{ was #define dname def_expr }
-function GLEW_MESA_pack_invert : longint; { return type might be wrong }
 
 { --------------------- GL_MESA_program_binary_formats --------------------  }
 
@@ -17167,8 +10488,6 @@ const
   GL_MESA_program_binary_formats = 1;  
   GL_PROGRAM_BINARY_FORMAT_MESA = $875F;  
 
-{ was #define dname def_expr }
-function GLEW_MESA_program_binary_formats : longint; { return type might be wrong }
 
 { ------------------------- GL_MESA_resize_buffers ------------------------  }
 
@@ -17177,27 +10496,18 @@ const
 type
   TPFNGLRESIZEBUFFERSMESAPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glResizeBuffersMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_MESA_resize_buffers : longint; { return type might be wrong }
 
 { -------------------- GL_MESA_shader_integer_functions -------------------  }
 
 const
   GL_MESA_shader_integer_functions = 1;  
 
-{ was #define dname def_expr }
-function GLEW_MESA_shader_integer_functions : longint; { return type might be wrong }
 
 { ----------------------- GL_MESA_tile_raster_order -----------------------  }
 
 const
   GL_MESA_tile_raster_order = 1;  
 
-{ was #define dname def_expr }
-function GLEW_MESA_tile_raster_order : longint; { return type might be wrong }
 
 { --------------------------- GL_MESA_window_pos --------------------------  }
 
@@ -17229,80 +10539,6 @@ type
   TPFNGLWINDOWPOS4SMESAPROC = procedure (x:TGLshort; y:TGLshort; z:TGLshort; w:TGLshort);cdecl;
   TPFNGLWINDOWPOS4SVMESAPROC = procedure (p:PGLshort);cdecl;
 
-{ was #define dname def_expr }
-function glWindowPos2dMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2dvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2fMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2fvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2iMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2ivMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2sMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos2svMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3dMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3dvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3fMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3fvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3iMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3ivMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3sMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos3svMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4dMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4dvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4fMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4fvMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4iMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4ivMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4sMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWindowPos4svMESA : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_MESA_window_pos : longint; { return type might be wrong }
 
 { ------------------------- GL_MESA_ycbcr_texture -------------------------  }
 
@@ -17312,16 +10548,12 @@ const
   GL_UNSIGNED_SHORT_8_8_REV_MESA = $85BB;  
   GL_YCBCR_MESA = $8757;  
 
-{ was #define dname def_expr }
-function GLEW_MESA_ycbcr_texture : longint; { return type might be wrong }
 
 { ----------- GL_NVX_blend_equation_advanced_multi_draw_buffers -----------  }
 
 const
   GL_NVX_blend_equation_advanced_multi_draw_buffers = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NVX_blend_equation_advanced_multi_draw_buffers : longint; { return type might be wrong }
 
 { ----------------------- GL_NVX_conditional_render -----------------------  }
 
@@ -17331,14 +10563,6 @@ type
   TPFNGLBEGINCONDITIONALRENDERNVXPROC = procedure (id:TGLuint);cdecl;
   TPFNGLENDCONDITIONALRENDERNVXPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBeginConditionalRenderNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndConditionalRenderNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NVX_conditional_render : longint; { return type might be wrong }
 
 { ------------------------- GL_NVX_gpu_memory_info ------------------------  }
 
@@ -17350,8 +10574,6 @@ const
   GL_GPU_MEMORY_INFO_EVICTION_COUNT_NVX = $904A;  
   GL_GPU_MEMORY_INFO_EVICTED_MEMORY_NVX = $904B;  
 
-{ was #define dname def_expr }
-function GLEW_NVX_gpu_memory_info : longint; { return type might be wrong }
 
 { ------------------------- GL_NVX_gpu_multicast2 -------------------------  }
 
@@ -17372,26 +10594,6 @@ type
   TPFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC = procedure (gpu:TGLuint; index:TGLuint; xcoeff:TGLfloat; ycoeff:TGLfloat);cdecl;
   TPFNGLUPLOADGPUMASKNVXPROC = procedure (mask:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glAsyncCopyBufferSubDataNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glAsyncCopyImageSubDataNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastScissorArrayvNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastViewportArrayvNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastViewportPositionWScaleNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUploadGpuMaskNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NVX_gpu_multicast2 : longint; { return type might be wrong }
 
 { ---------------------- GL_NVX_linked_gpu_multicast ----------------------  }
 
@@ -17407,17 +10609,6 @@ type
   TPFNGLLGPUINTERLOCKNVXPROC = procedure (para1:pointer);cdecl;
   TPFNGLLGPUNAMEDBUFFERSUBDATANVXPROC = procedure (gpuMask:TGLbitfield; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr; data:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glLGPUCopyImageSubDataNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLGPUInterlockNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLGPUNamedBufferSubDataNVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NVX_linked_gpu_multicast : longint; { return type might be wrong }
 
 { ------------------------- GL_NVX_progress_fence -------------------------  }
 
@@ -17428,17 +10619,6 @@ type
   TPFNGLSIGNALSEMAPHOREUI64NVXPROC = procedure (signalGpu:TGLuint; fenceObjectCount:TGLsizei; semaphoreArray:PGLuint; fenceValueArray:PGLuint64);cdecl;
   TPFNGLWAITSEMAPHOREUI64NVXPROC = procedure (waitGpu:TGLuint; fenceObjectCount:TGLsizei; semaphoreArray:PGLuint; fenceValueArray:PGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glClientWaitSemaphoreui64NVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSignalSemaphoreui64NVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWaitSemaphoreui64NVX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NVX_progress_fence : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_3dvision_settings ------------------------  }
 
@@ -17455,14 +10635,6 @@ type
   TPFNGLSTEREOPARAMETERFNVPROC = procedure (pname:TGLenum; param:TGLfloat);cdecl;
   TPFNGLSTEREOPARAMETERINVPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glStereoParameterfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStereoParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_3dvision_settings : longint; { return type might be wrong }
 
 { ------------------- GL_NV_EGL_stream_consumer_external ------------------  }
 
@@ -17473,8 +10645,6 @@ const
   GL_TEXTURE_BINDING_EXTERNAL_OES = $8D67;  
   GL_REQUIRED_TEXTURE_IMAGE_UNITS_OES = $8D68;  
 
-{ was #define dname def_expr }
-function GLEW_NV_EGL_stream_consumer_external : longint; { return type might be wrong }
 
 { ----------------- GL_NV_alpha_to_coverage_dither_control ----------------  }
 
@@ -17487,11 +10657,6 @@ const
 type
   TPFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glAlphaToCoverageDitherControlNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_alpha_to_coverage_dither_control : longint; { return type might be wrong }
 
 { ------------------------------- GL_NV_bgr -------------------------------  }
 
@@ -17499,8 +10664,6 @@ const
   GL_NV_bgr = 1;  
   GL_BGR_NV = $80E0;  
 
-{ was #define dname def_expr }
-function GLEW_NV_bgr : longint; { return type might be wrong }
 
 { ------------------- GL_NV_bindless_multi_draw_indirect ------------------  }
 
@@ -17510,14 +10673,6 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC = procedure (mode:TGLenum; indirect:pointer; drawCount:TGLsizei; stride:TGLsizei; vertexBufferCount:TGLint);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawCount:TGLsizei; stride:TGLsizei;                vertexBufferCount:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectBindlessNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectBindlessNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_bindless_multi_draw_indirect : longint; { return type might be wrong }
 
 { ---------------- GL_NV_bindless_multi_draw_indirect_count ---------------  }
 
@@ -17527,14 +10682,6 @@ type
   TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC = procedure (mode:TGLenum; indirect:pointer; drawCount:TGLintptr; maxDrawCount:TGLsizei; stride:TGLsizei;                vertexBufferCount:TGLint);cdecl;
   TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC = procedure (mode:TGLenum; _type:TGLenum; indirect:pointer; drawCount:TGLintptr; maxDrawCount:TGLsizei;                stride:TGLsizei; vertexBufferCount:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMultiDrawArraysIndirectBindlessCountNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawElementsIndirectBindlessCountNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_bindless_multi_draw_indirect_count : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_bindless_texture ------------------------  }
 
@@ -17555,47 +10702,6 @@ type
   TPFNGLUNIFORMHANDLEUI64NVPROC = procedure (location:TGLint; value:TGLuint64);cdecl;
   TPFNGLUNIFORMHANDLEUI64VNVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glGetImageHandleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureHandleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTextureSamplerHandleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsImageHandleResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsTextureHandleResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeImageHandleNonResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeImageHandleResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeTextureHandleNonResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeTextureHandleResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformHandleui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformHandleui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_bindless_texture : longint; { return type might be wrong }
 
 { --------------------- GL_NV_blend_equation_advanced ---------------------  }
 
@@ -17655,22 +10761,12 @@ type
   TPFNGLBLENDBARRIERNVPROC = procedure (para1:pointer);cdecl;
   TPFNGLBLENDPARAMETERINVPROC = procedure (pname:TGLenum; value:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glBlendBarrierNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_blend_equation_advanced : longint; { return type might be wrong }
 
 { ----------------- GL_NV_blend_equation_advanced_coherent ----------------  }
 
 const
   GL_NV_blend_equation_advanced_coherent = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_blend_equation_advanced_coherent : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_blend_minmax_factor -----------------------  }
 
@@ -17679,16 +10775,12 @@ const
 //  GL_FACTOR_MIN_AMD = $901C;     doppelt
 //  GL_FACTOR_MAX_AMD = $901D;  
 
-{ was #define dname def_expr }
-function GLEW_NV_blend_minmax_factor : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_blend_square --------------------------  }
 
 const
   GL_NV_blend_square = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_blend_square : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_clip_space_w_scaling ----------------------  }
 
@@ -17700,11 +10792,6 @@ const
 type
   TPFNGLVIEWPORTPOSITIONWSCALENVPROC = procedure (index:TGLuint; xcoeff:TGLfloat; ycoeff:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glViewportPositionWScaleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_clip_space_w_scaling : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_command_list --------------------------  }
 
@@ -17748,59 +10835,6 @@ type
   TPFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC = procedure (list:TGLuint; segment:TGLuint; indirects:Ppointer; sizes:PGLsizei; states:PGLuint;                fbos:PGLuint; count:TGLuint);cdecl;
   TPFNGLSTATECAPTURENVPROC = procedure (state:TGLuint; mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glCallCommandListNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCommandListSegmentsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompileCommandListNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateCommandListsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCreateStatesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteCommandListsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteStatesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawCommandsAddressNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawCommandsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawCommandsStatesAddressNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawCommandsStatesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCommandHeaderNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetStageIndexNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsCommandListNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsStateNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glListDrawCommandsStatesClientNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStateCaptureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_command_list : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_compute_program5 ------------------------  }
 
@@ -17809,16 +10843,12 @@ const
   GL_COMPUTE_PROGRAM_NV = $90FB;  
   GL_COMPUTE_PROGRAM_PARAMETER_BUFFER_NV = $90FC;  
 
-{ was #define dname def_expr }
-function GLEW_NV_compute_program5 : longint; { return type might be wrong }
 
 { -------------------- GL_NV_compute_shader_derivatives -------------------  }
 
 const
   GL_NV_compute_shader_derivatives = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_compute_shader_derivatives : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_conditional_render -----------------------  }
 
@@ -17832,14 +10862,6 @@ type
   TPFNGLBEGINCONDITIONALRENDERNVPROC = procedure (id:TGLuint; mode:TGLenum);cdecl;
   TPFNGLENDCONDITIONALRENDERNVPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBeginConditionalRenderNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndConditionalRenderNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_conditional_render : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_conservative_raster -----------------------  }
 
@@ -17850,14 +10872,8 @@ const
   GL_SUBPIXEL_PRECISION_BIAS_Y_BITS_NV = $9348;  
   GL_MAX_SUBPIXEL_PRECISION_BIAS_BITS_NV = $9349;  
 type
-
   TPFNGLSUBPIXELPRECISIONBIASNVPROC = procedure (xbits:TGLuint; ybits:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glSubpixelPrecisionBiasNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_conservative_raster : longint; { return type might be wrong }
 
 { -------------------- GL_NV_conservative_raster_dilate -------------------  }
 
@@ -17869,11 +10885,6 @@ const
 type
   TPFNGLCONSERVATIVERASTERPARAMETERFNVPROC = procedure (pname:TGLenum; value:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glConservativeRasterParameterfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_conservative_raster_dilate : longint; { return type might be wrong }
 
 { ------------------- GL_NV_conservative_raster_pre_snap ------------------  }
 
@@ -17881,8 +10892,6 @@ const
   GL_NV_conservative_raster_pre_snap = 1;  
   GL_CONSERVATIVE_RASTER_MODE_PRE_SNAP_NV = $9550;  
 
-{ was #define dname def_expr }
-function GLEW_NV_conservative_raster_pre_snap : longint; { return type might be wrong }
 
 { -------------- GL_NV_conservative_raster_pre_snap_triangles -------------  }
 
@@ -17894,19 +10903,12 @@ const
 type
   TPFNGLCONSERVATIVERASTERPARAMETERINVPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glConservativeRasterParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_conservative_raster_pre_snap_triangles : longint; { return type might be wrong }
 
 { --------------- GL_NV_conservative_raster_underestimation ---------------  }
 
 const
   GL_NV_conservative_raster_underestimation = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_conservative_raster_underestimation : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_copy_buffer ---------------------------  }
 
@@ -17918,10 +10920,6 @@ type
   TPFNGLCOPYBUFFERSUBDATANVPROC = procedure (readtarget:TGLenum; writetarget:TGLenum; readoffset:TGLintptr; writeoffset:TGLintptr; size:TGLsizeiptr);cdecl;
 
 { was #define dname def_expr }
-function glCopyBufferSubDataNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_copy_buffer : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_copy_depth_to_color -----------------------  }
 
@@ -17930,24 +10928,16 @@ const
   GL_DEPTH_STENCIL_TO_RGBA_NV = $886E;  
   GL_DEPTH_STENCIL_TO_BGRA_NV = $886F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_copy_depth_to_color : longint; { return type might be wrong }
 
 { ---------------------------- GL_NV_copy_image ---------------------------  }
 
 const
   GL_NV_copy_image = 1;  
 type
-
-  TPFNGLCOPYIMAGESUBDATANVPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint; 
+  TPFNGLCOPYIMAGESUBDATANVPROC = procedure (srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint; srcX:TGLint; srcY:TGLint;
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; width:TGLsizei; height:TGLsizei; depth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyImageSubDataNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_copy_image : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_deep_texture3D -------------------------  }
 
@@ -17956,8 +10946,6 @@ const
   GL_MAX_DEEP_3D_TEXTURE_WIDTH_HEIGHT_NV = $90D0;  
   GL_MAX_DEEP_3D_TEXTURE_DEPTH_NV = $90D1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_deep_texture3D : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_depth_buffer_float -----------------------  }
 
@@ -17972,17 +10960,6 @@ type
   TPFNGLDEPTHBOUNDSDNVPROC = procedure (zmin:TGLdouble; zmax:TGLdouble);cdecl;
   TPFNGLDEPTHRANGEDNVPROC = procedure (zNear:TGLdouble; zFar:TGLdouble);cdecl;
 
-{ was #define dname def_expr }
-function glClearDepthdNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthBoundsdNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_depth_buffer_float : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_depth_clamp ---------------------------  }
 
@@ -17990,8 +10967,6 @@ const
   GL_NV_depth_clamp = 1;  
   GL_DEPTH_CLAMP_NV = $864F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_depth_clamp : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_depth_nonlinear -------------------------  }
 
@@ -17999,8 +10974,6 @@ const
   GL_NV_depth_nonlinear = 1;  
   GL_DEPTH_COMPONENT16_NONLINEAR_NV = $8E2C;  
 
-{ was #define dname def_expr }
-function GLEW_NV_depth_nonlinear : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_depth_range_unclamped ----------------------  }
 
@@ -18012,8 +10985,6 @@ const
   GL_QUERY_RESULT_AVAILABLE_NV = $8867;  
   GL_SAMPLE_COUNT_NV = $8914;  
 
-{ was #define dname def_expr }
-function GLEW_NV_depth_range_unclamped : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_draw_buffers --------------------------  }
 
@@ -18055,11 +11026,6 @@ const
 type
   TPFNGLDRAWBUFFERSNVPROC = procedure (n:TGLsizei; bufs:PGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glDrawBuffersNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_draw_buffers : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_draw_instanced -------------------------  }
 
@@ -18069,14 +11035,6 @@ type
   TPFNGLDRAWARRAYSINSTANCEDNVPROC = procedure (mode:TGLenum; first:TGLint; count:TGLsizei; primcount:TGLsizei);cdecl;
   TPFNGLDRAWELEMENTSINSTANCEDNVPROC = procedure (mode:TGLenum; count:TGLsizei; _type:TGLenum; indices:pointer; primcount:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawArraysInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawElementsInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_draw_instanced : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_draw_texture --------------------------  }
 
@@ -18087,11 +11045,6 @@ type
                 y1:TGLfloat; z:TGLfloat; s0:TGLfloat; t0:TGLfloat; s1:TGLfloat; 
                 t1:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glDrawTextureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_draw_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_draw_vulkan_image ------------------------  }
 
@@ -18108,23 +11061,6 @@ type
   TPFNGLSIGNALVKSEMAPHORENVPROC = procedure (vkSemaphore:TGLuint64);cdecl;
   TPFNGLWAITVKSEMAPHORENVPROC = procedure (vkSemaphore:TGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glDrawVkImageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVkProcAddrNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSignalVkFenceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSignalVkSemaphoreNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWaitVkSemaphoreNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_draw_vulkan_image : longint; { return type might be wrong }
 
 { ---------------------------- GL_NV_evaluators ---------------------------  }
 
@@ -18166,43 +11102,12 @@ type
   TPFNGLMAPPARAMETERFVNVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
   TPFNGLMAPPARAMETERIVNVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glEvalMapsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMapAttribParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMapAttribParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMapControlPointsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMapParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMapParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapControlPointsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_evaluators : longint; { return type might be wrong }
 
 { --------------------- GL_NV_explicit_attrib_location --------------------  }
 
 const
   GL_NV_explicit_attrib_location = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_explicit_attrib_location : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_explicit_multisample ----------------------  }
 
@@ -18223,17 +11128,6 @@ type
   TPFNGLSAMPLEMASKINDEXEDNVPROC = procedure (index:TGLuint; mask:TGLbitfield);cdecl;
   TPFNGLTEXRENDERBUFFERNVPROC = procedure (target:TGLenum; renderbuffer:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetMultisamplefvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSampleMaskIndexedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexRenderbufferNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_explicit_multisample : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_fbo_color_attachments ----------------------  }
 
@@ -18257,8 +11151,6 @@ const
   //GL_COLOR_ATTACHMENT14_NV = $8CEE;  
   //GL_COLOR_ATTACHMENT15_NV = $8CEF;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fbo_color_attachments : longint; { return type might be wrong }
 
 { ------------------------------ GL_NV_fence ------------------------------  }
 
@@ -18276,29 +11168,6 @@ type
   TPFNGLSETFENCENVPROC = procedure (fence:TGLuint; condition:TGLenum);cdecl;
   TPFNGLTESTFENCENVPROC = function (fence:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glDeleteFencesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFinishFenceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFencesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFenceivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsFenceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSetFenceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTestFenceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_fence : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_fill_rectangle -------------------------  }
 
@@ -18306,8 +11175,6 @@ const
   GL_NV_fill_rectangle = 1;  
   GL_FILL_RECTANGLE_NV = $933C;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fill_rectangle : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_float_buffer --------------------------  }
 
@@ -18329,8 +11196,6 @@ const
   GL_FLOAT_CLEAR_COLOR_VALUE_NV = $888D;  
   GL_FLOAT_RGBA_MODE_NV = $888E;  
 
-{ was #define dname def_expr }
-function GLEW_NV_float_buffer : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_fog_distance --------------------------  }
 
@@ -18340,8 +11205,6 @@ const
   GL_EYE_RADIAL_NV = $855B;  
   GL_EYE_PLANE_ABSOLUTE_NV = $855C;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fog_distance : longint; { return type might be wrong }
 
 { -------------------- GL_NV_fragment_coverage_to_color -------------------  }
 
@@ -18352,11 +11215,6 @@ const
 type
   TPFNGLFRAGMENTCOVERAGECOLORNVPROC = procedure (color:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glFragmentCoverageColorNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_fragment_coverage_to_color : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_fragment_program ------------------------  }
 
@@ -18376,26 +11234,6 @@ type
   TPFNGLPROGRAMNAMEDPARAMETER4FNVPROC = procedure (id:TGLuint; len:TGLsizei; name:PGLubyte; x:TGLfloat; y:TGLfloat;               z:TGLfloat; w:TGLfloat);cdecl;
   TPFNGLPROGRAMNAMEDPARAMETER4FVNVPROC = procedure (id:TGLuint; len:TGLsizei; name:PGLubyte; v:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glGetProgramNamedParameterdvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramNamedParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramNamedParameter4dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramNamedParameter4dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramNamedParameter4fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramNamedParameter4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_fragment_program : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_fragment_program2 ------------------------  }
 
@@ -18407,40 +11245,30 @@ const
   GL_MAX_PROGRAM_LOOP_DEPTH_NV = $88F7;  
   GL_MAX_PROGRAM_LOOP_COUNT_NV = $88F8;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fragment_program2 : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_fragment_program4 ------------------------  }
 
 const
   GL_NV_fragment_program4 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fragment_program4 : longint; { return type might be wrong }
 
 { --------------------- GL_NV_fragment_program_option ---------------------  }
 
 const
   GL_NV_fragment_program_option = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fragment_program_option : longint; { return type might be wrong }
 
 { ------------------- GL_NV_fragment_shader_barycentric -------------------  }
 
 const
   GL_NV_fragment_shader_barycentric = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fragment_shader_barycentric : longint; { return type might be wrong }
 
 { -------------------- GL_NV_fragment_shader_interlock --------------------  }
 
 const
   GL_NV_fragment_shader_interlock = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_fragment_shader_interlock : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_framebuffer_blit ------------------------  }
 
@@ -18454,11 +11282,7 @@ type
   TPFNGLBLITFRAMEBUFFERNVPROC = procedure (srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint; dstX0:TGLint;
                 dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield; filter:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlitFramebufferNV : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function GLEW_NV_framebuffer_blit : longint; { return type might be wrong }
 
 { -------------------- GL_NV_framebuffer_mixed_samples --------------------  }
 
@@ -18479,8 +11303,6 @@ const
   //GL_COVERAGE_MODULATION_NV = $9332;  
   //GL_COVERAGE_MODULATION_TABLE_SIZE_NV = $9333;  
 
-{ was #define dname def_expr }
-function GLEW_NV_framebuffer_mixed_samples : longint; { return type might be wrong }
 
 { --------------------- GL_NV_framebuffer_multisample ---------------------  }
 
@@ -18492,11 +11314,6 @@ const
 type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLENVPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_framebuffer_multisample : longint; { return type might be wrong }
 
 { ----------------- GL_NV_framebuffer_multisample_coverage ----------------  }
 
@@ -18510,19 +11327,12 @@ type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLECOVERAGENVPROC = procedure (target:TGLenum; coverageSamples:TGLsizei; colorSamples:TGLsizei; internalformat:TGLenum; width:TGLsizei;
                 height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glRenderbufferStorageMultisampleCoverageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_framebuffer_multisample_coverage : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_generate_mipmap_sRGB ----------------------  }
 
 const
   GL_NV_generate_mipmap_sRGB = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_generate_mipmap_sRGB : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_geometry_program4 ------------------------  }
 
@@ -18534,27 +11344,18 @@ const
 type
   TPFNGLPROGRAMVERTEXLIMITNVPROC = procedure (target:TGLenum; limit:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glProgramVertexLimitNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_geometry_program4 : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_geometry_shader4 ------------------------  }
 
 const
   GL_NV_geometry_shader4 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_geometry_shader4 : longint; { return type might be wrong }
 
 { ------------------- GL_NV_geometry_shader_passthrough -------------------  }
 
 const
   GL_NV_geometry_shader_passthrough = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_geometry_shader_passthrough : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_gpu_multicast --------------------------  }
 
@@ -18585,44 +11386,6 @@ type
   TPFNGLMULTICASTWAITSYNCNVPROC = procedure (signalGpu:TGLuint; waitGpuMask:TGLbitfield);cdecl;
   TPFNGLRENDERGPUMASKNVPROC = procedure (mask:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glMulticastBarrierNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastBlitFramebufferNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastBufferSubDataNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastCopyBufferSubDataNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastCopyImageSubDataNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastFramebufferSampleLocationsfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastGetQueryObjecti64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastGetQueryObjectivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastGetQueryObjectui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastGetQueryObjectuivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMulticastWaitSyncNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderGpuMaskNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_gpu_multicast : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_gpu_program4 --------------------------  }
 
@@ -18650,44 +11413,6 @@ type
   TPFNGLPROGRAMLOCALPARAMETERSI4IVNVPROC = procedure (target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLint);cdecl;
   TPFNGLPROGRAMLOCALPARAMETERSI4UIVNVPROC = procedure (target:TGLenum; index:TGLuint; count:TGLsizei; params:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glProgramEnvParameterI4iNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameterI4ivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameterI4uiNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParameterI4uivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParametersI4ivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramEnvParametersI4uivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameterI4iNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameterI4ivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameterI4uiNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParameterI4uivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParametersI4ivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramLocalParametersI4uivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_gpu_program4 : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_gpu_program5 --------------------------  }
 
@@ -18700,24 +11425,18 @@ const
   GL_MIN_PROGRAM_TEXTURE_GATHER_OFFSET_NV = $8E5E;  
   GL_MAX_PROGRAM_TEXTURE_GATHER_OFFSET_NV = $8E5F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_gpu_program5 : longint; { return type might be wrong }
 
 { -------------------- GL_NV_gpu_program5_mem_extended --------------------  }
 
 const
   GL_NV_gpu_program5_mem_extended = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_gpu_program5_mem_extended : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_gpu_program_fp64 ------------------------  }
 
 const
   GL_NV_gpu_program_fp64 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_gpu_program_fp64 : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_gpu_shader5 ---------------------------  }
 
@@ -18787,110 +11506,6 @@ type
   TPFNGLUNIFORM4UI64NVPROC = procedure (location:TGLint; x:TGLuint64EXT; y:TGLuint64EXT; z:TGLuint64EXT; w:TGLuint64EXT);cdecl;
   TPFNGLUNIFORM4UI64VNVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;
 
-{ was #define dname def_expr }
-function glGetUniformi64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetUniformui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform1ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform2ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform3ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniform4ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform1ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform2ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform3ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniform4ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_gpu_shader5 : longint; { return type might be wrong }
 
 { ---------------------------- GL_NV_half_float ---------------------------  }
 
@@ -18948,154 +11563,12 @@ type
   TPFNGLVERTEXWEIGHTHNVPROC = procedure (weight:TGLhalf);cdecl;
   TPFNGLVERTEXWEIGHTHVNVPROC = procedure (weight:PGLhalf);cdecl;
 
-{ was #define dname def_expr }
-function glColor3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordhNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordhvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord1hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord2hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormal3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormal3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColor3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord1hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord1hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex2hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex2hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex4hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertex4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4hNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs1hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs2hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs3hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs4hvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexWeighthNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexWeighthvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_half_float : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_image_formats --------------------------  }
 
 const
   GL_NV_image_formats = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_image_formats : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_instanced_arrays ------------------------  }
 
@@ -19105,11 +11578,6 @@ const
 type
   TPFNGLVERTEXATTRIBDIVISORNVPROC = procedure (index:TGLuint; divisor:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glVertexAttribDivisorNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_instanced_arrays : longint; { return type might be wrong }
 
 { ------------------- GL_NV_internalformat_sample_query -------------------  }
 
@@ -19122,11 +11590,6 @@ const
 type
   TPFNGLGETINTERNALFORMATSAMPLEIVNVPROC = procedure (target:TGLenum; internalformat:TGLenum; samples:TGLsizei; pname:TGLenum; bufSize:TGLsizei;                params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetInternalformatSampleivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_internalformat_sample_query : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_light_max_exponent -----------------------  }
 
@@ -19135,8 +11598,6 @@ const
   GL_MAX_SHININESS_NV = $8504;  
   GL_MAX_SPOT_EXPONENT_NV = $8505;  
 
-{ was #define dname def_expr }
-function GLEW_NV_light_max_exponent : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_memory_attachment ------------------------  }
 
@@ -19160,26 +11621,6 @@ type
   TPFNGLTEXATTACHMEMORYNVPROC = procedure (target:TGLenum; memory:TGLuint; offset:TGLuint64);cdecl;
   TPFNGLTEXTUREATTACHMEMORYNVPROC = procedure (texture:TGLuint; memory:TGLuint; offset:TGLuint64);cdecl;
 
-{ was #define dname def_expr }
-function glBufferAttachMemoryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMemoryObjectDetachedResourcesuivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedBufferAttachMemoryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResetMemoryObjectParameterNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexAttachMemoryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureAttachMemoryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_memory_attachment : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_mesh_shader ---------------------------  }
 
@@ -19239,20 +11680,6 @@ type
   TPFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC = procedure (indirect:TGLintptr; drawcount:TGLintptr; maxdrawcount:TGLsizei; stride:TGLsizei);cdecl;
   TPFNGLMULTIDRAWMESHTASKSINDIRECTNVPROC = procedure (indirect:TGLintptr; drawcount:TGLsizei; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glDrawMeshTasksIndirectNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawMeshTasksNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawMeshTasksIndirectCountNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiDrawMeshTasksIndirectNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_mesh_shader : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_multisample_coverage ----------------------  }
 
@@ -19260,8 +11687,6 @@ const
   GL_NV_multisample_coverage = 1;  
 //  GL_COLOR_SAMPLES_NV = $8E20;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_NV_multisample_coverage : longint; { return type might be wrong }
 
 { --------------------- GL_NV_multisample_filter_hint ---------------------  }
 
@@ -19269,8 +11694,6 @@ const
   GL_NV_multisample_filter_hint = 1;  
   GL_MULTISAMPLE_FILTER_HINT_NV = $8534;  
 
-{ was #define dname def_expr }
-function GLEW_NV_multisample_filter_hint : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_non_square_matrices -----------------------  }
 
@@ -19290,26 +11713,6 @@ type
   TPFNGLUNIFORMMATRIX4X2FVNVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
   TPFNGLUNIFORMMATRIX4X3FVNVPROC = procedure (location:TGLint; count:TGLsizei; transpose:TGLboolean; value:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glUniformMatrix2x3fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix2x4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x2fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix3x4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x2fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformMatrix4x3fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_non_square_matrices : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_occlusion_query -------------------------  }
 
@@ -19328,29 +11731,6 @@ type
   TPFNGLGETOCCLUSIONQUERYUIVNVPROC = procedure (id:TGLuint; pname:TGLenum; params:PGLuint);cdecl;
   TPFNGLISOCCLUSIONQUERYNVPROC = function (id:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBeginOcclusionQueryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteOcclusionQueriesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndOcclusionQueryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenOcclusionQueriesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetOcclusionQueryivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetOcclusionQueryuivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsOcclusionQueryNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_occlusion_query : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_pack_subimage --------------------------  }
 
@@ -19360,8 +11740,6 @@ const
   GL_PACK_SKIP_ROWS_NV = $0D03;  
   GL_PACK_SKIP_PIXELS_NV = $0D04;  
 
-{ was #define dname def_expr }
-function GLEW_NV_pack_subimage : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_packed_depth_stencil ----------------------  }
 
@@ -19370,8 +11748,6 @@ const
   GL_DEPTH_STENCIL_NV = $84F9;  
   GL_UNSIGNED_INT_24_8_NV = $84FA;  
 
-{ was #define dname def_expr }
-function GLEW_NV_packed_depth_stencil : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_packed_float --------------------------  }
 
@@ -19380,8 +11756,6 @@ const
   GL_R11F_G11F_B10F_NV = $8C3A;  
   GL_UNSIGNED_INT_10F_11F_11F_REV_NV = $8C3B;  
 
-{ was #define dname def_expr }
-function GLEW_NV_packed_float : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_packed_float_linear -----------------------  }
 
@@ -19390,8 +11764,6 @@ const
 //  GL_R11F_G11F_B10F_NV = $8C3A; doppelt
 //  GL_UNSIGNED_INT_10F_11F_11F_REV_NV = $8C3B;  
 
-{ was #define dname def_expr }
-function GLEW_NV_packed_float_linear : longint; { return type might be wrong }
 
 { --------------------- GL_NV_parameter_buffer_object ---------------------  }
 
@@ -19407,25 +11779,12 @@ type
   TPFNGLPROGRAMBUFFERPARAMETERSIUIVNVPROC = procedure (target:TGLenum; buffer:TGLuint; index:TGLuint; count:TGLsizei; params:PGLuint);cdecl;
   TPFNGLPROGRAMBUFFERPARAMETERSFVNVPROC = procedure (target:TGLenum; buffer:TGLuint; index:TGLuint; count:TGLsizei; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glProgramBufferParametersIivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramBufferParametersIuivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramBufferParametersfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_parameter_buffer_object : longint; { return type might be wrong }
 
 { --------------------- GL_NV_parameter_buffer_object2 --------------------  }
 
 const
   GL_NV_parameter_buffer_object2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_parameter_buffer_object2 : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_path_rendering -------------------------  }
 
@@ -19663,200 +12022,6 @@ type
   TPFNGLTRANSFORMPATHNVPROC = procedure (resultPath:TGLuint; srcPath:TGLuint; transformType:TGLenum; transformValues:PGLfloat);cdecl;
   TPFNGLWEIGHTPATHSNVPROC = procedure (resultPath:TGLuint; numPaths:TGLsizei; paths:PGLuint; weights:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glCopyPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCoverFillPathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCoverFillPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCoverStrokePathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCoverStrokePathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeletePathsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenPathsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathColorGenfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathColorGenivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathCommandsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathCoordsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathDashArrayNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathLengthNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathMetricRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathMetricsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathSpacingNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathTexGenfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetPathTexGenivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramResourcefvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glInterpolatePathsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsPointInFillPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsPointInStrokePathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoad3x2fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoad3x3fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixLoadTranspose3x3fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMult3x2fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMult3x3fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixMultTranspose3x3fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathColorGenNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathCommandsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathCoordsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathCoverDepthFuncNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathDashArrayNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathFogGenNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathGlyphIndexArrayNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathGlyphIndexRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathGlyphRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathGlyphsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathMemoryGlyphIndexArrayNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathParameterfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathStencilDepthOffsetNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathStencilFuncNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathStringNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathSubCommandsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathSubCoordsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPathTexGenNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointAlongPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramPathFragmentInputGenNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilFillPathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilFillPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilStrokePathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilStrokePathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilThenCoverFillPathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilThenCoverFillPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilThenCoverStrokePathInstancedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStencilThenCoverStrokePathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformPathNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightPathsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_path_rendering : longint; { return type might be wrong }
 
 { -------------------- GL_NV_path_rendering_shared_edge -------------------  }
 
@@ -19864,8 +12029,6 @@ const
   GL_NV_path_rendering_shared_edge = 1;  
   GL_SHARED_EDGE_NV = $C0;  
 
-{ was #define dname def_expr }
-function GLEW_NV_path_rendering_shared_edge : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_pixel_buffer_object -----------------------  }
 
@@ -19876,8 +12039,6 @@ const
   GL_PIXEL_PACK_BUFFER_BINDING_NV = $88ED;  
   GL_PIXEL_UNPACK_BUFFER_BINDING_NV = $88EF;  
 
-{ was #define dname def_expr }
-function GLEW_NV_pixel_buffer_object : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_pixel_data_range ------------------------  }
 
@@ -19893,14 +12054,6 @@ type
   TPFNGLFLUSHPIXELDATARANGENVPROC = procedure (target:TGLenum);cdecl;
   TPFNGLPIXELDATARANGENVPROC = procedure (target:TGLenum; length:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFlushPixelDataRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelDataRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_pixel_data_range : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_platform_binary -------------------------  }
 
@@ -19908,8 +12061,6 @@ const
   GL_NV_platform_binary = 1;  
   GL_NVIDIA_PLATFORM_BINARY_NV = $890B;  
 
-{ was #define dname def_expr }
-function GLEW_NV_platform_binary : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_point_sprite --------------------------  }
 
@@ -19922,14 +12073,6 @@ type
   TPFNGLPOINTPARAMETERINVPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
   TPFNGLPOINTPARAMETERIVNVPROC = procedure (pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glPointParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_point_sprite : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_polygon_mode --------------------------  }
 
@@ -19944,11 +12087,6 @@ const
 type
   TPFNGLPOLYGONMODENVPROC = procedure (face:TGLenum; mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glPolygonModeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_polygon_mode : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_present_video --------------------------  }
 
@@ -19972,26 +12110,6 @@ type
                 target0:TGLenum; fill0:TGLuint; key0:TGLuint; target1:TGLenum; fill1:TGLuint; 
                 key1:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetVideoi64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideouivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPresentFrameDualFillNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPresentFrameKeyedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_present_video : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_primitive_restart ------------------------  }
 
@@ -20003,22 +12121,12 @@ type
   TPFNGLPRIMITIVERESTARTINDEXNVPROC = procedure (index:TGLuint);cdecl;
   TPFNGLPRIMITIVERESTARTNVPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glPrimitiveRestartIndexNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPrimitiveRestartNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_primitive_restart : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_query_resource_tag -----------------------  }
 
 const
   GL_NV_query_resource_tag = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_query_resource_tag : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_read_buffer ---------------------------  }
 
@@ -20028,11 +12136,6 @@ const
 type
   TPFNGLREADBUFFERNVPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glReadBufferNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_read_buffer : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_read_buffer_front ------------------------  }
 
@@ -20040,32 +12143,24 @@ const
   GL_NV_read_buffer_front = 1;  
 //  GL_READ_BUFFER_NV = $0C02;   doppelt
 
-{ was #define dname def_expr }
-function GLEW_NV_read_buffer_front : longint; { return type might be wrong }
 
 { ---------------------------- GL_NV_read_depth ---------------------------  }
 
 const
   GL_NV_read_depth = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_read_depth : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_read_depth_stencil -----------------------  }
 
 const
   GL_NV_read_depth_stencil = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_read_depth_stencil : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_read_stencil --------------------------  }
 
 const
   GL_NV_read_stencil = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_read_stencil : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_register_combiners -----------------------  }
 
@@ -20139,47 +12234,6 @@ type
   TPFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC = procedure (variable:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
   TPFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC = procedure (variable:TGLenum; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glCombinerInputNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCombinerOutputNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCombinerParameterfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCombinerParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCombinerParameteriNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCombinerParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFinalCombinerInputNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCombinerInputParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCombinerInputParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCombinerOutputParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCombinerOutputParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFinalCombinerInputParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFinalCombinerInputParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_register_combiners : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_register_combiners2 -----------------------  }
 
@@ -20190,14 +12244,6 @@ type
   TPFNGLCOMBINERSTAGEPARAMETERFVNVPROC = procedure (stage:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
   TPFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC = procedure (stage:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glCombinerStageParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetCombinerStageParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_register_combiners2 : longint; { return type might be wrong }
 
 { ------------------- GL_NV_representative_fragment_test ------------------  }
 
@@ -20205,8 +12251,6 @@ const
   GL_NV_representative_fragment_test = 1;  
   GL_REPRESENTATIVE_FRAGMENT_TEST_NV = $937F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_representative_fragment_test : longint; { return type might be wrong }
 
 { ------------------ GL_NV_robustness_video_memory_purge ------------------  }
 
@@ -20214,8 +12258,6 @@ const
   GL_NV_robustness_video_memory_purge = 1;  
   GL_PURGED_CONTEXT_RESET_NV = $92BB;  
 
-{ was #define dname def_expr }
-function GLEW_NV_robustness_video_memory_purge : longint; { return type might be wrong }
 
 { --------------------------- GL_NV_sRGB_formats --------------------------  }
 
@@ -20232,8 +12274,6 @@ const
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_NV = $8C4E;  
   GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_NV = $8C4F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_sRGB_formats : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_sample_locations ------------------------  }
 
@@ -20252,25 +12292,12 @@ type
   TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC = procedure (framebuffer:TGLuint; start:TGLuint; count:TGLsizei; v:PGLfloat);cdecl;
   TPFNGLRESOLVEDEPTHVALUESNVPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferSampleLocationsfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferSampleLocationsfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResolveDepthValuesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_sample_locations : longint; { return type might be wrong }
 
 { ------------------ GL_NV_sample_mask_override_coverage ------------------  }
 
 const
   GL_NV_sample_mask_override_coverage = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_sample_mask_override_coverage : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_scissor_exclusive ------------------------  }
 
@@ -20282,54 +12309,36 @@ type
   TPFNGLSCISSOREXCLUSIVEARRAYVNVPROC = procedure (first:TGLuint; count:TGLsizei; v:PGLint);cdecl;
   TPFNGLSCISSOREXCLUSIVENVPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glScissorExclusiveArrayvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorExclusiveNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_scissor_exclusive : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_shader_atomic_counters ---------------------  }
 
 const
   GL_NV_shader_atomic_counters = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_atomic_counters : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_shader_atomic_float -----------------------  }
 
 const
   GL_NV_shader_atomic_float = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_atomic_float : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_shader_atomic_float64 ----------------------  }
 
 const
   GL_NV_shader_atomic_float64 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_atomic_float64 : longint; { return type might be wrong }
 
 { -------------------- GL_NV_shader_atomic_fp16_vector --------------------  }
 
 const
   GL_NV_shader_atomic_fp16_vector = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_atomic_fp16_vector : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_shader_atomic_int64 -----------------------  }
 
 const
   GL_NV_shader_atomic_int64 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_atomic_int64 : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_shader_buffer_load -----------------------  }
 
@@ -20353,63 +12362,18 @@ type
   TPFNGLUNIFORMUI64NVPROC = procedure (location:TGLint; value:TGLuint64EXT);cdecl;
   TPFNGLUNIFORMUI64VNVPROC = procedure (location:TGLint; count:TGLsizei; value:PGLuint64EXT);cdecl;
 
-{ was #define dname def_expr }
-function glGetBufferParameterui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetIntegerui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNamedBufferParameterui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsBufferResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsNamedBufferResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeBufferNonResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeBufferResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeNamedBufferNonResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMakeNamedBufferResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramUniformui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUniformui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_shader_buffer_load : longint; { return type might be wrong }
 
 { ---------------- GL_NV_shader_noperspective_interpolation ---------------  }
 
 const
   GL_NV_shader_noperspective_interpolation = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_noperspective_interpolation : longint; { return type might be wrong }
 
 { ------------------- GL_NV_shader_storage_buffer_object ------------------  }
 
 const
   GL_NV_shader_storage_buffer_object = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_storage_buffer_object : longint; { return type might be wrong }
 
 { ------------------- GL_NV_shader_subgroup_partitioned -------------------  }
 
@@ -20417,16 +12381,12 @@ const
   GL_NV_shader_subgroup_partitioned = 1;  
   GL_SUBGROUP_FEATURE_PARTITIONED_BIT_NV = $00000100;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_subgroup_partitioned : longint; { return type might be wrong }
 
 { --------------------- GL_NV_shader_texture_footprint --------------------  }
 
 const
   GL_NV_shader_texture_footprint = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_texture_footprint : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_shader_thread_group -----------------------  }
 
@@ -20436,16 +12396,12 @@ const
   GL_WARPS_PER_SM_NV = $933A;  
   GL_SM_COUNT_NV = $933B;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_thread_group : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_shader_thread_shuffle ----------------------  }
 
 const
   GL_NV_shader_thread_shuffle = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shader_thread_shuffle : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_shading_rate_image -----------------------  }
 
@@ -20480,26 +12436,6 @@ type
   TPFNGLSHADINGRATEIMAGEPALETTENVPROC = procedure (viewport:TGLuint; first:TGLuint; count:TGLsizei; rates:PGLenum);cdecl;
   TPFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC = procedure (rate:TGLenum; samples:TGLuint; locations:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glBindShadingRateImageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShadingRateImagePaletteNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetShadingRateSampleLocationivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShadingRateImageBarrierNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShadingRateImagePaletteNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glShadingRateSampleOrderCustomNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_shading_rate_image : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_shadow_samplers_array ----------------------  }
 
@@ -20507,8 +12443,6 @@ const
   GL_NV_shadow_samplers_array = 1;  
   GL_SAMPLER_2D_ARRAY_SHADOW_NV = $8DC4;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shadow_samplers_array : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_shadow_samplers_cube ----------------------  }
 
@@ -20516,16 +12450,12 @@ const
   GL_NV_shadow_samplers_cube = 1;  
   GL_SAMPLER_CUBE_SHADOW_NV = $8DC5;  
 
-{ was #define dname def_expr }
-function GLEW_NV_shadow_samplers_cube : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_stereo_view_rendering ----------------------  }
 
 const
   GL_NV_stereo_view_rendering = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_stereo_view_rendering : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_tessellation_program5 ----------------------  }
 
@@ -20537,8 +12467,6 @@ const
   GL_TESS_CONTROL_PROGRAM_PARAMETER_BUFFER_NV = $8C74;  
   GL_TESS_EVALUATION_PROGRAM_PARAMETER_BUFFER_NV = $8C75;  
 
-{ was #define dname def_expr }
-function GLEW_NV_tessellation_program5 : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_texgen_emboss --------------------------  }
 
@@ -20548,8 +12476,6 @@ const
   GL_EMBOSS_CONSTANT_NV = $855E;  
   GL_EMBOSS_MAP_NV = $855F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texgen_emboss : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_texgen_reflection ------------------------  }
 
@@ -20558,8 +12484,6 @@ const
   GL_NORMAL_MAP_NV = $8511;  
   GL_REFLECTION_MAP_NV = $8512;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texgen_reflection : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_texture_array --------------------------  }
 
@@ -20587,26 +12511,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glCompressedTexImage3DNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexSubImage3DNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexSubImage3DNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTextureLayerNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexImage3DNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexSubImage3DNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_texture_array : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_texture_barrier -------------------------  }
 
@@ -20615,11 +12519,6 @@ const
 type
   TPFNGLTEXTUREBARRIERNVPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTextureBarrierNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_texture_barrier : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_texture_border_clamp ----------------------  }
 
@@ -20628,8 +12527,6 @@ const
   GL_TEXTURE_BORDER_COLOR_NV = $1004;  
   GL_CLAMP_TO_BORDER_NV = $812D;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_border_clamp : longint; { return type might be wrong }
 
 { --------------------- GL_NV_texture_compression_latc --------------------  }
 
@@ -20640,8 +12537,6 @@ const
   GL_COMPRESSED_LUMINANCE_ALPHA_LATC2_NV = $8C72;  
   GL_COMPRESSED_SIGNED_LUMINANCE_ALPHA_LATC2_NV = $8C73;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_compression_latc : longint; { return type might be wrong }
 
 { --------------------- GL_NV_texture_compression_s3tc --------------------  }
 
@@ -20652,24 +12547,18 @@ const
   GL_COMPRESSED_RGBA_S3TC_DXT3_NV = $83F2;  
   GL_COMPRESSED_RGBA_S3TC_DXT5_NV = $83F3;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_compression_s3tc : longint; { return type might be wrong }
 
 { ----------------- GL_NV_texture_compression_s3tc_update -----------------  }
 
 const
   GL_NV_texture_compression_s3tc_update = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_compression_s3tc_update : longint; { return type might be wrong }
 
 { --------------------- GL_NV_texture_compression_vtc ---------------------  }
 
 const
   GL_NV_texture_compression_vtc = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_compression_vtc : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_texture_env_combine4 ----------------------  }
 
@@ -20681,8 +12570,6 @@ const
   GL_OPERAND3_RGB_NV = $8593;  
   GL_OPERAND3_ALPHA_NV = $859B;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_env_combine4 : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_texture_expand_normal ----------------------  }
 
@@ -20690,8 +12577,6 @@ const
   GL_NV_texture_expand_normal = 1;  
   GL_TEXTURE_UNSIGNED_REMAP_MODE_NV = $888F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_expand_normal : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_texture_multisample -----------------------  }
 
@@ -20713,34 +12598,12 @@ type
   TPFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC = procedure (texture:TGLuint; target:TGLenum; samples:TGLsizei; internalFormat:TGLint; width:TGLsizei;
                 height:TGLsizei; depth:TGLsizei; fixedSampleLocations:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glTexImage2DMultisampleCoverageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexImage3DMultisampleCoverageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage2DMultisampleCoverageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage2DMultisampleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage3DMultisampleCoverageNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTextureImage3DMultisampleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_texture_multisample : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_texture_npot_2D_mipmap ---------------------  }
 
 const
   GL_NV_texture_npot_2D_mipmap = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_npot_2D_mipmap : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_texture_rectangle ------------------------  }
 
@@ -20751,16 +12614,12 @@ const
   GL_PROXY_TEXTURE_RECTANGLE_NV = $84F7;  
   GL_MAX_RECTANGLE_TEXTURE_SIZE_NV = $84F8;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_rectangle : longint; { return type might be wrong }
 
 { ------------------- GL_NV_texture_rectangle_compressed ------------------  }
 
 const
   GL_NV_texture_rectangle_compressed = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_rectangle_compressed : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_texture_shader -------------------------  }
 
@@ -20840,8 +12699,6 @@ const
   GL_TEXTURE_DT_SIZE_NV = $871E;  
   GL_TEXTURE_MAG_SIZE_NV = $871F;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_shader : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_texture_shader2 -------------------------  }
 
@@ -20876,8 +12733,6 @@ const
   //GL_SIGNED_RGB_UNSIGNED_ALPHA_NV = $870C;  
   //GL_SIGNED_RGB8_UNSIGNED_ALPHA8_NV = $870D;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_shader2 : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_texture_shader3 -------------------------  }
 
@@ -20901,8 +12756,6 @@ const
   GL_SIGNED_HILO8_NV = $885F;  
   GL_FORCE_BLUE_TO_ONE_NV = $8860;  
 
-{ was #define dname def_expr }
-function GLEW_NV_texture_shader3 : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_transform_feedback -----------------------  }
 
@@ -20947,41 +12800,6 @@ type
   TPFNGLTRANSFORMFEEDBACKATTRIBSNVPROC = procedure (count:TGLuint; attribs:PGLint; bufferMode:TGLenum);cdecl;
   TPFNGLTRANSFORMFEEDBACKVARYINGSNVPROC = procedure (prog:TGLuint; count:TGLsizei; locations:PGLint; bufferMode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glActiveVaryingNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBeginTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferBaseNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferOffsetNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindBufferRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetActiveVaryingNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTransformFeedbackVaryingNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVaryingLocationNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackAttribsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTransformFeedbackVaryingsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_transform_feedback : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_transform_feedback2 -----------------------  }
 
@@ -21000,29 +12818,6 @@ type
   TPFNGLPAUSETRANSFORMFEEDBACKNVPROC = procedure (para1:pointer);cdecl;
   TPFNGLRESUMETRANSFORMFEEDBACKNVPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glBindTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteTransformFeedbacksNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDrawTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenTransformFeedbacksNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPauseTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glResumeTransformFeedbackNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_transform_feedback2 : longint; { return type might be wrong }
 
 { ------------------ GL_NV_uniform_buffer_unified_memory ------------------  }
 
@@ -21032,8 +12827,6 @@ const
   GL_UNIFORM_BUFFER_ADDRESS_NV = $936F;  
   GL_UNIFORM_BUFFER_LENGTH_NV = $9370;  
 
-{ was #define dname def_expr }
-function GLEW_NV_uniform_buffer_unified_memory : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_vdpau_interop --------------------------  }
 
@@ -21058,38 +12851,6 @@ type
   TPFNGLVDPAUUNMAPSURFACESNVPROC = procedure (numSurface:TGLsizei; surfaces:PGLvdpauSurfaceNV);cdecl;
   TPFNGLVDPAUUNREGISTERSURFACENVPROC = procedure (surface:TGLvdpauSurfaceNV);cdecl;
 
-{ was #define dname def_expr }
-function glVDPAUFiniNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUGetSurfaceivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUInitNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUIsSurfaceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUMapSurfacesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAURegisterOutputSurfaceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAURegisterVideoSurfaceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUSurfaceAccessNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUUnmapSurfacesNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVDPAUUnregisterSurfaceNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vdpau_interop : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_vdpau_interop2 -------------------------  }
 
@@ -21098,11 +12859,6 @@ const
 type
   TPFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC = function (vdpSurface:pointer; target:TGLenum; numTextureNames:TGLsizei; textureNames:PGLuint; isFrameStructure:TGLboolean):TGLvdpauSurfaceNV;cdecl;
 
-{ was #define dname def_expr }
-function glVDPAURegisterVideoSurfaceWithPictureStructureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vdpau_interop2 : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_vertex_array_range -----------------------  }
 
@@ -21117,14 +12873,6 @@ type
   TPFNGLFLUSHVERTEXARRAYRANGENVPROC = procedure (para1:pointer);cdecl;
   TPFNGLVERTEXARRAYRANGENVPROC = procedure (length:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFlushVertexArrayRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexArrayRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vertex_array_range : longint; { return type might be wrong }
 
 { ----------------------- GL_NV_vertex_array_range2 -----------------------  }
 
@@ -21132,8 +12880,6 @@ const
   GL_NV_vertex_array_range2 = 1;  
   GL_VERTEX_ARRAY_RANGE_WITHOUT_FLUSH_NV = $8533;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_array_range2 : longint; { return type might be wrong }
 
 { ------------------- GL_NV_vertex_attrib_integer_64bit -------------------  }
 
@@ -21162,65 +12908,6 @@ type
   TPFNGLVERTEXATTRIBL4UI64VNVPROC = procedure (index:TGLuint; v:PGLuint64EXT);cdecl;
   TPFNGLVERTEXATTRIBLFORMATNVPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glGetVertexAttribLi64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribLui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL1ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL2ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL3ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4i64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4i64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4ui64NV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribL4ui64vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribLFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vertex_attrib_integer_64bit : longint; { return type might be wrong }
 
 { ------------------- GL_NV_vertex_buffer_unified_memory ------------------  }
 
@@ -21265,44 +12952,6 @@ type
   TPFNGLVERTEXATTRIBIFORMATNVPROC = procedure (index:TGLuint; size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;
   TPFNGLVERTEXFORMATNVPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBufferAddressRangeNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEdgeFlagFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogCoordFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetIntegerui64i_vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIndexFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormalFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSecondaryColorFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoordFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribIFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexFormatNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vertex_buffer_unified_memory : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_vertex_program -------------------------  }
 
@@ -21457,216 +13106,18 @@ type
   TPFNGLVERTEXATTRIBS4SVNVPROC = procedure (index:TGLuint; n:TGLsizei; v:PGLshort);cdecl;
   TPFNGLVERTEXATTRIBS4UBVNVPROC = procedure (index:TGLuint; n:TGLsizei; v:PGLubyte);cdecl;
 
-{ was #define dname def_expr }
-function glAreProgramsResidentNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindProgramNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteProgramsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExecuteProgramNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenProgramsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramParameterdvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramStringNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetProgramivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTrackMatrixivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribPointervNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribdvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVertexAttribivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsProgramNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLoadProgramNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameter4dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameter4dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameter4fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameter4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameters4dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramParameters4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRequestResidentProgramsNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTrackMatrixNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1sNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib1svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2sNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib2svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3sNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib3svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4dNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4fNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4sNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4ubNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttrib4ubvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribPointerNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs1dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs1fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs1svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs2dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs2fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs2svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs3dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs3fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs3svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs4dvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs4fvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs4svNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVertexAttribs4ubvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program : longint; { return type might be wrong }
 
 { ------------------------ GL_NV_vertex_program1_1 ------------------------  }
 
 const
   GL_NV_vertex_program1_1 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program1_1 : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_vertex_program2 -------------------------  }
 
 const
   GL_NV_vertex_program2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program2 : longint; { return type might be wrong }
 
 { ---------------------- GL_NV_vertex_program2_option ---------------------  }
 
@@ -21675,8 +13126,6 @@ const
 //  GL_MAX_PROGRAM_EXEC_INSTRUCTIONS_NV = $88F4;   doppelt
 //  GL_MAX_PROGRAM_CALL_DEPTH_NV = $88F5;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program2_option : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_vertex_program3 -------------------------  }
 
@@ -21684,8 +13133,6 @@ const
   GL_NV_vertex_program3 = 1;  
   MAX_VERTEX_TEXTURE_IMAGE_UNITS_ARB = $8B4C;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program3 : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_vertex_program4 -------------------------  }
 
@@ -21693,8 +13140,6 @@ const
   GL_NV_vertex_program4 = 1;  
   GL_VERTEX_ATTRIB_ARRAY_INTEGER_NV = $88FD;  
 
-{ was #define dname def_expr }
-function GLEW_NV_vertex_program4 : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_video_capture --------------------------  }
 
@@ -21743,44 +13188,6 @@ type
   TPFNGLVIDEOCAPTURESTREAMPARAMETERFVNVPROC = procedure (video_capture_slot:TGLuint; stream:TGLuint; pname:TGLenum; params:PGLfloat);cdecl;
   TPFNGLVIDEOCAPTURESTREAMPARAMETERIVNVPROC = procedure (video_capture_slot:TGLuint; stream:TGLuint; pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glBeginVideoCaptureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindVideoCaptureStreamBufferNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindVideoCaptureStreamTextureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEndVideoCaptureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoCaptureStreamdvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoCaptureStreamfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoCaptureStreamivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetVideoCaptureivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVideoCaptureNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVideoCaptureStreamParameterdvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVideoCaptureStreamParameterfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVideoCaptureStreamParameterivNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_video_capture : longint; { return type might be wrong }
 
 { -------------------------- GL_NV_viewport_array -------------------------  }
 
@@ -21808,52 +13215,12 @@ type
   TPFNGLVIEWPORTINDEXEDFNVPROC = procedure (index:TGLuint; x:TGLfloat; y:TGLfloat; w:TGLfloat; h:TGLfloat);cdecl;
   TPFNGLVIEWPORTINDEXEDFVNVPROC = procedure (index:TGLuint; v:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glDepthRangeArrayfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangeIndexedfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableiNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableiNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFloati_vNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsEnablediNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorArrayvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorIndexedNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScissorIndexedvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportArrayvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportIndexedfNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glViewportIndexedfvNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_viewport_array : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_viewport_array2 -------------------------  }
 
 const
   GL_NV_viewport_array2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_NV_viewport_array2 : longint; { return type might be wrong }
 
 { ------------------------- GL_NV_viewport_swizzle ------------------------  }
 
@@ -21874,11 +13241,6 @@ const
 type
   TPFNGLVIEWPORTSWIZZLENVPROC = procedure (index:TGLuint; swizzlex:TGLenum; swizzley:TGLenum; swizzlez:TGLenum; swizzlew:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glViewportSwizzleNV : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_NV_viewport_swizzle : longint; { return type might be wrong }
 
 { ---------------------------- GL_OES_EGL_image ---------------------------  }
 
@@ -21888,14 +13250,6 @@ type
   TPFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC = procedure (target:TGLenum; image:TGLeglImageOES);cdecl;
   TPFNGLEGLIMAGETARGETTEXTURE2DOESPROC = procedure (target:TGLenum; image:TGLeglImageOES);cdecl;
 
-{ was #define dname def_expr }
-function glEGLImageTargetRenderbufferStorageOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEGLImageTargetTexture2DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_EGL_image : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_EGL_image_external -----------------------  }
 
@@ -21906,16 +13260,12 @@ const
   //GL_TEXTURE_BINDING_EXTERNAL_OES = $8D67;  
   //GL_REQUIRED_TEXTURE_IMAGE_UNITS_OES = $8D68;  
 
-{ was #define dname def_expr }
-function GLEW_OES_EGL_image_external : longint; { return type might be wrong }
 
 { -------------------- GL_OES_EGL_image_external_essl3 --------------------  }
 
 const
   GL_OES_EGL_image_external_essl3 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_EGL_image_external_essl3 : longint; { return type might be wrong }
 
 { --------------------- GL_OES_blend_equation_separate --------------------  }
 
@@ -21926,11 +13276,6 @@ const
 type
   TPFNGLBLENDEQUATIONSEPARATEOESPROC = procedure (modeRGB:TGLenum; modeAlpha:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparateOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_blend_equation_separate : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_blend_func_separate ----------------------  }
 
@@ -21943,11 +13288,6 @@ const
 type
   TPFNGLBLENDFUNCSEPARATEOESPROC = procedure (sfactorRGB:TGLenum; dfactorRGB:TGLenum; sfactorAlpha:TGLenum; dfactorAlpha:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendFuncSeparateOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_blend_func_separate : longint; { return type might be wrong }
 
 { ------------------------- GL_OES_blend_subtract -------------------------  }
 
@@ -21960,19 +13300,12 @@ const
 type
   TPFNGLBLENDEQUATIONOESPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_blend_subtract : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_byte_coordinates ------------------------  }
 
 const
   GL_OES_byte_coordinates = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_byte_coordinates : longint; { return type might be wrong }
 
 { ------------------ GL_OES_compressed_ETC1_RGB8_texture ------------------  }
 
@@ -21980,8 +13313,6 @@ const
   GL_OES_compressed_ETC1_RGB8_texture = 1;  
   GL_ETC1_RGB8_OES = $8D64;  
 
-{ was #define dname def_expr }
-function GLEW_OES_compressed_ETC1_RGB8_texture : longint; { return type might be wrong }
 
 { ------------------- GL_OES_compressed_paletted_texture ------------------  }
 
@@ -21998,8 +13329,6 @@ const
   GL_PALETTE8_RGBA4_OES = $8B98;  
   GL_PALETTE8_RGB5_A1_OES = $8B99;  
 
-{ was #define dname def_expr }
-function GLEW_OES_compressed_paletted_texture : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_copy_image ---------------------------  }
 
@@ -22010,11 +13339,6 @@ type
                 srcZ:TGLint; dstName:TGLuint; dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; 
                 dstY:TGLint; dstZ:TGLint; srcWidth:TGLsizei; srcHeight:TGLsizei; srcDepth:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glCopyImageSubDataOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_copy_image : longint; { return type might be wrong }
 
 { ----------------------------- GL_OES_depth24 ----------------------------  }
 
@@ -22022,8 +13346,6 @@ const
   GL_OES_depth24 = 1;  
   GL_DEPTH_COMPONENT24_OES = $81A6;  
 
-{ was #define dname def_expr }
-function GLEW_OES_depth24 : longint; { return type might be wrong }
 
 { ----------------------------- GL_OES_depth32 ----------------------------  }
 
@@ -22031,8 +13353,6 @@ const
   GL_OES_depth32 = 1;  
   GL_DEPTH_COMPONENT32_OES = $81A7;  
 
-{ was #define dname def_expr }
-function GLEW_OES_depth32 : longint; { return type might be wrong }
 
 { -------------------------- GL_OES_depth_texture -------------------------  }
 
@@ -22042,8 +13362,6 @@ const
 //  GL_UNSIGNED_INT = $1405;  
 //  GL_DEPTH_COMPONENT = $1902;  
 
-{ was #define dname def_expr }
-function GLEW_OES_depth_texture : longint; { return type might be wrong }
 
 { --------------------- GL_OES_depth_texture_cube_map ---------------------  }
 
@@ -22055,8 +13373,6 @@ const
   GL_DEPTH_STENCIL_OES = $84F9;  
   GL_DEPTH24_STENCIL8_OES = $88F0;  
 
-{ was #define dname def_expr }
-function GLEW_OES_depth_texture_cube_map : longint; { return type might be wrong }
 
 { ---------------------- GL_OES_draw_buffers_indexed ----------------------  }
 
@@ -22072,32 +13388,6 @@ type
   TPFNGLENABLEIOESPROC = procedure (target:TGLenum; index:TGLuint);cdecl;
   TPFNGLISENABLEDIOESPROC = function (target:TGLenum; index:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBlendEquationSeparateiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendEquationiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFuncSeparateiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBlendFunciOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorMaskiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDisableiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableiOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsEnablediOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_draw_buffers_indexed : longint; { return type might be wrong }
 
 { -------------------------- GL_OES_draw_texture --------------------------  }
 
@@ -22105,8 +13395,6 @@ const
   GL_OES_draw_texture = 1;  
   GL_TEXTURE_CROP_RECT_OES = $8B9D;  
 
-{ was #define dname def_expr }
-function GLEW_OES_draw_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_element_index_uint -----------------------  }
 
@@ -22114,32 +13402,24 @@ const
   GL_OES_element_index_uint = 1;  
 //  GL_UNSIGNED_INT = $1405;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_OES_element_index_uint : longint; { return type might be wrong }
 
 { --------------------- GL_OES_extended_matrix_palette --------------------  }
 
 const
   GL_OES_extended_matrix_palette = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_extended_matrix_palette : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_fbo_render_mipmap -----------------------  }
 
 const
   GL_OES_fbo_render_mipmap = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_fbo_render_mipmap : longint; { return type might be wrong }
 
 { --------------------- GL_OES_fragment_precision_high --------------------  }
 
 const
   GL_OES_fragment_precision_high = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_fragment_precision_high : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_framebuffer_object -----------------------  }
 
@@ -22201,53 +13481,6 @@ type
   TPFNGLISRENDERBUFFEROESPROC = function (renderbuffer:TGLuint):TGLboolean;cdecl;
   TPFNGLRENDERBUFFERSTORAGEOESPROC = procedure (target:TGLenum; internalformat:TGLenum; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glBindFramebufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindRenderbufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCheckFramebufferStatusOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteFramebuffersOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteRenderbuffersOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferRenderbufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture2DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenFramebuffersOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenRenderbuffersOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenerateMipmapOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFramebufferAttachmentParameterivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetRenderbufferParameterivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsFramebufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsRenderbufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRenderbufferStorageOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_framebuffer_object : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_geometry_point_size ----------------------  }
 
@@ -22287,8 +13520,6 @@ const
   GL_FRAMEBUFFER_DEFAULT_LAYERS_OES = $9312;  
   GL_MAX_FRAMEBUFFER_LAYERS_OES = $9317;  
 
-{ was #define dname def_expr }
-function GLEW_OES_geometry_point_size : longint; { return type might be wrong }
 
 { ------------------------- GL_OES_geometry_shader ------------------------  }
 
@@ -22328,8 +13559,6 @@ const
   //GL_FRAMEBUFFER_DEFAULT_LAYERS_OES = $9312;  
   //GL_MAX_FRAMEBUFFER_LAYERS_OES = $9317;  
 
-{ was #define dname def_expr }
-function GLEW_OES_geometry_shader : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_get_program_binary -----------------------  }
 
@@ -22342,22 +13571,12 @@ type
   TPFNGLGETPROGRAMBINARYOESPROC = procedure (prog:TGLuint; bufSize:TGLsizei; length:PGLsizei; binaryFormat:PGLenum; binary:pointer);cdecl;
   TPFNGLPROGRAMBINARYOESPROC = procedure (prog:TGLuint; binaryFormat:TGLenum; binary:pointer; length:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glGetProgramBinaryOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glProgramBinaryOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_get_program_binary : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_gpu_shader5 --------------------------  }
 
 const
   GL_OES_gpu_shader5 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_gpu_shader5 : longint; { return type might be wrong }
 
 { ---------------------------- GL_OES_mapbuffer ---------------------------  }
 
@@ -22372,17 +13591,6 @@ type
   TPFNGLMAPBUFFEROESPROC = function (target:TGLenum; access:TGLenum):pointer;cdecl;
   TPFNGLUNMAPBUFFEROESPROC = function (target:TGLenum):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glGetBufferPointervOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMapBufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glUnmapBufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_mapbuffer : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_matrix_get ---------------------------  }
 
@@ -22392,8 +13600,6 @@ const
   GL_PROJECTION_MATRIX_FLOAT_AS_INT_BITS_OES = $898e;  
   GL_TEXTURE_MATRIX_FLOAT_AS_INT_BITS_OES = $898f;  
 
-{ was #define dname def_expr }
-function GLEW_OES_matrix_get : longint; { return type might be wrong }
 
 { ------------------------- GL_OES_matrix_palette -------------------------  }
 
@@ -22420,17 +13626,6 @@ type
   TPFNGLMATRIXINDEXPOINTEROESPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
   TPFNGLWEIGHTPOINTEROESPROC = procedure (size:TGLint; _type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glCurrentPaletteMatrixOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMatrixIndexPointerOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glWeightPointerOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_matrix_palette : longint; { return type might be wrong }
 
 { ---------------------- GL_OES_packed_depth_stencil ----------------------  }
 
@@ -22440,8 +13635,6 @@ const
   GL_UNSIGNED_INT_24_8_OES = $84FA;  
 //  GL_DEPTH24_STENCIL8_OES = $88F0;  
 
-{ was #define dname def_expr }
-function GLEW_OES_packed_depth_stencil : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_point_size_array ------------------------  }
 
@@ -22453,8 +13646,6 @@ const
   GL_POINT_SIZE_ARRAY_OES = $8B9C;  
   GL_POINT_SIZE_ARRAY_BUFFER_BINDING_OES = $8B9F;  
 
-{ was #define dname def_expr }
-function GLEW_OES_point_size_array : longint; { return type might be wrong }
 
 { -------------------------- GL_OES_point_sprite --------------------------  }
 
@@ -22463,8 +13654,6 @@ const
   GL_POINT_SPRITE_OES = $8861;  
   GL_COORD_REPLACE_OES = $8862;  
 
-{ was #define dname def_expr }
-function GLEW_OES_point_sprite : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_read_format --------------------------  }
 
@@ -22473,8 +13662,6 @@ const
   GL_IMPLEMENTATION_COLOR_READ_TYPE_OES = $8B9A;  
   GL_IMPLEMENTATION_COLOR_READ_FORMAT_OES = $8B9B;  
 
-{ was #define dname def_expr }
-function GLEW_OES_read_format : longint; { return type might be wrong }
 
 { --------------------- GL_OES_required_internalformat --------------------  }
 
@@ -22496,8 +13683,6 @@ const
   //GL_DEPTH24_STENCIL8_OES = $88F0;  
   //GL_RGB565_OES = $8D62;  
 
-{ was #define dname def_expr }
-function GLEW_OES_required_internalformat : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_rgb8_rgba8 ---------------------------  }
 
@@ -22506,8 +13691,6 @@ const
 //  GL_RGB8_OES = $8051;     doppelt
 //  GL_RGBA8_OES = $8058;  
 
-{ was #define dname def_expr }
-function GLEW_OES_rgb8_rgba8 : longint; { return type might be wrong }
 
 { ------------------------- GL_OES_sample_shading -------------------------  }
 
@@ -22518,35 +13701,24 @@ const
 type
  TPFNGLMINSAMPLESHADINGOESPROC = procedure (value:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glMinSampleShadingOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_sample_shading : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_sample_variables ------------------------  }
 
 const
   GL_OES_sample_variables = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_sample_variables : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_shader_image_atomic ----------------------  }
 
 const
   GL_OES_shader_image_atomic = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_shader_image_atomic : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_shader_io_blocks ------------------------  }
 
 const
   GL_OES_shader_io_blocks = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_shader_io_blocks : longint; { return type might be wrong }
 
 { ---------------- GL_OES_shader_multisample_interpolation ----------------  }
 
@@ -22556,8 +13728,6 @@ const
   GL_MAX_FRAGMENT_INTERPOLATION_OFFSET_OES = $8E5C;  
   GL_FRAGMENT_INTERPOLATION_OFFSET_BITS_OES = $8E5D;  
 
-{ was #define dname def_expr }
-function GLEW_OES_shader_multisample_interpolation : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_single_precision ------------------------  }
 
@@ -22571,26 +13741,6 @@ type
   TPFNGLGETCLIPPLANEFOESPROC = procedure (plane:TGLenum; equation:PGLfloat);cdecl;
   TPFNGLORTHOFOESPROC = procedure (l:TGLfloat; r:TGLfloat; b:TGLfloat; t:TGLfloat; n:TGLfloat;                f:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glClearDepthfOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClipPlanefOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangefOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFrustumfOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetClipPlanefOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glOrthofOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_single_precision : longint; { return type might be wrong }
 
 { ---------------------- GL_OES_standard_derivatives ----------------------  }
 
@@ -22598,8 +13748,6 @@ const
   GL_OES_standard_derivatives = 1;  
   GL_FRAGMENT_SHADER_DERIVATIVE_HINT_OES = $8B8B;  
 
-{ was #define dname def_expr }
-function GLEW_OES_standard_derivatives : longint; { return type might be wrong }
 
 { ---------------------------- GL_OES_stencil1 ----------------------------  }
 
@@ -22607,8 +13755,6 @@ const
   GL_OES_stencil1 = 1;  
 //  GL_STENCIL_INDEX1_OES = $8D46;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_OES_stencil1 : longint; { return type might be wrong }
 
 { ---------------------------- GL_OES_stencil4 ----------------------------  }
 
@@ -22616,8 +13762,6 @@ const
   GL_OES_stencil4 = 1;  
 //  GL_STENCIL_INDEX4_OES = $8D47;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_OES_stencil4 : longint; { return type might be wrong }
 
 { ---------------------------- GL_OES_stencil8 ----------------------------  }
 
@@ -22625,8 +13769,6 @@ const
   GL_OES_stencil8 = 1;  
 //  GL_STENCIL_INDEX8_OES = $8D48;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_OES_stencil8 : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_surfaceless_context ----------------------  }
 
@@ -22634,8 +13776,6 @@ const
   GL_OES_surfaceless_context = 1;  
   GL_FRAMEBUFFER_UNDEFINED_OES = $8219;  
 
-{ was #define dname def_expr }
-function GLEW_OES_surfaceless_context : longint; { return type might be wrong }
 
 { --------------------- GL_OES_tessellation_point_size --------------------  }
 
@@ -22685,8 +13825,6 @@ const
   GL_REFERENCED_BY_TESS_CONTROL_SHADER_OES = $9307;  
   GL_REFERENCED_BY_TESS_EVALUATION_SHADER_OES = $9308;  
 
-{ was #define dname def_expr }
-function GLEW_OES_tessellation_point_size : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_tessellation_shader ----------------------  }
 
@@ -22736,8 +13874,6 @@ const
   //GL_REFERENCED_BY_TESS_CONTROL_SHADER_OES = $9307;  
   //GL_REFERENCED_BY_TESS_EVALUATION_SHADER_OES = $9308;  
 
-{ was #define dname def_expr }
-function GLEW_OES_tessellation_shader : longint; { return type might be wrong }
 
 { --------------------------- GL_OES_texture_3D ---------------------------  }
 
@@ -22763,26 +13899,6 @@ type
                 width:TGLsizei; height:TGLsizei; depth:TGLsizei; format:TGLenum; _type:TGLenum; 
                 pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glCompressedTexImage3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCompressedTexSubImage3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyTexSubImage3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferTexture3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexImage3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexSubImage3DOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_3D : longint; { return type might be wrong }
 
 { ---------------------- GL_OES_texture_border_clamp ----------------------  }
 
@@ -22800,32 +13916,6 @@ type
   TPFNGLTEXPARAMETERIIVOESPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLTEXPARAMETERIUIVOESPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glGetSamplerParameterIivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetSamplerParameterIuivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterIuivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplerParameterIuivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterIuivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_border_clamp : longint; { return type might be wrong }
 
 { ------------------------- GL_OES_texture_buffer -------------------------  }
 
@@ -22849,14 +13939,6 @@ type
   TPFNGLTEXBUFFEROESPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint);cdecl;
   TPFNGLTEXBUFFERRANGEOESPROC = procedure (target:TGLenum; internalformat:TGLenum; buffer:TGLuint; offset:TGLintptr; size:TGLsizeiptr);cdecl;
 
-{ was #define dname def_expr }
-function glTexBufferOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexBufferRangeOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_buffer : longint; { return type might be wrong }
 
 { -------------------- GL_OES_texture_compression_astc --------------------  }
 
@@ -22911,8 +13993,6 @@ const
   //GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x5_OES = $93E8;  
   //GL_COMPRESSED_SRGB8_ALPHA8_ASTC_6x6x6_OES = $93E9;  
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_compression_astc : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_texture_cube_map ------------------------  }
 
@@ -22942,35 +14022,6 @@ type
   TPFNGLTEXGENXOESPROC = procedure (coord:TGLenum; pname:TGLenum; param:TGLfixed);cdecl;
   TPFNGLTEXGENXVOESPROC = procedure (coord:TGLenum; pname:TGLenum; params:PGLfixed);cdecl;
 
-{ was #define dname def_expr }
-function glGetTexGenfvOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexGenivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexGenxvOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGenfOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGenfvOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGeniOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGenivOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGenxOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexGenxvOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_cube_map : longint; { return type might be wrong }
 
 { --------------------- GL_OES_texture_cube_map_array ---------------------  }
 
@@ -22986,16 +14037,12 @@ const
   GL_INT_IMAGE_CUBE_MAP_ARRAY_OES = $905F;  
   GL_UNSIGNED_INT_IMAGE_CUBE_MAP_ARRAY_OES = $906A;  
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_cube_map_array : longint; { return type might be wrong }
 
 { ---------------------- GL_OES_texture_env_crossbar ----------------------  }
 
 const
   GL_OES_texture_env_crossbar = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_env_crossbar : longint; { return type might be wrong }
 
 { --------------------- GL_OES_texture_mirrored_repeat --------------------  }
 
@@ -23003,16 +14050,12 @@ const
   GL_OES_texture_mirrored_repeat = 1;  
 //  GL_MIRRORED_REPEAT = $8370;     doppelt
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_mirrored_repeat : longint; { return type might be wrong }
 
 { -------------------------- GL_OES_texture_npot --------------------------  }
 
 const
   GL_OES_texture_npot = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_npot : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_texture_stencil8 ------------------------  }
 
@@ -23021,8 +14064,6 @@ const
 //  GL_STENCIL_INDEX = $1901;     doppelt
 //  GL_STENCIL_INDEX8 = $8D48;  
 
-{ was #define dname def_expr }
-function GLEW_OES_texture_stencil8 : longint; { return type might be wrong }
 
 { -------------- GL_OES_texture_storage_multisample_2d_array --------------  }
 
@@ -23037,11 +14078,6 @@ type
   TPFNGLTEXSTORAGE3DMULTISAMPLEOESPROC = procedure (target:TGLenum; samples:TGLsizei; internalformat:TGLenum; width:TGLsizei; height:TGLsizei;
                 depth:TGLsizei; fixedsamplelocations:TGLboolean);cdecl;
 
-{ was #define dname def_expr }
-function glTexStorage3DMultisampleOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_storage_multisample_2d_array : longint; { return type might be wrong }
 
 { -------------------------- GL_OES_texture_view --------------------------  }
 
@@ -23056,11 +14092,6 @@ type
   TPFNGLTEXTUREVIEWOESPROC = procedure (texture:TGLuint; target:TGLenum; origtexture:TGLuint; internalformat:TGLenum; minlevel:TGLuint;
                 numlevels:TGLuint; minlayer:TGLuint; numlayers:TGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glTextureViewOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_texture_view : longint; { return type might be wrong }
 
 { ----------------------- GL_OES_vertex_array_object ----------------------  }
 
@@ -23073,20 +14104,6 @@ type
   TPFNGLGENVERTEXARRAYSOESPROC = procedure (n:TGLsizei; arrays:PGLuint);cdecl;
   TPFNGLISVERTEXARRAYOESPROC = function (arr:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glBindVertexArrayOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteVertexArraysOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenVertexArraysOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVertexArrayOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OES_vertex_array_object : longint; { return type might be wrong }
 
 { ------------------------ GL_OES_vertex_half_float -----------------------  }
 
@@ -23094,8 +14111,6 @@ const
   GL_OES_vertex_half_float = 1;  
   GL_HALF_FLOAT_OES = $8D61;  
 
-{ was #define dname def_expr }
-function GLEW_OES_vertex_half_float : longint; { return type might be wrong }
 
 { --------------------- GL_OES_vertex_type_10_10_10_2 ---------------------  }
 
@@ -23104,8 +14119,6 @@ const
   GL_UNSIGNED_INT_10_10_10_2_OES = $8DF6;  
   GL_INT_10_10_10_2_OES = $8DF7;  
 
-{ was #define dname def_expr }
-function GLEW_OES_vertex_type_10_10_10_2 : longint; { return type might be wrong }
 
 { ---------------------------- GL_OML_interlace ---------------------------  }
 
@@ -23114,8 +14127,6 @@ const
   GL_INTERLACE_OML = $8980;  
   GL_INTERLACE_READ_OML = $8981;  
 
-{ was #define dname def_expr }
-function GLEW_OML_interlace : longint; { return type might be wrong }
 
 { ---------------------------- GL_OML_resample ----------------------------  }
 
@@ -23128,8 +14139,6 @@ const
   GL_RESAMPLE_AVERAGE_OML = $8988;  
   GL_RESAMPLE_DECIMATE_OML = $8989;  
 
-{ was #define dname def_expr }
-function GLEW_OML_resample : longint; { return type might be wrong }
 
 { ---------------------------- GL_OML_subsample ---------------------------  }
 
@@ -23138,8 +14147,6 @@ const
   GL_FORMAT_SUBSAMPLE_24_24_OML = $8982;  
   GL_FORMAT_SUBSAMPLE_244_244_OML = $8983;  
 
-{ was #define dname def_expr }
-function GLEW_OML_subsample : longint; { return type might be wrong }
 
 { ---------------------------- GL_OVR_multiview ---------------------------  }
 
@@ -23153,22 +14160,12 @@ type
   TPFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; baseViewIndex:TGLint;                numViews:TGLsizei);cdecl;
   TPFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC = procedure (framebuffer:TGLuint; attachment:TGLenum; texture:TGLuint; level:TGLint; baseViewIndex:TGLint;                numViews:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTextureMultiviewOVR : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNamedFramebufferTextureMultiviewOVR : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OVR_multiview : longint; { return type might be wrong }
 
 { --------------------------- GL_OVR_multiview2 ---------------------------  }
 
 const
   GL_OVR_multiview2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_OVR_multiview2 : longint; { return type might be wrong }
 
 { ------------ GL_OVR_multiview_multisampled_render_to_texture ------------  }
 
@@ -23177,11 +14174,6 @@ const
 type
   TPFNGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVRPROC = procedure (target:TGLenum; attachment:TGLenum; texture:TGLuint; level:TGLint; samples:TGLsizei;                baseViewIndex:TGLint; numViews:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferTextureMultisampleMultiviewOVR : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_OVR_multiview_multisampled_render_to_texture : longint; { return type might be wrong }
 
 { --------------------------- GL_PGI_misc_hints ---------------------------  }
 
@@ -23208,8 +14200,6 @@ const
   GL_WIDE_LINE_HINT_PGI = 107042;  
   GL_BACK_NORMALS_HINT_PGI = 107043;  
 
-{ was #define dname def_expr }
-function GLEW_PGI_misc_hints : longint; { return type might be wrong }
 
 { -------------------------- GL_PGI_vertex_hints --------------------------  }
 
@@ -23238,16 +14228,12 @@ const
   GL_TEXCOORD3_BIT_PGI = $40000000;  
   GL_TEXCOORD4_BIT_PGI = $80000000;  
 
-{ was #define dname def_expr }
-function GLEW_PGI_vertex_hints : longint; { return type might be wrong }
 
 { ----------------------- GL_QCOM_YUV_texture_gather ----------------------  }
 
 const
   GL_QCOM_YUV_texture_gather = 1;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_YUV_texture_gather : longint; { return type might be wrong }
 
 { --------------------------- GL_QCOM_alpha_test --------------------------  }
 
@@ -23259,11 +14245,6 @@ const
 type
   TPFNGLALPHAFUNCQCOMPROC = procedure (func:TGLenum; ref:TGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glAlphaFuncQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_alpha_test : longint; { return type might be wrong }
 
 { ------------------------ GL_QCOM_binning_control ------------------------  }
 
@@ -23275,8 +14256,6 @@ const
   GL_GPU_OPTIMIZED_QCOM = $8FB2;  
   GL_RENDER_DIRECT_TO_FRAMEBUFFER_QCOM = $8FB3;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_binning_control : longint; { return type might be wrong }
 
 { ------------------------- GL_QCOM_driver_control ------------------------  }
 
@@ -23288,20 +14267,6 @@ type
   TPFNGLGETDRIVERCONTROLSTRINGQCOMPROC = procedure (driverControl:TGLuint; bufSize:TGLsizei; length:PGLsizei; driverControlString:PGLchar);cdecl;
   TPFNGLGETDRIVERCONTROLSQCOMPROC = procedure (num:PGLint; size:TGLsizei; driverControls:PGLuint);cdecl;
 
-{ was #define dname def_expr }
-function glDisableDriverControlQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glEnableDriverControlQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDriverControlStringQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDriverControlsQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_driver_control : longint; { return type might be wrong }
 
 { -------------------------- GL_QCOM_extended_get -------------------------  }
 
@@ -23330,32 +14295,6 @@ type
   TPFNGLEXTGETTEXTURESQCOMPROC = procedure (textures:PGLuint; maxTextures:TGLint; numTextures:PGLint);cdecl;
   TPFNGLEXTTEXOBJECTSTATEOVERRIDEIQCOMPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glExtGetBufferPointervQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetBuffersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetFramebuffersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetRenderbuffersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetTexLevelParameterivQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetTexSubImageQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetTexturesQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtTexObjectStateOverrideiQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_extended_get : longint; { return type might be wrong }
 
 { ------------------------- GL_QCOM_extended_get2 -------------------------  }
 
@@ -23367,20 +14306,6 @@ type
   TPFNGLEXTGETSHADERSQCOMPROC = procedure (shaders:PGLuint; maxShaders:TGLint; numShaders:PGLint);cdecl;
   TPFNGLEXTISPROGRAMBINARYQCOMPROC = function (prog:TGLuint):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glExtGetProgramBinarySourceQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetProgramsQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtGetShadersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glExtIsProgramBinaryQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_extended_get2 : longint; { return type might be wrong }
 
 { ---------------------- GL_QCOM_framebuffer_foveated ---------------------  }
 
@@ -23393,14 +14318,6 @@ type
   TPFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC = procedure (fbo:TGLuint; layer:TGLuint; focalPoint:TGLuint; focalX:TGLfloat; focalY:TGLfloat;
                 gainX:TGLfloat; gainY:TGLfloat; foveaArea:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferFoveationConfigQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFramebufferFoveationParametersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_framebuffer_foveated : longint; { return type might be wrong }
 
 { ---------------------- GL_QCOM_perfmon_global_mode ----------------------  }
 
@@ -23408,8 +14325,6 @@ const
   GL_QCOM_perfmon_global_mode = 1;  
   GL_PERFMON_GLOBAL_MODE_QCOM = $8FA0;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_perfmon_global_mode : longint; { return type might be wrong }
 
 { -------------- GL_QCOM_shader_framebuffer_fetch_noncoherent -------------  }
 
@@ -23419,19 +14334,12 @@ const
 type
   TPFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFramebufferFetchBarrierQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_shader_framebuffer_fetch_noncoherent : longint; { return type might be wrong }
 
 { ----------------- GL_QCOM_shader_framebuffer_fetch_rate -----------------  }
 
 const
   GL_QCOM_shader_framebuffer_fetch_rate = 1;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_shader_framebuffer_fetch_rate : longint; { return type might be wrong }
 
 { ------------------------ GL_QCOM_texture_foveated -----------------------  }
 
@@ -23448,11 +14356,6 @@ type
   TPFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC = procedure (texture:TGLuint; layer:TGLuint; focalPoint:TGLuint; focalX:TGLfloat; focalY:TGLfloat;
                 gainX:TGLfloat; gainY:TGLfloat; foveaArea:TGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glTextureFoveationParametersQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_texture_foveated : longint; { return type might be wrong }
 
 { --------------- GL_QCOM_texture_foveated_subsampled_layout --------------  }
 
@@ -23461,8 +14364,6 @@ const
   GL_FOVEATION_SUBSAMPLED_LAYOUT_METHOD_BIT_QCOM = $4;  
   GL_MAX_SHADER_SUBSAMPLED_IMAGE_UNITS_QCOM = $8FA1;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_texture_foveated_subsampled_layout : longint; { return type might be wrong }
 
 { ------------------------ GL_QCOM_tiled_rendering ------------------------  }
 
@@ -23504,14 +14405,6 @@ type
   TPFNGLENDTILINGQCOMPROC = procedure (preserveMask:TGLbitfield);cdecl;
   TPFNGLSTARTTILINGQCOMPROC = procedure (x:TGLuint; y:TGLuint; width:TGLuint; height:TGLuint; preserveMask:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glEndTilingQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glStartTilingQCOM : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_QCOM_tiled_rendering : longint; { return type might be wrong }
 
 { ---------------------- GL_QCOM_writeonly_rendering ----------------------  }
 
@@ -23519,8 +14412,6 @@ const
   GL_QCOM_writeonly_rendering = 1;  
   GL_WRITEONLY_RENDERING_QCOM = $8823;  
 
-{ was #define dname def_expr }
-function GLEW_QCOM_writeonly_rendering : longint; { return type might be wrong }
 
 { ---------------------- GL_REGAL_ES1_0_compatibility ---------------------  }
 
@@ -23562,101 +14453,6 @@ type
   TPFNGLTEXPARAMETERXPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLfixed);cdecl;
   TPFNGLTRANSLATEXPROC = procedure (x:TGLfixed; y:TGLfixed; z:TGLfixed);cdecl;
 
-{ was #define dname def_expr }
-function glAlphaFuncx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearColorx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClearDepthx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4x : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDepthRangex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFogxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFrustumf : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFrustumx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLightModelx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLightModelxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLightx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLightxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLineWidthx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLoadMatrixx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMaterialx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMaterialxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultMatrixx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMultiTexCoord4x : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormal3x : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glOrthof : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glOrthox : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointSizex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPolygonOffsetx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glRotatex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSampleCoveragex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glScalex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexEnvx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexEnvxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTranslatex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_ES1_0_compatibility : longint; { return type might be wrong }
 
 { ---------------------- GL_REGAL_ES1_1_compatibility ---------------------  }
 
@@ -23677,47 +14473,6 @@ type
   TPFNGLPOINTSIZEPOINTEROESPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
   TPFNGLTEXPARAMETERXVPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfixed);cdecl;
 
-{ was #define dname def_expr }
-function glClipPlanef : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glClipPlanex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetClipPlanef : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetClipPlanex : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFixedv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetLightxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMaterialxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexEnvxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetTexParameterxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterx : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointParameterxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPointSizePointerOES : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexParameterxv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_ES1_1_compatibility : longint; { return type might be wrong }
 
 { ---------------------------- GL_REGAL_enable ----------------------------  }
 
@@ -23734,8 +14489,6 @@ const
   GL_CODE_REGAL = $9363;  
   GL_STATISTICS_REGAL = $9364;  
 
-{ was #define dname def_expr }
-function GLEW_REGAL_enable : longint; { return type might be wrong }
 
 { ------------------------- GL_REGAL_error_string -------------------------  }
 
@@ -23744,11 +14497,6 @@ const
 type
   TPFNGLERRORSTRINGREGALPROC = function (error:TGLenum):PGLchar;cdecl;
 
-{ was #define dname def_expr }
-function glErrorStringREGAL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_error_string : longint; { return type might be wrong }
 
 { ------------------------ GL_REGAL_extension_query -----------------------  }
 
@@ -23758,14 +14506,6 @@ type
   TPFNGLGETEXTENSIONREGALPROC = function (ext:PGLchar):TGLboolean;cdecl;
   TPFNGLISSUPPORTEDREGALPROC = function (ext:PGLchar):TGLboolean;cdecl;
 
-{ was #define dname def_expr }
-function glGetExtensionREGAL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsSupportedREGAL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_extension_query : longint; { return type might be wrong }
 
 { ------------------------------ GL_REGAL_log -----------------------------  }
 
@@ -23784,11 +14524,6 @@ type
   TGLLOGPROCREGAL = procedure (stream:TGLenum; length:TGLsizei; message:PGLchar; context:pointer);cdecl;
   TPFNGLLOGMESSAGECALLBACKREGALPROC = procedure (callback:TGLLOGPROCREGAL);cdecl;
 
-{ was #define dname def_expr }
-function glLogMessageCallbackREGAL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_log : longint; { return type might be wrong }
 
 { ------------------------- GL_REGAL_proc_address -------------------------  }
 
@@ -23797,11 +14532,6 @@ const
 type
   TPFNGLGETPROCADDRESSREGALPROC = function (name:PGLchar):pointer;cdecl;
 
-{ was #define dname def_expr }
-function glGetProcAddressREGAL : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_REGAL_proc_address : longint; { return type might be wrong }
 
 { ----------------------- GL_REND_screen_coordinates ----------------------  }
 
@@ -23810,8 +14540,6 @@ const
   GL_SCREEN_COORDINATES_REND = $8490;  
   GL_INVERTED_SCREEN_W_REND = $8491;  
 
-{ was #define dname def_expr }
-function GLEW_REND_screen_coordinates : longint; { return type might be wrong }
 
 { ------------------------------- GL_S3_s3tc ------------------------------  }
 
@@ -23824,16 +14552,12 @@ const
   GL_RGBA_DXT5_S3TC = $83A4;  
   GL_RGBA4_DXT5_S3TC = $83A5;  
 
-{ was #define dname def_expr }
-function GLEW_S3_s3tc : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIS_clip_band_hint ------------------------  }
 
 const
   GL_SGIS_clip_band_hint = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_clip_band_hint : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_color_range --------------------------  }
 
@@ -23849,8 +14573,6 @@ const
   GL_MIN_ALPHA_SGIS = $85AC;  
   GL_MAX_ALPHA_SGIS = $85AD;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_color_range : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIS_detail_texture ------------------------  }
 
@@ -23860,14 +14582,6 @@ type
   TPFNGLDETAILTEXFUNCSGISPROC = procedure (target:TGLenum; n:TGLsizei; points:PGLfloat);cdecl;
   TPFNGLGETDETAILTEXFUNCSGISPROC = procedure (target:TGLenum; points:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glDetailTexFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetDetailTexFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_detail_texture : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_fog_function -------------------------  }
 
@@ -23877,14 +14591,6 @@ type
   TPFNGLFOGFUNCSGISPROC = procedure (n:TGLsizei; points:PGLfloat);cdecl;
   TPFNGLGETFOGFUNCSGISPROC = procedure (points:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFogFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFogFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_fog_function : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIS_generate_mipmap ------------------------  }
 
@@ -23893,16 +14599,12 @@ const
   GL_GENERATE_MIPMAP_SGIS = $8191;  
   GL_GENERATE_MIPMAP_HINT_SGIS = $8192;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_generate_mipmap : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_line_texgen --------------------------  }
 
 const
   GL_SGIS_line_texgen = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_line_texgen : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_multisample --------------------------  }
 
@@ -23928,14 +14630,6 @@ type
   TPFNGLSAMPLEMASKSGISPROC = procedure (value:TGLclampf; invert:TGLboolean);cdecl;
   TPFNGLSAMPLEPATTERNSGISPROC = procedure (pattern:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glSampleMaskSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSamplePatternSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_multisample : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_multitexture -------------------------  }
 
@@ -23958,28 +14652,12 @@ type
   TPFNGLSELECTTEXTURESGISPROC = procedure (target:TGLenum);cdecl;
   TPFNGLSELECTTEXTURETRANSFORMSGISPROC = procedure (target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glInterleavedTextureCoordSetsSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSelectTextureCoordSetSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSelectTextureSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSelectTextureTransformSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_multitexture : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIS_pixel_texture -------------------------  }
 
 const
   GL_SGIS_pixel_texture = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_pixel_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIS_point_line_texgen -----------------------  }
 
@@ -23994,8 +14672,6 @@ const
   GL_EYE_LINE_SGIS = $81F6;  
   GL_OBJECT_LINE_SGIS = $81F7;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_point_line_texgen : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIS_shared_multisample ----------------------  }
 
@@ -24004,11 +14680,6 @@ const
 type
   TPFNGLMULTISAMPLESUBRECTPOSSGISPROC = procedure (x:TGLint; y:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMultisampleSubRectPosSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_shared_multisample : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIS_sharpen_texture ------------------------  }
 
@@ -24018,14 +14689,6 @@ type
   TPFNGLGETSHARPENTEXFUNCSGISPROC = procedure (target:TGLenum; points:PGLfloat);cdecl;
   TPFNGLSHARPENTEXFUNCSGISPROC = procedure (target:TGLenum; n:TGLsizei; points:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glGetSharpenTexFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSharpenTexFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_sharpen_texture : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIS_texture4D ---------------------------  }
 
@@ -24039,14 +14702,6 @@ type
                 woffset:TGLint; width:TGLsizei; height:TGLsizei; depth:TGLsizei; extent:TGLsizei; 
                 format:TGLenum; _type:TGLenum; pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTexImage4DSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexSubImage4DSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_texture4D : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIS_texture_border_clamp ---------------------  }
 
@@ -24054,8 +14709,6 @@ const
   GL_SGIS_texture_border_clamp = 1;  
   GL_CLAMP_TO_BORDER_SGIS = $812D;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_texture_border_clamp : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIS_texture_edge_clamp ----------------------  }
 
@@ -24063,8 +14716,6 @@ const
   GL_SGIS_texture_edge_clamp = 1;  
   GL_CLAMP_TO_EDGE_SGIS = $812F;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_texture_edge_clamp : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIS_texture_filter4 ------------------------  }
 
@@ -24074,14 +14725,6 @@ type
   TPFNGLGETTEXFILTERFUNCSGISPROC = procedure (target:TGLenum; filter:TGLenum; weights:PGLfloat);cdecl;
   TPFNGLTEXFILTERFUNCSGISPROC = procedure (target:TGLenum; filter:TGLenum; n:TGLsizei; weights:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glGetTexFilterFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexFilterFuncSGIS : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIS_texture_filter4 : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIS_texture_lod --------------------------  }
 
@@ -24092,16 +14735,12 @@ const
   GL_TEXTURE_BASE_LEVEL_SGIS = $813C;  
   GL_TEXTURE_MAX_LEVEL_SGIS = $813D;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_texture_lod : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIS_texture_select ------------------------  }
 
 const
   GL_SGIS_texture_select = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIS_texture_select : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_async -----------------------------  }
 
@@ -24116,26 +14755,6 @@ type
   TPFNGLISASYNCMARKERSGIXPROC = function (marker:TGLuint):TGLboolean;cdecl;
   TPFNGLPOLLASYNCSGIXPROC = function (markerp:PGLuint):TGLint;cdecl;
 
-{ was #define dname def_expr }
-function glAsyncMarkerSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteAsyncMarkersSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFinishAsyncSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenAsyncMarkersSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsAsyncMarkerSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPollAsyncSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_async : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_async_histogram ------------------------  }
 
@@ -24144,8 +14763,6 @@ const
   GL_ASYNC_HISTOGRAM_SGIX = $832C;  
   GL_MAX_ASYNC_HISTOGRAM_SGIX = $832D;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_async_histogram : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_async_pixel --------------------------  }
 
@@ -24158,8 +14775,6 @@ const
   GL_MAX_ASYNC_DRAW_PIXELS_SGIX = $8360;  
   GL_MAX_ASYNC_READ_PIXELS_SGIX = $8361;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_async_pixel : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_bali_g_instruments ----------------------  }
 
@@ -24170,8 +14785,6 @@ const
   GL_BALI_NUM_PRIMS_REJECT_INSTRUMENT = $6082;  
   GL_BALI_NUM_PRIMS_CLIP_RESULT_INSTRUMENT = $6083;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_bali_g_instruments : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_bali_r_instruments ----------------------  }
 
@@ -24181,16 +14794,12 @@ const
   GL_BALI_DEPTH_PASS_INSTRUMENT = $6091;  
   GL_BALI_R_CHIP_COUNT = $6092;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_bali_r_instruments : longint; { return type might be wrong }
 
 { --------------------- GL_SGIX_bali_timer_instruments --------------------  }
 
 const
   GL_SGIX_bali_timer_instruments = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_bali_timer_instruments : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_blend_alpha_minmax ----------------------  }
 
@@ -24199,8 +14808,6 @@ const
   GL_ALPHA_MIN_SGIX = $8320;  
   GL_ALPHA_MAX_SGIX = $8321;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_blend_alpha_minmax : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_blend_cadd --------------------------  }
 
@@ -24208,8 +14815,6 @@ const
   GL_SGIX_blend_cadd = 1;  
   GL_FUNC_COMPLEX_ADD_EXT = $601C;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_blend_cadd : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_blend_cmultiply ------------------------  }
 
@@ -24217,24 +14822,18 @@ const
   GL_SGIX_blend_cmultiply = 1;  
   GL_FUNC_COMPLEX_MULTIPLY_EXT = $601B;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_blend_cmultiply : longint; { return type might be wrong }
 
 { --------------------- GL_SGIX_calligraphic_fragment ---------------------  }
 
 const
   GL_SGIX_calligraphic_fragment = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_calligraphic_fragment : longint; { return type might be wrong }
 
 { ---------------------------- GL_SGIX_clipmap ----------------------------  }
 
 const
   GL_SGIX_clipmap = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_clipmap : longint; { return type might be wrong }
 
 { --------------------- GL_SGIX_color_matrix_accuracy ---------------------  }
 
@@ -24242,24 +14841,18 @@ const
   GL_SGIX_color_matrix_accuracy = 1;  
   GL_COLOR_MATRIX_HINT = $8317;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_color_matrix_accuracy : longint; { return type might be wrong }
 
 { --------------------- GL_SGIX_color_table_index_mode --------------------  }
 
 const
   GL_SGIX_color_table_index_mode = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_color_table_index_mode : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_complex_polar -------------------------  }
 
 const
   GL_SGIX_complex_polar = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_complex_polar : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_convolution_accuracy ---------------------  }
 
@@ -24267,8 +14860,6 @@ const
   GL_SGIX_convolution_accuracy = 1;  
   GL_CONVOLUTION_HINT_SGIX = $8316;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_convolution_accuracy : longint; { return type might be wrong }
 
 { ---------------------------- GL_SGIX_cube_map ---------------------------  }
 
@@ -24284,16 +14875,12 @@ const
   GL_CUBE_MAP_YP_SGIX = $8347;  
   GL_CUBE_MAP_BINDING_SGIX = $8348;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_cube_map : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_cylinder_texgen ------------------------  }
 
 const
   GL_SGIX_cylinder_texgen = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_cylinder_texgen : longint; { return type might be wrong }
 
 { ---------------------------- GL_SGIX_datapipe ---------------------------  }
 
@@ -24305,22 +14892,12 @@ type
   TPFNGLADDRESSSPACEPROC = procedure (space:TGLenum; mask:TGLbitfield);cdecl;
   TPFNGLDATAPIPEPROC = function (space:TGLenum):TGLint;cdecl;
 
-{ was #define dname def_expr }
-function glAddressSpace : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDataPipe : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_datapipe : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_decimation --------------------------  }
 
 const
   GL_SGIX_decimation = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_decimation : longint; { return type might be wrong }
 
 { --------------------- GL_SGIX_depth_pass_instrument ---------------------  }
 
@@ -24330,8 +14907,6 @@ const
   GL_DEPTH_PASS_INSTRUMENT_COUNTERS_SGIX = $8311;  
   GL_DEPTH_PASS_INSTRUMENT_MAX_SGIX = $8312;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_depth_pass_instrument : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_depth_texture -------------------------  }
 
@@ -24341,16 +14916,12 @@ const
   GL_DEPTH_COMPONENT24_SGIX = $81A6;  
   GL_DEPTH_COMPONENT32_SGIX = $81A7;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_depth_texture : longint; { return type might be wrong }
 
 { ------------------------------ GL_SGIX_dvc ------------------------------  }
 
 const
   GL_SGIX_dvc = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_dvc : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_flush_raster -------------------------  }
 
@@ -24359,11 +14930,6 @@ const
 type
   TPFNGLFLUSHRASTERSGIXPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFlushRasterSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_flush_raster : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_fog_blend ---------------------------  }
 
@@ -24372,16 +14938,12 @@ const
   GL_FOG_BLEND_ALPHA_SGIX = $81FE;  
   GL_FOG_BLEND_COLOR_SGIX = $81FF;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_blend : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_fog_factor_to_alpha ----------------------  }
 
 const
   GL_SGIX_fog_factor_to_alpha = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_factor_to_alpha : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_fog_layers --------------------------  }
 
@@ -24397,14 +14959,6 @@ type
   TPFNGLFOGLAYERSSGIXPROC = procedure (n:TGLsizei; points:PGLfloat);cdecl;
   TPFNGLGETFOGLAYERSSGIXPROC = procedure (points:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glFogLayersSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFogLayersSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_layers : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_fog_offset --------------------------  }
 
@@ -24413,16 +14967,12 @@ const
   GL_FOG_OFFSET_SGIX = $8198;  
   GL_FOG_OFFSET_VALUE_SGIX = $8199;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_offset : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_fog_patchy --------------------------  }
 
 const
   GL_SGIX_fog_patchy = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_patchy : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_fog_scale ---------------------------  }
 
@@ -24431,8 +14981,6 @@ const
   GL_FOG_SCALE_SGIX = $81FC;  
   GL_FOG_SCALE_VALUE_SGIX = $81FD;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_scale : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_fog_texture --------------------------  }
 
@@ -24441,11 +14989,6 @@ const
 type
   TPFNGLTEXTUREFOGSGIXPROC = procedure (pname:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glTextureFogSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_fog_texture : longint; { return type might be wrong }
 
 { -------------------- GL_SGIX_fragment_lighting_space --------------------  }
 
@@ -24456,8 +14999,6 @@ const
   GL_OBJECT_SPACE_SGIX = $8438;  
   GL_FRAGMENT_LIGHT_SPACE_SGIX = $843D;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fragment_lighting_space : longint; { return type might be wrong }
 
 { ------------------- GL_SGIX_fragment_specular_lighting ------------------  }
 
@@ -24482,59 +15023,6 @@ type
   TPFNGLGETFRAGMENTMATERIALFVSGIXPROC = procedure (face:TGLenum; pname:TGLenum; data:PGLfloat);cdecl;
   TPFNGLGETFRAGMENTMATERIALIVSGIXPROC = procedure (face:TGLenum; pname:TGLenum; data:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFragmentColorMaterialSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelfSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModeliSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightModelivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightfSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightiSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentLightivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialfSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialiSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glFragmentMaterialivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentLightfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentLightivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentMaterialfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetFragmentMaterialivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_fragment_specular_lighting : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_fragments_instrument ---------------------  }
 
@@ -24544,8 +15032,6 @@ const
   GL_FRAGMENTS_INSTRUMENT_COUNTERS_SGIX = $8314;  
   GL_FRAGMENTS_INSTRUMENT_MAX_SGIX = $8315;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_fragments_instrument : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_framezoom ---------------------------  }
 
@@ -24554,11 +15040,6 @@ const
 type
   TPFNGLFRAMEZOOMSGIXPROC = procedure (factor:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glFrameZoomSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_framezoom : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_icc_texture --------------------------  }
 
@@ -24577,8 +15058,6 @@ const
   GL_INTENSITY16_ICC_SGIX = $846A;  
   GL_LUMINANCE16_ALPHA8_ICC_SGIX = $846B;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_icc_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_igloo_interface ------------------------  }
 
@@ -24595,35 +15074,24 @@ const
 type
   TPFNGLIGLOOINTERFACESGIXPROC = procedure (pname:TGLenum; param:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glIglooInterfaceSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_igloo_interface : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_image_compression -----------------------  }
 
 const
   GL_SGIX_image_compression = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_image_compression : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_impact_pixel_texture ---------------------  }
 
 const
   GL_SGIX_impact_pixel_texture = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_impact_pixel_texture : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_instrument_error -----------------------  }
 
 const
   GL_SGIX_instrument_error = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_instrument_error : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_interlace ---------------------------  }
 
@@ -24631,16 +15099,12 @@ const
   GL_SGIX_interlace = 1;  
   GL_INTERLACE_SGIX = $8094;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_interlace : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_ir_instrument1 ------------------------  }
 
 const
   GL_SGIX_ir_instrument1 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_ir_instrument1 : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_line_quality_hint -----------------------  }
 
@@ -24648,16 +15112,12 @@ const
   GL_SGIX_line_quality_hint = 1;  
   GL_LINE_QUALITY_HINT_SGIX = $835B;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_line_quality_hint : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_list_priority -------------------------  }
 
 const
   GL_SGIX_list_priority = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_list_priority : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_mpeg1 -----------------------------  }
 
@@ -24676,49 +15136,12 @@ type
  TPFNGLMPEGQUANTTABLEUBVPROC = procedure (target:TGLenum; values:PGLubyte);cdecl;
   TPFNGLSWAPMPEGPREDICTORSSGIXPROC = procedure (target0:TGLenum; target1:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glAllocMPEGPredictorsSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteMPEGPredictorsSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenMPEGPredictorsSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMPEGParameterfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMPEGParameterivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMPEGPredictorSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetMPEGQuantTableubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsMPEGPredictorSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMPEGPredictorSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMPEGQuantTableubv : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSwapMPEGPredictorsSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_mpeg1 : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_mpeg2 -----------------------------  }
 
 const
   GL_SGIX_mpeg2 = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_mpeg2 : longint; { return type might be wrong }
 
 { ------------------ GL_SGIX_nonlinear_lighting_pervertex -----------------  }
 
@@ -24730,20 +15153,6 @@ type
   TPFNGLNONLINLIGHTFVSGIXPROC = procedure (light:TGLenum; pname:TGLenum; terms:TGLint; params:PGLfloat);cdecl;
   TPFNGLNONLINMATERIALFVSGIXPROC = procedure (face:TGLenum; pname:TGLenum; terms:TGLint; params:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glGetNonlinLightfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetNonlinMaterialfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNonlinLightfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNonlinMaterialfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_nonlinear_lighting_pervertex : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_nurbs_eval --------------------------  }
 
@@ -24770,8 +15179,6 @@ const
   GL_NURBS_KNOT_COUNT_SGIX = $81ED;  
   GL_NURBS_KNOT_VECTOR_SGIX = $81EE;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_nurbs_eval : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_occlusion_instrument ---------------------  }
 
@@ -24779,16 +15186,12 @@ const
   GL_SGIX_occlusion_instrument = 1;  
   GL_OCCLUSION_INSTRUMENT_SGIX = $6060;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_occlusion_instrument : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_packed_6bytes -------------------------  }
 
 const
   GL_SGIX_packed_6bytes = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_packed_6bytes : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_pixel_texture -------------------------  }
 
@@ -24798,35 +15201,24 @@ type
 
   TPFNGLPIXELTEXGENSGIXPROC = procedure (mode:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glPixelTexGenSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_pixel_texture : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_pixel_texture_bits ----------------------  }
 
 const
   GL_SGIX_pixel_texture_bits = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_pixel_texture_bits : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_pixel_texture_lod -----------------------  }
 
 const
   GL_SGIX_pixel_texture_lod = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_pixel_texture_lod : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_pixel_tiles --------------------------  }
 
 const
   GL_SGIX_pixel_tiles = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_pixel_tiles : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_polynomial_ffd ------------------------  }
 
@@ -24838,14 +15230,6 @@ type
   TPFNGLDEFORMSGIXPROC = procedure (mask:TGLbitfield);cdecl;
   TPFNGLLOADIDENTITYDEFORMATIONMAPSGIXPROC = procedure (mask:TGLbitfield);cdecl;
 
-{ was #define dname def_expr }
-function glDeformSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glLoadIdentityDeformationMapSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_polynomial_ffd : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_quad_mesh ---------------------------  }
 
@@ -24855,14 +15239,6 @@ type
   TPFNGLMESHBREADTHSGIXPROC = procedure (breadth:TGLint);cdecl;
   TPFNGLMESHSTRIDESGIXPROC = procedure (stride:TGLint);cdecl;
 
-{ was #define dname def_expr }
-function glMeshBreadthSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glMeshStrideSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_quad_mesh : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_reference_plane ------------------------  }
 
@@ -24871,11 +15247,6 @@ const
 type
   TPFNGLREFERENCEPLANESGIXPROC = procedure (equation:PGLdouble);cdecl;
 
-{ was #define dname def_expr }
-function glReferencePlaneSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_reference_plane : longint; { return type might be wrong }
 
 { ---------------------------- GL_SGIX_resample ---------------------------  }
 
@@ -24887,8 +15258,6 @@ const
   GL_RESAMPLE_REPLICATE_SGIX = $8433;  
   GL_RESAMPLE_ZERO_FILL_SGIX = $8434;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_resample : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_scalebias_hint ------------------------  }
 
@@ -24896,8 +15265,6 @@ const
   GL_SGIX_scalebias_hint = 1;  
   GL_SCALEBIAS_HINT_SGIX = $8322;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_scalebias_hint : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_shadow ----------------------------  }
 
@@ -24908,8 +15275,6 @@ const
   GL_TEXTURE_LEQUAL_R_SGIX = $819C;  
   GL_TEXTURE_GEQUAL_R_SGIX = $819D;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_shadow : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_shadow_ambient ------------------------  }
 
@@ -24917,8 +15282,6 @@ const
   GL_SGIX_shadow_ambient = 1;  
   GL_SHADOW_AMBIENT_SGIX = $80BF;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_shadow_ambient : longint; { return type might be wrong }
 
 { ------------------------------ GL_SGIX_slim -----------------------------  }
 
@@ -24929,8 +15292,6 @@ const
   GL_SLIM10U_SGIX = $831E;  
   GL_SLIM12S_SGIX = $831F;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_slim : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_spotlight_cutoff -----------------------  }
 
@@ -24938,8 +15299,6 @@ const
   GL_SGIX_spotlight_cutoff = 1;  
   GL_SPOT_CUTOFF_DELTA_SGIX = $8193;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_spotlight_cutoff : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_sprite ----------------------------  }
 
@@ -24951,28 +15310,12 @@ type
   TPFNGLSPRITEPARAMETERISGIXPROC = procedure (pname:TGLenum; param:TGLint);cdecl;
   TPFNGLSPRITEPARAMETERIVSGIXPROC = procedure (pname:TGLenum; params:PGLint);cdecl;
 
-{ was #define dname def_expr }
-function glSpriteParameterfSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSpriteParameterfvSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSpriteParameteriSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glSpriteParameterivSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_sprite : longint; { return type might be wrong }
 
 { -------------------------- GL_SGIX_subdiv_patch -------------------------  }
 
 const
   GL_SGIX_subdiv_patch = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_subdiv_patch : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_subsample ---------------------------  }
 
@@ -24984,8 +15327,6 @@ const
   GL_PIXEL_SUBSAMPLE_2424_SGIX = $85A3;  
   GL_PIXEL_SUBSAMPLE_4242_SGIX = $85A4;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_subsample : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_tag_sample_buffer -----------------------  }
 
@@ -24994,19 +15335,12 @@ const
 type
   TPFNGLTAGSAMPLEBUFFERSGIXPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glTagSampleBufferSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_tag_sample_buffer : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_texture_add_env ------------------------  }
 
 const
   GL_SGIX_texture_add_env = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_add_env : longint; { return type might be wrong }
 
 { -------------------- GL_SGIX_texture_coordinate_clamp -------------------  }
 
@@ -25016,16 +15350,12 @@ const
   GL_TEXTURE_MAX_CLAMP_T_SGIX = $836A;  
   GL_TEXTURE_MAX_CLAMP_R_SGIX = $836B;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_coordinate_clamp : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_texture_lod_bias -----------------------  }
 
 const
   GL_SGIX_texture_lod_bias = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_lod_bias : longint; { return type might be wrong }
 
 { ------------------- GL_SGIX_texture_mipmap_anisotropic ------------------  }
 
@@ -25034,8 +15364,6 @@ const
   GL_TEXTURE_MIPMAP_ANISOTROPY_SGIX = $832E;  
   GL_MAX_MIPMAP_ANISOTROPY_SGIX = $832F;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_mipmap_anisotropic : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_texture_multi_buffer ---------------------  }
 
@@ -25043,8 +15371,6 @@ const
   GL_SGIX_texture_multi_buffer = 1;  
   GL_TEXTURE_MULTI_BUFFER_HINT_SGIX = $812E;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_multi_buffer : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_texture_phase -------------------------  }
 
@@ -25052,8 +15378,6 @@ const
   GL_SGIX_texture_phase = 1;  
   GL_PHASE_SGIX = $832A;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_phase : longint; { return type might be wrong }
 
 { GL_SGIX_texture_phase  }
 { ------------------------- GL_SGIX_texture_range -------------------------  }
@@ -25089,8 +15413,6 @@ const
   GL_MIN_INTENSITY_SGIS = $85FA;  
   GL_MAX_INTENSITY_SGIS = $85FB;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_range : longint; { return type might be wrong }
 
 { ----------------------- GL_SGIX_texture_scale_bias ----------------------  }
 
@@ -25101,16 +15423,12 @@ const
   GL_POST_TEXTURE_FILTER_BIAS_RANGE_SGIX = $817B;  
   GL_POST_TEXTURE_FILTER_SCALE_RANGE_SGIX = $817C;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_scale_bias : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_texture_supersample ----------------------  }
 
 const
   GL_SGIX_texture_supersample = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_texture_supersample : longint; { return type might be wrong }
 
 { --------------------------- GL_SGIX_vector_ops --------------------------  }
 
@@ -25120,14 +15438,6 @@ type
   TPFNGLGETVECTOROPERATIONSGIXPROC = procedure (operation:TGLenum);cdecl;
   TPFNGLVECTOROPERATIONSGIXPROC = procedure (operation:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glGetVectorOperationSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glVectorOperationSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_vector_ops : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_vertex_array_object ----------------------  }
 
@@ -25141,26 +15451,6 @@ type
   TPFNGLISVERTEXARRAYSGIXPROC = function (arr:TGLuint):TGLboolean;cdecl;
   TPFNGLPRIORITIZEVERTEXARRAYSSGIXPROC = procedure (n:TGLsizei; arrays:PGLuint; priorities:PGLclampf);cdecl;
 
-{ was #define dname def_expr }
-function glAreVertexArraysResidentSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glBindVertexArraySGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glDeleteVertexArraysSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGenVertexArraysSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glIsVertexArraySGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPrioritizeVertexArraysSGIX : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGIX_vertex_array_object : longint; { return type might be wrong }
 
 { ------------------------- GL_SGIX_vertex_preclip ------------------------  }
 
@@ -25169,8 +15459,6 @@ const
   GL_VERTEX_PRECLIP_SGIX = $83EE;  
   GL_VERTEX_PRECLIP_HINT_SGIX = $83EF;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_vertex_preclip : longint; { return type might be wrong }
 
 { ---------------------- GL_SGIX_vertex_preclip_hint ----------------------  }
 
@@ -25179,24 +15467,18 @@ const
 //  GL_VERTEX_PRECLIP_SGIX = $83EE;   doppelt
 //  GL_VERTEX_PRECLIP_HINT_SGIX = $83EF;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_vertex_preclip_hint : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_ycrcb -----------------------------  }
 
 const
   GL_SGIX_ycrcb = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_ycrcb : longint; { return type might be wrong }
 
 { ------------------------ GL_SGIX_ycrcb_subsample ------------------------  }
 
 const
   GL_SGIX_ycrcb_subsample = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_ycrcb_subsample : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGIX_ycrcba ----------------------------  }
 
@@ -25205,8 +15487,6 @@ const
   GL_YCRCB_SGIX = $8318;  
   GL_YCRCBA_SGIX = $8319;  
 
-{ was #define dname def_expr }
-function GLEW_SGIX_ycrcba : longint; { return type might be wrong }
 
 { -------------------------- GL_SGI_color_matrix --------------------------  }
 
@@ -25224,8 +15504,6 @@ const
   GL_POST_COLOR_MATRIX_BLUE_BIAS_SGI = $80BA;  
   GL_POST_COLOR_MATRIX_ALPHA_BIAS_SGI = $80BB;  
 
-{ was #define dname def_expr }
-function GLEW_SGI_color_matrix : longint; { return type might be wrong }
 
 { --------------------------- GL_SGI_color_table --------------------------  }
 
@@ -25256,37 +15534,12 @@ type
   TPFNGLGETCOLORTABLEPARAMETERIVSGIPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
   TPFNGLGETCOLORTABLESGIPROC = procedure (target:TGLenum; format:TGLenum; _type:TGLenum; table:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glColorTableParameterfvSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorTableParameterivSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColorTableSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glCopyColorTableSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameterfvSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableParameterivSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGetColorTableSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGI_color_table : longint; { return type might be wrong }
 
 { ----------------------------- GL_SGI_complex ----------------------------  }
 
 const
   GL_SGI_complex = 1;  
 
-{ was #define dname def_expr }
-function GLEW_SGI_complex : longint; { return type might be wrong }
 
 { -------------------------- GL_SGI_complex_type --------------------------  }
 
@@ -25300,11 +15553,9 @@ const
   GL_COMPLEX_INT_SGI = $81C2;  
   GL_COMPLEX_FLOAT_SGI = $81C3;  
 
-{ was #define dname def_expr }
-function GLEW_SGI_complex_type : longint; { return type might be wrong }
 
 { ------------------------------- GL_SGI_fft ------------------------------  }
-cccc
+
 const
   GL_SGI_fft = 1;  
   GL_PIXEL_TRANSFORM_OPERATOR_SGI = $81C4;  
@@ -25313,190 +15564,82 @@ const
   GL_PIXEL_TRANSFORM_SGI = $81C7;  
   GL_MAX_FFT_WIDTH_SGI = $81C8;  
 type
-
   TPFNGLGETPIXELTRANSFORMPARAMETERFVSGIPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLGETPIXELTRANSFORMPARAMETERIVSGIPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLPIXELTRANSFORMPARAMETERFSGIPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLfloat);cdecl;
-
   TPFNGLPIXELTRANSFORMPARAMETERFVSGIPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLfloat);cdecl;
-
   TPFNGLPIXELTRANSFORMPARAMETERISGIPROC = procedure (target:TGLenum; pname:TGLenum; param:TGLint);cdecl;
-
   TPFNGLPIXELTRANSFORMPARAMETERIVSGIPROC = procedure (target:TGLenum; pname:TGLenum; params:PGLint);cdecl;
-
   TPFNGLPIXELTRANSFORMSGIPROC = procedure (target:TGLenum);cdecl;
 
-{ was #define dname def_expr }
-function glGetPixelTransformParameterfvSGI : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glGetPixelTransformParameterivSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterfSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterfvSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameteriSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformParameterivSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glPixelTransformSGI : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SGI_fft : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SGI_fft  }
 { ----------------------- GL_SGI_texture_color_table ----------------------  }
-{$ifndef GL_SGI_texture_color_table}
 
 const
   GL_SGI_texture_color_table = 1;  
   GL_TEXTURE_COLOR_TABLE_SGI = $80BC;  
   GL_PROXY_TEXTURE_COLOR_TABLE_SGI = $80BD;  
 
-{ was #define dname def_expr }
-function GLEW_SGI_texture_color_table : longint; { return type might be wrong }
 
-{$endif}
-{ GL_SGI_texture_color_table  }
 { ------------------------- GL_SUNX_constant_data -------------------------  }
-{$ifndef GL_SUNX_constant_data}
 
 const
   GL_SUNX_constant_data = 1;  
   GL_UNPACK_CONSTANT_DATA_SUNX = $81D5;  
   GL_TEXTURE_CONSTANT_DATA_SUNX = $81D6;  
 type
-
   TPFNGLFINISHTEXTURESUNXPROC = procedure (para1:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glFinishTextureSUNX : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function GLEW_SUNX_constant_data : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SUNX_constant_data  }
 { -------------------- GL_SUN_convolution_border_modes --------------------  }
-{$ifndef GL_SUN_convolution_border_modes}
 
 const
   GL_SUN_convolution_border_modes = 1;  
   GL_WRAP_BORDER_SUN = $81D4;  
 
-{ was #define dname def_expr }
-function GLEW_SUN_convolution_border_modes : longint; { return type might be wrong }
 
-{$endif}
-{ GL_SUN_convolution_border_modes  }
 { -------------------------- GL_SUN_global_alpha --------------------------  }
-{$ifndef GL_SUN_global_alpha}
 
 const
   GL_SUN_global_alpha = 1;  
   GL_GLOBAL_ALPHA_SUN = $81D9;  
   GL_GLOBAL_ALPHA_FACTOR_SUN = $81DA;  
 type
-
   TPFNGLGLOBALALPHAFACTORBSUNPROC = procedure (factor:TGLbyte);cdecl;
-
   TPFNGLGLOBALALPHAFACTORDSUNPROC = procedure (factor:TGLdouble);cdecl;
-
   TPFNGLGLOBALALPHAFACTORFSUNPROC = procedure (factor:TGLfloat);cdecl;
-
   TPFNGLGLOBALALPHAFACTORISUNPROC = procedure (factor:TGLint);cdecl;
-
   TPFNGLGLOBALALPHAFACTORSSUNPROC = procedure (factor:TGLshort);cdecl;
-
   TPFNGLGLOBALALPHAFACTORUBSUNPROC = procedure (factor:TGLubyte);cdecl;
-
   TPFNGLGLOBALALPHAFACTORUISUNPROC = procedure (factor:TGLuint);cdecl;
-
   TPFNGLGLOBALALPHAFACTORUSSUNPROC = procedure (factor:TGLushort);cdecl;
 
-{ was #define dname def_expr }
-function glGlobalAlphaFactorbSUN : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glGlobalAlphaFactordSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactorfSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactoriSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactorsSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactorubSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactoruiSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glGlobalAlphaFactorusSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SUN_global_alpha : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SUN_global_alpha  }
 { --------------------------- GL_SUN_mesh_array ---------------------------  }
-{$ifndef GL_SUN_mesh_array}
 
 const
   GL_SUN_mesh_array = 1;  
   GL_QUAD_MESH_SUN = $8614;  
   GL_TRIANGLE_MESH_SUN = $8615;  
 
-{ was #define dname def_expr }
-function GLEW_SUN_mesh_array : longint; { return type might be wrong }
 
-{$endif}
-{ GL_SUN_mesh_array  }
 { ------------------------ GL_SUN_read_video_pixels -----------------------  }
-{$ifndef GL_SUN_read_video_pixels}
 
 const
   GL_SUN_read_video_pixels = 1;  
 type
-
-  TPFNGLREADVIDEOPIXELSSUNPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum; 
+  TPFNGLREADVIDEOPIXELSSUNPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei; format:TGLenum;
                 _type:TGLenum; pixels:pointer);cdecl;
 
-{ was #define dname def_expr }
-function glReadVideoPixelsSUN : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function GLEW_SUN_read_video_pixels : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SUN_read_video_pixels  }
 { --------------------------- GL_SUN_slice_accum --------------------------  }
-{$ifndef GL_SUN_slice_accum}
 
 const
   GL_SUN_slice_accum = 1;  
   GL_SLICE_ACCUM_SUN = $85CC;  
 
-{ was #define dname def_expr }
-function GLEW_SUN_slice_accum : longint; { return type might be wrong }
 
-{$endif}
-{ GL_SUN_slice_accum  }
 { -------------------------- GL_SUN_triangle_list -------------------------  }
-{$ifndef GL_SUN_triangle_list}
 
 const
   GL_SUN_triangle_list = 1;  
@@ -25518,346 +15661,110 @@ const
   GL_R1UI_T2F_N3F_V3F_SUN = $85CA;  
   GL_R1UI_T2F_C4F_N3F_V3F_SUN = $85CB;  
 type
-
   TPFNGLREPLACEMENTCODEPOINTERSUNPROC = procedure (_type:TGLenum; stride:TGLsizei; pointer:pointer);cdecl;
-
   TPFNGLREPLACEMENTCODEUBSUNPROC = procedure (code:TGLubyte);cdecl;
-
   TPFNGLREPLACEMENTCODEUBVSUNPROC = procedure (code:PGLubyte);cdecl;
-
   TPFNGLREPLACEMENTCODEUISUNPROC = procedure (code:TGLuint);cdecl;
-
   TPFNGLREPLACEMENTCODEUIVSUNPROC = procedure (code:PGLuint);cdecl;
-
   TPFNGLREPLACEMENTCODEUSSUNPROC = procedure (code:TGLushort);cdecl;
-
   TPFNGLREPLACEMENTCODEUSVSUNPROC = procedure (code:PGLushort);cdecl;
 
-{ was #define dname def_expr }
-function glReplacementCodePointerSUN : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glReplacementCodeubSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeubvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuivSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeusSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeusvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SUN_triangle_list : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SUN_triangle_list  }
 { ----------------------------- GL_SUN_vertex -----------------------------  }
-{$ifndef GL_SUN_vertex}
 
 const
   GL_SUN_vertex = 1;  
 type
-
-  TPFNGLCOLOR3FVERTEX3FSUNPROC = procedure (r:TGLfloat; g:TGLfloat; b:TGLfloat; x:TGLfloat; y:TGLfloat; 
-                z:TGLfloat);cdecl;
-
+  TPFNGLCOLOR3FVERTEX3FSUNPROC = procedure (r:TGLfloat; g:TGLfloat; b:TGLfloat; x:TGLfloat; y:TGLfloat;                z:TGLfloat);cdecl;
   TPFNGLCOLOR3FVERTEX3FVSUNPROC = procedure (c:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (r:TGLfloat; g:TGLfloat; b:TGLfloat; a:TGLfloat; nx:TGLfloat; 
+  TPFNGLCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (r:TGLfloat; g:TGLfloat; b:TGLfloat; a:TGLfloat; nx:TGLfloat;
                 ny:TGLfloat; nz:TGLfloat; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLCOLOR4FNORMAL3FVERTEX3FVSUNPROC = procedure (c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLCOLOR4UBVERTEX2FSUNPROC = procedure (r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; x:TGLfloat; 
-                y:TGLfloat);cdecl;
-
+  TPFNGLCOLOR4UBVERTEX2FSUNPROC = procedure (r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; x:TGLfloat;                y:TGLfloat);cdecl;
   TPFNGLCOLOR4UBVERTEX2FVSUNPROC = procedure (c:PGLubyte; v:PGLfloat);cdecl;
-
-  TPFNGLCOLOR4UBVERTEX3FSUNPROC = procedure (r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; x:TGLfloat; 
-                y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLCOLOR4UBVERTEX3FSUNPROC = procedure (r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; x:TGLfloat;                y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLCOLOR4UBVERTEX3FVSUNPROC = procedure (c:PGLubyte; v:PGLfloat);cdecl;
-
-  TPFNGLNORMAL3FVERTEX3FSUNPROC = procedure (nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat; y:TGLfloat; 
-                z:TGLfloat);cdecl;
-
+  TPFNGLNORMAL3FVERTEX3FSUNPROC = procedure (nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat; y:TGLfloat;                z:TGLfloat);cdecl;
   TPFNGLNORMAL3FVERTEX3FVSUNPROC = procedure (n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLfloat; g:TGLfloat; b:TGLfloat; x:TGLfloat; 
-                y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLfloat; g:TGLfloat; b:TGLfloat; x:TGLfloat;                y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FVSUNPROC = procedure (rc:PGLuint; c:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLfloat; g:TGLfloat; b:TGLfloat; a:TGLfloat; 
+  TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLfloat; g:TGLfloat; b:TGLfloat; a:TGLfloat;
                 nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat; y:TGLfloat; 
                 z:TGLfloat);cdecl;
-
   TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FVSUNPROC = procedure (rc:PGLuint; c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte; 
-                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FSUNPROC = procedure (rc:TGLuint; r:TGLubyte; g:TGLubyte; b:TGLubyte; a:TGLubyte;                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FVSUNPROC = procedure (rc:PGLuint; c:PGLubyte; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat; 
-                y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat;                y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FVSUNPROC = procedure (rc:PGLuint; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat; 
+  TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat;
                 b:TGLfloat; a:TGLfloat; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; 
                 x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC = procedure (rc:PGLuint; tc:PGLfloat; c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; nx:TGLfloat; ny:TGLfloat; 
+  TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; nx:TGLfloat; ny:TGLfloat;
                 nz:TGLfloat; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FVSUNPROC = procedure (rc:PGLuint; tc:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; x:TGLfloat; y:TGLfloat; 
-                z:TGLfloat);cdecl;
-
+  TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FSUNPROC = procedure (rc:TGLuint; s:TGLfloat; t:TGLfloat; x:TGLfloat; y:TGLfloat;                z:TGLfloat);cdecl;
   TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FVSUNPROC = procedure (rc:PGLuint; tc:PGLfloat; v:PGLfloat);cdecl;
-
   TPFNGLREPLACEMENTCODEUIVERTEX3FSUNPROC = procedure (rc:TGLuint; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLREPLACEMENTCODEUIVERTEX3FVSUNPROC = procedure (rc:PGLuint; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD2FCOLOR3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat; b:TGLfloat; 
-                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLTEXCOORD2FCOLOR3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat; b:TGLfloat;                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLTEXCOORD2FCOLOR3FVERTEX3FVSUNPROC = procedure (tc:PGLfloat; c:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat; b:TGLfloat; 
+  TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLfloat; g:TGLfloat; b:TGLfloat;
                 a:TGLfloat; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; x:TGLfloat; 
                 y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC = procedure (tc:PGLfloat; c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLubyte; g:TGLubyte; b:TGLubyte; 
+  TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; r:TGLubyte; g:TGLubyte; b:TGLubyte;
                 a:TGLubyte; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FVSUNPROC = procedure (tc:PGLfloat; c:PGLubyte; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD2FNORMAL3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat; 
-                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
+  TPFNGLTEXCOORD2FNORMAL3FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; nx:TGLfloat; ny:TGLfloat; nz:TGLfloat;                x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
   TPFNGLTEXCOORD2FNORMAL3FVERTEX3FVSUNPROC = procedure (tc:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
   TPFNGLTEXCOORD2FVERTEX3FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; x:TGLfloat; y:TGLfloat; z:TGLfloat);cdecl;
-
   TPFNGLTEXCOORD2FVERTEX3FVSUNPROC = procedure (tc:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; p:TGLfloat; q:TGLfloat; r:TGLfloat; 
+  TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; p:TGLfloat; q:TGLfloat; r:TGLfloat;
                 g:TGLfloat; b:TGLfloat; a:TGLfloat; nx:TGLfloat; ny:TGLfloat; 
                 nz:TGLfloat; x:TGLfloat; y:TGLfloat; z:TGLfloat; w:TGLfloat);cdecl;
-
   TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC = procedure (tc:PGLfloat; c:PGLfloat; n:PGLfloat; v:PGLfloat);cdecl;
-
-  TPFNGLTEXCOORD4FVERTEX4FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; p:TGLfloat; q:TGLfloat; x:TGLfloat; 
-                y:TGLfloat; z:TGLfloat; w:TGLfloat);cdecl;
-
+  TPFNGLTEXCOORD4FVERTEX4FSUNPROC = procedure (s:TGLfloat; t:TGLfloat; p:TGLfloat; q:TGLfloat; x:TGLfloat;                y:TGLfloat; z:TGLfloat; w:TGLfloat);cdecl;
   TPFNGLTEXCOORD4FVERTEX4FVSUNPROC = procedure (tc:PGLfloat; v:PGLfloat);cdecl;
 
-{ was #define dname def_expr }
-function glColor3fVertex3fSUN : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function glColor3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4ubVertex2fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4ubVertex2fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4ubVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glColor4ubVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor4fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor4fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor4ubVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiColor4ubVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiTexCoord2fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glReplacementCodeuiVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor4fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor4fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor4ubVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fColor4ubVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fNormal3fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fNormal3fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fVertex3fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord2fVertex3fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4fColor4fNormal3fVertex4fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4fColor4fNormal3fVertex4fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4fVertex4fSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function glTexCoord4fVertex4fvSUN : longint; { return type might be wrong }
-
-{ was #define dname def_expr }
-function GLEW_SUN_vertex : longint; { return type might be wrong }
-
-{$endif}
-{ GL_SUN_vertex  }
 { -------------------------- GL_VIV_shader_binary -------------------------  }
-{$ifndef GL_VIV_shader_binary}
 
 const
   GL_VIV_shader_binary = 1;  
   GL_SHADER_BINARY_VIV = $8FC4;  
 
-{ was #define dname def_expr }
-function GLEW_VIV_shader_binary : longint; { return type might be wrong }
 
-{$endif}
-{ GL_VIV_shader_binary  }
 { -------------------------- GL_WIN_phong_shading -------------------------  }
-{$ifndef GL_WIN_phong_shading}
 
 const
   GL_WIN_phong_shading = 1;  
   GL_PHONG_WIN = $80EA;  
   GL_PHONG_HINT_WIN = $80EB;  
 
-{ was #define dname def_expr }
-function GLEW_WIN_phong_shading : longint; { return type might be wrong }
 
-{$endif}
-{ GL_WIN_phong_shading  }
 { ------------------------- GL_WIN_scene_markerXXX ------------------------  }
-{$ifndef GL_WIN_scene_markerXXX}
 
 const
   GL_WIN_scene_markerXXX = 1;  
 
-{ was #define dname def_expr }
-function GLEW_WIN_scene_markerXXX : longint; { return type might be wrong }
 
-{$endif}
-{ GL_WIN_scene_markerXXX  }
 { -------------------------- GL_WIN_specular_fog --------------------------  }
-{$ifndef GL_WIN_specular_fog}
 
 const
   GL_WIN_specular_fog = 1;  
   GL_FOG_SPECULAR_TEXTURE_WIN = $80EC;  
 
-{ was #define dname def_expr }
-function GLEW_WIN_specular_fog : longint; { return type might be wrong }
 
-{$endif}
-{ GL_WIN_specular_fog  }
 { ---------------------------- GL_WIN_swap_hint ---------------------------  }
-{$ifndef GL_WIN_swap_hint}
 
 const
   GL_WIN_swap_hint = 1;  
 type
-
   TPFNGLADDSWAPHINTRECTWINPROC = procedure (x:TGLint; y:TGLint; width:TGLsizei; height:TGLsizei);cdecl;
 
-{ was #define dname def_expr }
-function glAddSwapHintRectWIN : longint; { return type might be wrong }
 
-{ was #define dname def_expr }
-function GLEW_WIN_swap_hint : longint; { return type might be wrong }
 
-{$endif}
-{ GL_WIN_swap_hint  }
 { -------------------------------------------------------------------------  }
   var
     __glewCopyTexSubImage3D : TPFNGLCOPYTEXSUBIMAGE3DPROC;cvar;external libGLEW;
@@ -29552,44 +19459,27 @@ function GLEW_WIN_swap_hint : longint; { return type might be wrong }
 const
   GLEW_OK = 0;  
   GLEW_NO_ERROR = 0;  
-{ missing GL version  }
-  GLEW_ERROR_NO_GL_VERSION = 1;  
-{ Need at least OpenGL 1.1  }
-  GLEW_ERROR_GL_VERSION_10_ONLY = 2;  
-{ Need at least GLX 1.2  }
-  GLEW_ERROR_GLX_VERSION_11_ONLY = 3;  
-{ Need GLX display for GLX support  }
-  GLEW_ERROR_NO_GLX_DISPLAY = 4;  
-{ string codes  }
-  GLEW_VERSION = 1;  
+  GLEW_ERROR_NO_GL_VERSION = 1;
+  GLEW_ERROR_GL_VERSION_10_ONLY = 2;
+  GLEW_ERROR_GLX_VERSION_11_ONLY = 3;
+  GLEW_ERROR_NO_GLX_DISPLAY = 4;
+  GLEW_VERSION = 1;
   GLEW_VERSION_MAJOR = 2;  
   GLEW_VERSION_MINOR = 3;  
   GLEW_VERSION_MICRO = 4;  
 { -------------------------------------------------------------------------  }
-{ GLEW version info  }
-{
-VERSION 2.2.0
-VERSION_MAJOR 2
-VERSION_MINOR 2
-VERSION_MICRO 0
- }
+
 { API  }
 
 function glewInit:TGLenum;cdecl;external libGLEW;
 function glewIsSupported(name:Pchar):TGLboolean;cdecl;external libGLEW;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function glewIsExtensionSupported(x : longint) : longint;
+
+function glewIsExtensionSupported(x : PChar) : Boolean;
 
 {$ifndef GLEW_GET_VAR}
 {#define GLEW_GET_VAR(x) (*(const GLboolean*)&x) }
 {$endif}
 {$ifndef GLEW_GET_FUN}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
 function GLEW_GET_FUN(x : longint) : longint;
 
 {$endif}
@@ -29599,23 +19489,6 @@ function GLEW_GET_FUN(x : longint) : longint;
 function glewGetExtension(name:Pchar):TGLboolean;cdecl;external libGLEW;
 function glewGetErrorString(error:TGLenum):PGLubyte;cdecl;external libGLEW;
 function glewGetString(name:TGLenum):PGLubyte;cdecl;external libGLEW;
-{ C++ end of extern C conditionnal removed }
-{$ifdef GLEW__DEFINED}
-{$undef GLEW__DEFINED}
-{$undef }
-{$endif}
-{$ifdef GLEW_CALLBACK_DEFINED}
-{$undef GLEW_CALLBACK_DEFINED}
-{$undef CALLBACK}
-{$endif}
-{$ifdef GLEW_WINGDIAPI_DEFINED}
-{$undef GLEW_WINGDIAPI_DEFINED}
-{$undef WINGDIAPI}
-{$endif}
-{$undef extern}
-{ #undef extern  }
-{$endif}
-{ __glew_h__  }
 
 // === Konventiert am: 24-6-25 13:43:02 ===
 
@@ -29627,7 +19500,7 @@ implementation
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function glewIsExtensionSupported(x : longint) : longint;
+function glewIsExtensionSupported(x: PChar): Boolean;
 begin
   glewIsExtensionSupported:=glewIsSupported(x);
 end;

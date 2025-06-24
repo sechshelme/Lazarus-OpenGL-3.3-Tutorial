@@ -107,29 +107,34 @@ const
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    Load_GLADE;
+    glfwInit;
+    WriteLn(PtrUInt(__glewGenVertexArrays));
+
+
+
+//    Load_GLADE;
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
     // Daten für Dreieck
-    glGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    glGenBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
+    __glewGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
+    __glewGenBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
 
-    glBindVertexArray(VBTriangle.VAOs[vaMesh]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.Mesh_Buffers[mbVBOVektor]);
-    glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * SizeOf(TVector3f), PVector3f(Triangle), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
+    __glewBindVertexArray(VBTriangle.VAOs[vaMesh]);
+    __glewBindBuffer(GL_ARRAY_BUFFER, VBTriangle.Mesh_Buffers[mbVBOVektor]);
+    __glewBufferData(GL_ARRAY_BUFFER, Length(Triangle) * SizeOf(TVector3f), PVector3f(Triangle), GL_STATIC_DRAW);
+    __glewEnableVertexAttribArray(0);
+    __glewVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
     // Daten für Quadrat
-    glGenVertexArrays(Length(VBQuad.VAOs), VBQuad.VAOs);
-    glGenBuffers(Length(VBQuad.Mesh_Buffers), VBQuad.Mesh_Buffers);
+    __glewGenVertexArrays(Length(VBQuad.VAOs), VBQuad.VAOs);
+    __glewGenBuffers(Length(VBQuad.Mesh_Buffers), VBQuad.Mesh_Buffers);
 
-    glBindVertexArray(VBQuad.VAOs[vaMesh]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.Mesh_Buffers[mbVBOVektor]);
-    glBufferData(GL_ARRAY_BUFFER, Length(Quad) * SizeOf(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
+    __glewBindVertexArray(VBQuad.VAOs[vaMesh]);
+    __glewBindBuffer(GL_ARRAY_BUFFER, VBQuad.Mesh_Buffers[mbVBOVektor]);
+    __glewBufferData(GL_ARRAY_BUFFER, Length(Quad) * SizeOf(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
+    __glewEnableVertexAttribArray(0);
+    __glewVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
 
     // Shader
@@ -149,19 +154,19 @@ const
       Shader.UseProgram;
 
       // Zeichne Dreieck
-      glBindVertexArray(VBTriangle.VAOs[vaMesh]);
+      __glewBindVertexArray(VBTriangle.VAOs[vaMesh]);
       glDrawArrays(GL_TRIANGLES, 0, Length(Triangle) * 3);
 
       // Zeichne Quadrat
-      glBindVertexArray(VBQuad.VAOs[vaMesh]);
+      __glewBindVertexArray(VBQuad.VAOs[vaMesh]);
       glDrawArrays(GL_TRIANGLES, 0, Length(Quad) * 3);
 
       glfwSwapBuffers(window);
       glfwPollEvents;
     end;
 
-    glDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    glDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
+    __glewDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
+    __glewDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
 
     glfwDestroyWindow(window);
     glfwTerminate;
