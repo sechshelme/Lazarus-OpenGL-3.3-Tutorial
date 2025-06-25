@@ -3,17 +3,111 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
-  glew,
   oglglad_gl,
+  glew,
   fp_glfw3,
-  fp_glfw3native,
+  fp_glfw3native;
 //  oglGLFW3,
-  oglDebug,
-  oglShader;
+//  oglDebug,
+//  oglShader;
 
 type
     TVector3f = array[0..2] of TGLfloat;
     PVector3f = ^TVector3f;
+const
+    vertex_shader_text =
+      '#version 330 core' + #10 +
+      '' + #10 +
+      'layout (location = 0) in vec4 vPosition;' + #10 +
+      '' + #10 +
+      'void main()' + #10 +
+      '{' + #10 +
+      '  gl_Position = vPosition;' + #10 +
+      '}';
+
+    fragment_shader_text =
+      '#version 330 core' + #10 +
+      '' + #10 +
+      'out vec4 fColor;' + #10 +
+      '' + #10 +
+      'void main()' + #10 +
+      '{' + #10 +
+      '  fColor = vec4(0.5, 0.4, 0.8, 1.0);' + #10 +
+      '}';
+
+    var
+           programID: GLuint;
+
+    function Initshader(VertexDatei, FragmentDatei: string): GLuint;
+    var
+      s: string;
+
+      ProgramObject: GLint;
+      VertexShaderObject: GLint;
+      FragmentShaderObject: GLint;
+
+      ErrorStatus, InfoLogLength: integer;
+
+    begin
+      ProgramObject := glCreateProgram();
+
+      // Vertex - Shader
+
+      VertexShaderObject := glCreateShader(GL_VERTEX_SHADER);
+      s := VertexDatei;
+      glShaderSource(VertexShaderObject, 1, @s, nil);
+      glCompileShader(VertexShaderObject);
+      glAttachShader(ProgramObject, VertexShaderObject);
+
+      // Check Shader
+
+      glGetShaderiv(VertexShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
+      if ErrorStatus = 0 then begin
+        glGetShaderiv(VertexShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+        SetLength(s, InfoLogLength + 1);
+        glGetShaderInfoLog(VertexShaderObject, InfoLogLength, nil, @s[1]);
+        WriteLn(PChar(s), 'OpenGL Vertex Fehler', 48);
+        Halt;
+      end;
+
+      glDeleteShader(VertexShaderObject);
+
+      // Fragment - Shader
+
+      FragmentShaderObject := glCreateShader(GL_FRAGMENT_SHADER);
+      s := FragmentDatei;
+      glShaderSource(FragmentShaderObject, 1, @s, nil);
+      glCompileShader(FragmentShaderObject);
+      glAttachShader(ProgramObject, FragmentShaderObject);
+
+      // Check Shader
+
+      glGetShaderiv(FragmentShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
+      if ErrorStatus = 0 then begin
+        glGetShaderiv(FragmentShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+        SetLength(s, InfoLogLength + 1);
+        glGetShaderInfoLog(FragmentShaderObject, InfoLogLength, nil, @s[1]);
+        WriteLn(PChar(s), 'OpenGL Fragment Fehler', 48);
+        Halt;
+      end;
+
+      glDeleteShader(FragmentShaderObject);
+      glLinkProgram(ProgramObject);    // Die beiden Shader zusammen linken
+
+      // Check Link
+      glGetProgramiv(ProgramObject, GL_LINK_STATUS, @ErrorStatus);
+      if ErrorStatus = 0 then begin
+        glGetProgramiv(ProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
+        SetLength(s, InfoLogLength + 1);
+        glGetProgramInfoLog(ProgramObject, InfoLogLength, nil, @s[1]);
+        WriteLn(PChar(s), 'OpenGL ShaderLink Fehler', 48);
+        Halt;
+      end;
+
+      Result := ProgramObject;
+    end;
+
+
 
   procedure error_callback(error_code: longint; description: PChar); cdecl;
   begin
@@ -35,25 +129,6 @@ const
     ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
     (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
 
-  vertex_shader_text: string =
-    '#version 330 core' + #10 +
-    '' + #10 +
-    'layout (location = 0) in vec4 vPosition;' + #10 +
-    '' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '  gl_Position = vPosition;' + #10 +
-    '}';
-
-  fragment_shader_text =
-    '#version 330 core' + #10 +
-    '' + #10 +
-    'out vec4 fColor;' + #10 +
-    '' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '  fColor = vec4(0.5, 0.4, 0.8, 1.0);' + #10 +
-    '}';
 
   procedure Char_callBack(window: PGLFWwindow; codepoint: dword); cdecl;
   begin
@@ -69,7 +144,7 @@ const
   var
     window: PGLFWwindow;
     Width, Height: longint;
-    Shader: TShader;
+//    Shader: TShader;
 
   type
     TVB = record
@@ -107,17 +182,18 @@ const
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    glfwInit;
+if    glewInit<>GLEW_OK then WriteLn('glfwInit Fehler');
     WriteLn(PtrUInt(__glewGenVertexArrays));
 
 
 
-//    Load_GLADE;
+    Load_GLADE;
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
     // Daten für Dreieck
     __glewGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
+
     __glewGenBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
 
     __glewBindVertexArray(VBTriangle.VAOs[vaMesh]);
@@ -138,11 +214,13 @@ const
 
 
     // Shader
-    Shader := TShader.Create;
-    Shader.LoadShaderObject(GL_VERTEX_SHADER, vertex_shader_text);
-    Shader.LoadShaderObject(GL_FRAGMENT_SHADER, fragment_shader_text);
-    Shader.LinkProgram;
-    Shader.UseProgram;
+    programID:=    Initshader(vertex_shader_text, fragment_shader_text);
+
+    //Shader := TShader.Create;
+    //Shader.LoadShaderObject(GL_VERTEX_SHADER, vertex_shader_text);
+    //Shader.LoadShaderObject(GL_FRAGMENT_SHADER, fragment_shader_text);
+    //Shader.LinkProgram;
+    //Shader.UseProgram;
 
 
     while glfwWindowShouldClose(window) = 0 do begin
@@ -151,7 +229,8 @@ const
       glViewport(0, 0, Width, Height);
       glClear(GL_COLOR_BUFFER_BIT);
 
-      Shader.UseProgram;
+//      Shader.UseProgram;
+      glUseProgram(programID);
 
       // Zeichne Dreieck
       __glewBindVertexArray(VBTriangle.VAOs[vaMesh]);
@@ -167,6 +246,8 @@ const
 
     __glewDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
     __glewDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
+
+      glDeleteProgram(ProgramID);
 
     glfwDestroyWindow(window);
     glfwTerminate;
