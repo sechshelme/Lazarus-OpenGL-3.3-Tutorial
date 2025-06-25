@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_glew_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_glfw3_package"/>
       </Item>
       <Item>
@@ -59,6 +62,9 @@
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-XX"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

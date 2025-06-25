@@ -6,7 +6,6 @@ uses
   oglglad_gl,
   fp_glfw3,
   fp_glfw3native,
-//  oglGLFW3,
   oglDebug,
   oglShader;
 

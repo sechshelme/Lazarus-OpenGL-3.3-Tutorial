@@ -1,4 +1,4 @@
-unit glew;
+unit fp_glew;
 
 interface
 
@@ -18,7 +18,7 @@ const
 
   {$ifdef windows}
   libGL = 'opengl32.dll';
-  libGLEW = 'libGLEW.dll';
+  libGLEW = 'glew32.dll';
   {$endif}
 
   {$ifdef darwin}
@@ -16133,3691 +16133,11062 @@ type
 
 var
   __glewCopyTexSubImage3D: TPFNGLCOPYTEXSUBIMAGE3DPROC; cvar;external libGLEW;
+  glCopyTexSubImage3D: TPFNGLCOPYTEXSUBIMAGE3DPROC absolute __glewCopyTexSubImage3D;
+
   __glewDrawRangeElements: TPFNGLDRAWRANGEELEMENTSPROC; cvar;external libGLEW;
+  glDrawRangeElements: TPFNGLDRAWRANGEELEMENTSPROC absolute __glewDrawRangeElements;
+
   __glewTexImage3D: TPFNGLTEXIMAGE3DPROC; cvar;external libGLEW;
+  glTexImage3D: TPFNGLTEXIMAGE3DPROC absolute __glewTexImage3D;
+
   __glewTexSubImage3D: TPFNGLTEXSUBIMAGE3DPROC; cvar;external libGLEW;
+  glTexSubImage3D: TPFNGLTEXSUBIMAGE3DPROC absolute __glewTexSubImage3D;
+
   __glewActiveTexture: TPFNGLACTIVETEXTUREPROC; cvar;external libGLEW;
+  glActiveTexture: TPFNGLACTIVETEXTUREPROC absolute __glewActiveTexture;
+
   __glewClientActiveTexture: TPFNGLCLIENTACTIVETEXTUREPROC; cvar;external libGLEW;
+  glClientActiveTexture: TPFNGLCLIENTACTIVETEXTUREPROC absolute __glewClientActiveTexture;
+
   __glewCompressedTexImage1D: TPFNGLCOMPRESSEDTEXIMAGE1DPROC; cvar;external libGLEW;
+  glCompressedTexImage1D: TPFNGLCOMPRESSEDTEXIMAGE1DPROC absolute __glewCompressedTexImage1D;
+
   __glewCompressedTexImage2D: TPFNGLCOMPRESSEDTEXIMAGE2DPROC; cvar;external libGLEW;
+  glCompressedTexImage2D: TPFNGLCOMPRESSEDTEXIMAGE2DPROC absolute __glewCompressedTexImage2D;
+
   __glewCompressedTexImage3D: TPFNGLCOMPRESSEDTEXIMAGE3DPROC; cvar;external libGLEW;
+  glCompressedTexImage3D: TPFNGLCOMPRESSEDTEXIMAGE3DPROC absolute __glewCompressedTexImage3D;
+
   __glewCompressedTexSubImage1D: TPFNGLCOMPRESSEDTEXSUBIMAGE1DPROC; cvar;external libGLEW;
+  glCompressedTexSubImage1D: TPFNGLCOMPRESSEDTEXSUBIMAGE1DPROC absolute __glewCompressedTexSubImage1D;
+
   __glewCompressedTexSubImage2D: TPFNGLCOMPRESSEDTEXSUBIMAGE2DPROC; cvar;external libGLEW;
+  glCompressedTexSubImage2D: TPFNGLCOMPRESSEDTEXSUBIMAGE2DPROC absolute __glewCompressedTexSubImage2D;
+
   __glewCompressedTexSubImage3D: TPFNGLCOMPRESSEDTEXSUBIMAGE3DPROC; cvar;external libGLEW;
+  glCompressedTexSubImage3D: TPFNGLCOMPRESSEDTEXSUBIMAGE3DPROC absolute __glewCompressedTexSubImage3D;
+
   __glewGetCompressedTexImage: TPFNGLGETCOMPRESSEDTEXIMAGEPROC; cvar;external libGLEW;
+  glGetCompressedTexImage: TPFNGLGETCOMPRESSEDTEXIMAGEPROC absolute __glewGetCompressedTexImage;
+
   __glewLoadTransposeMatrixd: TPFNGLLOADTRANSPOSEMATRIXDPROC; cvar;external libGLEW;
+  glLoadTransposeMatrixd: TPFNGLLOADTRANSPOSEMATRIXDPROC absolute __glewLoadTransposeMatrixd;
+
   __glewLoadTransposeMatrixf: TPFNGLLOADTRANSPOSEMATRIXFPROC; cvar;external libGLEW;
+  glLoadTransposeMatrixf: TPFNGLLOADTRANSPOSEMATRIXFPROC absolute __glewLoadTransposeMatrixf;
+
   __glewMultTransposeMatrixd: TPFNGLMULTTRANSPOSEMATRIXDPROC; cvar;external libGLEW;
+  glMultTransposeMatrixd: TPFNGLMULTTRANSPOSEMATRIXDPROC absolute __glewMultTransposeMatrixd;
+
   __glewMultTransposeMatrixf: TPFNGLMULTTRANSPOSEMATRIXFPROC; cvar;external libGLEW;
+  glMultTransposeMatrixf: TPFNGLMULTTRANSPOSEMATRIXFPROC absolute __glewMultTransposeMatrixf;
+
   __glewMultiTexCoord1d: TPFNGLMULTITEXCOORD1DPROC; cvar;external libGLEW;
+  glMultiTexCoord1d: TPFNGLMULTITEXCOORD1DPROC absolute __glewMultiTexCoord1d;
+
   __glewMultiTexCoord1dv: TPFNGLMULTITEXCOORD1DVPROC; cvar;external libGLEW;
+  glMultiTexCoord1dv: TPFNGLMULTITEXCOORD1DVPROC absolute __glewMultiTexCoord1dv;
+
   __glewMultiTexCoord1f: TPFNGLMULTITEXCOORD1FPROC; cvar;external libGLEW;
+  glMultiTexCoord1f: TPFNGLMULTITEXCOORD1FPROC absolute __glewMultiTexCoord1f;
+
   __glewMultiTexCoord1fv: TPFNGLMULTITEXCOORD1FVPROC; cvar;external libGLEW;
+  glMultiTexCoord1fv: TPFNGLMULTITEXCOORD1FVPROC absolute __glewMultiTexCoord1fv;
+
   __glewMultiTexCoord1i: TPFNGLMULTITEXCOORD1IPROC; cvar;external libGLEW;
+  glMultiTexCoord1i: TPFNGLMULTITEXCOORD1IPROC absolute __glewMultiTexCoord1i;
+
   __glewMultiTexCoord1iv: TPFNGLMULTITEXCOORD1IVPROC; cvar;external libGLEW;
+  glMultiTexCoord1iv: TPFNGLMULTITEXCOORD1IVPROC absolute __glewMultiTexCoord1iv;
+
   __glewMultiTexCoord1s: TPFNGLMULTITEXCOORD1SPROC; cvar;external libGLEW;
+  glMultiTexCoord1s: TPFNGLMULTITEXCOORD1SPROC absolute __glewMultiTexCoord1s;
+
   __glewMultiTexCoord1sv: TPFNGLMULTITEXCOORD1SVPROC; cvar;external libGLEW;
+  glMultiTexCoord1sv: TPFNGLMULTITEXCOORD1SVPROC absolute __glewMultiTexCoord1sv;
+
   __glewMultiTexCoord2d: TPFNGLMULTITEXCOORD2DPROC; cvar;external libGLEW;
+  glMultiTexCoord2d: TPFNGLMULTITEXCOORD2DPROC absolute __glewMultiTexCoord2d;
+
   __glewMultiTexCoord2dv: TPFNGLMULTITEXCOORD2DVPROC; cvar;external libGLEW;
+  glMultiTexCoord2dv: TPFNGLMULTITEXCOORD2DVPROC absolute __glewMultiTexCoord2dv;
+
   __glewMultiTexCoord2f: TPFNGLMULTITEXCOORD2FPROC; cvar;external libGLEW;
+  glMultiTexCoord2f: TPFNGLMULTITEXCOORD2FPROC absolute __glewMultiTexCoord2f;
+
   __glewMultiTexCoord2fv: TPFNGLMULTITEXCOORD2FVPROC; cvar;external libGLEW;
+  glMultiTexCoord2fv: TPFNGLMULTITEXCOORD2FVPROC absolute __glewMultiTexCoord2fv;
+
   __glewMultiTexCoord2i: TPFNGLMULTITEXCOORD2IPROC; cvar;external libGLEW;
+  glMultiTexCoord2i: TPFNGLMULTITEXCOORD2IPROC absolute __glewMultiTexCoord2i;
+
   __glewMultiTexCoord2iv: TPFNGLMULTITEXCOORD2IVPROC; cvar;external libGLEW;
+  glMultiTexCoord2iv: TPFNGLMULTITEXCOORD2IVPROC absolute __glewMultiTexCoord2iv;
+
   __glewMultiTexCoord2s: TPFNGLMULTITEXCOORD2SPROC; cvar;external libGLEW;
+  glMultiTexCoord2s: TPFNGLMULTITEXCOORD2SPROC absolute __glewMultiTexCoord2s;
+
   __glewMultiTexCoord2sv: TPFNGLMULTITEXCOORD2SVPROC; cvar;external libGLEW;
+  glMultiTexCoord2sv: TPFNGLMULTITEXCOORD2SVPROC absolute __glewMultiTexCoord2sv;
+
   __glewMultiTexCoord3d: TPFNGLMULTITEXCOORD3DPROC; cvar;external libGLEW;
+  glMultiTexCoord3d: TPFNGLMULTITEXCOORD3DPROC absolute __glewMultiTexCoord3d;
+
   __glewMultiTexCoord3dv: TPFNGLMULTITEXCOORD3DVPROC; cvar;external libGLEW;
+  glMultiTexCoord3dv: TPFNGLMULTITEXCOORD3DVPROC absolute __glewMultiTexCoord3dv;
+
   __glewMultiTexCoord3f: TPFNGLMULTITEXCOORD3FPROC; cvar;external libGLEW;
+  glMultiTexCoord3f: TPFNGLMULTITEXCOORD3FPROC absolute __glewMultiTexCoord3f;
+
   __glewMultiTexCoord3fv: TPFNGLMULTITEXCOORD3FVPROC; cvar;external libGLEW;
+  glMultiTexCoord3fv: TPFNGLMULTITEXCOORD3FVPROC absolute __glewMultiTexCoord3fv;
+
   __glewMultiTexCoord3i: TPFNGLMULTITEXCOORD3IPROC; cvar;external libGLEW;
+  glMultiTexCoord3i: TPFNGLMULTITEXCOORD3IPROC absolute __glewMultiTexCoord3i;
+
   __glewMultiTexCoord3iv: TPFNGLMULTITEXCOORD3IVPROC; cvar;external libGLEW;
+  glMultiTexCoord3iv: TPFNGLMULTITEXCOORD3IVPROC absolute __glewMultiTexCoord3iv;
+
   __glewMultiTexCoord3s: TPFNGLMULTITEXCOORD3SPROC; cvar;external libGLEW;
+  glMultiTexCoord3s: TPFNGLMULTITEXCOORD3SPROC absolute __glewMultiTexCoord3s;
+
   __glewMultiTexCoord3sv: TPFNGLMULTITEXCOORD3SVPROC; cvar;external libGLEW;
+  glMultiTexCoord3sv: TPFNGLMULTITEXCOORD3SVPROC absolute __glewMultiTexCoord3sv;
+
   __glewMultiTexCoord4d: TPFNGLMULTITEXCOORD4DPROC; cvar;external libGLEW;
+  glMultiTexCoord4d: TPFNGLMULTITEXCOORD4DPROC absolute __glewMultiTexCoord4d;
+
   __glewMultiTexCoord4dv: TPFNGLMULTITEXCOORD4DVPROC; cvar;external libGLEW;
+  glMultiTexCoord4dv: TPFNGLMULTITEXCOORD4DVPROC absolute __glewMultiTexCoord4dv;
+
   __glewMultiTexCoord4f: TPFNGLMULTITEXCOORD4FPROC; cvar;external libGLEW;
+  glMultiTexCoord4f: TPFNGLMULTITEXCOORD4FPROC absolute __glewMultiTexCoord4f;
+
   __glewMultiTexCoord4fv: TPFNGLMULTITEXCOORD4FVPROC; cvar;external libGLEW;
+  glMultiTexCoord4fv: TPFNGLMULTITEXCOORD4FVPROC absolute __glewMultiTexCoord4fv;
+
   __glewMultiTexCoord4i: TPFNGLMULTITEXCOORD4IPROC; cvar;external libGLEW;
+  glMultiTexCoord4i: TPFNGLMULTITEXCOORD4IPROC absolute __glewMultiTexCoord4i;
+
   __glewMultiTexCoord4iv: TPFNGLMULTITEXCOORD4IVPROC; cvar;external libGLEW;
+  glMultiTexCoord4iv: TPFNGLMULTITEXCOORD4IVPROC absolute __glewMultiTexCoord4iv;
+
   __glewMultiTexCoord4s: TPFNGLMULTITEXCOORD4SPROC; cvar;external libGLEW;
+  glMultiTexCoord4s: TPFNGLMULTITEXCOORD4SPROC absolute __glewMultiTexCoord4s;
+
   __glewMultiTexCoord4sv: TPFNGLMULTITEXCOORD4SVPROC; cvar;external libGLEW;
+  glMultiTexCoord4sv: TPFNGLMULTITEXCOORD4SVPROC absolute __glewMultiTexCoord4sv;
+
   __glewSampleCoverage: TPFNGLSAMPLECOVERAGEPROC; cvar;external libGLEW;
+  glSampleCoverage: TPFNGLSAMPLECOVERAGEPROC absolute __glewSampleCoverage;
+
   __glewBlendColor: TPFNGLBLENDCOLORPROC; cvar;external libGLEW;
+  glBlendColor: TPFNGLBLENDCOLORPROC absolute __glewBlendColor;
+
   __glewBlendEquation: TPFNGLBLENDEQUATIONPROC; cvar;external libGLEW;
+  glBlendEquation: TPFNGLBLENDEQUATIONPROC absolute __glewBlendEquation;
+
   __glewBlendFuncSeparate: TPFNGLBLENDFUNCSEPARATEPROC; cvar;external libGLEW;
+  glBlendFuncSeparate: TPFNGLBLENDFUNCSEPARATEPROC absolute __glewBlendFuncSeparate;
+
   __glewFogCoordPointer: TPFNGLFOGCOORDPOINTERPROC; cvar;external libGLEW;
+  glFogCoordPointer: TPFNGLFOGCOORDPOINTERPROC absolute __glewFogCoordPointer;
+
   __glewFogCoordd: TPFNGLFOGCOORDDPROC; cvar;external libGLEW;
+  glFogCoordd: TPFNGLFOGCOORDDPROC absolute __glewFogCoordd;
+
   __glewFogCoorddv: TPFNGLFOGCOORDDVPROC; cvar;external libGLEW;
+  glFogCoorddv: TPFNGLFOGCOORDDVPROC absolute __glewFogCoorddv;
+
   __glewFogCoordf: TPFNGLFOGCOORDFPROC; cvar;external libGLEW;
+  glFogCoordf: TPFNGLFOGCOORDFPROC absolute __glewFogCoordf;
+
   __glewFogCoordfv: TPFNGLFOGCOORDFVPROC; cvar;external libGLEW;
+  glFogCoordfv: TPFNGLFOGCOORDFVPROC absolute __glewFogCoordfv;
+
   __glewMultiDrawArrays: TPFNGLMULTIDRAWARRAYSPROC; cvar;external libGLEW;
+  glMultiDrawArrays: TPFNGLMULTIDRAWARRAYSPROC absolute __glewMultiDrawArrays;
+
   __glewMultiDrawElements: TPFNGLMULTIDRAWELEMENTSPROC; cvar;external libGLEW;
+  glMultiDrawElements: TPFNGLMULTIDRAWELEMENTSPROC absolute __glewMultiDrawElements;
+
   __glewPointParameterf: TPFNGLPOINTPARAMETERFPROC; cvar;external libGLEW;
+  glPointParameterf: TPFNGLPOINTPARAMETERFPROC absolute __glewPointParameterf;
+
   __glewPointParameterfv: TPFNGLPOINTPARAMETERFVPROC; cvar;external libGLEW;
+  glPointParameterfv: TPFNGLPOINTPARAMETERFVPROC absolute __glewPointParameterfv;
+
   __glewPointParameteri: TPFNGLPOINTPARAMETERIPROC; cvar;external libGLEW;
+  glPointParameteri: TPFNGLPOINTPARAMETERIPROC absolute __glewPointParameteri;
+
   __glewPointParameteriv: TPFNGLPOINTPARAMETERIVPROC; cvar;external libGLEW;
+  glPointParameteriv: TPFNGLPOINTPARAMETERIVPROC absolute __glewPointParameteriv;
+
   __glewSecondaryColor3b: TPFNGLSECONDARYCOLOR3BPROC; cvar;external libGLEW;
+  glSecondaryColor3b: TPFNGLSECONDARYCOLOR3BPROC absolute __glewSecondaryColor3b;
+
   __glewSecondaryColor3bv: TPFNGLSECONDARYCOLOR3BVPROC; cvar;external libGLEW;
+  glSecondaryColor3bv: TPFNGLSECONDARYCOLOR3BVPROC absolute __glewSecondaryColor3bv;
+
   __glewSecondaryColor3d: TPFNGLSECONDARYCOLOR3DPROC; cvar;external libGLEW;
+  glSecondaryColor3d: TPFNGLSECONDARYCOLOR3DPROC absolute __glewSecondaryColor3d;
+
   __glewSecondaryColor3dv: TPFNGLSECONDARYCOLOR3DVPROC; cvar;external libGLEW;
+  glSecondaryColor3dv: TPFNGLSECONDARYCOLOR3DVPROC absolute __glewSecondaryColor3dv;
+
   __glewSecondaryColor3f: TPFNGLSECONDARYCOLOR3FPROC; cvar;external libGLEW;
+  glSecondaryColor3f: TPFNGLSECONDARYCOLOR3FPROC absolute __glewSecondaryColor3f;
+
   __glewSecondaryColor3fv: TPFNGLSECONDARYCOLOR3FVPROC; cvar;external libGLEW;
+  glSecondaryColor3fv: TPFNGLSECONDARYCOLOR3FVPROC absolute __glewSecondaryColor3fv;
+
   __glewSecondaryColor3i: TPFNGLSECONDARYCOLOR3IPROC; cvar;external libGLEW;
+  glSecondaryColor3i: TPFNGLSECONDARYCOLOR3IPROC absolute __glewSecondaryColor3i;
+
   __glewSecondaryColor3iv: TPFNGLSECONDARYCOLOR3IVPROC; cvar;external libGLEW;
+  glSecondaryColor3iv: TPFNGLSECONDARYCOLOR3IVPROC absolute __glewSecondaryColor3iv;
+
   __glewSecondaryColor3s: TPFNGLSECONDARYCOLOR3SPROC; cvar;external libGLEW;
+  glSecondaryColor3s: TPFNGLSECONDARYCOLOR3SPROC absolute __glewSecondaryColor3s;
+
   __glewSecondaryColor3sv: TPFNGLSECONDARYCOLOR3SVPROC; cvar;external libGLEW;
+  glSecondaryColor3sv: TPFNGLSECONDARYCOLOR3SVPROC absolute __glewSecondaryColor3sv;
+
   __glewSecondaryColor3ub: TPFNGLSECONDARYCOLOR3UBPROC; cvar;external libGLEW;
+  glSecondaryColor3ub: TPFNGLSECONDARYCOLOR3UBPROC absolute __glewSecondaryColor3ub;
+
   __glewSecondaryColor3ubv: TPFNGLSECONDARYCOLOR3UBVPROC; cvar;external libGLEW;
+  glSecondaryColor3ubv: TPFNGLSECONDARYCOLOR3UBVPROC absolute __glewSecondaryColor3ubv;
+
   __glewSecondaryColor3ui: TPFNGLSECONDARYCOLOR3UIPROC; cvar;external libGLEW;
+  glSecondaryColor3ui: TPFNGLSECONDARYCOLOR3UIPROC absolute __glewSecondaryColor3ui;
+
   __glewSecondaryColor3uiv: TPFNGLSECONDARYCOLOR3UIVPROC; cvar;external libGLEW;
+  glSecondaryColor3uiv: TPFNGLSECONDARYCOLOR3UIVPROC absolute __glewSecondaryColor3uiv;
+
   __glewSecondaryColor3us: TPFNGLSECONDARYCOLOR3USPROC; cvar;external libGLEW;
+  glSecondaryColor3us: TPFNGLSECONDARYCOLOR3USPROC absolute __glewSecondaryColor3us;
+
   __glewSecondaryColor3usv: TPFNGLSECONDARYCOLOR3USVPROC; cvar;external libGLEW;
+  glSecondaryColor3usv: TPFNGLSECONDARYCOLOR3USVPROC absolute __glewSecondaryColor3usv;
+
   __glewSecondaryColorPointer: TPFNGLSECONDARYCOLORPOINTERPROC; cvar;external libGLEW;
+  glSecondaryColorPointer: TPFNGLSECONDARYCOLORPOINTERPROC absolute __glewSecondaryColorPointer;
+
   __glewWindowPos2d: TPFNGLWINDOWPOS2DPROC; cvar;external libGLEW;
+  glWindowPos2d: TPFNGLWINDOWPOS2DPROC absolute __glewWindowPos2d;
+
   __glewWindowPos2dv: TPFNGLWINDOWPOS2DVPROC; cvar;external libGLEW;
+  glWindowPos2dv: TPFNGLWINDOWPOS2DVPROC absolute __glewWindowPos2dv;
+
   __glewWindowPos2f: TPFNGLWINDOWPOS2FPROC; cvar;external libGLEW;
+  glWindowPos2f: TPFNGLWINDOWPOS2FPROC absolute __glewWindowPos2f;
+
   __glewWindowPos2fv: TPFNGLWINDOWPOS2FVPROC; cvar;external libGLEW;
+  glWindowPos2fv: TPFNGLWINDOWPOS2FVPROC absolute __glewWindowPos2fv;
+
   __glewWindowPos2i: TPFNGLWINDOWPOS2IPROC; cvar;external libGLEW;
+  glWindowPos2i: TPFNGLWINDOWPOS2IPROC absolute __glewWindowPos2i;
+
   __glewWindowPos2iv: TPFNGLWINDOWPOS2IVPROC; cvar;external libGLEW;
+  glWindowPos2iv: TPFNGLWINDOWPOS2IVPROC absolute __glewWindowPos2iv;
+
   __glewWindowPos2s: TPFNGLWINDOWPOS2SPROC; cvar;external libGLEW;
+  glWindowPos2s: TPFNGLWINDOWPOS2SPROC absolute __glewWindowPos2s;
+
   __glewWindowPos2sv: TPFNGLWINDOWPOS2SVPROC; cvar;external libGLEW;
+  glWindowPos2sv: TPFNGLWINDOWPOS2SVPROC absolute __glewWindowPos2sv;
+
   __glewWindowPos3d: TPFNGLWINDOWPOS3DPROC; cvar;external libGLEW;
+  glWindowPos3d: TPFNGLWINDOWPOS3DPROC absolute __glewWindowPos3d;
+
   __glewWindowPos3dv: TPFNGLWINDOWPOS3DVPROC; cvar;external libGLEW;
+  glWindowPos3dv: TPFNGLWINDOWPOS3DVPROC absolute __glewWindowPos3dv;
+
   __glewWindowPos3f: TPFNGLWINDOWPOS3FPROC; cvar;external libGLEW;
+  glWindowPos3f: TPFNGLWINDOWPOS3FPROC absolute __glewWindowPos3f;
+
   __glewWindowPos3fv: TPFNGLWINDOWPOS3FVPROC; cvar;external libGLEW;
+  glWindowPos3fv: TPFNGLWINDOWPOS3FVPROC absolute __glewWindowPos3fv;
+
   __glewWindowPos3i: TPFNGLWINDOWPOS3IPROC; cvar;external libGLEW;
+  glWindowPos3i: TPFNGLWINDOWPOS3IPROC absolute __glewWindowPos3i;
+
   __glewWindowPos3iv: TPFNGLWINDOWPOS3IVPROC; cvar;external libGLEW;
+  glWindowPos3iv: TPFNGLWINDOWPOS3IVPROC absolute __glewWindowPos3iv;
+
   __glewWindowPos3s: TPFNGLWINDOWPOS3SPROC; cvar;external libGLEW;
+  glWindowPos3s: TPFNGLWINDOWPOS3SPROC absolute __glewWindowPos3s;
+
   __glewWindowPos3sv: TPFNGLWINDOWPOS3SVPROC; cvar;external libGLEW;
+  glWindowPos3sv: TPFNGLWINDOWPOS3SVPROC absolute __glewWindowPos3sv;
+
   __glewBeginQuery: TPFNGLBEGINQUERYPROC; cvar;external libGLEW;
+  glBeginQuery: TPFNGLBEGINQUERYPROC absolute __glewBeginQuery;
+
   __glewBindBuffer: TPFNGLBINDBUFFERPROC; cvar;external libGLEW;
+  glBindBuffer: TPFNGLBINDBUFFERPROC absolute __glewBindBuffer;
+
   __glewBufferData: TPFNGLBUFFERDATAPROC; cvar;external libGLEW;
+  glBufferData: TPFNGLBUFFERDATAPROC absolute __glewBufferData;
+
   __glewBufferSubData: TPFNGLBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glBufferSubData: TPFNGLBUFFERSUBDATAPROC absolute __glewBufferSubData;
+
   __glewDeleteBuffers: TPFNGLDELETEBUFFERSPROC; cvar;external libGLEW;
+  glDeleteBuffers: TPFNGLDELETEBUFFERSPROC absolute __glewDeleteBuffers;
+
   __glewDeleteQueries: TPFNGLDELETEQUERIESPROC; cvar;external libGLEW;
+  glDeleteQueries: TPFNGLDELETEQUERIESPROC absolute __glewDeleteQueries;
+
   __glewEndQuery: TPFNGLENDQUERYPROC; cvar;external libGLEW;
+  glEndQuery: TPFNGLENDQUERYPROC absolute __glewEndQuery;
+
   __glewGenBuffers: TPFNGLGENBUFFERSPROC; cvar;external libGLEW;
+  glGenBuffers: TPFNGLGENBUFFERSPROC absolute __glewGenBuffers;
+
   __glewGenQueries: TPFNGLGENQUERIESPROC; cvar;external libGLEW;
+  glGenQueries: TPFNGLGENQUERIESPROC absolute __glewGenQueries;
+
   __glewGetBufferParameteriv: TPFNGLGETBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetBufferParameteriv: TPFNGLGETBUFFERPARAMETERIVPROC absolute __glewGetBufferParameteriv;
+
   __glewGetBufferPointerv: TPFNGLGETBUFFERPOINTERVPROC; cvar;external libGLEW;
+  glGetBufferPointerv: TPFNGLGETBUFFERPOINTERVPROC absolute __glewGetBufferPointerv;
+
   __glewGetBufferSubData: TPFNGLGETBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glGetBufferSubData: TPFNGLGETBUFFERSUBDATAPROC absolute __glewGetBufferSubData;
+
   __glewGetQueryObjectiv: TPFNGLGETQUERYOBJECTIVPROC; cvar;external libGLEW;
+  glGetQueryObjectiv: TPFNGLGETQUERYOBJECTIVPROC absolute __glewGetQueryObjectiv;
+
   __glewGetQueryObjectuiv: TPFNGLGETQUERYOBJECTUIVPROC; cvar;external libGLEW;
+  glGetQueryObjectuiv: TPFNGLGETQUERYOBJECTUIVPROC absolute __glewGetQueryObjectuiv;
+
   __glewGetQueryiv: TPFNGLGETQUERYIVPROC; cvar;external libGLEW;
+  glGetQueryiv: TPFNGLGETQUERYIVPROC absolute __glewGetQueryiv;
+
   __glewIsBuffer: TPFNGLISBUFFERPROC; cvar;external libGLEW;
+  glIsBuffer: TPFNGLISBUFFERPROC absolute __glewIsBuffer;
+
   __glewIsQuery: TPFNGLISQUERYPROC; cvar;external libGLEW;
+  glIsQuery: TPFNGLISQUERYPROC absolute __glewIsQuery;
+
   __glewMapBuffer: TPFNGLMAPBUFFERPROC; cvar;external libGLEW;
+  glMapBuffer: TPFNGLMAPBUFFERPROC absolute __glewMapBuffer;
+
   __glewUnmapBuffer: TPFNGLUNMAPBUFFERPROC; cvar;external libGLEW;
+  glUnmapBuffer: TPFNGLUNMAPBUFFERPROC absolute __glewUnmapBuffer;
+
   __glewAttachShader: TPFNGLATTACHSHADERPROC; cvar;external libGLEW;
+  glAttachShader: TPFNGLATTACHSHADERPROC absolute __glewAttachShader;
+
   __glewBindAttribLocation: TPFNGLBINDATTRIBLOCATIONPROC; cvar;external libGLEW;
+  glBindAttribLocation: TPFNGLBINDATTRIBLOCATIONPROC absolute __glewBindAttribLocation;
+
   __glewBlendEquationSeparate: TPFNGLBLENDEQUATIONSEPARATEPROC; cvar;external libGLEW;
+  glBlendEquationSeparate: TPFNGLBLENDEQUATIONSEPARATEPROC absolute __glewBlendEquationSeparate;
+
   __glewCompileShader: TPFNGLCOMPILESHADERPROC; cvar;external libGLEW;
+  glCompileShader: TPFNGLCOMPILESHADERPROC absolute __glewCompileShader;
+
   __glewCreateProgram: TPFNGLCREATEPROGRAMPROC; cvar;external libGLEW;
+  glCreateProgram: TPFNGLCREATEPROGRAMPROC absolute __glewCreateProgram;
+
   __glewCreateShader: TPFNGLCREATESHADERPROC; cvar;external libGLEW;
+  glCreateShader: TPFNGLCREATESHADERPROC absolute __glewCreateShader;
+
   __glewDeleteProgram: TPFNGLDELETEPROGRAMPROC; cvar;external libGLEW;
+  glDeleteProgram: TPFNGLDELETEPROGRAMPROC absolute __glewDeleteProgram;
+
   __glewDeleteShader: TPFNGLDELETESHADERPROC; cvar;external libGLEW;
+  glDeleteShader: TPFNGLDELETESHADERPROC absolute __glewDeleteShader;
+
   __glewDetachShader: TPFNGLDETACHSHADERPROC; cvar;external libGLEW;
+  glDetachShader: TPFNGLDETACHSHADERPROC absolute __glewDetachShader;
+
   __glewDisableVertexAttribArray: TPFNGLDISABLEVERTEXATTRIBARRAYPROC; cvar;external libGLEW;
+  glDisableVertexAttribArray: TPFNGLDISABLEVERTEXATTRIBARRAYPROC absolute __glewDisableVertexAttribArray;
+
   __glewDrawBuffers: TPFNGLDRAWBUFFERSPROC; cvar;external libGLEW;
+  glDrawBuffers: TPFNGLDRAWBUFFERSPROC absolute __glewDrawBuffers;
+
   __glewEnableVertexAttribArray: TPFNGLENABLEVERTEXATTRIBARRAYPROC; cvar;external libGLEW;
+  glEnableVertexAttribArray: TPFNGLENABLEVERTEXATTRIBARRAYPROC absolute __glewEnableVertexAttribArray;
+
   __glewGetActiveAttrib: TPFNGLGETACTIVEATTRIBPROC; cvar;external libGLEW;
+  glGetActiveAttrib: TPFNGLGETACTIVEATTRIBPROC absolute __glewGetActiveAttrib;
+
   __glewGetActiveUniform: TPFNGLGETACTIVEUNIFORMPROC; cvar;external libGLEW;
+  glGetActiveUniform: TPFNGLGETACTIVEUNIFORMPROC absolute __glewGetActiveUniform;
+
   __glewGetAttachedShaders: TPFNGLGETATTACHEDSHADERSPROC; cvar;external libGLEW;
+  glGetAttachedShaders: TPFNGLGETATTACHEDSHADERSPROC absolute __glewGetAttachedShaders;
+
   __glewGetAttribLocation: TPFNGLGETATTRIBLOCATIONPROC; cvar;external libGLEW;
+  glGetAttribLocation: TPFNGLGETATTRIBLOCATIONPROC absolute __glewGetAttribLocation;
+
   __glewGetProgramInfoLog: TPFNGLGETPROGRAMINFOLOGPROC; cvar;external libGLEW;
+  glGetProgramInfoLog: TPFNGLGETPROGRAMINFOLOGPROC absolute __glewGetProgramInfoLog;
+
   __glewGetProgramiv: TPFNGLGETPROGRAMIVPROC; cvar;external libGLEW;
+  glGetProgramiv: TPFNGLGETPROGRAMIVPROC absolute __glewGetProgramiv;
+
   __glewGetShaderInfoLog: TPFNGLGETSHADERINFOLOGPROC; cvar;external libGLEW;
+  glGetShaderInfoLog: TPFNGLGETSHADERINFOLOGPROC absolute __glewGetShaderInfoLog;
+
   __glewGetShaderSource: TPFNGLGETSHADERSOURCEPROC; cvar;external libGLEW;
+  glGetShaderSource: TPFNGLGETSHADERSOURCEPROC absolute __glewGetShaderSource;
+
   __glewGetShaderiv: TPFNGLGETSHADERIVPROC; cvar;external libGLEW;
+  glGetShaderiv: TPFNGLGETSHADERIVPROC absolute __glewGetShaderiv;
+
   __glewGetUniformLocation: TPFNGLGETUNIFORMLOCATIONPROC; cvar;external libGLEW;
+  glGetUniformLocation: TPFNGLGETUNIFORMLOCATIONPROC absolute __glewGetUniformLocation;
+
   __glewGetUniformfv: TPFNGLGETUNIFORMFVPROC; cvar;external libGLEW;
+  glGetUniformfv: TPFNGLGETUNIFORMFVPROC absolute __glewGetUniformfv;
+
   __glewGetUniformiv: TPFNGLGETUNIFORMIVPROC; cvar;external libGLEW;
+  glGetUniformiv: TPFNGLGETUNIFORMIVPROC absolute __glewGetUniformiv;
+
   __glewGetVertexAttribPointerv: TPFNGLGETVERTEXATTRIBPOINTERVPROC; cvar;external libGLEW;
+  glGetVertexAttribPointerv: TPFNGLGETVERTEXATTRIBPOINTERVPROC absolute __glewGetVertexAttribPointerv;
+
   __glewGetVertexAttribdv: TPFNGLGETVERTEXATTRIBDVPROC; cvar;external libGLEW;
+  glGetVertexAttribdv: TPFNGLGETVERTEXATTRIBDVPROC absolute __glewGetVertexAttribdv;
+
   __glewGetVertexAttribfv: TPFNGLGETVERTEXATTRIBFVPROC; cvar;external libGLEW;
+  glGetVertexAttribfv: TPFNGLGETVERTEXATTRIBFVPROC absolute __glewGetVertexAttribfv;
+
   __glewGetVertexAttribiv: TPFNGLGETVERTEXATTRIBIVPROC; cvar;external libGLEW;
+  glGetVertexAttribiv: TPFNGLGETVERTEXATTRIBIVPROC absolute __glewGetVertexAttribiv;
+
   __glewIsProgram: TPFNGLISPROGRAMPROC; cvar;external libGLEW;
+  glIsProgram: TPFNGLISPROGRAMPROC absolute __glewIsProgram;
+
   __glewIsShader: TPFNGLISSHADERPROC; cvar;external libGLEW;
+  glIsShader: TPFNGLISSHADERPROC absolute __glewIsShader;
+
   __glewLinkProgram: TPFNGLLINKPROGRAMPROC; cvar;external libGLEW;
+  glLinkProgram: TPFNGLLINKPROGRAMPROC absolute __glewLinkProgram;
+
   __glewShaderSource: TPFNGLSHADERSOURCEPROC; cvar;external libGLEW;
+  glShaderSource: TPFNGLSHADERSOURCEPROC absolute __glewShaderSource;
+
   __glewStencilFuncSeparate: TPFNGLSTENCILFUNCSEPARATEPROC; cvar;external libGLEW;
+  glStencilFuncSeparate: TPFNGLSTENCILFUNCSEPARATEPROC absolute __glewStencilFuncSeparate;
+
   __glewStencilMaskSeparate: TPFNGLSTENCILMASKSEPARATEPROC; cvar;external libGLEW;
+  glStencilMaskSeparate: TPFNGLSTENCILMASKSEPARATEPROC absolute __glewStencilMaskSeparate;
+
   __glewStencilOpSeparate: TPFNGLSTENCILOPSEPARATEPROC; cvar;external libGLEW;
+  glStencilOpSeparate: TPFNGLSTENCILOPSEPARATEPROC absolute __glewStencilOpSeparate;
+
   __glewUniform1f: TPFNGLUNIFORM1FPROC; cvar;external libGLEW;
+  glUniform1f: TPFNGLUNIFORM1FPROC absolute __glewUniform1f;
+
   __glewUniform1fv: TPFNGLUNIFORM1FVPROC; cvar;external libGLEW;
+  glUniform1fv: TPFNGLUNIFORM1FVPROC absolute __glewUniform1fv;
+
   __glewUniform1i: TPFNGLUNIFORM1IPROC; cvar;external libGLEW;
+  glUniform1i: TPFNGLUNIFORM1IPROC absolute __glewUniform1i;
+
   __glewUniform1iv: TPFNGLUNIFORM1IVPROC; cvar;external libGLEW;
+  glUniform1iv: TPFNGLUNIFORM1IVPROC absolute __glewUniform1iv;
+
   __glewUniform2f: TPFNGLUNIFORM2FPROC; cvar;external libGLEW;
+  glUniform2f: TPFNGLUNIFORM2FPROC absolute __glewUniform2f;
+
   __glewUniform2fv: TPFNGLUNIFORM2FVPROC; cvar;external libGLEW;
+  glUniform2fv: TPFNGLUNIFORM2FVPROC absolute __glewUniform2fv;
+
   __glewUniform2i: TPFNGLUNIFORM2IPROC; cvar;external libGLEW;
+  glUniform2i: TPFNGLUNIFORM2IPROC absolute __glewUniform2i;
+
   __glewUniform2iv: TPFNGLUNIFORM2IVPROC; cvar;external libGLEW;
+  glUniform2iv: TPFNGLUNIFORM2IVPROC absolute __glewUniform2iv;
+
   __glewUniform3f: TPFNGLUNIFORM3FPROC; cvar;external libGLEW;
+  glUniform3f: TPFNGLUNIFORM3FPROC absolute __glewUniform3f;
+
   __glewUniform3fv: TPFNGLUNIFORM3FVPROC; cvar;external libGLEW;
+  glUniform3fv: TPFNGLUNIFORM3FVPROC absolute __glewUniform3fv;
+
   __glewUniform3i: TPFNGLUNIFORM3IPROC; cvar;external libGLEW;
+  glUniform3i: TPFNGLUNIFORM3IPROC absolute __glewUniform3i;
+
   __glewUniform3iv: TPFNGLUNIFORM3IVPROC; cvar;external libGLEW;
+  glUniform3iv: TPFNGLUNIFORM3IVPROC absolute __glewUniform3iv;
+
   __glewUniform4f: TPFNGLUNIFORM4FPROC; cvar;external libGLEW;
+  glUniform4f: TPFNGLUNIFORM4FPROC absolute __glewUniform4f;
+
   __glewUniform4fv: TPFNGLUNIFORM4FVPROC; cvar;external libGLEW;
+  glUniform4fv: TPFNGLUNIFORM4FVPROC absolute __glewUniform4fv;
+
   __glewUniform4i: TPFNGLUNIFORM4IPROC; cvar;external libGLEW;
+  glUniform4i: TPFNGLUNIFORM4IPROC absolute __glewUniform4i;
+
   __glewUniform4iv: TPFNGLUNIFORM4IVPROC; cvar;external libGLEW;
+  glUniform4iv: TPFNGLUNIFORM4IVPROC absolute __glewUniform4iv;
+
   __glewUniformMatrix2fv: TPFNGLUNIFORMMATRIX2FVPROC; cvar;external libGLEW;
+  glUniformMatrix2fv: TPFNGLUNIFORMMATRIX2FVPROC absolute __glewUniformMatrix2fv;
+
   __glewUniformMatrix3fv: TPFNGLUNIFORMMATRIX3FVPROC; cvar;external libGLEW;
+  glUniformMatrix3fv: TPFNGLUNIFORMMATRIX3FVPROC absolute __glewUniformMatrix3fv;
+
   __glewUniformMatrix4fv: TPFNGLUNIFORMMATRIX4FVPROC; cvar;external libGLEW;
+  glUniformMatrix4fv: TPFNGLUNIFORMMATRIX4FVPROC absolute __glewUniformMatrix4fv;
+
   __glewUseProgram: TPFNGLUSEPROGRAMPROC; cvar;external libGLEW;
+  glUseProgram: TPFNGLUSEPROGRAMPROC absolute __glewUseProgram;
+
   __glewValidateProgram: TPFNGLVALIDATEPROGRAMPROC; cvar;external libGLEW;
+  glValidateProgram: TPFNGLVALIDATEPROGRAMPROC absolute __glewValidateProgram;
+
   __glewVertexAttrib1d: TPFNGLVERTEXATTRIB1DPROC; cvar;external libGLEW;
+  glVertexAttrib1d: TPFNGLVERTEXATTRIB1DPROC absolute __glewVertexAttrib1d;
+
   __glewVertexAttrib1dv: TPFNGLVERTEXATTRIB1DVPROC; cvar;external libGLEW;
+  glVertexAttrib1dv: TPFNGLVERTEXATTRIB1DVPROC absolute __glewVertexAttrib1dv;
+
   __glewVertexAttrib1f: TPFNGLVERTEXATTRIB1FPROC; cvar;external libGLEW;
+  glVertexAttrib1f: TPFNGLVERTEXATTRIB1FPROC absolute __glewVertexAttrib1f;
+
   __glewVertexAttrib1fv: TPFNGLVERTEXATTRIB1FVPROC; cvar;external libGLEW;
+  glVertexAttrib1fv: TPFNGLVERTEXATTRIB1FVPROC absolute __glewVertexAttrib1fv;
+
   __glewVertexAttrib1s: TPFNGLVERTEXATTRIB1SPROC; cvar;external libGLEW;
+  glVertexAttrib1s: TPFNGLVERTEXATTRIB1SPROC absolute __glewVertexAttrib1s;
+
   __glewVertexAttrib1sv: TPFNGLVERTEXATTRIB1SVPROC; cvar;external libGLEW;
+  glVertexAttrib1sv: TPFNGLVERTEXATTRIB1SVPROC absolute __glewVertexAttrib1sv;
+
   __glewVertexAttrib2d: TPFNGLVERTEXATTRIB2DPROC; cvar;external libGLEW;
+  glVertexAttrib2d: TPFNGLVERTEXATTRIB2DPROC absolute __glewVertexAttrib2d;
+
   __glewVertexAttrib2dv: TPFNGLVERTEXATTRIB2DVPROC; cvar;external libGLEW;
+  glVertexAttrib2dv: TPFNGLVERTEXATTRIB2DVPROC absolute __glewVertexAttrib2dv;
+
   __glewVertexAttrib2f: TPFNGLVERTEXATTRIB2FPROC; cvar;external libGLEW;
+  glVertexAttrib2f: TPFNGLVERTEXATTRIB2FPROC absolute __glewVertexAttrib2f;
+
   __glewVertexAttrib2fv: TPFNGLVERTEXATTRIB2FVPROC; cvar;external libGLEW;
+  glVertexAttrib2fv: TPFNGLVERTEXATTRIB2FVPROC absolute __glewVertexAttrib2fv;
+
   __glewVertexAttrib2s: TPFNGLVERTEXATTRIB2SPROC; cvar;external libGLEW;
+  glVertexAttrib2s: TPFNGLVERTEXATTRIB2SPROC absolute __glewVertexAttrib2s;
+
   __glewVertexAttrib2sv: TPFNGLVERTEXATTRIB2SVPROC; cvar;external libGLEW;
+  glVertexAttrib2sv: TPFNGLVERTEXATTRIB2SVPROC absolute __glewVertexAttrib2sv;
+
   __glewVertexAttrib3d: TPFNGLVERTEXATTRIB3DPROC; cvar;external libGLEW;
+  glVertexAttrib3d: TPFNGLVERTEXATTRIB3DPROC absolute __glewVertexAttrib3d;
+
   __glewVertexAttrib3dv: TPFNGLVERTEXATTRIB3DVPROC; cvar;external libGLEW;
+  glVertexAttrib3dv: TPFNGLVERTEXATTRIB3DVPROC absolute __glewVertexAttrib3dv;
+
   __glewVertexAttrib3f: TPFNGLVERTEXATTRIB3FPROC; cvar;external libGLEW;
+  glVertexAttrib3f: TPFNGLVERTEXATTRIB3FPROC absolute __glewVertexAttrib3f;
+
   __glewVertexAttrib3fv: TPFNGLVERTEXATTRIB3FVPROC; cvar;external libGLEW;
+  glVertexAttrib3fv: TPFNGLVERTEXATTRIB3FVPROC absolute __glewVertexAttrib3fv;
+
   __glewVertexAttrib3s: TPFNGLVERTEXATTRIB3SPROC; cvar;external libGLEW;
+  glVertexAttrib3s: TPFNGLVERTEXATTRIB3SPROC absolute __glewVertexAttrib3s;
+
   __glewVertexAttrib3sv: TPFNGLVERTEXATTRIB3SVPROC; cvar;external libGLEW;
+  glVertexAttrib3sv: TPFNGLVERTEXATTRIB3SVPROC absolute __glewVertexAttrib3sv;
+
   __glewVertexAttrib4Nbv: TPFNGLVERTEXATTRIB4NBVPROC; cvar;external libGLEW;
+  glVertexAttrib4Nbv: TPFNGLVERTEXATTRIB4NBVPROC absolute __glewVertexAttrib4Nbv;
+
   __glewVertexAttrib4Niv: TPFNGLVERTEXATTRIB4NIVPROC; cvar;external libGLEW;
+  glVertexAttrib4Niv: TPFNGLVERTEXATTRIB4NIVPROC absolute __glewVertexAttrib4Niv;
+
   __glewVertexAttrib4Nsv: TPFNGLVERTEXATTRIB4NSVPROC; cvar;external libGLEW;
+  glVertexAttrib4Nsv: TPFNGLVERTEXATTRIB4NSVPROC absolute __glewVertexAttrib4Nsv;
+
   __glewVertexAttrib4Nub: TPFNGLVERTEXATTRIB4NUBPROC; cvar;external libGLEW;
+  glVertexAttrib4Nub: TPFNGLVERTEXATTRIB4NUBPROC absolute __glewVertexAttrib4Nub;
+
   __glewVertexAttrib4Nubv: TPFNGLVERTEXATTRIB4NUBVPROC; cvar;external libGLEW;
+  glVertexAttrib4Nubv: TPFNGLVERTEXATTRIB4NUBVPROC absolute __glewVertexAttrib4Nubv;
+
   __glewVertexAttrib4Nuiv: TPFNGLVERTEXATTRIB4NUIVPROC; cvar;external libGLEW;
+  glVertexAttrib4Nuiv: TPFNGLVERTEXATTRIB4NUIVPROC absolute __glewVertexAttrib4Nuiv;
+
   __glewVertexAttrib4Nusv: TPFNGLVERTEXATTRIB4NUSVPROC; cvar;external libGLEW;
+  glVertexAttrib4Nusv: TPFNGLVERTEXATTRIB4NUSVPROC absolute __glewVertexAttrib4Nusv;
+
   __glewVertexAttrib4bv: TPFNGLVERTEXATTRIB4BVPROC; cvar;external libGLEW;
+  glVertexAttrib4bv: TPFNGLVERTEXATTRIB4BVPROC absolute __glewVertexAttrib4bv;
+
   __glewVertexAttrib4d: TPFNGLVERTEXATTRIB4DPROC; cvar;external libGLEW;
+  glVertexAttrib4d: TPFNGLVERTEXATTRIB4DPROC absolute __glewVertexAttrib4d;
+
   __glewVertexAttrib4dv: TPFNGLVERTEXATTRIB4DVPROC; cvar;external libGLEW;
+  glVertexAttrib4dv: TPFNGLVERTEXATTRIB4DVPROC absolute __glewVertexAttrib4dv;
+
   __glewVertexAttrib4f: TPFNGLVERTEXATTRIB4FPROC; cvar;external libGLEW;
+  glVertexAttrib4f: TPFNGLVERTEXATTRIB4FPROC absolute __glewVertexAttrib4f;
+
   __glewVertexAttrib4fv: TPFNGLVERTEXATTRIB4FVPROC; cvar;external libGLEW;
+  glVertexAttrib4fv: TPFNGLVERTEXATTRIB4FVPROC absolute __glewVertexAttrib4fv;
+
   __glewVertexAttrib4iv: TPFNGLVERTEXATTRIB4IVPROC; cvar;external libGLEW;
+  glVertexAttrib4iv: TPFNGLVERTEXATTRIB4IVPROC absolute __glewVertexAttrib4iv;
+
   __glewVertexAttrib4s: TPFNGLVERTEXATTRIB4SPROC; cvar;external libGLEW;
+  glVertexAttrib4s: TPFNGLVERTEXATTRIB4SPROC absolute __glewVertexAttrib4s;
+
   __glewVertexAttrib4sv: TPFNGLVERTEXATTRIB4SVPROC; cvar;external libGLEW;
+  glVertexAttrib4sv: TPFNGLVERTEXATTRIB4SVPROC absolute __glewVertexAttrib4sv;
+
   __glewVertexAttrib4ubv: TPFNGLVERTEXATTRIB4UBVPROC; cvar;external libGLEW;
+  glVertexAttrib4ubv: TPFNGLVERTEXATTRIB4UBVPROC absolute __glewVertexAttrib4ubv;
+
   __glewVertexAttrib4uiv: TPFNGLVERTEXATTRIB4UIVPROC; cvar;external libGLEW;
+  glVertexAttrib4uiv: TPFNGLVERTEXATTRIB4UIVPROC absolute __glewVertexAttrib4uiv;
+
   __glewVertexAttrib4usv: TPFNGLVERTEXATTRIB4USVPROC; cvar;external libGLEW;
+  glVertexAttrib4usv: TPFNGLVERTEXATTRIB4USVPROC absolute __glewVertexAttrib4usv;
+
   __glewVertexAttribPointer: TPFNGLVERTEXATTRIBPOINTERPROC; cvar;external libGLEW;
+  glVertexAttribPointer: TPFNGLVERTEXATTRIBPOINTERPROC absolute __glewVertexAttribPointer;
+
   __glewUniformMatrix2x3fv: TPFNGLUNIFORMMATRIX2X3FVPROC; cvar;external libGLEW;
+  glUniformMatrix2x3fv: TPFNGLUNIFORMMATRIX2X3FVPROC absolute __glewUniformMatrix2x3fv;
+
   __glewUniformMatrix2x4fv: TPFNGLUNIFORMMATRIX2X4FVPROC; cvar;external libGLEW;
+  glUniformMatrix2x4fv: TPFNGLUNIFORMMATRIX2X4FVPROC absolute __glewUniformMatrix2x4fv;
+
   __glewUniformMatrix3x2fv: TPFNGLUNIFORMMATRIX3X2FVPROC; cvar;external libGLEW;
+  glUniformMatrix3x2fv: TPFNGLUNIFORMMATRIX3X2FVPROC absolute __glewUniformMatrix3x2fv;
+
   __glewUniformMatrix3x4fv: TPFNGLUNIFORMMATRIX3X4FVPROC; cvar;external libGLEW;
+  glUniformMatrix3x4fv: TPFNGLUNIFORMMATRIX3X4FVPROC absolute __glewUniformMatrix3x4fv;
+
   __glewUniformMatrix4x2fv: TPFNGLUNIFORMMATRIX4X2FVPROC; cvar;external libGLEW;
+  glUniformMatrix4x2fv: TPFNGLUNIFORMMATRIX4X2FVPROC absolute __glewUniformMatrix4x2fv;
+
   __glewUniformMatrix4x3fv: TPFNGLUNIFORMMATRIX4X3FVPROC; cvar;external libGLEW;
+  glUniformMatrix4x3fv: TPFNGLUNIFORMMATRIX4X3FVPROC absolute __glewUniformMatrix4x3fv;
+
   __glewBeginConditionalRender: TPFNGLBEGINCONDITIONALRENDERPROC; cvar;external libGLEW;
+  glBeginConditionalRender: TPFNGLBEGINCONDITIONALRENDERPROC absolute __glewBeginConditionalRender;
+
   __glewBeginTransformFeedback: TPFNGLBEGINTRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glBeginTransformFeedback: TPFNGLBEGINTRANSFORMFEEDBACKPROC absolute __glewBeginTransformFeedback;
+
   __glewBindFragDataLocation: TPFNGLBINDFRAGDATALOCATIONPROC; cvar;external libGLEW;
+  glBindFragDataLocation: TPFNGLBINDFRAGDATALOCATIONPROC absolute __glewBindFragDataLocation;
+
   __glewClampColor: TPFNGLCLAMPCOLORPROC; cvar;external libGLEW;
+  glClampColor: TPFNGLCLAMPCOLORPROC absolute __glewClampColor;
+
   __glewClearBufferfi: TPFNGLCLEARBUFFERFIPROC; cvar;external libGLEW;
+  glClearBufferfi: TPFNGLCLEARBUFFERFIPROC absolute __glewClearBufferfi;
+
   __glewClearBufferfv: TPFNGLCLEARBUFFERFVPROC; cvar;external libGLEW;
+  glClearBufferfv: TPFNGLCLEARBUFFERFVPROC absolute __glewClearBufferfv;
+
   __glewClearBufferiv: TPFNGLCLEARBUFFERIVPROC; cvar;external libGLEW;
+  glClearBufferiv: TPFNGLCLEARBUFFERIVPROC absolute __glewClearBufferiv;
+
   __glewClearBufferuiv: TPFNGLCLEARBUFFERUIVPROC; cvar;external libGLEW;
+  glClearBufferuiv: TPFNGLCLEARBUFFERUIVPROC absolute __glewClearBufferuiv;
+
   __glewColorMaski: TPFNGLCOLORMASKIPROC; cvar;external libGLEW;
+  glColorMaski: TPFNGLCOLORMASKIPROC absolute __glewColorMaski;
+
   __glewDisablei: TPFNGLDISABLEIPROC; cvar;external libGLEW;
+  glDisablei: TPFNGLDISABLEIPROC absolute __glewDisablei;
+
   __glewEnablei: TPFNGLENABLEIPROC; cvar;external libGLEW;
+  glEnablei: TPFNGLENABLEIPROC absolute __glewEnablei;
+
   __glewEndConditionalRender: TPFNGLENDCONDITIONALRENDERPROC; cvar;external libGLEW;
+  glEndConditionalRender: TPFNGLENDCONDITIONALRENDERPROC absolute __glewEndConditionalRender;
+
   __glewEndTransformFeedback: TPFNGLENDTRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glEndTransformFeedback: TPFNGLENDTRANSFORMFEEDBACKPROC absolute __glewEndTransformFeedback;
+
   __glewGetBooleani_v: TPFNGLGETBOOLEANI_VPROC; cvar;external libGLEW;
+  glGetBooleani_v: TPFNGLGETBOOLEANI_VPROC absolute __glewGetBooleani_v;
+
   __glewGetFragDataLocation: TPFNGLGETFRAGDATALOCATIONPROC; cvar;external libGLEW;
+  glGetFragDataLocation: TPFNGLGETFRAGDATALOCATIONPROC absolute __glewGetFragDataLocation;
+
   __glewGetStringi: TPFNGLGETSTRINGIPROC; cvar;external libGLEW;
+  glGetStringi: TPFNGLGETSTRINGIPROC absolute __glewGetStringi;
+
   __glewGetTexParameterIiv: TPFNGLGETTEXPARAMETERIIVPROC; cvar;external libGLEW;
+  glGetTexParameterIiv: TPFNGLGETTEXPARAMETERIIVPROC absolute __glewGetTexParameterIiv;
+
   __glewGetTexParameterIuiv: TPFNGLGETTEXPARAMETERIUIVPROC; cvar;external libGLEW;
+  glGetTexParameterIuiv: TPFNGLGETTEXPARAMETERIUIVPROC absolute __glewGetTexParameterIuiv;
+
   __glewGetTransformFeedbackVarying: TPFNGLGETTRANSFORMFEEDBACKVARYINGPROC; cvar;external libGLEW;
+  glGetTransformFeedbackVarying: TPFNGLGETTRANSFORMFEEDBACKVARYINGPROC absolute __glewGetTransformFeedbackVarying;
+
   __glewGetUniformuiv: TPFNGLGETUNIFORMUIVPROC; cvar;external libGLEW;
+  glGetUniformuiv: TPFNGLGETUNIFORMUIVPROC absolute __glewGetUniformuiv;
+
   __glewGetVertexAttribIiv: TPFNGLGETVERTEXATTRIBIIVPROC; cvar;external libGLEW;
+  glGetVertexAttribIiv: TPFNGLGETVERTEXATTRIBIIVPROC absolute __glewGetVertexAttribIiv;
+
   __glewGetVertexAttribIuiv: TPFNGLGETVERTEXATTRIBIUIVPROC; cvar;external libGLEW;
+  glGetVertexAttribIuiv: TPFNGLGETVERTEXATTRIBIUIVPROC absolute __glewGetVertexAttribIuiv;
+
   __glewIsEnabledi: TPFNGLISENABLEDIPROC; cvar;external libGLEW;
+  glIsEnabledi: TPFNGLISENABLEDIPROC absolute __glewIsEnabledi;
+
   __glewTexParameterIiv: TPFNGLTEXPARAMETERIIVPROC; cvar;external libGLEW;
+  glTexParameterIiv: TPFNGLTEXPARAMETERIIVPROC absolute __glewTexParameterIiv;
+
   __glewTexParameterIuiv: TPFNGLTEXPARAMETERIUIVPROC; cvar;external libGLEW;
+  glTexParameterIuiv: TPFNGLTEXPARAMETERIUIVPROC absolute __glewTexParameterIuiv;
+
   __glewTransformFeedbackVaryings: TPFNGLTRANSFORMFEEDBACKVARYINGSPROC; cvar;external libGLEW;
+  glTransformFeedbackVaryings: TPFNGLTRANSFORMFEEDBACKVARYINGSPROC absolute __glewTransformFeedbackVaryings;
+
   __glewUniform1ui: TPFNGLUNIFORM1UIPROC; cvar;external libGLEW;
+  glUniform1ui: TPFNGLUNIFORM1UIPROC absolute __glewUniform1ui;
+
   __glewUniform1uiv: TPFNGLUNIFORM1UIVPROC; cvar;external libGLEW;
+  glUniform1uiv: TPFNGLUNIFORM1UIVPROC absolute __glewUniform1uiv;
+
   __glewUniform2ui: TPFNGLUNIFORM2UIPROC; cvar;external libGLEW;
+  glUniform2ui: TPFNGLUNIFORM2UIPROC absolute __glewUniform2ui;
+
   __glewUniform2uiv: TPFNGLUNIFORM2UIVPROC; cvar;external libGLEW;
+  glUniform2uiv: TPFNGLUNIFORM2UIVPROC absolute __glewUniform2uiv;
+
   __glewUniform3ui: TPFNGLUNIFORM3UIPROC; cvar;external libGLEW;
+  glUniform3ui: TPFNGLUNIFORM3UIPROC absolute __glewUniform3ui;
+
   __glewUniform3uiv: TPFNGLUNIFORM3UIVPROC; cvar;external libGLEW;
+  glUniform3uiv: TPFNGLUNIFORM3UIVPROC absolute __glewUniform3uiv;
+
   __glewUniform4ui: TPFNGLUNIFORM4UIPROC; cvar;external libGLEW;
+  glUniform4ui: TPFNGLUNIFORM4UIPROC absolute __glewUniform4ui;
+
   __glewUniform4uiv: TPFNGLUNIFORM4UIVPROC; cvar;external libGLEW;
+  glUniform4uiv: TPFNGLUNIFORM4UIVPROC absolute __glewUniform4uiv;
+
   __glewVertexAttribI1i: TPFNGLVERTEXATTRIBI1IPROC; cvar;external libGLEW;
+  glVertexAttribI1i: TPFNGLVERTEXATTRIBI1IPROC absolute __glewVertexAttribI1i;
+
   __glewVertexAttribI1iv: TPFNGLVERTEXATTRIBI1IVPROC; cvar;external libGLEW;
+  glVertexAttribI1iv: TPFNGLVERTEXATTRIBI1IVPROC absolute __glewVertexAttribI1iv;
+
   __glewVertexAttribI1ui: TPFNGLVERTEXATTRIBI1UIPROC; cvar;external libGLEW;
+  glVertexAttribI1ui: TPFNGLVERTEXATTRIBI1UIPROC absolute __glewVertexAttribI1ui;
+
   __glewVertexAttribI1uiv: TPFNGLVERTEXATTRIBI1UIVPROC; cvar;external libGLEW;
+  glVertexAttribI1uiv: TPFNGLVERTEXATTRIBI1UIVPROC absolute __glewVertexAttribI1uiv;
+
   __glewVertexAttribI2i: TPFNGLVERTEXATTRIBI2IPROC; cvar;external libGLEW;
+  glVertexAttribI2i: TPFNGLVERTEXATTRIBI2IPROC absolute __glewVertexAttribI2i;
+
   __glewVertexAttribI2iv: TPFNGLVERTEXATTRIBI2IVPROC; cvar;external libGLEW;
+  glVertexAttribI2iv: TPFNGLVERTEXATTRIBI2IVPROC absolute __glewVertexAttribI2iv;
+
   __glewVertexAttribI2ui: TPFNGLVERTEXATTRIBI2UIPROC; cvar;external libGLEW;
+  glVertexAttribI2ui: TPFNGLVERTEXATTRIBI2UIPROC absolute __glewVertexAttribI2ui;
+
   __glewVertexAttribI2uiv: TPFNGLVERTEXATTRIBI2UIVPROC; cvar;external libGLEW;
+  glVertexAttribI2uiv: TPFNGLVERTEXATTRIBI2UIVPROC absolute __glewVertexAttribI2uiv;
+
   __glewVertexAttribI3i: TPFNGLVERTEXATTRIBI3IPROC; cvar;external libGLEW;
+  glVertexAttribI3i: TPFNGLVERTEXATTRIBI3IPROC absolute __glewVertexAttribI3i;
+
   __glewVertexAttribI3iv: TPFNGLVERTEXATTRIBI3IVPROC; cvar;external libGLEW;
+  glVertexAttribI3iv: TPFNGLVERTEXATTRIBI3IVPROC absolute __glewVertexAttribI3iv;
+
   __glewVertexAttribI3ui: TPFNGLVERTEXATTRIBI3UIPROC; cvar;external libGLEW;
+  glVertexAttribI3ui: TPFNGLVERTEXATTRIBI3UIPROC absolute __glewVertexAttribI3ui;
+
   __glewVertexAttribI3uiv: TPFNGLVERTEXATTRIBI3UIVPROC; cvar;external libGLEW;
+  glVertexAttribI3uiv: TPFNGLVERTEXATTRIBI3UIVPROC absolute __glewVertexAttribI3uiv;
+
   __glewVertexAttribI4bv: TPFNGLVERTEXATTRIBI4BVPROC; cvar;external libGLEW;
+  glVertexAttribI4bv: TPFNGLVERTEXATTRIBI4BVPROC absolute __glewVertexAttribI4bv;
+
   __glewVertexAttribI4i: TPFNGLVERTEXATTRIBI4IPROC; cvar;external libGLEW;
+  glVertexAttribI4i: TPFNGLVERTEXATTRIBI4IPROC absolute __glewVertexAttribI4i;
+
   __glewVertexAttribI4iv: TPFNGLVERTEXATTRIBI4IVPROC; cvar;external libGLEW;
+  glVertexAttribI4iv: TPFNGLVERTEXATTRIBI4IVPROC absolute __glewVertexAttribI4iv;
+
   __glewVertexAttribI4sv: TPFNGLVERTEXATTRIBI4SVPROC; cvar;external libGLEW;
+  glVertexAttribI4sv: TPFNGLVERTEXATTRIBI4SVPROC absolute __glewVertexAttribI4sv;
+
   __glewVertexAttribI4ubv: TPFNGLVERTEXATTRIBI4UBVPROC; cvar;external libGLEW;
+  glVertexAttribI4ubv: TPFNGLVERTEXATTRIBI4UBVPROC absolute __glewVertexAttribI4ubv;
+
   __glewVertexAttribI4ui: TPFNGLVERTEXATTRIBI4UIPROC; cvar;external libGLEW;
+  glVertexAttribI4ui: TPFNGLVERTEXATTRIBI4UIPROC absolute __glewVertexAttribI4ui;
+
   __glewVertexAttribI4uiv: TPFNGLVERTEXATTRIBI4UIVPROC; cvar;external libGLEW;
+  glVertexAttribI4uiv: TPFNGLVERTEXATTRIBI4UIVPROC absolute __glewVertexAttribI4uiv;
+
   __glewVertexAttribI4usv: TPFNGLVERTEXATTRIBI4USVPROC; cvar;external libGLEW;
+  glVertexAttribI4usv: TPFNGLVERTEXATTRIBI4USVPROC absolute __glewVertexAttribI4usv;
+
   __glewVertexAttribIPointer: TPFNGLVERTEXATTRIBIPOINTERPROC; cvar;external libGLEW;
+  glVertexAttribIPointer: TPFNGLVERTEXATTRIBIPOINTERPROC absolute __glewVertexAttribIPointer;
+
   __glewDrawArraysInstanced: TPFNGLDRAWARRAYSINSTANCEDPROC; cvar;external libGLEW;
+  glDrawArraysInstanced: TPFNGLDRAWARRAYSINSTANCEDPROC absolute __glewDrawArraysInstanced;
+
   __glewDrawElementsInstanced: TPFNGLDRAWELEMENTSINSTANCEDPROC; cvar;external libGLEW;
+  glDrawElementsInstanced: TPFNGLDRAWELEMENTSINSTANCEDPROC absolute __glewDrawElementsInstanced;
+
   __glewPrimitiveRestartIndex: TPFNGLPRIMITIVERESTARTINDEXPROC; cvar;external libGLEW;
+  glPrimitiveRestartIndex: TPFNGLPRIMITIVERESTARTINDEXPROC absolute __glewPrimitiveRestartIndex;
+
   __glewTexBuffer: TPFNGLTEXBUFFERPROC; cvar;external libGLEW;
+  glTexBuffer: TPFNGLTEXBUFFERPROC absolute __glewTexBuffer;
+
   __glewFramebufferTexture: TPFNGLFRAMEBUFFERTEXTUREPROC; cvar;external libGLEW;
+  glFramebufferTexture: TPFNGLFRAMEBUFFERTEXTUREPROC absolute __glewFramebufferTexture;
+
   __glewGetBufferParameteri64v: TPFNGLGETBUFFERPARAMETERI64VPROC; cvar;external libGLEW;
+  glGetBufferParameteri64v: TPFNGLGETBUFFERPARAMETERI64VPROC absolute __glewGetBufferParameteri64v;
+
   __glewGetInteger64i_v: TPFNGLGETINTEGER64I_VPROC; cvar;external libGLEW;
+  glGetInteger64i_v: TPFNGLGETINTEGER64I_VPROC absolute __glewGetInteger64i_v;
+
   __glewVertexAttribDivisor: TPFNGLVERTEXATTRIBDIVISORPROC; cvar;external libGLEW;
+  glVertexAttribDivisor: TPFNGLVERTEXATTRIBDIVISORPROC absolute __glewVertexAttribDivisor;
+
   __glewBlendEquationSeparatei: TPFNGLBLENDEQUATIONSEPARATEIPROC; cvar;external libGLEW;
+  glBlendEquationSeparatei: TPFNGLBLENDEQUATIONSEPARATEIPROC absolute __glewBlendEquationSeparatei;
+
   __glewBlendEquationi: TPFNGLBLENDEQUATIONIPROC; cvar;external libGLEW;
+  glBlendEquationi: TPFNGLBLENDEQUATIONIPROC absolute __glewBlendEquationi;
+
   __glewBlendFuncSeparatei: TPFNGLBLENDFUNCSEPARATEIPROC; cvar;external libGLEW;
+  glBlendFuncSeparatei: TPFNGLBLENDFUNCSEPARATEIPROC absolute __glewBlendFuncSeparatei;
+
   __glewBlendFunci: TPFNGLBLENDFUNCIPROC; cvar;external libGLEW;
+  glBlendFunci: TPFNGLBLENDFUNCIPROC absolute __glewBlendFunci;
+
   __glewMinSampleShading: TPFNGLMINSAMPLESHADINGPROC; cvar;external libGLEW;
+  glMinSampleShading: TPFNGLMINSAMPLESHADINGPROC absolute __glewMinSampleShading;
+
   __glewGetGraphicsResetStatus: TPFNGLGETGRAPHICSRESETSTATUSPROC; cvar;external libGLEW;
+  glGetGraphicsResetStatus: TPFNGLGETGRAPHICSRESETSTATUSPROC absolute __glewGetGraphicsResetStatus;
+
   __glewGetnCompressedTexImage: TPFNGLGETNCOMPRESSEDTEXIMAGEPROC; cvar;external libGLEW;
+  glGetnCompressedTexImage: TPFNGLGETNCOMPRESSEDTEXIMAGEPROC absolute __glewGetnCompressedTexImage;
+
   __glewGetnTexImage: TPFNGLGETNTEXIMAGEPROC; cvar;external libGLEW;
+  glGetnTexImage: TPFNGLGETNTEXIMAGEPROC absolute __glewGetnTexImage;
+
   __glewGetnUniformdv: TPFNGLGETNUNIFORMDVPROC; cvar;external libGLEW;
+  glGetnUniformdv: TPFNGLGETNUNIFORMDVPROC absolute __glewGetnUniformdv;
+
   __glewMultiDrawArraysIndirectCount: TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectCount: TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTPROC absolute __glewMultiDrawArraysIndirectCount;
+
   __glewMultiDrawElementsIndirectCount: TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectCount: TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTPROC absolute __glewMultiDrawElementsIndirectCount;
+
   __glewSpecializeShader: TPFNGLSPECIALIZESHADERPROC; cvar;external libGLEW;
+  glSpecializeShader: TPFNGLSPECIALIZESHADERPROC absolute __glewSpecializeShader;
+
   __glewTbufferMask3DFX: TPFNGLTBUFFERMASK3DFXPROC; cvar;external libGLEW;
+  glTbufferMask3DFX: TPFNGLTBUFFERMASK3DFXPROC absolute __glewTbufferMask3DFX;
+
   __glewDebugMessageCallbackAMD: TPFNGLDEBUGMESSAGECALLBACKAMDPROC; cvar;external libGLEW;
+  glDebugMessageCallbackAMD: TPFNGLDEBUGMESSAGECALLBACKAMDPROC absolute __glewDebugMessageCallbackAMD;
+
   __glewDebugMessageEnableAMD: TPFNGLDEBUGMESSAGEENABLEAMDPROC; cvar;external libGLEW;
+  glDebugMessageEnableAMD: TPFNGLDEBUGMESSAGEENABLEAMDPROC absolute __glewDebugMessageEnableAMD;
+
   __glewDebugMessageInsertAMD: TPFNGLDEBUGMESSAGEINSERTAMDPROC; cvar;external libGLEW;
+  glDebugMessageInsertAMD: TPFNGLDEBUGMESSAGEINSERTAMDPROC absolute __glewDebugMessageInsertAMD;
+
   __glewGetDebugMessageLogAMD: TPFNGLGETDEBUGMESSAGELOGAMDPROC; cvar;external libGLEW;
+  glGetDebugMessageLogAMD: TPFNGLGETDEBUGMESSAGELOGAMDPROC absolute __glewGetDebugMessageLogAMD;
+
   __glewBlendEquationIndexedAMD: TPFNGLBLENDEQUATIONINDEXEDAMDPROC; cvar;external libGLEW;
+  glBlendEquationIndexedAMD: TPFNGLBLENDEQUATIONINDEXEDAMDPROC absolute __glewBlendEquationIndexedAMD;
+
   __glewBlendEquationSeparateIndexedAMD: TPFNGLBLENDEQUATIONSEPARATEINDEXEDAMDPROC; cvar;external libGLEW;
+  glBlendEquationSeparateIndexedAMD: TPFNGLBLENDEQUATIONSEPARATEINDEXEDAMDPROC absolute __glewBlendEquationSeparateIndexedAMD;
+
   __glewBlendFuncIndexedAMD: TPFNGLBLENDFUNCINDEXEDAMDPROC; cvar;external libGLEW;
+  glBlendFuncIndexedAMD: TPFNGLBLENDFUNCINDEXEDAMDPROC absolute __glewBlendFuncIndexedAMD;
+
   __glewBlendFuncSeparateIndexedAMD: TPFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC; cvar;external libGLEW;
+  glBlendFuncSeparateIndexedAMD: TPFNGLBLENDFUNCSEPARATEINDEXEDAMDPROC absolute __glewBlendFuncSeparateIndexedAMD;
+
   __glewNamedRenderbufferStorageMultisampleAdvancedAMD: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorageMultisampleAdvancedAMD: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC absolute __glewNamedRenderbufferStorageMultisampleAdvancedAMD;
+
   __glewRenderbufferStorageMultisampleAdvancedAMD: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleAdvancedAMD: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEADVANCEDAMDPROC absolute __glewRenderbufferStorageMultisampleAdvancedAMD;
+
   __glewFramebufferSamplePositionsfvAMD: TPFNGLFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC; cvar;external libGLEW;
+  glFramebufferSamplePositionsfvAMD: TPFNGLFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC absolute __glewFramebufferSamplePositionsfvAMD;
+
   __glewGetFramebufferParameterfvAMD: TPFNGLGETFRAMEBUFFERPARAMETERFVAMDPROC; cvar;external libGLEW;
+  glGetFramebufferParameterfvAMD: TPFNGLGETFRAMEBUFFERPARAMETERFVAMDPROC absolute __glewGetFramebufferParameterfvAMD;
+
   __glewGetNamedFramebufferParameterfvAMD: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERFVAMDPROC; cvar;external libGLEW;
+  glGetNamedFramebufferParameterfvAMD: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERFVAMDPROC absolute __glewGetNamedFramebufferParameterfvAMD;
+
   __glewNamedFramebufferSamplePositionsfvAMD: TPFNGLNAMEDFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC; cvar;external libGLEW;
+  glNamedFramebufferSamplePositionsfvAMD: TPFNGLNAMEDFRAMEBUFFERSAMPLEPOSITIONSFVAMDPROC absolute __glewNamedFramebufferSamplePositionsfvAMD;
+
   __glewVertexAttribParameteriAMD: TPFNGLVERTEXATTRIBPARAMETERIAMDPROC; cvar;external libGLEW;
+  glVertexAttribParameteriAMD: TPFNGLVERTEXATTRIBPARAMETERIAMDPROC absolute __glewVertexAttribParameteriAMD;
+
   __glewMultiDrawArraysIndirectAMD: TPFNGLMULTIDRAWARRAYSINDIRECTAMDPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectAMD: TPFNGLMULTIDRAWARRAYSINDIRECTAMDPROC absolute __glewMultiDrawArraysIndirectAMD;
+
   __glewMultiDrawElementsIndirectAMD: TPFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectAMD: TPFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC absolute __glewMultiDrawElementsIndirectAMD;
+
   __glewDeleteNamesAMD: TPFNGLDELETENAMESAMDPROC; cvar;external libGLEW;
+  glDeleteNamesAMD: TPFNGLDELETENAMESAMDPROC absolute __glewDeleteNamesAMD;
+
   __glewGenNamesAMD: TPFNGLGENNAMESAMDPROC; cvar;external libGLEW;
+  glGenNamesAMD: TPFNGLGENNAMESAMDPROC absolute __glewGenNamesAMD;
+
   __glewIsNameAMD: TPFNGLISNAMEAMDPROC; cvar;external libGLEW;
+  glIsNameAMD: TPFNGLISNAMEAMDPROC absolute __glewIsNameAMD;
+
   __glewQueryObjectParameteruiAMD: TPFNGLQUERYOBJECTPARAMETERUIAMDPROC; cvar;external libGLEW;
+  glQueryObjectParameteruiAMD: TPFNGLQUERYOBJECTPARAMETERUIAMDPROC absolute __glewQueryObjectParameteruiAMD;
+
   __glewBeginPerfMonitorAMD: TPFNGLBEGINPERFMONITORAMDPROC; cvar;external libGLEW;
+  glBeginPerfMonitorAMD: TPFNGLBEGINPERFMONITORAMDPROC absolute __glewBeginPerfMonitorAMD;
+
   __glewDeletePerfMonitorsAMD: TPFNGLDELETEPERFMONITORSAMDPROC; cvar;external libGLEW;
+  glDeletePerfMonitorsAMD: TPFNGLDELETEPERFMONITORSAMDPROC absolute __glewDeletePerfMonitorsAMD;
+
   __glewEndPerfMonitorAMD: TPFNGLENDPERFMONITORAMDPROC; cvar;external libGLEW;
+  glEndPerfMonitorAMD: TPFNGLENDPERFMONITORAMDPROC absolute __glewEndPerfMonitorAMD;
+
   __glewGenPerfMonitorsAMD: TPFNGLGENPERFMONITORSAMDPROC; cvar;external libGLEW;
+  glGenPerfMonitorsAMD: TPFNGLGENPERFMONITORSAMDPROC absolute __glewGenPerfMonitorsAMD;
+
   __glewGetPerfMonitorCounterDataAMD: TPFNGLGETPERFMONITORCOUNTERDATAAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorCounterDataAMD: TPFNGLGETPERFMONITORCOUNTERDATAAMDPROC absolute __glewGetPerfMonitorCounterDataAMD;
+
   __glewGetPerfMonitorCounterInfoAMD: TPFNGLGETPERFMONITORCOUNTERINFOAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorCounterInfoAMD: TPFNGLGETPERFMONITORCOUNTERINFOAMDPROC absolute __glewGetPerfMonitorCounterInfoAMD;
+
   __glewGetPerfMonitorCounterStringAMD: TPFNGLGETPERFMONITORCOUNTERSTRINGAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorCounterStringAMD: TPFNGLGETPERFMONITORCOUNTERSTRINGAMDPROC absolute __glewGetPerfMonitorCounterStringAMD;
+
   __glewGetPerfMonitorCountersAMD: TPFNGLGETPERFMONITORCOUNTERSAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorCountersAMD: TPFNGLGETPERFMONITORCOUNTERSAMDPROC absolute __glewGetPerfMonitorCountersAMD;
+
   __glewGetPerfMonitorGroupStringAMD: TPFNGLGETPERFMONITORGROUPSTRINGAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorGroupStringAMD: TPFNGLGETPERFMONITORGROUPSTRINGAMDPROC absolute __glewGetPerfMonitorGroupStringAMD;
+
   __glewGetPerfMonitorGroupsAMD: TPFNGLGETPERFMONITORGROUPSAMDPROC; cvar;external libGLEW;
+  glGetPerfMonitorGroupsAMD: TPFNGLGETPERFMONITORGROUPSAMDPROC absolute __glewGetPerfMonitorGroupsAMD;
+
   __glewSelectPerfMonitorCountersAMD: TPFNGLSELECTPERFMONITORCOUNTERSAMDPROC; cvar;external libGLEW;
+  glSelectPerfMonitorCountersAMD: TPFNGLSELECTPERFMONITORCOUNTERSAMDPROC absolute __glewSelectPerfMonitorCountersAMD;
+
   __glewSetMultisamplefvAMD: TPFNGLSETMULTISAMPLEFVAMDPROC; cvar;external libGLEW;
+  glSetMultisamplefvAMD: TPFNGLSETMULTISAMPLEFVAMDPROC absolute __glewSetMultisamplefvAMD;
+
   __glewTexStorageSparseAMD: TPFNGLTEXSTORAGESPARSEAMDPROC; cvar;external libGLEW;
+  glTexStorageSparseAMD: TPFNGLTEXSTORAGESPARSEAMDPROC absolute __glewTexStorageSparseAMD;
+
   __glewTextureStorageSparseAMD: TPFNGLTEXTURESTORAGESPARSEAMDPROC; cvar;external libGLEW;
+  glTextureStorageSparseAMD: TPFNGLTEXTURESTORAGESPARSEAMDPROC absolute __glewTextureStorageSparseAMD;
+
   __glewStencilOpValueAMD: TPFNGLSTENCILOPVALUEAMDPROC; cvar;external libGLEW;
+  glStencilOpValueAMD: TPFNGLSTENCILOPVALUEAMDPROC absolute __glewStencilOpValueAMD;
+
   __glewTessellationFactorAMD: TPFNGLTESSELLATIONFACTORAMDPROC; cvar;external libGLEW;
+  glTessellationFactorAMD: TPFNGLTESSELLATIONFACTORAMDPROC absolute __glewTessellationFactorAMD;
+
   __glewTessellationModeAMD: TPFNGLTESSELLATIONMODEAMDPROC; cvar;external libGLEW;
+  glTessellationModeAMD: TPFNGLTESSELLATIONMODEAMDPROC absolute __glewTessellationModeAMD;
+
   __glewBlitFramebufferANGLE: TPFNGLBLITFRAMEBUFFERANGLEPROC; cvar;external libGLEW;
+  glBlitFramebufferANGLE: TPFNGLBLITFRAMEBUFFERANGLEPROC absolute __glewBlitFramebufferANGLE;
+
   __glewRenderbufferStorageMultisampleANGLE: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEANGLEPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleANGLE: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEANGLEPROC absolute __glewRenderbufferStorageMultisampleANGLE;
+
   __glewDrawArraysInstancedANGLE: TPFNGLDRAWARRAYSINSTANCEDANGLEPROC; cvar;external libGLEW;
+  glDrawArraysInstancedANGLE: TPFNGLDRAWARRAYSINSTANCEDANGLEPROC absolute __glewDrawArraysInstancedANGLE;
+
   __glewDrawElementsInstancedANGLE: TPFNGLDRAWELEMENTSINSTANCEDANGLEPROC; cvar;external libGLEW;
+  glDrawElementsInstancedANGLE: TPFNGLDRAWELEMENTSINSTANCEDANGLEPROC absolute __glewDrawElementsInstancedANGLE;
+
   __glewVertexAttribDivisorANGLE: TPFNGLVERTEXATTRIBDIVISORANGLEPROC; cvar;external libGLEW;
+  glVertexAttribDivisorANGLE: TPFNGLVERTEXATTRIBDIVISORANGLEPROC absolute __glewVertexAttribDivisorANGLE;
+
   __glewBeginQueryANGLE: TPFNGLBEGINQUERYANGLEPROC; cvar;external libGLEW;
+  glBeginQueryANGLE: TPFNGLBEGINQUERYANGLEPROC absolute __glewBeginQueryANGLE;
+
   __glewDeleteQueriesANGLE: TPFNGLDELETEQUERIESANGLEPROC; cvar;external libGLEW;
+  glDeleteQueriesANGLE: TPFNGLDELETEQUERIESANGLEPROC absolute __glewDeleteQueriesANGLE;
+
   __glewEndQueryANGLE: TPFNGLENDQUERYANGLEPROC; cvar;external libGLEW;
+  glEndQueryANGLE: TPFNGLENDQUERYANGLEPROC absolute __glewEndQueryANGLE;
+
   __glewGenQueriesANGLE: TPFNGLGENQUERIESANGLEPROC; cvar;external libGLEW;
+  glGenQueriesANGLE: TPFNGLGENQUERIESANGLEPROC absolute __glewGenQueriesANGLE;
+
   __glewGetQueryObjecti64vANGLE: TPFNGLGETQUERYOBJECTI64VANGLEPROC; cvar;external libGLEW;
+  glGetQueryObjecti64vANGLE: TPFNGLGETQUERYOBJECTI64VANGLEPROC absolute __glewGetQueryObjecti64vANGLE;
+
   __glewGetQueryObjectivANGLE: TPFNGLGETQUERYOBJECTIVANGLEPROC; cvar;external libGLEW;
+  glGetQueryObjectivANGLE: TPFNGLGETQUERYOBJECTIVANGLEPROC absolute __glewGetQueryObjectivANGLE;
+
   __glewGetQueryObjectui64vANGLE: TPFNGLGETQUERYOBJECTUI64VANGLEPROC; cvar;external libGLEW;
+  glGetQueryObjectui64vANGLE: TPFNGLGETQUERYOBJECTUI64VANGLEPROC absolute __glewGetQueryObjectui64vANGLE;
+
   __glewGetQueryObjectuivANGLE: TPFNGLGETQUERYOBJECTUIVANGLEPROC; cvar;external libGLEW;
+  glGetQueryObjectuivANGLE: TPFNGLGETQUERYOBJECTUIVANGLEPROC absolute __glewGetQueryObjectuivANGLE;
+
   __glewGetQueryivANGLE: TPFNGLGETQUERYIVANGLEPROC; cvar;external libGLEW;
+  glGetQueryivANGLE: TPFNGLGETQUERYIVANGLEPROC absolute __glewGetQueryivANGLE;
+
   __glewIsQueryANGLE: TPFNGLISQUERYANGLEPROC; cvar;external libGLEW;
+  glIsQueryANGLE: TPFNGLISQUERYANGLEPROC absolute __glewIsQueryANGLE;
+
   __glewQueryCounterANGLE: TPFNGLQUERYCOUNTERANGLEPROC; cvar;external libGLEW;
+  glQueryCounterANGLE: TPFNGLQUERYCOUNTERANGLEPROC absolute __glewQueryCounterANGLE;
+
   __glewGetTranslatedShaderSourceANGLE: TPFNGLGETTRANSLATEDSHADERSOURCEANGLEPROC; cvar;external libGLEW;
+  glGetTranslatedShaderSourceANGLE: TPFNGLGETTRANSLATEDSHADERSOURCEANGLEPROC absolute __glewGetTranslatedShaderSourceANGLE;
+
   __glewCopyTextureLevelsAPPLE: TPFNGLCOPYTEXTURELEVELSAPPLEPROC; cvar;external libGLEW;
+  glCopyTextureLevelsAPPLE: TPFNGLCOPYTEXTURELEVELSAPPLEPROC absolute __glewCopyTextureLevelsAPPLE;
+
   __glewDrawElementArrayAPPLE: TPFNGLDRAWELEMENTARRAYAPPLEPROC; cvar;external libGLEW;
+  glDrawElementArrayAPPLE: TPFNGLDRAWELEMENTARRAYAPPLEPROC absolute __glewDrawElementArrayAPPLE;
+
   __glewDrawRangeElementArrayAPPLE: TPFNGLDRAWRANGEELEMENTARRAYAPPLEPROC; cvar;external libGLEW;
+  glDrawRangeElementArrayAPPLE: TPFNGLDRAWRANGEELEMENTARRAYAPPLEPROC absolute __glewDrawRangeElementArrayAPPLE;
+
   __glewElementPointerAPPLE: TPFNGLELEMENTPOINTERAPPLEPROC; cvar;external libGLEW;
+  glElementPointerAPPLE: TPFNGLELEMENTPOINTERAPPLEPROC absolute __glewElementPointerAPPLE;
+
   __glewMultiDrawElementArrayAPPLE: TPFNGLMULTIDRAWELEMENTARRAYAPPLEPROC; cvar;external libGLEW;
+  glMultiDrawElementArrayAPPLE: TPFNGLMULTIDRAWELEMENTARRAYAPPLEPROC absolute __glewMultiDrawElementArrayAPPLE;
+
   __glewMultiDrawRangeElementArrayAPPLE: TPFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC; cvar;external libGLEW;
+  glMultiDrawRangeElementArrayAPPLE: TPFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC absolute __glewMultiDrawRangeElementArrayAPPLE;
+
   __glewDeleteFencesAPPLE: TPFNGLDELETEFENCESAPPLEPROC; cvar;external libGLEW;
+  glDeleteFencesAPPLE: TPFNGLDELETEFENCESAPPLEPROC absolute __glewDeleteFencesAPPLE;
+
   __glewFinishFenceAPPLE: TPFNGLFINISHFENCEAPPLEPROC; cvar;external libGLEW;
+  glFinishFenceAPPLE: TPFNGLFINISHFENCEAPPLEPROC absolute __glewFinishFenceAPPLE;
+
   __glewFinishObjectAPPLE: TPFNGLFINISHOBJECTAPPLEPROC; cvar;external libGLEW;
+  glFinishObjectAPPLE: TPFNGLFINISHOBJECTAPPLEPROC absolute __glewFinishObjectAPPLE;
+
   __glewGenFencesAPPLE: TPFNGLGENFENCESAPPLEPROC; cvar;external libGLEW;
+  glGenFencesAPPLE: TPFNGLGENFENCESAPPLEPROC absolute __glewGenFencesAPPLE;
+
   __glewIsFenceAPPLE: TPFNGLISFENCEAPPLEPROC; cvar;external libGLEW;
+  glIsFenceAPPLE: TPFNGLISFENCEAPPLEPROC absolute __glewIsFenceAPPLE;
+
   __glewSetFenceAPPLE: TPFNGLSETFENCEAPPLEPROC; cvar;external libGLEW;
+  glSetFenceAPPLE: TPFNGLSETFENCEAPPLEPROC absolute __glewSetFenceAPPLE;
+
   __glewTestFenceAPPLE: TPFNGLTESTFENCEAPPLEPROC; cvar;external libGLEW;
+  glTestFenceAPPLE: TPFNGLTESTFENCEAPPLEPROC absolute __glewTestFenceAPPLE;
+
   __glewTestObjectAPPLE: TPFNGLTESTOBJECTAPPLEPROC; cvar;external libGLEW;
+  glTestObjectAPPLE: TPFNGLTESTOBJECTAPPLEPROC absolute __glewTestObjectAPPLE;
+
   __glewBufferParameteriAPPLE: TPFNGLBUFFERPARAMETERIAPPLEPROC; cvar;external libGLEW;
+  glBufferParameteriAPPLE: TPFNGLBUFFERPARAMETERIAPPLEPROC absolute __glewBufferParameteriAPPLE;
+
   __glewFlushMappedBufferRangeAPPLE: TPFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC; cvar;external libGLEW;
+  glFlushMappedBufferRangeAPPLE: TPFNGLFLUSHMAPPEDBUFFERRANGEAPPLEPROC absolute __glewFlushMappedBufferRangeAPPLE;
+
   __glewRenderbufferStorageMultisampleAPPLE: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLEPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleAPPLE: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLEPROC absolute __glewRenderbufferStorageMultisampleAPPLE;
+
   __glewResolveMultisampleFramebufferAPPLE: TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC; cvar;external libGLEW;
+  glResolveMultisampleFramebufferAPPLE: TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC absolute __glewResolveMultisampleFramebufferAPPLE;
+
   __glewGetObjectParameterivAPPLE: TPFNGLGETOBJECTPARAMETERIVAPPLEPROC; cvar;external libGLEW;
+  glGetObjectParameterivAPPLE: TPFNGLGETOBJECTPARAMETERIVAPPLEPROC absolute __glewGetObjectParameterivAPPLE;
+
   __glewObjectPurgeableAPPLE: TPFNGLOBJECTPURGEABLEAPPLEPROC; cvar;external libGLEW;
+  glObjectPurgeableAPPLE: TPFNGLOBJECTPURGEABLEAPPLEPROC absolute __glewObjectPurgeableAPPLE;
+
   __glewObjectUnpurgeableAPPLE: TPFNGLOBJECTUNPURGEABLEAPPLEPROC; cvar;external libGLEW;
+  glObjectUnpurgeableAPPLE: TPFNGLOBJECTUNPURGEABLEAPPLEPROC absolute __glewObjectUnpurgeableAPPLE;
+
   __glewClientWaitSyncAPPLE: TPFNGLCLIENTWAITSYNCAPPLEPROC; cvar;external libGLEW;
+  glClientWaitSyncAPPLE: TPFNGLCLIENTWAITSYNCAPPLEPROC absolute __glewClientWaitSyncAPPLE;
+
   __glewDeleteSyncAPPLE: TPFNGLDELETESYNCAPPLEPROC; cvar;external libGLEW;
+  glDeleteSyncAPPLE: TPFNGLDELETESYNCAPPLEPROC absolute __glewDeleteSyncAPPLE;
+
   __glewFenceSyncAPPLE: TPFNGLFENCESYNCAPPLEPROC; cvar;external libGLEW;
+  glFenceSyncAPPLE: TPFNGLFENCESYNCAPPLEPROC absolute __glewFenceSyncAPPLE;
+
   __glewGetInteger64vAPPLE: TPFNGLGETINTEGER64VAPPLEPROC; cvar;external libGLEW;
+  glGetInteger64vAPPLE: TPFNGLGETINTEGER64VAPPLEPROC absolute __glewGetInteger64vAPPLE;
+
   __glewGetSyncivAPPLE: TPFNGLGETSYNCIVAPPLEPROC; cvar;external libGLEW;
+  glGetSyncivAPPLE: TPFNGLGETSYNCIVAPPLEPROC absolute __glewGetSyncivAPPLE;
+
   __glewIsSyncAPPLE: TPFNGLISSYNCAPPLEPROC; cvar;external libGLEW;
+  glIsSyncAPPLE: TPFNGLISSYNCAPPLEPROC absolute __glewIsSyncAPPLE;
+
   __glewWaitSyncAPPLE: TPFNGLWAITSYNCAPPLEPROC; cvar;external libGLEW;
+  glWaitSyncAPPLE: TPFNGLWAITSYNCAPPLEPROC absolute __glewWaitSyncAPPLE;
+
   __glewGetTexParameterPointervAPPLE: TPFNGLGETTEXPARAMETERPOINTERVAPPLEPROC; cvar;external libGLEW;
+  glGetTexParameterPointervAPPLE: TPFNGLGETTEXPARAMETERPOINTERVAPPLEPROC absolute __glewGetTexParameterPointervAPPLE;
+
   __glewTextureRangeAPPLE: TPFNGLTEXTURERANGEAPPLEPROC; cvar;external libGLEW;
+  glTextureRangeAPPLE: TPFNGLTEXTURERANGEAPPLEPROC absolute __glewTextureRangeAPPLE;
+
   __glewBindVertexArrayAPPLE: TPFNGLBINDVERTEXARRAYAPPLEPROC; cvar;external libGLEW;
+  glBindVertexArrayAPPLE: TPFNGLBINDVERTEXARRAYAPPLEPROC absolute __glewBindVertexArrayAPPLE;
+
   __glewDeleteVertexArraysAPPLE: TPFNGLDELETEVERTEXARRAYSAPPLEPROC; cvar;external libGLEW;
+  glDeleteVertexArraysAPPLE: TPFNGLDELETEVERTEXARRAYSAPPLEPROC absolute __glewDeleteVertexArraysAPPLE;
+
   __glewGenVertexArraysAPPLE: TPFNGLGENVERTEXARRAYSAPPLEPROC; cvar;external libGLEW;
+  glGenVertexArraysAPPLE: TPFNGLGENVERTEXARRAYSAPPLEPROC absolute __glewGenVertexArraysAPPLE;
+
   __glewIsVertexArrayAPPLE: TPFNGLISVERTEXARRAYAPPLEPROC; cvar;external libGLEW;
+  glIsVertexArrayAPPLE: TPFNGLISVERTEXARRAYAPPLEPROC absolute __glewIsVertexArrayAPPLE;
+
   __glewFlushVertexArrayRangeAPPLE: TPFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC; cvar;external libGLEW;
+  glFlushVertexArrayRangeAPPLE: TPFNGLFLUSHVERTEXARRAYRANGEAPPLEPROC absolute __glewFlushVertexArrayRangeAPPLE;
+
   __glewVertexArrayParameteriAPPLE: TPFNGLVERTEXARRAYPARAMETERIAPPLEPROC; cvar;external libGLEW;
+  glVertexArrayParameteriAPPLE: TPFNGLVERTEXARRAYPARAMETERIAPPLEPROC absolute __glewVertexArrayParameteriAPPLE;
+
   __glewVertexArrayRangeAPPLE: TPFNGLVERTEXARRAYRANGEAPPLEPROC; cvar;external libGLEW;
+  glVertexArrayRangeAPPLE: TPFNGLVERTEXARRAYRANGEAPPLEPROC absolute __glewVertexArrayRangeAPPLE;
+
   __glewDisableVertexAttribAPPLE: TPFNGLDISABLEVERTEXATTRIBAPPLEPROC; cvar;external libGLEW;
+  glDisableVertexAttribAPPLE: TPFNGLDISABLEVERTEXATTRIBAPPLEPROC absolute __glewDisableVertexAttribAPPLE;
+
   __glewEnableVertexAttribAPPLE: TPFNGLENABLEVERTEXATTRIBAPPLEPROC; cvar;external libGLEW;
+  glEnableVertexAttribAPPLE: TPFNGLENABLEVERTEXATTRIBAPPLEPROC absolute __glewEnableVertexAttribAPPLE;
+
   __glewIsVertexAttribEnabledAPPLE: TPFNGLISVERTEXATTRIBENABLEDAPPLEPROC; cvar;external libGLEW;
+  glIsVertexAttribEnabledAPPLE: TPFNGLISVERTEXATTRIBENABLEDAPPLEPROC absolute __glewIsVertexAttribEnabledAPPLE;
+
   __glewMapVertexAttrib1dAPPLE: TPFNGLMAPVERTEXATTRIB1DAPPLEPROC; cvar;external libGLEW;
+  glMapVertexAttrib1dAPPLE: TPFNGLMAPVERTEXATTRIB1DAPPLEPROC absolute __glewMapVertexAttrib1dAPPLE;
+
   __glewMapVertexAttrib1fAPPLE: TPFNGLMAPVERTEXATTRIB1FAPPLEPROC; cvar;external libGLEW;
+  glMapVertexAttrib1fAPPLE: TPFNGLMAPVERTEXATTRIB1FAPPLEPROC absolute __glewMapVertexAttrib1fAPPLE;
+
   __glewMapVertexAttrib2dAPPLE: TPFNGLMAPVERTEXATTRIB2DAPPLEPROC; cvar;external libGLEW;
+  glMapVertexAttrib2dAPPLE: TPFNGLMAPVERTEXATTRIB2DAPPLEPROC absolute __glewMapVertexAttrib2dAPPLE;
+
   __glewMapVertexAttrib2fAPPLE: TPFNGLMAPVERTEXATTRIB2FAPPLEPROC; cvar;external libGLEW;
+  glMapVertexAttrib2fAPPLE: TPFNGLMAPVERTEXATTRIB2FAPPLEPROC absolute __glewMapVertexAttrib2fAPPLE;
+
   __glewClearDepthf: TPFNGLCLEARDEPTHFPROC; cvar;external libGLEW;
+  glClearDepthf: TPFNGLCLEARDEPTHFPROC absolute __glewClearDepthf;
+
   __glewDepthRangef: TPFNGLDEPTHRANGEFPROC; cvar;external libGLEW;
+  glDepthRangef: TPFNGLDEPTHRANGEFPROC absolute __glewDepthRangef;
+
   __glewGetShaderPrecisionFormat: TPFNGLGETSHADERPRECISIONFORMATPROC; cvar;external libGLEW;
+  glGetShaderPrecisionFormat: TPFNGLGETSHADERPRECISIONFORMATPROC absolute __glewGetShaderPrecisionFormat;
+
   __glewReleaseShaderCompiler: TPFNGLRELEASESHADERCOMPILERPROC; cvar;external libGLEW;
+  glReleaseShaderCompiler: TPFNGLRELEASESHADERCOMPILERPROC absolute __glewReleaseShaderCompiler;
+
   __glewShaderBinary: TPFNGLSHADERBINARYPROC; cvar;external libGLEW;
+  glShaderBinary: TPFNGLSHADERBINARYPROC absolute __glewShaderBinary;
+
   __glewMemoryBarrierByRegion: TPFNGLMEMORYBARRIERBYREGIONPROC; cvar;external libGLEW;
+  glMemoryBarrierByRegion: TPFNGLMEMORYBARRIERBYREGIONPROC absolute __glewMemoryBarrierByRegion;
+
   __glewPrimitiveBoundingBoxARB: TPFNGLPRIMITIVEBOUNDINGBOXARBPROC; cvar;external libGLEW;
+  glPrimitiveBoundingBoxARB: TPFNGLPRIMITIVEBOUNDINGBOXARBPROC absolute __glewPrimitiveBoundingBoxARB;
+
   __glewDrawArraysInstancedBaseInstance: TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC; cvar;external libGLEW;
+  glDrawArraysInstancedBaseInstance: TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEPROC absolute __glewDrawArraysInstancedBaseInstance;
+
   __glewDrawElementsInstancedBaseInstance: TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseInstance: TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEPROC absolute __glewDrawElementsInstancedBaseInstance;
+
   __glewDrawElementsInstancedBaseVertexBaseInstance: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseVertexBaseInstance: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC absolute __glewDrawElementsInstancedBaseVertexBaseInstance;
+
   __glewGetImageHandleARB: TPFNGLGETIMAGEHANDLEARBPROC; cvar;external libGLEW;
+  glGetImageHandleARB: TPFNGLGETIMAGEHANDLEARBPROC absolute __glewGetImageHandleARB;
+
   __glewGetTextureHandleARB: TPFNGLGETTEXTUREHANDLEARBPROC; cvar;external libGLEW;
+  glGetTextureHandleARB: TPFNGLGETTEXTUREHANDLEARBPROC absolute __glewGetTextureHandleARB;
+
   __glewGetTextureSamplerHandleARB: TPFNGLGETTEXTURESAMPLERHANDLEARBPROC; cvar;external libGLEW;
+  glGetTextureSamplerHandleARB: TPFNGLGETTEXTURESAMPLERHANDLEARBPROC absolute __glewGetTextureSamplerHandleARB;
+
   __glewGetVertexAttribLui64vARB: TPFNGLGETVERTEXATTRIBLUI64VARBPROC; cvar;external libGLEW;
+  glGetVertexAttribLui64vARB: TPFNGLGETVERTEXATTRIBLUI64VARBPROC absolute __glewGetVertexAttribLui64vARB;
+
   __glewIsImageHandleResidentARB: TPFNGLISIMAGEHANDLERESIDENTARBPROC; cvar;external libGLEW;
+  glIsImageHandleResidentARB: TPFNGLISIMAGEHANDLERESIDENTARBPROC absolute __glewIsImageHandleResidentARB;
+
   __glewIsTextureHandleResidentARB: TPFNGLISTEXTUREHANDLERESIDENTARBPROC; cvar;external libGLEW;
+  glIsTextureHandleResidentARB: TPFNGLISTEXTUREHANDLERESIDENTARBPROC absolute __glewIsTextureHandleResidentARB;
+
   __glewMakeImageHandleNonResidentARB: TPFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC; cvar;external libGLEW;
+  glMakeImageHandleNonResidentARB: TPFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC absolute __glewMakeImageHandleNonResidentARB;
+
   __glewMakeImageHandleResidentARB: TPFNGLMAKEIMAGEHANDLERESIDENTARBPROC; cvar;external libGLEW;
+  glMakeImageHandleResidentARB: TPFNGLMAKEIMAGEHANDLERESIDENTARBPROC absolute __glewMakeImageHandleResidentARB;
+
   __glewMakeTextureHandleNonResidentARB: TPFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC; cvar;external libGLEW;
+  glMakeTextureHandleNonResidentARB: TPFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC absolute __glewMakeTextureHandleNonResidentARB;
+
   __glewMakeTextureHandleResidentARB: TPFNGLMAKETEXTUREHANDLERESIDENTARBPROC; cvar;external libGLEW;
+  glMakeTextureHandleResidentARB: TPFNGLMAKETEXTUREHANDLERESIDENTARBPROC absolute __glewMakeTextureHandleResidentARB;
+
   __glewProgramUniformHandleui64ARB: TPFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64ARB: TPFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC absolute __glewProgramUniformHandleui64ARB;
+
   __glewProgramUniformHandleui64vARB: TPFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64vARB: TPFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC absolute __glewProgramUniformHandleui64vARB;
+
   __glewUniformHandleui64ARB: TPFNGLUNIFORMHANDLEUI64ARBPROC; cvar;external libGLEW;
+  glUniformHandleui64ARB: TPFNGLUNIFORMHANDLEUI64ARBPROC absolute __glewUniformHandleui64ARB;
+
   __glewUniformHandleui64vARB: TPFNGLUNIFORMHANDLEUI64VARBPROC; cvar;external libGLEW;
+  glUniformHandleui64vARB: TPFNGLUNIFORMHANDLEUI64VARBPROC absolute __glewUniformHandleui64vARB;
+
   __glewVertexAttribL1ui64ARB: TPFNGLVERTEXATTRIBL1UI64ARBPROC; cvar;external libGLEW;
+  glVertexAttribL1ui64ARB: TPFNGLVERTEXATTRIBL1UI64ARBPROC absolute __glewVertexAttribL1ui64ARB;
+
   __glewVertexAttribL1ui64vARB: TPFNGLVERTEXATTRIBL1UI64VARBPROC; cvar;external libGLEW;
+  glVertexAttribL1ui64vARB: TPFNGLVERTEXATTRIBL1UI64VARBPROC absolute __glewVertexAttribL1ui64vARB;
+
   __glewBindFragDataLocationIndexed: TPFNGLBINDFRAGDATALOCATIONINDEXEDPROC; cvar;external libGLEW;
+  glBindFragDataLocationIndexed: TPFNGLBINDFRAGDATALOCATIONINDEXEDPROC absolute __glewBindFragDataLocationIndexed;
+
   __glewGetFragDataIndex: TPFNGLGETFRAGDATAINDEXPROC; cvar;external libGLEW;
+  glGetFragDataIndex: TPFNGLGETFRAGDATAINDEXPROC absolute __glewGetFragDataIndex;
+
   __glewBufferStorage: TPFNGLBUFFERSTORAGEPROC; cvar;external libGLEW;
+  glBufferStorage: TPFNGLBUFFERSTORAGEPROC absolute __glewBufferStorage;
+
   __glewCreateSyncFromCLeventARB: TPFNGLCREATESYNCFROMCLEVENTARBPROC; cvar;external libGLEW;
+  glCreateSyncFromCLeventARB: TPFNGLCREATESYNCFROMCLEVENTARBPROC absolute __glewCreateSyncFromCLeventARB;
+
   __glewClearBufferData: TPFNGLCLEARBUFFERDATAPROC; cvar;external libGLEW;
+  glClearBufferData: TPFNGLCLEARBUFFERDATAPROC absolute __glewClearBufferData;
+
   __glewClearBufferSubData: TPFNGLCLEARBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glClearBufferSubData: TPFNGLCLEARBUFFERSUBDATAPROC absolute __glewClearBufferSubData;
+
   __glewClearNamedBufferDataEXT: TPFNGLCLEARNAMEDBUFFERDATAEXTPROC; cvar;external libGLEW;
+  glClearNamedBufferDataEXT: TPFNGLCLEARNAMEDBUFFERDATAEXTPROC absolute __glewClearNamedBufferDataEXT;
+
   __glewClearNamedBufferSubDataEXT: TPFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC; cvar;external libGLEW;
+  glClearNamedBufferSubDataEXT: TPFNGLCLEARNAMEDBUFFERSUBDATAEXTPROC absolute __glewClearNamedBufferSubDataEXT;
+
   __glewClearTexImage: TPFNGLCLEARTEXIMAGEPROC; cvar;external libGLEW;
+  glClearTexImage: TPFNGLCLEARTEXIMAGEPROC absolute __glewClearTexImage;
+
   __glewClearTexSubImage: TPFNGLCLEARTEXSUBIMAGEPROC; cvar;external libGLEW;
+  glClearTexSubImage: TPFNGLCLEARTEXSUBIMAGEPROC absolute __glewClearTexSubImage;
+
   __glewClipControl: TPFNGLCLIPCONTROLPROC; cvar;external libGLEW;
+  glClipControl: TPFNGLCLIPCONTROLPROC absolute __glewClipControl;
+
   __glewClampColorARB: TPFNGLCLAMPCOLORARBPROC; cvar;external libGLEW;
+  glClampColorARB: TPFNGLCLAMPCOLORARBPROC absolute __glewClampColorARB;
+
   __glewDispatchCompute: TPFNGLDISPATCHCOMPUTEPROC; cvar;external libGLEW;
+  glDispatchCompute: TPFNGLDISPATCHCOMPUTEPROC absolute __glewDispatchCompute;
+
   __glewDispatchComputeIndirect: TPFNGLDISPATCHCOMPUTEINDIRECTPROC; cvar;external libGLEW;
+  glDispatchComputeIndirect: TPFNGLDISPATCHCOMPUTEINDIRECTPROC absolute __glewDispatchComputeIndirect;
+
   __glewDispatchComputeGroupSizeARB: TPFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC; cvar;external libGLEW;
+  glDispatchComputeGroupSizeARB: TPFNGLDISPATCHCOMPUTEGROUPSIZEARBPROC absolute __glewDispatchComputeGroupSizeARB;
+
   __glewCopyBufferSubData: TPFNGLCOPYBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glCopyBufferSubData: TPFNGLCOPYBUFFERSUBDATAPROC absolute __glewCopyBufferSubData;
+
   __glewCopyImageSubData: TPFNGLCOPYIMAGESUBDATAPROC; cvar;external libGLEW;
+  glCopyImageSubData: TPFNGLCOPYIMAGESUBDATAPROC absolute __glewCopyImageSubData;
+
   __glewDebugMessageCallbackARB: TPFNGLDEBUGMESSAGECALLBACKARBPROC; cvar;external libGLEW;
+  glDebugMessageCallbackARB: TPFNGLDEBUGMESSAGECALLBACKARBPROC absolute __glewDebugMessageCallbackARB;
+
   __glewDebugMessageControlARB: TPFNGLDEBUGMESSAGECONTROLARBPROC; cvar;external libGLEW;
+  glDebugMessageControlARB: TPFNGLDEBUGMESSAGECONTROLARBPROC absolute __glewDebugMessageControlARB;
+
   __glewDebugMessageInsertARB: TPFNGLDEBUGMESSAGEINSERTARBPROC; cvar;external libGLEW;
+  glDebugMessageInsertARB: TPFNGLDEBUGMESSAGEINSERTARBPROC absolute __glewDebugMessageInsertARB;
+
   __glewGetDebugMessageLogARB: TPFNGLGETDEBUGMESSAGELOGARBPROC; cvar;external libGLEW;
+  glGetDebugMessageLogARB: TPFNGLGETDEBUGMESSAGELOGARBPROC absolute __glewGetDebugMessageLogARB;
+
   __glewBindTextureUnit: TPFNGLBINDTEXTUREUNITPROC; cvar;external libGLEW;
+  glBindTextureUnit: TPFNGLBINDTEXTUREUNITPROC absolute __glewBindTextureUnit;
+
   __glewBlitNamedFramebuffer: TPFNGLBLITNAMEDFRAMEBUFFERPROC; cvar;external libGLEW;
+  glBlitNamedFramebuffer: TPFNGLBLITNAMEDFRAMEBUFFERPROC absolute __glewBlitNamedFramebuffer;
+
   __glewCheckNamedFramebufferStatus: TPFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC; cvar;external libGLEW;
+  glCheckNamedFramebufferStatus: TPFNGLCHECKNAMEDFRAMEBUFFERSTATUSPROC absolute __glewCheckNamedFramebufferStatus;
+
   __glewClearNamedBufferData: TPFNGLCLEARNAMEDBUFFERDATAPROC; cvar;external libGLEW;
+  glClearNamedBufferData: TPFNGLCLEARNAMEDBUFFERDATAPROC absolute __glewClearNamedBufferData;
+
   __glewClearNamedBufferSubData: TPFNGLCLEARNAMEDBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glClearNamedBufferSubData: TPFNGLCLEARNAMEDBUFFERSUBDATAPROC absolute __glewClearNamedBufferSubData;
+
   __glewClearNamedFramebufferfi: TPFNGLCLEARNAMEDFRAMEBUFFERFIPROC; cvar;external libGLEW;
+  glClearNamedFramebufferfi: TPFNGLCLEARNAMEDFRAMEBUFFERFIPROC absolute __glewClearNamedFramebufferfi;
+
   __glewClearNamedFramebufferfv: TPFNGLCLEARNAMEDFRAMEBUFFERFVPROC; cvar;external libGLEW;
+  glClearNamedFramebufferfv: TPFNGLCLEARNAMEDFRAMEBUFFERFVPROC absolute __glewClearNamedFramebufferfv;
+
   __glewClearNamedFramebufferiv: TPFNGLCLEARNAMEDFRAMEBUFFERIVPROC; cvar;external libGLEW;
+  glClearNamedFramebufferiv: TPFNGLCLEARNAMEDFRAMEBUFFERIVPROC absolute __glewClearNamedFramebufferiv;
+
   __glewClearNamedFramebufferuiv: TPFNGLCLEARNAMEDFRAMEBUFFERUIVPROC; cvar;external libGLEW;
+  glClearNamedFramebufferuiv: TPFNGLCLEARNAMEDFRAMEBUFFERUIVPROC absolute __glewClearNamedFramebufferuiv;
+
   __glewCompressedTextureSubImage1D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage1D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DPROC absolute __glewCompressedTextureSubImage1D;
+
   __glewCompressedTextureSubImage2D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage2D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DPROC absolute __glewCompressedTextureSubImage2D;
+
   __glewCompressedTextureSubImage3D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage3D: TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DPROC absolute __glewCompressedTextureSubImage3D;
+
   __glewCopyNamedBufferSubData: TPFNGLCOPYNAMEDBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glCopyNamedBufferSubData: TPFNGLCOPYNAMEDBUFFERSUBDATAPROC absolute __glewCopyNamedBufferSubData;
+
   __glewCopyTextureSubImage1D: TPFNGLCOPYTEXTURESUBIMAGE1DPROC; cvar;external libGLEW;
+  glCopyTextureSubImage1D: TPFNGLCOPYTEXTURESUBIMAGE1DPROC absolute __glewCopyTextureSubImage1D;
+
   __glewCopyTextureSubImage2D: TPFNGLCOPYTEXTURESUBIMAGE2DPROC; cvar;external libGLEW;
+  glCopyTextureSubImage2D: TPFNGLCOPYTEXTURESUBIMAGE2DPROC absolute __glewCopyTextureSubImage2D;
+
   __glewCopyTextureSubImage3D: TPFNGLCOPYTEXTURESUBIMAGE3DPROC; cvar;external libGLEW;
+  glCopyTextureSubImage3D: TPFNGLCOPYTEXTURESUBIMAGE3DPROC absolute __glewCopyTextureSubImage3D;
+
   __glewCreateBuffers: TPFNGLCREATEBUFFERSPROC; cvar;external libGLEW;
+  glCreateBuffers: TPFNGLCREATEBUFFERSPROC absolute __glewCreateBuffers;
+
   __glewCreateFramebuffers: TPFNGLCREATEFRAMEBUFFERSPROC; cvar;external libGLEW;
+  glCreateFramebuffers: TPFNGLCREATEFRAMEBUFFERSPROC absolute __glewCreateFramebuffers;
+
   __glewCreateProgramPipelines: TPFNGLCREATEPROGRAMPIPELINESPROC; cvar;external libGLEW;
+  glCreateProgramPipelines: TPFNGLCREATEPROGRAMPIPELINESPROC absolute __glewCreateProgramPipelines;
+
   __glewCreateQueries: TPFNGLCREATEQUERIESPROC; cvar;external libGLEW;
+  glCreateQueries: TPFNGLCREATEQUERIESPROC absolute __glewCreateQueries;
+
   __glewCreateRenderbuffers: TPFNGLCREATERENDERBUFFERSPROC; cvar;external libGLEW;
+  glCreateRenderbuffers: TPFNGLCREATERENDERBUFFERSPROC absolute __glewCreateRenderbuffers;
+
   __glewCreateSamplers: TPFNGLCREATESAMPLERSPROC; cvar;external libGLEW;
+  glCreateSamplers: TPFNGLCREATESAMPLERSPROC absolute __glewCreateSamplers;
+
   __glewCreateTextures: TPFNGLCREATETEXTURESPROC; cvar;external libGLEW;
+  glCreateTextures: TPFNGLCREATETEXTURESPROC absolute __glewCreateTextures;
+
   __glewCreateTransformFeedbacks: TPFNGLCREATETRANSFORMFEEDBACKSPROC; cvar;external libGLEW;
+  glCreateTransformFeedbacks: TPFNGLCREATETRANSFORMFEEDBACKSPROC absolute __glewCreateTransformFeedbacks;
+
   __glewCreateVertexArrays: TPFNGLCREATEVERTEXARRAYSPROC; cvar;external libGLEW;
+  glCreateVertexArrays: TPFNGLCREATEVERTEXARRAYSPROC absolute __glewCreateVertexArrays;
+
   __glewDisableVertexArrayAttrib: TPFNGLDISABLEVERTEXARRAYATTRIBPROC; cvar;external libGLEW;
+  glDisableVertexArrayAttrib: TPFNGLDISABLEVERTEXARRAYATTRIBPROC absolute __glewDisableVertexArrayAttrib;
+
   __glewEnableVertexArrayAttrib: TPFNGLENABLEVERTEXARRAYATTRIBPROC; cvar;external libGLEW;
+  glEnableVertexArrayAttrib: TPFNGLENABLEVERTEXARRAYATTRIBPROC absolute __glewEnableVertexArrayAttrib;
+
   __glewFlushMappedNamedBufferRange: TPFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC; cvar;external libGLEW;
+  glFlushMappedNamedBufferRange: TPFNGLFLUSHMAPPEDNAMEDBUFFERRANGEPROC absolute __glewFlushMappedNamedBufferRange;
+
   __glewGenerateTextureMipmap: TPFNGLGENERATETEXTUREMIPMAPPROC; cvar;external libGLEW;
+  glGenerateTextureMipmap: TPFNGLGENERATETEXTUREMIPMAPPROC absolute __glewGenerateTextureMipmap;
+
   __glewGetCompressedTextureImage: TPFNGLGETCOMPRESSEDTEXTUREIMAGEPROC; cvar;external libGLEW;
+  glGetCompressedTextureImage: TPFNGLGETCOMPRESSEDTEXTUREIMAGEPROC absolute __glewGetCompressedTextureImage;
+
   __glewGetNamedBufferParameteri64v: TPFNGLGETNAMEDBUFFERPARAMETERI64VPROC; cvar;external libGLEW;
+  glGetNamedBufferParameteri64v: TPFNGLGETNAMEDBUFFERPARAMETERI64VPROC absolute __glewGetNamedBufferParameteri64v;
+
   __glewGetNamedBufferParameteriv: TPFNGLGETNAMEDBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetNamedBufferParameteriv: TPFNGLGETNAMEDBUFFERPARAMETERIVPROC absolute __glewGetNamedBufferParameteriv;
+
   __glewGetNamedBufferPointerv: TPFNGLGETNAMEDBUFFERPOINTERVPROC; cvar;external libGLEW;
+  glGetNamedBufferPointerv: TPFNGLGETNAMEDBUFFERPOINTERVPROC absolute __glewGetNamedBufferPointerv;
+
   __glewGetNamedBufferSubData: TPFNGLGETNAMEDBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glGetNamedBufferSubData: TPFNGLGETNAMEDBUFFERSUBDATAPROC absolute __glewGetNamedBufferSubData;
+
   __glewGetNamedFramebufferAttachmentParameteriv: TPFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC; cvar;external libGLEW;
+  glGetNamedFramebufferAttachmentParameteriv: TPFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVPROC absolute __glewGetNamedFramebufferAttachmentParameteriv;
+
   __glewGetNamedFramebufferParameteriv: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetNamedFramebufferParameteriv: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVPROC absolute __glewGetNamedFramebufferParameteriv;
+
   __glewGetNamedRenderbufferParameteriv: TPFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetNamedRenderbufferParameteriv: TPFNGLGETNAMEDRENDERBUFFERPARAMETERIVPROC absolute __glewGetNamedRenderbufferParameteriv;
+
   __glewGetQueryBufferObjecti64v: TPFNGLGETQUERYBUFFEROBJECTI64VPROC; cvar;external libGLEW;
+  glGetQueryBufferObjecti64v: TPFNGLGETQUERYBUFFEROBJECTI64VPROC absolute __glewGetQueryBufferObjecti64v;
+
   __glewGetQueryBufferObjectiv: TPFNGLGETQUERYBUFFEROBJECTIVPROC; cvar;external libGLEW;
+  glGetQueryBufferObjectiv: TPFNGLGETQUERYBUFFEROBJECTIVPROC absolute __glewGetQueryBufferObjectiv;
+
   __glewGetQueryBufferObjectui64v: TPFNGLGETQUERYBUFFEROBJECTUI64VPROC; cvar;external libGLEW;
+  glGetQueryBufferObjectui64v: TPFNGLGETQUERYBUFFEROBJECTUI64VPROC absolute __glewGetQueryBufferObjectui64v;
+
   __glewGetQueryBufferObjectuiv: TPFNGLGETQUERYBUFFEROBJECTUIVPROC; cvar;external libGLEW;
+  glGetQueryBufferObjectuiv: TPFNGLGETQUERYBUFFEROBJECTUIVPROC absolute __glewGetQueryBufferObjectuiv;
+
   __glewGetTextureImage: TPFNGLGETTEXTUREIMAGEPROC; cvar;external libGLEW;
+  glGetTextureImage: TPFNGLGETTEXTUREIMAGEPROC absolute __glewGetTextureImage;
+
   __glewGetTextureLevelParameterfv: TPFNGLGETTEXTURELEVELPARAMETERFVPROC; cvar;external libGLEW;
+  glGetTextureLevelParameterfv: TPFNGLGETTEXTURELEVELPARAMETERFVPROC absolute __glewGetTextureLevelParameterfv;
+
   __glewGetTextureLevelParameteriv: TPFNGLGETTEXTURELEVELPARAMETERIVPROC; cvar;external libGLEW;
+  glGetTextureLevelParameteriv: TPFNGLGETTEXTURELEVELPARAMETERIVPROC absolute __glewGetTextureLevelParameteriv;
+
   __glewGetTextureParameterIiv: TPFNGLGETTEXTUREPARAMETERIIVPROC; cvar;external libGLEW;
+  glGetTextureParameterIiv: TPFNGLGETTEXTUREPARAMETERIIVPROC absolute __glewGetTextureParameterIiv;
+
   __glewGetTextureParameterIuiv: TPFNGLGETTEXTUREPARAMETERIUIVPROC; cvar;external libGLEW;
+  glGetTextureParameterIuiv: TPFNGLGETTEXTUREPARAMETERIUIVPROC absolute __glewGetTextureParameterIuiv;
+
   __glewGetTextureParameterfv: TPFNGLGETTEXTUREPARAMETERFVPROC; cvar;external libGLEW;
+  glGetTextureParameterfv: TPFNGLGETTEXTUREPARAMETERFVPROC absolute __glewGetTextureParameterfv;
+
   __glewGetTextureParameteriv: TPFNGLGETTEXTUREPARAMETERIVPROC; cvar;external libGLEW;
+  glGetTextureParameteriv: TPFNGLGETTEXTUREPARAMETERIVPROC absolute __glewGetTextureParameteriv;
+
   __glewGetTransformFeedbacki64_v: TPFNGLGETTRANSFORMFEEDBACKI64_VPROC; cvar;external libGLEW;
+  glGetTransformFeedbacki64_v: TPFNGLGETTRANSFORMFEEDBACKI64_VPROC absolute __glewGetTransformFeedbacki64_v;
+
   __glewGetTransformFeedbacki_v: TPFNGLGETTRANSFORMFEEDBACKI_VPROC; cvar;external libGLEW;
+  glGetTransformFeedbacki_v: TPFNGLGETTRANSFORMFEEDBACKI_VPROC absolute __glewGetTransformFeedbacki_v;
+
   __glewGetTransformFeedbackiv: TPFNGLGETTRANSFORMFEEDBACKIVPROC; cvar;external libGLEW;
+  glGetTransformFeedbackiv: TPFNGLGETTRANSFORMFEEDBACKIVPROC absolute __glewGetTransformFeedbackiv;
+
   __glewGetVertexArrayIndexed64iv: TPFNGLGETVERTEXARRAYINDEXED64IVPROC; cvar;external libGLEW;
+  glGetVertexArrayIndexed64iv: TPFNGLGETVERTEXARRAYINDEXED64IVPROC absolute __glewGetVertexArrayIndexed64iv;
+
   __glewGetVertexArrayIndexediv: TPFNGLGETVERTEXARRAYINDEXEDIVPROC; cvar;external libGLEW;
+  glGetVertexArrayIndexediv: TPFNGLGETVERTEXARRAYINDEXEDIVPROC absolute __glewGetVertexArrayIndexediv;
+
   __glewGetVertexArrayiv: TPFNGLGETVERTEXARRAYIVPROC; cvar;external libGLEW;
+  glGetVertexArrayiv: TPFNGLGETVERTEXARRAYIVPROC absolute __glewGetVertexArrayiv;
+
   __glewInvalidateNamedFramebufferData: TPFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC; cvar;external libGLEW;
+  glInvalidateNamedFramebufferData: TPFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC absolute __glewInvalidateNamedFramebufferData;
+
   __glewInvalidateNamedFramebufferSubData: TPFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glInvalidateNamedFramebufferSubData: TPFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC absolute __glewInvalidateNamedFramebufferSubData;
+
   __glewMapNamedBuffer: TPFNGLMAPNAMEDBUFFERPROC; cvar;external libGLEW;
+  glMapNamedBuffer: TPFNGLMAPNAMEDBUFFERPROC absolute __glewMapNamedBuffer;
+
   __glewMapNamedBufferRange: TPFNGLMAPNAMEDBUFFERRANGEPROC; cvar;external libGLEW;
+  glMapNamedBufferRange: TPFNGLMAPNAMEDBUFFERRANGEPROC absolute __glewMapNamedBufferRange;
+
   __glewNamedBufferData: TPFNGLNAMEDBUFFERDATAPROC; cvar;external libGLEW;
+  glNamedBufferData: TPFNGLNAMEDBUFFERDATAPROC absolute __glewNamedBufferData;
+
   __glewNamedBufferStorage: TPFNGLNAMEDBUFFERSTORAGEPROC; cvar;external libGLEW;
+  glNamedBufferStorage: TPFNGLNAMEDBUFFERSTORAGEPROC absolute __glewNamedBufferStorage;
+
   __glewNamedBufferSubData: TPFNGLNAMEDBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glNamedBufferSubData: TPFNGLNAMEDBUFFERSUBDATAPROC absolute __glewNamedBufferSubData;
+
   __glewNamedFramebufferDrawBuffer: TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC; cvar;external libGLEW;
+  glNamedFramebufferDrawBuffer: TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC absolute __glewNamedFramebufferDrawBuffer;
+
   __glewNamedFramebufferDrawBuffers: TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC; cvar;external libGLEW;
+  glNamedFramebufferDrawBuffers: TPFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC absolute __glewNamedFramebufferDrawBuffers;
+
   __glewNamedFramebufferParameteri: TPFNGLNAMEDFRAMEBUFFERPARAMETERIPROC; cvar;external libGLEW;
+  glNamedFramebufferParameteri: TPFNGLNAMEDFRAMEBUFFERPARAMETERIPROC absolute __glewNamedFramebufferParameteri;
+
   __glewNamedFramebufferReadBuffer: TPFNGLNAMEDFRAMEBUFFERREADBUFFERPROC; cvar;external libGLEW;
+  glNamedFramebufferReadBuffer: TPFNGLNAMEDFRAMEBUFFERREADBUFFERPROC absolute __glewNamedFramebufferReadBuffer;
+
   __glewNamedFramebufferRenderbuffer: TPFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC; cvar;external libGLEW;
+  glNamedFramebufferRenderbuffer: TPFNGLNAMEDFRAMEBUFFERRENDERBUFFERPROC absolute __glewNamedFramebufferRenderbuffer;
+
   __glewNamedFramebufferTexture: TPFNGLNAMEDFRAMEBUFFERTEXTUREPROC; cvar;external libGLEW;
+  glNamedFramebufferTexture: TPFNGLNAMEDFRAMEBUFFERTEXTUREPROC absolute __glewNamedFramebufferTexture;
+
   __glewNamedFramebufferTextureLayer: TPFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC; cvar;external libGLEW;
+  glNamedFramebufferTextureLayer: TPFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC absolute __glewNamedFramebufferTextureLayer;
+
   __glewNamedRenderbufferStorage: TPFNGLNAMEDRENDERBUFFERSTORAGEPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorage: TPFNGLNAMEDRENDERBUFFERSTORAGEPROC absolute __glewNamedRenderbufferStorage;
+
   __glewNamedRenderbufferStorageMultisample: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorageMultisample: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEPROC absolute __glewNamedRenderbufferStorageMultisample;
+
   __glewTextureBuffer: TPFNGLTEXTUREBUFFERPROC; cvar;external libGLEW;
+  glTextureBuffer: TPFNGLTEXTUREBUFFERPROC absolute __glewTextureBuffer;
+
   __glewTextureBufferRange: TPFNGLTEXTUREBUFFERRANGEPROC; cvar;external libGLEW;
+  glTextureBufferRange: TPFNGLTEXTUREBUFFERRANGEPROC absolute __glewTextureBufferRange;
+
   __glewTextureParameterIiv: TPFNGLTEXTUREPARAMETERIIVPROC; cvar;external libGLEW;
+  glTextureParameterIiv: TPFNGLTEXTUREPARAMETERIIVPROC absolute __glewTextureParameterIiv;
+
   __glewTextureParameterIuiv: TPFNGLTEXTUREPARAMETERIUIVPROC; cvar;external libGLEW;
+  glTextureParameterIuiv: TPFNGLTEXTUREPARAMETERIUIVPROC absolute __glewTextureParameterIuiv;
+
   __glewTextureParameterf: TPFNGLTEXTUREPARAMETERFPROC; cvar;external libGLEW;
+  glTextureParameterf: TPFNGLTEXTUREPARAMETERFPROC absolute __glewTextureParameterf;
+
   __glewTextureParameterfv: TPFNGLTEXTUREPARAMETERFVPROC; cvar;external libGLEW;
+  glTextureParameterfv: TPFNGLTEXTUREPARAMETERFVPROC absolute __glewTextureParameterfv;
+
   __glewTextureParameteri: TPFNGLTEXTUREPARAMETERIPROC; cvar;external libGLEW;
+  glTextureParameteri: TPFNGLTEXTUREPARAMETERIPROC absolute __glewTextureParameteri;
+
   __glewTextureParameteriv: TPFNGLTEXTUREPARAMETERIVPROC; cvar;external libGLEW;
+  glTextureParameteriv: TPFNGLTEXTUREPARAMETERIVPROC absolute __glewTextureParameteriv;
+
   __glewTextureStorage1D: TPFNGLTEXTURESTORAGE1DPROC; cvar;external libGLEW;
+  glTextureStorage1D: TPFNGLTEXTURESTORAGE1DPROC absolute __glewTextureStorage1D;
+
   __glewTextureStorage2D: TPFNGLTEXTURESTORAGE2DPROC; cvar;external libGLEW;
+  glTextureStorage2D: TPFNGLTEXTURESTORAGE2DPROC absolute __glewTextureStorage2D;
+
   __glewTextureStorage2DMultisample: TPFNGLTEXTURESTORAGE2DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTextureStorage2DMultisample: TPFNGLTEXTURESTORAGE2DMULTISAMPLEPROC absolute __glewTextureStorage2DMultisample;
+
   __glewTextureStorage3D: TPFNGLTEXTURESTORAGE3DPROC; cvar;external libGLEW;
+  glTextureStorage3D: TPFNGLTEXTURESTORAGE3DPROC absolute __glewTextureStorage3D;
+
   __glewTextureStorage3DMultisample: TPFNGLTEXTURESTORAGE3DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTextureStorage3DMultisample: TPFNGLTEXTURESTORAGE3DMULTISAMPLEPROC absolute __glewTextureStorage3DMultisample;
+
   __glewTextureSubImage1D: TPFNGLTEXTURESUBIMAGE1DPROC; cvar;external libGLEW;
+  glTextureSubImage1D: TPFNGLTEXTURESUBIMAGE1DPROC absolute __glewTextureSubImage1D;
+
   __glewTextureSubImage2D: TPFNGLTEXTURESUBIMAGE2DPROC; cvar;external libGLEW;
+  glTextureSubImage2D: TPFNGLTEXTURESUBIMAGE2DPROC absolute __glewTextureSubImage2D;
+
   __glewTextureSubImage3D: TPFNGLTEXTURESUBIMAGE3DPROC; cvar;external libGLEW;
+  glTextureSubImage3D: TPFNGLTEXTURESUBIMAGE3DPROC absolute __glewTextureSubImage3D;
+
   __glewTransformFeedbackBufferBase: TPFNGLTRANSFORMFEEDBACKBUFFERBASEPROC; cvar;external libGLEW;
+  glTransformFeedbackBufferBase: TPFNGLTRANSFORMFEEDBACKBUFFERBASEPROC absolute __glewTransformFeedbackBufferBase;
+
   __glewTransformFeedbackBufferRange: TPFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC; cvar;external libGLEW;
+  glTransformFeedbackBufferRange: TPFNGLTRANSFORMFEEDBACKBUFFERRANGEPROC absolute __glewTransformFeedbackBufferRange;
+
   __glewUnmapNamedBuffer: TPFNGLUNMAPNAMEDBUFFERPROC; cvar;external libGLEW;
+  glUnmapNamedBuffer: TPFNGLUNMAPNAMEDBUFFERPROC absolute __glewUnmapNamedBuffer;
+
   __glewVertexArrayAttribBinding: TPFNGLVERTEXARRAYATTRIBBINDINGPROC; cvar;external libGLEW;
+  glVertexArrayAttribBinding: TPFNGLVERTEXARRAYATTRIBBINDINGPROC absolute __glewVertexArrayAttribBinding;
+
   __glewVertexArrayAttribFormat: TPFNGLVERTEXARRAYATTRIBFORMATPROC; cvar;external libGLEW;
+  glVertexArrayAttribFormat: TPFNGLVERTEXARRAYATTRIBFORMATPROC absolute __glewVertexArrayAttribFormat;
+
   __glewVertexArrayAttribIFormat: TPFNGLVERTEXARRAYATTRIBIFORMATPROC; cvar;external libGLEW;
+  glVertexArrayAttribIFormat: TPFNGLVERTEXARRAYATTRIBIFORMATPROC absolute __glewVertexArrayAttribIFormat;
+
   __glewVertexArrayAttribLFormat: TPFNGLVERTEXARRAYATTRIBLFORMATPROC; cvar;external libGLEW;
+  glVertexArrayAttribLFormat: TPFNGLVERTEXARRAYATTRIBLFORMATPROC absolute __glewVertexArrayAttribLFormat;
+
   __glewVertexArrayBindingDivisor: TPFNGLVERTEXARRAYBINDINGDIVISORPROC; cvar;external libGLEW;
+  glVertexArrayBindingDivisor: TPFNGLVERTEXARRAYBINDINGDIVISORPROC absolute __glewVertexArrayBindingDivisor;
+
   __glewVertexArrayElementBuffer: TPFNGLVERTEXARRAYELEMENTBUFFERPROC; cvar;external libGLEW;
+  glVertexArrayElementBuffer: TPFNGLVERTEXARRAYELEMENTBUFFERPROC absolute __glewVertexArrayElementBuffer;
+
   __glewVertexArrayVertexBuffer: TPFNGLVERTEXARRAYVERTEXBUFFERPROC; cvar;external libGLEW;
+  glVertexArrayVertexBuffer: TPFNGLVERTEXARRAYVERTEXBUFFERPROC absolute __glewVertexArrayVertexBuffer;
+
   __glewVertexArrayVertexBuffers: TPFNGLVERTEXARRAYVERTEXBUFFERSPROC; cvar;external libGLEW;
+  glVertexArrayVertexBuffers: TPFNGLVERTEXARRAYVERTEXBUFFERSPROC absolute __glewVertexArrayVertexBuffers;
+
   __glewDrawBuffersARB: TPFNGLDRAWBUFFERSARBPROC; cvar;external libGLEW;
+  glDrawBuffersARB: TPFNGLDRAWBUFFERSARBPROC absolute __glewDrawBuffersARB;
+
   __glewBlendEquationSeparateiARB: TPFNGLBLENDEQUATIONSEPARATEIARBPROC; cvar;external libGLEW;
+  glBlendEquationSeparateiARB: TPFNGLBLENDEQUATIONSEPARATEIARBPROC absolute __glewBlendEquationSeparateiARB;
+
   __glewBlendEquationiARB: TPFNGLBLENDEQUATIONIARBPROC; cvar;external libGLEW;
+  glBlendEquationiARB: TPFNGLBLENDEQUATIONIARBPROC absolute __glewBlendEquationiARB;
+
   __glewBlendFuncSeparateiARB: TPFNGLBLENDFUNCSEPARATEIARBPROC; cvar;external libGLEW;
+  glBlendFuncSeparateiARB: TPFNGLBLENDFUNCSEPARATEIARBPROC absolute __glewBlendFuncSeparateiARB;
+
   __glewBlendFunciARB: TPFNGLBLENDFUNCIARBPROC; cvar;external libGLEW;
+  glBlendFunciARB: TPFNGLBLENDFUNCIARBPROC absolute __glewBlendFunciARB;
+
   __glewDrawElementsBaseVertex: TPFNGLDRAWELEMENTSBASEVERTEXPROC; cvar;external libGLEW;
+  glDrawElementsBaseVertex: TPFNGLDRAWELEMENTSBASEVERTEXPROC absolute __glewDrawElementsBaseVertex;
+
   __glewDrawElementsInstancedBaseVertex: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseVertex: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC absolute __glewDrawElementsInstancedBaseVertex;
+
   __glewDrawRangeElementsBaseVertex: TPFNGLDRAWRANGEELEMENTSBASEVERTEXPROC; cvar;external libGLEW;
+  glDrawRangeElementsBaseVertex: TPFNGLDRAWRANGEELEMENTSBASEVERTEXPROC absolute __glewDrawRangeElementsBaseVertex;
+
   __glewMultiDrawElementsBaseVertex: TPFNGLMULTIDRAWELEMENTSBASEVERTEXPROC; cvar;external libGLEW;
+  glMultiDrawElementsBaseVertex: TPFNGLMULTIDRAWELEMENTSBASEVERTEXPROC absolute __glewMultiDrawElementsBaseVertex;
+
   __glewDrawArraysIndirect: TPFNGLDRAWARRAYSINDIRECTPROC; cvar;external libGLEW;
+  glDrawArraysIndirect: TPFNGLDRAWARRAYSINDIRECTPROC absolute __glewDrawArraysIndirect;
+
   __glewDrawElementsIndirect: TPFNGLDRAWELEMENTSINDIRECTPROC; cvar;external libGLEW;
+  glDrawElementsIndirect: TPFNGLDRAWELEMENTSINDIRECTPROC absolute __glewDrawElementsIndirect;
+
   __glewFramebufferParameteri: TPFNGLFRAMEBUFFERPARAMETERIPROC; cvar;external libGLEW;
+  glFramebufferParameteri: TPFNGLFRAMEBUFFERPARAMETERIPROC absolute __glewFramebufferParameteri;
+
   __glewGetFramebufferParameteriv: TPFNGLGETFRAMEBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetFramebufferParameteriv: TPFNGLGETFRAMEBUFFERPARAMETERIVPROC absolute __glewGetFramebufferParameteriv;
+
   __glewGetNamedFramebufferParameterivEXT: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetNamedFramebufferParameterivEXT: TPFNGLGETNAMEDFRAMEBUFFERPARAMETERIVEXTPROC absolute __glewGetNamedFramebufferParameterivEXT;
+
   __glewNamedFramebufferParameteriEXT: TPFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferParameteriEXT: TPFNGLNAMEDFRAMEBUFFERPARAMETERIEXTPROC absolute __glewNamedFramebufferParameteriEXT;
+
   __glewBindFramebuffer: TPFNGLBINDFRAMEBUFFERPROC; cvar;external libGLEW;
+  glBindFramebuffer: TPFNGLBINDFRAMEBUFFERPROC absolute __glewBindFramebuffer;
+
   __glewBindRenderbuffer: TPFNGLBINDRENDERBUFFERPROC; cvar;external libGLEW;
+  glBindRenderbuffer: TPFNGLBINDRENDERBUFFERPROC absolute __glewBindRenderbuffer;
+
   __glewBlitFramebuffer: TPFNGLBLITFRAMEBUFFERPROC; cvar;external libGLEW;
+  glBlitFramebuffer: TPFNGLBLITFRAMEBUFFERPROC absolute __glewBlitFramebuffer;
+
   __glewCheckFramebufferStatus: TPFNGLCHECKFRAMEBUFFERSTATUSPROC; cvar;external libGLEW;
+  glCheckFramebufferStatus: TPFNGLCHECKFRAMEBUFFERSTATUSPROC absolute __glewCheckFramebufferStatus;
+
   __glewDeleteFramebuffers: TPFNGLDELETEFRAMEBUFFERSPROC; cvar;external libGLEW;
+  glDeleteFramebuffers: TPFNGLDELETEFRAMEBUFFERSPROC absolute __glewDeleteFramebuffers;
+
   __glewDeleteRenderbuffers: TPFNGLDELETERENDERBUFFERSPROC; cvar;external libGLEW;
+  glDeleteRenderbuffers: TPFNGLDELETERENDERBUFFERSPROC absolute __glewDeleteRenderbuffers;
+
   __glewFramebufferRenderbuffer: TPFNGLFRAMEBUFFERRENDERBUFFERPROC; cvar;external libGLEW;
+  glFramebufferRenderbuffer: TPFNGLFRAMEBUFFERRENDERBUFFERPROC absolute __glewFramebufferRenderbuffer;
+
   __glewFramebufferTexture1D: TPFNGLFRAMEBUFFERTEXTURE1DPROC; cvar;external libGLEW;
+  glFramebufferTexture1D: TPFNGLFRAMEBUFFERTEXTURE1DPROC absolute __glewFramebufferTexture1D;
+
   __glewFramebufferTexture2D: TPFNGLFRAMEBUFFERTEXTURE2DPROC; cvar;external libGLEW;
+  glFramebufferTexture2D: TPFNGLFRAMEBUFFERTEXTURE2DPROC absolute __glewFramebufferTexture2D;
+
   __glewFramebufferTexture3D: TPFNGLFRAMEBUFFERTEXTURE3DPROC; cvar;external libGLEW;
+  glFramebufferTexture3D: TPFNGLFRAMEBUFFERTEXTURE3DPROC absolute __glewFramebufferTexture3D;
+
   __glewFramebufferTextureLayer: TPFNGLFRAMEBUFFERTEXTURELAYERPROC; cvar;external libGLEW;
+  glFramebufferTextureLayer: TPFNGLFRAMEBUFFERTEXTURELAYERPROC absolute __glewFramebufferTextureLayer;
+
   __glewGenFramebuffers: TPFNGLGENFRAMEBUFFERSPROC; cvar;external libGLEW;
+  glGenFramebuffers: TPFNGLGENFRAMEBUFFERSPROC absolute __glewGenFramebuffers;
+
   __glewGenRenderbuffers: TPFNGLGENRENDERBUFFERSPROC; cvar;external libGLEW;
+  glGenRenderbuffers: TPFNGLGENRENDERBUFFERSPROC absolute __glewGenRenderbuffers;
+
   __glewGenerateMipmap: TPFNGLGENERATEMIPMAPPROC; cvar;external libGLEW;
+  glGenerateMipmap: TPFNGLGENERATEMIPMAPPROC absolute __glewGenerateMipmap;
+
   __glewGetFramebufferAttachmentParameteriv: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC; cvar;external libGLEW;
+  glGetFramebufferAttachmentParameteriv: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC absolute __glewGetFramebufferAttachmentParameteriv;
+
   __glewGetRenderbufferParameteriv: TPFNGLGETRENDERBUFFERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetRenderbufferParameteriv: TPFNGLGETRENDERBUFFERPARAMETERIVPROC absolute __glewGetRenderbufferParameteriv;
+
   __glewIsFramebuffer: TPFNGLISFRAMEBUFFERPROC; cvar;external libGLEW;
+  glIsFramebuffer: TPFNGLISFRAMEBUFFERPROC absolute __glewIsFramebuffer;
+
   __glewIsRenderbuffer: TPFNGLISRENDERBUFFERPROC; cvar;external libGLEW;
+  glIsRenderbuffer: TPFNGLISRENDERBUFFERPROC absolute __glewIsRenderbuffer;
+
   __glewRenderbufferStorage: TPFNGLRENDERBUFFERSTORAGEPROC; cvar;external libGLEW;
+  glRenderbufferStorage: TPFNGLRENDERBUFFERSTORAGEPROC absolute __glewRenderbufferStorage;
+
   __glewRenderbufferStorageMultisample: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisample: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC absolute __glewRenderbufferStorageMultisample;
+
   __glewFramebufferTextureARB: TPFNGLFRAMEBUFFERTEXTUREARBPROC; cvar;external libGLEW;
+  glFramebufferTextureARB: TPFNGLFRAMEBUFFERTEXTUREARBPROC absolute __glewFramebufferTextureARB;
+
   __glewFramebufferTextureFaceARB: TPFNGLFRAMEBUFFERTEXTUREFACEARBPROC; cvar;external libGLEW;
+  glFramebufferTextureFaceARB: TPFNGLFRAMEBUFFERTEXTUREFACEARBPROC absolute __glewFramebufferTextureFaceARB;
+
   __glewFramebufferTextureLayerARB: TPFNGLFRAMEBUFFERTEXTURELAYERARBPROC; cvar;external libGLEW;
+  glFramebufferTextureLayerARB: TPFNGLFRAMEBUFFERTEXTURELAYERARBPROC absolute __glewFramebufferTextureLayerARB;
+
   __glewProgramParameteriARB: TPFNGLPROGRAMPARAMETERIARBPROC; cvar;external libGLEW;
+  glProgramParameteriARB: TPFNGLPROGRAMPARAMETERIARBPROC absolute __glewProgramParameteriARB;
+
   __glewGetProgramBinary: TPFNGLGETPROGRAMBINARYPROC; cvar;external libGLEW;
+  glGetProgramBinary: TPFNGLGETPROGRAMBINARYPROC absolute __glewGetProgramBinary;
+
   __glewProgramBinary: TPFNGLPROGRAMBINARYPROC; cvar;external libGLEW;
+  glProgramBinary: TPFNGLPROGRAMBINARYPROC absolute __glewProgramBinary;
+
   __glewProgramParameteri: TPFNGLPROGRAMPARAMETERIPROC; cvar;external libGLEW;
+  glProgramParameteri: TPFNGLPROGRAMPARAMETERIPROC absolute __glewProgramParameteri;
+
   __glewGetCompressedTextureSubImage: TPFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC; cvar;external libGLEW;
+  glGetCompressedTextureSubImage: TPFNGLGETCOMPRESSEDTEXTURESUBIMAGEPROC absolute __glewGetCompressedTextureSubImage;
+
   __glewGetTextureSubImage: TPFNGLGETTEXTURESUBIMAGEPROC; cvar;external libGLEW;
+  glGetTextureSubImage: TPFNGLGETTEXTURESUBIMAGEPROC absolute __glewGetTextureSubImage;
+
   __glewSpecializeShaderARB: TPFNGLSPECIALIZESHADERARBPROC; cvar;external libGLEW;
+  glSpecializeShaderARB: TPFNGLSPECIALIZESHADERARBPROC absolute __glewSpecializeShaderARB;
+
   __glewGetUniformdv: TPFNGLGETUNIFORMDVPROC; cvar;external libGLEW;
+  glGetUniformdv: TPFNGLGETUNIFORMDVPROC absolute __glewGetUniformdv;
+
   __glewUniform1d: TPFNGLUNIFORM1DPROC; cvar;external libGLEW;
+  glUniform1d: TPFNGLUNIFORM1DPROC absolute __glewUniform1d;
+
   __glewUniform1dv: TPFNGLUNIFORM1DVPROC; cvar;external libGLEW;
+  glUniform1dv: TPFNGLUNIFORM1DVPROC absolute __glewUniform1dv;
+
   __glewUniform2d: TPFNGLUNIFORM2DPROC; cvar;external libGLEW;
+  glUniform2d: TPFNGLUNIFORM2DPROC absolute __glewUniform2d;
+
   __glewUniform2dv: TPFNGLUNIFORM2DVPROC; cvar;external libGLEW;
+  glUniform2dv: TPFNGLUNIFORM2DVPROC absolute __glewUniform2dv;
+
   __glewUniform3d: TPFNGLUNIFORM3DPROC; cvar;external libGLEW;
+  glUniform3d: TPFNGLUNIFORM3DPROC absolute __glewUniform3d;
+
   __glewUniform3dv: TPFNGLUNIFORM3DVPROC; cvar;external libGLEW;
+  glUniform3dv: TPFNGLUNIFORM3DVPROC absolute __glewUniform3dv;
+
   __glewUniform4d: TPFNGLUNIFORM4DPROC; cvar;external libGLEW;
+  glUniform4d: TPFNGLUNIFORM4DPROC absolute __glewUniform4d;
+
   __glewUniform4dv: TPFNGLUNIFORM4DVPROC; cvar;external libGLEW;
+  glUniform4dv: TPFNGLUNIFORM4DVPROC absolute __glewUniform4dv;
+
   __glewUniformMatrix2dv: TPFNGLUNIFORMMATRIX2DVPROC; cvar;external libGLEW;
+  glUniformMatrix2dv: TPFNGLUNIFORMMATRIX2DVPROC absolute __glewUniformMatrix2dv;
+
   __glewUniformMatrix2x3dv: TPFNGLUNIFORMMATRIX2X3DVPROC; cvar;external libGLEW;
+  glUniformMatrix2x3dv: TPFNGLUNIFORMMATRIX2X3DVPROC absolute __glewUniformMatrix2x3dv;
+
   __glewUniformMatrix2x4dv: TPFNGLUNIFORMMATRIX2X4DVPROC; cvar;external libGLEW;
+  glUniformMatrix2x4dv: TPFNGLUNIFORMMATRIX2X4DVPROC absolute __glewUniformMatrix2x4dv;
+
   __glewUniformMatrix3dv: TPFNGLUNIFORMMATRIX3DVPROC; cvar;external libGLEW;
+  glUniformMatrix3dv: TPFNGLUNIFORMMATRIX3DVPROC absolute __glewUniformMatrix3dv;
+
   __glewUniformMatrix3x2dv: TPFNGLUNIFORMMATRIX3X2DVPROC; cvar;external libGLEW;
+  glUniformMatrix3x2dv: TPFNGLUNIFORMMATRIX3X2DVPROC absolute __glewUniformMatrix3x2dv;
+
   __glewUniformMatrix3x4dv: TPFNGLUNIFORMMATRIX3X4DVPROC; cvar;external libGLEW;
+  glUniformMatrix3x4dv: TPFNGLUNIFORMMATRIX3X4DVPROC absolute __glewUniformMatrix3x4dv;
+
   __glewUniformMatrix4dv: TPFNGLUNIFORMMATRIX4DVPROC; cvar;external libGLEW;
+  glUniformMatrix4dv: TPFNGLUNIFORMMATRIX4DVPROC absolute __glewUniformMatrix4dv;
+
   __glewUniformMatrix4x2dv: TPFNGLUNIFORMMATRIX4X2DVPROC; cvar;external libGLEW;
+  glUniformMatrix4x2dv: TPFNGLUNIFORMMATRIX4X2DVPROC absolute __glewUniformMatrix4x2dv;
+
   __glewUniformMatrix4x3dv: TPFNGLUNIFORMMATRIX4X3DVPROC; cvar;external libGLEW;
+  glUniformMatrix4x3dv: TPFNGLUNIFORMMATRIX4X3DVPROC absolute __glewUniformMatrix4x3dv;
+
   __glewGetUniformi64vARB: TPFNGLGETUNIFORMI64VARBPROC; cvar;external libGLEW;
+  glGetUniformi64vARB: TPFNGLGETUNIFORMI64VARBPROC absolute __glewGetUniformi64vARB;
+
   __glewGetUniformui64vARB: TPFNGLGETUNIFORMUI64VARBPROC; cvar;external libGLEW;
+  glGetUniformui64vARB: TPFNGLGETUNIFORMUI64VARBPROC absolute __glewGetUniformui64vARB;
+
   __glewGetnUniformi64vARB: TPFNGLGETNUNIFORMI64VARBPROC; cvar;external libGLEW;
+  glGetnUniformi64vARB: TPFNGLGETNUNIFORMI64VARBPROC absolute __glewGetnUniformi64vARB;
+
   __glewGetnUniformui64vARB: TPFNGLGETNUNIFORMUI64VARBPROC; cvar;external libGLEW;
+  glGetnUniformui64vARB: TPFNGLGETNUNIFORMUI64VARBPROC absolute __glewGetnUniformui64vARB;
+
   __glewProgramUniform1i64ARB: TPFNGLPROGRAMUNIFORM1I64ARBPROC; cvar;external libGLEW;
+  glProgramUniform1i64ARB: TPFNGLPROGRAMUNIFORM1I64ARBPROC absolute __glewProgramUniform1i64ARB;
+
   __glewProgramUniform1i64vARB: TPFNGLPROGRAMUNIFORM1I64VARBPROC; cvar;external libGLEW;
+  glProgramUniform1i64vARB: TPFNGLPROGRAMUNIFORM1I64VARBPROC absolute __glewProgramUniform1i64vARB;
+
   __glewProgramUniform1ui64ARB: TPFNGLPROGRAMUNIFORM1UI64ARBPROC; cvar;external libGLEW;
+  glProgramUniform1ui64ARB: TPFNGLPROGRAMUNIFORM1UI64ARBPROC absolute __glewProgramUniform1ui64ARB;
+
   __glewProgramUniform1ui64vARB: TPFNGLPROGRAMUNIFORM1UI64VARBPROC; cvar;external libGLEW;
+  glProgramUniform1ui64vARB: TPFNGLPROGRAMUNIFORM1UI64VARBPROC absolute __glewProgramUniform1ui64vARB;
+
   __glewProgramUniform2i64ARB: TPFNGLPROGRAMUNIFORM2I64ARBPROC; cvar;external libGLEW;
+  glProgramUniform2i64ARB: TPFNGLPROGRAMUNIFORM2I64ARBPROC absolute __glewProgramUniform2i64ARB;
+
   __glewProgramUniform2i64vARB: TPFNGLPROGRAMUNIFORM2I64VARBPROC; cvar;external libGLEW;
+  glProgramUniform2i64vARB: TPFNGLPROGRAMUNIFORM2I64VARBPROC absolute __glewProgramUniform2i64vARB;
+
   __glewProgramUniform2ui64ARB: TPFNGLPROGRAMUNIFORM2UI64ARBPROC; cvar;external libGLEW;
+  glProgramUniform2ui64ARB: TPFNGLPROGRAMUNIFORM2UI64ARBPROC absolute __glewProgramUniform2ui64ARB;
+
   __glewProgramUniform2ui64vARB: TPFNGLPROGRAMUNIFORM2UI64VARBPROC; cvar;external libGLEW;
+  glProgramUniform2ui64vARB: TPFNGLPROGRAMUNIFORM2UI64VARBPROC absolute __glewProgramUniform2ui64vARB;
+
   __glewProgramUniform3i64ARB: TPFNGLPROGRAMUNIFORM3I64ARBPROC; cvar;external libGLEW;
+  glProgramUniform3i64ARB: TPFNGLPROGRAMUNIFORM3I64ARBPROC absolute __glewProgramUniform3i64ARB;
+
   __glewProgramUniform3i64vARB: TPFNGLPROGRAMUNIFORM3I64VARBPROC; cvar;external libGLEW;
+  glProgramUniform3i64vARB: TPFNGLPROGRAMUNIFORM3I64VARBPROC absolute __glewProgramUniform3i64vARB;
+
   __glewProgramUniform3ui64ARB: TPFNGLPROGRAMUNIFORM3UI64ARBPROC; cvar;external libGLEW;
+  glProgramUniform3ui64ARB: TPFNGLPROGRAMUNIFORM3UI64ARBPROC absolute __glewProgramUniform3ui64ARB;
+
   __glewProgramUniform3ui64vARB: TPFNGLPROGRAMUNIFORM3UI64VARBPROC; cvar;external libGLEW;
+  glProgramUniform3ui64vARB: TPFNGLPROGRAMUNIFORM3UI64VARBPROC absolute __glewProgramUniform3ui64vARB;
+
   __glewProgramUniform4i64ARB: TPFNGLPROGRAMUNIFORM4I64ARBPROC; cvar;external libGLEW;
+  glProgramUniform4i64ARB: TPFNGLPROGRAMUNIFORM4I64ARBPROC absolute __glewProgramUniform4i64ARB;
+
   __glewProgramUniform4i64vARB: TPFNGLPROGRAMUNIFORM4I64VARBPROC; cvar;external libGLEW;
+  glProgramUniform4i64vARB: TPFNGLPROGRAMUNIFORM4I64VARBPROC absolute __glewProgramUniform4i64vARB;
+
   __glewProgramUniform4ui64ARB: TPFNGLPROGRAMUNIFORM4UI64ARBPROC; cvar;external libGLEW;
+  glProgramUniform4ui64ARB: TPFNGLPROGRAMUNIFORM4UI64ARBPROC absolute __glewProgramUniform4ui64ARB;
+
   __glewProgramUniform4ui64vARB: TPFNGLPROGRAMUNIFORM4UI64VARBPROC; cvar;external libGLEW;
+  glProgramUniform4ui64vARB: TPFNGLPROGRAMUNIFORM4UI64VARBPROC absolute __glewProgramUniform4ui64vARB;
+
   __glewUniform1i64ARB: TPFNGLUNIFORM1I64ARBPROC; cvar;external libGLEW;
+  glUniform1i64ARB: TPFNGLUNIFORM1I64ARBPROC absolute __glewUniform1i64ARB;
+
   __glewUniform1i64vARB: TPFNGLUNIFORM1I64VARBPROC; cvar;external libGLEW;
+  glUniform1i64vARB: TPFNGLUNIFORM1I64VARBPROC absolute __glewUniform1i64vARB;
+
   __glewUniform1ui64ARB: TPFNGLUNIFORM1UI64ARBPROC; cvar;external libGLEW;
+  glUniform1ui64ARB: TPFNGLUNIFORM1UI64ARBPROC absolute __glewUniform1ui64ARB;
+
   __glewUniform1ui64vARB: TPFNGLUNIFORM1UI64VARBPROC; cvar;external libGLEW;
+  glUniform1ui64vARB: TPFNGLUNIFORM1UI64VARBPROC absolute __glewUniform1ui64vARB;
+
   __glewUniform2i64ARB: TPFNGLUNIFORM2I64ARBPROC; cvar;external libGLEW;
+  glUniform2i64ARB: TPFNGLUNIFORM2I64ARBPROC absolute __glewUniform2i64ARB;
+
   __glewUniform2i64vARB: TPFNGLUNIFORM2I64VARBPROC; cvar;external libGLEW;
+  glUniform2i64vARB: TPFNGLUNIFORM2I64VARBPROC absolute __glewUniform2i64vARB;
+
   __glewUniform2ui64ARB: TPFNGLUNIFORM2UI64ARBPROC; cvar;external libGLEW;
+  glUniform2ui64ARB: TPFNGLUNIFORM2UI64ARBPROC absolute __glewUniform2ui64ARB;
+
   __glewUniform2ui64vARB: TPFNGLUNIFORM2UI64VARBPROC; cvar;external libGLEW;
+  glUniform2ui64vARB: TPFNGLUNIFORM2UI64VARBPROC absolute __glewUniform2ui64vARB;
+
   __glewUniform3i64ARB: TPFNGLUNIFORM3I64ARBPROC; cvar;external libGLEW;
+  glUniform3i64ARB: TPFNGLUNIFORM3I64ARBPROC absolute __glewUniform3i64ARB;
+
   __glewUniform3i64vARB: TPFNGLUNIFORM3I64VARBPROC; cvar;external libGLEW;
+  glUniform3i64vARB: TPFNGLUNIFORM3I64VARBPROC absolute __glewUniform3i64vARB;
+
   __glewUniform3ui64ARB: TPFNGLUNIFORM3UI64ARBPROC; cvar;external libGLEW;
+  glUniform3ui64ARB: TPFNGLUNIFORM3UI64ARBPROC absolute __glewUniform3ui64ARB;
+
   __glewUniform3ui64vARB: TPFNGLUNIFORM3UI64VARBPROC; cvar;external libGLEW;
+  glUniform3ui64vARB: TPFNGLUNIFORM3UI64VARBPROC absolute __glewUniform3ui64vARB;
+
   __glewUniform4i64ARB: TPFNGLUNIFORM4I64ARBPROC; cvar;external libGLEW;
+  glUniform4i64ARB: TPFNGLUNIFORM4I64ARBPROC absolute __glewUniform4i64ARB;
+
   __glewUniform4i64vARB: TPFNGLUNIFORM4I64VARBPROC; cvar;external libGLEW;
+  glUniform4i64vARB: TPFNGLUNIFORM4I64VARBPROC absolute __glewUniform4i64vARB;
+
   __glewUniform4ui64ARB: TPFNGLUNIFORM4UI64ARBPROC; cvar;external libGLEW;
+  glUniform4ui64ARB: TPFNGLUNIFORM4UI64ARBPROC absolute __glewUniform4ui64ARB;
+
   __glewUniform4ui64vARB: TPFNGLUNIFORM4UI64VARBPROC; cvar;external libGLEW;
+  glUniform4ui64vARB: TPFNGLUNIFORM4UI64VARBPROC absolute __glewUniform4ui64vARB;
+
   __glewColorSubTable: TPFNGLCOLORSUBTABLEPROC; cvar;external libGLEW;
+  glColorSubTable: TPFNGLCOLORSUBTABLEPROC absolute __glewColorSubTable;
+
   __glewColorTable: TPFNGLCOLORTABLEPROC; cvar;external libGLEW;
+  glColorTable: TPFNGLCOLORTABLEPROC absolute __glewColorTable;
+
   __glewColorTableParameterfv: TPFNGLCOLORTABLEPARAMETERFVPROC; cvar;external libGLEW;
+  glColorTableParameterfv: TPFNGLCOLORTABLEPARAMETERFVPROC absolute __glewColorTableParameterfv;
+
   __glewColorTableParameteriv: TPFNGLCOLORTABLEPARAMETERIVPROC; cvar;external libGLEW;
+  glColorTableParameteriv: TPFNGLCOLORTABLEPARAMETERIVPROC absolute __glewColorTableParameteriv;
+
   __glewConvolutionFilter1D: TPFNGLCONVOLUTIONFILTER1DPROC; cvar;external libGLEW;
+  glConvolutionFilter1D: TPFNGLCONVOLUTIONFILTER1DPROC absolute __glewConvolutionFilter1D;
+
   __glewConvolutionFilter2D: TPFNGLCONVOLUTIONFILTER2DPROC; cvar;external libGLEW;
+  glConvolutionFilter2D: TPFNGLCONVOLUTIONFILTER2DPROC absolute __glewConvolutionFilter2D;
+
   __glewConvolutionParameterf: TPFNGLCONVOLUTIONPARAMETERFPROC; cvar;external libGLEW;
+  glConvolutionParameterf: TPFNGLCONVOLUTIONPARAMETERFPROC absolute __glewConvolutionParameterf;
+
   __glewConvolutionParameterfv: TPFNGLCONVOLUTIONPARAMETERFVPROC; cvar;external libGLEW;
+  glConvolutionParameterfv: TPFNGLCONVOLUTIONPARAMETERFVPROC absolute __glewConvolutionParameterfv;
+
   __glewConvolutionParameteri: TPFNGLCONVOLUTIONPARAMETERIPROC; cvar;external libGLEW;
+  glConvolutionParameteri: TPFNGLCONVOLUTIONPARAMETERIPROC absolute __glewConvolutionParameteri;
+
   __glewConvolutionParameteriv: TPFNGLCONVOLUTIONPARAMETERIVPROC; cvar;external libGLEW;
+  glConvolutionParameteriv: TPFNGLCONVOLUTIONPARAMETERIVPROC absolute __glewConvolutionParameteriv;
+
   __glewCopyColorSubTable: TPFNGLCOPYCOLORSUBTABLEPROC; cvar;external libGLEW;
+  glCopyColorSubTable: TPFNGLCOPYCOLORSUBTABLEPROC absolute __glewCopyColorSubTable;
+
   __glewCopyColorTable: TPFNGLCOPYCOLORTABLEPROC; cvar;external libGLEW;
+  glCopyColorTable: TPFNGLCOPYCOLORTABLEPROC absolute __glewCopyColorTable;
+
   __glewCopyConvolutionFilter1D: TPFNGLCOPYCONVOLUTIONFILTER1DPROC; cvar;external libGLEW;
+  glCopyConvolutionFilter1D: TPFNGLCOPYCONVOLUTIONFILTER1DPROC absolute __glewCopyConvolutionFilter1D;
+
   __glewCopyConvolutionFilter2D: TPFNGLCOPYCONVOLUTIONFILTER2DPROC; cvar;external libGLEW;
+  glCopyConvolutionFilter2D: TPFNGLCOPYCONVOLUTIONFILTER2DPROC absolute __glewCopyConvolutionFilter2D;
+
   __glewGetColorTable: TPFNGLGETCOLORTABLEPROC; cvar;external libGLEW;
+  glGetColorTable: TPFNGLGETCOLORTABLEPROC absolute __glewGetColorTable;
+
   __glewGetColorTableParameterfv: TPFNGLGETCOLORTABLEPARAMETERFVPROC; cvar;external libGLEW;
+  glGetColorTableParameterfv: TPFNGLGETCOLORTABLEPARAMETERFVPROC absolute __glewGetColorTableParameterfv;
+
   __glewGetColorTableParameteriv: TPFNGLGETCOLORTABLEPARAMETERIVPROC; cvar;external libGLEW;
+  glGetColorTableParameteriv: TPFNGLGETCOLORTABLEPARAMETERIVPROC absolute __glewGetColorTableParameteriv;
+
   __glewGetConvolutionFilter: TPFNGLGETCONVOLUTIONFILTERPROC; cvar;external libGLEW;
+  glGetConvolutionFilter: TPFNGLGETCONVOLUTIONFILTERPROC absolute __glewGetConvolutionFilter;
+
   __glewGetConvolutionParameterfv: TPFNGLGETCONVOLUTIONPARAMETERFVPROC; cvar;external libGLEW;
+  glGetConvolutionParameterfv: TPFNGLGETCONVOLUTIONPARAMETERFVPROC absolute __glewGetConvolutionParameterfv;
+
   __glewGetConvolutionParameteriv: TPFNGLGETCONVOLUTIONPARAMETERIVPROC; cvar;external libGLEW;
+  glGetConvolutionParameteriv: TPFNGLGETCONVOLUTIONPARAMETERIVPROC absolute __glewGetConvolutionParameteriv;
+
   __glewGetHistogram: TPFNGLGETHISTOGRAMPROC; cvar;external libGLEW;
+  glGetHistogram: TPFNGLGETHISTOGRAMPROC absolute __glewGetHistogram;
+
   __glewGetHistogramParameterfv: TPFNGLGETHISTOGRAMPARAMETERFVPROC; cvar;external libGLEW;
+  glGetHistogramParameterfv: TPFNGLGETHISTOGRAMPARAMETERFVPROC absolute __glewGetHistogramParameterfv;
+
   __glewGetHistogramParameteriv: TPFNGLGETHISTOGRAMPARAMETERIVPROC; cvar;external libGLEW;
+  glGetHistogramParameteriv: TPFNGLGETHISTOGRAMPARAMETERIVPROC absolute __glewGetHistogramParameteriv;
+
   __glewGetMinmax: TPFNGLGETMINMAXPROC; cvar;external libGLEW;
+  glGetMinmax: TPFNGLGETMINMAXPROC absolute __glewGetMinmax;
+
   __glewGetMinmaxParameterfv: TPFNGLGETMINMAXPARAMETERFVPROC; cvar;external libGLEW;
+  glGetMinmaxParameterfv: TPFNGLGETMINMAXPARAMETERFVPROC absolute __glewGetMinmaxParameterfv;
+
   __glewGetMinmaxParameteriv: TPFNGLGETMINMAXPARAMETERIVPROC; cvar;external libGLEW;
+  glGetMinmaxParameteriv: TPFNGLGETMINMAXPARAMETERIVPROC absolute __glewGetMinmaxParameteriv;
+
   __glewGetSeparableFilter: TPFNGLGETSEPARABLEFILTERPROC; cvar;external libGLEW;
+  glGetSeparableFilter: TPFNGLGETSEPARABLEFILTERPROC absolute __glewGetSeparableFilter;
+
   __glewHistogram: TPFNGLHISTOGRAMPROC; cvar;external libGLEW;
+  glHistogram: TPFNGLHISTOGRAMPROC absolute __glewHistogram;
+
   __glewMinmax: TPFNGLMINMAXPROC; cvar;external libGLEW;
+  glMinmax: TPFNGLMINMAXPROC absolute __glewMinmax;
+
   __glewResetHistogram: TPFNGLRESETHISTOGRAMPROC; cvar;external libGLEW;
+  glResetHistogram: TPFNGLRESETHISTOGRAMPROC absolute __glewResetHistogram;
+
   __glewResetMinmax: TPFNGLRESETMINMAXPROC; cvar;external libGLEW;
+  glResetMinmax: TPFNGLRESETMINMAXPROC absolute __glewResetMinmax;
+
   __glewSeparableFilter2D: TPFNGLSEPARABLEFILTER2DPROC; cvar;external libGLEW;
+  glSeparableFilter2D: TPFNGLSEPARABLEFILTER2DPROC absolute __glewSeparableFilter2D;
+
   __glewMultiDrawArraysIndirectCountARB: TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectCountARB: TPFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC absolute __glewMultiDrawArraysIndirectCountARB;
+
   __glewMultiDrawElementsIndirectCountARB: TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectCountARB: TPFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC absolute __glewMultiDrawElementsIndirectCountARB;
+
   __glewDrawArraysInstancedARB: TPFNGLDRAWARRAYSINSTANCEDARBPROC; cvar;external libGLEW;
+  glDrawArraysInstancedARB: TPFNGLDRAWARRAYSINSTANCEDARBPROC absolute __glewDrawArraysInstancedARB;
+
   __glewDrawElementsInstancedARB: TPFNGLDRAWELEMENTSINSTANCEDARBPROC; cvar;external libGLEW;
+  glDrawElementsInstancedARB: TPFNGLDRAWELEMENTSINSTANCEDARBPROC absolute __glewDrawElementsInstancedARB;
+
   __glewVertexAttribDivisorARB: TPFNGLVERTEXATTRIBDIVISORARBPROC; cvar;external libGLEW;
+  glVertexAttribDivisorARB: TPFNGLVERTEXATTRIBDIVISORARBPROC absolute __glewVertexAttribDivisorARB;
+
   __glewGetInternalformativ: TPFNGLGETINTERNALFORMATIVPROC; cvar;external libGLEW;
+  glGetInternalformativ: TPFNGLGETINTERNALFORMATIVPROC absolute __glewGetInternalformativ;
+
   __glewGetInternalformati64v: TPFNGLGETINTERNALFORMATI64VPROC; cvar;external libGLEW;
+  glGetInternalformati64v: TPFNGLGETINTERNALFORMATI64VPROC absolute __glewGetInternalformati64v;
+
   __glewInvalidateBufferData: TPFNGLINVALIDATEBUFFERDATAPROC; cvar;external libGLEW;
+  glInvalidateBufferData: TPFNGLINVALIDATEBUFFERDATAPROC absolute __glewInvalidateBufferData;
+
   __glewInvalidateBufferSubData: TPFNGLINVALIDATEBUFFERSUBDATAPROC; cvar;external libGLEW;
+  glInvalidateBufferSubData: TPFNGLINVALIDATEBUFFERSUBDATAPROC absolute __glewInvalidateBufferSubData;
+
   __glewInvalidateFramebuffer: TPFNGLINVALIDATEFRAMEBUFFERPROC; cvar;external libGLEW;
+  glInvalidateFramebuffer: TPFNGLINVALIDATEFRAMEBUFFERPROC absolute __glewInvalidateFramebuffer;
+
   __glewInvalidateSubFramebuffer: TPFNGLINVALIDATESUBFRAMEBUFFERPROC; cvar;external libGLEW;
+  glInvalidateSubFramebuffer: TPFNGLINVALIDATESUBFRAMEBUFFERPROC absolute __glewInvalidateSubFramebuffer;
+
   __glewInvalidateTexImage: TPFNGLINVALIDATETEXIMAGEPROC; cvar;external libGLEW;
+  glInvalidateTexImage: TPFNGLINVALIDATETEXIMAGEPROC absolute __glewInvalidateTexImage;
+
   __glewInvalidateTexSubImage: TPFNGLINVALIDATETEXSUBIMAGEPROC; cvar;external libGLEW;
+  glInvalidateTexSubImage: TPFNGLINVALIDATETEXSUBIMAGEPROC absolute __glewInvalidateTexSubImage;
+
   __glewFlushMappedBufferRange: TPFNGLFLUSHMAPPEDBUFFERRANGEPROC; cvar;external libGLEW;
+  glFlushMappedBufferRange: TPFNGLFLUSHMAPPEDBUFFERRANGEPROC absolute __glewFlushMappedBufferRange;
+
   __glewMapBufferRange: TPFNGLMAPBUFFERRANGEPROC; cvar;external libGLEW;
+  glMapBufferRange: TPFNGLMAPBUFFERRANGEPROC absolute __glewMapBufferRange;
+
   __glewCurrentPaletteMatrixARB: TPFNGLCURRENTPALETTEMATRIXARBPROC; cvar;external libGLEW;
+  glCurrentPaletteMatrixARB: TPFNGLCURRENTPALETTEMATRIXARBPROC absolute __glewCurrentPaletteMatrixARB;
+
   __glewMatrixIndexPointerARB: TPFNGLMATRIXINDEXPOINTERARBPROC; cvar;external libGLEW;
+  glMatrixIndexPointerARB: TPFNGLMATRIXINDEXPOINTERARBPROC absolute __glewMatrixIndexPointerARB;
+
   __glewMatrixIndexubvARB: TPFNGLMATRIXINDEXUBVARBPROC; cvar;external libGLEW;
+  glMatrixIndexubvARB: TPFNGLMATRIXINDEXUBVARBPROC absolute __glewMatrixIndexubvARB;
+
   __glewMatrixIndexuivARB: TPFNGLMATRIXINDEXUIVARBPROC; cvar;external libGLEW;
+  glMatrixIndexuivARB: TPFNGLMATRIXINDEXUIVARBPROC absolute __glewMatrixIndexuivARB;
+
   __glewMatrixIndexusvARB: TPFNGLMATRIXINDEXUSVARBPROC; cvar;external libGLEW;
+  glMatrixIndexusvARB: TPFNGLMATRIXINDEXUSVARBPROC absolute __glewMatrixIndexusvARB;
+
   __glewBindBuffersBase: TPFNGLBINDBUFFERSBASEPROC; cvar;external libGLEW;
+  glBindBuffersBase: TPFNGLBINDBUFFERSBASEPROC absolute __glewBindBuffersBase;
+
   __glewBindBuffersRange: TPFNGLBINDBUFFERSRANGEPROC; cvar;external libGLEW;
+  glBindBuffersRange: TPFNGLBINDBUFFERSRANGEPROC absolute __glewBindBuffersRange;
+
   __glewBindImageTextures: TPFNGLBINDIMAGETEXTURESPROC; cvar;external libGLEW;
+  glBindImageTextures: TPFNGLBINDIMAGETEXTURESPROC absolute __glewBindImageTextures;
+
   __glewBindSamplers: TPFNGLBINDSAMPLERSPROC; cvar;external libGLEW;
+  glBindSamplers: TPFNGLBINDSAMPLERSPROC absolute __glewBindSamplers;
+
   __glewBindTextures: TPFNGLBINDTEXTURESPROC; cvar;external libGLEW;
+  glBindTextures: TPFNGLBINDTEXTURESPROC absolute __glewBindTextures;
+
   __glewBindVertexBuffers: TPFNGLBINDVERTEXBUFFERSPROC; cvar;external libGLEW;
+  glBindVertexBuffers: TPFNGLBINDVERTEXBUFFERSPROC absolute __glewBindVertexBuffers;
+
   __glewMultiDrawArraysIndirect: TPFNGLMULTIDRAWARRAYSINDIRECTPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirect: TPFNGLMULTIDRAWARRAYSINDIRECTPROC absolute __glewMultiDrawArraysIndirect;
+
   __glewMultiDrawElementsIndirect: TPFNGLMULTIDRAWELEMENTSINDIRECTPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirect: TPFNGLMULTIDRAWELEMENTSINDIRECTPROC absolute __glewMultiDrawElementsIndirect;
+
   __glewSampleCoverageARB: TPFNGLSAMPLECOVERAGEARBPROC; cvar;external libGLEW;
+  glSampleCoverageARB: TPFNGLSAMPLECOVERAGEARBPROC absolute __glewSampleCoverageARB;
+
   __glewActiveTextureARB: TPFNGLACTIVETEXTUREARBPROC; cvar;external libGLEW;
+  glActiveTextureARB: TPFNGLACTIVETEXTUREARBPROC absolute __glewActiveTextureARB;
+
   __glewClientActiveTextureARB: TPFNGLCLIENTACTIVETEXTUREARBPROC; cvar;external libGLEW;
+  glClientActiveTextureARB: TPFNGLCLIENTACTIVETEXTUREARBPROC absolute __glewClientActiveTextureARB;
+
   __glewMultiTexCoord1dARB: TPFNGLMULTITEXCOORD1DARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1dARB: TPFNGLMULTITEXCOORD1DARBPROC absolute __glewMultiTexCoord1dARB;
+
   __glewMultiTexCoord1dvARB: TPFNGLMULTITEXCOORD1DVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1dvARB: TPFNGLMULTITEXCOORD1DVARBPROC absolute __glewMultiTexCoord1dvARB;
+
   __glewMultiTexCoord1fARB: TPFNGLMULTITEXCOORD1FARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1fARB: TPFNGLMULTITEXCOORD1FARBPROC absolute __glewMultiTexCoord1fARB;
+
   __glewMultiTexCoord1fvARB: TPFNGLMULTITEXCOORD1FVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1fvARB: TPFNGLMULTITEXCOORD1FVARBPROC absolute __glewMultiTexCoord1fvARB;
+
   __glewMultiTexCoord1iARB: TPFNGLMULTITEXCOORD1IARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1iARB: TPFNGLMULTITEXCOORD1IARBPROC absolute __glewMultiTexCoord1iARB;
+
   __glewMultiTexCoord1ivARB: TPFNGLMULTITEXCOORD1IVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1ivARB: TPFNGLMULTITEXCOORD1IVARBPROC absolute __glewMultiTexCoord1ivARB;
+
   __glewMultiTexCoord1sARB: TPFNGLMULTITEXCOORD1SARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1sARB: TPFNGLMULTITEXCOORD1SARBPROC absolute __glewMultiTexCoord1sARB;
+
   __glewMultiTexCoord1svARB: TPFNGLMULTITEXCOORD1SVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord1svARB: TPFNGLMULTITEXCOORD1SVARBPROC absolute __glewMultiTexCoord1svARB;
+
   __glewMultiTexCoord2dARB: TPFNGLMULTITEXCOORD2DARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2dARB: TPFNGLMULTITEXCOORD2DARBPROC absolute __glewMultiTexCoord2dARB;
+
   __glewMultiTexCoord2dvARB: TPFNGLMULTITEXCOORD2DVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2dvARB: TPFNGLMULTITEXCOORD2DVARBPROC absolute __glewMultiTexCoord2dvARB;
+
   __glewMultiTexCoord2fARB: TPFNGLMULTITEXCOORD2FARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2fARB: TPFNGLMULTITEXCOORD2FARBPROC absolute __glewMultiTexCoord2fARB;
+
   __glewMultiTexCoord2fvARB: TPFNGLMULTITEXCOORD2FVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2fvARB: TPFNGLMULTITEXCOORD2FVARBPROC absolute __glewMultiTexCoord2fvARB;
+
   __glewMultiTexCoord2iARB: TPFNGLMULTITEXCOORD2IARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2iARB: TPFNGLMULTITEXCOORD2IARBPROC absolute __glewMultiTexCoord2iARB;
+
   __glewMultiTexCoord2ivARB: TPFNGLMULTITEXCOORD2IVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2ivARB: TPFNGLMULTITEXCOORD2IVARBPROC absolute __glewMultiTexCoord2ivARB;
+
   __glewMultiTexCoord2sARB: TPFNGLMULTITEXCOORD2SARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2sARB: TPFNGLMULTITEXCOORD2SARBPROC absolute __glewMultiTexCoord2sARB;
+
   __glewMultiTexCoord2svARB: TPFNGLMULTITEXCOORD2SVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord2svARB: TPFNGLMULTITEXCOORD2SVARBPROC absolute __glewMultiTexCoord2svARB;
+
   __glewMultiTexCoord3dARB: TPFNGLMULTITEXCOORD3DARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3dARB: TPFNGLMULTITEXCOORD3DARBPROC absolute __glewMultiTexCoord3dARB;
+
   __glewMultiTexCoord3dvARB: TPFNGLMULTITEXCOORD3DVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3dvARB: TPFNGLMULTITEXCOORD3DVARBPROC absolute __glewMultiTexCoord3dvARB;
+
   __glewMultiTexCoord3fARB: TPFNGLMULTITEXCOORD3FARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3fARB: TPFNGLMULTITEXCOORD3FARBPROC absolute __glewMultiTexCoord3fARB;
+
   __glewMultiTexCoord3fvARB: TPFNGLMULTITEXCOORD3FVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3fvARB: TPFNGLMULTITEXCOORD3FVARBPROC absolute __glewMultiTexCoord3fvARB;
+
   __glewMultiTexCoord3iARB: TPFNGLMULTITEXCOORD3IARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3iARB: TPFNGLMULTITEXCOORD3IARBPROC absolute __glewMultiTexCoord3iARB;
+
   __glewMultiTexCoord3ivARB: TPFNGLMULTITEXCOORD3IVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3ivARB: TPFNGLMULTITEXCOORD3IVARBPROC absolute __glewMultiTexCoord3ivARB;
+
   __glewMultiTexCoord3sARB: TPFNGLMULTITEXCOORD3SARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3sARB: TPFNGLMULTITEXCOORD3SARBPROC absolute __glewMultiTexCoord3sARB;
+
   __glewMultiTexCoord3svARB: TPFNGLMULTITEXCOORD3SVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord3svARB: TPFNGLMULTITEXCOORD3SVARBPROC absolute __glewMultiTexCoord3svARB;
+
   __glewMultiTexCoord4dARB: TPFNGLMULTITEXCOORD4DARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4dARB: TPFNGLMULTITEXCOORD4DARBPROC absolute __glewMultiTexCoord4dARB;
+
   __glewMultiTexCoord4dvARB: TPFNGLMULTITEXCOORD4DVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4dvARB: TPFNGLMULTITEXCOORD4DVARBPROC absolute __glewMultiTexCoord4dvARB;
+
   __glewMultiTexCoord4fARB: TPFNGLMULTITEXCOORD4FARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4fARB: TPFNGLMULTITEXCOORD4FARBPROC absolute __glewMultiTexCoord4fARB;
+
   __glewMultiTexCoord4fvARB: TPFNGLMULTITEXCOORD4FVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4fvARB: TPFNGLMULTITEXCOORD4FVARBPROC absolute __glewMultiTexCoord4fvARB;
+
   __glewMultiTexCoord4iARB: TPFNGLMULTITEXCOORD4IARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4iARB: TPFNGLMULTITEXCOORD4IARBPROC absolute __glewMultiTexCoord4iARB;
+
   __glewMultiTexCoord4ivARB: TPFNGLMULTITEXCOORD4IVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4ivARB: TPFNGLMULTITEXCOORD4IVARBPROC absolute __glewMultiTexCoord4ivARB;
+
   __glewMultiTexCoord4sARB: TPFNGLMULTITEXCOORD4SARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4sARB: TPFNGLMULTITEXCOORD4SARBPROC absolute __glewMultiTexCoord4sARB;
+
   __glewMultiTexCoord4svARB: TPFNGLMULTITEXCOORD4SVARBPROC; cvar;external libGLEW;
+  glMultiTexCoord4svARB: TPFNGLMULTITEXCOORD4SVARBPROC absolute __glewMultiTexCoord4svARB;
+
   __glewBeginQueryARB: TPFNGLBEGINQUERYARBPROC; cvar;external libGLEW;
+  glBeginQueryARB: TPFNGLBEGINQUERYARBPROC absolute __glewBeginQueryARB;
+
   __glewDeleteQueriesARB: TPFNGLDELETEQUERIESARBPROC; cvar;external libGLEW;
+  glDeleteQueriesARB: TPFNGLDELETEQUERIESARBPROC absolute __glewDeleteQueriesARB;
+
   __glewEndQueryARB: TPFNGLENDQUERYARBPROC; cvar;external libGLEW;
+  glEndQueryARB: TPFNGLENDQUERYARBPROC absolute __glewEndQueryARB;
+
   __glewGenQueriesARB: TPFNGLGENQUERIESARBPROC; cvar;external libGLEW;
+  glGenQueriesARB: TPFNGLGENQUERIESARBPROC absolute __glewGenQueriesARB;
+
   __glewGetQueryObjectivARB: TPFNGLGETQUERYOBJECTIVARBPROC; cvar;external libGLEW;
+  glGetQueryObjectivARB: TPFNGLGETQUERYOBJECTIVARBPROC absolute __glewGetQueryObjectivARB;
+
   __glewGetQueryObjectuivARB: TPFNGLGETQUERYOBJECTUIVARBPROC; cvar;external libGLEW;
+  glGetQueryObjectuivARB: TPFNGLGETQUERYOBJECTUIVARBPROC absolute __glewGetQueryObjectuivARB;
+
   __glewGetQueryivARB: TPFNGLGETQUERYIVARBPROC; cvar;external libGLEW;
+  glGetQueryivARB: TPFNGLGETQUERYIVARBPROC absolute __glewGetQueryivARB;
+
   __glewIsQueryARB: TPFNGLISQUERYARBPROC; cvar;external libGLEW;
+  glIsQueryARB: TPFNGLISQUERYARBPROC absolute __glewIsQueryARB;
+
   __glewMaxShaderCompilerThreadsARB: TPFNGLMAXSHADERCOMPILERTHREADSARBPROC; cvar;external libGLEW;
+  glMaxShaderCompilerThreadsARB: TPFNGLMAXSHADERCOMPILERTHREADSARBPROC absolute __glewMaxShaderCompilerThreadsARB;
+
   __glewPointParameterfARB: TPFNGLPOINTPARAMETERFARBPROC; cvar;external libGLEW;
+  glPointParameterfARB: TPFNGLPOINTPARAMETERFARBPROC absolute __glewPointParameterfARB;
+
   __glewPointParameterfvARB: TPFNGLPOINTPARAMETERFVARBPROC; cvar;external libGLEW;
+  glPointParameterfvARB: TPFNGLPOINTPARAMETERFVARBPROC absolute __glewPointParameterfvARB;
+
   __glewPolygonOffsetClamp: TPFNGLPOLYGONOFFSETCLAMPPROC; cvar;external libGLEW;
+  glPolygonOffsetClamp: TPFNGLPOLYGONOFFSETCLAMPPROC absolute __glewPolygonOffsetClamp;
+
   __glewGetProgramInterfaceiv: TPFNGLGETPROGRAMINTERFACEIVPROC; cvar;external libGLEW;
+  glGetProgramInterfaceiv: TPFNGLGETPROGRAMINTERFACEIVPROC absolute __glewGetProgramInterfaceiv;
+
   __glewGetProgramResourceIndex: TPFNGLGETPROGRAMRESOURCEINDEXPROC; cvar;external libGLEW;
+  glGetProgramResourceIndex: TPFNGLGETPROGRAMRESOURCEINDEXPROC absolute __glewGetProgramResourceIndex;
+
   __glewGetProgramResourceLocation: TPFNGLGETPROGRAMRESOURCELOCATIONPROC; cvar;external libGLEW;
+  glGetProgramResourceLocation: TPFNGLGETPROGRAMRESOURCELOCATIONPROC absolute __glewGetProgramResourceLocation;
+
   __glewGetProgramResourceLocationIndex: TPFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC; cvar;external libGLEW;
+  glGetProgramResourceLocationIndex: TPFNGLGETPROGRAMRESOURCELOCATIONINDEXPROC absolute __glewGetProgramResourceLocationIndex;
+
   __glewGetProgramResourceName: TPFNGLGETPROGRAMRESOURCENAMEPROC; cvar;external libGLEW;
+  glGetProgramResourceName: TPFNGLGETPROGRAMRESOURCENAMEPROC absolute __glewGetProgramResourceName;
+
   __glewGetProgramResourceiv: TPFNGLGETPROGRAMRESOURCEIVPROC; cvar;external libGLEW;
+  glGetProgramResourceiv: TPFNGLGETPROGRAMRESOURCEIVPROC absolute __glewGetProgramResourceiv;
+
   __glewProvokingVertex: TPFNGLPROVOKINGVERTEXPROC; cvar;external libGLEW;
+  glProvokingVertex: TPFNGLPROVOKINGVERTEXPROC absolute __glewProvokingVertex;
+
   __glewGetGraphicsResetStatusARB: TPFNGLGETGRAPHICSRESETSTATUSARBPROC; cvar;external libGLEW;
+  glGetGraphicsResetStatusARB: TPFNGLGETGRAPHICSRESETSTATUSARBPROC absolute __glewGetGraphicsResetStatusARB;
+
   __glewGetnColorTableARB: TPFNGLGETNCOLORTABLEARBPROC; cvar;external libGLEW;
+  glGetnColorTableARB: TPFNGLGETNCOLORTABLEARBPROC absolute __glewGetnColorTableARB;
+
   __glewGetnCompressedTexImageARB: TPFNGLGETNCOMPRESSEDTEXIMAGEARBPROC; cvar;external libGLEW;
+  glGetnCompressedTexImageARB: TPFNGLGETNCOMPRESSEDTEXIMAGEARBPROC absolute __glewGetnCompressedTexImageARB;
+
   __glewGetnConvolutionFilterARB: TPFNGLGETNCONVOLUTIONFILTERARBPROC; cvar;external libGLEW;
+  glGetnConvolutionFilterARB: TPFNGLGETNCONVOLUTIONFILTERARBPROC absolute __glewGetnConvolutionFilterARB;
+
   __glewGetnHistogramARB: TPFNGLGETNHISTOGRAMARBPROC; cvar;external libGLEW;
+  glGetnHistogramARB: TPFNGLGETNHISTOGRAMARBPROC absolute __glewGetnHistogramARB;
+
   __glewGetnMapdvARB: TPFNGLGETNMAPDVARBPROC; cvar;external libGLEW;
+  glGetnMapdvARB: TPFNGLGETNMAPDVARBPROC absolute __glewGetnMapdvARB;
+
   __glewGetnMapfvARB: TPFNGLGETNMAPFVARBPROC; cvar;external libGLEW;
+  glGetnMapfvARB: TPFNGLGETNMAPFVARBPROC absolute __glewGetnMapfvARB;
+
   __glewGetnMapivARB: TPFNGLGETNMAPIVARBPROC; cvar;external libGLEW;
+  glGetnMapivARB: TPFNGLGETNMAPIVARBPROC absolute __glewGetnMapivARB;
+
   __glewGetnMinmaxARB: TPFNGLGETNMINMAXARBPROC; cvar;external libGLEW;
+  glGetnMinmaxARB: TPFNGLGETNMINMAXARBPROC absolute __glewGetnMinmaxARB;
+
   __glewGetnPixelMapfvARB: TPFNGLGETNPIXELMAPFVARBPROC; cvar;external libGLEW;
+  glGetnPixelMapfvARB: TPFNGLGETNPIXELMAPFVARBPROC absolute __glewGetnPixelMapfvARB;
+
   __glewGetnPixelMapuivARB: TPFNGLGETNPIXELMAPUIVARBPROC; cvar;external libGLEW;
+  glGetnPixelMapuivARB: TPFNGLGETNPIXELMAPUIVARBPROC absolute __glewGetnPixelMapuivARB;
+
   __glewGetnPixelMapusvARB: TPFNGLGETNPIXELMAPUSVARBPROC; cvar;external libGLEW;
+  glGetnPixelMapusvARB: TPFNGLGETNPIXELMAPUSVARBPROC absolute __glewGetnPixelMapusvARB;
+
   __glewGetnPolygonStippleARB: TPFNGLGETNPOLYGONSTIPPLEARBPROC; cvar;external libGLEW;
+  glGetnPolygonStippleARB: TPFNGLGETNPOLYGONSTIPPLEARBPROC absolute __glewGetnPolygonStippleARB;
+
   __glewGetnSeparableFilterARB: TPFNGLGETNSEPARABLEFILTERARBPROC; cvar;external libGLEW;
+  glGetnSeparableFilterARB: TPFNGLGETNSEPARABLEFILTERARBPROC absolute __glewGetnSeparableFilterARB;
+
   __glewGetnTexImageARB: TPFNGLGETNTEXIMAGEARBPROC; cvar;external libGLEW;
+  glGetnTexImageARB: TPFNGLGETNTEXIMAGEARBPROC absolute __glewGetnTexImageARB;
+
   __glewGetnUniformdvARB: TPFNGLGETNUNIFORMDVARBPROC; cvar;external libGLEW;
+  glGetnUniformdvARB: TPFNGLGETNUNIFORMDVARBPROC absolute __glewGetnUniformdvARB;
+
   __glewGetnUniformfvARB: TPFNGLGETNUNIFORMFVARBPROC; cvar;external libGLEW;
+  glGetnUniformfvARB: TPFNGLGETNUNIFORMFVARBPROC absolute __glewGetnUniformfvARB;
+
   __glewGetnUniformivARB: TPFNGLGETNUNIFORMIVARBPROC; cvar;external libGLEW;
+  glGetnUniformivARB: TPFNGLGETNUNIFORMIVARBPROC absolute __glewGetnUniformivARB;
+
   __glewGetnUniformuivARB: TPFNGLGETNUNIFORMUIVARBPROC; cvar;external libGLEW;
+  glGetnUniformuivARB: TPFNGLGETNUNIFORMUIVARBPROC absolute __glewGetnUniformuivARB;
+
   __glewReadnPixelsARB: TPFNGLREADNPIXELSARBPROC; cvar;external libGLEW;
+  glReadnPixelsARB: TPFNGLREADNPIXELSARBPROC absolute __glewReadnPixelsARB;
+
   __glewFramebufferSampleLocationsfvARB: TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC; cvar;external libGLEW;
+  glFramebufferSampleLocationsfvARB: TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVARBPROC absolute __glewFramebufferSampleLocationsfvARB;
+
   __glewNamedFramebufferSampleLocationsfvARB: TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC; cvar;external libGLEW;
+  glNamedFramebufferSampleLocationsfvARB: TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVARBPROC absolute __glewNamedFramebufferSampleLocationsfvARB;
+
   __glewMinSampleShadingARB: TPFNGLMINSAMPLESHADINGARBPROC; cvar;external libGLEW;
+  glMinSampleShadingARB: TPFNGLMINSAMPLESHADINGARBPROC absolute __glewMinSampleShadingARB;
+
   __glewBindSampler: TPFNGLBINDSAMPLERPROC; cvar;external libGLEW;
+  glBindSampler: TPFNGLBINDSAMPLERPROC absolute __glewBindSampler;
+
   __glewDeleteSamplers: TPFNGLDELETESAMPLERSPROC; cvar;external libGLEW;
+  glDeleteSamplers: TPFNGLDELETESAMPLERSPROC absolute __glewDeleteSamplers;
+
   __glewGenSamplers: TPFNGLGENSAMPLERSPROC; cvar;external libGLEW;
+  glGenSamplers: TPFNGLGENSAMPLERSPROC absolute __glewGenSamplers;
+
   __glewGetSamplerParameterIiv: TPFNGLGETSAMPLERPARAMETERIIVPROC; cvar;external libGLEW;
+  glGetSamplerParameterIiv: TPFNGLGETSAMPLERPARAMETERIIVPROC absolute __glewGetSamplerParameterIiv;
+
   __glewGetSamplerParameterIuiv: TPFNGLGETSAMPLERPARAMETERIUIVPROC; cvar;external libGLEW;
+  glGetSamplerParameterIuiv: TPFNGLGETSAMPLERPARAMETERIUIVPROC absolute __glewGetSamplerParameterIuiv;
+
   __glewGetSamplerParameterfv: TPFNGLGETSAMPLERPARAMETERFVPROC; cvar;external libGLEW;
+  glGetSamplerParameterfv: TPFNGLGETSAMPLERPARAMETERFVPROC absolute __glewGetSamplerParameterfv;
+
   __glewGetSamplerParameteriv: TPFNGLGETSAMPLERPARAMETERIVPROC; cvar;external libGLEW;
+  glGetSamplerParameteriv: TPFNGLGETSAMPLERPARAMETERIVPROC absolute __glewGetSamplerParameteriv;
+
   __glewIsSampler: TPFNGLISSAMPLERPROC; cvar;external libGLEW;
+  glIsSampler: TPFNGLISSAMPLERPROC absolute __glewIsSampler;
+
   __glewSamplerParameterIiv: TPFNGLSAMPLERPARAMETERIIVPROC; cvar;external libGLEW;
+  glSamplerParameterIiv: TPFNGLSAMPLERPARAMETERIIVPROC absolute __glewSamplerParameterIiv;
+
   __glewSamplerParameterIuiv: TPFNGLSAMPLERPARAMETERIUIVPROC; cvar;external libGLEW;
+  glSamplerParameterIuiv: TPFNGLSAMPLERPARAMETERIUIVPROC absolute __glewSamplerParameterIuiv;
+
   __glewSamplerParameterf: TPFNGLSAMPLERPARAMETERFPROC; cvar;external libGLEW;
+  glSamplerParameterf: TPFNGLSAMPLERPARAMETERFPROC absolute __glewSamplerParameterf;
+
   __glewSamplerParameterfv: TPFNGLSAMPLERPARAMETERFVPROC; cvar;external libGLEW;
+  glSamplerParameterfv: TPFNGLSAMPLERPARAMETERFVPROC absolute __glewSamplerParameterfv;
+
   __glewSamplerParameteri: TPFNGLSAMPLERPARAMETERIPROC; cvar;external libGLEW;
+  glSamplerParameteri: TPFNGLSAMPLERPARAMETERIPROC absolute __glewSamplerParameteri;
+
   __glewSamplerParameteriv: TPFNGLSAMPLERPARAMETERIVPROC; cvar;external libGLEW;
+  glSamplerParameteriv: TPFNGLSAMPLERPARAMETERIVPROC absolute __glewSamplerParameteriv;
+
   __glewActiveShaderProgram: TPFNGLACTIVESHADERPROGRAMPROC; cvar;external libGLEW;
+  glActiveShaderProgram: TPFNGLACTIVESHADERPROGRAMPROC absolute __glewActiveShaderProgram;
+
   __glewBindProgramPipeline: TPFNGLBINDPROGRAMPIPELINEPROC; cvar;external libGLEW;
+  glBindProgramPipeline: TPFNGLBINDPROGRAMPIPELINEPROC absolute __glewBindProgramPipeline;
+
   __glewCreateShaderProgramv: TPFNGLCREATESHADERPROGRAMVPROC; cvar;external libGLEW;
+  glCreateShaderProgramv: TPFNGLCREATESHADERPROGRAMVPROC absolute __glewCreateShaderProgramv;
+
   __glewDeleteProgramPipelines: TPFNGLDELETEPROGRAMPIPELINESPROC; cvar;external libGLEW;
+  glDeleteProgramPipelines: TPFNGLDELETEPROGRAMPIPELINESPROC absolute __glewDeleteProgramPipelines;
+
   __glewGenProgramPipelines: TPFNGLGENPROGRAMPIPELINESPROC; cvar;external libGLEW;
+  glGenProgramPipelines: TPFNGLGENPROGRAMPIPELINESPROC absolute __glewGenProgramPipelines;
+
   __glewGetProgramPipelineInfoLog: TPFNGLGETPROGRAMPIPELINEINFOLOGPROC; cvar;external libGLEW;
+  glGetProgramPipelineInfoLog: TPFNGLGETPROGRAMPIPELINEINFOLOGPROC absolute __glewGetProgramPipelineInfoLog;
+
   __glewGetProgramPipelineiv: TPFNGLGETPROGRAMPIPELINEIVPROC; cvar;external libGLEW;
+  glGetProgramPipelineiv: TPFNGLGETPROGRAMPIPELINEIVPROC absolute __glewGetProgramPipelineiv;
+
   __glewIsProgramPipeline: TPFNGLISPROGRAMPIPELINEPROC; cvar;external libGLEW;
+  glIsProgramPipeline: TPFNGLISPROGRAMPIPELINEPROC absolute __glewIsProgramPipeline;
+
   __glewProgramUniform1d: TPFNGLPROGRAMUNIFORM1DPROC; cvar;external libGLEW;
+  glProgramUniform1d: TPFNGLPROGRAMUNIFORM1DPROC absolute __glewProgramUniform1d;
+
   __glewProgramUniform1dv: TPFNGLPROGRAMUNIFORM1DVPROC; cvar;external libGLEW;
+  glProgramUniform1dv: TPFNGLPROGRAMUNIFORM1DVPROC absolute __glewProgramUniform1dv;
+
   __glewProgramUniform1f: TPFNGLPROGRAMUNIFORM1FPROC; cvar;external libGLEW;
+  glProgramUniform1f: TPFNGLPROGRAMUNIFORM1FPROC absolute __glewProgramUniform1f;
+
   __glewProgramUniform1fv: TPFNGLPROGRAMUNIFORM1FVPROC; cvar;external libGLEW;
+  glProgramUniform1fv: TPFNGLPROGRAMUNIFORM1FVPROC absolute __glewProgramUniform1fv;
+
   __glewProgramUniform1i: TPFNGLPROGRAMUNIFORM1IPROC; cvar;external libGLEW;
+  glProgramUniform1i: TPFNGLPROGRAMUNIFORM1IPROC absolute __glewProgramUniform1i;
+
   __glewProgramUniform1iv: TPFNGLPROGRAMUNIFORM1IVPROC; cvar;external libGLEW;
+  glProgramUniform1iv: TPFNGLPROGRAMUNIFORM1IVPROC absolute __glewProgramUniform1iv;
+
   __glewProgramUniform1ui: TPFNGLPROGRAMUNIFORM1UIPROC; cvar;external libGLEW;
+  glProgramUniform1ui: TPFNGLPROGRAMUNIFORM1UIPROC absolute __glewProgramUniform1ui;
+
   __glewProgramUniform1uiv: TPFNGLPROGRAMUNIFORM1UIVPROC; cvar;external libGLEW;
+  glProgramUniform1uiv: TPFNGLPROGRAMUNIFORM1UIVPROC absolute __glewProgramUniform1uiv;
+
   __glewProgramUniform2d: TPFNGLPROGRAMUNIFORM2DPROC; cvar;external libGLEW;
+  glProgramUniform2d: TPFNGLPROGRAMUNIFORM2DPROC absolute __glewProgramUniform2d;
+
   __glewProgramUniform2dv: TPFNGLPROGRAMUNIFORM2DVPROC; cvar;external libGLEW;
+  glProgramUniform2dv: TPFNGLPROGRAMUNIFORM2DVPROC absolute __glewProgramUniform2dv;
+
   __glewProgramUniform2f: TPFNGLPROGRAMUNIFORM2FPROC; cvar;external libGLEW;
+  glProgramUniform2f: TPFNGLPROGRAMUNIFORM2FPROC absolute __glewProgramUniform2f;
+
   __glewProgramUniform2fv: TPFNGLPROGRAMUNIFORM2FVPROC; cvar;external libGLEW;
+  glProgramUniform2fv: TPFNGLPROGRAMUNIFORM2FVPROC absolute __glewProgramUniform2fv;
+
   __glewProgramUniform2i: TPFNGLPROGRAMUNIFORM2IPROC; cvar;external libGLEW;
+  glProgramUniform2i: TPFNGLPROGRAMUNIFORM2IPROC absolute __glewProgramUniform2i;
+
   __glewProgramUniform2iv: TPFNGLPROGRAMUNIFORM2IVPROC; cvar;external libGLEW;
+  glProgramUniform2iv: TPFNGLPROGRAMUNIFORM2IVPROC absolute __glewProgramUniform2iv;
+
   __glewProgramUniform2ui: TPFNGLPROGRAMUNIFORM2UIPROC; cvar;external libGLEW;
+  glProgramUniform2ui: TPFNGLPROGRAMUNIFORM2UIPROC absolute __glewProgramUniform2ui;
+
   __glewProgramUniform2uiv: TPFNGLPROGRAMUNIFORM2UIVPROC; cvar;external libGLEW;
+  glProgramUniform2uiv: TPFNGLPROGRAMUNIFORM2UIVPROC absolute __glewProgramUniform2uiv;
+
   __glewProgramUniform3d: TPFNGLPROGRAMUNIFORM3DPROC; cvar;external libGLEW;
+  glProgramUniform3d: TPFNGLPROGRAMUNIFORM3DPROC absolute __glewProgramUniform3d;
+
   __glewProgramUniform3dv: TPFNGLPROGRAMUNIFORM3DVPROC; cvar;external libGLEW;
+  glProgramUniform3dv: TPFNGLPROGRAMUNIFORM3DVPROC absolute __glewProgramUniform3dv;
+
   __glewProgramUniform3f: TPFNGLPROGRAMUNIFORM3FPROC; cvar;external libGLEW;
+  glProgramUniform3f: TPFNGLPROGRAMUNIFORM3FPROC absolute __glewProgramUniform3f;
+
   __glewProgramUniform3fv: TPFNGLPROGRAMUNIFORM3FVPROC; cvar;external libGLEW;
+  glProgramUniform3fv: TPFNGLPROGRAMUNIFORM3FVPROC absolute __glewProgramUniform3fv;
+
   __glewProgramUniform3i: TPFNGLPROGRAMUNIFORM3IPROC; cvar;external libGLEW;
+  glProgramUniform3i: TPFNGLPROGRAMUNIFORM3IPROC absolute __glewProgramUniform3i;
+
   __glewProgramUniform3iv: TPFNGLPROGRAMUNIFORM3IVPROC; cvar;external libGLEW;
+  glProgramUniform3iv: TPFNGLPROGRAMUNIFORM3IVPROC absolute __glewProgramUniform3iv;
+
   __glewProgramUniform3ui: TPFNGLPROGRAMUNIFORM3UIPROC; cvar;external libGLEW;
+  glProgramUniform3ui: TPFNGLPROGRAMUNIFORM3UIPROC absolute __glewProgramUniform3ui;
+
   __glewProgramUniform3uiv: TPFNGLPROGRAMUNIFORM3UIVPROC; cvar;external libGLEW;
+  glProgramUniform3uiv: TPFNGLPROGRAMUNIFORM3UIVPROC absolute __glewProgramUniform3uiv;
+
   __glewProgramUniform4d: TPFNGLPROGRAMUNIFORM4DPROC; cvar;external libGLEW;
+  glProgramUniform4d: TPFNGLPROGRAMUNIFORM4DPROC absolute __glewProgramUniform4d;
+
   __glewProgramUniform4dv: TPFNGLPROGRAMUNIFORM4DVPROC; cvar;external libGLEW;
+  glProgramUniform4dv: TPFNGLPROGRAMUNIFORM4DVPROC absolute __glewProgramUniform4dv;
+
   __glewProgramUniform4f: TPFNGLPROGRAMUNIFORM4FPROC; cvar;external libGLEW;
+  glProgramUniform4f: TPFNGLPROGRAMUNIFORM4FPROC absolute __glewProgramUniform4f;
+
   __glewProgramUniform4fv: TPFNGLPROGRAMUNIFORM4FVPROC; cvar;external libGLEW;
+  glProgramUniform4fv: TPFNGLPROGRAMUNIFORM4FVPROC absolute __glewProgramUniform4fv;
+
   __glewProgramUniform4i: TPFNGLPROGRAMUNIFORM4IPROC; cvar;external libGLEW;
+  glProgramUniform4i: TPFNGLPROGRAMUNIFORM4IPROC absolute __glewProgramUniform4i;
+
   __glewProgramUniform4iv: TPFNGLPROGRAMUNIFORM4IVPROC; cvar;external libGLEW;
+  glProgramUniform4iv: TPFNGLPROGRAMUNIFORM4IVPROC absolute __glewProgramUniform4iv;
+
   __glewProgramUniform4ui: TPFNGLPROGRAMUNIFORM4UIPROC; cvar;external libGLEW;
+  glProgramUniform4ui: TPFNGLPROGRAMUNIFORM4UIPROC absolute __glewProgramUniform4ui;
+
   __glewProgramUniform4uiv: TPFNGLPROGRAMUNIFORM4UIVPROC; cvar;external libGLEW;
+  glProgramUniform4uiv: TPFNGLPROGRAMUNIFORM4UIVPROC absolute __glewProgramUniform4uiv;
+
   __glewProgramUniformMatrix2dv: TPFNGLPROGRAMUNIFORMMATRIX2DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2dv: TPFNGLPROGRAMUNIFORMMATRIX2DVPROC absolute __glewProgramUniformMatrix2dv;
+
   __glewProgramUniformMatrix2fv: TPFNGLPROGRAMUNIFORMMATRIX2FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2fv: TPFNGLPROGRAMUNIFORMMATRIX2FVPROC absolute __glewProgramUniformMatrix2fv;
+
   __glewProgramUniformMatrix2x3dv: TPFNGLPROGRAMUNIFORMMATRIX2X3DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x3dv: TPFNGLPROGRAMUNIFORMMATRIX2X3DVPROC absolute __glewProgramUniformMatrix2x3dv;
+
   __glewProgramUniformMatrix2x3fv: TPFNGLPROGRAMUNIFORMMATRIX2X3FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x3fv: TPFNGLPROGRAMUNIFORMMATRIX2X3FVPROC absolute __glewProgramUniformMatrix2x3fv;
+
   __glewProgramUniformMatrix2x4dv: TPFNGLPROGRAMUNIFORMMATRIX2X4DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x4dv: TPFNGLPROGRAMUNIFORMMATRIX2X4DVPROC absolute __glewProgramUniformMatrix2x4dv;
+
   __glewProgramUniformMatrix2x4fv: TPFNGLPROGRAMUNIFORMMATRIX2X4FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x4fv: TPFNGLPROGRAMUNIFORMMATRIX2X4FVPROC absolute __glewProgramUniformMatrix2x4fv;
+
   __glewProgramUniformMatrix3dv: TPFNGLPROGRAMUNIFORMMATRIX3DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3dv: TPFNGLPROGRAMUNIFORMMATRIX3DVPROC absolute __glewProgramUniformMatrix3dv;
+
   __glewProgramUniformMatrix3fv: TPFNGLPROGRAMUNIFORMMATRIX3FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3fv: TPFNGLPROGRAMUNIFORMMATRIX3FVPROC absolute __glewProgramUniformMatrix3fv;
+
   __glewProgramUniformMatrix3x2dv: TPFNGLPROGRAMUNIFORMMATRIX3X2DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x2dv: TPFNGLPROGRAMUNIFORMMATRIX3X2DVPROC absolute __glewProgramUniformMatrix3x2dv;
+
   __glewProgramUniformMatrix3x2fv: TPFNGLPROGRAMUNIFORMMATRIX3X2FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x2fv: TPFNGLPROGRAMUNIFORMMATRIX3X2FVPROC absolute __glewProgramUniformMatrix3x2fv;
+
   __glewProgramUniformMatrix3x4dv: TPFNGLPROGRAMUNIFORMMATRIX3X4DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x4dv: TPFNGLPROGRAMUNIFORMMATRIX3X4DVPROC absolute __glewProgramUniformMatrix3x4dv;
+
   __glewProgramUniformMatrix3x4fv: TPFNGLPROGRAMUNIFORMMATRIX3X4FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x4fv: TPFNGLPROGRAMUNIFORMMATRIX3X4FVPROC absolute __glewProgramUniformMatrix3x4fv;
+
   __glewProgramUniformMatrix4dv: TPFNGLPROGRAMUNIFORMMATRIX4DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4dv: TPFNGLPROGRAMUNIFORMMATRIX4DVPROC absolute __glewProgramUniformMatrix4dv;
+
   __glewProgramUniformMatrix4fv: TPFNGLPROGRAMUNIFORMMATRIX4FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4fv: TPFNGLPROGRAMUNIFORMMATRIX4FVPROC absolute __glewProgramUniformMatrix4fv;
+
   __glewProgramUniformMatrix4x2dv: TPFNGLPROGRAMUNIFORMMATRIX4X2DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x2dv: TPFNGLPROGRAMUNIFORMMATRIX4X2DVPROC absolute __glewProgramUniformMatrix4x2dv;
+
   __glewProgramUniformMatrix4x2fv: TPFNGLPROGRAMUNIFORMMATRIX4X2FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x2fv: TPFNGLPROGRAMUNIFORMMATRIX4X2FVPROC absolute __glewProgramUniformMatrix4x2fv;
+
   __glewProgramUniformMatrix4x3dv: TPFNGLPROGRAMUNIFORMMATRIX4X3DVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x3dv: TPFNGLPROGRAMUNIFORMMATRIX4X3DVPROC absolute __glewProgramUniformMatrix4x3dv;
+
   __glewProgramUniformMatrix4x3fv: TPFNGLPROGRAMUNIFORMMATRIX4X3FVPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x3fv: TPFNGLPROGRAMUNIFORMMATRIX4X3FVPROC absolute __glewProgramUniformMatrix4x3fv;
+
   __glewUseProgramStages: TPFNGLUSEPROGRAMSTAGESPROC; cvar;external libGLEW;
+  glUseProgramStages: TPFNGLUSEPROGRAMSTAGESPROC absolute __glewUseProgramStages;
+
   __glewValidateProgramPipeline: TPFNGLVALIDATEPROGRAMPIPELINEPROC; cvar;external libGLEW;
+  glValidateProgramPipeline: TPFNGLVALIDATEPROGRAMPIPELINEPROC absolute __glewValidateProgramPipeline;
+
   __glewGetActiveAtomicCounterBufferiv: TPFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC; cvar;external libGLEW;
+  glGetActiveAtomicCounterBufferiv: TPFNGLGETACTIVEATOMICCOUNTERBUFFERIVPROC absolute __glewGetActiveAtomicCounterBufferiv;
+
   __glewBindImageTexture: TPFNGLBINDIMAGETEXTUREPROC; cvar;external libGLEW;
+  glBindImageTexture: TPFNGLBINDIMAGETEXTUREPROC absolute __glewBindImageTexture;
+
   __glewMemoryBarrier: TPFNGLMEMORYBARRIERPROC; cvar;external libGLEW;
+  glMemoryBarrier: TPFNGLMEMORYBARRIERPROC absolute __glewMemoryBarrier;
+
   __glewAttachObjectARB: TPFNGLATTACHOBJECTARBPROC; cvar;external libGLEW;
+  glAttachObjectARB: TPFNGLATTACHOBJECTARBPROC absolute __glewAttachObjectARB;
+
   __glewCompileShaderARB: TPFNGLCOMPILESHADERARBPROC; cvar;external libGLEW;
+  glCompileShaderARB: TPFNGLCOMPILESHADERARBPROC absolute __glewCompileShaderARB;
+
   __glewCreateProgramObjectARB: TPFNGLCREATEPROGRAMOBJECTARBPROC; cvar;external libGLEW;
+  glCreateProgramObjectARB: TPFNGLCREATEPROGRAMOBJECTARBPROC absolute __glewCreateProgramObjectARB;
+
   __glewCreateShaderObjectARB: TPFNGLCREATESHADEROBJECTARBPROC; cvar;external libGLEW;
+  glCreateShaderObjectARB: TPFNGLCREATESHADEROBJECTARBPROC absolute __glewCreateShaderObjectARB;
+
   __glewDeleteObjectARB: TPFNGLDELETEOBJECTARBPROC; cvar;external libGLEW;
+  glDeleteObjectARB: TPFNGLDELETEOBJECTARBPROC absolute __glewDeleteObjectARB;
+
   __glewDetachObjectARB: TPFNGLDETACHOBJECTARBPROC; cvar;external libGLEW;
+  glDetachObjectARB: TPFNGLDETACHOBJECTARBPROC absolute __glewDetachObjectARB;
+
   __glewGetActiveUniformARB: TPFNGLGETACTIVEUNIFORMARBPROC; cvar;external libGLEW;
+  glGetActiveUniformARB: TPFNGLGETACTIVEUNIFORMARBPROC absolute __glewGetActiveUniformARB;
+
   __glewGetAttachedObjectsARB: TPFNGLGETATTACHEDOBJECTSARBPROC; cvar;external libGLEW;
+  glGetAttachedObjectsARB: TPFNGLGETATTACHEDOBJECTSARBPROC absolute __glewGetAttachedObjectsARB;
+
   __glewGetHandleARB: TPFNGLGETHANDLEARBPROC; cvar;external libGLEW;
+  glGetHandleARB: TPFNGLGETHANDLEARBPROC absolute __glewGetHandleARB;
+
   __glewGetInfoLogARB: TPFNGLGETINFOLOGARBPROC; cvar;external libGLEW;
+  glGetInfoLogARB: TPFNGLGETINFOLOGARBPROC absolute __glewGetInfoLogARB;
+
   __glewGetObjectParameterfvARB: TPFNGLGETOBJECTPARAMETERFVARBPROC; cvar;external libGLEW;
+  glGetObjectParameterfvARB: TPFNGLGETOBJECTPARAMETERFVARBPROC absolute __glewGetObjectParameterfvARB;
+
   __glewGetObjectParameterivARB: TPFNGLGETOBJECTPARAMETERIVARBPROC; cvar;external libGLEW;
+  glGetObjectParameterivARB: TPFNGLGETOBJECTPARAMETERIVARBPROC absolute __glewGetObjectParameterivARB;
+
   __glewGetShaderSourceARB: TPFNGLGETSHADERSOURCEARBPROC; cvar;external libGLEW;
+  glGetShaderSourceARB: TPFNGLGETSHADERSOURCEARBPROC absolute __glewGetShaderSourceARB;
+
   __glewGetUniformLocationARB: TPFNGLGETUNIFORMLOCATIONARBPROC; cvar;external libGLEW;
+  glGetUniformLocationARB: TPFNGLGETUNIFORMLOCATIONARBPROC absolute __glewGetUniformLocationARB;
+
   __glewGetUniformfvARB: TPFNGLGETUNIFORMFVARBPROC; cvar;external libGLEW;
+  glGetUniformfvARB: TPFNGLGETUNIFORMFVARBPROC absolute __glewGetUniformfvARB;
+
   __glewGetUniformivARB: TPFNGLGETUNIFORMIVARBPROC; cvar;external libGLEW;
+  glGetUniformivARB: TPFNGLGETUNIFORMIVARBPROC absolute __glewGetUniformivARB;
+
   __glewLinkProgramARB: TPFNGLLINKPROGRAMARBPROC; cvar;external libGLEW;
+  glLinkProgramARB: TPFNGLLINKPROGRAMARBPROC absolute __glewLinkProgramARB;
+
   __glewShaderSourceARB: TPFNGLSHADERSOURCEARBPROC; cvar;external libGLEW;
+  glShaderSourceARB: TPFNGLSHADERSOURCEARBPROC absolute __glewShaderSourceARB;
+
   __glewUniform1fARB: TPFNGLUNIFORM1FARBPROC; cvar;external libGLEW;
+  glUniform1fARB: TPFNGLUNIFORM1FARBPROC absolute __glewUniform1fARB;
+
   __glewUniform1fvARB: TPFNGLUNIFORM1FVARBPROC; cvar;external libGLEW;
+  glUniform1fvARB: TPFNGLUNIFORM1FVARBPROC absolute __glewUniform1fvARB;
+
   __glewUniform1iARB: TPFNGLUNIFORM1IARBPROC; cvar;external libGLEW;
+  glUniform1iARB: TPFNGLUNIFORM1IARBPROC absolute __glewUniform1iARB;
+
   __glewUniform1ivARB: TPFNGLUNIFORM1IVARBPROC; cvar;external libGLEW;
+  glUniform1ivARB: TPFNGLUNIFORM1IVARBPROC absolute __glewUniform1ivARB;
+
   __glewUniform2fARB: TPFNGLUNIFORM2FARBPROC; cvar;external libGLEW;
+  glUniform2fARB: TPFNGLUNIFORM2FARBPROC absolute __glewUniform2fARB;
+
   __glewUniform2fvARB: TPFNGLUNIFORM2FVARBPROC; cvar;external libGLEW;
+  glUniform2fvARB: TPFNGLUNIFORM2FVARBPROC absolute __glewUniform2fvARB;
+
   __glewUniform2iARB: TPFNGLUNIFORM2IARBPROC; cvar;external libGLEW;
+  glUniform2iARB: TPFNGLUNIFORM2IARBPROC absolute __glewUniform2iARB;
+
   __glewUniform2ivARB: TPFNGLUNIFORM2IVARBPROC; cvar;external libGLEW;
+  glUniform2ivARB: TPFNGLUNIFORM2IVARBPROC absolute __glewUniform2ivARB;
+
   __glewUniform3fARB: TPFNGLUNIFORM3FARBPROC; cvar;external libGLEW;
+  glUniform3fARB: TPFNGLUNIFORM3FARBPROC absolute __glewUniform3fARB;
+
   __glewUniform3fvARB: TPFNGLUNIFORM3FVARBPROC; cvar;external libGLEW;
+  glUniform3fvARB: TPFNGLUNIFORM3FVARBPROC absolute __glewUniform3fvARB;
+
   __glewUniform3iARB: TPFNGLUNIFORM3IARBPROC; cvar;external libGLEW;
+  glUniform3iARB: TPFNGLUNIFORM3IARBPROC absolute __glewUniform3iARB;
+
   __glewUniform3ivARB: TPFNGLUNIFORM3IVARBPROC; cvar;external libGLEW;
+  glUniform3ivARB: TPFNGLUNIFORM3IVARBPROC absolute __glewUniform3ivARB;
+
   __glewUniform4fARB: TPFNGLUNIFORM4FARBPROC; cvar;external libGLEW;
+  glUniform4fARB: TPFNGLUNIFORM4FARBPROC absolute __glewUniform4fARB;
+
   __glewUniform4fvARB: TPFNGLUNIFORM4FVARBPROC; cvar;external libGLEW;
+  glUniform4fvARB: TPFNGLUNIFORM4FVARBPROC absolute __glewUniform4fvARB;
+
   __glewUniform4iARB: TPFNGLUNIFORM4IARBPROC; cvar;external libGLEW;
+  glUniform4iARB: TPFNGLUNIFORM4IARBPROC absolute __glewUniform4iARB;
+
   __glewUniform4ivARB: TPFNGLUNIFORM4IVARBPROC; cvar;external libGLEW;
+  glUniform4ivARB: TPFNGLUNIFORM4IVARBPROC absolute __glewUniform4ivARB;
+
   __glewUniformMatrix2fvARB: TPFNGLUNIFORMMATRIX2FVARBPROC; cvar;external libGLEW;
+  glUniformMatrix2fvARB: TPFNGLUNIFORMMATRIX2FVARBPROC absolute __glewUniformMatrix2fvARB;
+
   __glewUniformMatrix3fvARB: TPFNGLUNIFORMMATRIX3FVARBPROC; cvar;external libGLEW;
+  glUniformMatrix3fvARB: TPFNGLUNIFORMMATRIX3FVARBPROC absolute __glewUniformMatrix3fvARB;
+
   __glewUniformMatrix4fvARB: TPFNGLUNIFORMMATRIX4FVARBPROC; cvar;external libGLEW;
+  glUniformMatrix4fvARB: TPFNGLUNIFORMMATRIX4FVARBPROC absolute __glewUniformMatrix4fvARB;
+
   __glewUseProgramObjectARB: TPFNGLUSEPROGRAMOBJECTARBPROC; cvar;external libGLEW;
+  glUseProgramObjectARB: TPFNGLUSEPROGRAMOBJECTARBPROC absolute __glewUseProgramObjectARB;
+
   __glewValidateProgramARB: TPFNGLVALIDATEPROGRAMARBPROC; cvar;external libGLEW;
+  glValidateProgramARB: TPFNGLVALIDATEPROGRAMARBPROC absolute __glewValidateProgramARB;
+
   __glewShaderStorageBlockBinding: TPFNGLSHADERSTORAGEBLOCKBINDINGPROC; cvar;external libGLEW;
+  glShaderStorageBlockBinding: TPFNGLSHADERSTORAGEBLOCKBINDINGPROC absolute __glewShaderStorageBlockBinding;
+
   __glewGetActiveSubroutineName: TPFNGLGETACTIVESUBROUTINENAMEPROC; cvar;external libGLEW;
+  glGetActiveSubroutineName: TPFNGLGETACTIVESUBROUTINENAMEPROC absolute __glewGetActiveSubroutineName;
+
   __glewGetActiveSubroutineUniformName: TPFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC; cvar;external libGLEW;
+  glGetActiveSubroutineUniformName: TPFNGLGETACTIVESUBROUTINEUNIFORMNAMEPROC absolute __glewGetActiveSubroutineUniformName;
+
   __glewGetActiveSubroutineUniformiv: TPFNGLGETACTIVESUBROUTINEUNIFORMIVPROC; cvar;external libGLEW;
+  glGetActiveSubroutineUniformiv: TPFNGLGETACTIVESUBROUTINEUNIFORMIVPROC absolute __glewGetActiveSubroutineUniformiv;
+
   __glewGetProgramStageiv: TPFNGLGETPROGRAMSTAGEIVPROC; cvar;external libGLEW;
+  glGetProgramStageiv: TPFNGLGETPROGRAMSTAGEIVPROC absolute __glewGetProgramStageiv;
+
   __glewGetSubroutineIndex: TPFNGLGETSUBROUTINEINDEXPROC; cvar;external libGLEW;
+  glGetSubroutineIndex: TPFNGLGETSUBROUTINEINDEXPROC absolute __glewGetSubroutineIndex;
+
   __glewGetSubroutineUniformLocation: TPFNGLGETSUBROUTINEUNIFORMLOCATIONPROC; cvar;external libGLEW;
+  glGetSubroutineUniformLocation: TPFNGLGETSUBROUTINEUNIFORMLOCATIONPROC absolute __glewGetSubroutineUniformLocation;
+
   __glewGetUniformSubroutineuiv: TPFNGLGETUNIFORMSUBROUTINEUIVPROC; cvar;external libGLEW;
+  glGetUniformSubroutineuiv: TPFNGLGETUNIFORMSUBROUTINEUIVPROC absolute __glewGetUniformSubroutineuiv;
+
   __glewUniformSubroutinesuiv: TPFNGLUNIFORMSUBROUTINESUIVPROC; cvar;external libGLEW;
+  glUniformSubroutinesuiv: TPFNGLUNIFORMSUBROUTINESUIVPROC absolute __glewUniformSubroutinesuiv;
+
   __glewCompileShaderIncludeARB: TPFNGLCOMPILESHADERINCLUDEARBPROC; cvar;external libGLEW;
+  glCompileShaderIncludeARB: TPFNGLCOMPILESHADERINCLUDEARBPROC absolute __glewCompileShaderIncludeARB;
+
   __glewDeleteNamedStringARB: TPFNGLDELETENAMEDSTRINGARBPROC; cvar;external libGLEW;
+  glDeleteNamedStringARB: TPFNGLDELETENAMEDSTRINGARBPROC absolute __glewDeleteNamedStringARB;
+
   __glewGetNamedStringARB: TPFNGLGETNAMEDSTRINGARBPROC; cvar;external libGLEW;
+  glGetNamedStringARB: TPFNGLGETNAMEDSTRINGARBPROC absolute __glewGetNamedStringARB;
+
   __glewGetNamedStringivARB: TPFNGLGETNAMEDSTRINGIVARBPROC; cvar;external libGLEW;
+  glGetNamedStringivARB: TPFNGLGETNAMEDSTRINGIVARBPROC absolute __glewGetNamedStringivARB;
+
   __glewIsNamedStringARB: TPFNGLISNAMEDSTRINGARBPROC; cvar;external libGLEW;
+  glIsNamedStringARB: TPFNGLISNAMEDSTRINGARBPROC absolute __glewIsNamedStringARB;
+
   __glewNamedStringARB: TPFNGLNAMEDSTRINGARBPROC; cvar;external libGLEW;
+  glNamedStringARB: TPFNGLNAMEDSTRINGARBPROC absolute __glewNamedStringARB;
+
   __glewBufferPageCommitmentARB: TPFNGLBUFFERPAGECOMMITMENTARBPROC; cvar;external libGLEW;
+  glBufferPageCommitmentARB: TPFNGLBUFFERPAGECOMMITMENTARBPROC absolute __glewBufferPageCommitmentARB;
+
   __glewTexPageCommitmentARB: TPFNGLTEXPAGECOMMITMENTARBPROC; cvar;external libGLEW;
+  glTexPageCommitmentARB: TPFNGLTEXPAGECOMMITMENTARBPROC absolute __glewTexPageCommitmentARB;
+
   __glewClientWaitSync: TPFNGLCLIENTWAITSYNCPROC; cvar;external libGLEW;
+  glClientWaitSync: TPFNGLCLIENTWAITSYNCPROC absolute __glewClientWaitSync;
+
   __glewDeleteSync: TPFNGLDELETESYNCPROC; cvar;external libGLEW;
+  glDeleteSync: TPFNGLDELETESYNCPROC absolute __glewDeleteSync;
+
   __glewFenceSync: TPFNGLFENCESYNCPROC; cvar;external libGLEW;
+  glFenceSync: TPFNGLFENCESYNCPROC absolute __glewFenceSync;
+
   __glewGetInteger64v: TPFNGLGETINTEGER64VPROC; cvar;external libGLEW;
+  glGetInteger64v: TPFNGLGETINTEGER64VPROC absolute __glewGetInteger64v;
+
   __glewGetSynciv: TPFNGLGETSYNCIVPROC; cvar;external libGLEW;
+  glGetSynciv: TPFNGLGETSYNCIVPROC absolute __glewGetSynciv;
+
   __glewIsSync: TPFNGLISSYNCPROC; cvar;external libGLEW;
+  glIsSync: TPFNGLISSYNCPROC absolute __glewIsSync;
+
   __glewWaitSync: TPFNGLWAITSYNCPROC; cvar;external libGLEW;
+  glWaitSync: TPFNGLWAITSYNCPROC absolute __glewWaitSync;
+
   __glewPatchParameterfv: TPFNGLPATCHPARAMETERFVPROC; cvar;external libGLEW;
+  glPatchParameterfv: TPFNGLPATCHPARAMETERFVPROC absolute __glewPatchParameterfv;
+
   __glewPatchParameteri: TPFNGLPATCHPARAMETERIPROC; cvar;external libGLEW;
+  glPatchParameteri: TPFNGLPATCHPARAMETERIPROC absolute __glewPatchParameteri;
+
   __glewTextureBarrier: TPFNGLTEXTUREBARRIERPROC; cvar;external libGLEW;
+  glTextureBarrier: TPFNGLTEXTUREBARRIERPROC absolute __glewTextureBarrier;
+
   __glewTexBufferARB: TPFNGLTEXBUFFERARBPROC; cvar;external libGLEW;
+  glTexBufferARB: TPFNGLTEXBUFFERARBPROC absolute __glewTexBufferARB;
+
   __glewTexBufferRange: TPFNGLTEXBUFFERRANGEPROC; cvar;external libGLEW;
+  glTexBufferRange: TPFNGLTEXBUFFERRANGEPROC absolute __glewTexBufferRange;
+
   __glewTextureBufferRangeEXT: TPFNGLTEXTUREBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glTextureBufferRangeEXT: TPFNGLTEXTUREBUFFERRANGEEXTPROC absolute __glewTextureBufferRangeEXT;
+
   __glewCompressedTexImage1DARB: TPFNGLCOMPRESSEDTEXIMAGE1DARBPROC; cvar;external libGLEW;
+  glCompressedTexImage1DARB: TPFNGLCOMPRESSEDTEXIMAGE1DARBPROC absolute __glewCompressedTexImage1DARB;
+
   __glewCompressedTexImage2DARB: TPFNGLCOMPRESSEDTEXIMAGE2DARBPROC; cvar;external libGLEW;
+  glCompressedTexImage2DARB: TPFNGLCOMPRESSEDTEXIMAGE2DARBPROC absolute __glewCompressedTexImage2DARB;
+
   __glewCompressedTexImage3DARB: TPFNGLCOMPRESSEDTEXIMAGE3DARBPROC; cvar;external libGLEW;
+  glCompressedTexImage3DARB: TPFNGLCOMPRESSEDTEXIMAGE3DARBPROC absolute __glewCompressedTexImage3DARB;
+
   __glewCompressedTexSubImage1DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC; cvar;external libGLEW;
+  glCompressedTexSubImage1DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE1DARBPROC absolute __glewCompressedTexSubImage1DARB;
+
   __glewCompressedTexSubImage2DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC; cvar;external libGLEW;
+  glCompressedTexSubImage2DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC absolute __glewCompressedTexSubImage2DARB;
+
   __glewCompressedTexSubImage3DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC; cvar;external libGLEW;
+  glCompressedTexSubImage3DARB: TPFNGLCOMPRESSEDTEXSUBIMAGE3DARBPROC absolute __glewCompressedTexSubImage3DARB;
+
   __glewGetCompressedTexImageARB: TPFNGLGETCOMPRESSEDTEXIMAGEARBPROC; cvar;external libGLEW;
+  glGetCompressedTexImageARB: TPFNGLGETCOMPRESSEDTEXIMAGEARBPROC absolute __glewGetCompressedTexImageARB;
+
   __glewGetMultisamplefv: TPFNGLGETMULTISAMPLEFVPROC; cvar;external libGLEW;
+  glGetMultisamplefv: TPFNGLGETMULTISAMPLEFVPROC absolute __glewGetMultisamplefv;
+
   __glewSampleMaski: TPFNGLSAMPLEMASKIPROC; cvar;external libGLEW;
+  glSampleMaski: TPFNGLSAMPLEMASKIPROC absolute __glewSampleMaski;
+
   __glewTexImage2DMultisample: TPFNGLTEXIMAGE2DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTexImage2DMultisample: TPFNGLTEXIMAGE2DMULTISAMPLEPROC absolute __glewTexImage2DMultisample;
+
   __glewTexImage3DMultisample: TPFNGLTEXIMAGE3DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTexImage3DMultisample: TPFNGLTEXIMAGE3DMULTISAMPLEPROC absolute __glewTexImage3DMultisample;
+
   __glewTexStorage1D: TPFNGLTEXSTORAGE1DPROC; cvar;external libGLEW;
+  glTexStorage1D: TPFNGLTEXSTORAGE1DPROC absolute __glewTexStorage1D;
+
   __glewTexStorage2D: TPFNGLTEXSTORAGE2DPROC; cvar;external libGLEW;
+  glTexStorage2D: TPFNGLTEXSTORAGE2DPROC absolute __glewTexStorage2D;
+
   __glewTexStorage3D: TPFNGLTEXSTORAGE3DPROC; cvar;external libGLEW;
+  glTexStorage3D: TPFNGLTEXSTORAGE3DPROC absolute __glewTexStorage3D;
+
   __glewTexStorage2DMultisample: TPFNGLTEXSTORAGE2DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTexStorage2DMultisample: TPFNGLTEXSTORAGE2DMULTISAMPLEPROC absolute __glewTexStorage2DMultisample;
+
   __glewTexStorage3DMultisample: TPFNGLTEXSTORAGE3DMULTISAMPLEPROC; cvar;external libGLEW;
+  glTexStorage3DMultisample: TPFNGLTEXSTORAGE3DMULTISAMPLEPROC absolute __glewTexStorage3DMultisample;
+
   __glewTextureStorage2DMultisampleEXT: TPFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTextureStorage2DMultisampleEXT: TPFNGLTEXTURESTORAGE2DMULTISAMPLEEXTPROC absolute __glewTextureStorage2DMultisampleEXT;
+
   __glewTextureStorage3DMultisampleEXT: TPFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTextureStorage3DMultisampleEXT: TPFNGLTEXTURESTORAGE3DMULTISAMPLEEXTPROC absolute __glewTextureStorage3DMultisampleEXT;
+
   __glewTextureView: TPFNGLTEXTUREVIEWPROC; cvar;external libGLEW;
+  glTextureView: TPFNGLTEXTUREVIEWPROC absolute __glewTextureView;
+
   __glewGetQueryObjecti64v: TPFNGLGETQUERYOBJECTI64VPROC; cvar;external libGLEW;
+  glGetQueryObjecti64v: TPFNGLGETQUERYOBJECTI64VPROC absolute __glewGetQueryObjecti64v;
+
   __glewGetQueryObjectui64v: TPFNGLGETQUERYOBJECTUI64VPROC; cvar;external libGLEW;
+  glGetQueryObjectui64v: TPFNGLGETQUERYOBJECTUI64VPROC absolute __glewGetQueryObjectui64v;
+
   __glewQueryCounter: TPFNGLQUERYCOUNTERPROC; cvar;external libGLEW;
+  glQueryCounter: TPFNGLQUERYCOUNTERPROC absolute __glewQueryCounter;
+
   __glewBindTransformFeedback: TPFNGLBINDTRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glBindTransformFeedback: TPFNGLBINDTRANSFORMFEEDBACKPROC absolute __glewBindTransformFeedback;
+
   __glewDeleteTransformFeedbacks: TPFNGLDELETETRANSFORMFEEDBACKSPROC; cvar;external libGLEW;
+  glDeleteTransformFeedbacks: TPFNGLDELETETRANSFORMFEEDBACKSPROC absolute __glewDeleteTransformFeedbacks;
+
   __glewDrawTransformFeedback: TPFNGLDRAWTRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glDrawTransformFeedback: TPFNGLDRAWTRANSFORMFEEDBACKPROC absolute __glewDrawTransformFeedback;
+
   __glewGenTransformFeedbacks: TPFNGLGENTRANSFORMFEEDBACKSPROC; cvar;external libGLEW;
+  glGenTransformFeedbacks: TPFNGLGENTRANSFORMFEEDBACKSPROC absolute __glewGenTransformFeedbacks;
+
   __glewIsTransformFeedback: TPFNGLISTRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glIsTransformFeedback: TPFNGLISTRANSFORMFEEDBACKPROC absolute __glewIsTransformFeedback;
+
   __glewPauseTransformFeedback: TPFNGLPAUSETRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glPauseTransformFeedback: TPFNGLPAUSETRANSFORMFEEDBACKPROC absolute __glewPauseTransformFeedback;
+
   __glewResumeTransformFeedback: TPFNGLRESUMETRANSFORMFEEDBACKPROC; cvar;external libGLEW;
+  glResumeTransformFeedback: TPFNGLRESUMETRANSFORMFEEDBACKPROC absolute __glewResumeTransformFeedback;
+
   __glewBeginQueryIndexed: TPFNGLBEGINQUERYINDEXEDPROC; cvar;external libGLEW;
+  glBeginQueryIndexed: TPFNGLBEGINQUERYINDEXEDPROC absolute __glewBeginQueryIndexed;
+
   __glewDrawTransformFeedbackStream: TPFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackStream: TPFNGLDRAWTRANSFORMFEEDBACKSTREAMPROC absolute __glewDrawTransformFeedbackStream;
+
   __glewEndQueryIndexed: TPFNGLENDQUERYINDEXEDPROC; cvar;external libGLEW;
+  glEndQueryIndexed: TPFNGLENDQUERYINDEXEDPROC absolute __glewEndQueryIndexed;
+
   __glewGetQueryIndexediv: TPFNGLGETQUERYINDEXEDIVPROC; cvar;external libGLEW;
+  glGetQueryIndexediv: TPFNGLGETQUERYINDEXEDIVPROC absolute __glewGetQueryIndexediv;
+
   __glewDrawTransformFeedbackInstanced: TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackInstanced: TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDPROC absolute __glewDrawTransformFeedbackInstanced;
+
   __glewDrawTransformFeedbackStreamInstanced: TPFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackStreamInstanced: TPFNGLDRAWTRANSFORMFEEDBACKSTREAMINSTANCEDPROC absolute __glewDrawTransformFeedbackStreamInstanced;
+
   __glewLoadTransposeMatrixdARB: TPFNGLLOADTRANSPOSEMATRIXDARBPROC; cvar;external libGLEW;
+  glLoadTransposeMatrixdARB: TPFNGLLOADTRANSPOSEMATRIXDARBPROC absolute __glewLoadTransposeMatrixdARB;
+
   __glewLoadTransposeMatrixfARB: TPFNGLLOADTRANSPOSEMATRIXFARBPROC; cvar;external libGLEW;
+  glLoadTransposeMatrixfARB: TPFNGLLOADTRANSPOSEMATRIXFARBPROC absolute __glewLoadTransposeMatrixfARB;
+
   __glewMultTransposeMatrixdARB: TPFNGLMULTTRANSPOSEMATRIXDARBPROC; cvar;external libGLEW;
+  glMultTransposeMatrixdARB: TPFNGLMULTTRANSPOSEMATRIXDARBPROC absolute __glewMultTransposeMatrixdARB;
+
   __glewMultTransposeMatrixfARB: TPFNGLMULTTRANSPOSEMATRIXFARBPROC; cvar;external libGLEW;
+  glMultTransposeMatrixfARB: TPFNGLMULTTRANSPOSEMATRIXFARBPROC absolute __glewMultTransposeMatrixfARB;
+
   __glewBindBufferBase: TPFNGLBINDBUFFERBASEPROC; cvar;external libGLEW;
+  glBindBufferBase: TPFNGLBINDBUFFERBASEPROC absolute __glewBindBufferBase;
+
   __glewBindBufferRange: TPFNGLBINDBUFFERRANGEPROC; cvar;external libGLEW;
+  glBindBufferRange: TPFNGLBINDBUFFERRANGEPROC absolute __glewBindBufferRange;
+
   __glewGetActiveUniformBlockName: TPFNGLGETACTIVEUNIFORMBLOCKNAMEPROC; cvar;external libGLEW;
+  glGetActiveUniformBlockName: TPFNGLGETACTIVEUNIFORMBLOCKNAMEPROC absolute __glewGetActiveUniformBlockName;
+
   __glewGetActiveUniformBlockiv: TPFNGLGETACTIVEUNIFORMBLOCKIVPROC; cvar;external libGLEW;
+  glGetActiveUniformBlockiv: TPFNGLGETACTIVEUNIFORMBLOCKIVPROC absolute __glewGetActiveUniformBlockiv;
+
   __glewGetActiveUniformName: TPFNGLGETACTIVEUNIFORMNAMEPROC; cvar;external libGLEW;
+  glGetActiveUniformName: TPFNGLGETACTIVEUNIFORMNAMEPROC absolute __glewGetActiveUniformName;
+
   __glewGetActiveUniformsiv: TPFNGLGETACTIVEUNIFORMSIVPROC; cvar;external libGLEW;
+  glGetActiveUniformsiv: TPFNGLGETACTIVEUNIFORMSIVPROC absolute __glewGetActiveUniformsiv;
+
   __glewGetIntegeri_v: TPFNGLGETINTEGERI_VPROC; cvar;external libGLEW;
+  glGetIntegeri_v: TPFNGLGETINTEGERI_VPROC absolute __glewGetIntegeri_v;
+
   __glewGetUniformBlockIndex: TPFNGLGETUNIFORMBLOCKINDEXPROC; cvar;external libGLEW;
+  glGetUniformBlockIndex: TPFNGLGETUNIFORMBLOCKINDEXPROC absolute __glewGetUniformBlockIndex;
+
   __glewGetUniformIndices: TPFNGLGETUNIFORMINDICESPROC; cvar;external libGLEW;
+  glGetUniformIndices: TPFNGLGETUNIFORMINDICESPROC absolute __glewGetUniformIndices;
+
   __glewUniformBlockBinding: TPFNGLUNIFORMBLOCKBINDINGPROC; cvar;external libGLEW;
+  glUniformBlockBinding: TPFNGLUNIFORMBLOCKBINDINGPROC absolute __glewUniformBlockBinding;
+
   __glewBindVertexArray: TPFNGLBINDVERTEXARRAYPROC; cvar;external libGLEW;
+  glBindVertexArray: TPFNGLBINDVERTEXARRAYPROC absolute __glewBindVertexArray;
+
   __glewDeleteVertexArrays: TPFNGLDELETEVERTEXARRAYSPROC; cvar;external libGLEW;
+  glDeleteVertexArrays: TPFNGLDELETEVERTEXARRAYSPROC absolute __glewDeleteVertexArrays;
+
   __glewGenVertexArrays: TPFNGLGENVERTEXARRAYSPROC; cvar;external libGLEW;
+  glGenVertexArrays: TPFNGLGENVERTEXARRAYSPROC absolute __glewGenVertexArrays;
+
   __glewIsVertexArray: TPFNGLISVERTEXARRAYPROC; cvar;external libGLEW;
+  glIsVertexArray: TPFNGLISVERTEXARRAYPROC absolute __glewIsVertexArray;
+
   __glewGetVertexAttribLdv: TPFNGLGETVERTEXATTRIBLDVPROC; cvar;external libGLEW;
+  glGetVertexAttribLdv: TPFNGLGETVERTEXATTRIBLDVPROC absolute __glewGetVertexAttribLdv;
+
   __glewVertexAttribL1d: TPFNGLVERTEXATTRIBL1DPROC; cvar;external libGLEW;
+  glVertexAttribL1d: TPFNGLVERTEXATTRIBL1DPROC absolute __glewVertexAttribL1d;
+
   __glewVertexAttribL1dv: TPFNGLVERTEXATTRIBL1DVPROC; cvar;external libGLEW;
+  glVertexAttribL1dv: TPFNGLVERTEXATTRIBL1DVPROC absolute __glewVertexAttribL1dv;
+
   __glewVertexAttribL2d: TPFNGLVERTEXATTRIBL2DPROC; cvar;external libGLEW;
+  glVertexAttribL2d: TPFNGLVERTEXATTRIBL2DPROC absolute __glewVertexAttribL2d;
+
   __glewVertexAttribL2dv: TPFNGLVERTEXATTRIBL2DVPROC; cvar;external libGLEW;
+  glVertexAttribL2dv: TPFNGLVERTEXATTRIBL2DVPROC absolute __glewVertexAttribL2dv;
+
   __glewVertexAttribL3d: TPFNGLVERTEXATTRIBL3DPROC; cvar;external libGLEW;
+  glVertexAttribL3d: TPFNGLVERTEXATTRIBL3DPROC absolute __glewVertexAttribL3d;
+
   __glewVertexAttribL3dv: TPFNGLVERTEXATTRIBL3DVPROC; cvar;external libGLEW;
+  glVertexAttribL3dv: TPFNGLVERTEXATTRIBL3DVPROC absolute __glewVertexAttribL3dv;
+
   __glewVertexAttribL4d: TPFNGLVERTEXATTRIBL4DPROC; cvar;external libGLEW;
+  glVertexAttribL4d: TPFNGLVERTEXATTRIBL4DPROC absolute __glewVertexAttribL4d;
+
   __glewVertexAttribL4dv: TPFNGLVERTEXATTRIBL4DVPROC; cvar;external libGLEW;
+  glVertexAttribL4dv: TPFNGLVERTEXATTRIBL4DVPROC absolute __glewVertexAttribL4dv;
+
   __glewVertexAttribLPointer: TPFNGLVERTEXATTRIBLPOINTERPROC; cvar;external libGLEW;
+  glVertexAttribLPointer: TPFNGLVERTEXATTRIBLPOINTERPROC absolute __glewVertexAttribLPointer;
+
   __glewBindVertexBuffer: TPFNGLBINDVERTEXBUFFERPROC; cvar;external libGLEW;
+  glBindVertexBuffer: TPFNGLBINDVERTEXBUFFERPROC absolute __glewBindVertexBuffer;
+
   __glewVertexArrayBindVertexBufferEXT: TPFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC; cvar;external libGLEW;
+  glVertexArrayBindVertexBufferEXT: TPFNGLVERTEXARRAYBINDVERTEXBUFFEREXTPROC absolute __glewVertexArrayBindVertexBufferEXT;
+
   __glewVertexArrayVertexAttribBindingEXT: TPFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribBindingEXT: TPFNGLVERTEXARRAYVERTEXATTRIBBINDINGEXTPROC absolute __glewVertexArrayVertexAttribBindingEXT;
+
   __glewVertexArrayVertexAttribFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBFORMATEXTPROC absolute __glewVertexArrayVertexAttribFormatEXT;
+
   __glewVertexArrayVertexAttribIFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribIFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBIFORMATEXTPROC absolute __glewVertexArrayVertexAttribIFormatEXT;
+
   __glewVertexArrayVertexAttribLFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribLFormatEXT: TPFNGLVERTEXARRAYVERTEXATTRIBLFORMATEXTPROC absolute __glewVertexArrayVertexAttribLFormatEXT;
+
   __glewVertexArrayVertexBindingDivisorEXT: TPFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexBindingDivisorEXT: TPFNGLVERTEXARRAYVERTEXBINDINGDIVISOREXTPROC absolute __glewVertexArrayVertexBindingDivisorEXT;
+
   __glewVertexAttribBinding: TPFNGLVERTEXATTRIBBINDINGPROC; cvar;external libGLEW;
+  glVertexAttribBinding: TPFNGLVERTEXATTRIBBINDINGPROC absolute __glewVertexAttribBinding;
+
   __glewVertexAttribFormat: TPFNGLVERTEXATTRIBFORMATPROC; cvar;external libGLEW;
+  glVertexAttribFormat: TPFNGLVERTEXATTRIBFORMATPROC absolute __glewVertexAttribFormat;
+
   __glewVertexAttribIFormat: TPFNGLVERTEXATTRIBIFORMATPROC; cvar;external libGLEW;
+  glVertexAttribIFormat: TPFNGLVERTEXATTRIBIFORMATPROC absolute __glewVertexAttribIFormat;
+
   __glewVertexAttribLFormat: TPFNGLVERTEXATTRIBLFORMATPROC; cvar;external libGLEW;
+  glVertexAttribLFormat: TPFNGLVERTEXATTRIBLFORMATPROC absolute __glewVertexAttribLFormat;
+
   __glewVertexBindingDivisor: TPFNGLVERTEXBINDINGDIVISORPROC; cvar;external libGLEW;
+  glVertexBindingDivisor: TPFNGLVERTEXBINDINGDIVISORPROC absolute __glewVertexBindingDivisor;
+
   __glewVertexBlendARB: TPFNGLVERTEXBLENDARBPROC; cvar;external libGLEW;
+  glVertexBlendARB: TPFNGLVERTEXBLENDARBPROC absolute __glewVertexBlendARB;
+
   __glewWeightPointerARB: TPFNGLWEIGHTPOINTERARBPROC; cvar;external libGLEW;
+  glWeightPointerARB: TPFNGLWEIGHTPOINTERARBPROC absolute __glewWeightPointerARB;
+
   __glewWeightbvARB: TPFNGLWEIGHTBVARBPROC; cvar;external libGLEW;
+  glWeightbvARB: TPFNGLWEIGHTBVARBPROC absolute __glewWeightbvARB;
+
   __glewWeightdvARB: TPFNGLWEIGHTDVARBPROC; cvar;external libGLEW;
+  glWeightdvARB: TPFNGLWEIGHTDVARBPROC absolute __glewWeightdvARB;
+
   __glewWeightfvARB: TPFNGLWEIGHTFVARBPROC; cvar;external libGLEW;
+  glWeightfvARB: TPFNGLWEIGHTFVARBPROC absolute __glewWeightfvARB;
+
   __glewWeightivARB: TPFNGLWEIGHTIVARBPROC; cvar;external libGLEW;
+  glWeightivARB: TPFNGLWEIGHTIVARBPROC absolute __glewWeightivARB;
+
   __glewWeightsvARB: TPFNGLWEIGHTSVARBPROC; cvar;external libGLEW;
+  glWeightsvARB: TPFNGLWEIGHTSVARBPROC absolute __glewWeightsvARB;
+
   __glewWeightubvARB: TPFNGLWEIGHTUBVARBPROC; cvar;external libGLEW;
+  glWeightubvARB: TPFNGLWEIGHTUBVARBPROC absolute __glewWeightubvARB;
+
   __glewWeightuivARB: TPFNGLWEIGHTUIVARBPROC; cvar;external libGLEW;
+  glWeightuivARB: TPFNGLWEIGHTUIVARBPROC absolute __glewWeightuivARB;
+
   __glewWeightusvARB: TPFNGLWEIGHTUSVARBPROC; cvar;external libGLEW;
+  glWeightusvARB: TPFNGLWEIGHTUSVARBPROC absolute __glewWeightusvARB;
+
   __glewBindBufferARB: TPFNGLBINDBUFFERARBPROC; cvar;external libGLEW;
+  glBindBufferARB: TPFNGLBINDBUFFERARBPROC absolute __glewBindBufferARB;
+
   __glewBufferDataARB: TPFNGLBUFFERDATAARBPROC; cvar;external libGLEW;
+  glBufferDataARB: TPFNGLBUFFERDATAARBPROC absolute __glewBufferDataARB;
+
   __glewBufferSubDataARB: TPFNGLBUFFERSUBDATAARBPROC; cvar;external libGLEW;
+  glBufferSubDataARB: TPFNGLBUFFERSUBDATAARBPROC absolute __glewBufferSubDataARB;
+
   __glewDeleteBuffersARB: TPFNGLDELETEBUFFERSARBPROC; cvar;external libGLEW;
+  glDeleteBuffersARB: TPFNGLDELETEBUFFERSARBPROC absolute __glewDeleteBuffersARB;
+
   __glewGenBuffersARB: TPFNGLGENBUFFERSARBPROC; cvar;external libGLEW;
+  glGenBuffersARB: TPFNGLGENBUFFERSARBPROC absolute __glewGenBuffersARB;
+
   __glewGetBufferParameterivARB: TPFNGLGETBUFFERPARAMETERIVARBPROC; cvar;external libGLEW;
+  glGetBufferParameterivARB: TPFNGLGETBUFFERPARAMETERIVARBPROC absolute __glewGetBufferParameterivARB;
+
   __glewGetBufferPointervARB: TPFNGLGETBUFFERPOINTERVARBPROC; cvar;external libGLEW;
+  glGetBufferPointervARB: TPFNGLGETBUFFERPOINTERVARBPROC absolute __glewGetBufferPointervARB;
+
   __glewGetBufferSubDataARB: TPFNGLGETBUFFERSUBDATAARBPROC; cvar;external libGLEW;
+  glGetBufferSubDataARB: TPFNGLGETBUFFERSUBDATAARBPROC absolute __glewGetBufferSubDataARB;
+
   __glewIsBufferARB: TPFNGLISBUFFERARBPROC; cvar;external libGLEW;
+  glIsBufferARB: TPFNGLISBUFFERARBPROC absolute __glewIsBufferARB;
+
   __glewMapBufferARB: TPFNGLMAPBUFFERARBPROC; cvar;external libGLEW;
+  glMapBufferARB: TPFNGLMAPBUFFERARBPROC absolute __glewMapBufferARB;
+
   __glewUnmapBufferARB: TPFNGLUNMAPBUFFERARBPROC; cvar;external libGLEW;
+  glUnmapBufferARB: TPFNGLUNMAPBUFFERARBPROC absolute __glewUnmapBufferARB;
+
   __glewBindProgramARB: TPFNGLBINDPROGRAMARBPROC; cvar;external libGLEW;
+  glBindProgramARB: TPFNGLBINDPROGRAMARBPROC absolute __glewBindProgramARB;
+
   __glewDeleteProgramsARB: TPFNGLDELETEPROGRAMSARBPROC; cvar;external libGLEW;
+  glDeleteProgramsARB: TPFNGLDELETEPROGRAMSARBPROC absolute __glewDeleteProgramsARB;
+
   __glewDisableVertexAttribArrayARB: TPFNGLDISABLEVERTEXATTRIBARRAYARBPROC; cvar;external libGLEW;
+  glDisableVertexAttribArrayARB: TPFNGLDISABLEVERTEXATTRIBARRAYARBPROC absolute __glewDisableVertexAttribArrayARB;
+
   __glewEnableVertexAttribArrayARB: TPFNGLENABLEVERTEXATTRIBARRAYARBPROC; cvar;external libGLEW;
+  glEnableVertexAttribArrayARB: TPFNGLENABLEVERTEXATTRIBARRAYARBPROC absolute __glewEnableVertexAttribArrayARB;
+
   __glewGenProgramsARB: TPFNGLGENPROGRAMSARBPROC; cvar;external libGLEW;
+  glGenProgramsARB: TPFNGLGENPROGRAMSARBPROC absolute __glewGenProgramsARB;
+
   __glewGetProgramEnvParameterdvARB: TPFNGLGETPROGRAMENVPARAMETERDVARBPROC; cvar;external libGLEW;
+  glGetProgramEnvParameterdvARB: TPFNGLGETPROGRAMENVPARAMETERDVARBPROC absolute __glewGetProgramEnvParameterdvARB;
+
   __glewGetProgramEnvParameterfvARB: TPFNGLGETPROGRAMENVPARAMETERFVARBPROC; cvar;external libGLEW;
+  glGetProgramEnvParameterfvARB: TPFNGLGETPROGRAMENVPARAMETERFVARBPROC absolute __glewGetProgramEnvParameterfvARB;
+
   __glewGetProgramLocalParameterdvARB: TPFNGLGETPROGRAMLOCALPARAMETERDVARBPROC; cvar;external libGLEW;
+  glGetProgramLocalParameterdvARB: TPFNGLGETPROGRAMLOCALPARAMETERDVARBPROC absolute __glewGetProgramLocalParameterdvARB;
+
   __glewGetProgramLocalParameterfvARB: TPFNGLGETPROGRAMLOCALPARAMETERFVARBPROC; cvar;external libGLEW;
+  glGetProgramLocalParameterfvARB: TPFNGLGETPROGRAMLOCALPARAMETERFVARBPROC absolute __glewGetProgramLocalParameterfvARB;
+
   __glewGetProgramStringARB: TPFNGLGETPROGRAMSTRINGARBPROC; cvar;external libGLEW;
+  glGetProgramStringARB: TPFNGLGETPROGRAMSTRINGARBPROC absolute __glewGetProgramStringARB;
+
   __glewGetProgramivARB: TPFNGLGETPROGRAMIVARBPROC; cvar;external libGLEW;
+  glGetProgramivARB: TPFNGLGETPROGRAMIVARBPROC absolute __glewGetProgramivARB;
+
   __glewGetVertexAttribPointervARB: TPFNGLGETVERTEXATTRIBPOINTERVARBPROC; cvar;external libGLEW;
+  glGetVertexAttribPointervARB: TPFNGLGETVERTEXATTRIBPOINTERVARBPROC absolute __glewGetVertexAttribPointervARB;
+
   __glewGetVertexAttribdvARB: TPFNGLGETVERTEXATTRIBDVARBPROC; cvar;external libGLEW;
+  glGetVertexAttribdvARB: TPFNGLGETVERTEXATTRIBDVARBPROC absolute __glewGetVertexAttribdvARB;
+
   __glewGetVertexAttribfvARB: TPFNGLGETVERTEXATTRIBFVARBPROC; cvar;external libGLEW;
+  glGetVertexAttribfvARB: TPFNGLGETVERTEXATTRIBFVARBPROC absolute __glewGetVertexAttribfvARB;
+
   __glewGetVertexAttribivARB: TPFNGLGETVERTEXATTRIBIVARBPROC; cvar;external libGLEW;
+  glGetVertexAttribivARB: TPFNGLGETVERTEXATTRIBIVARBPROC absolute __glewGetVertexAttribivARB;
+
   __glewIsProgramARB: TPFNGLISPROGRAMARBPROC; cvar;external libGLEW;
+  glIsProgramARB: TPFNGLISPROGRAMARBPROC absolute __glewIsProgramARB;
+
   __glewProgramEnvParameter4dARB: TPFNGLPROGRAMENVPARAMETER4DARBPROC; cvar;external libGLEW;
+  glProgramEnvParameter4dARB: TPFNGLPROGRAMENVPARAMETER4DARBPROC absolute __glewProgramEnvParameter4dARB;
+
   __glewProgramEnvParameter4dvARB: TPFNGLPROGRAMENVPARAMETER4DVARBPROC; cvar;external libGLEW;
+  glProgramEnvParameter4dvARB: TPFNGLPROGRAMENVPARAMETER4DVARBPROC absolute __glewProgramEnvParameter4dvARB;
+
   __glewProgramEnvParameter4fARB: TPFNGLPROGRAMENVPARAMETER4FARBPROC; cvar;external libGLEW;
+  glProgramEnvParameter4fARB: TPFNGLPROGRAMENVPARAMETER4FARBPROC absolute __glewProgramEnvParameter4fARB;
+
   __glewProgramEnvParameter4fvARB: TPFNGLPROGRAMENVPARAMETER4FVARBPROC; cvar;external libGLEW;
+  glProgramEnvParameter4fvARB: TPFNGLPROGRAMENVPARAMETER4FVARBPROC absolute __glewProgramEnvParameter4fvARB;
+
   __glewProgramLocalParameter4dARB: TPFNGLPROGRAMLOCALPARAMETER4DARBPROC; cvar;external libGLEW;
+  glProgramLocalParameter4dARB: TPFNGLPROGRAMLOCALPARAMETER4DARBPROC absolute __glewProgramLocalParameter4dARB;
+
   __glewProgramLocalParameter4dvARB: TPFNGLPROGRAMLOCALPARAMETER4DVARBPROC; cvar;external libGLEW;
+  glProgramLocalParameter4dvARB: TPFNGLPROGRAMLOCALPARAMETER4DVARBPROC absolute __glewProgramLocalParameter4dvARB;
+
   __glewProgramLocalParameter4fARB: TPFNGLPROGRAMLOCALPARAMETER4FARBPROC; cvar;external libGLEW;
+  glProgramLocalParameter4fARB: TPFNGLPROGRAMLOCALPARAMETER4FARBPROC absolute __glewProgramLocalParameter4fARB;
+
   __glewProgramLocalParameter4fvARB: TPFNGLPROGRAMLOCALPARAMETER4FVARBPROC; cvar;external libGLEW;
+  glProgramLocalParameter4fvARB: TPFNGLPROGRAMLOCALPARAMETER4FVARBPROC absolute __glewProgramLocalParameter4fvARB;
+
   __glewProgramStringARB: TPFNGLPROGRAMSTRINGARBPROC; cvar;external libGLEW;
+  glProgramStringARB: TPFNGLPROGRAMSTRINGARBPROC absolute __glewProgramStringARB;
+
   __glewVertexAttrib1dARB: TPFNGLVERTEXATTRIB1DARBPROC; cvar;external libGLEW;
+  glVertexAttrib1dARB: TPFNGLVERTEXATTRIB1DARBPROC absolute __glewVertexAttrib1dARB;
+
   __glewVertexAttrib1dvARB: TPFNGLVERTEXATTRIB1DVARBPROC; cvar;external libGLEW;
+  glVertexAttrib1dvARB: TPFNGLVERTEXATTRIB1DVARBPROC absolute __glewVertexAttrib1dvARB;
+
   __glewVertexAttrib1fARB: TPFNGLVERTEXATTRIB1FARBPROC; cvar;external libGLEW;
+  glVertexAttrib1fARB: TPFNGLVERTEXATTRIB1FARBPROC absolute __glewVertexAttrib1fARB;
+
   __glewVertexAttrib1fvARB: TPFNGLVERTEXATTRIB1FVARBPROC; cvar;external libGLEW;
+  glVertexAttrib1fvARB: TPFNGLVERTEXATTRIB1FVARBPROC absolute __glewVertexAttrib1fvARB;
+
   __glewVertexAttrib1sARB: TPFNGLVERTEXATTRIB1SARBPROC; cvar;external libGLEW;
+  glVertexAttrib1sARB: TPFNGLVERTEXATTRIB1SARBPROC absolute __glewVertexAttrib1sARB;
+
   __glewVertexAttrib1svARB: TPFNGLVERTEXATTRIB1SVARBPROC; cvar;external libGLEW;
+  glVertexAttrib1svARB: TPFNGLVERTEXATTRIB1SVARBPROC absolute __glewVertexAttrib1svARB;
+
   __glewVertexAttrib2dARB: TPFNGLVERTEXATTRIB2DARBPROC; cvar;external libGLEW;
+  glVertexAttrib2dARB: TPFNGLVERTEXATTRIB2DARBPROC absolute __glewVertexAttrib2dARB;
+
   __glewVertexAttrib2dvARB: TPFNGLVERTEXATTRIB2DVARBPROC; cvar;external libGLEW;
+  glVertexAttrib2dvARB: TPFNGLVERTEXATTRIB2DVARBPROC absolute __glewVertexAttrib2dvARB;
+
   __glewVertexAttrib2fARB: TPFNGLVERTEXATTRIB2FARBPROC; cvar;external libGLEW;
+  glVertexAttrib2fARB: TPFNGLVERTEXATTRIB2FARBPROC absolute __glewVertexAttrib2fARB;
+
   __glewVertexAttrib2fvARB: TPFNGLVERTEXATTRIB2FVARBPROC; cvar;external libGLEW;
+  glVertexAttrib2fvARB: TPFNGLVERTEXATTRIB2FVARBPROC absolute __glewVertexAttrib2fvARB;
+
   __glewVertexAttrib2sARB: TPFNGLVERTEXATTRIB2SARBPROC; cvar;external libGLEW;
+  glVertexAttrib2sARB: TPFNGLVERTEXATTRIB2SARBPROC absolute __glewVertexAttrib2sARB;
+
   __glewVertexAttrib2svARB: TPFNGLVERTEXATTRIB2SVARBPROC; cvar;external libGLEW;
+  glVertexAttrib2svARB: TPFNGLVERTEXATTRIB2SVARBPROC absolute __glewVertexAttrib2svARB;
+
   __glewVertexAttrib3dARB: TPFNGLVERTEXATTRIB3DARBPROC; cvar;external libGLEW;
+  glVertexAttrib3dARB: TPFNGLVERTEXATTRIB3DARBPROC absolute __glewVertexAttrib3dARB;
+
   __glewVertexAttrib3dvARB: TPFNGLVERTEXATTRIB3DVARBPROC; cvar;external libGLEW;
+  glVertexAttrib3dvARB: TPFNGLVERTEXATTRIB3DVARBPROC absolute __glewVertexAttrib3dvARB;
+
   __glewVertexAttrib3fARB: TPFNGLVERTEXATTRIB3FARBPROC; cvar;external libGLEW;
+  glVertexAttrib3fARB: TPFNGLVERTEXATTRIB3FARBPROC absolute __glewVertexAttrib3fARB;
+
   __glewVertexAttrib3fvARB: TPFNGLVERTEXATTRIB3FVARBPROC; cvar;external libGLEW;
+  glVertexAttrib3fvARB: TPFNGLVERTEXATTRIB3FVARBPROC absolute __glewVertexAttrib3fvARB;
+
   __glewVertexAttrib3sARB: TPFNGLVERTEXATTRIB3SARBPROC; cvar;external libGLEW;
+  glVertexAttrib3sARB: TPFNGLVERTEXATTRIB3SARBPROC absolute __glewVertexAttrib3sARB;
+
   __glewVertexAttrib3svARB: TPFNGLVERTEXATTRIB3SVARBPROC; cvar;external libGLEW;
+  glVertexAttrib3svARB: TPFNGLVERTEXATTRIB3SVARBPROC absolute __glewVertexAttrib3svARB;
+
   __glewVertexAttrib4NbvARB: TPFNGLVERTEXATTRIB4NBVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NbvARB: TPFNGLVERTEXATTRIB4NBVARBPROC absolute __glewVertexAttrib4NbvARB;
+
   __glewVertexAttrib4NivARB: TPFNGLVERTEXATTRIB4NIVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NivARB: TPFNGLVERTEXATTRIB4NIVARBPROC absolute __glewVertexAttrib4NivARB;
+
   __glewVertexAttrib4NsvARB: TPFNGLVERTEXATTRIB4NSVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NsvARB: TPFNGLVERTEXATTRIB4NSVARBPROC absolute __glewVertexAttrib4NsvARB;
+
   __glewVertexAttrib4NubARB: TPFNGLVERTEXATTRIB4NUBARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NubARB: TPFNGLVERTEXATTRIB4NUBARBPROC absolute __glewVertexAttrib4NubARB;
+
   __glewVertexAttrib4NubvARB: TPFNGLVERTEXATTRIB4NUBVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NubvARB: TPFNGLVERTEXATTRIB4NUBVARBPROC absolute __glewVertexAttrib4NubvARB;
+
   __glewVertexAttrib4NuivARB: TPFNGLVERTEXATTRIB4NUIVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NuivARB: TPFNGLVERTEXATTRIB4NUIVARBPROC absolute __glewVertexAttrib4NuivARB;
+
   __glewVertexAttrib4NusvARB: TPFNGLVERTEXATTRIB4NUSVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4NusvARB: TPFNGLVERTEXATTRIB4NUSVARBPROC absolute __glewVertexAttrib4NusvARB;
+
   __glewVertexAttrib4bvARB: TPFNGLVERTEXATTRIB4BVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4bvARB: TPFNGLVERTEXATTRIB4BVARBPROC absolute __glewVertexAttrib4bvARB;
+
   __glewVertexAttrib4dARB: TPFNGLVERTEXATTRIB4DARBPROC; cvar;external libGLEW;
+  glVertexAttrib4dARB: TPFNGLVERTEXATTRIB4DARBPROC absolute __glewVertexAttrib4dARB;
+
   __glewVertexAttrib4dvARB: TPFNGLVERTEXATTRIB4DVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4dvARB: TPFNGLVERTEXATTRIB4DVARBPROC absolute __glewVertexAttrib4dvARB;
+
   __glewVertexAttrib4fARB: TPFNGLVERTEXATTRIB4FARBPROC; cvar;external libGLEW;
+  glVertexAttrib4fARB: TPFNGLVERTEXATTRIB4FARBPROC absolute __glewVertexAttrib4fARB;
+
   __glewVertexAttrib4fvARB: TPFNGLVERTEXATTRIB4FVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4fvARB: TPFNGLVERTEXATTRIB4FVARBPROC absolute __glewVertexAttrib4fvARB;
+
   __glewVertexAttrib4ivARB: TPFNGLVERTEXATTRIB4IVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4ivARB: TPFNGLVERTEXATTRIB4IVARBPROC absolute __glewVertexAttrib4ivARB;
+
   __glewVertexAttrib4sARB: TPFNGLVERTEXATTRIB4SARBPROC; cvar;external libGLEW;
+  glVertexAttrib4sARB: TPFNGLVERTEXATTRIB4SARBPROC absolute __glewVertexAttrib4sARB;
+
   __glewVertexAttrib4svARB: TPFNGLVERTEXATTRIB4SVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4svARB: TPFNGLVERTEXATTRIB4SVARBPROC absolute __glewVertexAttrib4svARB;
+
   __glewVertexAttrib4ubvARB: TPFNGLVERTEXATTRIB4UBVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4ubvARB: TPFNGLVERTEXATTRIB4UBVARBPROC absolute __glewVertexAttrib4ubvARB;
+
   __glewVertexAttrib4uivARB: TPFNGLVERTEXATTRIB4UIVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4uivARB: TPFNGLVERTEXATTRIB4UIVARBPROC absolute __glewVertexAttrib4uivARB;
+
   __glewVertexAttrib4usvARB: TPFNGLVERTEXATTRIB4USVARBPROC; cvar;external libGLEW;
+  glVertexAttrib4usvARB: TPFNGLVERTEXATTRIB4USVARBPROC absolute __glewVertexAttrib4usvARB;
+
   __glewVertexAttribPointerARB: TPFNGLVERTEXATTRIBPOINTERARBPROC; cvar;external libGLEW;
+  glVertexAttribPointerARB: TPFNGLVERTEXATTRIBPOINTERARBPROC absolute __glewVertexAttribPointerARB;
+
   __glewBindAttribLocationARB: TPFNGLBINDATTRIBLOCATIONARBPROC; cvar;external libGLEW;
+  glBindAttribLocationARB: TPFNGLBINDATTRIBLOCATIONARBPROC absolute __glewBindAttribLocationARB;
+
   __glewGetActiveAttribARB: TPFNGLGETACTIVEATTRIBARBPROC; cvar;external libGLEW;
+  glGetActiveAttribARB: TPFNGLGETACTIVEATTRIBARBPROC absolute __glewGetActiveAttribARB;
+
   __glewGetAttribLocationARB: TPFNGLGETATTRIBLOCATIONARBPROC; cvar;external libGLEW;
+  glGetAttribLocationARB: TPFNGLGETATTRIBLOCATIONARBPROC absolute __glewGetAttribLocationARB;
+
   __glewColorP3ui: TPFNGLCOLORP3UIPROC; cvar;external libGLEW;
+  glColorP3ui: TPFNGLCOLORP3UIPROC absolute __glewColorP3ui;
+
   __glewColorP3uiv: TPFNGLCOLORP3UIVPROC; cvar;external libGLEW;
+  glColorP3uiv: TPFNGLCOLORP3UIVPROC absolute __glewColorP3uiv;
+
   __glewColorP4ui: TPFNGLCOLORP4UIPROC; cvar;external libGLEW;
+  glColorP4ui: TPFNGLCOLORP4UIPROC absolute __glewColorP4ui;
+
   __glewColorP4uiv: TPFNGLCOLORP4UIVPROC; cvar;external libGLEW;
+  glColorP4uiv: TPFNGLCOLORP4UIVPROC absolute __glewColorP4uiv;
+
   __glewMultiTexCoordP1ui: TPFNGLMULTITEXCOORDP1UIPROC; cvar;external libGLEW;
+  glMultiTexCoordP1ui: TPFNGLMULTITEXCOORDP1UIPROC absolute __glewMultiTexCoordP1ui;
+
   __glewMultiTexCoordP1uiv: TPFNGLMULTITEXCOORDP1UIVPROC; cvar;external libGLEW;
+  glMultiTexCoordP1uiv: TPFNGLMULTITEXCOORDP1UIVPROC absolute __glewMultiTexCoordP1uiv;
+
   __glewMultiTexCoordP2ui: TPFNGLMULTITEXCOORDP2UIPROC; cvar;external libGLEW;
+  glMultiTexCoordP2ui: TPFNGLMULTITEXCOORDP2UIPROC absolute __glewMultiTexCoordP2ui;
+
   __glewMultiTexCoordP2uiv: TPFNGLMULTITEXCOORDP2UIVPROC; cvar;external libGLEW;
+  glMultiTexCoordP2uiv: TPFNGLMULTITEXCOORDP2UIVPROC absolute __glewMultiTexCoordP2uiv;
+
   __glewMultiTexCoordP3ui: TPFNGLMULTITEXCOORDP3UIPROC; cvar;external libGLEW;
+  glMultiTexCoordP3ui: TPFNGLMULTITEXCOORDP3UIPROC absolute __glewMultiTexCoordP3ui;
+
   __glewMultiTexCoordP3uiv: TPFNGLMULTITEXCOORDP3UIVPROC; cvar;external libGLEW;
+  glMultiTexCoordP3uiv: TPFNGLMULTITEXCOORDP3UIVPROC absolute __glewMultiTexCoordP3uiv;
+
   __glewMultiTexCoordP4ui: TPFNGLMULTITEXCOORDP4UIPROC; cvar;external libGLEW;
+  glMultiTexCoordP4ui: TPFNGLMULTITEXCOORDP4UIPROC absolute __glewMultiTexCoordP4ui;
+
   __glewMultiTexCoordP4uiv: TPFNGLMULTITEXCOORDP4UIVPROC; cvar;external libGLEW;
+  glMultiTexCoordP4uiv: TPFNGLMULTITEXCOORDP4UIVPROC absolute __glewMultiTexCoordP4uiv;
+
   __glewNormalP3ui: TPFNGLNORMALP3UIPROC; cvar;external libGLEW;
+  glNormalP3ui: TPFNGLNORMALP3UIPROC absolute __glewNormalP3ui;
+
   __glewNormalP3uiv: TPFNGLNORMALP3UIVPROC; cvar;external libGLEW;
+  glNormalP3uiv: TPFNGLNORMALP3UIVPROC absolute __glewNormalP3uiv;
+
   __glewSecondaryColorP3ui: TPFNGLSECONDARYCOLORP3UIPROC; cvar;external libGLEW;
+  glSecondaryColorP3ui: TPFNGLSECONDARYCOLORP3UIPROC absolute __glewSecondaryColorP3ui;
+
   __glewSecondaryColorP3uiv: TPFNGLSECONDARYCOLORP3UIVPROC; cvar;external libGLEW;
+  glSecondaryColorP3uiv: TPFNGLSECONDARYCOLORP3UIVPROC absolute __glewSecondaryColorP3uiv;
+
   __glewTexCoordP1ui: TPFNGLTEXCOORDP1UIPROC; cvar;external libGLEW;
+  glTexCoordP1ui: TPFNGLTEXCOORDP1UIPROC absolute __glewTexCoordP1ui;
+
   __glewTexCoordP1uiv: TPFNGLTEXCOORDP1UIVPROC; cvar;external libGLEW;
+  glTexCoordP1uiv: TPFNGLTEXCOORDP1UIVPROC absolute __glewTexCoordP1uiv;
+
   __glewTexCoordP2ui: TPFNGLTEXCOORDP2UIPROC; cvar;external libGLEW;
+  glTexCoordP2ui: TPFNGLTEXCOORDP2UIPROC absolute __glewTexCoordP2ui;
+
   __glewTexCoordP2uiv: TPFNGLTEXCOORDP2UIVPROC; cvar;external libGLEW;
+  glTexCoordP2uiv: TPFNGLTEXCOORDP2UIVPROC absolute __glewTexCoordP2uiv;
+
   __glewTexCoordP3ui: TPFNGLTEXCOORDP3UIPROC; cvar;external libGLEW;
+  glTexCoordP3ui: TPFNGLTEXCOORDP3UIPROC absolute __glewTexCoordP3ui;
+
   __glewTexCoordP3uiv: TPFNGLTEXCOORDP3UIVPROC; cvar;external libGLEW;
+  glTexCoordP3uiv: TPFNGLTEXCOORDP3UIVPROC absolute __glewTexCoordP3uiv;
+
   __glewTexCoordP4ui: TPFNGLTEXCOORDP4UIPROC; cvar;external libGLEW;
+  glTexCoordP4ui: TPFNGLTEXCOORDP4UIPROC absolute __glewTexCoordP4ui;
+
   __glewTexCoordP4uiv: TPFNGLTEXCOORDP4UIVPROC; cvar;external libGLEW;
+  glTexCoordP4uiv: TPFNGLTEXCOORDP4UIVPROC absolute __glewTexCoordP4uiv;
+
   __glewVertexAttribP1ui: TPFNGLVERTEXATTRIBP1UIPROC; cvar;external libGLEW;
+  glVertexAttribP1ui: TPFNGLVERTEXATTRIBP1UIPROC absolute __glewVertexAttribP1ui;
+
   __glewVertexAttribP1uiv: TPFNGLVERTEXATTRIBP1UIVPROC; cvar;external libGLEW;
+  glVertexAttribP1uiv: TPFNGLVERTEXATTRIBP1UIVPROC absolute __glewVertexAttribP1uiv;
+
   __glewVertexAttribP2ui: TPFNGLVERTEXATTRIBP2UIPROC; cvar;external libGLEW;
+  glVertexAttribP2ui: TPFNGLVERTEXATTRIBP2UIPROC absolute __glewVertexAttribP2ui;
+
   __glewVertexAttribP2uiv: TPFNGLVERTEXATTRIBP2UIVPROC; cvar;external libGLEW;
+  glVertexAttribP2uiv: TPFNGLVERTEXATTRIBP2UIVPROC absolute __glewVertexAttribP2uiv;
+
   __glewVertexAttribP3ui: TPFNGLVERTEXATTRIBP3UIPROC; cvar;external libGLEW;
+  glVertexAttribP3ui: TPFNGLVERTEXATTRIBP3UIPROC absolute __glewVertexAttribP3ui;
+
   __glewVertexAttribP3uiv: TPFNGLVERTEXATTRIBP3UIVPROC; cvar;external libGLEW;
+  glVertexAttribP3uiv: TPFNGLVERTEXATTRIBP3UIVPROC absolute __glewVertexAttribP3uiv;
+
   __glewVertexAttribP4ui: TPFNGLVERTEXATTRIBP4UIPROC; cvar;external libGLEW;
+  glVertexAttribP4ui: TPFNGLVERTEXATTRIBP4UIPROC absolute __glewVertexAttribP4ui;
+
   __glewVertexAttribP4uiv: TPFNGLVERTEXATTRIBP4UIVPROC; cvar;external libGLEW;
+  glVertexAttribP4uiv: TPFNGLVERTEXATTRIBP4UIVPROC absolute __glewVertexAttribP4uiv;
+
   __glewVertexP2ui: TPFNGLVERTEXP2UIPROC; cvar;external libGLEW;
+  glVertexP2ui: TPFNGLVERTEXP2UIPROC absolute __glewVertexP2ui;
+
   __glewVertexP2uiv: TPFNGLVERTEXP2UIVPROC; cvar;external libGLEW;
+  glVertexP2uiv: TPFNGLVERTEXP2UIVPROC absolute __glewVertexP2uiv;
+
   __glewVertexP3ui: TPFNGLVERTEXP3UIPROC; cvar;external libGLEW;
+  glVertexP3ui: TPFNGLVERTEXP3UIPROC absolute __glewVertexP3ui;
+
   __glewVertexP3uiv: TPFNGLVERTEXP3UIVPROC; cvar;external libGLEW;
+  glVertexP3uiv: TPFNGLVERTEXP3UIVPROC absolute __glewVertexP3uiv;
+
   __glewVertexP4ui: TPFNGLVERTEXP4UIPROC; cvar;external libGLEW;
+  glVertexP4ui: TPFNGLVERTEXP4UIPROC absolute __glewVertexP4ui;
+
   __glewVertexP4uiv: TPFNGLVERTEXP4UIVPROC; cvar;external libGLEW;
+  glVertexP4uiv: TPFNGLVERTEXP4UIVPROC absolute __glewVertexP4uiv;
+
   __glewDepthRangeArrayv: TPFNGLDEPTHRANGEARRAYVPROC; cvar;external libGLEW;
+  glDepthRangeArrayv: TPFNGLDEPTHRANGEARRAYVPROC absolute __glewDepthRangeArrayv;
+
   __glewDepthRangeIndexed: TPFNGLDEPTHRANGEINDEXEDPROC; cvar;external libGLEW;
+  glDepthRangeIndexed: TPFNGLDEPTHRANGEINDEXEDPROC absolute __glewDepthRangeIndexed;
+
   __glewGetDoublei_v: TPFNGLGETDOUBLEI_VPROC; cvar;external libGLEW;
+  glGetDoublei_v: TPFNGLGETDOUBLEI_VPROC absolute __glewGetDoublei_v;
+
   __glewGetFloati_v: TPFNGLGETFLOATI_VPROC; cvar;external libGLEW;
+  glGetFloati_v: TPFNGLGETFLOATI_VPROC absolute __glewGetFloati_v;
+
   __glewScissorArrayv: TPFNGLSCISSORARRAYVPROC; cvar;external libGLEW;
+  glScissorArrayv: TPFNGLSCISSORARRAYVPROC absolute __glewScissorArrayv;
+
   __glewScissorIndexed: TPFNGLSCISSORINDEXEDPROC; cvar;external libGLEW;
+  glScissorIndexed: TPFNGLSCISSORINDEXEDPROC absolute __glewScissorIndexed;
+
   __glewScissorIndexedv: TPFNGLSCISSORINDEXEDVPROC; cvar;external libGLEW;
+  glScissorIndexedv: TPFNGLSCISSORINDEXEDVPROC absolute __glewScissorIndexedv;
+
   __glewViewportArrayv: TPFNGLVIEWPORTARRAYVPROC; cvar;external libGLEW;
+  glViewportArrayv: TPFNGLVIEWPORTARRAYVPROC absolute __glewViewportArrayv;
+
   __glewViewportIndexedf: TPFNGLVIEWPORTINDEXEDFPROC; cvar;external libGLEW;
+  glViewportIndexedf: TPFNGLVIEWPORTINDEXEDFPROC absolute __glewViewportIndexedf;
+
   __glewViewportIndexedfv: TPFNGLVIEWPORTINDEXEDFVPROC; cvar;external libGLEW;
+  glViewportIndexedfv: TPFNGLVIEWPORTINDEXEDFVPROC absolute __glewViewportIndexedfv;
+
   __glewWindowPos2dARB: TPFNGLWINDOWPOS2DARBPROC; cvar;external libGLEW;
+  glWindowPos2dARB: TPFNGLWINDOWPOS2DARBPROC absolute __glewWindowPos2dARB;
+
   __glewWindowPos2dvARB: TPFNGLWINDOWPOS2DVARBPROC; cvar;external libGLEW;
+  glWindowPos2dvARB: TPFNGLWINDOWPOS2DVARBPROC absolute __glewWindowPos2dvARB;
+
   __glewWindowPos2fARB: TPFNGLWINDOWPOS2FARBPROC; cvar;external libGLEW;
+  glWindowPos2fARB: TPFNGLWINDOWPOS2FARBPROC absolute __glewWindowPos2fARB;
+
   __glewWindowPos2fvARB: TPFNGLWINDOWPOS2FVARBPROC; cvar;external libGLEW;
+  glWindowPos2fvARB: TPFNGLWINDOWPOS2FVARBPROC absolute __glewWindowPos2fvARB;
+
   __glewWindowPos2iARB: TPFNGLWINDOWPOS2IARBPROC; cvar;external libGLEW;
+  glWindowPos2iARB: TPFNGLWINDOWPOS2IARBPROC absolute __glewWindowPos2iARB;
+
   __glewWindowPos2ivARB: TPFNGLWINDOWPOS2IVARBPROC; cvar;external libGLEW;
+  glWindowPos2ivARB: TPFNGLWINDOWPOS2IVARBPROC absolute __glewWindowPos2ivARB;
+
   __glewWindowPos2sARB: TPFNGLWINDOWPOS2SARBPROC; cvar;external libGLEW;
+  glWindowPos2sARB: TPFNGLWINDOWPOS2SARBPROC absolute __glewWindowPos2sARB;
+
   __glewWindowPos2svARB: TPFNGLWINDOWPOS2SVARBPROC; cvar;external libGLEW;
+  glWindowPos2svARB: TPFNGLWINDOWPOS2SVARBPROC absolute __glewWindowPos2svARB;
+
   __glewWindowPos3dARB: TPFNGLWINDOWPOS3DARBPROC; cvar;external libGLEW;
+  glWindowPos3dARB: TPFNGLWINDOWPOS3DARBPROC absolute __glewWindowPos3dARB;
+
   __glewWindowPos3dvARB: TPFNGLWINDOWPOS3DVARBPROC; cvar;external libGLEW;
+  glWindowPos3dvARB: TPFNGLWINDOWPOS3DVARBPROC absolute __glewWindowPos3dvARB;
+
   __glewWindowPos3fARB: TPFNGLWINDOWPOS3FARBPROC; cvar;external libGLEW;
+  glWindowPos3fARB: TPFNGLWINDOWPOS3FARBPROC absolute __glewWindowPos3fARB;
+
   __glewWindowPos3fvARB: TPFNGLWINDOWPOS3FVARBPROC; cvar;external libGLEW;
+  glWindowPos3fvARB: TPFNGLWINDOWPOS3FVARBPROC absolute __glewWindowPos3fvARB;
+
   __glewWindowPos3iARB: TPFNGLWINDOWPOS3IARBPROC; cvar;external libGLEW;
+  glWindowPos3iARB: TPFNGLWINDOWPOS3IARBPROC absolute __glewWindowPos3iARB;
+
   __glewWindowPos3ivARB: TPFNGLWINDOWPOS3IVARBPROC; cvar;external libGLEW;
+  glWindowPos3ivARB: TPFNGLWINDOWPOS3IVARBPROC absolute __glewWindowPos3ivARB;
+
   __glewWindowPos3sARB: TPFNGLWINDOWPOS3SARBPROC; cvar;external libGLEW;
+  glWindowPos3sARB: TPFNGLWINDOWPOS3SARBPROC absolute __glewWindowPos3sARB;
+
   __glewWindowPos3svARB: TPFNGLWINDOWPOS3SVARBPROC; cvar;external libGLEW;
+  glWindowPos3svARB: TPFNGLWINDOWPOS3SVARBPROC absolute __glewWindowPos3svARB;
+
   __glewDrawBuffersATI: TPFNGLDRAWBUFFERSATIPROC; cvar;external libGLEW;
+  glDrawBuffersATI: TPFNGLDRAWBUFFERSATIPROC absolute __glewDrawBuffersATI;
+
   __glewDrawElementArrayATI: TPFNGLDRAWELEMENTARRAYATIPROC; cvar;external libGLEW;
+  glDrawElementArrayATI: TPFNGLDRAWELEMENTARRAYATIPROC absolute __glewDrawElementArrayATI;
+
   __glewDrawRangeElementArrayATI: TPFNGLDRAWRANGEELEMENTARRAYATIPROC; cvar;external libGLEW;
+  glDrawRangeElementArrayATI: TPFNGLDRAWRANGEELEMENTARRAYATIPROC absolute __glewDrawRangeElementArrayATI;
+
   __glewElementPointerATI: TPFNGLELEMENTPOINTERATIPROC; cvar;external libGLEW;
+  glElementPointerATI: TPFNGLELEMENTPOINTERATIPROC absolute __glewElementPointerATI;
+
   __glewGetTexBumpParameterfvATI: TPFNGLGETTEXBUMPPARAMETERFVATIPROC; cvar;external libGLEW;
+  glGetTexBumpParameterfvATI: TPFNGLGETTEXBUMPPARAMETERFVATIPROC absolute __glewGetTexBumpParameterfvATI;
+
   __glewGetTexBumpParameterivATI: TPFNGLGETTEXBUMPPARAMETERIVATIPROC; cvar;external libGLEW;
+  glGetTexBumpParameterivATI: TPFNGLGETTEXBUMPPARAMETERIVATIPROC absolute __glewGetTexBumpParameterivATI;
+
   __glewTexBumpParameterfvATI: TPFNGLTEXBUMPPARAMETERFVATIPROC; cvar;external libGLEW;
+  glTexBumpParameterfvATI: TPFNGLTEXBUMPPARAMETERFVATIPROC absolute __glewTexBumpParameterfvATI;
+
   __glewTexBumpParameterivATI: TPFNGLTEXBUMPPARAMETERIVATIPROC; cvar;external libGLEW;
+  glTexBumpParameterivATI: TPFNGLTEXBUMPPARAMETERIVATIPROC absolute __glewTexBumpParameterivATI;
+
   __glewAlphaFragmentOp1ATI: TPFNGLALPHAFRAGMENTOP1ATIPROC; cvar;external libGLEW;
+  glAlphaFragmentOp1ATI: TPFNGLALPHAFRAGMENTOP1ATIPROC absolute __glewAlphaFragmentOp1ATI;
+
   __glewAlphaFragmentOp2ATI: TPFNGLALPHAFRAGMENTOP2ATIPROC; cvar;external libGLEW;
+  glAlphaFragmentOp2ATI: TPFNGLALPHAFRAGMENTOP2ATIPROC absolute __glewAlphaFragmentOp2ATI;
+
   __glewAlphaFragmentOp3ATI: TPFNGLALPHAFRAGMENTOP3ATIPROC; cvar;external libGLEW;
+  glAlphaFragmentOp3ATI: TPFNGLALPHAFRAGMENTOP3ATIPROC absolute __glewAlphaFragmentOp3ATI;
+
   __glewBeginFragmentShaderATI: TPFNGLBEGINFRAGMENTSHADERATIPROC; cvar;external libGLEW;
+  glBeginFragmentShaderATI: TPFNGLBEGINFRAGMENTSHADERATIPROC absolute __glewBeginFragmentShaderATI;
+
   __glewBindFragmentShaderATI: TPFNGLBINDFRAGMENTSHADERATIPROC; cvar;external libGLEW;
+  glBindFragmentShaderATI: TPFNGLBINDFRAGMENTSHADERATIPROC absolute __glewBindFragmentShaderATI;
+
   __glewColorFragmentOp1ATI: TPFNGLCOLORFRAGMENTOP1ATIPROC; cvar;external libGLEW;
+  glColorFragmentOp1ATI: TPFNGLCOLORFRAGMENTOP1ATIPROC absolute __glewColorFragmentOp1ATI;
+
   __glewColorFragmentOp2ATI: TPFNGLCOLORFRAGMENTOP2ATIPROC; cvar;external libGLEW;
+  glColorFragmentOp2ATI: TPFNGLCOLORFRAGMENTOP2ATIPROC absolute __glewColorFragmentOp2ATI;
+
   __glewColorFragmentOp3ATI: TPFNGLCOLORFRAGMENTOP3ATIPROC; cvar;external libGLEW;
+  glColorFragmentOp3ATI: TPFNGLCOLORFRAGMENTOP3ATIPROC absolute __glewColorFragmentOp3ATI;
+
   __glewDeleteFragmentShaderATI: TPFNGLDELETEFRAGMENTSHADERATIPROC; cvar;external libGLEW;
+  glDeleteFragmentShaderATI: TPFNGLDELETEFRAGMENTSHADERATIPROC absolute __glewDeleteFragmentShaderATI;
+
   __glewEndFragmentShaderATI: TPFNGLENDFRAGMENTSHADERATIPROC; cvar;external libGLEW;
+  glEndFragmentShaderATI: TPFNGLENDFRAGMENTSHADERATIPROC absolute __glewEndFragmentShaderATI;
+
   __glewGenFragmentShadersATI: TPFNGLGENFRAGMENTSHADERSATIPROC; cvar;external libGLEW;
+  glGenFragmentShadersATI: TPFNGLGENFRAGMENTSHADERSATIPROC absolute __glewGenFragmentShadersATI;
+
   __glewPassTexCoordATI: TPFNGLPASSTEXCOORDATIPROC; cvar;external libGLEW;
+  glPassTexCoordATI: TPFNGLPASSTEXCOORDATIPROC absolute __glewPassTexCoordATI;
+
   __glewSampleMapATI: TPFNGLSAMPLEMAPATIPROC; cvar;external libGLEW;
+  glSampleMapATI: TPFNGLSAMPLEMAPATIPROC absolute __glewSampleMapATI;
+
   __glewSetFragmentShaderConstantATI: TPFNGLSETFRAGMENTSHADERCONSTANTATIPROC; cvar;external libGLEW;
+  glSetFragmentShaderConstantATI: TPFNGLSETFRAGMENTSHADERCONSTANTATIPROC absolute __glewSetFragmentShaderConstantATI;
+
   __glewMapObjectBufferATI: TPFNGLMAPOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glMapObjectBufferATI: TPFNGLMAPOBJECTBUFFERATIPROC absolute __glewMapObjectBufferATI;
+
   __glewUnmapObjectBufferATI: TPFNGLUNMAPOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glUnmapObjectBufferATI: TPFNGLUNMAPOBJECTBUFFERATIPROC absolute __glewUnmapObjectBufferATI;
+
   __glewPNTrianglesfATI: TPFNGLPNTRIANGLESFATIPROC; cvar;external libGLEW;
+  glPNTrianglesfATI: TPFNGLPNTRIANGLESFATIPROC absolute __glewPNTrianglesfATI;
+
   __glewPNTrianglesiATI: TPFNGLPNTRIANGLESIATIPROC; cvar;external libGLEW;
+  glPNTrianglesiATI: TPFNGLPNTRIANGLESIATIPROC absolute __glewPNTrianglesiATI;
+
   __glewStencilFuncSeparateATI: TPFNGLSTENCILFUNCSEPARATEATIPROC; cvar;external libGLEW;
+  glStencilFuncSeparateATI: TPFNGLSTENCILFUNCSEPARATEATIPROC absolute __glewStencilFuncSeparateATI;
+
   __glewStencilOpSeparateATI: TPFNGLSTENCILOPSEPARATEATIPROC; cvar;external libGLEW;
+  glStencilOpSeparateATI: TPFNGLSTENCILOPSEPARATEATIPROC absolute __glewStencilOpSeparateATI;
+
   __glewArrayObjectATI: TPFNGLARRAYOBJECTATIPROC; cvar;external libGLEW;
+  glArrayObjectATI: TPFNGLARRAYOBJECTATIPROC absolute __glewArrayObjectATI;
+
   __glewFreeObjectBufferATI: TPFNGLFREEOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glFreeObjectBufferATI: TPFNGLFREEOBJECTBUFFERATIPROC absolute __glewFreeObjectBufferATI;
+
   __glewGetArrayObjectfvATI: TPFNGLGETARRAYOBJECTFVATIPROC; cvar;external libGLEW;
+  glGetArrayObjectfvATI: TPFNGLGETARRAYOBJECTFVATIPROC absolute __glewGetArrayObjectfvATI;
+
   __glewGetArrayObjectivATI: TPFNGLGETARRAYOBJECTIVATIPROC; cvar;external libGLEW;
+  glGetArrayObjectivATI: TPFNGLGETARRAYOBJECTIVATIPROC absolute __glewGetArrayObjectivATI;
+
   __glewGetObjectBufferfvATI: TPFNGLGETOBJECTBUFFERFVATIPROC; cvar;external libGLEW;
+  glGetObjectBufferfvATI: TPFNGLGETOBJECTBUFFERFVATIPROC absolute __glewGetObjectBufferfvATI;
+
   __glewGetObjectBufferivATI: TPFNGLGETOBJECTBUFFERIVATIPROC; cvar;external libGLEW;
+  glGetObjectBufferivATI: TPFNGLGETOBJECTBUFFERIVATIPROC absolute __glewGetObjectBufferivATI;
+
   __glewGetVariantArrayObjectfvATI: TPFNGLGETVARIANTARRAYOBJECTFVATIPROC; cvar;external libGLEW;
+  glGetVariantArrayObjectfvATI: TPFNGLGETVARIANTARRAYOBJECTFVATIPROC absolute __glewGetVariantArrayObjectfvATI;
+
   __glewGetVariantArrayObjectivATI: TPFNGLGETVARIANTARRAYOBJECTIVATIPROC; cvar;external libGLEW;
+  glGetVariantArrayObjectivATI: TPFNGLGETVARIANTARRAYOBJECTIVATIPROC absolute __glewGetVariantArrayObjectivATI;
+
   __glewIsObjectBufferATI: TPFNGLISOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glIsObjectBufferATI: TPFNGLISOBJECTBUFFERATIPROC absolute __glewIsObjectBufferATI;
+
   __glewNewObjectBufferATI: TPFNGLNEWOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glNewObjectBufferATI: TPFNGLNEWOBJECTBUFFERATIPROC absolute __glewNewObjectBufferATI;
+
   __glewUpdateObjectBufferATI: TPFNGLUPDATEOBJECTBUFFERATIPROC; cvar;external libGLEW;
+  glUpdateObjectBufferATI: TPFNGLUPDATEOBJECTBUFFERATIPROC absolute __glewUpdateObjectBufferATI;
+
   __glewVariantArrayObjectATI: TPFNGLVARIANTARRAYOBJECTATIPROC; cvar;external libGLEW;
+  glVariantArrayObjectATI: TPFNGLVARIANTARRAYOBJECTATIPROC absolute __glewVariantArrayObjectATI;
+
   __glewGetVertexAttribArrayObjectfvATI: TPFNGLGETVERTEXATTRIBARRAYOBJECTFVATIPROC; cvar;external libGLEW;
+  glGetVertexAttribArrayObjectfvATI: TPFNGLGETVERTEXATTRIBARRAYOBJECTFVATIPROC absolute __glewGetVertexAttribArrayObjectfvATI;
+
   __glewGetVertexAttribArrayObjectivATI: TPFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC; cvar;external libGLEW;
+  glGetVertexAttribArrayObjectivATI: TPFNGLGETVERTEXATTRIBARRAYOBJECTIVATIPROC absolute __glewGetVertexAttribArrayObjectivATI;
+
   __glewVertexAttribArrayObjectATI: TPFNGLVERTEXATTRIBARRAYOBJECTATIPROC; cvar;external libGLEW;
+  glVertexAttribArrayObjectATI: TPFNGLVERTEXATTRIBARRAYOBJECTATIPROC absolute __glewVertexAttribArrayObjectATI;
+
   __glewClientActiveVertexStreamATI: TPFNGLCLIENTACTIVEVERTEXSTREAMATIPROC; cvar;external libGLEW;
+  glClientActiveVertexStreamATI: TPFNGLCLIENTACTIVEVERTEXSTREAMATIPROC absolute __glewClientActiveVertexStreamATI;
+
   __glewNormalStream3bATI: TPFNGLNORMALSTREAM3BATIPROC; cvar;external libGLEW;
+  glNormalStream3bATI: TPFNGLNORMALSTREAM3BATIPROC absolute __glewNormalStream3bATI;
+
   __glewNormalStream3bvATI: TPFNGLNORMALSTREAM3BVATIPROC; cvar;external libGLEW;
+  glNormalStream3bvATI: TPFNGLNORMALSTREAM3BVATIPROC absolute __glewNormalStream3bvATI;
+
   __glewNormalStream3dATI: TPFNGLNORMALSTREAM3DATIPROC; cvar;external libGLEW;
+  glNormalStream3dATI: TPFNGLNORMALSTREAM3DATIPROC absolute __glewNormalStream3dATI;
+
   __glewNormalStream3dvATI: TPFNGLNORMALSTREAM3DVATIPROC; cvar;external libGLEW;
+  glNormalStream3dvATI: TPFNGLNORMALSTREAM3DVATIPROC absolute __glewNormalStream3dvATI;
+
   __glewNormalStream3fATI: TPFNGLNORMALSTREAM3FATIPROC; cvar;external libGLEW;
+  glNormalStream3fATI: TPFNGLNORMALSTREAM3FATIPROC absolute __glewNormalStream3fATI;
+
   __glewNormalStream3fvATI: TPFNGLNORMALSTREAM3FVATIPROC; cvar;external libGLEW;
+  glNormalStream3fvATI: TPFNGLNORMALSTREAM3FVATIPROC absolute __glewNormalStream3fvATI;
+
   __glewNormalStream3iATI: TPFNGLNORMALSTREAM3IATIPROC; cvar;external libGLEW;
+  glNormalStream3iATI: TPFNGLNORMALSTREAM3IATIPROC absolute __glewNormalStream3iATI;
+
   __glewNormalStream3ivATI: TPFNGLNORMALSTREAM3IVATIPROC; cvar;external libGLEW;
+  glNormalStream3ivATI: TPFNGLNORMALSTREAM3IVATIPROC absolute __glewNormalStream3ivATI;
+
   __glewNormalStream3sATI: TPFNGLNORMALSTREAM3SATIPROC; cvar;external libGLEW;
+  glNormalStream3sATI: TPFNGLNORMALSTREAM3SATIPROC absolute __glewNormalStream3sATI;
+
   __glewNormalStream3svATI: TPFNGLNORMALSTREAM3SVATIPROC; cvar;external libGLEW;
+  glNormalStream3svATI: TPFNGLNORMALSTREAM3SVATIPROC absolute __glewNormalStream3svATI;
+
   __glewVertexBlendEnvfATI: TPFNGLVERTEXBLENDENVFATIPROC; cvar;external libGLEW;
+  glVertexBlendEnvfATI: TPFNGLVERTEXBLENDENVFATIPROC absolute __glewVertexBlendEnvfATI;
+
   __glewVertexBlendEnviATI: TPFNGLVERTEXBLENDENVIATIPROC; cvar;external libGLEW;
+  glVertexBlendEnviATI: TPFNGLVERTEXBLENDENVIATIPROC absolute __glewVertexBlendEnviATI;
+
   __glewVertexStream1dATI: TPFNGLVERTEXSTREAM1DATIPROC; cvar;external libGLEW;
+  glVertexStream1dATI: TPFNGLVERTEXSTREAM1DATIPROC absolute __glewVertexStream1dATI;
+
   __glewVertexStream1dvATI: TPFNGLVERTEXSTREAM1DVATIPROC; cvar;external libGLEW;
+  glVertexStream1dvATI: TPFNGLVERTEXSTREAM1DVATIPROC absolute __glewVertexStream1dvATI;
+
   __glewVertexStream1fATI: TPFNGLVERTEXSTREAM1FATIPROC; cvar;external libGLEW;
+  glVertexStream1fATI: TPFNGLVERTEXSTREAM1FATIPROC absolute __glewVertexStream1fATI;
+
   __glewVertexStream1fvATI: TPFNGLVERTEXSTREAM1FVATIPROC; cvar;external libGLEW;
+  glVertexStream1fvATI: TPFNGLVERTEXSTREAM1FVATIPROC absolute __glewVertexStream1fvATI;
+
   __glewVertexStream1iATI: TPFNGLVERTEXSTREAM1IATIPROC; cvar;external libGLEW;
+  glVertexStream1iATI: TPFNGLVERTEXSTREAM1IATIPROC absolute __glewVertexStream1iATI;
+
   __glewVertexStream1ivATI: TPFNGLVERTEXSTREAM1IVATIPROC; cvar;external libGLEW;
+  glVertexStream1ivATI: TPFNGLVERTEXSTREAM1IVATIPROC absolute __glewVertexStream1ivATI;
+
   __glewVertexStream1sATI: TPFNGLVERTEXSTREAM1SATIPROC; cvar;external libGLEW;
+  glVertexStream1sATI: TPFNGLVERTEXSTREAM1SATIPROC absolute __glewVertexStream1sATI;
+
   __glewVertexStream1svATI: TPFNGLVERTEXSTREAM1SVATIPROC; cvar;external libGLEW;
+  glVertexStream1svATI: TPFNGLVERTEXSTREAM1SVATIPROC absolute __glewVertexStream1svATI;
+
   __glewVertexStream2dATI: TPFNGLVERTEXSTREAM2DATIPROC; cvar;external libGLEW;
+  glVertexStream2dATI: TPFNGLVERTEXSTREAM2DATIPROC absolute __glewVertexStream2dATI;
+
   __glewVertexStream2dvATI: TPFNGLVERTEXSTREAM2DVATIPROC; cvar;external libGLEW;
+  glVertexStream2dvATI: TPFNGLVERTEXSTREAM2DVATIPROC absolute __glewVertexStream2dvATI;
+
   __glewVertexStream2fATI: TPFNGLVERTEXSTREAM2FATIPROC; cvar;external libGLEW;
+  glVertexStream2fATI: TPFNGLVERTEXSTREAM2FATIPROC absolute __glewVertexStream2fATI;
+
   __glewVertexStream2fvATI: TPFNGLVERTEXSTREAM2FVATIPROC; cvar;external libGLEW;
+  glVertexStream2fvATI: TPFNGLVERTEXSTREAM2FVATIPROC absolute __glewVertexStream2fvATI;
+
   __glewVertexStream2iATI: TPFNGLVERTEXSTREAM2IATIPROC; cvar;external libGLEW;
+  glVertexStream2iATI: TPFNGLVERTEXSTREAM2IATIPROC absolute __glewVertexStream2iATI;
+
   __glewVertexStream2ivATI: TPFNGLVERTEXSTREAM2IVATIPROC; cvar;external libGLEW;
+  glVertexStream2ivATI: TPFNGLVERTEXSTREAM2IVATIPROC absolute __glewVertexStream2ivATI;
+
   __glewVertexStream2sATI: TPFNGLVERTEXSTREAM2SATIPROC; cvar;external libGLEW;
+  glVertexStream2sATI: TPFNGLVERTEXSTREAM2SATIPROC absolute __glewVertexStream2sATI;
+
   __glewVertexStream2svATI: TPFNGLVERTEXSTREAM2SVATIPROC; cvar;external libGLEW;
+  glVertexStream2svATI: TPFNGLVERTEXSTREAM2SVATIPROC absolute __glewVertexStream2svATI;
+
   __glewVertexStream3dATI: TPFNGLVERTEXSTREAM3DATIPROC; cvar;external libGLEW;
+  glVertexStream3dATI: TPFNGLVERTEXSTREAM3DATIPROC absolute __glewVertexStream3dATI;
+
   __glewVertexStream3dvATI: TPFNGLVERTEXSTREAM3DVATIPROC; cvar;external libGLEW;
+  glVertexStream3dvATI: TPFNGLVERTEXSTREAM3DVATIPROC absolute __glewVertexStream3dvATI;
+
   __glewVertexStream3fATI: TPFNGLVERTEXSTREAM3FATIPROC; cvar;external libGLEW;
+  glVertexStream3fATI: TPFNGLVERTEXSTREAM3FATIPROC absolute __glewVertexStream3fATI;
+
   __glewVertexStream3fvATI: TPFNGLVERTEXSTREAM3FVATIPROC; cvar;external libGLEW;
+  glVertexStream3fvATI: TPFNGLVERTEXSTREAM3FVATIPROC absolute __glewVertexStream3fvATI;
+
   __glewVertexStream3iATI: TPFNGLVERTEXSTREAM3IATIPROC; cvar;external libGLEW;
+  glVertexStream3iATI: TPFNGLVERTEXSTREAM3IATIPROC absolute __glewVertexStream3iATI;
+
   __glewVertexStream3ivATI: TPFNGLVERTEXSTREAM3IVATIPROC; cvar;external libGLEW;
+  glVertexStream3ivATI: TPFNGLVERTEXSTREAM3IVATIPROC absolute __glewVertexStream3ivATI;
+
   __glewVertexStream3sATI: TPFNGLVERTEXSTREAM3SATIPROC; cvar;external libGLEW;
+  glVertexStream3sATI: TPFNGLVERTEXSTREAM3SATIPROC absolute __glewVertexStream3sATI;
+
   __glewVertexStream3svATI: TPFNGLVERTEXSTREAM3SVATIPROC; cvar;external libGLEW;
+  glVertexStream3svATI: TPFNGLVERTEXSTREAM3SVATIPROC absolute __glewVertexStream3svATI;
+
   __glewVertexStream4dATI: TPFNGLVERTEXSTREAM4DATIPROC; cvar;external libGLEW;
+  glVertexStream4dATI: TPFNGLVERTEXSTREAM4DATIPROC absolute __glewVertexStream4dATI;
+
   __glewVertexStream4dvATI: TPFNGLVERTEXSTREAM4DVATIPROC; cvar;external libGLEW;
+  glVertexStream4dvATI: TPFNGLVERTEXSTREAM4DVATIPROC absolute __glewVertexStream4dvATI;
+
   __glewVertexStream4fATI: TPFNGLVERTEXSTREAM4FATIPROC; cvar;external libGLEW;
+  glVertexStream4fATI: TPFNGLVERTEXSTREAM4FATIPROC absolute __glewVertexStream4fATI;
+
   __glewVertexStream4fvATI: TPFNGLVERTEXSTREAM4FVATIPROC; cvar;external libGLEW;
+  glVertexStream4fvATI: TPFNGLVERTEXSTREAM4FVATIPROC absolute __glewVertexStream4fvATI;
+
   __glewVertexStream4iATI: TPFNGLVERTEXSTREAM4IATIPROC; cvar;external libGLEW;
+  glVertexStream4iATI: TPFNGLVERTEXSTREAM4IATIPROC absolute __glewVertexStream4iATI;
+
   __glewVertexStream4ivATI: TPFNGLVERTEXSTREAM4IVATIPROC; cvar;external libGLEW;
+  glVertexStream4ivATI: TPFNGLVERTEXSTREAM4IVATIPROC absolute __glewVertexStream4ivATI;
+
   __glewVertexStream4sATI: TPFNGLVERTEXSTREAM4SATIPROC; cvar;external libGLEW;
+  glVertexStream4sATI: TPFNGLVERTEXSTREAM4SATIPROC absolute __glewVertexStream4sATI;
+
   __glewVertexStream4svATI: TPFNGLVERTEXSTREAM4SVATIPROC; cvar;external libGLEW;
+  glVertexStream4svATI: TPFNGLVERTEXSTREAM4SVATIPROC absolute __glewVertexStream4svATI;
+
   __glewEGLImageTargetTexStorageEXT: TPFNGLEGLIMAGETARGETTEXSTORAGEEXTPROC; cvar;external libGLEW;
+  glEGLImageTargetTexStorageEXT: TPFNGLEGLIMAGETARGETTEXSTORAGEEXTPROC absolute __glewEGLImageTargetTexStorageEXT;
+
   __glewEGLImageTargetTextureStorageEXT: TPFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC; cvar;external libGLEW;
+  glEGLImageTargetTextureStorageEXT: TPFNGLEGLIMAGETARGETTEXTURESTORAGEEXTPROC absolute __glewEGLImageTargetTextureStorageEXT;
+
   __glewDrawArraysInstancedBaseInstanceEXT: TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEEXTPROC; cvar;external libGLEW;
+  glDrawArraysInstancedBaseInstanceEXT: TPFNGLDRAWARRAYSINSTANCEDBASEINSTANCEEXTPROC absolute __glewDrawArraysInstancedBaseInstanceEXT;
+
   __glewDrawElementsInstancedBaseInstanceEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXTPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseInstanceEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXTPROC absolute __glewDrawElementsInstancedBaseInstanceEXT;
+
   __glewDrawElementsInstancedBaseVertexBaseInstanceEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXTPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseVertexBaseInstanceEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXTPROC absolute __glewDrawElementsInstancedBaseVertexBaseInstanceEXT;
+
   __glewGetUniformBufferSizeEXT: TPFNGLGETUNIFORMBUFFERSIZEEXTPROC; cvar;external libGLEW;
+  glGetUniformBufferSizeEXT: TPFNGLGETUNIFORMBUFFERSIZEEXTPROC absolute __glewGetUniformBufferSizeEXT;
+
   __glewGetUniformOffsetEXT: TPFNGLGETUNIFORMOFFSETEXTPROC; cvar;external libGLEW;
+  glGetUniformOffsetEXT: TPFNGLGETUNIFORMOFFSETEXTPROC absolute __glewGetUniformOffsetEXT;
+
   __glewUniformBufferEXT: TPFNGLUNIFORMBUFFEREXTPROC; cvar;external libGLEW;
+  glUniformBufferEXT: TPFNGLUNIFORMBUFFEREXTPROC absolute __glewUniformBufferEXT;
+
   __glewBlendColorEXT: TPFNGLBLENDCOLOREXTPROC; cvar;external libGLEW;
+  glBlendColorEXT: TPFNGLBLENDCOLOREXTPROC absolute __glewBlendColorEXT;
+
   __glewBlendEquationSeparateEXT: TPFNGLBLENDEQUATIONSEPARATEEXTPROC; cvar;external libGLEW;
+  glBlendEquationSeparateEXT: TPFNGLBLENDEQUATIONSEPARATEEXTPROC absolute __glewBlendEquationSeparateEXT;
+
   __glewBindFragDataLocationIndexedEXT: TPFNGLBINDFRAGDATALOCATIONINDEXEDEXTPROC; cvar;external libGLEW;
+  glBindFragDataLocationIndexedEXT: TPFNGLBINDFRAGDATALOCATIONINDEXEDEXTPROC absolute __glewBindFragDataLocationIndexedEXT;
+
   __glewGetFragDataIndexEXT: TPFNGLGETFRAGDATAINDEXEXTPROC; cvar;external libGLEW;
+  glGetFragDataIndexEXT: TPFNGLGETFRAGDATAINDEXEXTPROC absolute __glewGetFragDataIndexEXT;
+
   __glewGetProgramResourceLocationIndexEXT: TPFNGLGETPROGRAMRESOURCELOCATIONINDEXEXTPROC; cvar;external libGLEW;
+  glGetProgramResourceLocationIndexEXT: TPFNGLGETPROGRAMRESOURCELOCATIONINDEXEXTPROC absolute __glewGetProgramResourceLocationIndexEXT;
+
   __glewBlendFuncSeparateEXT: TPFNGLBLENDFUNCSEPARATEEXTPROC; cvar;external libGLEW;
+  glBlendFuncSeparateEXT: TPFNGLBLENDFUNCSEPARATEEXTPROC absolute __glewBlendFuncSeparateEXT;
+
   __glewBlendEquationEXT: TPFNGLBLENDEQUATIONEXTPROC; cvar;external libGLEW;
+  glBlendEquationEXT: TPFNGLBLENDEQUATIONEXTPROC absolute __glewBlendEquationEXT;
+
   __glewBufferStorageEXT: TPFNGLBUFFERSTORAGEEXTPROC; cvar;external libGLEW;
+  glBufferStorageEXT: TPFNGLBUFFERSTORAGEEXTPROC absolute __glewBufferStorageEXT;
+
   __glewNamedBufferStorageEXT: TPFNGLNAMEDBUFFERSTORAGEEXTPROC; cvar;external libGLEW;
+  glNamedBufferStorageEXT: TPFNGLNAMEDBUFFERSTORAGEEXTPROC absolute __glewNamedBufferStorageEXT;
+
   __glewClearTexImageEXT: TPFNGLCLEARTEXIMAGEEXTPROC; cvar;external libGLEW;
+  glClearTexImageEXT: TPFNGLCLEARTEXIMAGEEXTPROC absolute __glewClearTexImageEXT;
+
   __glewClearTexSubImageEXT: TPFNGLCLEARTEXSUBIMAGEEXTPROC; cvar;external libGLEW;
+  glClearTexSubImageEXT: TPFNGLCLEARTEXSUBIMAGEEXTPROC absolute __glewClearTexSubImageEXT;
+
   __glewClipControlEXT: TPFNGLCLIPCONTROLEXTPROC; cvar;external libGLEW;
+  glClipControlEXT: TPFNGLCLIPCONTROLEXTPROC absolute __glewClipControlEXT;
+
   __glewColorSubTableEXT: TPFNGLCOLORSUBTABLEEXTPROC; cvar;external libGLEW;
+  glColorSubTableEXT: TPFNGLCOLORSUBTABLEEXTPROC absolute __glewColorSubTableEXT;
+
   __glewCopyColorSubTableEXT: TPFNGLCOPYCOLORSUBTABLEEXTPROC; cvar;external libGLEW;
+  glCopyColorSubTableEXT: TPFNGLCOPYCOLORSUBTABLEEXTPROC absolute __glewCopyColorSubTableEXT;
+
   __glewLockArraysEXT: TPFNGLLOCKARRAYSEXTPROC; cvar;external libGLEW;
+  glLockArraysEXT: TPFNGLLOCKARRAYSEXTPROC absolute __glewLockArraysEXT;
+
   __glewUnlockArraysEXT: TPFNGLUNLOCKARRAYSEXTPROC; cvar;external libGLEW;
+  glUnlockArraysEXT: TPFNGLUNLOCKARRAYSEXTPROC absolute __glewUnlockArraysEXT;
+
   __glewConvolutionFilter1DEXT: TPFNGLCONVOLUTIONFILTER1DEXTPROC; cvar;external libGLEW;
+  glConvolutionFilter1DEXT: TPFNGLCONVOLUTIONFILTER1DEXTPROC absolute __glewConvolutionFilter1DEXT;
+
   __glewConvolutionFilter2DEXT: TPFNGLCONVOLUTIONFILTER2DEXTPROC; cvar;external libGLEW;
+  glConvolutionFilter2DEXT: TPFNGLCONVOLUTIONFILTER2DEXTPROC absolute __glewConvolutionFilter2DEXT;
+
   __glewConvolutionParameterfEXT: TPFNGLCONVOLUTIONPARAMETERFEXTPROC; cvar;external libGLEW;
+  glConvolutionParameterfEXT: TPFNGLCONVOLUTIONPARAMETERFEXTPROC absolute __glewConvolutionParameterfEXT;
+
   __glewConvolutionParameterfvEXT: TPFNGLCONVOLUTIONPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glConvolutionParameterfvEXT: TPFNGLCONVOLUTIONPARAMETERFVEXTPROC absolute __glewConvolutionParameterfvEXT;
+
   __glewConvolutionParameteriEXT: TPFNGLCONVOLUTIONPARAMETERIEXTPROC; cvar;external libGLEW;
+  glConvolutionParameteriEXT: TPFNGLCONVOLUTIONPARAMETERIEXTPROC absolute __glewConvolutionParameteriEXT;
+
   __glewConvolutionParameterivEXT: TPFNGLCONVOLUTIONPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glConvolutionParameterivEXT: TPFNGLCONVOLUTIONPARAMETERIVEXTPROC absolute __glewConvolutionParameterivEXT;
+
   __glewCopyConvolutionFilter1DEXT: TPFNGLCOPYCONVOLUTIONFILTER1DEXTPROC; cvar;external libGLEW;
+  glCopyConvolutionFilter1DEXT: TPFNGLCOPYCONVOLUTIONFILTER1DEXTPROC absolute __glewCopyConvolutionFilter1DEXT;
+
   __glewCopyConvolutionFilter2DEXT: TPFNGLCOPYCONVOLUTIONFILTER2DEXTPROC; cvar;external libGLEW;
+  glCopyConvolutionFilter2DEXT: TPFNGLCOPYCONVOLUTIONFILTER2DEXTPROC absolute __glewCopyConvolutionFilter2DEXT;
+
   __glewGetConvolutionFilterEXT: TPFNGLGETCONVOLUTIONFILTEREXTPROC; cvar;external libGLEW;
+  glGetConvolutionFilterEXT: TPFNGLGETCONVOLUTIONFILTEREXTPROC absolute __glewGetConvolutionFilterEXT;
+
   __glewGetConvolutionParameterfvEXT: TPFNGLGETCONVOLUTIONPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetConvolutionParameterfvEXT: TPFNGLGETCONVOLUTIONPARAMETERFVEXTPROC absolute __glewGetConvolutionParameterfvEXT;
+
   __glewGetConvolutionParameterivEXT: TPFNGLGETCONVOLUTIONPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetConvolutionParameterivEXT: TPFNGLGETCONVOLUTIONPARAMETERIVEXTPROC absolute __glewGetConvolutionParameterivEXT;
+
   __glewGetSeparableFilterEXT: TPFNGLGETSEPARABLEFILTEREXTPROC; cvar;external libGLEW;
+  glGetSeparableFilterEXT: TPFNGLGETSEPARABLEFILTEREXTPROC absolute __glewGetSeparableFilterEXT;
+
   __glewSeparableFilter2DEXT: TPFNGLSEPARABLEFILTER2DEXTPROC; cvar;external libGLEW;
+  glSeparableFilter2DEXT: TPFNGLSEPARABLEFILTER2DEXTPROC absolute __glewSeparableFilter2DEXT;
+
   __glewBinormalPointerEXT: TPFNGLBINORMALPOINTEREXTPROC; cvar;external libGLEW;
+  glBinormalPointerEXT: TPFNGLBINORMALPOINTEREXTPROC absolute __glewBinormalPointerEXT;
+
   __glewTangentPointerEXT: TPFNGLTANGENTPOINTEREXTPROC; cvar;external libGLEW;
+  glTangentPointerEXT: TPFNGLTANGENTPOINTEREXTPROC absolute __glewTangentPointerEXT;
+
   __glewCopyImageSubDataEXT: TPFNGLCOPYIMAGESUBDATAEXTPROC; cvar;external libGLEW;
+  glCopyImageSubDataEXT: TPFNGLCOPYIMAGESUBDATAEXTPROC absolute __glewCopyImageSubDataEXT;
+
   __glewCopyTexImage1DEXT: TPFNGLCOPYTEXIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyTexImage1DEXT: TPFNGLCOPYTEXIMAGE1DEXTPROC absolute __glewCopyTexImage1DEXT;
+
   __glewCopyTexImage2DEXT: TPFNGLCOPYTEXIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyTexImage2DEXT: TPFNGLCOPYTEXIMAGE2DEXTPROC absolute __glewCopyTexImage2DEXT;
+
   __glewCopyTexSubImage1DEXT: TPFNGLCOPYTEXSUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyTexSubImage1DEXT: TPFNGLCOPYTEXSUBIMAGE1DEXTPROC absolute __glewCopyTexSubImage1DEXT;
+
   __glewCopyTexSubImage2DEXT: TPFNGLCOPYTEXSUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyTexSubImage2DEXT: TPFNGLCOPYTEXSUBIMAGE2DEXTPROC absolute __glewCopyTexSubImage2DEXT;
+
   __glewCopyTexSubImage3DEXT: TPFNGLCOPYTEXSUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCopyTexSubImage3DEXT: TPFNGLCOPYTEXSUBIMAGE3DEXTPROC absolute __glewCopyTexSubImage3DEXT;
+
   __glewCullParameterdvEXT: TPFNGLCULLPARAMETERDVEXTPROC; cvar;external libGLEW;
+  glCullParameterdvEXT: TPFNGLCULLPARAMETERDVEXTPROC absolute __glewCullParameterdvEXT;
+
   __glewCullParameterfvEXT: TPFNGLCULLPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glCullParameterfvEXT: TPFNGLCULLPARAMETERFVEXTPROC absolute __glewCullParameterfvEXT;
+
   __glewGetObjectLabelEXT: TPFNGLGETOBJECTLABELEXTPROC; cvar;external libGLEW;
+  glGetObjectLabelEXT: TPFNGLGETOBJECTLABELEXTPROC absolute __glewGetObjectLabelEXT;
+
   __glewLabelObjectEXT: TPFNGLLABELOBJECTEXTPROC; cvar;external libGLEW;
+  glLabelObjectEXT: TPFNGLLABELOBJECTEXTPROC absolute __glewLabelObjectEXT;
+
   __glewInsertEventMarkerEXT: TPFNGLINSERTEVENTMARKEREXTPROC; cvar;external libGLEW;
+  glInsertEventMarkerEXT: TPFNGLINSERTEVENTMARKEREXTPROC absolute __glewInsertEventMarkerEXT;
+
   __glewPopGroupMarkerEXT: TPFNGLPOPGROUPMARKEREXTPROC; cvar;external libGLEW;
+  glPopGroupMarkerEXT: TPFNGLPOPGROUPMARKEREXTPROC absolute __glewPopGroupMarkerEXT;
+
   __glewPushGroupMarkerEXT: TPFNGLPUSHGROUPMARKEREXTPROC; cvar;external libGLEW;
+  glPushGroupMarkerEXT: TPFNGLPUSHGROUPMARKEREXTPROC absolute __glewPushGroupMarkerEXT;
+
   __glewDepthBoundsEXT: TPFNGLDEPTHBOUNDSEXTPROC; cvar;external libGLEW;
+  glDepthBoundsEXT: TPFNGLDEPTHBOUNDSEXTPROC absolute __glewDepthBoundsEXT;
+
   __glewBindMultiTextureEXT: TPFNGLBINDMULTITEXTUREEXTPROC; cvar;external libGLEW;
+  glBindMultiTextureEXT: TPFNGLBINDMULTITEXTUREEXTPROC absolute __glewBindMultiTextureEXT;
+
   __glewCheckNamedFramebufferStatusEXT: TPFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC; cvar;external libGLEW;
+  glCheckNamedFramebufferStatusEXT: TPFNGLCHECKNAMEDFRAMEBUFFERSTATUSEXTPROC absolute __glewCheckNamedFramebufferStatusEXT;
+
   __glewClientAttribDefaultEXT: TPFNGLCLIENTATTRIBDEFAULTEXTPROC; cvar;external libGLEW;
+  glClientAttribDefaultEXT: TPFNGLCLIENTATTRIBDEFAULTEXTPROC absolute __glewClientAttribDefaultEXT;
+
   __glewCompressedMultiTexImage1DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexImage1DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE1DEXTPROC absolute __glewCompressedMultiTexImage1DEXT;
+
   __glewCompressedMultiTexImage2DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexImage2DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE2DEXTPROC absolute __glewCompressedMultiTexImage2DEXT;
+
   __glewCompressedMultiTexImage3DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexImage3DEXT: TPFNGLCOMPRESSEDMULTITEXIMAGE3DEXTPROC absolute __glewCompressedMultiTexImage3DEXT;
+
   __glewCompressedMultiTexSubImage1DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexSubImage1DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE1DEXTPROC absolute __glewCompressedMultiTexSubImage1DEXT;
+
   __glewCompressedMultiTexSubImage2DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexSubImage2DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE2DEXTPROC absolute __glewCompressedMultiTexSubImage2DEXT;
+
   __glewCompressedMultiTexSubImage3DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCompressedMultiTexSubImage3DEXT: TPFNGLCOMPRESSEDMULTITEXSUBIMAGE3DEXTPROC absolute __glewCompressedMultiTexSubImage3DEXT;
+
   __glewCompressedTextureImage1DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureImage1DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE1DEXTPROC absolute __glewCompressedTextureImage1DEXT;
+
   __glewCompressedTextureImage2DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureImage2DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE2DEXTPROC absolute __glewCompressedTextureImage2DEXT;
+
   __glewCompressedTextureImage3DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureImage3DEXT: TPFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC absolute __glewCompressedTextureImage3DEXT;
+
   __glewCompressedTextureSubImage1DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage1DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE1DEXTPROC absolute __glewCompressedTextureSubImage1DEXT;
+
   __glewCompressedTextureSubImage2DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage2DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE2DEXTPROC absolute __glewCompressedTextureSubImage2DEXT;
+
   __glewCompressedTextureSubImage3DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCompressedTextureSubImage3DEXT: TPFNGLCOMPRESSEDTEXTURESUBIMAGE3DEXTPROC absolute __glewCompressedTextureSubImage3DEXT;
+
   __glewCopyMultiTexImage1DEXT: TPFNGLCOPYMULTITEXIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyMultiTexImage1DEXT: TPFNGLCOPYMULTITEXIMAGE1DEXTPROC absolute __glewCopyMultiTexImage1DEXT;
+
   __glewCopyMultiTexImage2DEXT: TPFNGLCOPYMULTITEXIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyMultiTexImage2DEXT: TPFNGLCOPYMULTITEXIMAGE2DEXTPROC absolute __glewCopyMultiTexImage2DEXT;
+
   __glewCopyMultiTexSubImage1DEXT: TPFNGLCOPYMULTITEXSUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyMultiTexSubImage1DEXT: TPFNGLCOPYMULTITEXSUBIMAGE1DEXTPROC absolute __glewCopyMultiTexSubImage1DEXT;
+
   __glewCopyMultiTexSubImage2DEXT: TPFNGLCOPYMULTITEXSUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyMultiTexSubImage2DEXT: TPFNGLCOPYMULTITEXSUBIMAGE2DEXTPROC absolute __glewCopyMultiTexSubImage2DEXT;
+
   __glewCopyMultiTexSubImage3DEXT: TPFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCopyMultiTexSubImage3DEXT: TPFNGLCOPYMULTITEXSUBIMAGE3DEXTPROC absolute __glewCopyMultiTexSubImage3DEXT;
+
   __glewCopyTextureImage1DEXT: TPFNGLCOPYTEXTUREIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyTextureImage1DEXT: TPFNGLCOPYTEXTUREIMAGE1DEXTPROC absolute __glewCopyTextureImage1DEXT;
+
   __glewCopyTextureImage2DEXT: TPFNGLCOPYTEXTUREIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyTextureImage2DEXT: TPFNGLCOPYTEXTUREIMAGE2DEXTPROC absolute __glewCopyTextureImage2DEXT;
+
   __glewCopyTextureSubImage1DEXT: TPFNGLCOPYTEXTURESUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glCopyTextureSubImage1DEXT: TPFNGLCOPYTEXTURESUBIMAGE1DEXTPROC absolute __glewCopyTextureSubImage1DEXT;
+
   __glewCopyTextureSubImage2DEXT: TPFNGLCOPYTEXTURESUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glCopyTextureSubImage2DEXT: TPFNGLCOPYTEXTURESUBIMAGE2DEXTPROC absolute __glewCopyTextureSubImage2DEXT;
+
   __glewCopyTextureSubImage3DEXT: TPFNGLCOPYTEXTURESUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glCopyTextureSubImage3DEXT: TPFNGLCOPYTEXTURESUBIMAGE3DEXTPROC absolute __glewCopyTextureSubImage3DEXT;
+
   __glewDisableClientStateIndexedEXT: TPFNGLDISABLECLIENTSTATEINDEXEDEXTPROC; cvar;external libGLEW;
+  glDisableClientStateIndexedEXT: TPFNGLDISABLECLIENTSTATEINDEXEDEXTPROC absolute __glewDisableClientStateIndexedEXT;
+
   __glewDisableClientStateiEXT: TPFNGLDISABLECLIENTSTATEIEXTPROC; cvar;external libGLEW;
+  glDisableClientStateiEXT: TPFNGLDISABLECLIENTSTATEIEXTPROC absolute __glewDisableClientStateiEXT;
+
   __glewDisableVertexArrayAttribEXT: TPFNGLDISABLEVERTEXARRAYATTRIBEXTPROC; cvar;external libGLEW;
+  glDisableVertexArrayAttribEXT: TPFNGLDISABLEVERTEXARRAYATTRIBEXTPROC absolute __glewDisableVertexArrayAttribEXT;
+
   __glewDisableVertexArrayEXT: TPFNGLDISABLEVERTEXARRAYEXTPROC; cvar;external libGLEW;
+  glDisableVertexArrayEXT: TPFNGLDISABLEVERTEXARRAYEXTPROC absolute __glewDisableVertexArrayEXT;
+
   __glewEnableClientStateIndexedEXT: TPFNGLENABLECLIENTSTATEINDEXEDEXTPROC; cvar;external libGLEW;
+  glEnableClientStateIndexedEXT: TPFNGLENABLECLIENTSTATEINDEXEDEXTPROC absolute __glewEnableClientStateIndexedEXT;
+
   __glewEnableClientStateiEXT: TPFNGLENABLECLIENTSTATEIEXTPROC; cvar;external libGLEW;
+  glEnableClientStateiEXT: TPFNGLENABLECLIENTSTATEIEXTPROC absolute __glewEnableClientStateiEXT;
+
   __glewEnableVertexArrayAttribEXT: TPFNGLENABLEVERTEXARRAYATTRIBEXTPROC; cvar;external libGLEW;
+  glEnableVertexArrayAttribEXT: TPFNGLENABLEVERTEXARRAYATTRIBEXTPROC absolute __glewEnableVertexArrayAttribEXT;
+
   __glewEnableVertexArrayEXT: TPFNGLENABLEVERTEXARRAYEXTPROC; cvar;external libGLEW;
+  glEnableVertexArrayEXT: TPFNGLENABLEVERTEXARRAYEXTPROC absolute __glewEnableVertexArrayEXT;
+
   __glewFlushMappedNamedBufferRangeEXT: TPFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glFlushMappedNamedBufferRangeEXT: TPFNGLFLUSHMAPPEDNAMEDBUFFERRANGEEXTPROC absolute __glewFlushMappedNamedBufferRangeEXT;
+
   __glewFramebufferDrawBufferEXT: TPFNGLFRAMEBUFFERDRAWBUFFEREXTPROC; cvar;external libGLEW;
+  glFramebufferDrawBufferEXT: TPFNGLFRAMEBUFFERDRAWBUFFEREXTPROC absolute __glewFramebufferDrawBufferEXT;
+
   __glewFramebufferDrawBuffersEXT: TPFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC; cvar;external libGLEW;
+  glFramebufferDrawBuffersEXT: TPFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC absolute __glewFramebufferDrawBuffersEXT;
+
   __glewFramebufferReadBufferEXT: TPFNGLFRAMEBUFFERREADBUFFEREXTPROC; cvar;external libGLEW;
+  glFramebufferReadBufferEXT: TPFNGLFRAMEBUFFERREADBUFFEREXTPROC absolute __glewFramebufferReadBufferEXT;
+
   __glewGenerateMultiTexMipmapEXT: TPFNGLGENERATEMULTITEXMIPMAPEXTPROC; cvar;external libGLEW;
+  glGenerateMultiTexMipmapEXT: TPFNGLGENERATEMULTITEXMIPMAPEXTPROC absolute __glewGenerateMultiTexMipmapEXT;
+
   __glewGenerateTextureMipmapEXT: TPFNGLGENERATETEXTUREMIPMAPEXTPROC; cvar;external libGLEW;
+  glGenerateTextureMipmapEXT: TPFNGLGENERATETEXTUREMIPMAPEXTPROC absolute __glewGenerateTextureMipmapEXT;
+
   __glewGetCompressedMultiTexImageEXT: TPFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC; cvar;external libGLEW;
+  glGetCompressedMultiTexImageEXT: TPFNGLGETCOMPRESSEDMULTITEXIMAGEEXTPROC absolute __glewGetCompressedMultiTexImageEXT;
+
   __glewGetCompressedTextureImageEXT: TPFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC; cvar;external libGLEW;
+  glGetCompressedTextureImageEXT: TPFNGLGETCOMPRESSEDTEXTUREIMAGEEXTPROC absolute __glewGetCompressedTextureImageEXT;
+
   __glewGetDoubleIndexedvEXT: TPFNGLGETDOUBLEINDEXEDVEXTPROC; cvar;external libGLEW;
+  glGetDoubleIndexedvEXT: TPFNGLGETDOUBLEINDEXEDVEXTPROC absolute __glewGetDoubleIndexedvEXT;
+
   __glewGetDoublei_vEXT: TPFNGLGETDOUBLEI_VEXTPROC; cvar;external libGLEW;
+  glGetDoublei_vEXT: TPFNGLGETDOUBLEI_VEXTPROC absolute __glewGetDoublei_vEXT;
+
   __glewGetFloatIndexedvEXT: TPFNGLGETFLOATINDEXEDVEXTPROC; cvar;external libGLEW;
+  glGetFloatIndexedvEXT: TPFNGLGETFLOATINDEXEDVEXTPROC absolute __glewGetFloatIndexedvEXT;
+
   __glewGetFloati_vEXT: TPFNGLGETFLOATI_VEXTPROC; cvar;external libGLEW;
+  glGetFloati_vEXT: TPFNGLGETFLOATI_VEXTPROC absolute __glewGetFloati_vEXT;
+
   __glewGetFramebufferParameterivEXT: TPFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetFramebufferParameterivEXT: TPFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC absolute __glewGetFramebufferParameterivEXT;
+
   __glewGetMultiTexEnvfvEXT: TPFNGLGETMULTITEXENVFVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexEnvfvEXT: TPFNGLGETMULTITEXENVFVEXTPROC absolute __glewGetMultiTexEnvfvEXT;
+
   __glewGetMultiTexEnvivEXT: TPFNGLGETMULTITEXENVIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexEnvivEXT: TPFNGLGETMULTITEXENVIVEXTPROC absolute __glewGetMultiTexEnvivEXT;
+
   __glewGetMultiTexGendvEXT: TPFNGLGETMULTITEXGENDVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexGendvEXT: TPFNGLGETMULTITEXGENDVEXTPROC absolute __glewGetMultiTexGendvEXT;
+
   __glewGetMultiTexGenfvEXT: TPFNGLGETMULTITEXGENFVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexGenfvEXT: TPFNGLGETMULTITEXGENFVEXTPROC absolute __glewGetMultiTexGenfvEXT;
+
   __glewGetMultiTexGenivEXT: TPFNGLGETMULTITEXGENIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexGenivEXT: TPFNGLGETMULTITEXGENIVEXTPROC absolute __glewGetMultiTexGenivEXT;
+
   __glewGetMultiTexImageEXT: TPFNGLGETMULTITEXIMAGEEXTPROC; cvar;external libGLEW;
+  glGetMultiTexImageEXT: TPFNGLGETMULTITEXIMAGEEXTPROC absolute __glewGetMultiTexImageEXT;
+
   __glewGetMultiTexLevelParameterfvEXT: TPFNGLGETMULTITEXLEVELPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexLevelParameterfvEXT: TPFNGLGETMULTITEXLEVELPARAMETERFVEXTPROC absolute __glewGetMultiTexLevelParameterfvEXT;
+
   __glewGetMultiTexLevelParameterivEXT: TPFNGLGETMULTITEXLEVELPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexLevelParameterivEXT: TPFNGLGETMULTITEXLEVELPARAMETERIVEXTPROC absolute __glewGetMultiTexLevelParameterivEXT;
+
   __glewGetMultiTexParameterIivEXT: TPFNGLGETMULTITEXPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexParameterIivEXT: TPFNGLGETMULTITEXPARAMETERIIVEXTPROC absolute __glewGetMultiTexParameterIivEXT;
+
   __glewGetMultiTexParameterIuivEXT: TPFNGLGETMULTITEXPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexParameterIuivEXT: TPFNGLGETMULTITEXPARAMETERIUIVEXTPROC absolute __glewGetMultiTexParameterIuivEXT;
+
   __glewGetMultiTexParameterfvEXT: TPFNGLGETMULTITEXPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexParameterfvEXT: TPFNGLGETMULTITEXPARAMETERFVEXTPROC absolute __glewGetMultiTexParameterfvEXT;
+
   __glewGetMultiTexParameterivEXT: TPFNGLGETMULTITEXPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetMultiTexParameterivEXT: TPFNGLGETMULTITEXPARAMETERIVEXTPROC absolute __glewGetMultiTexParameterivEXT;
+
   __glewGetNamedBufferParameterivEXT: TPFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetNamedBufferParameterivEXT: TPFNGLGETNAMEDBUFFERPARAMETERIVEXTPROC absolute __glewGetNamedBufferParameterivEXT;
+
   __glewGetNamedBufferPointervEXT: TPFNGLGETNAMEDBUFFERPOINTERVEXTPROC; cvar;external libGLEW;
+  glGetNamedBufferPointervEXT: TPFNGLGETNAMEDBUFFERPOINTERVEXTPROC absolute __glewGetNamedBufferPointervEXT;
+
   __glewGetNamedBufferSubDataEXT: TPFNGLGETNAMEDBUFFERSUBDATAEXTPROC; cvar;external libGLEW;
+  glGetNamedBufferSubDataEXT: TPFNGLGETNAMEDBUFFERSUBDATAEXTPROC absolute __glewGetNamedBufferSubDataEXT;
+
   __glewGetNamedFramebufferAttachmentParameterivEXT: TPFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetNamedFramebufferAttachmentParameterivEXT: TPFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC absolute __glewGetNamedFramebufferAttachmentParameterivEXT;
+
   __glewGetNamedProgramLocalParameterIivEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramLocalParameterIivEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERIIVEXTPROC absolute __glewGetNamedProgramLocalParameterIivEXT;
+
   __glewGetNamedProgramLocalParameterIuivEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramLocalParameterIuivEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERIUIVEXTPROC absolute __glewGetNamedProgramLocalParameterIuivEXT;
+
   __glewGetNamedProgramLocalParameterdvEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramLocalParameterdvEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERDVEXTPROC absolute __glewGetNamedProgramLocalParameterdvEXT;
+
   __glewGetNamedProgramLocalParameterfvEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramLocalParameterfvEXT: TPFNGLGETNAMEDPROGRAMLOCALPARAMETERFVEXTPROC absolute __glewGetNamedProgramLocalParameterfvEXT;
+
   __glewGetNamedProgramStringEXT: TPFNGLGETNAMEDPROGRAMSTRINGEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramStringEXT: TPFNGLGETNAMEDPROGRAMSTRINGEXTPROC absolute __glewGetNamedProgramStringEXT;
+
   __glewGetNamedProgramivEXT: TPFNGLGETNAMEDPROGRAMIVEXTPROC; cvar;external libGLEW;
+  glGetNamedProgramivEXT: TPFNGLGETNAMEDPROGRAMIVEXTPROC absolute __glewGetNamedProgramivEXT;
+
   __glewGetNamedRenderbufferParameterivEXT: TPFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetNamedRenderbufferParameterivEXT: TPFNGLGETNAMEDRENDERBUFFERPARAMETERIVEXTPROC absolute __glewGetNamedRenderbufferParameterivEXT;
+
   __glewGetPointerIndexedvEXT: TPFNGLGETPOINTERINDEXEDVEXTPROC; cvar;external libGLEW;
+  glGetPointerIndexedvEXT: TPFNGLGETPOINTERINDEXEDVEXTPROC absolute __glewGetPointerIndexedvEXT;
+
   __glewGetPointeri_vEXT: TPFNGLGETPOINTERI_VEXTPROC; cvar;external libGLEW;
+  glGetPointeri_vEXT: TPFNGLGETPOINTERI_VEXTPROC absolute __glewGetPointeri_vEXT;
+
   __glewGetTextureImageEXT: TPFNGLGETTEXTUREIMAGEEXTPROC; cvar;external libGLEW;
+  glGetTextureImageEXT: TPFNGLGETTEXTUREIMAGEEXTPROC absolute __glewGetTextureImageEXT;
+
   __glewGetTextureLevelParameterfvEXT: TPFNGLGETTEXTURELEVELPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetTextureLevelParameterfvEXT: TPFNGLGETTEXTURELEVELPARAMETERFVEXTPROC absolute __glewGetTextureLevelParameterfvEXT;
+
   __glewGetTextureLevelParameterivEXT: TPFNGLGETTEXTURELEVELPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetTextureLevelParameterivEXT: TPFNGLGETTEXTURELEVELPARAMETERIVEXTPROC absolute __glewGetTextureLevelParameterivEXT;
+
   __glewGetTextureParameterIivEXT: TPFNGLGETTEXTUREPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glGetTextureParameterIivEXT: TPFNGLGETTEXTUREPARAMETERIIVEXTPROC absolute __glewGetTextureParameterIivEXT;
+
   __glewGetTextureParameterIuivEXT: TPFNGLGETTEXTUREPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glGetTextureParameterIuivEXT: TPFNGLGETTEXTUREPARAMETERIUIVEXTPROC absolute __glewGetTextureParameterIuivEXT;
+
   __glewGetTextureParameterfvEXT: TPFNGLGETTEXTUREPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetTextureParameterfvEXT: TPFNGLGETTEXTUREPARAMETERFVEXTPROC absolute __glewGetTextureParameterfvEXT;
+
   __glewGetTextureParameterivEXT: TPFNGLGETTEXTUREPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetTextureParameterivEXT: TPFNGLGETTEXTUREPARAMETERIVEXTPROC absolute __glewGetTextureParameterivEXT;
+
   __glewGetVertexArrayIntegeri_vEXT: TPFNGLGETVERTEXARRAYINTEGERI_VEXTPROC; cvar;external libGLEW;
+  glGetVertexArrayIntegeri_vEXT: TPFNGLGETVERTEXARRAYINTEGERI_VEXTPROC absolute __glewGetVertexArrayIntegeri_vEXT;
+
   __glewGetVertexArrayIntegervEXT: TPFNGLGETVERTEXARRAYINTEGERVEXTPROC; cvar;external libGLEW;
+  glGetVertexArrayIntegervEXT: TPFNGLGETVERTEXARRAYINTEGERVEXTPROC absolute __glewGetVertexArrayIntegervEXT;
+
   __glewGetVertexArrayPointeri_vEXT: TPFNGLGETVERTEXARRAYPOINTERI_VEXTPROC; cvar;external libGLEW;
+  glGetVertexArrayPointeri_vEXT: TPFNGLGETVERTEXARRAYPOINTERI_VEXTPROC absolute __glewGetVertexArrayPointeri_vEXT;
+
   __glewGetVertexArrayPointervEXT: TPFNGLGETVERTEXARRAYPOINTERVEXTPROC; cvar;external libGLEW;
+  glGetVertexArrayPointervEXT: TPFNGLGETVERTEXARRAYPOINTERVEXTPROC absolute __glewGetVertexArrayPointervEXT;
+
   __glewMapNamedBufferEXT: TPFNGLMAPNAMEDBUFFEREXTPROC; cvar;external libGLEW;
+  glMapNamedBufferEXT: TPFNGLMAPNAMEDBUFFEREXTPROC absolute __glewMapNamedBufferEXT;
+
   __glewMapNamedBufferRangeEXT: TPFNGLMAPNAMEDBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glMapNamedBufferRangeEXT: TPFNGLMAPNAMEDBUFFERRANGEEXTPROC absolute __glewMapNamedBufferRangeEXT;
+
   __glewMatrixFrustumEXT: TPFNGLMATRIXFRUSTUMEXTPROC; cvar;external libGLEW;
+  glMatrixFrustumEXT: TPFNGLMATRIXFRUSTUMEXTPROC absolute __glewMatrixFrustumEXT;
+
   __glewMatrixLoadIdentityEXT: TPFNGLMATRIXLOADIDENTITYEXTPROC; cvar;external libGLEW;
+  glMatrixLoadIdentityEXT: TPFNGLMATRIXLOADIDENTITYEXTPROC absolute __glewMatrixLoadIdentityEXT;
+
   __glewMatrixLoadTransposedEXT: TPFNGLMATRIXLOADTRANSPOSEDEXTPROC; cvar;external libGLEW;
+  glMatrixLoadTransposedEXT: TPFNGLMATRIXLOADTRANSPOSEDEXTPROC absolute __glewMatrixLoadTransposedEXT;
+
   __glewMatrixLoadTransposefEXT: TPFNGLMATRIXLOADTRANSPOSEFEXTPROC; cvar;external libGLEW;
+  glMatrixLoadTransposefEXT: TPFNGLMATRIXLOADTRANSPOSEFEXTPROC absolute __glewMatrixLoadTransposefEXT;
+
   __glewMatrixLoaddEXT: TPFNGLMATRIXLOADDEXTPROC; cvar;external libGLEW;
+  glMatrixLoaddEXT: TPFNGLMATRIXLOADDEXTPROC absolute __glewMatrixLoaddEXT;
+
   __glewMatrixLoadfEXT: TPFNGLMATRIXLOADFEXTPROC; cvar;external libGLEW;
+  glMatrixLoadfEXT: TPFNGLMATRIXLOADFEXTPROC absolute __glewMatrixLoadfEXT;
+
   __glewMatrixMultTransposedEXT: TPFNGLMATRIXMULTTRANSPOSEDEXTPROC; cvar;external libGLEW;
+  glMatrixMultTransposedEXT: TPFNGLMATRIXMULTTRANSPOSEDEXTPROC absolute __glewMatrixMultTransposedEXT;
+
   __glewMatrixMultTransposefEXT: TPFNGLMATRIXMULTTRANSPOSEFEXTPROC; cvar;external libGLEW;
+  glMatrixMultTransposefEXT: TPFNGLMATRIXMULTTRANSPOSEFEXTPROC absolute __glewMatrixMultTransposefEXT;
+
   __glewMatrixMultdEXT: TPFNGLMATRIXMULTDEXTPROC; cvar;external libGLEW;
+  glMatrixMultdEXT: TPFNGLMATRIXMULTDEXTPROC absolute __glewMatrixMultdEXT;
+
   __glewMatrixMultfEXT: TPFNGLMATRIXMULTFEXTPROC; cvar;external libGLEW;
+  glMatrixMultfEXT: TPFNGLMATRIXMULTFEXTPROC absolute __glewMatrixMultfEXT;
+
   __glewMatrixOrthoEXT: TPFNGLMATRIXORTHOEXTPROC; cvar;external libGLEW;
+  glMatrixOrthoEXT: TPFNGLMATRIXORTHOEXTPROC absolute __glewMatrixOrthoEXT;
+
   __glewMatrixPopEXT: TPFNGLMATRIXPOPEXTPROC; cvar;external libGLEW;
+  glMatrixPopEXT: TPFNGLMATRIXPOPEXTPROC absolute __glewMatrixPopEXT;
+
   __glewMatrixPushEXT: TPFNGLMATRIXPUSHEXTPROC; cvar;external libGLEW;
+  glMatrixPushEXT: TPFNGLMATRIXPUSHEXTPROC absolute __glewMatrixPushEXT;
+
   __glewMatrixRotatedEXT: TPFNGLMATRIXROTATEDEXTPROC; cvar;external libGLEW;
+  glMatrixRotatedEXT: TPFNGLMATRIXROTATEDEXTPROC absolute __glewMatrixRotatedEXT;
+
   __glewMatrixRotatefEXT: TPFNGLMATRIXROTATEFEXTPROC; cvar;external libGLEW;
+  glMatrixRotatefEXT: TPFNGLMATRIXROTATEFEXTPROC absolute __glewMatrixRotatefEXT;
+
   __glewMatrixScaledEXT: TPFNGLMATRIXSCALEDEXTPROC; cvar;external libGLEW;
+  glMatrixScaledEXT: TPFNGLMATRIXSCALEDEXTPROC absolute __glewMatrixScaledEXT;
+
   __glewMatrixScalefEXT: TPFNGLMATRIXSCALEFEXTPROC; cvar;external libGLEW;
+  glMatrixScalefEXT: TPFNGLMATRIXSCALEFEXTPROC absolute __glewMatrixScalefEXT;
+
   __glewMatrixTranslatedEXT: TPFNGLMATRIXTRANSLATEDEXTPROC; cvar;external libGLEW;
+  glMatrixTranslatedEXT: TPFNGLMATRIXTRANSLATEDEXTPROC absolute __glewMatrixTranslatedEXT;
+
   __glewMatrixTranslatefEXT: TPFNGLMATRIXTRANSLATEFEXTPROC; cvar;external libGLEW;
+  glMatrixTranslatefEXT: TPFNGLMATRIXTRANSLATEFEXTPROC absolute __glewMatrixTranslatefEXT;
+
   __glewMultiTexBufferEXT: TPFNGLMULTITEXBUFFEREXTPROC; cvar;external libGLEW;
+  glMultiTexBufferEXT: TPFNGLMULTITEXBUFFEREXTPROC absolute __glewMultiTexBufferEXT;
+
   __glewMultiTexCoordPointerEXT: TPFNGLMULTITEXCOORDPOINTEREXTPROC; cvar;external libGLEW;
+  glMultiTexCoordPointerEXT: TPFNGLMULTITEXCOORDPOINTEREXTPROC absolute __glewMultiTexCoordPointerEXT;
+
   __glewMultiTexEnvfEXT: TPFNGLMULTITEXENVFEXTPROC; cvar;external libGLEW;
+  glMultiTexEnvfEXT: TPFNGLMULTITEXENVFEXTPROC absolute __glewMultiTexEnvfEXT;
+
   __glewMultiTexEnvfvEXT: TPFNGLMULTITEXENVFVEXTPROC; cvar;external libGLEW;
+  glMultiTexEnvfvEXT: TPFNGLMULTITEXENVFVEXTPROC absolute __glewMultiTexEnvfvEXT;
+
   __glewMultiTexEnviEXT: TPFNGLMULTITEXENVIEXTPROC; cvar;external libGLEW;
+  glMultiTexEnviEXT: TPFNGLMULTITEXENVIEXTPROC absolute __glewMultiTexEnviEXT;
+
   __glewMultiTexEnvivEXT: TPFNGLMULTITEXENVIVEXTPROC; cvar;external libGLEW;
+  glMultiTexEnvivEXT: TPFNGLMULTITEXENVIVEXTPROC absolute __glewMultiTexEnvivEXT;
+
   __glewMultiTexGendEXT: TPFNGLMULTITEXGENDEXTPROC; cvar;external libGLEW;
+  glMultiTexGendEXT: TPFNGLMULTITEXGENDEXTPROC absolute __glewMultiTexGendEXT;
+
   __glewMultiTexGendvEXT: TPFNGLMULTITEXGENDVEXTPROC; cvar;external libGLEW;
+  glMultiTexGendvEXT: TPFNGLMULTITEXGENDVEXTPROC absolute __glewMultiTexGendvEXT;
+
   __glewMultiTexGenfEXT: TPFNGLMULTITEXGENFEXTPROC; cvar;external libGLEW;
+  glMultiTexGenfEXT: TPFNGLMULTITEXGENFEXTPROC absolute __glewMultiTexGenfEXT;
+
   __glewMultiTexGenfvEXT: TPFNGLMULTITEXGENFVEXTPROC; cvar;external libGLEW;
+  glMultiTexGenfvEXT: TPFNGLMULTITEXGENFVEXTPROC absolute __glewMultiTexGenfvEXT;
+
   __glewMultiTexGeniEXT: TPFNGLMULTITEXGENIEXTPROC; cvar;external libGLEW;
+  glMultiTexGeniEXT: TPFNGLMULTITEXGENIEXTPROC absolute __glewMultiTexGeniEXT;
+
   __glewMultiTexGenivEXT: TPFNGLMULTITEXGENIVEXTPROC; cvar;external libGLEW;
+  glMultiTexGenivEXT: TPFNGLMULTITEXGENIVEXTPROC absolute __glewMultiTexGenivEXT;
+
   __glewMultiTexImage1DEXT: TPFNGLMULTITEXIMAGE1DEXTPROC; cvar;external libGLEW;
+  glMultiTexImage1DEXT: TPFNGLMULTITEXIMAGE1DEXTPROC absolute __glewMultiTexImage1DEXT;
+
   __glewMultiTexImage2DEXT: TPFNGLMULTITEXIMAGE2DEXTPROC; cvar;external libGLEW;
+  glMultiTexImage2DEXT: TPFNGLMULTITEXIMAGE2DEXTPROC absolute __glewMultiTexImage2DEXT;
+
   __glewMultiTexImage3DEXT: TPFNGLMULTITEXIMAGE3DEXTPROC; cvar;external libGLEW;
+  glMultiTexImage3DEXT: TPFNGLMULTITEXIMAGE3DEXTPROC absolute __glewMultiTexImage3DEXT;
+
   __glewMultiTexParameterIivEXT: TPFNGLMULTITEXPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glMultiTexParameterIivEXT: TPFNGLMULTITEXPARAMETERIIVEXTPROC absolute __glewMultiTexParameterIivEXT;
+
   __glewMultiTexParameterIuivEXT: TPFNGLMULTITEXPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glMultiTexParameterIuivEXT: TPFNGLMULTITEXPARAMETERIUIVEXTPROC absolute __glewMultiTexParameterIuivEXT;
+
   __glewMultiTexParameterfEXT: TPFNGLMULTITEXPARAMETERFEXTPROC; cvar;external libGLEW;
+  glMultiTexParameterfEXT: TPFNGLMULTITEXPARAMETERFEXTPROC absolute __glewMultiTexParameterfEXT;
+
   __glewMultiTexParameterfvEXT: TPFNGLMULTITEXPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glMultiTexParameterfvEXT: TPFNGLMULTITEXPARAMETERFVEXTPROC absolute __glewMultiTexParameterfvEXT;
+
   __glewMultiTexParameteriEXT: TPFNGLMULTITEXPARAMETERIEXTPROC; cvar;external libGLEW;
+  glMultiTexParameteriEXT: TPFNGLMULTITEXPARAMETERIEXTPROC absolute __glewMultiTexParameteriEXT;
+
   __glewMultiTexParameterivEXT: TPFNGLMULTITEXPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glMultiTexParameterivEXT: TPFNGLMULTITEXPARAMETERIVEXTPROC absolute __glewMultiTexParameterivEXT;
+
   __glewMultiTexRenderbufferEXT: TPFNGLMULTITEXRENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glMultiTexRenderbufferEXT: TPFNGLMULTITEXRENDERBUFFEREXTPROC absolute __glewMultiTexRenderbufferEXT;
+
   __glewMultiTexSubImage1DEXT: TPFNGLMULTITEXSUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glMultiTexSubImage1DEXT: TPFNGLMULTITEXSUBIMAGE1DEXTPROC absolute __glewMultiTexSubImage1DEXT;
+
   __glewMultiTexSubImage2DEXT: TPFNGLMULTITEXSUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glMultiTexSubImage2DEXT: TPFNGLMULTITEXSUBIMAGE2DEXTPROC absolute __glewMultiTexSubImage2DEXT;
+
   __glewMultiTexSubImage3DEXT: TPFNGLMULTITEXSUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glMultiTexSubImage3DEXT: TPFNGLMULTITEXSUBIMAGE3DEXTPROC absolute __glewMultiTexSubImage3DEXT;
+
   __glewNamedBufferDataEXT: TPFNGLNAMEDBUFFERDATAEXTPROC; cvar;external libGLEW;
+  glNamedBufferDataEXT: TPFNGLNAMEDBUFFERDATAEXTPROC absolute __glewNamedBufferDataEXT;
+
   __glewNamedBufferSubDataEXT: TPFNGLNAMEDBUFFERSUBDATAEXTPROC; cvar;external libGLEW;
+  glNamedBufferSubDataEXT: TPFNGLNAMEDBUFFERSUBDATAEXTPROC absolute __glewNamedBufferSubDataEXT;
+
   __glewNamedCopyBufferSubDataEXT: TPFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC; cvar;external libGLEW;
+  glNamedCopyBufferSubDataEXT: TPFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC absolute __glewNamedCopyBufferSubDataEXT;
+
   __glewNamedFramebufferRenderbufferEXT: TPFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glNamedFramebufferRenderbufferEXT: TPFNGLNAMEDFRAMEBUFFERRENDERBUFFEREXTPROC absolute __glewNamedFramebufferRenderbufferEXT;
+
   __glewNamedFramebufferTexture1DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTexture1DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE1DEXTPROC absolute __glewNamedFramebufferTexture1DEXT;
+
   __glewNamedFramebufferTexture2DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTexture2DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE2DEXTPROC absolute __glewNamedFramebufferTexture2DEXT;
+
   __glewNamedFramebufferTexture3DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTexture3DEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURE3DEXTPROC absolute __glewNamedFramebufferTexture3DEXT;
+
   __glewNamedFramebufferTextureEXT: TPFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTextureEXT: TPFNGLNAMEDFRAMEBUFFERTEXTUREEXTPROC absolute __glewNamedFramebufferTextureEXT;
+
   __glewNamedFramebufferTextureFaceEXT: TPFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTextureFaceEXT: TPFNGLNAMEDFRAMEBUFFERTEXTUREFACEEXTPROC absolute __glewNamedFramebufferTextureFaceEXT;
+
   __glewNamedFramebufferTextureLayerEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC; cvar;external libGLEW;
+  glNamedFramebufferTextureLayerEXT: TPFNGLNAMEDFRAMEBUFFERTEXTURELAYEREXTPROC absolute __glewNamedFramebufferTextureLayerEXT;
+
   __glewNamedProgramLocalParameter4dEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameter4dEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4DEXTPROC absolute __glewNamedProgramLocalParameter4dEXT;
+
   __glewNamedProgramLocalParameter4dvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameter4dvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4DVEXTPROC absolute __glewNamedProgramLocalParameter4dvEXT;
+
   __glewNamedProgramLocalParameter4fEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameter4fEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4FEXTPROC absolute __glewNamedProgramLocalParameter4fEXT;
+
   __glewNamedProgramLocalParameter4fvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameter4fvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETER4FVEXTPROC absolute __glewNamedProgramLocalParameter4fvEXT;
+
   __glewNamedProgramLocalParameterI4iEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameterI4iEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4IEXTPROC absolute __glewNamedProgramLocalParameterI4iEXT;
+
   __glewNamedProgramLocalParameterI4ivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameterI4ivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4IVEXTPROC absolute __glewNamedProgramLocalParameterI4ivEXT;
+
   __glewNamedProgramLocalParameterI4uiEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameterI4uiEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4UIEXTPROC absolute __glewNamedProgramLocalParameterI4uiEXT;
+
   __glewNamedProgramLocalParameterI4uivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameterI4uivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERI4UIVEXTPROC absolute __glewNamedProgramLocalParameterI4uivEXT;
+
   __glewNamedProgramLocalParameters4fvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParameters4fvEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERS4FVEXTPROC absolute __glewNamedProgramLocalParameters4fvEXT;
+
   __glewNamedProgramLocalParametersI4ivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParametersI4ivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERSI4IVEXTPROC absolute __glewNamedProgramLocalParametersI4ivEXT;
+
   __glewNamedProgramLocalParametersI4uivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC; cvar;external libGLEW;
+  glNamedProgramLocalParametersI4uivEXT: TPFNGLNAMEDPROGRAMLOCALPARAMETERSI4UIVEXTPROC absolute __glewNamedProgramLocalParametersI4uivEXT;
+
   __glewNamedProgramStringEXT: TPFNGLNAMEDPROGRAMSTRINGEXTPROC; cvar;external libGLEW;
+  glNamedProgramStringEXT: TPFNGLNAMEDPROGRAMSTRINGEXTPROC absolute __glewNamedProgramStringEXT;
+
   __glewNamedRenderbufferStorageEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorageEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEEXTPROC absolute __glewNamedRenderbufferStorageEXT;
+
   __glewNamedRenderbufferStorageMultisampleCoverageEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorageMultisampleCoverageEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLECOVERAGEEXTPROC absolute __glewNamedRenderbufferStorageMultisampleCoverageEXT;
+
   __glewNamedRenderbufferStorageMultisampleEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glNamedRenderbufferStorageMultisampleEXT: TPFNGLNAMEDRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC absolute __glewNamedRenderbufferStorageMultisampleEXT;
+
   __glewProgramUniform1fEXT: TPFNGLPROGRAMUNIFORM1FEXTPROC; cvar;external libGLEW;
+  glProgramUniform1fEXT: TPFNGLPROGRAMUNIFORM1FEXTPROC absolute __glewProgramUniform1fEXT;
+
   __glewProgramUniform1fvEXT: TPFNGLPROGRAMUNIFORM1FVEXTPROC; cvar;external libGLEW;
+  glProgramUniform1fvEXT: TPFNGLPROGRAMUNIFORM1FVEXTPROC absolute __glewProgramUniform1fvEXT;
+
   __glewProgramUniform1iEXT: TPFNGLPROGRAMUNIFORM1IEXTPROC; cvar;external libGLEW;
+  glProgramUniform1iEXT: TPFNGLPROGRAMUNIFORM1IEXTPROC absolute __glewProgramUniform1iEXT;
+
   __glewProgramUniform1ivEXT: TPFNGLPROGRAMUNIFORM1IVEXTPROC; cvar;external libGLEW;
+  glProgramUniform1ivEXT: TPFNGLPROGRAMUNIFORM1IVEXTPROC absolute __glewProgramUniform1ivEXT;
+
   __glewProgramUniform1uiEXT: TPFNGLPROGRAMUNIFORM1UIEXTPROC; cvar;external libGLEW;
+  glProgramUniform1uiEXT: TPFNGLPROGRAMUNIFORM1UIEXTPROC absolute __glewProgramUniform1uiEXT;
+
   __glewProgramUniform1uivEXT: TPFNGLPROGRAMUNIFORM1UIVEXTPROC; cvar;external libGLEW;
+  glProgramUniform1uivEXT: TPFNGLPROGRAMUNIFORM1UIVEXTPROC absolute __glewProgramUniform1uivEXT;
+
   __glewProgramUniform2fEXT: TPFNGLPROGRAMUNIFORM2FEXTPROC; cvar;external libGLEW;
+  glProgramUniform2fEXT: TPFNGLPROGRAMUNIFORM2FEXTPROC absolute __glewProgramUniform2fEXT;
+
   __glewProgramUniform2fvEXT: TPFNGLPROGRAMUNIFORM2FVEXTPROC; cvar;external libGLEW;
+  glProgramUniform2fvEXT: TPFNGLPROGRAMUNIFORM2FVEXTPROC absolute __glewProgramUniform2fvEXT;
+
   __glewProgramUniform2iEXT: TPFNGLPROGRAMUNIFORM2IEXTPROC; cvar;external libGLEW;
+  glProgramUniform2iEXT: TPFNGLPROGRAMUNIFORM2IEXTPROC absolute __glewProgramUniform2iEXT;
+
   __glewProgramUniform2ivEXT: TPFNGLPROGRAMUNIFORM2IVEXTPROC; cvar;external libGLEW;
+  glProgramUniform2ivEXT: TPFNGLPROGRAMUNIFORM2IVEXTPROC absolute __glewProgramUniform2ivEXT;
+
   __glewProgramUniform2uiEXT: TPFNGLPROGRAMUNIFORM2UIEXTPROC; cvar;external libGLEW;
+  glProgramUniform2uiEXT: TPFNGLPROGRAMUNIFORM2UIEXTPROC absolute __glewProgramUniform2uiEXT;
+
   __glewProgramUniform2uivEXT: TPFNGLPROGRAMUNIFORM2UIVEXTPROC; cvar;external libGLEW;
+  glProgramUniform2uivEXT: TPFNGLPROGRAMUNIFORM2UIVEXTPROC absolute __glewProgramUniform2uivEXT;
+
   __glewProgramUniform3fEXT: TPFNGLPROGRAMUNIFORM3FEXTPROC; cvar;external libGLEW;
+  glProgramUniform3fEXT: TPFNGLPROGRAMUNIFORM3FEXTPROC absolute __glewProgramUniform3fEXT;
+
   __glewProgramUniform3fvEXT: TPFNGLPROGRAMUNIFORM3FVEXTPROC; cvar;external libGLEW;
+  glProgramUniform3fvEXT: TPFNGLPROGRAMUNIFORM3FVEXTPROC absolute __glewProgramUniform3fvEXT;
+
   __glewProgramUniform3iEXT: TPFNGLPROGRAMUNIFORM3IEXTPROC; cvar;external libGLEW;
+  glProgramUniform3iEXT: TPFNGLPROGRAMUNIFORM3IEXTPROC absolute __glewProgramUniform3iEXT;
+
   __glewProgramUniform3ivEXT: TPFNGLPROGRAMUNIFORM3IVEXTPROC; cvar;external libGLEW;
+  glProgramUniform3ivEXT: TPFNGLPROGRAMUNIFORM3IVEXTPROC absolute __glewProgramUniform3ivEXT;
+
   __glewProgramUniform3uiEXT: TPFNGLPROGRAMUNIFORM3UIEXTPROC; cvar;external libGLEW;
+  glProgramUniform3uiEXT: TPFNGLPROGRAMUNIFORM3UIEXTPROC absolute __glewProgramUniform3uiEXT;
+
   __glewProgramUniform3uivEXT: TPFNGLPROGRAMUNIFORM3UIVEXTPROC; cvar;external libGLEW;
+  glProgramUniform3uivEXT: TPFNGLPROGRAMUNIFORM3UIVEXTPROC absolute __glewProgramUniform3uivEXT;
+
   __glewProgramUniform4fEXT: TPFNGLPROGRAMUNIFORM4FEXTPROC; cvar;external libGLEW;
+  glProgramUniform4fEXT: TPFNGLPROGRAMUNIFORM4FEXTPROC absolute __glewProgramUniform4fEXT;
+
   __glewProgramUniform4fvEXT: TPFNGLPROGRAMUNIFORM4FVEXTPROC; cvar;external libGLEW;
+  glProgramUniform4fvEXT: TPFNGLPROGRAMUNIFORM4FVEXTPROC absolute __glewProgramUniform4fvEXT;
+
   __glewProgramUniform4iEXT: TPFNGLPROGRAMUNIFORM4IEXTPROC; cvar;external libGLEW;
+  glProgramUniform4iEXT: TPFNGLPROGRAMUNIFORM4IEXTPROC absolute __glewProgramUniform4iEXT;
+
   __glewProgramUniform4ivEXT: TPFNGLPROGRAMUNIFORM4IVEXTPROC; cvar;external libGLEW;
+  glProgramUniform4ivEXT: TPFNGLPROGRAMUNIFORM4IVEXTPROC absolute __glewProgramUniform4ivEXT;
+
   __glewProgramUniform4uiEXT: TPFNGLPROGRAMUNIFORM4UIEXTPROC; cvar;external libGLEW;
+  glProgramUniform4uiEXT: TPFNGLPROGRAMUNIFORM4UIEXTPROC absolute __glewProgramUniform4uiEXT;
+
   __glewProgramUniform4uivEXT: TPFNGLPROGRAMUNIFORM4UIVEXTPROC; cvar;external libGLEW;
+  glProgramUniform4uivEXT: TPFNGLPROGRAMUNIFORM4UIVEXTPROC absolute __glewProgramUniform4uivEXT;
+
   __glewProgramUniformMatrix2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2FVEXTPROC absolute __glewProgramUniformMatrix2fvEXT;
+
   __glewProgramUniformMatrix2x3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2X3FVEXTPROC absolute __glewProgramUniformMatrix2x3fvEXT;
+
   __glewProgramUniformMatrix2x4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix2x4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX2X4FVEXTPROC absolute __glewProgramUniformMatrix2x4fvEXT;
+
   __glewProgramUniformMatrix3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3FVEXTPROC absolute __glewProgramUniformMatrix3fvEXT;
+
   __glewProgramUniformMatrix3x2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3X2FVEXTPROC absolute __glewProgramUniformMatrix3x2fvEXT;
+
   __glewProgramUniformMatrix3x4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix3x4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX3X4FVEXTPROC absolute __glewProgramUniformMatrix3x4fvEXT;
+
   __glewProgramUniformMatrix4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4FVEXTPROC absolute __glewProgramUniformMatrix4fvEXT;
+
   __glewProgramUniformMatrix4x2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x2fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4X2FVEXTPROC absolute __glewProgramUniformMatrix4x2fvEXT;
+
   __glewProgramUniformMatrix4x3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC; cvar;external libGLEW;
+  glProgramUniformMatrix4x3fvEXT: TPFNGLPROGRAMUNIFORMMATRIX4X3FVEXTPROC absolute __glewProgramUniformMatrix4x3fvEXT;
+
   __glewPushClientAttribDefaultEXT: TPFNGLPUSHCLIENTATTRIBDEFAULTEXTPROC; cvar;external libGLEW;
+  glPushClientAttribDefaultEXT: TPFNGLPUSHCLIENTATTRIBDEFAULTEXTPROC absolute __glewPushClientAttribDefaultEXT;
+
   __glewTextureBufferEXT: TPFNGLTEXTUREBUFFEREXTPROC; cvar;external libGLEW;
+  glTextureBufferEXT: TPFNGLTEXTUREBUFFEREXTPROC absolute __glewTextureBufferEXT;
+
   __glewTextureImage1DEXT: TPFNGLTEXTUREIMAGE1DEXTPROC; cvar;external libGLEW;
+  glTextureImage1DEXT: TPFNGLTEXTUREIMAGE1DEXTPROC absolute __glewTextureImage1DEXT;
+
   __glewTextureImage2DEXT: TPFNGLTEXTUREIMAGE2DEXTPROC; cvar;external libGLEW;
+  glTextureImage2DEXT: TPFNGLTEXTUREIMAGE2DEXTPROC absolute __glewTextureImage2DEXT;
+
   __glewTextureImage3DEXT: TPFNGLTEXTUREIMAGE3DEXTPROC; cvar;external libGLEW;
+  glTextureImage3DEXT: TPFNGLTEXTUREIMAGE3DEXTPROC absolute __glewTextureImage3DEXT;
+
   __glewTextureParameterIivEXT: TPFNGLTEXTUREPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glTextureParameterIivEXT: TPFNGLTEXTUREPARAMETERIIVEXTPROC absolute __glewTextureParameterIivEXT;
+
   __glewTextureParameterIuivEXT: TPFNGLTEXTUREPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glTextureParameterIuivEXT: TPFNGLTEXTUREPARAMETERIUIVEXTPROC absolute __glewTextureParameterIuivEXT;
+
   __glewTextureParameterfEXT: TPFNGLTEXTUREPARAMETERFEXTPROC; cvar;external libGLEW;
+  glTextureParameterfEXT: TPFNGLTEXTUREPARAMETERFEXTPROC absolute __glewTextureParameterfEXT;
+
   __glewTextureParameterfvEXT: TPFNGLTEXTUREPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glTextureParameterfvEXT: TPFNGLTEXTUREPARAMETERFVEXTPROC absolute __glewTextureParameterfvEXT;
+
   __glewTextureParameteriEXT: TPFNGLTEXTUREPARAMETERIEXTPROC; cvar;external libGLEW;
+  glTextureParameteriEXT: TPFNGLTEXTUREPARAMETERIEXTPROC absolute __glewTextureParameteriEXT;
+
   __glewTextureParameterivEXT: TPFNGLTEXTUREPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glTextureParameterivEXT: TPFNGLTEXTUREPARAMETERIVEXTPROC absolute __glewTextureParameterivEXT;
+
   __glewTextureRenderbufferEXT: TPFNGLTEXTURERENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glTextureRenderbufferEXT: TPFNGLTEXTURERENDERBUFFEREXTPROC absolute __glewTextureRenderbufferEXT;
+
   __glewTextureSubImage1DEXT: TPFNGLTEXTURESUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glTextureSubImage1DEXT: TPFNGLTEXTURESUBIMAGE1DEXTPROC absolute __glewTextureSubImage1DEXT;
+
   __glewTextureSubImage2DEXT: TPFNGLTEXTURESUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glTextureSubImage2DEXT: TPFNGLTEXTURESUBIMAGE2DEXTPROC absolute __glewTextureSubImage2DEXT;
+
   __glewTextureSubImage3DEXT: TPFNGLTEXTURESUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glTextureSubImage3DEXT: TPFNGLTEXTURESUBIMAGE3DEXTPROC absolute __glewTextureSubImage3DEXT;
+
   __glewUnmapNamedBufferEXT: TPFNGLUNMAPNAMEDBUFFEREXTPROC; cvar;external libGLEW;
+  glUnmapNamedBufferEXT: TPFNGLUNMAPNAMEDBUFFEREXTPROC absolute __glewUnmapNamedBufferEXT;
+
   __glewVertexArrayColorOffsetEXT: TPFNGLVERTEXARRAYCOLOROFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayColorOffsetEXT: TPFNGLVERTEXARRAYCOLOROFFSETEXTPROC absolute __glewVertexArrayColorOffsetEXT;
+
   __glewVertexArrayEdgeFlagOffsetEXT: TPFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayEdgeFlagOffsetEXT: TPFNGLVERTEXARRAYEDGEFLAGOFFSETEXTPROC absolute __glewVertexArrayEdgeFlagOffsetEXT;
+
   __glewVertexArrayFogCoordOffsetEXT: TPFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayFogCoordOffsetEXT: TPFNGLVERTEXARRAYFOGCOORDOFFSETEXTPROC absolute __glewVertexArrayFogCoordOffsetEXT;
+
   __glewVertexArrayIndexOffsetEXT: TPFNGLVERTEXARRAYINDEXOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayIndexOffsetEXT: TPFNGLVERTEXARRAYINDEXOFFSETEXTPROC absolute __glewVertexArrayIndexOffsetEXT;
+
   __glewVertexArrayMultiTexCoordOffsetEXT: TPFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayMultiTexCoordOffsetEXT: TPFNGLVERTEXARRAYMULTITEXCOORDOFFSETEXTPROC absolute __glewVertexArrayMultiTexCoordOffsetEXT;
+
   __glewVertexArrayNormalOffsetEXT: TPFNGLVERTEXARRAYNORMALOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayNormalOffsetEXT: TPFNGLVERTEXARRAYNORMALOFFSETEXTPROC absolute __glewVertexArrayNormalOffsetEXT;
+
   __glewVertexArraySecondaryColorOffsetEXT: TPFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArraySecondaryColorOffsetEXT: TPFNGLVERTEXARRAYSECONDARYCOLOROFFSETEXTPROC absolute __glewVertexArraySecondaryColorOffsetEXT;
+
   __glewVertexArrayTexCoordOffsetEXT: TPFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayTexCoordOffsetEXT: TPFNGLVERTEXARRAYTEXCOORDOFFSETEXTPROC absolute __glewVertexArrayTexCoordOffsetEXT;
+
   __glewVertexArrayVertexAttribDivisorEXT: TPFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribDivisorEXT: TPFNGLVERTEXARRAYVERTEXATTRIBDIVISOREXTPROC absolute __glewVertexArrayVertexAttribDivisorEXT;
+
   __glewVertexArrayVertexAttribIOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribIOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBIOFFSETEXTPROC absolute __glewVertexArrayVertexAttribIOffsetEXT;
+
   __glewVertexArrayVertexAttribOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBOFFSETEXTPROC absolute __glewVertexArrayVertexAttribOffsetEXT;
+
   __glewVertexArrayVertexOffsetEXT: TPFNGLVERTEXARRAYVERTEXOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexOffsetEXT: TPFNGLVERTEXARRAYVERTEXOFFSETEXTPROC absolute __glewVertexArrayVertexOffsetEXT;
+
   __glewDiscardFramebufferEXT: TPFNGLDISCARDFRAMEBUFFEREXTPROC; cvar;external libGLEW;
+  glDiscardFramebufferEXT: TPFNGLDISCARDFRAMEBUFFEREXTPROC absolute __glewDiscardFramebufferEXT;
+
   __glewBeginQueryEXT: TPFNGLBEGINQUERYEXTPROC; cvar;external libGLEW;
+  glBeginQueryEXT: TPFNGLBEGINQUERYEXTPROC absolute __glewBeginQueryEXT;
+
   __glewDeleteQueriesEXT: TPFNGLDELETEQUERIESEXTPROC; cvar;external libGLEW;
+  glDeleteQueriesEXT: TPFNGLDELETEQUERIESEXTPROC absolute __glewDeleteQueriesEXT;
+
   __glewEndQueryEXT: TPFNGLENDQUERYEXTPROC; cvar;external libGLEW;
+  glEndQueryEXT: TPFNGLENDQUERYEXTPROC absolute __glewEndQueryEXT;
+
   __glewGenQueriesEXT: TPFNGLGENQUERIESEXTPROC; cvar;external libGLEW;
+  glGenQueriesEXT: TPFNGLGENQUERIESEXTPROC absolute __glewGenQueriesEXT;
+
   __glewGetInteger64vEXT: TPFNGLGETINTEGER64VEXTPROC; cvar;external libGLEW;
+  glGetInteger64vEXT: TPFNGLGETINTEGER64VEXTPROC absolute __glewGetInteger64vEXT;
+
   __glewGetQueryObjectivEXT: TPFNGLGETQUERYOBJECTIVEXTPROC; cvar;external libGLEW;
+  glGetQueryObjectivEXT: TPFNGLGETQUERYOBJECTIVEXTPROC absolute __glewGetQueryObjectivEXT;
+
   __glewGetQueryObjectuivEXT: TPFNGLGETQUERYOBJECTUIVEXTPROC; cvar;external libGLEW;
+  glGetQueryObjectuivEXT: TPFNGLGETQUERYOBJECTUIVEXTPROC absolute __glewGetQueryObjectuivEXT;
+
   __glewGetQueryivEXT: TPFNGLGETQUERYIVEXTPROC; cvar;external libGLEW;
+  glGetQueryivEXT: TPFNGLGETQUERYIVEXTPROC absolute __glewGetQueryivEXT;
+
   __glewIsQueryEXT: TPFNGLISQUERYEXTPROC; cvar;external libGLEW;
+  glIsQueryEXT: TPFNGLISQUERYEXTPROC absolute __glewIsQueryEXT;
+
   __glewQueryCounterEXT: TPFNGLQUERYCOUNTEREXTPROC; cvar;external libGLEW;
+  glQueryCounterEXT: TPFNGLQUERYCOUNTEREXTPROC absolute __glewQueryCounterEXT;
+
   __glewDrawBuffersEXT: TPFNGLDRAWBUFFERSEXTPROC; cvar;external libGLEW;
+  glDrawBuffersEXT: TPFNGLDRAWBUFFERSEXTPROC absolute __glewDrawBuffersEXT;
+
   __glewColorMaskIndexedEXT: TPFNGLCOLORMASKINDEXEDEXTPROC; cvar;external libGLEW;
+  glColorMaskIndexedEXT: TPFNGLCOLORMASKINDEXEDEXTPROC absolute __glewColorMaskIndexedEXT;
+
   __glewDisableIndexedEXT: TPFNGLDISABLEINDEXEDEXTPROC; cvar;external libGLEW;
+  glDisableIndexedEXT: TPFNGLDISABLEINDEXEDEXTPROC absolute __glewDisableIndexedEXT;
+
   __glewEnableIndexedEXT: TPFNGLENABLEINDEXEDEXTPROC; cvar;external libGLEW;
+  glEnableIndexedEXT: TPFNGLENABLEINDEXEDEXTPROC absolute __glewEnableIndexedEXT;
+
   __glewGetBooleanIndexedvEXT: TPFNGLGETBOOLEANINDEXEDVEXTPROC; cvar;external libGLEW;
+  glGetBooleanIndexedvEXT: TPFNGLGETBOOLEANINDEXEDVEXTPROC absolute __glewGetBooleanIndexedvEXT;
+
   __glewGetIntegerIndexedvEXT: TPFNGLGETINTEGERINDEXEDVEXTPROC; cvar;external libGLEW;
+  glGetIntegerIndexedvEXT: TPFNGLGETINTEGERINDEXEDVEXTPROC absolute __glewGetIntegerIndexedvEXT;
+
   __glewIsEnabledIndexedEXT: TPFNGLISENABLEDINDEXEDEXTPROC; cvar;external libGLEW;
+  glIsEnabledIndexedEXT: TPFNGLISENABLEDINDEXEDEXTPROC absolute __glewIsEnabledIndexedEXT;
+
   __glewBlendEquationSeparateiEXT: TPFNGLBLENDEQUATIONSEPARATEIEXTPROC; cvar;external libGLEW;
+  glBlendEquationSeparateiEXT: TPFNGLBLENDEQUATIONSEPARATEIEXTPROC absolute __glewBlendEquationSeparateiEXT;
+
   __glewBlendEquationiEXT: TPFNGLBLENDEQUATIONIEXTPROC; cvar;external libGLEW;
+  glBlendEquationiEXT: TPFNGLBLENDEQUATIONIEXTPROC absolute __glewBlendEquationiEXT;
+
   __glewBlendFuncSeparateiEXT: TPFNGLBLENDFUNCSEPARATEIEXTPROC; cvar;external libGLEW;
+  glBlendFuncSeparateiEXT: TPFNGLBLENDFUNCSEPARATEIEXTPROC absolute __glewBlendFuncSeparateiEXT;
+
   __glewBlendFunciEXT: TPFNGLBLENDFUNCIEXTPROC; cvar;external libGLEW;
+  glBlendFunciEXT: TPFNGLBLENDFUNCIEXTPROC absolute __glewBlendFunciEXT;
+
   __glewColorMaskiEXT: TPFNGLCOLORMASKIEXTPROC; cvar;external libGLEW;
+  glColorMaskiEXT: TPFNGLCOLORMASKIEXTPROC absolute __glewColorMaskiEXT;
+
   __glewDisableiEXT: TPFNGLDISABLEIEXTPROC; cvar;external libGLEW;
+  glDisableiEXT: TPFNGLDISABLEIEXTPROC absolute __glewDisableiEXT;
+
   __glewEnableiEXT: TPFNGLENABLEIEXTPROC; cvar;external libGLEW;
+  glEnableiEXT: TPFNGLENABLEIEXTPROC absolute __glewEnableiEXT;
+
   __glewIsEnablediEXT: TPFNGLISENABLEDIEXTPROC; cvar;external libGLEW;
+  glIsEnablediEXT: TPFNGLISENABLEDIEXTPROC absolute __glewIsEnablediEXT;
+
   __glewDrawElementsBaseVertexEXT: TPFNGLDRAWELEMENTSBASEVERTEXEXTPROC; cvar;external libGLEW;
+  glDrawElementsBaseVertexEXT: TPFNGLDRAWELEMENTSBASEVERTEXEXTPROC absolute __glewDrawElementsBaseVertexEXT;
+
   __glewDrawElementsInstancedBaseVertexEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXEXTPROC; cvar;external libGLEW;
+  glDrawElementsInstancedBaseVertexEXT: TPFNGLDRAWELEMENTSINSTANCEDBASEVERTEXEXTPROC absolute __glewDrawElementsInstancedBaseVertexEXT;
+
   __glewDrawRangeElementsBaseVertexEXT: TPFNGLDRAWRANGEELEMENTSBASEVERTEXEXTPROC; cvar;external libGLEW;
+  glDrawRangeElementsBaseVertexEXT: TPFNGLDRAWRANGEELEMENTSBASEVERTEXEXTPROC absolute __glewDrawRangeElementsBaseVertexEXT;
+
   __glewMultiDrawElementsBaseVertexEXT: TPFNGLMULTIDRAWELEMENTSBASEVERTEXEXTPROC; cvar;external libGLEW;
+  glMultiDrawElementsBaseVertexEXT: TPFNGLMULTIDRAWELEMENTSBASEVERTEXEXTPROC absolute __glewMultiDrawElementsBaseVertexEXT;
+
   __glewDrawArraysInstancedEXT: TPFNGLDRAWARRAYSINSTANCEDEXTPROC; cvar;external libGLEW;
+  glDrawArraysInstancedEXT: TPFNGLDRAWARRAYSINSTANCEDEXTPROC absolute __glewDrawArraysInstancedEXT;
+
   __glewDrawElementsInstancedEXT: TPFNGLDRAWELEMENTSINSTANCEDEXTPROC; cvar;external libGLEW;
+  glDrawElementsInstancedEXT: TPFNGLDRAWELEMENTSINSTANCEDEXTPROC absolute __glewDrawElementsInstancedEXT;
+
   __glewDrawRangeElementsEXT: TPFNGLDRAWRANGEELEMENTSEXTPROC; cvar;external libGLEW;
+  glDrawRangeElementsEXT: TPFNGLDRAWRANGEELEMENTSEXTPROC absolute __glewDrawRangeElementsEXT;
+
   __glewDrawTransformFeedbackEXT: TPFNGLDRAWTRANSFORMFEEDBACKEXTPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackEXT: TPFNGLDRAWTRANSFORMFEEDBACKEXTPROC absolute __glewDrawTransformFeedbackEXT;
+
   __glewDrawTransformFeedbackInstancedEXT: TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDEXTPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackInstancedEXT: TPFNGLDRAWTRANSFORMFEEDBACKINSTANCEDEXTPROC absolute __glewDrawTransformFeedbackInstancedEXT;
+
   __glewBufferStorageExternalEXT: TPFNGLBUFFERSTORAGEEXTERNALEXTPROC; cvar;external libGLEW;
+  glBufferStorageExternalEXT: TPFNGLBUFFERSTORAGEEXTERNALEXTPROC absolute __glewBufferStorageExternalEXT;
+
   __glewNamedBufferStorageExternalEXT: TPFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC; cvar;external libGLEW;
+  glNamedBufferStorageExternalEXT: TPFNGLNAMEDBUFFERSTORAGEEXTERNALEXTPROC absolute __glewNamedBufferStorageExternalEXT;
+
   __glewFogCoordPointerEXT: TPFNGLFOGCOORDPOINTEREXTPROC; cvar;external libGLEW;
+  glFogCoordPointerEXT: TPFNGLFOGCOORDPOINTEREXTPROC absolute __glewFogCoordPointerEXT;
+
   __glewFogCoorddEXT: TPFNGLFOGCOORDDEXTPROC; cvar;external libGLEW;
+  glFogCoorddEXT: TPFNGLFOGCOORDDEXTPROC absolute __glewFogCoorddEXT;
+
   __glewFogCoorddvEXT: TPFNGLFOGCOORDDVEXTPROC; cvar;external libGLEW;
+  glFogCoorddvEXT: TPFNGLFOGCOORDDVEXTPROC absolute __glewFogCoorddvEXT;
+
   __glewFogCoordfEXT: TPFNGLFOGCOORDFEXTPROC; cvar;external libGLEW;
+  glFogCoordfEXT: TPFNGLFOGCOORDFEXTPROC absolute __glewFogCoordfEXT;
+
   __glewFogCoordfvEXT: TPFNGLFOGCOORDFVEXTPROC; cvar;external libGLEW;
+  glFogCoordfvEXT: TPFNGLFOGCOORDFVEXTPROC absolute __glewFogCoordfvEXT;
+
   __glewFragmentColorMaterialEXT: TPFNGLFRAGMENTCOLORMATERIALEXTPROC; cvar;external libGLEW;
+  glFragmentColorMaterialEXT: TPFNGLFRAGMENTCOLORMATERIALEXTPROC absolute __glewFragmentColorMaterialEXT;
+
   __glewFragmentLightModelfEXT: TPFNGLFRAGMENTLIGHTMODELFEXTPROC; cvar;external libGLEW;
+  glFragmentLightModelfEXT: TPFNGLFRAGMENTLIGHTMODELFEXTPROC absolute __glewFragmentLightModelfEXT;
+
   __glewFragmentLightModelfvEXT: TPFNGLFRAGMENTLIGHTMODELFVEXTPROC; cvar;external libGLEW;
+  glFragmentLightModelfvEXT: TPFNGLFRAGMENTLIGHTMODELFVEXTPROC absolute __glewFragmentLightModelfvEXT;
+
   __glewFragmentLightModeliEXT: TPFNGLFRAGMENTLIGHTMODELIEXTPROC; cvar;external libGLEW;
+  glFragmentLightModeliEXT: TPFNGLFRAGMENTLIGHTMODELIEXTPROC absolute __glewFragmentLightModeliEXT;
+
   __glewFragmentLightModelivEXT: TPFNGLFRAGMENTLIGHTMODELIVEXTPROC; cvar;external libGLEW;
+  glFragmentLightModelivEXT: TPFNGLFRAGMENTLIGHTMODELIVEXTPROC absolute __glewFragmentLightModelivEXT;
+
   __glewFragmentLightfEXT: TPFNGLFRAGMENTLIGHTFEXTPROC; cvar;external libGLEW;
+  glFragmentLightfEXT: TPFNGLFRAGMENTLIGHTFEXTPROC absolute __glewFragmentLightfEXT;
+
   __glewFragmentLightfvEXT: TPFNGLFRAGMENTLIGHTFVEXTPROC; cvar;external libGLEW;
+  glFragmentLightfvEXT: TPFNGLFRAGMENTLIGHTFVEXTPROC absolute __glewFragmentLightfvEXT;
+
   __glewFragmentLightiEXT: TPFNGLFRAGMENTLIGHTIEXTPROC; cvar;external libGLEW;
+  glFragmentLightiEXT: TPFNGLFRAGMENTLIGHTIEXTPROC absolute __glewFragmentLightiEXT;
+
   __glewFragmentLightivEXT: TPFNGLFRAGMENTLIGHTIVEXTPROC; cvar;external libGLEW;
+  glFragmentLightivEXT: TPFNGLFRAGMENTLIGHTIVEXTPROC absolute __glewFragmentLightivEXT;
+
   __glewFragmentMaterialfEXT: TPFNGLFRAGMENTMATERIALFEXTPROC; cvar;external libGLEW;
+  glFragmentMaterialfEXT: TPFNGLFRAGMENTMATERIALFEXTPROC absolute __glewFragmentMaterialfEXT;
+
   __glewFragmentMaterialfvEXT: TPFNGLFRAGMENTMATERIALFVEXTPROC; cvar;external libGLEW;
+  glFragmentMaterialfvEXT: TPFNGLFRAGMENTMATERIALFVEXTPROC absolute __glewFragmentMaterialfvEXT;
+
   __glewFragmentMaterialiEXT: TPFNGLFRAGMENTMATERIALIEXTPROC; cvar;external libGLEW;
+  glFragmentMaterialiEXT: TPFNGLFRAGMENTMATERIALIEXTPROC absolute __glewFragmentMaterialiEXT;
+
   __glewFragmentMaterialivEXT: TPFNGLFRAGMENTMATERIALIVEXTPROC; cvar;external libGLEW;
+  glFragmentMaterialivEXT: TPFNGLFRAGMENTMATERIALIVEXTPROC absolute __glewFragmentMaterialivEXT;
+
   __glewGetFragmentLightfvEXT: TPFNGLGETFRAGMENTLIGHTFVEXTPROC; cvar;external libGLEW;
+  glGetFragmentLightfvEXT: TPFNGLGETFRAGMENTLIGHTFVEXTPROC absolute __glewGetFragmentLightfvEXT;
+
   __glewGetFragmentLightivEXT: TPFNGLGETFRAGMENTLIGHTIVEXTPROC; cvar;external libGLEW;
+  glGetFragmentLightivEXT: TPFNGLGETFRAGMENTLIGHTIVEXTPROC absolute __glewGetFragmentLightivEXT;
+
   __glewGetFragmentMaterialfvEXT: TPFNGLGETFRAGMENTMATERIALFVEXTPROC; cvar;external libGLEW;
+  glGetFragmentMaterialfvEXT: TPFNGLGETFRAGMENTMATERIALFVEXTPROC absolute __glewGetFragmentMaterialfvEXT;
+
   __glewGetFragmentMaterialivEXT: TPFNGLGETFRAGMENTMATERIALIVEXTPROC; cvar;external libGLEW;
+  glGetFragmentMaterialivEXT: TPFNGLGETFRAGMENTMATERIALIVEXTPROC absolute __glewGetFragmentMaterialivEXT;
+
   __glewLightEnviEXT: TPFNGLLIGHTENVIEXTPROC; cvar;external libGLEW;
+  glLightEnviEXT: TPFNGLLIGHTENVIEXTPROC absolute __glewLightEnviEXT;
+
   __glewBlitFramebufferEXT: TPFNGLBLITFRAMEBUFFEREXTPROC; cvar;external libGLEW;
+  glBlitFramebufferEXT: TPFNGLBLITFRAMEBUFFEREXTPROC absolute __glewBlitFramebufferEXT;
+
   __glewRenderbufferStorageMultisampleEXT: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleEXT: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC absolute __glewRenderbufferStorageMultisampleEXT;
+
   __glewBindFramebufferEXT: TPFNGLBINDFRAMEBUFFEREXTPROC; cvar;external libGLEW;
+  glBindFramebufferEXT: TPFNGLBINDFRAMEBUFFEREXTPROC absolute __glewBindFramebufferEXT;
+
   __glewBindRenderbufferEXT: TPFNGLBINDRENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glBindRenderbufferEXT: TPFNGLBINDRENDERBUFFEREXTPROC absolute __glewBindRenderbufferEXT;
+
   __glewCheckFramebufferStatusEXT: TPFNGLCHECKFRAMEBUFFERSTATUSEXTPROC; cvar;external libGLEW;
+  glCheckFramebufferStatusEXT: TPFNGLCHECKFRAMEBUFFERSTATUSEXTPROC absolute __glewCheckFramebufferStatusEXT;
+
   __glewDeleteFramebuffersEXT: TPFNGLDELETEFRAMEBUFFERSEXTPROC; cvar;external libGLEW;
+  glDeleteFramebuffersEXT: TPFNGLDELETEFRAMEBUFFERSEXTPROC absolute __glewDeleteFramebuffersEXT;
+
   __glewDeleteRenderbuffersEXT: TPFNGLDELETERENDERBUFFERSEXTPROC; cvar;external libGLEW;
+  glDeleteRenderbuffersEXT: TPFNGLDELETERENDERBUFFERSEXTPROC absolute __glewDeleteRenderbuffersEXT;
+
   __glewFramebufferRenderbufferEXT: TPFNGLFRAMEBUFFERRENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glFramebufferRenderbufferEXT: TPFNGLFRAMEBUFFERRENDERBUFFEREXTPROC absolute __glewFramebufferRenderbufferEXT;
+
   __glewFramebufferTexture1DEXT: TPFNGLFRAMEBUFFERTEXTURE1DEXTPROC; cvar;external libGLEW;
+  glFramebufferTexture1DEXT: TPFNGLFRAMEBUFFERTEXTURE1DEXTPROC absolute __glewFramebufferTexture1DEXT;
+
   __glewFramebufferTexture2DEXT: TPFNGLFRAMEBUFFERTEXTURE2DEXTPROC; cvar;external libGLEW;
+  glFramebufferTexture2DEXT: TPFNGLFRAMEBUFFERTEXTURE2DEXTPROC absolute __glewFramebufferTexture2DEXT;
+
   __glewFramebufferTexture3DEXT: TPFNGLFRAMEBUFFERTEXTURE3DEXTPROC; cvar;external libGLEW;
+  glFramebufferTexture3DEXT: TPFNGLFRAMEBUFFERTEXTURE3DEXTPROC absolute __glewFramebufferTexture3DEXT;
+
   __glewGenFramebuffersEXT: TPFNGLGENFRAMEBUFFERSEXTPROC; cvar;external libGLEW;
+  glGenFramebuffersEXT: TPFNGLGENFRAMEBUFFERSEXTPROC absolute __glewGenFramebuffersEXT;
+
   __glewGenRenderbuffersEXT: TPFNGLGENRENDERBUFFERSEXTPROC; cvar;external libGLEW;
+  glGenRenderbuffersEXT: TPFNGLGENRENDERBUFFERSEXTPROC absolute __glewGenRenderbuffersEXT;
+
   __glewGenerateMipmapEXT: TPFNGLGENERATEMIPMAPEXTPROC; cvar;external libGLEW;
+  glGenerateMipmapEXT: TPFNGLGENERATEMIPMAPEXTPROC absolute __glewGenerateMipmapEXT;
+
   __glewGetFramebufferAttachmentParameterivEXT: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetFramebufferAttachmentParameterivEXT: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC absolute __glewGetFramebufferAttachmentParameterivEXT;
+
   __glewGetRenderbufferParameterivEXT: TPFNGLGETRENDERBUFFERPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetRenderbufferParameterivEXT: TPFNGLGETRENDERBUFFERPARAMETERIVEXTPROC absolute __glewGetRenderbufferParameterivEXT;
+
   __glewIsFramebufferEXT: TPFNGLISFRAMEBUFFEREXTPROC; cvar;external libGLEW;
+  glIsFramebufferEXT: TPFNGLISFRAMEBUFFEREXTPROC absolute __glewIsFramebufferEXT;
+
   __glewIsRenderbufferEXT: TPFNGLISRENDERBUFFEREXTPROC; cvar;external libGLEW;
+  glIsRenderbufferEXT: TPFNGLISRENDERBUFFEREXTPROC absolute __glewIsRenderbufferEXT;
+
   __glewRenderbufferStorageEXT: TPFNGLRENDERBUFFERSTORAGEEXTPROC; cvar;external libGLEW;
+  glRenderbufferStorageEXT: TPFNGLRENDERBUFFERSTORAGEEXTPROC absolute __glewRenderbufferStorageEXT;
+
   __glewFramebufferTextureEXT: TPFNGLFRAMEBUFFERTEXTUREEXTPROC; cvar;external libGLEW;
+  glFramebufferTextureEXT: TPFNGLFRAMEBUFFERTEXTUREEXTPROC absolute __glewFramebufferTextureEXT;
+
   __glewFramebufferTextureFaceEXT: TPFNGLFRAMEBUFFERTEXTUREFACEEXTPROC; cvar;external libGLEW;
+  glFramebufferTextureFaceEXT: TPFNGLFRAMEBUFFERTEXTUREFACEEXTPROC absolute __glewFramebufferTextureFaceEXT;
+
   __glewProgramParameteriEXT: TPFNGLPROGRAMPARAMETERIEXTPROC; cvar;external libGLEW;
+  glProgramParameteriEXT: TPFNGLPROGRAMPARAMETERIEXTPROC absolute __glewProgramParameteriEXT;
+
   __glewProgramEnvParameters4fvEXT: TPFNGLPROGRAMENVPARAMETERS4FVEXTPROC; cvar;external libGLEW;
+  glProgramEnvParameters4fvEXT: TPFNGLPROGRAMENVPARAMETERS4FVEXTPROC absolute __glewProgramEnvParameters4fvEXT;
+
   __glewProgramLocalParameters4fvEXT: TPFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC; cvar;external libGLEW;
+  glProgramLocalParameters4fvEXT: TPFNGLPROGRAMLOCALPARAMETERS4FVEXTPROC absolute __glewProgramLocalParameters4fvEXT;
+
   __glewBindFragDataLocationEXT: TPFNGLBINDFRAGDATALOCATIONEXTPROC; cvar;external libGLEW;
+  glBindFragDataLocationEXT: TPFNGLBINDFRAGDATALOCATIONEXTPROC absolute __glewBindFragDataLocationEXT;
+
   __glewGetFragDataLocationEXT: TPFNGLGETFRAGDATALOCATIONEXTPROC; cvar;external libGLEW;
+  glGetFragDataLocationEXT: TPFNGLGETFRAGDATALOCATIONEXTPROC absolute __glewGetFragDataLocationEXT;
+
   __glewGetUniformuivEXT: TPFNGLGETUNIFORMUIVEXTPROC; cvar;external libGLEW;
+  glGetUniformuivEXT: TPFNGLGETUNIFORMUIVEXTPROC absolute __glewGetUniformuivEXT;
+
   __glewGetVertexAttribIivEXT: TPFNGLGETVERTEXATTRIBIIVEXTPROC; cvar;external libGLEW;
+  glGetVertexAttribIivEXT: TPFNGLGETVERTEXATTRIBIIVEXTPROC absolute __glewGetVertexAttribIivEXT;
+
   __glewGetVertexAttribIuivEXT: TPFNGLGETVERTEXATTRIBIUIVEXTPROC; cvar;external libGLEW;
+  glGetVertexAttribIuivEXT: TPFNGLGETVERTEXATTRIBIUIVEXTPROC absolute __glewGetVertexAttribIuivEXT;
+
   __glewUniform1uiEXT: TPFNGLUNIFORM1UIEXTPROC; cvar;external libGLEW;
+  glUniform1uiEXT: TPFNGLUNIFORM1UIEXTPROC absolute __glewUniform1uiEXT;
+
   __glewUniform1uivEXT: TPFNGLUNIFORM1UIVEXTPROC; cvar;external libGLEW;
+  glUniform1uivEXT: TPFNGLUNIFORM1UIVEXTPROC absolute __glewUniform1uivEXT;
+
   __glewUniform2uiEXT: TPFNGLUNIFORM2UIEXTPROC; cvar;external libGLEW;
+  glUniform2uiEXT: TPFNGLUNIFORM2UIEXTPROC absolute __glewUniform2uiEXT;
+
   __glewUniform2uivEXT: TPFNGLUNIFORM2UIVEXTPROC; cvar;external libGLEW;
+  glUniform2uivEXT: TPFNGLUNIFORM2UIVEXTPROC absolute __glewUniform2uivEXT;
+
   __glewUniform3uiEXT: TPFNGLUNIFORM3UIEXTPROC; cvar;external libGLEW;
+  glUniform3uiEXT: TPFNGLUNIFORM3UIEXTPROC absolute __glewUniform3uiEXT;
+
   __glewUniform3uivEXT: TPFNGLUNIFORM3UIVEXTPROC; cvar;external libGLEW;
+  glUniform3uivEXT: TPFNGLUNIFORM3UIVEXTPROC absolute __glewUniform3uivEXT;
+
   __glewUniform4uiEXT: TPFNGLUNIFORM4UIEXTPROC; cvar;external libGLEW;
+  glUniform4uiEXT: TPFNGLUNIFORM4UIEXTPROC absolute __glewUniform4uiEXT;
+
   __glewUniform4uivEXT: TPFNGLUNIFORM4UIVEXTPROC; cvar;external libGLEW;
+  glUniform4uivEXT: TPFNGLUNIFORM4UIVEXTPROC absolute __glewUniform4uivEXT;
+
   __glewVertexAttribI1iEXT: TPFNGLVERTEXATTRIBI1IEXTPROC; cvar;external libGLEW;
+  glVertexAttribI1iEXT: TPFNGLVERTEXATTRIBI1IEXTPROC absolute __glewVertexAttribI1iEXT;
+
   __glewVertexAttribI1ivEXT: TPFNGLVERTEXATTRIBI1IVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI1ivEXT: TPFNGLVERTEXATTRIBI1IVEXTPROC absolute __glewVertexAttribI1ivEXT;
+
   __glewVertexAttribI1uiEXT: TPFNGLVERTEXATTRIBI1UIEXTPROC; cvar;external libGLEW;
+  glVertexAttribI1uiEXT: TPFNGLVERTEXATTRIBI1UIEXTPROC absolute __glewVertexAttribI1uiEXT;
+
   __glewVertexAttribI1uivEXT: TPFNGLVERTEXATTRIBI1UIVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI1uivEXT: TPFNGLVERTEXATTRIBI1UIVEXTPROC absolute __glewVertexAttribI1uivEXT;
+
   __glewVertexAttribI2iEXT: TPFNGLVERTEXATTRIBI2IEXTPROC; cvar;external libGLEW;
+  glVertexAttribI2iEXT: TPFNGLVERTEXATTRIBI2IEXTPROC absolute __glewVertexAttribI2iEXT;
+
   __glewVertexAttribI2ivEXT: TPFNGLVERTEXATTRIBI2IVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI2ivEXT: TPFNGLVERTEXATTRIBI2IVEXTPROC absolute __glewVertexAttribI2ivEXT;
+
   __glewVertexAttribI2uiEXT: TPFNGLVERTEXATTRIBI2UIEXTPROC; cvar;external libGLEW;
+  glVertexAttribI2uiEXT: TPFNGLVERTEXATTRIBI2UIEXTPROC absolute __glewVertexAttribI2uiEXT;
+
   __glewVertexAttribI2uivEXT: TPFNGLVERTEXATTRIBI2UIVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI2uivEXT: TPFNGLVERTEXATTRIBI2UIVEXTPROC absolute __glewVertexAttribI2uivEXT;
+
   __glewVertexAttribI3iEXT: TPFNGLVERTEXATTRIBI3IEXTPROC; cvar;external libGLEW;
+  glVertexAttribI3iEXT: TPFNGLVERTEXATTRIBI3IEXTPROC absolute __glewVertexAttribI3iEXT;
+
   __glewVertexAttribI3ivEXT: TPFNGLVERTEXATTRIBI3IVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI3ivEXT: TPFNGLVERTEXATTRIBI3IVEXTPROC absolute __glewVertexAttribI3ivEXT;
+
   __glewVertexAttribI3uiEXT: TPFNGLVERTEXATTRIBI3UIEXTPROC; cvar;external libGLEW;
+  glVertexAttribI3uiEXT: TPFNGLVERTEXATTRIBI3UIEXTPROC absolute __glewVertexAttribI3uiEXT;
+
   __glewVertexAttribI3uivEXT: TPFNGLVERTEXATTRIBI3UIVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI3uivEXT: TPFNGLVERTEXATTRIBI3UIVEXTPROC absolute __glewVertexAttribI3uivEXT;
+
   __glewVertexAttribI4bvEXT: TPFNGLVERTEXATTRIBI4BVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4bvEXT: TPFNGLVERTEXATTRIBI4BVEXTPROC absolute __glewVertexAttribI4bvEXT;
+
   __glewVertexAttribI4iEXT: TPFNGLVERTEXATTRIBI4IEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4iEXT: TPFNGLVERTEXATTRIBI4IEXTPROC absolute __glewVertexAttribI4iEXT;
+
   __glewVertexAttribI4ivEXT: TPFNGLVERTEXATTRIBI4IVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4ivEXT: TPFNGLVERTEXATTRIBI4IVEXTPROC absolute __glewVertexAttribI4ivEXT;
+
   __glewVertexAttribI4svEXT: TPFNGLVERTEXATTRIBI4SVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4svEXT: TPFNGLVERTEXATTRIBI4SVEXTPROC absolute __glewVertexAttribI4svEXT;
+
   __glewVertexAttribI4ubvEXT: TPFNGLVERTEXATTRIBI4UBVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4ubvEXT: TPFNGLVERTEXATTRIBI4UBVEXTPROC absolute __glewVertexAttribI4ubvEXT;
+
   __glewVertexAttribI4uiEXT: TPFNGLVERTEXATTRIBI4UIEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4uiEXT: TPFNGLVERTEXATTRIBI4UIEXTPROC absolute __glewVertexAttribI4uiEXT;
+
   __glewVertexAttribI4uivEXT: TPFNGLVERTEXATTRIBI4UIVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4uivEXT: TPFNGLVERTEXATTRIBI4UIVEXTPROC absolute __glewVertexAttribI4uivEXT;
+
   __glewVertexAttribI4usvEXT: TPFNGLVERTEXATTRIBI4USVEXTPROC; cvar;external libGLEW;
+  glVertexAttribI4usvEXT: TPFNGLVERTEXATTRIBI4USVEXTPROC absolute __glewVertexAttribI4usvEXT;
+
   __glewVertexAttribIPointerEXT: TPFNGLVERTEXATTRIBIPOINTEREXTPROC; cvar;external libGLEW;
+  glVertexAttribIPointerEXT: TPFNGLVERTEXATTRIBIPOINTEREXTPROC absolute __glewVertexAttribIPointerEXT;
+
   __glewGetHistogramEXT: TPFNGLGETHISTOGRAMEXTPROC; cvar;external libGLEW;
+  glGetHistogramEXT: TPFNGLGETHISTOGRAMEXTPROC absolute __glewGetHistogramEXT;
+
   __glewGetHistogramParameterfvEXT: TPFNGLGETHISTOGRAMPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetHistogramParameterfvEXT: TPFNGLGETHISTOGRAMPARAMETERFVEXTPROC absolute __glewGetHistogramParameterfvEXT;
+
   __glewGetHistogramParameterivEXT: TPFNGLGETHISTOGRAMPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetHistogramParameterivEXT: TPFNGLGETHISTOGRAMPARAMETERIVEXTPROC absolute __glewGetHistogramParameterivEXT;
+
   __glewGetMinmaxEXT: TPFNGLGETMINMAXEXTPROC; cvar;external libGLEW;
+  glGetMinmaxEXT: TPFNGLGETMINMAXEXTPROC absolute __glewGetMinmaxEXT;
+
   __glewGetMinmaxParameterfvEXT: TPFNGLGETMINMAXPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetMinmaxParameterfvEXT: TPFNGLGETMINMAXPARAMETERFVEXTPROC absolute __glewGetMinmaxParameterfvEXT;
+
   __glewGetMinmaxParameterivEXT: TPFNGLGETMINMAXPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetMinmaxParameterivEXT: TPFNGLGETMINMAXPARAMETERIVEXTPROC absolute __glewGetMinmaxParameterivEXT;
+
   __glewHistogramEXT: TPFNGLHISTOGRAMEXTPROC; cvar;external libGLEW;
+  glHistogramEXT: TPFNGLHISTOGRAMEXTPROC absolute __glewHistogramEXT;
+
   __glewMinmaxEXT: TPFNGLMINMAXEXTPROC; cvar;external libGLEW;
+  glMinmaxEXT: TPFNGLMINMAXEXTPROC absolute __glewMinmaxEXT;
+
   __glewResetHistogramEXT: TPFNGLRESETHISTOGRAMEXTPROC; cvar;external libGLEW;
+  glResetHistogramEXT: TPFNGLRESETHISTOGRAMEXTPROC absolute __glewResetHistogramEXT;
+
   __glewResetMinmaxEXT: TPFNGLRESETMINMAXEXTPROC; cvar;external libGLEW;
+  glResetMinmaxEXT: TPFNGLRESETMINMAXEXTPROC absolute __glewResetMinmaxEXT;
+
   __glewIndexFuncEXT: TPFNGLINDEXFUNCEXTPROC; cvar;external libGLEW;
+  glIndexFuncEXT: TPFNGLINDEXFUNCEXTPROC absolute __glewIndexFuncEXT;
+
   __glewIndexMaterialEXT: TPFNGLINDEXMATERIALEXTPROC; cvar;external libGLEW;
+  glIndexMaterialEXT: TPFNGLINDEXMATERIALEXTPROC absolute __glewIndexMaterialEXT;
+
   __glewVertexAttribDivisorEXT: TPFNGLVERTEXATTRIBDIVISOREXTPROC; cvar;external libGLEW;
+  glVertexAttribDivisorEXT: TPFNGLVERTEXATTRIBDIVISOREXTPROC absolute __glewVertexAttribDivisorEXT;
+
   __glewApplyTextureEXT: TPFNGLAPPLYTEXTUREEXTPROC; cvar;external libGLEW;
+  glApplyTextureEXT: TPFNGLAPPLYTEXTUREEXTPROC absolute __glewApplyTextureEXT;
+
   __glewTextureLightEXT: TPFNGLTEXTURELIGHTEXTPROC; cvar;external libGLEW;
+  glTextureLightEXT: TPFNGLTEXTURELIGHTEXTPROC absolute __glewTextureLightEXT;
+
   __glewTextureMaterialEXT: TPFNGLTEXTUREMATERIALEXTPROC; cvar;external libGLEW;
+  glTextureMaterialEXT: TPFNGLTEXTUREMATERIALEXTPROC absolute __glewTextureMaterialEXT;
+
   __glewFlushMappedBufferRangeEXT: TPFNGLFLUSHMAPPEDBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glFlushMappedBufferRangeEXT: TPFNGLFLUSHMAPPEDBUFFERRANGEEXTPROC absolute __glewFlushMappedBufferRangeEXT;
+
   __glewMapBufferRangeEXT: TPFNGLMAPBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glMapBufferRangeEXT: TPFNGLMAPBUFFERRANGEEXTPROC absolute __glewMapBufferRangeEXT;
+
   __glewBufferStorageMemEXT: TPFNGLBUFFERSTORAGEMEMEXTPROC; cvar;external libGLEW;
+  glBufferStorageMemEXT: TPFNGLBUFFERSTORAGEMEMEXTPROC absolute __glewBufferStorageMemEXT;
+
   __glewCreateMemoryObjectsEXT: TPFNGLCREATEMEMORYOBJECTSEXTPROC; cvar;external libGLEW;
+  glCreateMemoryObjectsEXT: TPFNGLCREATEMEMORYOBJECTSEXTPROC absolute __glewCreateMemoryObjectsEXT;
+
   __glewDeleteMemoryObjectsEXT: TPFNGLDELETEMEMORYOBJECTSEXTPROC; cvar;external libGLEW;
+  glDeleteMemoryObjectsEXT: TPFNGLDELETEMEMORYOBJECTSEXTPROC absolute __glewDeleteMemoryObjectsEXT;
+
   __glewGetMemoryObjectParameterivEXT: TPFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetMemoryObjectParameterivEXT: TPFNGLGETMEMORYOBJECTPARAMETERIVEXTPROC absolute __glewGetMemoryObjectParameterivEXT;
+
   __glewGetUnsignedBytei_vEXT: TPFNGLGETUNSIGNEDBYTEI_VEXTPROC; cvar;external libGLEW;
+  glGetUnsignedBytei_vEXT: TPFNGLGETUNSIGNEDBYTEI_VEXTPROC absolute __glewGetUnsignedBytei_vEXT;
+
   __glewGetUnsignedBytevEXT: TPFNGLGETUNSIGNEDBYTEVEXTPROC; cvar;external libGLEW;
+  glGetUnsignedBytevEXT: TPFNGLGETUNSIGNEDBYTEVEXTPROC absolute __glewGetUnsignedBytevEXT;
+
   __glewIsMemoryObjectEXT: TPFNGLISMEMORYOBJECTEXTPROC; cvar;external libGLEW;
+  glIsMemoryObjectEXT: TPFNGLISMEMORYOBJECTEXTPROC absolute __glewIsMemoryObjectEXT;
+
   __glewMemoryObjectParameterivEXT: TPFNGLMEMORYOBJECTPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glMemoryObjectParameterivEXT: TPFNGLMEMORYOBJECTPARAMETERIVEXTPROC absolute __glewMemoryObjectParameterivEXT;
+
   __glewNamedBufferStorageMemEXT: TPFNGLNAMEDBUFFERSTORAGEMEMEXTPROC; cvar;external libGLEW;
+  glNamedBufferStorageMemEXT: TPFNGLNAMEDBUFFERSTORAGEMEMEXTPROC absolute __glewNamedBufferStorageMemEXT;
+
   __glewTexStorageMem1DEXT: TPFNGLTEXSTORAGEMEM1DEXTPROC; cvar;external libGLEW;
+  glTexStorageMem1DEXT: TPFNGLTEXSTORAGEMEM1DEXTPROC absolute __glewTexStorageMem1DEXT;
+
   __glewTexStorageMem2DEXT: TPFNGLTEXSTORAGEMEM2DEXTPROC; cvar;external libGLEW;
+  glTexStorageMem2DEXT: TPFNGLTEXSTORAGEMEM2DEXTPROC absolute __glewTexStorageMem2DEXT;
+
   __glewTexStorageMem2DMultisampleEXT: TPFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTexStorageMem2DMultisampleEXT: TPFNGLTEXSTORAGEMEM2DMULTISAMPLEEXTPROC absolute __glewTexStorageMem2DMultisampleEXT;
+
   __glewTexStorageMem3DEXT: TPFNGLTEXSTORAGEMEM3DEXTPROC; cvar;external libGLEW;
+  glTexStorageMem3DEXT: TPFNGLTEXSTORAGEMEM3DEXTPROC absolute __glewTexStorageMem3DEXT;
+
   __glewTexStorageMem3DMultisampleEXT: TPFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTexStorageMem3DMultisampleEXT: TPFNGLTEXSTORAGEMEM3DMULTISAMPLEEXTPROC absolute __glewTexStorageMem3DMultisampleEXT;
+
   __glewTextureStorageMem1DEXT: TPFNGLTEXTURESTORAGEMEM1DEXTPROC; cvar;external libGLEW;
+  glTextureStorageMem1DEXT: TPFNGLTEXTURESTORAGEMEM1DEXTPROC absolute __glewTextureStorageMem1DEXT;
+
   __glewTextureStorageMem2DEXT: TPFNGLTEXTURESTORAGEMEM2DEXTPROC; cvar;external libGLEW;
+  glTextureStorageMem2DEXT: TPFNGLTEXTURESTORAGEMEM2DEXTPROC absolute __glewTextureStorageMem2DEXT;
+
   __glewTextureStorageMem2DMultisampleEXT: TPFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTextureStorageMem2DMultisampleEXT: TPFNGLTEXTURESTORAGEMEM2DMULTISAMPLEEXTPROC absolute __glewTextureStorageMem2DMultisampleEXT;
+
   __glewTextureStorageMem3DEXT: TPFNGLTEXTURESTORAGEMEM3DEXTPROC; cvar;external libGLEW;
+  glTextureStorageMem3DEXT: TPFNGLTEXTURESTORAGEMEM3DEXTPROC absolute __glewTextureStorageMem3DEXT;
+
   __glewTextureStorageMem3DMultisampleEXT: TPFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glTextureStorageMem3DMultisampleEXT: TPFNGLTEXTURESTORAGEMEM3DMULTISAMPLEEXTPROC absolute __glewTextureStorageMem3DMultisampleEXT;
+
   __glewImportMemoryFdEXT: TPFNGLIMPORTMEMORYFDEXTPROC; cvar;external libGLEW;
+  glImportMemoryFdEXT: TPFNGLIMPORTMEMORYFDEXTPROC absolute __glewImportMemoryFdEXT;
+
   __glewImportMemoryWin32HandleEXT: TPFNGLIMPORTMEMORYWIN32HANDLEEXTPROC; cvar;external libGLEW;
+  glImportMemoryWin32HandleEXT: TPFNGLIMPORTMEMORYWIN32HANDLEEXTPROC absolute __glewImportMemoryWin32HandleEXT;
+
   __glewImportMemoryWin32NameEXT: TPFNGLIMPORTMEMORYWIN32NAMEEXTPROC; cvar;external libGLEW;
+  glImportMemoryWin32NameEXT: TPFNGLIMPORTMEMORYWIN32NAMEEXTPROC absolute __glewImportMemoryWin32NameEXT;
+
   __glewMultiDrawArraysEXT: TPFNGLMULTIDRAWARRAYSEXTPROC; cvar;external libGLEW;
+  glMultiDrawArraysEXT: TPFNGLMULTIDRAWARRAYSEXTPROC absolute __glewMultiDrawArraysEXT;
+
   __glewMultiDrawElementsEXT: TPFNGLMULTIDRAWELEMENTSEXTPROC; cvar;external libGLEW;
+  glMultiDrawElementsEXT: TPFNGLMULTIDRAWELEMENTSEXTPROC absolute __glewMultiDrawElementsEXT;
+
   __glewMultiDrawArraysIndirectEXT: TPFNGLMULTIDRAWARRAYSINDIRECTEXTPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectEXT: TPFNGLMULTIDRAWARRAYSINDIRECTEXTPROC absolute __glewMultiDrawArraysIndirectEXT;
+
   __glewMultiDrawElementsIndirectEXT: TPFNGLMULTIDRAWELEMENTSINDIRECTEXTPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectEXT: TPFNGLMULTIDRAWELEMENTSINDIRECTEXTPROC absolute __glewMultiDrawElementsIndirectEXT;
+
   __glewSampleMaskEXT: TPFNGLSAMPLEMASKEXTPROC; cvar;external libGLEW;
+  glSampleMaskEXT: TPFNGLSAMPLEMASKEXTPROC absolute __glewSampleMaskEXT;
+
   __glewSamplePatternEXT: TPFNGLSAMPLEPATTERNEXTPROC; cvar;external libGLEW;
+  glSamplePatternEXT: TPFNGLSAMPLEPATTERNEXTPROC absolute __glewSamplePatternEXT;
+
   __glewFramebufferTexture2DMultisampleEXT: TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC; cvar;external libGLEW;
+  glFramebufferTexture2DMultisampleEXT: TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC absolute __glewFramebufferTexture2DMultisampleEXT;
+
   __glewDrawBuffersIndexedEXT: TPFNGLDRAWBUFFERSINDEXEDEXTPROC; cvar;external libGLEW;
+  glDrawBuffersIndexedEXT: TPFNGLDRAWBUFFERSINDEXEDEXTPROC absolute __glewDrawBuffersIndexedEXT;
+
   __glewGetIntegeri_vEXT: TPFNGLGETINTEGERI_VEXTPROC; cvar;external libGLEW;
+  glGetIntegeri_vEXT: TPFNGLGETINTEGERI_VEXTPROC absolute __glewGetIntegeri_vEXT;
+
   __glewReadBufferIndexedEXT: TPFNGLREADBUFFERINDEXEDEXTPROC; cvar;external libGLEW;
+  glReadBufferIndexedEXT: TPFNGLREADBUFFERINDEXEDEXTPROC absolute __glewReadBufferIndexedEXT;
+
   __glewColorTableEXT: TPFNGLCOLORTABLEEXTPROC; cvar;external libGLEW;
+  glColorTableEXT: TPFNGLCOLORTABLEEXTPROC absolute __glewColorTableEXT;
+
   __glewGetColorTableEXT: TPFNGLGETCOLORTABLEEXTPROC; cvar;external libGLEW;
+  glGetColorTableEXT: TPFNGLGETCOLORTABLEEXTPROC absolute __glewGetColorTableEXT;
+
   __glewGetColorTableParameterfvEXT: TPFNGLGETCOLORTABLEPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetColorTableParameterfvEXT: TPFNGLGETCOLORTABLEPARAMETERFVEXTPROC absolute __glewGetColorTableParameterfvEXT;
+
   __glewGetColorTableParameterivEXT: TPFNGLGETCOLORTABLEPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetColorTableParameterivEXT: TPFNGLGETCOLORTABLEPARAMETERIVEXTPROC absolute __glewGetColorTableParameterivEXT;
+
   __glewGetPixelTransformParameterfvEXT: TPFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glGetPixelTransformParameterfvEXT: TPFNGLGETPIXELTRANSFORMPARAMETERFVEXTPROC absolute __glewGetPixelTransformParameterfvEXT;
+
   __glewGetPixelTransformParameterivEXT: TPFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glGetPixelTransformParameterivEXT: TPFNGLGETPIXELTRANSFORMPARAMETERIVEXTPROC absolute __glewGetPixelTransformParameterivEXT;
+
   __glewPixelTransformParameterfEXT: TPFNGLPIXELTRANSFORMPARAMETERFEXTPROC; cvar;external libGLEW;
+  glPixelTransformParameterfEXT: TPFNGLPIXELTRANSFORMPARAMETERFEXTPROC absolute __glewPixelTransformParameterfEXT;
+
   __glewPixelTransformParameterfvEXT: TPFNGLPIXELTRANSFORMPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glPixelTransformParameterfvEXT: TPFNGLPIXELTRANSFORMPARAMETERFVEXTPROC absolute __glewPixelTransformParameterfvEXT;
+
   __glewPixelTransformParameteriEXT: TPFNGLPIXELTRANSFORMPARAMETERIEXTPROC; cvar;external libGLEW;
+  glPixelTransformParameteriEXT: TPFNGLPIXELTRANSFORMPARAMETERIEXTPROC absolute __glewPixelTransformParameteriEXT;
+
   __glewPixelTransformParameterivEXT: TPFNGLPIXELTRANSFORMPARAMETERIVEXTPROC; cvar;external libGLEW;
+  glPixelTransformParameterivEXT: TPFNGLPIXELTRANSFORMPARAMETERIVEXTPROC absolute __glewPixelTransformParameterivEXT;
+
   __glewPointParameterfEXT: TPFNGLPOINTPARAMETERFEXTPROC; cvar;external libGLEW;
+  glPointParameterfEXT: TPFNGLPOINTPARAMETERFEXTPROC absolute __glewPointParameterfEXT;
+
   __glewPointParameterfvEXT: TPFNGLPOINTPARAMETERFVEXTPROC; cvar;external libGLEW;
+  glPointParameterfvEXT: TPFNGLPOINTPARAMETERFVEXTPROC absolute __glewPointParameterfvEXT;
+
   __glewPolygonOffsetEXT: TPFNGLPOLYGONOFFSETEXTPROC; cvar;external libGLEW;
+  glPolygonOffsetEXT: TPFNGLPOLYGONOFFSETEXTPROC absolute __glewPolygonOffsetEXT;
+
   __glewPolygonOffsetClampEXT: TPFNGLPOLYGONOFFSETCLAMPEXTPROC; cvar;external libGLEW;
+  glPolygonOffsetClampEXT: TPFNGLPOLYGONOFFSETCLAMPEXTPROC absolute __glewPolygonOffsetClampEXT;
+
   __glewPrimitiveBoundingBoxEXT: TPFNGLPRIMITIVEBOUNDINGBOXEXTPROC; cvar;external libGLEW;
+  glPrimitiveBoundingBoxEXT: TPFNGLPRIMITIVEBOUNDINGBOXEXTPROC absolute __glewPrimitiveBoundingBoxEXT;
+
   __glewProvokingVertexEXT: TPFNGLPROVOKINGVERTEXEXTPROC; cvar;external libGLEW;
+  glProvokingVertexEXT: TPFNGLPROVOKINGVERTEXEXTPROC absolute __glewProvokingVertexEXT;
+
   __glewCoverageModulationNV: TPFNGLCOVERAGEMODULATIONNVPROC; cvar;external libGLEW;
+  glCoverageModulationNV: TPFNGLCOVERAGEMODULATIONNVPROC absolute __glewCoverageModulationNV;
+
   __glewCoverageModulationTableNV: TPFNGLCOVERAGEMODULATIONTABLENVPROC; cvar;external libGLEW;
+  glCoverageModulationTableNV: TPFNGLCOVERAGEMODULATIONTABLENVPROC absolute __glewCoverageModulationTableNV;
+
   __glewGetCoverageModulationTableNV: TPFNGLGETCOVERAGEMODULATIONTABLENVPROC; cvar;external libGLEW;
+  glGetCoverageModulationTableNV: TPFNGLGETCOVERAGEMODULATIONTABLENVPROC absolute __glewGetCoverageModulationTableNV;
+
   __glewRasterSamplesEXT: TPFNGLRASTERSAMPLESEXTPROC; cvar;external libGLEW;
+  glRasterSamplesEXT: TPFNGLRASTERSAMPLESEXTPROC absolute __glewRasterSamplesEXT;
+
   __glewGetnUniformfvEXT: TPFNGLGETNUNIFORMFVEXTPROC; cvar;external libGLEW;
+  glGetnUniformfvEXT: TPFNGLGETNUNIFORMFVEXTPROC absolute __glewGetnUniformfvEXT;
+
   __glewGetnUniformivEXT: TPFNGLGETNUNIFORMIVEXTPROC; cvar;external libGLEW;
+  glGetnUniformivEXT: TPFNGLGETNUNIFORMIVEXTPROC absolute __glewGetnUniformivEXT;
+
   __glewReadnPixelsEXT: TPFNGLREADNPIXELSEXTPROC; cvar;external libGLEW;
+  glReadnPixelsEXT: TPFNGLREADNPIXELSEXTPROC absolute __glewReadnPixelsEXT;
+
   __glewBeginSceneEXT: TPFNGLBEGINSCENEEXTPROC; cvar;external libGLEW;
+  glBeginSceneEXT: TPFNGLBEGINSCENEEXTPROC absolute __glewBeginSceneEXT;
+
   __glewEndSceneEXT: TPFNGLENDSCENEEXTPROC; cvar;external libGLEW;
+  glEndSceneEXT: TPFNGLENDSCENEEXTPROC absolute __glewEndSceneEXT;
+
   __glewSecondaryColor3bEXT: TPFNGLSECONDARYCOLOR3BEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3bEXT: TPFNGLSECONDARYCOLOR3BEXTPROC absolute __glewSecondaryColor3bEXT;
+
   __glewSecondaryColor3bvEXT: TPFNGLSECONDARYCOLOR3BVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3bvEXT: TPFNGLSECONDARYCOLOR3BVEXTPROC absolute __glewSecondaryColor3bvEXT;
+
   __glewSecondaryColor3dEXT: TPFNGLSECONDARYCOLOR3DEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3dEXT: TPFNGLSECONDARYCOLOR3DEXTPROC absolute __glewSecondaryColor3dEXT;
+
   __glewSecondaryColor3dvEXT: TPFNGLSECONDARYCOLOR3DVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3dvEXT: TPFNGLSECONDARYCOLOR3DVEXTPROC absolute __glewSecondaryColor3dvEXT;
+
   __glewSecondaryColor3fEXT: TPFNGLSECONDARYCOLOR3FEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3fEXT: TPFNGLSECONDARYCOLOR3FEXTPROC absolute __glewSecondaryColor3fEXT;
+
   __glewSecondaryColor3fvEXT: TPFNGLSECONDARYCOLOR3FVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3fvEXT: TPFNGLSECONDARYCOLOR3FVEXTPROC absolute __glewSecondaryColor3fvEXT;
+
   __glewSecondaryColor3iEXT: TPFNGLSECONDARYCOLOR3IEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3iEXT: TPFNGLSECONDARYCOLOR3IEXTPROC absolute __glewSecondaryColor3iEXT;
+
   __glewSecondaryColor3ivEXT: TPFNGLSECONDARYCOLOR3IVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3ivEXT: TPFNGLSECONDARYCOLOR3IVEXTPROC absolute __glewSecondaryColor3ivEXT;
+
   __glewSecondaryColor3sEXT: TPFNGLSECONDARYCOLOR3SEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3sEXT: TPFNGLSECONDARYCOLOR3SEXTPROC absolute __glewSecondaryColor3sEXT;
+
   __glewSecondaryColor3svEXT: TPFNGLSECONDARYCOLOR3SVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3svEXT: TPFNGLSECONDARYCOLOR3SVEXTPROC absolute __glewSecondaryColor3svEXT;
+
   __glewSecondaryColor3ubEXT: TPFNGLSECONDARYCOLOR3UBEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3ubEXT: TPFNGLSECONDARYCOLOR3UBEXTPROC absolute __glewSecondaryColor3ubEXT;
+
   __glewSecondaryColor3ubvEXT: TPFNGLSECONDARYCOLOR3UBVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3ubvEXT: TPFNGLSECONDARYCOLOR3UBVEXTPROC absolute __glewSecondaryColor3ubvEXT;
+
   __glewSecondaryColor3uiEXT: TPFNGLSECONDARYCOLOR3UIEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3uiEXT: TPFNGLSECONDARYCOLOR3UIEXTPROC absolute __glewSecondaryColor3uiEXT;
+
   __glewSecondaryColor3uivEXT: TPFNGLSECONDARYCOLOR3UIVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3uivEXT: TPFNGLSECONDARYCOLOR3UIVEXTPROC absolute __glewSecondaryColor3uivEXT;
+
   __glewSecondaryColor3usEXT: TPFNGLSECONDARYCOLOR3USEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3usEXT: TPFNGLSECONDARYCOLOR3USEXTPROC absolute __glewSecondaryColor3usEXT;
+
   __glewSecondaryColor3usvEXT: TPFNGLSECONDARYCOLOR3USVEXTPROC; cvar;external libGLEW;
+  glSecondaryColor3usvEXT: TPFNGLSECONDARYCOLOR3USVEXTPROC absolute __glewSecondaryColor3usvEXT;
+
   __glewSecondaryColorPointerEXT: TPFNGLSECONDARYCOLORPOINTEREXTPROC; cvar;external libGLEW;
+  glSecondaryColorPointerEXT: TPFNGLSECONDARYCOLORPOINTEREXTPROC absolute __glewSecondaryColorPointerEXT;
+
   __glewDeleteSemaphoresEXT: TPFNGLDELETESEMAPHORESEXTPROC; cvar;external libGLEW;
+  glDeleteSemaphoresEXT: TPFNGLDELETESEMAPHORESEXTPROC absolute __glewDeleteSemaphoresEXT;
+
   __glewGenSemaphoresEXT: TPFNGLGENSEMAPHORESEXTPROC; cvar;external libGLEW;
+  glGenSemaphoresEXT: TPFNGLGENSEMAPHORESEXTPROC absolute __glewGenSemaphoresEXT;
+
   __glewGetSemaphoreParameterui64vEXT: TPFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC; cvar;external libGLEW;
+  glGetSemaphoreParameterui64vEXT: TPFNGLGETSEMAPHOREPARAMETERUI64VEXTPROC absolute __glewGetSemaphoreParameterui64vEXT;
+
   __glewIsSemaphoreEXT: TPFNGLISSEMAPHOREEXTPROC; cvar;external libGLEW;
+  glIsSemaphoreEXT: TPFNGLISSEMAPHOREEXTPROC absolute __glewIsSemaphoreEXT;
+
   __glewSemaphoreParameterui64vEXT: TPFNGLSEMAPHOREPARAMETERUI64VEXTPROC; cvar;external libGLEW;
+  glSemaphoreParameterui64vEXT: TPFNGLSEMAPHOREPARAMETERUI64VEXTPROC absolute __glewSemaphoreParameterui64vEXT;
+
   __glewSignalSemaphoreEXT: TPFNGLSIGNALSEMAPHOREEXTPROC; cvar;external libGLEW;
+  glSignalSemaphoreEXT: TPFNGLSIGNALSEMAPHOREEXTPROC absolute __glewSignalSemaphoreEXT;
+
   __glewWaitSemaphoreEXT: TPFNGLWAITSEMAPHOREEXTPROC; cvar;external libGLEW;
+  glWaitSemaphoreEXT: TPFNGLWAITSEMAPHOREEXTPROC absolute __glewWaitSemaphoreEXT;
+
   __glewImportSemaphoreFdEXT: TPFNGLIMPORTSEMAPHOREFDEXTPROC; cvar;external libGLEW;
+  glImportSemaphoreFdEXT: TPFNGLIMPORTSEMAPHOREFDEXTPROC absolute __glewImportSemaphoreFdEXT;
+
   __glewImportSemaphoreWin32HandleEXT: TPFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC; cvar;external libGLEW;
+  glImportSemaphoreWin32HandleEXT: TPFNGLIMPORTSEMAPHOREWIN32HANDLEEXTPROC absolute __glewImportSemaphoreWin32HandleEXT;
+
   __glewImportSemaphoreWin32NameEXT: TPFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC; cvar;external libGLEW;
+  glImportSemaphoreWin32NameEXT: TPFNGLIMPORTSEMAPHOREWIN32NAMEEXTPROC absolute __glewImportSemaphoreWin32NameEXT;
+
   __glewActiveProgramEXT: TPFNGLACTIVEPROGRAMEXTPROC; cvar;external libGLEW;
+  glActiveProgramEXT: TPFNGLACTIVEPROGRAMEXTPROC absolute __glewActiveProgramEXT;
+
   __glewCreateShaderProgramEXT: TPFNGLCREATESHADERPROGRAMEXTPROC; cvar;external libGLEW;
+  glCreateShaderProgramEXT: TPFNGLCREATESHADERPROGRAMEXTPROC absolute __glewCreateShaderProgramEXT;
+
   __glewUseShaderProgramEXT: TPFNGLUSESHADERPROGRAMEXTPROC; cvar;external libGLEW;
+  glUseShaderProgramEXT: TPFNGLUSESHADERPROGRAMEXTPROC absolute __glewUseShaderProgramEXT;
+
   __glewFramebufferFetchBarrierEXT: TPFNGLFRAMEBUFFERFETCHBARRIEREXTPROC; cvar;external libGLEW;
+  glFramebufferFetchBarrierEXT: TPFNGLFRAMEBUFFERFETCHBARRIEREXTPROC absolute __glewFramebufferFetchBarrierEXT;
+
   __glewBindImageTextureEXT: TPFNGLBINDIMAGETEXTUREEXTPROC; cvar;external libGLEW;
+  glBindImageTextureEXT: TPFNGLBINDIMAGETEXTUREEXTPROC absolute __glewBindImageTextureEXT;
+
   __glewMemoryBarrierEXT: TPFNGLMEMORYBARRIEREXTPROC; cvar;external libGLEW;
+  glMemoryBarrierEXT: TPFNGLMEMORYBARRIEREXTPROC absolute __glewMemoryBarrierEXT;
+
   __glewClearPixelLocalStorageuiEXT: TPFNGLCLEARPIXELLOCALSTORAGEUIEXTPROC; cvar;external libGLEW;
+  glClearPixelLocalStorageuiEXT: TPFNGLCLEARPIXELLOCALSTORAGEUIEXTPROC absolute __glewClearPixelLocalStorageuiEXT;
+
   __glewFramebufferPixelLocalStorageSizeEXT: TPFNGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC; cvar;external libGLEW;
+  glFramebufferPixelLocalStorageSizeEXT: TPFNGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC absolute __glewFramebufferPixelLocalStorageSizeEXT;
+
   __glewGetFramebufferPixelLocalStorageSizeEXT: TPFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC; cvar;external libGLEW;
+  glGetFramebufferPixelLocalStorageSizeEXT: TPFNGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXTPROC absolute __glewGetFramebufferPixelLocalStorageSizeEXT;
+
   __glewTexPageCommitmentEXT: TPFNGLTEXPAGECOMMITMENTEXTPROC; cvar;external libGLEW;
+  glTexPageCommitmentEXT: TPFNGLTEXPAGECOMMITMENTEXTPROC absolute __glewTexPageCommitmentEXT;
+
   __glewTexturePageCommitmentEXT: TPFNGLTEXTUREPAGECOMMITMENTEXTPROC; cvar;external libGLEW;
+  glTexturePageCommitmentEXT: TPFNGLTEXTUREPAGECOMMITMENTEXTPROC absolute __glewTexturePageCommitmentEXT;
+
   __glewActiveStencilFaceEXT: TPFNGLACTIVESTENCILFACEEXTPROC; cvar;external libGLEW;
+  glActiveStencilFaceEXT: TPFNGLACTIVESTENCILFACEEXTPROC absolute __glewActiveStencilFaceEXT;
+
   __glewTexSubImage1DEXT: TPFNGLTEXSUBIMAGE1DEXTPROC; cvar;external libGLEW;
+  glTexSubImage1DEXT: TPFNGLTEXSUBIMAGE1DEXTPROC absolute __glewTexSubImage1DEXT;
+
   __glewTexSubImage2DEXT: TPFNGLTEXSUBIMAGE2DEXTPROC; cvar;external libGLEW;
+  glTexSubImage2DEXT: TPFNGLTEXSUBIMAGE2DEXTPROC absolute __glewTexSubImage2DEXT;
+
   __glewTexSubImage3DEXT: TPFNGLTEXSUBIMAGE3DEXTPROC; cvar;external libGLEW;
+  glTexSubImage3DEXT: TPFNGLTEXSUBIMAGE3DEXTPROC absolute __glewTexSubImage3DEXT;
+
   __glewPatchParameteriEXT: TPFNGLPATCHPARAMETERIEXTPROC; cvar;external libGLEW;
+  glPatchParameteriEXT: TPFNGLPATCHPARAMETERIEXTPROC absolute __glewPatchParameteriEXT;
+
   __glewTexImage3DEXT: TPFNGLTEXIMAGE3DEXTPROC; cvar;external libGLEW;
+  glTexImage3DEXT: TPFNGLTEXIMAGE3DEXTPROC absolute __glewTexImage3DEXT;
+
   __glewFramebufferTextureLayerEXT: TPFNGLFRAMEBUFFERTEXTURELAYEREXTPROC; cvar;external libGLEW;
+  glFramebufferTextureLayerEXT: TPFNGLFRAMEBUFFERTEXTURELAYEREXTPROC absolute __glewFramebufferTextureLayerEXT;
+
   __glewGetSamplerParameterIivEXT: TPFNGLGETSAMPLERPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glGetSamplerParameterIivEXT: TPFNGLGETSAMPLERPARAMETERIIVEXTPROC absolute __glewGetSamplerParameterIivEXT;
+
   __glewGetSamplerParameterIuivEXT: TPFNGLGETSAMPLERPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glGetSamplerParameterIuivEXT: TPFNGLGETSAMPLERPARAMETERIUIVEXTPROC absolute __glewGetSamplerParameterIuivEXT;
+
   __glewSamplerParameterIivEXT: TPFNGLSAMPLERPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glSamplerParameterIivEXT: TPFNGLSAMPLERPARAMETERIIVEXTPROC absolute __glewSamplerParameterIivEXT;
+
   __glewSamplerParameterIuivEXT: TPFNGLSAMPLERPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glSamplerParameterIuivEXT: TPFNGLSAMPLERPARAMETERIUIVEXTPROC absolute __glewSamplerParameterIuivEXT;
+
   __glewTexBufferEXT: TPFNGLTEXBUFFEREXTPROC; cvar;external libGLEW;
+  glTexBufferEXT: TPFNGLTEXBUFFEREXTPROC absolute __glewTexBufferEXT;
+
   __glewClearColorIiEXT: TPFNGLCLEARCOLORIIEXTPROC; cvar;external libGLEW;
+  glClearColorIiEXT: TPFNGLCLEARCOLORIIEXTPROC absolute __glewClearColorIiEXT;
+
   __glewClearColorIuiEXT: TPFNGLCLEARCOLORIUIEXTPROC; cvar;external libGLEW;
+  glClearColorIuiEXT: TPFNGLCLEARCOLORIUIEXTPROC absolute __glewClearColorIuiEXT;
+
   __glewGetTexParameterIivEXT: TPFNGLGETTEXPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glGetTexParameterIivEXT: TPFNGLGETTEXPARAMETERIIVEXTPROC absolute __glewGetTexParameterIivEXT;
+
   __glewGetTexParameterIuivEXT: TPFNGLGETTEXPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glGetTexParameterIuivEXT: TPFNGLGETTEXPARAMETERIUIVEXTPROC absolute __glewGetTexParameterIuivEXT;
+
   __glewTexParameterIivEXT: TPFNGLTEXPARAMETERIIVEXTPROC; cvar;external libGLEW;
+  glTexParameterIivEXT: TPFNGLTEXPARAMETERIIVEXTPROC absolute __glewTexParameterIivEXT;
+
   __glewTexParameterIuivEXT: TPFNGLTEXPARAMETERIUIVEXTPROC; cvar;external libGLEW;
+  glTexParameterIuivEXT: TPFNGLTEXPARAMETERIUIVEXTPROC absolute __glewTexParameterIuivEXT;
+
   __glewAreTexturesResidentEXT: TPFNGLARETEXTURESRESIDENTEXTPROC; cvar;external libGLEW;
+  glAreTexturesResidentEXT: TPFNGLARETEXTURESRESIDENTEXTPROC absolute __glewAreTexturesResidentEXT;
+
   __glewBindTextureEXT: TPFNGLBINDTEXTUREEXTPROC; cvar;external libGLEW;
+  glBindTextureEXT: TPFNGLBINDTEXTUREEXTPROC absolute __glewBindTextureEXT;
+
   __glewDeleteTexturesEXT: TPFNGLDELETETEXTURESEXTPROC; cvar;external libGLEW;
+  glDeleteTexturesEXT: TPFNGLDELETETEXTURESEXTPROC absolute __glewDeleteTexturesEXT;
+
   __glewGenTexturesEXT: TPFNGLGENTEXTURESEXTPROC; cvar;external libGLEW;
+  glGenTexturesEXT: TPFNGLGENTEXTURESEXTPROC absolute __glewGenTexturesEXT;
+
   __glewIsTextureEXT: TPFNGLISTEXTUREEXTPROC; cvar;external libGLEW;
+  glIsTextureEXT: TPFNGLISTEXTUREEXTPROC absolute __glewIsTextureEXT;
+
   __glewPrioritizeTexturesEXT: TPFNGLPRIORITIZETEXTURESEXTPROC; cvar;external libGLEW;
+  glPrioritizeTexturesEXT: TPFNGLPRIORITIZETEXTURESEXTPROC absolute __glewPrioritizeTexturesEXT;
+
   __glewTextureNormalEXT: TPFNGLTEXTURENORMALEXTPROC; cvar;external libGLEW;
+  glTextureNormalEXT: TPFNGLTEXTURENORMALEXTPROC absolute __glewTextureNormalEXT;
+
   __glewTexStorage1DEXT: TPFNGLTEXSTORAGE1DEXTPROC; cvar;external libGLEW;
+  glTexStorage1DEXT: TPFNGLTEXSTORAGE1DEXTPROC absolute __glewTexStorage1DEXT;
+
   __glewTexStorage2DEXT: TPFNGLTEXSTORAGE2DEXTPROC; cvar;external libGLEW;
+  glTexStorage2DEXT: TPFNGLTEXSTORAGE2DEXTPROC absolute __glewTexStorage2DEXT;
+
   __glewTexStorage3DEXT: TPFNGLTEXSTORAGE3DEXTPROC; cvar;external libGLEW;
+  glTexStorage3DEXT: TPFNGLTEXSTORAGE3DEXTPROC absolute __glewTexStorage3DEXT;
+
   __glewTextureStorage1DEXT: TPFNGLTEXTURESTORAGE1DEXTPROC; cvar;external libGLEW;
+  glTextureStorage1DEXT: TPFNGLTEXTURESTORAGE1DEXTPROC absolute __glewTextureStorage1DEXT;
+
   __glewTextureStorage2DEXT: TPFNGLTEXTURESTORAGE2DEXTPROC; cvar;external libGLEW;
+  glTextureStorage2DEXT: TPFNGLTEXTURESTORAGE2DEXTPROC absolute __glewTextureStorage2DEXT;
+
   __glewTextureStorage3DEXT: TPFNGLTEXTURESTORAGE3DEXTPROC; cvar;external libGLEW;
+  glTextureStorage3DEXT: TPFNGLTEXTURESTORAGE3DEXTPROC absolute __glewTextureStorage3DEXT;
+
   __glewTextureViewEXT: TPFNGLTEXTUREVIEWEXTPROC; cvar;external libGLEW;
+  glTextureViewEXT: TPFNGLTEXTUREVIEWEXTPROC absolute __glewTextureViewEXT;
+
   __glewGetQueryObjecti64vEXT: TPFNGLGETQUERYOBJECTI64VEXTPROC; cvar;external libGLEW;
+  glGetQueryObjecti64vEXT: TPFNGLGETQUERYOBJECTI64VEXTPROC absolute __glewGetQueryObjecti64vEXT;
+
   __glewGetQueryObjectui64vEXT: TPFNGLGETQUERYOBJECTUI64VEXTPROC; cvar;external libGLEW;
+  glGetQueryObjectui64vEXT: TPFNGLGETQUERYOBJECTUI64VEXTPROC absolute __glewGetQueryObjectui64vEXT;
+
   __glewBeginTransformFeedbackEXT: TPFNGLBEGINTRANSFORMFEEDBACKEXTPROC; cvar;external libGLEW;
+  glBeginTransformFeedbackEXT: TPFNGLBEGINTRANSFORMFEEDBACKEXTPROC absolute __glewBeginTransformFeedbackEXT;
+
   __glewBindBufferBaseEXT: TPFNGLBINDBUFFERBASEEXTPROC; cvar;external libGLEW;
+  glBindBufferBaseEXT: TPFNGLBINDBUFFERBASEEXTPROC absolute __glewBindBufferBaseEXT;
+
   __glewBindBufferOffsetEXT: TPFNGLBINDBUFFEROFFSETEXTPROC; cvar;external libGLEW;
+  glBindBufferOffsetEXT: TPFNGLBINDBUFFEROFFSETEXTPROC absolute __glewBindBufferOffsetEXT;
+
   __glewBindBufferRangeEXT: TPFNGLBINDBUFFERRANGEEXTPROC; cvar;external libGLEW;
+  glBindBufferRangeEXT: TPFNGLBINDBUFFERRANGEEXTPROC absolute __glewBindBufferRangeEXT;
+
   __glewEndTransformFeedbackEXT: TPFNGLENDTRANSFORMFEEDBACKEXTPROC; cvar;external libGLEW;
+  glEndTransformFeedbackEXT: TPFNGLENDTRANSFORMFEEDBACKEXTPROC absolute __glewEndTransformFeedbackEXT;
+
   __glewGetTransformFeedbackVaryingEXT: TPFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC; cvar;external libGLEW;
+  glGetTransformFeedbackVaryingEXT: TPFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC absolute __glewGetTransformFeedbackVaryingEXT;
+
   __glewTransformFeedbackVaryingsEXT: TPFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC; cvar;external libGLEW;
+  glTransformFeedbackVaryingsEXT: TPFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC absolute __glewTransformFeedbackVaryingsEXT;
+
   __glewArrayElementEXT: TPFNGLARRAYELEMENTEXTPROC; cvar;external libGLEW;
+  glArrayElementEXT: TPFNGLARRAYELEMENTEXTPROC absolute __glewArrayElementEXT;
+
   __glewColorPointerEXT: TPFNGLCOLORPOINTEREXTPROC; cvar;external libGLEW;
+  glColorPointerEXT: TPFNGLCOLORPOINTEREXTPROC absolute __glewColorPointerEXT;
+
   __glewDrawArraysEXT: TPFNGLDRAWARRAYSEXTPROC; cvar;external libGLEW;
+  glDrawArraysEXT: TPFNGLDRAWARRAYSEXTPROC absolute __glewDrawArraysEXT;
+
   __glewEdgeFlagPointerEXT: TPFNGLEDGEFLAGPOINTEREXTPROC; cvar;external libGLEW;
+  glEdgeFlagPointerEXT: TPFNGLEDGEFLAGPOINTEREXTPROC absolute __glewEdgeFlagPointerEXT;
+
   __glewIndexPointerEXT: TPFNGLINDEXPOINTEREXTPROC; cvar;external libGLEW;
+  glIndexPointerEXT: TPFNGLINDEXPOINTEREXTPROC absolute __glewIndexPointerEXT;
+
   __glewNormalPointerEXT: TPFNGLNORMALPOINTEREXTPROC; cvar;external libGLEW;
+  glNormalPointerEXT: TPFNGLNORMALPOINTEREXTPROC absolute __glewNormalPointerEXT;
+
   __glewTexCoordPointerEXT: TPFNGLTEXCOORDPOINTEREXTPROC; cvar;external libGLEW;
+  glTexCoordPointerEXT: TPFNGLTEXCOORDPOINTEREXTPROC absolute __glewTexCoordPointerEXT;
+
   __glewVertexPointerEXT: TPFNGLVERTEXPOINTEREXTPROC; cvar;external libGLEW;
+  glVertexPointerEXT: TPFNGLVERTEXPOINTEREXTPROC absolute __glewVertexPointerEXT;
+
   __glewBindArraySetEXT: TPFNGLBINDARRAYSETEXTPROC; cvar;external libGLEW;
+  glBindArraySetEXT: TPFNGLBINDARRAYSETEXTPROC absolute __glewBindArraySetEXT;
+
   __glewCreateArraySetExt: TPFNGLCREATEARRAYSETEXTPROC; cvar;external libGLEW;
+  glCreateArraySetExt: TPFNGLCREATEARRAYSETEXTPROC absolute __glewCreateArraySetExt;
+
   __glewDeleteArraySetsEXT: TPFNGLDELETEARRAYSETSEXTPROC; cvar;external libGLEW;
+  glDeleteArraySetsEXT: TPFNGLDELETEARRAYSETSEXTPROC absolute __glewDeleteArraySetsEXT;
+
   __glewGetVertexAttribLdvEXT: TPFNGLGETVERTEXATTRIBLDVEXTPROC; cvar;external libGLEW;
+  glGetVertexAttribLdvEXT: TPFNGLGETVERTEXATTRIBLDVEXTPROC absolute __glewGetVertexAttribLdvEXT;
+
   __glewVertexArrayVertexAttribLOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC; cvar;external libGLEW;
+  glVertexArrayVertexAttribLOffsetEXT: TPFNGLVERTEXARRAYVERTEXATTRIBLOFFSETEXTPROC absolute __glewVertexArrayVertexAttribLOffsetEXT;
+
   __glewVertexAttribL1dEXT: TPFNGLVERTEXATTRIBL1DEXTPROC; cvar;external libGLEW;
+  glVertexAttribL1dEXT: TPFNGLVERTEXATTRIBL1DEXTPROC absolute __glewVertexAttribL1dEXT;
+
   __glewVertexAttribL1dvEXT: TPFNGLVERTEXATTRIBL1DVEXTPROC; cvar;external libGLEW;
+  glVertexAttribL1dvEXT: TPFNGLVERTEXATTRIBL1DVEXTPROC absolute __glewVertexAttribL1dvEXT;
+
   __glewVertexAttribL2dEXT: TPFNGLVERTEXATTRIBL2DEXTPROC; cvar;external libGLEW;
+  glVertexAttribL2dEXT: TPFNGLVERTEXATTRIBL2DEXTPROC absolute __glewVertexAttribL2dEXT;
+
   __glewVertexAttribL2dvEXT: TPFNGLVERTEXATTRIBL2DVEXTPROC; cvar;external libGLEW;
+  glVertexAttribL2dvEXT: TPFNGLVERTEXATTRIBL2DVEXTPROC absolute __glewVertexAttribL2dvEXT;
+
   __glewVertexAttribL3dEXT: TPFNGLVERTEXATTRIBL3DEXTPROC; cvar;external libGLEW;
+  glVertexAttribL3dEXT: TPFNGLVERTEXATTRIBL3DEXTPROC absolute __glewVertexAttribL3dEXT;
+
   __glewVertexAttribL3dvEXT: TPFNGLVERTEXATTRIBL3DVEXTPROC; cvar;external libGLEW;
+  glVertexAttribL3dvEXT: TPFNGLVERTEXATTRIBL3DVEXTPROC absolute __glewVertexAttribL3dvEXT;
+
   __glewVertexAttribL4dEXT: TPFNGLVERTEXATTRIBL4DEXTPROC; cvar;external libGLEW;
+  glVertexAttribL4dEXT: TPFNGLVERTEXATTRIBL4DEXTPROC absolute __glewVertexAttribL4dEXT;
+
   __glewVertexAttribL4dvEXT: TPFNGLVERTEXATTRIBL4DVEXTPROC; cvar;external libGLEW;
+  glVertexAttribL4dvEXT: TPFNGLVERTEXATTRIBL4DVEXTPROC absolute __glewVertexAttribL4dvEXT;
+
   __glewVertexAttribLPointerEXT: TPFNGLVERTEXATTRIBLPOINTEREXTPROC; cvar;external libGLEW;
+  glVertexAttribLPointerEXT: TPFNGLVERTEXATTRIBLPOINTEREXTPROC absolute __glewVertexAttribLPointerEXT;
+
   __glewBeginVertexShaderEXT: TPFNGLBEGINVERTEXSHADEREXTPROC; cvar;external libGLEW;
+  glBeginVertexShaderEXT: TPFNGLBEGINVERTEXSHADEREXTPROC absolute __glewBeginVertexShaderEXT;
+
   __glewBindLightParameterEXT: TPFNGLBINDLIGHTPARAMETEREXTPROC; cvar;external libGLEW;
+  glBindLightParameterEXT: TPFNGLBINDLIGHTPARAMETEREXTPROC absolute __glewBindLightParameterEXT;
+
   __glewBindMaterialParameterEXT: TPFNGLBINDMATERIALPARAMETEREXTPROC; cvar;external libGLEW;
+  glBindMaterialParameterEXT: TPFNGLBINDMATERIALPARAMETEREXTPROC absolute __glewBindMaterialParameterEXT;
+
   __glewBindParameterEXT: TPFNGLBINDPARAMETEREXTPROC; cvar;external libGLEW;
+  glBindParameterEXT: TPFNGLBINDPARAMETEREXTPROC absolute __glewBindParameterEXT;
+
   __glewBindTexGenParameterEXT: TPFNGLBINDTEXGENPARAMETEREXTPROC; cvar;external libGLEW;
+  glBindTexGenParameterEXT: TPFNGLBINDTEXGENPARAMETEREXTPROC absolute __glewBindTexGenParameterEXT;
+
   __glewBindTextureUnitParameterEXT: TPFNGLBINDTEXTUREUNITPARAMETEREXTPROC; cvar;external libGLEW;
+  glBindTextureUnitParameterEXT: TPFNGLBINDTEXTUREUNITPARAMETEREXTPROC absolute __glewBindTextureUnitParameterEXT;
+
   __glewBindVertexShaderEXT: TPFNGLBINDVERTEXSHADEREXTPROC; cvar;external libGLEW;
+  glBindVertexShaderEXT: TPFNGLBINDVERTEXSHADEREXTPROC absolute __glewBindVertexShaderEXT;
+
   __glewDeleteVertexShaderEXT: TPFNGLDELETEVERTEXSHADEREXTPROC; cvar;external libGLEW;
+  glDeleteVertexShaderEXT: TPFNGLDELETEVERTEXSHADEREXTPROC absolute __glewDeleteVertexShaderEXT;
+
   __glewDisableVariantClientStateEXT: TPFNGLDISABLEVARIANTCLIENTSTATEEXTPROC; cvar;external libGLEW;
+  glDisableVariantClientStateEXT: TPFNGLDISABLEVARIANTCLIENTSTATEEXTPROC absolute __glewDisableVariantClientStateEXT;
+
   __glewEnableVariantClientStateEXT: TPFNGLENABLEVARIANTCLIENTSTATEEXTPROC; cvar;external libGLEW;
+  glEnableVariantClientStateEXT: TPFNGLENABLEVARIANTCLIENTSTATEEXTPROC absolute __glewEnableVariantClientStateEXT;
+
   __glewEndVertexShaderEXT: TPFNGLENDVERTEXSHADEREXTPROC; cvar;external libGLEW;
+  glEndVertexShaderEXT: TPFNGLENDVERTEXSHADEREXTPROC absolute __glewEndVertexShaderEXT;
+
   __glewExtractComponentEXT: TPFNGLEXTRACTCOMPONENTEXTPROC; cvar;external libGLEW;
+  glExtractComponentEXT: TPFNGLEXTRACTCOMPONENTEXTPROC absolute __glewExtractComponentEXT;
+
   __glewGenSymbolsEXT: TPFNGLGENSYMBOLSEXTPROC; cvar;external libGLEW;
+  glGenSymbolsEXT: TPFNGLGENSYMBOLSEXTPROC absolute __glewGenSymbolsEXT;
+
   __glewGenVertexShadersEXT: TPFNGLGENVERTEXSHADERSEXTPROC; cvar;external libGLEW;
+  glGenVertexShadersEXT: TPFNGLGENVERTEXSHADERSEXTPROC absolute __glewGenVertexShadersEXT;
+
   __glewGetInvariantBooleanvEXT: TPFNGLGETINVARIANTBOOLEANVEXTPROC; cvar;external libGLEW;
+  glGetInvariantBooleanvEXT: TPFNGLGETINVARIANTBOOLEANVEXTPROC absolute __glewGetInvariantBooleanvEXT;
+
   __glewGetInvariantFloatvEXT: TPFNGLGETINVARIANTFLOATVEXTPROC; cvar;external libGLEW;
+  glGetInvariantFloatvEXT: TPFNGLGETINVARIANTFLOATVEXTPROC absolute __glewGetInvariantFloatvEXT;
+
   __glewGetInvariantIntegervEXT: TPFNGLGETINVARIANTINTEGERVEXTPROC; cvar;external libGLEW;
+  glGetInvariantIntegervEXT: TPFNGLGETINVARIANTINTEGERVEXTPROC absolute __glewGetInvariantIntegervEXT;
+
   __glewGetLocalConstantBooleanvEXT: TPFNGLGETLOCALCONSTANTBOOLEANVEXTPROC; cvar;external libGLEW;
+  glGetLocalConstantBooleanvEXT: TPFNGLGETLOCALCONSTANTBOOLEANVEXTPROC absolute __glewGetLocalConstantBooleanvEXT;
+
   __glewGetLocalConstantFloatvEXT: TPFNGLGETLOCALCONSTANTFLOATVEXTPROC; cvar;external libGLEW;
+  glGetLocalConstantFloatvEXT: TPFNGLGETLOCALCONSTANTFLOATVEXTPROC absolute __glewGetLocalConstantFloatvEXT;
+
   __glewGetLocalConstantIntegervEXT: TPFNGLGETLOCALCONSTANTINTEGERVEXTPROC; cvar;external libGLEW;
+  glGetLocalConstantIntegervEXT: TPFNGLGETLOCALCONSTANTINTEGERVEXTPROC absolute __glewGetLocalConstantIntegervEXT;
+
   __glewGetVariantBooleanvEXT: TPFNGLGETVARIANTBOOLEANVEXTPROC; cvar;external libGLEW;
+  glGetVariantBooleanvEXT: TPFNGLGETVARIANTBOOLEANVEXTPROC absolute __glewGetVariantBooleanvEXT;
+
   __glewGetVariantFloatvEXT: TPFNGLGETVARIANTFLOATVEXTPROC; cvar;external libGLEW;
+  glGetVariantFloatvEXT: TPFNGLGETVARIANTFLOATVEXTPROC absolute __glewGetVariantFloatvEXT;
+
   __glewGetVariantIntegervEXT: TPFNGLGETVARIANTINTEGERVEXTPROC; cvar;external libGLEW;
+  glGetVariantIntegervEXT: TPFNGLGETVARIANTINTEGERVEXTPROC absolute __glewGetVariantIntegervEXT;
+
   __glewGetVariantPointervEXT: TPFNGLGETVARIANTPOINTERVEXTPROC; cvar;external libGLEW;
+  glGetVariantPointervEXT: TPFNGLGETVARIANTPOINTERVEXTPROC absolute __glewGetVariantPointervEXT;
+
   __glewInsertComponentEXT: TPFNGLINSERTCOMPONENTEXTPROC; cvar;external libGLEW;
+  glInsertComponentEXT: TPFNGLINSERTCOMPONENTEXTPROC absolute __glewInsertComponentEXT;
+
   __glewIsVariantEnabledEXT: TPFNGLISVARIANTENABLEDEXTPROC; cvar;external libGLEW;
+  glIsVariantEnabledEXT: TPFNGLISVARIANTENABLEDEXTPROC absolute __glewIsVariantEnabledEXT;
+
   __glewSetInvariantEXT: TPFNGLSETINVARIANTEXTPROC; cvar;external libGLEW;
+  glSetInvariantEXT: TPFNGLSETINVARIANTEXTPROC absolute __glewSetInvariantEXT;
+
   __glewSetLocalConstantEXT: TPFNGLSETLOCALCONSTANTEXTPROC; cvar;external libGLEW;
+  glSetLocalConstantEXT: TPFNGLSETLOCALCONSTANTEXTPROC absolute __glewSetLocalConstantEXT;
+
   __glewShaderOp1EXT: TPFNGLSHADEROP1EXTPROC; cvar;external libGLEW;
+  glShaderOp1EXT: TPFNGLSHADEROP1EXTPROC absolute __glewShaderOp1EXT;
+
   __glewShaderOp2EXT: TPFNGLSHADEROP2EXTPROC; cvar;external libGLEW;
+  glShaderOp2EXT: TPFNGLSHADEROP2EXTPROC absolute __glewShaderOp2EXT;
+
   __glewShaderOp3EXT: TPFNGLSHADEROP3EXTPROC; cvar;external libGLEW;
+  glShaderOp3EXT: TPFNGLSHADEROP3EXTPROC absolute __glewShaderOp3EXT;
+
   __glewSwizzleEXT: TPFNGLSWIZZLEEXTPROC; cvar;external libGLEW;
+  glSwizzleEXT: TPFNGLSWIZZLEEXTPROC absolute __glewSwizzleEXT;
+
   __glewVariantPointerEXT: TPFNGLVARIANTPOINTEREXTPROC; cvar;external libGLEW;
+  glVariantPointerEXT: TPFNGLVARIANTPOINTEREXTPROC absolute __glewVariantPointerEXT;
+
   __glewVariantbvEXT: TPFNGLVARIANTBVEXTPROC; cvar;external libGLEW;
+  glVariantbvEXT: TPFNGLVARIANTBVEXTPROC absolute __glewVariantbvEXT;
+
   __glewVariantdvEXT: TPFNGLVARIANTDVEXTPROC; cvar;external libGLEW;
+  glVariantdvEXT: TPFNGLVARIANTDVEXTPROC absolute __glewVariantdvEXT;
+
   __glewVariantfvEXT: TPFNGLVARIANTFVEXTPROC; cvar;external libGLEW;
+  glVariantfvEXT: TPFNGLVARIANTFVEXTPROC absolute __glewVariantfvEXT;
+
   __glewVariantivEXT: TPFNGLVARIANTIVEXTPROC; cvar;external libGLEW;
+  glVariantivEXT: TPFNGLVARIANTIVEXTPROC absolute __glewVariantivEXT;
+
   __glewVariantsvEXT: TPFNGLVARIANTSVEXTPROC; cvar;external libGLEW;
+  glVariantsvEXT: TPFNGLVARIANTSVEXTPROC absolute __glewVariantsvEXT;
+
   __glewVariantubvEXT: TPFNGLVARIANTUBVEXTPROC; cvar;external libGLEW;
+  glVariantubvEXT: TPFNGLVARIANTUBVEXTPROC absolute __glewVariantubvEXT;
+
   __glewVariantuivEXT: TPFNGLVARIANTUIVEXTPROC; cvar;external libGLEW;
+  glVariantuivEXT: TPFNGLVARIANTUIVEXTPROC absolute __glewVariantuivEXT;
+
   __glewVariantusvEXT: TPFNGLVARIANTUSVEXTPROC; cvar;external libGLEW;
+  glVariantusvEXT: TPFNGLVARIANTUSVEXTPROC absolute __glewVariantusvEXT;
+
   __glewWriteMaskEXT: TPFNGLWRITEMASKEXTPROC; cvar;external libGLEW;
+  glWriteMaskEXT: TPFNGLWRITEMASKEXTPROC absolute __glewWriteMaskEXT;
+
   __glewVertexWeightPointerEXT: TPFNGLVERTEXWEIGHTPOINTEREXTPROC; cvar;external libGLEW;
+  glVertexWeightPointerEXT: TPFNGLVERTEXWEIGHTPOINTEREXTPROC absolute __glewVertexWeightPointerEXT;
+
   __glewVertexWeightfEXT: TPFNGLVERTEXWEIGHTFEXTPROC; cvar;external libGLEW;
+  glVertexWeightfEXT: TPFNGLVERTEXWEIGHTFEXTPROC absolute __glewVertexWeightfEXT;
+
   __glewVertexWeightfvEXT: TPFNGLVERTEXWEIGHTFVEXTPROC; cvar;external libGLEW;
+  glVertexWeightfvEXT: TPFNGLVERTEXWEIGHTFVEXTPROC absolute __glewVertexWeightfvEXT;
+
   __glewAcquireKeyedMutexWin32EXT: TPFNGLACQUIREKEYEDMUTEXWIN32EXTPROC; cvar;external libGLEW;
+  glAcquireKeyedMutexWin32EXT: TPFNGLACQUIREKEYEDMUTEXWIN32EXTPROC absolute __glewAcquireKeyedMutexWin32EXT;
+
   __glewReleaseKeyedMutexWin32EXT: TPFNGLRELEASEKEYEDMUTEXWIN32EXTPROC; cvar;external libGLEW;
+  glReleaseKeyedMutexWin32EXT: TPFNGLRELEASEKEYEDMUTEXWIN32EXTPROC absolute __glewReleaseKeyedMutexWin32EXT;
+
   __glewWindowRectanglesEXT: TPFNGLWINDOWRECTANGLESEXTPROC; cvar;external libGLEW;
+  glWindowRectanglesEXT: TPFNGLWINDOWRECTANGLESEXTPROC absolute __glewWindowRectanglesEXT;
+
   __glewImportSyncEXT: TPFNGLIMPORTSYNCEXTPROC; cvar;external libGLEW;
+  glImportSyncEXT: TPFNGLIMPORTSYNCEXTPROC absolute __glewImportSyncEXT;
+
   __glewFrameTerminatorGREMEDY: TPFNGLFRAMETERMINATORGREMEDYPROC; cvar;external libGLEW;
+  glFrameTerminatorGREMEDY: TPFNGLFRAMETERMINATORGREMEDYPROC absolute __glewFrameTerminatorGREMEDY;
+
   __glewStringMarkerGREMEDY: TPFNGLSTRINGMARKERGREMEDYPROC; cvar;external libGLEW;
+  glStringMarkerGREMEDY: TPFNGLSTRINGMARKERGREMEDYPROC absolute __glewStringMarkerGREMEDY;
+
   __glewGetImageTransformParameterfvHP: TPFNGLGETIMAGETRANSFORMPARAMETERFVHPPROC; cvar;external libGLEW;
+  glGetImageTransformParameterfvHP: TPFNGLGETIMAGETRANSFORMPARAMETERFVHPPROC absolute __glewGetImageTransformParameterfvHP;
+
   __glewGetImageTransformParameterivHP: TPFNGLGETIMAGETRANSFORMPARAMETERIVHPPROC; cvar;external libGLEW;
+  glGetImageTransformParameterivHP: TPFNGLGETIMAGETRANSFORMPARAMETERIVHPPROC absolute __glewGetImageTransformParameterivHP;
+
   __glewImageTransformParameterfHP: TPFNGLIMAGETRANSFORMPARAMETERFHPPROC; cvar;external libGLEW;
+  glImageTransformParameterfHP: TPFNGLIMAGETRANSFORMPARAMETERFHPPROC absolute __glewImageTransformParameterfHP;
+
   __glewImageTransformParameterfvHP: TPFNGLIMAGETRANSFORMPARAMETERFVHPPROC; cvar;external libGLEW;
+  glImageTransformParameterfvHP: TPFNGLIMAGETRANSFORMPARAMETERFVHPPROC absolute __glewImageTransformParameterfvHP;
+
   __glewImageTransformParameteriHP: TPFNGLIMAGETRANSFORMPARAMETERIHPPROC; cvar;external libGLEW;
+  glImageTransformParameteriHP: TPFNGLIMAGETRANSFORMPARAMETERIHPPROC absolute __glewImageTransformParameteriHP;
+
   __glewImageTransformParameterivHP: TPFNGLIMAGETRANSFORMPARAMETERIVHPPROC; cvar;external libGLEW;
+  glImageTransformParameterivHP: TPFNGLIMAGETRANSFORMPARAMETERIVHPPROC absolute __glewImageTransformParameterivHP;
+
   __glewMultiModeDrawArraysIBM: TPFNGLMULTIMODEDRAWARRAYSIBMPROC; cvar;external libGLEW;
+  glMultiModeDrawArraysIBM: TPFNGLMULTIMODEDRAWARRAYSIBMPROC absolute __glewMultiModeDrawArraysIBM;
+
   __glewMultiModeDrawElementsIBM: TPFNGLMULTIMODEDRAWELEMENTSIBMPROC; cvar;external libGLEW;
+  glMultiModeDrawElementsIBM: TPFNGLMULTIMODEDRAWELEMENTSIBMPROC absolute __glewMultiModeDrawElementsIBM;
+
   __glewColorPointerListIBM: TPFNGLCOLORPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glColorPointerListIBM: TPFNGLCOLORPOINTERLISTIBMPROC absolute __glewColorPointerListIBM;
+
   __glewEdgeFlagPointerListIBM: TPFNGLEDGEFLAGPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glEdgeFlagPointerListIBM: TPFNGLEDGEFLAGPOINTERLISTIBMPROC absolute __glewEdgeFlagPointerListIBM;
+
   __glewFogCoordPointerListIBM: TPFNGLFOGCOORDPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glFogCoordPointerListIBM: TPFNGLFOGCOORDPOINTERLISTIBMPROC absolute __glewFogCoordPointerListIBM;
+
   __glewIndexPointerListIBM: TPFNGLINDEXPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glIndexPointerListIBM: TPFNGLINDEXPOINTERLISTIBMPROC absolute __glewIndexPointerListIBM;
+
   __glewNormalPointerListIBM: TPFNGLNORMALPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glNormalPointerListIBM: TPFNGLNORMALPOINTERLISTIBMPROC absolute __glewNormalPointerListIBM;
+
   __glewSecondaryColorPointerListIBM: TPFNGLSECONDARYCOLORPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glSecondaryColorPointerListIBM: TPFNGLSECONDARYCOLORPOINTERLISTIBMPROC absolute __glewSecondaryColorPointerListIBM;
+
   __glewTexCoordPointerListIBM: TPFNGLTEXCOORDPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glTexCoordPointerListIBM: TPFNGLTEXCOORDPOINTERLISTIBMPROC absolute __glewTexCoordPointerListIBM;
+
   __glewVertexPointerListIBM: TPFNGLVERTEXPOINTERLISTIBMPROC; cvar;external libGLEW;
+  glVertexPointerListIBM: TPFNGLVERTEXPOINTERLISTIBMPROC absolute __glewVertexPointerListIBM;
+
   __glewGetTextureHandleIMG: TPFNGLGETTEXTUREHANDLEIMGPROC; cvar;external libGLEW;
+  glGetTextureHandleIMG: TPFNGLGETTEXTUREHANDLEIMGPROC absolute __glewGetTextureHandleIMG;
+
   __glewGetTextureSamplerHandleIMG: TPFNGLGETTEXTURESAMPLERHANDLEIMGPROC; cvar;external libGLEW;
+  glGetTextureSamplerHandleIMG: TPFNGLGETTEXTURESAMPLERHANDLEIMGPROC absolute __glewGetTextureSamplerHandleIMG;
+
   __glewProgramUniformHandleui64IMG: TPFNGLPROGRAMUNIFORMHANDLEUI64IMGPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64IMG: TPFNGLPROGRAMUNIFORMHANDLEUI64IMGPROC absolute __glewProgramUniformHandleui64IMG;
+
   __glewProgramUniformHandleui64vIMG: TPFNGLPROGRAMUNIFORMHANDLEUI64VIMGPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64vIMG: TPFNGLPROGRAMUNIFORMHANDLEUI64VIMGPROC absolute __glewProgramUniformHandleui64vIMG;
+
   __glewUniformHandleui64IMG: TPFNGLUNIFORMHANDLEUI64IMGPROC; cvar;external libGLEW;
+  glUniformHandleui64IMG: TPFNGLUNIFORMHANDLEUI64IMGPROC absolute __glewUniformHandleui64IMG;
+
   __glewUniformHandleui64vIMG: TPFNGLUNIFORMHANDLEUI64VIMGPROC; cvar;external libGLEW;
+  glUniformHandleui64vIMG: TPFNGLUNIFORMHANDLEUI64VIMGPROC absolute __glewUniformHandleui64vIMG;
+
   __glewFramebufferTexture2DDownsampleIMG: TPFNGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMGPROC; cvar;external libGLEW;
+  glFramebufferTexture2DDownsampleIMG: TPFNGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMGPROC absolute __glewFramebufferTexture2DDownsampleIMG;
+
   __glewFramebufferTextureLayerDownsampleIMG: TPFNGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMGPROC; cvar;external libGLEW;
+  glFramebufferTextureLayerDownsampleIMG: TPFNGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMGPROC absolute __glewFramebufferTextureLayerDownsampleIMG;
+
   __glewFramebufferTexture2DMultisampleIMG: TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMGPROC; cvar;external libGLEW;
+  glFramebufferTexture2DMultisampleIMG: TPFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMGPROC absolute __glewFramebufferTexture2DMultisampleIMG;
+
   __glewRenderbufferStorageMultisampleIMG: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleIMG: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEIMGPROC absolute __glewRenderbufferStorageMultisampleIMG;
+
   __glewMapTexture2DINTEL: TPFNGLMAPTEXTURE2DINTELPROC; cvar;external libGLEW;
+  glMapTexture2DINTEL: TPFNGLMAPTEXTURE2DINTELPROC absolute __glewMapTexture2DINTEL;
+
   __glewSyncTextureINTEL: TPFNGLSYNCTEXTUREINTELPROC; cvar;external libGLEW;
+  glSyncTextureINTEL: TPFNGLSYNCTEXTUREINTELPROC absolute __glewSyncTextureINTEL;
+
   __glewUnmapTexture2DINTEL: TPFNGLUNMAPTEXTURE2DINTELPROC; cvar;external libGLEW;
+  glUnmapTexture2DINTEL: TPFNGLUNMAPTEXTURE2DINTELPROC absolute __glewUnmapTexture2DINTEL;
+
   __glewColorPointervINTEL: TPFNGLCOLORPOINTERVINTELPROC; cvar;external libGLEW;
+  glColorPointervINTEL: TPFNGLCOLORPOINTERVINTELPROC absolute __glewColorPointervINTEL;
+
   __glewNormalPointervINTEL: TPFNGLNORMALPOINTERVINTELPROC; cvar;external libGLEW;
+  glNormalPointervINTEL: TPFNGLNORMALPOINTERVINTELPROC absolute __glewNormalPointervINTEL;
+
   __glewTexCoordPointervINTEL: TPFNGLTEXCOORDPOINTERVINTELPROC; cvar;external libGLEW;
+  glTexCoordPointervINTEL: TPFNGLTEXCOORDPOINTERVINTELPROC absolute __glewTexCoordPointervINTEL;
+
   __glewVertexPointervINTEL: TPFNGLVERTEXPOINTERVINTELPROC; cvar;external libGLEW;
+  glVertexPointervINTEL: TPFNGLVERTEXPOINTERVINTELPROC absolute __glewVertexPointervINTEL;
+
   __glewBeginPerfQueryINTEL: TPFNGLBEGINPERFQUERYINTELPROC; cvar;external libGLEW;
+  glBeginPerfQueryINTEL: TPFNGLBEGINPERFQUERYINTELPROC absolute __glewBeginPerfQueryINTEL;
+
   __glewCreatePerfQueryINTEL: TPFNGLCREATEPERFQUERYINTELPROC; cvar;external libGLEW;
+  glCreatePerfQueryINTEL: TPFNGLCREATEPERFQUERYINTELPROC absolute __glewCreatePerfQueryINTEL;
+
   __glewDeletePerfQueryINTEL: TPFNGLDELETEPERFQUERYINTELPROC; cvar;external libGLEW;
+  glDeletePerfQueryINTEL: TPFNGLDELETEPERFQUERYINTELPROC absolute __glewDeletePerfQueryINTEL;
+
   __glewEndPerfQueryINTEL: TPFNGLENDPERFQUERYINTELPROC; cvar;external libGLEW;
+  glEndPerfQueryINTEL: TPFNGLENDPERFQUERYINTELPROC absolute __glewEndPerfQueryINTEL;
+
   __glewGetFirstPerfQueryIdINTEL: TPFNGLGETFIRSTPERFQUERYIDINTELPROC; cvar;external libGLEW;
+  glGetFirstPerfQueryIdINTEL: TPFNGLGETFIRSTPERFQUERYIDINTELPROC absolute __glewGetFirstPerfQueryIdINTEL;
+
   __glewGetNextPerfQueryIdINTEL: TPFNGLGETNEXTPERFQUERYIDINTELPROC; cvar;external libGLEW;
+  glGetNextPerfQueryIdINTEL: TPFNGLGETNEXTPERFQUERYIDINTELPROC absolute __glewGetNextPerfQueryIdINTEL;
+
   __glewGetPerfCounterInfoINTEL: TPFNGLGETPERFCOUNTERINFOINTELPROC; cvar;external libGLEW;
+  glGetPerfCounterInfoINTEL: TPFNGLGETPERFCOUNTERINFOINTELPROC absolute __glewGetPerfCounterInfoINTEL;
+
   __glewGetPerfQueryDataINTEL: TPFNGLGETPERFQUERYDATAINTELPROC; cvar;external libGLEW;
+  glGetPerfQueryDataINTEL: TPFNGLGETPERFQUERYDATAINTELPROC absolute __glewGetPerfQueryDataINTEL;
+
   __glewGetPerfQueryIdByNameINTEL: TPFNGLGETPERFQUERYIDBYNAMEINTELPROC; cvar;external libGLEW;
+  glGetPerfQueryIdByNameINTEL: TPFNGLGETPERFQUERYIDBYNAMEINTELPROC absolute __glewGetPerfQueryIdByNameINTEL;
+
   __glewGetPerfQueryInfoINTEL: TPFNGLGETPERFQUERYINFOINTELPROC; cvar;external libGLEW;
+  glGetPerfQueryInfoINTEL: TPFNGLGETPERFQUERYINFOINTELPROC absolute __glewGetPerfQueryInfoINTEL;
+
   __glewTexScissorFuncINTEL: TPFNGLTEXSCISSORFUNCINTELPROC; cvar;external libGLEW;
+  glTexScissorFuncINTEL: TPFNGLTEXSCISSORFUNCINTELPROC absolute __glewTexScissorFuncINTEL;
+
   __glewTexScissorINTEL: TPFNGLTEXSCISSORINTELPROC; cvar;external libGLEW;
+  glTexScissorINTEL: TPFNGLTEXSCISSORINTELPROC absolute __glewTexScissorINTEL;
+
   __glewBlendBarrierKHR: TPFNGLBLENDBARRIERKHRPROC; cvar;external libGLEW;
+  glBlendBarrierKHR: TPFNGLBLENDBARRIERKHRPROC absolute __glewBlendBarrierKHR;
+
   __glewDebugMessageCallback: TPFNGLDEBUGMESSAGECALLBACKPROC; cvar;external libGLEW;
+  glDebugMessageCallback: TPFNGLDEBUGMESSAGECALLBACKPROC absolute __glewDebugMessageCallback;
+
   __glewDebugMessageControl: TPFNGLDEBUGMESSAGECONTROLPROC; cvar;external libGLEW;
+  glDebugMessageControl: TPFNGLDEBUGMESSAGECONTROLPROC absolute __glewDebugMessageControl;
+
   __glewDebugMessageInsert: TPFNGLDEBUGMESSAGEINSERTPROC; cvar;external libGLEW;
+  glDebugMessageInsert: TPFNGLDEBUGMESSAGEINSERTPROC absolute __glewDebugMessageInsert;
+
   __glewGetDebugMessageLog: TPFNGLGETDEBUGMESSAGELOGPROC; cvar;external libGLEW;
+  glGetDebugMessageLog: TPFNGLGETDEBUGMESSAGELOGPROC absolute __glewGetDebugMessageLog;
+
   __glewGetObjectLabel: TPFNGLGETOBJECTLABELPROC; cvar;external libGLEW;
+  glGetObjectLabel: TPFNGLGETOBJECTLABELPROC absolute __glewGetObjectLabel;
+
   __glewGetObjectPtrLabel: TPFNGLGETOBJECTPTRLABELPROC; cvar;external libGLEW;
+  glGetObjectPtrLabel: TPFNGLGETOBJECTPTRLABELPROC absolute __glewGetObjectPtrLabel;
+
   __glewObjectLabel: TPFNGLOBJECTLABELPROC; cvar;external libGLEW;
+  glObjectLabel: TPFNGLOBJECTLABELPROC absolute __glewObjectLabel;
+
   __glewObjectPtrLabel: TPFNGLOBJECTPTRLABELPROC; cvar;external libGLEW;
+  glObjectPtrLabel: TPFNGLOBJECTPTRLABELPROC absolute __glewObjectPtrLabel;
+
   __glewPopDebugGroup: TPFNGLPOPDEBUGGROUPPROC; cvar;external libGLEW;
+  glPopDebugGroup: TPFNGLPOPDEBUGGROUPPROC absolute __glewPopDebugGroup;
+
   __glewPushDebugGroup: TPFNGLPUSHDEBUGGROUPPROC; cvar;external libGLEW;
+  glPushDebugGroup: TPFNGLPUSHDEBUGGROUPPROC absolute __glewPushDebugGroup;
+
   __glewMaxShaderCompilerThreadsKHR: TPFNGLMAXSHADERCOMPILERTHREADSKHRPROC; cvar;external libGLEW;
+  glMaxShaderCompilerThreadsKHR: TPFNGLMAXSHADERCOMPILERTHREADSKHRPROC absolute __glewMaxShaderCompilerThreadsKHR;
+
   __glewGetnUniformfv: TPFNGLGETNUNIFORMFVPROC; cvar;external libGLEW;
+  glGetnUniformfv: TPFNGLGETNUNIFORMFVPROC absolute __glewGetnUniformfv;
+
   __glewGetnUniformiv: TPFNGLGETNUNIFORMIVPROC; cvar;external libGLEW;
+  glGetnUniformiv: TPFNGLGETNUNIFORMIVPROC absolute __glewGetnUniformiv;
+
   __glewGetnUniformuiv: TPFNGLGETNUNIFORMUIVPROC; cvar;external libGLEW;
+  glGetnUniformuiv: TPFNGLGETNUNIFORMUIVPROC absolute __glewGetnUniformuiv;
+
   __glewReadnPixels: TPFNGLREADNPIXELSPROC; cvar;external libGLEW;
+  glReadnPixels: TPFNGLREADNPIXELSPROC absolute __glewReadnPixels;
+
   __glewBufferRegionEnabled: TPFNGLBUFFERREGIONENABLEDPROC; cvar;external libGLEW;
+  glBufferRegionEnabled: TPFNGLBUFFERREGIONENABLEDPROC absolute __glewBufferRegionEnabled;
+
   __glewDeleteBufferRegion: TPFNGLDELETEBUFFERREGIONPROC; cvar;external libGLEW;
+  glDeleteBufferRegion: TPFNGLDELETEBUFFERREGIONPROC absolute __glewDeleteBufferRegion;
+
   __glewDrawBufferRegion: TPFNGLDRAWBUFFERREGIONPROC; cvar;external libGLEW;
+  glDrawBufferRegion: TPFNGLDRAWBUFFERREGIONPROC absolute __glewDrawBufferRegion;
+
   __glewNewBufferRegion: TPFNGLNEWBUFFERREGIONPROC; cvar;external libGLEW;
+  glNewBufferRegion: TPFNGLNEWBUFFERREGIONPROC absolute __glewNewBufferRegion;
+
   __glewReadBufferRegion: TPFNGLREADBUFFERREGIONPROC; cvar;external libGLEW;
+  glReadBufferRegion: TPFNGLREADBUFFERREGIONPROC absolute __glewReadBufferRegion;
+
   __glewFramebufferParameteriMESA: TPFNGLFRAMEBUFFERPARAMETERIMESAPROC; cvar;external libGLEW;
+  glFramebufferParameteriMESA: TPFNGLFRAMEBUFFERPARAMETERIMESAPROC absolute __glewFramebufferParameteriMESA;
+
   __glewGetFramebufferParameterivMESA: TPFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC; cvar;external libGLEW;
+  glGetFramebufferParameterivMESA: TPFNGLGETFRAMEBUFFERPARAMETERIVMESAPROC absolute __glewGetFramebufferParameterivMESA;
+
   __glewResizeBuffersMESA: TPFNGLRESIZEBUFFERSMESAPROC; cvar;external libGLEW;
+  glResizeBuffersMESA: TPFNGLRESIZEBUFFERSMESAPROC absolute __glewResizeBuffersMESA;
+
   __glewWindowPos2dMESA: TPFNGLWINDOWPOS2DMESAPROC; cvar;external libGLEW;
+  glWindowPos2dMESA: TPFNGLWINDOWPOS2DMESAPROC absolute __glewWindowPos2dMESA;
+
   __glewWindowPos2dvMESA: TPFNGLWINDOWPOS2DVMESAPROC; cvar;external libGLEW;
+  glWindowPos2dvMESA: TPFNGLWINDOWPOS2DVMESAPROC absolute __glewWindowPos2dvMESA;
+
   __glewWindowPos2fMESA: TPFNGLWINDOWPOS2FMESAPROC; cvar;external libGLEW;
+  glWindowPos2fMESA: TPFNGLWINDOWPOS2FMESAPROC absolute __glewWindowPos2fMESA;
+
   __glewWindowPos2fvMESA: TPFNGLWINDOWPOS2FVMESAPROC; cvar;external libGLEW;
+  glWindowPos2fvMESA: TPFNGLWINDOWPOS2FVMESAPROC absolute __glewWindowPos2fvMESA;
+
   __glewWindowPos2iMESA: TPFNGLWINDOWPOS2IMESAPROC; cvar;external libGLEW;
+  glWindowPos2iMESA: TPFNGLWINDOWPOS2IMESAPROC absolute __glewWindowPos2iMESA;
+
   __glewWindowPos2ivMESA: TPFNGLWINDOWPOS2IVMESAPROC; cvar;external libGLEW;
+  glWindowPos2ivMESA: TPFNGLWINDOWPOS2IVMESAPROC absolute __glewWindowPos2ivMESA;
+
   __glewWindowPos2sMESA: TPFNGLWINDOWPOS2SMESAPROC; cvar;external libGLEW;
+  glWindowPos2sMESA: TPFNGLWINDOWPOS2SMESAPROC absolute __glewWindowPos2sMESA;
+
   __glewWindowPos2svMESA: TPFNGLWINDOWPOS2SVMESAPROC; cvar;external libGLEW;
+  glWindowPos2svMESA: TPFNGLWINDOWPOS2SVMESAPROC absolute __glewWindowPos2svMESA;
+
   __glewWindowPos3dMESA: TPFNGLWINDOWPOS3DMESAPROC; cvar;external libGLEW;
+  glWindowPos3dMESA: TPFNGLWINDOWPOS3DMESAPROC absolute __glewWindowPos3dMESA;
+
   __glewWindowPos3dvMESA: TPFNGLWINDOWPOS3DVMESAPROC; cvar;external libGLEW;
+  glWindowPos3dvMESA: TPFNGLWINDOWPOS3DVMESAPROC absolute __glewWindowPos3dvMESA;
+
   __glewWindowPos3fMESA: TPFNGLWINDOWPOS3FMESAPROC; cvar;external libGLEW;
+  glWindowPos3fMESA: TPFNGLWINDOWPOS3FMESAPROC absolute __glewWindowPos3fMESA;
+
   __glewWindowPos3fvMESA: TPFNGLWINDOWPOS3FVMESAPROC; cvar;external libGLEW;
+  glWindowPos3fvMESA: TPFNGLWINDOWPOS3FVMESAPROC absolute __glewWindowPos3fvMESA;
+
   __glewWindowPos3iMESA: TPFNGLWINDOWPOS3IMESAPROC; cvar;external libGLEW;
+  glWindowPos3iMESA: TPFNGLWINDOWPOS3IMESAPROC absolute __glewWindowPos3iMESA;
+
   __glewWindowPos3ivMESA: TPFNGLWINDOWPOS3IVMESAPROC; cvar;external libGLEW;
+  glWindowPos3ivMESA: TPFNGLWINDOWPOS3IVMESAPROC absolute __glewWindowPos3ivMESA;
+
   __glewWindowPos3sMESA: TPFNGLWINDOWPOS3SMESAPROC; cvar;external libGLEW;
+  glWindowPos3sMESA: TPFNGLWINDOWPOS3SMESAPROC absolute __glewWindowPos3sMESA;
+
   __glewWindowPos3svMESA: TPFNGLWINDOWPOS3SVMESAPROC; cvar;external libGLEW;
+  glWindowPos3svMESA: TPFNGLWINDOWPOS3SVMESAPROC absolute __glewWindowPos3svMESA;
+
   __glewWindowPos4dMESA: TPFNGLWINDOWPOS4DMESAPROC; cvar;external libGLEW;
+  glWindowPos4dMESA: TPFNGLWINDOWPOS4DMESAPROC absolute __glewWindowPos4dMESA;
+
   __glewWindowPos4dvMESA: TPFNGLWINDOWPOS4DVMESAPROC; cvar;external libGLEW;
+  glWindowPos4dvMESA: TPFNGLWINDOWPOS4DVMESAPROC absolute __glewWindowPos4dvMESA;
+
   __glewWindowPos4fMESA: TPFNGLWINDOWPOS4FMESAPROC; cvar;external libGLEW;
+  glWindowPos4fMESA: TPFNGLWINDOWPOS4FMESAPROC absolute __glewWindowPos4fMESA;
+
   __glewWindowPos4fvMESA: TPFNGLWINDOWPOS4FVMESAPROC; cvar;external libGLEW;
+  glWindowPos4fvMESA: TPFNGLWINDOWPOS4FVMESAPROC absolute __glewWindowPos4fvMESA;
+
   __glewWindowPos4iMESA: TPFNGLWINDOWPOS4IMESAPROC; cvar;external libGLEW;
+  glWindowPos4iMESA: TPFNGLWINDOWPOS4IMESAPROC absolute __glewWindowPos4iMESA;
+
   __glewWindowPos4ivMESA: TPFNGLWINDOWPOS4IVMESAPROC; cvar;external libGLEW;
+  glWindowPos4ivMESA: TPFNGLWINDOWPOS4IVMESAPROC absolute __glewWindowPos4ivMESA;
+
   __glewWindowPos4sMESA: TPFNGLWINDOWPOS4SMESAPROC; cvar;external libGLEW;
+  glWindowPos4sMESA: TPFNGLWINDOWPOS4SMESAPROC absolute __glewWindowPos4sMESA;
+
   __glewWindowPos4svMESA: TPFNGLWINDOWPOS4SVMESAPROC; cvar;external libGLEW;
+  glWindowPos4svMESA: TPFNGLWINDOWPOS4SVMESAPROC absolute __glewWindowPos4svMESA;
+
   __glewBeginConditionalRenderNVX: TPFNGLBEGINCONDITIONALRENDERNVXPROC; cvar;external libGLEW;
+  glBeginConditionalRenderNVX: TPFNGLBEGINCONDITIONALRENDERNVXPROC absolute __glewBeginConditionalRenderNVX;
+
   __glewEndConditionalRenderNVX: TPFNGLENDCONDITIONALRENDERNVXPROC; cvar;external libGLEW;
+  glEndConditionalRenderNVX: TPFNGLENDCONDITIONALRENDERNVXPROC absolute __glewEndConditionalRenderNVX;
+
   __glewAsyncCopyBufferSubDataNVX: TPFNGLASYNCCOPYBUFFERSUBDATANVXPROC; cvar;external libGLEW;
+  glAsyncCopyBufferSubDataNVX: TPFNGLASYNCCOPYBUFFERSUBDATANVXPROC absolute __glewAsyncCopyBufferSubDataNVX;
+
   __glewAsyncCopyImageSubDataNVX: TPFNGLASYNCCOPYIMAGESUBDATANVXPROC; cvar;external libGLEW;
+  glAsyncCopyImageSubDataNVX: TPFNGLASYNCCOPYIMAGESUBDATANVXPROC absolute __glewAsyncCopyImageSubDataNVX;
+
   __glewMulticastScissorArrayvNVX: TPFNGLMULTICASTSCISSORARRAYVNVXPROC; cvar;external libGLEW;
+  glMulticastScissorArrayvNVX: TPFNGLMULTICASTSCISSORARRAYVNVXPROC absolute __glewMulticastScissorArrayvNVX;
+
   __glewMulticastViewportArrayvNVX: TPFNGLMULTICASTVIEWPORTARRAYVNVXPROC; cvar;external libGLEW;
+  glMulticastViewportArrayvNVX: TPFNGLMULTICASTVIEWPORTARRAYVNVXPROC absolute __glewMulticastViewportArrayvNVX;
+
   __glewMulticastViewportPositionWScaleNVX: TPFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC; cvar;external libGLEW;
+  glMulticastViewportPositionWScaleNVX: TPFNGLMULTICASTVIEWPORTPOSITIONWSCALENVXPROC absolute __glewMulticastViewportPositionWScaleNVX;
+
   __glewUploadGpuMaskNVX: TPFNGLUPLOADGPUMASKNVXPROC; cvar;external libGLEW;
+  glUploadGpuMaskNVX: TPFNGLUPLOADGPUMASKNVXPROC absolute __glewUploadGpuMaskNVX;
+
   __glewLGPUCopyImageSubDataNVX: TPFNGLLGPUCOPYIMAGESUBDATANVXPROC; cvar;external libGLEW;
+  glLGPUCopyImageSubDataNVX: TPFNGLLGPUCOPYIMAGESUBDATANVXPROC absolute __glewLGPUCopyImageSubDataNVX;
+
   __glewLGPUInterlockNVX: TPFNGLLGPUINTERLOCKNVXPROC; cvar;external libGLEW;
+  glLGPUInterlockNVX: TPFNGLLGPUINTERLOCKNVXPROC absolute __glewLGPUInterlockNVX;
+
   __glewLGPUNamedBufferSubDataNVX: TPFNGLLGPUNAMEDBUFFERSUBDATANVXPROC; cvar;external libGLEW;
+  glLGPUNamedBufferSubDataNVX: TPFNGLLGPUNAMEDBUFFERSUBDATANVXPROC absolute __glewLGPUNamedBufferSubDataNVX;
+
   __glewClientWaitSemaphoreui64NVX: TPFNGLCLIENTWAITSEMAPHOREUI64NVXPROC; cvar;external libGLEW;
+  glClientWaitSemaphoreui64NVX: TPFNGLCLIENTWAITSEMAPHOREUI64NVXPROC absolute __glewClientWaitSemaphoreui64NVX;
+
   __glewSignalSemaphoreui64NVX: TPFNGLSIGNALSEMAPHOREUI64NVXPROC; cvar;external libGLEW;
+  glSignalSemaphoreui64NVX: TPFNGLSIGNALSEMAPHOREUI64NVXPROC absolute __glewSignalSemaphoreui64NVX;
+
   __glewWaitSemaphoreui64NVX: TPFNGLWAITSEMAPHOREUI64NVXPROC; cvar;external libGLEW;
+  glWaitSemaphoreui64NVX: TPFNGLWAITSEMAPHOREUI64NVXPROC absolute __glewWaitSemaphoreui64NVX;
+
   __glewStereoParameterfNV: TPFNGLSTEREOPARAMETERFNVPROC; cvar;external libGLEW;
+  glStereoParameterfNV: TPFNGLSTEREOPARAMETERFNVPROC absolute __glewStereoParameterfNV;
+
   __glewStereoParameteriNV: TPFNGLSTEREOPARAMETERINVPROC; cvar;external libGLEW;
+  glStereoParameteriNV: TPFNGLSTEREOPARAMETERINVPROC absolute __glewStereoParameteriNV;
+
   __glewAlphaToCoverageDitherControlNV: TPFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC; cvar;external libGLEW;
+  glAlphaToCoverageDitherControlNV: TPFNGLALPHATOCOVERAGEDITHERCONTROLNVPROC absolute __glewAlphaToCoverageDitherControlNV;
+
   __glewMultiDrawArraysIndirectBindlessNV: TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectBindlessNV: TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC absolute __glewMultiDrawArraysIndirectBindlessNV;
+
   __glewMultiDrawElementsIndirectBindlessNV: TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectBindlessNV: TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC absolute __glewMultiDrawElementsIndirectBindlessNV;
+
   __glewMultiDrawArraysIndirectBindlessCountNV: TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC; cvar;external libGLEW;
+  glMultiDrawArraysIndirectBindlessCountNV: TPFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC absolute __glewMultiDrawArraysIndirectBindlessCountNV;
+
   __glewMultiDrawElementsIndirectBindlessCountNV: TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC; cvar;external libGLEW;
+  glMultiDrawElementsIndirectBindlessCountNV: TPFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC absolute __glewMultiDrawElementsIndirectBindlessCountNV;
+
   __glewGetImageHandleNV: TPFNGLGETIMAGEHANDLENVPROC; cvar;external libGLEW;
+  glGetImageHandleNV: TPFNGLGETIMAGEHANDLENVPROC absolute __glewGetImageHandleNV;
+
   __glewGetTextureHandleNV: TPFNGLGETTEXTUREHANDLENVPROC; cvar;external libGLEW;
+  glGetTextureHandleNV: TPFNGLGETTEXTUREHANDLENVPROC absolute __glewGetTextureHandleNV;
+
   __glewGetTextureSamplerHandleNV: TPFNGLGETTEXTURESAMPLERHANDLENVPROC; cvar;external libGLEW;
+  glGetTextureSamplerHandleNV: TPFNGLGETTEXTURESAMPLERHANDLENVPROC absolute __glewGetTextureSamplerHandleNV;
+
   __glewIsImageHandleResidentNV: TPFNGLISIMAGEHANDLERESIDENTNVPROC; cvar;external libGLEW;
+  glIsImageHandleResidentNV: TPFNGLISIMAGEHANDLERESIDENTNVPROC absolute __glewIsImageHandleResidentNV;
+
   __glewIsTextureHandleResidentNV: TPFNGLISTEXTUREHANDLERESIDENTNVPROC; cvar;external libGLEW;
+  glIsTextureHandleResidentNV: TPFNGLISTEXTUREHANDLERESIDENTNVPROC absolute __glewIsTextureHandleResidentNV;
+
   __glewMakeImageHandleNonResidentNV: TPFNGLMAKEIMAGEHANDLENONRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeImageHandleNonResidentNV: TPFNGLMAKEIMAGEHANDLENONRESIDENTNVPROC absolute __glewMakeImageHandleNonResidentNV;
+
   __glewMakeImageHandleResidentNV: TPFNGLMAKEIMAGEHANDLERESIDENTNVPROC; cvar;external libGLEW;
+  glMakeImageHandleResidentNV: TPFNGLMAKEIMAGEHANDLERESIDENTNVPROC absolute __glewMakeImageHandleResidentNV;
+
   __glewMakeTextureHandleNonResidentNV: TPFNGLMAKETEXTUREHANDLENONRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeTextureHandleNonResidentNV: TPFNGLMAKETEXTUREHANDLENONRESIDENTNVPROC absolute __glewMakeTextureHandleNonResidentNV;
+
   __glewMakeTextureHandleResidentNV: TPFNGLMAKETEXTUREHANDLERESIDENTNVPROC; cvar;external libGLEW;
+  glMakeTextureHandleResidentNV: TPFNGLMAKETEXTUREHANDLERESIDENTNVPROC absolute __glewMakeTextureHandleResidentNV;
+
   __glewProgramUniformHandleui64NV: TPFNGLPROGRAMUNIFORMHANDLEUI64NVPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64NV: TPFNGLPROGRAMUNIFORMHANDLEUI64NVPROC absolute __glewProgramUniformHandleui64NV;
+
   __glewProgramUniformHandleui64vNV: TPFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC; cvar;external libGLEW;
+  glProgramUniformHandleui64vNV: TPFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC absolute __glewProgramUniformHandleui64vNV;
+
   __glewUniformHandleui64NV: TPFNGLUNIFORMHANDLEUI64NVPROC; cvar;external libGLEW;
+  glUniformHandleui64NV: TPFNGLUNIFORMHANDLEUI64NVPROC absolute __glewUniformHandleui64NV;
+
   __glewUniformHandleui64vNV: TPFNGLUNIFORMHANDLEUI64VNVPROC; cvar;external libGLEW;
+  glUniformHandleui64vNV: TPFNGLUNIFORMHANDLEUI64VNVPROC absolute __glewUniformHandleui64vNV;
+
   __glewBlendBarrierNV: TPFNGLBLENDBARRIERNVPROC; cvar;external libGLEW;
+  glBlendBarrierNV: TPFNGLBLENDBARRIERNVPROC absolute __glewBlendBarrierNV;
+
   __glewBlendParameteriNV: TPFNGLBLENDPARAMETERINVPROC; cvar;external libGLEW;
+  glBlendParameteriNV: TPFNGLBLENDPARAMETERINVPROC absolute __glewBlendParameteriNV;
+
   __glewViewportPositionWScaleNV: TPFNGLVIEWPORTPOSITIONWSCALENVPROC; cvar;external libGLEW;
+  glViewportPositionWScaleNV: TPFNGLVIEWPORTPOSITIONWSCALENVPROC absolute __glewViewportPositionWScaleNV;
+
   __glewCallCommandListNV: TPFNGLCALLCOMMANDLISTNVPROC; cvar;external libGLEW;
+  glCallCommandListNV: TPFNGLCALLCOMMANDLISTNVPROC absolute __glewCallCommandListNV;
+
   __glewCommandListSegmentsNV: TPFNGLCOMMANDLISTSEGMENTSNVPROC; cvar;external libGLEW;
+  glCommandListSegmentsNV: TPFNGLCOMMANDLISTSEGMENTSNVPROC absolute __glewCommandListSegmentsNV;
+
   __glewCompileCommandListNV: TPFNGLCOMPILECOMMANDLISTNVPROC; cvar;external libGLEW;
+  glCompileCommandListNV: TPFNGLCOMPILECOMMANDLISTNVPROC absolute __glewCompileCommandListNV;
+
   __glewCreateCommandListsNV: TPFNGLCREATECOMMANDLISTSNVPROC; cvar;external libGLEW;
+  glCreateCommandListsNV: TPFNGLCREATECOMMANDLISTSNVPROC absolute __glewCreateCommandListsNV;
+
   __glewCreateStatesNV: TPFNGLCREATESTATESNVPROC; cvar;external libGLEW;
+  glCreateStatesNV: TPFNGLCREATESTATESNVPROC absolute __glewCreateStatesNV;
+
   __glewDeleteCommandListsNV: TPFNGLDELETECOMMANDLISTSNVPROC; cvar;external libGLEW;
+  glDeleteCommandListsNV: TPFNGLDELETECOMMANDLISTSNVPROC absolute __glewDeleteCommandListsNV;
+
   __glewDeleteStatesNV: TPFNGLDELETESTATESNVPROC; cvar;external libGLEW;
+  glDeleteStatesNV: TPFNGLDELETESTATESNVPROC absolute __glewDeleteStatesNV;
+
   __glewDrawCommandsAddressNV: TPFNGLDRAWCOMMANDSADDRESSNVPROC; cvar;external libGLEW;
+  glDrawCommandsAddressNV: TPFNGLDRAWCOMMANDSADDRESSNVPROC absolute __glewDrawCommandsAddressNV;
+
   __glewDrawCommandsNV: TPFNGLDRAWCOMMANDSNVPROC; cvar;external libGLEW;
+  glDrawCommandsNV: TPFNGLDRAWCOMMANDSNVPROC absolute __glewDrawCommandsNV;
+
   __glewDrawCommandsStatesAddressNV: TPFNGLDRAWCOMMANDSSTATESADDRESSNVPROC; cvar;external libGLEW;
+  glDrawCommandsStatesAddressNV: TPFNGLDRAWCOMMANDSSTATESADDRESSNVPROC absolute __glewDrawCommandsStatesAddressNV;
+
   __glewDrawCommandsStatesNV: TPFNGLDRAWCOMMANDSSTATESNVPROC; cvar;external libGLEW;
+  glDrawCommandsStatesNV: TPFNGLDRAWCOMMANDSSTATESNVPROC absolute __glewDrawCommandsStatesNV;
+
   __glewGetCommandHeaderNV: TPFNGLGETCOMMANDHEADERNVPROC; cvar;external libGLEW;
+  glGetCommandHeaderNV: TPFNGLGETCOMMANDHEADERNVPROC absolute __glewGetCommandHeaderNV;
+
   __glewGetStageIndexNV: TPFNGLGETSTAGEINDEXNVPROC; cvar;external libGLEW;
+  glGetStageIndexNV: TPFNGLGETSTAGEINDEXNVPROC absolute __glewGetStageIndexNV;
+
   __glewIsCommandListNV: TPFNGLISCOMMANDLISTNVPROC; cvar;external libGLEW;
+  glIsCommandListNV: TPFNGLISCOMMANDLISTNVPROC absolute __glewIsCommandListNV;
+
   __glewIsStateNV: TPFNGLISSTATENVPROC; cvar;external libGLEW;
+  glIsStateNV: TPFNGLISSTATENVPROC absolute __glewIsStateNV;
+
   __glewListDrawCommandsStatesClientNV: TPFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC; cvar;external libGLEW;
+  glListDrawCommandsStatesClientNV: TPFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC absolute __glewListDrawCommandsStatesClientNV;
+
   __glewStateCaptureNV: TPFNGLSTATECAPTURENVPROC; cvar;external libGLEW;
+  glStateCaptureNV: TPFNGLSTATECAPTURENVPROC absolute __glewStateCaptureNV;
+
   __glewBeginConditionalRenderNV: TPFNGLBEGINCONDITIONALRENDERNVPROC; cvar;external libGLEW;
+  glBeginConditionalRenderNV: TPFNGLBEGINCONDITIONALRENDERNVPROC absolute __glewBeginConditionalRenderNV;
+
   __glewEndConditionalRenderNV: TPFNGLENDCONDITIONALRENDERNVPROC; cvar;external libGLEW;
+  glEndConditionalRenderNV: TPFNGLENDCONDITIONALRENDERNVPROC absolute __glewEndConditionalRenderNV;
+
   __glewSubpixelPrecisionBiasNV: TPFNGLSUBPIXELPRECISIONBIASNVPROC; cvar;external libGLEW;
+  glSubpixelPrecisionBiasNV: TPFNGLSUBPIXELPRECISIONBIASNVPROC absolute __glewSubpixelPrecisionBiasNV;
+
   __glewConservativeRasterParameterfNV: TPFNGLCONSERVATIVERASTERPARAMETERFNVPROC; cvar;external libGLEW;
+  glConservativeRasterParameterfNV: TPFNGLCONSERVATIVERASTERPARAMETERFNVPROC absolute __glewConservativeRasterParameterfNV;
+
   __glewConservativeRasterParameteriNV: TPFNGLCONSERVATIVERASTERPARAMETERINVPROC; cvar;external libGLEW;
+  glConservativeRasterParameteriNV: TPFNGLCONSERVATIVERASTERPARAMETERINVPROC absolute __glewConservativeRasterParameteriNV;
+
   __glewCopyBufferSubDataNV: TPFNGLCOPYBUFFERSUBDATANVPROC; cvar;external libGLEW;
+  glCopyBufferSubDataNV: TPFNGLCOPYBUFFERSUBDATANVPROC absolute __glewCopyBufferSubDataNV;
+
   __glewCopyImageSubDataNV: TPFNGLCOPYIMAGESUBDATANVPROC; cvar;external libGLEW;
+  glCopyImageSubDataNV: TPFNGLCOPYIMAGESUBDATANVPROC absolute __glewCopyImageSubDataNV;
+
   __glewClearDepthdNV: TPFNGLCLEARDEPTHDNVPROC; cvar;external libGLEW;
+  glClearDepthdNV: TPFNGLCLEARDEPTHDNVPROC absolute __glewClearDepthdNV;
+
   __glewDepthBoundsdNV: TPFNGLDEPTHBOUNDSDNVPROC; cvar;external libGLEW;
+  glDepthBoundsdNV: TPFNGLDEPTHBOUNDSDNVPROC absolute __glewDepthBoundsdNV;
+
   __glewDepthRangedNV: TPFNGLDEPTHRANGEDNVPROC; cvar;external libGLEW;
+  glDepthRangedNV: TPFNGLDEPTHRANGEDNVPROC absolute __glewDepthRangedNV;
+
   __glewDrawBuffersNV: TPFNGLDRAWBUFFERSNVPROC; cvar;external libGLEW;
+  glDrawBuffersNV: TPFNGLDRAWBUFFERSNVPROC absolute __glewDrawBuffersNV;
+
   __glewDrawArraysInstancedNV: TPFNGLDRAWARRAYSINSTANCEDNVPROC; cvar;external libGLEW;
+  glDrawArraysInstancedNV: TPFNGLDRAWARRAYSINSTANCEDNVPROC absolute __glewDrawArraysInstancedNV;
+
   __glewDrawElementsInstancedNV: TPFNGLDRAWELEMENTSINSTANCEDNVPROC; cvar;external libGLEW;
+  glDrawElementsInstancedNV: TPFNGLDRAWELEMENTSINSTANCEDNVPROC absolute __glewDrawElementsInstancedNV;
+
   __glewDrawTextureNV: TPFNGLDRAWTEXTURENVPROC; cvar;external libGLEW;
+  glDrawTextureNV: TPFNGLDRAWTEXTURENVPROC absolute __glewDrawTextureNV;
+
   __glewDrawVkImageNV: TPFNGLDRAWVKIMAGENVPROC; cvar;external libGLEW;
+  glDrawVkImageNV: TPFNGLDRAWVKIMAGENVPROC absolute __glewDrawVkImageNV;
+
   __glewGetVkProcAddrNV: TPFNGLGETVKPROCADDRNVPROC; cvar;external libGLEW;
+  glGetVkProcAddrNV: TPFNGLGETVKPROCADDRNVPROC absolute __glewGetVkProcAddrNV;
+
   __glewSignalVkFenceNV: TPFNGLSIGNALVKFENCENVPROC; cvar;external libGLEW;
+  glSignalVkFenceNV: TPFNGLSIGNALVKFENCENVPROC absolute __glewSignalVkFenceNV;
+
   __glewSignalVkSemaphoreNV: TPFNGLSIGNALVKSEMAPHORENVPROC; cvar;external libGLEW;
+  glSignalVkSemaphoreNV: TPFNGLSIGNALVKSEMAPHORENVPROC absolute __glewSignalVkSemaphoreNV;
+
   __glewWaitVkSemaphoreNV: TPFNGLWAITVKSEMAPHORENVPROC; cvar;external libGLEW;
+  glWaitVkSemaphoreNV: TPFNGLWAITVKSEMAPHORENVPROC absolute __glewWaitVkSemaphoreNV;
+
   __glewEvalMapsNV: TPFNGLEVALMAPSNVPROC; cvar;external libGLEW;
+  glEvalMapsNV: TPFNGLEVALMAPSNVPROC absolute __glewEvalMapsNV;
+
   __glewGetMapAttribParameterfvNV: TPFNGLGETMAPATTRIBPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetMapAttribParameterfvNV: TPFNGLGETMAPATTRIBPARAMETERFVNVPROC absolute __glewGetMapAttribParameterfvNV;
+
   __glewGetMapAttribParameterivNV: TPFNGLGETMAPATTRIBPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetMapAttribParameterivNV: TPFNGLGETMAPATTRIBPARAMETERIVNVPROC absolute __glewGetMapAttribParameterivNV;
+
   __glewGetMapControlPointsNV: TPFNGLGETMAPCONTROLPOINTSNVPROC; cvar;external libGLEW;
+  glGetMapControlPointsNV: TPFNGLGETMAPCONTROLPOINTSNVPROC absolute __glewGetMapControlPointsNV;
+
   __glewGetMapParameterfvNV: TPFNGLGETMAPPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetMapParameterfvNV: TPFNGLGETMAPPARAMETERFVNVPROC absolute __glewGetMapParameterfvNV;
+
   __glewGetMapParameterivNV: TPFNGLGETMAPPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetMapParameterivNV: TPFNGLGETMAPPARAMETERIVNVPROC absolute __glewGetMapParameterivNV;
+
   __glewMapControlPointsNV: TPFNGLMAPCONTROLPOINTSNVPROC; cvar;external libGLEW;
+  glMapControlPointsNV: TPFNGLMAPCONTROLPOINTSNVPROC absolute __glewMapControlPointsNV;
+
   __glewMapParameterfvNV: TPFNGLMAPPARAMETERFVNVPROC; cvar;external libGLEW;
+  glMapParameterfvNV: TPFNGLMAPPARAMETERFVNVPROC absolute __glewMapParameterfvNV;
+
   __glewMapParameterivNV: TPFNGLMAPPARAMETERIVNVPROC; cvar;external libGLEW;
+  glMapParameterivNV: TPFNGLMAPPARAMETERIVNVPROC absolute __glewMapParameterivNV;
+
   __glewGetMultisamplefvNV: TPFNGLGETMULTISAMPLEFVNVPROC; cvar;external libGLEW;
+  glGetMultisamplefvNV: TPFNGLGETMULTISAMPLEFVNVPROC absolute __glewGetMultisamplefvNV;
+
   __glewSampleMaskIndexedNV: TPFNGLSAMPLEMASKINDEXEDNVPROC; cvar;external libGLEW;
+  glSampleMaskIndexedNV: TPFNGLSAMPLEMASKINDEXEDNVPROC absolute __glewSampleMaskIndexedNV;
+
   __glewTexRenderbufferNV: TPFNGLTEXRENDERBUFFERNVPROC; cvar;external libGLEW;
+  glTexRenderbufferNV: TPFNGLTEXRENDERBUFFERNVPROC absolute __glewTexRenderbufferNV;
+
   __glewDeleteFencesNV: TPFNGLDELETEFENCESNVPROC; cvar;external libGLEW;
+  glDeleteFencesNV: TPFNGLDELETEFENCESNVPROC absolute __glewDeleteFencesNV;
+
   __glewFinishFenceNV: TPFNGLFINISHFENCENVPROC; cvar;external libGLEW;
+  glFinishFenceNV: TPFNGLFINISHFENCENVPROC absolute __glewFinishFenceNV;
+
   __glewGenFencesNV: TPFNGLGENFENCESNVPROC; cvar;external libGLEW;
+  glGenFencesNV: TPFNGLGENFENCESNVPROC absolute __glewGenFencesNV;
+
   __glewGetFenceivNV: TPFNGLGETFENCEIVNVPROC; cvar;external libGLEW;
+  glGetFenceivNV: TPFNGLGETFENCEIVNVPROC absolute __glewGetFenceivNV;
+
   __glewIsFenceNV: TPFNGLISFENCENVPROC; cvar;external libGLEW;
+  glIsFenceNV: TPFNGLISFENCENVPROC absolute __glewIsFenceNV;
+
   __glewSetFenceNV: TPFNGLSETFENCENVPROC; cvar;external libGLEW;
+  glSetFenceNV: TPFNGLSETFENCENVPROC absolute __glewSetFenceNV;
+
   __glewTestFenceNV: TPFNGLTESTFENCENVPROC; cvar;external libGLEW;
+  glTestFenceNV: TPFNGLTESTFENCENVPROC absolute __glewTestFenceNV;
+
   __glewFragmentCoverageColorNV: TPFNGLFRAGMENTCOVERAGECOLORNVPROC; cvar;external libGLEW;
+  glFragmentCoverageColorNV: TPFNGLFRAGMENTCOVERAGECOLORNVPROC absolute __glewFragmentCoverageColorNV;
+
   __glewGetProgramNamedParameterdvNV: TPFNGLGETPROGRAMNAMEDPARAMETERDVNVPROC; cvar;external libGLEW;
+  glGetProgramNamedParameterdvNV: TPFNGLGETPROGRAMNAMEDPARAMETERDVNVPROC absolute __glewGetProgramNamedParameterdvNV;
+
   __glewGetProgramNamedParameterfvNV: TPFNGLGETPROGRAMNAMEDPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetProgramNamedParameterfvNV: TPFNGLGETPROGRAMNAMEDPARAMETERFVNVPROC absolute __glewGetProgramNamedParameterfvNV;
+
   __glewProgramNamedParameter4dNV: TPFNGLPROGRAMNAMEDPARAMETER4DNVPROC; cvar;external libGLEW;
+  glProgramNamedParameter4dNV: TPFNGLPROGRAMNAMEDPARAMETER4DNVPROC absolute __glewProgramNamedParameter4dNV;
+
   __glewProgramNamedParameter4dvNV: TPFNGLPROGRAMNAMEDPARAMETER4DVNVPROC; cvar;external libGLEW;
+  glProgramNamedParameter4dvNV: TPFNGLPROGRAMNAMEDPARAMETER4DVNVPROC absolute __glewProgramNamedParameter4dvNV;
+
   __glewProgramNamedParameter4fNV: TPFNGLPROGRAMNAMEDPARAMETER4FNVPROC; cvar;external libGLEW;
+  glProgramNamedParameter4fNV: TPFNGLPROGRAMNAMEDPARAMETER4FNVPROC absolute __glewProgramNamedParameter4fNV;
+
   __glewProgramNamedParameter4fvNV: TPFNGLPROGRAMNAMEDPARAMETER4FVNVPROC; cvar;external libGLEW;
+  glProgramNamedParameter4fvNV: TPFNGLPROGRAMNAMEDPARAMETER4FVNVPROC absolute __glewProgramNamedParameter4fvNV;
+
   __glewBlitFramebufferNV: TPFNGLBLITFRAMEBUFFERNVPROC; cvar;external libGLEW;
+  glBlitFramebufferNV: TPFNGLBLITFRAMEBUFFERNVPROC absolute __glewBlitFramebufferNV;
+
   __glewRenderbufferStorageMultisampleNV: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLENVPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleNV: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLENVPROC absolute __glewRenderbufferStorageMultisampleNV;
+
   __glewRenderbufferStorageMultisampleCoverageNV: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLECOVERAGENVPROC; cvar;external libGLEW;
+  glRenderbufferStorageMultisampleCoverageNV: TPFNGLRENDERBUFFERSTORAGEMULTISAMPLECOVERAGENVPROC absolute __glewRenderbufferStorageMultisampleCoverageNV;
+
   __glewProgramVertexLimitNV: TPFNGLPROGRAMVERTEXLIMITNVPROC; cvar;external libGLEW;
+  glProgramVertexLimitNV: TPFNGLPROGRAMVERTEXLIMITNVPROC absolute __glewProgramVertexLimitNV;
+
   __glewMulticastBarrierNV: TPFNGLMULTICASTBARRIERNVPROC; cvar;external libGLEW;
+  glMulticastBarrierNV: TPFNGLMULTICASTBARRIERNVPROC absolute __glewMulticastBarrierNV;
+
   __glewMulticastBlitFramebufferNV: TPFNGLMULTICASTBLITFRAMEBUFFERNVPROC; cvar;external libGLEW;
+  glMulticastBlitFramebufferNV: TPFNGLMULTICASTBLITFRAMEBUFFERNVPROC absolute __glewMulticastBlitFramebufferNV;
+
   __glewMulticastBufferSubDataNV: TPFNGLMULTICASTBUFFERSUBDATANVPROC; cvar;external libGLEW;
+  glMulticastBufferSubDataNV: TPFNGLMULTICASTBUFFERSUBDATANVPROC absolute __glewMulticastBufferSubDataNV;
+
   __glewMulticastCopyBufferSubDataNV: TPFNGLMULTICASTCOPYBUFFERSUBDATANVPROC; cvar;external libGLEW;
+  glMulticastCopyBufferSubDataNV: TPFNGLMULTICASTCOPYBUFFERSUBDATANVPROC absolute __glewMulticastCopyBufferSubDataNV;
+
   __glewMulticastCopyImageSubDataNV: TPFNGLMULTICASTCOPYIMAGESUBDATANVPROC; cvar;external libGLEW;
+  glMulticastCopyImageSubDataNV: TPFNGLMULTICASTCOPYIMAGESUBDATANVPROC absolute __glewMulticastCopyImageSubDataNV;
+
   __glewMulticastFramebufferSampleLocationsfvNV: TPFNGLMULTICASTFRAMEBUFFERSAMPLELOCATIONSFVNVPROC; cvar;external libGLEW;
+  glMulticastFramebufferSampleLocationsfvNV: TPFNGLMULTICASTFRAMEBUFFERSAMPLELOCATIONSFVNVPROC absolute __glewMulticastFramebufferSampleLocationsfvNV;
+
   __glewMulticastGetQueryObjecti64vNV: TPFNGLMULTICASTGETQUERYOBJECTI64VNVPROC; cvar;external libGLEW;
+  glMulticastGetQueryObjecti64vNV: TPFNGLMULTICASTGETQUERYOBJECTI64VNVPROC absolute __glewMulticastGetQueryObjecti64vNV;
+
   __glewMulticastGetQueryObjectivNV: TPFNGLMULTICASTGETQUERYOBJECTIVNVPROC; cvar;external libGLEW;
+  glMulticastGetQueryObjectivNV: TPFNGLMULTICASTGETQUERYOBJECTIVNVPROC absolute __glewMulticastGetQueryObjectivNV;
+
   __glewMulticastGetQueryObjectui64vNV: TPFNGLMULTICASTGETQUERYOBJECTUI64VNVPROC; cvar;external libGLEW;
+  glMulticastGetQueryObjectui64vNV: TPFNGLMULTICASTGETQUERYOBJECTUI64VNVPROC absolute __glewMulticastGetQueryObjectui64vNV;
+
   __glewMulticastGetQueryObjectuivNV: TPFNGLMULTICASTGETQUERYOBJECTUIVNVPROC; cvar;external libGLEW;
+  glMulticastGetQueryObjectuivNV: TPFNGLMULTICASTGETQUERYOBJECTUIVNVPROC absolute __glewMulticastGetQueryObjectuivNV;
+
   __glewMulticastWaitSyncNV: TPFNGLMULTICASTWAITSYNCNVPROC; cvar;external libGLEW;
+  glMulticastWaitSyncNV: TPFNGLMULTICASTWAITSYNCNVPROC absolute __glewMulticastWaitSyncNV;
+
   __glewRenderGpuMaskNV: TPFNGLRENDERGPUMASKNVPROC; cvar;external libGLEW;
+  glRenderGpuMaskNV: TPFNGLRENDERGPUMASKNVPROC absolute __glewRenderGpuMaskNV;
+
   __glewProgramEnvParameterI4iNV: TPFNGLPROGRAMENVPARAMETERI4INVPROC; cvar;external libGLEW;
+  glProgramEnvParameterI4iNV: TPFNGLPROGRAMENVPARAMETERI4INVPROC absolute __glewProgramEnvParameterI4iNV;
+
   __glewProgramEnvParameterI4ivNV: TPFNGLPROGRAMENVPARAMETERI4IVNVPROC; cvar;external libGLEW;
+  glProgramEnvParameterI4ivNV: TPFNGLPROGRAMENVPARAMETERI4IVNVPROC absolute __glewProgramEnvParameterI4ivNV;
+
   __glewProgramEnvParameterI4uiNV: TPFNGLPROGRAMENVPARAMETERI4UINVPROC; cvar;external libGLEW;
+  glProgramEnvParameterI4uiNV: TPFNGLPROGRAMENVPARAMETERI4UINVPROC absolute __glewProgramEnvParameterI4uiNV;
+
   __glewProgramEnvParameterI4uivNV: TPFNGLPROGRAMENVPARAMETERI4UIVNVPROC; cvar;external libGLEW;
+  glProgramEnvParameterI4uivNV: TPFNGLPROGRAMENVPARAMETERI4UIVNVPROC absolute __glewProgramEnvParameterI4uivNV;
+
   __glewProgramEnvParametersI4ivNV: TPFNGLPROGRAMENVPARAMETERSI4IVNVPROC; cvar;external libGLEW;
+  glProgramEnvParametersI4ivNV: TPFNGLPROGRAMENVPARAMETERSI4IVNVPROC absolute __glewProgramEnvParametersI4ivNV;
+
   __glewProgramEnvParametersI4uivNV: TPFNGLPROGRAMENVPARAMETERSI4UIVNVPROC; cvar;external libGLEW;
+  glProgramEnvParametersI4uivNV: TPFNGLPROGRAMENVPARAMETERSI4UIVNVPROC absolute __glewProgramEnvParametersI4uivNV;
+
   __glewProgramLocalParameterI4iNV: TPFNGLPROGRAMLOCALPARAMETERI4INVPROC; cvar;external libGLEW;
+  glProgramLocalParameterI4iNV: TPFNGLPROGRAMLOCALPARAMETERI4INVPROC absolute __glewProgramLocalParameterI4iNV;
+
   __glewProgramLocalParameterI4ivNV: TPFNGLPROGRAMLOCALPARAMETERI4IVNVPROC; cvar;external libGLEW;
+  glProgramLocalParameterI4ivNV: TPFNGLPROGRAMLOCALPARAMETERI4IVNVPROC absolute __glewProgramLocalParameterI4ivNV;
+
   __glewProgramLocalParameterI4uiNV: TPFNGLPROGRAMLOCALPARAMETERI4UINVPROC; cvar;external libGLEW;
+  glProgramLocalParameterI4uiNV: TPFNGLPROGRAMLOCALPARAMETERI4UINVPROC absolute __glewProgramLocalParameterI4uiNV;
+
   __glewProgramLocalParameterI4uivNV: TPFNGLPROGRAMLOCALPARAMETERI4UIVNVPROC; cvar;external libGLEW;
+  glProgramLocalParameterI4uivNV: TPFNGLPROGRAMLOCALPARAMETERI4UIVNVPROC absolute __glewProgramLocalParameterI4uivNV;
+
   __glewProgramLocalParametersI4ivNV: TPFNGLPROGRAMLOCALPARAMETERSI4IVNVPROC; cvar;external libGLEW;
+  glProgramLocalParametersI4ivNV: TPFNGLPROGRAMLOCALPARAMETERSI4IVNVPROC absolute __glewProgramLocalParametersI4ivNV;
+
   __glewProgramLocalParametersI4uivNV: TPFNGLPROGRAMLOCALPARAMETERSI4UIVNVPROC; cvar;external libGLEW;
+  glProgramLocalParametersI4uivNV: TPFNGLPROGRAMLOCALPARAMETERSI4UIVNVPROC absolute __glewProgramLocalParametersI4uivNV;
+
   __glewGetUniformi64vNV: TPFNGLGETUNIFORMI64VNVPROC; cvar;external libGLEW;
+  glGetUniformi64vNV: TPFNGLGETUNIFORMI64VNVPROC absolute __glewGetUniformi64vNV;
+
   __glewGetUniformui64vNV: TPFNGLGETUNIFORMUI64VNVPROC; cvar;external libGLEW;
+  glGetUniformui64vNV: TPFNGLGETUNIFORMUI64VNVPROC absolute __glewGetUniformui64vNV;
+
   __glewProgramUniform1i64NV: TPFNGLPROGRAMUNIFORM1I64NVPROC; cvar;external libGLEW;
+  glProgramUniform1i64NV: TPFNGLPROGRAMUNIFORM1I64NVPROC absolute __glewProgramUniform1i64NV;
+
   __glewProgramUniform1i64vNV: TPFNGLPROGRAMUNIFORM1I64VNVPROC; cvar;external libGLEW;
+  glProgramUniform1i64vNV: TPFNGLPROGRAMUNIFORM1I64VNVPROC absolute __glewProgramUniform1i64vNV;
+
   __glewProgramUniform1ui64NV: TPFNGLPROGRAMUNIFORM1UI64NVPROC; cvar;external libGLEW;
+  glProgramUniform1ui64NV: TPFNGLPROGRAMUNIFORM1UI64NVPROC absolute __glewProgramUniform1ui64NV;
+
   __glewProgramUniform1ui64vNV: TPFNGLPROGRAMUNIFORM1UI64VNVPROC; cvar;external libGLEW;
+  glProgramUniform1ui64vNV: TPFNGLPROGRAMUNIFORM1UI64VNVPROC absolute __glewProgramUniform1ui64vNV;
+
   __glewProgramUniform2i64NV: TPFNGLPROGRAMUNIFORM2I64NVPROC; cvar;external libGLEW;
+  glProgramUniform2i64NV: TPFNGLPROGRAMUNIFORM2I64NVPROC absolute __glewProgramUniform2i64NV;
+
   __glewProgramUniform2i64vNV: TPFNGLPROGRAMUNIFORM2I64VNVPROC; cvar;external libGLEW;
+  glProgramUniform2i64vNV: TPFNGLPROGRAMUNIFORM2I64VNVPROC absolute __glewProgramUniform2i64vNV;
+
   __glewProgramUniform2ui64NV: TPFNGLPROGRAMUNIFORM2UI64NVPROC; cvar;external libGLEW;
+  glProgramUniform2ui64NV: TPFNGLPROGRAMUNIFORM2UI64NVPROC absolute __glewProgramUniform2ui64NV;
+
   __glewProgramUniform2ui64vNV: TPFNGLPROGRAMUNIFORM2UI64VNVPROC; cvar;external libGLEW;
+  glProgramUniform2ui64vNV: TPFNGLPROGRAMUNIFORM2UI64VNVPROC absolute __glewProgramUniform2ui64vNV;
+
   __glewProgramUniform3i64NV: TPFNGLPROGRAMUNIFORM3I64NVPROC; cvar;external libGLEW;
+  glProgramUniform3i64NV: TPFNGLPROGRAMUNIFORM3I64NVPROC absolute __glewProgramUniform3i64NV;
+
   __glewProgramUniform3i64vNV: TPFNGLPROGRAMUNIFORM3I64VNVPROC; cvar;external libGLEW;
+  glProgramUniform3i64vNV: TPFNGLPROGRAMUNIFORM3I64VNVPROC absolute __glewProgramUniform3i64vNV;
+
   __glewProgramUniform3ui64NV: TPFNGLPROGRAMUNIFORM3UI64NVPROC; cvar;external libGLEW;
+  glProgramUniform3ui64NV: TPFNGLPROGRAMUNIFORM3UI64NVPROC absolute __glewProgramUniform3ui64NV;
+
   __glewProgramUniform3ui64vNV: TPFNGLPROGRAMUNIFORM3UI64VNVPROC; cvar;external libGLEW;
+  glProgramUniform3ui64vNV: TPFNGLPROGRAMUNIFORM3UI64VNVPROC absolute __glewProgramUniform3ui64vNV;
+
   __glewProgramUniform4i64NV: TPFNGLPROGRAMUNIFORM4I64NVPROC; cvar;external libGLEW;
+  glProgramUniform4i64NV: TPFNGLPROGRAMUNIFORM4I64NVPROC absolute __glewProgramUniform4i64NV;
+
   __glewProgramUniform4i64vNV: TPFNGLPROGRAMUNIFORM4I64VNVPROC; cvar;external libGLEW;
+  glProgramUniform4i64vNV: TPFNGLPROGRAMUNIFORM4I64VNVPROC absolute __glewProgramUniform4i64vNV;
+
   __glewProgramUniform4ui64NV: TPFNGLPROGRAMUNIFORM4UI64NVPROC; cvar;external libGLEW;
+  glProgramUniform4ui64NV: TPFNGLPROGRAMUNIFORM4UI64NVPROC absolute __glewProgramUniform4ui64NV;
+
   __glewProgramUniform4ui64vNV: TPFNGLPROGRAMUNIFORM4UI64VNVPROC; cvar;external libGLEW;
+  glProgramUniform4ui64vNV: TPFNGLPROGRAMUNIFORM4UI64VNVPROC absolute __glewProgramUniform4ui64vNV;
+
   __glewUniform1i64NV: TPFNGLUNIFORM1I64NVPROC; cvar;external libGLEW;
+  glUniform1i64NV: TPFNGLUNIFORM1I64NVPROC absolute __glewUniform1i64NV;
+
   __glewUniform1i64vNV: TPFNGLUNIFORM1I64VNVPROC; cvar;external libGLEW;
+  glUniform1i64vNV: TPFNGLUNIFORM1I64VNVPROC absolute __glewUniform1i64vNV;
+
   __glewUniform1ui64NV: TPFNGLUNIFORM1UI64NVPROC; cvar;external libGLEW;
+  glUniform1ui64NV: TPFNGLUNIFORM1UI64NVPROC absolute __glewUniform1ui64NV;
+
   __glewUniform1ui64vNV: TPFNGLUNIFORM1UI64VNVPROC; cvar;external libGLEW;
+  glUniform1ui64vNV: TPFNGLUNIFORM1UI64VNVPROC absolute __glewUniform1ui64vNV;
+
   __glewUniform2i64NV: TPFNGLUNIFORM2I64NVPROC; cvar;external libGLEW;
+  glUniform2i64NV: TPFNGLUNIFORM2I64NVPROC absolute __glewUniform2i64NV;
+
   __glewUniform2i64vNV: TPFNGLUNIFORM2I64VNVPROC; cvar;external libGLEW;
+  glUniform2i64vNV: TPFNGLUNIFORM2I64VNVPROC absolute __glewUniform2i64vNV;
+
   __glewUniform2ui64NV: TPFNGLUNIFORM2UI64NVPROC; cvar;external libGLEW;
+  glUniform2ui64NV: TPFNGLUNIFORM2UI64NVPROC absolute __glewUniform2ui64NV;
+
   __glewUniform2ui64vNV: TPFNGLUNIFORM2UI64VNVPROC; cvar;external libGLEW;
+  glUniform2ui64vNV: TPFNGLUNIFORM2UI64VNVPROC absolute __glewUniform2ui64vNV;
+
   __glewUniform3i64NV: TPFNGLUNIFORM3I64NVPROC; cvar;external libGLEW;
+  glUniform3i64NV: TPFNGLUNIFORM3I64NVPROC absolute __glewUniform3i64NV;
+
   __glewUniform3i64vNV: TPFNGLUNIFORM3I64VNVPROC; cvar;external libGLEW;
+  glUniform3i64vNV: TPFNGLUNIFORM3I64VNVPROC absolute __glewUniform3i64vNV;
+
   __glewUniform3ui64NV: TPFNGLUNIFORM3UI64NVPROC; cvar;external libGLEW;
+  glUniform3ui64NV: TPFNGLUNIFORM3UI64NVPROC absolute __glewUniform3ui64NV;
+
   __glewUniform3ui64vNV: TPFNGLUNIFORM3UI64VNVPROC; cvar;external libGLEW;
+  glUniform3ui64vNV: TPFNGLUNIFORM3UI64VNVPROC absolute __glewUniform3ui64vNV;
+
   __glewUniform4i64NV: TPFNGLUNIFORM4I64NVPROC; cvar;external libGLEW;
+  glUniform4i64NV: TPFNGLUNIFORM4I64NVPROC absolute __glewUniform4i64NV;
+
   __glewUniform4i64vNV: TPFNGLUNIFORM4I64VNVPROC; cvar;external libGLEW;
+  glUniform4i64vNV: TPFNGLUNIFORM4I64VNVPROC absolute __glewUniform4i64vNV;
+
   __glewUniform4ui64NV: TPFNGLUNIFORM4UI64NVPROC; cvar;external libGLEW;
+  glUniform4ui64NV: TPFNGLUNIFORM4UI64NVPROC absolute __glewUniform4ui64NV;
+
   __glewUniform4ui64vNV: TPFNGLUNIFORM4UI64VNVPROC; cvar;external libGLEW;
+  glUniform4ui64vNV: TPFNGLUNIFORM4UI64VNVPROC absolute __glewUniform4ui64vNV;
+
   __glewColor3hNV: TPFNGLCOLOR3HNVPROC; cvar;external libGLEW;
+  glColor3hNV: TPFNGLCOLOR3HNVPROC absolute __glewColor3hNV;
+
   __glewColor3hvNV: TPFNGLCOLOR3HVNVPROC; cvar;external libGLEW;
+  glColor3hvNV: TPFNGLCOLOR3HVNVPROC absolute __glewColor3hvNV;
+
   __glewColor4hNV: TPFNGLCOLOR4HNVPROC; cvar;external libGLEW;
+  glColor4hNV: TPFNGLCOLOR4HNVPROC absolute __glewColor4hNV;
+
   __glewColor4hvNV: TPFNGLCOLOR4HVNVPROC; cvar;external libGLEW;
+  glColor4hvNV: TPFNGLCOLOR4HVNVPROC absolute __glewColor4hvNV;
+
   __glewFogCoordhNV: TPFNGLFOGCOORDHNVPROC; cvar;external libGLEW;
+  glFogCoordhNV: TPFNGLFOGCOORDHNVPROC absolute __glewFogCoordhNV;
+
   __glewFogCoordhvNV: TPFNGLFOGCOORDHVNVPROC; cvar;external libGLEW;
+  glFogCoordhvNV: TPFNGLFOGCOORDHVNVPROC absolute __glewFogCoordhvNV;
+
   __glewMultiTexCoord1hNV: TPFNGLMULTITEXCOORD1HNVPROC; cvar;external libGLEW;
+  glMultiTexCoord1hNV: TPFNGLMULTITEXCOORD1HNVPROC absolute __glewMultiTexCoord1hNV;
+
   __glewMultiTexCoord1hvNV: TPFNGLMULTITEXCOORD1HVNVPROC; cvar;external libGLEW;
+  glMultiTexCoord1hvNV: TPFNGLMULTITEXCOORD1HVNVPROC absolute __glewMultiTexCoord1hvNV;
+
   __glewMultiTexCoord2hNV: TPFNGLMULTITEXCOORD2HNVPROC; cvar;external libGLEW;
+  glMultiTexCoord2hNV: TPFNGLMULTITEXCOORD2HNVPROC absolute __glewMultiTexCoord2hNV;
+
   __glewMultiTexCoord2hvNV: TPFNGLMULTITEXCOORD2HVNVPROC; cvar;external libGLEW;
+  glMultiTexCoord2hvNV: TPFNGLMULTITEXCOORD2HVNVPROC absolute __glewMultiTexCoord2hvNV;
+
   __glewMultiTexCoord3hNV: TPFNGLMULTITEXCOORD3HNVPROC; cvar;external libGLEW;
+  glMultiTexCoord3hNV: TPFNGLMULTITEXCOORD3HNVPROC absolute __glewMultiTexCoord3hNV;
+
   __glewMultiTexCoord3hvNV: TPFNGLMULTITEXCOORD3HVNVPROC; cvar;external libGLEW;
+  glMultiTexCoord3hvNV: TPFNGLMULTITEXCOORD3HVNVPROC absolute __glewMultiTexCoord3hvNV;
+
   __glewMultiTexCoord4hNV: TPFNGLMULTITEXCOORD4HNVPROC; cvar;external libGLEW;
+  glMultiTexCoord4hNV: TPFNGLMULTITEXCOORD4HNVPROC absolute __glewMultiTexCoord4hNV;
+
   __glewMultiTexCoord4hvNV: TPFNGLMULTITEXCOORD4HVNVPROC; cvar;external libGLEW;
+  glMultiTexCoord4hvNV: TPFNGLMULTITEXCOORD4HVNVPROC absolute __glewMultiTexCoord4hvNV;
+
   __glewNormal3hNV: TPFNGLNORMAL3HNVPROC; cvar;external libGLEW;
+  glNormal3hNV: TPFNGLNORMAL3HNVPROC absolute __glewNormal3hNV;
+
   __glewNormal3hvNV: TPFNGLNORMAL3HVNVPROC; cvar;external libGLEW;
+  glNormal3hvNV: TPFNGLNORMAL3HVNVPROC absolute __glewNormal3hvNV;
+
   __glewSecondaryColor3hNV: TPFNGLSECONDARYCOLOR3HNVPROC; cvar;external libGLEW;
+  glSecondaryColor3hNV: TPFNGLSECONDARYCOLOR3HNVPROC absolute __glewSecondaryColor3hNV;
+
   __glewSecondaryColor3hvNV: TPFNGLSECONDARYCOLOR3HVNVPROC; cvar;external libGLEW;
+  glSecondaryColor3hvNV: TPFNGLSECONDARYCOLOR3HVNVPROC absolute __glewSecondaryColor3hvNV;
+
   __glewTexCoord1hNV: TPFNGLTEXCOORD1HNVPROC; cvar;external libGLEW;
+  glTexCoord1hNV: TPFNGLTEXCOORD1HNVPROC absolute __glewTexCoord1hNV;
+
   __glewTexCoord1hvNV: TPFNGLTEXCOORD1HVNVPROC; cvar;external libGLEW;
+  glTexCoord1hvNV: TPFNGLTEXCOORD1HVNVPROC absolute __glewTexCoord1hvNV;
+
   __glewTexCoord2hNV: TPFNGLTEXCOORD2HNVPROC; cvar;external libGLEW;
+  glTexCoord2hNV: TPFNGLTEXCOORD2HNVPROC absolute __glewTexCoord2hNV;
+
   __glewTexCoord2hvNV: TPFNGLTEXCOORD2HVNVPROC; cvar;external libGLEW;
+  glTexCoord2hvNV: TPFNGLTEXCOORD2HVNVPROC absolute __glewTexCoord2hvNV;
+
   __glewTexCoord3hNV: TPFNGLTEXCOORD3HNVPROC; cvar;external libGLEW;
+  glTexCoord3hNV: TPFNGLTEXCOORD3HNVPROC absolute __glewTexCoord3hNV;
+
   __glewTexCoord3hvNV: TPFNGLTEXCOORD3HVNVPROC; cvar;external libGLEW;
+  glTexCoord3hvNV: TPFNGLTEXCOORD3HVNVPROC absolute __glewTexCoord3hvNV;
+
   __glewTexCoord4hNV: TPFNGLTEXCOORD4HNVPROC; cvar;external libGLEW;
+  glTexCoord4hNV: TPFNGLTEXCOORD4HNVPROC absolute __glewTexCoord4hNV;
+
   __glewTexCoord4hvNV: TPFNGLTEXCOORD4HVNVPROC; cvar;external libGLEW;
+  glTexCoord4hvNV: TPFNGLTEXCOORD4HVNVPROC absolute __glewTexCoord4hvNV;
+
   __glewVertex2hNV: TPFNGLVERTEX2HNVPROC; cvar;external libGLEW;
+  glVertex2hNV: TPFNGLVERTEX2HNVPROC absolute __glewVertex2hNV;
+
   __glewVertex2hvNV: TPFNGLVERTEX2HVNVPROC; cvar;external libGLEW;
+  glVertex2hvNV: TPFNGLVERTEX2HVNVPROC absolute __glewVertex2hvNV;
+
   __glewVertex3hNV: TPFNGLVERTEX3HNVPROC; cvar;external libGLEW;
+  glVertex3hNV: TPFNGLVERTEX3HNVPROC absolute __glewVertex3hNV;
+
   __glewVertex3hvNV: TPFNGLVERTEX3HVNVPROC; cvar;external libGLEW;
+  glVertex3hvNV: TPFNGLVERTEX3HVNVPROC absolute __glewVertex3hvNV;
+
   __glewVertex4hNV: TPFNGLVERTEX4HNVPROC; cvar;external libGLEW;
+  glVertex4hNV: TPFNGLVERTEX4HNVPROC absolute __glewVertex4hNV;
+
   __glewVertex4hvNV: TPFNGLVERTEX4HVNVPROC; cvar;external libGLEW;
+  glVertex4hvNV: TPFNGLVERTEX4HVNVPROC absolute __glewVertex4hvNV;
+
   __glewVertexAttrib1hNV: TPFNGLVERTEXATTRIB1HNVPROC; cvar;external libGLEW;
+  glVertexAttrib1hNV: TPFNGLVERTEXATTRIB1HNVPROC absolute __glewVertexAttrib1hNV;
+
   __glewVertexAttrib1hvNV: TPFNGLVERTEXATTRIB1HVNVPROC; cvar;external libGLEW;
+  glVertexAttrib1hvNV: TPFNGLVERTEXATTRIB1HVNVPROC absolute __glewVertexAttrib1hvNV;
+
   __glewVertexAttrib2hNV: TPFNGLVERTEXATTRIB2HNVPROC; cvar;external libGLEW;
+  glVertexAttrib2hNV: TPFNGLVERTEXATTRIB2HNVPROC absolute __glewVertexAttrib2hNV;
+
   __glewVertexAttrib2hvNV: TPFNGLVERTEXATTRIB2HVNVPROC; cvar;external libGLEW;
+  glVertexAttrib2hvNV: TPFNGLVERTEXATTRIB2HVNVPROC absolute __glewVertexAttrib2hvNV;
+
   __glewVertexAttrib3hNV: TPFNGLVERTEXATTRIB3HNVPROC; cvar;external libGLEW;
+  glVertexAttrib3hNV: TPFNGLVERTEXATTRIB3HNVPROC absolute __glewVertexAttrib3hNV;
+
   __glewVertexAttrib3hvNV: TPFNGLVERTEXATTRIB3HVNVPROC; cvar;external libGLEW;
+  glVertexAttrib3hvNV: TPFNGLVERTEXATTRIB3HVNVPROC absolute __glewVertexAttrib3hvNV;
+
   __glewVertexAttrib4hNV: TPFNGLVERTEXATTRIB4HNVPROC; cvar;external libGLEW;
+  glVertexAttrib4hNV: TPFNGLVERTEXATTRIB4HNVPROC absolute __glewVertexAttrib4hNV;
+
   __glewVertexAttrib4hvNV: TPFNGLVERTEXATTRIB4HVNVPROC; cvar;external libGLEW;
+  glVertexAttrib4hvNV: TPFNGLVERTEXATTRIB4HVNVPROC absolute __glewVertexAttrib4hvNV;
+
   __glewVertexAttribs1hvNV: TPFNGLVERTEXATTRIBS1HVNVPROC; cvar;external libGLEW;
+  glVertexAttribs1hvNV: TPFNGLVERTEXATTRIBS1HVNVPROC absolute __glewVertexAttribs1hvNV;
+
   __glewVertexAttribs2hvNV: TPFNGLVERTEXATTRIBS2HVNVPROC; cvar;external libGLEW;
+  glVertexAttribs2hvNV: TPFNGLVERTEXATTRIBS2HVNVPROC absolute __glewVertexAttribs2hvNV;
+
   __glewVertexAttribs3hvNV: TPFNGLVERTEXATTRIBS3HVNVPROC; cvar;external libGLEW;
+  glVertexAttribs3hvNV: TPFNGLVERTEXATTRIBS3HVNVPROC absolute __glewVertexAttribs3hvNV;
+
   __glewVertexAttribs4hvNV: TPFNGLVERTEXATTRIBS4HVNVPROC; cvar;external libGLEW;
+  glVertexAttribs4hvNV: TPFNGLVERTEXATTRIBS4HVNVPROC absolute __glewVertexAttribs4hvNV;
+
   __glewVertexWeighthNV: TPFNGLVERTEXWEIGHTHNVPROC; cvar;external libGLEW;
+  glVertexWeighthNV: TPFNGLVERTEXWEIGHTHNVPROC absolute __glewVertexWeighthNV;
+
   __glewVertexWeighthvNV: TPFNGLVERTEXWEIGHTHVNVPROC; cvar;external libGLEW;
+  glVertexWeighthvNV: TPFNGLVERTEXWEIGHTHVNVPROC absolute __glewVertexWeighthvNV;
+
   __glewVertexAttribDivisorNV: TPFNGLVERTEXATTRIBDIVISORNVPROC; cvar;external libGLEW;
+  glVertexAttribDivisorNV: TPFNGLVERTEXATTRIBDIVISORNVPROC absolute __glewVertexAttribDivisorNV;
+
   __glewGetInternalformatSampleivNV: TPFNGLGETINTERNALFORMATSAMPLEIVNVPROC; cvar;external libGLEW;
+  glGetInternalformatSampleivNV: TPFNGLGETINTERNALFORMATSAMPLEIVNVPROC absolute __glewGetInternalformatSampleivNV;
+
   __glewBufferAttachMemoryNV: TPFNGLBUFFERATTACHMEMORYNVPROC; cvar;external libGLEW;
+  glBufferAttachMemoryNV: TPFNGLBUFFERATTACHMEMORYNVPROC absolute __glewBufferAttachMemoryNV;
+
   __glewGetMemoryObjectDetachedResourcesuivNV: TPFNGLGETMEMORYOBJECTDETACHEDRESOURCESUIVNVPROC; cvar;external libGLEW;
+  glGetMemoryObjectDetachedResourcesuivNV: TPFNGLGETMEMORYOBJECTDETACHEDRESOURCESUIVNVPROC absolute __glewGetMemoryObjectDetachedResourcesuivNV;
+
   __glewNamedBufferAttachMemoryNV: TPFNGLNAMEDBUFFERATTACHMEMORYNVPROC; cvar;external libGLEW;
+  glNamedBufferAttachMemoryNV: TPFNGLNAMEDBUFFERATTACHMEMORYNVPROC absolute __glewNamedBufferAttachMemoryNV;
+
   __glewResetMemoryObjectParameterNV: TPFNGLRESETMEMORYOBJECTPARAMETERNVPROC; cvar;external libGLEW;
+  glResetMemoryObjectParameterNV: TPFNGLRESETMEMORYOBJECTPARAMETERNVPROC absolute __glewResetMemoryObjectParameterNV;
+
   __glewTexAttachMemoryNV: TPFNGLTEXATTACHMEMORYNVPROC; cvar;external libGLEW;
+  glTexAttachMemoryNV: TPFNGLTEXATTACHMEMORYNVPROC absolute __glewTexAttachMemoryNV;
+
   __glewTextureAttachMemoryNV: TPFNGLTEXTUREATTACHMEMORYNVPROC; cvar;external libGLEW;
+  glTextureAttachMemoryNV: TPFNGLTEXTUREATTACHMEMORYNVPROC absolute __glewTextureAttachMemoryNV;
+
   __glewDrawMeshTasksIndirectNV: TPFNGLDRAWMESHTASKSINDIRECTNVPROC; cvar;external libGLEW;
+  glDrawMeshTasksIndirectNV: TPFNGLDRAWMESHTASKSINDIRECTNVPROC absolute __glewDrawMeshTasksIndirectNV;
+
   __glewDrawMeshTasksNV: TPFNGLDRAWMESHTASKSNVPROC; cvar;external libGLEW;
+  glDrawMeshTasksNV: TPFNGLDRAWMESHTASKSNVPROC absolute __glewDrawMeshTasksNV;
+
   __glewMultiDrawMeshTasksIndirectCountNV: TPFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC; cvar;external libGLEW;
+  glMultiDrawMeshTasksIndirectCountNV: TPFNGLMULTIDRAWMESHTASKSINDIRECTCOUNTNVPROC absolute __glewMultiDrawMeshTasksIndirectCountNV;
+
   __glewMultiDrawMeshTasksIndirectNV: TPFNGLMULTIDRAWMESHTASKSINDIRECTNVPROC; cvar;external libGLEW;
+  glMultiDrawMeshTasksIndirectNV: TPFNGLMULTIDRAWMESHTASKSINDIRECTNVPROC absolute __glewMultiDrawMeshTasksIndirectNV;
+
   __glewUniformMatrix2x3fvNV: TPFNGLUNIFORMMATRIX2X3FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix2x3fvNV: TPFNGLUNIFORMMATRIX2X3FVNVPROC absolute __glewUniformMatrix2x3fvNV;
+
   __glewUniformMatrix2x4fvNV: TPFNGLUNIFORMMATRIX2X4FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix2x4fvNV: TPFNGLUNIFORMMATRIX2X4FVNVPROC absolute __glewUniformMatrix2x4fvNV;
+
   __glewUniformMatrix3x2fvNV: TPFNGLUNIFORMMATRIX3X2FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix3x2fvNV: TPFNGLUNIFORMMATRIX3X2FVNVPROC absolute __glewUniformMatrix3x2fvNV;
+
   __glewUniformMatrix3x4fvNV: TPFNGLUNIFORMMATRIX3X4FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix3x4fvNV: TPFNGLUNIFORMMATRIX3X4FVNVPROC absolute __glewUniformMatrix3x4fvNV;
+
   __glewUniformMatrix4x2fvNV: TPFNGLUNIFORMMATRIX4X2FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix4x2fvNV: TPFNGLUNIFORMMATRIX4X2FVNVPROC absolute __glewUniformMatrix4x2fvNV;
+
   __glewUniformMatrix4x3fvNV: TPFNGLUNIFORMMATRIX4X3FVNVPROC; cvar;external libGLEW;
+  glUniformMatrix4x3fvNV: TPFNGLUNIFORMMATRIX4X3FVNVPROC absolute __glewUniformMatrix4x3fvNV;
+
   __glewBeginOcclusionQueryNV: TPFNGLBEGINOCCLUSIONQUERYNVPROC; cvar;external libGLEW;
+  glBeginOcclusionQueryNV: TPFNGLBEGINOCCLUSIONQUERYNVPROC absolute __glewBeginOcclusionQueryNV;
+
   __glewDeleteOcclusionQueriesNV: TPFNGLDELETEOCCLUSIONQUERIESNVPROC; cvar;external libGLEW;
+  glDeleteOcclusionQueriesNV: TPFNGLDELETEOCCLUSIONQUERIESNVPROC absolute __glewDeleteOcclusionQueriesNV;
+
   __glewEndOcclusionQueryNV: TPFNGLENDOCCLUSIONQUERYNVPROC; cvar;external libGLEW;
+  glEndOcclusionQueryNV: TPFNGLENDOCCLUSIONQUERYNVPROC absolute __glewEndOcclusionQueryNV;
+
   __glewGenOcclusionQueriesNV: TPFNGLGENOCCLUSIONQUERIESNVPROC; cvar;external libGLEW;
+  glGenOcclusionQueriesNV: TPFNGLGENOCCLUSIONQUERIESNVPROC absolute __glewGenOcclusionQueriesNV;
+
   __glewGetOcclusionQueryivNV: TPFNGLGETOCCLUSIONQUERYIVNVPROC; cvar;external libGLEW;
+  glGetOcclusionQueryivNV: TPFNGLGETOCCLUSIONQUERYIVNVPROC absolute __glewGetOcclusionQueryivNV;
+
   __glewGetOcclusionQueryuivNV: TPFNGLGETOCCLUSIONQUERYUIVNVPROC; cvar;external libGLEW;
+  glGetOcclusionQueryuivNV: TPFNGLGETOCCLUSIONQUERYUIVNVPROC absolute __glewGetOcclusionQueryuivNV;
+
   __glewIsOcclusionQueryNV: TPFNGLISOCCLUSIONQUERYNVPROC; cvar;external libGLEW;
+  glIsOcclusionQueryNV: TPFNGLISOCCLUSIONQUERYNVPROC absolute __glewIsOcclusionQueryNV;
+
   __glewProgramBufferParametersIivNV: TPFNGLPROGRAMBUFFERPARAMETERSIIVNVPROC; cvar;external libGLEW;
+  glProgramBufferParametersIivNV: TPFNGLPROGRAMBUFFERPARAMETERSIIVNVPROC absolute __glewProgramBufferParametersIivNV;
+
   __glewProgramBufferParametersIuivNV: TPFNGLPROGRAMBUFFERPARAMETERSIUIVNVPROC; cvar;external libGLEW;
+  glProgramBufferParametersIuivNV: TPFNGLPROGRAMBUFFERPARAMETERSIUIVNVPROC absolute __glewProgramBufferParametersIuivNV;
+
   __glewProgramBufferParametersfvNV: TPFNGLPROGRAMBUFFERPARAMETERSFVNVPROC; cvar;external libGLEW;
+  glProgramBufferParametersfvNV: TPFNGLPROGRAMBUFFERPARAMETERSFVNVPROC absolute __glewProgramBufferParametersfvNV;
+
   __glewCopyPathNV: TPFNGLCOPYPATHNVPROC; cvar;external libGLEW;
+  glCopyPathNV: TPFNGLCOPYPATHNVPROC absolute __glewCopyPathNV;
+
   __glewCoverFillPathInstancedNV: TPFNGLCOVERFILLPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glCoverFillPathInstancedNV: TPFNGLCOVERFILLPATHINSTANCEDNVPROC absolute __glewCoverFillPathInstancedNV;
+
   __glewCoverFillPathNV: TPFNGLCOVERFILLPATHNVPROC; cvar;external libGLEW;
+  glCoverFillPathNV: TPFNGLCOVERFILLPATHNVPROC absolute __glewCoverFillPathNV;
+
   __glewCoverStrokePathInstancedNV: TPFNGLCOVERSTROKEPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glCoverStrokePathInstancedNV: TPFNGLCOVERSTROKEPATHINSTANCEDNVPROC absolute __glewCoverStrokePathInstancedNV;
+
   __glewCoverStrokePathNV: TPFNGLCOVERSTROKEPATHNVPROC; cvar;external libGLEW;
+  glCoverStrokePathNV: TPFNGLCOVERSTROKEPATHNVPROC absolute __glewCoverStrokePathNV;
+
   __glewDeletePathsNV: TPFNGLDELETEPATHSNVPROC; cvar;external libGLEW;
+  glDeletePathsNV: TPFNGLDELETEPATHSNVPROC absolute __glewDeletePathsNV;
+
   __glewGenPathsNV: TPFNGLGENPATHSNVPROC; cvar;external libGLEW;
+  glGenPathsNV: TPFNGLGENPATHSNVPROC absolute __glewGenPathsNV;
+
   __glewGetPathColorGenfvNV: TPFNGLGETPATHCOLORGENFVNVPROC; cvar;external libGLEW;
+  glGetPathColorGenfvNV: TPFNGLGETPATHCOLORGENFVNVPROC absolute __glewGetPathColorGenfvNV;
+
   __glewGetPathColorGenivNV: TPFNGLGETPATHCOLORGENIVNVPROC; cvar;external libGLEW;
+  glGetPathColorGenivNV: TPFNGLGETPATHCOLORGENIVNVPROC absolute __glewGetPathColorGenivNV;
+
   __glewGetPathCommandsNV: TPFNGLGETPATHCOMMANDSNVPROC; cvar;external libGLEW;
+  glGetPathCommandsNV: TPFNGLGETPATHCOMMANDSNVPROC absolute __glewGetPathCommandsNV;
+
   __glewGetPathCoordsNV: TPFNGLGETPATHCOORDSNVPROC; cvar;external libGLEW;
+  glGetPathCoordsNV: TPFNGLGETPATHCOORDSNVPROC absolute __glewGetPathCoordsNV;
+
   __glewGetPathDashArrayNV: TPFNGLGETPATHDASHARRAYNVPROC; cvar;external libGLEW;
+  glGetPathDashArrayNV: TPFNGLGETPATHDASHARRAYNVPROC absolute __glewGetPathDashArrayNV;
+
   __glewGetPathLengthNV: TPFNGLGETPATHLENGTHNVPROC; cvar;external libGLEW;
+  glGetPathLengthNV: TPFNGLGETPATHLENGTHNVPROC absolute __glewGetPathLengthNV;
+
   __glewGetPathMetricRangeNV: TPFNGLGETPATHMETRICRANGENVPROC; cvar;external libGLEW;
+  glGetPathMetricRangeNV: TPFNGLGETPATHMETRICRANGENVPROC absolute __glewGetPathMetricRangeNV;
+
   __glewGetPathMetricsNV: TPFNGLGETPATHMETRICSNVPROC; cvar;external libGLEW;
+  glGetPathMetricsNV: TPFNGLGETPATHMETRICSNVPROC absolute __glewGetPathMetricsNV;
+
   __glewGetPathParameterfvNV: TPFNGLGETPATHPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetPathParameterfvNV: TPFNGLGETPATHPARAMETERFVNVPROC absolute __glewGetPathParameterfvNV;
+
   __glewGetPathParameterivNV: TPFNGLGETPATHPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetPathParameterivNV: TPFNGLGETPATHPARAMETERIVNVPROC absolute __glewGetPathParameterivNV;
+
   __glewGetPathSpacingNV: TPFNGLGETPATHSPACINGNVPROC; cvar;external libGLEW;
+  glGetPathSpacingNV: TPFNGLGETPATHSPACINGNVPROC absolute __glewGetPathSpacingNV;
+
   __glewGetPathTexGenfvNV: TPFNGLGETPATHTEXGENFVNVPROC; cvar;external libGLEW;
+  glGetPathTexGenfvNV: TPFNGLGETPATHTEXGENFVNVPROC absolute __glewGetPathTexGenfvNV;
+
   __glewGetPathTexGenivNV: TPFNGLGETPATHTEXGENIVNVPROC; cvar;external libGLEW;
+  glGetPathTexGenivNV: TPFNGLGETPATHTEXGENIVNVPROC absolute __glewGetPathTexGenivNV;
+
   __glewGetProgramResourcefvNV: TPFNGLGETPROGRAMRESOURCEFVNVPROC; cvar;external libGLEW;
+  glGetProgramResourcefvNV: TPFNGLGETPROGRAMRESOURCEFVNVPROC absolute __glewGetProgramResourcefvNV;
+
   __glewInterpolatePathsNV: TPFNGLINTERPOLATEPATHSNVPROC; cvar;external libGLEW;
+  glInterpolatePathsNV: TPFNGLINTERPOLATEPATHSNVPROC absolute __glewInterpolatePathsNV;
+
   __glewIsPathNV: TPFNGLISPATHNVPROC; cvar;external libGLEW;
+  glIsPathNV: TPFNGLISPATHNVPROC absolute __glewIsPathNV;
+
   __glewIsPointInFillPathNV: TPFNGLISPOINTINFILLPATHNVPROC; cvar;external libGLEW;
+  glIsPointInFillPathNV: TPFNGLISPOINTINFILLPATHNVPROC absolute __glewIsPointInFillPathNV;
+
   __glewIsPointInStrokePathNV: TPFNGLISPOINTINSTROKEPATHNVPROC; cvar;external libGLEW;
+  glIsPointInStrokePathNV: TPFNGLISPOINTINSTROKEPATHNVPROC absolute __glewIsPointInStrokePathNV;
+
   __glewMatrixLoad3x2fNV: TPFNGLMATRIXLOAD3X2FNVPROC; cvar;external libGLEW;
+  glMatrixLoad3x2fNV: TPFNGLMATRIXLOAD3X2FNVPROC absolute __glewMatrixLoad3x2fNV;
+
   __glewMatrixLoad3x3fNV: TPFNGLMATRIXLOAD3X3FNVPROC; cvar;external libGLEW;
+  glMatrixLoad3x3fNV: TPFNGLMATRIXLOAD3X3FNVPROC absolute __glewMatrixLoad3x3fNV;
+
   __glewMatrixLoadTranspose3x3fNV: TPFNGLMATRIXLOADTRANSPOSE3X3FNVPROC; cvar;external libGLEW;
+  glMatrixLoadTranspose3x3fNV: TPFNGLMATRIXLOADTRANSPOSE3X3FNVPROC absolute __glewMatrixLoadTranspose3x3fNV;
+
   __glewMatrixMult3x2fNV: TPFNGLMATRIXMULT3X2FNVPROC; cvar;external libGLEW;
+  glMatrixMult3x2fNV: TPFNGLMATRIXMULT3X2FNVPROC absolute __glewMatrixMult3x2fNV;
+
   __glewMatrixMult3x3fNV: TPFNGLMATRIXMULT3X3FNVPROC; cvar;external libGLEW;
+  glMatrixMult3x3fNV: TPFNGLMATRIXMULT3X3FNVPROC absolute __glewMatrixMult3x3fNV;
+
   __glewMatrixMultTranspose3x3fNV: TPFNGLMATRIXMULTTRANSPOSE3X3FNVPROC; cvar;external libGLEW;
+  glMatrixMultTranspose3x3fNV: TPFNGLMATRIXMULTTRANSPOSE3X3FNVPROC absolute __glewMatrixMultTranspose3x3fNV;
+
   __glewPathColorGenNV: TPFNGLPATHCOLORGENNVPROC; cvar;external libGLEW;
+  glPathColorGenNV: TPFNGLPATHCOLORGENNVPROC absolute __glewPathColorGenNV;
+
   __glewPathCommandsNV: TPFNGLPATHCOMMANDSNVPROC; cvar;external libGLEW;
+  glPathCommandsNV: TPFNGLPATHCOMMANDSNVPROC absolute __glewPathCommandsNV;
+
   __glewPathCoordsNV: TPFNGLPATHCOORDSNVPROC; cvar;external libGLEW;
+  glPathCoordsNV: TPFNGLPATHCOORDSNVPROC absolute __glewPathCoordsNV;
+
   __glewPathCoverDepthFuncNV: TPFNGLPATHCOVERDEPTHFUNCNVPROC; cvar;external libGLEW;
+  glPathCoverDepthFuncNV: TPFNGLPATHCOVERDEPTHFUNCNVPROC absolute __glewPathCoverDepthFuncNV;
+
   __glewPathDashArrayNV: TPFNGLPATHDASHARRAYNVPROC; cvar;external libGLEW;
+  glPathDashArrayNV: TPFNGLPATHDASHARRAYNVPROC absolute __glewPathDashArrayNV;
+
   __glewPathFogGenNV: TPFNGLPATHFOGGENNVPROC; cvar;external libGLEW;
+  glPathFogGenNV: TPFNGLPATHFOGGENNVPROC absolute __glewPathFogGenNV;
+
   __glewPathGlyphIndexArrayNV: TPFNGLPATHGLYPHINDEXARRAYNVPROC; cvar;external libGLEW;
+  glPathGlyphIndexArrayNV: TPFNGLPATHGLYPHINDEXARRAYNVPROC absolute __glewPathGlyphIndexArrayNV;
+
   __glewPathGlyphIndexRangeNV: TPFNGLPATHGLYPHINDEXRANGENVPROC; cvar;external libGLEW;
+  glPathGlyphIndexRangeNV: TPFNGLPATHGLYPHINDEXRANGENVPROC absolute __glewPathGlyphIndexRangeNV;
+
   __glewPathGlyphRangeNV: TPFNGLPATHGLYPHRANGENVPROC; cvar;external libGLEW;
+  glPathGlyphRangeNV: TPFNGLPATHGLYPHRANGENVPROC absolute __glewPathGlyphRangeNV;
+
   __glewPathGlyphsNV: TPFNGLPATHGLYPHSNVPROC; cvar;external libGLEW;
+  glPathGlyphsNV: TPFNGLPATHGLYPHSNVPROC absolute __glewPathGlyphsNV;
+
   __glewPathMemoryGlyphIndexArrayNV: TPFNGLPATHMEMORYGLYPHINDEXARRAYNVPROC; cvar;external libGLEW;
+  glPathMemoryGlyphIndexArrayNV: TPFNGLPATHMEMORYGLYPHINDEXARRAYNVPROC absolute __glewPathMemoryGlyphIndexArrayNV;
+
   __glewPathParameterfNV: TPFNGLPATHPARAMETERFNVPROC; cvar;external libGLEW;
+  glPathParameterfNV: TPFNGLPATHPARAMETERFNVPROC absolute __glewPathParameterfNV;
+
   __glewPathParameterfvNV: TPFNGLPATHPARAMETERFVNVPROC; cvar;external libGLEW;
+  glPathParameterfvNV: TPFNGLPATHPARAMETERFVNVPROC absolute __glewPathParameterfvNV;
+
   __glewPathParameteriNV: TPFNGLPATHPARAMETERINVPROC; cvar;external libGLEW;
+  glPathParameteriNV: TPFNGLPATHPARAMETERINVPROC absolute __glewPathParameteriNV;
+
   __glewPathParameterivNV: TPFNGLPATHPARAMETERIVNVPROC; cvar;external libGLEW;
+  glPathParameterivNV: TPFNGLPATHPARAMETERIVNVPROC absolute __glewPathParameterivNV;
+
   __glewPathStencilDepthOffsetNV: TPFNGLPATHSTENCILDEPTHOFFSETNVPROC; cvar;external libGLEW;
+  glPathStencilDepthOffsetNV: TPFNGLPATHSTENCILDEPTHOFFSETNVPROC absolute __glewPathStencilDepthOffsetNV;
+
   __glewPathStencilFuncNV: TPFNGLPATHSTENCILFUNCNVPROC; cvar;external libGLEW;
+  glPathStencilFuncNV: TPFNGLPATHSTENCILFUNCNVPROC absolute __glewPathStencilFuncNV;
+
   __glewPathStringNV: TPFNGLPATHSTRINGNVPROC; cvar;external libGLEW;
+  glPathStringNV: TPFNGLPATHSTRINGNVPROC absolute __glewPathStringNV;
+
   __glewPathSubCommandsNV: TPFNGLPATHSUBCOMMANDSNVPROC; cvar;external libGLEW;
+  glPathSubCommandsNV: TPFNGLPATHSUBCOMMANDSNVPROC absolute __glewPathSubCommandsNV;
+
   __glewPathSubCoordsNV: TPFNGLPATHSUBCOORDSNVPROC; cvar;external libGLEW;
+  glPathSubCoordsNV: TPFNGLPATHSUBCOORDSNVPROC absolute __glewPathSubCoordsNV;
+
   __glewPathTexGenNV: TPFNGLPATHTEXGENNVPROC; cvar;external libGLEW;
+  glPathTexGenNV: TPFNGLPATHTEXGENNVPROC absolute __glewPathTexGenNV;
+
   __glewPointAlongPathNV: TPFNGLPOINTALONGPATHNVPROC; cvar;external libGLEW;
+  glPointAlongPathNV: TPFNGLPOINTALONGPATHNVPROC absolute __glewPointAlongPathNV;
+
   __glewProgramPathFragmentInputGenNV: TPFNGLPROGRAMPATHFRAGMENTINPUTGENNVPROC; cvar;external libGLEW;
+  glProgramPathFragmentInputGenNV: TPFNGLPROGRAMPATHFRAGMENTINPUTGENNVPROC absolute __glewProgramPathFragmentInputGenNV;
+
   __glewStencilFillPathInstancedNV: TPFNGLSTENCILFILLPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glStencilFillPathInstancedNV: TPFNGLSTENCILFILLPATHINSTANCEDNVPROC absolute __glewStencilFillPathInstancedNV;
+
   __glewStencilFillPathNV: TPFNGLSTENCILFILLPATHNVPROC; cvar;external libGLEW;
+  glStencilFillPathNV: TPFNGLSTENCILFILLPATHNVPROC absolute __glewStencilFillPathNV;
+
   __glewStencilStrokePathInstancedNV: TPFNGLSTENCILSTROKEPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glStencilStrokePathInstancedNV: TPFNGLSTENCILSTROKEPATHINSTANCEDNVPROC absolute __glewStencilStrokePathInstancedNV;
+
   __glewStencilStrokePathNV: TPFNGLSTENCILSTROKEPATHNVPROC; cvar;external libGLEW;
+  glStencilStrokePathNV: TPFNGLSTENCILSTROKEPATHNVPROC absolute __glewStencilStrokePathNV;
+
   __glewStencilThenCoverFillPathInstancedNV: TPFNGLSTENCILTHENCOVERFILLPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glStencilThenCoverFillPathInstancedNV: TPFNGLSTENCILTHENCOVERFILLPATHINSTANCEDNVPROC absolute __glewStencilThenCoverFillPathInstancedNV;
+
   __glewStencilThenCoverFillPathNV: TPFNGLSTENCILTHENCOVERFILLPATHNVPROC; cvar;external libGLEW;
+  glStencilThenCoverFillPathNV: TPFNGLSTENCILTHENCOVERFILLPATHNVPROC absolute __glewStencilThenCoverFillPathNV;
+
   __glewStencilThenCoverStrokePathInstancedNV: TPFNGLSTENCILTHENCOVERSTROKEPATHINSTANCEDNVPROC; cvar;external libGLEW;
+  glStencilThenCoverStrokePathInstancedNV: TPFNGLSTENCILTHENCOVERSTROKEPATHINSTANCEDNVPROC absolute __glewStencilThenCoverStrokePathInstancedNV;
+
   __glewStencilThenCoverStrokePathNV: TPFNGLSTENCILTHENCOVERSTROKEPATHNVPROC; cvar;external libGLEW;
+  glStencilThenCoverStrokePathNV: TPFNGLSTENCILTHENCOVERSTROKEPATHNVPROC absolute __glewStencilThenCoverStrokePathNV;
+
   __glewTransformPathNV: TPFNGLTRANSFORMPATHNVPROC; cvar;external libGLEW;
+  glTransformPathNV: TPFNGLTRANSFORMPATHNVPROC absolute __glewTransformPathNV;
+
   __glewWeightPathsNV: TPFNGLWEIGHTPATHSNVPROC; cvar;external libGLEW;
+  glWeightPathsNV: TPFNGLWEIGHTPATHSNVPROC absolute __glewWeightPathsNV;
+
   __glewFlushPixelDataRangeNV: TPFNGLFLUSHPIXELDATARANGENVPROC; cvar;external libGLEW;
+  glFlushPixelDataRangeNV: TPFNGLFLUSHPIXELDATARANGENVPROC absolute __glewFlushPixelDataRangeNV;
+
   __glewPixelDataRangeNV: TPFNGLPIXELDATARANGENVPROC; cvar;external libGLEW;
+  glPixelDataRangeNV: TPFNGLPIXELDATARANGENVPROC absolute __glewPixelDataRangeNV;
+
   __glewPointParameteriNV: TPFNGLPOINTPARAMETERINVPROC; cvar;external libGLEW;
+  glPointParameteriNV: TPFNGLPOINTPARAMETERINVPROC absolute __glewPointParameteriNV;
+
   __glewPointParameterivNV: TPFNGLPOINTPARAMETERIVNVPROC; cvar;external libGLEW;
+  glPointParameterivNV: TPFNGLPOINTPARAMETERIVNVPROC absolute __glewPointParameterivNV;
+
   __glewPolygonModeNV: TPFNGLPOLYGONMODENVPROC; cvar;external libGLEW;
+  glPolygonModeNV: TPFNGLPOLYGONMODENVPROC absolute __glewPolygonModeNV;
+
   __glewGetVideoi64vNV: TPFNGLGETVIDEOI64VNVPROC; cvar;external libGLEW;
+  glGetVideoi64vNV: TPFNGLGETVIDEOI64VNVPROC absolute __glewGetVideoi64vNV;
+
   __glewGetVideoivNV: TPFNGLGETVIDEOIVNVPROC; cvar;external libGLEW;
+  glGetVideoivNV: TPFNGLGETVIDEOIVNVPROC absolute __glewGetVideoivNV;
+
   __glewGetVideoui64vNV: TPFNGLGETVIDEOUI64VNVPROC; cvar;external libGLEW;
+  glGetVideoui64vNV: TPFNGLGETVIDEOUI64VNVPROC absolute __glewGetVideoui64vNV;
+
   __glewGetVideouivNV: TPFNGLGETVIDEOUIVNVPROC; cvar;external libGLEW;
+  glGetVideouivNV: TPFNGLGETVIDEOUIVNVPROC absolute __glewGetVideouivNV;
+
   __glewPresentFrameDualFillNV: TPFNGLPRESENTFRAMEDUALFILLNVPROC; cvar;external libGLEW;
+  glPresentFrameDualFillNV: TPFNGLPRESENTFRAMEDUALFILLNVPROC absolute __glewPresentFrameDualFillNV;
+
   __glewPresentFrameKeyedNV: TPFNGLPRESENTFRAMEKEYEDNVPROC; cvar;external libGLEW;
+  glPresentFrameKeyedNV: TPFNGLPRESENTFRAMEKEYEDNVPROC absolute __glewPresentFrameKeyedNV;
+
   __glewPrimitiveRestartIndexNV: TPFNGLPRIMITIVERESTARTINDEXNVPROC; cvar;external libGLEW;
+  glPrimitiveRestartIndexNV: TPFNGLPRIMITIVERESTARTINDEXNVPROC absolute __glewPrimitiveRestartIndexNV;
+
   __glewPrimitiveRestartNV: TPFNGLPRIMITIVERESTARTNVPROC; cvar;external libGLEW;
+  glPrimitiveRestartNV: TPFNGLPRIMITIVERESTARTNVPROC absolute __glewPrimitiveRestartNV;
+
   __glewReadBufferNV: TPFNGLREADBUFFERNVPROC; cvar;external libGLEW;
+  glReadBufferNV: TPFNGLREADBUFFERNVPROC absolute __glewReadBufferNV;
+
   __glewCombinerInputNV: TPFNGLCOMBINERINPUTNVPROC; cvar;external libGLEW;
+  glCombinerInputNV: TPFNGLCOMBINERINPUTNVPROC absolute __glewCombinerInputNV;
+
   __glewCombinerOutputNV: TPFNGLCOMBINEROUTPUTNVPROC; cvar;external libGLEW;
+  glCombinerOutputNV: TPFNGLCOMBINEROUTPUTNVPROC absolute __glewCombinerOutputNV;
+
   __glewCombinerParameterfNV: TPFNGLCOMBINERPARAMETERFNVPROC; cvar;external libGLEW;
+  glCombinerParameterfNV: TPFNGLCOMBINERPARAMETERFNVPROC absolute __glewCombinerParameterfNV;
+
   __glewCombinerParameterfvNV: TPFNGLCOMBINERPARAMETERFVNVPROC; cvar;external libGLEW;
+  glCombinerParameterfvNV: TPFNGLCOMBINERPARAMETERFVNVPROC absolute __glewCombinerParameterfvNV;
+
   __glewCombinerParameteriNV: TPFNGLCOMBINERPARAMETERINVPROC; cvar;external libGLEW;
+  glCombinerParameteriNV: TPFNGLCOMBINERPARAMETERINVPROC absolute __glewCombinerParameteriNV;
+
   __glewCombinerParameterivNV: TPFNGLCOMBINERPARAMETERIVNVPROC; cvar;external libGLEW;
+  glCombinerParameterivNV: TPFNGLCOMBINERPARAMETERIVNVPROC absolute __glewCombinerParameterivNV;
+
   __glewFinalCombinerInputNV: TPFNGLFINALCOMBINERINPUTNVPROC; cvar;external libGLEW;
+  glFinalCombinerInputNV: TPFNGLFINALCOMBINERINPUTNVPROC absolute __glewFinalCombinerInputNV;
+
   __glewGetCombinerInputParameterfvNV: TPFNGLGETCOMBINERINPUTPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetCombinerInputParameterfvNV: TPFNGLGETCOMBINERINPUTPARAMETERFVNVPROC absolute __glewGetCombinerInputParameterfvNV;
+
   __glewGetCombinerInputParameterivNV: TPFNGLGETCOMBINERINPUTPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetCombinerInputParameterivNV: TPFNGLGETCOMBINERINPUTPARAMETERIVNVPROC absolute __glewGetCombinerInputParameterivNV;
+
   __glewGetCombinerOutputParameterfvNV: TPFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetCombinerOutputParameterfvNV: TPFNGLGETCOMBINEROUTPUTPARAMETERFVNVPROC absolute __glewGetCombinerOutputParameterfvNV;
+
   __glewGetCombinerOutputParameterivNV: TPFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetCombinerOutputParameterivNV: TPFNGLGETCOMBINEROUTPUTPARAMETERIVNVPROC absolute __glewGetCombinerOutputParameterivNV;
+
   __glewGetFinalCombinerInputParameterfvNV: TPFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetFinalCombinerInputParameterfvNV: TPFNGLGETFINALCOMBINERINPUTPARAMETERFVNVPROC absolute __glewGetFinalCombinerInputParameterfvNV;
+
   __glewGetFinalCombinerInputParameterivNV: TPFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC; cvar;external libGLEW;
+  glGetFinalCombinerInputParameterivNV: TPFNGLGETFINALCOMBINERINPUTPARAMETERIVNVPROC absolute __glewGetFinalCombinerInputParameterivNV;
+
   __glewCombinerStageParameterfvNV: TPFNGLCOMBINERSTAGEPARAMETERFVNVPROC; cvar;external libGLEW;
+  glCombinerStageParameterfvNV: TPFNGLCOMBINERSTAGEPARAMETERFVNVPROC absolute __glewCombinerStageParameterfvNV;
+
   __glewGetCombinerStageParameterfvNV: TPFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetCombinerStageParameterfvNV: TPFNGLGETCOMBINERSTAGEPARAMETERFVNVPROC absolute __glewGetCombinerStageParameterfvNV;
+
   __glewFramebufferSampleLocationsfvNV: TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC; cvar;external libGLEW;
+  glFramebufferSampleLocationsfvNV: TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC absolute __glewFramebufferSampleLocationsfvNV;
+
   __glewNamedFramebufferSampleLocationsfvNV: TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC; cvar;external libGLEW;
+  glNamedFramebufferSampleLocationsfvNV: TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC absolute __glewNamedFramebufferSampleLocationsfvNV;
+
   __glewResolveDepthValuesNV: TPFNGLRESOLVEDEPTHVALUESNVPROC; cvar;external libGLEW;
+  glResolveDepthValuesNV: TPFNGLRESOLVEDEPTHVALUESNVPROC absolute __glewResolveDepthValuesNV;
+
   __glewScissorExclusiveArrayvNV: TPFNGLSCISSOREXCLUSIVEARRAYVNVPROC; cvar;external libGLEW;
+  glScissorExclusiveArrayvNV: TPFNGLSCISSOREXCLUSIVEARRAYVNVPROC absolute __glewScissorExclusiveArrayvNV;
+
   __glewScissorExclusiveNV: TPFNGLSCISSOREXCLUSIVENVPROC; cvar;external libGLEW;
+  glScissorExclusiveNV: TPFNGLSCISSOREXCLUSIVENVPROC absolute __glewScissorExclusiveNV;
+
   __glewGetBufferParameterui64vNV: TPFNGLGETBUFFERPARAMETERUI64VNVPROC; cvar;external libGLEW;
+  glGetBufferParameterui64vNV: TPFNGLGETBUFFERPARAMETERUI64VNVPROC absolute __glewGetBufferParameterui64vNV;
+
   __glewGetIntegerui64vNV: TPFNGLGETINTEGERUI64VNVPROC; cvar;external libGLEW;
+  glGetIntegerui64vNV: TPFNGLGETINTEGERUI64VNVPROC absolute __glewGetIntegerui64vNV;
+
   __glewGetNamedBufferParameterui64vNV: TPFNGLGETNAMEDBUFFERPARAMETERUI64VNVPROC; cvar;external libGLEW;
+  glGetNamedBufferParameterui64vNV: TPFNGLGETNAMEDBUFFERPARAMETERUI64VNVPROC absolute __glewGetNamedBufferParameterui64vNV;
+
   __glewIsBufferResidentNV: TPFNGLISBUFFERRESIDENTNVPROC; cvar;external libGLEW;
+  glIsBufferResidentNV: TPFNGLISBUFFERRESIDENTNVPROC absolute __glewIsBufferResidentNV;
+
   __glewIsNamedBufferResidentNV: TPFNGLISNAMEDBUFFERRESIDENTNVPROC; cvar;external libGLEW;
+  glIsNamedBufferResidentNV: TPFNGLISNAMEDBUFFERRESIDENTNVPROC absolute __glewIsNamedBufferResidentNV;
+
   __glewMakeBufferNonResidentNV: TPFNGLMAKEBUFFERNONRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeBufferNonResidentNV: TPFNGLMAKEBUFFERNONRESIDENTNVPROC absolute __glewMakeBufferNonResidentNV;
+
   __glewMakeBufferResidentNV: TPFNGLMAKEBUFFERRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeBufferResidentNV: TPFNGLMAKEBUFFERRESIDENTNVPROC absolute __glewMakeBufferResidentNV;
+
   __glewMakeNamedBufferNonResidentNV: TPFNGLMAKENAMEDBUFFERNONRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeNamedBufferNonResidentNV: TPFNGLMAKENAMEDBUFFERNONRESIDENTNVPROC absolute __glewMakeNamedBufferNonResidentNV;
+
   __glewMakeNamedBufferResidentNV: TPFNGLMAKENAMEDBUFFERRESIDENTNVPROC; cvar;external libGLEW;
+  glMakeNamedBufferResidentNV: TPFNGLMAKENAMEDBUFFERRESIDENTNVPROC absolute __glewMakeNamedBufferResidentNV;
+
   __glewProgramUniformui64NV: TPFNGLPROGRAMUNIFORMUI64NVPROC; cvar;external libGLEW;
+  glProgramUniformui64NV: TPFNGLPROGRAMUNIFORMUI64NVPROC absolute __glewProgramUniformui64NV;
+
   __glewProgramUniformui64vNV: TPFNGLPROGRAMUNIFORMUI64VNVPROC; cvar;external libGLEW;
+  glProgramUniformui64vNV: TPFNGLPROGRAMUNIFORMUI64VNVPROC absolute __glewProgramUniformui64vNV;
+
   __glewUniformui64NV: TPFNGLUNIFORMUI64NVPROC; cvar;external libGLEW;
+  glUniformui64NV: TPFNGLUNIFORMUI64NVPROC absolute __glewUniformui64NV;
+
   __glewUniformui64vNV: TPFNGLUNIFORMUI64VNVPROC; cvar;external libGLEW;
+  glUniformui64vNV: TPFNGLUNIFORMUI64VNVPROC absolute __glewUniformui64vNV;
+
   __glewBindShadingRateImageNV: TPFNGLBINDSHADINGRATEIMAGENVPROC; cvar;external libGLEW;
+  glBindShadingRateImageNV: TPFNGLBINDSHADINGRATEIMAGENVPROC absolute __glewBindShadingRateImageNV;
+
   __glewGetShadingRateImagePaletteNV: TPFNGLGETSHADINGRATEIMAGEPALETTENVPROC; cvar;external libGLEW;
+  glGetShadingRateImagePaletteNV: TPFNGLGETSHADINGRATEIMAGEPALETTENVPROC absolute __glewGetShadingRateImagePaletteNV;
+
   __glewGetShadingRateSampleLocationivNV: TPFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC; cvar;external libGLEW;
+  glGetShadingRateSampleLocationivNV: TPFNGLGETSHADINGRATESAMPLELOCATIONIVNVPROC absolute __glewGetShadingRateSampleLocationivNV;
+
   __glewShadingRateImageBarrierNV: TPFNGLSHADINGRATEIMAGEBARRIERNVPROC; cvar;external libGLEW;
+  glShadingRateImageBarrierNV: TPFNGLSHADINGRATEIMAGEBARRIERNVPROC absolute __glewShadingRateImageBarrierNV;
+
   __glewShadingRateImagePaletteNV: TPFNGLSHADINGRATEIMAGEPALETTENVPROC; cvar;external libGLEW;
+  glShadingRateImagePaletteNV: TPFNGLSHADINGRATEIMAGEPALETTENVPROC absolute __glewShadingRateImagePaletteNV;
+
   __glewShadingRateSampleOrderCustomNV: TPFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC; cvar;external libGLEW;
+  glShadingRateSampleOrderCustomNV: TPFNGLSHADINGRATESAMPLEORDERCUSTOMNVPROC absolute __glewShadingRateSampleOrderCustomNV;
+
   __glewCompressedTexImage3DNV: TPFNGLCOMPRESSEDTEXIMAGE3DNVPROC; cvar;external libGLEW;
+  glCompressedTexImage3DNV: TPFNGLCOMPRESSEDTEXIMAGE3DNVPROC absolute __glewCompressedTexImage3DNV;
+
   __glewCompressedTexSubImage3DNV: TPFNGLCOMPRESSEDTEXSUBIMAGE3DNVPROC; cvar;external libGLEW;
+  glCompressedTexSubImage3DNV: TPFNGLCOMPRESSEDTEXSUBIMAGE3DNVPROC absolute __glewCompressedTexSubImage3DNV;
+
   __glewCopyTexSubImage3DNV: TPFNGLCOPYTEXSUBIMAGE3DNVPROC; cvar;external libGLEW;
+  glCopyTexSubImage3DNV: TPFNGLCOPYTEXSUBIMAGE3DNVPROC absolute __glewCopyTexSubImage3DNV;
+
   __glewFramebufferTextureLayerNV: TPFNGLFRAMEBUFFERTEXTURELAYERNVPROC; cvar;external libGLEW;
+  glFramebufferTextureLayerNV: TPFNGLFRAMEBUFFERTEXTURELAYERNVPROC absolute __glewFramebufferTextureLayerNV;
+
   __glewTexImage3DNV: TPFNGLTEXIMAGE3DNVPROC; cvar;external libGLEW;
+  glTexImage3DNV: TPFNGLTEXIMAGE3DNVPROC absolute __glewTexImage3DNV;
+
   __glewTexSubImage3DNV: TPFNGLTEXSUBIMAGE3DNVPROC; cvar;external libGLEW;
+  glTexSubImage3DNV: TPFNGLTEXSUBIMAGE3DNVPROC absolute __glewTexSubImage3DNV;
+
   __glewTextureBarrierNV: TPFNGLTEXTUREBARRIERNVPROC; cvar;external libGLEW;
+  glTextureBarrierNV: TPFNGLTEXTUREBARRIERNVPROC absolute __glewTextureBarrierNV;
+
   __glewTexImage2DMultisampleCoverageNV: TPFNGLTEXIMAGE2DMULTISAMPLECOVERAGENVPROC; cvar;external libGLEW;
+  glTexImage2DMultisampleCoverageNV: TPFNGLTEXIMAGE2DMULTISAMPLECOVERAGENVPROC absolute __glewTexImage2DMultisampleCoverageNV;
+
   __glewTexImage3DMultisampleCoverageNV: TPFNGLTEXIMAGE3DMULTISAMPLECOVERAGENVPROC; cvar;external libGLEW;
+  glTexImage3DMultisampleCoverageNV: TPFNGLTEXIMAGE3DMULTISAMPLECOVERAGENVPROC absolute __glewTexImage3DMultisampleCoverageNV;
+
   __glewTextureImage2DMultisampleCoverageNV: TPFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC; cvar;external libGLEW;
+  glTextureImage2DMultisampleCoverageNV: TPFNGLTEXTUREIMAGE2DMULTISAMPLECOVERAGENVPROC absolute __glewTextureImage2DMultisampleCoverageNV;
+
   __glewTextureImage2DMultisampleNV: TPFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC; cvar;external libGLEW;
+  glTextureImage2DMultisampleNV: TPFNGLTEXTUREIMAGE2DMULTISAMPLENVPROC absolute __glewTextureImage2DMultisampleNV;
+
   __glewTextureImage3DMultisampleCoverageNV: TPFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC; cvar;external libGLEW;
+  glTextureImage3DMultisampleCoverageNV: TPFNGLTEXTUREIMAGE3DMULTISAMPLECOVERAGENVPROC absolute __glewTextureImage3DMultisampleCoverageNV;
+
   __glewTextureImage3DMultisampleNV: TPFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC; cvar;external libGLEW;
+  glTextureImage3DMultisampleNV: TPFNGLTEXTUREIMAGE3DMULTISAMPLENVPROC absolute __glewTextureImage3DMultisampleNV;
+
   __glewActiveVaryingNV: TPFNGLACTIVEVARYINGNVPROC; cvar;external libGLEW;
+  glActiveVaryingNV: TPFNGLACTIVEVARYINGNVPROC absolute __glewActiveVaryingNV;
+
   __glewBeginTransformFeedbackNV: TPFNGLBEGINTRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glBeginTransformFeedbackNV: TPFNGLBEGINTRANSFORMFEEDBACKNVPROC absolute __glewBeginTransformFeedbackNV;
+
   __glewBindBufferBaseNV: TPFNGLBINDBUFFERBASENVPROC; cvar;external libGLEW;
+  glBindBufferBaseNV: TPFNGLBINDBUFFERBASENVPROC absolute __glewBindBufferBaseNV;
+
   __glewBindBufferOffsetNV: TPFNGLBINDBUFFEROFFSETNVPROC; cvar;external libGLEW;
+  glBindBufferOffsetNV: TPFNGLBINDBUFFEROFFSETNVPROC absolute __glewBindBufferOffsetNV;
+
   __glewBindBufferRangeNV: TPFNGLBINDBUFFERRANGENVPROC; cvar;external libGLEW;
+  glBindBufferRangeNV: TPFNGLBINDBUFFERRANGENVPROC absolute __glewBindBufferRangeNV;
+
   __glewEndTransformFeedbackNV: TPFNGLENDTRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glEndTransformFeedbackNV: TPFNGLENDTRANSFORMFEEDBACKNVPROC absolute __glewEndTransformFeedbackNV;
+
   __glewGetActiveVaryingNV: TPFNGLGETACTIVEVARYINGNVPROC; cvar;external libGLEW;
+  glGetActiveVaryingNV: TPFNGLGETACTIVEVARYINGNVPROC absolute __glewGetActiveVaryingNV;
+
   __glewGetTransformFeedbackVaryingNV: TPFNGLGETTRANSFORMFEEDBACKVARYINGNVPROC; cvar;external libGLEW;
+  glGetTransformFeedbackVaryingNV: TPFNGLGETTRANSFORMFEEDBACKVARYINGNVPROC absolute __glewGetTransformFeedbackVaryingNV;
+
   __glewGetVaryingLocationNV: TPFNGLGETVARYINGLOCATIONNVPROC; cvar;external libGLEW;
+  glGetVaryingLocationNV: TPFNGLGETVARYINGLOCATIONNVPROC absolute __glewGetVaryingLocationNV;
+
   __glewTransformFeedbackAttribsNV: TPFNGLTRANSFORMFEEDBACKATTRIBSNVPROC; cvar;external libGLEW;
+  glTransformFeedbackAttribsNV: TPFNGLTRANSFORMFEEDBACKATTRIBSNVPROC absolute __glewTransformFeedbackAttribsNV;
+
   __glewTransformFeedbackVaryingsNV: TPFNGLTRANSFORMFEEDBACKVARYINGSNVPROC; cvar;external libGLEW;
+  glTransformFeedbackVaryingsNV: TPFNGLTRANSFORMFEEDBACKVARYINGSNVPROC absolute __glewTransformFeedbackVaryingsNV;
+
   __glewBindTransformFeedbackNV: TPFNGLBINDTRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glBindTransformFeedbackNV: TPFNGLBINDTRANSFORMFEEDBACKNVPROC absolute __glewBindTransformFeedbackNV;
+
   __glewDeleteTransformFeedbacksNV: TPFNGLDELETETRANSFORMFEEDBACKSNVPROC; cvar;external libGLEW;
+  glDeleteTransformFeedbacksNV: TPFNGLDELETETRANSFORMFEEDBACKSNVPROC absolute __glewDeleteTransformFeedbacksNV;
+
   __glewDrawTransformFeedbackNV: TPFNGLDRAWTRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glDrawTransformFeedbackNV: TPFNGLDRAWTRANSFORMFEEDBACKNVPROC absolute __glewDrawTransformFeedbackNV;
+
   __glewGenTransformFeedbacksNV: TPFNGLGENTRANSFORMFEEDBACKSNVPROC; cvar;external libGLEW;
+  glGenTransformFeedbacksNV: TPFNGLGENTRANSFORMFEEDBACKSNVPROC absolute __glewGenTransformFeedbacksNV;
+
   __glewIsTransformFeedbackNV: TPFNGLISTRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glIsTransformFeedbackNV: TPFNGLISTRANSFORMFEEDBACKNVPROC absolute __glewIsTransformFeedbackNV;
+
   __glewPauseTransformFeedbackNV: TPFNGLPAUSETRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glPauseTransformFeedbackNV: TPFNGLPAUSETRANSFORMFEEDBACKNVPROC absolute __glewPauseTransformFeedbackNV;
+
   __glewResumeTransformFeedbackNV: TPFNGLRESUMETRANSFORMFEEDBACKNVPROC; cvar;external libGLEW;
+  glResumeTransformFeedbackNV: TPFNGLRESUMETRANSFORMFEEDBACKNVPROC absolute __glewResumeTransformFeedbackNV;
+
   __glewVDPAUFiniNV: TPFNGLVDPAUFININVPROC; cvar;external libGLEW;
+  glVDPAUFiniNV: TPFNGLVDPAUFININVPROC absolute __glewVDPAUFiniNV;
+
   __glewVDPAUGetSurfaceivNV: TPFNGLVDPAUGETSURFACEIVNVPROC; cvar;external libGLEW;
+  glVDPAUGetSurfaceivNV: TPFNGLVDPAUGETSURFACEIVNVPROC absolute __glewVDPAUGetSurfaceivNV;
+
   __glewVDPAUInitNV: TPFNGLVDPAUINITNVPROC; cvar;external libGLEW;
+  glVDPAUInitNV: TPFNGLVDPAUINITNVPROC absolute __glewVDPAUInitNV;
+
   __glewVDPAUIsSurfaceNV: TPFNGLVDPAUISSURFACENVPROC; cvar;external libGLEW;
+  glVDPAUIsSurfaceNV: TPFNGLVDPAUISSURFACENVPROC absolute __glewVDPAUIsSurfaceNV;
+
   __glewVDPAUMapSurfacesNV: TPFNGLVDPAUMAPSURFACESNVPROC; cvar;external libGLEW;
+  glVDPAUMapSurfacesNV: TPFNGLVDPAUMAPSURFACESNVPROC absolute __glewVDPAUMapSurfacesNV;
+
   __glewVDPAURegisterOutputSurfaceNV: TPFNGLVDPAUREGISTEROUTPUTSURFACENVPROC; cvar;external libGLEW;
+  glVDPAURegisterOutputSurfaceNV: TPFNGLVDPAUREGISTEROUTPUTSURFACENVPROC absolute __glewVDPAURegisterOutputSurfaceNV;
+
   __glewVDPAURegisterVideoSurfaceNV: TPFNGLVDPAUREGISTERVIDEOSURFACENVPROC; cvar;external libGLEW;
+  glVDPAURegisterVideoSurfaceNV: TPFNGLVDPAUREGISTERVIDEOSURFACENVPROC absolute __glewVDPAURegisterVideoSurfaceNV;
+
   __glewVDPAUSurfaceAccessNV: TPFNGLVDPAUSURFACEACCESSNVPROC; cvar;external libGLEW;
+  glVDPAUSurfaceAccessNV: TPFNGLVDPAUSURFACEACCESSNVPROC absolute __glewVDPAUSurfaceAccessNV;
+
   __glewVDPAUUnmapSurfacesNV: TPFNGLVDPAUUNMAPSURFACESNVPROC; cvar;external libGLEW;
+  glVDPAUUnmapSurfacesNV: TPFNGLVDPAUUNMAPSURFACESNVPROC absolute __glewVDPAUUnmapSurfacesNV;
+
   __glewVDPAUUnregisterSurfaceNV: TPFNGLVDPAUUNREGISTERSURFACENVPROC; cvar;external libGLEW;
+  glVDPAUUnregisterSurfaceNV: TPFNGLVDPAUUNREGISTERSURFACENVPROC absolute __glewVDPAUUnregisterSurfaceNV;
+
   __glewVDPAURegisterVideoSurfaceWithPictureStructureNV: TPFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC; cvar;external libGLEW;
+  glVDPAURegisterVideoSurfaceWithPictureStructureNV: TPFNGLVDPAUREGISTERVIDEOSURFACEWITHPICTURESTRUCTURENVPROC absolute __glewVDPAURegisterVideoSurfaceWithPictureStructureNV;
+
   __glewFlushVertexArrayRangeNV: TPFNGLFLUSHVERTEXARRAYRANGENVPROC; cvar;external libGLEW;
+  glFlushVertexArrayRangeNV: TPFNGLFLUSHVERTEXARRAYRANGENVPROC absolute __glewFlushVertexArrayRangeNV;
+
   __glewVertexArrayRangeNV: TPFNGLVERTEXARRAYRANGENVPROC; cvar;external libGLEW;
+  glVertexArrayRangeNV: TPFNGLVERTEXARRAYRANGENVPROC absolute __glewVertexArrayRangeNV;
+
   __glewGetVertexAttribLi64vNV: TPFNGLGETVERTEXATTRIBLI64VNVPROC; cvar;external libGLEW;
+  glGetVertexAttribLi64vNV: TPFNGLGETVERTEXATTRIBLI64VNVPROC absolute __glewGetVertexAttribLi64vNV;
+
   __glewGetVertexAttribLui64vNV: TPFNGLGETVERTEXATTRIBLUI64VNVPROC; cvar;external libGLEW;
+  glGetVertexAttribLui64vNV: TPFNGLGETVERTEXATTRIBLUI64VNVPROC absolute __glewGetVertexAttribLui64vNV;
+
   __glewVertexAttribL1i64NV: TPFNGLVERTEXATTRIBL1I64NVPROC; cvar;external libGLEW;
+  glVertexAttribL1i64NV: TPFNGLVERTEXATTRIBL1I64NVPROC absolute __glewVertexAttribL1i64NV;
+
   __glewVertexAttribL1i64vNV: TPFNGLVERTEXATTRIBL1I64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL1i64vNV: TPFNGLVERTEXATTRIBL1I64VNVPROC absolute __glewVertexAttribL1i64vNV;
+
   __glewVertexAttribL1ui64NV: TPFNGLVERTEXATTRIBL1UI64NVPROC; cvar;external libGLEW;
+  glVertexAttribL1ui64NV: TPFNGLVERTEXATTRIBL1UI64NVPROC absolute __glewVertexAttribL1ui64NV;
+
   __glewVertexAttribL1ui64vNV: TPFNGLVERTEXATTRIBL1UI64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL1ui64vNV: TPFNGLVERTEXATTRIBL1UI64VNVPROC absolute __glewVertexAttribL1ui64vNV;
+
   __glewVertexAttribL2i64NV: TPFNGLVERTEXATTRIBL2I64NVPROC; cvar;external libGLEW;
+  glVertexAttribL2i64NV: TPFNGLVERTEXATTRIBL2I64NVPROC absolute __glewVertexAttribL2i64NV;
+
   __glewVertexAttribL2i64vNV: TPFNGLVERTEXATTRIBL2I64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL2i64vNV: TPFNGLVERTEXATTRIBL2I64VNVPROC absolute __glewVertexAttribL2i64vNV;
+
   __glewVertexAttribL2ui64NV: TPFNGLVERTEXATTRIBL2UI64NVPROC; cvar;external libGLEW;
+  glVertexAttribL2ui64NV: TPFNGLVERTEXATTRIBL2UI64NVPROC absolute __glewVertexAttribL2ui64NV;
+
   __glewVertexAttribL2ui64vNV: TPFNGLVERTEXATTRIBL2UI64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL2ui64vNV: TPFNGLVERTEXATTRIBL2UI64VNVPROC absolute __glewVertexAttribL2ui64vNV;
+
   __glewVertexAttribL3i64NV: TPFNGLVERTEXATTRIBL3I64NVPROC; cvar;external libGLEW;
+  glVertexAttribL3i64NV: TPFNGLVERTEXATTRIBL3I64NVPROC absolute __glewVertexAttribL3i64NV;
+
   __glewVertexAttribL3i64vNV: TPFNGLVERTEXATTRIBL3I64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL3i64vNV: TPFNGLVERTEXATTRIBL3I64VNVPROC absolute __glewVertexAttribL3i64vNV;
+
   __glewVertexAttribL3ui64NV: TPFNGLVERTEXATTRIBL3UI64NVPROC; cvar;external libGLEW;
+  glVertexAttribL3ui64NV: TPFNGLVERTEXATTRIBL3UI64NVPROC absolute __glewVertexAttribL3ui64NV;
+
   __glewVertexAttribL3ui64vNV: TPFNGLVERTEXATTRIBL3UI64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL3ui64vNV: TPFNGLVERTEXATTRIBL3UI64VNVPROC absolute __glewVertexAttribL3ui64vNV;
+
   __glewVertexAttribL4i64NV: TPFNGLVERTEXATTRIBL4I64NVPROC; cvar;external libGLEW;
+  glVertexAttribL4i64NV: TPFNGLVERTEXATTRIBL4I64NVPROC absolute __glewVertexAttribL4i64NV;
+
   __glewVertexAttribL4i64vNV: TPFNGLVERTEXATTRIBL4I64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL4i64vNV: TPFNGLVERTEXATTRIBL4I64VNVPROC absolute __glewVertexAttribL4i64vNV;
+
   __glewVertexAttribL4ui64NV: TPFNGLVERTEXATTRIBL4UI64NVPROC; cvar;external libGLEW;
+  glVertexAttribL4ui64NV: TPFNGLVERTEXATTRIBL4UI64NVPROC absolute __glewVertexAttribL4ui64NV;
+
   __glewVertexAttribL4ui64vNV: TPFNGLVERTEXATTRIBL4UI64VNVPROC; cvar;external libGLEW;
+  glVertexAttribL4ui64vNV: TPFNGLVERTEXATTRIBL4UI64VNVPROC absolute __glewVertexAttribL4ui64vNV;
+
   __glewVertexAttribLFormatNV: TPFNGLVERTEXATTRIBLFORMATNVPROC; cvar;external libGLEW;
+  glVertexAttribLFormatNV: TPFNGLVERTEXATTRIBLFORMATNVPROC absolute __glewVertexAttribLFormatNV;
+
   __glewBufferAddressRangeNV: TPFNGLBUFFERADDRESSRANGENVPROC; cvar;external libGLEW;
+  glBufferAddressRangeNV: TPFNGLBUFFERADDRESSRANGENVPROC absolute __glewBufferAddressRangeNV;
+
   __glewColorFormatNV: TPFNGLCOLORFORMATNVPROC; cvar;external libGLEW;
+  glColorFormatNV: TPFNGLCOLORFORMATNVPROC absolute __glewColorFormatNV;
+
   __glewEdgeFlagFormatNV: TPFNGLEDGEFLAGFORMATNVPROC; cvar;external libGLEW;
+  glEdgeFlagFormatNV: TPFNGLEDGEFLAGFORMATNVPROC absolute __glewEdgeFlagFormatNV;
+
   __glewFogCoordFormatNV: TPFNGLFOGCOORDFORMATNVPROC; cvar;external libGLEW;
+  glFogCoordFormatNV: TPFNGLFOGCOORDFORMATNVPROC absolute __glewFogCoordFormatNV;
+
   __glewGetIntegerui64i_vNV: TPFNGLGETINTEGERUI64I_VNVPROC; cvar;external libGLEW;
+  glGetIntegerui64i_vNV: TPFNGLGETINTEGERUI64I_VNVPROC absolute __glewGetIntegerui64i_vNV;
+
   __glewIndexFormatNV: TPFNGLINDEXFORMATNVPROC; cvar;external libGLEW;
+  glIndexFormatNV: TPFNGLINDEXFORMATNVPROC absolute __glewIndexFormatNV;
+
   __glewNormalFormatNV: TPFNGLNORMALFORMATNVPROC; cvar;external libGLEW;
+  glNormalFormatNV: TPFNGLNORMALFORMATNVPROC absolute __glewNormalFormatNV;
+
   __glewSecondaryColorFormatNV: TPFNGLSECONDARYCOLORFORMATNVPROC; cvar;external libGLEW;
+  glSecondaryColorFormatNV: TPFNGLSECONDARYCOLORFORMATNVPROC absolute __glewSecondaryColorFormatNV;
+
   __glewTexCoordFormatNV: TPFNGLTEXCOORDFORMATNVPROC; cvar;external libGLEW;
+  glTexCoordFormatNV: TPFNGLTEXCOORDFORMATNVPROC absolute __glewTexCoordFormatNV;
+
   __glewVertexAttribFormatNV: TPFNGLVERTEXATTRIBFORMATNVPROC; cvar;external libGLEW;
+  glVertexAttribFormatNV: TPFNGLVERTEXATTRIBFORMATNVPROC absolute __glewVertexAttribFormatNV;
+
   __glewVertexAttribIFormatNV: TPFNGLVERTEXATTRIBIFORMATNVPROC; cvar;external libGLEW;
+  glVertexAttribIFormatNV: TPFNGLVERTEXATTRIBIFORMATNVPROC absolute __glewVertexAttribIFormatNV;
+
   __glewVertexFormatNV: TPFNGLVERTEXFORMATNVPROC; cvar;external libGLEW;
+  glVertexFormatNV: TPFNGLVERTEXFORMATNVPROC absolute __glewVertexFormatNV;
+
   __glewAreProgramsResidentNV: TPFNGLAREPROGRAMSRESIDENTNVPROC; cvar;external libGLEW;
+  glAreProgramsResidentNV: TPFNGLAREPROGRAMSRESIDENTNVPROC absolute __glewAreProgramsResidentNV;
+
   __glewBindProgramNV: TPFNGLBINDPROGRAMNVPROC; cvar;external libGLEW;
+  glBindProgramNV: TPFNGLBINDPROGRAMNVPROC absolute __glewBindProgramNV;
+
   __glewDeleteProgramsNV: TPFNGLDELETEPROGRAMSNVPROC; cvar;external libGLEW;
+  glDeleteProgramsNV: TPFNGLDELETEPROGRAMSNVPROC absolute __glewDeleteProgramsNV;
+
   __glewExecuteProgramNV: TPFNGLEXECUTEPROGRAMNVPROC; cvar;external libGLEW;
+  glExecuteProgramNV: TPFNGLEXECUTEPROGRAMNVPROC absolute __glewExecuteProgramNV;
+
   __glewGenProgramsNV: TPFNGLGENPROGRAMSNVPROC; cvar;external libGLEW;
+  glGenProgramsNV: TPFNGLGENPROGRAMSNVPROC absolute __glewGenProgramsNV;
+
   __glewGetProgramParameterdvNV: TPFNGLGETPROGRAMPARAMETERDVNVPROC; cvar;external libGLEW;
+  glGetProgramParameterdvNV: TPFNGLGETPROGRAMPARAMETERDVNVPROC absolute __glewGetProgramParameterdvNV;
+
   __glewGetProgramParameterfvNV: TPFNGLGETPROGRAMPARAMETERFVNVPROC; cvar;external libGLEW;
+  glGetProgramParameterfvNV: TPFNGLGETPROGRAMPARAMETERFVNVPROC absolute __glewGetProgramParameterfvNV;
+
   __glewGetProgramStringNV: TPFNGLGETPROGRAMSTRINGNVPROC; cvar;external libGLEW;
+  glGetProgramStringNV: TPFNGLGETPROGRAMSTRINGNVPROC absolute __glewGetProgramStringNV;
+
   __glewGetProgramivNV: TPFNGLGETPROGRAMIVNVPROC; cvar;external libGLEW;
+  glGetProgramivNV: TPFNGLGETPROGRAMIVNVPROC absolute __glewGetProgramivNV;
+
   __glewGetTrackMatrixivNV: TPFNGLGETTRACKMATRIXIVNVPROC; cvar;external libGLEW;
+  glGetTrackMatrixivNV: TPFNGLGETTRACKMATRIXIVNVPROC absolute __glewGetTrackMatrixivNV;
+
   __glewGetVertexAttribPointervNV: TPFNGLGETVERTEXATTRIBPOINTERVNVPROC; cvar;external libGLEW;
+  glGetVertexAttribPointervNV: TPFNGLGETVERTEXATTRIBPOINTERVNVPROC absolute __glewGetVertexAttribPointervNV;
+
   __glewGetVertexAttribdvNV: TPFNGLGETVERTEXATTRIBDVNVPROC; cvar;external libGLEW;
+  glGetVertexAttribdvNV: TPFNGLGETVERTEXATTRIBDVNVPROC absolute __glewGetVertexAttribdvNV;
+
   __glewGetVertexAttribfvNV: TPFNGLGETVERTEXATTRIBFVNVPROC; cvar;external libGLEW;
+  glGetVertexAttribfvNV: TPFNGLGETVERTEXATTRIBFVNVPROC absolute __glewGetVertexAttribfvNV;
+
   __glewGetVertexAttribivNV: TPFNGLGETVERTEXATTRIBIVNVPROC; cvar;external libGLEW;
+  glGetVertexAttribivNV: TPFNGLGETVERTEXATTRIBIVNVPROC absolute __glewGetVertexAttribivNV;
+
   __glewIsProgramNV: TPFNGLISPROGRAMNVPROC; cvar;external libGLEW;
+  glIsProgramNV: TPFNGLISPROGRAMNVPROC absolute __glewIsProgramNV;
+
   __glewLoadProgramNV: TPFNGLLOADPROGRAMNVPROC; cvar;external libGLEW;
+  glLoadProgramNV: TPFNGLLOADPROGRAMNVPROC absolute __glewLoadProgramNV;
+
   __glewProgramParameter4dNV: TPFNGLPROGRAMPARAMETER4DNVPROC; cvar;external libGLEW;
+  glProgramParameter4dNV: TPFNGLPROGRAMPARAMETER4DNVPROC absolute __glewProgramParameter4dNV;
+
   __glewProgramParameter4dvNV: TPFNGLPROGRAMPARAMETER4DVNVPROC; cvar;external libGLEW;
+  glProgramParameter4dvNV: TPFNGLPROGRAMPARAMETER4DVNVPROC absolute __glewProgramParameter4dvNV;
+
   __glewProgramParameter4fNV: TPFNGLPROGRAMPARAMETER4FNVPROC; cvar;external libGLEW;
+  glProgramParameter4fNV: TPFNGLPROGRAMPARAMETER4FNVPROC absolute __glewProgramParameter4fNV;
+
   __glewProgramParameter4fvNV: TPFNGLPROGRAMPARAMETER4FVNVPROC; cvar;external libGLEW;
+  glProgramParameter4fvNV: TPFNGLPROGRAMPARAMETER4FVNVPROC absolute __glewProgramParameter4fvNV;
+
   __glewProgramParameters4dvNV: TPFNGLPROGRAMPARAMETERS4DVNVPROC; cvar;external libGLEW;
+  glProgramParameters4dvNV: TPFNGLPROGRAMPARAMETERS4DVNVPROC absolute __glewProgramParameters4dvNV;
+
   __glewProgramParameters4fvNV: TPFNGLPROGRAMPARAMETERS4FVNVPROC; cvar;external libGLEW;
+  glProgramParameters4fvNV: TPFNGLPROGRAMPARAMETERS4FVNVPROC absolute __glewProgramParameters4fvNV;
+
   __glewRequestResidentProgramsNV: TPFNGLREQUESTRESIDENTPROGRAMSNVPROC; cvar;external libGLEW;
+  glRequestResidentProgramsNV: TPFNGLREQUESTRESIDENTPROGRAMSNVPROC absolute __glewRequestResidentProgramsNV;
+
   __glewTrackMatrixNV: TPFNGLTRACKMATRIXNVPROC; cvar;external libGLEW;
+  glTrackMatrixNV: TPFNGLTRACKMATRIXNVPROC absolute __glewTrackMatrixNV;
+
   __glewVertexAttrib1dNV: TPFNGLVERTEXATTRIB1DNVPROC; cvar;external libGLEW;
+  glVertexAttrib1dNV: TPFNGLVERTEXATTRIB1DNVPROC absolute __glewVertexAttrib1dNV;
+
   __glewVertexAttrib1dvNV: TPFNGLVERTEXATTRIB1DVNVPROC; cvar;external libGLEW;
+  glVertexAttrib1dvNV: TPFNGLVERTEXATTRIB1DVNVPROC absolute __glewVertexAttrib1dvNV;
+
   __glewVertexAttrib1fNV: TPFNGLVERTEXATTRIB1FNVPROC; cvar;external libGLEW;
+  glVertexAttrib1fNV: TPFNGLVERTEXATTRIB1FNVPROC absolute __glewVertexAttrib1fNV;
+
   __glewVertexAttrib1fvNV: TPFNGLVERTEXATTRIB1FVNVPROC; cvar;external libGLEW;
+  glVertexAttrib1fvNV: TPFNGLVERTEXATTRIB1FVNVPROC absolute __glewVertexAttrib1fvNV;
+
   __glewVertexAttrib1sNV: TPFNGLVERTEXATTRIB1SNVPROC; cvar;external libGLEW;
+  glVertexAttrib1sNV: TPFNGLVERTEXATTRIB1SNVPROC absolute __glewVertexAttrib1sNV;
+
   __glewVertexAttrib1svNV: TPFNGLVERTEXATTRIB1SVNVPROC; cvar;external libGLEW;
+  glVertexAttrib1svNV: TPFNGLVERTEXATTRIB1SVNVPROC absolute __glewVertexAttrib1svNV;
+
   __glewVertexAttrib2dNV: TPFNGLVERTEXATTRIB2DNVPROC; cvar;external libGLEW;
+  glVertexAttrib2dNV: TPFNGLVERTEXATTRIB2DNVPROC absolute __glewVertexAttrib2dNV;
+
   __glewVertexAttrib2dvNV: TPFNGLVERTEXATTRIB2DVNVPROC; cvar;external libGLEW;
+  glVertexAttrib2dvNV: TPFNGLVERTEXATTRIB2DVNVPROC absolute __glewVertexAttrib2dvNV;
+
   __glewVertexAttrib2fNV: TPFNGLVERTEXATTRIB2FNVPROC; cvar;external libGLEW;
+  glVertexAttrib2fNV: TPFNGLVERTEXATTRIB2FNVPROC absolute __glewVertexAttrib2fNV;
+
   __glewVertexAttrib2fvNV: TPFNGLVERTEXATTRIB2FVNVPROC; cvar;external libGLEW;
+  glVertexAttrib2fvNV: TPFNGLVERTEXATTRIB2FVNVPROC absolute __glewVertexAttrib2fvNV;
+
   __glewVertexAttrib2sNV: TPFNGLVERTEXATTRIB2SNVPROC; cvar;external libGLEW;
+  glVertexAttrib2sNV: TPFNGLVERTEXATTRIB2SNVPROC absolute __glewVertexAttrib2sNV;
+
   __glewVertexAttrib2svNV: TPFNGLVERTEXATTRIB2SVNVPROC; cvar;external libGLEW;
+  glVertexAttrib2svNV: TPFNGLVERTEXATTRIB2SVNVPROC absolute __glewVertexAttrib2svNV;
+
   __glewVertexAttrib3dNV: TPFNGLVERTEXATTRIB3DNVPROC; cvar;external libGLEW;
+  glVertexAttrib3dNV: TPFNGLVERTEXATTRIB3DNVPROC absolute __glewVertexAttrib3dNV;
+
   __glewVertexAttrib3dvNV: TPFNGLVERTEXATTRIB3DVNVPROC; cvar;external libGLEW;
+  glVertexAttrib3dvNV: TPFNGLVERTEXATTRIB3DVNVPROC absolute __glewVertexAttrib3dvNV;
+
   __glewVertexAttrib3fNV: TPFNGLVERTEXATTRIB3FNVPROC; cvar;external libGLEW;
+  glVertexAttrib3fNV: TPFNGLVERTEXATTRIB3FNVPROC absolute __glewVertexAttrib3fNV;
+
   __glewVertexAttrib3fvNV: TPFNGLVERTEXATTRIB3FVNVPROC; cvar;external libGLEW;
+  glVertexAttrib3fvNV: TPFNGLVERTEXATTRIB3FVNVPROC absolute __glewVertexAttrib3fvNV;
+
   __glewVertexAttrib3sNV: TPFNGLVERTEXATTRIB3SNVPROC; cvar;external libGLEW;
+  glVertexAttrib3sNV: TPFNGLVERTEXATTRIB3SNVPROC absolute __glewVertexAttrib3sNV;
+
   __glewVertexAttrib3svNV: TPFNGLVERTEXATTRIB3SVNVPROC; cvar;external libGLEW;
+  glVertexAttrib3svNV: TPFNGLVERTEXATTRIB3SVNVPROC absolute __glewVertexAttrib3svNV;
+
   __glewVertexAttrib4dNV: TPFNGLVERTEXATTRIB4DNVPROC; cvar;external libGLEW;
+  glVertexAttrib4dNV: TPFNGLVERTEXATTRIB4DNVPROC absolute __glewVertexAttrib4dNV;
+
   __glewVertexAttrib4dvNV: TPFNGLVERTEXATTRIB4DVNVPROC; cvar;external libGLEW;
+  glVertexAttrib4dvNV: TPFNGLVERTEXATTRIB4DVNVPROC absolute __glewVertexAttrib4dvNV;
+
   __glewVertexAttrib4fNV: TPFNGLVERTEXATTRIB4FNVPROC; cvar;external libGLEW;
+  glVertexAttrib4fNV: TPFNGLVERTEXATTRIB4FNVPROC absolute __glewVertexAttrib4fNV;
+
   __glewVertexAttrib4fvNV: TPFNGLVERTEXATTRIB4FVNVPROC; cvar;external libGLEW;
+  glVertexAttrib4fvNV: TPFNGLVERTEXATTRIB4FVNVPROC absolute __glewVertexAttrib4fvNV;
+
   __glewVertexAttrib4sNV: TPFNGLVERTEXATTRIB4SNVPROC; cvar;external libGLEW;
+  glVertexAttrib4sNV: TPFNGLVERTEXATTRIB4SNVPROC absolute __glewVertexAttrib4sNV;
+
   __glewVertexAttrib4svNV: TPFNGLVERTEXATTRIB4SVNVPROC; cvar;external libGLEW;
+  glVertexAttrib4svNV: TPFNGLVERTEXATTRIB4SVNVPROC absolute __glewVertexAttrib4svNV;
+
   __glewVertexAttrib4ubNV: TPFNGLVERTEXATTRIB4UBNVPROC; cvar;external libGLEW;
+  glVertexAttrib4ubNV: TPFNGLVERTEXATTRIB4UBNVPROC absolute __glewVertexAttrib4ubNV;
+
   __glewVertexAttrib4ubvNV: TPFNGLVERTEXATTRIB4UBVNVPROC; cvar;external libGLEW;
+  glVertexAttrib4ubvNV: TPFNGLVERTEXATTRIB4UBVNVPROC absolute __glewVertexAttrib4ubvNV;
+
   __glewVertexAttribPointerNV: TPFNGLVERTEXATTRIBPOINTERNVPROC; cvar;external libGLEW;
+  glVertexAttribPointerNV: TPFNGLVERTEXATTRIBPOINTERNVPROC absolute __glewVertexAttribPointerNV;
+
   __glewVertexAttribs1dvNV: TPFNGLVERTEXATTRIBS1DVNVPROC; cvar;external libGLEW;
+  glVertexAttribs1dvNV: TPFNGLVERTEXATTRIBS1DVNVPROC absolute __glewVertexAttribs1dvNV;
+
   __glewVertexAttribs1fvNV: TPFNGLVERTEXATTRIBS1FVNVPROC; cvar;external libGLEW;
+  glVertexAttribs1fvNV: TPFNGLVERTEXATTRIBS1FVNVPROC absolute __glewVertexAttribs1fvNV;
+
   __glewVertexAttribs1svNV: TPFNGLVERTEXATTRIBS1SVNVPROC; cvar;external libGLEW;
+  glVertexAttribs1svNV: TPFNGLVERTEXATTRIBS1SVNVPROC absolute __glewVertexAttribs1svNV;
+
   __glewVertexAttribs2dvNV: TPFNGLVERTEXATTRIBS2DVNVPROC; cvar;external libGLEW;
+  glVertexAttribs2dvNV: TPFNGLVERTEXATTRIBS2DVNVPROC absolute __glewVertexAttribs2dvNV;
+
   __glewVertexAttribs2fvNV: TPFNGLVERTEXATTRIBS2FVNVPROC; cvar;external libGLEW;
+  glVertexAttribs2fvNV: TPFNGLVERTEXATTRIBS2FVNVPROC absolute __glewVertexAttribs2fvNV;
+
   __glewVertexAttribs2svNV: TPFNGLVERTEXATTRIBS2SVNVPROC; cvar;external libGLEW;
+  glVertexAttribs2svNV: TPFNGLVERTEXATTRIBS2SVNVPROC absolute __glewVertexAttribs2svNV;
+
   __glewVertexAttribs3dvNV: TPFNGLVERTEXATTRIBS3DVNVPROC; cvar;external libGLEW;
+  glVertexAttribs3dvNV: TPFNGLVERTEXATTRIBS3DVNVPROC absolute __glewVertexAttribs3dvNV;
+
   __glewVertexAttribs3fvNV: TPFNGLVERTEXATTRIBS3FVNVPROC; cvar;external libGLEW;
+  glVertexAttribs3fvNV: TPFNGLVERTEXATTRIBS3FVNVPROC absolute __glewVertexAttribs3fvNV;
+
   __glewVertexAttribs3svNV: TPFNGLVERTEXATTRIBS3SVNVPROC; cvar;external libGLEW;
+  glVertexAttribs3svNV: TPFNGLVERTEXATTRIBS3SVNVPROC absolute __glewVertexAttribs3svNV;
+
   __glewVertexAttribs4dvNV: TPFNGLVERTEXATTRIBS4DVNVPROC; cvar;external libGLEW;
+  glVertexAttribs4dvNV: TPFNGLVERTEXATTRIBS4DVNVPROC absolute __glewVertexAttribs4dvNV;
+
   __glewVertexAttribs4fvNV: TPFNGLVERTEXATTRIBS4FVNVPROC; cvar;external libGLEW;
+  glVertexAttribs4fvNV: TPFNGLVERTEXATTRIBS4FVNVPROC absolute __glewVertexAttribs4fvNV;
+
   __glewVertexAttribs4svNV: TPFNGLVERTEXATTRIBS4SVNVPROC; cvar;external libGLEW;
+  glVertexAttribs4svNV: TPFNGLVERTEXATTRIBS4SVNVPROC absolute __glewVertexAttribs4svNV;
+
   __glewVertexAttribs4ubvNV: TPFNGLVERTEXATTRIBS4UBVNVPROC; cvar;external libGLEW;
+  glVertexAttribs4ubvNV: TPFNGLVERTEXATTRIBS4UBVNVPROC absolute __glewVertexAttribs4ubvNV;
+
   __glewBeginVideoCaptureNV: TPFNGLBEGINVIDEOCAPTURENVPROC; cvar;external libGLEW;
+  glBeginVideoCaptureNV: TPFNGLBEGINVIDEOCAPTURENVPROC absolute __glewBeginVideoCaptureNV;
+
   __glewBindVideoCaptureStreamBufferNV: TPFNGLBINDVIDEOCAPTURESTREAMBUFFERNVPROC; cvar;external libGLEW;
+  glBindVideoCaptureStreamBufferNV: TPFNGLBINDVIDEOCAPTURESTREAMBUFFERNVPROC absolute __glewBindVideoCaptureStreamBufferNV;
+
   __glewBindVideoCaptureStreamTextureNV: TPFNGLBINDVIDEOCAPTURESTREAMTEXTURENVPROC; cvar;external libGLEW;
+  glBindVideoCaptureStreamTextureNV: TPFNGLBINDVIDEOCAPTURESTREAMTEXTURENVPROC absolute __glewBindVideoCaptureStreamTextureNV;
+
   __glewEndVideoCaptureNV: TPFNGLENDVIDEOCAPTURENVPROC; cvar;external libGLEW;
+  glEndVideoCaptureNV: TPFNGLENDVIDEOCAPTURENVPROC absolute __glewEndVideoCaptureNV;
+
   __glewGetVideoCaptureStreamdvNV: TPFNGLGETVIDEOCAPTURESTREAMDVNVPROC; cvar;external libGLEW;
+  glGetVideoCaptureStreamdvNV: TPFNGLGETVIDEOCAPTURESTREAMDVNVPROC absolute __glewGetVideoCaptureStreamdvNV;
+
   __glewGetVideoCaptureStreamfvNV: TPFNGLGETVIDEOCAPTURESTREAMFVNVPROC; cvar;external libGLEW;
+  glGetVideoCaptureStreamfvNV: TPFNGLGETVIDEOCAPTURESTREAMFVNVPROC absolute __glewGetVideoCaptureStreamfvNV;
+
   __glewGetVideoCaptureStreamivNV: TPFNGLGETVIDEOCAPTURESTREAMIVNVPROC; cvar;external libGLEW;
+  glGetVideoCaptureStreamivNV: TPFNGLGETVIDEOCAPTURESTREAMIVNVPROC absolute __glewGetVideoCaptureStreamivNV;
+
   __glewGetVideoCaptureivNV: TPFNGLGETVIDEOCAPTUREIVNVPROC; cvar;external libGLEW;
+  glGetVideoCaptureivNV: TPFNGLGETVIDEOCAPTUREIVNVPROC absolute __glewGetVideoCaptureivNV;
+
   __glewVideoCaptureNV: TPFNGLVIDEOCAPTURENVPROC; cvar;external libGLEW;
+  glVideoCaptureNV: TPFNGLVIDEOCAPTURENVPROC absolute __glewVideoCaptureNV;
+
   __glewVideoCaptureStreamParameterdvNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERDVNVPROC; cvar;external libGLEW;
+  glVideoCaptureStreamParameterdvNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERDVNVPROC absolute __glewVideoCaptureStreamParameterdvNV;
+
   __glewVideoCaptureStreamParameterfvNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERFVNVPROC; cvar;external libGLEW;
+  glVideoCaptureStreamParameterfvNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERFVNVPROC absolute __glewVideoCaptureStreamParameterfvNV;
+
   __glewVideoCaptureStreamParameterivNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERIVNVPROC; cvar;external libGLEW;
+  glVideoCaptureStreamParameterivNV: TPFNGLVIDEOCAPTURESTREAMPARAMETERIVNVPROC absolute __glewVideoCaptureStreamParameterivNV;
+
   __glewDepthRangeArrayfvNV: TPFNGLDEPTHRANGEARRAYFVNVPROC; cvar;external libGLEW;
+  glDepthRangeArrayfvNV: TPFNGLDEPTHRANGEARRAYFVNVPROC absolute __glewDepthRangeArrayfvNV;
+
   __glewDepthRangeIndexedfNV: TPFNGLDEPTHRANGEINDEXEDFNVPROC; cvar;external libGLEW;
+  glDepthRangeIndexedfNV: TPFNGLDEPTHRANGEINDEXEDFNVPROC absolute __glewDepthRangeIndexedfNV;
+
   __glewDisableiNV: TPFNGLDISABLEINVPROC; cvar;external libGLEW;
+  glDisableiNV: TPFNGLDISABLEINVPROC absolute __glewDisableiNV;
+
   __glewEnableiNV: TPFNGLENABLEINVPROC; cvar;external libGLEW;
+  glEnableiNV: TPFNGLENABLEINVPROC absolute __glewEnableiNV;
+
   __glewGetFloati_vNV: TPFNGLGETFLOATI_VNVPROC; cvar;external libGLEW;
+  glGetFloati_vNV: TPFNGLGETFLOATI_VNVPROC absolute __glewGetFloati_vNV;
+
   __glewIsEnablediNV: TPFNGLISENABLEDINVPROC; cvar;external libGLEW;
+  glIsEnablediNV: TPFNGLISENABLEDINVPROC absolute __glewIsEnablediNV;
+
   __glewScissorArrayvNV: TPFNGLSCISSORARRAYVNVPROC; cvar;external libGLEW;
+  glScissorArrayvNV: TPFNGLSCISSORARRAYVNVPROC absolute __glewScissorArrayvNV;
+
   __glewScissorIndexedNV: TPFNGLSCISSORINDEXEDNVPROC; cvar;external libGLEW;
+  glScissorIndexedNV: TPFNGLSCISSORINDEXEDNVPROC absolute __glewScissorIndexedNV;
+
   __glewScissorIndexedvNV: TPFNGLSCISSORINDEXEDVNVPROC; cvar;external libGLEW;
+  glScissorIndexedvNV: TPFNGLSCISSORINDEXEDVNVPROC absolute __glewScissorIndexedvNV;
+
   __glewViewportArrayvNV: TPFNGLVIEWPORTARRAYVNVPROC; cvar;external libGLEW;
+  glViewportArrayvNV: TPFNGLVIEWPORTARRAYVNVPROC absolute __glewViewportArrayvNV;
+
   __glewViewportIndexedfNV: TPFNGLVIEWPORTINDEXEDFNVPROC; cvar;external libGLEW;
+  glViewportIndexedfNV: TPFNGLVIEWPORTINDEXEDFNVPROC absolute __glewViewportIndexedfNV;
+
   __glewViewportIndexedfvNV: TPFNGLVIEWPORTINDEXEDFVNVPROC; cvar;external libGLEW;
+  glViewportIndexedfvNV: TPFNGLVIEWPORTINDEXEDFVNVPROC absolute __glewViewportIndexedfvNV;
+
   __glewViewportSwizzleNV: TPFNGLVIEWPORTSWIZZLENVPROC; cvar;external libGLEW;
+  glViewportSwizzleNV: TPFNGLVIEWPORTSWIZZLENVPROC absolute __glewViewportSwizzleNV;
+
   __glewEGLImageTargetRenderbufferStorageOES: TPFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC; cvar;external libGLEW;
+  glEGLImageTargetRenderbufferStorageOES: TPFNGLEGLIMAGETARGETRENDERBUFFERSTORAGEOESPROC absolute __glewEGLImageTargetRenderbufferStorageOES;
+
   __glewEGLImageTargetTexture2DOES: TPFNGLEGLIMAGETARGETTEXTURE2DOESPROC; cvar;external libGLEW;
+  glEGLImageTargetTexture2DOES: TPFNGLEGLIMAGETARGETTEXTURE2DOESPROC absolute __glewEGLImageTargetTexture2DOES;
+
   __glewBlendEquationSeparateOES: TPFNGLBLENDEQUATIONSEPARATEOESPROC; cvar;external libGLEW;
+  glBlendEquationSeparateOES: TPFNGLBLENDEQUATIONSEPARATEOESPROC absolute __glewBlendEquationSeparateOES;
+
   __glewBlendFuncSeparateOES: TPFNGLBLENDFUNCSEPARATEOESPROC; cvar;external libGLEW;
+  glBlendFuncSeparateOES: TPFNGLBLENDFUNCSEPARATEOESPROC absolute __glewBlendFuncSeparateOES;
+
   __glewBlendEquationOES: TPFNGLBLENDEQUATIONOESPROC; cvar;external libGLEW;
+  glBlendEquationOES: TPFNGLBLENDEQUATIONOESPROC absolute __glewBlendEquationOES;
+
   __glewCopyImageSubDataOES: TPFNGLCOPYIMAGESUBDATAOESPROC; cvar;external libGLEW;
+  glCopyImageSubDataOES: TPFNGLCOPYIMAGESUBDATAOESPROC absolute __glewCopyImageSubDataOES;
+
   __glewBlendEquationSeparateiOES: TPFNGLBLENDEQUATIONSEPARATEIOESPROC; cvar;external libGLEW;
+  glBlendEquationSeparateiOES: TPFNGLBLENDEQUATIONSEPARATEIOESPROC absolute __glewBlendEquationSeparateiOES;
+
   __glewBlendEquationiOES: TPFNGLBLENDEQUATIONIOESPROC; cvar;external libGLEW;
+  glBlendEquationiOES: TPFNGLBLENDEQUATIONIOESPROC absolute __glewBlendEquationiOES;
+
   __glewBlendFuncSeparateiOES: TPFNGLBLENDFUNCSEPARATEIOESPROC; cvar;external libGLEW;
+  glBlendFuncSeparateiOES: TPFNGLBLENDFUNCSEPARATEIOESPROC absolute __glewBlendFuncSeparateiOES;
+
   __glewBlendFunciOES: TPFNGLBLENDFUNCIOESPROC; cvar;external libGLEW;
+  glBlendFunciOES: TPFNGLBLENDFUNCIOESPROC absolute __glewBlendFunciOES;
+
   __glewColorMaskiOES: TPFNGLCOLORMASKIOESPROC; cvar;external libGLEW;
+  glColorMaskiOES: TPFNGLCOLORMASKIOESPROC absolute __glewColorMaskiOES;
+
   __glewDisableiOES: TPFNGLDISABLEIOESPROC; cvar;external libGLEW;
+  glDisableiOES: TPFNGLDISABLEIOESPROC absolute __glewDisableiOES;
+
   __glewEnableiOES: TPFNGLENABLEIOESPROC; cvar;external libGLEW;
+  glEnableiOES: TPFNGLENABLEIOESPROC absolute __glewEnableiOES;
+
   __glewIsEnablediOES: TPFNGLISENABLEDIOESPROC; cvar;external libGLEW;
+  glIsEnablediOES: TPFNGLISENABLEDIOESPROC absolute __glewIsEnablediOES;
+
   __glewBindFramebufferOES: TPFNGLBINDFRAMEBUFFEROESPROC; cvar;external libGLEW;
+  glBindFramebufferOES: TPFNGLBINDFRAMEBUFFEROESPROC absolute __glewBindFramebufferOES;
+
   __glewBindRenderbufferOES: TPFNGLBINDRENDERBUFFEROESPROC; cvar;external libGLEW;
+  glBindRenderbufferOES: TPFNGLBINDRENDERBUFFEROESPROC absolute __glewBindRenderbufferOES;
+
   __glewCheckFramebufferStatusOES: TPFNGLCHECKFRAMEBUFFERSTATUSOESPROC; cvar;external libGLEW;
+  glCheckFramebufferStatusOES: TPFNGLCHECKFRAMEBUFFERSTATUSOESPROC absolute __glewCheckFramebufferStatusOES;
+
   __glewDeleteFramebuffersOES: TPFNGLDELETEFRAMEBUFFERSOESPROC; cvar;external libGLEW;
+  glDeleteFramebuffersOES: TPFNGLDELETEFRAMEBUFFERSOESPROC absolute __glewDeleteFramebuffersOES;
+
   __glewDeleteRenderbuffersOES: TPFNGLDELETERENDERBUFFERSOESPROC; cvar;external libGLEW;
+  glDeleteRenderbuffersOES: TPFNGLDELETERENDERBUFFERSOESPROC absolute __glewDeleteRenderbuffersOES;
+
   __glewFramebufferRenderbufferOES: TPFNGLFRAMEBUFFERRENDERBUFFEROESPROC; cvar;external libGLEW;
+  glFramebufferRenderbufferOES: TPFNGLFRAMEBUFFERRENDERBUFFEROESPROC absolute __glewFramebufferRenderbufferOES;
+
   __glewFramebufferTexture2DOES: TPFNGLFRAMEBUFFERTEXTURE2DOESPROC; cvar;external libGLEW;
+  glFramebufferTexture2DOES: TPFNGLFRAMEBUFFERTEXTURE2DOESPROC absolute __glewFramebufferTexture2DOES;
+
   __glewGenFramebuffersOES: TPFNGLGENFRAMEBUFFERSOESPROC; cvar;external libGLEW;
+  glGenFramebuffersOES: TPFNGLGENFRAMEBUFFERSOESPROC absolute __glewGenFramebuffersOES;
+
   __glewGenRenderbuffersOES: TPFNGLGENRENDERBUFFERSOESPROC; cvar;external libGLEW;
+  glGenRenderbuffersOES: TPFNGLGENRENDERBUFFERSOESPROC absolute __glewGenRenderbuffersOES;
+
   __glewGenerateMipmapOES: TPFNGLGENERATEMIPMAPOESPROC; cvar;external libGLEW;
+  glGenerateMipmapOES: TPFNGLGENERATEMIPMAPOESPROC absolute __glewGenerateMipmapOES;
+
   __glewGetFramebufferAttachmentParameterivOES: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVOESPROC; cvar;external libGLEW;
+  glGetFramebufferAttachmentParameterivOES: TPFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVOESPROC absolute __glewGetFramebufferAttachmentParameterivOES;
+
   __glewGetRenderbufferParameterivOES: TPFNGLGETRENDERBUFFERPARAMETERIVOESPROC; cvar;external libGLEW;
+  glGetRenderbufferParameterivOES: TPFNGLGETRENDERBUFFERPARAMETERIVOESPROC absolute __glewGetRenderbufferParameterivOES;
+
   __glewIsFramebufferOES: TPFNGLISFRAMEBUFFEROESPROC; cvar;external libGLEW;
+  glIsFramebufferOES: TPFNGLISFRAMEBUFFEROESPROC absolute __glewIsFramebufferOES;
+
   __glewIsRenderbufferOES: TPFNGLISRENDERBUFFEROESPROC; cvar;external libGLEW;
+  glIsRenderbufferOES: TPFNGLISRENDERBUFFEROESPROC absolute __glewIsRenderbufferOES;
+
   __glewRenderbufferStorageOES: TPFNGLRENDERBUFFERSTORAGEOESPROC; cvar;external libGLEW;
+  glRenderbufferStorageOES: TPFNGLRENDERBUFFERSTORAGEOESPROC absolute __glewRenderbufferStorageOES;
+
   __glewGetProgramBinaryOES: TPFNGLGETPROGRAMBINARYOESPROC; cvar;external libGLEW;
+  glGetProgramBinaryOES: TPFNGLGETPROGRAMBINARYOESPROC absolute __glewGetProgramBinaryOES;
+
   __glewProgramBinaryOES: TPFNGLPROGRAMBINARYOESPROC; cvar;external libGLEW;
+  glProgramBinaryOES: TPFNGLPROGRAMBINARYOESPROC absolute __glewProgramBinaryOES;
+
   __glewGetBufferPointervOES: TPFNGLGETBUFFERPOINTERVOESPROC; cvar;external libGLEW;
+  glGetBufferPointervOES: TPFNGLGETBUFFERPOINTERVOESPROC absolute __glewGetBufferPointervOES;
+
   __glewMapBufferOES: TPFNGLMAPBUFFEROESPROC; cvar;external libGLEW;
+  glMapBufferOES: TPFNGLMAPBUFFEROESPROC absolute __glewMapBufferOES;
+
   __glewUnmapBufferOES: TPFNGLUNMAPBUFFEROESPROC; cvar;external libGLEW;
+  glUnmapBufferOES: TPFNGLUNMAPBUFFEROESPROC absolute __glewUnmapBufferOES;
+
   __glewCurrentPaletteMatrixOES: TPFNGLCURRENTPALETTEMATRIXOESPROC; cvar;external libGLEW;
+  glCurrentPaletteMatrixOES: TPFNGLCURRENTPALETTEMATRIXOESPROC absolute __glewCurrentPaletteMatrixOES;
+
   __glewMatrixIndexPointerOES: TPFNGLMATRIXINDEXPOINTEROESPROC; cvar;external libGLEW;
+  glMatrixIndexPointerOES: TPFNGLMATRIXINDEXPOINTEROESPROC absolute __glewMatrixIndexPointerOES;
+
   __glewWeightPointerOES: TPFNGLWEIGHTPOINTEROESPROC; cvar;external libGLEW;
+  glWeightPointerOES: TPFNGLWEIGHTPOINTEROESPROC absolute __glewWeightPointerOES;
+
   __glewMinSampleShadingOES: TPFNGLMINSAMPLESHADINGOESPROC; cvar;external libGLEW;
+  glMinSampleShadingOES: TPFNGLMINSAMPLESHADINGOESPROC absolute __glewMinSampleShadingOES;
+
   __glewClearDepthfOES: TPFNGLCLEARDEPTHFOESPROC; cvar;external libGLEW;
+  glClearDepthfOES: TPFNGLCLEARDEPTHFOESPROC absolute __glewClearDepthfOES;
+
   __glewClipPlanefOES: TPFNGLCLIPPLANEFOESPROC; cvar;external libGLEW;
+  glClipPlanefOES: TPFNGLCLIPPLANEFOESPROC absolute __glewClipPlanefOES;
+
   __glewDepthRangefOES: TPFNGLDEPTHRANGEFOESPROC; cvar;external libGLEW;
+  glDepthRangefOES: TPFNGLDEPTHRANGEFOESPROC absolute __glewDepthRangefOES;
+
   __glewFrustumfOES: TPFNGLFRUSTUMFOESPROC; cvar;external libGLEW;
+  glFrustumfOES: TPFNGLFRUSTUMFOESPROC absolute __glewFrustumfOES;
+
   __glewGetClipPlanefOES: TPFNGLGETCLIPPLANEFOESPROC; cvar;external libGLEW;
+  glGetClipPlanefOES: TPFNGLGETCLIPPLANEFOESPROC absolute __glewGetClipPlanefOES;
+
   __glewOrthofOES: TPFNGLORTHOFOESPROC; cvar;external libGLEW;
+  glOrthofOES: TPFNGLORTHOFOESPROC absolute __glewOrthofOES;
+
   __glewCompressedTexImage3DOES: TPFNGLCOMPRESSEDTEXIMAGE3DOESPROC; cvar;external libGLEW;
+  glCompressedTexImage3DOES: TPFNGLCOMPRESSEDTEXIMAGE3DOESPROC absolute __glewCompressedTexImage3DOES;
+
   __glewCompressedTexSubImage3DOES: TPFNGLCOMPRESSEDTEXSUBIMAGE3DOESPROC; cvar;external libGLEW;
+  glCompressedTexSubImage3DOES: TPFNGLCOMPRESSEDTEXSUBIMAGE3DOESPROC absolute __glewCompressedTexSubImage3DOES;
+
   __glewCopyTexSubImage3DOES: TPFNGLCOPYTEXSUBIMAGE3DOESPROC; cvar;external libGLEW;
+  glCopyTexSubImage3DOES: TPFNGLCOPYTEXSUBIMAGE3DOESPROC absolute __glewCopyTexSubImage3DOES;
+
   __glewFramebufferTexture3DOES: TPFNGLFRAMEBUFFERTEXTURE3DOESPROC; cvar;external libGLEW;
+  glFramebufferTexture3DOES: TPFNGLFRAMEBUFFERTEXTURE3DOESPROC absolute __glewFramebufferTexture3DOES;
+
   __glewTexImage3DOES: TPFNGLTEXIMAGE3DOESPROC; cvar;external libGLEW;
+  glTexImage3DOES: TPFNGLTEXIMAGE3DOESPROC absolute __glewTexImage3DOES;
+
   __glewTexSubImage3DOES: TPFNGLTEXSUBIMAGE3DOESPROC; cvar;external libGLEW;
+  glTexSubImage3DOES: TPFNGLTEXSUBIMAGE3DOESPROC absolute __glewTexSubImage3DOES;
+
   __glewGetSamplerParameterIivOES: TPFNGLGETSAMPLERPARAMETERIIVOESPROC; cvar;external libGLEW;
+  glGetSamplerParameterIivOES: TPFNGLGETSAMPLERPARAMETERIIVOESPROC absolute __glewGetSamplerParameterIivOES;
+
   __glewGetSamplerParameterIuivOES: TPFNGLGETSAMPLERPARAMETERIUIVOESPROC; cvar;external libGLEW;
+  glGetSamplerParameterIuivOES: TPFNGLGETSAMPLERPARAMETERIUIVOESPROC absolute __glewGetSamplerParameterIuivOES;
+
   __glewGetTexParameterIivOES: TPFNGLGETTEXPARAMETERIIVOESPROC; cvar;external libGLEW;
+  glGetTexParameterIivOES: TPFNGLGETTEXPARAMETERIIVOESPROC absolute __glewGetTexParameterIivOES;
+
   __glewGetTexParameterIuivOES: TPFNGLGETTEXPARAMETERIUIVOESPROC; cvar;external libGLEW;
+  glGetTexParameterIuivOES: TPFNGLGETTEXPARAMETERIUIVOESPROC absolute __glewGetTexParameterIuivOES;
+
   __glewSamplerParameterIivOES: TPFNGLSAMPLERPARAMETERIIVOESPROC; cvar;external libGLEW;
+  glSamplerParameterIivOES: TPFNGLSAMPLERPARAMETERIIVOESPROC absolute __glewSamplerParameterIivOES;
+
   __glewSamplerParameterIuivOES: TPFNGLSAMPLERPARAMETERIUIVOESPROC; cvar;external libGLEW;
+  glSamplerParameterIuivOES: TPFNGLSAMPLERPARAMETERIUIVOESPROC absolute __glewSamplerParameterIuivOES;
+
   __glewTexParameterIivOES: TPFNGLTEXPARAMETERIIVOESPROC; cvar;external libGLEW;
+  glTexParameterIivOES: TPFNGLTEXPARAMETERIIVOESPROC absolute __glewTexParameterIivOES;
+
   __glewTexParameterIuivOES: TPFNGLTEXPARAMETERIUIVOESPROC; cvar;external libGLEW;
+  glTexParameterIuivOES: TPFNGLTEXPARAMETERIUIVOESPROC absolute __glewTexParameterIuivOES;
+
   __glewTexBufferOES: TPFNGLTEXBUFFEROESPROC; cvar;external libGLEW;
+  glTexBufferOES: TPFNGLTEXBUFFEROESPROC absolute __glewTexBufferOES;
+
   __glewTexBufferRangeOES: TPFNGLTEXBUFFERRANGEOESPROC; cvar;external libGLEW;
+  glTexBufferRangeOES: TPFNGLTEXBUFFERRANGEOESPROC absolute __glewTexBufferRangeOES;
+
   __glewGetTexGenfvOES: TPFNGLGETTEXGENFVOESPROC; cvar;external libGLEW;
+  glGetTexGenfvOES: TPFNGLGETTEXGENFVOESPROC absolute __glewGetTexGenfvOES;
+
   __glewGetTexGenivOES: TPFNGLGETTEXGENIVOESPROC; cvar;external libGLEW;
+  glGetTexGenivOES: TPFNGLGETTEXGENIVOESPROC absolute __glewGetTexGenivOES;
+
   __glewGetTexGenxvOES: TPFNGLGETTEXGENXVOESPROC; cvar;external libGLEW;
+  glGetTexGenxvOES: TPFNGLGETTEXGENXVOESPROC absolute __glewGetTexGenxvOES;
+
   __glewTexGenfOES: TPFNGLTEXGENFOESPROC; cvar;external libGLEW;
+  glTexGenfOES: TPFNGLTEXGENFOESPROC absolute __glewTexGenfOES;
+
   __glewTexGenfvOES: TPFNGLTEXGENFVOESPROC; cvar;external libGLEW;
+  glTexGenfvOES: TPFNGLTEXGENFVOESPROC absolute __glewTexGenfvOES;
+
   __glewTexGeniOES: TPFNGLTEXGENIOESPROC; cvar;external libGLEW;
+  glTexGeniOES: TPFNGLTEXGENIOESPROC absolute __glewTexGeniOES;
+
   __glewTexGenivOES: TPFNGLTEXGENIVOESPROC; cvar;external libGLEW;
+  glTexGenivOES: TPFNGLTEXGENIVOESPROC absolute __glewTexGenivOES;
+
   __glewTexGenxOES: TPFNGLTEXGENXOESPROC; cvar;external libGLEW;
+  glTexGenxOES: TPFNGLTEXGENXOESPROC absolute __glewTexGenxOES;
+
   __glewTexGenxvOES: TPFNGLTEXGENXVOESPROC; cvar;external libGLEW;
+  glTexGenxvOES: TPFNGLTEXGENXVOESPROC absolute __glewTexGenxvOES;
+
   __glewTexStorage3DMultisampleOES: TPFNGLTEXSTORAGE3DMULTISAMPLEOESPROC; cvar;external libGLEW;
+  glTexStorage3DMultisampleOES: TPFNGLTEXSTORAGE3DMULTISAMPLEOESPROC absolute __glewTexStorage3DMultisampleOES;
+
   __glewTextureViewOES: TPFNGLTEXTUREVIEWOESPROC; cvar;external libGLEW;
+  glTextureViewOES: TPFNGLTEXTUREVIEWOESPROC absolute __glewTextureViewOES;
+
   __glewBindVertexArrayOES: TPFNGLBINDVERTEXARRAYOESPROC; cvar;external libGLEW;
+  glBindVertexArrayOES: TPFNGLBINDVERTEXARRAYOESPROC absolute __glewBindVertexArrayOES;
+
   __glewDeleteVertexArraysOES: TPFNGLDELETEVERTEXARRAYSOESPROC; cvar;external libGLEW;
+  glDeleteVertexArraysOES: TPFNGLDELETEVERTEXARRAYSOESPROC absolute __glewDeleteVertexArraysOES;
+
   __glewGenVertexArraysOES: TPFNGLGENVERTEXARRAYSOESPROC; cvar;external libGLEW;
+  glGenVertexArraysOES: TPFNGLGENVERTEXARRAYSOESPROC absolute __glewGenVertexArraysOES;
+
   __glewIsVertexArrayOES: TPFNGLISVERTEXARRAYOESPROC; cvar;external libGLEW;
+  glIsVertexArrayOES: TPFNGLISVERTEXARRAYOESPROC absolute __glewIsVertexArrayOES;
+
   __glewFramebufferTextureMultiviewOVR: TPFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC; cvar;external libGLEW;
+  glFramebufferTextureMultiviewOVR: TPFNGLFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC absolute __glewFramebufferTextureMultiviewOVR;
+
   __glewNamedFramebufferTextureMultiviewOVR: TPFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC; cvar;external libGLEW;
+  glNamedFramebufferTextureMultiviewOVR: TPFNGLNAMEDFRAMEBUFFERTEXTUREMULTIVIEWOVRPROC absolute __glewNamedFramebufferTextureMultiviewOVR;
+
   __glewFramebufferTextureMultisampleMultiviewOVR: TPFNGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVRPROC; cvar;external libGLEW;
+  glFramebufferTextureMultisampleMultiviewOVR: TPFNGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVRPROC absolute __glewFramebufferTextureMultisampleMultiviewOVR;
+
   __glewAlphaFuncQCOM: TPFNGLALPHAFUNCQCOMPROC; cvar;external libGLEW;
+  glAlphaFuncQCOM: TPFNGLALPHAFUNCQCOMPROC absolute __glewAlphaFuncQCOM;
+
   __glewDisableDriverControlQCOM: TPFNGLDISABLEDRIVERCONTROLQCOMPROC; cvar;external libGLEW;
+  glDisableDriverControlQCOM: TPFNGLDISABLEDRIVERCONTROLQCOMPROC absolute __glewDisableDriverControlQCOM;
+
   __glewEnableDriverControlQCOM: TPFNGLENABLEDRIVERCONTROLQCOMPROC; cvar;external libGLEW;
+  glEnableDriverControlQCOM: TPFNGLENABLEDRIVERCONTROLQCOMPROC absolute __glewEnableDriverControlQCOM;
+
   __glewGetDriverControlStringQCOM: TPFNGLGETDRIVERCONTROLSTRINGQCOMPROC; cvar;external libGLEW;
+  glGetDriverControlStringQCOM: TPFNGLGETDRIVERCONTROLSTRINGQCOMPROC absolute __glewGetDriverControlStringQCOM;
+
   __glewGetDriverControlsQCOM: TPFNGLGETDRIVERCONTROLSQCOMPROC; cvar;external libGLEW;
+  glGetDriverControlsQCOM: TPFNGLGETDRIVERCONTROLSQCOMPROC absolute __glewGetDriverControlsQCOM;
+
   __glewExtGetBufferPointervQCOM: TPFNGLEXTGETBUFFERPOINTERVQCOMPROC; cvar;external libGLEW;
+  glExtGetBufferPointervQCOM: TPFNGLEXTGETBUFFERPOINTERVQCOMPROC absolute __glewExtGetBufferPointervQCOM;
+
   __glewExtGetBuffersQCOM: TPFNGLEXTGETBUFFERSQCOMPROC; cvar;external libGLEW;
+  glExtGetBuffersQCOM: TPFNGLEXTGETBUFFERSQCOMPROC absolute __glewExtGetBuffersQCOM;
+
   __glewExtGetFramebuffersQCOM: TPFNGLEXTGETFRAMEBUFFERSQCOMPROC; cvar;external libGLEW;
+  glExtGetFramebuffersQCOM: TPFNGLEXTGETFRAMEBUFFERSQCOMPROC absolute __glewExtGetFramebuffersQCOM;
+
   __glewExtGetRenderbuffersQCOM: TPFNGLEXTGETRENDERBUFFERSQCOMPROC; cvar;external libGLEW;
+  glExtGetRenderbuffersQCOM: TPFNGLEXTGETRENDERBUFFERSQCOMPROC absolute __glewExtGetRenderbuffersQCOM;
+
   __glewExtGetTexLevelParameterivQCOM: TPFNGLEXTGETTEXLEVELPARAMETERIVQCOMPROC; cvar;external libGLEW;
+  glExtGetTexLevelParameterivQCOM: TPFNGLEXTGETTEXLEVELPARAMETERIVQCOMPROC absolute __glewExtGetTexLevelParameterivQCOM;
+
   __glewExtGetTexSubImageQCOM: TPFNGLEXTGETTEXSUBIMAGEQCOMPROC; cvar;external libGLEW;
+  glExtGetTexSubImageQCOM: TPFNGLEXTGETTEXSUBIMAGEQCOMPROC absolute __glewExtGetTexSubImageQCOM;
+
   __glewExtGetTexturesQCOM: TPFNGLEXTGETTEXTURESQCOMPROC; cvar;external libGLEW;
+  glExtGetTexturesQCOM: TPFNGLEXTGETTEXTURESQCOMPROC absolute __glewExtGetTexturesQCOM;
+
   __glewExtTexObjectStateOverrideiQCOM: TPFNGLEXTTEXOBJECTSTATEOVERRIDEIQCOMPROC; cvar;external libGLEW;
+  glExtTexObjectStateOverrideiQCOM: TPFNGLEXTTEXOBJECTSTATEOVERRIDEIQCOMPROC absolute __glewExtTexObjectStateOverrideiQCOM;
+
   __glewExtGetProgramBinarySourceQCOM: TPFNGLEXTGETPROGRAMBINARYSOURCEQCOMPROC; cvar;external libGLEW;
+  glExtGetProgramBinarySourceQCOM: TPFNGLEXTGETPROGRAMBINARYSOURCEQCOMPROC absolute __glewExtGetProgramBinarySourceQCOM;
+
   __glewExtGetProgramsQCOM: TPFNGLEXTGETPROGRAMSQCOMPROC; cvar;external libGLEW;
+  glExtGetProgramsQCOM: TPFNGLEXTGETPROGRAMSQCOMPROC absolute __glewExtGetProgramsQCOM;
+
   __glewExtGetShadersQCOM: TPFNGLEXTGETSHADERSQCOMPROC; cvar;external libGLEW;
+  glExtGetShadersQCOM: TPFNGLEXTGETSHADERSQCOMPROC absolute __glewExtGetShadersQCOM;
+
   __glewExtIsProgramBinaryQCOM: TPFNGLEXTISPROGRAMBINARYQCOMPROC; cvar;external libGLEW;
+  glExtIsProgramBinaryQCOM: TPFNGLEXTISPROGRAMBINARYQCOMPROC absolute __glewExtIsProgramBinaryQCOM;
+
   __glewFramebufferFoveationConfigQCOM: TPFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC; cvar;external libGLEW;
+  glFramebufferFoveationConfigQCOM: TPFNGLFRAMEBUFFERFOVEATIONCONFIGQCOMPROC absolute __glewFramebufferFoveationConfigQCOM;
+
   __glewFramebufferFoveationParametersQCOM: TPFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC; cvar;external libGLEW;
+  glFramebufferFoveationParametersQCOM: TPFNGLFRAMEBUFFERFOVEATIONPARAMETERSQCOMPROC absolute __glewFramebufferFoveationParametersQCOM;
+
   __glewFramebufferFetchBarrierQCOM: TPFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC; cvar;external libGLEW;
+  glFramebufferFetchBarrierQCOM: TPFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC absolute __glewFramebufferFetchBarrierQCOM;
+
   __glewTextureFoveationParametersQCOM: TPFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC; cvar;external libGLEW;
+  glTextureFoveationParametersQCOM: TPFNGLTEXTUREFOVEATIONPARAMETERSQCOMPROC absolute __glewTextureFoveationParametersQCOM;
+
   __glewEndTilingQCOM: TPFNGLENDTILINGQCOMPROC; cvar;external libGLEW;
+  glEndTilingQCOM: TPFNGLENDTILINGQCOMPROC absolute __glewEndTilingQCOM;
+
   __glewStartTilingQCOM: TPFNGLSTARTTILINGQCOMPROC; cvar;external libGLEW;
+  glStartTilingQCOM: TPFNGLSTARTTILINGQCOMPROC absolute __glewStartTilingQCOM;
+
   __glewAlphaFuncx: TPFNGLALPHAFUNCXPROC; cvar;external libGLEW;
+  glAlphaFuncx: TPFNGLALPHAFUNCXPROC absolute __glewAlphaFuncx;
+
   __glewClearColorx: TPFNGLCLEARCOLORXPROC; cvar;external libGLEW;
+  glClearColorx: TPFNGLCLEARCOLORXPROC absolute __glewClearColorx;
+
   __glewClearDepthx: TPFNGLCLEARDEPTHXPROC; cvar;external libGLEW;
+  glClearDepthx: TPFNGLCLEARDEPTHXPROC absolute __glewClearDepthx;
+
   __glewColor4x: TPFNGLCOLOR4XPROC; cvar;external libGLEW;
+  glColor4x: TPFNGLCOLOR4XPROC absolute __glewColor4x;
+
   __glewDepthRangex: TPFNGLDEPTHRANGEXPROC; cvar;external libGLEW;
+  glDepthRangex: TPFNGLDEPTHRANGEXPROC absolute __glewDepthRangex;
+
   __glewFogx: TPFNGLFOGXPROC; cvar;external libGLEW;
+  glFogx: TPFNGLFOGXPROC absolute __glewFogx;
+
   __glewFogxv: TPFNGLFOGXVPROC; cvar;external libGLEW;
+  glFogxv: TPFNGLFOGXVPROC absolute __glewFogxv;
+
   __glewFrustumf: TPFNGLFRUSTUMFPROC; cvar;external libGLEW;
+  glFrustumf: TPFNGLFRUSTUMFPROC absolute __glewFrustumf;
+
   __glewFrustumx: TPFNGLFRUSTUMXPROC; cvar;external libGLEW;
+  glFrustumx: TPFNGLFRUSTUMXPROC absolute __glewFrustumx;
+
   __glewLightModelx: TPFNGLLIGHTMODELXPROC; cvar;external libGLEW;
+  glLightModelx: TPFNGLLIGHTMODELXPROC absolute __glewLightModelx;
+
   __glewLightModelxv: TPFNGLLIGHTMODELXVPROC; cvar;external libGLEW;
+  glLightModelxv: TPFNGLLIGHTMODELXVPROC absolute __glewLightModelxv;
+
   __glewLightx: TPFNGLLIGHTXPROC; cvar;external libGLEW;
+  glLightx: TPFNGLLIGHTXPROC absolute __glewLightx;
+
   __glewLightxv: TPFNGLLIGHTXVPROC; cvar;external libGLEW;
+  glLightxv: TPFNGLLIGHTXVPROC absolute __glewLightxv;
+
   __glewLineWidthx: TPFNGLLINEWIDTHXPROC; cvar;external libGLEW;
+  glLineWidthx: TPFNGLLINEWIDTHXPROC absolute __glewLineWidthx;
+
   __glewLoadMatrixx: TPFNGLLOADMATRIXXPROC; cvar;external libGLEW;
+  glLoadMatrixx: TPFNGLLOADMATRIXXPROC absolute __glewLoadMatrixx;
+
   __glewMaterialx: TPFNGLMATERIALXPROC; cvar;external libGLEW;
+  glMaterialx: TPFNGLMATERIALXPROC absolute __glewMaterialx;
+
   __glewMaterialxv: TPFNGLMATERIALXVPROC; cvar;external libGLEW;
+  glMaterialxv: TPFNGLMATERIALXVPROC absolute __glewMaterialxv;
+
   __glewMultMatrixx: TPFNGLMULTMATRIXXPROC; cvar;external libGLEW;
+  glMultMatrixx: TPFNGLMULTMATRIXXPROC absolute __glewMultMatrixx;
+
   __glewMultiTexCoord4x: TPFNGLMULTITEXCOORD4XPROC; cvar;external libGLEW;
+  glMultiTexCoord4x: TPFNGLMULTITEXCOORD4XPROC absolute __glewMultiTexCoord4x;
+
   __glewNormal3x: TPFNGLNORMAL3XPROC; cvar;external libGLEW;
+  glNormal3x: TPFNGLNORMAL3XPROC absolute __glewNormal3x;
+
   __glewOrthof: TPFNGLORTHOFPROC; cvar;external libGLEW;
+  glOrthof: TPFNGLORTHOFPROC absolute __glewOrthof;
+
   __glewOrthox: TPFNGLORTHOXPROC; cvar;external libGLEW;
+  glOrthox: TPFNGLORTHOXPROC absolute __glewOrthox;
+
   __glewPointSizex: TPFNGLPOINTSIZEXPROC; cvar;external libGLEW;
+  glPointSizex: TPFNGLPOINTSIZEXPROC absolute __glewPointSizex;
+
   __glewPolygonOffsetx: TPFNGLPOLYGONOFFSETXPROC; cvar;external libGLEW;
+  glPolygonOffsetx: TPFNGLPOLYGONOFFSETXPROC absolute __glewPolygonOffsetx;
+
   __glewRotatex: TPFNGLROTATEXPROC; cvar;external libGLEW;
+  glRotatex: TPFNGLROTATEXPROC absolute __glewRotatex;
+
   __glewSampleCoveragex: TPFNGLSAMPLECOVERAGEXPROC; cvar;external libGLEW;
+  glSampleCoveragex: TPFNGLSAMPLECOVERAGEXPROC absolute __glewSampleCoveragex;
+
   __glewScalex: TPFNGLSCALEXPROC; cvar;external libGLEW;
+  glScalex: TPFNGLSCALEXPROC absolute __glewScalex;
+
   __glewTexEnvx: TPFNGLTEXENVXPROC; cvar;external libGLEW;
+  glTexEnvx: TPFNGLTEXENVXPROC absolute __glewTexEnvx;
+
   __glewTexEnvxv: TPFNGLTEXENVXVPROC; cvar;external libGLEW;
+  glTexEnvxv: TPFNGLTEXENVXVPROC absolute __glewTexEnvxv;
+
   __glewTexParameterx: TPFNGLTEXPARAMETERXPROC; cvar;external libGLEW;
+  glTexParameterx: TPFNGLTEXPARAMETERXPROC absolute __glewTexParameterx;
+
   __glewTranslatex: TPFNGLTRANSLATEXPROC; cvar;external libGLEW;
+  glTranslatex: TPFNGLTRANSLATEXPROC absolute __glewTranslatex;
+
   __glewClipPlanef: TPFNGLCLIPPLANEFPROC; cvar;external libGLEW;
+  glClipPlanef: TPFNGLCLIPPLANEFPROC absolute __glewClipPlanef;
+
   __glewClipPlanex: TPFNGLCLIPPLANEXPROC; cvar;external libGLEW;
+  glClipPlanex: TPFNGLCLIPPLANEXPROC absolute __glewClipPlanex;
+
   __glewGetClipPlanef: TPFNGLGETCLIPPLANEFPROC; cvar;external libGLEW;
+  glGetClipPlanef: TPFNGLGETCLIPPLANEFPROC absolute __glewGetClipPlanef;
+
   __glewGetClipPlanex: TPFNGLGETCLIPPLANEXPROC; cvar;external libGLEW;
+  glGetClipPlanex: TPFNGLGETCLIPPLANEXPROC absolute __glewGetClipPlanex;
+
   __glewGetFixedv: TPFNGLGETFIXEDVPROC; cvar;external libGLEW;
+  glGetFixedv: TPFNGLGETFIXEDVPROC absolute __glewGetFixedv;
+
   __glewGetLightxv: TPFNGLGETLIGHTXVPROC; cvar;external libGLEW;
+  glGetLightxv: TPFNGLGETLIGHTXVPROC absolute __glewGetLightxv;
+
   __glewGetMaterialxv: TPFNGLGETMATERIALXVPROC; cvar;external libGLEW;
+  glGetMaterialxv: TPFNGLGETMATERIALXVPROC absolute __glewGetMaterialxv;
+
   __glewGetTexEnvxv: TPFNGLGETTEXENVXVPROC; cvar;external libGLEW;
+  glGetTexEnvxv: TPFNGLGETTEXENVXVPROC absolute __glewGetTexEnvxv;
+
   __glewGetTexParameterxv: TPFNGLGETTEXPARAMETERXVPROC; cvar;external libGLEW;
+  glGetTexParameterxv: TPFNGLGETTEXPARAMETERXVPROC absolute __glewGetTexParameterxv;
+
   __glewPointParameterx: TPFNGLPOINTPARAMETERXPROC; cvar;external libGLEW;
+  glPointParameterx: TPFNGLPOINTPARAMETERXPROC absolute __glewPointParameterx;
+
   __glewPointParameterxv: TPFNGLPOINTPARAMETERXVPROC; cvar;external libGLEW;
+  glPointParameterxv: TPFNGLPOINTPARAMETERXVPROC absolute __glewPointParameterxv;
+
   __glewPointSizePointerOES: TPFNGLPOINTSIZEPOINTEROESPROC; cvar;external libGLEW;
+  glPointSizePointerOES: TPFNGLPOINTSIZEPOINTEROESPROC absolute __glewPointSizePointerOES;
+
   __glewTexParameterxv: TPFNGLTEXPARAMETERXVPROC; cvar;external libGLEW;
+  glTexParameterxv: TPFNGLTEXPARAMETERXVPROC absolute __glewTexParameterxv;
+
   __glewErrorStringREGAL: TPFNGLERRORSTRINGREGALPROC; cvar;external libGLEW;
+  glErrorStringREGAL: TPFNGLERRORSTRINGREGALPROC absolute __glewErrorStringREGAL;
+
   __glewGetExtensionREGAL: TPFNGLGETEXTENSIONREGALPROC; cvar;external libGLEW;
+  glGetExtensionREGAL: TPFNGLGETEXTENSIONREGALPROC absolute __glewGetExtensionREGAL;
+
   __glewIsSupportedREGAL: TPFNGLISSUPPORTEDREGALPROC; cvar;external libGLEW;
+  glIsSupportedREGAL: TPFNGLISSUPPORTEDREGALPROC absolute __glewIsSupportedREGAL;
+
   __glewLogMessageCallbackREGAL: TPFNGLLOGMESSAGECALLBACKREGALPROC; cvar;external libGLEW;
+  glLogMessageCallbackREGAL: TPFNGLLOGMESSAGECALLBACKREGALPROC absolute __glewLogMessageCallbackREGAL;
+
   __glewGetProcAddressREGAL: TPFNGLGETPROCADDRESSREGALPROC; cvar;external libGLEW;
+  glGetProcAddressREGAL: TPFNGLGETPROCADDRESSREGALPROC absolute __glewGetProcAddressREGAL;
+
   __glewDetailTexFuncSGIS: TPFNGLDETAILTEXFUNCSGISPROC; cvar;external libGLEW;
+  glDetailTexFuncSGIS: TPFNGLDETAILTEXFUNCSGISPROC absolute __glewDetailTexFuncSGIS;
+
   __glewGetDetailTexFuncSGIS: TPFNGLGETDETAILTEXFUNCSGISPROC; cvar;external libGLEW;
+  glGetDetailTexFuncSGIS: TPFNGLGETDETAILTEXFUNCSGISPROC absolute __glewGetDetailTexFuncSGIS;
+
   __glewFogFuncSGIS: TPFNGLFOGFUNCSGISPROC; cvar;external libGLEW;
+  glFogFuncSGIS: TPFNGLFOGFUNCSGISPROC absolute __glewFogFuncSGIS;
+
   __glewGetFogFuncSGIS: TPFNGLGETFOGFUNCSGISPROC; cvar;external libGLEW;
+  glGetFogFuncSGIS: TPFNGLGETFOGFUNCSGISPROC absolute __glewGetFogFuncSGIS;
+
   __glewSampleMaskSGIS: TPFNGLSAMPLEMASKSGISPROC; cvar;external libGLEW;
+  glSampleMaskSGIS: TPFNGLSAMPLEMASKSGISPROC absolute __glewSampleMaskSGIS;
+
   __glewSamplePatternSGIS: TPFNGLSAMPLEPATTERNSGISPROC; cvar;external libGLEW;
+  glSamplePatternSGIS: TPFNGLSAMPLEPATTERNSGISPROC absolute __glewSamplePatternSGIS;
+
   __glewInterleavedTextureCoordSetsSGIS: TPFNGLINTERLEAVEDTEXTURECOORDSETSSGISPROC; cvar;external libGLEW;
+  glInterleavedTextureCoordSetsSGIS: TPFNGLINTERLEAVEDTEXTURECOORDSETSSGISPROC absolute __glewInterleavedTextureCoordSetsSGIS;
+
   __glewSelectTextureCoordSetSGIS: TPFNGLSELECTTEXTURECOORDSETSGISPROC; cvar;external libGLEW;
+  glSelectTextureCoordSetSGIS: TPFNGLSELECTTEXTURECOORDSETSGISPROC absolute __glewSelectTextureCoordSetSGIS;
+
   __glewSelectTextureSGIS: TPFNGLSELECTTEXTURESGISPROC; cvar;external libGLEW;
+  glSelectTextureSGIS: TPFNGLSELECTTEXTURESGISPROC absolute __glewSelectTextureSGIS;
+
   __glewSelectTextureTransformSGIS: TPFNGLSELECTTEXTURETRANSFORMSGISPROC; cvar;external libGLEW;
+  glSelectTextureTransformSGIS: TPFNGLSELECTTEXTURETRANSFORMSGISPROC absolute __glewSelectTextureTransformSGIS;
+
   __glewMultisampleSubRectPosSGIS: TPFNGLMULTISAMPLESUBRECTPOSSGISPROC; cvar;external libGLEW;
+  glMultisampleSubRectPosSGIS: TPFNGLMULTISAMPLESUBRECTPOSSGISPROC absolute __glewMultisampleSubRectPosSGIS;
+
   __glewGetSharpenTexFuncSGIS: TPFNGLGETSHARPENTEXFUNCSGISPROC; cvar;external libGLEW;
+  glGetSharpenTexFuncSGIS: TPFNGLGETSHARPENTEXFUNCSGISPROC absolute __glewGetSharpenTexFuncSGIS;
+
   __glewSharpenTexFuncSGIS: TPFNGLSHARPENTEXFUNCSGISPROC; cvar;external libGLEW;
+  glSharpenTexFuncSGIS: TPFNGLSHARPENTEXFUNCSGISPROC absolute __glewSharpenTexFuncSGIS;
+
   __glewTexImage4DSGIS: TPFNGLTEXIMAGE4DSGISPROC; cvar;external libGLEW;
+  glTexImage4DSGIS: TPFNGLTEXIMAGE4DSGISPROC absolute __glewTexImage4DSGIS;
+
   __glewTexSubImage4DSGIS: TPFNGLTEXSUBIMAGE4DSGISPROC; cvar;external libGLEW;
+  glTexSubImage4DSGIS: TPFNGLTEXSUBIMAGE4DSGISPROC absolute __glewTexSubImage4DSGIS;
+
   __glewGetTexFilterFuncSGIS: TPFNGLGETTEXFILTERFUNCSGISPROC; cvar;external libGLEW;
+  glGetTexFilterFuncSGIS: TPFNGLGETTEXFILTERFUNCSGISPROC absolute __glewGetTexFilterFuncSGIS;
+
   __glewTexFilterFuncSGIS: TPFNGLTEXFILTERFUNCSGISPROC; cvar;external libGLEW;
+  glTexFilterFuncSGIS: TPFNGLTEXFILTERFUNCSGISPROC absolute __glewTexFilterFuncSGIS;
+
   __glewAsyncMarkerSGIX: TPFNGLASYNCMARKERSGIXPROC; cvar;external libGLEW;
+  glAsyncMarkerSGIX: TPFNGLASYNCMARKERSGIXPROC absolute __glewAsyncMarkerSGIX;
+
   __glewDeleteAsyncMarkersSGIX: TPFNGLDELETEASYNCMARKERSSGIXPROC; cvar;external libGLEW;
+  glDeleteAsyncMarkersSGIX: TPFNGLDELETEASYNCMARKERSSGIXPROC absolute __glewDeleteAsyncMarkersSGIX;
+
   __glewFinishAsyncSGIX: TPFNGLFINISHASYNCSGIXPROC; cvar;external libGLEW;
+  glFinishAsyncSGIX: TPFNGLFINISHASYNCSGIXPROC absolute __glewFinishAsyncSGIX;
+
   __glewGenAsyncMarkersSGIX: TPFNGLGENASYNCMARKERSSGIXPROC; cvar;external libGLEW;
+  glGenAsyncMarkersSGIX: TPFNGLGENASYNCMARKERSSGIXPROC absolute __glewGenAsyncMarkersSGIX;
+
   __glewIsAsyncMarkerSGIX: TPFNGLISASYNCMARKERSGIXPROC; cvar;external libGLEW;
+  glIsAsyncMarkerSGIX: TPFNGLISASYNCMARKERSGIXPROC absolute __glewIsAsyncMarkerSGIX;
+
   __glewPollAsyncSGIX: TPFNGLPOLLASYNCSGIXPROC; cvar;external libGLEW;
+  glPollAsyncSGIX: TPFNGLPOLLASYNCSGIXPROC absolute __glewPollAsyncSGIX;
+
   __glewAddressSpace: TPFNGLADDRESSSPACEPROC; cvar;external libGLEW;
+  glAddressSpace: TPFNGLADDRESSSPACEPROC absolute __glewAddressSpace;
+
   __glewDataPipe: TPFNGLDATAPIPEPROC; cvar;external libGLEW;
+  glDataPipe: TPFNGLDATAPIPEPROC absolute __glewDataPipe;
+
   __glewFlushRasterSGIX: TPFNGLFLUSHRASTERSGIXPROC; cvar;external libGLEW;
+  glFlushRasterSGIX: TPFNGLFLUSHRASTERSGIXPROC absolute __glewFlushRasterSGIX;
+
   __glewFogLayersSGIX: TPFNGLFOGLAYERSSGIXPROC; cvar;external libGLEW;
+  glFogLayersSGIX: TPFNGLFOGLAYERSSGIXPROC absolute __glewFogLayersSGIX;
+
   __glewGetFogLayersSGIX: TPFNGLGETFOGLAYERSSGIXPROC; cvar;external libGLEW;
+  glGetFogLayersSGIX: TPFNGLGETFOGLAYERSSGIXPROC absolute __glewGetFogLayersSGIX;
+
   __glewTextureFogSGIX: TPFNGLTEXTUREFOGSGIXPROC; cvar;external libGLEW;
+  glTextureFogSGIX: TPFNGLTEXTUREFOGSGIXPROC absolute __glewTextureFogSGIX;
+
   __glewFragmentColorMaterialSGIX: TPFNGLFRAGMENTCOLORMATERIALSGIXPROC; cvar;external libGLEW;
+  glFragmentColorMaterialSGIX: TPFNGLFRAGMENTCOLORMATERIALSGIXPROC absolute __glewFragmentColorMaterialSGIX;
+
   __glewFragmentLightModelfSGIX: TPFNGLFRAGMENTLIGHTMODELFSGIXPROC; cvar;external libGLEW;
+  glFragmentLightModelfSGIX: TPFNGLFRAGMENTLIGHTMODELFSGIXPROC absolute __glewFragmentLightModelfSGIX;
+
   __glewFragmentLightModelfvSGIX: TPFNGLFRAGMENTLIGHTMODELFVSGIXPROC; cvar;external libGLEW;
+  glFragmentLightModelfvSGIX: TPFNGLFRAGMENTLIGHTMODELFVSGIXPROC absolute __glewFragmentLightModelfvSGIX;
+
   __glewFragmentLightModeliSGIX: TPFNGLFRAGMENTLIGHTMODELISGIXPROC; cvar;external libGLEW;
+  glFragmentLightModeliSGIX: TPFNGLFRAGMENTLIGHTMODELISGIXPROC absolute __glewFragmentLightModeliSGIX;
+
   __glewFragmentLightModelivSGIX: TPFNGLFRAGMENTLIGHTMODELIVSGIXPROC; cvar;external libGLEW;
+  glFragmentLightModelivSGIX: TPFNGLFRAGMENTLIGHTMODELIVSGIXPROC absolute __glewFragmentLightModelivSGIX;
+
   __glewFragmentLightfSGIX: TPFNGLFRAGMENTLIGHTFSGIXPROC; cvar;external libGLEW;
+  glFragmentLightfSGIX: TPFNGLFRAGMENTLIGHTFSGIXPROC absolute __glewFragmentLightfSGIX;
+
   __glewFragmentLightfvSGIX: TPFNGLFRAGMENTLIGHTFVSGIXPROC; cvar;external libGLEW;
+  glFragmentLightfvSGIX: TPFNGLFRAGMENTLIGHTFVSGIXPROC absolute __glewFragmentLightfvSGIX;
+
   __glewFragmentLightiSGIX: TPFNGLFRAGMENTLIGHTISGIXPROC; cvar;external libGLEW;
+  glFragmentLightiSGIX: TPFNGLFRAGMENTLIGHTISGIXPROC absolute __glewFragmentLightiSGIX;
+
   __glewFragmentLightivSGIX: TPFNGLFRAGMENTLIGHTIVSGIXPROC; cvar;external libGLEW;
+  glFragmentLightivSGIX: TPFNGLFRAGMENTLIGHTIVSGIXPROC absolute __glewFragmentLightivSGIX;
+
   __glewFragmentMaterialfSGIX: TPFNGLFRAGMENTMATERIALFSGIXPROC; cvar;external libGLEW;
+  glFragmentMaterialfSGIX: TPFNGLFRAGMENTMATERIALFSGIXPROC absolute __glewFragmentMaterialfSGIX;
+
   __glewFragmentMaterialfvSGIX: TPFNGLFRAGMENTMATERIALFVSGIXPROC; cvar;external libGLEW;
+  glFragmentMaterialfvSGIX: TPFNGLFRAGMENTMATERIALFVSGIXPROC absolute __glewFragmentMaterialfvSGIX;
+
   __glewFragmentMaterialiSGIX: TPFNGLFRAGMENTMATERIALISGIXPROC; cvar;external libGLEW;
+  glFragmentMaterialiSGIX: TPFNGLFRAGMENTMATERIALISGIXPROC absolute __glewFragmentMaterialiSGIX;
+
   __glewFragmentMaterialivSGIX: TPFNGLFRAGMENTMATERIALIVSGIXPROC; cvar;external libGLEW;
+  glFragmentMaterialivSGIX: TPFNGLFRAGMENTMATERIALIVSGIXPROC absolute __glewFragmentMaterialivSGIX;
+
   __glewGetFragmentLightfvSGIX: TPFNGLGETFRAGMENTLIGHTFVSGIXPROC; cvar;external libGLEW;
+  glGetFragmentLightfvSGIX: TPFNGLGETFRAGMENTLIGHTFVSGIXPROC absolute __glewGetFragmentLightfvSGIX;
+
   __glewGetFragmentLightivSGIX: TPFNGLGETFRAGMENTLIGHTIVSGIXPROC; cvar;external libGLEW;
+  glGetFragmentLightivSGIX: TPFNGLGETFRAGMENTLIGHTIVSGIXPROC absolute __glewGetFragmentLightivSGIX;
+
   __glewGetFragmentMaterialfvSGIX: TPFNGLGETFRAGMENTMATERIALFVSGIXPROC; cvar;external libGLEW;
+  glGetFragmentMaterialfvSGIX: TPFNGLGETFRAGMENTMATERIALFVSGIXPROC absolute __glewGetFragmentMaterialfvSGIX;
+
   __glewGetFragmentMaterialivSGIX: TPFNGLGETFRAGMENTMATERIALIVSGIXPROC; cvar;external libGLEW;
+  glGetFragmentMaterialivSGIX: TPFNGLGETFRAGMENTMATERIALIVSGIXPROC absolute __glewGetFragmentMaterialivSGIX;
+
   __glewFrameZoomSGIX: TPFNGLFRAMEZOOMSGIXPROC; cvar;external libGLEW;
+  glFrameZoomSGIX: TPFNGLFRAMEZOOMSGIXPROC absolute __glewFrameZoomSGIX;
+
   __glewIglooInterfaceSGIX: TPFNGLIGLOOINTERFACESGIXPROC; cvar;external libGLEW;
+  glIglooInterfaceSGIX: TPFNGLIGLOOINTERFACESGIXPROC absolute __glewIglooInterfaceSGIX;
+
   __glewAllocMPEGPredictorsSGIX: TPFNGLALLOCMPEGPREDICTORSSGIXPROC; cvar;external libGLEW;
+  glAllocMPEGPredictorsSGIX: TPFNGLALLOCMPEGPREDICTORSSGIXPROC absolute __glewAllocMPEGPredictorsSGIX;
+
   __glewDeleteMPEGPredictorsSGIX: TPFNGLDELETEMPEGPREDICTORSSGIXPROC; cvar;external libGLEW;
+  glDeleteMPEGPredictorsSGIX: TPFNGLDELETEMPEGPREDICTORSSGIXPROC absolute __glewDeleteMPEGPredictorsSGIX;
+
   __glewGenMPEGPredictorsSGIX: TPFNGLGENMPEGPREDICTORSSGIXPROC; cvar;external libGLEW;
+  glGenMPEGPredictorsSGIX: TPFNGLGENMPEGPREDICTORSSGIXPROC absolute __glewGenMPEGPredictorsSGIX;
+
   __glewGetMPEGParameterfvSGIX: TPFNGLGETMPEGPARAMETERFVSGIXPROC; cvar;external libGLEW;
+  glGetMPEGParameterfvSGIX: TPFNGLGETMPEGPARAMETERFVSGIXPROC absolute __glewGetMPEGParameterfvSGIX;
+
   __glewGetMPEGParameterivSGIX: TPFNGLGETMPEGPARAMETERIVSGIXPROC; cvar;external libGLEW;
+  glGetMPEGParameterivSGIX: TPFNGLGETMPEGPARAMETERIVSGIXPROC absolute __glewGetMPEGParameterivSGIX;
+
   __glewGetMPEGPredictorSGIX: TPFNGLGETMPEGPREDICTORSGIXPROC; cvar;external libGLEW;
+  glGetMPEGPredictorSGIX: TPFNGLGETMPEGPREDICTORSGIXPROC absolute __glewGetMPEGPredictorSGIX;
+
   __glewGetMPEGQuantTableubv: TPFNGLGETMPEGQUANTTABLEUBVPROC; cvar;external libGLEW;
+  glGetMPEGQuantTableubv: TPFNGLGETMPEGQUANTTABLEUBVPROC absolute __glewGetMPEGQuantTableubv;
+
   __glewIsMPEGPredictorSGIX: TPFNGLISMPEGPREDICTORSGIXPROC; cvar;external libGLEW;
+  glIsMPEGPredictorSGIX: TPFNGLISMPEGPREDICTORSGIXPROC absolute __glewIsMPEGPredictorSGIX;
+
   __glewMPEGPredictorSGIX: TPFNGLMPEGPREDICTORSGIXPROC; cvar;external libGLEW;
+  glMPEGPredictorSGIX: TPFNGLMPEGPREDICTORSGIXPROC absolute __glewMPEGPredictorSGIX;
+
   __glewMPEGQuantTableubv: TPFNGLMPEGQUANTTABLEUBVPROC; cvar;external libGLEW;
+  glMPEGQuantTableubv: TPFNGLMPEGQUANTTABLEUBVPROC absolute __glewMPEGQuantTableubv;
+
   __glewSwapMPEGPredictorsSGIX: TPFNGLSWAPMPEGPREDICTORSSGIXPROC; cvar;external libGLEW;
+  glSwapMPEGPredictorsSGIX: TPFNGLSWAPMPEGPREDICTORSSGIXPROC absolute __glewSwapMPEGPredictorsSGIX;
+
   __glewGetNonlinLightfvSGIX: TPFNGLGETNONLINLIGHTFVSGIXPROC; cvar;external libGLEW;
+  glGetNonlinLightfvSGIX: TPFNGLGETNONLINLIGHTFVSGIXPROC absolute __glewGetNonlinLightfvSGIX;
+
   __glewGetNonlinMaterialfvSGIX: TPFNGLGETNONLINMATERIALFVSGIXPROC; cvar;external libGLEW;
+  glGetNonlinMaterialfvSGIX: TPFNGLGETNONLINMATERIALFVSGIXPROC absolute __glewGetNonlinMaterialfvSGIX;
+
   __glewNonlinLightfvSGIX: TPFNGLNONLINLIGHTFVSGIXPROC; cvar;external libGLEW;
+  glNonlinLightfvSGIX: TPFNGLNONLINLIGHTFVSGIXPROC absolute __glewNonlinLightfvSGIX;
+
   __glewNonlinMaterialfvSGIX: TPFNGLNONLINMATERIALFVSGIXPROC; cvar;external libGLEW;
+  glNonlinMaterialfvSGIX: TPFNGLNONLINMATERIALFVSGIXPROC absolute __glewNonlinMaterialfvSGIX;
+
   __glewPixelTexGenSGIX: TPFNGLPIXELTEXGENSGIXPROC; cvar;external libGLEW;
+  glPixelTexGenSGIX: TPFNGLPIXELTEXGENSGIXPROC absolute __glewPixelTexGenSGIX;
+
   __glewDeformSGIX: TPFNGLDEFORMSGIXPROC; cvar;external libGLEW;
+  glDeformSGIX: TPFNGLDEFORMSGIXPROC absolute __glewDeformSGIX;
+
   __glewLoadIdentityDeformationMapSGIX: TPFNGLLOADIDENTITYDEFORMATIONMAPSGIXPROC; cvar;external libGLEW;
+  glLoadIdentityDeformationMapSGIX: TPFNGLLOADIDENTITYDEFORMATIONMAPSGIXPROC absolute __glewLoadIdentityDeformationMapSGIX;
+
   __glewMeshBreadthSGIX: TPFNGLMESHBREADTHSGIXPROC; cvar;external libGLEW;
+  glMeshBreadthSGIX: TPFNGLMESHBREADTHSGIXPROC absolute __glewMeshBreadthSGIX;
+
   __glewMeshStrideSGIX: TPFNGLMESHSTRIDESGIXPROC; cvar;external libGLEW;
+  glMeshStrideSGIX: TPFNGLMESHSTRIDESGIXPROC absolute __glewMeshStrideSGIX;
+
   __glewReferencePlaneSGIX: TPFNGLREFERENCEPLANESGIXPROC; cvar;external libGLEW;
+  glReferencePlaneSGIX: TPFNGLREFERENCEPLANESGIXPROC absolute __glewReferencePlaneSGIX;
+
   __glewSpriteParameterfSGIX: TPFNGLSPRITEPARAMETERFSGIXPROC; cvar;external libGLEW;
+  glSpriteParameterfSGIX: TPFNGLSPRITEPARAMETERFSGIXPROC absolute __glewSpriteParameterfSGIX;
+
   __glewSpriteParameterfvSGIX: TPFNGLSPRITEPARAMETERFVSGIXPROC; cvar;external libGLEW;
+  glSpriteParameterfvSGIX: TPFNGLSPRITEPARAMETERFVSGIXPROC absolute __glewSpriteParameterfvSGIX;
+
   __glewSpriteParameteriSGIX: TPFNGLSPRITEPARAMETERISGIXPROC; cvar;external libGLEW;
+  glSpriteParameteriSGIX: TPFNGLSPRITEPARAMETERISGIXPROC absolute __glewSpriteParameteriSGIX;
+
   __glewSpriteParameterivSGIX: TPFNGLSPRITEPARAMETERIVSGIXPROC; cvar;external libGLEW;
+  glSpriteParameterivSGIX: TPFNGLSPRITEPARAMETERIVSGIXPROC absolute __glewSpriteParameterivSGIX;
+
   __glewTagSampleBufferSGIX: TPFNGLTAGSAMPLEBUFFERSGIXPROC; cvar;external libGLEW;
+  glTagSampleBufferSGIX: TPFNGLTAGSAMPLEBUFFERSGIXPROC absolute __glewTagSampleBufferSGIX;
+
   __glewGetVectorOperationSGIX: TPFNGLGETVECTOROPERATIONSGIXPROC; cvar;external libGLEW;
+  glGetVectorOperationSGIX: TPFNGLGETVECTOROPERATIONSGIXPROC absolute __glewGetVectorOperationSGIX;
+
   __glewVectorOperationSGIX: TPFNGLVECTOROPERATIONSGIXPROC; cvar;external libGLEW;
+  glVectorOperationSGIX: TPFNGLVECTOROPERATIONSGIXPROC absolute __glewVectorOperationSGIX;
+
   __glewAreVertexArraysResidentSGIX: TPFNGLAREVERTEXARRAYSRESIDENTSGIXPROC; cvar;external libGLEW;
+  glAreVertexArraysResidentSGIX: TPFNGLAREVERTEXARRAYSRESIDENTSGIXPROC absolute __glewAreVertexArraysResidentSGIX;
+
   __glewBindVertexArraySGIX: TPFNGLBINDVERTEXARRAYSGIXPROC; cvar;external libGLEW;
+  glBindVertexArraySGIX: TPFNGLBINDVERTEXARRAYSGIXPROC absolute __glewBindVertexArraySGIX;
+
   __glewDeleteVertexArraysSGIX: TPFNGLDELETEVERTEXARRAYSSGIXPROC; cvar;external libGLEW;
+  glDeleteVertexArraysSGIX: TPFNGLDELETEVERTEXARRAYSSGIXPROC absolute __glewDeleteVertexArraysSGIX;
+
   __glewGenVertexArraysSGIX: TPFNGLGENVERTEXARRAYSSGIXPROC; cvar;external libGLEW;
+  glGenVertexArraysSGIX: TPFNGLGENVERTEXARRAYSSGIXPROC absolute __glewGenVertexArraysSGIX;
+
   __glewIsVertexArraySGIX: TPFNGLISVERTEXARRAYSGIXPROC; cvar;external libGLEW;
+  glIsVertexArraySGIX: TPFNGLISVERTEXARRAYSGIXPROC absolute __glewIsVertexArraySGIX;
+
   __glewPrioritizeVertexArraysSGIX: TPFNGLPRIORITIZEVERTEXARRAYSSGIXPROC; cvar;external libGLEW;
+  glPrioritizeVertexArraysSGIX: TPFNGLPRIORITIZEVERTEXARRAYSSGIXPROC absolute __glewPrioritizeVertexArraysSGIX;
+
   __glewColorTableParameterfvSGI: TPFNGLCOLORTABLEPARAMETERFVSGIPROC; cvar;external libGLEW;
+  glColorTableParameterfvSGI: TPFNGLCOLORTABLEPARAMETERFVSGIPROC absolute __glewColorTableParameterfvSGI;
+
   __glewColorTableParameterivSGI: TPFNGLCOLORTABLEPARAMETERIVSGIPROC; cvar;external libGLEW;
+  glColorTableParameterivSGI: TPFNGLCOLORTABLEPARAMETERIVSGIPROC absolute __glewColorTableParameterivSGI;
+
   __glewColorTableSGI: TPFNGLCOLORTABLESGIPROC; cvar;external libGLEW;
+  glColorTableSGI: TPFNGLCOLORTABLESGIPROC absolute __glewColorTableSGI;
+
   __glewCopyColorTableSGI: TPFNGLCOPYCOLORTABLESGIPROC; cvar;external libGLEW;
+  glCopyColorTableSGI: TPFNGLCOPYCOLORTABLESGIPROC absolute __glewCopyColorTableSGI;
+
   __glewGetColorTableParameterfvSGI: TPFNGLGETCOLORTABLEPARAMETERFVSGIPROC; cvar;external libGLEW;
+  glGetColorTableParameterfvSGI: TPFNGLGETCOLORTABLEPARAMETERFVSGIPROC absolute __glewGetColorTableParameterfvSGI;
+
   __glewGetColorTableParameterivSGI: TPFNGLGETCOLORTABLEPARAMETERIVSGIPROC; cvar;external libGLEW;
+  glGetColorTableParameterivSGI: TPFNGLGETCOLORTABLEPARAMETERIVSGIPROC absolute __glewGetColorTableParameterivSGI;
+
   __glewGetColorTableSGI: TPFNGLGETCOLORTABLESGIPROC; cvar;external libGLEW;
+  glGetColorTableSGI: TPFNGLGETCOLORTABLESGIPROC absolute __glewGetColorTableSGI;
+
   __glewGetPixelTransformParameterfvSGI: TPFNGLGETPIXELTRANSFORMPARAMETERFVSGIPROC; cvar;external libGLEW;
+  glGetPixelTransformParameterfvSGI: TPFNGLGETPIXELTRANSFORMPARAMETERFVSGIPROC absolute __glewGetPixelTransformParameterfvSGI;
+
   __glewGetPixelTransformParameterivSGI: TPFNGLGETPIXELTRANSFORMPARAMETERIVSGIPROC; cvar;external libGLEW;
+  glGetPixelTransformParameterivSGI: TPFNGLGETPIXELTRANSFORMPARAMETERIVSGIPROC absolute __glewGetPixelTransformParameterivSGI;
+
   __glewPixelTransformParameterfSGI: TPFNGLPIXELTRANSFORMPARAMETERFSGIPROC; cvar;external libGLEW;
+  glPixelTransformParameterfSGI: TPFNGLPIXELTRANSFORMPARAMETERFSGIPROC absolute __glewPixelTransformParameterfSGI;
+
   __glewPixelTransformParameterfvSGI: TPFNGLPIXELTRANSFORMPARAMETERFVSGIPROC; cvar;external libGLEW;
+  glPixelTransformParameterfvSGI: TPFNGLPIXELTRANSFORMPARAMETERFVSGIPROC absolute __glewPixelTransformParameterfvSGI;
+
   __glewPixelTransformParameteriSGI: TPFNGLPIXELTRANSFORMPARAMETERISGIPROC; cvar;external libGLEW;
+  glPixelTransformParameteriSGI: TPFNGLPIXELTRANSFORMPARAMETERISGIPROC absolute __glewPixelTransformParameteriSGI;
+
   __glewPixelTransformParameterivSGI: TPFNGLPIXELTRANSFORMPARAMETERIVSGIPROC; cvar;external libGLEW;
+  glPixelTransformParameterivSGI: TPFNGLPIXELTRANSFORMPARAMETERIVSGIPROC absolute __glewPixelTransformParameterivSGI;
+
   __glewPixelTransformSGI: TPFNGLPIXELTRANSFORMSGIPROC; cvar;external libGLEW;
+  glPixelTransformSGI: TPFNGLPIXELTRANSFORMSGIPROC absolute __glewPixelTransformSGI;
+
   __glewFinishTextureSUNX: TPFNGLFINISHTEXTURESUNXPROC; cvar;external libGLEW;
+  glFinishTextureSUNX: TPFNGLFINISHTEXTURESUNXPROC absolute __glewFinishTextureSUNX;
+
   __glewGlobalAlphaFactorbSUN: TPFNGLGLOBALALPHAFACTORBSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactorbSUN: TPFNGLGLOBALALPHAFACTORBSUNPROC absolute __glewGlobalAlphaFactorbSUN;
+
   __glewGlobalAlphaFactordSUN: TPFNGLGLOBALALPHAFACTORDSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactordSUN: TPFNGLGLOBALALPHAFACTORDSUNPROC absolute __glewGlobalAlphaFactordSUN;
+
   __glewGlobalAlphaFactorfSUN: TPFNGLGLOBALALPHAFACTORFSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactorfSUN: TPFNGLGLOBALALPHAFACTORFSUNPROC absolute __glewGlobalAlphaFactorfSUN;
+
   __glewGlobalAlphaFactoriSUN: TPFNGLGLOBALALPHAFACTORISUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactoriSUN: TPFNGLGLOBALALPHAFACTORISUNPROC absolute __glewGlobalAlphaFactoriSUN;
+
   __glewGlobalAlphaFactorsSUN: TPFNGLGLOBALALPHAFACTORSSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactorsSUN: TPFNGLGLOBALALPHAFACTORSSUNPROC absolute __glewGlobalAlphaFactorsSUN;
+
   __glewGlobalAlphaFactorubSUN: TPFNGLGLOBALALPHAFACTORUBSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactorubSUN: TPFNGLGLOBALALPHAFACTORUBSUNPROC absolute __glewGlobalAlphaFactorubSUN;
+
   __glewGlobalAlphaFactoruiSUN: TPFNGLGLOBALALPHAFACTORUISUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactoruiSUN: TPFNGLGLOBALALPHAFACTORUISUNPROC absolute __glewGlobalAlphaFactoruiSUN;
+
   __glewGlobalAlphaFactorusSUN: TPFNGLGLOBALALPHAFACTORUSSUNPROC; cvar;external libGLEW;
+  glGlobalAlphaFactorusSUN: TPFNGLGLOBALALPHAFACTORUSSUNPROC absolute __glewGlobalAlphaFactorusSUN;
+
   __glewReadVideoPixelsSUN: TPFNGLREADVIDEOPIXELSSUNPROC; cvar;external libGLEW;
+  glReadVideoPixelsSUN: TPFNGLREADVIDEOPIXELSSUNPROC absolute __glewReadVideoPixelsSUN;
+
   __glewReplacementCodePointerSUN: TPFNGLREPLACEMENTCODEPOINTERSUNPROC; cvar;external libGLEW;
+  glReplacementCodePointerSUN: TPFNGLREPLACEMENTCODEPOINTERSUNPROC absolute __glewReplacementCodePointerSUN;
+
   __glewReplacementCodeubSUN: TPFNGLREPLACEMENTCODEUBSUNPROC; cvar;external libGLEW;
+  glReplacementCodeubSUN: TPFNGLREPLACEMENTCODEUBSUNPROC absolute __glewReplacementCodeubSUN;
+
   __glewReplacementCodeubvSUN: TPFNGLREPLACEMENTCODEUBVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeubvSUN: TPFNGLREPLACEMENTCODEUBVSUNPROC absolute __glewReplacementCodeubvSUN;
+
   __glewReplacementCodeuiSUN: TPFNGLREPLACEMENTCODEUISUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiSUN: TPFNGLREPLACEMENTCODEUISUNPROC absolute __glewReplacementCodeuiSUN;
+
   __glewReplacementCodeuivSUN: TPFNGLREPLACEMENTCODEUIVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuivSUN: TPFNGLREPLACEMENTCODEUIVSUNPROC absolute __glewReplacementCodeuivSUN;
+
   __glewReplacementCodeusSUN: TPFNGLREPLACEMENTCODEUSSUNPROC; cvar;external libGLEW;
+  glReplacementCodeusSUN: TPFNGLREPLACEMENTCODEUSSUNPROC absolute __glewReplacementCodeusSUN;
+
   __glewReplacementCodeusvSUN: TPFNGLREPLACEMENTCODEUSVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeusvSUN: TPFNGLREPLACEMENTCODEUSVSUNPROC absolute __glewReplacementCodeusvSUN;
+
   __glewColor3fVertex3fSUN: TPFNGLCOLOR3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glColor3fVertex3fSUN: TPFNGLCOLOR3FVERTEX3FSUNPROC absolute __glewColor3fVertex3fSUN;
+
   __glewColor3fVertex3fvSUN: TPFNGLCOLOR3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glColor3fVertex3fvSUN: TPFNGLCOLOR3FVERTEX3FVSUNPROC absolute __glewColor3fVertex3fvSUN;
+
   __glewColor4fNormal3fVertex3fSUN: TPFNGLCOLOR4FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glColor4fNormal3fVertex3fSUN: TPFNGLCOLOR4FNORMAL3FVERTEX3FSUNPROC absolute __glewColor4fNormal3fVertex3fSUN;
+
   __glewColor4fNormal3fVertex3fvSUN: TPFNGLCOLOR4FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glColor4fNormal3fVertex3fvSUN: TPFNGLCOLOR4FNORMAL3FVERTEX3FVSUNPROC absolute __glewColor4fNormal3fVertex3fvSUN;
+
   __glewColor4ubVertex2fSUN: TPFNGLCOLOR4UBVERTEX2FSUNPROC; cvar;external libGLEW;
+  glColor4ubVertex2fSUN: TPFNGLCOLOR4UBVERTEX2FSUNPROC absolute __glewColor4ubVertex2fSUN;
+
   __glewColor4ubVertex2fvSUN: TPFNGLCOLOR4UBVERTEX2FVSUNPROC; cvar;external libGLEW;
+  glColor4ubVertex2fvSUN: TPFNGLCOLOR4UBVERTEX2FVSUNPROC absolute __glewColor4ubVertex2fvSUN;
+
   __glewColor4ubVertex3fSUN: TPFNGLCOLOR4UBVERTEX3FSUNPROC; cvar;external libGLEW;
+  glColor4ubVertex3fSUN: TPFNGLCOLOR4UBVERTEX3FSUNPROC absolute __glewColor4ubVertex3fSUN;
+
   __glewColor4ubVertex3fvSUN: TPFNGLCOLOR4UBVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glColor4ubVertex3fvSUN: TPFNGLCOLOR4UBVERTEX3FVSUNPROC absolute __glewColor4ubVertex3fvSUN;
+
   __glewNormal3fVertex3fSUN: TPFNGLNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glNormal3fVertex3fSUN: TPFNGLNORMAL3FVERTEX3FSUNPROC absolute __glewNormal3fVertex3fSUN;
+
   __glewNormal3fVertex3fvSUN: TPFNGLNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glNormal3fVertex3fvSUN: TPFNGLNORMAL3FVERTEX3FVSUNPROC absolute __glewNormal3fVertex3fvSUN;
+
   __glewReplacementCodeuiColor3fVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor3fVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FSUNPROC absolute __glewReplacementCodeuiColor3fVertex3fSUN;
+
   __glewReplacementCodeuiColor3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR3FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiColor3fVertex3fvSUN;
+
   __glewReplacementCodeuiColor4fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor4fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FSUNPROC absolute __glewReplacementCodeuiColor4fNormal3fVertex3fSUN;
+
   __glewReplacementCodeuiColor4fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor4fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR4FNORMAL3FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiColor4fNormal3fVertex3fvSUN;
+
   __glewReplacementCodeuiColor4ubVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor4ubVertex3fSUN: TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FSUNPROC absolute __glewReplacementCodeuiColor4ubVertex3fSUN;
+
   __glewReplacementCodeuiColor4ubVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiColor4ubVertex3fvSUN: TPFNGLREPLACEMENTCODEUICOLOR4UBVERTEX3FVSUNPROC absolute __glewReplacementCodeuiColor4ubVertex3fvSUN;
+
   __glewReplacementCodeuiNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FSUNPROC absolute __glewReplacementCodeuiNormal3fVertex3fSUN;
+
   __glewReplacementCodeuiNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUINORMAL3FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiNormal3fVertex3fvSUN;
+
   __glewReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC absolute __glewReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN;
+
   __glewReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN;
+
   __glewReplacementCodeuiTexCoord2fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FSUNPROC absolute __glewReplacementCodeuiTexCoord2fNormal3fVertex3fSUN;
+
   __glewReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FNORMAL3FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN;
+
   __glewReplacementCodeuiTexCoord2fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fVertex3fSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FSUNPROC absolute __glewReplacementCodeuiTexCoord2fVertex3fSUN;
+
   __glewReplacementCodeuiTexCoord2fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiTexCoord2fVertex3fvSUN: TPFNGLREPLACEMENTCODEUITEXCOORD2FVERTEX3FVSUNPROC absolute __glewReplacementCodeuiTexCoord2fVertex3fvSUN;
+
   __glewReplacementCodeuiVertex3fSUN: TPFNGLREPLACEMENTCODEUIVERTEX3FSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiVertex3fSUN: TPFNGLREPLACEMENTCODEUIVERTEX3FSUNPROC absolute __glewReplacementCodeuiVertex3fSUN;
+
   __glewReplacementCodeuiVertex3fvSUN: TPFNGLREPLACEMENTCODEUIVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glReplacementCodeuiVertex3fvSUN: TPFNGLREPLACEMENTCODEUIVERTEX3FVSUNPROC absolute __glewReplacementCodeuiVertex3fvSUN;
+
   __glewTexCoord2fColor3fVertex3fSUN: TPFNGLTEXCOORD2FCOLOR3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor3fVertex3fSUN: TPFNGLTEXCOORD2FCOLOR3FVERTEX3FSUNPROC absolute __glewTexCoord2fColor3fVertex3fSUN;
+
   __glewTexCoord2fColor3fVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor3fVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR3FVERTEX3FVSUNPROC absolute __glewTexCoord2fColor3fVertex3fvSUN;
+
   __glewTexCoord2fColor4fNormal3fVertex3fSUN: TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor4fNormal3fVertex3fSUN: TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FSUNPROC absolute __glewTexCoord2fColor4fNormal3fVertex3fSUN;
+
   __glewTexCoord2fColor4fNormal3fVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor4fNormal3fVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR4FNORMAL3FVERTEX3FVSUNPROC absolute __glewTexCoord2fColor4fNormal3fVertex3fvSUN;
+
   __glewTexCoord2fColor4ubVertex3fSUN: TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor4ubVertex3fSUN: TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FSUNPROC absolute __glewTexCoord2fColor4ubVertex3fSUN;
+
   __glewTexCoord2fColor4ubVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glTexCoord2fColor4ubVertex3fvSUN: TPFNGLTEXCOORD2FCOLOR4UBVERTEX3FVSUNPROC absolute __glewTexCoord2fColor4ubVertex3fvSUN;
+
   __glewTexCoord2fNormal3fVertex3fSUN: TPFNGLTEXCOORD2FNORMAL3FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glTexCoord2fNormal3fVertex3fSUN: TPFNGLTEXCOORD2FNORMAL3FVERTEX3FSUNPROC absolute __glewTexCoord2fNormal3fVertex3fSUN;
+
   __glewTexCoord2fNormal3fVertex3fvSUN: TPFNGLTEXCOORD2FNORMAL3FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glTexCoord2fNormal3fVertex3fvSUN: TPFNGLTEXCOORD2FNORMAL3FVERTEX3FVSUNPROC absolute __glewTexCoord2fNormal3fVertex3fvSUN;
+
   __glewTexCoord2fVertex3fSUN: TPFNGLTEXCOORD2FVERTEX3FSUNPROC; cvar;external libGLEW;
+  glTexCoord2fVertex3fSUN: TPFNGLTEXCOORD2FVERTEX3FSUNPROC absolute __glewTexCoord2fVertex3fSUN;
+
   __glewTexCoord2fVertex3fvSUN: TPFNGLTEXCOORD2FVERTEX3FVSUNPROC; cvar;external libGLEW;
+  glTexCoord2fVertex3fvSUN: TPFNGLTEXCOORD2FVERTEX3FVSUNPROC absolute __glewTexCoord2fVertex3fvSUN;
+
   __glewTexCoord4fColor4fNormal3fVertex4fSUN: TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC; cvar;external libGLEW;
+  glTexCoord4fColor4fNormal3fVertex4fSUN: TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FSUNPROC absolute __glewTexCoord4fColor4fNormal3fVertex4fSUN;
+
   __glewTexCoord4fColor4fNormal3fVertex4fvSUN: TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC; cvar;external libGLEW;
+  glTexCoord4fColor4fNormal3fVertex4fvSUN: TPFNGLTEXCOORD4FCOLOR4FNORMAL3FVERTEX4FVSUNPROC absolute __glewTexCoord4fColor4fNormal3fVertex4fvSUN;
+
   __glewTexCoord4fVertex4fSUN: TPFNGLTEXCOORD4FVERTEX4FSUNPROC; cvar;external libGLEW;
+  glTexCoord4fVertex4fSUN: TPFNGLTEXCOORD4FVERTEX4FSUNPROC absolute __glewTexCoord4fVertex4fSUN;
+
   __glewTexCoord4fVertex4fvSUN: TPFNGLTEXCOORD4FVERTEX4FVSUNPROC; cvar;external libGLEW;
+  glTexCoord4fVertex4fvSUN: TPFNGLTEXCOORD4FVERTEX4FVSUNPROC absolute __glewTexCoord4fVertex4fvSUN;
+
   __glewAddSwapHintRectWIN: TPFNGLADDSWAPHINTRECTWINPROC; cvar;external libGLEW;
+  glAddSwapHintRectWIN: TPFNGLADDSWAPHINTRECTWINPROC absolute __glewAddSwapHintRectWIN;
+
   __GLEW_VERSION_1_1: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_1: TGLboolean absolute __GLEW_VERSION_1_1;
+
   __GLEW_VERSION_1_2: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_2: TGLboolean absolute __GLEW_VERSION_1_2;
+
   __GLEW_VERSION_1_2_1: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_2_1: TGLboolean absolute __GLEW_VERSION_1_2_1;
+
   __GLEW_VERSION_1_3: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_3: TGLboolean absolute __GLEW_VERSION_1_3;
+
   __GLEW_VERSION_1_4: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_4: TGLboolean absolute __GLEW_VERSION_1_4;
+
   __GLEW_VERSION_1_5: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_1_5: TGLboolean absolute __GLEW_VERSION_1_5;
+
   __GLEW_VERSION_2_0: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_2_0: TGLboolean absolute __GLEW_VERSION_2_0;
+
   __GLEW_VERSION_2_1: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_2_1: TGLboolean absolute __GLEW_VERSION_2_1;
+
   __GLEW_VERSION_3_0: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_3_0: TGLboolean absolute __GLEW_VERSION_3_0;
+
   __GLEW_VERSION_3_1: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_3_1: TGLboolean absolute __GLEW_VERSION_3_1;
+
   __GLEW_VERSION_3_2: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_3_2: TGLboolean absolute __GLEW_VERSION_3_2;
+
   __GLEW_VERSION_3_3: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_3_3: TGLboolean absolute __GLEW_VERSION_3_3;
+
   __GLEW_VERSION_4_0: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_0: TGLboolean absolute __GLEW_VERSION_4_0;
+
   __GLEW_VERSION_4_1: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_1: TGLboolean absolute __GLEW_VERSION_4_1;
+
   __GLEW_VERSION_4_2: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_2: TGLboolean absolute __GLEW_VERSION_4_2;
+
   __GLEW_VERSION_4_3: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_3: TGLboolean absolute __GLEW_VERSION_4_3;
+
   __GLEW_VERSION_4_4: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_4: TGLboolean absolute __GLEW_VERSION_4_4;
+
   __GLEW_VERSION_4_5: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_5: TGLboolean absolute __GLEW_VERSION_4_5;
+
   __GLEW_VERSION_4_6: TGLboolean; cvar;external libGLEW;
+ GLEW_VERSION_4_6: TGLboolean absolute __GLEW_VERSION_4_6;
+
   __GLEW_3DFX_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_3DFX_multisample: TGLboolean absolute __GLEW_3DFX_multisample;
+
   __GLEW_3DFX_tbuffer: TGLboolean; cvar;external libGLEW;
+ GLEW_3DFX_tbuffer: TGLboolean absolute __GLEW_3DFX_tbuffer;
+
   __GLEW_3DFX_texture_compression_FXT1: TGLboolean; cvar;external libGLEW;
+ GLEW_3DFX_texture_compression_FXT1: TGLboolean absolute __GLEW_3DFX_texture_compression_FXT1;
+
   __GLEW_AMD_blend_minmax_factor: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_blend_minmax_factor: TGLboolean absolute __GLEW_AMD_blend_minmax_factor;
+
   __GLEW_AMD_compressed_3DC_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_compressed_3DC_texture: TGLboolean absolute __GLEW_AMD_compressed_3DC_texture;
+
   __GLEW_AMD_compressed_ATC_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_compressed_ATC_texture: TGLboolean absolute __GLEW_AMD_compressed_ATC_texture;
+
   __GLEW_AMD_conservative_depth: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_conservative_depth: TGLboolean absolute __GLEW_AMD_conservative_depth;
+
   __GLEW_AMD_debug_output: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_debug_output: TGLboolean absolute __GLEW_AMD_debug_output;
+
   __GLEW_AMD_depth_clamp_separate: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_depth_clamp_separate: TGLboolean absolute __GLEW_AMD_depth_clamp_separate;
+
   __GLEW_AMD_draw_buffers_blend: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_draw_buffers_blend: TGLboolean absolute __GLEW_AMD_draw_buffers_blend;
+
   __GLEW_AMD_framebuffer_multisample_advanced: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_framebuffer_multisample_advanced: TGLboolean absolute __GLEW_AMD_framebuffer_multisample_advanced;
+
   __GLEW_AMD_framebuffer_sample_positions: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_framebuffer_sample_positions: TGLboolean absolute __GLEW_AMD_framebuffer_sample_positions;
+
   __GLEW_AMD_gcn_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_gcn_shader: TGLboolean absolute __GLEW_AMD_gcn_shader;
+
   __GLEW_AMD_gpu_shader_half_float: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_gpu_shader_half_float: TGLboolean absolute __GLEW_AMD_gpu_shader_half_float;
+
   __GLEW_AMD_gpu_shader_half_float_fetch: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_gpu_shader_half_float_fetch: TGLboolean absolute __GLEW_AMD_gpu_shader_half_float_fetch;
+
   __GLEW_AMD_gpu_shader_int16: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_gpu_shader_int16: TGLboolean absolute __GLEW_AMD_gpu_shader_int16;
+
   __GLEW_AMD_gpu_shader_int64: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_gpu_shader_int64: TGLboolean absolute __GLEW_AMD_gpu_shader_int64;
+
   __GLEW_AMD_interleaved_elements: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_interleaved_elements: TGLboolean absolute __GLEW_AMD_interleaved_elements;
+
   __GLEW_AMD_multi_draw_indirect: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_multi_draw_indirect: TGLboolean absolute __GLEW_AMD_multi_draw_indirect;
+
   __GLEW_AMD_name_gen_delete: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_name_gen_delete: TGLboolean absolute __GLEW_AMD_name_gen_delete;
+
   __GLEW_AMD_occlusion_query_event: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_occlusion_query_event: TGLboolean absolute __GLEW_AMD_occlusion_query_event;
+
   __GLEW_AMD_performance_monitor: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_performance_monitor: TGLboolean absolute __GLEW_AMD_performance_monitor;
+
   __GLEW_AMD_pinned_memory: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_pinned_memory: TGLboolean absolute __GLEW_AMD_pinned_memory;
+
   __GLEW_AMD_program_binary_Z400: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_program_binary_Z400: TGLboolean absolute __GLEW_AMD_program_binary_Z400;
+
   __GLEW_AMD_query_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_query_buffer_object: TGLboolean absolute __GLEW_AMD_query_buffer_object;
+
   __GLEW_AMD_sample_positions: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_sample_positions: TGLboolean absolute __GLEW_AMD_sample_positions;
+
   __GLEW_AMD_seamless_cubemap_per_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_seamless_cubemap_per_texture: TGLboolean absolute __GLEW_AMD_seamless_cubemap_per_texture;
+
   __GLEW_AMD_shader_atomic_counter_ops: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_atomic_counter_ops: TGLboolean absolute __GLEW_AMD_shader_atomic_counter_ops;
+
   __GLEW_AMD_shader_ballot: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_ballot: TGLboolean absolute __GLEW_AMD_shader_ballot;
+
   __GLEW_AMD_shader_explicit_vertex_parameter: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_explicit_vertex_parameter: TGLboolean absolute __GLEW_AMD_shader_explicit_vertex_parameter;
+
   __GLEW_AMD_shader_image_load_store_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_image_load_store_lod: TGLboolean absolute __GLEW_AMD_shader_image_load_store_lod;
+
   __GLEW_AMD_shader_stencil_export: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_stencil_export: TGLboolean absolute __GLEW_AMD_shader_stencil_export;
+
   __GLEW_AMD_shader_stencil_value_export: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_stencil_value_export: TGLboolean absolute __GLEW_AMD_shader_stencil_value_export;
+
   __GLEW_AMD_shader_trinary_minmax: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_shader_trinary_minmax: TGLboolean absolute __GLEW_AMD_shader_trinary_minmax;
+
   __GLEW_AMD_sparse_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_sparse_texture: TGLboolean absolute __GLEW_AMD_sparse_texture;
+
   __GLEW_AMD_stencil_operation_extended: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_stencil_operation_extended: TGLboolean absolute __GLEW_AMD_stencil_operation_extended;
+
   __GLEW_AMD_texture_gather_bias_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_texture_gather_bias_lod: TGLboolean absolute __GLEW_AMD_texture_gather_bias_lod;
+
   __GLEW_AMD_texture_texture4: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_texture_texture4: TGLboolean absolute __GLEW_AMD_texture_texture4;
+
   __GLEW_AMD_transform_feedback3_lines_triangles: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_transform_feedback3_lines_triangles: TGLboolean absolute __GLEW_AMD_transform_feedback3_lines_triangles;
+
   __GLEW_AMD_transform_feedback4: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_transform_feedback4: TGLboolean absolute __GLEW_AMD_transform_feedback4;
+
   __GLEW_AMD_vertex_shader_layer: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_vertex_shader_layer: TGLboolean absolute __GLEW_AMD_vertex_shader_layer;
+
   __GLEW_AMD_vertex_shader_tessellator: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_vertex_shader_tessellator: TGLboolean absolute __GLEW_AMD_vertex_shader_tessellator;
+
   __GLEW_AMD_vertex_shader_viewport_index: TGLboolean; cvar;external libGLEW;
+ GLEW_AMD_vertex_shader_viewport_index: TGLboolean absolute __GLEW_AMD_vertex_shader_viewport_index;
+
   __GLEW_ANDROID_extension_pack_es31a: TGLboolean; cvar;external libGLEW;
+ GLEW_ANDROID_extension_pack_es31a: TGLboolean absolute __GLEW_ANDROID_extension_pack_es31a;
+
   __GLEW_ANGLE_depth_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_depth_texture: TGLboolean absolute __GLEW_ANGLE_depth_texture;
+
   __GLEW_ANGLE_framebuffer_blit: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_framebuffer_blit: TGLboolean absolute __GLEW_ANGLE_framebuffer_blit;
+
   __GLEW_ANGLE_framebuffer_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_framebuffer_multisample: TGLboolean absolute __GLEW_ANGLE_framebuffer_multisample;
+
   __GLEW_ANGLE_instanced_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_instanced_arrays: TGLboolean absolute __GLEW_ANGLE_instanced_arrays;
+
   __GLEW_ANGLE_pack_reverse_row_order: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_pack_reverse_row_order: TGLboolean absolute __GLEW_ANGLE_pack_reverse_row_order;
+
   __GLEW_ANGLE_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_program_binary: TGLboolean absolute __GLEW_ANGLE_program_binary;
+
   __GLEW_ANGLE_texture_compression_dxt1: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_texture_compression_dxt1: TGLboolean absolute __GLEW_ANGLE_texture_compression_dxt1;
+
   __GLEW_ANGLE_texture_compression_dxt3: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_texture_compression_dxt3: TGLboolean absolute __GLEW_ANGLE_texture_compression_dxt3;
+
   __GLEW_ANGLE_texture_compression_dxt5: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_texture_compression_dxt5: TGLboolean absolute __GLEW_ANGLE_texture_compression_dxt5;
+
   __GLEW_ANGLE_texture_usage: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_texture_usage: TGLboolean absolute __GLEW_ANGLE_texture_usage;
+
   __GLEW_ANGLE_timer_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_timer_query: TGLboolean absolute __GLEW_ANGLE_timer_query;
+
   __GLEW_ANGLE_translated_shader_source: TGLboolean; cvar;external libGLEW;
+ GLEW_ANGLE_translated_shader_source: TGLboolean absolute __GLEW_ANGLE_translated_shader_source;
+
   __GLEW_APPLE_aux_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_aux_depth_stencil: TGLboolean absolute __GLEW_APPLE_aux_depth_stencil;
+
   __GLEW_APPLE_client_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_client_storage: TGLboolean absolute __GLEW_APPLE_client_storage;
+
   __GLEW_APPLE_clip_distance: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_clip_distance: TGLboolean absolute __GLEW_APPLE_clip_distance;
+
   __GLEW_APPLE_color_buffer_packed_float: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_color_buffer_packed_float: TGLboolean absolute __GLEW_APPLE_color_buffer_packed_float;
+
   __GLEW_APPLE_copy_texture_levels: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_copy_texture_levels: TGLboolean absolute __GLEW_APPLE_copy_texture_levels;
+
   __GLEW_APPLE_element_array: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_element_array: TGLboolean absolute __GLEW_APPLE_element_array;
+
   __GLEW_APPLE_fence: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_fence: TGLboolean absolute __GLEW_APPLE_fence;
+
   __GLEW_APPLE_float_pixels: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_float_pixels: TGLboolean absolute __GLEW_APPLE_float_pixels;
+
   __GLEW_APPLE_flush_buffer_range: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_flush_buffer_range: TGLboolean absolute __GLEW_APPLE_flush_buffer_range;
+
   __GLEW_APPLE_framebuffer_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_framebuffer_multisample: TGLboolean absolute __GLEW_APPLE_framebuffer_multisample;
+
   __GLEW_APPLE_object_purgeable: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_object_purgeable: TGLboolean absolute __GLEW_APPLE_object_purgeable;
+
   __GLEW_APPLE_pixel_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_pixel_buffer: TGLboolean absolute __GLEW_APPLE_pixel_buffer;
+
   __GLEW_APPLE_rgb_422: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_rgb_422: TGLboolean absolute __GLEW_APPLE_rgb_422;
+
   __GLEW_APPLE_row_bytes: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_row_bytes: TGLboolean absolute __GLEW_APPLE_row_bytes;
+
   __GLEW_APPLE_specular_vector: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_specular_vector: TGLboolean absolute __GLEW_APPLE_specular_vector;
+
   __GLEW_APPLE_sync: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_sync: TGLboolean absolute __GLEW_APPLE_sync;
+
   __GLEW_APPLE_texture_2D_limited_npot: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_texture_2D_limited_npot: TGLboolean absolute __GLEW_APPLE_texture_2D_limited_npot;
+
   __GLEW_APPLE_texture_format_BGRA8888: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_texture_format_BGRA8888: TGLboolean absolute __GLEW_APPLE_texture_format_BGRA8888;
+
   __GLEW_APPLE_texture_max_level: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_texture_max_level: TGLboolean absolute __GLEW_APPLE_texture_max_level;
+
   __GLEW_APPLE_texture_packed_float: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_texture_packed_float: TGLboolean absolute __GLEW_APPLE_texture_packed_float;
+
   __GLEW_APPLE_texture_range: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_texture_range: TGLboolean absolute __GLEW_APPLE_texture_range;
+
   __GLEW_APPLE_transform_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_transform_hint: TGLboolean absolute __GLEW_APPLE_transform_hint;
+
   __GLEW_APPLE_vertex_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_vertex_array_object: TGLboolean absolute __GLEW_APPLE_vertex_array_object;
+
   __GLEW_APPLE_vertex_array_range: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_vertex_array_range: TGLboolean absolute __GLEW_APPLE_vertex_array_range;
+
   __GLEW_APPLE_vertex_program_evaluators: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_vertex_program_evaluators: TGLboolean absolute __GLEW_APPLE_vertex_program_evaluators;
+
   __GLEW_APPLE_ycbcr_422: TGLboolean; cvar;external libGLEW;
+ GLEW_APPLE_ycbcr_422: TGLboolean absolute __GLEW_APPLE_ycbcr_422;
+
   __GLEW_ARB_ES2_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_ES2_compatibility: TGLboolean absolute __GLEW_ARB_ES2_compatibility;
+
   __GLEW_ARB_ES3_1_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_ES3_1_compatibility: TGLboolean absolute __GLEW_ARB_ES3_1_compatibility;
+
   __GLEW_ARB_ES3_2_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_ES3_2_compatibility: TGLboolean absolute __GLEW_ARB_ES3_2_compatibility;
+
   __GLEW_ARB_ES3_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_ES3_compatibility: TGLboolean absolute __GLEW_ARB_ES3_compatibility;
+
   __GLEW_ARB_arrays_of_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_arrays_of_arrays: TGLboolean absolute __GLEW_ARB_arrays_of_arrays;
+
   __GLEW_ARB_base_instance: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_base_instance: TGLboolean absolute __GLEW_ARB_base_instance;
+
   __GLEW_ARB_bindless_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_bindless_texture: TGLboolean absolute __GLEW_ARB_bindless_texture;
+
   __GLEW_ARB_blend_func_extended: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_blend_func_extended: TGLboolean absolute __GLEW_ARB_blend_func_extended;
+
   __GLEW_ARB_buffer_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_buffer_storage: TGLboolean absolute __GLEW_ARB_buffer_storage;
+
   __GLEW_ARB_cl_event: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_cl_event: TGLboolean absolute __GLEW_ARB_cl_event;
+
   __GLEW_ARB_clear_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_clear_buffer_object: TGLboolean absolute __GLEW_ARB_clear_buffer_object;
+
   __GLEW_ARB_clear_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_clear_texture: TGLboolean absolute __GLEW_ARB_clear_texture;
+
   __GLEW_ARB_clip_control: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_clip_control: TGLboolean absolute __GLEW_ARB_clip_control;
+
   __GLEW_ARB_color_buffer_float: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_color_buffer_float: TGLboolean absolute __GLEW_ARB_color_buffer_float;
+
   __GLEW_ARB_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_compatibility: TGLboolean absolute __GLEW_ARB_compatibility;
+
   __GLEW_ARB_compressed_texture_pixel_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_compressed_texture_pixel_storage: TGLboolean absolute __GLEW_ARB_compressed_texture_pixel_storage;
+
   __GLEW_ARB_compute_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_compute_shader: TGLboolean absolute __GLEW_ARB_compute_shader;
+
   __GLEW_ARB_compute_variable_group_size: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_compute_variable_group_size: TGLboolean absolute __GLEW_ARB_compute_variable_group_size;
+
   __GLEW_ARB_conditional_render_inverted: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_conditional_render_inverted: TGLboolean absolute __GLEW_ARB_conditional_render_inverted;
+
   __GLEW_ARB_conservative_depth: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_conservative_depth: TGLboolean absolute __GLEW_ARB_conservative_depth;
+
   __GLEW_ARB_copy_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_copy_buffer: TGLboolean absolute __GLEW_ARB_copy_buffer;
+
   __GLEW_ARB_copy_image: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_copy_image: TGLboolean absolute __GLEW_ARB_copy_image;
+
   __GLEW_ARB_cull_distance: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_cull_distance: TGLboolean absolute __GLEW_ARB_cull_distance;
+
   __GLEW_ARB_debug_output: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_debug_output: TGLboolean absolute __GLEW_ARB_debug_output;
+
   __GLEW_ARB_depth_buffer_float: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_depth_buffer_float: TGLboolean absolute __GLEW_ARB_depth_buffer_float;
+
   __GLEW_ARB_depth_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_depth_clamp: TGLboolean absolute __GLEW_ARB_depth_clamp;
+
   __GLEW_ARB_depth_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_depth_texture: TGLboolean absolute __GLEW_ARB_depth_texture;
+
   __GLEW_ARB_derivative_control: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_derivative_control: TGLboolean absolute __GLEW_ARB_derivative_control;
+
   __GLEW_ARB_direct_state_access: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_direct_state_access: TGLboolean absolute __GLEW_ARB_direct_state_access;
+
   __GLEW_ARB_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_draw_buffers: TGLboolean absolute __GLEW_ARB_draw_buffers;
+
   __GLEW_ARB_draw_buffers_blend: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_draw_buffers_blend: TGLboolean absolute __GLEW_ARB_draw_buffers_blend;
+
   __GLEW_ARB_draw_elements_base_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_draw_elements_base_vertex: TGLboolean absolute __GLEW_ARB_draw_elements_base_vertex;
+
   __GLEW_ARB_draw_indirect: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_draw_indirect: TGLboolean absolute __GLEW_ARB_draw_indirect;
+
   __GLEW_ARB_draw_instanced: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_draw_instanced: TGLboolean absolute __GLEW_ARB_draw_instanced;
+
   __GLEW_ARB_enhanced_layouts: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_enhanced_layouts: TGLboolean absolute __GLEW_ARB_enhanced_layouts;
+
   __GLEW_ARB_explicit_attrib_location: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_explicit_attrib_location: TGLboolean absolute __GLEW_ARB_explicit_attrib_location;
+
   __GLEW_ARB_explicit_uniform_location: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_explicit_uniform_location: TGLboolean absolute __GLEW_ARB_explicit_uniform_location;
+
   __GLEW_ARB_fragment_coord_conventions: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_coord_conventions: TGLboolean absolute __GLEW_ARB_fragment_coord_conventions;
+
   __GLEW_ARB_fragment_layer_viewport: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_layer_viewport: TGLboolean absolute __GLEW_ARB_fragment_layer_viewport;
+
   __GLEW_ARB_fragment_program: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_program: TGLboolean absolute __GLEW_ARB_fragment_program;
+
   __GLEW_ARB_fragment_program_shadow: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_program_shadow: TGLboolean absolute __GLEW_ARB_fragment_program_shadow;
+
   __GLEW_ARB_fragment_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_shader: TGLboolean absolute __GLEW_ARB_fragment_shader;
+
   __GLEW_ARB_fragment_shader_interlock: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_fragment_shader_interlock: TGLboolean absolute __GLEW_ARB_fragment_shader_interlock;
+
   __GLEW_ARB_framebuffer_no_attachments: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_framebuffer_no_attachments: TGLboolean absolute __GLEW_ARB_framebuffer_no_attachments;
+
   __GLEW_ARB_framebuffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_framebuffer_object: TGLboolean absolute __GLEW_ARB_framebuffer_object;
+
   __GLEW_ARB_framebuffer_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_framebuffer_sRGB: TGLboolean absolute __GLEW_ARB_framebuffer_sRGB;
+
   __GLEW_ARB_geometry_shader4: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_geometry_shader4: TGLboolean absolute __GLEW_ARB_geometry_shader4;
+
   __GLEW_ARB_get_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_get_program_binary: TGLboolean absolute __GLEW_ARB_get_program_binary;
+
   __GLEW_ARB_get_texture_sub_image: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_get_texture_sub_image: TGLboolean absolute __GLEW_ARB_get_texture_sub_image;
+
   __GLEW_ARB_gl_spirv: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_gl_spirv: TGLboolean absolute __GLEW_ARB_gl_spirv;
+
   __GLEW_ARB_gpu_shader5: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_gpu_shader5: TGLboolean absolute __GLEW_ARB_gpu_shader5;
+
   __GLEW_ARB_gpu_shader_fp64: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_gpu_shader_fp64: TGLboolean absolute __GLEW_ARB_gpu_shader_fp64;
+
   __GLEW_ARB_gpu_shader_int64: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_gpu_shader_int64: TGLboolean absolute __GLEW_ARB_gpu_shader_int64;
+
   __GLEW_ARB_half_float_pixel: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_half_float_pixel: TGLboolean absolute __GLEW_ARB_half_float_pixel;
+
   __GLEW_ARB_half_float_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_half_float_vertex: TGLboolean absolute __GLEW_ARB_half_float_vertex;
+
   __GLEW_ARB_imaging: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_imaging: TGLboolean absolute __GLEW_ARB_imaging;
+
   __GLEW_ARB_indirect_parameters: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_indirect_parameters: TGLboolean absolute __GLEW_ARB_indirect_parameters;
+
   __GLEW_ARB_instanced_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_instanced_arrays: TGLboolean absolute __GLEW_ARB_instanced_arrays;
+
   __GLEW_ARB_internalformat_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_internalformat_query: TGLboolean absolute __GLEW_ARB_internalformat_query;
+
   __GLEW_ARB_internalformat_query2: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_internalformat_query2: TGLboolean absolute __GLEW_ARB_internalformat_query2;
+
   __GLEW_ARB_invalidate_subdata: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_invalidate_subdata: TGLboolean absolute __GLEW_ARB_invalidate_subdata;
+
   __GLEW_ARB_map_buffer_alignment: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_map_buffer_alignment: TGLboolean absolute __GLEW_ARB_map_buffer_alignment;
+
   __GLEW_ARB_map_buffer_range: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_map_buffer_range: TGLboolean absolute __GLEW_ARB_map_buffer_range;
+
   __GLEW_ARB_matrix_palette: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_matrix_palette: TGLboolean absolute __GLEW_ARB_matrix_palette;
+
   __GLEW_ARB_multi_bind: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_multi_bind: TGLboolean absolute __GLEW_ARB_multi_bind;
+
   __GLEW_ARB_multi_draw_indirect: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_multi_draw_indirect: TGLboolean absolute __GLEW_ARB_multi_draw_indirect;
+
   __GLEW_ARB_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_multisample: TGLboolean absolute __GLEW_ARB_multisample;
+
   __GLEW_ARB_multitexture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_multitexture: TGLboolean absolute __GLEW_ARB_multitexture;
+
   __GLEW_ARB_occlusion_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_occlusion_query: TGLboolean absolute __GLEW_ARB_occlusion_query;
+
   __GLEW_ARB_occlusion_query2: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_occlusion_query2: TGLboolean absolute __GLEW_ARB_occlusion_query2;
+
   __GLEW_ARB_parallel_shader_compile: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_parallel_shader_compile: TGLboolean absolute __GLEW_ARB_parallel_shader_compile;
+
   __GLEW_ARB_pipeline_statistics_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_pipeline_statistics_query: TGLboolean absolute __GLEW_ARB_pipeline_statistics_query;
+
   __GLEW_ARB_pixel_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_pixel_buffer_object: TGLboolean absolute __GLEW_ARB_pixel_buffer_object;
+
   __GLEW_ARB_point_parameters: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_point_parameters: TGLboolean absolute __GLEW_ARB_point_parameters;
+
   __GLEW_ARB_point_sprite: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_point_sprite: TGLboolean absolute __GLEW_ARB_point_sprite;
+
   __GLEW_ARB_polygon_offset_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_polygon_offset_clamp: TGLboolean absolute __GLEW_ARB_polygon_offset_clamp;
+
   __GLEW_ARB_post_depth_coverage: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_post_depth_coverage: TGLboolean absolute __GLEW_ARB_post_depth_coverage;
+
   __GLEW_ARB_program_interface_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_program_interface_query: TGLboolean absolute __GLEW_ARB_program_interface_query;
+
   __GLEW_ARB_provoking_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_provoking_vertex: TGLboolean absolute __GLEW_ARB_provoking_vertex;
+
   __GLEW_ARB_query_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_query_buffer_object: TGLboolean absolute __GLEW_ARB_query_buffer_object;
+
   __GLEW_ARB_robust_buffer_access_behavior: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_robust_buffer_access_behavior: TGLboolean absolute __GLEW_ARB_robust_buffer_access_behavior;
+
   __GLEW_ARB_robustness: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_robustness: TGLboolean absolute __GLEW_ARB_robustness;
+
   __GLEW_ARB_robustness_application_isolation: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_robustness_application_isolation: TGLboolean absolute __GLEW_ARB_robustness_application_isolation;
+
   __GLEW_ARB_robustness_share_group_isolation: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_robustness_share_group_isolation: TGLboolean absolute __GLEW_ARB_robustness_share_group_isolation;
+
   __GLEW_ARB_sample_locations: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sample_locations: TGLboolean absolute __GLEW_ARB_sample_locations;
+
   __GLEW_ARB_sample_shading: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sample_shading: TGLboolean absolute __GLEW_ARB_sample_shading;
+
   __GLEW_ARB_sampler_objects: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sampler_objects: TGLboolean absolute __GLEW_ARB_sampler_objects;
+
   __GLEW_ARB_seamless_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_seamless_cube_map: TGLboolean absolute __GLEW_ARB_seamless_cube_map;
+
   __GLEW_ARB_seamless_cubemap_per_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_seamless_cubemap_per_texture: TGLboolean absolute __GLEW_ARB_seamless_cubemap_per_texture;
+
   __GLEW_ARB_separate_shader_objects: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_separate_shader_objects: TGLboolean absolute __GLEW_ARB_separate_shader_objects;
+
   __GLEW_ARB_shader_atomic_counter_ops: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_atomic_counter_ops: TGLboolean absolute __GLEW_ARB_shader_atomic_counter_ops;
+
   __GLEW_ARB_shader_atomic_counters: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_atomic_counters: TGLboolean absolute __GLEW_ARB_shader_atomic_counters;
+
   __GLEW_ARB_shader_ballot: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_ballot: TGLboolean absolute __GLEW_ARB_shader_ballot;
+
   __GLEW_ARB_shader_bit_encoding: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_bit_encoding: TGLboolean absolute __GLEW_ARB_shader_bit_encoding;
+
   __GLEW_ARB_shader_clock: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_clock: TGLboolean absolute __GLEW_ARB_shader_clock;
+
   __GLEW_ARB_shader_draw_parameters: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_draw_parameters: TGLboolean absolute __GLEW_ARB_shader_draw_parameters;
+
   __GLEW_ARB_shader_group_vote: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_group_vote: TGLboolean absolute __GLEW_ARB_shader_group_vote;
+
   __GLEW_ARB_shader_image_load_store: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_image_load_store: TGLboolean absolute __GLEW_ARB_shader_image_load_store;
+
   __GLEW_ARB_shader_image_size: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_image_size: TGLboolean absolute __GLEW_ARB_shader_image_size;
+
   __GLEW_ARB_shader_objects: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_objects: TGLboolean absolute __GLEW_ARB_shader_objects;
+
   __GLEW_ARB_shader_precision: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_precision: TGLboolean absolute __GLEW_ARB_shader_precision;
+
   __GLEW_ARB_shader_stencil_export: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_stencil_export: TGLboolean absolute __GLEW_ARB_shader_stencil_export;
+
   __GLEW_ARB_shader_storage_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_storage_buffer_object: TGLboolean absolute __GLEW_ARB_shader_storage_buffer_object;
+
   __GLEW_ARB_shader_subroutine: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_subroutine: TGLboolean absolute __GLEW_ARB_shader_subroutine;
+
   __GLEW_ARB_shader_texture_image_samples: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_texture_image_samples: TGLboolean absolute __GLEW_ARB_shader_texture_image_samples;
+
   __GLEW_ARB_shader_texture_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_texture_lod: TGLboolean absolute __GLEW_ARB_shader_texture_lod;
+
   __GLEW_ARB_shader_viewport_layer_array: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shader_viewport_layer_array: TGLboolean absolute __GLEW_ARB_shader_viewport_layer_array;
+
   __GLEW_ARB_shading_language_100: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shading_language_100: TGLboolean absolute __GLEW_ARB_shading_language_100;
+
   __GLEW_ARB_shading_language_420pack: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shading_language_420pack: TGLboolean absolute __GLEW_ARB_shading_language_420pack;
+
   __GLEW_ARB_shading_language_include: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shading_language_include: TGLboolean absolute __GLEW_ARB_shading_language_include;
+
   __GLEW_ARB_shading_language_packing: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shading_language_packing: TGLboolean absolute __GLEW_ARB_shading_language_packing;
+
   __GLEW_ARB_shadow: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shadow: TGLboolean absolute __GLEW_ARB_shadow;
+
   __GLEW_ARB_shadow_ambient: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_shadow_ambient: TGLboolean absolute __GLEW_ARB_shadow_ambient;
+
   __GLEW_ARB_sparse_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sparse_buffer: TGLboolean absolute __GLEW_ARB_sparse_buffer;
+
   __GLEW_ARB_sparse_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sparse_texture: TGLboolean absolute __GLEW_ARB_sparse_texture;
+
   __GLEW_ARB_sparse_texture2: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sparse_texture2: TGLboolean absolute __GLEW_ARB_sparse_texture2;
+
   __GLEW_ARB_sparse_texture_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sparse_texture_clamp: TGLboolean absolute __GLEW_ARB_sparse_texture_clamp;
+
   __GLEW_ARB_spirv_extensions: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_spirv_extensions: TGLboolean absolute __GLEW_ARB_spirv_extensions;
+
   __GLEW_ARB_stencil_texturing: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_stencil_texturing: TGLboolean absolute __GLEW_ARB_stencil_texturing;
+
   __GLEW_ARB_sync: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_sync: TGLboolean absolute __GLEW_ARB_sync;
+
   __GLEW_ARB_tessellation_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_tessellation_shader: TGLboolean absolute __GLEW_ARB_tessellation_shader;
+
   __GLEW_ARB_texture_barrier: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_barrier: TGLboolean absolute __GLEW_ARB_texture_barrier;
+
   __GLEW_ARB_texture_border_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_border_clamp: TGLboolean absolute __GLEW_ARB_texture_border_clamp;
+
   __GLEW_ARB_texture_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_buffer_object: TGLboolean absolute __GLEW_ARB_texture_buffer_object;
+
   __GLEW_ARB_texture_buffer_object_rgb32: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_buffer_object_rgb32: TGLboolean absolute __GLEW_ARB_texture_buffer_object_rgb32;
+
   __GLEW_ARB_texture_buffer_range: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_buffer_range: TGLboolean absolute __GLEW_ARB_texture_buffer_range;
+
   __GLEW_ARB_texture_compression: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_compression: TGLboolean absolute __GLEW_ARB_texture_compression;
+
   __GLEW_ARB_texture_compression_bptc: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_compression_bptc: TGLboolean absolute __GLEW_ARB_texture_compression_bptc;
+
   __GLEW_ARB_texture_compression_rgtc: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_compression_rgtc: TGLboolean absolute __GLEW_ARB_texture_compression_rgtc;
+
   __GLEW_ARB_texture_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_cube_map: TGLboolean absolute __GLEW_ARB_texture_cube_map;
+
   __GLEW_ARB_texture_cube_map_array: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_cube_map_array: TGLboolean absolute __GLEW_ARB_texture_cube_map_array;
+
   __GLEW_ARB_texture_env_add: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_env_add: TGLboolean absolute __GLEW_ARB_texture_env_add;
+
   __GLEW_ARB_texture_env_combine: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_env_combine: TGLboolean absolute __GLEW_ARB_texture_env_combine;
+
   __GLEW_ARB_texture_env_crossbar: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_env_crossbar: TGLboolean absolute __GLEW_ARB_texture_env_crossbar;
+
   __GLEW_ARB_texture_env_dot3: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_env_dot3: TGLboolean absolute __GLEW_ARB_texture_env_dot3;
+
   __GLEW_ARB_texture_filter_anisotropic: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_filter_anisotropic: TGLboolean absolute __GLEW_ARB_texture_filter_anisotropic;
+
   __GLEW_ARB_texture_filter_minmax: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_filter_minmax: TGLboolean absolute __GLEW_ARB_texture_filter_minmax;
+
   __GLEW_ARB_texture_float: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_float: TGLboolean absolute __GLEW_ARB_texture_float;
+
   __GLEW_ARB_texture_gather: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_gather: TGLboolean absolute __GLEW_ARB_texture_gather;
+
   __GLEW_ARB_texture_mirror_clamp_to_edge: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_mirror_clamp_to_edge: TGLboolean absolute __GLEW_ARB_texture_mirror_clamp_to_edge;
+
   __GLEW_ARB_texture_mirrored_repeat: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_mirrored_repeat: TGLboolean absolute __GLEW_ARB_texture_mirrored_repeat;
+
   __GLEW_ARB_texture_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_multisample: TGLboolean absolute __GLEW_ARB_texture_multisample;
+
   __GLEW_ARB_texture_non_power_of_two: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_non_power_of_two: TGLboolean absolute __GLEW_ARB_texture_non_power_of_two;
+
   __GLEW_ARB_texture_query_levels: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_query_levels: TGLboolean absolute __GLEW_ARB_texture_query_levels;
+
   __GLEW_ARB_texture_query_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_query_lod: TGLboolean absolute __GLEW_ARB_texture_query_lod;
+
   __GLEW_ARB_texture_rectangle: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_rectangle: TGLboolean absolute __GLEW_ARB_texture_rectangle;
+
   __GLEW_ARB_texture_rg: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_rg: TGLboolean absolute __GLEW_ARB_texture_rg;
+
   __GLEW_ARB_texture_rgb10_a2ui: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_rgb10_a2ui: TGLboolean absolute __GLEW_ARB_texture_rgb10_a2ui;
+
   __GLEW_ARB_texture_stencil8: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_stencil8: TGLboolean absolute __GLEW_ARB_texture_stencil8;
+
   __GLEW_ARB_texture_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_storage: TGLboolean absolute __GLEW_ARB_texture_storage;
+
   __GLEW_ARB_texture_storage_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_storage_multisample: TGLboolean absolute __GLEW_ARB_texture_storage_multisample;
+
   __GLEW_ARB_texture_swizzle: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_swizzle: TGLboolean absolute __GLEW_ARB_texture_swizzle;
+
   __GLEW_ARB_texture_view: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_texture_view: TGLboolean absolute __GLEW_ARB_texture_view;
+
   __GLEW_ARB_timer_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_timer_query: TGLboolean absolute __GLEW_ARB_timer_query;
+
   __GLEW_ARB_transform_feedback2: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_transform_feedback2: TGLboolean absolute __GLEW_ARB_transform_feedback2;
+
   __GLEW_ARB_transform_feedback3: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_transform_feedback3: TGLboolean absolute __GLEW_ARB_transform_feedback3;
+
   __GLEW_ARB_transform_feedback_instanced: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_transform_feedback_instanced: TGLboolean absolute __GLEW_ARB_transform_feedback_instanced;
+
   __GLEW_ARB_transform_feedback_overflow_query: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_transform_feedback_overflow_query: TGLboolean absolute __GLEW_ARB_transform_feedback_overflow_query;
+
   __GLEW_ARB_transpose_matrix: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_transpose_matrix: TGLboolean absolute __GLEW_ARB_transpose_matrix;
+
   __GLEW_ARB_uniform_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_uniform_buffer_object: TGLboolean absolute __GLEW_ARB_uniform_buffer_object;
+
   __GLEW_ARB_vertex_array_bgra: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_array_bgra: TGLboolean absolute __GLEW_ARB_vertex_array_bgra;
+
   __GLEW_ARB_vertex_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_array_object: TGLboolean absolute __GLEW_ARB_vertex_array_object;
+
   __GLEW_ARB_vertex_attrib_64bit: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_attrib_64bit: TGLboolean absolute __GLEW_ARB_vertex_attrib_64bit;
+
   __GLEW_ARB_vertex_attrib_binding: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_attrib_binding: TGLboolean absolute __GLEW_ARB_vertex_attrib_binding;
+
   __GLEW_ARB_vertex_blend: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_blend: TGLboolean absolute __GLEW_ARB_vertex_blend;
+
   __GLEW_ARB_vertex_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_buffer_object: TGLboolean absolute __GLEW_ARB_vertex_buffer_object;
+
   __GLEW_ARB_vertex_program: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_program: TGLboolean absolute __GLEW_ARB_vertex_program;
+
   __GLEW_ARB_vertex_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_shader: TGLboolean absolute __GLEW_ARB_vertex_shader;
+
   __GLEW_ARB_vertex_type_10f_11f_11f_rev: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_type_10f_11f_11f_rev: TGLboolean absolute __GLEW_ARB_vertex_type_10f_11f_11f_rev;
+
   __GLEW_ARB_vertex_type_2_10_10_10_rev: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_vertex_type_2_10_10_10_rev: TGLboolean absolute __GLEW_ARB_vertex_type_2_10_10_10_rev;
+
   __GLEW_ARB_viewport_array: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_viewport_array: TGLboolean absolute __GLEW_ARB_viewport_array;
+
   __GLEW_ARB_window_pos: TGLboolean; cvar;external libGLEW;
+ GLEW_ARB_window_pos: TGLboolean absolute __GLEW_ARB_window_pos;
+
   __GLEW_ARM_mali_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_mali_program_binary: TGLboolean absolute __GLEW_ARM_mali_program_binary;
+
   __GLEW_ARM_mali_shader_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_mali_shader_binary: TGLboolean absolute __GLEW_ARM_mali_shader_binary;
+
   __GLEW_ARM_rgba8: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_rgba8: TGLboolean absolute __GLEW_ARM_rgba8;
+
   __GLEW_ARM_shader_framebuffer_fetch: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_shader_framebuffer_fetch: TGLboolean absolute __GLEW_ARM_shader_framebuffer_fetch;
+
   __GLEW_ARM_shader_framebuffer_fetch_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_shader_framebuffer_fetch_depth_stencil: TGLboolean absolute __GLEW_ARM_shader_framebuffer_fetch_depth_stencil;
+
   __GLEW_ARM_texture_unnormalized_coordinates: TGLboolean; cvar;external libGLEW;
+ GLEW_ARM_texture_unnormalized_coordinates: TGLboolean absolute __GLEW_ARM_texture_unnormalized_coordinates;
+
   __GLEW_ATIX_point_sprites: TGLboolean; cvar;external libGLEW;
+ GLEW_ATIX_point_sprites: TGLboolean absolute __GLEW_ATIX_point_sprites;
+
   __GLEW_ATIX_texture_env_combine3: TGLboolean; cvar;external libGLEW;
+ GLEW_ATIX_texture_env_combine3: TGLboolean absolute __GLEW_ATIX_texture_env_combine3;
+
   __GLEW_ATIX_texture_env_route: TGLboolean; cvar;external libGLEW;
+ GLEW_ATIX_texture_env_route: TGLboolean absolute __GLEW_ATIX_texture_env_route;
+
   __GLEW_ATIX_vertex_shader_output_point_size: TGLboolean; cvar;external libGLEW;
+ GLEW_ATIX_vertex_shader_output_point_size: TGLboolean absolute __GLEW_ATIX_vertex_shader_output_point_size;
+
   __GLEW_ATI_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_draw_buffers: TGLboolean absolute __GLEW_ATI_draw_buffers;
+
   __GLEW_ATI_element_array: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_element_array: TGLboolean absolute __GLEW_ATI_element_array;
+
   __GLEW_ATI_envmap_bumpmap: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_envmap_bumpmap: TGLboolean absolute __GLEW_ATI_envmap_bumpmap;
+
   __GLEW_ATI_fragment_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_fragment_shader: TGLboolean absolute __GLEW_ATI_fragment_shader;
+
   __GLEW_ATI_map_object_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_map_object_buffer: TGLboolean absolute __GLEW_ATI_map_object_buffer;
+
   __GLEW_ATI_meminfo: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_meminfo: TGLboolean absolute __GLEW_ATI_meminfo;
+
   __GLEW_ATI_pn_triangles: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_pn_triangles: TGLboolean absolute __GLEW_ATI_pn_triangles;
+
   __GLEW_ATI_separate_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_separate_stencil: TGLboolean absolute __GLEW_ATI_separate_stencil;
+
   __GLEW_ATI_shader_texture_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_shader_texture_lod: TGLboolean absolute __GLEW_ATI_shader_texture_lod;
+
   __GLEW_ATI_text_fragment_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_text_fragment_shader: TGLboolean absolute __GLEW_ATI_text_fragment_shader;
+
   __GLEW_ATI_texture_compression_3dc: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_texture_compression_3dc: TGLboolean absolute __GLEW_ATI_texture_compression_3dc;
+
   __GLEW_ATI_texture_env_combine3: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_texture_env_combine3: TGLboolean absolute __GLEW_ATI_texture_env_combine3;
+
   __GLEW_ATI_texture_float: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_texture_float: TGLboolean absolute __GLEW_ATI_texture_float;
+
   __GLEW_ATI_texture_mirror_once: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_texture_mirror_once: TGLboolean absolute __GLEW_ATI_texture_mirror_once;
+
   __GLEW_ATI_vertex_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_vertex_array_object: TGLboolean absolute __GLEW_ATI_vertex_array_object;
+
   __GLEW_ATI_vertex_attrib_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_vertex_attrib_array_object: TGLboolean absolute __GLEW_ATI_vertex_attrib_array_object;
+
   __GLEW_ATI_vertex_streams: TGLboolean; cvar;external libGLEW;
+ GLEW_ATI_vertex_streams: TGLboolean absolute __GLEW_ATI_vertex_streams;
+
   __GLEW_DMP_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_DMP_program_binary: TGLboolean absolute __GLEW_DMP_program_binary;
+
   __GLEW_DMP_shader_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_DMP_shader_binary: TGLboolean absolute __GLEW_DMP_shader_binary;
+
   __GLEW_EXT_422_pixels: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_422_pixels: TGLboolean absolute __GLEW_EXT_422_pixels;
+
   __GLEW_EXT_Cg_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_Cg_shader: TGLboolean absolute __GLEW_EXT_Cg_shader;
+
   __GLEW_EXT_EGL_image_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_EGL_image_array: TGLboolean absolute __GLEW_EXT_EGL_image_array;
+
   __GLEW_EXT_EGL_image_external_wrap_modes: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_EGL_image_external_wrap_modes: TGLboolean absolute __GLEW_EXT_EGL_image_external_wrap_modes;
+
   __GLEW_EXT_EGL_image_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_EGL_image_storage: TGLboolean absolute __GLEW_EXT_EGL_image_storage;
+
   __GLEW_EXT_EGL_sync: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_EGL_sync: TGLboolean absolute __GLEW_EXT_EGL_sync;
+
   __GLEW_EXT_YUV_target: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_YUV_target: TGLboolean absolute __GLEW_EXT_YUV_target;
+
   __GLEW_EXT_abgr: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_abgr: TGLboolean absolute __GLEW_EXT_abgr;
+
   __GLEW_EXT_base_instance: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_base_instance: TGLboolean absolute __GLEW_EXT_base_instance;
+
   __GLEW_EXT_bgra: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_bgra: TGLboolean absolute __GLEW_EXT_bgra;
+
   __GLEW_EXT_bindable_uniform: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_bindable_uniform: TGLboolean absolute __GLEW_EXT_bindable_uniform;
+
   __GLEW_EXT_blend_color: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_color: TGLboolean absolute __GLEW_EXT_blend_color;
+
   __GLEW_EXT_blend_equation_separate: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_equation_separate: TGLboolean absolute __GLEW_EXT_blend_equation_separate;
+
   __GLEW_EXT_blend_func_extended: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_func_extended: TGLboolean absolute __GLEW_EXT_blend_func_extended;
+
   __GLEW_EXT_blend_func_separate: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_func_separate: TGLboolean absolute __GLEW_EXT_blend_func_separate;
+
   __GLEW_EXT_blend_logic_op: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_logic_op: TGLboolean absolute __GLEW_EXT_blend_logic_op;
+
   __GLEW_EXT_blend_minmax: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_minmax: TGLboolean absolute __GLEW_EXT_blend_minmax;
+
   __GLEW_EXT_blend_subtract: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_blend_subtract: TGLboolean absolute __GLEW_EXT_blend_subtract;
+
   __GLEW_EXT_buffer_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_buffer_storage: TGLboolean absolute __GLEW_EXT_buffer_storage;
+
   __GLEW_EXT_clear_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_clear_texture: TGLboolean absolute __GLEW_EXT_clear_texture;
+
   __GLEW_EXT_clip_control: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_clip_control: TGLboolean absolute __GLEW_EXT_clip_control;
+
   __GLEW_EXT_clip_cull_distance: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_clip_cull_distance: TGLboolean absolute __GLEW_EXT_clip_cull_distance;
+
   __GLEW_EXT_clip_volume_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_clip_volume_hint: TGLboolean absolute __GLEW_EXT_clip_volume_hint;
+
   __GLEW_EXT_cmyka: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_cmyka: TGLboolean absolute __GLEW_EXT_cmyka;
+
   __GLEW_EXT_color_buffer_float: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_color_buffer_float: TGLboolean absolute __GLEW_EXT_color_buffer_float;
+
   __GLEW_EXT_color_buffer_half_float: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_color_buffer_half_float: TGLboolean absolute __GLEW_EXT_color_buffer_half_float;
+
   __GLEW_EXT_color_subtable: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_color_subtable: TGLboolean absolute __GLEW_EXT_color_subtable;
+
   __GLEW_EXT_compiled_vertex_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_compiled_vertex_array: TGLboolean absolute __GLEW_EXT_compiled_vertex_array;
+
   __GLEW_EXT_compressed_ETC1_RGB8_sub_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_compressed_ETC1_RGB8_sub_texture: TGLboolean absolute __GLEW_EXT_compressed_ETC1_RGB8_sub_texture;
+
   __GLEW_EXT_conservative_depth: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_conservative_depth: TGLboolean absolute __GLEW_EXT_conservative_depth;
+
   __GLEW_EXT_convolution: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_convolution: TGLboolean absolute __GLEW_EXT_convolution;
+
   __GLEW_EXT_coordinate_frame: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_coordinate_frame: TGLboolean absolute __GLEW_EXT_coordinate_frame;
+
   __GLEW_EXT_copy_image: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_copy_image: TGLboolean absolute __GLEW_EXT_copy_image;
+
   __GLEW_EXT_copy_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_copy_texture: TGLboolean absolute __GLEW_EXT_copy_texture;
+
   __GLEW_EXT_cull_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_cull_vertex: TGLboolean absolute __GLEW_EXT_cull_vertex;
+
   __GLEW_EXT_debug_label: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_debug_label: TGLboolean absolute __GLEW_EXT_debug_label;
+
   __GLEW_EXT_debug_marker: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_debug_marker: TGLboolean absolute __GLEW_EXT_debug_marker;
+
   __GLEW_EXT_depth_bounds_test: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_depth_bounds_test: TGLboolean absolute __GLEW_EXT_depth_bounds_test;
+
   __GLEW_EXT_depth_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_depth_clamp: TGLboolean absolute __GLEW_EXT_depth_clamp;
+
   __GLEW_EXT_direct_state_access: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_direct_state_access: TGLboolean absolute __GLEW_EXT_direct_state_access;
+
   __GLEW_EXT_discard_framebuffer: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_discard_framebuffer: TGLboolean absolute __GLEW_EXT_discard_framebuffer;
+
   __GLEW_EXT_disjoint_timer_query: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_disjoint_timer_query: TGLboolean absolute __GLEW_EXT_disjoint_timer_query;
+
   __GLEW_EXT_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_buffers: TGLboolean absolute __GLEW_EXT_draw_buffers;
+
   __GLEW_EXT_draw_buffers2: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_buffers2: TGLboolean absolute __GLEW_EXT_draw_buffers2;
+
   __GLEW_EXT_draw_buffers_indexed: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_buffers_indexed: TGLboolean absolute __GLEW_EXT_draw_buffers_indexed;
+
   __GLEW_EXT_draw_elements_base_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_elements_base_vertex: TGLboolean absolute __GLEW_EXT_draw_elements_base_vertex;
+
   __GLEW_EXT_draw_instanced: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_instanced: TGLboolean absolute __GLEW_EXT_draw_instanced;
+
   __GLEW_EXT_draw_range_elements: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_range_elements: TGLboolean absolute __GLEW_EXT_draw_range_elements;
+
   __GLEW_EXT_draw_transform_feedback: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_draw_transform_feedback: TGLboolean absolute __GLEW_EXT_draw_transform_feedback;
+
   __GLEW_EXT_external_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_external_buffer: TGLboolean absolute __GLEW_EXT_external_buffer;
+
   __GLEW_EXT_float_blend: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_float_blend: TGLboolean absolute __GLEW_EXT_float_blend;
+
   __GLEW_EXT_fog_coord: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_fog_coord: TGLboolean absolute __GLEW_EXT_fog_coord;
+
   __GLEW_EXT_frag_depth: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_frag_depth: TGLboolean absolute __GLEW_EXT_frag_depth;
+
   __GLEW_EXT_fragment_lighting: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_fragment_lighting: TGLboolean absolute __GLEW_EXT_fragment_lighting;
+
   __GLEW_EXT_framebuffer_blit: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_framebuffer_blit: TGLboolean absolute __GLEW_EXT_framebuffer_blit;
+
   __GLEW_EXT_framebuffer_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_framebuffer_multisample: TGLboolean absolute __GLEW_EXT_framebuffer_multisample;
+
   __GLEW_EXT_framebuffer_multisample_blit_scaled: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_framebuffer_multisample_blit_scaled: TGLboolean absolute __GLEW_EXT_framebuffer_multisample_blit_scaled;
+
   __GLEW_EXT_framebuffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_framebuffer_object: TGLboolean absolute __GLEW_EXT_framebuffer_object;
+
   __GLEW_EXT_framebuffer_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_framebuffer_sRGB: TGLboolean absolute __GLEW_EXT_framebuffer_sRGB;
+
   __GLEW_EXT_geometry_point_size: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_geometry_point_size: TGLboolean absolute __GLEW_EXT_geometry_point_size;
+
   __GLEW_EXT_geometry_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_geometry_shader: TGLboolean absolute __GLEW_EXT_geometry_shader;
+
   __GLEW_EXT_geometry_shader4: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_geometry_shader4: TGLboolean absolute __GLEW_EXT_geometry_shader4;
+
   __GLEW_EXT_gpu_program_parameters: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_gpu_program_parameters: TGLboolean absolute __GLEW_EXT_gpu_program_parameters;
+
   __GLEW_EXT_gpu_shader4: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_gpu_shader4: TGLboolean absolute __GLEW_EXT_gpu_shader4;
+
   __GLEW_EXT_gpu_shader5: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_gpu_shader5: TGLboolean absolute __GLEW_EXT_gpu_shader5;
+
   __GLEW_EXT_histogram: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_histogram: TGLboolean absolute __GLEW_EXT_histogram;
+
   __GLEW_EXT_index_array_formats: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_index_array_formats: TGLboolean absolute __GLEW_EXT_index_array_formats;
+
   __GLEW_EXT_index_func: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_index_func: TGLboolean absolute __GLEW_EXT_index_func;
+
   __GLEW_EXT_index_material: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_index_material: TGLboolean absolute __GLEW_EXT_index_material;
+
   __GLEW_EXT_index_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_index_texture: TGLboolean absolute __GLEW_EXT_index_texture;
+
   __GLEW_EXT_instanced_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_instanced_arrays: TGLboolean absolute __GLEW_EXT_instanced_arrays;
+
   __GLEW_EXT_light_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_light_texture: TGLboolean absolute __GLEW_EXT_light_texture;
+
   __GLEW_EXT_map_buffer_range: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_map_buffer_range: TGLboolean absolute __GLEW_EXT_map_buffer_range;
+
   __GLEW_EXT_memory_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_memory_object: TGLboolean absolute __GLEW_EXT_memory_object;
+
   __GLEW_EXT_memory_object_fd: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_memory_object_fd: TGLboolean absolute __GLEW_EXT_memory_object_fd;
+
   __GLEW_EXT_memory_object_win32: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_memory_object_win32: TGLboolean absolute __GLEW_EXT_memory_object_win32;
+
   __GLEW_EXT_misc_attribute: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_misc_attribute: TGLboolean absolute __GLEW_EXT_misc_attribute;
+
   __GLEW_EXT_multi_draw_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multi_draw_arrays: TGLboolean absolute __GLEW_EXT_multi_draw_arrays;
+
   __GLEW_EXT_multi_draw_indirect: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multi_draw_indirect: TGLboolean absolute __GLEW_EXT_multi_draw_indirect;
+
   __GLEW_EXT_multiple_textures: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multiple_textures: TGLboolean absolute __GLEW_EXT_multiple_textures;
+
   __GLEW_EXT_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multisample: TGLboolean absolute __GLEW_EXT_multisample;
+
   __GLEW_EXT_multisample_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multisample_compatibility: TGLboolean absolute __GLEW_EXT_multisample_compatibility;
+
   __GLEW_EXT_multisampled_render_to_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multisampled_render_to_texture: TGLboolean absolute __GLEW_EXT_multisampled_render_to_texture;
+
   __GLEW_EXT_multisampled_render_to_texture2: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multisampled_render_to_texture2: TGLboolean absolute __GLEW_EXT_multisampled_render_to_texture2;
+
   __GLEW_EXT_multiview_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multiview_draw_buffers: TGLboolean absolute __GLEW_EXT_multiview_draw_buffers;
+
   __GLEW_EXT_multiview_tessellation_geometry_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multiview_tessellation_geometry_shader: TGLboolean absolute __GLEW_EXT_multiview_tessellation_geometry_shader;
+
   __GLEW_EXT_multiview_texture_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multiview_texture_multisample: TGLboolean absolute __GLEW_EXT_multiview_texture_multisample;
+
   __GLEW_EXT_multiview_timer_query: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_multiview_timer_query: TGLboolean absolute __GLEW_EXT_multiview_timer_query;
+
   __GLEW_EXT_occlusion_query_boolean: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_occlusion_query_boolean: TGLboolean absolute __GLEW_EXT_occlusion_query_boolean;
+
   __GLEW_EXT_packed_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_packed_depth_stencil: TGLboolean absolute __GLEW_EXT_packed_depth_stencil;
+
   __GLEW_EXT_packed_float: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_packed_float: TGLboolean absolute __GLEW_EXT_packed_float;
+
   __GLEW_EXT_packed_pixels: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_packed_pixels: TGLboolean absolute __GLEW_EXT_packed_pixels;
+
   __GLEW_EXT_paletted_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_paletted_texture: TGLboolean absolute __GLEW_EXT_paletted_texture;
+
   __GLEW_EXT_pixel_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_pixel_buffer_object: TGLboolean absolute __GLEW_EXT_pixel_buffer_object;
+
   __GLEW_EXT_pixel_transform: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_pixel_transform: TGLboolean absolute __GLEW_EXT_pixel_transform;
+
   __GLEW_EXT_pixel_transform_color_table: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_pixel_transform_color_table: TGLboolean absolute __GLEW_EXT_pixel_transform_color_table;
+
   __GLEW_EXT_point_parameters: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_point_parameters: TGLboolean absolute __GLEW_EXT_point_parameters;
+
   __GLEW_EXT_polygon_offset: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_polygon_offset: TGLboolean absolute __GLEW_EXT_polygon_offset;
+
   __GLEW_EXT_polygon_offset_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_polygon_offset_clamp: TGLboolean absolute __GLEW_EXT_polygon_offset_clamp;
+
   __GLEW_EXT_post_depth_coverage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_post_depth_coverage: TGLboolean absolute __GLEW_EXT_post_depth_coverage;
+
   __GLEW_EXT_primitive_bounding_box: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_primitive_bounding_box: TGLboolean absolute __GLEW_EXT_primitive_bounding_box;
+
   __GLEW_EXT_protected_textures: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_protected_textures: TGLboolean absolute __GLEW_EXT_protected_textures;
+
   __GLEW_EXT_provoking_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_provoking_vertex: TGLboolean absolute __GLEW_EXT_provoking_vertex;
+
   __GLEW_EXT_pvrtc_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_pvrtc_sRGB: TGLboolean absolute __GLEW_EXT_pvrtc_sRGB;
+
   __GLEW_EXT_raster_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_raster_multisample: TGLboolean absolute __GLEW_EXT_raster_multisample;
+
   __GLEW_EXT_read_format_bgra: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_read_format_bgra: TGLboolean absolute __GLEW_EXT_read_format_bgra;
+
   __GLEW_EXT_render_snorm: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_render_snorm: TGLboolean absolute __GLEW_EXT_render_snorm;
+
   __GLEW_EXT_rescale_normal: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_rescale_normal: TGLboolean absolute __GLEW_EXT_rescale_normal;
+
   __GLEW_EXT_robustness: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_robustness: TGLboolean absolute __GLEW_EXT_robustness;
+
   __GLEW_EXT_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_sRGB: TGLboolean absolute __GLEW_EXT_sRGB;
+
   __GLEW_EXT_sRGB_write_control: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_sRGB_write_control: TGLboolean absolute __GLEW_EXT_sRGB_write_control;
+
   __GLEW_EXT_scene_marker: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_scene_marker: TGLboolean absolute __GLEW_EXT_scene_marker;
+
   __GLEW_EXT_secondary_color: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_secondary_color: TGLboolean absolute __GLEW_EXT_secondary_color;
+
   __GLEW_EXT_semaphore: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_semaphore: TGLboolean absolute __GLEW_EXT_semaphore;
+
   __GLEW_EXT_semaphore_fd: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_semaphore_fd: TGLboolean absolute __GLEW_EXT_semaphore_fd;
+
   __GLEW_EXT_semaphore_win32: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_semaphore_win32: TGLboolean absolute __GLEW_EXT_semaphore_win32;
+
   __GLEW_EXT_separate_shader_objects: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_separate_shader_objects: TGLboolean absolute __GLEW_EXT_separate_shader_objects;
+
   __GLEW_EXT_separate_specular_color: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_separate_specular_color: TGLboolean absolute __GLEW_EXT_separate_specular_color;
+
   __GLEW_EXT_shader_framebuffer_fetch: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_framebuffer_fetch: TGLboolean absolute __GLEW_EXT_shader_framebuffer_fetch;
+
   __GLEW_EXT_shader_framebuffer_fetch_non_coherent: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_framebuffer_fetch_non_coherent: TGLboolean absolute __GLEW_EXT_shader_framebuffer_fetch_non_coherent;
+
   __GLEW_EXT_shader_group_vote: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_group_vote: TGLboolean absolute __GLEW_EXT_shader_group_vote;
+
   __GLEW_EXT_shader_image_load_formatted: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_image_load_formatted: TGLboolean absolute __GLEW_EXT_shader_image_load_formatted;
+
   __GLEW_EXT_shader_image_load_store: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_image_load_store: TGLboolean absolute __GLEW_EXT_shader_image_load_store;
+
   __GLEW_EXT_shader_implicit_conversions: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_implicit_conversions: TGLboolean absolute __GLEW_EXT_shader_implicit_conversions;
+
   __GLEW_EXT_shader_integer_mix: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_integer_mix: TGLboolean absolute __GLEW_EXT_shader_integer_mix;
+
   __GLEW_EXT_shader_io_blocks: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_io_blocks: TGLboolean absolute __GLEW_EXT_shader_io_blocks;
+
   __GLEW_EXT_shader_non_constant_global_initializers: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_non_constant_global_initializers: TGLboolean absolute __GLEW_EXT_shader_non_constant_global_initializers;
+
   __GLEW_EXT_shader_pixel_local_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_pixel_local_storage: TGLboolean absolute __GLEW_EXT_shader_pixel_local_storage;
+
   __GLEW_EXT_shader_pixel_local_storage2: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_pixel_local_storage2: TGLboolean absolute __GLEW_EXT_shader_pixel_local_storage2;
+
   __GLEW_EXT_shader_texture_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shader_texture_lod: TGLboolean absolute __GLEW_EXT_shader_texture_lod;
+
   __GLEW_EXT_shadow_funcs: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shadow_funcs: TGLboolean absolute __GLEW_EXT_shadow_funcs;
+
   __GLEW_EXT_shadow_samplers: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shadow_samplers: TGLboolean absolute __GLEW_EXT_shadow_samplers;
+
   __GLEW_EXT_shared_texture_palette: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_shared_texture_palette: TGLboolean absolute __GLEW_EXT_shared_texture_palette;
+
   __GLEW_EXT_sparse_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_sparse_texture: TGLboolean absolute __GLEW_EXT_sparse_texture;
+
   __GLEW_EXT_sparse_texture2: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_sparse_texture2: TGLboolean absolute __GLEW_EXT_sparse_texture2;
+
   __GLEW_EXT_static_vertex_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_static_vertex_array: TGLboolean absolute __GLEW_EXT_static_vertex_array;
+
   __GLEW_EXT_stencil_clear_tag: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_stencil_clear_tag: TGLboolean absolute __GLEW_EXT_stencil_clear_tag;
+
   __GLEW_EXT_stencil_two_side: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_stencil_two_side: TGLboolean absolute __GLEW_EXT_stencil_two_side;
+
   __GLEW_EXT_stencil_wrap: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_stencil_wrap: TGLboolean absolute __GLEW_EXT_stencil_wrap;
+
   __GLEW_EXT_subtexture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_subtexture: TGLboolean absolute __GLEW_EXT_subtexture;
+
   __GLEW_EXT_tessellation_point_size: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_tessellation_point_size: TGLboolean absolute __GLEW_EXT_tessellation_point_size;
+
   __GLEW_EXT_tessellation_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_tessellation_shader: TGLboolean absolute __GLEW_EXT_tessellation_shader;
+
   __GLEW_EXT_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture: TGLboolean absolute __GLEW_EXT_texture;
+
   __GLEW_EXT_texture3D: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture3D: TGLboolean absolute __GLEW_EXT_texture3D;
+
   __GLEW_EXT_texture_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_array: TGLboolean absolute __GLEW_EXT_texture_array;
+
   __GLEW_EXT_texture_border_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_border_clamp: TGLboolean absolute __GLEW_EXT_texture_border_clamp;
+
   __GLEW_EXT_texture_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_buffer: TGLboolean absolute __GLEW_EXT_texture_buffer;
+
   __GLEW_EXT_texture_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_buffer_object: TGLboolean absolute __GLEW_EXT_texture_buffer_object;
+
   __GLEW_EXT_texture_compression_astc_decode_mode: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_astc_decode_mode: TGLboolean absolute __GLEW_EXT_texture_compression_astc_decode_mode;
+
   __GLEW_EXT_texture_compression_astc_decode_mode_rgb9e5: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_astc_decode_mode_rgb9e5: TGLboolean absolute __GLEW_EXT_texture_compression_astc_decode_mode_rgb9e5;
+
   __GLEW_EXT_texture_compression_bptc: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_bptc: TGLboolean absolute __GLEW_EXT_texture_compression_bptc;
+
   __GLEW_EXT_texture_compression_dxt1: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_dxt1: TGLboolean absolute __GLEW_EXT_texture_compression_dxt1;
+
   __GLEW_EXT_texture_compression_latc: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_latc: TGLboolean absolute __GLEW_EXT_texture_compression_latc;
+
   __GLEW_EXT_texture_compression_rgtc: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_rgtc: TGLboolean absolute __GLEW_EXT_texture_compression_rgtc;
+
   __GLEW_EXT_texture_compression_s3tc: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_s3tc: TGLboolean absolute __GLEW_EXT_texture_compression_s3tc;
+
   __GLEW_EXT_texture_compression_s3tc_srgb: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_compression_s3tc_srgb: TGLboolean absolute __GLEW_EXT_texture_compression_s3tc_srgb;
+
   __GLEW_EXT_texture_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_cube_map: TGLboolean absolute __GLEW_EXT_texture_cube_map;
+
   __GLEW_EXT_texture_cube_map_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_cube_map_array: TGLboolean absolute __GLEW_EXT_texture_cube_map_array;
+
   __GLEW_EXT_texture_edge_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_edge_clamp: TGLboolean absolute __GLEW_EXT_texture_edge_clamp;
+
   __GLEW_EXT_texture_env: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_env: TGLboolean absolute __GLEW_EXT_texture_env;
+
   __GLEW_EXT_texture_env_add: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_env_add: TGLboolean absolute __GLEW_EXT_texture_env_add;
+
   __GLEW_EXT_texture_env_combine: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_env_combine: TGLboolean absolute __GLEW_EXT_texture_env_combine;
+
   __GLEW_EXT_texture_env_dot3: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_env_dot3: TGLboolean absolute __GLEW_EXT_texture_env_dot3;
+
   __GLEW_EXT_texture_filter_anisotropic: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_filter_anisotropic: TGLboolean absolute __GLEW_EXT_texture_filter_anisotropic;
+
   __GLEW_EXT_texture_filter_minmax: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_filter_minmax: TGLboolean absolute __GLEW_EXT_texture_filter_minmax;
+
   __GLEW_EXT_texture_format_BGRA8888: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_format_BGRA8888: TGLboolean absolute __GLEW_EXT_texture_format_BGRA8888;
+
   __GLEW_EXT_texture_format_sRGB_override: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_format_sRGB_override: TGLboolean absolute __GLEW_EXT_texture_format_sRGB_override;
+
   __GLEW_EXT_texture_integer: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_integer: TGLboolean absolute __GLEW_EXT_texture_integer;
+
   __GLEW_EXT_texture_lod_bias: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_lod_bias: TGLboolean absolute __GLEW_EXT_texture_lod_bias;
+
   __GLEW_EXT_texture_mirror_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_mirror_clamp: TGLboolean absolute __GLEW_EXT_texture_mirror_clamp;
+
   __GLEW_EXT_texture_mirror_clamp_to_edge: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_mirror_clamp_to_edge: TGLboolean absolute __GLEW_EXT_texture_mirror_clamp_to_edge;
+
   __GLEW_EXT_texture_norm16: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_norm16: TGLboolean absolute __GLEW_EXT_texture_norm16;
+
   __GLEW_EXT_texture_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_object: TGLboolean absolute __GLEW_EXT_texture_object;
+
   __GLEW_EXT_texture_perturb_normal: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_perturb_normal: TGLboolean absolute __GLEW_EXT_texture_perturb_normal;
+
   __GLEW_EXT_texture_query_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_query_lod: TGLboolean absolute __GLEW_EXT_texture_query_lod;
+
   __GLEW_EXT_texture_rectangle: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_rectangle: TGLboolean absolute __GLEW_EXT_texture_rectangle;
+
   __GLEW_EXT_texture_rg: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_rg: TGLboolean absolute __GLEW_EXT_texture_rg;
+
   __GLEW_EXT_texture_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_sRGB: TGLboolean absolute __GLEW_EXT_texture_sRGB;
+
   __GLEW_EXT_texture_sRGB_R8: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_sRGB_R8: TGLboolean absolute __GLEW_EXT_texture_sRGB_R8;
+
   __GLEW_EXT_texture_sRGB_RG8: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_sRGB_RG8: TGLboolean absolute __GLEW_EXT_texture_sRGB_RG8;
+
   __GLEW_EXT_texture_sRGB_decode: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_sRGB_decode: TGLboolean absolute __GLEW_EXT_texture_sRGB_decode;
+
   __GLEW_EXT_texture_shadow_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_shadow_lod: TGLboolean absolute __GLEW_EXT_texture_shadow_lod;
+
   __GLEW_EXT_texture_shared_exponent: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_shared_exponent: TGLboolean absolute __GLEW_EXT_texture_shared_exponent;
+
   __GLEW_EXT_texture_snorm: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_snorm: TGLboolean absolute __GLEW_EXT_texture_snorm;
+
   __GLEW_EXT_texture_storage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_storage: TGLboolean absolute __GLEW_EXT_texture_storage;
+
   __GLEW_EXT_texture_swizzle: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_swizzle: TGLboolean absolute __GLEW_EXT_texture_swizzle;
+
   __GLEW_EXT_texture_type_2_10_10_10_REV: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_type_2_10_10_10_REV: TGLboolean absolute __GLEW_EXT_texture_type_2_10_10_10_REV;
+
   __GLEW_EXT_texture_view: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_texture_view: TGLboolean absolute __GLEW_EXT_texture_view;
+
   __GLEW_EXT_timer_query: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_timer_query: TGLboolean absolute __GLEW_EXT_timer_query;
+
   __GLEW_EXT_transform_feedback: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_transform_feedback: TGLboolean absolute __GLEW_EXT_transform_feedback;
+
   __GLEW_EXT_unpack_subimage: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_unpack_subimage: TGLboolean absolute __GLEW_EXT_unpack_subimage;
+
   __GLEW_EXT_vertex_array: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_array: TGLboolean absolute __GLEW_EXT_vertex_array;
+
   __GLEW_EXT_vertex_array_bgra: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_array_bgra: TGLboolean absolute __GLEW_EXT_vertex_array_bgra;
+
   __GLEW_EXT_vertex_array_setXXX: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_array_setXXX: TGLboolean absolute __GLEW_EXT_vertex_array_setXXX;
+
   __GLEW_EXT_vertex_attrib_64bit: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_attrib_64bit: TGLboolean absolute __GLEW_EXT_vertex_attrib_64bit;
+
   __GLEW_EXT_vertex_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_shader: TGLboolean absolute __GLEW_EXT_vertex_shader;
+
   __GLEW_EXT_vertex_weighting: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_vertex_weighting: TGLboolean absolute __GLEW_EXT_vertex_weighting;
+
   __GLEW_EXT_win32_keyed_mutex: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_win32_keyed_mutex: TGLboolean absolute __GLEW_EXT_win32_keyed_mutex;
+
   __GLEW_EXT_window_rectangles: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_window_rectangles: TGLboolean absolute __GLEW_EXT_window_rectangles;
+
   __GLEW_EXT_x11_sync_object: TGLboolean; cvar;external libGLEW;
+ GLEW_EXT_x11_sync_object: TGLboolean absolute __GLEW_EXT_x11_sync_object;
+
   __GLEW_FJ_shader_binary_GCCSO: TGLboolean; cvar;external libGLEW;
+ GLEW_FJ_shader_binary_GCCSO: TGLboolean absolute __GLEW_FJ_shader_binary_GCCSO;
+
   __GLEW_GREMEDY_frame_terminator: TGLboolean; cvar;external libGLEW;
+ GLEW_GREMEDY_frame_terminator: TGLboolean absolute __GLEW_GREMEDY_frame_terminator;
+
   __GLEW_GREMEDY_string_marker: TGLboolean; cvar;external libGLEW;
+ GLEW_GREMEDY_string_marker: TGLboolean absolute __GLEW_GREMEDY_string_marker;
+
   __GLEW_HP_convolution_border_modes: TGLboolean; cvar;external libGLEW;
+ GLEW_HP_convolution_border_modes: TGLboolean absolute __GLEW_HP_convolution_border_modes;
+
   __GLEW_HP_image_transform: TGLboolean; cvar;external libGLEW;
+ GLEW_HP_image_transform: TGLboolean absolute __GLEW_HP_image_transform;
+
   __GLEW_HP_occlusion_test: TGLboolean; cvar;external libGLEW;
+ GLEW_HP_occlusion_test: TGLboolean absolute __GLEW_HP_occlusion_test;
+
   __GLEW_HP_texture_lighting: TGLboolean; cvar;external libGLEW;
+ GLEW_HP_texture_lighting: TGLboolean absolute __GLEW_HP_texture_lighting;
+
   __GLEW_IBM_cull_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_cull_vertex: TGLboolean absolute __GLEW_IBM_cull_vertex;
+
   __GLEW_IBM_multimode_draw_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_multimode_draw_arrays: TGLboolean absolute __GLEW_IBM_multimode_draw_arrays;
+
   __GLEW_IBM_rasterpos_clip: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_rasterpos_clip: TGLboolean absolute __GLEW_IBM_rasterpos_clip;
+
   __GLEW_IBM_static_data: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_static_data: TGLboolean absolute __GLEW_IBM_static_data;
+
   __GLEW_IBM_texture_mirrored_repeat: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_texture_mirrored_repeat: TGLboolean absolute __GLEW_IBM_texture_mirrored_repeat;
+
   __GLEW_IBM_vertex_array_lists: TGLboolean; cvar;external libGLEW;
+ GLEW_IBM_vertex_array_lists: TGLboolean absolute __GLEW_IBM_vertex_array_lists;
+
   __GLEW_IMG_bindless_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_bindless_texture: TGLboolean absolute __GLEW_IMG_bindless_texture;
+
   __GLEW_IMG_framebuffer_downsample: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_framebuffer_downsample: TGLboolean absolute __GLEW_IMG_framebuffer_downsample;
+
   __GLEW_IMG_multisampled_render_to_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_multisampled_render_to_texture: TGLboolean absolute __GLEW_IMG_multisampled_render_to_texture;
+
   __GLEW_IMG_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_program_binary: TGLboolean absolute __GLEW_IMG_program_binary;
+
   __GLEW_IMG_read_format: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_read_format: TGLboolean absolute __GLEW_IMG_read_format;
+
   __GLEW_IMG_shader_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_shader_binary: TGLboolean absolute __GLEW_IMG_shader_binary;
+
   __GLEW_IMG_texture_compression_pvrtc: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_texture_compression_pvrtc: TGLboolean absolute __GLEW_IMG_texture_compression_pvrtc;
+
   __GLEW_IMG_texture_compression_pvrtc2: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_texture_compression_pvrtc2: TGLboolean absolute __GLEW_IMG_texture_compression_pvrtc2;
+
   __GLEW_IMG_texture_env_enhanced_fixed_function: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_texture_env_enhanced_fixed_function: TGLboolean absolute __GLEW_IMG_texture_env_enhanced_fixed_function;
+
   __GLEW_IMG_texture_filter_cubic: TGLboolean; cvar;external libGLEW;
+ GLEW_IMG_texture_filter_cubic: TGLboolean absolute __GLEW_IMG_texture_filter_cubic;
+
   __GLEW_INGR_color_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_INGR_color_clamp: TGLboolean absolute __GLEW_INGR_color_clamp;
+
   __GLEW_INGR_interlace_read: TGLboolean; cvar;external libGLEW;
+ GLEW_INGR_interlace_read: TGLboolean absolute __GLEW_INGR_interlace_read;
+
   __GLEW_INTEL_blackhole_render: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_blackhole_render: TGLboolean absolute __GLEW_INTEL_blackhole_render;
+
   __GLEW_INTEL_conservative_rasterization: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_conservative_rasterization: TGLboolean absolute __GLEW_INTEL_conservative_rasterization;
+
   __GLEW_INTEL_fragment_shader_ordering: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_fragment_shader_ordering: TGLboolean absolute __GLEW_INTEL_fragment_shader_ordering;
+
   __GLEW_INTEL_framebuffer_CMAA: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_framebuffer_CMAA: TGLboolean absolute __GLEW_INTEL_framebuffer_CMAA;
+
   __GLEW_INTEL_map_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_map_texture: TGLboolean absolute __GLEW_INTEL_map_texture;
+
   __GLEW_INTEL_parallel_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_parallel_arrays: TGLboolean absolute __GLEW_INTEL_parallel_arrays;
+
   __GLEW_INTEL_performance_query: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_performance_query: TGLboolean absolute __GLEW_INTEL_performance_query;
+
   __GLEW_INTEL_shader_integer_functions2: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_shader_integer_functions2: TGLboolean absolute __GLEW_INTEL_shader_integer_functions2;
+
   __GLEW_INTEL_texture_scissor: TGLboolean; cvar;external libGLEW;
+ GLEW_INTEL_texture_scissor: TGLboolean absolute __GLEW_INTEL_texture_scissor;
+
   __GLEW_KHR_blend_equation_advanced: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_blend_equation_advanced: TGLboolean absolute __GLEW_KHR_blend_equation_advanced;
+
   __GLEW_KHR_blend_equation_advanced_coherent: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_blend_equation_advanced_coherent: TGLboolean absolute __GLEW_KHR_blend_equation_advanced_coherent;
+
   __GLEW_KHR_context_flush_control: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_context_flush_control: TGLboolean absolute __GLEW_KHR_context_flush_control;
+
   __GLEW_KHR_debug: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_debug: TGLboolean absolute __GLEW_KHR_debug;
+
   __GLEW_KHR_no_error: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_no_error: TGLboolean absolute __GLEW_KHR_no_error;
+
   __GLEW_KHR_parallel_shader_compile: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_parallel_shader_compile: TGLboolean absolute __GLEW_KHR_parallel_shader_compile;
+
   __GLEW_KHR_robust_buffer_access_behavior: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_robust_buffer_access_behavior: TGLboolean absolute __GLEW_KHR_robust_buffer_access_behavior;
+
   __GLEW_KHR_robustness: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_robustness: TGLboolean absolute __GLEW_KHR_robustness;
+
   __GLEW_KHR_shader_subgroup: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_shader_subgroup: TGLboolean absolute __GLEW_KHR_shader_subgroup;
+
   __GLEW_KHR_texture_compression_astc_hdr: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_texture_compression_astc_hdr: TGLboolean absolute __GLEW_KHR_texture_compression_astc_hdr;
+
   __GLEW_KHR_texture_compression_astc_ldr: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_texture_compression_astc_ldr: TGLboolean absolute __GLEW_KHR_texture_compression_astc_ldr;
+
   __GLEW_KHR_texture_compression_astc_sliced_3d: TGLboolean; cvar;external libGLEW;
+ GLEW_KHR_texture_compression_astc_sliced_3d: TGLboolean absolute __GLEW_KHR_texture_compression_astc_sliced_3d;
+
   __GLEW_KTX_buffer_region: TGLboolean; cvar;external libGLEW;
+ GLEW_KTX_buffer_region: TGLboolean absolute __GLEW_KTX_buffer_region;
+
   __GLEW_MESAX_texture_stack: TGLboolean; cvar;external libGLEW;
+ GLEW_MESAX_texture_stack: TGLboolean absolute __GLEW_MESAX_texture_stack;
+
   __GLEW_MESA_framebuffer_flip_y: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_framebuffer_flip_y: TGLboolean absolute __GLEW_MESA_framebuffer_flip_y;
+
   __GLEW_MESA_pack_invert: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_pack_invert: TGLboolean absolute __GLEW_MESA_pack_invert;
+
   __GLEW_MESA_program_binary_formats: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_program_binary_formats: TGLboolean absolute __GLEW_MESA_program_binary_formats;
+
   __GLEW_MESA_resize_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_resize_buffers: TGLboolean absolute __GLEW_MESA_resize_buffers;
+
   __GLEW_MESA_shader_integer_functions: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_shader_integer_functions: TGLboolean absolute __GLEW_MESA_shader_integer_functions;
+
   __GLEW_MESA_tile_raster_order: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_tile_raster_order: TGLboolean absolute __GLEW_MESA_tile_raster_order;
+
   __GLEW_MESA_window_pos: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_window_pos: TGLboolean absolute __GLEW_MESA_window_pos;
+
   __GLEW_MESA_ycbcr_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_MESA_ycbcr_texture: TGLboolean absolute __GLEW_MESA_ycbcr_texture;
+
   __GLEW_NVX_blend_equation_advanced_multi_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_blend_equation_advanced_multi_draw_buffers: TGLboolean absolute __GLEW_NVX_blend_equation_advanced_multi_draw_buffers;
+
   __GLEW_NVX_conditional_render: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_conditional_render: TGLboolean absolute __GLEW_NVX_conditional_render;
+
   __GLEW_NVX_gpu_memory_info: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_gpu_memory_info: TGLboolean absolute __GLEW_NVX_gpu_memory_info;
+
   __GLEW_NVX_gpu_multicast2: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_gpu_multicast2: TGLboolean absolute __GLEW_NVX_gpu_multicast2;
+
   __GLEW_NVX_linked_gpu_multicast: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_linked_gpu_multicast: TGLboolean absolute __GLEW_NVX_linked_gpu_multicast;
+
   __GLEW_NVX_progress_fence: TGLboolean; cvar;external libGLEW;
+ GLEW_NVX_progress_fence: TGLboolean absolute __GLEW_NVX_progress_fence;
+
   __GLEW_NV_3dvision_settings: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_3dvision_settings: TGLboolean absolute __GLEW_NV_3dvision_settings;
+
   __GLEW_NV_EGL_stream_consumer_external: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_EGL_stream_consumer_external: TGLboolean absolute __GLEW_NV_EGL_stream_consumer_external;
+
   __GLEW_NV_alpha_to_coverage_dither_control: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_alpha_to_coverage_dither_control: TGLboolean absolute __GLEW_NV_alpha_to_coverage_dither_control;
+
   __GLEW_NV_bgr: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_bgr: TGLboolean absolute __GLEW_NV_bgr;
+
   __GLEW_NV_bindless_multi_draw_indirect: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_bindless_multi_draw_indirect: TGLboolean absolute __GLEW_NV_bindless_multi_draw_indirect;
+
   __GLEW_NV_bindless_multi_draw_indirect_count: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_bindless_multi_draw_indirect_count: TGLboolean absolute __GLEW_NV_bindless_multi_draw_indirect_count;
+
   __GLEW_NV_bindless_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_bindless_texture: TGLboolean absolute __GLEW_NV_bindless_texture;
+
   __GLEW_NV_blend_equation_advanced: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_blend_equation_advanced: TGLboolean absolute __GLEW_NV_blend_equation_advanced;
+
   __GLEW_NV_blend_equation_advanced_coherent: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_blend_equation_advanced_coherent: TGLboolean absolute __GLEW_NV_blend_equation_advanced_coherent;
+
   __GLEW_NV_blend_minmax_factor: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_blend_minmax_factor: TGLboolean absolute __GLEW_NV_blend_minmax_factor;
+
   __GLEW_NV_blend_square: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_blend_square: TGLboolean absolute __GLEW_NV_blend_square;
+
   __GLEW_NV_clip_space_w_scaling: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_clip_space_w_scaling: TGLboolean absolute __GLEW_NV_clip_space_w_scaling;
+
   __GLEW_NV_command_list: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_command_list: TGLboolean absolute __GLEW_NV_command_list;
+
   __GLEW_NV_compute_program5: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_compute_program5: TGLboolean absolute __GLEW_NV_compute_program5;
+
   __GLEW_NV_compute_shader_derivatives: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_compute_shader_derivatives: TGLboolean absolute __GLEW_NV_compute_shader_derivatives;
+
   __GLEW_NV_conditional_render: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conditional_render: TGLboolean absolute __GLEW_NV_conditional_render;
+
   __GLEW_NV_conservative_raster: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conservative_raster: TGLboolean absolute __GLEW_NV_conservative_raster;
+
   __GLEW_NV_conservative_raster_dilate: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conservative_raster_dilate: TGLboolean absolute __GLEW_NV_conservative_raster_dilate;
+
   __GLEW_NV_conservative_raster_pre_snap: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conservative_raster_pre_snap: TGLboolean absolute __GLEW_NV_conservative_raster_pre_snap;
+
   __GLEW_NV_conservative_raster_pre_snap_triangles: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conservative_raster_pre_snap_triangles: TGLboolean absolute __GLEW_NV_conservative_raster_pre_snap_triangles;
+
   __GLEW_NV_conservative_raster_underestimation: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_conservative_raster_underestimation: TGLboolean absolute __GLEW_NV_conservative_raster_underestimation;
+
   __GLEW_NV_copy_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_copy_buffer: TGLboolean absolute __GLEW_NV_copy_buffer;
+
   __GLEW_NV_copy_depth_to_color: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_copy_depth_to_color: TGLboolean absolute __GLEW_NV_copy_depth_to_color;
+
   __GLEW_NV_copy_image: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_copy_image: TGLboolean absolute __GLEW_NV_copy_image;
+
   __GLEW_NV_deep_texture3D: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_deep_texture3D: TGLboolean absolute __GLEW_NV_deep_texture3D;
+
   __GLEW_NV_depth_buffer_float: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_depth_buffer_float: TGLboolean absolute __GLEW_NV_depth_buffer_float;
+
   __GLEW_NV_depth_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_depth_clamp: TGLboolean absolute __GLEW_NV_depth_clamp;
+
   __GLEW_NV_depth_nonlinear: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_depth_nonlinear: TGLboolean absolute __GLEW_NV_depth_nonlinear;
+
   __GLEW_NV_depth_range_unclamped: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_depth_range_unclamped: TGLboolean absolute __GLEW_NV_depth_range_unclamped;
+
   __GLEW_NV_draw_buffers: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_draw_buffers: TGLboolean absolute __GLEW_NV_draw_buffers;
+
   __GLEW_NV_draw_instanced: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_draw_instanced: TGLboolean absolute __GLEW_NV_draw_instanced;
+
   __GLEW_NV_draw_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_draw_texture: TGLboolean absolute __GLEW_NV_draw_texture;
+
   __GLEW_NV_draw_vulkan_image: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_draw_vulkan_image: TGLboolean absolute __GLEW_NV_draw_vulkan_image;
+
   __GLEW_NV_evaluators: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_evaluators: TGLboolean absolute __GLEW_NV_evaluators;
+
   __GLEW_NV_explicit_attrib_location: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_explicit_attrib_location: TGLboolean absolute __GLEW_NV_explicit_attrib_location;
+
   __GLEW_NV_explicit_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_explicit_multisample: TGLboolean absolute __GLEW_NV_explicit_multisample;
+
   __GLEW_NV_fbo_color_attachments: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fbo_color_attachments: TGLboolean absolute __GLEW_NV_fbo_color_attachments;
+
   __GLEW_NV_fence: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fence: TGLboolean absolute __GLEW_NV_fence;
+
   __GLEW_NV_fill_rectangle: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fill_rectangle: TGLboolean absolute __GLEW_NV_fill_rectangle;
+
   __GLEW_NV_float_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_float_buffer: TGLboolean absolute __GLEW_NV_float_buffer;
+
   __GLEW_NV_fog_distance: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fog_distance: TGLboolean absolute __GLEW_NV_fog_distance;
+
   __GLEW_NV_fragment_coverage_to_color: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_coverage_to_color: TGLboolean absolute __GLEW_NV_fragment_coverage_to_color;
+
   __GLEW_NV_fragment_program: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_program: TGLboolean absolute __GLEW_NV_fragment_program;
+
   __GLEW_NV_fragment_program2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_program2: TGLboolean absolute __GLEW_NV_fragment_program2;
+
   __GLEW_NV_fragment_program4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_program4: TGLboolean absolute __GLEW_NV_fragment_program4;
+
   __GLEW_NV_fragment_program_option: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_program_option: TGLboolean absolute __GLEW_NV_fragment_program_option;
+
   __GLEW_NV_fragment_shader_barycentric: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_shader_barycentric: TGLboolean absolute __GLEW_NV_fragment_shader_barycentric;
+
   __GLEW_NV_fragment_shader_interlock: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_fragment_shader_interlock: TGLboolean absolute __GLEW_NV_fragment_shader_interlock;
+
   __GLEW_NV_framebuffer_blit: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_framebuffer_blit: TGLboolean absolute __GLEW_NV_framebuffer_blit;
+
   __GLEW_NV_framebuffer_mixed_samples: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_framebuffer_mixed_samples: TGLboolean absolute __GLEW_NV_framebuffer_mixed_samples;
+
   __GLEW_NV_framebuffer_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_framebuffer_multisample: TGLboolean absolute __GLEW_NV_framebuffer_multisample;
+
   __GLEW_NV_framebuffer_multisample_coverage: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_framebuffer_multisample_coverage: TGLboolean absolute __GLEW_NV_framebuffer_multisample_coverage;
+
   __GLEW_NV_generate_mipmap_sRGB: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_generate_mipmap_sRGB: TGLboolean absolute __GLEW_NV_generate_mipmap_sRGB;
+
   __GLEW_NV_geometry_program4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_geometry_program4: TGLboolean absolute __GLEW_NV_geometry_program4;
+
   __GLEW_NV_geometry_shader4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_geometry_shader4: TGLboolean absolute __GLEW_NV_geometry_shader4;
+
   __GLEW_NV_geometry_shader_passthrough: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_geometry_shader_passthrough: TGLboolean absolute __GLEW_NV_geometry_shader_passthrough;
+
   __GLEW_NV_gpu_multicast: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_multicast: TGLboolean absolute __GLEW_NV_gpu_multicast;
+
   __GLEW_NV_gpu_program4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_program4: TGLboolean absolute __GLEW_NV_gpu_program4;
+
   __GLEW_NV_gpu_program5: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_program5: TGLboolean absolute __GLEW_NV_gpu_program5;
+
   __GLEW_NV_gpu_program5_mem_extended: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_program5_mem_extended: TGLboolean absolute __GLEW_NV_gpu_program5_mem_extended;
+
   __GLEW_NV_gpu_program_fp64: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_program_fp64: TGLboolean absolute __GLEW_NV_gpu_program_fp64;
+
   __GLEW_NV_gpu_shader5: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_gpu_shader5: TGLboolean absolute __GLEW_NV_gpu_shader5;
+
   __GLEW_NV_half_float: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_half_float: TGLboolean absolute __GLEW_NV_half_float;
+
   __GLEW_NV_image_formats: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_image_formats: TGLboolean absolute __GLEW_NV_image_formats;
+
   __GLEW_NV_instanced_arrays: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_instanced_arrays: TGLboolean absolute __GLEW_NV_instanced_arrays;
+
   __GLEW_NV_internalformat_sample_query: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_internalformat_sample_query: TGLboolean absolute __GLEW_NV_internalformat_sample_query;
+
   __GLEW_NV_light_max_exponent: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_light_max_exponent: TGLboolean absolute __GLEW_NV_light_max_exponent;
+
   __GLEW_NV_memory_attachment: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_memory_attachment: TGLboolean absolute __GLEW_NV_memory_attachment;
+
   __GLEW_NV_mesh_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_mesh_shader: TGLboolean absolute __GLEW_NV_mesh_shader;
+
   __GLEW_NV_multisample_coverage: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_multisample_coverage: TGLboolean absolute __GLEW_NV_multisample_coverage;
+
   __GLEW_NV_multisample_filter_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_multisample_filter_hint: TGLboolean absolute __GLEW_NV_multisample_filter_hint;
+
   __GLEW_NV_non_square_matrices: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_non_square_matrices: TGLboolean absolute __GLEW_NV_non_square_matrices;
+
   __GLEW_NV_occlusion_query: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_occlusion_query: TGLboolean absolute __GLEW_NV_occlusion_query;
+
   __GLEW_NV_pack_subimage: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_pack_subimage: TGLboolean absolute __GLEW_NV_pack_subimage;
+
   __GLEW_NV_packed_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_packed_depth_stencil: TGLboolean absolute __GLEW_NV_packed_depth_stencil;
+
   __GLEW_NV_packed_float: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_packed_float: TGLboolean absolute __GLEW_NV_packed_float;
+
   __GLEW_NV_packed_float_linear: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_packed_float_linear: TGLboolean absolute __GLEW_NV_packed_float_linear;
+
   __GLEW_NV_parameter_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_parameter_buffer_object: TGLboolean absolute __GLEW_NV_parameter_buffer_object;
+
   __GLEW_NV_parameter_buffer_object2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_parameter_buffer_object2: TGLboolean absolute __GLEW_NV_parameter_buffer_object2;
+
   __GLEW_NV_path_rendering: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_path_rendering: TGLboolean absolute __GLEW_NV_path_rendering;
+
   __GLEW_NV_path_rendering_shared_edge: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_path_rendering_shared_edge: TGLboolean absolute __GLEW_NV_path_rendering_shared_edge;
+
   __GLEW_NV_pixel_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_pixel_buffer_object: TGLboolean absolute __GLEW_NV_pixel_buffer_object;
+
   __GLEW_NV_pixel_data_range: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_pixel_data_range: TGLboolean absolute __GLEW_NV_pixel_data_range;
+
   __GLEW_NV_platform_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_platform_binary: TGLboolean absolute __GLEW_NV_platform_binary;
+
   __GLEW_NV_point_sprite: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_point_sprite: TGLboolean absolute __GLEW_NV_point_sprite;
+
   __GLEW_NV_polygon_mode: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_polygon_mode: TGLboolean absolute __GLEW_NV_polygon_mode;
+
   __GLEW_NV_present_video: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_present_video: TGLboolean absolute __GLEW_NV_present_video;
+
   __GLEW_NV_primitive_restart: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_primitive_restart: TGLboolean absolute __GLEW_NV_primitive_restart;
+
   __GLEW_NV_query_resource_tag: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_query_resource_tag: TGLboolean absolute __GLEW_NV_query_resource_tag;
+
   __GLEW_NV_read_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_read_buffer: TGLboolean absolute __GLEW_NV_read_buffer;
+
   __GLEW_NV_read_buffer_front: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_read_buffer_front: TGLboolean absolute __GLEW_NV_read_buffer_front;
+
   __GLEW_NV_read_depth: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_read_depth: TGLboolean absolute __GLEW_NV_read_depth;
+
   __GLEW_NV_read_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_read_depth_stencil: TGLboolean absolute __GLEW_NV_read_depth_stencil;
+
   __GLEW_NV_read_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_read_stencil: TGLboolean absolute __GLEW_NV_read_stencil;
+
   __GLEW_NV_register_combiners: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_register_combiners: TGLboolean absolute __GLEW_NV_register_combiners;
+
   __GLEW_NV_register_combiners2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_register_combiners2: TGLboolean absolute __GLEW_NV_register_combiners2;
+
   __GLEW_NV_representative_fragment_test: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_representative_fragment_test: TGLboolean absolute __GLEW_NV_representative_fragment_test;
+
   __GLEW_NV_robustness_video_memory_purge: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_robustness_video_memory_purge: TGLboolean absolute __GLEW_NV_robustness_video_memory_purge;
+
   __GLEW_NV_sRGB_formats: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_sRGB_formats: TGLboolean absolute __GLEW_NV_sRGB_formats;
+
   __GLEW_NV_sample_locations: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_sample_locations: TGLboolean absolute __GLEW_NV_sample_locations;
+
   __GLEW_NV_sample_mask_override_coverage: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_sample_mask_override_coverage: TGLboolean absolute __GLEW_NV_sample_mask_override_coverage;
+
   __GLEW_NV_scissor_exclusive: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_scissor_exclusive: TGLboolean absolute __GLEW_NV_scissor_exclusive;
+
   __GLEW_NV_shader_atomic_counters: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_atomic_counters: TGLboolean absolute __GLEW_NV_shader_atomic_counters;
+
   __GLEW_NV_shader_atomic_float: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_atomic_float: TGLboolean absolute __GLEW_NV_shader_atomic_float;
+
   __GLEW_NV_shader_atomic_float64: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_atomic_float64: TGLboolean absolute __GLEW_NV_shader_atomic_float64;
+
   __GLEW_NV_shader_atomic_fp16_vector: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_atomic_fp16_vector: TGLboolean absolute __GLEW_NV_shader_atomic_fp16_vector;
+
   __GLEW_NV_shader_atomic_int64: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_atomic_int64: TGLboolean absolute __GLEW_NV_shader_atomic_int64;
+
   __GLEW_NV_shader_buffer_load: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_buffer_load: TGLboolean absolute __GLEW_NV_shader_buffer_load;
+
   __GLEW_NV_shader_noperspective_interpolation: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_noperspective_interpolation: TGLboolean absolute __GLEW_NV_shader_noperspective_interpolation;
+
   __GLEW_NV_shader_storage_buffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_storage_buffer_object: TGLboolean absolute __GLEW_NV_shader_storage_buffer_object;
+
   __GLEW_NV_shader_subgroup_partitioned: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_subgroup_partitioned: TGLboolean absolute __GLEW_NV_shader_subgroup_partitioned;
+
   __GLEW_NV_shader_texture_footprint: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_texture_footprint: TGLboolean absolute __GLEW_NV_shader_texture_footprint;
+
   __GLEW_NV_shader_thread_group: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_thread_group: TGLboolean absolute __GLEW_NV_shader_thread_group;
+
   __GLEW_NV_shader_thread_shuffle: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shader_thread_shuffle: TGLboolean absolute __GLEW_NV_shader_thread_shuffle;
+
   __GLEW_NV_shading_rate_image: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shading_rate_image: TGLboolean absolute __GLEW_NV_shading_rate_image;
+
   __GLEW_NV_shadow_samplers_array: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shadow_samplers_array: TGLboolean absolute __GLEW_NV_shadow_samplers_array;
+
   __GLEW_NV_shadow_samplers_cube: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_shadow_samplers_cube: TGLboolean absolute __GLEW_NV_shadow_samplers_cube;
+
   __GLEW_NV_stereo_view_rendering: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_stereo_view_rendering: TGLboolean absolute __GLEW_NV_stereo_view_rendering;
+
   __GLEW_NV_tessellation_program5: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_tessellation_program5: TGLboolean absolute __GLEW_NV_tessellation_program5;
+
   __GLEW_NV_texgen_emboss: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texgen_emboss: TGLboolean absolute __GLEW_NV_texgen_emboss;
+
   __GLEW_NV_texgen_reflection: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texgen_reflection: TGLboolean absolute __GLEW_NV_texgen_reflection;
+
   __GLEW_NV_texture_array: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_array: TGLboolean absolute __GLEW_NV_texture_array;
+
   __GLEW_NV_texture_barrier: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_barrier: TGLboolean absolute __GLEW_NV_texture_barrier;
+
   __GLEW_NV_texture_border_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_border_clamp: TGLboolean absolute __GLEW_NV_texture_border_clamp;
+
   __GLEW_NV_texture_compression_latc: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_compression_latc: TGLboolean absolute __GLEW_NV_texture_compression_latc;
+
   __GLEW_NV_texture_compression_s3tc: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_compression_s3tc: TGLboolean absolute __GLEW_NV_texture_compression_s3tc;
+
   __GLEW_NV_texture_compression_s3tc_update: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_compression_s3tc_update: TGLboolean absolute __GLEW_NV_texture_compression_s3tc_update;
+
   __GLEW_NV_texture_compression_vtc: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_compression_vtc: TGLboolean absolute __GLEW_NV_texture_compression_vtc;
+
   __GLEW_NV_texture_env_combine4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_env_combine4: TGLboolean absolute __GLEW_NV_texture_env_combine4;
+
   __GLEW_NV_texture_expand_normal: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_expand_normal: TGLboolean absolute __GLEW_NV_texture_expand_normal;
+
   __GLEW_NV_texture_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_multisample: TGLboolean absolute __GLEW_NV_texture_multisample;
+
   __GLEW_NV_texture_npot_2D_mipmap: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_npot_2D_mipmap: TGLboolean absolute __GLEW_NV_texture_npot_2D_mipmap;
+
   __GLEW_NV_texture_rectangle: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_rectangle: TGLboolean absolute __GLEW_NV_texture_rectangle;
+
   __GLEW_NV_texture_rectangle_compressed: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_rectangle_compressed: TGLboolean absolute __GLEW_NV_texture_rectangle_compressed;
+
   __GLEW_NV_texture_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_shader: TGLboolean absolute __GLEW_NV_texture_shader;
+
   __GLEW_NV_texture_shader2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_shader2: TGLboolean absolute __GLEW_NV_texture_shader2;
+
   __GLEW_NV_texture_shader3: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_texture_shader3: TGLboolean absolute __GLEW_NV_texture_shader3;
+
   __GLEW_NV_transform_feedback: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_transform_feedback: TGLboolean absolute __GLEW_NV_transform_feedback;
+
   __GLEW_NV_transform_feedback2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_transform_feedback2: TGLboolean absolute __GLEW_NV_transform_feedback2;
+
   __GLEW_NV_uniform_buffer_unified_memory: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_uniform_buffer_unified_memory: TGLboolean absolute __GLEW_NV_uniform_buffer_unified_memory;
+
   __GLEW_NV_vdpau_interop: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vdpau_interop: TGLboolean absolute __GLEW_NV_vdpau_interop;
+
   __GLEW_NV_vdpau_interop2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vdpau_interop2: TGLboolean absolute __GLEW_NV_vdpau_interop2;
+
   __GLEW_NV_vertex_array_range: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_array_range: TGLboolean absolute __GLEW_NV_vertex_array_range;
+
   __GLEW_NV_vertex_array_range2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_array_range2: TGLboolean absolute __GLEW_NV_vertex_array_range2;
+
   __GLEW_NV_vertex_attrib_integer_64bit: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_attrib_integer_64bit: TGLboolean absolute __GLEW_NV_vertex_attrib_integer_64bit;
+
   __GLEW_NV_vertex_buffer_unified_memory: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_buffer_unified_memory: TGLboolean absolute __GLEW_NV_vertex_buffer_unified_memory;
+
   __GLEW_NV_vertex_program: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program: TGLboolean absolute __GLEW_NV_vertex_program;
+
   __GLEW_NV_vertex_program1_1: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program1_1: TGLboolean absolute __GLEW_NV_vertex_program1_1;
+
   __GLEW_NV_vertex_program2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program2: TGLboolean absolute __GLEW_NV_vertex_program2;
+
   __GLEW_NV_vertex_program2_option: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program2_option: TGLboolean absolute __GLEW_NV_vertex_program2_option;
+
   __GLEW_NV_vertex_program3: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program3: TGLboolean absolute __GLEW_NV_vertex_program3;
+
   __GLEW_NV_vertex_program4: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_vertex_program4: TGLboolean absolute __GLEW_NV_vertex_program4;
+
   __GLEW_NV_video_capture: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_video_capture: TGLboolean absolute __GLEW_NV_video_capture;
+
   __GLEW_NV_viewport_array: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_viewport_array: TGLboolean absolute __GLEW_NV_viewport_array;
+
   __GLEW_NV_viewport_array2: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_viewport_array2: TGLboolean absolute __GLEW_NV_viewport_array2;
+
   __GLEW_NV_viewport_swizzle: TGLboolean; cvar;external libGLEW;
+ GLEW_NV_viewport_swizzle: TGLboolean absolute __GLEW_NV_viewport_swizzle;
+
   __GLEW_OES_EGL_image: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_EGL_image: TGLboolean absolute __GLEW_OES_EGL_image;
+
   __GLEW_OES_EGL_image_external: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_EGL_image_external: TGLboolean absolute __GLEW_OES_EGL_image_external;
+
   __GLEW_OES_EGL_image_external_essl3: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_EGL_image_external_essl3: TGLboolean absolute __GLEW_OES_EGL_image_external_essl3;
+
   __GLEW_OES_blend_equation_separate: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_blend_equation_separate: TGLboolean absolute __GLEW_OES_blend_equation_separate;
+
   __GLEW_OES_blend_func_separate: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_blend_func_separate: TGLboolean absolute __GLEW_OES_blend_func_separate;
+
   __GLEW_OES_blend_subtract: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_blend_subtract: TGLboolean absolute __GLEW_OES_blend_subtract;
+
   __GLEW_OES_byte_coordinates: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_byte_coordinates: TGLboolean absolute __GLEW_OES_byte_coordinates;
+
   __GLEW_OES_compressed_ETC1_RGB8_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_compressed_ETC1_RGB8_texture: TGLboolean absolute __GLEW_OES_compressed_ETC1_RGB8_texture;
+
   __GLEW_OES_compressed_paletted_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_compressed_paletted_texture: TGLboolean absolute __GLEW_OES_compressed_paletted_texture;
+
   __GLEW_OES_copy_image: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_copy_image: TGLboolean absolute __GLEW_OES_copy_image;
+
   __GLEW_OES_depth24: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_depth24: TGLboolean absolute __GLEW_OES_depth24;
+
   __GLEW_OES_depth32: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_depth32: TGLboolean absolute __GLEW_OES_depth32;
+
   __GLEW_OES_depth_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_depth_texture: TGLboolean absolute __GLEW_OES_depth_texture;
+
   __GLEW_OES_depth_texture_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_depth_texture_cube_map: TGLboolean absolute __GLEW_OES_depth_texture_cube_map;
+
   __GLEW_OES_draw_buffers_indexed: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_draw_buffers_indexed: TGLboolean absolute __GLEW_OES_draw_buffers_indexed;
+
   __GLEW_OES_draw_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_draw_texture: TGLboolean absolute __GLEW_OES_draw_texture;
+
   __GLEW_OES_element_index_uint: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_element_index_uint: TGLboolean absolute __GLEW_OES_element_index_uint;
+
   __GLEW_OES_extended_matrix_palette: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_extended_matrix_palette: TGLboolean absolute __GLEW_OES_extended_matrix_palette;
+
   __GLEW_OES_fbo_render_mipmap: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_fbo_render_mipmap: TGLboolean absolute __GLEW_OES_fbo_render_mipmap;
+
   __GLEW_OES_fragment_precision_high: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_fragment_precision_high: TGLboolean absolute __GLEW_OES_fragment_precision_high;
+
   __GLEW_OES_framebuffer_object: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_framebuffer_object: TGLboolean absolute __GLEW_OES_framebuffer_object;
+
   __GLEW_OES_geometry_point_size: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_geometry_point_size: TGLboolean absolute __GLEW_OES_geometry_point_size;
+
   __GLEW_OES_geometry_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_geometry_shader: TGLboolean absolute __GLEW_OES_geometry_shader;
+
   __GLEW_OES_get_program_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_get_program_binary: TGLboolean absolute __GLEW_OES_get_program_binary;
+
   __GLEW_OES_gpu_shader5: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_gpu_shader5: TGLboolean absolute __GLEW_OES_gpu_shader5;
+
   __GLEW_OES_mapbuffer: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_mapbuffer: TGLboolean absolute __GLEW_OES_mapbuffer;
+
   __GLEW_OES_matrix_get: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_matrix_get: TGLboolean absolute __GLEW_OES_matrix_get;
+
   __GLEW_OES_matrix_palette: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_matrix_palette: TGLboolean absolute __GLEW_OES_matrix_palette;
+
   __GLEW_OES_packed_depth_stencil: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_packed_depth_stencil: TGLboolean absolute __GLEW_OES_packed_depth_stencil;
+
   __GLEW_OES_point_size_array: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_point_size_array: TGLboolean absolute __GLEW_OES_point_size_array;
+
   __GLEW_OES_point_sprite: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_point_sprite: TGLboolean absolute __GLEW_OES_point_sprite;
+
   __GLEW_OES_read_format: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_read_format: TGLboolean absolute __GLEW_OES_read_format;
+
   __GLEW_OES_required_internalformat: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_required_internalformat: TGLboolean absolute __GLEW_OES_required_internalformat;
+
   __GLEW_OES_rgb8_rgba8: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_rgb8_rgba8: TGLboolean absolute __GLEW_OES_rgb8_rgba8;
+
   __GLEW_OES_sample_shading: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_sample_shading: TGLboolean absolute __GLEW_OES_sample_shading;
+
   __GLEW_OES_sample_variables: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_sample_variables: TGLboolean absolute __GLEW_OES_sample_variables;
+
   __GLEW_OES_shader_image_atomic: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_shader_image_atomic: TGLboolean absolute __GLEW_OES_shader_image_atomic;
+
   __GLEW_OES_shader_io_blocks: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_shader_io_blocks: TGLboolean absolute __GLEW_OES_shader_io_blocks;
+
   __GLEW_OES_shader_multisample_interpolation: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_shader_multisample_interpolation: TGLboolean absolute __GLEW_OES_shader_multisample_interpolation;
+
   __GLEW_OES_single_precision: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_single_precision: TGLboolean absolute __GLEW_OES_single_precision;
+
   __GLEW_OES_standard_derivatives: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_standard_derivatives: TGLboolean absolute __GLEW_OES_standard_derivatives;
+
   __GLEW_OES_stencil1: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_stencil1: TGLboolean absolute __GLEW_OES_stencil1;
+
   __GLEW_OES_stencil4: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_stencil4: TGLboolean absolute __GLEW_OES_stencil4;
+
   __GLEW_OES_stencil8: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_stencil8: TGLboolean absolute __GLEW_OES_stencil8;
+
   __GLEW_OES_surfaceless_context: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_surfaceless_context: TGLboolean absolute __GLEW_OES_surfaceless_context;
+
   __GLEW_OES_tessellation_point_size: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_tessellation_point_size: TGLboolean absolute __GLEW_OES_tessellation_point_size;
+
   __GLEW_OES_tessellation_shader: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_tessellation_shader: TGLboolean absolute __GLEW_OES_tessellation_shader;
+
   __GLEW_OES_texture_3D: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_3D: TGLboolean absolute __GLEW_OES_texture_3D;
+
   __GLEW_OES_texture_border_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_border_clamp: TGLboolean absolute __GLEW_OES_texture_border_clamp;
+
   __GLEW_OES_texture_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_buffer: TGLboolean absolute __GLEW_OES_texture_buffer;
+
   __GLEW_OES_texture_compression_astc: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_compression_astc: TGLboolean absolute __GLEW_OES_texture_compression_astc;
+
   __GLEW_OES_texture_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_cube_map: TGLboolean absolute __GLEW_OES_texture_cube_map;
+
   __GLEW_OES_texture_cube_map_array: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_cube_map_array: TGLboolean absolute __GLEW_OES_texture_cube_map_array;
+
   __GLEW_OES_texture_env_crossbar: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_env_crossbar: TGLboolean absolute __GLEW_OES_texture_env_crossbar;
+
   __GLEW_OES_texture_mirrored_repeat: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_mirrored_repeat: TGLboolean absolute __GLEW_OES_texture_mirrored_repeat;
+
   __GLEW_OES_texture_npot: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_npot: TGLboolean absolute __GLEW_OES_texture_npot;
+
   __GLEW_OES_texture_stencil8: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_stencil8: TGLboolean absolute __GLEW_OES_texture_stencil8;
+
   __GLEW_OES_texture_storage_multisample_2d_array: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_storage_multisample_2d_array: TGLboolean absolute __GLEW_OES_texture_storage_multisample_2d_array;
+
   __GLEW_OES_texture_view: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_texture_view: TGLboolean absolute __GLEW_OES_texture_view;
+
   __GLEW_OES_vertex_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_vertex_array_object: TGLboolean absolute __GLEW_OES_vertex_array_object;
+
   __GLEW_OES_vertex_half_float: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_vertex_half_float: TGLboolean absolute __GLEW_OES_vertex_half_float;
+
   __GLEW_OES_vertex_type_10_10_10_2: TGLboolean; cvar;external libGLEW;
+ GLEW_OES_vertex_type_10_10_10_2: TGLboolean absolute __GLEW_OES_vertex_type_10_10_10_2;
+
   __GLEW_OML_interlace: TGLboolean; cvar;external libGLEW;
+ GLEW_OML_interlace: TGLboolean absolute __GLEW_OML_interlace;
+
   __GLEW_OML_resample: TGLboolean; cvar;external libGLEW;
+ GLEW_OML_resample: TGLboolean absolute __GLEW_OML_resample;
+
   __GLEW_OML_subsample: TGLboolean; cvar;external libGLEW;
+ GLEW_OML_subsample: TGLboolean absolute __GLEW_OML_subsample;
+
   __GLEW_OVR_multiview: TGLboolean; cvar;external libGLEW;
+ GLEW_OVR_multiview: TGLboolean absolute __GLEW_OVR_multiview;
+
   __GLEW_OVR_multiview2: TGLboolean; cvar;external libGLEW;
+ GLEW_OVR_multiview2: TGLboolean absolute __GLEW_OVR_multiview2;
+
   __GLEW_OVR_multiview_multisampled_render_to_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_OVR_multiview_multisampled_render_to_texture: TGLboolean absolute __GLEW_OVR_multiview_multisampled_render_to_texture;
+
   __GLEW_PGI_misc_hints: TGLboolean; cvar;external libGLEW;
+ GLEW_PGI_misc_hints: TGLboolean absolute __GLEW_PGI_misc_hints;
+
   __GLEW_PGI_vertex_hints: TGLboolean; cvar;external libGLEW;
+ GLEW_PGI_vertex_hints: TGLboolean absolute __GLEW_PGI_vertex_hints;
+
   __GLEW_QCOM_YUV_texture_gather: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_YUV_texture_gather: TGLboolean absolute __GLEW_QCOM_YUV_texture_gather;
+
   __GLEW_QCOM_alpha_test: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_alpha_test: TGLboolean absolute __GLEW_QCOM_alpha_test;
+
   __GLEW_QCOM_binning_control: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_binning_control: TGLboolean absolute __GLEW_QCOM_binning_control;
+
   __GLEW_QCOM_driver_control: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_driver_control: TGLboolean absolute __GLEW_QCOM_driver_control;
+
   __GLEW_QCOM_extended_get: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_extended_get: TGLboolean absolute __GLEW_QCOM_extended_get;
+
   __GLEW_QCOM_extended_get2: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_extended_get2: TGLboolean absolute __GLEW_QCOM_extended_get2;
+
   __GLEW_QCOM_framebuffer_foveated: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_framebuffer_foveated: TGLboolean absolute __GLEW_QCOM_framebuffer_foveated;
+
   __GLEW_QCOM_perfmon_global_mode: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_perfmon_global_mode: TGLboolean absolute __GLEW_QCOM_perfmon_global_mode;
+
   __GLEW_QCOM_shader_framebuffer_fetch_noncoherent: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_shader_framebuffer_fetch_noncoherent: TGLboolean absolute __GLEW_QCOM_shader_framebuffer_fetch_noncoherent;
+
   __GLEW_QCOM_shader_framebuffer_fetch_rate: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_shader_framebuffer_fetch_rate: TGLboolean absolute __GLEW_QCOM_shader_framebuffer_fetch_rate;
+
   __GLEW_QCOM_texture_foveated: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_texture_foveated: TGLboolean absolute __GLEW_QCOM_texture_foveated;
+
   __GLEW_QCOM_texture_foveated_subsampled_layout: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_texture_foveated_subsampled_layout: TGLboolean absolute __GLEW_QCOM_texture_foveated_subsampled_layout;
+
   __GLEW_QCOM_tiled_rendering: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_tiled_rendering: TGLboolean absolute __GLEW_QCOM_tiled_rendering;
+
   __GLEW_QCOM_writeonly_rendering: TGLboolean; cvar;external libGLEW;
+ GLEW_QCOM_writeonly_rendering: TGLboolean absolute __GLEW_QCOM_writeonly_rendering;
+
   __GLEW_REGAL_ES1_0_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_ES1_0_compatibility: TGLboolean absolute __GLEW_REGAL_ES1_0_compatibility;
+
   __GLEW_REGAL_ES1_1_compatibility: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_ES1_1_compatibility: TGLboolean absolute __GLEW_REGAL_ES1_1_compatibility;
+
   __GLEW_REGAL_enable: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_enable: TGLboolean absolute __GLEW_REGAL_enable;
+
   __GLEW_REGAL_error_string: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_error_string: TGLboolean absolute __GLEW_REGAL_error_string;
+
   __GLEW_REGAL_extension_query: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_extension_query: TGLboolean absolute __GLEW_REGAL_extension_query;
+
   __GLEW_REGAL_log: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_log: TGLboolean absolute __GLEW_REGAL_log;
+
   __GLEW_REGAL_proc_address: TGLboolean; cvar;external libGLEW;
+ GLEW_REGAL_proc_address: TGLboolean absolute __GLEW_REGAL_proc_address;
+
   __GLEW_REND_screen_coordinates: TGLboolean; cvar;external libGLEW;
+ GLEW_REND_screen_coordinates: TGLboolean absolute __GLEW_REND_screen_coordinates;
+
   __GLEW_S3_s3tc: TGLboolean; cvar;external libGLEW;
+ GLEW_S3_s3tc: TGLboolean absolute __GLEW_S3_s3tc;
+
   __GLEW_SGIS_clip_band_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_clip_band_hint: TGLboolean absolute __GLEW_SGIS_clip_band_hint;
+
   __GLEW_SGIS_color_range: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_color_range: TGLboolean absolute __GLEW_SGIS_color_range;
+
   __GLEW_SGIS_detail_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_detail_texture: TGLboolean absolute __GLEW_SGIS_detail_texture;
+
   __GLEW_SGIS_fog_function: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_fog_function: TGLboolean absolute __GLEW_SGIS_fog_function;
+
   __GLEW_SGIS_generate_mipmap: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_generate_mipmap: TGLboolean absolute __GLEW_SGIS_generate_mipmap;
+
   __GLEW_SGIS_line_texgen: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_line_texgen: TGLboolean absolute __GLEW_SGIS_line_texgen;
+
   __GLEW_SGIS_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_multisample: TGLboolean absolute __GLEW_SGIS_multisample;
+
   __GLEW_SGIS_multitexture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_multitexture: TGLboolean absolute __GLEW_SGIS_multitexture;
+
   __GLEW_SGIS_pixel_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_pixel_texture: TGLboolean absolute __GLEW_SGIS_pixel_texture;
+
   __GLEW_SGIS_point_line_texgen: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_point_line_texgen: TGLboolean absolute __GLEW_SGIS_point_line_texgen;
+
   __GLEW_SGIS_shared_multisample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_shared_multisample: TGLboolean absolute __GLEW_SGIS_shared_multisample;
+
   __GLEW_SGIS_sharpen_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_sharpen_texture: TGLboolean absolute __GLEW_SGIS_sharpen_texture;
+
   __GLEW_SGIS_texture4D: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture4D: TGLboolean absolute __GLEW_SGIS_texture4D;
+
   __GLEW_SGIS_texture_border_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture_border_clamp: TGLboolean absolute __GLEW_SGIS_texture_border_clamp;
+
   __GLEW_SGIS_texture_edge_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture_edge_clamp: TGLboolean absolute __GLEW_SGIS_texture_edge_clamp;
+
   __GLEW_SGIS_texture_filter4: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture_filter4: TGLboolean absolute __GLEW_SGIS_texture_filter4;
+
   __GLEW_SGIS_texture_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture_lod: TGLboolean absolute __GLEW_SGIS_texture_lod;
+
   __GLEW_SGIS_texture_select: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIS_texture_select: TGLboolean absolute __GLEW_SGIS_texture_select;
+
   __GLEW_SGIX_async: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_async: TGLboolean absolute __GLEW_SGIX_async;
+
   __GLEW_SGIX_async_histogram: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_async_histogram: TGLboolean absolute __GLEW_SGIX_async_histogram;
+
   __GLEW_SGIX_async_pixel: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_async_pixel: TGLboolean absolute __GLEW_SGIX_async_pixel;
+
   __GLEW_SGIX_bali_g_instruments: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_bali_g_instruments: TGLboolean absolute __GLEW_SGIX_bali_g_instruments;
+
   __GLEW_SGIX_bali_r_instruments: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_bali_r_instruments: TGLboolean absolute __GLEW_SGIX_bali_r_instruments;
+
   __GLEW_SGIX_bali_timer_instruments: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_bali_timer_instruments: TGLboolean absolute __GLEW_SGIX_bali_timer_instruments;
+
   __GLEW_SGIX_blend_alpha_minmax: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_blend_alpha_minmax: TGLboolean absolute __GLEW_SGIX_blend_alpha_minmax;
+
   __GLEW_SGIX_blend_cadd: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_blend_cadd: TGLboolean absolute __GLEW_SGIX_blend_cadd;
+
   __GLEW_SGIX_blend_cmultiply: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_blend_cmultiply: TGLboolean absolute __GLEW_SGIX_blend_cmultiply;
+
   __GLEW_SGIX_calligraphic_fragment: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_calligraphic_fragment: TGLboolean absolute __GLEW_SGIX_calligraphic_fragment;
+
   __GLEW_SGIX_clipmap: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_clipmap: TGLboolean absolute __GLEW_SGIX_clipmap;
+
   __GLEW_SGIX_color_matrix_accuracy: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_color_matrix_accuracy: TGLboolean absolute __GLEW_SGIX_color_matrix_accuracy;
+
   __GLEW_SGIX_color_table_index_mode: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_color_table_index_mode: TGLboolean absolute __GLEW_SGIX_color_table_index_mode;
+
   __GLEW_SGIX_complex_polar: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_complex_polar: TGLboolean absolute __GLEW_SGIX_complex_polar;
+
   __GLEW_SGIX_convolution_accuracy: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_convolution_accuracy: TGLboolean absolute __GLEW_SGIX_convolution_accuracy;
+
   __GLEW_SGIX_cube_map: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_cube_map: TGLboolean absolute __GLEW_SGIX_cube_map;
+
   __GLEW_SGIX_cylinder_texgen: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_cylinder_texgen: TGLboolean absolute __GLEW_SGIX_cylinder_texgen;
+
   __GLEW_SGIX_datapipe: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_datapipe: TGLboolean absolute __GLEW_SGIX_datapipe;
+
   __GLEW_SGIX_decimation: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_decimation: TGLboolean absolute __GLEW_SGIX_decimation;
+
   __GLEW_SGIX_depth_pass_instrument: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_depth_pass_instrument: TGLboolean absolute __GLEW_SGIX_depth_pass_instrument;
+
   __GLEW_SGIX_depth_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_depth_texture: TGLboolean absolute __GLEW_SGIX_depth_texture;
+
   __GLEW_SGIX_dvc: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_dvc: TGLboolean absolute __GLEW_SGIX_dvc;
+
   __GLEW_SGIX_flush_raster: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_flush_raster: TGLboolean absolute __GLEW_SGIX_flush_raster;
+
   __GLEW_SGIX_fog_blend: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_blend: TGLboolean absolute __GLEW_SGIX_fog_blend;
+
   __GLEW_SGIX_fog_factor_to_alpha: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_factor_to_alpha: TGLboolean absolute __GLEW_SGIX_fog_factor_to_alpha;
+
   __GLEW_SGIX_fog_layers: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_layers: TGLboolean absolute __GLEW_SGIX_fog_layers;
+
   __GLEW_SGIX_fog_offset: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_offset: TGLboolean absolute __GLEW_SGIX_fog_offset;
+
   __GLEW_SGIX_fog_patchy: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_patchy: TGLboolean absolute __GLEW_SGIX_fog_patchy;
+
   __GLEW_SGIX_fog_scale: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_scale: TGLboolean absolute __GLEW_SGIX_fog_scale;
+
   __GLEW_SGIX_fog_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fog_texture: TGLboolean absolute __GLEW_SGIX_fog_texture;
+
   __GLEW_SGIX_fragment_lighting_space: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fragment_lighting_space: TGLboolean absolute __GLEW_SGIX_fragment_lighting_space;
+
   __GLEW_SGIX_fragment_specular_lighting: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fragment_specular_lighting: TGLboolean absolute __GLEW_SGIX_fragment_specular_lighting;
+
   __GLEW_SGIX_fragments_instrument: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_fragments_instrument: TGLboolean absolute __GLEW_SGIX_fragments_instrument;
+
   __GLEW_SGIX_framezoom: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_framezoom: TGLboolean absolute __GLEW_SGIX_framezoom;
+
   __GLEW_SGIX_icc_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_icc_texture: TGLboolean absolute __GLEW_SGIX_icc_texture;
+
   __GLEW_SGIX_igloo_interface: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_igloo_interface: TGLboolean absolute __GLEW_SGIX_igloo_interface;
+
   __GLEW_SGIX_image_compression: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_image_compression: TGLboolean absolute __GLEW_SGIX_image_compression;
+
   __GLEW_SGIX_impact_pixel_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_impact_pixel_texture: TGLboolean absolute __GLEW_SGIX_impact_pixel_texture;
+
   __GLEW_SGIX_instrument_error: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_instrument_error: TGLboolean absolute __GLEW_SGIX_instrument_error;
+
   __GLEW_SGIX_interlace: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_interlace: TGLboolean absolute __GLEW_SGIX_interlace;
+
   __GLEW_SGIX_ir_instrument1: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_ir_instrument1: TGLboolean absolute __GLEW_SGIX_ir_instrument1;
+
   __GLEW_SGIX_line_quality_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_line_quality_hint: TGLboolean absolute __GLEW_SGIX_line_quality_hint;
+
   __GLEW_SGIX_list_priority: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_list_priority: TGLboolean absolute __GLEW_SGIX_list_priority;
+
   __GLEW_SGIX_mpeg1: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_mpeg1: TGLboolean absolute __GLEW_SGIX_mpeg1;
+
   __GLEW_SGIX_mpeg2: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_mpeg2: TGLboolean absolute __GLEW_SGIX_mpeg2;
+
   __GLEW_SGIX_nonlinear_lighting_pervertex: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_nonlinear_lighting_pervertex: TGLboolean absolute __GLEW_SGIX_nonlinear_lighting_pervertex;
+
   __GLEW_SGIX_nurbs_eval: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_nurbs_eval: TGLboolean absolute __GLEW_SGIX_nurbs_eval;
+
   __GLEW_SGIX_occlusion_instrument: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_occlusion_instrument: TGLboolean absolute __GLEW_SGIX_occlusion_instrument;
+
   __GLEW_SGIX_packed_6bytes: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_packed_6bytes: TGLboolean absolute __GLEW_SGIX_packed_6bytes;
+
   __GLEW_SGIX_pixel_texture: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_pixel_texture: TGLboolean absolute __GLEW_SGIX_pixel_texture;
+
   __GLEW_SGIX_pixel_texture_bits: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_pixel_texture_bits: TGLboolean absolute __GLEW_SGIX_pixel_texture_bits;
+
   __GLEW_SGIX_pixel_texture_lod: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_pixel_texture_lod: TGLboolean absolute __GLEW_SGIX_pixel_texture_lod;
+
   __GLEW_SGIX_pixel_tiles: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_pixel_tiles: TGLboolean absolute __GLEW_SGIX_pixel_tiles;
+
   __GLEW_SGIX_polynomial_ffd: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_polynomial_ffd: TGLboolean absolute __GLEW_SGIX_polynomial_ffd;
+
   __GLEW_SGIX_quad_mesh: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_quad_mesh: TGLboolean absolute __GLEW_SGIX_quad_mesh;
+
   __GLEW_SGIX_reference_plane: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_reference_plane: TGLboolean absolute __GLEW_SGIX_reference_plane;
+
   __GLEW_SGIX_resample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_resample: TGLboolean absolute __GLEW_SGIX_resample;
+
   __GLEW_SGIX_scalebias_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_scalebias_hint: TGLboolean absolute __GLEW_SGIX_scalebias_hint;
+
   __GLEW_SGIX_shadow: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_shadow: TGLboolean absolute __GLEW_SGIX_shadow;
+
   __GLEW_SGIX_shadow_ambient: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_shadow_ambient: TGLboolean absolute __GLEW_SGIX_shadow_ambient;
+
   __GLEW_SGIX_slim: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_slim: TGLboolean absolute __GLEW_SGIX_slim;
+
   __GLEW_SGIX_spotlight_cutoff: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_spotlight_cutoff: TGLboolean absolute __GLEW_SGIX_spotlight_cutoff;
+
   __GLEW_SGIX_sprite: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_sprite: TGLboolean absolute __GLEW_SGIX_sprite;
+
   __GLEW_SGIX_subdiv_patch: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_subdiv_patch: TGLboolean absolute __GLEW_SGIX_subdiv_patch;
+
   __GLEW_SGIX_subsample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_subsample: TGLboolean absolute __GLEW_SGIX_subsample;
+
   __GLEW_SGIX_tag_sample_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_tag_sample_buffer: TGLboolean absolute __GLEW_SGIX_tag_sample_buffer;
+
   __GLEW_SGIX_texture_add_env: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_add_env: TGLboolean absolute __GLEW_SGIX_texture_add_env;
+
   __GLEW_SGIX_texture_coordinate_clamp: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_coordinate_clamp: TGLboolean absolute __GLEW_SGIX_texture_coordinate_clamp;
+
   __GLEW_SGIX_texture_lod_bias: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_lod_bias: TGLboolean absolute __GLEW_SGIX_texture_lod_bias;
+
   __GLEW_SGIX_texture_mipmap_anisotropic: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_mipmap_anisotropic: TGLboolean absolute __GLEW_SGIX_texture_mipmap_anisotropic;
+
   __GLEW_SGIX_texture_multi_buffer: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_multi_buffer: TGLboolean absolute __GLEW_SGIX_texture_multi_buffer;
+
   __GLEW_SGIX_texture_phase: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_phase: TGLboolean absolute __GLEW_SGIX_texture_phase;
+
   __GLEW_SGIX_texture_range: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_range: TGLboolean absolute __GLEW_SGIX_texture_range;
+
   __GLEW_SGIX_texture_scale_bias: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_scale_bias: TGLboolean absolute __GLEW_SGIX_texture_scale_bias;
+
   __GLEW_SGIX_texture_supersample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_texture_supersample: TGLboolean absolute __GLEW_SGIX_texture_supersample;
+
   __GLEW_SGIX_vector_ops: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_vector_ops: TGLboolean absolute __GLEW_SGIX_vector_ops;
+
   __GLEW_SGIX_vertex_array_object: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_vertex_array_object: TGLboolean absolute __GLEW_SGIX_vertex_array_object;
+
   __GLEW_SGIX_vertex_preclip: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_vertex_preclip: TGLboolean absolute __GLEW_SGIX_vertex_preclip;
+
   __GLEW_SGIX_vertex_preclip_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_vertex_preclip_hint: TGLboolean absolute __GLEW_SGIX_vertex_preclip_hint;
+
   __GLEW_SGIX_ycrcb: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_ycrcb: TGLboolean absolute __GLEW_SGIX_ycrcb;
+
   __GLEW_SGIX_ycrcb_subsample: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_ycrcb_subsample: TGLboolean absolute __GLEW_SGIX_ycrcb_subsample;
+
   __GLEW_SGIX_ycrcba: TGLboolean; cvar;external libGLEW;
+ GLEW_SGIX_ycrcba: TGLboolean absolute __GLEW_SGIX_ycrcba;
+
   __GLEW_SGI_color_matrix: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_color_matrix: TGLboolean absolute __GLEW_SGI_color_matrix;
+
   __GLEW_SGI_color_table: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_color_table: TGLboolean absolute __GLEW_SGI_color_table;
+
   __GLEW_SGI_complex: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_complex: TGLboolean absolute __GLEW_SGI_complex;
+
   __GLEW_SGI_complex_type: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_complex_type: TGLboolean absolute __GLEW_SGI_complex_type;
+
   __GLEW_SGI_fft: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_fft: TGLboolean absolute __GLEW_SGI_fft;
+
   __GLEW_SGI_texture_color_table: TGLboolean; cvar;external libGLEW;
+ GLEW_SGI_texture_color_table: TGLboolean absolute __GLEW_SGI_texture_color_table;
+
   __GLEW_SUNX_constant_data: TGLboolean; cvar;external libGLEW;
+ GLEW_SUNX_constant_data: TGLboolean absolute __GLEW_SUNX_constant_data;
+
   __GLEW_SUN_convolution_border_modes: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_convolution_border_modes: TGLboolean absolute __GLEW_SUN_convolution_border_modes;
+
   __GLEW_SUN_global_alpha: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_global_alpha: TGLboolean absolute __GLEW_SUN_global_alpha;
+
   __GLEW_SUN_mesh_array: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_mesh_array: TGLboolean absolute __GLEW_SUN_mesh_array;
+
   __GLEW_SUN_read_video_pixels: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_read_video_pixels: TGLboolean absolute __GLEW_SUN_read_video_pixels;
+
   __GLEW_SUN_slice_accum: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_slice_accum: TGLboolean absolute __GLEW_SUN_slice_accum;
+
   __GLEW_SUN_triangle_list: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_triangle_list: TGLboolean absolute __GLEW_SUN_triangle_list;
+
   __GLEW_SUN_vertex: TGLboolean; cvar;external libGLEW;
+ GLEW_SUN_vertex: TGLboolean absolute __GLEW_SUN_vertex;
+
   __GLEW_VIV_shader_binary: TGLboolean; cvar;external libGLEW;
+ GLEW_VIV_shader_binary: TGLboolean absolute __GLEW_VIV_shader_binary;
+
   __GLEW_WIN_phong_shading: TGLboolean; cvar;external libGLEW;
+ GLEW_WIN_phong_shading: TGLboolean absolute __GLEW_WIN_phong_shading;
+
   __GLEW_WIN_scene_markerXXX: TGLboolean; cvar;external libGLEW;
+ GLEW_WIN_scene_markerXXX: TGLboolean absolute __GLEW_WIN_scene_markerXXX;
+
   __GLEW_WIN_specular_fog: TGLboolean; cvar;external libGLEW;
+ GLEW_WIN_specular_fog: TGLboolean absolute __GLEW_WIN_specular_fog;
+
   __GLEW_WIN_swap_hint: TGLboolean; cvar;external libGLEW;
+ GLEW_WIN_swap_hint: TGLboolean absolute __GLEW_WIN_swap_hint;
 
 
   { -------------------------------------------------------------------------  }
@@ -19864,17 +27235,11 @@ implementation
 
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function glewIsExtensionSupported(x: pchar): boolean;
 begin
   glewIsExtensionSupported := glewIsSupported(x);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function GLEW_GET_FUN(x: longint): longint;
 begin
   GLEW_GET_FUN := x;
