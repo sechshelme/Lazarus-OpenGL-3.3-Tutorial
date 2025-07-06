@@ -97,7 +97,7 @@ type
   TglutCloseFunc = procedure; cdecl;
   TglutMenuDestroyFunc = procedure; cdecl;
 
-  TGLUTproc = procedure;
+  TGLUTproc = procedure; cdecl;
 
   TglutMultiEntryFunc = procedure(winID, state: integer); cdecl;
   TglutMultiButtonFunc = procedure(winID, x, y, button, state: integer); cdecl;
