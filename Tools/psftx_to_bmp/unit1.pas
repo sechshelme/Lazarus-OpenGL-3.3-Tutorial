@@ -34,7 +34,7 @@ implementation
 // https://www.zap.org.au/projects/console-fonts-distributed/psftx-opensuse-15.5/index.html
 
 const
-  SourcePath = 't.fnt.psftx';
+  SourcePath = 't.fnt';
 
 procedure TForm1.PNGClick(Sender: TObject);
 const
@@ -51,7 +51,7 @@ begin
   pic1.Bitmap.SetSize(8 * 256, 16);
   pic2.Bitmap.SetSize(9 * 256, 16);
   sl := TStringList.Create;
-  sl.LoadFromFile(SourcePath);
+  sl.LoadFromFile(SourcePath+'.psftx');
   for i := 0 to 255 do begin
     for y := 0 to 15 do begin
       s := sl[ofs + i * size + y];
@@ -74,8 +74,8 @@ begin
     WriteLn(#10);
   end;
   sl.Free;
-  pic1.SaveToFile('t.fnt_8x16.png');
-  pic2.SaveToFile('t.fnt_9x16.png');
+  pic1.SaveToFile(SourcePath+'_8x16.png');
+  pic2.SaveToFile(SourcePath+'_9x16.png');
   pic1.Free;
   pic2.Free;
 end;
