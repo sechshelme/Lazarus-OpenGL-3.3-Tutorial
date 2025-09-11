@@ -62,9 +62,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CustomOptions Value="-XX"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

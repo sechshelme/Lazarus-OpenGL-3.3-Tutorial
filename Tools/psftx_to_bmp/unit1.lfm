@@ -7,13 +7,22 @@ object Form1: TForm1
   ClientHeight = 240
   ClientWidth = 320
   LCLVersion = '4.99.0.0'
-  object Button1: TButton
-    Left = 73
+  object BMP: TButton
+    Left = 40
     Height = 25
-    Top = 200
+    Top = 176
     Width = 75
-    Caption = 'Button1'
+    Caption = 'BMP'
     TabOrder = 0
-    OnClick = Button1Click
+    OnClick = BMPClick
+  end
+  object PNG: TButton
+    Left = 152
+    Height = 25
+    Top = 176
+    Width = 75
+    Caption = 'PNG'
+    TabOrder = 1
+    OnClick = PNGClick
   end
 end
