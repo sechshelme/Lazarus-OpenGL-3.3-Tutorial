@@ -7,7 +7,12 @@ uses
   ctypes,
 
   fp_glew,
-  fp_glxew;
+  fp_glxew,
+
+
+  glx;
+
+
 
   procedure drawInPixmap(dpy: PDisplay; pixmap: TPixmap; gc: TGC; width, height: integer);
   begin
@@ -75,15 +80,13 @@ uses
     //        return 1;
     //    }
 
-    WriteLn(1111111);
-    WriteLn(PtrUInt(glXChooseFBConfig));
-    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
-    WriteLn(1111111);
+    //    WriteLn(PtrUInt(glXChooseFBConfig));
+    //    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
+    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, fbCount);
     if (fbConfigs = nil) or (fbCount = 0) then begin
       WriteLn('Keine passenden FBConfig gefunden');
       XCloseDisplay(dpy);
       Exit;
-      ;
     end;
 
     fbConfig := fbConfigs[0];
@@ -104,9 +107,7 @@ uses
     swa.border_pixel := 0;
 
     // --- KORREKTUR 4: Fenster mit XCreateWindow und dem korrekten Visual erstellen ---
-    win := XCreateWindow(dpy, root, 10, 10, 400, 400, 0,
-      vi^.depth, InputOutput, vi^.visual,
-      CWBorderPixel or CWColormap or CWEventMask, @swa);
+    win := XCreateWindow(dpy, root, 10, 10, 400, 400, 0, vi^.depth, InputOutput, vi^.visual, CWBorderPixel or CWColormap or CWEventMask, @swa);
     if win = 0 then begin
       WriteLn('Fenster konnte nicht erstellt werden');
       XCloseDisplay(dpy);
@@ -116,7 +117,8 @@ uses
     XStoreName(dpy, win, 'GLX Texture From Pixmap');
 
     // OpenGL Kontext mit FBConfig erzeugen
-    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
+    //    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
+    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, True);
     if glc = nil then begin
       WriteLn('Kann GLX Kontext nicht erstellen');
       XDestroyWindow(dpy, win);
@@ -124,7 +126,13 @@ uses
       Exit;
     end;
 
+
     glXMakeCurrent(dpy, win, glc);
+
+    if glxewInit <> GLEW_OK then begin
+      WriteLn('glxewInit Fehler');
+      Halt(1);
+    end;
 
     // Pixmap erzeugen (Tiefe vom Visual nehmen)
     pixmap := XCreatePixmap(dpy, root, 400, 400, vi^.depth);
@@ -132,26 +140,19 @@ uses
     drawInPixmap(dpy, pixmap, gc, 400, 400);
 
 
-    glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
+    glxPixmap := fp_glxew.glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
     if glxPixmap = 0 then begin
       WriteLn('Kann GLXPixmap nicht erzeugen');
       // ... (cleanup code)
       Exit;
     end;
 
+    // === OpenGL
 
-
-    // Extension-Funktionen laden
-    //    PFNGLXBINDTEXIMAGEEXTPROC glXBindTexImageEXT =
-    //        (PFNGLXBINDTEXIMAGEEXTPROC)glXGetProcAddressARB((const GLubyte *)"glXBindTexImageEXT");
-    //    PFNGLXRELEASETEXIMAGEEXTPROC glXReleaseTexImageEXT =
-    //        (PFNGLXRELEASETEXIMAGEEXTPROC)glXGetProcAddressARB((const GLubyte *)"glXReleaseTexImageEXT");
-
-    //    if (!glXBindTexImageEXT || !glXReleaseTexImageEXT) {
-    //        fprintf(stderr, "glXBindTexImageEXT oder glXReleaseTexImageEXT nicht verfügbar\n");
-    //        // ... (cleanup code)
-    //        return 1;
-    //    }
+    if glewInit <> GLEW_OK then begin
+      WriteLn('glewInit Fehler');
+      Halt(1);
+    end;
 
     // Textur erzeugen und binden
     //    GLuint tex;
@@ -162,16 +163,10 @@ uses
     glXBindTexImageEXT(dpy, glxPixmap, GLX_FRONT_LEFT_EXT, nil);
 
     glEnable(GL_TEXTURE_2D);
-    glClearColor(0.2, 0.2, 0.2, 1.0); // Hintergrund grau, falls Quad kleiner wäre
+    glClearColor(0.2, 0.2, 0.2, 1.0);
 
-    // Event-Loop
-    //    XEvent xev;
     while running = 1 do begin
-
       XDrawLine(dpy, pixmap, gc, Random(500), Random(500), Random(500), Random(500));
-
-      //    XDrawLine(dpy, pixmap, gc, 10,10, 500, 200);
-
 
       XNextEvent(dpy, @xev);
       case xev._type of
@@ -180,38 +175,35 @@ uses
         end;
         Expose: begin
           glClear(GL_COLOR_BUFFER_BIT);
-          glBindTexture(GL_TEXTURE_2D, tex); // Sicherstellen, dass die Textur gebunden ist
+          glBindTexture(GL_TEXTURE_2D, tex);
 
-          // Zeichne ein Quadrat, das das ganze Fenster füllt
           glBegin(GL_QUADS);
           glTexCoord2f(0, 1);
-          glVertex2f(-1, -1); // Texturkoordinaten müssen evtl. gespiegelt werden
+          glVertex2f(-1, -1);
           glTexCoord2f(1, 1);
-          glVertex2f(1, -1); // Y-Achse ist bei X11/OpenGL oft umgekehrt
+          glVertex2f(1, -1);
           glTexCoord2f(1, 0);
           glVertex2f(1, 1);
           glTexCoord2f(0, 0);
           glVertex2f(-1, 1);
           glEnd();
 
-          glXSwapBuffers(dpy, win);
+          fp_glxew.glXSwapBuffers(dpy, win);
         end;
-
       end;
-
-      // Aufräumen
-      glXReleaseTexImageEXT(dpy, glxPixmap, GLX_FRONT_LEFT_EXT);
-      glDeleteTextures(1, @tex);
-      glXDestroyPixmap(dpy, glxPixmap);
-      glXMakeCurrent(dpy, None, nil);
-      glXDestroyContext(dpy, glc);
-      XFreeGC(dpy, gc);
-      XFreePixmap(dpy, pixmap);
-      XDestroyWindow(dpy, win);
-      XFreeColormap(dpy, cmap);
-      XFree(vi);
-      XCloseDisplay(dpy);
     end;
+    // Aufräumen
+    glXReleaseTexImageEXT(dpy, glxPixmap, GLX_FRONT_LEFT_EXT);
+    glDeleteTextures(1, @tex);
+    glXDestroyPixmap(dpy, glxPixmap);
+    glXMakeCurrent(dpy, None, nil);
+    glXDestroyContext(dpy, glc);
+    XFreeGC(dpy, gc);
+    XFreePixmap(dpy, pixmap);
+    XDestroyWindow(dpy, win);
+    XFreeColormap(dpy, cmap);
+    XFree(vi);
+    XCloseDisplay(dpy);
   end;
 
 begin

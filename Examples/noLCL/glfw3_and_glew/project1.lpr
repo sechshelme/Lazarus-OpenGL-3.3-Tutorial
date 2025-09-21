@@ -176,7 +176,7 @@ const
     glfwSwapInterval(1);
 
     if glewInit <> GLEW_OK then begin
-      WriteLn('glfwInit Fehler');
+      WriteLn('glewInit Fehler');
       Halt(1);
     end;
 
