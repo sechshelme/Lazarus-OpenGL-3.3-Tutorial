@@ -228,9 +228,6 @@ const
       glfwPollEvents;
     end;
 
-    __glewDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
-    __glewDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
-
     glDeleteProgram(ProgramID);
 
     glfwDestroyWindow(window);

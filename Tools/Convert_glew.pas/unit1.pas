@@ -42,7 +42,7 @@ begin
   Memo1.Clear;
 
   slHeader := TStringList.Create;
-  slHeader.LoadFromFile('/home/tux/Schreibtisch/test/gl.pas');
+  slHeader.LoadFromFile('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/noLCL/glfw3_and_glxew/glxew.pas');
   for i := 0 to slHeader.Count - 1 do begin
     p1 := pos('__GLEW', slHeader[i]);
     if p1 > 0 then begin
@@ -68,7 +68,7 @@ begin
       Memo1.Lines.Add(slHeader[i]);
     end;
   end;
-  slHeader.SaveToFile('/home/tux/Schreibtisch/test/gl2.pas');
+  slHeader.SaveToFile('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/OpenGL_3.3/Examples/noLCL/glfw3_and_glxew/glxew_new.pasxxxxxxxx');
   slHeader.Free;
 end;
 

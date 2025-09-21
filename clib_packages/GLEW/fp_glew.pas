@@ -14,16 +14,17 @@ const
   {$ifdef linux}
   libGL = 'libGL';
   libGLEW = 'libGLEW';
+  libGLXEW = 'libGLEW';
   {$endif}
 
   {$ifdef windows}
   libGL = 'opengl32.dll';
-  libGLEW = 'glew32.dll';
+  libGLXEW = 'glew32.dll';
   {$endif}
 
   {$ifdef darwin}
   libGL = '/System/Library/Frameworks/OpenGL.framework/OpenGL';
-  libGLEW = 'libGLEW.dylib';
+  libGLXEW = 'libGLEW.dylib';
   {$endif}
 
 
