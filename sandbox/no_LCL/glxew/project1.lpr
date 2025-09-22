@@ -7,10 +7,10 @@ uses
   ctypes,
 
   fp_glew,
-  fp_glxew,
+//  fp_glxew,
 
 
-  glx;
+  fp_glx;
 
 
 
@@ -81,8 +81,8 @@ uses
     //    }
 
     //    WriteLn(PtrUInt(glXChooseFBConfig));
-    //    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
-    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, fbCount);
+        fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
+//    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, fbCount);
     if (fbConfigs = nil) or (fbCount = 0) then begin
       WriteLn('Keine passenden FBConfig gefunden');
       XCloseDisplay(dpy);
@@ -118,7 +118,7 @@ uses
 
     // OpenGL Kontext mit FBConfig erzeugen
     //    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
-    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, True);
+    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
     if glc = nil then begin
       WriteLn('Kann GLX Kontext nicht erstellen');
       XDestroyWindow(dpy, win);
@@ -129,10 +129,10 @@ uses
 
     glXMakeCurrent(dpy, win, glc);
 
-    if glxewInit <> GLEW_OK then begin
-      WriteLn('glxewInit Fehler');
-      Halt(1);
-    end;
+    //if glxewInit <> GLEW_OK then begin
+    //  WriteLn('glxewInit Fehler');
+    //  Halt(1);
+    //end;
 
     // Pixmap erzeugen (Tiefe vom Visual nehmen)
     pixmap := XCreatePixmap(dpy, root, 400, 400, vi^.depth);
@@ -140,7 +140,7 @@ uses
     drawInPixmap(dpy, pixmap, gc, 400, 400);
 
 
-    glxPixmap := fp_glxew.glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
+    glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
     if glxPixmap = 0 then begin
       WriteLn('Kann GLXPixmap nicht erzeugen');
       // ... (cleanup code)
@@ -188,7 +188,7 @@ uses
           glVertex2f(-1, 1);
           glEnd();
 
-          fp_glxew.glXSwapBuffers(dpy, win);
+          glXSwapBuffers(dpy, win);
         end;
       end;
     end;

@@ -19,12 +19,12 @@ const
 
   {$ifdef windows}
   libGL = 'opengl32.dll';
-  libGLXEW = 'glew32.dll';
+  libGLEW = 'glew32.dll';
   {$endif}
 
   {$ifdef darwin}
   libGL = '/System/Library/Frameworks/OpenGL.framework/OpenGL';
-  libGLXEW = 'libGLEW.dylib';
+  libGLEW = 'libGLEW.dylib';
   {$endif}
 
 
