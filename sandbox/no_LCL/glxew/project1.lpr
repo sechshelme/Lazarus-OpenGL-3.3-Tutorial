@@ -5,29 +5,18 @@ uses
   xlib,
   xutil,
   ctypes,
-
   fp_glew,
-//  fp_glxew,
+  //  fp_glxew,
 
 
   fp_glx;
 
-
-
-  procedure drawInPixmap(dpy: PDisplay; pixmap: TPixmap; gc: TGC; width, height: integer);
-  begin
-    XSetForeground(dpy, gc, $0000FF);
-    XFillRectangle(dpy, pixmap, gc, 0, 0, width, height);
-    XSetForeground(dpy, gc, $FFFFFF);
-    XDrawLine(dpy, pixmap, gc, 10, 10, width - 10, height - 10);
-    XDrawLine(dpy, pixmap, gc, width - 10, 10, 10, height - 10);
-  end;
-
+const
+  SIZE = 512;
 
   procedure main;
   var
     dpy: PDisplay;
-    screen: cint;
     root, win: TWindow;
     exts: pchar;
     fbConfigs: PGLXFBConfig;
@@ -43,6 +32,7 @@ uses
     tex: TGLuint;
     running: integer = 1;
     xev: TXEvent;
+    screen: cint;
 
   const
     fbAttribs: array[0..20] of integer = (
@@ -80,9 +70,7 @@ uses
     //        return 1;
     //    }
 
-    //    WriteLn(PtrUInt(glXChooseFBConfig));
-        fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
-//    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, fbCount);
+    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
     if (fbConfigs = nil) or (fbCount = 0) then begin
       WriteLn('Keine passenden FBConfig gefunden');
       XCloseDisplay(dpy);
@@ -107,7 +95,7 @@ uses
     swa.border_pixel := 0;
 
     // --- KORREKTUR 4: Fenster mit XCreateWindow und dem korrekten Visual erstellen ---
-    win := XCreateWindow(dpy, root, 10, 10, 400, 400, 0, vi^.depth, InputOutput, vi^.visual, CWBorderPixel or CWColormap or CWEventMask, @swa);
+    win := XCreateWindow(dpy, root, 0, 0, SIZE, SIZE, 0, vi^.depth, InputOutput, vi^.visual, CWBorderPixel or CWColormap or CWEventMask, @swa);
     if win = 0 then begin
       WriteLn('Fenster konnte nicht erstellt werden');
       XCloseDisplay(dpy);
@@ -117,7 +105,6 @@ uses
     XStoreName(dpy, win, 'GLX Texture From Pixmap');
 
     // OpenGL Kontext mit FBConfig erzeugen
-    //    glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
     glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
     if glc = nil then begin
       WriteLn('Kann GLX Kontext nicht erstellen');
@@ -135,9 +122,14 @@ uses
     //end;
 
     // Pixmap erzeugen (Tiefe vom Visual nehmen)
-    pixmap := XCreatePixmap(dpy, root, 400, 400, vi^.depth);
+    pixmap := XCreatePixmap(dpy, root, SIZE, SIZE, vi^.depth);
     gc := XCreateGC(dpy, pixmap, 0, nil);
-    drawInPixmap(dpy, pixmap, gc, 400, 400);
+
+    XSetForeground(dpy, gc, $0000FF);
+    XFillRectangle(dpy, pixmap, gc, 0, 0, SIZE, SIZE);
+
+
+//    drawInPixmap(dpy, pixmap, gc, SIZE, SIZE);
 
 
     glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
@@ -166,31 +158,37 @@ uses
     glClearColor(0.2, 0.2, 0.2, 1.0);
 
     while running = 1 do begin
-      XDrawLine(dpy, pixmap, gc, Random(500), Random(500), Random(500), Random(500));
+      XSetForeground(dpy, gc, Random($FFFFFF));
+      XDrawLine(dpy, pixmap, gc, Random(SIZE), Random(SIZE), Random(SIZE), Random(SIZE));
 
-      XNextEvent(dpy, @xev);
-      case xev._type of
-        KeyPress: begin
-          running := 0;
-        end;
-        Expose: begin
-          glClear(GL_COLOR_BUFFER_BIT);
-          glBindTexture(GL_TEXTURE_2D, tex);
-
-          glBegin(GL_QUADS);
-          glTexCoord2f(0, 1);
-          glVertex2f(-1, -1);
-          glTexCoord2f(1, 1);
-          glVertex2f(1, -1);
-          glTexCoord2f(1, 0);
-          glVertex2f(1, 1);
-          glTexCoord2f(0, 0);
-          glVertex2f(-1, 1);
-          glEnd();
-
-          glXSwapBuffers(dpy, win);
+      while XPending(dpy) > 0 do begin
+        XNextEvent(dpy, @xev);
+        case xev._type of
+          KeyPress: begin
+            running := 0;
+          end;
+          Expose: begin
+            glViewport(0, 0, xev.xexpose.width, xev.xexpose.height);
+          end;
         end;
       end;
+      glClear(GL_COLOR_BUFFER_BIT);
+      glBindTexture(GL_TEXTURE_2D, tex);
+
+      glRotatef(0.1, 0.0, 0.0, 1.0);
+
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 1);
+      glVertex2f(-0.7, -0.7);
+      glTexCoord2f(1, 1);
+      glVertex2f(0.7, -0.7);
+      glTexCoord2f(1, 0);
+      glVertex2f(0.7, 0.7);
+      glTexCoord2f(0, 0);
+      glVertex2f(-0.7, 0.7);
+      glEnd();
+
+      glXSwapBuffers(dpy, win);
     end;
     // Aufräumen
     glXReleaseTexImageEXT(dpy, glxPixmap, GLX_FRONT_LEFT_EXT);

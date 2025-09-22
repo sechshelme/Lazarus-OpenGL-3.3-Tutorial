@@ -8,8 +8,8 @@ uses
   {$endif}
   fp_glew;
 
-const
   {$ifdef linux}
+  const
   libGL = 'libGL';
   libGLX = 'libGLX';
   libGLEW = 'libGLEW';
