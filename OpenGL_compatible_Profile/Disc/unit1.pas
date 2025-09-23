@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, OpenGLContext, oglglad_gl;
+  ExtCtrls, GL, OpenGLContext;
 
 type
 
@@ -105,10 +105,10 @@ begin
   OpenGLControl1.AutoResizeViewport := True;
   OpenGLControl1.Parent := Self;
 
-  InitOpenGL;
+//  InitOpenGL;
   OpenGLControl1.MakeCurrent;
-  ReadExtensions;
-  ReadImplementationProperties;
+//  ReadExtensions;
+//  ReadImplementationProperties;
 end;
 
 initialization

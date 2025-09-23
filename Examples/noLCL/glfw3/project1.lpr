@@ -3,9 +3,9 @@ program project1;
 // https://www.glfw.org/docs/3.3/quick.html
 
 uses
-  oglglad_gl,
   fp_glfw3,
   fp_glfw3native,
+  oglglad_gl,
   oglDebug,
   oglShader;
 

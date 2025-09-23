@@ -4,10 +4,8 @@ uses
   x,
   xlib,
   xutil,
-  ctypes,
   fp_glew,
   fp_glxew,
-
   fp_glx;
 
 const
@@ -17,7 +15,7 @@ const
   var
     dpy: PDisplay;
     root, win: TWindow;
-    exts: pchar;
+    exts: string;
     fbConfigs: PGLXFBConfig;
     fbCount: integer;
     fbConfig: TGLXFBConfig;
@@ -29,12 +27,12 @@ const
     gc: TGC;
     glxPixmap: TGLXPixmap;
     tex: TGLuint;
-    running: integer = 1;
+    running: Boolean = True;
     xev: TXEvent;
-    screen: cint;
+    screen: integer;
 
   const
-    fbAttribs: array[0..20] of integer = (
+    fbAttribs: array of integer = (
       GLX_X_RENDERABLE, 1,
       GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT or GLX_PIXMAP_BIT,
       GLX_RENDER_TYPE, GLX_RGBA_BIT,
@@ -47,7 +45,7 @@ const
       GLX_DEPTH_SIZE, 24,
       0);
 
-    pixmapAttribs: array [0..4] of integer = (
+    pixmapAttribs: array of integer = (
       GLX_TEXTURE_TARGET_EXT, GLX_TEXTURE_2D_EXT,
       GLX_TEXTURE_FORMAT_EXT, GLX_TEXTURE_FORMAT_RGBA_EXT,
       0);
@@ -63,13 +61,14 @@ const
     root := RootWindow(dpy, screen);
 
     exts := glXQueryExtensionsString(dpy, screen);
-    //    if (!strstr(exts, "GLX_EXT_texture_from_pixmap")) {
-    //        fprintf(stderr, "Extension GLX_EXT_texture_from_pixmap nicht unterstützt\n");
-    //        XCloseDisplay(dpy);
-    //        return 1;
-    //    }
+    if Pos('GLX_EXT_texture_from_pixmap', exts) = 0 then begin
+      WriteLn('Extension GLX_EXT_texture_from_pixmap nicht unterstützt');
+      XCloseDisplay(dpy);
+      Exit;
+      ;
+    end;
 
-    fbConfigs := glXChooseFBConfig(dpy, screen, fbAttribs, @fbCount);
+    fbConfigs := glXChooseFBConfig(dpy, screen, PLongint(fbAttribs), @fbCount);
     if (fbConfigs = nil) or (fbCount = 0) then begin
       WriteLn('Keine passenden FBConfig gefunden');
       XCloseDisplay(dpy);
@@ -79,7 +78,6 @@ const
     fbConfig := fbConfigs[0];
     XFree(fbConfigs);
 
-    // --- KORREKTUR 2: XVisualInfo aus FBConfig holen ---
     vi := glXGetVisualFromFBConfig(dpy, fbConfig);
     if vi = nil then begin
       WriteLn('Kein passendes Visual gefunden');
@@ -87,13 +85,11 @@ const
       Exit;
     end;
 
-    // --- KORREKTUR 3: Colormap und Fensterattribute erstellen ---
     cmap := XCreateColormap(dpy, root, vi^.visual, AllocNone);
     swa.colormap := cmap;
     swa.event_mask := ExposureMask or KeyPressMask;
     swa.border_pixel := 0;
 
-    // --- KORREKTUR 4: Fenster mit XCreateWindow und dem korrekten Visual erstellen ---
     win := XCreateWindow(dpy, root, 0, 0, SIZE, SIZE, 0, vi^.depth, InputOutput, vi^.visual, CWBorderPixel or CWColormap or CWEventMask, @swa);
     if win = 0 then begin
       WriteLn('Fenster konnte nicht erstellt werden');
@@ -103,7 +99,6 @@ const
     XMapWindow(dpy, win);
     XStoreName(dpy, win, 'GLX Texture From Pixmap');
 
-    // OpenGL Kontext mit FBConfig erzeugen
     glc := glXCreateNewContext(dpy, fbConfig, GLX_RGBA_TYPE, nil, 1);
     if glc = nil then begin
       WriteLn('Kann GLX Kontext nicht erstellen');
@@ -119,17 +114,17 @@ const
       Halt(1);
     end;
 
-    // Pixmap erzeugen (Tiefe vom Visual nehmen)
     pixmap := XCreatePixmap(dpy, root, SIZE, SIZE, vi^.depth);
     gc := XCreateGC(dpy, pixmap, 0, nil);
 
     XSetForeground(dpy, gc, $0000FF);
     XFillRectangle(dpy, pixmap, gc, 0, 0, SIZE, SIZE);
 
-    glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
+    glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, PLongint(pixmapAttribs));
     if glxPixmap = 0 then begin
       WriteLn('Kann GLXPixmap nicht erzeugen');
-      // ... (cleanup code)
+      XDestroyWindow(dpy, win);
+      XCloseDisplay(dpy);
       Exit;
     end;
 
@@ -142,8 +137,6 @@ const
 
     glXSwapIntervalEXT(dpy, win, 0);
 
-    // Textur erzeugen und binden
-    //    GLuint tex;
     glGenTextures(1, @tex);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -153,7 +146,7 @@ const
     glEnable(GL_TEXTURE_2D);
     glClearColor(0.2, 0.2, 0.2, 1.0);
 
-    while running = 1 do begin
+    while running do begin
       XSetForeground(dpy, gc, Random($FFFFFF));
       XDrawLine(dpy, pixmap, gc, Random(SIZE), Random(SIZE), Random(SIZE), Random(SIZE));
 
@@ -161,7 +154,7 @@ const
         XNextEvent(dpy, @xev);
         case xev._type of
           KeyPress: begin
-            running := 0;
+            running := False;
           end;
           Expose: begin
             glViewport(0, 0, xev.xexpose.width, xev.xexpose.height);
@@ -186,7 +179,7 @@ const
 
       glXSwapBuffers(dpy, win);
     end;
-    // Aufräumen
+
     glXReleaseTexImageEXT(dpy, glxPixmap, GLX_FRONT_LEFT_EXT);
     glDeleteTextures(1, @tex);
     glXDestroyPixmap(dpy, glxPixmap);

@@ -2,9 +2,6 @@ unit fp_glfw3;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$ifdef linux}
   libglfw = 'libglfw';

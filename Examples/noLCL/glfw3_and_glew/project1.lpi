@@ -25,7 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_glew_package"/>
+        <PackageName Value="fp_GL_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_glfw3_package"/>
