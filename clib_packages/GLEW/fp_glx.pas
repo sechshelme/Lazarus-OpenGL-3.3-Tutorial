@@ -2,19 +2,13 @@ unit fp_glx;
 
 interface
 
-uses
   {$ifdef linux}
+  uses
   x, xlib, xutil,
-  {$endif}
   fp_glew;
 
-  {$ifdef linux}
-  const
-  libGL = 'libGL';
+const
   libGLX = 'libGLX';
-  libGLEW = 'libGLEW';
-  libGLXEW = 'libGLEW';
-  {$endif}
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -330,6 +324,8 @@ type
 
   TGLXEvent = T_GLXEvent;
   PGLXEvent = ^TGLXEvent;
+
+  {$endif}
 
   // === Konventiert am: 22-9-25 17:32:36 ===
 

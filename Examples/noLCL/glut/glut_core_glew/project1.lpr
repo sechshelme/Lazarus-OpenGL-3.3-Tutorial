@@ -1,9 +1,8 @@
 program project1;
 
 uses
-  gl,
-  glext,
-  glut,
+  fp_glew,
+  fp_glut,
   oglShader;
 
 type
@@ -47,12 +46,12 @@ var
   VBTriangle, VBQuad: TVB;
   Shader: TShader;
 
-  procedure key_press(c: byte; v1, v2: integer); cdecl;
+procedure key_press(key: ansichar; x, y: integer); cdecl;
   begin
     WriteLn('press');
-    glutInitWindowPosition(Random(300), Random(300));     // Location of window in screen coordinates.
-    glutInitWindowSize(Random(300), Random(300));     // Location of window in screen coordinates.
-    if c = 27 then begin
+    glutInitWindowPosition(Random(300), Random(300));
+    glutInitWindowSize(Random(300), Random(300));
+    if key = #27 then begin
       halt;
     end;
   end;
@@ -77,10 +76,14 @@ var
     glutInitWindowSize(500, 500);
     glutInitWindowPosition(100, 100);
     glutCreateWindow('GL Triangle');
-    Load_GL_VERSION_3_3();
+
+    if glewInit <> GLEW_OK then begin
+      WriteLn('glxewInit Fehler');
+      Halt(1);
+    end;
+
     glutDisplayFunc(@display);
     glutKeyboardFunc(@key_press);
-
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
@@ -103,7 +106,6 @@ var
     glBufferData(GL_ARRAY_BUFFER, Length(Quad) * SizeOf(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
-
 
     // Shader
     Shader := TShader.Create;

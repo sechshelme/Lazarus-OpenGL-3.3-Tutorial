@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_GL_package"/>
+      </Item>
+      <Item>
         <PackageName Value="ogl_package_noLCL"/>
       </Item>
     </RequiredPackages>

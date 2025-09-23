@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_glew_package"/>
+    <Name Value="fp_GL_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -13,6 +13,18 @@
       <Item>
         <Filename Value="fp_glew.pas"/>
         <UnitName Value="fp_glew"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_glx.pas"/>
+        <UnitName Value="fp_glx"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_glxew.pas"/>
+        <UnitName Value="fp_glxew"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_glut.pas"/>
+        <UnitName Value="fp_glut"/>
       </Item>
     </Files>
     <RequiredPkgs>

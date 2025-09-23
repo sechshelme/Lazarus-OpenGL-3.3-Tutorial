@@ -6,8 +6,7 @@ uses
   xutil,
   ctypes,
   fp_glew,
-  //  fp_glxew,
-
+  fp_glxew,
 
   fp_glx;
 
@@ -113,13 +112,12 @@ const
       Exit;
     end;
 
-
     glXMakeCurrent(dpy, win, glc);
 
-    //if glxewInit <> GLEW_OK then begin
-    //  WriteLn('glxewInit Fehler');
-    //  Halt(1);
-    //end;
+    if glxewInit <> GLEW_OK then begin
+      WriteLn('glxewInit Fehler');
+      Halt(1);
+    end;
 
     // Pixmap erzeugen (Tiefe vom Visual nehmen)
     pixmap := XCreatePixmap(dpy, root, SIZE, SIZE, vi^.depth);
@@ -127,10 +125,6 @@ const
 
     XSetForeground(dpy, gc, $0000FF);
     XFillRectangle(dpy, pixmap, gc, 0, 0, SIZE, SIZE);
-
-
-//    drawInPixmap(dpy, pixmap, gc, SIZE, SIZE);
-
 
     glxPixmap := glXCreatePixmap(dpy, fbConfig, pixmap, pixmapAttribs);
     if glxPixmap = 0 then begin
@@ -145,6 +139,8 @@ const
       WriteLn('glewInit Fehler');
       Halt(1);
     end;
+
+    glXSwapIntervalEXT(dpy, win, 0);
 
     // Textur erzeugen und binden
     //    GLuint tex;

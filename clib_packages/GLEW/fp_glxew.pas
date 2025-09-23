@@ -2,10 +2,9 @@ unit fp_glxew;
 
 interface
 
+{$ifdef linux}
 uses
-  {$ifdef linux}
   x, xlib, xutil,
-  {$endif}
   ctypes, fp_glew, fp_glx;
 
   {$IFDEF FPC}
@@ -1569,6 +1568,9 @@ var
 function glxewInit: TGLenum; cdecl; external libGLXEW;
 function glxewIsSupported(name: pchar): TGLboolean; cdecl; external libGLXEW;
 function glxewGetExtension(name: pchar): TGLboolean; cdecl; external libGLXEW;
+
+{$endif}
+
 
 // === Konventiert am: 21-9-25 15:48:53 ===
 
