@@ -10,6 +10,7 @@ uses
 
 const
   SIZE = 512;
+  hello='Hello World';
 
   procedure main;
   var
@@ -135,7 +136,7 @@ const
       Halt(1);
     end;
 
-    glXSwapIntervalEXT(dpy, win, 0);
+    glXSwapIntervalEXT(dpy, win, 10);
 
     glGenTextures(1, @tex);
     glBindTexture(GL_TEXTURE_2D, tex);
@@ -149,6 +150,8 @@ const
     while running do begin
       XSetForeground(dpy, gc, Random($FFFFFF));
       XDrawLine(dpy, pixmap, gc, Random(SIZE), Random(SIZE), Random(SIZE), Random(SIZE));
+      XSetForeground(dpy, gc, $FFFFFF);
+      XDrawString(dpy, pixmap,gc, 10,10,hello, Length(hello));
 
       while XPending(dpy) > 0 do begin
         XNextEvent(dpy, @xev);
