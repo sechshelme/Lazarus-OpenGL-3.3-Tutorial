@@ -26,6 +26,10 @@
         <Filename Value="fp_glut.pas"/>
         <UnitName Value="fp_glut"/>
       </Item>
+      <Item>
+        <Filename Value="fp_gl_tools.pas"/>
+        <UnitName Value="fp_GL_Tools"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

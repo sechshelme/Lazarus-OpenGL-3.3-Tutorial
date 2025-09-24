@@ -8,7 +8,7 @@ unit fp_GL_package;
 interface
 
 uses
-  fp_glew, fp_glx, fp_glxew, fp_glut, LazarusPackageIntf;
+  fp_glew, fp_glx, fp_glxew, fp_glut, fp_GL_Tools, LazarusPackageIntf;
 
 implementation
 

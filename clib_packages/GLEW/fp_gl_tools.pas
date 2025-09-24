@@ -1,6 +1,4 @@
-unit oglShader;
-
-{$mode objfpc}{$H+}
+unit fp_GL_Tools;
 
 interface
 
@@ -11,17 +9,19 @@ type
   PShader = type Pointer;
 
 function shader_new: PShader;
-function shader_load_shaderobject(s: PShader; shaderType: TGLenum; const AShader: ansistring): boolean;
-function shader_link_program(s: PShader): boolean;
-procedure shader_use_program(s: PShader);
-function shader_get_ID(s: PShader): TGLint;
-procedure shader_unref(s: PShader);
+function shader_load_shaderobject(shader: PShader; shaderType: TGLenum; const AShader: ansistring): boolean;
+function shader_link_program(shader: PShader): boolean;
+function shader_get_errortext(shader: PShader): pchar;
+procedure shader_use_program(shader: PShader);
+function shader_get_ID(shader: PShader): TGLint;
+procedure shader_unref(shader: PShader);
 
 implementation
 
 type
   TShaderPrivat = record
     FProgramObject: TGLint;
+    error_text: string;
   end;
   PShaderPrivat = ^TShaderPrivat;
 
@@ -31,14 +31,14 @@ var
 begin
   sh := GetMem(SizeOf(TShaderPrivat));
   sh^.FProgramObject := glCreateProgram(nil);
+  sh^.error_text := '';
 end;
 
-function shader_load_shaderobject(s: PShader; shaderType: TGLenum; const AShader: ansistring): boolean;
+function shader_load_shaderobject(shader: PShader; shaderType: TGLenum; const AShader: ansistring): boolean;
 var
-  sh: PShaderPrivat absolute s;
+  sh: PShaderPrivat absolute shader;
 var
   ShaderObject: TGLint;
-  pc: array of char = nil;
   l: TGLint;
 
   ErrorStatus: TGLboolean;
@@ -55,21 +55,20 @@ begin
   // Check  Shader
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-  SetLength(pc, InfoLogLength + 1);
-  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(pc));
+  SetLength(sh^.error_text, InfoLogLength + 1);
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(sh^.error_text));
 
   if ErrorStatus = GL_FALSE then begin
-    WriteLn('FEHLER: ', pchar(pc));
+    Result := False;
   end;
 
   glDeleteShader(ShaderObject);
 end;
 
-function shader_link_program(s: PShader): boolean;
+function shader_link_program(shader: PShader): boolean;
 var
-  sh: PShaderPrivat absolute s;
+  sh: PShaderPrivat absolute shader;
 var
-  pc: array of char = nil;
   ErrorStatus: TGLboolean;
   InfoLogLength: TGLsizei;
 begin
@@ -80,30 +79,37 @@ begin
   glGetProgramiv(sh^.FProgramObject, GL_LINK_STATUS, @ErrorStatus);
 
   if ErrorStatus = GL_FALSE then begin
+    Result := False;
     glGetProgramiv(sh^.FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(pc, InfoLogLength + 1);
-    glGetProgramInfoLog(sh^.FProgramObject, InfoLogLength, nil, pchar(pc));
-    WriteLn('SHADER LINK:', pchar(pc));
+    SetLength(sh^.error_text, InfoLogLength + 1);
+    glGetProgramInfoLog(sh^.FProgramObject, InfoLogLength, nil, pchar(sh^.error_text));
   end;
 end;
 
-procedure shader_use_program(s: PShader);
+function shader_get_errortext(shader: PShader): pchar;
 var
-  sh: PShaderPrivat absolute s;
+  sh: PShaderPrivat absolute shader;
+begin
+  Result := pchar(sh^.error_text);
+end;
+
+procedure shader_use_program(shader: PShader);
+var
+  sh: PShaderPrivat absolute shader;
 begin
   glUseProgram(sh^.FProgramObject);
 end;
 
-function shader_get_ID(s: PShader): TGLint;
+function shader_get_ID(shader: PShader): TGLint;
 var
-  sh: PShaderPrivat absolute s;
+  sh: PShaderPrivat absolute shader;
 begin
   Result := sh^.FProgramObject;
 end;
 
-procedure shader_unref(s: PShader);
+procedure shader_unref(shader: PShader);
 var
-  sh: PShaderPrivat absolute s;
+  sh: PShaderPrivat absolute shader;
 begin
   glDeleteProgram(sh^.FProgramObject);
   Freemem(sh);
