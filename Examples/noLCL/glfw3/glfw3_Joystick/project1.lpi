@@ -27,6 +27,9 @@
       <Item>
         <PackageName Value="fp_GL_package"/>
       </Item>
+      <Item>
+        <PackageName Value="ogl_package_noLCL"/>
+      </Item>
     </RequiredPackages>
     <Units>
       <Unit>
@@ -50,11 +53,6 @@
         <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
     </Linking>
   </CompilerOptions>
   <Debugging>
