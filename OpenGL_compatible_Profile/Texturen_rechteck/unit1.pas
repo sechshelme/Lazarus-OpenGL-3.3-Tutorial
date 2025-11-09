@@ -128,8 +128,6 @@ begin
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, @Textur32Alpha);
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glMatrixMode(GL_TEXTURE);  // Textur Scalieren
-  glLoadIdentity();
 
   Timer1.Enabled := True;
 end;
