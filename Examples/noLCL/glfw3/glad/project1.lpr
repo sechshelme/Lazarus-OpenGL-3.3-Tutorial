@@ -9,10 +9,10 @@ uses
   oglShader;
 
 type
-    TVector3f = array[0..2] of TGLfloat;
-    PVector3f = ^TVector3f;
+  TVector3f = array[0..2] of TGLfloat;
+  PVector3f = ^TVector3f;
 
-  procedure error_callback(error_code: longint; description: PChar); cdecl;
+  procedure error_callback(error_code: longint; description: pchar); cdecl;
   begin
     WriteLn('ErrorCallback: (', error_code, ')  ', description);
   end;
@@ -32,7 +32,7 @@ const
     ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
     (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
 
-  vertex_shader_text: string =
+  vertex_shader_text =
     '#version 330 core' + #10 +
     '' + #10 +
     'layout (location = 0) in vec4 vPosition;' + #10 +
@@ -57,9 +57,9 @@ const
     WriteLn('press Char');
   end;
 
-  procedure Mouse_Callback(window: PGLFWwindow; button: longint;    action: longint; mods: longint); cdecl;
+  procedure Mouse_Callback(window: PGLFWwindow; button: longint; action: longint; mods: longint); cdecl;
   begin
-    WriteLn('click    button: ',button, '  action: ',action, '  mods: ',mods);
+    WriteLn('click    button: ', button, '  action: ', action, '  mods: ', mods);
   end;
 
   procedure main;
@@ -76,7 +76,7 @@ const
 
   var
     VBTriangle, VBQuad: TVB;
-    s: String;
+    s: string;
 
   begin
     glfwSetErrorCallback(@error_callback);
@@ -88,18 +88,18 @@ const
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//    glfwWindowHint(GLFW_ACCUM_RED_BITS, 3909);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    s:=  {$I %FPCTARGETOS%};
+    s := {$I %FPCTARGETOS%};
 
-    window := glfwCreateWindow(640, 480, PChar('GLFW-Demo   ( ' +s+' )') , nil, nil);
+    window := glfwCreateWindow(640, 480, pchar('GLFW-Demo   ( ' + s + ' )'), nil, nil);
     if window = nil then begin
       WriteLn('glfwCreateWindow Error !');
       Halt(1);
     end;
 
     glfwSetKeyCallback(window, @Key_callback);
-    glfwSetCharCallback(window,@Char_callBack);
+    glfwSetCharCallback(window, @Char_callBack);
     glfwSetMouseButtonCallback(window, @Mouse_Callback);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
@@ -159,6 +159,9 @@ const
 
     glDeleteVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
     glDeleteBuffers(Length(VBTriangle.Mesh_Buffers), VBTriangle.Mesh_Buffers);
+
+    glDeleteVertexArrays(Length(VBQuad.VAOs), VBQuad.VAOs);
+    glDeleteBuffers(Length(VBQuad.Mesh_Buffers), VBQuad.Mesh_Buffers);
 
     glfwDestroyWindow(window);
     glfwTerminate;
