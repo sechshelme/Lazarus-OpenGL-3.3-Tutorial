@@ -10,7 +10,6 @@
       <Title Value="project1"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
-      <Icon Value="0"/>
     </General>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -24,13 +23,10 @@
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="ogl_Package"/>
-      </Item1>
-      <Item2>
         <PackageName Value="LCL"/>
-      </Item2>
+      </Item1>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

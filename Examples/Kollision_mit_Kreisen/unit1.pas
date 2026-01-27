@@ -5,44 +5,53 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls, oglVector;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls;
 
 type
+  TVector2f = array[0..1] of single;
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    Panel1: TPanel;
     Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
-    procedure Panel1Paint(Sender: TObject);
+    procedure FormPaint(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    function KollisionTest(ASelf: integer): boolean;
-  private
-
-  public
-
+    function CollisiosTest(ASelf: integer): boolean;
   end;
 
 var
   Form1: TForm1;
 
 type
-  TKreis = record
+  TCircle = record
     DirVector,
     PosVector: TVector2f;
     Radius: single;
     Color: TColor;
   end;
 
-  TKreise = array[0..49] of TKreis;
+  TCircles = array[0..49] of TCircle;
 
 var
-  Kreise: TKreise;
+  Kreise: TCircles;
 
 implementation
 
 {$R *.lfm}
+
+function Vec2_sub(const v0, v1: TVector2f): TVector2f;
+begin
+  Result[0] := v0[0] - v1[0];
+  Result[1] := v0[1] - v1[1];
+end;
+
+function Vec2_Length(const self: TVector2f): single;
+begin
+  Result := sqrt(sqr(Self[0]) + sqr(Self[1]));
+end;
+
+
 
 { TForm1 }
 
@@ -52,6 +61,8 @@ const
 var
   i: integer;
 begin
+  ClientWidth := 640;
+  ClientHeight := 400;
   DoubleBuffered := True;
   Randomize;
   for i := 0 to Length(Kreise) - 1 do begin
@@ -65,36 +76,34 @@ begin
     with Kreise[i] do begin
       repeat
         Radius := Random(rad) + rad / 2;
-        PosVector[0] := Random * Panel1.Width;
-        PosVector[1] := Random * Panel1.Height;
-      until KollisionTest(i) = False;
+        PosVector[0] := Random * ClientWidth;
+        PosVector[1] := Random * ClientHeight;
+      until CollisiosTest(i) = False;
     end;
   end;
 end;
 
-procedure TForm1.Panel1Paint(Sender: TObject);
+procedure TForm1.FormPaint(Sender: TObject);
 var
   i: integer;
 begin
-  Panel1.Canvas.Brush.Color := clBackground;
-  Panel1.Canvas.Clear;
+  Color := $401020;
   for i := 0 to Length(Kreise) - 1 do begin
     with Kreise[i] do begin
-      Panel1.Canvas.Brush.Color := Color;
-      Panel1.Canvas.Ellipse(round(PosVector[0] - Radius), round(PosVector[1] - Radius), round(PosVector[0] + Radius), round(PosVector[1] + Radius));
+      Canvas.Brush.Color := Color;
+      Canvas.Ellipse(round(PosVector[0] - Radius), round(PosVector[1] - Radius), round(PosVector[0] + Radius), round(PosVector[1] + Radius));
     end;
   end;
 end;
 
-function TForm1.KollisionTest(ASelf: integer): boolean;
+function TForm1.CollisiosTest(ASelf: integer): boolean;
 var
   i: integer;
-  v: TVector2f;
 begin
   Result := False;
   for i := 0 to Length(Kreise) - 1 do begin
     if i <> ASelf then begin
-      if (Kreise[ASelf].PosVector - Kreise[i].PosVector).Length < Kreise[ASelf].Radius + Kreise[i].Radius then begin
+      if Vec2_Length(Vec2_sub(Kreise[ASelf].PosVector, Kreise[i].PosVector)) < Kreise[ASelf].Radius + Kreise[i].Radius then begin
         Result := True;
         Exit;
       end;
@@ -109,24 +118,25 @@ var
 begin
   for i := 0 to Length(Kreise) - 1 do begin
     with Kreise[i] do begin
-      Color := clWhite;
       posalt := PosVector;
       PosVector[0] += DirVector[0];
       PosVector[1] += DirVector[1];
-      if (PosVector[0] < 0) or (PosVector[0] > Panel1.Width) then begin
+      if (PosVector[0] < 0) or (PosVector[0] > ClientWidth) then begin
         DirVector[0] *= -1;
         PosVector := posalt;
       end;
-      if (PosVector[1] < 0) or (PosVector[1] > Panel1.Height) then begin
+      if (PosVector[1] < 0) or (PosVector[1] > ClientHeight) then begin
         DirVector[1] *= -1;
         PosVector := posalt;
       end;
-      if KollisionTest(i) then begin
+      if CollisiosTest(i) then begin
         DirVector[0] *= -1;
         DirVector[1] *= -1;
         PosVector := posalt;
         Color := clRed;
-      end;
+      end else begin
+        Color := clYellow;
+      end;;
     end;
   end;
   Invalidate;

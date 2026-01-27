@@ -25,14 +25,13 @@ implementation
 {$R *.lfm}
 
 type
-  PMaterial = ^TMaterial;
-
   TMaterial = record
     refractive_index: single;
     albedo: TVector4f;
     diffuse_color: TVector3f;
     specular_exponent: single;
   end;
+  PMaterial = ^TMaterial;
 
   TSphere = record
     center: TVector3f;
