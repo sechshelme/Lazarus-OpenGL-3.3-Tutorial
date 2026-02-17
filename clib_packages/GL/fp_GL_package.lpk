@@ -38,6 +38,10 @@
         <Filename Value="fp_glfw3native.pas"/>
         <UnitName Value="fp_glfw3native"/>
       </Item>
+      <Item>
+        <Filename Value="fp_cglm.pas"/>
+        <UnitName Value="fp_cglm"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

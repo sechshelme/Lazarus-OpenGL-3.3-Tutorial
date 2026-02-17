@@ -1,0 +1,49 @@
+
+
+{$include cglm/aabb2d.inc}
+{$include cglm/affine.inc}
+{$include cglm/affine2d.inc}
+{$include cglm/bezier.inc}
+{$include cglm/box.inc}
+{$include cglm/cam.inc}
+{$include cglm/curve.inc}
+{$include cglm/ease.inc}
+{$include cglm/euler.inc}
+{$include cglm/frustum.inc}
+{$include cglm/io.inc}
+{$include cglm/ivec2.inc}
+{$include cglm/ivec3.inc}
+{$include cglm/ivec4.inc}
+{$include cglm/mat2.inc}
+{$include cglm/mat2x3.inc}
+{$include cglm/mat2x4.inc}
+{$include cglm/mat3.inc}
+{$include cglm/mat3x2.inc}
+{$include cglm/mat3x4.inc}
+{$include cglm/mat4.inc}
+{$include cglm/mat4x2.inc}
+{$include cglm/mat4x3.inc}
+{$include cglm/plane.inc}
+{$include cglm/project.inc}
+{$include cglm/quat.inc}
+{$include cglm/ray.inc}
+{$include cglm/sphere.inc}
+{$include cglm/vec2.inc}
+{$include cglm/vec3.inc}
+{$include cglm/vec4.inc}
+
+{$include cglm//clipspace/ortho_lh_no.inc}
+{$include cglm//clipspace/ortho_lh_zo.inc}
+{$include cglm//clipspace/ortho_rh_no.inc}
+{$include cglm//clipspace/ortho_rh_zo.inc}
+{$include cglm//clipspace/persp_lh_no.inc}
+{$include cglm//clipspace/persp_lh_zo.inc}
+{$include cglm//clipspace/persp_rh_no.inc}
+{$include cglm//clipspace/persp_rh_zo.inc}
+{$include cglm//clipspace/project_no.inc}
+{$include cglm//clipspace/project_zo.inc}
+{$include cglm//clipspace/view_lh_no.inc}
+{$include cglm//clipspace/view_lh_zo.inc}
+{$include cglm//clipspace/view_rh_no.inc}
+{$include cglm//clipspace/view_rh_zo.inc}
+

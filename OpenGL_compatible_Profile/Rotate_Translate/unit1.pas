@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls, OpenGLContext, oglglad_gl;
+  ExtCtrls, StdCtrls, OpenGLContext, gl;
 
 type
 
@@ -25,9 +25,6 @@ var
   Form1: TForm1;
 
 implementation
-
-{ TForm1 }
-
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
@@ -83,8 +80,8 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   OpenGLControl1.MakeCurrent;
-  Load_GLADE;
 end;
+
 
 initialization
 

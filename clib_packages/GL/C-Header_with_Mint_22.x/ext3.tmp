@@ -1,0 +1,2890 @@
+
+{
+** The OpenGL Extension Wrangler Library
+** Copyright (C) 2008-2019, Nigel Stewart <nigels[]users sourceforge net>
+** Copyright (C) 2002-2008, Milan Ikits <milan ikits[]ieee org>
+** Copyright (C) 2002-2008, Marcelo E. Magallon <mmagallo[]debian org>
+** Copyright (C) 2002, Lev Povalahev
+** All rights reserved.
+** 
+** Redistribution and use in source and binary forms, with or without 
+** modification, are permitted provided that the following conditions are met:
+** 
+** * Redistributions of source code must retain the above copyright notice, 
+**   this list of conditions and the following disclaimer.
+** * Redistributions in binary form must reproduce the above copyright notice, 
+**   this list of conditions and the following disclaimer in the documentation 
+**   and/or other materials provided with the distribution.
+** * The name of the author may be used to endorse or promote products 
+**   derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+** AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+** IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+** ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+** LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+** CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+** SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+** INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+** CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+** ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+** THE POSSIBILITY OF SUCH DAMAGE.
+ }
+{
+ * Mesa 3-D graphics library
+ * Version:  7.0
+ *
+ * Copyright (C) 1999-2007  Brian Paul   All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+ * BRIAN PAUL BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  }
+{
+** Copyright (c) 2007 The Khronos Group Inc.
+** 
+** Permission is hereby granted, free of charge, to any person obtaining a
+** copy of this software and/or associated documentation files (the
+** "Materials"), to deal in the Materials without restriction, including
+** without limitation the rights to use, copy, modify, merge, publish,
+** distribute, sublicense, and/or sell copies of the Materials, and to
+** permit persons to whom the Materials are furnished to do so, subject to
+** the following conditions:
+** 
+** The above copyright notice and this permission notice shall be included
+** in all copies or substantial portions of the Materials.
+** 
+** THE MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+** EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+** MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+** IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+** CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+** TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+** MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
+ }
+{$ifndef __glew_h__}
+{$define __glew_h__}
+{$define __GLEW_H__}
+{$if defined(__gl_h_) || defined(__GL_H__) || defined(_GL_H) || defined(__X_GL_H)}
+{$error gl.h included before glew.h}
+{$endif}
+{$if defined(__gl2_h_)}
+{$error gl2.h included before glew.h}
+{$endif}
+{$if defined(__gltypes_h_)}
+{$error gltypes.h included before glew.h}
+{$endif}
+{$if defined(__REGAL_H__)}
+{$error Regal.h included before glew.h}
+{$endif}
+{$if defined(__glext_h_) || defined(__GLEXT_H_) || defined(__gl_glext_h_)}
+{$error glext.h included before glew.h}
+{$endif}
+{$if defined(__gl_ATI_h_)}
+{$error glATI.h included before glew.h}
+{$endif}
+{$define __gl_h_}
+{$define __gl2_h_}
+{$define __GL_H__}
+{$define _GL_H}
+{$define __gltypes_h_}
+{$define __REGAL_H__}
+{$define __X_GL_H}
+{$define __glext_h_}
+{$define __GLEXT_H_}
+{$define __gl_glext_h_}
+{$define __gl_ATI_h_}
+{$if defined(_WIN32)}
+{
+ * GLEW does not include <windows.h> to avoid name space pollution.
+ * GL needs GLAPI and GLAPIENTRY, GLU needs APIENTRY, CALLBACK, and wchar_t
+ * defined properly.
+  }
+{ <windef.h> and <gl.h> }
+{$ifdef APIENTRY}
+{$ifndef GLAPIENTRY}
+
+const
+  GLAPIENTRY = APIENTRY;  
+{$endif}
+{$ifndef GLEWAPIENTRY}
+
+const
+  GLEWAPIENTRY = APIENTRY;  
+{$endif}
+{$else}
+{$define GLEW_APIENTRY_DEFINED}
+{$if defined(__MINGW32__) || defined(__CYGWIN__) || (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED) || defined(__BORLANDC__)}
+
+const
+  APIENTRY = __stdcall;  
+{$ifndef GLAPIENTRY}
+
+const
+  GLAPIENTRY = __stdcall;  
+{$endif}
+{$ifndef GLEWAPIENTRY}
+
+const
+  GLEWAPIENTRY = __stdcall;  
+{$endif}
+{$else}
+{$define APIENTRY}
+{$endif}
+{$endif}
+{$ifndef GLAPI}
+{$if defined(__MINGW32__) || defined(__CYGWIN__)}
+(* error 
+#    define GLAPI extern
+in define line 146 *)
+{$endif}
+{$endif}
+    { <winnt.h>  }
+{$ifndef CALLBACK}
+{$define GLEW_CALLBACK_DEFINED}    
+{$if defined(__MINGW32__) || defined(__CYGWIN__)}
+(* error 
+#    define CALLBACK __attribute__ ((__stdcall__))
+in define line 153 *)
+(*** was #elif ****){$else (defined(_M_MRX000) || defined(_M_IX86) || defined(_M_ALPHA) || defined(_M_PPC)) && !defined(MIDL_PASS)}
+(* error 
+#    define CALLBACK __stdcall
+in define line 155 *)
+{$else}
+{$define CALLBACK}    
+{$endif}
+{$endif}
+    { <wingdi.h> and <winnt.h>  }
+{$ifndef WINGDIAPI}
+{$define GLEW_WINGDIAPI_DEFINED}    
+(* error 
+#define WINGDIAPI __declspec(dllimport)
+in define line 163 *)
+{$endif}
+    { <ctype.h>  }
+{$if (defined(_MSC_VER) || defined(__BORLANDC__)) && !defined(_WCHAR_T_DEFINED)}
+    type
+      Pwchar_t = ^Twchar_t;
+      Twchar_t = word;
+{$define _WCHAR_T_DEFINED}    
+{$endif}
+    { <stddef.h>  }
+{$if !defined(_W64)}
+{$if !defined(__midl) && (defined(_X86_) || defined(_M_IX86)) && defined(_MSC_VER) && _MSC_VER >= 1300}
+
+    const
+      _W64 = __w64;      
+{$else}
+{$define _W64}    
+{$endif}
+{$endif}
+{$if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_) && !defined(__MINGW64__)}
+{$ifdef _WIN64}
+    type
+      Pptrdiff_t = ^Tptrdiff_t;
+      Tptrdiff_t = int64;
+{$else}
+(* error 
+typedef _W64 int ptrdiff_t;
+in declaration at line 182 *)
+{$endif}
+{$define _PTRDIFF_T_DEFINED}    
+{$define _PTRDIFF_T_}    
+{$endif}
+{$ifndef GLAPI}
+{$if defined(__MINGW32__) || defined(__CYGWIN__)}
+(* error 
+#    define GLAPI extern
+in define line 190 *)
+{$else}
+
+    const
+      GLAPI = WINGDIAPI;      
+{$endif}
+{$endif}
+    {
+     * GLEW_STATIC is defined for static library.
+     * GLEW_BUILD  is defined for building the DLL library.
+      }
+{$ifdef GLEW_STATIC}
+(* error 
+#  define GLEWAPI extern
+in define line 202 *)
+{$else}
+{$ifdef GLEW_BUILD}
+(* error 
+#    define GLEWAPI extern __declspec(dllexport)
+in define line 205 *)
+{$else}
+(* error 
+#    define GLEWAPI extern __declspec(dllimport)
+in define line 207 *)
+{$endif}
+{$endif}
+{$else}
+    { _UNIX  }
+    {
+     * Needed for ptrdiff_t in turn needed by VBO.  This is defined by ISO
+     * C.  On my system, this amounts to _3 lines_ of included code, all of
+     * them pretty much harmless.  If you know of a way of detecting 32 vs
+     * 64 _targets_ at compile time you are free to replace this with
+     * something that's portable.  For now, _this_ is the portable solution.
+     * (mem, 2004-01-04)
+      }
+{$if defined(__APPLE__) || defined(__linux__)}
+{$if defined(__cplusplus)}
+{$include <cstddef>}
+{$include <cstdint>}
+{$else}
+{$include <stddef.h>}
+{$include <stdint.h>}
+{$endif}
+{$else}
+{$include <stddef.h>}
+    { SGI MIPSPro doesn't like stdint.h in C++ mode           }
+    { ID: 3376260 Solaris 9 has inttypes.h, but not stdint.h  }
+{$if (defined(__sgi) || defined(__sun)) && !defined(__GNUC__)}
+{$include <inttypes.h>}
+{$else}
+{$include <stdint.h>}
+{$endif}
+{$endif}
+{$define GLEW_APIENTRY_DEFINED}    
+{$define APIENTRY}    
+    {
+     * GLEW_STATIC is defined for static library.
+      }
+{$ifdef GLEW_STATIC}
+(* error 
+#  define GLEWAPI extern
+in define line 252 *)
+{$else}
+{$if defined(__GNUC__) && __GNUC__>=4}
+(* error 
+#   define GLEWAPI extern __attribute__ ((visibility("default")))
+in define line 255 *)
+(*** was #elif ****){$else defined(__SUNPRO_C) || defined(__SUNPRO_CC)}
+(* error 
+#   define GLEWAPI extern __global
+in define line 257 *)
+{$else}
+(* error 
+#   define GLEWAPI extern
+in define line 259 *)
+{$endif}
+{$endif}
+    { <glu.h>  }
+{$ifndef GLAPI}
+(* error 
+#define GLAPI extern
+in define line 265 *)
+{$endif}
+{$endif}
+    { _WIN32  }
+{$ifndef GLAPIENTRY}
+{$define GLAPIENTRY}    
+{$endif}
+{$ifndef GLEWAPIENTRY}
+{$define GLEWAPIENTRY}    
+{$endif}
+
+    const
+      GLEW_VAR_EXPORT = GLEWAPI;      
+      GLEW_FUN_EXPORT = GLEWAPI;      
+{ C++ extern C conditionnal removed }
+    { ----------------------------- GL_VERSION_1_1 ----------------------------  }
+{$ifndef GL_VERSION_1_1}
+
+    const
+      GL_VERSION_1_1 = 1;      
+    type
+      PGLenum = ^TGLenum;
+      TGLenum = dword;
+
+      PGLbitfield = ^TGLbitfield;
+      TGLbitfield = dword;
+
+      PGLuint = ^TGLuint;
+      TGLuint = dword;
+
+      PGLint = ^TGLint;
+      TGLint = longint;
+
+      PGLsizei = ^TGLsizei;
+      TGLsizei = longint;
+
+      PGLboolean = ^TGLboolean;
+      TGLboolean = byte;
+
+      PGLbyte = ^TGLbyte;
+      TGLbyte = char;
+
+      PGLshort = ^TGLshort;
+      TGLshort = smallint;
+
+      PGLubyte = ^TGLubyte;
+      TGLubyte = byte;
+
+      PGLushort = ^TGLushort;
+      TGLushort = word;
+
+      PGLulong = ^TGLulong;
+      TGLulong = dword;
+
+      PGLfloat = ^TGLfloat;
+      TGLfloat = single;
+
+      PGLclampf = ^TGLclampf;
+      TGLclampf = single;
+
+      PGLdouble = ^TGLdouble;
+      TGLdouble = Tdouble;
+
+      PGLclampd = ^TGLclampd;
+      TGLclampd = Tdouble;
+
+      PGLvoid = ^TGLvoid;
+      TGLvoid = pointer;
+{$if defined(_MSC_VER) && _MSC_VER < 1400}
+    type
+      PGLint64EXT = ^TGLint64EXT;
+      TGLint64EXT = int64;
+
+      PGLuint64EXT = ^TGLuint64EXT;
+      TGLuint64EXT = qword;
+(*** was #elif ****){$else defined(_MSC_VER) || defined(__BORLANDC__)}
+    type
+      PGLint64EXT = ^TGLint64EXT;
+      TGLint64EXT = int64;
+
+      PGLuint64EXT = ^TGLuint64EXT;
+      TGLuint64EXT = qword;
+{$else}
+{$if defined(__MINGW32__) || defined(__CYGWIN__)}
+{$include <inttypes.h>}
+{$endif}
+    type
+      PGLint64EXT = ^TGLint64EXT;
+      TGLint64EXT = Tint64_t;
+
+      PGLuint64EXT = ^TGLuint64EXT;
+      TGLuint64EXT = Tuint64_t;
+{$endif}
+    type
+      PGLint64 = ^TGLint64;
+      TGLint64 = TGLint64EXT;
+
+      PGLuint64 = ^TGLuint64;
+      TGLuint64 = TGLuint64EXT;
+
+      PGLsync = ^TGLsync;
+      TGLsync = P_GLsync;
+
+      PGLchar = ^TGLchar;
+      TGLchar = char;
+
+      PGLeglImageOES = ^TGLeglImageOES;
+      TGLeglImageOES = pointer;
+    { GL_EXT_EGL_image_storage  }
+
+    const
+      GL_ZERO = 0;      
+      GL_FALSE = 0;      
+      GL_LOGIC_OP = $0BF1;      
+      GL_NONE = 0;      
+      GL_TEXTURE_COMPONENTS = $1003;      
+      GL_NO_ERROR = 0;      
+      GL_POINTS = $0000;      
+      GL_CURRENT_BIT = $00000001;      
+      GL_TRUE = 1;      
+      GL_ONE = 1;      
+      GL_CLIENT_PIXEL_STORE_BIT = $00000001;      
+      GL_LINES = $0001;      
+      GL_LINE_LOOP = $0002;      
+      GL_POINT_BIT = $00000002;      
+      GL_CLIENT_VERTEX_ARRAY_BIT = $00000002;      
+      GL_LINE_STRIP = $0003;      
+      GL_LINE_BIT = $00000004;      
+      GL_TRIANGLES = $0004;      
+      GL_TRIANGLE_STRIP = $0005;      
+      GL_TRIANGLE_FAN = $0006;      
+      GL_QUADS = $0007;      
+      GL_QUAD_STRIP = $0008;      
+      GL_POLYGON_BIT = $00000008;      
+      GL_POLYGON = $0009;      
+      GL_POLYGON_STIPPLE_BIT = $00000010;      
+      GL_PIXEL_MODE_BIT = $00000020;      
+      GL_LIGHTING_BIT = $00000040;      
+      GL_FOG_BIT = $00000080;      
+      GL_DEPTH_BUFFER_BIT = $00000100;      
+      GL_ACCUM = $0100;      
+      GL_LOAD = $0101;      
+      GL_RETURN = $0102;      
+      GL_MULT = $0103;      
+      GL_ADD = $0104;      
+      GL_NEVER = $0200;      
+      GL_ACCUM_BUFFER_BIT = $00000200;      
+      GL_LESS = $0201;      
+      GL_EQUAL = $0202;      
+      GL_LEQUAL = $0203;      
+      GL_GREATER = $0204;      
+      GL_NOTEQUAL = $0205;      
+      GL_GEQUAL = $0206;      
+      GL_ALWAYS = $0207;      
+      GL_SRC_COLOR = $0300;      
+      GL_ONE_MINUS_SRC_COLOR = $0301;      
+      GL_SRC_ALPHA = $0302;      
+      GL_ONE_MINUS_SRC_ALPHA = $0303;      
+      GL_DST_ALPHA = $0304;      
+      GL_ONE_MINUS_DST_ALPHA = $0305;      
+      GL_DST_COLOR = $0306;      
+      GL_ONE_MINUS_DST_COLOR = $0307;      
+      GL_SRC_ALPHA_SATURATE = $0308;      
+      GL_STENCIL_BUFFER_BIT = $00000400;      
+      GL_FRONT_LEFT = $0400;      
+      GL_FRONT_RIGHT = $0401;      
+      GL_BACK_LEFT = $0402;      
+      GL_BACK_RIGHT = $0403;      
+      GL_FRONT = $0404;      
+      GL_BACK = $0405;      
+      GL_LEFT = $0406;      
+      GL_RIGHT = $0407;      
+      GL_FRONT_AND_BACK = $0408;      
+      GL_AUX0 = $0409;      
+      GL_AUX1 = $040A;      
+      GL_AUX2 = $040B;      
+      GL_AUX3 = $040C;      
+      GL_INVALID_ENUM = $0500;      
+      GL_INVALID_VALUE = $0501;      
+      GL_INVALID_OPERATION = $0502;      
+      GL_STACK_OVERFLOW = $0503;      
+      GL_STACK_UNDERFLOW = $0504;      
+      GL_OUT_OF_MEMORY = $0505;      
+      GL_2D = $0600;      
+      GL_3D = $0601;      
+      GL_3D_COLOR = $0602;      
+      GL_3D_COLOR_TEXTURE = $0603;      
+      GL_4D_COLOR_TEXTURE = $0604;      
+      GL_PASS_THROUGH_TOKEN = $0700;      
+      GL_POINT_TOKEN = $0701;      
+      GL_LINE_TOKEN = $0702;      
+      GL_POLYGON_TOKEN = $0703;      
+      GL_BITMAP_TOKEN = $0704;      
+      GL_DRAW_PIXEL_TOKEN = $0705;      
+      GL_COPY_PIXEL_TOKEN = $0706;      
+      GL_LINE_RESET_TOKEN = $0707;      
+      GL_EXP = $0800;      
+      GL_VIEWPORT_BIT = $00000800;      
+      GL_EXP2 = $0801;      
+      GL_CW = $0900;      
+      GL_CCW = $0901;      
+      GL_COEFF = $0A00;      
+      GL_ORDER = $0A01;      
+      GL_DOMAIN = $0A02;      
+      GL_CURRENT_COLOR = $0B00;      
+      GL_CURRENT_INDEX = $0B01;      
+      GL_CURRENT_NORMAL = $0B02;      
+      GL_CURRENT_TEXTURE_COORDS = $0B03;      
+      GL_CURRENT_RASTER_COLOR = $0B04;      
+      GL_CURRENT_RASTER_INDEX = $0B05;      
+      GL_CURRENT_RASTER_TEXTURE_COORDS = $0B06;      
+      GL_CURRENT_RASTER_POSITION = $0B07;      
+      GL_CURRENT_RASTER_POSITION_VALID = $0B08;      
+      GL_CURRENT_RASTER_DISTANCE = $0B09;      
+      GL_POINT_SMOOTH = $0B10;      
+      GL_POINT_SIZE = $0B11;      
+      GL_POINT_SIZE_RANGE = $0B12;      
+      GL_POINT_SIZE_GRANULARITY = $0B13;      
+      GL_LINE_SMOOTH = $0B20;      
+      GL_LINE_WIDTH = $0B21;      
+      GL_LINE_WIDTH_RANGE = $0B22;      
+      GL_LINE_WIDTH_GRANULARITY = $0B23;      
+      GL_LINE_STIPPLE = $0B24;      
+      GL_LINE_STIPPLE_PATTERN = $0B25;      
+      GL_LINE_STIPPLE_REPEAT = $0B26;      
+      GL_LIST_MODE = $0B30;      
+      GL_MAX_LIST_NESTING = $0B31;      
+      GL_LIST_BASE = $0B32;      
+      GL_LIST_INDEX = $0B33;      
+      GL_POLYGON_MODE = $0B40;      
+      GL_POLYGON_SMOOTH = $0B41;      
+      GL_POLYGON_STIPPLE = $0B42;      
+      GL_EDGE_FLAG = $0B43;      
+      GL_CULL_FACE = $0B44;      
+      GL_CULL_FACE_MODE = $0B45;      
+      GL_FRONT_FACE = $0B46;      
+      GL_LIGHTING = $0B50;      
+      GL_LIGHT_MODEL_LOCAL_VIEWER = $0B51;      
+      GL_LIGHT_MODEL_TWO_SIDE = $0B52;      
+      GL_LIGHT_MODEL_AMBIENT = $0B53;      
+      GL_SHADE_MODEL = $0B54;      
+      GL_COLOR_MATERIAL_FACE = $0B55;      
+      GL_COLOR_MATERIAL_PARAMETER = $0B56;      
+      GL_COLOR_MATERIAL = $0B57;      
+      GL_FOG = $0B60;      
+      GL_FOG_INDEX = $0B61;      
+      GL_FOG_DENSITY = $0B62;      
+      GL_FOG_START = $0B63;      
+      GL_FOG_END = $0B64;      
+      GL_FOG_MODE = $0B65;      
+      GL_FOG_COLOR = $0B66;      
+      GL_DEPTH_RANGE = $0B70;      
+      GL_DEPTH_TEST = $0B71;      
+      GL_DEPTH_WRITEMASK = $0B72;      
+      GL_DEPTH_CLEAR_VALUE = $0B73;      
+      GL_DEPTH_FUNC = $0B74;      
+      GL_ACCUM_CLEAR_VALUE = $0B80;      
+      GL_STENCIL_TEST = $0B90;      
+      GL_STENCIL_CLEAR_VALUE = $0B91;      
+      GL_STENCIL_FUNC = $0B92;      
+      GL_STENCIL_VALUE_MASK = $0B93;      
+      GL_STENCIL_FAIL = $0B94;      
+      GL_STENCIL_PASS_DEPTH_FAIL = $0B95;      
+      GL_STENCIL_PASS_DEPTH_PASS = $0B96;      
+      GL_STENCIL_REF = $0B97;      
+      GL_STENCIL_WRITEMASK = $0B98;      
+      GL_MATRIX_MODE = $0BA0;      
+      GL_NORMALIZE = $0BA1;      
+      GL_VIEWPORT = $0BA2;      
+      GL_MODELVIEW_STACK_DEPTH = $0BA3;      
+      GL_PROJECTION_STACK_DEPTH = $0BA4;      
+      GL_TEXTURE_STACK_DEPTH = $0BA5;      
+      GL_MODELVIEW_MATRIX = $0BA6;      
+      GL_PROJECTION_MATRIX = $0BA7;      
+      GL_TEXTURE_MATRIX = $0BA8;      
+      GL_ATTRIB_STACK_DEPTH = $0BB0;      
+      GL_CLIENT_ATTRIB_STACK_DEPTH = $0BB1;      
+      GL_ALPHA_TEST = $0BC0;      
+      GL_ALPHA_TEST_FUNC = $0BC1;      
+      GL_ALPHA_TEST_REF = $0BC2;      
+      GL_DITHER = $0BD0;      
+      GL_BLEND_DST = $0BE0;      
+      GL_BLEND_SRC = $0BE1;      
+      GL_BLEND = $0BE2;      
+      GL_LOGIC_OP_MODE = $0BF0;      
+      GL_INDEX_LOGIC_OP = $0BF1;      
+      GL_COLOR_LOGIC_OP = $0BF2;      
+      GL_AUX_BUFFERS = $0C00;      
+      GL_DRAW_BUFFER = $0C01;      
+      GL_READ_BUFFER = $0C02;      
+      GL_SCISSOR_BOX = $0C10;      
+      GL_SCISSOR_TEST = $0C11;      
+      GL_INDEX_CLEAR_VALUE = $0C20;      
+      GL_INDEX_WRITEMASK = $0C21;      
+      GL_COLOR_CLEAR_VALUE = $0C22;      
+      GL_COLOR_WRITEMASK = $0C23;      
+      GL_INDEX_MODE = $0C30;      
+      GL_RGBA_MODE = $0C31;      
+      GL_DOUBLEBUFFER = $0C32;      
+      GL_STEREO = $0C33;      
+      GL_RENDER_MODE = $0C40;      
+      GL_PERSPECTIVE_CORRECTION_HINT = $0C50;      
+      GL_POINT_SMOOTH_HINT = $0C51;      
+      GL_LINE_SMOOTH_HINT = $0C52;      
+      GL_POLYGON_SMOOTH_HINT = $0C53;      
+      GL_FOG_HINT = $0C54;      
+      GL_TEXTURE_GEN_S = $0C60;      
+      GL_TEXTURE_GEN_T = $0C61;      
+      GL_TEXTURE_GEN_R = $0C62;      
+      GL_TEXTURE_GEN_Q = $0C63;      
+      GL_PIXEL_MAP_I_TO_I = $0C70;      
+      GL_PIXEL_MAP_S_TO_S = $0C71;      
+      GL_PIXEL_MAP_I_TO_R = $0C72;      
+      GL_PIXEL_MAP_I_TO_G = $0C73;      
+      GL_PIXEL_MAP_I_TO_B = $0C74;      
+      GL_PIXEL_MAP_I_TO_A = $0C75;      
+      GL_PIXEL_MAP_R_TO_R = $0C76;      
+      GL_PIXEL_MAP_G_TO_G = $0C77;      
+      GL_PIXEL_MAP_B_TO_B = $0C78;      
+      GL_PIXEL_MAP_A_TO_A = $0C79;      
+      GL_PIXEL_MAP_I_TO_I_SIZE = $0CB0;      
+      GL_PIXEL_MAP_S_TO_S_SIZE = $0CB1;      
+      GL_PIXEL_MAP_I_TO_R_SIZE = $0CB2;      
+      GL_PIXEL_MAP_I_TO_G_SIZE = $0CB3;      
+      GL_PIXEL_MAP_I_TO_B_SIZE = $0CB4;      
+      GL_PIXEL_MAP_I_TO_A_SIZE = $0CB5;      
+      GL_PIXEL_MAP_R_TO_R_SIZE = $0CB6;      
+      GL_PIXEL_MAP_G_TO_G_SIZE = $0CB7;      
+      GL_PIXEL_MAP_B_TO_B_SIZE = $0CB8;      
+      GL_PIXEL_MAP_A_TO_A_SIZE = $0CB9;      
+      GL_UNPACK_SWAP_BYTES = $0CF0;      
+      GL_UNPACK_LSB_FIRST = $0CF1;      
+      GL_UNPACK_ROW_LENGTH = $0CF2;      
+      GL_UNPACK_SKIP_ROWS = $0CF3;      
+      GL_UNPACK_SKIP_PIXELS = $0CF4;      
+      GL_UNPACK_ALIGNMENT = $0CF5;      
+      GL_PACK_SWAP_BYTES = $0D00;      
+      GL_PACK_LSB_FIRST = $0D01;      
+      GL_PACK_ROW_LENGTH = $0D02;      
+      GL_PACK_SKIP_ROWS = $0D03;      
+      GL_PACK_SKIP_PIXELS = $0D04;      
+      GL_PACK_ALIGNMENT = $0D05;      
+      GL_MAP_COLOR = $0D10;      
+      GL_MAP_STENCIL = $0D11;      
+      GL_INDEX_SHIFT = $0D12;      
+      GL_INDEX_OFFSET = $0D13;      
+      GL_RED_SCALE = $0D14;      
+      GL_RED_BIAS = $0D15;      
+      GL_ZOOM_X = $0D16;      
+      GL_ZOOM_Y = $0D17;      
+      GL_GREEN_SCALE = $0D18;      
+      GL_GREEN_BIAS = $0D19;      
+      GL_BLUE_SCALE = $0D1A;      
+      GL_BLUE_BIAS = $0D1B;      
+      GL_ALPHA_SCALE = $0D1C;      
+      GL_ALPHA_BIAS = $0D1D;      
+      GL_DEPTH_SCALE = $0D1E;      
+      GL_DEPTH_BIAS = $0D1F;      
+      GL_MAX_EVAL_ORDER = $0D30;      
+      GL_MAX_LIGHTS = $0D31;      
+      GL_MAX_CLIP_PLANES = $0D32;      
+      GL_MAX_TEXTURE_SIZE = $0D33;      
+      GL_MAX_PIXEL_MAP_TABLE = $0D34;      
+      GL_MAX_ATTRIB_STACK_DEPTH = $0D35;      
+      GL_MAX_MODELVIEW_STACK_DEPTH = $0D36;      
+      GL_MAX_NAME_STACK_DEPTH = $0D37;      
+      GL_MAX_PROJECTION_STACK_DEPTH = $0D38;      
+      GL_MAX_TEXTURE_STACK_DEPTH = $0D39;      
+      GL_MAX_VIEWPORT_DIMS = $0D3A;      
+      GL_MAX_CLIENT_ATTRIB_STACK_DEPTH = $0D3B;      
+      GL_SUBPIXEL_BITS = $0D50;      
+      GL_INDEX_BITS = $0D51;      
+      GL_RED_BITS = $0D52;      
+      GL_GREEN_BITS = $0D53;      
+      GL_BLUE_BITS = $0D54;      
+      GL_ALPHA_BITS = $0D55;      
+      GL_DEPTH_BITS = $0D56;      
+      GL_STENCIL_BITS = $0D57;      
+      GL_ACCUM_RED_BITS = $0D58;      
+      GL_ACCUM_GREEN_BITS = $0D59;      
+      GL_ACCUM_BLUE_BITS = $0D5A;      
+      GL_ACCUM_ALPHA_BITS = $0D5B;      
+      GL_NAME_STACK_DEPTH = $0D70;      
+      GL_AUTO_NORMAL = $0D80;      
+      GL_MAP1_COLOR_4 = $0D90;      
+      GL_MAP1_INDEX = $0D91;      
+      GL_MAP1_NORMAL = $0D92;      
+      GL_MAP1_TEXTURE_COORD_1 = $0D93;      
+      GL_MAP1_TEXTURE_COORD_2 = $0D94;      
+      GL_MAP1_TEXTURE_COORD_3 = $0D95;      
+      GL_MAP1_TEXTURE_COORD_4 = $0D96;      
+      GL_MAP1_VERTEX_3 = $0D97;      
+      GL_MAP1_VERTEX_4 = $0D98;      
+      GL_MAP2_COLOR_4 = $0DB0;      
+      GL_MAP2_INDEX = $0DB1;      
+      GL_MAP2_NORMAL = $0DB2;      
+      GL_MAP2_TEXTURE_COORD_1 = $0DB3;      
+      GL_MAP2_TEXTURE_COORD_2 = $0DB4;      
+      GL_MAP2_TEXTURE_COORD_3 = $0DB5;      
+      GL_MAP2_TEXTURE_COORD_4 = $0DB6;      
+      GL_MAP2_VERTEX_3 = $0DB7;      
+      GL_MAP2_VERTEX_4 = $0DB8;      
+      GL_MAP1_GRID_DOMAIN = $0DD0;      
+      GL_MAP1_GRID_SEGMENTS = $0DD1;      
+      GL_MAP2_GRID_DOMAIN = $0DD2;      
+      GL_MAP2_GRID_SEGMENTS = $0DD3;      
+      GL_TEXTURE_1D = $0DE0;      
+      GL_TEXTURE_2D = $0DE1;      
+      GL_FEEDBACK_BUFFER_POINTER = $0DF0;      
+      GL_FEEDBACK_BUFFER_SIZE = $0DF1;      
+      GL_FEEDBACK_BUFFER_TYPE = $0DF2;      
+      GL_SELECTION_BUFFER_POINTER = $0DF3;      
+      GL_SELECTION_BUFFER_SIZE = $0DF4;      
+      GL_TEXTURE_WIDTH = $1000;      
+      GL_TRANSFORM_BIT = $00001000;      
+      GL_TEXTURE_HEIGHT = $1001;      
+      GL_TEXTURE_INTERNAL_FORMAT = $1003;      
+      GL_TEXTURE_BORDER_COLOR = $1004;      
+      GL_TEXTURE_BORDER = $1005;      
+      GL_DONT_CARE = $1100;      
+      GL_FASTEST = $1101;      
+      GL_NICEST = $1102;      
+      GL_AMBIENT = $1200;      
+      GL_DIFFUSE = $1201;      
+      GL_SPECULAR = $1202;      
+      GL_POSITION = $1203;      
+      GL_SPOT_DIRECTION = $1204;      
+      GL_SPOT_EXPONENT = $1205;      
+      GL_SPOT_CUTOFF = $1206;      
+      GL_CONSTANT_ATTENUATION = $1207;      
+      GL_LINEAR_ATTENUATION = $1208;      
+      GL_QUADRATIC_ATTENUATION = $1209;      
+      GL_COMPILE = $1300;      
+      GL_COMPILE_AND_EXECUTE = $1301;      
+      GL_BYTE = $1400;      
+      GL_UNSIGNED_BYTE = $1401;      
+      GL_SHORT = $1402;      
+      GL_UNSIGNED_SHORT = $1403;      
+      GL_INT = $1404;      
+      GL_UNSIGNED_INT = $1405;      
+      GL_FLOAT = $1406;      
+      GL_2_BYTES = $1407;      
+      GL_3_BYTES = $1408;      
+      GL_4_BYTES = $1409;      
+      GL_DOUBLE = $140A;      
+      GL_CLEAR = $1500;      
+      GL_AND = $1501;      
+      GL_AND_REVERSE = $1502;      
+      GL_COPY = $1503;      
+      GL_AND_INVERTED = $1504;      
+      GL_NOOP = $1505;      
+      GL_XOR = $1506;      
+      GL_OR = $1507;      
+      GL_NOR = $1508;      
+      GL_EQUIV = $1509;      
+      GL_INVERT = $150A;      
+      GL_OR_REVERSE = $150B;      
+      GL_COPY_INVERTED = $150C;      
+      GL_OR_INVERTED = $150D;      
+      GL_NAND = $150E;      
+      GL_SET = $150F;      
+      GL_EMISSION = $1600;      
+      GL_SHININESS = $1601;      
+      GL_AMBIENT_AND_DIFFUSE = $1602;      
+      GL_COLOR_INDEXES = $1603;      
+      GL_MODELVIEW = $1700;      
+      GL_PROJECTION = $1701;      
+      GL_TEXTURE = $1702;      
+      GL_COLOR = $1800;      
+      GL_DEPTH = $1801;      
+      GL_STENCIL = $1802;      
+      GL_COLOR_INDEX = $1900;      
+      GL_STENCIL_INDEX = $1901;      
+      GL_DEPTH_COMPONENT = $1902;      
+      GL_RED = $1903;      
+      GL_GREEN = $1904;      
+      GL_BLUE = $1905;      
+      GL_ALPHA = $1906;      
+      GL_RGB = $1907;      
+      GL_RGBA = $1908;      
+      GL_LUMINANCE = $1909;      
+      GL_LUMINANCE_ALPHA = $190A;      
+      GL_BITMAP = $1A00;      
+      GL_POINT = $1B00;      
+      GL_LINE = $1B01;      
+      GL_FILL = $1B02;      
+      GL_RENDER = $1C00;      
+      GL_FEEDBACK = $1C01;      
+      GL_SELECT = $1C02;      
+      GL_FLAT = $1D00;      
+      GL_SMOOTH = $1D01;      
+      GL_KEEP = $1E00;      
+      GL_REPLACE = $1E01;      
+      GL_INCR = $1E02;      
+      GL_DECR = $1E03;      
+      GL_VENDOR = $1F00;      
+      GL_RENDERER = $1F01;      
+      GL_VERSION = $1F02;      
+      GL_EXTENSIONS = $1F03;      
+      GL_S = $2000;      
+      GL_ENABLE_BIT = $00002000;      
+      GL_T = $2001;      
+      GL_R = $2002;      
+      GL_Q = $2003;      
+      GL_MODULATE = $2100;      
+      GL_DECAL = $2101;      
+      GL_TEXTURE_ENV_MODE = $2200;      
+      GL_TEXTURE_ENV_COLOR = $2201;      
+      GL_TEXTURE_ENV = $2300;      
+      GL_EYE_LINEAR = $2400;      
+      GL_OBJECT_LINEAR = $2401;      
+      GL_SPHERE_MAP = $2402;      
+      GL_TEXTURE_GEN_MODE = $2500;      
+      GL_OBJECT_PLANE = $2501;      
+      GL_EYE_PLANE = $2502;      
+      GL_NEAREST = $2600;      
+      GL_LINEAR = $2601;      
+      GL_NEAREST_MIPMAP_NEAREST = $2700;      
+      GL_LINEAR_MIPMAP_NEAREST = $2701;      
+      GL_NEAREST_MIPMAP_LINEAR = $2702;      
+      GL_LINEAR_MIPMAP_LINEAR = $2703;      
+      GL_TEXTURE_MAG_FILTER = $2800;      
+      GL_TEXTURE_MIN_FILTER = $2801;      
+      GL_TEXTURE_WRAP_S = $2802;      
+      GL_TEXTURE_WRAP_T = $2803;      
+      GL_CLAMP = $2900;      
+      GL_REPEAT = $2901;      
+      GL_POLYGON_OFFSET_UNITS = $2A00;      
+      GL_POLYGON_OFFSET_POINT = $2A01;      
+      GL_POLYGON_OFFSET_LINE = $2A02;      
+      GL_R3_G3_B2 = $2A10;      
+      GL_V2F = $2A20;      
+      GL_V3F = $2A21;      
+      GL_C4UB_V2F = $2A22;      
+      GL_C4UB_V3F = $2A23;      
+      GL_C3F_V3F = $2A24;      
+      GL_N3F_V3F = $2A25;      
+      GL_C4F_N3F_V3F = $2A26;      
+      GL_T2F_V3F = $2A27;      
+      GL_T4F_V4F = $2A28;      
+      GL_T2F_C4UB_V3F = $2A29;      
+      GL_T2F_C3F_V3F = $2A2A;      
+      GL_T2F_N3F_V3F = $2A2B;      
+      GL_T2F_C4F_N3F_V3F = $2A2C;      
+      GL_T4F_C4F_N3F_V4F = $2A2D;      
+      GL_CLIP_PLANE0 = $3000;      
+      GL_CLIP_PLANE1 = $3001;      
+      GL_CLIP_PLANE2 = $3002;      
+      GL_CLIP_PLANE3 = $3003;      
+      GL_CLIP_PLANE4 = $3004;      
+      GL_CLIP_PLANE5 = $3005;      
+      GL_LIGHT0 = $4000;      
+      GL_COLOR_BUFFER_BIT = $00004000;      
+      GL_LIGHT1 = $4001;      
+      GL_LIGHT2 = $4002;      
+      GL_LIGHT3 = $4003;      
+      GL_LIGHT4 = $4004;      
+      GL_LIGHT5 = $4005;      
+      GL_LIGHT6 = $4006;      
+      GL_LIGHT7 = $4007;      
+      GL_HINT_BIT = $00008000;      
+      GL_POLYGON_OFFSET_FILL = $8037;      
+      GL_POLYGON_OFFSET_FACTOR = $8038;      
+      GL_ALPHA4 = $803B;      
+      GL_ALPHA8 = $803C;      
+      GL_ALPHA12 = $803D;      
+      GL_ALPHA16 = $803E;      
+      GL_LUMINANCE4 = $803F;      
+      GL_LUMINANCE8 = $8040;      
+      GL_LUMINANCE12 = $8041;      
+      GL_LUMINANCE16 = $8042;      
+      GL_LUMINANCE4_ALPHA4 = $8043;      
+      GL_LUMINANCE6_ALPHA2 = $8044;      
+      GL_LUMINANCE8_ALPHA8 = $8045;      
+      GL_LUMINANCE12_ALPHA4 = $8046;      
+      GL_LUMINANCE12_ALPHA12 = $8047;      
+      GL_LUMINANCE16_ALPHA16 = $8048;      
+      GL_INTENSITY = $8049;      
+      GL_INTENSITY4 = $804A;      
+      GL_INTENSITY8 = $804B;      
+      GL_INTENSITY12 = $804C;      
+      GL_INTENSITY16 = $804D;      
+      GL_RGB4 = $804F;      
+      GL_RGB5 = $8050;      
+      GL_RGB8 = $8051;      
+      GL_RGB10 = $8052;      
+      GL_RGB12 = $8053;      
+      GL_RGB16 = $8054;      
+      GL_RGBA2 = $8055;      
+      GL_RGBA4 = $8056;      
+      GL_RGB5_A1 = $8057;      
+      GL_RGBA8 = $8058;      
+      GL_RGB10_A2 = $8059;      
+      GL_RGBA12 = $805A;      
+      GL_RGBA16 = $805B;      
+      GL_TEXTURE_RED_SIZE = $805C;      
+      GL_TEXTURE_GREEN_SIZE = $805D;      
+      GL_TEXTURE_BLUE_SIZE = $805E;      
+      GL_TEXTURE_ALPHA_SIZE = $805F;      
+      GL_TEXTURE_LUMINANCE_SIZE = $8060;      
+      GL_TEXTURE_INTENSITY_SIZE = $8061;      
+      GL_PROXY_TEXTURE_1D = $8063;      
+      GL_PROXY_TEXTURE_2D = $8064;      
+      GL_TEXTURE_PRIORITY = $8066;      
+      GL_TEXTURE_RESIDENT = $8067;      
+      GL_TEXTURE_BINDING_1D = $8068;      
+      GL_TEXTURE_BINDING_2D = $8069;      
+      GL_VERTEX_ARRAY = $8074;      
+      GL_NORMAL_ARRAY = $8075;      
+      GL_COLOR_ARRAY = $8076;      
+      GL_INDEX_ARRAY = $8077;      
+      GL_TEXTURE_COORD_ARRAY = $8078;      
+      GL_EDGE_FLAG_ARRAY = $8079;      
+      GL_VERTEX_ARRAY_SIZE = $807A;      
+      GL_VERTEX_ARRAY_TYPE = $807B;      
+      GL_VERTEX_ARRAY_STRIDE = $807C;      
+      GL_NORMAL_ARRAY_TYPE = $807E;      
+      GL_NORMAL_ARRAY_STRIDE = $807F;      
+      GL_COLOR_ARRAY_SIZE = $8081;      
+      GL_COLOR_ARRAY_TYPE = $8082;      
+      GL_COLOR_ARRAY_STRIDE = $8083;      
+      GL_INDEX_ARRAY_TYPE = $8085;      
+      GL_INDEX_ARRAY_STRIDE = $8086;      
+      GL_TEXTURE_COORD_ARRAY_SIZE = $8088;      
+      GL_TEXTURE_COORD_ARRAY_TYPE = $8089;      
+      GL_TEXTURE_COORD_ARRAY_STRIDE = $808A;      
+      GL_EDGE_FLAG_ARRAY_STRIDE = $808C;      
+      GL_VERTEX_ARRAY_POINTER = $808E;      
+      GL_NORMAL_ARRAY_POINTER = $808F;      
+      GL_COLOR_ARRAY_POINTER = $8090;      
+      GL_INDEX_ARRAY_POINTER = $8091;      
+      GL_TEXTURE_COORD_ARRAY_POINTER = $8092;      
+      GL_EDGE_FLAG_ARRAY_POINTER = $8093;      
+      GL_COLOR_INDEX1_EXT = $80E2;      
+      GL_COLOR_INDEX2_EXT = $80E3;      
+      GL_COLOR_INDEX4_EXT = $80E4;      
+      GL_COLOR_INDEX8_EXT = $80E5;      
+      GL_COLOR_INDEX12_EXT = $80E6;      
+      GL_COLOR_INDEX16_EXT = $80E7;      
+      GL_EVAL_BIT = $00010000;      
+      GL_LIST_BIT = $00020000;      
+      GL_TEXTURE_BIT = $00040000;      
+      GL_SCISSOR_BIT = $00080000;      
+      GL_ALL_ATTRIB_BITS = $000fffff;      
+      GL_CLIENT_ALL_ATTRIB_BITS = $ffffffff;      
+(* error 
+GLAPI void GLAPIENTRY glAccum (GLenum op, GLfloat value);
+in declaration at line 862 *)
+(* error 
+GLAPI void GLAPIENTRY glAlphaFunc (GLenum func, GLclampf ref);
+in declaration at line 863 *)
+(* error 
+GLAPI GLboolean GLAPIENTRY glAreTexturesResident (GLsizei n, const GLuint *textures, GLboolean *residences);
+(* error 
+GLAPI GLboolean GLAPIENTRY glAreTexturesResident (GLsizei n, const GLuint *textures, GLboolean *residences);
+(* error 
+GLAPI GLboolean GLAPIENTRY glAreTexturesResident (GLsizei n, const GLuint *textures, GLboolean *residences);
+ in declarator_list *)
+ in declarator_list *)
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glArrayElement (GLint i);
+in declaration at line 865 *)
+(* error 
+GLAPI void GLAPIENTRY glBegin (GLenum mode);
+in declaration at line 866 *)
+(* error 
+GLAPI void GLAPIENTRY glBindTexture (GLenum target, GLuint texture);
+in declaration at line 867 *)
+(* error 
+GLAPI void GLAPIENTRY glBitmap (GLsizei width, GLsizei height, GLfloat xorig, GLfloat yorig, GLfloat xmove, GLfloat ymove, const GLubyte *bitmap);
+in declaration at line 868 *)
+(* error 
+GLAPI void GLAPIENTRY glBlendFunc (GLenum sfactor, GLenum dfactor);
+in declaration at line 869 *)
+(* error 
+GLAPI void GLAPIENTRY glCallList (GLuint list);
+in declaration at line 870 *)
+(* error 
+GLAPI void GLAPIENTRY glCallLists (GLsizei n, GLenum type, const void *lists);
+in declaration at line 871 *)
+(* error 
+GLAPI void GLAPIENTRY glClear (GLbitfield mask);
+in declaration at line 872 *)
+(* error 
+GLAPI void GLAPIENTRY glClearAccum (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+in declaration at line 873 *)
+(* error 
+GLAPI void GLAPIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+in declaration at line 874 *)
+(* error 
+GLAPI void GLAPIENTRY glClearDepth (GLclampd depth);
+in declaration at line 875 *)
+(* error 
+GLAPI void GLAPIENTRY glClearIndex (GLfloat c);
+in declaration at line 876 *)
+(* error 
+GLAPI void GLAPIENTRY glClearStencil (GLint s);
+in declaration at line 877 *)
+(* error 
+GLAPI void GLAPIENTRY glClipPlane (GLenum plane, const GLdouble *equation);
+in declaration at line 878 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3b (GLbyte red, GLbyte green, GLbyte blue);
+in declaration at line 879 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3bv (const GLbyte *v);
+in declaration at line 880 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3d (GLdouble red, GLdouble green, GLdouble blue);
+in declaration at line 881 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3dv (const GLdouble *v);
+in declaration at line 882 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3f (GLfloat red, GLfloat green, GLfloat blue);
+in declaration at line 883 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3fv (const GLfloat *v);
+in declaration at line 884 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3i (GLint red, GLint green, GLint blue);
+in declaration at line 885 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3iv (const GLint *v);
+in declaration at line 886 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3s (GLshort red, GLshort green, GLshort blue);
+in declaration at line 887 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3sv (const GLshort *v);
+in declaration at line 888 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3ub (GLubyte red, GLubyte green, GLubyte blue);
+in declaration at line 889 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3ubv (const GLubyte *v);
+in declaration at line 890 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3ui (GLuint red, GLuint green, GLuint blue);
+in declaration at line 891 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3uiv (const GLuint *v);
+in declaration at line 892 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3us (GLushort red, GLushort green, GLushort blue);
+in declaration at line 893 *)
+(* error 
+GLAPI void GLAPIENTRY glColor3usv (const GLushort *v);
+in declaration at line 894 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4b (GLbyte red, GLbyte green, GLbyte blue, GLbyte alpha);
+in declaration at line 895 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4bv (const GLbyte *v);
+in declaration at line 896 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4d (GLdouble red, GLdouble green, GLdouble blue, GLdouble alpha);
+in declaration at line 897 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4dv (const GLdouble *v);
+in declaration at line 898 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4f (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+in declaration at line 899 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4fv (const GLfloat *v);
+in declaration at line 900 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4i (GLint red, GLint green, GLint blue, GLint alpha);
+in declaration at line 901 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4iv (const GLint *v);
+in declaration at line 902 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4s (GLshort red, GLshort green, GLshort blue, GLshort alpha);
+in declaration at line 903 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4sv (const GLshort *v);
+in declaration at line 904 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4ub (GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+in declaration at line 905 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4ubv (const GLubyte *v);
+in declaration at line 906 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4ui (GLuint red, GLuint green, GLuint blue, GLuint alpha);
+in declaration at line 907 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4uiv (const GLuint *v);
+in declaration at line 908 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4us (GLushort red, GLushort green, GLushort blue, GLushort alpha);
+in declaration at line 909 *)
+(* error 
+GLAPI void GLAPIENTRY glColor4usv (const GLushort *v);
+in declaration at line 910 *)
+(* error 
+GLAPI void GLAPIENTRY glColorMask (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
+in declaration at line 911 *)
+(* error 
+GLAPI void GLAPIENTRY glColorMaterial (GLenum face, GLenum mode);
+in declaration at line 912 *)
+(* error 
+GLAPI void GLAPIENTRY glColorPointer (GLint size, GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 913 *)
+(* error 
+GLAPI void GLAPIENTRY glCopyPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum type);
+in declaration at line 914 *)
+(* error 
+GLAPI void GLAPIENTRY glCopyTexImage1D (GLenum target, GLint level, GLenum internalFormat, GLint x, GLint y, GLsizei width, GLint border);
+in declaration at line 915 *)
+(* error 
+GLAPI void GLAPIENTRY glCopyTexImage2D (GLenum target, GLint level, GLenum internalFormat, GLint x, GLint y, GLsizei width, GLsizei height, GLint border);
+in declaration at line 916 *)
+(* error 
+GLAPI void GLAPIENTRY glCopyTexSubImage1D (GLenum target, GLint level, GLint xoffset, GLint x, GLint y, GLsizei width);
+in declaration at line 917 *)
+(* error 
+GLAPI void GLAPIENTRY glCopyTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+in declaration at line 918 *)
+(* error 
+GLAPI void GLAPIENTRY glCullFace (GLenum mode);
+in declaration at line 919 *)
+(* error 
+GLAPI void GLAPIENTRY glDeleteLists (GLuint list, GLsizei range);
+in declaration at line 920 *)
+(* error 
+GLAPI void GLAPIENTRY glDeleteTextures (GLsizei n, const GLuint *textures);
+in declaration at line 921 *)
+(* error 
+GLAPI void GLAPIENTRY glDepthFunc (GLenum func);
+in declaration at line 922 *)
+(* error 
+GLAPI void GLAPIENTRY glDepthMask (GLboolean flag);
+in declaration at line 923 *)
+(* error 
+GLAPI void GLAPIENTRY glDepthRange (GLclampd zNear, GLclampd zFar);
+in declaration at line 924 *)
+(* error 
+GLAPI void GLAPIENTRY glDisable (GLenum cap);
+in declaration at line 925 *)
+(* error 
+GLAPI void GLAPIENTRY glDisableClientState (GLenum array);
+in declaration at line 926 *)
+(* error 
+GLAPI void GLAPIENTRY glDrawArrays (GLenum mode, GLint first, GLsizei count);
+in declaration at line 927 *)
+(* error 
+GLAPI void GLAPIENTRY glDrawBuffer (GLenum mode);
+in declaration at line 928 *)
+(* error 
+GLAPI void GLAPIENTRY glDrawElements (GLenum mode, GLsizei count, GLenum type, const void *indices);
+in declaration at line 929 *)
+(* error 
+GLAPI void GLAPIENTRY glDrawPixels (GLsizei width, GLsizei height, GLenum format, GLenum type, const void *pixels);
+in declaration at line 930 *)
+(* error 
+GLAPI void GLAPIENTRY glEdgeFlag (GLboolean flag);
+in declaration at line 931 *)
+(* error 
+GLAPI void GLAPIENTRY glEdgeFlagPointer (GLsizei stride, const void *pointer);
+in declaration at line 932 *)
+(* error 
+GLAPI void GLAPIENTRY glEdgeFlagv (const GLboolean *flag);
+in declaration at line 933 *)
+(* error 
+GLAPI void GLAPIENTRY glEnable (GLenum cap);
+in declaration at line 934 *)
+(* error 
+GLAPI void GLAPIENTRY glEnableClientState (GLenum array);
+in declaration at line 935 *)
+(* error 
+GLAPI void GLAPIENTRY glEnd (void);
+in declaration at line 936 *)
+(* error 
+GLAPI void GLAPIENTRY glEndList (void);
+in declaration at line 937 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord1d (GLdouble u);
+in declaration at line 938 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord1dv (const GLdouble *u);
+in declaration at line 939 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord1f (GLfloat u);
+in declaration at line 940 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord1fv (const GLfloat *u);
+in declaration at line 941 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord2d (GLdouble u, GLdouble v);
+in declaration at line 942 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord2dv (const GLdouble *u);
+in declaration at line 943 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord2f (GLfloat u, GLfloat v);
+in declaration at line 944 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalCoord2fv (const GLfloat *u);
+in declaration at line 945 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalMesh1 (GLenum mode, GLint i1, GLint i2);
+in declaration at line 946 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalMesh2 (GLenum mode, GLint i1, GLint i2, GLint j1, GLint j2);
+in declaration at line 947 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalPoint1 (GLint i);
+in declaration at line 948 *)
+(* error 
+GLAPI void GLAPIENTRY glEvalPoint2 (GLint i, GLint j);
+in declaration at line 949 *)
+(* error 
+GLAPI void GLAPIENTRY glFeedbackBuffer (GLsizei size, GLenum type, GLfloat *buffer);
+in declaration at line 950 *)
+(* error 
+GLAPI void GLAPIENTRY glFinish (void);
+in declaration at line 951 *)
+(* error 
+GLAPI void GLAPIENTRY glFlush (void);
+in declaration at line 952 *)
+(* error 
+GLAPI void GLAPIENTRY glFogf (GLenum pname, GLfloat param);
+in declaration at line 953 *)
+(* error 
+GLAPI void GLAPIENTRY glFogfv (GLenum pname, const GLfloat *params);
+in declaration at line 954 *)
+(* error 
+GLAPI void GLAPIENTRY glFogi (GLenum pname, GLint param);
+in declaration at line 955 *)
+(* error 
+GLAPI void GLAPIENTRY glFogiv (GLenum pname, const GLint *params);
+in declaration at line 956 *)
+(* error 
+GLAPI void GLAPIENTRY glFrontFace (GLenum mode);
+in declaration at line 957 *)
+(* error 
+GLAPI void GLAPIENTRY glFrustum (GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
+in declaration at line 958 *)
+(* error 
+GLAPI GLuint GLAPIENTRY glGenLists (GLsizei range);
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glGenTextures (GLsizei n, GLuint *textures);
+in declaration at line 960 *)
+(* error 
+GLAPI void GLAPIENTRY glGetBooleanv (GLenum pname, GLboolean *params);
+in declaration at line 961 *)
+(* error 
+GLAPI void GLAPIENTRY glGetClipPlane (GLenum plane, GLdouble *equation);
+in declaration at line 962 *)
+(* error 
+GLAPI void GLAPIENTRY glGetDoublev (GLenum pname, GLdouble *params);
+in declaration at line 963 *)
+(* error 
+GLAPI GLenum GLAPIENTRY glGetError (void);
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glGetFloatv (GLenum pname, GLfloat *params);
+in declaration at line 965 *)
+(* error 
+GLAPI void GLAPIENTRY glGetIntegerv (GLenum pname, GLint *params);
+in declaration at line 966 *)
+(* error 
+GLAPI void GLAPIENTRY glGetLightfv (GLenum light, GLenum pname, GLfloat *params);
+in declaration at line 967 *)
+(* error 
+GLAPI void GLAPIENTRY glGetLightiv (GLenum light, GLenum pname, GLint *params);
+in declaration at line 968 *)
+(* error 
+GLAPI void GLAPIENTRY glGetMapdv (GLenum target, GLenum query, GLdouble *v);
+in declaration at line 969 *)
+(* error 
+GLAPI void GLAPIENTRY glGetMapfv (GLenum target, GLenum query, GLfloat *v);
+in declaration at line 970 *)
+(* error 
+GLAPI void GLAPIENTRY glGetMapiv (GLenum target, GLenum query, GLint *v);
+in declaration at line 971 *)
+(* error 
+GLAPI void GLAPIENTRY glGetMaterialfv (GLenum face, GLenum pname, GLfloat *params);
+in declaration at line 972 *)
+(* error 
+GLAPI void GLAPIENTRY glGetMaterialiv (GLenum face, GLenum pname, GLint *params);
+in declaration at line 973 *)
+(* error 
+GLAPI void GLAPIENTRY glGetPixelMapfv (GLenum map, GLfloat *values);
+in declaration at line 974 *)
+(* error 
+GLAPI void GLAPIENTRY glGetPixelMapuiv (GLenum map, GLuint *values);
+in declaration at line 975 *)
+(* error 
+GLAPI void GLAPIENTRY glGetPixelMapusv (GLenum map, GLushort *values);
+in declaration at line 976 *)
+(* error 
+GLAPI void GLAPIENTRY glGetPointerv (GLenum pname, void* *params);
+in declaration at line 977 *)
+(* error 
+GLAPI void GLAPIENTRY glGetPolygonStipple (GLubyte *mask);
+in declaration at line 978 *)
+(* error 
+GLAPI const GLubyte * GLAPIENTRY glGetString (GLenum name);
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexEnvfv (GLenum target, GLenum pname, GLfloat *params);
+in declaration at line 980 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexEnviv (GLenum target, GLenum pname, GLint *params);
+in declaration at line 981 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexGendv (GLenum coord, GLenum pname, GLdouble *params);
+in declaration at line 982 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexGenfv (GLenum coord, GLenum pname, GLfloat *params);
+in declaration at line 983 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexGeniv (GLenum coord, GLenum pname, GLint *params);
+in declaration at line 984 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexImage (GLenum target, GLint level, GLenum format, GLenum type, void *pixels);
+in declaration at line 985 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexLevelParameterfv (GLenum target, GLint level, GLenum pname, GLfloat *params);
+in declaration at line 986 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexLevelParameteriv (GLenum target, GLint level, GLenum pname, GLint *params);
+in declaration at line 987 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexParameterfv (GLenum target, GLenum pname, GLfloat *params);
+in declaration at line 988 *)
+(* error 
+GLAPI void GLAPIENTRY glGetTexParameteriv (GLenum target, GLenum pname, GLint *params);
+in declaration at line 989 *)
+(* error 
+GLAPI void GLAPIENTRY glHint (GLenum target, GLenum mode);
+in declaration at line 990 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexMask (GLuint mask);
+in declaration at line 991 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexPointer (GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 992 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexd (GLdouble c);
+in declaration at line 993 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexdv (const GLdouble *c);
+in declaration at line 994 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexf (GLfloat c);
+in declaration at line 995 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexfv (const GLfloat *c);
+in declaration at line 996 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexi (GLint c);
+in declaration at line 997 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexiv (const GLint *c);
+in declaration at line 998 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexs (GLshort c);
+in declaration at line 999 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexsv (const GLshort *c);
+in declaration at line 1000 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexub (GLubyte c);
+in declaration at line 1001 *)
+(* error 
+GLAPI void GLAPIENTRY glIndexubv (const GLubyte *c);
+in declaration at line 1002 *)
+(* error 
+GLAPI void GLAPIENTRY glInitNames (void);
+in declaration at line 1003 *)
+(* error 
+GLAPI void GLAPIENTRY glInterleavedArrays (GLenum format, GLsizei stride, const void *pointer);
+in declaration at line 1004 *)
+(* error 
+GLAPI GLboolean GLAPIENTRY glIsEnabled (GLenum cap);
+ in declarator_list *)
+(* error 
+GLAPI GLboolean GLAPIENTRY glIsList (GLuint list);
+ in declarator_list *)
+(* error 
+GLAPI GLboolean GLAPIENTRY glIsTexture (GLuint texture);
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glLightModelf (GLenum pname, GLfloat param);
+in declaration at line 1008 *)
+(* error 
+GLAPI void GLAPIENTRY glLightModelfv (GLenum pname, const GLfloat *params);
+in declaration at line 1009 *)
+(* error 
+GLAPI void GLAPIENTRY glLightModeli (GLenum pname, GLint param);
+in declaration at line 1010 *)
+(* error 
+GLAPI void GLAPIENTRY glLightModeliv (GLenum pname, const GLint *params);
+in declaration at line 1011 *)
+(* error 
+GLAPI void GLAPIENTRY glLightf (GLenum light, GLenum pname, GLfloat param);
+in declaration at line 1012 *)
+(* error 
+GLAPI void GLAPIENTRY glLightfv (GLenum light, GLenum pname, const GLfloat *params);
+in declaration at line 1013 *)
+(* error 
+GLAPI void GLAPIENTRY glLighti (GLenum light, GLenum pname, GLint param);
+in declaration at line 1014 *)
+(* error 
+GLAPI void GLAPIENTRY glLightiv (GLenum light, GLenum pname, const GLint *params);
+in declaration at line 1015 *)
+(* error 
+GLAPI void GLAPIENTRY glLineStipple (GLint factor, GLushort pattern);
+in declaration at line 1016 *)
+(* error 
+GLAPI void GLAPIENTRY glLineWidth (GLfloat width);
+in declaration at line 1017 *)
+(* error 
+GLAPI void GLAPIENTRY glListBase (GLuint base);
+in declaration at line 1018 *)
+(* error 
+GLAPI void GLAPIENTRY glLoadIdentity (void);
+in declaration at line 1019 *)
+(* error 
+GLAPI void GLAPIENTRY glLoadMatrixd (const GLdouble *m);
+in declaration at line 1020 *)
+(* error 
+GLAPI void GLAPIENTRY glLoadMatrixf (const GLfloat *m);
+in declaration at line 1021 *)
+(* error 
+GLAPI void GLAPIENTRY glLoadName (GLuint name);
+in declaration at line 1022 *)
+(* error 
+GLAPI void GLAPIENTRY glLogicOp (GLenum opcode);
+in declaration at line 1023 *)
+(* error 
+GLAPI void GLAPIENTRY glMap1d (GLenum target, GLdouble u1, GLdouble u2, GLint stride, GLint order, const GLdouble *points);
+in declaration at line 1024 *)
+(* error 
+GLAPI void GLAPIENTRY glMap1f (GLenum target, GLfloat u1, GLfloat u2, GLint stride, GLint order, const GLfloat *points);
+in declaration at line 1025 *)
+(* error 
+GLAPI void GLAPIENTRY glMap2d (GLenum target, GLdouble u1, GLdouble u2, GLint ustride, GLint uorder, GLdouble v1, GLdouble v2, GLint vstride, GLint vorder, const GLdouble *points);
+in declaration at line 1026 *)
+(* error 
+GLAPI void GLAPIENTRY glMap2f (GLenum target, GLfloat u1, GLfloat u2, GLint ustride, GLint uorder, GLfloat v1, GLfloat v2, GLint vstride, GLint vorder, const GLfloat *points);
+in declaration at line 1027 *)
+(* error 
+GLAPI void GLAPIENTRY glMapGrid1d (GLint un, GLdouble u1, GLdouble u2);
+in declaration at line 1028 *)
+(* error 
+GLAPI void GLAPIENTRY glMapGrid1f (GLint un, GLfloat u1, GLfloat u2);
+in declaration at line 1029 *)
+(* error 
+GLAPI void GLAPIENTRY glMapGrid2d (GLint un, GLdouble u1, GLdouble u2, GLint vn, GLdouble v1, GLdouble v2);
+in declaration at line 1030 *)
+(* error 
+GLAPI void GLAPIENTRY glMapGrid2f (GLint un, GLfloat u1, GLfloat u2, GLint vn, GLfloat v1, GLfloat v2);
+in declaration at line 1031 *)
+(* error 
+GLAPI void GLAPIENTRY glMaterialf (GLenum face, GLenum pname, GLfloat param);
+in declaration at line 1032 *)
+(* error 
+GLAPI void GLAPIENTRY glMaterialfv (GLenum face, GLenum pname, const GLfloat *params);
+in declaration at line 1033 *)
+(* error 
+GLAPI void GLAPIENTRY glMateriali (GLenum face, GLenum pname, GLint param);
+in declaration at line 1034 *)
+(* error 
+GLAPI void GLAPIENTRY glMaterialiv (GLenum face, GLenum pname, const GLint *params);
+in declaration at line 1035 *)
+(* error 
+GLAPI void GLAPIENTRY glMatrixMode (GLenum mode);
+in declaration at line 1036 *)
+(* error 
+GLAPI void GLAPIENTRY glMultMatrixd (const GLdouble *m);
+in declaration at line 1037 *)
+(* error 
+GLAPI void GLAPIENTRY glMultMatrixf (const GLfloat *m);
+in declaration at line 1038 *)
+(* error 
+GLAPI void GLAPIENTRY glNewList (GLuint list, GLenum mode);
+in declaration at line 1039 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3b (GLbyte nx, GLbyte ny, GLbyte nz);
+in declaration at line 1040 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3bv (const GLbyte *v);
+in declaration at line 1041 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3d (GLdouble nx, GLdouble ny, GLdouble nz);
+in declaration at line 1042 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3dv (const GLdouble *v);
+in declaration at line 1043 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3f (GLfloat nx, GLfloat ny, GLfloat nz);
+in declaration at line 1044 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3fv (const GLfloat *v);
+in declaration at line 1045 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3i (GLint nx, GLint ny, GLint nz);
+in declaration at line 1046 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3iv (const GLint *v);
+in declaration at line 1047 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3s (GLshort nx, GLshort ny, GLshort nz);
+in declaration at line 1048 *)
+(* error 
+GLAPI void GLAPIENTRY glNormal3sv (const GLshort *v);
+in declaration at line 1049 *)
+(* error 
+GLAPI void GLAPIENTRY glNormalPointer (GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 1050 *)
+(* error 
+GLAPI void GLAPIENTRY glOrtho (GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNear, GLdouble zFar);
+in declaration at line 1051 *)
+(* error 
+GLAPI void GLAPIENTRY glPassThrough (GLfloat token);
+in declaration at line 1052 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelMapfv (GLenum map, GLsizei mapsize, const GLfloat *values);
+in declaration at line 1053 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelMapuiv (GLenum map, GLsizei mapsize, const GLuint *values);
+in declaration at line 1054 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelMapusv (GLenum map, GLsizei mapsize, const GLushort *values);
+in declaration at line 1055 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelStoref (GLenum pname, GLfloat param);
+in declaration at line 1056 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelStorei (GLenum pname, GLint param);
+in declaration at line 1057 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelTransferf (GLenum pname, GLfloat param);
+in declaration at line 1058 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelTransferi (GLenum pname, GLint param);
+in declaration at line 1059 *)
+(* error 
+GLAPI void GLAPIENTRY glPixelZoom (GLfloat xfactor, GLfloat yfactor);
+in declaration at line 1060 *)
+(* error 
+GLAPI void GLAPIENTRY glPointSize (GLfloat size);
+in declaration at line 1061 *)
+(* error 
+GLAPI void GLAPIENTRY glPolygonMode (GLenum face, GLenum mode);
+in declaration at line 1062 *)
+(* error 
+GLAPI void GLAPIENTRY glPolygonOffset (GLfloat factor, GLfloat units);
+in declaration at line 1063 *)
+(* error 
+GLAPI void GLAPIENTRY glPolygonStipple (const GLubyte *mask);
+in declaration at line 1064 *)
+(* error 
+GLAPI void GLAPIENTRY glPopAttrib (void);
+in declaration at line 1065 *)
+(* error 
+GLAPI void GLAPIENTRY glPopClientAttrib (void);
+in declaration at line 1066 *)
+(* error 
+GLAPI void GLAPIENTRY glPopMatrix (void);
+in declaration at line 1067 *)
+(* error 
+GLAPI void GLAPIENTRY glPopName (void);
+in declaration at line 1068 *)
+(* error 
+GLAPI void GLAPIENTRY glPrioritizeTextures (GLsizei n, const GLuint *textures, const GLclampf *priorities);
+in declaration at line 1069 *)
+(* error 
+GLAPI void GLAPIENTRY glPushAttrib (GLbitfield mask);
+in declaration at line 1070 *)
+(* error 
+GLAPI void GLAPIENTRY glPushClientAttrib (GLbitfield mask);
+in declaration at line 1071 *)
+(* error 
+GLAPI void GLAPIENTRY glPushMatrix (void);
+in declaration at line 1072 *)
+(* error 
+GLAPI void GLAPIENTRY glPushName (GLuint name);
+in declaration at line 1073 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2d (GLdouble x, GLdouble y);
+in declaration at line 1074 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2dv (const GLdouble *v);
+in declaration at line 1075 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2f (GLfloat x, GLfloat y);
+in declaration at line 1076 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2fv (const GLfloat *v);
+in declaration at line 1077 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2i (GLint x, GLint y);
+in declaration at line 1078 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2iv (const GLint *v);
+in declaration at line 1079 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2s (GLshort x, GLshort y);
+in declaration at line 1080 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos2sv (const GLshort *v);
+in declaration at line 1081 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3d (GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1082 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3dv (const GLdouble *v);
+in declaration at line 1083 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3f (GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1084 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3fv (const GLfloat *v);
+in declaration at line 1085 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3i (GLint x, GLint y, GLint z);
+in declaration at line 1086 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3iv (const GLint *v);
+in declaration at line 1087 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3s (GLshort x, GLshort y, GLshort z);
+in declaration at line 1088 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos3sv (const GLshort *v);
+in declaration at line 1089 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4d (GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+in declaration at line 1090 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4dv (const GLdouble *v);
+in declaration at line 1091 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4f (GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+in declaration at line 1092 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4fv (const GLfloat *v);
+in declaration at line 1093 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4i (GLint x, GLint y, GLint z, GLint w);
+in declaration at line 1094 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4iv (const GLint *v);
+in declaration at line 1095 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4s (GLshort x, GLshort y, GLshort z, GLshort w);
+in declaration at line 1096 *)
+(* error 
+GLAPI void GLAPIENTRY glRasterPos4sv (const GLshort *v);
+in declaration at line 1097 *)
+(* error 
+GLAPI void GLAPIENTRY glReadBuffer (GLenum mode);
+in declaration at line 1098 *)
+(* error 
+GLAPI void GLAPIENTRY glReadPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels);
+in declaration at line 1099 *)
+(* error 
+GLAPI void GLAPIENTRY glRectd (GLdouble x1, GLdouble y1, GLdouble x2, GLdouble y2);
+in declaration at line 1100 *)
+(* error 
+GLAPI void GLAPIENTRY glRectdv (const GLdouble *v1, const GLdouble *v2);
+in declaration at line 1101 *)
+(* error 
+GLAPI void GLAPIENTRY glRectf (GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2);
+in declaration at line 1102 *)
+(* error 
+GLAPI void GLAPIENTRY glRectfv (const GLfloat *v1, const GLfloat *v2);
+in declaration at line 1103 *)
+(* error 
+GLAPI void GLAPIENTRY glRecti (GLint x1, GLint y1, GLint x2, GLint y2);
+in declaration at line 1104 *)
+(* error 
+GLAPI void GLAPIENTRY glRectiv (const GLint *v1, const GLint *v2);
+in declaration at line 1105 *)
+(* error 
+GLAPI void GLAPIENTRY glRects (GLshort x1, GLshort y1, GLshort x2, GLshort y2);
+in declaration at line 1106 *)
+(* error 
+GLAPI void GLAPIENTRY glRectsv (const GLshort *v1, const GLshort *v2);
+in declaration at line 1107 *)
+(* error 
+GLAPI GLint GLAPIENTRY glRenderMode (GLenum mode);
+ in declarator_list *)
+(* error 
+GLAPI void GLAPIENTRY glRotated (GLdouble angle, GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1109 *)
+(* error 
+GLAPI void GLAPIENTRY glRotatef (GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1110 *)
+(* error 
+GLAPI void GLAPIENTRY glScaled (GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1111 *)
+(* error 
+GLAPI void GLAPIENTRY glScalef (GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1112 *)
+(* error 
+GLAPI void GLAPIENTRY glScissor (GLint x, GLint y, GLsizei width, GLsizei height);
+in declaration at line 1113 *)
+(* error 
+GLAPI void GLAPIENTRY glSelectBuffer (GLsizei size, GLuint *buffer);
+in declaration at line 1114 *)
+(* error 
+GLAPI void GLAPIENTRY glShadeModel (GLenum mode);
+in declaration at line 1115 *)
+(* error 
+GLAPI void GLAPIENTRY glStencilFunc (GLenum func, GLint ref, GLuint mask);
+in declaration at line 1116 *)
+(* error 
+GLAPI void GLAPIENTRY glStencilMask (GLuint mask);
+in declaration at line 1117 *)
+(* error 
+GLAPI void GLAPIENTRY glStencilOp (GLenum fail, GLenum zfail, GLenum zpass);
+in declaration at line 1118 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1d (GLdouble s);
+in declaration at line 1119 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1dv (const GLdouble *v);
+in declaration at line 1120 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1f (GLfloat s);
+in declaration at line 1121 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1fv (const GLfloat *v);
+in declaration at line 1122 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1i (GLint s);
+in declaration at line 1123 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1iv (const GLint *v);
+in declaration at line 1124 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1s (GLshort s);
+in declaration at line 1125 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord1sv (const GLshort *v);
+in declaration at line 1126 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2d (GLdouble s, GLdouble t);
+in declaration at line 1127 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2dv (const GLdouble *v);
+in declaration at line 1128 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2f (GLfloat s, GLfloat t);
+in declaration at line 1129 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2fv (const GLfloat *v);
+in declaration at line 1130 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2i (GLint s, GLint t);
+in declaration at line 1131 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2iv (const GLint *v);
+in declaration at line 1132 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2s (GLshort s, GLshort t);
+in declaration at line 1133 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord2sv (const GLshort *v);
+in declaration at line 1134 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3d (GLdouble s, GLdouble t, GLdouble r);
+in declaration at line 1135 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3dv (const GLdouble *v);
+in declaration at line 1136 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3f (GLfloat s, GLfloat t, GLfloat r);
+in declaration at line 1137 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3fv (const GLfloat *v);
+in declaration at line 1138 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3i (GLint s, GLint t, GLint r);
+in declaration at line 1139 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3iv (const GLint *v);
+in declaration at line 1140 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3s (GLshort s, GLshort t, GLshort r);
+in declaration at line 1141 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord3sv (const GLshort *v);
+in declaration at line 1142 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4d (GLdouble s, GLdouble t, GLdouble r, GLdouble q);
+in declaration at line 1143 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4dv (const GLdouble *v);
+in declaration at line 1144 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4f (GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+in declaration at line 1145 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4fv (const GLfloat *v);
+in declaration at line 1146 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4i (GLint s, GLint t, GLint r, GLint q);
+in declaration at line 1147 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4iv (const GLint *v);
+in declaration at line 1148 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4s (GLshort s, GLshort t, GLshort r, GLshort q);
+in declaration at line 1149 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoord4sv (const GLshort *v);
+in declaration at line 1150 *)
+(* error 
+GLAPI void GLAPIENTRY glTexCoordPointer (GLint size, GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 1151 *)
+(* error 
+GLAPI void GLAPIENTRY glTexEnvf (GLenum target, GLenum pname, GLfloat param);
+in declaration at line 1152 *)
+(* error 
+GLAPI void GLAPIENTRY glTexEnvfv (GLenum target, GLenum pname, const GLfloat *params);
+in declaration at line 1153 *)
+(* error 
+GLAPI void GLAPIENTRY glTexEnvi (GLenum target, GLenum pname, GLint param);
+in declaration at line 1154 *)
+(* error 
+GLAPI void GLAPIENTRY glTexEnviv (GLenum target, GLenum pname, const GLint *params);
+in declaration at line 1155 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGend (GLenum coord, GLenum pname, GLdouble param);
+in declaration at line 1156 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGendv (GLenum coord, GLenum pname, const GLdouble *params);
+in declaration at line 1157 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGenf (GLenum coord, GLenum pname, GLfloat param);
+in declaration at line 1158 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGenfv (GLenum coord, GLenum pname, const GLfloat *params);
+in declaration at line 1159 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGeni (GLenum coord, GLenum pname, GLint param);
+in declaration at line 1160 *)
+(* error 
+GLAPI void GLAPIENTRY glTexGeniv (GLenum coord, GLenum pname, const GLint *params);
+in declaration at line 1161 *)
+(* error 
+GLAPI void GLAPIENTRY glTexImage1D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLint border, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1162 *)
+(* error 
+GLAPI void GLAPIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1163 *)
+(* error 
+GLAPI void GLAPIENTRY glTexParameterf (GLenum target, GLenum pname, GLfloat param);
+in declaration at line 1164 *)
+(* error 
+GLAPI void GLAPIENTRY glTexParameterfv (GLenum target, GLenum pname, const GLfloat *params);
+in declaration at line 1165 *)
+(* error 
+GLAPI void GLAPIENTRY glTexParameteri (GLenum target, GLenum pname, GLint param);
+in declaration at line 1166 *)
+(* error 
+GLAPI void GLAPIENTRY glTexParameteriv (GLenum target, GLenum pname, const GLint *params);
+in declaration at line 1167 *)
+(* error 
+GLAPI void GLAPIENTRY glTexSubImage1D (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1168 *)
+(* error 
+GLAPI void GLAPIENTRY glTexSubImage2D (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1169 *)
+(* error 
+GLAPI void GLAPIENTRY glTranslated (GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1170 *)
+(* error 
+GLAPI void GLAPIENTRY glTranslatef (GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1171 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2d (GLdouble x, GLdouble y);
+in declaration at line 1172 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2dv (const GLdouble *v);
+in declaration at line 1173 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2f (GLfloat x, GLfloat y);
+in declaration at line 1174 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2fv (const GLfloat *v);
+in declaration at line 1175 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2i (GLint x, GLint y);
+in declaration at line 1176 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2iv (const GLint *v);
+in declaration at line 1177 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2s (GLshort x, GLshort y);
+in declaration at line 1178 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex2sv (const GLshort *v);
+in declaration at line 1179 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3d (GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1180 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3dv (const GLdouble *v);
+in declaration at line 1181 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3f (GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1182 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3fv (const GLfloat *v);
+in declaration at line 1183 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3i (GLint x, GLint y, GLint z);
+in declaration at line 1184 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3iv (const GLint *v);
+in declaration at line 1185 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3s (GLshort x, GLshort y, GLshort z);
+in declaration at line 1186 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex3sv (const GLshort *v);
+in declaration at line 1187 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4d (GLdouble x, GLdouble y, GLdouble z, GLdouble w);
+in declaration at line 1188 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4dv (const GLdouble *v);
+in declaration at line 1189 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4f (GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+in declaration at line 1190 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4fv (const GLfloat *v);
+in declaration at line 1191 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4i (GLint x, GLint y, GLint z, GLint w);
+in declaration at line 1192 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4iv (const GLint *v);
+in declaration at line 1193 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4s (GLshort x, GLshort y, GLshort z, GLshort w);
+in declaration at line 1194 *)
+(* error 
+GLAPI void GLAPIENTRY glVertex4sv (const GLshort *v);
+in declaration at line 1195 *)
+(* error 
+GLAPI void GLAPIENTRY glVertexPointer (GLint size, GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 1196 *)
+(* error 
+GLAPI void GLAPIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
+in declaration at line 1197 *)
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_1 : longint; { return type might be wrong }
+
+{$endif}
+    { GL_VERSION_1_1  }
+    { ---------------------------------- GLU ----------------------------------  }
+{$ifndef GLEW_NO_GLU}
+{$ifdef __APPLE__}
+{$include <Availability.h>}
+{$if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)}
+{$define GLEW_NO_GLU}    
+{$endif}
+{$endif}
+{$endif}
+{$ifndef GLEW_NO_GLU}
+    { this is where we can safely include GLU  }
+{$if defined(__APPLE__) && defined(__MACH__)}
+{$include <OpenGL/glu.h>}
+{$else}
+{$include <GL/glu.h>}
+{$endif}
+{$endif}
+    { ----------------------------- GL_VERSION_1_2 ----------------------------  }
+{$ifndef GL_VERSION_1_2}
+
+    const
+      GL_VERSION_1_2 = 1;      
+      GL_SMOOTH_POINT_SIZE_RANGE = $0B12;      
+      GL_SMOOTH_POINT_SIZE_GRANULARITY = $0B13;      
+      GL_SMOOTH_LINE_WIDTH_RANGE = $0B22;      
+      GL_SMOOTH_LINE_WIDTH_GRANULARITY = $0B23;      
+      GL_UNSIGNED_BYTE_3_3_2 = $8032;      
+      GL_UNSIGNED_SHORT_4_4_4_4 = $8033;      
+      GL_UNSIGNED_SHORT_5_5_5_1 = $8034;      
+      GL_UNSIGNED_INT_8_8_8_8 = $8035;      
+      GL_UNSIGNED_INT_10_10_10_2 = $8036;      
+      GL_RESCALE_NORMAL = $803A;      
+      GL_TEXTURE_BINDING_3D = $806A;      
+      GL_PACK_SKIP_IMAGES = $806B;      
+      GL_PACK_IMAGE_HEIGHT = $806C;      
+      GL_UNPACK_SKIP_IMAGES = $806D;      
+      GL_UNPACK_IMAGE_HEIGHT = $806E;      
+      GL_TEXTURE_3D = $806F;      
+      GL_PROXY_TEXTURE_3D = $8070;      
+      GL_TEXTURE_DEPTH = $8071;      
+      GL_TEXTURE_WRAP_R = $8072;      
+      GL_MAX_3D_TEXTURE_SIZE = $8073;      
+      GL_BGR = $80E0;      
+      GL_BGRA = $80E1;      
+      GL_MAX_ELEMENTS_VERTICES = $80E8;      
+      GL_MAX_ELEMENTS_INDICES = $80E9;      
+      GL_CLAMP_TO_EDGE = $812F;      
+      GL_TEXTURE_MIN_LOD = $813A;      
+      GL_TEXTURE_MAX_LOD = $813B;      
+      GL_TEXTURE_BASE_LEVEL = $813C;      
+      GL_TEXTURE_MAX_LEVEL = $813D;      
+      GL_LIGHT_MODEL_COLOR_CONTROL = $81F8;      
+      GL_SINGLE_COLOR = $81F9;      
+      GL_SEPARATE_SPECULAR_COLOR = $81FA;      
+      GL_UNSIGNED_BYTE_2_3_3_REV = $8362;      
+      GL_UNSIGNED_SHORT_5_6_5 = $8363;      
+      GL_UNSIGNED_SHORT_5_6_5_REV = $8364;      
+      GL_UNSIGNED_SHORT_4_4_4_4_REV = $8365;      
+      GL_UNSIGNED_SHORT_1_5_5_5_REV = $8366;      
+      GL_UNSIGNED_INT_8_8_8_8_REV = $8367;      
+      GL_ALIASED_POINT_SIZE_RANGE = $846D;      
+      GL_ALIASED_LINE_WIDTH_RANGE = $846E;      
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOPYTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLint x, GLint y, GLsizei width, GLsizei height);
+in declaration at line 1269 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLDRAWRANGEELEMENTSPROC) (GLenum mode, GLuint start, GLuint end, GLsizei count, GLenum type, const void *indices);
+in declaration at line 1270 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLTEXIMAGE3DPROC) (GLenum target, GLint level, GLint internalFormat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1271 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLenum type, const void *pixels);
+in declaration at line 1272 *)
+
+    { was #define dname def_expr }
+    function glCopyTexSubImage3D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glDrawRangeElements : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glTexImage3D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glTexSubImage3D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_2 : longint; { return type might be wrong }
+
+{$endif}
+    { GL_VERSION_1_2  }
+    { ---------------------------- GL_VERSION_1_2_1 ---------------------------  }
+{$ifndef GL_VERSION_1_2_1}
+
+    const
+      GL_VERSION_1_2_1 = 1;      
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_2_1 : longint; { return type might be wrong }
+
+{$endif}
+    { GL_VERSION_1_2_1  }
+    { ----------------------------- GL_VERSION_1_3 ----------------------------  }
+{$ifndef GL_VERSION_1_3}
+
+    const
+      GL_VERSION_1_3 = 1;      
+      GL_MULTISAMPLE = $809D;      
+      GL_SAMPLE_ALPHA_TO_COVERAGE = $809E;      
+      GL_SAMPLE_ALPHA_TO_ONE = $809F;      
+      GL_SAMPLE_COVERAGE = $80A0;      
+      GL_SAMPLE_BUFFERS = $80A8;      
+      GL_SAMPLES = $80A9;      
+      GL_SAMPLE_COVERAGE_VALUE = $80AA;      
+      GL_SAMPLE_COVERAGE_INVERT = $80AB;      
+      GL_CLAMP_TO_BORDER = $812D;      
+      GL_TEXTURE0 = $84C0;      
+      GL_TEXTURE1 = $84C1;      
+      GL_TEXTURE2 = $84C2;      
+      GL_TEXTURE3 = $84C3;      
+      GL_TEXTURE4 = $84C4;      
+      GL_TEXTURE5 = $84C5;      
+      GL_TEXTURE6 = $84C6;      
+      GL_TEXTURE7 = $84C7;      
+      GL_TEXTURE8 = $84C8;      
+      GL_TEXTURE9 = $84C9;      
+      GL_TEXTURE10 = $84CA;      
+      GL_TEXTURE11 = $84CB;      
+      GL_TEXTURE12 = $84CC;      
+      GL_TEXTURE13 = $84CD;      
+      GL_TEXTURE14 = $84CE;      
+      GL_TEXTURE15 = $84CF;      
+      GL_TEXTURE16 = $84D0;      
+      GL_TEXTURE17 = $84D1;      
+      GL_TEXTURE18 = $84D2;      
+      GL_TEXTURE19 = $84D3;      
+      GL_TEXTURE20 = $84D4;      
+      GL_TEXTURE21 = $84D5;      
+      GL_TEXTURE22 = $84D6;      
+      GL_TEXTURE23 = $84D7;      
+      GL_TEXTURE24 = $84D8;      
+      GL_TEXTURE25 = $84D9;      
+      GL_TEXTURE26 = $84DA;      
+      GL_TEXTURE27 = $84DB;      
+      GL_TEXTURE28 = $84DC;      
+      GL_TEXTURE29 = $84DD;      
+      GL_TEXTURE30 = $84DE;      
+      GL_TEXTURE31 = $84DF;      
+      GL_ACTIVE_TEXTURE = $84E0;      
+      GL_CLIENT_ACTIVE_TEXTURE = $84E1;      
+      GL_MAX_TEXTURE_UNITS = $84E2;      
+      GL_TRANSPOSE_MODELVIEW_MATRIX = $84E3;      
+      GL_TRANSPOSE_PROJECTION_MATRIX = $84E4;      
+      GL_TRANSPOSE_TEXTURE_MATRIX = $84E5;      
+      GL_TRANSPOSE_COLOR_MATRIX = $84E6;      
+      GL_SUBTRACT = $84E7;      
+      GL_COMPRESSED_ALPHA = $84E9;      
+      GL_COMPRESSED_LUMINANCE = $84EA;      
+      GL_COMPRESSED_LUMINANCE_ALPHA = $84EB;      
+      GL_COMPRESSED_INTENSITY = $84EC;      
+      GL_COMPRESSED_RGB = $84ED;      
+      GL_COMPRESSED_RGBA = $84EE;      
+      GL_TEXTURE_COMPRESSION_HINT = $84EF;      
+      GL_NORMAL_MAP = $8511;      
+      GL_REFLECTION_MAP = $8512;      
+      GL_TEXTURE_CUBE_MAP = $8513;      
+      GL_TEXTURE_BINDING_CUBE_MAP = $8514;      
+      GL_TEXTURE_CUBE_MAP_POSITIVE_X = $8515;      
+      GL_TEXTURE_CUBE_MAP_NEGATIVE_X = $8516;      
+      GL_TEXTURE_CUBE_MAP_POSITIVE_Y = $8517;      
+      GL_TEXTURE_CUBE_MAP_NEGATIVE_Y = $8518;      
+      GL_TEXTURE_CUBE_MAP_POSITIVE_Z = $8519;      
+      GL_TEXTURE_CUBE_MAP_NEGATIVE_Z = $851A;      
+      GL_PROXY_TEXTURE_CUBE_MAP = $851B;      
+      GL_MAX_CUBE_MAP_TEXTURE_SIZE = $851C;      
+      GL_COMBINE = $8570;      
+      GL_COMBINE_RGB = $8571;      
+      GL_COMBINE_ALPHA = $8572;      
+      GL_RGB_SCALE = $8573;      
+      GL_ADD_SIGNED = $8574;      
+      GL_INTERPOLATE = $8575;      
+      GL_CONSTANT = $8576;      
+      GL_PRIMARY_COLOR = $8577;      
+      GL_PREVIOUS = $8578;      
+      GL_SOURCE0_RGB = $8580;      
+      GL_SOURCE1_RGB = $8581;      
+      GL_SOURCE2_RGB = $8582;      
+      GL_SOURCE0_ALPHA = $8588;      
+      GL_SOURCE1_ALPHA = $8589;      
+      GL_SOURCE2_ALPHA = $858A;      
+      GL_OPERAND0_RGB = $8590;      
+      GL_OPERAND1_RGB = $8591;      
+      GL_OPERAND2_RGB = $8592;      
+      GL_OPERAND0_ALPHA = $8598;      
+      GL_OPERAND1_ALPHA = $8599;      
+      GL_OPERAND2_ALPHA = $859A;      
+      GL_TEXTURE_COMPRESSED_IMAGE_SIZE = $86A0;      
+      GL_TEXTURE_COMPRESSED = $86A1;      
+      GL_NUM_COMPRESSED_TEXTURE_FORMATS = $86A2;      
+      GL_COMPRESSED_TEXTURE_FORMATS = $86A3;      
+      GL_DOT3_RGB = $86AE;      
+      GL_DOT3_RGBA = $86AF;      
+      GL_MULTISAMPLE_BIT = $20000000;      
+(* error 
+typedef void (GLAPIENTRY * PFNGLACTIVETEXTUREPROC) (GLenum texture);
+in declaration at line 1394 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCLIENTACTIVETEXTUREPROC) (GLenum texture);
+in declaration at line 1395 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXIMAGE1DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLint border, GLsizei imageSize, const void *data);
+in declaration at line 1396 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXIMAGE2DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLint border, GLsizei imageSize, const void *data);
+in declaration at line 1397 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXIMAGE3DPROC) (GLenum target, GLint level, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth, GLint border, GLsizei imageSize, const void *data);
+in declaration at line 1398 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXSUBIMAGE1DPROC) (GLenum target, GLint level, GLint xoffset, GLsizei width, GLenum format, GLsizei imageSize, const void *data);
+in declaration at line 1399 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXSUBIMAGE2DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum format, GLsizei imageSize, const void *data);
+in declaration at line 1400 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLCOMPRESSEDTEXSUBIMAGE3DPROC) (GLenum target, GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, GLenum format, GLsizei imageSize, const void *data);
+in declaration at line 1401 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETCOMPRESSEDTEXIMAGEPROC) (GLenum target, GLint lod, void *img);
+in declaration at line 1402 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLLOADTRANSPOSEMATRIXDPROC) (const GLdouble m[16]);
+in declaration at line 1403 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLLOADTRANSPOSEMATRIXFPROC) (const GLfloat m[16]);
+in declaration at line 1404 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTTRANSPOSEMATRIXDPROC) (const GLdouble m[16]);
+in declaration at line 1405 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTTRANSPOSEMATRIXFPROC) (const GLfloat m[16]);
+in declaration at line 1406 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1DPROC) (GLenum target, GLdouble s);
+in declaration at line 1407 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1DVPROC) (GLenum target, const GLdouble *v);
+in declaration at line 1408 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1FPROC) (GLenum target, GLfloat s);
+in declaration at line 1409 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1FVPROC) (GLenum target, const GLfloat *v);
+in declaration at line 1410 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1IPROC) (GLenum target, GLint s);
+in declaration at line 1411 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1IVPROC) (GLenum target, const GLint *v);
+in declaration at line 1412 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1SPROC) (GLenum target, GLshort s);
+in declaration at line 1413 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD1SVPROC) (GLenum target, const GLshort *v);
+in declaration at line 1414 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2DPROC) (GLenum target, GLdouble s, GLdouble t);
+in declaration at line 1415 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2DVPROC) (GLenum target, const GLdouble *v);
+in declaration at line 1416 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2FPROC) (GLenum target, GLfloat s, GLfloat t);
+in declaration at line 1417 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2FVPROC) (GLenum target, const GLfloat *v);
+in declaration at line 1418 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2IPROC) (GLenum target, GLint s, GLint t);
+in declaration at line 1419 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2IVPROC) (GLenum target, const GLint *v);
+in declaration at line 1420 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2SPROC) (GLenum target, GLshort s, GLshort t);
+in declaration at line 1421 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD2SVPROC) (GLenum target, const GLshort *v);
+in declaration at line 1422 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3DPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r);
+in declaration at line 1423 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3DVPROC) (GLenum target, const GLdouble *v);
+in declaration at line 1424 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3FPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r);
+in declaration at line 1425 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3FVPROC) (GLenum target, const GLfloat *v);
+in declaration at line 1426 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3IPROC) (GLenum target, GLint s, GLint t, GLint r);
+in declaration at line 1427 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3IVPROC) (GLenum target, const GLint *v);
+in declaration at line 1428 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3SPROC) (GLenum target, GLshort s, GLshort t, GLshort r);
+in declaration at line 1429 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD3SVPROC) (GLenum target, const GLshort *v);
+in declaration at line 1430 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4DPROC) (GLenum target, GLdouble s, GLdouble t, GLdouble r, GLdouble q);
+in declaration at line 1431 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4DVPROC) (GLenum target, const GLdouble *v);
+in declaration at line 1432 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4FPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+in declaration at line 1433 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4FVPROC) (GLenum target, const GLfloat *v);
+in declaration at line 1434 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4IPROC) (GLenum target, GLint s, GLint t, GLint r, GLint q);
+in declaration at line 1435 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4IVPROC) (GLenum target, const GLint *v);
+in declaration at line 1436 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4SPROC) (GLenum target, GLshort s, GLshort t, GLshort r, GLshort q);
+in declaration at line 1437 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTITEXCOORD4SVPROC) (GLenum target, const GLshort *v);
+in declaration at line 1438 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSAMPLECOVERAGEPROC) (GLclampf value, GLboolean invert);
+in declaration at line 1439 *)
+
+    { was #define dname def_expr }
+    function glActiveTexture : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glClientActiveTexture : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexImage1D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexImage2D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexImage3D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage1D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage2D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage3D : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glGetCompressedTexImage : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glLoadTransposeMatrixd : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glLoadTransposeMatrixf : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultTransposeMatrixd : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultTransposeMatrixf : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSampleCoverage : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_3 : longint; { return type might be wrong }
+
+{$endif}
+    { GL_VERSION_1_3  }
+    { ----------------------------- GL_VERSION_1_4 ----------------------------  }
+{$ifndef GL_VERSION_1_4}
+
+    const
+      GL_VERSION_1_4 = 1;      
+      GL_BLEND_DST_RGB = $80C8;      
+      GL_BLEND_SRC_RGB = $80C9;      
+      GL_BLEND_DST_ALPHA = $80CA;      
+      GL_BLEND_SRC_ALPHA = $80CB;      
+      GL_POINT_SIZE_MIN = $8126;      
+      GL_POINT_SIZE_MAX = $8127;      
+      GL_POINT_FADE_THRESHOLD_SIZE = $8128;      
+      GL_POINT_DISTANCE_ATTENUATION = $8129;      
+      GL_GENERATE_MIPMAP = $8191;      
+      GL_GENERATE_MIPMAP_HINT = $8192;      
+      GL_DEPTH_COMPONENT16 = $81A5;      
+      GL_DEPTH_COMPONENT24 = $81A6;      
+      GL_DEPTH_COMPONENT32 = $81A7;      
+      GL_MIRRORED_REPEAT = $8370;      
+      GL_FOG_COORDINATE_SOURCE = $8450;      
+      GL_FOG_COORDINATE = $8451;      
+      GL_FRAGMENT_DEPTH = $8452;      
+      GL_CURRENT_FOG_COORDINATE = $8453;      
+      GL_FOG_COORDINATE_ARRAY_TYPE = $8454;      
+      GL_FOG_COORDINATE_ARRAY_STRIDE = $8455;      
+      GL_FOG_COORDINATE_ARRAY_POINTER = $8456;      
+      GL_FOG_COORDINATE_ARRAY = $8457;      
+      GL_COLOR_SUM = $8458;      
+      GL_CURRENT_SECONDARY_COLOR = $8459;      
+      GL_SECONDARY_COLOR_ARRAY_SIZE = $845A;      
+      GL_SECONDARY_COLOR_ARRAY_TYPE = $845B;      
+      GL_SECONDARY_COLOR_ARRAY_STRIDE = $845C;      
+      GL_SECONDARY_COLOR_ARRAY_POINTER = $845D;      
+      GL_SECONDARY_COLOR_ARRAY = $845E;      
+      GL_MAX_TEXTURE_LOD_BIAS = $84FD;      
+      GL_TEXTURE_FILTER_CONTROL = $8500;      
+      GL_TEXTURE_LOD_BIAS = $8501;      
+      GL_INCR_WRAP = $8507;      
+      GL_DECR_WRAP = $8508;      
+      GL_TEXTURE_DEPTH_SIZE = $884A;      
+      GL_DEPTH_TEXTURE_MODE = $884B;      
+      GL_TEXTURE_COMPARE_MODE = $884C;      
+      GL_TEXTURE_COMPARE_FUNC = $884D;      
+      GL_COMPARE_R_TO_TEXTURE = $884E;      
+(* error 
+typedef void (GLAPIENTRY * PFNGLBLENDCOLORPROC) (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
+in declaration at line 1537 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLBLENDEQUATIONPROC) (GLenum mode);
+in declaration at line 1538 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLBLENDFUNCSEPARATEPROC) (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
+in declaration at line 1539 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLFOGCOORDPOINTERPROC) (GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 1540 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLFOGCOORDDPROC) (GLdouble coord);
+in declaration at line 1541 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLFOGCOORDDVPROC) (const GLdouble *coord);
+in declaration at line 1542 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLFOGCOORDFPROC) (GLfloat coord);
+in declaration at line 1543 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLFOGCOORDFVPROC) (const GLfloat *coord);
+in declaration at line 1544 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTIDRAWARRAYSPROC) (GLenum mode, const GLint *first, const GLsizei *count, GLsizei drawcount);
+in declaration at line 1545 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLMULTIDRAWELEMENTSPROC) (GLenum mode, const GLsizei *count, GLenum type, const void *const* indices, GLsizei drawcount);
+in declaration at line 1546 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLPOINTPARAMETERFPROC) (GLenum pname, GLfloat param);
+in declaration at line 1547 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLPOINTPARAMETERFVPROC) (GLenum pname, const GLfloat *params);
+in declaration at line 1548 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLPOINTPARAMETERIPROC) (GLenum pname, GLint param);
+in declaration at line 1549 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLPOINTPARAMETERIVPROC) (GLenum pname, const GLint *params);
+in declaration at line 1550 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3BPROC) (GLbyte red, GLbyte green, GLbyte blue);
+in declaration at line 1551 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3BVPROC) (const GLbyte *v);
+in declaration at line 1552 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3DPROC) (GLdouble red, GLdouble green, GLdouble blue);
+in declaration at line 1553 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3DVPROC) (const GLdouble *v);
+in declaration at line 1554 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3FPROC) (GLfloat red, GLfloat green, GLfloat blue);
+in declaration at line 1555 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3FVPROC) (const GLfloat *v);
+in declaration at line 1556 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3IPROC) (GLint red, GLint green, GLint blue);
+in declaration at line 1557 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3IVPROC) (const GLint *v);
+in declaration at line 1558 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3SPROC) (GLshort red, GLshort green, GLshort blue);
+in declaration at line 1559 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3SVPROC) (const GLshort *v);
+in declaration at line 1560 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3UBPROC) (GLubyte red, GLubyte green, GLubyte blue);
+in declaration at line 1561 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3UBVPROC) (const GLubyte *v);
+in declaration at line 1562 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3UIPROC) (GLuint red, GLuint green, GLuint blue);
+in declaration at line 1563 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3UIVPROC) (const GLuint *v);
+in declaration at line 1564 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3USPROC) (GLushort red, GLushort green, GLushort blue);
+in declaration at line 1565 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLOR3USVPROC) (const GLushort *v);
+in declaration at line 1566 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLSECONDARYCOLORPOINTERPROC) (GLint size, GLenum type, GLsizei stride, const void *pointer);
+in declaration at line 1567 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2DPROC) (GLdouble x, GLdouble y);
+in declaration at line 1568 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2DVPROC) (const GLdouble *p);
+in declaration at line 1569 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2FPROC) (GLfloat x, GLfloat y);
+in declaration at line 1570 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2FVPROC) (const GLfloat *p);
+in declaration at line 1571 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2IPROC) (GLint x, GLint y);
+in declaration at line 1572 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2IVPROC) (const GLint *p);
+in declaration at line 1573 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2SPROC) (GLshort x, GLshort y);
+in declaration at line 1574 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS2SVPROC) (const GLshort *p);
+in declaration at line 1575 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3DPROC) (GLdouble x, GLdouble y, GLdouble z);
+in declaration at line 1576 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3DVPROC) (const GLdouble *p);
+in declaration at line 1577 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3FPROC) (GLfloat x, GLfloat y, GLfloat z);
+in declaration at line 1578 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3FVPROC) (const GLfloat *p);
+in declaration at line 1579 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3IPROC) (GLint x, GLint y, GLint z);
+in declaration at line 1580 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3IVPROC) (const GLint *p);
+in declaration at line 1581 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3SPROC) (GLshort x, GLshort y, GLshort z);
+in declaration at line 1582 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLWINDOWPOS3SVPROC) (const GLshort *p);
+in declaration at line 1583 *)
+
+    { was #define dname def_expr }
+    function glBlendColor : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glBlendEquation : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glBlendFuncSeparate : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glFogCoordPointer : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glFogCoordd : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glFogCoorddv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glFogCoordf : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glFogCoordfv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiDrawArrays : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glMultiDrawElements : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glPointParameterf : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glPointParameterfv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glPointParameteri : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glPointParameteriv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3b : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3bv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ub : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ubv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ui : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3uiv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3us : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColor3usv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glSecondaryColorPointer : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos2sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3d : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3dv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3f : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3fv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3i : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3iv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3s : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function glWindowPos3sv : longint; { return type might be wrong }
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_4 : longint; { return type might be wrong }
+
+{$endif}
+    { GL_VERSION_1_4  }
+    { ----------------------------- GL_VERSION_1_5 ----------------------------  }
+{$ifndef GL_VERSION_1_5}
+
+    const
+      GL_VERSION_1_5 = 1;      
+      GL_CURRENT_FOG_COORD = GL_CURRENT_FOG_COORDINATE;      
+      GL_FOG_COORD = GL_FOG_COORDINATE;      
+      GL_FOG_COORD_ARRAY = GL_FOG_COORDINATE_ARRAY;      
+      GL_FOG_COORD_ARRAY_BUFFER_BINDING = GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING;      
+      GL_FOG_COORD_ARRAY_POINTER = GL_FOG_COORDINATE_ARRAY_POINTER;      
+      GL_FOG_COORD_ARRAY_STRIDE = GL_FOG_COORDINATE_ARRAY_STRIDE;      
+      GL_FOG_COORD_ARRAY_TYPE = GL_FOG_COORDINATE_ARRAY_TYPE;      
+      GL_FOG_COORD_SRC = GL_FOG_COORDINATE_SOURCE;      
+      GL_SRC0_ALPHA = GL_SOURCE0_ALPHA;      
+      GL_SRC0_RGB = GL_SOURCE0_RGB;      
+      GL_SRC1_ALPHA = GL_SOURCE1_ALPHA;      
+      GL_SRC1_RGB = GL_SOURCE1_RGB;      
+      GL_SRC2_ALPHA = GL_SOURCE2_ALPHA;      
+      GL_SRC2_RGB = GL_SOURCE2_RGB;      
+      GL_BUFFER_SIZE = $8764;      
+      GL_BUFFER_USAGE = $8765;      
+      GL_QUERY_COUNTER_BITS = $8864;      
+      GL_CURRENT_QUERY = $8865;      
+      GL_QUERY_RESULT = $8866;      
+      GL_QUERY_RESULT_AVAILABLE = $8867;      
+      GL_ARRAY_BUFFER = $8892;      
+      GL_ELEMENT_ARRAY_BUFFER = $8893;      
+      GL_ARRAY_BUFFER_BINDING = $8894;      
+      GL_ELEMENT_ARRAY_BUFFER_BINDING = $8895;      
+      GL_VERTEX_ARRAY_BUFFER_BINDING = $8896;      
+      GL_NORMAL_ARRAY_BUFFER_BINDING = $8897;      
+      GL_COLOR_ARRAY_BUFFER_BINDING = $8898;      
+      GL_INDEX_ARRAY_BUFFER_BINDING = $8899;      
+      GL_TEXTURE_COORD_ARRAY_BUFFER_BINDING = $889A;      
+      GL_EDGE_FLAG_ARRAY_BUFFER_BINDING = $889B;      
+      GL_SECONDARY_COLOR_ARRAY_BUFFER_BINDING = $889C;      
+      GL_FOG_COORDINATE_ARRAY_BUFFER_BINDING = $889D;      
+      GL_WEIGHT_ARRAY_BUFFER_BINDING = $889E;      
+      GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = $889F;      
+      GL_READ_ONLY = $88B8;      
+      GL_WRITE_ONLY = $88B9;      
+      GL_READ_WRITE = $88BA;      
+      GL_BUFFER_ACCESS = $88BB;      
+      GL_BUFFER_MAPPED = $88BC;      
+      GL_BUFFER_MAP_POINTER = $88BD;      
+      GL_STREAM_DRAW = $88E0;      
+      GL_STREAM_READ = $88E1;      
+      GL_STREAM_COPY = $88E2;      
+      GL_STATIC_DRAW = $88E4;      
+      GL_STATIC_READ = $88E5;      
+      GL_STATIC_COPY = $88E6;      
+      GL_DYNAMIC_DRAW = $88E8;      
+      GL_DYNAMIC_READ = $88E9;      
+      GL_DYNAMIC_COPY = $88EA;      
+      GL_SAMPLES_PASSED = $8914;      
+    type
+      PGLintptr = ^TGLintptr;
+      TGLintptr = Tptrdiff_t;
+
+      PGLsizeiptr = ^TGLsizeiptr;
+      TGLsizeiptr = Tptrdiff_t;
+(* error 
+typedef void (GLAPIENTRY * PFNGLBEGINQUERYPROC) (GLenum target, GLuint id);
+in declaration at line 1696 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLBINDBUFFERPROC) (GLenum target, GLuint buffer);
+in declaration at line 1697 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLBUFFERDATAPROC) (GLenum target, GLsizeiptr size, const void* data, GLenum usage);
+in declaration at line 1698 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLBUFFERSUBDATAPROC) (GLenum target, GLintptr offset, GLsizeiptr size, const void* data);
+in declaration at line 1699 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLDELETEBUFFERSPROC) (GLsizei n, const GLuint* buffers);
+in declaration at line 1700 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLDELETEQUERIESPROC) (GLsizei n, const GLuint* ids);
+in declaration at line 1701 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLENDQUERYPROC) (GLenum target);
+in declaration at line 1702 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGENBUFFERSPROC) (GLsizei n, GLuint* buffers);
+in declaration at line 1703 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGENQUERIESPROC) (GLsizei n, GLuint* ids);
+in declaration at line 1704 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETBUFFERPARAMETERIVPROC) (GLenum target, GLenum pname, GLint* params);
+in declaration at line 1705 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETBUFFERPOINTERVPROC) (GLenum target, GLenum pname, void** params);
+in declaration at line 1706 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETBUFFERSUBDATAPROC) (GLenum target, GLintptr offset, GLsizeiptr size, void* data);
+in declaration at line 1707 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETQUERYOBJECTIVPROC) (GLuint id, GLenum pname, GLint* params);
+in declaration at line 1708 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETQUERYOBJECTUIVPROC) (GLuint id, GLenum pname, GLuint* params);
+in declaration at line 1709 *)
+(* error 
+typedef void (GLAPIENTRY * PFNGLGETQUERYIVPROC) (GLenum target, GLenum pname, GLint* params);
+in declaration at line 1710 *)
+(* error 
+typedef GLboolean (GLAPIENTRY * PFNGLISBUFFERPROC) (GLuint buffer);
+in declaration at line 1711 *)
+(* error 
+typedef GLboolean (GLAPIENTRY * PFNGLISQUERYPROC) (GLuint id);
+in declaration at line 1712 *)
+(* error 
+typedef void* (GLAPIENTRY * PFNGLMAPBUFFERPROC) (GLenum target, GLenum access);
+(

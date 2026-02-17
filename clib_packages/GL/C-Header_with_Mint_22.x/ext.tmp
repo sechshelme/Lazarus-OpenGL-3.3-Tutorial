@@ -1,0 +1,612 @@
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_1 : longint; { return type might be wrong }
+      begin
+        GLEW_VERSION_1_1:=GLEW_GET_VAR(__GLEW_VERSION_1_1);
+      end;
+
+    { was #define dname def_expr }
+    function glCopyTexSubImage3D : longint; { return type might be wrong }
+      begin
+        glCopyTexSubImage3D:=GLEW_GET_FUN(__glewCopyTexSubImage3D);
+      end;
+
+    { was #define dname def_expr }
+    function glDrawRangeElements : longint; { return type might be wrong }
+      begin
+        glDrawRangeElements:=GLEW_GET_FUN(__glewDrawRangeElements);
+      end;
+
+    { was #define dname def_expr }
+    function glTexImage3D : longint; { return type might be wrong }
+      begin
+        glTexImage3D:=GLEW_GET_FUN(__glewTexImage3D);
+      end;
+
+    { was #define dname def_expr }
+    function glTexSubImage3D : longint; { return type might be wrong }
+      begin
+        glTexSubImage3D:=GLEW_GET_FUN(__glewTexSubImage3D);
+      end;
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_2 : longint; { return type might be wrong }
+      begin
+        GLEW_VERSION_1_2:=GLEW_GET_VAR(__GLEW_VERSION_1_2);
+      end;
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_2_1 : longint; { return type might be wrong }
+      begin
+        GLEW_VERSION_1_2_1:=GLEW_GET_VAR(__GLEW_VERSION_1_2_1);
+      end;
+
+    { was #define dname def_expr }
+    function glActiveTexture : longint; { return type might be wrong }
+      begin
+        glActiveTexture:=GLEW_GET_FUN(__glewActiveTexture);
+      end;
+
+    { was #define dname def_expr }
+    function glClientActiveTexture : longint; { return type might be wrong }
+      begin
+        glClientActiveTexture:=GLEW_GET_FUN(__glewClientActiveTexture);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexImage1D : longint; { return type might be wrong }
+      begin
+        glCompressedTexImage1D:=GLEW_GET_FUN(__glewCompressedTexImage1D);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexImage2D : longint; { return type might be wrong }
+      begin
+        glCompressedTexImage2D:=GLEW_GET_FUN(__glewCompressedTexImage2D);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexImage3D : longint; { return type might be wrong }
+      begin
+        glCompressedTexImage3D:=GLEW_GET_FUN(__glewCompressedTexImage3D);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage1D : longint; { return type might be wrong }
+      begin
+        glCompressedTexSubImage1D:=GLEW_GET_FUN(__glewCompressedTexSubImage1D);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage2D : longint; { return type might be wrong }
+      begin
+        glCompressedTexSubImage2D:=GLEW_GET_FUN(__glewCompressedTexSubImage2D);
+      end;
+
+    { was #define dname def_expr }
+    function glCompressedTexSubImage3D : longint; { return type might be wrong }
+      begin
+        glCompressedTexSubImage3D:=GLEW_GET_FUN(__glewCompressedTexSubImage3D);
+      end;
+
+    { was #define dname def_expr }
+    function glGetCompressedTexImage : longint; { return type might be wrong }
+      begin
+        glGetCompressedTexImage:=GLEW_GET_FUN(__glewGetCompressedTexImage);
+      end;
+
+    { was #define dname def_expr }
+    function glLoadTransposeMatrixd : longint; { return type might be wrong }
+      begin
+        glLoadTransposeMatrixd:=GLEW_GET_FUN(__glewLoadTransposeMatrixd);
+      end;
+
+    { was #define dname def_expr }
+    function glLoadTransposeMatrixf : longint; { return type might be wrong }
+      begin
+        glLoadTransposeMatrixf:=GLEW_GET_FUN(__glewLoadTransposeMatrixf);
+      end;
+
+    { was #define dname def_expr }
+    function glMultTransposeMatrixd : longint; { return type might be wrong }
+      begin
+        glMultTransposeMatrixd:=GLEW_GET_FUN(__glewMultTransposeMatrixd);
+      end;
+
+    { was #define dname def_expr }
+    function glMultTransposeMatrixf : longint; { return type might be wrong }
+      begin
+        glMultTransposeMatrixf:=GLEW_GET_FUN(__glewMultTransposeMatrixf);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1d : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1d:=GLEW_GET_FUN(__glewMultiTexCoord1d);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1dv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1dv:=GLEW_GET_FUN(__glewMultiTexCoord1dv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1f : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1f:=GLEW_GET_FUN(__glewMultiTexCoord1f);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1fv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1fv:=GLEW_GET_FUN(__glewMultiTexCoord1fv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1i : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1i:=GLEW_GET_FUN(__glewMultiTexCoord1i);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1iv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1iv:=GLEW_GET_FUN(__glewMultiTexCoord1iv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1s : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1s:=GLEW_GET_FUN(__glewMultiTexCoord1s);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord1sv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord1sv:=GLEW_GET_FUN(__glewMultiTexCoord1sv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2d : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2d:=GLEW_GET_FUN(__glewMultiTexCoord2d);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2dv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2dv:=GLEW_GET_FUN(__glewMultiTexCoord2dv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2f : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2f:=GLEW_GET_FUN(__glewMultiTexCoord2f);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2fv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2fv:=GLEW_GET_FUN(__glewMultiTexCoord2fv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2i : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2i:=GLEW_GET_FUN(__glewMultiTexCoord2i);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2iv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2iv:=GLEW_GET_FUN(__glewMultiTexCoord2iv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2s : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2s:=GLEW_GET_FUN(__glewMultiTexCoord2s);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord2sv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord2sv:=GLEW_GET_FUN(__glewMultiTexCoord2sv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3d : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3d:=GLEW_GET_FUN(__glewMultiTexCoord3d);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3dv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3dv:=GLEW_GET_FUN(__glewMultiTexCoord3dv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3f : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3f:=GLEW_GET_FUN(__glewMultiTexCoord3f);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3fv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3fv:=GLEW_GET_FUN(__glewMultiTexCoord3fv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3i : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3i:=GLEW_GET_FUN(__glewMultiTexCoord3i);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3iv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3iv:=GLEW_GET_FUN(__glewMultiTexCoord3iv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3s : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3s:=GLEW_GET_FUN(__glewMultiTexCoord3s);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord3sv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord3sv:=GLEW_GET_FUN(__glewMultiTexCoord3sv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4d : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4d:=GLEW_GET_FUN(__glewMultiTexCoord4d);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4dv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4dv:=GLEW_GET_FUN(__glewMultiTexCoord4dv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4f : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4f:=GLEW_GET_FUN(__glewMultiTexCoord4f);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4fv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4fv:=GLEW_GET_FUN(__glewMultiTexCoord4fv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4i : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4i:=GLEW_GET_FUN(__glewMultiTexCoord4i);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4iv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4iv:=GLEW_GET_FUN(__glewMultiTexCoord4iv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4s : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4s:=GLEW_GET_FUN(__glewMultiTexCoord4s);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiTexCoord4sv : longint; { return type might be wrong }
+      begin
+        glMultiTexCoord4sv:=GLEW_GET_FUN(__glewMultiTexCoord4sv);
+      end;
+
+    { was #define dname def_expr }
+    function glSampleCoverage : longint; { return type might be wrong }
+      begin
+        glSampleCoverage:=GLEW_GET_FUN(__glewSampleCoverage);
+      end;
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_3 : longint; { return type might be wrong }
+      begin
+        GLEW_VERSION_1_3:=GLEW_GET_VAR(__GLEW_VERSION_1_3);
+      end;
+
+    { was #define dname def_expr }
+    function glBlendColor : longint; { return type might be wrong }
+      begin
+        glBlendColor:=GLEW_GET_FUN(__glewBlendColor);
+      end;
+
+    { was #define dname def_expr }
+    function glBlendEquation : longint; { return type might be wrong }
+      begin
+        glBlendEquation:=GLEW_GET_FUN(__glewBlendEquation);
+      end;
+
+    { was #define dname def_expr }
+    function glBlendFuncSeparate : longint; { return type might be wrong }
+      begin
+        glBlendFuncSeparate:=GLEW_GET_FUN(__glewBlendFuncSeparate);
+      end;
+
+    { was #define dname def_expr }
+    function glFogCoordPointer : longint; { return type might be wrong }
+      begin
+        glFogCoordPointer:=GLEW_GET_FUN(__glewFogCoordPointer);
+      end;
+
+    { was #define dname def_expr }
+    function glFogCoordd : longint; { return type might be wrong }
+      begin
+        glFogCoordd:=GLEW_GET_FUN(__glewFogCoordd);
+      end;
+
+    { was #define dname def_expr }
+    function glFogCoorddv : longint; { return type might be wrong }
+      begin
+        glFogCoorddv:=GLEW_GET_FUN(__glewFogCoorddv);
+      end;
+
+    { was #define dname def_expr }
+    function glFogCoordf : longint; { return type might be wrong }
+      begin
+        glFogCoordf:=GLEW_GET_FUN(__glewFogCoordf);
+      end;
+
+    { was #define dname def_expr }
+    function glFogCoordfv : longint; { return type might be wrong }
+      begin
+        glFogCoordfv:=GLEW_GET_FUN(__glewFogCoordfv);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiDrawArrays : longint; { return type might be wrong }
+      begin
+        glMultiDrawArrays:=GLEW_GET_FUN(__glewMultiDrawArrays);
+      end;
+
+    { was #define dname def_expr }
+    function glMultiDrawElements : longint; { return type might be wrong }
+      begin
+        glMultiDrawElements:=GLEW_GET_FUN(__glewMultiDrawElements);
+      end;
+
+    { was #define dname def_expr }
+    function glPointParameterf : longint; { return type might be wrong }
+      begin
+        glPointParameterf:=GLEW_GET_FUN(__glewPointParameterf);
+      end;
+
+    { was #define dname def_expr }
+    function glPointParameterfv : longint; { return type might be wrong }
+      begin
+        glPointParameterfv:=GLEW_GET_FUN(__glewPointParameterfv);
+      end;
+
+    { was #define dname def_expr }
+    function glPointParameteri : longint; { return type might be wrong }
+      begin
+        glPointParameteri:=GLEW_GET_FUN(__glewPointParameteri);
+      end;
+
+    { was #define dname def_expr }
+    function glPointParameteriv : longint; { return type might be wrong }
+      begin
+        glPointParameteriv:=GLEW_GET_FUN(__glewPointParameteriv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3b : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3b:=GLEW_GET_FUN(__glewSecondaryColor3b);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3bv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3bv:=GLEW_GET_FUN(__glewSecondaryColor3bv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3d : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3d:=GLEW_GET_FUN(__glewSecondaryColor3d);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3dv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3dv:=GLEW_GET_FUN(__glewSecondaryColor3dv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3f : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3f:=GLEW_GET_FUN(__glewSecondaryColor3f);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3fv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3fv:=GLEW_GET_FUN(__glewSecondaryColor3fv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3i : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3i:=GLEW_GET_FUN(__glewSecondaryColor3i);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3iv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3iv:=GLEW_GET_FUN(__glewSecondaryColor3iv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3s : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3s:=GLEW_GET_FUN(__glewSecondaryColor3s);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3sv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3sv:=GLEW_GET_FUN(__glewSecondaryColor3sv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ub : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3ub:=GLEW_GET_FUN(__glewSecondaryColor3ub);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ubv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3ubv:=GLEW_GET_FUN(__glewSecondaryColor3ubv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3ui : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3ui:=GLEW_GET_FUN(__glewSecondaryColor3ui);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3uiv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3uiv:=GLEW_GET_FUN(__glewSecondaryColor3uiv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3us : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3us:=GLEW_GET_FUN(__glewSecondaryColor3us);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColor3usv : longint; { return type might be wrong }
+      begin
+        glSecondaryColor3usv:=GLEW_GET_FUN(__glewSecondaryColor3usv);
+      end;
+
+    { was #define dname def_expr }
+    function glSecondaryColorPointer : longint; { return type might be wrong }
+      begin
+        glSecondaryColorPointer:=GLEW_GET_FUN(__glewSecondaryColorPointer);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2d : longint; { return type might be wrong }
+      begin
+        glWindowPos2d:=GLEW_GET_FUN(__glewWindowPos2d);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2dv : longint; { return type might be wrong }
+      begin
+        glWindowPos2dv:=GLEW_GET_FUN(__glewWindowPos2dv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2f : longint; { return type might be wrong }
+      begin
+        glWindowPos2f:=GLEW_GET_FUN(__glewWindowPos2f);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2fv : longint; { return type might be wrong }
+      begin
+        glWindowPos2fv:=GLEW_GET_FUN(__glewWindowPos2fv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2i : longint; { return type might be wrong }
+      begin
+        glWindowPos2i:=GLEW_GET_FUN(__glewWindowPos2i);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2iv : longint; { return type might be wrong }
+      begin
+        glWindowPos2iv:=GLEW_GET_FUN(__glewWindowPos2iv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2s : longint; { return type might be wrong }
+      begin
+        glWindowPos2s:=GLEW_GET_FUN(__glewWindowPos2s);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos2sv : longint; { return type might be wrong }
+      begin
+        glWindowPos2sv:=GLEW_GET_FUN(__glewWindowPos2sv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3d : longint; { return type might be wrong }
+      begin
+        glWindowPos3d:=GLEW_GET_FUN(__glewWindowPos3d);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3dv : longint; { return type might be wrong }
+      begin
+        glWindowPos3dv:=GLEW_GET_FUN(__glewWindowPos3dv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3f : longint; { return type might be wrong }
+      begin
+        glWindowPos3f:=GLEW_GET_FUN(__glewWindowPos3f);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3fv : longint; { return type might be wrong }
+      begin
+        glWindowPos3fv:=GLEW_GET_FUN(__glewWindowPos3fv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3i : longint; { return type might be wrong }
+      begin
+        glWindowPos3i:=GLEW_GET_FUN(__glewWindowPos3i);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3iv : longint; { return type might be wrong }
+      begin
+        glWindowPos3iv:=GLEW_GET_FUN(__glewWindowPos3iv);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3s : longint; { return type might be wrong }
+      begin
+        glWindowPos3s:=GLEW_GET_FUN(__glewWindowPos3s);
+      end;
+
+    { was #define dname def_expr }
+    function glWindowPos3sv : longint; { return type might be wrong }
+      begin
+        glWindowPos3sv:=GLEW_GET_FUN(__glewWindowPos3sv);
+      end;
+
+    { was #define dname def_expr }
+    function GLEW_VERSION_1_4 : longint; { return type might be wrong }
+      begin
+        GLEW_VERSION_1_4:=GLEW_GET_VAR(__GLEW_VERSION_1_4);
+      end;
+
