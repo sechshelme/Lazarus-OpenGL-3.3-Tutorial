@@ -22,6 +22,7 @@ type
   {$PACKRECORDS C}
   {$ENDIF}
 
+
   // ==== /usr/include/cglm/euler.h
 
 type
@@ -38,6 +39,12 @@ const
 
 
   // ==== /usr/include/cglm/types.h
+//
+//  {$CODEALIGN LOCALMIN=16}
+//  {$CODEALIGN VARMIN=16}
+//  {$CODEALIGN RECORDMIN=16}
+//  {$CODEALIGN VARMIN=16}
+//  {$CODEALIGN CONSTMIN=16}
 
 type
   Pivec2 = ^Tivec2;

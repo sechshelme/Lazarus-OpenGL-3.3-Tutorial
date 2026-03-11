@@ -159,11 +159,8 @@ const
     Shader.LinkProgram;
     Shader.UseProgram;
 
-
-
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);
-
 
       PrintJoyState;
 
@@ -171,7 +168,6 @@ const
       glClear(GL_COLOR_BUFFER_BIT);
 
       Shader.UseProgram;
-      //code-
 
       // Zeichne Dreieck
       glBindVertexArray(VBTriangle.VAOs[vaMesh]);
@@ -193,8 +189,5 @@ const
   end;
 
 begin
-  //  WriteLn('OpenGL Demo');
-
   main;
-  WriteLn('io');
 end.

@@ -11,25 +11,20 @@ type
 
 const
   vertex_shader_text =
-    '#version 330 core' + #10 +
-    '' + #10 +
-    'layout (location = 0) in vec4 vPosition;' + #10 +
-    '' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '  gl_Position = vPosition;' + #10 +
+    '#version 330 core'#10 +
+    'layout (location = 0) in vec4 vPosition;'#10 +
+    'void main()'#10 +
+    '{'#10 +
+    '  gl_Position = vPosition;'#10 +
     '}';
 
   fragment_shader_text =
-    '#version 330 core' + #10 +
-    '' + #10 +
-    'uniform vec3 col;' + #10 +
-    '' + #10 +
-    'out vec4 fColor;' + #10 +
-    '' + #10 +
-    'void main()' + #10 +
-    '{' + #10 +
-    '  fColor = vec4(vec3(col), 1.0);' + #10 +
+    '#version 330 core'#10 +
+    'uniform vec3 col;'#10 +
+    'out vec4 fColor;'#10 +
+    'void main()'#10 +
+    '{'#10 +
+    '  fColor = vec4(vec3(col), 1.0);'#10 +
     '}';
 
 var
@@ -70,7 +65,6 @@ const
   var
     window: PGLFWwindow;
     Width, Height: longint;
-    //    Shader: TShader;
 
   type
     TVB = record
@@ -92,6 +86,8 @@ const
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 
     s := {$I %FPCTARGETOS%};
 
@@ -112,7 +108,7 @@ const
       Halt(1);
     end;
 
-    glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
+    glClearColor(0.3, 0.3, 0.2, 0.5); // Hintergrundfarbe
 
     // Daten für Dreieck
     glGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);

@@ -6,9 +6,9 @@ uses
   fp_glfw3,
   fp_GL_Tools;
 
-type
-  TVector3f = array[0..2] of TGLfloat;
-  PVector3f = ^TVector3f;
+{$CODEALIGN LOCALMIN=16}
+//{$CODEALIGN VARMIN=16}
+
 
 const
   vertex_shader_text =
@@ -51,18 +51,6 @@ var
     end;
   end;
 
-const
-  Triangle: array of TVector3f =
-    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
-  Quad: array of TVector3f =
-    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
-    (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
-
-var
-  mat: Tmat4;
-  mat2: Tmat4;
-
-
   procedure Char_callBack(window: PGLFWwindow; codepoint: dword); cdecl;
   begin
     WriteLn('press Char');
@@ -73,11 +61,32 @@ var
     WriteLn('click    button: ', button, '  action: ', action, '  mods: ', mods);
   end;
 
+const
+  Triangle: array of Tvec3 =
+    ((-0.4, 0.1, 0.0), (0.4, 0.1, 0.0), (0.0, 0.7, 0.0));
+  Quad: array of Tvec3 =
+    ((-0.2, -0.6, 0.0), (-0.2, -0.1, 0.0), (0.2, -0.1, 0.0),
+    (-0.2, -0.6, 0.0), (0.2, -0.1, 0.0), (0.2, -0.6, 0.0));
+
+  procedure printMatrix(const m: Tmat4);
+  var
+    x, y: integer;
+  begin
+    for x := 0 to 3 do begin
+      Write('[ ');
+      for y := 0 to 3 do begin
+        Write(m[x, y]: 4: 2, ' ');
+      end;
+      WriteLn(']');
+    end;
+    WriteLn();
+  end;
+
+
   procedure main;
   var
     window: PGLFWwindow;
     Width, Height: longint;
-    //    Shader: TShader;
 
   type
     TVB = record
@@ -87,10 +96,12 @@ var
 
   var
     VBTriangle, VBQuad: TVB;
-    s: string;
     mat_ID: TGLint;
-
+    mat: Tmat4;
+    mat2: Tmat4;
     counter: int64 = 0;
+  const
+    s: string = '';
 
   begin
     glfwSetErrorCallback(@error_callback);
@@ -122,7 +133,7 @@ var
       Halt(1);
     end;
 
-    glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
+    glClearColor(0.3, 0.3, 0.2, 1.0);
 
     // Daten für Dreieck
     glGenVertexArrays(Length(VBTriangle.VAOs), VBTriangle.VAOs);
@@ -131,7 +142,7 @@ var
 
     glBindVertexArray(VBTriangle.VAOs[vaMesh]);
     glBindBuffer(GL_ARRAY_BUFFER, VBTriangle.Mesh_Buffers[mbVBOVektor]);
-    glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * SizeOf(TVector3f), PVector3f(Triangle), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, Length(Triangle) * SizeOf(Tvec3), Pvec3(Triangle), GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
@@ -141,7 +152,7 @@ var
 
     glBindVertexArray(VBQuad.VAOs[vaMesh]);
     glBindBuffer(GL_ARRAY_BUFFER, VBQuad.Mesh_Buffers[mbVBOVektor]);
-    glBufferData(GL_ARRAY_BUFFER, Length(Quad) * SizeOf(TVector3f), PVector3f(Quad), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, Length(Quad) * SizeOf(Tvec3), Pvec3(Quad), GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nil);
 
@@ -162,8 +173,8 @@ var
     end;
     shader_use_program(shader);
 
-    glmc_mat4_identity(mat);
     glmc_mat4_identity(mat2);
+    glmc_mat4_identity(mat);
 
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);
