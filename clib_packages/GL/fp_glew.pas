@@ -2,14 +2,6 @@ unit fp_glew;
 
 interface
 
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-
 const
   {$ifdef linux}
   libGL = 'libGL';
@@ -26,6 +18,40 @@ const
   libGL = '/System/Library/Frameworks/OpenGL.framework/OpenGL';
   libGLEW = 'libGLEW.dylib';
   {$endif}
+
+type
+  Tuint8_t = uint8;
+  Puint8_t = ^Tuint8_t;
+  PPuint8_t = ^Puint8_t;
+  Tuint16_t = uint16;
+  Puint16_t = ^Tuint16_t;
+  PPuint16_t = ^Puint16_t;
+  Tuint32_t = uint32;
+  Puint32_t = ^Tuint32_t;
+  PPuint32_t = ^Puint32_t;
+  Tuint64_t = uint64;
+  Puint64_t = ^Tuint64_t;
+  PPuint64_t = ^Puint64_t;
+
+  Tint8_t = int8;
+  Pint8_t = ^Tint8_t;
+  PPint8_t = ^Pint8_t;
+  Tint16_t = int16;
+  Pint16_t = ^Tint16_t;
+  PPint16_t = ^Pint16_t;
+  Tint32_t = int32;
+  Pint32_t = ^Tint32_t;
+  PPint32_t = ^Pint32_t;
+  Tint64_t = int64;
+  Pint64_t = ^Tint64_t;
+  PPint64_t = ^Pint64_t;
+
+type
+  TProc = procedure;
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 type
@@ -1491,7 +1517,7 @@ type
   TPFNGLBINDATTRIBLOCATIONPROC = procedure(progr: TGLuint; index: TGLuint; name: PGLchar); cdecl;
   TPFNGLBLENDEQUATIONSEPARATEPROC = procedure(modeRGB: TGLenum; modeAlpha: TGLenum); cdecl;
   TPFNGLCOMPILESHADERPROC = procedure(shader: TGLuint); cdecl;
-  TPFNGLCREATEPROGRAMPROC = function(para1: pointer): TGLuint; cdecl;
+  TPFNGLCREATEPROGRAMPROC = function(): TGLuint; cdecl;
   TPFNGLCREATESHADERPROC = function(_type: TGLenum): TGLuint; cdecl;
   TPFNGLDELETEPROGRAMPROC = procedure(prog: TGLuint); cdecl;
   TPFNGLDELETESHADERPROC = procedure(shader: TGLuint); cdecl;
@@ -1743,8 +1769,8 @@ type
   TPFNGLCOLORMASKIPROC = procedure(buf: TGLuint; red: TGLboolean; green: TGLboolean; blue: TGLboolean; alpha: TGLboolean); cdecl;
   TPFNGLDISABLEIPROC = procedure(cap: TGLenum; index: TGLuint); cdecl;
   TPFNGLENABLEIPROC = procedure(cap: TGLenum; index: TGLuint); cdecl;
-  TPFNGLENDCONDITIONALRENDERPROC = procedure(para1: pointer); cdecl;
-  TPFNGLENDTRANSFORMFEEDBACKPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDCONDITIONALRENDERPROC = procedure(); cdecl;
+  TPFNGLENDTRANSFORMFEEDBACKPROC = procedure(); cdecl;
   TPFNGLGETBOOLEANI_VPROC = procedure(pname: TGLenum; index: TGLuint; data: PGLboolean); cdecl;
   TPFNGLGETFRAGDATALOCATIONPROC = function(prog: TGLuint; name: PGLchar): TGLint; cdecl;
   TPFNGLGETSTRINGIPROC = function(name: TGLenum; index: TGLuint): PGLubyte; cdecl;
@@ -1949,7 +1975,7 @@ const
   GL_CONTEXT_FLAG_ROBUST_ACCESS_BIT = $00000004;
 
 type
-  TPFNGLGETGRAPHICSRESETSTATUSPROC = function(para1: pointer): TGLenum; cdecl;
+  TPFNGLGETGRAPHICSRESETSTATUSPROC = function(): TGLenum; cdecl;
   TPFNGLGETNCOMPRESSEDTEXIMAGEPROC = procedure(target: TGLenum; lod: TGLint; bufSize: TGLsizei; pixels: PGLvoid); cdecl;
   TPFNGLGETNTEXIMAGEPROC = procedure(tex: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; pixels: PGLvoid); cdecl;
   TPFNGLGETNUNIFORMDVPROC = procedure(prog: TGLuint; location: TGLint; bufSize: TGLsizei; params: PGLdouble); cdecl;
@@ -2711,7 +2737,7 @@ const
 
 type
   TPFNGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLEPROC = procedure(target: TGLenum; samples: TGLsizei; internalformat: TGLenum; width: TGLsizei; height: TGLsizei); cdecl;
-  TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC = procedure(para1: pointer); cdecl;
+  TPFNGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLEPROC = procedure(); cdecl;
 
 
   { ----------------------- GL_APPLE_object_purgeable -----------------------  }
@@ -2945,7 +2971,7 @@ type
   TPFNGLCLEARDEPTHFPROC = procedure(d: TGLclampf); cdecl;
   TPFNGLDEPTHRANGEFPROC = procedure(n: TGLclampf; f: TGLclampf); cdecl;
   TPFNGLGETSHADERPRECISIONFORMATPROC = procedure(shadertype: TGLenum; precisiontype: TGLenum; range: PGLint; precision: PGLint); cdecl;
-  TPFNGLRELEASESHADERCOMPILERPROC = procedure(para1: pointer); cdecl;
+  TPFNGLRELEASESHADERCOMPILERPROC = procedure(); cdecl;
   TPFNGLSHADERBINARYPROC = procedure(count: TGLsizei; shaders: PGLuint; binaryformat: TGLenum; binary: pointer; length: TGLsizei); cdecl;
 
 
@@ -4560,7 +4586,7 @@ const
   GL_NO_RESET_NOTIFICATION_ARB = $8261;
 
 type
-  TPFNGLGETGRAPHICSRESETSTATUSARBPROC = function(para1: pointer): TGLenum; cdecl;
+  TPFNGLGETGRAPHICSRESETSTATUSARBPROC = function(): TGLenum; cdecl;
   TPFNGLGETNCOLORTABLEARBPROC = procedure(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; table: pointer); cdecl;
   TPFNGLGETNCOMPRESSEDTEXIMAGEARBPROC = procedure(target: TGLenum; lod: TGLint; bufSize: TGLsizei; img: pointer); cdecl;
   TPFNGLGETNCONVOLUTIONFILTERARBPROC = procedure(target: TGLenum; format: TGLenum; _type: TGLenum; bufSize: TGLsizei; image: pointer); cdecl;
@@ -4941,7 +4967,7 @@ type
   TGLhandleARB = dword;
   TPFNGLATTACHOBJECTARBPROC = procedure(containerObj: TGLhandleARB; obj: TGLhandleARB); cdecl;
   TPFNGLCOMPILESHADERARBPROC = procedure(shaderObj: TGLhandleARB); cdecl;
-  TPFNGLCREATEPROGRAMOBJECTARBPROC = function(para1: pointer): TGLhandleARB; cdecl;
+  TPFNGLCREATEPROGRAMOBJECTARBPROC = function(): TGLhandleARB; cdecl;
   TPFNGLCREATESHADEROBJECTARBPROC = function(shaderType: TGLenum): TGLhandleARB; cdecl;
   TPFNGLDELETEOBJECTARBPROC = procedure(obj: TGLhandleARB); cdecl;
   TPFNGLDETACHOBJECTARBPROC = procedure(containerObj: TGLhandleARB; attachedObj: TGLhandleARB); cdecl;
@@ -5250,7 +5276,7 @@ const
   GL_ARB_texture_barrier = 1;
 
 type
-  TPFNGLTEXTUREBARRIERPROC = procedure(para1: pointer); cdecl;
+  TPFNGLTEXTUREBARRIERPROC = procedure(); cdecl;
 
 
   { ---------------------- GL_ARB_texture_border_clamp ----------------------  }
@@ -5682,8 +5708,8 @@ type
   TPFNGLDRAWTRANSFORMFEEDBACKPROC = procedure(mode: TGLenum; id: TGLuint); cdecl;
   TPFNGLGENTRANSFORMFEEDBACKSPROC = procedure(n: TGLsizei; ids: PGLuint); cdecl;
   TPFNGLISTRANSFORMFEEDBACKPROC = function(id: TGLuint): TGLboolean; cdecl;
-  TPFNGLPAUSETRANSFORMFEEDBACKPROC = procedure(para1: pointer); cdecl;
-  TPFNGLRESUMETRANSFORMFEEDBACKPROC = procedure(para1: pointer); cdecl;
+  TPFNGLPAUSETRANSFORMFEEDBACKPROC = procedure(); cdecl;
+  TPFNGLRESUMETRANSFORMFEEDBACKPROC = procedure(); cdecl;
 
 
   { ----------------------- GL_ARB_transform_feedback3 ----------------------  }
@@ -6446,7 +6472,7 @@ type
   TPFNGLALPHAFRAGMENTOP3ATIPROC = procedure(op: TGLenum; dst: TGLuint; dstMod: TGLuint; arg1: TGLuint; arg1Rep: TGLuint;
     arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint; arg3: TGLuint;
     arg3Rep: TGLuint; arg3Mod: TGLuint); cdecl;
-  TPFNGLBEGINFRAGMENTSHADERATIPROC = procedure(para1: pointer); cdecl;
+  TPFNGLBEGINFRAGMENTSHADERATIPROC = procedure(); cdecl;
   TPFNGLBINDFRAGMENTSHADERATIPROC = procedure(id: TGLuint); cdecl;
   TPFNGLCOLORFRAGMENTOP1ATIPROC = procedure(op: TGLenum; dst: TGLuint; dstMask: TGLuint; dstMod: TGLuint; arg1: TGLuint; arg1Rep: TGLuint; arg1Mod: TGLuint); cdecl;
   TPFNGLCOLORFRAGMENTOP2ATIPROC = procedure(op: TGLenum; dst: TGLuint; dstMask: TGLuint; dstMod: TGLuint; arg1: TGLuint;
@@ -6455,7 +6481,7 @@ type
     arg1Rep: TGLuint; arg1Mod: TGLuint; arg2: TGLuint; arg2Rep: TGLuint; arg2Mod: TGLuint;
     arg3: TGLuint; arg3Rep: TGLuint; arg3Mod: TGLuint); cdecl;
   TPFNGLDELETEFRAGMENTSHADERATIPROC = procedure(id: TGLuint); cdecl;
-  TPFNGLENDFRAGMENTSHADERATIPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDFRAGMENTSHADERATIPROC = procedure(); cdecl;
   TPFNGLGENFRAGMENTSHADERSATIPROC = function(range: TGLuint): TGLuint; cdecl;
   TPFNGLPASSTEXCOORDATIPROC = procedure(dst: TGLuint; coord: TGLuint; swizzle: TGLenum); cdecl;
   TPFNGLSAMPLEMAPATIPROC = procedure(dst: TGLuint; interp: TGLuint; swizzle: TGLenum); cdecl;
@@ -6983,7 +7009,7 @@ const
 
 type
   TPFNGLLOCKARRAYSEXTPROC = procedure(first: TGLint; count: TGLsizei); cdecl;
-  TPFNGLUNLOCKARRAYSEXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLUNLOCKARRAYSEXTPROC = procedure(); cdecl;
 
 
   { ---------------- GL_EXT_compressed_ETC1_RGB8_sub_texture ----------------  }
@@ -7122,7 +7148,7 @@ const
 
 type
   TPFNGLINSERTEVENTMARKEREXTPROC = procedure(length: TGLsizei; marker: PGLchar); cdecl;
-  TPFNGLPOPGROUPMARKEREXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLPOPGROUPMARKEREXTPROC = procedure(); cdecl;
   TPFNGLPUSHGROUPMARKEREXTPROC = procedure(length: TGLsizei; marker: PGLchar); cdecl;
 
 
@@ -8555,8 +8581,8 @@ const
   GL_EXT_scene_marker = 1;
 
 type
-  TPFNGLBEGINSCENEEXTPROC = procedure(para1: pointer); cdecl;
-  TPFNGLENDSCENEEXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLBEGINSCENEEXTPROC = procedure(); cdecl;
+  TPFNGLENDSCENEEXTPROC = procedure(); cdecl;
 
 
   { ------------------------- GL_EXT_secondary_color ------------------------  }
@@ -8662,7 +8688,7 @@ const
   GL_FRAGMENT_SHADER_DISCARDS_SAMPLES_EXT = $8A52;
 
 type
-  TPFNGLFRAMEBUFFERFETCHBARRIEREXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFRAMEBUFFERFETCHBARRIEREXTPROC = procedure(); cdecl;
 
 
   { -------------- GL_EXT_shader_framebuffer_fetch_non_coherent -------------  }
@@ -9678,7 +9704,7 @@ type
   TPFNGLBINDBUFFERBASEEXTPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint); cdecl;
   TPFNGLBINDBUFFEROFFSETEXTPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); cdecl;
   TPFNGLBINDBUFFERRANGEEXTPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl;
-  TPFNGLENDTRANSFORMFEEDBACKEXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDTRANSFORMFEEDBACKEXTPROC = procedure(); cdecl;
   TPFNGLGETTRANSFORMFEEDBACKVARYINGEXTPROC = procedure(prog: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLsizei; _type: PGLenum; name: PGLchar); cdecl;
   TPFNGLTRANSFORMFEEDBACKVARYINGSEXTPROC = procedure(prog: TGLuint; count: TGLsizei; varyings: PPGLchar; bufferMode: TGLenum); cdecl;
 
@@ -9907,7 +9933,7 @@ const
   GL_LOCAL_CONSTANT_DATATYPE_EXT = $87ED;
 
 type
-  TPFNGLBEGINVERTEXSHADEREXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLBEGINVERTEXSHADEREXTPROC = procedure(); cdecl;
   TPFNGLBINDLIGHTPARAMETEREXTPROC = function(light: TGLenum; value: TGLenum): TGLuint; cdecl;
   TPFNGLBINDMATERIALPARAMETEREXTPROC = function(face: TGLenum; value: TGLenum): TGLuint; cdecl;
   TPFNGLBINDPARAMETEREXTPROC = function(value: TGLenum): TGLuint; cdecl;
@@ -9917,7 +9943,7 @@ type
   TPFNGLDELETEVERTEXSHADEREXTPROC = procedure(id: TGLuint); cdecl;
   TPFNGLDISABLEVARIANTCLIENTSTATEEXTPROC = procedure(id: TGLuint); cdecl;
   TPFNGLENABLEVARIANTCLIENTSTATEEXTPROC = procedure(id: TGLuint); cdecl;
-  TPFNGLENDVERTEXSHADEREXTPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDVERTEXSHADEREXTPROC = procedure(); cdecl;
   TPFNGLEXTRACTCOMPONENTEXTPROC = procedure(res: TGLuint; src: TGLuint; num: TGLuint); cdecl;
   TPFNGLGENSYMBOLSEXTPROC = function(dataType: TGLenum; storageType: TGLenum; range: TGLenum; components: TGLuint): TGLuint; cdecl;
   TPFNGLGENVERTEXSHADERSEXTPROC = function(range: TGLuint): TGLuint; cdecl;
@@ -10024,7 +10050,7 @@ const
 
 type
 
-  TPFNGLFRAMETERMINATORGREMEDYPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFRAMETERMINATORGREMEDYPROC = procedure(); cdecl;
 
 
   { ------------------------ GL_GREMEDY_string_marker -----------------------  }
@@ -10406,7 +10432,7 @@ const
   GL_HSL_LUMINOSITY_KHR = $92B0;
 
 type
-  TPFNGLBLENDBARRIERKHRPROC = procedure(para1: pointer); cdecl;
+  TPFNGLBLENDBARRIERKHRPROC = procedure(); cdecl;
 
 
   { ---------------- GL_KHR_blend_equation_advanced_coherent ----------------  }
@@ -10482,7 +10508,7 @@ type
   TPFNGLGETOBJECTPTRLABELPROC = procedure(ptr: pointer; bufSize: TGLsizei; length: PGLsizei; _label: PGLchar); cdecl;
   TPFNGLOBJECTLABELPROC = procedure(identifier: TGLenum; name: TGLuint; length: TGLsizei; _label: PGLchar); cdecl;
   TPFNGLOBJECTPTRLABELPROC = procedure(ptr: pointer; length: TGLsizei; _label: PGLchar); cdecl;
-  TPFNGLPOPDEBUGGROUPPROC = procedure(para1: pointer); cdecl;
+  TPFNGLPOPDEBUGGROUPPROC = procedure(); cdecl;
   TPFNGLPUSHDEBUGGROUPPROC = procedure(source: TGLenum; id: TGLuint; length: TGLsizei; message: PGLchar); cdecl;
 
 
@@ -10673,7 +10699,7 @@ const
   GL_KTX_STENCIL_REGION = $3;
 
 type
-  TPFNGLBUFFERREGIONENABLEDPROC = function(para1: pointer): TGLuint; cdecl;
+  TPFNGLBUFFERREGIONENABLEDPROC = function(): TGLuint; cdecl;
   TPFNGLDELETEBUFFERREGIONPROC = procedure(region: TGLenum); cdecl;
   TPFNGLDRAWBUFFERREGIONPROC = procedure(region: TGLuint; x: TGLint; y: TGLint; width: TGLsizei; height: TGLsizei; xDest: TGLint; yDest: TGLint); cdecl;
   TPFNGLNEWBUFFERREGIONPROC = function(region: TGLenum): TGLuint; cdecl;
@@ -10723,7 +10749,7 @@ const
   GL_MESA_resize_buffers = 1;
 
 type
-  TPFNGLRESIZEBUFFERSMESAPROC = procedure(para1: pointer); cdecl;
+  TPFNGLRESIZEBUFFERSMESAPROC = procedure(); cdecl;
 
 
   { -------------------- GL_MESA_shader_integer_functions -------------------  }
@@ -10792,7 +10818,7 @@ const
 
 type
   TPFNGLBEGINCONDITIONALRENDERNVXPROC = procedure(id: TGLuint); cdecl;
-  TPFNGLENDCONDITIONALRENDERNVXPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDCONDITIONALRENDERNVXPROC = procedure(); cdecl;
 
 
   { ------------------------- GL_NVX_gpu_memory_info ------------------------  }
@@ -10839,7 +10865,7 @@ type
     srcX: TGLint; srxY: TGLint; srcZ: TGLint; dstName: TGLuint; dstTarget: TGLenum;
     dstLevel: TGLint; dstX: TGLint; dstY: TGLint; dstZ: TGLint; width: TGLsizei;
     height: TGLsizei; depth: TGLsizei); cdecl;
-  TPFNGLLGPUINTERLOCKNVXPROC = procedure(para1: pointer); cdecl;
+  TPFNGLLGPUINTERLOCKNVXPROC = procedure(); cdecl;
   TPFNGLLGPUNAMEDBUFFERSUBDATANVXPROC = procedure(gpuMask: TGLbitfield; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr; data: pointer); cdecl;
 
 
@@ -10998,7 +11024,7 @@ const
   GL_INVERT_OVG_NV = $92B4;
 
 type
-  TPFNGLBLENDBARRIERNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLBLENDBARRIERNVPROC = procedure(); cdecl;
   TPFNGLBLENDPARAMETERINVPROC = procedure(pname: TGLenum; value: TGLint); cdecl;
 
 
@@ -11103,7 +11129,7 @@ const
 
 type
   TPFNGLBEGINCONDITIONALRENDERNVPROC = procedure(id: TGLuint; mode: TGLenum); cdecl;
-  TPFNGLENDCONDITIONALRENDERNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDCONDITIONALRENDERNVPROC = procedure(); cdecl;
 
 
   { ----------------------- GL_NV_conservative_raster -----------------------  }
@@ -11304,7 +11330,7 @@ const
   GL_NV_draw_vulkan_image = 1;
 
 type
-  TGLVULKANPROCNV = procedure(para1: pointer); cdecl;
+  TGLVULKANPROCNV = procedure(); cdecl;
 
   TPFNGLDRAWVKIMAGENVPROC = procedure(vkImage: TGLuint64; sampler: TGLuint; x0: TGLfloat; y0: TGLfloat; x1: TGLfloat;
     y1: TGLfloat; z: TGLfloat; s0: TGLfloat; t0: TGLfloat; s1: TGLfloat;
@@ -11630,7 +11656,7 @@ const
   GL_RENDER_GPU_MASK_NV = $9558;
 
 type
-  TPFNGLMULTICASTBARRIERNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLMULTICASTBARRIERNVPROC = procedure(); cdecl;
   TPFNGLMULTICASTBLITFRAMEBUFFERNVPROC = procedure(srcGpu: TGLuint; dstGpu: TGLuint; srcX0: TGLint; srcY0: TGLint; srcX1: TGLint;
     srcY1: TGLint; dstX0: TGLint; dstY0: TGLint; dstX1: TGLint; dstY1: TGLint;
     mask: TGLbitfield; filter: TGLenum); cdecl;
@@ -11996,7 +12022,7 @@ const
 type
   TPFNGLBEGINOCCLUSIONQUERYNVPROC = procedure(id: TGLuint); cdecl;
   TPFNGLDELETEOCCLUSIONQUERIESNVPROC = procedure(n: TGLsizei; ids: PGLuint); cdecl;
-  TPFNGLENDOCCLUSIONQUERYNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDOCCLUSIONQUERYNVPROC = procedure(); cdecl;
   TPFNGLGENOCCLUSIONQUERIESNVPROC = procedure(n: TGLsizei; ids: PGLuint); cdecl;
   TPFNGLGETOCCLUSIONQUERYIVNVPROC = procedure(id: TGLuint; pname: TGLenum; params: PGLint); cdecl;
   TPFNGLGETOCCLUSIONQUERYUIVNVPROC = procedure(id: TGLuint; pname: TGLenum; params: PGLuint); cdecl;
@@ -12397,7 +12423,7 @@ const
 
 type
   TPFNGLPRIMITIVERESTARTINDEXNVPROC = procedure(index: TGLuint); cdecl;
-  TPFNGLPRIMITIVERESTARTNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLPRIMITIVERESTARTNVPROC = procedure(); cdecl;
 
 
   { ------------------------ GL_NV_query_resource_tag -----------------------  }
@@ -12572,7 +12598,7 @@ const
 type
   TPFNGLFRAMEBUFFERSAMPLELOCATIONSFVNVPROC = procedure(target: TGLenum; start: TGLuint; count: TGLsizei; v: PGLfloat); cdecl;
   TPFNGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNVPROC = procedure(framebuffer: TGLuint; start: TGLuint; count: TGLsizei; v: PGLfloat); cdecl;
-  TPFNGLRESOLVEDEPTHVALUESNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLRESOLVEDEPTHVALUESNVPROC = procedure(); cdecl;
 
 
   { ------------------ GL_NV_sample_mask_override_coverage ------------------  }
@@ -12804,7 +12830,7 @@ const
   GL_NV_texture_barrier = 1;
 
 type
-  TPFNGLTEXTUREBARRIERNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLTEXTUREBARRIERNVPROC = procedure(); cdecl;
 
 
   { ----------------------- GL_NV_texture_border_clamp ----------------------  }
@@ -13081,7 +13107,7 @@ type
   TPFNGLBINDBUFFERBASENVPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint); cdecl;
   TPFNGLBINDBUFFEROFFSETNVPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr); cdecl;
   TPFNGLBINDBUFFERRANGENVPROC = procedure(target: TGLenum; index: TGLuint; buffer: TGLuint; offset: TGLintptr; size: TGLsizeiptr); cdecl;
-  TPFNGLENDTRANSFORMFEEDBACKNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLENDTRANSFORMFEEDBACKNVPROC = procedure(); cdecl;
   TPFNGLGETACTIVEVARYINGNVPROC = procedure(prog: TGLuint; index: TGLuint; bufSize: TGLsizei; length: PGLsizei; size: PGLsizei;
     _type: PGLenum; name: PGLchar); cdecl;
   TPFNGLGETTRANSFORMFEEDBACKVARYINGNVPROC = procedure(prog: TGLuint; index: TGLuint; location: PGLint); cdecl;
@@ -13105,8 +13131,8 @@ type
   TPFNGLDRAWTRANSFORMFEEDBACKNVPROC = procedure(mode: TGLenum; id: TGLuint); cdecl;
   TPFNGLGENTRANSFORMFEEDBACKSNVPROC = procedure(n: TGLsizei; ids: PGLuint); cdecl;
   TPFNGLISTRANSFORMFEEDBACKNVPROC = function(id: TGLuint): TGLboolean; cdecl;
-  TPFNGLPAUSETRANSFORMFEEDBACKNVPROC = procedure(para1: pointer); cdecl;
-  TPFNGLRESUMETRANSFORMFEEDBACKNVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLPAUSETRANSFORMFEEDBACKNVPROC = procedure(); cdecl;
+  TPFNGLRESUMETRANSFORMFEEDBACKNVPROC = procedure(); cdecl;
 
 
   { ------------------ GL_NV_uniform_buffer_unified_memory ------------------  }
@@ -13131,7 +13157,7 @@ type
   PGLvdpauSurfaceNV = ^TGLvdpauSurfaceNV;
   TGLvdpauSurfaceNV = TGLintptr;
 
-  TPFNGLVDPAUFININVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLVDPAUFININVPROC = procedure(); cdecl;
   TPFNGLVDPAUGETSURFACEIVNVPROC = procedure(surface: TGLvdpauSurfaceNV; pname: TGLenum; bufSize: TGLsizei; length: PGLsizei; values: PGLint); cdecl;
   TPFNGLVDPAUINITNVPROC = procedure(vdpDevice: pointer; getProcAddress: pointer); cdecl;
   TPFNGLVDPAUISSURFACENVPROC = procedure(surface: TGLvdpauSurfaceNV); cdecl;
@@ -13163,7 +13189,7 @@ const
   GL_VERTEX_ARRAY_RANGE_POINTER_NV = $8521;
 
 type
-  TPFNGLFLUSHVERTEXARRAYRANGENVPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFLUSHVERTEXARRAYRANGENVPROC = procedure(); cdecl;
   TPFNGLVERTEXARRAYRANGENVPROC = procedure(length: TGLsizei; pointer: pointer); cdecl;
 
 
@@ -14656,7 +14682,7 @@ const
   GL_FRAMEBUFFER_FETCH_NONCOHERENT_QCOM = $96A2;
 
 type
-  TPFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFRAMEBUFFERFETCHBARRIERQCOMPROC = procedure(); cdecl;
 
 
   { ----------------- GL_QCOM_shader_framebuffer_fetch_rate -----------------  }
@@ -15271,7 +15297,7 @@ const
   GL_SGIX_flush_raster = 1;
 
 type
-  TPFNGLFLUSHRASTERSGIXPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFLUSHRASTERSGIXPROC = procedure(); cdecl;
 
 
   { --------------------------- GL_SGIX_fog_blend ---------------------------  }
@@ -15689,7 +15715,7 @@ const
   GL_SGIX_tag_sample_buffer = 1;
 
 type
-  TPFNGLTAGSAMPLEBUFFERSGIXPROC = procedure(para1: pointer); cdecl;
+  TPFNGLTAGSAMPLEBUFFERSGIXPROC = procedure(); cdecl;
 
 
   { ------------------------ GL_SGIX_texture_add_env ------------------------  }
@@ -15949,7 +15975,7 @@ const
   GL_TEXTURE_CONSTANT_DATA_SUNX = $81D6;
 
 type
-  TPFNGLFINISHTEXTURESUNXPROC = procedure(para1: pointer); cdecl;
+  TPFNGLFINISHTEXTURESUNXPROC = procedure(); cdecl;
 
 
   { -------------------- GL_SUN_convolution_border_modes --------------------  }
@@ -27202,6 +27228,7 @@ const
   GLEW_ERROR_GL_VERSION_10_ONLY = 2;
   GLEW_ERROR_GLX_VERSION_11_ONLY = 3;
   GLEW_ERROR_NO_GLX_DISPLAY = 4;
+
   GLEW_VERSION = 1;
   GLEW_VERSION_MAJOR = 2;
   GLEW_VERSION_MINOR = 3;

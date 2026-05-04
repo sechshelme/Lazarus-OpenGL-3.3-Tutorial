@@ -33,7 +33,7 @@ var
   sh: PShaderPrivat absolute Result;
 begin
   sh := GetMem(SizeOf(TShaderPrivat));
-  sh^.FProgramObject := glCreateProgram(nil);
+  sh^.FProgramObject := glCreateProgram();
   sh^.error_text := '';
 end;
 
