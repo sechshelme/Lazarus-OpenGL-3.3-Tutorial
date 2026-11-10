@@ -62,7 +62,6 @@ var
   QuadJoint: TJointIDs;
 
 var
-  //  VAO, VBOVektor, VBOColor, UBO: GLint;
   VAO: GLuint;
 
   Mesh_Buffers: array [(mbVBOVektor, mbVBOColor, mbVBOJoint, mbUBO)] of TGLuint;
@@ -81,7 +80,6 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   //remove+
   Width := 640;
-  //  Height := 480;
   Height := 640;
   //remove-
   Randomize;
@@ -155,7 +153,7 @@ begin
 
   UBOBuffer.proMatrix.Identity;
   UBOBuffer.proMatrix.Scale(0.02);
-  UBOBuffer.proMatrix.Translate(0.9, 0.0, 0.0);
+  UBOBuffer.proMatrix.Translate([0.9, 0.0, 0.0]);
 
   UBOBuffer.modelMatrix.Identity;
 
@@ -198,6 +196,8 @@ var
   m: TMatrix;
   angele: single = 0;
   sc: single;
+const
+  ANGLELE_STEP=1.0;
 begin
   glClear(GL_COLOR_BUFFER_BIT);
   Shader.UseProgram;
@@ -213,31 +213,7 @@ begin
 
   for i := 0 to JointCount do begin
    // angele := sin((TimerCounter + i) / 100) / 80;
-    angele := (-0.5 + random) / 1;
-
-    //case i of
-    //  0: begin
-    //    angele := pi / 4;
-    //  end;
-    //  2: begin
-    //    angele := -pi / 4;
-    //  end;
-    //  3: begin
-    //    angele := pi / 8;
-    //  end;
-    //  4: begin
-    //    angele := -pi / 8;
-    //  end;
-    //  5: begin
-    //    angele := -pi / 8;
-    //  end;
-    //  6: begin
-    //    angele := -pi / 8;
-    //  end;
-    //  else begin
-    //    angele := 0;
-    //  end;
-    //end;
+    angele := (-0.5 + random*ANGLELE_STEP) / 1;
 
     UBOBuffer.JointMatrix[i] := m;
 

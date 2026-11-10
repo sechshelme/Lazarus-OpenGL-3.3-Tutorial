@@ -3,6 +3,7 @@ program project1;
 uses
   fp_glew,
   fp_glfw3,
+  fp_glfw3native,
   fp_GL_Tools;
 
 type
@@ -61,6 +62,15 @@ const
     WriteLn('click    button: ', button, '  action: ', action, '  mods: ', mods);
   end;
 
+procedure printPlatform(w:PGLFWwindow);
+var
+  window: PGLFWwindow;
+  surface: Pwl_surface;
+begin
+//  surface := glfwGetWaylandWindow(w);
+//  if surface<>nil then WriteLn('Wayland')else WriteLn('X11');
+  end;
+
   procedure main;
   var
     window: PGLFWwindow;
@@ -96,6 +106,9 @@ const
       WriteLn('glfwCreateWindow Error !');
       Halt(1);
     end;
+
+    printPlatform(window);;
+
 
     glfwSetKeyCallback(window, @Key_callback);
     glfwSetCharCallback(window, @Char_callBack);
