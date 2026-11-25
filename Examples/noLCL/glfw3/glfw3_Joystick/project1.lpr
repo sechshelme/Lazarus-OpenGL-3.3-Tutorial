@@ -127,6 +127,8 @@ const
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
+    WriteLn('Meine GUID: ', glfwGetJoystickGUID(GLFW_JOYSTICK_1));
+
     Load_GLADE;
 
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
